@@ -42,6 +42,21 @@
             </xpath>
         </field>
     </record>
+
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">account.invoice.valid_wkf.select</field>
+        <field name="model">account.invoice</field>
+        <field name="type">search</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="/search/group/filter[@name='proforma']" position="after">
+                <filter name="to_valid" icon="terp-camera_test" string="To Validate" domain="[('state','=','to_valid')]" help="To Validate Invoices"/>
+                <filter name="to_send" icon="terp-check" string="To Send" domain="[('state','=','to_send')]" help="To Send Invoices"/>
+            </xpath>
+        </field>
+    </record>
+
  
     </data>
 </openerp>
