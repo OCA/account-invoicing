@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# @author Grand-Guillaume Joel
+# Copyright (c) 2011 Camptocamp SA (http://www.camptocamp.com) 
+# All Right Reserved
+#
+# Author : Joël Grand-Guillaume (Camptocamp)
+#
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
 # consequences resulting from its eventual inadequacies and bugs
