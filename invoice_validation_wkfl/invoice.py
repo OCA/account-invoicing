@@ -35,26 +35,7 @@ import netsvc
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
-    
-    def action_to_valid(self, cr, uid, ids):
-        """Check if analytic account of each lines is not closed"""
-        inv_ids = isinstance(ids, list) and ids[:] or [ids]
-        str_error_lines = ""
-        errors = False
-        for inv in self.browse(cr, uid, inv_ids):
-           for line in inv.invoice_line:
-              if line.account_analytic_id and line.account_analytic_id.state in ['close', 'cancelled']:
-                  str_error_lines += "\n- %s" %(line.name)
-                  errors = True 
-           if errors:        
-              raise osv.except_osv(_('UserError'),
-                                   _("You are trying to validate invoice lines linked to a closed or cancelled Analytic Account."
-                                     "\n\nCheck the following lines :")
-                                     + str_error_lines)
         
-        self.write(cr, uid, inv_ids, {'state': 'to_valid'})
-        return True
-    
     _columns = {
         'state': fields.selection([
                 ('draft','Draft'),
