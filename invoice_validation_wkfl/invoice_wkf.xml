@@ -11,7 +11,7 @@
     <record model="workflow.activity" id="act_to_valid">
         <field name="wkf_id" ref="account.wkf"/>
         <field name="name">to_valid</field>
-        <field name="action">action_to_valid()</field>
+        <field name="action">write({'state':'to_valid'})</field>
         <field name="kind">function</field>
     </record>
     
