@@ -36,10 +36,10 @@
      "category" : "Generic Modules/Invoicing",
      "description":
 """
-This module add 2 states between draft and open state in Invoices :
+This module adds 2 states between Draft and Open states in Invoices:
 
-- To validate : For invoices which need a validation
-- To Send : For all incoices that need to be sent 
+- To Validate: for invoices which need a validation
+- To Send: for invoices that need to be sent
 
 """,
      "website": "http://camptocamp.com",
