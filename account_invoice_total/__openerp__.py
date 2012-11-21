@@ -29,7 +29,7 @@ check, has been removed. This module brings back the functionality from 6.0 and 
 See discussion : https://bugs.launchpad.net/openobject-addons/+bug/998008
 See revision : http://bazaar.launchpad.net/~openerp/openobject-addons/trunk/revision/6254
     """,
-    'author': 'Ren Dao Solutions bvba',
+    'author': 'Ren Dao Solutions bvba, ACSONE SA/NV',
     'depends': [
         'account',
     ],
