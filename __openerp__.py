@@ -32,7 +32,10 @@
     """,
     'author': 'SYLEAM',
     'website': 'http://www.syleam.fr/',
-    'depends': [],
+    'depends': [
+        'base',
+        'account',
+    ],
     'init_xml': [],
     'images': [],
     'update_xml': [
