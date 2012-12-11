@@ -39,6 +39,7 @@
     'init_xml': [],
     'images': [],
     'update_xml': [
+        'account_view.xml',
     ],
     'demo_xml': [],
     'test': [],

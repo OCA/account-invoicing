@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        ##############################################################################
+        #
+        #    account_group_invoice_lines module for OpenERP, Change method to group invoice lines in account
+        #    Copyright (C) 2012 SYLEAM Info Services ([http://www.syleam.fr/]) 
+        #              Sebastien LANGE [sebastien.lange@syleam.fr]
+        #
+        #    This file is a part of account_group_invoice_lines
+        #
+        #    account_group_invoice_lines is free software: you can redistribute it and/or modify
+        #    it under the terms of the GNU Affero General Public License as published by
+        #    the Free Software Foundation, either version 3 of the License, or
+        #    (at your option) any later version.
+        #
+        #    account_group_invoice_lines is distributed in the hope that it will be useful,
+        #    but WITHOUT ANY WARRANTY; without even the implied warranty of
+        #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        #    GNU Affero General Public License for more details.
+        #
+        #    You should have received a copy of the GNU Affero General Public License
+        #    along with this program.  If not, see [http://www.gnu.org/licenses/].
+        #
+        ##############################################################################
+
+        <record id="view_account_journal_form" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='group_invoice_lines']" position="after">
+                    <field name="group_method" attrs="{'invisible': [('group_invoice_lines','=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
