@@ -28,7 +28,7 @@
     It displays the internal_number field. If user fills that field, the typed value will be used as invoice (and move) number. Otherwise, the next sequence number will be retrieved and saved.
     So, the new field has to be used when user doesn't want to use the default invoice numbering for a specific invoice.
     """,
-    'author': 'Agile Business Group & Domsense',
+    'author': 'Agile Business Group',
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
     "depends" : ['account'],
