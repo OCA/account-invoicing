@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- configartion view -->
+
+        <record id="view_corrispettivi_config_data" model="ir.ui.view">
+            <field name="name">Configure Corrispettivi</field>
+            <field name="model">corrispettivi.config.data</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.res_config_installer"/>
+            <field name="arch" type="xml">
+              <data>
+                <form position="attributes">
+                  <attribute name="string">Corrispettivi Configuration</attribute>
+                </form>
+		<separator string="title" position="replace">
+                    <p class="oe_grey">
+			Select data to configure Corrispettivi module.
+                    </p>
+                    <group string="Configure corrispettivi" groups="account.group_account_user">
+			<group colspan="4" >
+                            <field name="default_credit_account_id"/>
+                            <field name="default_debit_account_id"/>
+                    	</group>
+                    </group>
+                </separator>
+		<footer position="replace">
+                    <footer>
+                      <button name="action_next" type="object" string="Continue" class="oe_highlight"/>
+			 or
+                      <button string="Skip" class="oe_link" special="cancel" />
+                    </footer>
+                </footer>
+              </data>
+            </field>
+        </record>
+
+        <record id="action_corrispettivi_config_data" model="ir.actions.act_window">
+            <field name="name">Configure Corrispettivi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">corrispettivi.config.data</field>
+            <field name="view_id" ref="view_corrispettivi_config_data"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- register configuration wizard -->
+        <record id="config_wizard_step_corrispettivi_config_data" model="ir.actions.todo">
+            <field name="action_id" ref="action_corrispettivi_config_data"/>
+            <field name="restart">onskip</field>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
+        </record>
+
+    </data>
+</openerp>
