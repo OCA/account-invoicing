@@ -19,10 +19,10 @@
 #
 ##############################################################################
 {
-    'name': 'Italian Localisation - Account',
+    'name': 'Check invoice date consistency',
     'version': '0.1',
-    'category': 'Localisation/Italy',
-    'description': """This module customizes OpenERP in order to fit italian laws and mores - Account version
+    'category': 'Tools',
+    'description': """This module customizes OpenERP in order to make invoices with consistent dates.
 
 Functionalities:
 

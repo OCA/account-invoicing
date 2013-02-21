@@ -22,10 +22,10 @@
 import netsvc
 import pooler, tools
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm
 from tools.translate import _
 
-class account_invoice(osv.osv):
+class account_invoice(orm.Model):
     _inherit = 'account.invoice'
 
     def action_number(self, cr, uid, ids, context=None):
@@ -40,7 +40,7 @@ class account_invoice(osv.osv):
             res = self.search(cr, uid, [('type','=',inv_type),('date_invoice','>',date_invoice), 
                 ('number', '<', number), ('journal_id','=',journal)], context=context)
             if res:
-                raise osv.except_osv(_('Date Inconsistency'),
+                raise orm.except_orm(_('Date Inconsistency'),
                         _('Cannot create invoice! Post the invoice with a greater date'))
         return True
 
