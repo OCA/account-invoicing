@@ -53,5 +53,5 @@ This module adds 2 states between Draft and Open states in Invoices:
             "invoice_view.xml",
      ],
      "active": False,
-     "installable": True
+     "installable": False
 }
