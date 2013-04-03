@@ -36,5 +36,5 @@
     "update_xml" : ['invoice_view.xml'],
     "demo_xml" : [],
     "active": False,
-    "installable": True
+    "installable": False
 }
