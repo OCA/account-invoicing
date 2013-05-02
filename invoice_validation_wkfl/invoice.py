@@ -35,7 +35,7 @@ import netsvc
 
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
-    
+
     def action_to_valid(self, cr, uid, ids):
         """Check if analytic account of each lines is not closed"""
         inv_ids = isinstance(ids, list) and ids[:] or [ids]
@@ -45,16 +45,16 @@ class account_invoice(osv.osv):
            for line in inv.invoice_line:
               if line.account_analytic_id and line.account_analytic_id.state in ['close', 'cancelled']:
                   str_error_lines += "\n- %s" %(line.name)
-                  errors = True 
-           if errors:        
+                  errors = True
+           if errors:
               raise osv.except_osv(_('UserError'),
                                    _("You are trying to validate invoice lines linked to a closed or cancelled Analytic Account."
                                      "\n\nCheck the following lines :")
                                      + str_error_lines)
-        
+
         self.write(cr, uid, inv_ids, {'state': 'to_valid'})
         return True
-    
+
     _columns = {
         'state': fields.selection([
                 ('draft','Draft'),
@@ -70,7 +70,7 @@ account_invoice()
 
 class account_invoice_refund(osv.osv_memory):
     _inherit = "account.invoice.refund"
-    
+
     def compute_refund(self, cr, uid, ids, mode='refund', context=None):
         """
         @param cr: the current row, from the database cursor,
@@ -95,8 +95,11 @@ class account_invoice_refund(osv.osv_memory):
             date = False
             period = False
             description = False
+            journal_id = False
             company = res_users_obj.browse(cr, uid, uid, context=context).company_id
-            journal_id = form.get('journal_id', False)
+            if form.get('journal_id', False):
+                journal_id = form['journal_id'][0]
+
             for inv in inv_obj.browse(cr, uid, context.get('active_ids'), context=context):
                 if inv.state in ['draft', 'proforma2', 'cancel']:
                     raise osv.except_osv(_('Error !'), _('Can not %s draft/proforma/cancel invoice.') % (mode))
@@ -217,4 +220,7 @@ class account_invoice_refund(osv.osv_memory):
             invoice_domain.append(('id', 'in', created_inv))
             result['domain'] = invoice_domain
             return result
+
 account_invoice_refund()
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2011 Camptocamp SA (http://www.camptocamp.com) 
+# Copyright (c) 2011 Camptocamp SA (http://www.camptocamp.com)
 # All Right Reserved
 #
 # Author : Joël Grand-Guillaume (Camptocamp)
@@ -30,28 +30,29 @@
 ##############################################################################
 
 {
-     "name" : "Add 'To Send' and 'To Validate' states in Invoices",
-     "version" : "1.0",
-     "author" : "Camptocamp",
-     "category" : "Generic Modules/Invoicing",
-     "description":
-"""
-This module adds 2 states between Draft and Open states in Invoices:
+    'name' : 'Add "To Send" and "To Validate" states in Invoices',
+    'version' : '1.0',
+    'category' : 'Generic Modules/Invoicing',
+    'description':
+'''
+This module add 2 states between draft and open state in Invoices :
 
-- To Validate: for invoices which need a validation
-- To Send: for invoices that need to be sent
+- To validate : For invoices which need a validation
+- To Send : For all incoices that need to be sent
 
-""",
-     "website": "http://camptocamp.com",
-     "depends" : [
-            "account",
-                ],
-     "init_xml" : [],
-     "demo_xml" : [],
-     "update_xml" : [
-            "invoice_wkf.xml",
-            "invoice_view.xml",
-     ],
-     "active": False,
-     "installable": False
+''',
+    'author' : 'Camptocamp',
+    'website': 'http://camptocamp.com',
+    'depends' : ['account'],
+    'data' : [
+        'invoice_wkf.xml',
+        'invoice_view.xml',
+    ],
+    'demo' : [],
+    'test' : [],
+    'installable' : True,
+    'auto_install' : False,
+    'application' : False
 }
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

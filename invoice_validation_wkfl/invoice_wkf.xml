@@ -1,53 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
 <openerp>
-<data>
-    
-    <record model="workflow.activity" id="act_to_send">
-        <field name="wkf_id" ref="account.wkf"/>
-        <field name="name">to_send</field>
-        <field name="action">write({'state':'to_send'})</field>
-        <field name="kind">function</field>
-    </record>
-    
-    <record model="workflow.activity" id="act_to_valid">
-        <field name="wkf_id" ref="account.wkf"/>
-        <field name="name">to_valid</field>
-        <field name="action">action_to_valid()</field>
-        <field name="kind">function</field>
-    </record>
-    
-    <record model="workflow.transition" id="t_draft_to_valid">
-        <field name="act_from" ref="account.act_draft"/>
-        <field name="act_to" ref="act_to_valid"/>
-        <field name="signal">invoice_to_valid</field>
-    </record>
+	<data>
 
-    <record model="workflow.transition" id="t_valid_to_send">
-        <field name="act_from" ref="act_to_valid"/>
-        <field name="act_to" ref="act_to_send"/>
-        <field name="signal">invoice_to_send</field>
-    </record>
+	    <record model="workflow.activity" id="act_to_send">
+	        <field name="wkf_id" ref="account.wkf"/>
+	        <field name="name">to_send</field>
+	        <field name="action">write({'state':'to_send'})</field>
+	        <field name="kind">function</field>
+	    </record>
 
-    <record model="workflow.transition" id="t_send_to_pro2">
-        <field name="act_from" ref="act_to_send"/>
-        <field name="act_to" ref="account.act_proforma2"/>
-        <field name="signal">invoice_proforma2</field>
-    </record>
-    <record model="workflow.transition" id="account.t4">
-        <field name="act_from" ref="act_to_send"/>
-        <field name="act_to" ref="account.act_open"/>
-        <field name="signal">invoice_open</field>
-    </record>
-    
-    <record model="workflow.transition" id="account.t9">
-        <field name="act_from" ref="act_to_send"/>
-        <field name="act_to" ref="account.act_cancel"/>
-        <field name="signal">invoice_cancel</field>
-    </record>
-    <record model="workflow.transition" id="t_valid_to_cancel">
-        <field name="act_from" ref="act_to_valid"/>
-        <field name="act_to" ref="account.act_cancel"/>
-        <field name="signal">invoice_cancel</field>
-    </record>
+	    <record model="workflow.activity" id="act_to_valid">
+	        <field name="wkf_id" ref="account.wkf"/>
+	        <field name="name">to_valid</field>
+	        <field name="action">action_to_valid()</field>
+	        <field name="kind">function</field>
+	    </record>
 
-</data>
+	    <record model="workflow.transition" id="t_draft_to_valid">
+	        <field name="act_from" ref="account.act_draft"/>
+	        <field name="act_to" ref="act_to_valid"/>
+	        <field name="signal">invoice_to_valid</field>
+	    </record>
+
+	    <record model="workflow.transition" id="t_valid_to_send">
+	        <field name="act_from" ref="act_to_valid"/>
+	        <field name="act_to" ref="act_to_send"/>
+	        <field name="signal">invoice_to_send</field>
+	    </record>
+
+	    <record model="workflow.transition" id="t_send_to_pro2">
+	        <field name="act_from" ref="act_to_send"/>
+	        <field name="act_to" ref="account.act_proforma2"/>
+	        <field name="signal">invoice_proforma2</field>
+	    </record>
+	    <record model="workflow.transition" id="account.t4">
+	        <field name="act_from" ref="act_to_send"/>
+	        <field name="act_to" ref="account.act_open"/>
+	        <field name="signal">invoice_open</field>
+	    </record>
+
+	    <record model="workflow.transition" id="account.t9">
+	        <field name="act_from" ref="act_to_send"/>
+	        <field name="act_to" ref="account.act_cancel"/>
+	        <field name="signal">invoice_cancel</field>
+	    </record>
+
+	    <record model="workflow.transition" id="t_valid_to_cancel">
+	        <field name="act_from" ref="act_to_valid"/>
+	        <field name="act_to" ref="account.act_cancel"/>
+	        <field name="signal">invoice_cancel</field>
+	    </record>
+
+	</data>
 </openerp>
