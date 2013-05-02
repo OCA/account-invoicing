@@ -28,12 +28,11 @@
 #
 ##############################################################################
 
-from osv import fields
-from osv import osv
+from openerp.osv import orm, fields, osv
 from tools.translate import _
 import netsvc
 
-class account_invoice(osv.osv):
+class AccountInvoice(orm.Model):
     _inherit = "account.invoice"
 
     def action_to_valid(self, cr, uid, ids):
@@ -64,11 +63,10 @@ class account_invoice(osv.osv):
                 ('open','Open'),
                 ('paid','Paid'),
                 ('cancel','Canceled')],'State', select=True, readonly=True),
-    }
+        }
 
-account_invoice()
 
-class account_invoice_refund(osv.osv_memory):
+class AccountInvoiceRefund(orm.TransientModel):
     _inherit = "account.invoice.refund"
 
     def compute_refund(self, cr, uid, ids, mode='refund', context=None):
@@ -221,6 +219,5 @@ class account_invoice_refund(osv.osv_memory):
             result['domain'] = invoice_domain
             return result
 
-account_invoice_refund()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
