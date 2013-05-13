@@ -38,7 +38,7 @@ class AccountInvoice(orm.Model):
            if errors:
               raise osv.except_osv(_('UserError'),
                                    _("You are trying to validate invoice lines linked to a closed or cancelled Analytic Account."
-                                     "\n\nCheck the following lines :")
+                                     "\n\nCheck the following lines:")
                                      + str_error_lines)
 
         self.write(cr, uid, inv_ids, {'state': 'to_valid'})
