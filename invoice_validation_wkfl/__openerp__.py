@@ -19,29 +19,29 @@
 #
 ##############################################################################
 {
-    'name' : 'Add "To Send" and "To Validate" states in Invoices',
-    'version' : '1.0',
-    'category' : 'Generic Modules/Invoicing',
+    'name': 'Add "To Send" and "To Validate" states in Invoices',
+    'version': '1.0',
+    'category': 'Generic Modules/Invoicing',
     'description':
 '''
-This module add 2 states between draft and open state in Invoices :
+This module adds 2 states between draft and open state in Invoices :
 
 - To validate : For invoices which need a validation
 - To Send : For all incoices that need to be sent
 
 ''',
-    'author' : 'Camptocamp',
+    'author': 'Camptocamp',
     'website': 'http://camptocamp.com',
-    'depends' : ['account'],
-    'data' : [
+    'depends': ['account'],
+    'data': [
         'invoice_wkf.xml',
         'invoice_view.xml',
     ],
-    'demo' : [],
-    'test' : [],
-    'installable' : True,
-    'auto_install' : False,
-    'application' : False
+    'demo': [],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'application': False
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
