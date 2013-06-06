@@ -23,6 +23,17 @@ from openerp.tools.translate import _
 
 class stock_picking(orm.Model):
     _inherit = "stock.picking"
+
+    def _get_partner_to_invoice(self, cr, uid, picking, context=None):
+        partner_obj = self.pool.get('res.partner')
+        partner= super(stock_picking, self)._get_partner_to_invoice(cr, uid, picking, context=context)
+        if isinstance(partner, int):
+            partner = partner_obj.browse(cr, uid, partner, context=context)
+        if picking.partner_id.id != partner.id:
+            # if someone else modified invoice partner, I use it
+            return partner.id
+        return partner_obj.address_get(cr, uid, [partner.id],
+            ['invoice'], context=context)['invoice']
     
     def set_to_be_invoiced(self, cr, uid, ids, context=None):
         for picking in self.browse(cr, uid, ids, context):
