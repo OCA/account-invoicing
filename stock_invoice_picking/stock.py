@@ -33,7 +33,7 @@ class stock_picking(orm.Model):
             if picking.invoice_state == 'none' or picking.invoice_state == 'invoiced':
                 if picking.invoice_id:
                     raise orm.except_orm(_('Error'), _(
-                        'Picking %s does not have invoice control but has linked invoice %s'
+                        'Picking %s has linked invoice %s'
                         ) % (picking.name, picking.invoice_id.number))
                 picking.write({'invoice_state': '2binvoiced'})
         return True
