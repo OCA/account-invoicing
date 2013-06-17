@@ -24,10 +24,10 @@
     'category': 'Generic Modules/Invoicing',
     'description':
 '''
-This module adds 2 states between draft and open state in Invoices :
+This module adds 2 states between draft and open state in invoices:
 
-- To validate : For invoices which need a validation
-- To Send : For all incoices that need to be sent
+- To Validate: For invoices which need a validation
+- To Send: For all invoices that need to be sent
 
 ''',
     'author': 'Camptocamp',
@@ -43,5 +43,3 @@ This module adds 2 states between draft and open state in Invoices :
     'auto_install': False,
     'application': False
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
