@@ -1,41 +1,30 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright (c) 2010 Camtocamp SA
-# @author Joël Grand-Guillaume
-# $Id: $
+#    Author: Joël Grand-Guillaume
+#    Copyright 2010 Camptocamp SA
 #
-# WARNING: This program as such is intended to be used by professional
-# programmers who take the whole responsability of assessing all potential
-# consequences resulting from its eventual inadequacies and bugs
-# End users who are looking for a ready-to-use solution with commercial
-# garantees and support are strongly adviced to contract a Free Software
-# Service Company
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
 #
-# This program is Free Software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-from osv import fields
-from osv import osv
+from openerp.osv import orm, fields, osv
 from tools.translate import _
 import netsvc
 
-class account_invoice(osv.osv):
+class AccountInvoice(orm.Model):
     _inherit = "account.invoice"
-    
+
     def action_to_valid(self, cr, uid, ids):
         """Check if analytic account of each lines is not closed"""
         inv_ids = isinstance(ids, list) and ids[:] or [ids]
@@ -45,16 +34,16 @@ class account_invoice(osv.osv):
            for line in inv.invoice_line:
               if line.account_analytic_id and line.account_analytic_id.state in ['close', 'cancelled']:
                   str_error_lines += "\n- %s" %(line.name)
-                  errors = True 
-           if errors:        
+                  errors = True
+           if errors:
               raise osv.except_osv(_('UserError'),
                                    _("You are trying to validate invoice lines linked to a closed or cancelled Analytic Account."
-                                     "\n\nCheck the following lines :")
+                                     "\n\nCheck the following lines:")
                                      + str_error_lines)
-        
+
         self.write(cr, uid, inv_ids, {'state': 'to_valid'})
         return True
-    
+
     _columns = {
         'state': fields.selection([
                 ('draft','Draft'),
@@ -64,13 +53,12 @@ class account_invoice(osv.osv):
                 ('open','Open'),
                 ('paid','Paid'),
                 ('cancel','Canceled')],'State', select=True, readonly=True),
-    }
+        }
 
-account_invoice()
 
-class account_invoice_refund(osv.osv_memory):
+class AccountInvoiceRefund(orm.TransientModel):
     _inherit = "account.invoice.refund"
-    
+
     def compute_refund(self, cr, uid, ids, mode='refund', context=None):
         """
         @param cr: the current row, from the database cursor,
@@ -95,8 +83,11 @@ class account_invoice_refund(osv.osv_memory):
             date = False
             period = False
             description = False
+            journal_id = False
             company = res_users_obj.browse(cr, uid, uid, context=context).company_id
-            journal_id = form.get('journal_id', False)
+            if form.get('journal_id', False):
+                journal_id = form['journal_id'][0]
+
             for inv in inv_obj.browse(cr, uid, context.get('active_ids'), context=context):
                 if inv.state in ['draft', 'proforma2', 'cancel']:
                     raise osv.except_osv(_('Error !'), _('Can not %s draft/proforma/cancel invoice.') % (mode))
@@ -217,4 +208,6 @@ class account_invoice_refund(osv.osv_memory):
             invoice_domain.append(('id', 'in', created_inv))
             result['domain'] = invoice_domain
             return result
-account_invoice_refund()
+
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
