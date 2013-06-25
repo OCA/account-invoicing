@@ -18,17 +18,39 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import time
 
 from osv import fields, osv
-import netsvc
-import pooler
-from osv.orm import browse_record, browse_null
 from tools.translate import _
 
-class invoice_merge(osv.osv_memory):
+
+class invoice_merge(osv.TransientModel):
     _name = "invoice.merge"
     _description = "Merge Partner Invoice"
+
+    def _dirty_check(self, cr, uid, context):
+        if context.get('active_model', '') == 'account.invoice':
+            ids = context['active_ids']
+            if len(ids) < 2:
+                raise osv.except_osv(_('Warning!'), _('Please select multiple invoice to merge in the list view.'))
+            inv_obj = self.pool.get('account.invoice')
+            invs = inv_obj.read(cr, uid, ids, ['account_id', 'state', 'type', 'company_id',
+                                               'partner_id', 'currency_id', 'journal_id'])
+            for d in invs:
+                if d['state'] != 'draft':
+                    raise osv.except_osv(_('Warning'), _('At least one of the selected invoices is %s!') % d['state'])
+                if (d['account_id'] != invs[0]['account_id']):
+                    raise osv.except_osv(_('Warning'), _('Not all invoices use the same account!'))
+                if (d['company_id'] != invs[0]['company_id']):
+                    raise osv.except_osv(_('Warning'), _('Not all invoices are at the same company!'))
+                if (d['partner_id'] != invs[0]['partner_id']):
+                    raise osv.except_osv(_('Warning'), _('Not all invoices are for the same partner!'))
+                if (d['type'] != invs[0]['type']):
+                    raise osv.except_osv(_('Warning'), _('Not all invoices are of the same type!'))
+                if (d['currency_id'] != invs[0]['currency_id']):
+                    raise osv.except_osv(_('Warning'), _('Not all invoices are at the same currency!'))
+                if (d['journal_id'] != invs[0]['journal_id']):
+                    raise osv.except_osv(_('Warning'), _('Not all invoices are at the same journal!'))
+        return {}
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form',
                         context=None, toolbar=False, submenu=False):
@@ -41,12 +63,9 @@ class invoice_merge(osv.osv_memory):
          @return: New arch of view.
         """
         if context is None:
-            context={}
-        res = super(invoice_merge, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar,submenu=False)
-
-        if context.get('active_model','') == 'account.invoice' and len(context['active_ids']) < 2:
-            raise osv.except_osv(_('Warning'),
-            _('Please select multiple invoice to merge in the list view.'))
+            context = {}
+        res = super(invoice_merge, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=False)
+        self._dirty_check(cr, uid, context)
         return res
 
     def merge_invoices(self, cr, uid, ids, context=None):
@@ -62,16 +81,17 @@ class invoice_merge(osv.osv_memory):
              @return: account invoice view
 
         """
-        order_obj = self.pool.get('account.invoice')
-        mod_obj =self.pool.get('ir.model.data')
+        inv_obj = self.pool.get('account.invoice')
+        mod_obj = self.pool.get('ir.model.data')
         so_obj = self.pool.get('sale.order')
         po_obj = self.pool.get('purchase.order')
 
         if context is None:
             context = {}
         result = mod_obj._get_id(cr, uid, 'account', 'invoice_form')
+        id = mod_obj.read(cr, uid, result, ['res_id'])
 
-        allorders = order_obj.do_merge(cr, uid, context.get('active_ids',[]), context)
+        allorders = inv_obj.do_merge(cr, uid, context.get('active_ids', []), context)
 
         for new_order in allorders:
             todo_ids = []
@@ -86,16 +106,11 @@ class invoice_merge(osv.osv_memory):
             'domain': "[('id','in', [" + ','.join(map(str, allorders.keys())) + "])]",
             'name': _('Partner Invoice'),
             'view_type': 'form',
-            'view_mode': 'form',
+            'view_mode': 'tree,form',
             'res_model': 'account.invoice',
-            'view_id': [result or False],
-            #'context': "{'type':'out_invoice'}",
+            'view_id': False,
             'type': 'ir.actions.act_window',
-            #'nodestroy': True,
-            'target': 'current',
-            #'res_id': inv_ids and inv_ids[0] or False,
+            'search_view_id': id['res_id']
         }
-
-invoice_merge()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
