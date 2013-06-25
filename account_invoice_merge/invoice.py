@@ -24,6 +24,7 @@ import netsvc
 from tools.translate import _
 from osv.orm import browse_record, browse_null
 
+
 class account_invoice(osv.osv):
     _inherit = "account.invoice"
 
@@ -47,6 +48,7 @@ class account_invoice(osv.osv):
 
         """
         wf_service = netsvc.LocalService("workflow")
+
         def make_key(br, fields):
             list_key = []
             for field in fields:
@@ -77,8 +79,6 @@ class account_invoice(osv.osv):
                 order_infos.update({
                     'origin': '%s' % (porder.origin or '',),
                     'partner_id': porder.partner_id.id,
-                    'address_contact_id': porder.address_contact_id.id,
-                    'address_invoice_id': porder.address_invoice_id.id,
                     'journal_id': porder.journal_id.id,
                     'user_id': porder.user_id.id,
                     'currency_id': porder.currency_id.id,
@@ -101,11 +101,11 @@ class account_invoice(osv.osv):
                     order_infos['reference'] = (order_infos['reference'] or '') + (' %s' % (porder.reference,))
 
             for order_line in porder.invoice_line:
-                line_key = make_key(order_line, ('name', 'origin', 'discount', 'invoice_line_tax_id', 'price_unit', 'quantity', 'product_id', 'account_id', 'account_analytic_id'))
+                line_key = make_key(order_line, ('name', 'origin', 'discount', 'invoice_line_tax_id', 'price_unit', 'product_id', 'account_id', 'account_analytic_id'))
                 o_line = order_infos['invoice_line'].setdefault(line_key, {})
                 if o_line:
                     # merge the line with an existing line
-                    o_line['quantity'] += order_line.quantity
+                    o_line['quantity'] += order_line.quantity * order_line.uos_id.factor / o_line['uom_factor']
                 else:
                     # append a new "standalone" line
                     for field in ('quantity', 'uos_id'):
@@ -113,6 +113,7 @@ class account_invoice(osv.osv):
                         if isinstance(field_val, browse_record):
                             field_val = field_val.id
                         o_line[field] = field_val
+                    o_line['uom_factor'] = order_line.uos_id and order_line.uos_id.factor or 1.0
 
         allorders = []
         orders_info = {}
@@ -124,7 +125,7 @@ class account_invoice(osv.osv):
 
             # cleanup order line data
             for key, value in order_data['invoice_line'].iteritems():
-                #del value['uom_factor']
+                del value['uom_factor']
                 value.update(dict(key))
             order_data['invoice_line'] = [(0, 0, value) for value in order_data['invoice_line'].itervalues()]
 
@@ -137,10 +138,7 @@ class account_invoice(osv.osv):
             for old_id in old_ids:
                 wf_service.trg_redirect(uid, 'account.invoice', old_id, neworder_id, cr)
                 wf_service.trg_validate(uid, 'account.invoice', old_id, 'invoice_cancel', cr)
-        #print orders_info
+        # print orders_info
         return orders_info
 
-account_invoice()
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-
