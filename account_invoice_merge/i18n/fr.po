@@ -19,38 +19,38 @@ msgstr ""
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:34
 #, python-format
 msgid "Please select multiple invoice to merge in the list view."
-msgstr ""
+msgstr "Veuillez selectionner dans la liste plusieurs factures à fusionner"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:44
 #, python-format
 msgid "Not all invoices are at the same company!"
-msgstr ""
+msgstr "Toutes les factures n'appartiennent pas à la même société !"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:40
 #, python-format
 msgid "At least one of the selected invoices is %s!"
-msgstr ""
+msgstr "Au moins une des factures sélectionnées est %s !"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 #: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_invoice_merge
 msgid "Merge Partner Invoice"
-msgstr ""
+msgstr "Fusion de facture de patenaire"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
 #, python-format
 msgid "Not all invoices are of the same type!"
-msgstr ""
+msgstr "Toutes les factures ne sont pas du même type !"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:107
 #, python-format
 msgid "Partner Invoice"
-msgstr ""
+msgstr "Facture de patenaire"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
@@ -64,23 +64,31 @@ msgid " Please note that: \n"
 " Lines will only be merged if: \n"
 " * Invoice lines are exactly the same except for the product,quantity and unit \n"
 " "
-msgstr ""
+msgstr " Veuillez noter que :\n"
+"\n"
+" Les factures seront fusionnées seulement si :\n"
+" * Les factures sont dans l'état brouillon\n"
+" * Les factures appartiennent au même patenaire\n"
+" * Les facture possédent les même société, partenaire, adresse, devise, journal, vendeur, compte, type\n"
+"\n"
+" Les lignes seront fusionnées seulement si :\n"
+" * Les lignes de facture sont identique à l'exception de la quantité et de l'unité\n"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "or"
-msgstr ""
+msgstr "ou"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
 #, python-format
 msgid "Not all invoices use the same account!"
-msgstr ""
+msgstr "Toutes les factures n'utilisent pas le même compte !"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "Merge Invoices"
-msgstr ""
+msgstr "Fusion de factures"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:40
@@ -92,45 +100,45 @@ msgstr ""
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:52
 #, python-format
 msgid "Warning"
-msgstr ""
+msgstr "Attention"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:34
 #, python-format
 msgid "Warning!"
-msgstr ""
+msgstr "Attention !"
 
 #. module: account_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Facture"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:52
 #, python-format
 msgid "Not all invoices are at the same journal!"
-msgstr ""
+msgstr "Toutes les factures ne sont pas dans le même journal !"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:50
 #, python-format
 msgid "Not all invoices are at the same currency!"
-msgstr ""
+msgstr "Toutes les factures ne sont pas dans la même devise !"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "Are you sure you want to merge these invoices ?"
-msgstr ""
+msgstr "Êtes vous certain de vouloir fusionner ces factures ?"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:46
 #, python-format
 msgid "Not all invoices are for the same partner!"
-msgstr ""
+msgstr "Toutes les factures ne sont pas du même partenaire !"
 
 
