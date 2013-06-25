@@ -30,11 +30,10 @@ This module adds an action in the invoices lists to merge of invoices. Here are 
 - Partner should be the same
 - Currency should be the same
 - Account receivable account should be the same
-No merge is done at invoice line level.
     """,
     'author': 'Elico Corp',
     'website': 'http://www.openerp.net.cn',
-    'depends': ['base', 'account'],
+    'depends': ['sale', 'purchase'],
     'data': [
         'wizard/invoice_merge_view.xml',
     ],
