@@ -21,7 +21,7 @@
 {'name' : 'Rounding on payment term',
  'version' : '1.0',
  'category': 'Accounting',
- 'description': """display the product and sale markup in the appropriate views""",
+ 'description': """Giving rouding functionality at payment term line level """,
  'author' : 'Camptocamp',
  'maintainer': 'Camptocamp',
  'website': 'http://www.camptocamp.com/',
