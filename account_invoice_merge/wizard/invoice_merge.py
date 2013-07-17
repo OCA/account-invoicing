@@ -34,7 +34,7 @@ class invoice_merge(orm.TransientModel):
                 raise orm.except_orm(_('Warning!'), _('Please select multiple invoice to merge in the list view.'))
             inv_obj = self.pool.get('account.invoice')
             invs = inv_obj.read(cr, uid, ids, ['account_id', 'state', 'type', 'company_id',
-                                               'partner_id', 'currency_id', 'journal_id'])
+                                               'partner_id', 'commercial_partner_id', 'currency_id', 'journal_id'])
             for d in invs:
                 if d['state'] != 'draft':
                     raise orm.except_orm(_('Warning'), _('At least one of the selected invoices is %s!') % d['state'])
@@ -43,6 +43,8 @@ class invoice_merge(orm.TransientModel):
                 if (d['company_id'] != invs[0]['company_id']):
                     raise orm.except_orm(_('Warning'), _('Not all invoices are at the same company!'))
                 if (d['partner_id'] != invs[0]['partner_id']):
+                    raise orm.except_orm(_('Warning'), _('Not all invoices are for the same partner!'))
+                if (d['commercial_partner_id'] != invs[0]['commercial_partner_id']):
                     raise orm.except_orm(_('Warning'), _('Not all invoices are for the same partner!'))
                 if (d['type'] != invs[0]['type']):
                     raise orm.except_orm(_('Warning'), _('Not all invoices are of the same type!'))
