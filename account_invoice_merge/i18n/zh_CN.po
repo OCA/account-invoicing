@@ -40,20 +40,20 @@ msgid " Please note that: \n"
 " "
 msgstr " 请注意： \n"
 " \n"
-"仅符合下列条件的发票，才会被合并： \n"
-" * 发票确认之前，还在草稿状态。 \n"
-" * 发票属于同一合作伙伴。 \n"
-" * 发票属于同一公司，有相同币别，账簿，业务员，科目及类型等。 \n"
+"符合下列条件，才会被合并： \n"
+" * 仍在草稿状态的发票。 \n"
+" * 属于同一合作伙伴的发票。 \n"
+" * 属于同一公司，有相同币别，账簿，业务员，科目及类型等的发票。 \n"
 " \n"
-" 发票明细仅在符合下列条件才被合并： \n"
-" * 发票明细除了产品，数量，价格，金额等字段相同才被合并。 \n"
+" 符合下列条件，发票明细才会被合并： \n"
+" * 除了明细的产品，数量，价格，金额等字段外，发票明细必须一致。 \n"
 " "
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
 #, python-format
 msgid "Please select multiple invoice to merge in the list view."
-msgstr "请在列表里选择多个发票来合并。"
+msgstr "请在列表视图里选择多个发票来进行合并。"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
@@ -71,7 +71,7 @@ msgstr "警告"
 #: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_invoice_merge
 msgid "Merge Partner Invoice"
-msgstr "合并合作伙伴发票"
+msgstr "合并发票"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
