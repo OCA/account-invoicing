@@ -66,90 +66,90 @@ class account_invoice(orm.Model):
             list_key.sort()
             return tuple(list_key)
 
-    # compute what the new orders should contain
+    # compute what the new invoices should contain
 
-        new_orders = {}
+        new_invoices = {}
 
-        for porder in [order for order in self.browse(cr, uid, ids, context=context) if order.state == 'draft']:
-            order_key = make_key(porder, ('partner_id', 'user_id', 'type', 'account_id', 'currency_id', 'journal_id', 'company_id'))
-            new_order = new_orders.setdefault(order_key, ({}, []))
-            new_order[1].append(porder.id)
-            order_infos = new_order[0]
-            if not order_infos:
-                order_infos.update({
-                    'origin': '%s' % (porder.origin or '',),
-                    'partner_id': porder.partner_id.id,
-                    'journal_id': porder.journal_id.id,
-                    'user_id': porder.user_id.id,
-                    'currency_id': porder.currency_id.id,
-                    'company_id': porder.company_id.id,
-                    'type': porder.type,
-                    'account_id': porder.account_id.id,
+        for account_invoice in [invoice for invoice in self.browse(cr, uid, ids, context=context) if invoice.state == 'draft']:
+            invoice_key = make_key(account_invoice, ('partner_id', 'user_id', 'type', 'account_id', 'currency_id', 'journal_id', 'company_id'))
+            new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
+            new_invoice[1].append(account_invoice.id)
+            invoice_infos = new_invoice[0]
+            if not invoice_infos:
+                invoice_infos.update({
+                    'origin': '%s' % (account_invoice.origin or '',),
+                    'partner_id': account_invoice.partner_id.id,
+                    'journal_id': account_invoice.journal_id.id,
+                    'user_id': account_invoice.user_id.id,
+                    'currency_id': account_invoice.currency_id.id,
+                    'company_id': account_invoice.company_id.id,
+                    'type': account_invoice.type,
+                    'account_id': account_invoice.account_id.id,
                     'state': 'draft',
                     'invoice_line': {},
-                    'reference': '%s' % (porder.reference or '',),
-                    'name': '%s' % (porder.name or '',),
-                    'fiscal_position': porder.fiscal_position and porder.fiscal_position.id or False,
-                    'period_id': porder.period_id and porder.period_id.id or False,
+                    'reference': '%s' % (account_invoice.reference or '',),
+                    'name': '%s' % (account_invoice.name or '',),
+                    'fiscal_position': account_invoice.fiscal_position and account_invoice.fiscal_position.id or False,
+                    'period_id': account_invoice.period_id and account_invoice.period_id.id or False,
                 })
             else:
-                if porder.name:
-                    order_infos['name'] = (order_infos['name'] or '') + (' %s' % (porder.name,))
-                if porder.origin:
-                    order_infos['origin'] = (order_infos['origin'] or '') + ' ' + porder.origin
-                if porder.reference:
-                    order_infos['reference'] = (order_infos['reference'] or '') + (' %s' % (porder.reference,))
+                if account_invoice.name:
+                    invoice_infos['name'] = (invoice_infos['name'] or '') + (' %s' % (account_invoice.name,))
+                if account_invoice.origin:
+                    invoice_infos['origin'] = (invoice_infos['origin'] or '') + ' ' + account_invoice.origin
+                if account_invoice.reference:
+                    invoice_infos['reference'] = (invoice_infos['reference'] or '') + (' %s' % (account_invoice.reference,))
 
-            for order_line in porder.invoice_line:
-                line_key = make_key(order_line, ('name', 'origin', 'discount', 'invoice_line_tax_id', 'price_unit', 'product_id', 'account_id', 'account_analytic_id'))
-                o_line = order_infos['invoice_line'].setdefault(line_key, {})
+            for invoice_line in account_invoice.invoice_line:
+                line_key = make_key(invoice_line, ('name', 'origin', 'discount', 'invoice_line_tax_id', 'price_unit', 'product_id', 'account_id', 'account_analytic_id'))
+                o_line = invoice_infos['invoice_line'].setdefault(line_key, {})
                 if o_line:
                     # merge the line with an existing line
-                    o_line['quantity'] += order_line.quantity * order_line.uos_id.factor / o_line['uom_factor']
+                    o_line['quantity'] += invoice_line.quantity * invoice_line.uos_id.factor / o_line['uom_factor']
                 else:
                     # append a new "standalone" line
                     for field in ('quantity', 'uos_id'):
-                        field_val = getattr(order_line, field)
+                        field_val = getattr(invoice_line, field)
                         if isinstance(field_val, browse_record):
                             field_val = field_val.id
                         o_line[field] = field_val
-                    o_line['uom_factor'] = order_line.uos_id and order_line.uos_id.factor or 1.0
+                    o_line['uom_factor'] = invoice_line.uos_id and invoice_line.uos_id.factor or 1.0
 
-        allorders = []
-        orders_info = {}
-        for order_key, (order_data, old_ids) in new_orders.iteritems():
-            # skip merges with only one order
+        allinvoices = []
+        invoices_info = {}
+        for invoice_key, (invoice_data, old_ids) in new_invoices.iteritems():
+            # skip merges with only one invoice
             if len(old_ids) < 2:
-                allorders += (old_ids or [])
+                allinvoices += (old_ids or [])
                 continue
 
-            # cleanup order line data
-            for key, value in order_data['invoice_line'].iteritems():
+            # cleanup invoice line data
+            for key, value in invoice_data['invoice_line'].iteritems():
                 del value['uom_factor']
                 value.update(dict(key))
-            order_data['invoice_line'] = [(0, 0, value) for value in order_data['invoice_line'].itervalues()]
+            invoice_data['invoice_line'] = [(0, 0, value) for value in invoice_data['invoice_line'].itervalues()]
 
-            # create the new order
-            neworder_id = self.create(cr, uid, order_data)
-            orders_info.update({neworder_id: old_ids})
-            allorders.append(neworder_id)
+            # create the new invoice
+            newinvoice_id = self.create(cr, uid, invoice_data)
+            invoices_info.update({newinvoice_id: old_ids})
+            allinvoices.append(newinvoice_id)
 
-            # make triggers pointing to the old orders point to the new order
+            # make triggers pointing to the old invoices point to the new invoice
             for old_id in old_ids:
-                wf_service.trg_redirect(uid, 'account.invoice', old_id, neworder_id, cr)
+                wf_service.trg_redirect(uid, 'account.invoice', old_id, newinvoice_id, cr)
                 wf_service.trg_validate(uid, 'account.invoice', old_id, 'invoice_cancel', cr)
 
         # make link between original sale order or purchase order
         so_obj = self.pool.get('sale.order')
         po_obj = self.pool.get('purchase.order')
-        for new_order in orders_info:
-            todo_ids = so_obj.search(cr, uid, [('invoice_ids', 'in', orders_info[new_order])], context=context)
+        for new_invoice in invoices_info:
+            todo_ids = so_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
             for org_order in so_obj.browse(cr, uid, todo_ids, context=context):
-                so_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_order)]}, context)
-            todo_ids = po_obj.search(cr, uid, [('invoice_ids', 'in', orders_info[new_order])], context=context)
+                so_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_invoice)]}, context)
+            todo_ids = po_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
             for org_order in po_obj.browse(cr, uid, todo_ids, context=context):
-                po_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_order)]}, context)
-        # print orders_info
-        return orders_info
+                po_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_invoice)]}, context)
+        # print invoices_info
+        return invoices_info
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
