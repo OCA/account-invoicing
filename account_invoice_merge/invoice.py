@@ -23,6 +23,7 @@ from openerp.osv import orm, fields
 import netsvc
 from openerp.tools.translate import _
 from openerp.osv.orm import browse_record, browse_null
+import openerp.modules as addons
 
 
 class account_invoice(orm.Model):
@@ -140,15 +141,22 @@ class account_invoice(orm.Model):
                 wf_service.trg_validate(uid, 'account.invoice', old_id, 'invoice_cancel', cr)
 
         # make link between original sale order or purchase order
-        so_obj = self.pool.get('sale.order')
-        po_obj = self.pool.get('purchase.order')
+        
+        loaded_mods = addons.module.loaded
+        so_obj, po_obj = None, None
+        if 'sale' in loaded_mods:
+            so_obj = self.pool.get('sale.order')
+        if 'purchase' in loaded_mods:
+            po_obj = self.pool.get('purchase.order')
         for new_invoice in invoices_info:
-            todo_ids = so_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
-            for org_order in so_obj.browse(cr, uid, todo_ids, context=context):
-                so_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_invoice)]}, context)
-            todo_ids = po_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
-            for org_order in po_obj.browse(cr, uid, todo_ids, context=context):
-                po_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_invoice)]}, context)
+            if so_obj:
+                todo_ids = so_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
+                for org_order in so_obj.browse(cr, uid, todo_ids, context=context):
+                    so_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_invoice)]}, context)
+            if po_obj:
+                todo_ids = po_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
+                for org_order in po_obj.browse(cr, uid, todo_ids, context=context):
+                    po_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_invoice)]}, context)
         # print invoices_info
         return invoices_info
 
