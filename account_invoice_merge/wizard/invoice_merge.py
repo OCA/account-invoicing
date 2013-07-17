@@ -19,11 +19,11 @@
 #
 ##############################################################################
 
-from osv import fields, osv
-from tools.translate import _
+from openerp.osv import fields, orm
+from openerp.tools.translate import _
 
 
-class invoice_merge(osv.TransientModel):
+class invoice_merge(orm.TransientModel):
     _name = "invoice.merge"
     _description = "Merge Partner Invoice"
 
@@ -31,25 +31,25 @@ class invoice_merge(osv.TransientModel):
         if context.get('active_model', '') == 'account.invoice':
             ids = context['active_ids']
             if len(ids) < 2:
-                raise osv.except_osv(_('Warning!'), _('Please select multiple invoice to merge in the list view.'))
+                raise orm.except_orm(_('Warning!'), _('Please select multiple invoice to merge in the list view.'))
             inv_obj = self.pool.get('account.invoice')
             invs = inv_obj.read(cr, uid, ids, ['account_id', 'state', 'type', 'company_id',
                                                'partner_id', 'currency_id', 'journal_id'])
             for d in invs:
                 if d['state'] != 'draft':
-                    raise osv.except_osv(_('Warning'), _('At least one of the selected invoices is %s!') % d['state'])
+                    raise orm.except_orm(_('Warning'), _('At least one of the selected invoices is %s!') % d['state'])
                 if (d['account_id'] != invs[0]['account_id']):
-                    raise osv.except_osv(_('Warning'), _('Not all invoices use the same account!'))
+                    raise orm.except_orm(_('Warning'), _('Not all invoices use the same account!'))
                 if (d['company_id'] != invs[0]['company_id']):
-                    raise osv.except_osv(_('Warning'), _('Not all invoices are at the same company!'))
+                    raise orm.except_orm(_('Warning'), _('Not all invoices are at the same company!'))
                 if (d['partner_id'] != invs[0]['partner_id']):
-                    raise osv.except_osv(_('Warning'), _('Not all invoices are for the same partner!'))
+                    raise orm.except_orm(_('Warning'), _('Not all invoices are for the same partner!'))
                 if (d['type'] != invs[0]['type']):
-                    raise osv.except_osv(_('Warning'), _('Not all invoices are of the same type!'))
+                    raise orm.except_orm(_('Warning'), _('Not all invoices are of the same type!'))
                 if (d['currency_id'] != invs[0]['currency_id']):
-                    raise osv.except_osv(_('Warning'), _('Not all invoices are at the same currency!'))
+                    raise orm.except_orm(_('Warning'), _('Not all invoices are at the same currency!'))
                 if (d['journal_id'] != invs[0]['journal_id']):
-                    raise osv.except_osv(_('Warning'), _('Not all invoices are at the same journal!'))
+                    raise orm.except_orm(_('Warning'), _('Not all invoices are at the same journal!'))
         return {}
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form',

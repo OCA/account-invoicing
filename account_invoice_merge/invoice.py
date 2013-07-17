@@ -19,13 +19,13 @@
 #
 ##############################################################################
 
-from osv import fields, osv
+from openerp.osv import orm, fields
 import netsvc
-from tools.translate import _
-from osv.orm import browse_record, browse_null
+from openerp.tools.translate import _
+from openerp.osv.orm import browse_record, browse_null
 
 
-class account_invoice(osv.osv):
+class account_invoice(orm.Model):
     _inherit = "account.invoice"
 
     def do_merge(self, cr, uid, ids, context=None):
