@@ -33,7 +33,7 @@ This module adds an action in the invoices lists to merge of invoices. Here are 
     """,
     'author': 'Elico Corp',
     'website': 'http://www.openerp.net.cn',
-    'depends': ['account','account_report_company'],
+    'depends': ['account'],
     'data': [
         'wizard/invoice_merge_view.xml',
     ],
