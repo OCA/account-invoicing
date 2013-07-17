@@ -10,17 +10,15 @@
                         <separator
                             string="Are you sure you want to merge these invoices ?"
                             colspan="4" />
-                        <label
-                            string="
-Please note that: &#10; &#10;
-Invoices will only be merged if: &#10;
-* Invoices are in draft &#10;
-* Invoices belong to the same partner &#10;
-* Invoices are have same company, partner, address, currency, journal, salesman, account, type &#10; &#10;
-Lines will only be merged if: &#10;
-* Invoice lines are exactly the same except for the product,quantity and unit &#10;
-"
-                            colspan="4" />
+                        <p>
+Please note that:<br/><br/>
+Invoices will only be merged if:<br/>
+* Invoices are in draft<br/>
+* Invoices belong to the same partner<br/>
+* Invoices are have same company, partner, address, currency, journal, salesman, account, type<br/><br/>
+Lines will only be merged if:<br/>
+* Invoice lines are exactly the same except for the product,quantity and unit<br/>
+                            </p>
                     </group>
                     <footer>
                         <button name="merge_invoices" string="Merge Invoices"
