@@ -83,8 +83,6 @@ class invoice_merge(orm.TransientModel):
         """
         inv_obj = self.pool.get('account.invoice')
         mod_obj = self.pool.get('ir.model.data')
-        so_obj = self.pool.get('sale.order')
-        po_obj = self.pool.get('purchase.order')
 
         if context is None:
             context = {}
@@ -92,15 +90,6 @@ class invoice_merge(orm.TransientModel):
         id = mod_obj.read(cr, uid, result, ['res_id'])
 
         allorders = inv_obj.do_merge(cr, uid, context.get('active_ids', []), context)
-
-        for new_order in allorders:
-            todo_ids = []
-            todo_ids += so_obj.search(cr, uid, [('invoice_ids', 'in', allorders[new_order])], context=context)
-            for org_order in so_obj.browse(cr, uid, todo_ids, context=context):
-                so_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_order)]}, context)
-            todo_ids += po_obj.search(cr, uid, [('invoice_ids', 'in', allorders[new_order])], context=context)
-            for org_order in po_obj.browse(cr, uid, todo_ids, context=context):
-                po_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_order)]}, context)
 
         return {
             'domain': "[('id','in', [" + ','.join(map(str, allorders.keys())) + "])]",

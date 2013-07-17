@@ -138,6 +138,17 @@ class account_invoice(orm.Model):
             for old_id in old_ids:
                 wf_service.trg_redirect(uid, 'account.invoice', old_id, neworder_id, cr)
                 wf_service.trg_validate(uid, 'account.invoice', old_id, 'invoice_cancel', cr)
+
+        # make link between original sale order or purchase order
+        so_obj = self.pool.get('sale.order')
+        po_obj = self.pool.get('purchase.order')
+        for new_order in orders_info:
+            todo_ids = so_obj.search(cr, uid, [('invoice_ids', 'in', orders_info[new_order])], context=context)
+            for org_order in so_obj.browse(cr, uid, todo_ids, context=context):
+                so_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_order)]}, context)
+            todo_ids = po_obj.search(cr, uid, [('invoice_ids', 'in', orders_info[new_order])], context=context)
+            for org_order in po_obj.browse(cr, uid, todo_ids, context=context):
+                po_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_order)]}, context)
         # print orders_info
         return orders_info
 
