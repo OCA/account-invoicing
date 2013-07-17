@@ -72,7 +72,7 @@ class account_invoice(orm.Model):
         new_invoices = {}
 
         for account_invoice in [invoice for invoice in self.browse(cr, uid, ids, context=context) if invoice.state == 'draft']:
-            invoice_key = make_key(account_invoice, ('commercial_partner_id', 'user_id', 'type', 'account_id', 'currency_id', 'journal_id', 'company_id'))
+            invoice_key = make_key(account_invoice, ('partner_id', 'user_id', 'type', 'account_id', 'currency_id', 'journal_id', 'company_id'))
             new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
             new_invoice[1].append(account_invoice.id)
             invoice_infos = new_invoice[0]
@@ -80,7 +80,6 @@ class account_invoice(orm.Model):
                 invoice_infos.update({
                     'origin': '%s' % (account_invoice.origin or '',),
                     'partner_id': account_invoice.partner_id.id,
-                    'commercial_partner_id':account_invoice.commercial_partner_id.id,
                     'journal_id': account_invoice.journal_id.id,
                     'user_id': account_invoice.user_id.id,
                     'currency_id': account_invoice.currency_id.id,
