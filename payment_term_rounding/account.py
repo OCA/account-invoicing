@@ -26,7 +26,7 @@ from openerp.osv import orm, fields
 from openerp.tools.float_utils import float_round
 
 import openerp.addons.decimal_precision as dp
-
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
 class AccountPaymentTermLine(orm.Model):
@@ -79,25 +79,25 @@ class AccountPaymentTerm(orm.Model):
         obj_precision = self.pool.get('decimal.precision')
         prec = obj_precision.precision_get(cr, uid, 'Account')
         if not date_ref:
-            date_ref = datetime.now().strftime('%Y-%m-%d')
+            date_ref = datetime.now().strftime(DEFAULT_SERVER_DATE_FORMAT)
         pt = self.browse(cr, uid, id, context=context)
         amount = value
         result = []
         for line in pt.line_ids:
             amt = line.compute_line_amount(value, amount)
             if amt:
-                next_date = (datetime.strptime(date_ref, '%Y-%m-%d') + relativedelta(days=line.days))
+                next_date = (datetime.strptime(date_ref, DEFAULT_SERVER_DATE_FORMAT) + relativedelta(days=line.days))
                 if line.days2 < 0:
                     next_first_date = next_date + relativedelta(day=1,months=1) #Getting 1st of next month
                     next_date = next_first_date + relativedelta(days=line.days2)
                 if line.days2 > 0:
                     next_date += relativedelta(day=line.days2, months=1)
-                result.append( (next_date.strftime('%Y-%m-%d'), amt) )
+                result.append( (next_date.strftime(DEFAULT_SERVER_DATE_FORMAT), amt) )
                 amount -= amt
 
         amount = reduce(lambda x,y: x+y[1], result, 0.0)
         dist = round(value-amount, prec)
         if dist:
-            result.append( (time.strftime('%Y-%m-%d'), dist) )
+            result.append( (time.strftime(DEFAULT_SERVER_DATE_FORMAT), dist) )
         return result
 
