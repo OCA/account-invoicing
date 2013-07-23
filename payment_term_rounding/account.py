@@ -50,7 +50,8 @@ class AccountPaymentTermLine(orm.Model):
                 computed amount
             :returns: computed amount for this line
         """
-        if isinstance(id, list):
+        if isinstance(id, (tuple, list)):
+            assert len(id) == 1, "compute_line_amount accepts only 1 ID"
             id = id[0]
         obj_precision = self.pool.get('decimal.precision')
         prec = obj_precision.precision_get(cr, uid, 'Account')
