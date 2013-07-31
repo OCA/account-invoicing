@@ -165,12 +165,18 @@ class account_invoice(orm.Model):
 
         # make link between original sale order or purchase order
         so_obj = self.pool.get('sale.order')  # None if sale is not installed
+        order_line_obj = self.pool.get('sale.order.line')
+        invoice_line_obj = self.pool.get('account.invoice.line')
         po_obj = self.pool.get('purchase.order')  # None if purchase is not installed
         for new_invoice in invoices_info:
             if so_obj is not None:
                 todo_ids = so_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
                 for org_invoice in so_obj.browse(cr, uid, todo_ids, context=context):
                     so_obj.write(cr, uid, [org_invoice.id], {'invoice_ids': [(4, new_invoice)]}, context)
+                    for so_line in org_invoice.order_line:
+                        invoice_line_ids = invoice_line_obj.search(cr, uid, [('product_id','=',so_line.product_id.id),('invoice_id','=',new_invoice)])
+                        if invoice_line_ids:
+                            order_line_obj.write(cr, uid, [so_line.id],{'invoice_lines': [(6, 0, invoice_line_ids)]}, context=context)
             if po_obj is not None:
                 todo_ids = po_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
                 for org_invoice in po_obj.browse(cr, uid, todo_ids, context=context):
