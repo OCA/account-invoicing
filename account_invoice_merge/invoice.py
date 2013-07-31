@@ -19,15 +19,42 @@
 #
 ##############################################################################
 
-from openerp.osv import orm, fields
-import netsvc
-from openerp.tools.translate import _
-from openerp.osv.orm import browse_record, browse_null
-import openerp.modules as addons
+from openerp.osv import orm
+from openerp import netsvc
+from osv.orm import browse_record, browse_null
 
 
 class account_invoice(orm.Model):
     _inherit = "account.invoice"
+
+    def _get_first_invoice_fields(self, cr, uid, invoice):
+        return {'origin': '%s' % (invoice.origin or '',),
+                'partner_id': invoice.partner_id.id,
+                'journal_id': invoice.journal_id.id,
+                'user_id': invoice.user_id.id,
+                'currency_id': invoice.currency_id.id,
+                'company_id': invoice.company_id.id,
+                'type': invoice.type,
+                'account_id': invoice.account_id.id,
+                'state': 'draft',
+                'reference': '%s' % (invoice.reference or '',),
+                'name': '%s' % (invoice.name or '',),
+                'fiscal_position': invoice.fiscal_position and invoice.fiscal_position.id or False,
+                'payment_term': invoice.payment_term and invoice.payment_term.id or False,
+                'period_id': invoice.period_id and invoice.period_id.id or False,
+                'invoice_line': {},
+                }
+
+    def _get_invoice_key_cols(self, cr, uid, invoice):
+        return ('partner_id', 'user_id', 'type',
+                'account_id', 'currency_id',
+                'journal_id', 'company_id')
+
+    def _get_invoice_line_key_cols(self, cr, uid, invoice_line):
+        return ('name', 'origin', 'discount',
+                'invoice_line_tax_id', 'price_unit',
+                'product_id', 'account_id',
+                'account_analytic_id')
 
     def do_merge(self, cr, uid, ids, context=None):
         """
@@ -67,42 +94,38 @@ class account_invoice(orm.Model):
             list_key.sort()
             return tuple(list_key)
 
-    # compute what the new invoices should contain
+        # compute what the new invoices should contain
 
         new_invoices = {}
+        draft_invoices = [invoice
+                          for invoice in self.browse(cr, uid, ids, context=context)
+                          if invoice.state == 'draft']
+        seen_origins = {}
+        seen_client_refs = {}
 
-        for account_invoice in [invoice for invoice in self.browse(cr, uid, ids, context=context) if invoice.state == 'draft']:
-            invoice_key = make_key(account_invoice, ('partner_id', 'user_id', 'type', 'account_id', 'currency_id', 'journal_id', 'company_id'))
+        for account_invoice in draft_invoices:
+            invoice_key = make_key(account_invoice, self._get_invoice_key_cols(cr, uid, account_invoice))
             new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
+            origins = seen_origins.setdefault(invoice_key, set())
+            client_refs = seen_client_refs.setdefault(invoice_key, set())
             new_invoice[1].append(account_invoice.id)
             invoice_infos = new_invoice[0]
             if not invoice_infos:
-                invoice_infos.update({
-                    'origin': '%s' % (account_invoice.origin or '',),
-                    'partner_id': account_invoice.partner_id.id,
-                    'journal_id': account_invoice.journal_id.id,
-                    'user_id': account_invoice.user_id.id,
-                    'currency_id': account_invoice.currency_id.id,
-                    'company_id': account_invoice.company_id.id,
-                    'type': account_invoice.type,
-                    'account_id': account_invoice.account_id.id,
-                    'state': 'draft',
-                    'invoice_line': {},
-                    'reference': '%s' % (account_invoice.reference or '',),
-                    'name': '%s' % (account_invoice.name or '',),
-                    'fiscal_position': account_invoice.fiscal_position and account_invoice.fiscal_position.id or False,
-                    'period_id': account_invoice.period_id and account_invoice.period_id.id or False,
-                })
+                invoice_infos.update(self._get_first_invoice_fields(cr, uid, account_invoice))
+                origins.add(account_invoice.origin)
+                client_refs.add(account_invoice.reference)
             else:
                 if account_invoice.name:
                     invoice_infos['name'] = (invoice_infos['name'] or '') + (' %s' % (account_invoice.name,))
-                if account_invoice.origin:
+                if account_invoice.origin and account_invoice.origin not in origins:
                     invoice_infos['origin'] = (invoice_infos['origin'] or '') + ' ' + account_invoice.origin
-                if account_invoice.reference:
+                    origins.add(account_invoice.origin)
+                if account_invoice.reference and account_invoice.reference not in client_refs:
                     invoice_infos['reference'] = (invoice_infos['reference'] or '') + (' %s' % (account_invoice.reference,))
+                    client_refs.add(account_invoice.reference)
 
             for invoice_line in account_invoice.invoice_line:
-                line_key = make_key(invoice_line, ('name', 'origin', 'discount', 'invoice_line_tax_id', 'price_unit', 'product_id', 'account_id', 'account_analytic_id'))
+                line_key = make_key(invoice_line, self._get_invoice_line_key_cols(cr, uid, invoice_line))
                 o_line = invoice_infos['invoice_line'].setdefault(line_key, {})
                 if o_line:
                     # merge the line with an existing line
@@ -141,23 +164,18 @@ class account_invoice(orm.Model):
                 wf_service.trg_validate(uid, 'account.invoice', old_id, 'invoice_cancel', cr)
 
         # make link between original sale order or purchase order
-        
-        loaded_mods = addons.module.loaded
-        so_obj, po_obj = None, None
-        if 'sale' in loaded_mods:
-            so_obj = self.pool.get('sale.order')
-        if 'purchase' in loaded_mods:
-            po_obj = self.pool.get('purchase.order')
+        so_obj = self.pool.get('sale.order')  # None if sale is not installed
+        po_obj = self.pool.get('purchase.order')  # None if purchase is not installed
         for new_invoice in invoices_info:
-            if so_obj:
+            if so_obj is not None:
                 todo_ids = so_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
-                for org_order in so_obj.browse(cr, uid, todo_ids, context=context):
-                    so_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_invoice)]}, context)
-            if po_obj:
+                for org_invoice in so_obj.browse(cr, uid, todo_ids, context=context):
+                    so_obj.write(cr, uid, [org_invoice.id], {'invoice_ids': [(4, new_invoice)]}, context)
+            if po_obj is not None:
                 todo_ids = po_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
-                for org_order in po_obj.browse(cr, uid, todo_ids, context=context):
-                    po_obj.write(cr, uid, [org_order.id], {'invoice_ids': [(4, new_invoice)]}, context)
-        # print invoices_info
+                for org_invoice in po_obj.browse(cr, uid, todo_ids, context=context):
+                    po_obj.write(cr, uid, [org_invoice.id], {'invoice_ids': [(4, new_invoice)]}, context)
+
         return invoices_info
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
