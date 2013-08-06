@@ -168,19 +168,19 @@ class account_invoice(orm.Model):
         order_line_obj = self.pool.get('sale.order.line')
         invoice_line_obj = self.pool.get('account.invoice.line')
         po_obj = self.pool.get('purchase.order')  # None if purchase is not installed
-        for new_invoice in invoices_info:
+        for new_invoice_id in invoices_info:
             if so_obj is not None:
-                todo_ids = so_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
-                for org_invoice in so_obj.browse(cr, uid, todo_ids, context=context):
-                    so_obj.write(cr, uid, [org_invoice.id], {'invoice_ids': [(4, new_invoice)]}, context)
-                    for so_line in org_invoice.order_line:
-                        invoice_line_ids = invoice_line_obj.search(cr, uid, [('product_id','=',so_line.product_id.id),('invoice_id','=',new_invoice)])
+                todo_ids = so_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice_id])], context=context)
+                for org_so in so_obj.browse(cr, uid, todo_ids, context=context):
+                    so_obj.write(cr, uid, [org_so.id], {'invoice_ids': [(4, new_invoice_id)]}, context)
+                    for so_line in org_so.order_line:
+                        invoice_line_ids = invoice_line_obj.search(cr, uid, [('product_id', '=', so_line.product_id.id), ('invoice_id', '=', new_invoice_id)])
                         if invoice_line_ids:
-                            order_line_obj.write(cr, uid, [so_line.id],{'invoice_lines': [(6, 0, invoice_line_ids)]}, context=context)
+                            order_line_obj.write(cr, uid, [so_line.id], {'invoice_lines': [(6, 0, invoice_line_ids)]}, context=context)
             if po_obj is not None:
-                todo_ids = po_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice])], context=context)
-                for org_invoice in po_obj.browse(cr, uid, todo_ids, context=context):
-                    po_obj.write(cr, uid, [org_invoice.id], {'invoice_ids': [(4, new_invoice)]}, context)
+                todo_ids = po_obj.search(cr, uid, [('invoice_ids', 'in', invoices_info[new_invoice_id])], context=context)
+                for org_po in po_obj.browse(cr, uid, todo_ids, context=context):
+                    po_obj.write(cr, uid, [org_po.id], {'invoice_ids': [(4, new_invoice_id)]}, context)
 
         return invoices_info
 
