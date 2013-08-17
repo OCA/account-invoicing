@@ -22,7 +22,7 @@
     "name" : "Automatically select invoicing partner on invoice",
     "version" : "0.1",
     "author" : "Therp BV",
-    "category": 'Accounting & Finance'
+    "category": 'Accounting & Finance',
     "description": """
 On an invoice, when selecting that is not of type 'invoice', replace
 the partner by an invoice contact if found.
