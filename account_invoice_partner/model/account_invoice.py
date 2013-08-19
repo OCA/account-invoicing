@@ -29,28 +29,18 @@ class accountInvoice(orm.Model):
             date_invoice=False, payment_term=False,
             partner_bank_id=False, company_id=False):
         """
-        When selecting a partner that is not of type 'invoice', replace
-        the partner by an invoice contact if found.
+        Replace the selected partner with the preferred invoice contact
         """
         if partner_id:
-            partner_obj = self.pool.get('res.partner')
-            partner = partner_obj.read(cr, uid, partner_id, ['type'])
-            if partner['type'] != 'invoice':
-                partner_ids = partner_obj.search(
-                    cr, uid, [
-                        ('type', '=', 'invoice'),
-                        ('id', 'child_of', partner_id),
-                        ])
-                if partner_ids:
-                    # Not calling super here on purpose, because
-                    # we change the partner_id
-                    res = self.onchange_partner_id(
-                        cr, uid, ids, type, partner_ids[0],
-                        date_invoice=date_invoice, payment_term=payment_term,
-                        partner_bank_id=partner_bank_id, company_id=company_id)
-                    if res and 'value' in res:
-                        res['value']['partner_id'] = partner_ids[0]
-                    return res
+            partner_invoice_id = self.pool.get('res.partner').address_get(
+                cr, uid, [partner_id], adr_pref=['invoice'])['invoice']
+            if partner_invoice_id != partner_id:
+                result = self.onchange_partner_id(
+                    cr, uid, ids, type, partner_invoice_id,
+                    date_invoice=date_invoice, payment_term=payment_term,
+                    partner_bank_id=partner_bank_id, company_id=company_id)
+                result['value']['partner_id'] = partner_invoice_id
+                return result
         return super(accountInvoice, self).onchange_partner_id(
             cr, uid, ids, type, partner_id,
             date_invoice=date_invoice, payment_term=payment_term,
