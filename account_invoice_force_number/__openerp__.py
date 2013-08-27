@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #    
-#    Copyright (C) 2011 Agile Business Group sagl (<http://www.agilebg.com>)
 #    Copyright (C) 2011 Domsense srl (<http://www.domsense.com>)
-#    All Rights Reserved
+#    Copyright (C) 2011-2013 Agile Business Group sagl (<http://www.agilebg.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -31,10 +30,12 @@
     'author': 'Agile Business Group',
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
-    "depends" : ['account'],
-    "init_xml" : [],
-    "update_xml" : ['invoice_view.xml'],
-    "demo_xml" : [],
+    "depends" : [
+        'account'
+    ],
+    "data" : [
+        'invoice_view.xml'
+    ],
     "active": False,
-    "installable": False
+    "installable": True
 }
