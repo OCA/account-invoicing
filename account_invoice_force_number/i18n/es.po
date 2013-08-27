@@ -1,16 +1,16 @@
-# Translation of OpenERP Server.
-# This file contains the translation of the following modules:
-#	* account_invoice_force_number
+# Spanish translation for account-invoicing
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the account-invoicing package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.3\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
+"Project-Id-Version: account-invoicing\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-11-16 16:44+0000\n"
-"PO-Revision-Date: 2014-01-17 18:31+0000\n"
-"Last-Translator: Lorenzo Battistini - Agile BG "
-"<lorenzo.battistini@agilebg.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2014-02-08 13:39+0000\n"
+"Last-Translator: Pedro Manuel Baeza <pedro.baeza@gmail.com>\n"
+"Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. module: account_invoice_force_number
 #: view:account.invoice:0
 msgid "Force Number"
-msgstr "Forza numero"
+msgstr "Forzar número"
 
 #. module: account_invoice_force_number
 #: model:ir.module.module,description:account_invoice_force_number.module_meta_information
@@ -35,20 +35,22 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    This module allows to force the invoice numbering.\n"
-"    It displays the internal_number field. If user fills that field, the "
-"typed value will be used as invoice (and move) number. Otherwise, the next "
-"sequence sequence number will be retrieved and saved.\n"
-"    So, the new field has to be used when user doesn't want to use the "
-"default invoice numbering for a specific invoice.\n"
+"    Este módulo permite forzar el número de factura.\n"
+"\n"
+"Muestra el campo de número interno. Si el usuario rellena este campo, el "
+"valor tecleado se usará como número de factura (y de asiento). En caso "
+"contrario, se utilizará el siguiente número de secuencia.\n"
+"\n"
+"Por eso, el nuevo campo debe usarse sólo cuando el usuario no quiera usar la "
+"numeración por defecto para una factura específica.\n"
 "    "
 
 #. module: account_invoice_force_number
 #: model:ir.module.module,shortdesc:account_invoice_force_number.module_meta_information
 msgid "Force Invoice Number"
-msgstr "Forza numero fattura"
+msgstr "Forzar número de factura"
 
 #. module: account_invoice_force_number
 #: model:ir.model,name:account_invoice_force_number.model_account_invoice
 msgid "Invoice"
-msgstr "Fattura"
+msgstr "Factura"
