@@ -6,7 +6,6 @@
             <field name="name">account.invoice.form.int_number</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <xpath expr="/form/group/field[@name='fiscal_position']" position="after">
                     <field name="internal_number" attrs="{'invisible':[('state','!=','draft')]}" string="Force Number" help="Force invoice number. Use this field if you don't want to use the default numbering"/>
@@ -18,7 +17,6 @@
             <field name="name">account.invoice.supplier.form.int_number</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <xpath expr="/form/group/field[@name='fiscal_position']" position="after">
                     <field name="internal_number" attrs="{'invisible':[('state','!=','draft')]}" string="Force Number" help="Force invoice number. Use this field if you don't want to use the default numbering"/>
