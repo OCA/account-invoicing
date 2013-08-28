@@ -2,7 +2,8 @@
 ##############################################################################
 #
 #    Copyright (C) 2011 Domsense srl (<http://www.domsense.com>)
-#    Copyright (C) 2011-2013 Agile Business Group sagl (<http://www.agilebg.com>)
+#    Copyright (C) 2011-2013 Agile Business Group sagl
+#    (<http://www.agilebg.com>)
 #    @author Lorenzo Battistini <lorenzo.battistini@agilebg.com>
 #    Ported to OpenERP 7.0 by Alex Comba <alex.comba@agilebg.com>
 #
@@ -27,5 +28,7 @@ from openerp.osv import fields, orm
 class account_invoice(orm.Model):
     _inherit = "account.invoice"
     _columns = {
-        'internal_number': fields.char('Invoice Number', size=32, readonly=True, states={'draft': [('readonly', False)]}),
+        'internal_number': fields.char(
+            'Invoice Number', size=32, readonly=True,
+            states={'draft': [('readonly', False)]}),
     }

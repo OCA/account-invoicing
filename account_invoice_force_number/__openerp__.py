@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    Copyright (C) 2011 Domsense srl (<http://www.domsense.com>)
-#    Copyright (C) 2011-2013 Agile Business Group sagl (<http://www.agilebg.com>)
+#    Copyright (C) 2011-2013 Agile Business Group sagl
+#    (<http://www.agilebg.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -23,9 +24,12 @@
     'version': '0.1',
     'category': 'Generic Modules/Accounting',
     'description': """
-    This module allows to force the invoice numbering.
-    It displays the internal_number field. If user fills that field, the typed value will be used as invoice (and move) number. Otherwise, the next sequence number will be retrieved and saved.
-    So, the new field has to be used when user doesn't want to use the default invoice numbering for a specific invoice.
+This module allows to force the invoice numbering.
+It displays the internal_number field. If user fills that field, the typed
+value will be used as invoice (and move) number.
+Otherwise, the next sequence number will be retrieved and saved.
+So, the new field has to be used when user doesn't want to use the default
+invoice numbering for a specific invoice.
     """,
     'author': 'Agile Business Group',
     'website': 'http://www.agilebg.com',
