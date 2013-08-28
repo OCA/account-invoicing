@@ -30,10 +30,10 @@
     'author': 'Agile Business Group',
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
-    "depends" : [
+    "depends": [
         'account'
     ],
-    "data" : [
+    "data": [
         'invoice_view.xml'
     ],
     "active": False,
