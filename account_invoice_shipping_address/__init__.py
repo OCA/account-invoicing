@@ -2,6 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
+#    Copyright (C) 2011 Domsense s.r.l. (<http://www.domsense.com>).
 #    Copyright (C) 2013 Andrea Cometa Perito Informatico (www.andreacometa.it)
 #
 #    This program is free software: you can redistribute it and/or modify

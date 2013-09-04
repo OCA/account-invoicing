@@ -2,6 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
+#    Copyright (C) 2011 Domsense s.r.l. (<http://www.domsense.com>).
 #    Copyright (C) 2013 Andrea Cometa Perito Informatico (www.andreacometa.it)
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -26,7 +27,8 @@
     'category': 'Generic Modules/Accounting',
     "depends": ["account", "sale"],
     "author": "Andrea Cometa",
-    "description": """This module adds a shipping address field to the invoice and tries to fill it automatically""",
+    "description": """[ENG]Adds a shipping address field to the invoice, also fill it in sale invoicing
+    [ITA ]Aggiunge l'indirizzo di spedizione alla fattura e lo popola quando viene fatturato un ordine di vendita""",
     'website': 'http://www.andreacometa.it',
     'init_xml': [],
     'update_xml': [
