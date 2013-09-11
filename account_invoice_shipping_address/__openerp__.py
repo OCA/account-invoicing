@@ -26,15 +26,13 @@
     "version": "0.1",
     'category': 'Generic Modules/Accounting',
     "depends": ["account", "sale"],
-    "author": "Andrea Cometa",
-    "description": """[ENG]Adds a shipping address field to the invoice, also fill it in sale invoicing
-    [ITA ]Aggiunge l'indirizzo di spedizione alla fattura e lo popola quando viene fatturato un ordine di vendita""",
+    "author": "Andrea Cometa, Agile Business Group",
+    "description": """Adds a shipping address field to the invoice, also fill it in sale invoicing""",
     'website': 'http://www.andreacometa.it',
-    'init_xml': [],
-    'update_xml': [
+    'data': [
         'invoice_view.xml',
         ],
-    'demo_xml': [],
+    'demo': [],
     'installable': True,
     'active': False,
 }

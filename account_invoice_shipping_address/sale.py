@@ -23,7 +23,7 @@
 from osv import fields,osv
 from tools.translate import _
 
-class sale_order(osv.osv):
+class sale_order(orm.Model):
 	_inherit = 'sale.order'
     
 	def _prepare_invoice(self, cr, uid, order, lines, context=None):
@@ -33,5 +33,3 @@ class sale_order(osv.osv):
 					'address_shipping_id': order.partner_shipping_id.id,
 					})
 		return res
-
-sale_order()
