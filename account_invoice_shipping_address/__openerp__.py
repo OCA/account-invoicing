@@ -27,7 +27,8 @@
     'category': 'Generic Modules/Accounting',
     "depends": ["account", "sale"],
     "author": "Andrea Cometa, Agile Business Group",
-    "description": """Adds a shipping address field to the invoice, also fill it in sale invoicing""",
+    "description": """Adds a shipping address field to the invoice, also fill
+it in sale invoicing""",
     'website': 'http://www.andreacometa.it',
     'data': [
         'invoice_view.xml',
