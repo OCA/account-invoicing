@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'Account Invoice Line Default Account',
-    'version': '6.1.r005',
+    'version': '7.0.r001',
     'depends': [
         'base',
         'account'
