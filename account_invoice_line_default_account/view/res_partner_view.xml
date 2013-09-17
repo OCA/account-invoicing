@@ -14,20 +14,16 @@
             <field
                 name="arch"
                 type="xml">
+                <field
+                    name="property_account_payable"
+                    position="after">
                     <field
-                        name="property_account_payable"
-                        position="after">
-                        <group
-                            colspan="2"
-                            col="4">
-                            <field
-                                name="property_account_expense"
-                                groups="account.group_account_invoice" />
-                            <field
-                                name="auto_update_account_expense"
-                                groups="account.group_account_invoice" />
-                        </group>
-                    </field>
+                        name="property_account_expense"
+                        groups="account.group_account_invoice" />
+                    <field
+                        name="auto_update_account_expense"
+                        groups="account.group_account_invoice" />
+                </field>
             </field>
         </record>
     </data>
