@@ -1,0 +1,59 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_line_default_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.saas~1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-18 16:01+0000\n"
+"PO-Revision-Date: 2013-09-18 16:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_line_default_account
+#: field:res.partner,property_account_expense:0
+msgid "Default Expense Account"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: help:res.partner,property_account_expense:0
+msgid "Default counterpart account for purchases on invoice lines"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: help:res.partner,auto_update_account_expense:0
+msgid "When an account is selected on an invoice line, automatically assign it as default expense account"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: code:addons/account_invoice_line_default_account/model/account_invoice_line.py:27
+#: code:addons/account_invoice_line_default_account/model/account_invoice_line.py:47
+#, python-format
+msgid "No object created for partner %d"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model:ir.model,name:account_invoice_line_default_account.model_account_invoice_line
+msgid "Invoice Line"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: view:res.partner:0
+msgid "autosave from invoice line"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: field:res.partner,auto_update_account_expense:0
+msgid "Autosave Selection on Invoice Line"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model:ir.model,name:account_invoice_line_default_account.model_res_partner
+msgid "Partner"
+msgstr ""
+
