@@ -25,7 +25,7 @@ class res_partner(orm.Model):
             help='Default counterpart account for purchases on invoice lines',
             required=False),
         'auto_update_account_expense': fields.boolean(
-            'Autosave account selected on invoice line',
+            'Autosave Selection on Invoice Line',
             help='When an account is selected on an invoice line, '
                  'automatically assign it as default expense account'),
     }
