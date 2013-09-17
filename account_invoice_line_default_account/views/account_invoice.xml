@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">invoice_line_ids partner context</field>
+        <field name="model">account.invoice</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="invoice_line_ids" position="attributes">
+                <attribute name="context">{'partner_id': partner_id, 'type': type, 'journal_id': journal_id}</attribute>
+            </field>
+        </field>
+    </record>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">invoice_line_ids partner context</field>
+        <field name="model">account.invoice</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="invoice_line_ids" position="attributes">
+                <attribute name="context">{'partner_id': partner_id, 'type': type, 'journal_id': journal_id}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
