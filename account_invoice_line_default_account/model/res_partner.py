@@ -19,14 +19,14 @@ class res_partner(orm.Model):
             'account.account',
             type='many2one',
             relation='account.account',
-            string='Default expense account',
+            string='Default Expense Account',
             view_load=True,
             domain='''[('user_type.report_type', '=', 'expense')]''',
-            help='Default counterpart account for purchases',
+            help='Default counterpart account for purchases on invoice lines',
             required=False),
         'auto_update_account_expense': fields.boolean(
-            'Save account selected on invoice',
-            help='When account selected on invoice, automatically save it'),
+            'Autosave account selected on invoice line',
+            help='When an account is selected on an invoice line, automatically assign it as default expense account'),
     }
     
     _defaults = {
