@@ -13,7 +13,7 @@ from openerp.tools.translate import _
 
 class account_invoice_line(orm.Model):
     _inherit = 'account.invoice.line'
-    
+
     def _account_id_default(self, cr, uid, context=None):
         if context is None:
             context = {}
@@ -32,13 +32,13 @@ class account_invoice_line(orm.Model):
     _defaults = {
         'account_id': _account_id_default,
     }
-    
+
     def onchange_account_id(
             self, cr, uid, ids, product_id, partner_id, inv_type,
             fposition_id, account_id):
         if (account_id and partner_id and (not product_id)
         and inv_type in ['in_invoice', 'in_refund']):
-            # We have a manually entered account_id (no product_id, so the 
+            # We have a manually entered account_id (no product_id, so the
             # account_id is not the result of a product selection).
             # Store this account_id as future default in res_partner.
             partner_model = self.pool.get('res.partner')
