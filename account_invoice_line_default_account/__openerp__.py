@@ -31,7 +31,7 @@
 to select an account which will be used as a counterpart in the generated
 move lines. However, each supplier will mostly be linked to one account. For
 instance when ordering paper from a supplier that deals in paper, the
-counterpart account will mostly be something like 'office expenses'. 
+counterpart account will mostly be something like 'office expenses'.
 This module will add a default counterpart account to a partner (supplier
 only), comparable to the similiar field in product. When a supplier invoice
 is entered, withouth a product, the field from partner will be used as default.

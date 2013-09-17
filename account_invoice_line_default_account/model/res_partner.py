@@ -13,7 +13,7 @@ from openerp.osv import fields
 
 class res_partner(orm.Model):
     _inherit = 'res.partner'
-    
+
     _columns = {
         'property_account_expense': fields.property(
             'account.account',
@@ -26,9 +26,10 @@ class res_partner(orm.Model):
             required=False),
         'auto_update_account_expense': fields.boolean(
             'Autosave account selected on invoice line',
-            help='When an account is selected on an invoice line, automatically assign it as default expense account'),
+            help='When an account is selected on an invoice line, '
+                 'automatically assign it as default expense account'),
     }
-    
+
     _defaults = {
         'auto_update_account_expense': True,
     }
