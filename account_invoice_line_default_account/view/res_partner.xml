@@ -22,11 +22,13 @@
                         <field
                             name="property_account_expense"
                             groups="account.group_account_invoice" />
-                        <field
-                            name="auto_update_account_expense"
-                            nolabel="1"
-                            groups="account.group_account_invoice" />
-                        <label for="auto_update_account_expense" string="autosave from invoice line"/>
+                        <div style=" white-space: nowrap; ">
+                            <field
+                                name="auto_update_account_expense"
+                                nolabel="1"
+                                groups="account.group_account_invoice" />
+                            <label for="auto_update_account_expense" string="autosave from invoice line"/>
+                        </div>
                     </div>
                 </field>
             </field>

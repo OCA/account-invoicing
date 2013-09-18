@@ -20,12 +20,12 @@
 ##############################################################################
 {
     'name': 'Account Invoice Line Default Account',
-    'version': '7.0.r001',
+    'version': '7.0.1.0',
     'depends': [
-        'base',
         'account'
     ],
     'author': 'Therp BV',
+    'contributors': 'Jacques-Etienne Baudoux <je@bcim.be>',
     'category': 'Accounting',
     'description': '''When entering purchase invoices directly, the user has
 to select an account which will be used as a counterpart in the generated
@@ -40,9 +40,9 @@ selectd for a product), the expense account will be automatically linked to
 the partner - unless explicitly disabled in the partner record.
 ''',
     'data': [
-        'view/res_partner_view.xml'
+        'view/res_partner.xml'
     ],
-    'demo_xml': [],
+    'demo': [],
     'test': [],
     'installable': True,
     'active': False,
