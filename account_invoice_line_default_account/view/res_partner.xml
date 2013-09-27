@@ -15,6 +15,23 @@
                 name="arch"
                 type="xml">
                 <field
+                    name="property_account_receivable"
+                    position="after">
+                    <label for="property_account_income" />
+                    <div>
+                        <field
+                            name="property_account_income"
+                            groups="account.group_account_invoice" />
+                        <div style=" white-space: nowrap; ">
+                            <field
+                                name="auto_update_account_income"
+                                nolabel="1"
+                                groups="account.group_account_invoice" />
+                            <label for="auto_update_account_income" string="autosave from invoice line"/>
+                        </div>
+                    </div>
+                </field>
+                <field
                     name="property_account_payable"
                     position="after">
                     <label for="property_account_expense" />
