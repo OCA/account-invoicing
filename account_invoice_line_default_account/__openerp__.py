@@ -41,7 +41,8 @@ invoice line (not automatically selected for a product), the account will be
 automatically linked to the partner as default expense or income account, unless
 explicitly disabled in the partner record.''',
     'data': [
-        'view/res_partner.xml'
+        'view/res_partner.xml',
+        'view/account_invoice.xml',
     ],
     'demo': [],
     'test': [],
