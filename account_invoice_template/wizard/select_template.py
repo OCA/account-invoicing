@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    Copyright (C) 2011 Agile Business Group sagl (<http://www.agilebg.com>)
 #    Copyright (C) 2011 Domsense srl (<http://www.domsense.com>)
 #
@@ -27,9 +27,11 @@ class wizard_select_template(orm.TransientModel):
 
     _name = "wizard.select.invoice.template"
     _columns = {
-        'template_id': fields.many2one('account.invoice.template',
+        'template_id': fields.many2one(
+            'account.invoice.template',
             'Invoice Template', required=True),
-        'line_ids': fields.one2many('wizard.select.invoice.template.line',
+        'line_ids': fields.one2many(
+            'wizard.select.invoice.template.line',
             'template_id', 'Lines'),
         'state': fields.selection([
             ('template_selected', 'Template selected'),
@@ -42,7 +44,8 @@ class wizard_select_template(orm.TransientModel):
         wizard_line_pool = self.pool.get('wizard.select.invoice.template.line')
         model_data_obj = self.pool.get('ir.model.data')
 
-        template = template_pool.browse(cr, uid, wizard.template_id.id,
+        template = template_pool.browse(
+            cr, uid, wizard.template_id.id,
             context=context)
         for line in template.template_line_ids:
             if line.type == 'input':
@@ -50,7 +53,8 @@ class wizard_select_template(orm.TransientModel):
                     'template_id': wizard.id,
                     'sequence': line.sequence,
                     'name': line.name,
-                    'amount': line.product_id and line.product_id.list_price or 0.0,
+                    'amount': (
+                        line.product_id and line.product_id.list_price or 0.0),
                     'account_id': line.account_id.id,
                     'product_id': line.product_id.id,
                     }, context=context)
@@ -58,7 +62,8 @@ class wizard_select_template(orm.TransientModel):
             return self.load_template(cr, uid, ids, context=context)
         wizard.write({'state': 'template_selected'}, context=context)
 
-        view_rec = model_data_obj.get_object_reference(cr, uid,
+        view_rec = model_data_obj.get_object_reference(
+            cr, uid,
             'account_invoice_template', 'wizard_select_template')
         view_id = view_rec and view_rec[1] or False
 
@@ -83,13 +88,15 @@ class wizard_select_template(orm.TransientModel):
 
         wizard = self.browse(cr, uid, ids, context=context)[0]
         if not template_obj.check_zero_lines(cr, uid, wizard):
-            raise orm.except_orm(_('Error !'),
+            raise orm.except_orm(
+                _('Error !'),
                 _('At least one amount has to be non-zero!'))
         input_lines = {}
         for template_line in wizard.line_ids:
             input_lines[template_line.sequence] = template_line.amount
 
-        computed_lines = template_obj.compute_lines(cr, uid,
+        computed_lines = template_obj.compute_lines(
+            cr, uid,
             wizard.template_id.id, input_lines)
 
         inv_values = account_invoice_obj.onchange_partner_id(
@@ -99,7 +106,8 @@ class wizard_select_template(orm.TransientModel):
         inv_values['account_id'] = wizard.template_id.account_id.id
         inv_values['type'] = wizard.template_id.type
         context['type'] = wizard.template_id.type
-        inv_id = account_invoice_obj.create(cr, uid, inv_values, context=context)
+        inv_id = account_invoice_obj.create(
+            cr, uid, inv_values, context=context)
         for line in wizard.template_id.template_line_ids:
             analytic_account_id = False
             if line.analytic_account_id:
@@ -125,7 +133,8 @@ class wizard_select_template(orm.TransientModel):
             xml_id = 'invoice_form'
         else:
             xml_id = 'invoice_supplier_form'
-        resource_id = mod_obj.get_object_reference(cr, uid, 'account', xml_id)[1]
+        resource_id = mod_obj.get_object_reference(
+            cr, uid, 'account', xml_id)[1]
 
         return {
             'domain': "[('id','in', [" + str(inv_id) + "])]",
@@ -144,10 +153,12 @@ class wizard_select_template_line(orm.TransientModel):
     _description = 'Template Lines'
     _name = "wizard.select.invoice.template.line"
     _columns = {
-        'template_id': fields.many2one('wizard.select.invoice.template', 'Template'),
+        'template_id': fields.many2one(
+            'wizard.select.invoice.template', 'Template'),
         'sequence': fields.integer('Number', required=True),
         'name': fields.char('Name', size=64, required=True, readonly=True),
-        'account_id': fields.many2one('account.account', 'Account',
+        'account_id': fields.many2one(
+            'account.account', 'Account',
             required=True, readonly=True),
         'amount': fields.float('Amount', required=True),
         'product_id': fields.many2one('product.product', 'Product'),

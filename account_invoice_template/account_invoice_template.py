@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    Copyright (C) 2011 Agile Business Group sagl (<http://www.agilebg.com>)
 #    Copyright (C) 2011 Domsense srl (<http://www.domsense.com>)
 #
@@ -29,8 +29,10 @@ class account_invoice_template(orm.Model):
 
     _columns = {
         'partner_id': fields.many2one('res.partner', 'Partner', required=True),
-        'account_id': fields.many2one('account.account', 'Account', required=True),
-        'template_line_ids': fields.one2many('account.invoice.template.line',
+        'account_id': fields.many2one(
+            'account.account', 'Account', required=True),
+        'template_line_ids': fields.one2many(
+            'account.invoice.template.line',
             'template_id', 'Template Lines'),
         'type': fields.selection([
             ('out_invoice', 'Customer Invoice'),
@@ -47,14 +49,19 @@ class account_invoice_template_line(orm.Model):
     _inherit = 'account.document.template.line'
 
     _columns = {
-        'account_id': fields.many2one('account.account', 'Account',
-            required=True, domain=[('type', '<>', 'view'), ('type', '<>', 'closed')]),
-        'analytic_account_id': fields.many2one('account.analytic.account',
+        'account_id': fields.many2one(
+            'account.account', 'Account',
+            required=True,
+            domain=[('type', '<>', 'view'), ('type', '<>', 'closed')]),
+        'analytic_account_id': fields.many2one(
+            'account.analytic.account',
             'Analytic Account', ondelete="cascade"),
-        'invoice_line_tax_id': fields.many2many('account.tax',
+        'invoice_line_tax_id': fields.many2many(
+            'account.tax',
             'account_invoice_template_line_tax', 'invoice_line_id', 'tax_id',
             'Taxes', domain=[('parent_id', '=', False)]),
-        'template_id': fields.many2one('account.invoice.template', 'Template',
+        'template_id': fields.many2one(
+            'account.invoice.template', 'Template',
             ondelete='cascade'),
         'product_id': fields.many2one('product.product', 'Product'),
         }
@@ -72,7 +79,8 @@ class account_invoice_template_line(orm.Model):
         if not product_id:
             return {}
 
-        product = self.pool.get('product.product').browse(cr, uid, product_id,
+        product = self.pool.get('product.product').browse(
+            cr, uid, product_id,
             context=context)
 
         # name
