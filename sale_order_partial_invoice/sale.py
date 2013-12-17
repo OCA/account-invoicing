@@ -46,7 +46,6 @@ in picking.
 
 
 """
-import pprint
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -143,10 +142,7 @@ class sale_advance_payment_inv(orm.TransientModel):
     def create_invoices(self, cr, uid, ids, context=None):
         """override standard behavior if payment method is set to 'lines':
         """
-        import pprint
-        pprint.pprint(context)
         res = super(sale_advance_payment_inv, self).create_invoices(cr, uid, ids, context)
-        pprint.pprint(context)
         wizard = self.browse(cr, uid, ids[0], context)
         if wizard.advance_payment_method != 'lines':
             return res
@@ -168,7 +164,6 @@ class sale_advance_payment_inv(orm.TransientModel):
                     val['quantity'] = so_line.product_uom_qty - so_line.qty_invoiced
                 line_values.append((0, 0, val))
         val = {'line_ids': line_values,}
-        pprint.pprint(val)
         wizard_id = wizard_obj.create(cr, uid, val, context=context)
         wiz = wizard_obj.browse(cr, uid, wizard_id, context=context)
         print wiz.line_ids
@@ -229,7 +224,6 @@ class sale_order_line_invoice_partially(orm.TransientModel):
                 ctx['_partial_invoice'][line.sale_order_line_id.id] = line.quantity
         for order_id in order_lines:
             line_ids = order_lines[order_id]
-            pprint.pprint(line_ids)
             invoice_line_ids = so_line_obj.invoice_line_create(cr,
                                                                uid,
                                                                line_ids,
