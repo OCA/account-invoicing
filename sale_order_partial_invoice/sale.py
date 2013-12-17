@@ -131,10 +131,6 @@ class sale_order_line(orm.Model):
         }
 
 
-class sale_order(orm.Model):
-    _inherit = 'sale.order'
-
-
 class sale_advance_payment_inv(orm.TransientModel):
     _inherit = "sale.advance.payment.inv"
 
