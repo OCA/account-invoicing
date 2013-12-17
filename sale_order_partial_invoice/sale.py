@@ -72,9 +72,9 @@ class sale_order_line(orm.Model):
                 res[line.id] = line.qty_invoiced
             else:
                 for move in line.move_ids:
-                    if (move.state == 'done'
-                        and move.picking_id
-                        and move.picking_id.type == 'out'):
+                    if (move.state == 'done' and
+                        move.picking_id and
+                        move.picking_id.type == 'out'):
                         res[line.id] += move.product_qty
         return res
 
@@ -175,6 +175,7 @@ class sale_advance_payment_inv(orm.TransientModel):
                'context': context,
                }
         return res
+
 
 class sale_order_line_invoice_partially_line(orm.TransientModel):
     _name = "sale.order.line.invoice.partially.line"
