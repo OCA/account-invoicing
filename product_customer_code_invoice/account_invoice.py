@@ -31,7 +31,7 @@ class account_invoice_line(orm.Model):
         product_customer_code_obj = self.pool.get('product.customer.code')
         for line in self.browse(cr, uid, ids, context=context):
             res[line.id] = ''
-            partner = line.order_id.partner_id
+            partner = line.partner_id
             product = line.product_id
             if product and partner:
                 code_ids = product_customer_code_obj.search(cr, uid, [
