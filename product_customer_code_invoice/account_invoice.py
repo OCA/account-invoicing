@@ -20,8 +20,8 @@
 ##############################################################################
 from openerp.osv import fields, orm
 
-class account_invoice(orm.Model):
-    _inherit = 'account.invoice'
+class account_invoice_line(orm.Model):
+    _inherit = 'account.invoice.line'
     
     def _get_product_customer_code(self, cr, uid, ids,
                                   name, args, context=None):
