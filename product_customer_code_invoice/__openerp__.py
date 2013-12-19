@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    "name" : "Product Customer code on sale",
+    "name" : "Product Customer code for account invoice",
     "version" : "1.0",
     "author" : "Nicola Malcontenti - AgileBG",
     "website" : "http://www.agilebg.com",
@@ -33,7 +33,7 @@
     "description": "",
     "demo" : [],
     "data" : [
-        'account_invoice.xml',
+        'account_invoice_view.xml',
     ],
     'installable' : True,
     'active' : False,
