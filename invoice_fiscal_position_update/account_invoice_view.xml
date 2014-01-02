@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<record id="invoice_form" model="ir.ui.view">
+    <field name="name">fiscal.position.update.invoice.form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_form"/>
+    <field name="arch" type="xml">
+        <field name="fiscal_position" position="before">
+            <div>
+                <label for="fiscal_position"/>
+                <button name="update_fiscal_position" type="object" states="draft" string="(update)" class="oe_link oe_edit_only" help="Apply new fiscal position on all invoice lines" />
+            </div>
+        </field>
+        <field name="fiscal_position" position="attributes">
+            <attribute name="nolabel">1</attribute>
+        </field>
+    </field>
+</record>
+
+<record id="invoice_supplier_form" model="ir.ui.view">
+    <field name="name">fiscal.position.update.invoice.supplier.form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form"/>
+    <field name="arch" type="xml">
+        <field name="fiscal_position" position="before">
+            <div>
+                <label for="fiscal_position"/>
+                <button name="update_fiscal_position" type="object" states="draft" string="(update)" class="oe_link oe_edit_only" help="Apply new fiscal position on all invoice lines" />
+            </div>
+        </field>
+        <field name="fiscal_position" position="attributes">
+            <attribute name="nolabel">1</attribute>
+        </field>
+    </field>
+</record>
+
+</data>
+</openerp>
