@@ -46,12 +46,14 @@ class account_invoice(orm.Model):
                     product = self.pool['product.product'].browse(
                         cr, uid, line.product_id.id, context=context)
                     if invoice.type in ('out_invoice', 'out_refund'):
-                        account_id = product.property_account_income.id or \
-                            product.categ_id.property_account_income_categ.id
+                        account_id = (
+                            product.property_account_income.id or
+                            product.categ_id.property_account_income_categ.id)
                         taxes = product.taxes_id
                     else:
-                        account_id = product.property_account_expense.id or \
-                            product.categ_id.property_account_expense_categ.id
+                        account_id = (
+                            product.property_account_expense.id or
+                            product.categ_id.property_account_expense_categ.id)
                         taxes = product.supplier_taxes_id
                     taxes = taxes or (
                         account_id

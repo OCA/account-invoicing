@@ -30,7 +30,7 @@
 Invoice Fiscal Position Update
 ==============================
 
-When the invoice is in draft state, you can change the fiscal position and click on a button *(update)* next to the fiscal position to update the taxes and the accounts on all the invoice lines.
+When the invoice is in draft state, you can change the fiscal position and click on a button *(update)* next to the fiscal position to update the taxes and the accounts on all the invoice lines which have a product (the invoice lines without a product are not updated).
 """,
     'author': 'Julius Network Solutions',
     'website': 'http://www.julius.fr/',

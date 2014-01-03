@@ -34,8 +34,8 @@ msgstr "Erreur :"
 
 #. module: invoice_fiscal_position_update
 #: view:account.invoice:0
-msgid "Apply new fiscal position on all invoice lines"
-msgstr "Applique la nouvelle position fiscale sur toutes les lignes de facture"
+msgid "Apply new fiscal position on all invoice lines which have a product"
+msgstr "Applique la nouvelle position fiscale sur toutes les lignes de facture ayant un produit"
 
 #. module: invoice_fiscal_position_update
 #: model:ir.model,name:invoice_fiscal_position_update.model_account_invoice

@@ -10,7 +10,10 @@
         <field name="fiscal_position" position="before">
             <div>
                 <label for="fiscal_position"/>
-                <button name="update_fiscal_position" type="object" states="draft" string="(update)" class="oe_link oe_edit_only" help="Apply new fiscal position on all invoice lines" />
+                <button name="update_fiscal_position" type="object"
+                        states="draft" string="(update)"
+                        class="oe_link oe_edit_only"
+                        help="Apply new fiscal position on all invoice lines which have a product" />
             </div>
         </field>
         <field name="fiscal_position" position="attributes">
@@ -27,7 +30,10 @@
         <field name="fiscal_position" position="before">
             <div>
                 <label for="fiscal_position"/>
-                <button name="update_fiscal_position" type="object" states="draft" string="(update)" class="oe_link oe_edit_only" help="Apply new fiscal position on all invoice lines" />
+                <button name="update_fiscal_position" type="object"
+                        states="draft" string="(update)"
+                        class="oe_link oe_edit_only"
+                        help="Apply new fiscal position on all invoice lines which have a product" />
             </div>
         </field>
         <field name="fiscal_position" position="attributes">
