@@ -29,44 +29,61 @@ from openerp.tools.translate import _
 class account_invoice(orm.Model):
     _inherit = "account.invoice"
 
-    def update_fiscal_position(self, cr, uid, ids, context=None):
-        '''Function executed by the "(update)" button on invoices
-        If the invoices are in draft state, it updates taxes and accounts
-        on all invoice lines'''
+    def fiscal_position_change(
+            self, cr, uid, ids, fiscal_position, context=None):
+        '''Function executed by the on_change on the fiscal_position field
+        of invoice ; it updates taxes and accounts on all invoice lines'''
         fp_obj = self.pool['account.fiscal.position']
-        for invoice in self.browse(cr, uid, ids, context=context):
-            if invoice.state != 'draft':
-                raise orm.except_orm(
-                    _('Error:'),
-                    _('You cannot update the fiscal position because the '
-                        'invoice is not in draft state.'))
-            fp = invoice.fiscal_position
-            for line in invoice.invoice_line:
-                if line.product_id:
-                    product = self.pool['product.product'].browse(
-                        cr, uid, line.product_id.id, context=context)
-                    if invoice.type in ('out_invoice', 'out_refund'):
-                        account_id = (
-                            product.property_account_income.id or
-                            product.categ_id.property_account_income_categ.id)
-                        taxes = product.taxes_id
-                    else:
-                        account_id = (
-                            product.property_account_expense.id or
-                            product.categ_id.property_account_expense_categ.id)
-                        taxes = product.supplier_taxes_id
-                    taxes = taxes or (
-                        account_id
-                        and self.pool['account.account'].browse(
-                            cr, uid, account_id, context=context).tax_ids
-                        or False)
-                    account_id = fp_obj.map_account(
-                        cr, uid, fp, account_id, context=context)
-                    tax_ids = fp_obj.map_tax(
-                        cr, uid, fp, taxes, context=context)
+        assert len(ids) == 1, 'Only one ID allowed'
+        res = {}
+        lines_without_product = []
+        invoice = self.browse(cr, uid, ids[0], context=context)
+        if fiscal_position:
+            fp = fp_obj.browse(cr, uid, fiscal_position, context=context)
+        else:
+            fp = False
+        for line in invoice.invoice_line:
+            if line.product_id:
+                product = self.pool['product.product'].browse(
+                    cr, uid, line.product_id.id, context=context)
+                if invoice.type in ('out_invoice', 'out_refund'):
+                    account_id = (
+                        product.property_account_income.id or
+                        product.categ_id.property_account_income_categ.id)
+                    taxes = product.taxes_id
+                else:
+                    account_id = (
+                        product.property_account_expense.id or
+                        product.categ_id.property_account_expense_categ.id)
+                    taxes = product.supplier_taxes_id
+                taxes = taxes or (
+                    account_id
+                    and self.pool['account.account'].browse(
+                        cr, uid, account_id, context=context).tax_ids
+                    or False)
+                account_id = fp_obj.map_account(
+                    cr, uid, fp, account_id, context=context)
+                tax_ids = fp_obj.map_tax(
+                    cr, uid, fp, taxes, context=context)
 
-                    line.write({
-                        'invoice_line_tax_id': [(6, 0, tax_ids)],
-                        'account_id': account_id,
-                        })
-        return True
+                line.write({
+                    'invoice_line_tax_id': [(6, 0, tax_ids)],
+                    'account_id': account_id,
+                    })
+            else:
+                lines_without_product.append(line.name)
+
+        if lines_without_product:
+            display_line_names = ''
+            for name in lines_without_product:
+                display_line_names += "- %s\n" % name
+            res['warning'] = {
+                'title': _('Warning'),
+                'message': _(
+                    "The following invoice lines were not updated "
+                    "to the new fiscal position because they don't have a "
+                    "product:\n %s\nYou should update these invoice lines "
+                    "manually."
+                    ) % display_line_names,
+            }
+        return res

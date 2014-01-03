@@ -25,18 +25,16 @@
     'version': '1.0',
     'category': 'Accounting & Finance',
     'license': 'AGPL-3',
-    'summary': 'Update the fiscal position of an invoice in one click',
+    'summary': 'Changing the fiscal position of an invoice will auto-update invoice lines',
     'description': """
 Invoice Fiscal Position Update
 ==============================
 
-When the invoice is in draft state, you can change the fiscal position and click on a button *(update)* next to the fiscal position to update the taxes and the accounts on all the invoice lines which have a product (the invoice lines without a product are not updated).
+With this module, when a user changes the fiscal position of an invoice, the taxes and the accounts on all the invoice lines which have a product are automatically updated. The invoice lines without a product are not updated and a warning is displayed to the user in this case.
 """,
-    'author': 'Julius Network Solutions',
-    'website': 'http://www.julius.fr/',
+    'author': 'Julius Network Solutions, Akretion',
     'depends': ['account'],
     'data': ['account_invoice_view.xml'],
-    'images': ['images/invoice_fiscal_position_update.jpg'],
     'installable': True,
     'active': False,
 }

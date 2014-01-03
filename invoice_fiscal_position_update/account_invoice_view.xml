@@ -7,17 +7,8 @@
     <field name="model">account.invoice</field>
     <field name="inherit_id" ref="account.invoice_form"/>
     <field name="arch" type="xml">
-        <field name="fiscal_position" position="before">
-            <div>
-                <label for="fiscal_position"/>
-                <button name="update_fiscal_position" type="object"
-                        states="draft" string="(update)"
-                        class="oe_link oe_edit_only"
-                        help="Apply new fiscal position on all invoice lines which have a product" />
-            </div>
-        </field>
         <field name="fiscal_position" position="attributes">
-            <attribute name="nolabel">1</attribute>
+            <attribute name="on_change">fiscal_position_change(fiscal_position, context)</attribute>
         </field>
     </field>
 </record>
@@ -27,17 +18,8 @@
     <field name="model">account.invoice</field>
     <field name="inherit_id" ref="account.invoice_supplier_form"/>
     <field name="arch" type="xml">
-        <field name="fiscal_position" position="before">
-            <div>
-                <label for="fiscal_position"/>
-                <button name="update_fiscal_position" type="object"
-                        states="draft" string="(update)"
-                        class="oe_link oe_edit_only"
-                        help="Apply new fiscal position on all invoice lines which have a product" />
-            </div>
-        </field>
         <field name="fiscal_position" position="attributes">
-            <attribute name="nolabel">1</attribute>
+            <attribute name="on_change">fiscal_position_change(fiscal_position, context)</attribute>
         </field>
     </field>
 </record>
