@@ -24,7 +24,6 @@
 
 from openerp.osv import orm
 from openerp.tools.translate import _
-from pprint import pprint
 
 
 class account_invoice(orm.Model):
@@ -34,28 +33,28 @@ class account_invoice(orm.Model):
             self, cr, uid, ids, fiscal_position, invoice_line, context=None):
         '''Function executed by the on_change on the fiscal_position field
         of invoice ; it updates taxes and accounts on all invoice lines'''
-        fp_obj = self.pool['account.fiscal.position']
         assert len(ids) == 1, 'Only one ID allowed'
+        fp_obj = self.pool['account.fiscal.position']
         res = {}
-        print "invoice_line="
-        pprint(invoice_line)
-        print "resolve_2many_commands="
-        il_r2c = self.resolve_2many_commands(cr, uid, 'invoice_line', invoice_line, context=context)
-        pprint(il_r2c)
+        iline_dict = self.resolve_2many_commands(
+            cr, uid, 'invoice_line', invoice_line, context=context)
         lines_without_product = []
         invoice = self.browse(cr, uid, ids[0], context=context)
         if fiscal_position:
             fp = fp_obj.browse(cr, uid, fiscal_position, context=context)
         else:
             fp = False
-        for line in il_r2c:
+        for line in iline_dict:
+            # Reformat iline_dict so as to be compatible with what is
+            # accepted in res['value']
+            for key, value in line.items():
+                if isinstance(value, tuple) and len(value) == 2:
+                    if (isinstance(value[0], int)
+                            and isinstance(value[1], (str, unicode))):
+                        line[key] = value[0]
             if line.get('product_id'):
-                if isinstance(line.get('product_id'), int):
-                    product_id = line.get('product_id')
-                else:
-                    product_id = line.get('product_id')[0]
                 product = self.pool['product.product'].browse(
-                    cr, uid, product_id, context=context)
+                    cr, uid, line.get('product_id'), context=context)
                 if invoice.type in ('out_invoice', 'out_refund'):
                     account_id = (
                         product.property_account_income.id or
@@ -81,9 +80,9 @@ class account_invoice(orm.Model):
                     'account_id': account_id,
                     })
             else:
-                lines_without_product.append(line.name)
+                lines_without_product.append(line.get('name'))
         res['value'] = {}
-        res['value']['invoice_line'] = il_r2c
+        res['value']['invoice_line'] = iline_dict
 
         if lines_without_product:
             display_line_names = ''
@@ -93,11 +92,9 @@ class account_invoice(orm.Model):
                 'title': _('Warning'),
                 'message': _(
                     "The following invoice lines were not updated "
-                    "to the new fiscal position because they don't have a "
-                    "product:\n %s\nYou should update these invoice lines "
-                    "manually."
+                    "to the new Fiscal Position because they don't have a "
+                    "Product:\n %s\nYou should update the Account and the "
+                    "Taxes of these invoice lines manually."
                     ) % display_line_names,
             }
-        print "res="
-        pprint(res)
         return res
