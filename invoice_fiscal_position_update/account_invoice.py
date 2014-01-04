@@ -24,28 +24,38 @@
 
 from openerp.osv import orm
 from openerp.tools.translate import _
+from pprint import pprint
 
 
 class account_invoice(orm.Model):
     _inherit = "account.invoice"
 
     def fiscal_position_change(
-            self, cr, uid, ids, fiscal_position, context=None):
+            self, cr, uid, ids, fiscal_position, invoice_line, context=None):
         '''Function executed by the on_change on the fiscal_position field
         of invoice ; it updates taxes and accounts on all invoice lines'''
         fp_obj = self.pool['account.fiscal.position']
         assert len(ids) == 1, 'Only one ID allowed'
         res = {}
+        print "invoice_line="
+        pprint(invoice_line)
+        print "resolve_2many_commands="
+        il_r2c = self.resolve_2many_commands(cr, uid, 'invoice_line', invoice_line, context=context)
+        pprint(il_r2c)
         lines_without_product = []
         invoice = self.browse(cr, uid, ids[0], context=context)
         if fiscal_position:
             fp = fp_obj.browse(cr, uid, fiscal_position, context=context)
         else:
             fp = False
-        for line in invoice.invoice_line:
-            if line.product_id:
+        for line in il_r2c:
+            if line.get('product_id'):
+                if isinstance(line.get('product_id'), int):
+                    product_id = line.get('product_id')
+                else:
+                    product_id = line.get('product_id')[0]
                 product = self.pool['product.product'].browse(
-                    cr, uid, line.product_id.id, context=context)
+                    cr, uid, product_id, context=context)
                 if invoice.type in ('out_invoice', 'out_refund'):
                     account_id = (
                         product.property_account_income.id or
@@ -66,12 +76,14 @@ class account_invoice(orm.Model):
                 tax_ids = fp_obj.map_tax(
                     cr, uid, fp, taxes, context=context)
 
-                line.write({
+                line.update({
                     'invoice_line_tax_id': [(6, 0, tax_ids)],
                     'account_id': account_id,
                     })
             else:
                 lines_without_product.append(line.name)
+        res['value'] = {}
+        res['value']['invoice_line'] = il_r2c
 
         if lines_without_product:
             display_line_names = ''
@@ -86,4 +98,6 @@ class account_invoice(orm.Model):
                     "manually."
                     ) % display_line_names,
             }
+        print "res="
+        pprint(res)
         return res
