@@ -49,9 +49,7 @@ class account_invoice(orm.Model):
             # accepted in res['value']
             for key, value in line.iteritems():
                 if isinstance(value, tuple) and len(value) == 2:
-                    if (isinstance(value[0], int)
-                            and isinstance(value[1], (str, unicode))):
-                        line[key] = value[0]
+                    line[key] = value[0]
             if line.get('product_id'):
                 product = self.pool['product.product'].browse(
                     cr, uid, line.get('product_id'), context=context)
