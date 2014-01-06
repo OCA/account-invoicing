@@ -34,7 +34,7 @@ msgid "The following invoice lines were not updated to the new Fiscal Position b
 "You should update the Account and the Taxes of these invoice lines manually."
 msgstr "Les lignes de facture suivantes n'ont pas été mise-à-jour suite au changement de la position fiscale car elle ne contiennent pas de produit :\n"
 " %s\n"
-"Vous devez mettre à jour le compte comptable et les taxes de ces lignes de facture manuellement."
+"Vous devez mettre à jour manuellement le compte comptable et les taxes de ces lignes de facture."
 
 #. module: invoice_fiscal_position_update
 #: model:ir.model,name:invoice_fiscal_position_update.model_account_invoice
@@ -47,5 +47,5 @@ msgstr "Facture"
 msgid "The invoice lines were not updated to the new Fiscal Position because they don't have products.\n"
 "You should update the Account and the Taxes of each invoice line manually."
 msgstr "Les lignes de facture n'ont pas été mise-à-jour suite au changement de la position fiscale car elle ne contiennent pas de produit.\n"
-"Vous devez mettre à jour le compte comptable et les taxes manuellement sur chaque ligne de facture."
+"Vous devez mettre à jour manuellement le compte comptable et les taxes sur chaque ligne de facture."
 

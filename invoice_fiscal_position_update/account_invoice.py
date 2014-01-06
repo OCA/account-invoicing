@@ -37,15 +37,15 @@ class account_invoice(orm.Model):
         assert len(ids) in (0, 1), 'One ID max'
         fp_obj = self.pool['account.fiscal.position']
         res = {}
-        iline_dict = self.resolve_2many_commands(
+        line_dict = self.resolve_2many_commands(
             cr, uid, 'invoice_line', invoice_line, context=context)
         lines_without_product = []
         if fiscal_position:
             fp = fp_obj.browse(cr, uid, fiscal_position, context=context)
         else:
             fp = False
-        for line in iline_dict:
-            # Reformat iline_dict so as to be compatible with what is
+        for line in line_dict:
+            # Reformat line_dict so as to be compatible with what is
             # accepted in res['value']
             for key, value in line.iteritems():
                 if isinstance(value, tuple) and len(value) == 2:
@@ -80,11 +80,11 @@ class account_invoice(orm.Model):
             else:
                 lines_without_product.append(line.get('name'))
         res['value'] = {}
-        res['value']['invoice_line'] = iline_dict
+        res['value']['invoice_line'] = line_dict
 
         if lines_without_product:
             res['warning'] = {'title': _('Warning')}
-            if len(lines_without_product) == len(iline_dict):
+            if len(lines_without_product) == len(line_dict):
                 res['warning']['message'] = _(
                     "The invoice lines were not updated to the new "
                     "Fiscal Position because they don't have products.\n"
