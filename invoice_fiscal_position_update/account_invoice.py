@@ -47,7 +47,7 @@ class account_invoice(orm.Model):
         for line in iline_dict:
             # Reformat iline_dict so as to be compatible with what is
             # accepted in res['value']
-            for key, value in line.items():
+            for key, value in line.iteritems():
                 if isinstance(value, tuple) and len(value) == 2:
                     if (isinstance(value[0], int)
                             and isinstance(value[1], (str, unicode))):
