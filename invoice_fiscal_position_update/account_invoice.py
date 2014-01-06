@@ -30,16 +30,16 @@ class account_invoice(orm.Model):
     _inherit = "account.invoice"
 
     def fiscal_position_change(
-            self, cr, uid, ids, fiscal_position, invoice_line, context=None):
+            self, cr, uid, ids, fiscal_position, type, invoice_line,
+            context=None):
         '''Function executed by the on_change on the fiscal_position field
         of invoice ; it updates taxes and accounts on all invoice lines'''
-        assert len(ids) == 1, 'Only one ID allowed'
+        assert len(ids) in (0, 1), 'One ID max'
         fp_obj = self.pool['account.fiscal.position']
         res = {}
         iline_dict = self.resolve_2many_commands(
             cr, uid, 'invoice_line', invoice_line, context=context)
         lines_without_product = []
-        invoice = self.browse(cr, uid, ids[0], context=context)
         if fiscal_position:
             fp = fp_obj.browse(cr, uid, fiscal_position, context=context)
         else:
@@ -55,7 +55,7 @@ class account_invoice(orm.Model):
             if line.get('product_id'):
                 product = self.pool['product.product'].browse(
                     cr, uid, line.get('product_id'), context=context)
-                if invoice.type in ('out_invoice', 'out_refund'):
+                if type in ('out_invoice', 'out_refund'):
                     account_id = (
                         product.property_account_income.id or
                         product.categ_id.property_account_income_categ.id)
@@ -85,16 +85,21 @@ class account_invoice(orm.Model):
         res['value']['invoice_line'] = iline_dict
 
         if lines_without_product:
-            display_line_names = ''
-            for name in lines_without_product:
-                display_line_names += "- %s\n" % name
-            res['warning'] = {
-                'title': _('Warning'),
-                'message': _(
+            res['warning'] = {'title': _('Warning')}
+            if len(lines_without_product) == len(iline_dict):
+                res['warning']['message'] = _(
+                    "The invoice lines were not updated to the new "
+                    "Fiscal Position because they don't have products.\n"
+                    "You should update the Account and the Taxes of each "
+                    "invoice line manually.")
+            else:
+                display_line_names = ''
+                for name in lines_without_product:
+                    display_line_names += "- %s\n" % name
+                res['warning']['message'] = _(
                     "The following invoice lines were not updated "
                     "to the new Fiscal Position because they don't have a "
                     "Product:\n %s\nYou should update the Account and the "
                     "Taxes of these invoice lines manually."
                     ) % display_line_names,
-            }
         return res
