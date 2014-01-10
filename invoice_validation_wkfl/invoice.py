@@ -93,8 +93,8 @@ class AccountInvoiceRefund(orm.TransientModel):
                     raise osv.except_osv(_('Error !'), _('Can not %s draft/proforma/cancel invoice.') % (mode))
                 if inv.reconciled and mode in ('cancel', 'modify'):
                     raise osv.except_osv(_('Error !'), _('Can not %s invoice which is already reconciled, invoice should be unreconciled first. You can only Refund this invoice') % (mode))
-                if form['period']:
-                    period = form['period']
+                if form.get('period', False):
+                    period = form['period'][0]
                 else:
                     period = inv.period_id and inv.period_id.id or False
 
