@@ -45,7 +45,7 @@ class ResCompany(orm.Model):
                  "choose 'Round per line' because you certainly want the sum "
                  "of your tax-included line subtotals to be equal to the "
                  "total amount with taxes."),
-        'tax_calculution_rounding_account_id': fields.many2one(
+        'tax_calculation_rounding_account_id': fields.many2one(
             'account.account',
             'Tax Rounding Account',
             domain=[('type', '<>', 'view')]),
