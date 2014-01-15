@@ -21,7 +21,7 @@
 {
     "name" : "Product Customer code for account invoice",
     "version" : "1.0",
-    "author" : "Nicola Malcontenti - AgileBG",
+    "author" : "Agile Business Group",
     "website" : "http://www.agilebg.com",
     "category" : "Account",
     "depends" : [
@@ -30,7 +30,11 @@
         'account',
         'product_customer_code'
     ],
-    "description": "",
+    "description": """
+    Based on product_customer_code,
+    this module loads in every account invoice
+    the customer code defined in the product,
+    """,
     "demo" : [],
     "data" : [
         'account_invoice_view.xml',
