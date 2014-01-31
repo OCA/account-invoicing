@@ -1,0 +1,169 @@
+-
+ Create stockable products for testing purpose
+-
+  !record {model: product.product, id: product_stockable}:
+    name: 'LCD Projector'
+    list_price: 1234.99
+    type: product
+    procure_method: 'make_to_stock'
+-
+  !record {model: product.product, id: product_service}:
+    name: 'LCD Projector 3 Year Warranty'
+    list_price: 299.99
+    type: service
+    procure_method: 'make_to_stock'
+-
+  !record {model: product.product, id: product_consumable}:
+    name: 'Spare screws'
+    list_price: 1.22
+    type: consu
+    procure_method: 'make_to_stock'
+-
+ Create stock for the stockable product
+- 
+  !record {model: stock.move, id: move1}:
+    location_id: stock.stock_location_suppliers
+    location_dest_id: stock.stock_location_stock
+    product_id: product_stockable
+    product_qty: 5
+    state: done
+-
+ Create a sale order for the above
+-
+  !record {model: sale.order, id: sale_order2}:
+    partner_id: base.res_partner_2
+    order_policy: manual
+    order_line:
+      - product_id: product_stockable
+        product_uom_qty: 3
+      - product_id: product_service
+        product_uom_qty: 3
+      - product_id: product_consumable
+        product_uom_qty: 12
+-
+ Confirm Order
+-
+  !workflow {model: sale.order, action: order_confirm, ref: sale_order2}
+-
+ Partial delivery
+-
+  !python {model: stock.picking}: |
+    delivery_orders = self.search(cr, uid, [('sale_id','=',ref("sale_order_partial_invoice.sale_order2"))])
+    first_picking = self.browse(cr, uid, delivery_orders[-1], context=context)
+    if first_picking.force_assign(cr, uid, first_picking):
+      assert len(first_picking.move_lines) == 2, "wrong count of stock moves"
+      partial_moves = {}
+      for move in first_picking.move_lines:
+        partial_moves['move%s' % move.id] = {'product_qty': move.product_qty / 3, 'product_uom':ref('product.product_uom_unit')}
+      first_picking.do_partial(partial_moves, context=context)
+-
+ Create partial invoice
+-
+   !python {model: sale.order.line.invoice.partially}: |
+    sale_obj = self.pool['sale.order']
+    sale = sale_obj.browse(cr, uid, ref("sale_order_partial_invoice.sale_order2"), context=context)
+    wiz_data = {'name': 'wiz1',
+                'line_ids': [(0, 0, {'sale_order_line_id': sale.order_line[0].id, 'quantity': 1}),
+                             (0, 0, {'sale_order_line_id': sale.order_line[1].id, 'quantity': 1}),
+                             (0, 0, {'sale_order_line_id': sale.order_line[2].id, 'quantity': 4}),
+                            ],
+                }
+    id = self.create(cr, uid, wiz_data, context=context)
+    self.create_invoice(cr, uid, [id], context=context)
+-
+ Check the 1st invoice is created
+-
+  !python {model: sale.order}: |
+    order = self.browse(cr, uid, ref('sale_order2'))
+    assert len(order.invoice_ids) == 1, "I should have 1 invoice"
+-
+ Check qty_invoiced 4
+-
+  !assert {model: sale.order, id: sale_order2, string: qty_invoiced not correctly implemented}:
+    - order_line[0].qty_invoiced == 1
+    - order_line[1].qty_invoiced == 1
+    - order_line[2].qty_invoiced == 4
+-
+ Check qty_delivered 4
+-
+  !assert {model: sale.order, id: sale_order2, string: qty_delivered not correctly implemented}:
+    - order_line[0].qty_delivered == 1
+    - order_line[1].qty_delivered == 1
+    - order_line[2].qty_delivered == 4
+-
+ Partial delivery 2
+-
+  !python {model: stock.picking}: |
+    delivery_orders = self.search(cr, uid, [('sale_id','=',ref("sale_order_partial_invoice.sale_order2")), ('state', '!=', 'done')])
+    picking = self.browse(cr, uid, delivery_orders[-1], context=context)
+    if picking.force_assign(cr, uid, picking):
+      assert len(picking.move_lines) == 2, "wrong count of stock moves"
+      partial_moves = {}
+      for move in picking.move_lines:
+        partial_moves['move%s' % move.id] = {'product_qty': move.product_qty, 'product_uom': ref('product.product_uom_unit')}
+      picking.do_partial(partial_moves, context=context)
+-
+  I invoice the remaining of the SO
+-
+  !python {model: sale.advance.payment.inv}: |
+    ctx = context.copy()
+    ctx.update({"active_model": 'sale.order', "active_ids": [ref("sale_order2")], "active_id":ref("sale_order2")})
+    pay_id = self.create(cr, uid, {'advance_payment_method': 'all'})
+    self.create_invoices(cr, uid, [pay_id], context=ctx)
+-
+ Check the invoiced qtys in the invoice
+-
+  !python {model: sale.order}: |
+    order = self.browse(cr, uid, ref('sale_order2'))
+    assert len(order.invoice_ids) == 2, "I should have 2 invoices"
+-
+ Check qty_invoiced 5
+-
+  !assert {model: sale.order, id: sale_order2, string: qty_invoiced not correctly implemented}:
+    - order_line[0].qty_invoiced == 3
+    - order_line[1].qty_invoiced == 3
+    - order_line[2].qty_invoiced == 12
+-
+ Check qty_delivered 5
+-
+  !assert {model: sale.order, id: sale_order2, string: qty_delivered not correctly implemented}:
+    - order_line[0].qty_delivered == 3
+    - order_line[1].qty_delivered == 3
+    - order_line[2].qty_delivered == 12
+-
+  I confirm the invoices
+-
+  !python {model: sale.order}: |
+    import netsvc
+    wf_service = netsvc.LocalService("workflow")
+    so = self.browse(cr, uid, ref("sale_order2"))
+    for invoice in so.invoice_ids:
+      wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
+-
+  I pay the invoices.
+-
+  !python {model: account.invoice}: |
+    sale_order = self.pool.get('sale.order')
+    order = sale_order.browse(cr, uid, ref("sale_order2"))
+    journal_ids = self.pool.get('account.journal').search(cr, uid, [('type', '=', 'cash'), ('company_id', '=', order.company_id.id)], limit=1)
+    for invoice in order.invoice_ids:
+        invoice.pay_and_reconcile(
+            invoice.amount_total, ref('account.cash'), ref('account.period_8'),
+            journal_ids[0], ref('account.cash'),
+            ref('account.period_8'), journal_ids[0],
+            name='test')
+-
+  I run the scheduler (required to get the correct sale order state)
+-
+  !python {model: procurement.order}: |
+    self.run_scheduler(cr, uid)
+-
+  I check sale order
+-
+  !python {model: sale.order}: |
+    sale_order = self.browse(cr, uid, ref("sale_order2"))
+    assert sale_order.invoice_ids, "Invoice should be created."
+    assert sale_order.invoice_exists, "Order is not invoiced."
+    assert sale_order.invoiced, "Order is not paid."
+    assert sale_order.state == 'done', 'Order should be Done.'
+

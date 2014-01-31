@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="view_order_line_tree" model="ir.ui.view">
+      <field name="name">sale.order.line.tree</field>
+      <field name="model">sale.order.line</field>
+      <field name="inherit_id" ref="sale.view_order_line_tree"/>
+      <field name="arch" type="xml">
+        <field name="product_uom_qty" position="after">
+          <field name="qty_invoiced" string="Inv. Qty"/>
+          <field name="qty_delivered" string="Shipped Qty"/>
+        </field>
+      </field>
+    </record>
+
+    <record id="view_order_line_form2" model="ir.ui.view">
+      <field name="name">sale.order.line.form2</field>
+      <field name="model">sale.order.line</field>
+      <field name="inherit_id" ref="sale.view_order_line_form2"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='product_uom_qty']/.." position="after">
+          <field name="qty_invoiced" />
+          <field name="qty_delivered"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_sale_order_invoice_partially_form" model="ir.ui.view">
+      <field name="name">sale.order.line.invoice.partially.form</field>
+      <field name="model">sale.order.line.invoice.partially</field>
+      <field name="arch" type="xml">
+        <form version="7.0" string="Invoice Sale Order Lines">
+        <sheet>
+          <separator string="Invoice lines"/>
+          <group>
+            <field name="line_ids" nolabel="1">
+              <tree version="7.0" string="Lines" create="false" editable="bottom">
+                <field name="sale_order_line_id" invisible="1"/>
+                <field name="name"/>
+                <field name="order_qty"/>
+                <field name="qty_invoiced"/>
+                <field name="qty_delivered"/>
+                <field name="quantity"/>
+              </tree>
+            </field>
+          </group>
+        </sheet>
+        <footer>
+          <button name="create_invoice" type="object" string="Create Invoice" class="oe_highlight"/>
+            or
+            <button string="Cancel" class="oe_link" special="cancel" />
+        </footer>
+        </form>
+      </field>
+    </record>
+
+  </data>
+</openerp>
