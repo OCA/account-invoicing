@@ -31,6 +31,14 @@ or kept as user input. If user input, when using the template, user has to fill
 the amount of every input lines.
 The invoice form allows lo load, through a wizard, the template to use and the
 amounts to fill.
+
+
+Contributors
+------------
+
+Lorenzo Battistini <lorenzo.battistini@agilebg.com>
+Leonardo Pistone <leonardo.pistone@camptocamp.com>
+Franco Tampieri <franco@tampieri.info>
 """,
     'author': 'Agile Business Group',
     'website': 'http://www.agilebg.com',
