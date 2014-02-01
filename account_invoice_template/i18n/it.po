@@ -6,20 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 6.0.3\n"
 "Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-11-02 10:30+0000\n"
-"PO-Revision-Date: 2011-11-02 11:35+0100\n"
-"Last-Translator: Lorenzo Battistini <lorenzo.battistini@agilebg.com>\n"
+"POT-Creation-Date: 2011-10-31 16:49+0000\n"
+"PO-Revision-Date: 2014-02-01 04:48+0000\n"
+"Last-Translator: Lorenzo Battistini - Agile BG "
+"<lorenzo.battistini@agilebg.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-
-#. module: account_invoice_template
-#: view:account.invoice.template.line:0
-#: view:wizard.select.invoice.template.line:0
-msgid "Invoice Template Line"
-msgstr "Riga template fattura"
+"X-Launchpad-Export-Date: 2014-02-01 06:53+0000\n"
+"X-Generator: Launchpad (build 16916)\n"
 
 #. module: account_invoice_template
 #: selection:account.invoice.template,type:0
@@ -51,9 +47,10 @@ msgid "Number"
 msgstr "Numero"
 
 #. module: account_invoice_template
-#: view:account.invoice.template:0
-msgid "Group By..."
-msgstr "Raggruppa per..."
+#: selection:account.invoice.template,type:0
+#: selection:wizard.select.invoice.template.line,type:0
+msgid "Supplier Invoice"
+msgstr "Fattura fornitore"
 
 #. module: account_invoice_template
 #: field:account.invoice.template.line,template_id:0
@@ -79,7 +76,7 @@ msgid "wizard.select.invoice.template"
 msgstr "wizard.select.invoice.template"
 
 #. module: account_invoice_template
-#: code:addons/account_invoice_template/wizard/select_template.py:67
+#: code:addons/account_invoice_template/wizard/select_template.py:66
 #, python-format
 msgid "Error !"
 msgstr "Errore !"
@@ -90,23 +87,10 @@ msgid "User input"
 msgstr "Input utente"
 
 #. module: account_invoice_template
-#: model:ir.module.module,description:account_invoice_template.module_meta_information
-msgid ""
-"\n"
-"======================\n"
-"Templates for Invoices\n"
-"======================\n"
-"User can configure invoice templates, useful for recurring invoices.\n"
-"The amount of each template line can be computed (through python code) or kept as user input. If user input, when using the template, user has to fill the amount of every input lines.\n"
-"The invoice form allows lo load, through a wizard, the template to use and the amounts to fill.\n"
-msgstr ""
-"\n"
-"======================\n"
-"Templates for Invoices\n"
-"======================\n"
-"User can configure invoice templates, useful for recurring invoices.\n"
-"The amount of each template line can be computed (through python code) or kept as user input. If user input, when using the template, user has to fill the amount of every input lines.\n"
-"The invoice form allows lo load, through a wizard, the template to use and the amounts to fill.\n"
+#: view:account.invoice.template.line:0
+#: view:wizard.select.invoice.template.line:0
+msgid "Invoice Template Line"
+msgstr "Riga template fattura"
 
 #. module: account_invoice_template
 #: field:account.invoice.template,account_id:0
@@ -133,7 +117,7 @@ msgid "Taxes"
 msgstr "Imposte"
 
 #. module: account_invoice_template
-#: code:addons/account_invoice_template/wizard/select_template.py:67
+#: code:addons/account_invoice_template/wizard/select_template.py:66
 #, python-format
 msgid "At least one amount has to be non-zero!"
 msgstr "Almeno un importo deve essere diverso da zero!"
@@ -167,19 +151,20 @@ msgid "The sequence of the line must be unique per template !"
 msgstr "Il numero della riga deve essere unico per template!"
 
 #. module: account_invoice_template
-#: model:ir.module.module,shortdesc:account_invoice_template.module_meta_information
-msgid "Account Invoice Template"
-msgstr "Account Invoice Template"
-
-#. module: account_invoice_template
 #: view:wizard.select.invoice.template:0
 msgid "Load"
 msgstr "Carica"
 
 #. module: account_invoice_template
 #: view:account.invoice.template.line:0
-msgid "You can refer to other lines using their sequence number (e.g. 'L(1)' for first line). Examples of code: 'L(1) * 0.2'; 'L(2) - L(1)'; 'L(1) + L(2) + L(3)'; '1250'"
-msgstr "E' possibile fare riferimento alle altre righe usando il loro numero (ad es. 'L(1)' rappresenta la prima riga). Esempi di codice: 'L(1) * 0.2'; 'L(2) - L(1)'; 'L(1) + L(2) + L(3)'; '1250'"
+msgid ""
+"You can refer to other lines using their sequence number (e.g. 'L(1)' for "
+"first line). Examples of code: 'L(1) * 0.2'; 'L(2) - L(1)'; 'L(1) + L(2) + "
+"L(3)'; '1250'"
+msgstr ""
+"E' possibile fare riferimento alle altre righe usando il loro numero (ad es. "
+"'L(1)' rappresenta la prima riga). Esempi di codice: 'L(1) * 0.2'; 'L(2) - "
+"L(1)'; 'L(1) + L(2) + L(3)'; '1250'"
 
 #. module: account_invoice_template
 #: selection:account.invoice.template.line,type:0
@@ -187,10 +172,9 @@ msgid "Computed"
 msgstr "Calcolato"
 
 #. module: account_invoice_template
-#: selection:account.invoice.template,type:0
-#: selection:wizard.select.invoice.template.line,type:0
-msgid "Supplier Invoice"
-msgstr "Fattura fornitore"
+#: view:account.invoice.template:0
+msgid "Group By..."
+msgstr "Raggruppa per..."
 
 #. module: account_invoice_template
 #: view:account.invoice.template.line:0
@@ -226,3 +210,28 @@ msgstr "Annulla"
 msgid "Partner"
 msgstr "Partner"
 
+#~ msgid ""
+#~ "\n"
+#~ "======================\n"
+#~ "Templates for Invoices\n"
+#~ "======================\n"
+#~ "User can configure invoice templates, useful for recurring invoices.\n"
+#~ "The amount of each template line can be computed (through python code) or "
+#~ "kept as user input. If user input, when using the template, user has to fill "
+#~ "the amount of every input lines.\n"
+#~ "The invoice form allows lo load, through a wizard, the template to use and "
+#~ "the amounts to fill.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "======================\n"
+#~ "Templates for Invoices\n"
+#~ "======================\n"
+#~ "User can configure invoice templates, useful for recurring invoices.\n"
+#~ "The amount of each template line can be computed (through python code) or "
+#~ "kept as user input. If user input, when using the template, user has to fill "
+#~ "the amount of every input lines.\n"
+#~ "The invoice form allows lo load, through a wizard, the template to use and "
+#~ "the amounts to fill.\n"
+
+#~ msgid "Account Invoice Template"
+#~ msgstr "Account Invoice Template"
