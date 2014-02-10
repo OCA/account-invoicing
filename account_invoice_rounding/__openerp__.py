@@ -18,11 +18,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{'name' : 'Unit rounded invoice',
- 'version' : '1.0',
+{'name': 'Unit rounded invoice',
+ 'version': '1.0',
  'category': 'Accounting',
- 'description':
-"""
+ 'description': """
 Unit rounded invoice (_`Swedish rounding`)
 ==========================================
 
@@ -46,10 +45,10 @@ You can choose the account on which the invoice line will be written
 
 .. _Swedish rounding : https://en.wikipedia.org/wiki/Swedish_rounding
 """,
- 'author' : 'Camptocamp',
+ 'author': 'Camptocamp',
  'maintainer': 'Camptocamp',
  'website': 'http://www.camptocamp.com/',
- 'depends' : ['account'],
+ 'depends': ['account'],
  'data': ['res_config_view.xml'],
  'test': [],
  'installable': True,
