@@ -26,7 +26,7 @@
         'account'
     ],
     'author': 'Therp BV',
-    'contributors': 'Jacques-Etienne Baudoux <je@bcim.be>',
+    'contributors': ['Jacques-Etienne Baudoux <je@bcim.be>'],
     'category': 'Accounting',
     'description': '''When entering sales or purchase invoices directly, the
 user has to select an account which will be used as a counterpart in the
