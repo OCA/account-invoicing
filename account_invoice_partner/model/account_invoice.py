@@ -21,7 +21,7 @@
 from openerp.osv import orm
 
 
-class accountInvoice(orm.Model):
+class AccountInvoice(orm.Model):
     _inherit = 'account.invoice'
 
     def onchange_partner_id(
@@ -31,17 +31,14 @@ class accountInvoice(orm.Model):
         """
         Replace the selected partner with the preferred invoice contact
         """
+        partner_invoice_id = partner_id
         if partner_id:
             partner_invoice_id = self.pool.get('res.partner').address_get(
                 cr, uid, [partner_id], adr_pref=['invoice'])['invoice']
-            if partner_invoice_id != partner_id:
-                result = self.onchange_partner_id(
-                    cr, uid, ids, type, partner_invoice_id,
-                    date_invoice=date_invoice, payment_term=payment_term,
-                    partner_bank_id=partner_bank_id, company_id=company_id)
-                result['value']['partner_id'] = partner_invoice_id
-                return result
-        return super(accountInvoice, self).onchange_partner_id(
-            cr, uid, ids, type, partner_id,
+        result = super(AccountInvoice, self).onchange_partner_id(
+            cr, uid, ids, type, partner_invoice_id,
             date_invoice=date_invoice, payment_term=payment_term,
             partner_bank_id=partner_bank_id, company_id=company_id)
+        if partner_invoice_id != partner_id:
+            result['value']['partner_id'] = partner_invoice_id
+        return result
