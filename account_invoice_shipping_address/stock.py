@@ -32,4 +32,4 @@ class stock_picking(orm.Model):
     		cr, uid, picking, partner, inv_type, journal_id, context=context)
     	if picking and picking.partner_id:
         	invoice_vals['address_shipping_id'] = picking.partner.id
-    return invoice_vals
+    	return invoice_vals
