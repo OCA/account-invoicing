@@ -22,3 +22,4 @@
 
 import invoice
 import sale
+import stock
