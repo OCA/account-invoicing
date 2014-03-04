@@ -22,7 +22,7 @@
 
 {
     'name': 'Account Invoice Merge Wizard',
-    'version': '1.1',
+    'version': '1.1.1',
     'category': 'Finance',
     'description': """
 This module adds an action in the invoices lists to merge of invoices. Here are the condition to allow merge:
