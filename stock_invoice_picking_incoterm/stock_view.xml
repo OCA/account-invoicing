@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="stock.view_picking_out_form"/>
             <field name="arch" type="xml">
                 <xpath expr="/form/sheet/notebook/page[@string='Additional Info']/group/group/field[@name='date_done']" position="after">
-                    <field name="incoterm"/>
+                    <field name="incoterm" widget="selection"/>
                 </xpath>
             </field>
         </record>
@@ -17,7 +17,7 @@
             <field name="inherit_id" ref="stock.view_picking_in_form"/>
             <field name="arch" type="xml">
                 <xpath expr="/form/sheet/notebook/page[@string='Additional Info']/group/group/field[@name='date_done']" position="after">
-                    <field name="incoterm"/>
+                    <field name="incoterm" widget="selection"/>
                 </xpath>
             </field>
         </record>
