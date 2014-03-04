@@ -26,10 +26,11 @@ from openerp.tools.translate import _
 class stock_picking(orm.Model):
     _inherit = "stock.picking"
 
-    def _prepare_invoice(self, cr, uid, picking,
-    	partner, inv_type, journal_id, context=None):
-    	invoice_vals = super(stock_picking, self)._prepare_invoice(
-    		cr, uid, picking, partner, inv_type, journal_id, context=context)
-    	if picking and picking.partner_id:
-        	invoice_vals['address_shipping_id'] = picking.partner_id.id
+    def _prepare_invoice(
+            self, cr, uid, picking, partner,
+            inv_type, journal_id, context=None):
+        invoice_vals = super(stock_picking, self)._prepare_invoice(
+            cr, uid, picking, partner, inv_type, journal_id, context=context)
+        if picking and picking.partner_id:
+            invoice_vals['address_shipping_id'] = picking.partner_id.id
         return invoice_vals
