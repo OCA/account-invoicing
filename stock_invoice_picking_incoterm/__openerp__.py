@@ -24,7 +24,12 @@
     'version': '0.1',
     'category': 'Warehouse Management',
     'description': """
-    """,
+This module adds the field incoterm to invoice and picking. In this way the
+user can specify the incoterm directly on these documents, with no need to
+refer to the incoterm of the order (which could even be missing).
+The module extends 'stock_invoice_picking' so that the invoices created
+from pickings will have the same incoterm set in the picking.
+""",
     'author': 'Agile Business Group',
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
