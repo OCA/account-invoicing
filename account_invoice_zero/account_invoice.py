@@ -19,7 +19,10 @@
 #
 ##############################################################################
 
+from functools import partial
+
 from openerp.osv import orm
+from openerp.tools.float_utils import float_is_zero
 
 
 class account_invoice(orm.Model):
@@ -28,14 +31,17 @@ class account_invoice(orm.Model):
     def invoice_validate(self, cr, uid, ids, context=None):
         result = super(account_invoice, self).invoice_validate(
             cr, uid, ids, context=context)
+        dp_obj = self.pool['decimal.precision']
+        precision = dp_obj.precision_get(cr, uid, 'Account')
+        is_zero = partial(float_is_zero, precision_digits=precision)
         for invoice in self.browse(cr, uid, ids, context=context):
-            if not invoice.amount_total:
+            if is_zero(invoice.amount_total):
                 account = invoice.account_id.id
                 # search the payable / receivable lines
                 lines = [line for line in invoice.move_id.line_id
                          if line.account_id.id == account]
                 # reconcile the lines with a zero balance
-                if not sum(line.debit - line.credit for line in lines):
+                if is_zero(sum(line.debit - line.credit for line in lines)):
                     move_line_obj = self.pool['account.move.line']
                     move_line_obj.reconcile(cr, uid,
                                             [line.id for line in lines],
