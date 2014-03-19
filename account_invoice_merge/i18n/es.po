@@ -1,57 +1,59 @@
-# Translation of OpenERP Server.
-# This file contains the translation of the following modules:
-#	* account_invoice_merge
+# Spanish translation for account-invoicing
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the account-invoicing package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.3\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
+"Project-Id-Version: account-invoicing\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-06-25 08:40+0000\n"
-"PO-Revision-Date: 2014-01-17 18:31+0000\n"
-"Last-Translator: Alexis de Lattre <alexis@via.ecp.fr>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2014-04-25 14:09+0000\n"
+"Last-Translator: Pedro Manuel Baeza <pedro.baeza@gmail.com>\n"
+"Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-03-21 06:54+0000\n"
-"X-Generator: Launchpad (build 16967)\n"
+"X-Launchpad-Export-Date: 2014-04-26 07:12+0000\n"
+"X-Generator: Launchpad (build 16985)\n"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:34
 #, python-format
 msgid "Please select multiple invoice to merge in the list view."
-msgstr "请在列表里选择多个发票来合并。"
+msgstr ""
+"Seleccione por favor múltiples facturas a ser unidad en la vista de listado"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:44
 #, python-format
 msgid "Not all invoices are at the same company!"
-msgstr ""
+msgstr "¡No todas las facturas son de la misma compañía!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:40
 #, python-format
 msgid "At least one of the selected invoices is %s!"
-msgstr ""
+msgstr "¡Al menos una de las facturas seleccionadas está %s!"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 #: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_invoice_merge
 msgid "Merge Partner Invoice"
-msgstr "合并合作伙伴发票"
+msgstr "Unir facturas"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
 #, python-format
 msgid "Not all invoices are of the same type!"
-msgstr ""
+msgstr "¡No todas las facturas son del mismo tipo!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:107
 #, python-format
 msgid "Partner Invoice"
-msgstr "合作伙伴发票"
+msgstr "Factura"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
@@ -69,32 +71,32 @@ msgid ""
 "unit \n"
 " "
 msgstr ""
-" 请注意： \n"
+" Tenga en cuenta que las facturas sólo se unirán si:\n"
+" * Están en borrador.\n"
+" * Pertenecen al mismo cliente/proveedor.\n"
+" * Tienen la misma compañía, dirección, moneda, diario, comercial, cuenta y "
+"tipo\n"
 " \n"
-"仅符合下列条件的发票，才会被合并： \n"
-" * 发票确认之前，还在草稿状态。 \n"
-" * 发票属于同一合作伙伴。 \n"
-" * 发票属于同一公司，有相同币别，账簿，业务员，科目及类型等。 \n"
-" \n"
-" 发票明细仅在符合下列条件才被合并： \n"
-" * 发票明细除了产品，数量，价格，金额等字段相同才被合并。 \n"
+" Las líneas se unirán si: \n"
+" * Son exactamente iguales a excepción de la cantidad del producto y/o la "
+"unidad \n"
 " "
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "or"
-msgstr ""
+msgstr "o"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
 #, python-format
 msgid "Not all invoices use the same account!"
-msgstr ""
+msgstr "¡No todas las facturas usan la misma cuenta!"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "Merge Invoices"
-msgstr "合并发票"
+msgstr "Unir facturas"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:40
@@ -106,43 +108,43 @@ msgstr "合并发票"
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:52
 #, python-format
 msgid "Warning"
-msgstr "警告"
+msgstr "Aviso"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:34
 #, python-format
 msgid "Warning!"
-msgstr ""
+msgstr "Aviso"
 
 #. module: account_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_account_invoice
 msgid "Invoice"
-msgstr "发票"
+msgstr "Factura"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "Cancel"
-msgstr "取消"
+msgstr "Cancelar"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:52
 #, python-format
 msgid "Not all invoices are at the same journal!"
-msgstr ""
+msgstr "¡No todas las facturas tienen el mismo diario!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:50
 #, python-format
 msgid "Not all invoices are at the same currency!"
-msgstr ""
+msgstr "¡No todas las facturas tienen la misma moneda!"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "Are you sure you want to merge these invoices ?"
-msgstr "您确认合并这些发票？"
+msgstr "¿Está seguro que quiere unir las facturas?"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:46
 #, python-format
 msgid "Not all invoices are for the same partner!"
-msgstr ""
+msgstr "¡No todas las facturas tienen la misma empresa!"
