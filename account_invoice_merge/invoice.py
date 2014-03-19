@@ -183,11 +183,16 @@ class account_invoice(orm.Model):
                     po_obj.write(cr, uid, [org_po.id], {'invoice_ids': [(4, new_invoice_id)]}, context)
 
         # recreate link (if any) between original analytic account line (invoice time sheet for example) and this new invoice
-        account_analytic_line_obj = self.pool.get('account.analytic.line')
-        for new_invoice_id in invoices_info:
-                todo_ids = account_analytic_line_obj.search(cr, uid, [('invoice_id', 'in', invoices_info[new_invoice_id])], context=context)
-                for aa_line in account_analytic_line_obj.browse(cr, uid, todo_ids, context=context):
-                    account_analytic_line_obj.write(cr, uid, [aa_line.id], {'invoice_id': new_invoice_id}, context)
+        anal_line_obj = self.pool.get('account.analytic.line')
+        if 'invoice_id' in anal_line_obj._columns:
+            for new_invoice_id in invoices_info:
+                todo_ids = anal_line_obj.search(
+                    cr, uid,
+                    [('invoice_id', 'in', invoices_info[new_invoice_id])],
+                    context=context)
+                anal_line_obj.write(
+                    cr, uid, todo_ids, {'invoice_id': new_invoice_id},
+                    context=context)
 
         return invoices_info
 
