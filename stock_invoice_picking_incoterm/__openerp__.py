@@ -33,13 +33,16 @@ from pickings will have the same incoterm set in the picking.
     'author': 'Agile Business Group',
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
-    "depends": [
+    'depends': [
         'stock_invoice_picking',
     ],
-    "data": [
+    'data': [
         'account_invoice_view.xml',
         'stock_view.xml',
     ],
-    "active": False,
-    "installable": True
+    'test': [
+        'test/invoice_picking_incoterm.yml',
+    ]
+    'active': False,
+    'installable': True
 }
