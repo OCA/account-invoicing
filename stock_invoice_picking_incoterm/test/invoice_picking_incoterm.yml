@@ -39,8 +39,7 @@
 -
   I check that the invoice incoterm has equal to stock incoterm.
 -
-  !python {model: account.invoice}: |
-    picking_obj = self.pool.get('stock.picking')
-    picking = picking_obj.browse(cr, uid, [ref('stock_picking_out0')])
+  !python {model: stock.picking}: |
+    picking = self.browse(cr, uid, ref('stock_picking_out0'))
     assert picking.invoice_id.incoterm == picking.incoterm, 'The incoterm values are different'
 
