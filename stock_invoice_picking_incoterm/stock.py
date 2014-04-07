@@ -35,8 +35,8 @@ class stock_picking(orm.Model):
     }
 
     def _prepare_invoice_group(
-        self, cr, uid, picking, partner, invoice, context=None
-    ):
+            self, cr, uid, picking,
+            partner, invoice, context=None):
         invoice_vals = super(stock_picking, self)._prepare_invoice_group(
             cr, uid, picking, partner, invoice, context)
         if picking.incoterm:
@@ -44,8 +44,8 @@ class stock_picking(orm.Model):
         return invoice_vals
 
     def _prepare_invoice(
-        self, cr, uid, picking, partner, inv_type, journal_id, context=None
-    ):
+            self, cr, uid, picking,
+            partner, inv_type, journal_id, context=None):
         invoice_vals = super(stock_picking, self)._prepare_invoice(
             cr, uid, picking, partner, inv_type, journal_id, context=context)
         if picking.incoterm:
@@ -60,20 +60,20 @@ class stock_picking_in(orm.Model):
         'incoterm': fields.many2one(
             'stock.incoterms',
             'Incoterm',
-            help="International Commercial Terms are a series of predefined \
+            help="International Commercial Terms are a series of predefined\
             commercial terms used in international transactions."
         ),
     }
 
     def _prepare_invoice_group(
-        self, cr, uid, picking, partner, invoice, context=None
-    ):
+            self, cr, uid, picking,
+            partner, invoice, context=None):
         return self.pool.get('stock.picking')._prepare_invoice_group(
             cr, uid, picking, partner, invoice, context=context)
 
     def _prepare_invoice(
-        self, cr, uid, picking, partner, inv_type, journal_id, context=None
-    ):
+            self, cr, uid, picking,
+            partner, inv_type, journal_id, context=None):
         return self.pool.get('stock.picking')._prepare_invoice(
             cr, uid, picking, partner, inv_type, journal_id, context=context)
 
@@ -85,19 +85,19 @@ class stock_picking_out(orm.Model):
         'incoterm': fields.many2one(
             'stock.incoterms',
             'Incoterm',
-            help="International Commercial Terms are a series of predefined \
+            help="International Commercial Terms are a series of predefined\
             commercial terms used in international transactions."
         ),
     }
 
     def _prepare_invoice_group(
-        self, cr, uid, picking, partner, invoice, context=None
-    ):
+            self, cr, uid, picking,
+            partner, invoice, context=None):
         return self.pool.get('stock.picking')._prepare_invoice_group(
             cr, uid, picking, partner, invoice, context=context)
 
     def _prepare_invoice(
-        self, cr, uid, picking, partner, inv_type, journal_id, context=None
-    ):
+            self, cr, uid, picking,
+            partner, inv_type, journal_id, context=None):
         return self.pool.get('stock.picking')._prepare_invoice(
             cr, uid, picking, partner, inv_type, journal_id, context=context)
