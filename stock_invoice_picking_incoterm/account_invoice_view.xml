@@ -7,9 +7,9 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
-                <xpath expr="/form/sheet/notebook/page[@string='Other Info']/group/group/field[@name='date_due']" position="after">
+                <field name="date_due" position="after">
                     <field name="incoterm" widget="selection"/>
-                </xpath>
+                </field>
             </field>
         </record>
 
