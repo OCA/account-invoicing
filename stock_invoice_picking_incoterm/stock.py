@@ -29,7 +29,7 @@ class stock_picking(orm.Model):
         'incoterm': fields.many2one(
             'stock.incoterms',
             'Incoterm',
-            help="International Commercial Terms are a series of predefined \
+            help="International Commercial Terms are a series of predefined\
             commercial terms used in international transactions."
         ),
     }
