@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-13 14:27+0000\n"
-"PO-Revision-Date: 2014-03-13 14:27+0000\n"
+"POT-Creation-Date: 2014-04-07 08:03+0000\n"
+"PO-Revision-Date: 2014-04-07 08:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,6 @@ msgstr ""
 
 #. module: stock_invoice_picking_incoterm
 #: help:account.invoice,incoterm:0
-#: help:stock.picking,incoterm:0
 #: help:stock.picking.in,incoterm:0
 #: help:stock.picking.out,incoterm:0
 msgid "International Commercial Terms are a series of predefined             commercial terms used in international transactions."
@@ -44,6 +43,11 @@ msgstr ""
 #. module: stock_invoice_picking_incoterm
 #: model:ir.model,name:stock_invoice_picking_incoterm.model_stock_picking
 msgid "Picking List"
+msgstr ""
+
+#. module: stock_invoice_picking_incoterm
+#: help:stock.picking,incoterm:0
+msgid "International Commercial Terms are a series of predefined            commercial terms used in international transactions."
 msgstr ""
 
 #. module: stock_invoice_picking_incoterm
