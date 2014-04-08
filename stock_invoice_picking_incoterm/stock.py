@@ -29,8 +29,8 @@ class stock_picking(orm.Model):
         'incoterm': fields.many2one(
             'stock.incoterms',
             'Incoterm',
-            help="International Commercial Terms are a series of predefined\
-            commercial terms used in international transactions."
+            help="International Commercial Terms are a series of predefined "
+            "commercial terms used in international transactions."
         ),
     }
 
@@ -60,8 +60,8 @@ class stock_picking_in(orm.Model):
         'incoterm': fields.many2one(
             'stock.incoterms',
             'Incoterm',
-            help="International Commercial Terms are a series of predefined\
-            commercial terms used in international transactions."
+            help="International Commercial Terms are a series of predefined "
+            "commercial terms used in international transactions."
         ),
     }
 
@@ -85,8 +85,8 @@ class stock_picking_out(orm.Model):
         'incoterm': fields.many2one(
             'stock.incoterms',
             'Incoterm',
-            help="International Commercial Terms are a series of predefined\
-            commercial terms used in international transactions."
+            help="International Commercial Terms are a series of predefined "
+            "commercial terms used in international transactions."
         ),
     }
 
