@@ -1,0 +1,53 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* stock_invoice_picking_incoterm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-08 07:22+0000\n"
+"PO-Revision-Date: 2014-04-08 07:22+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_invoice_picking_incoterm
+#: field:account.invoice,incoterm:0
+#: field:stock.picking,incoterm:0
+#: field:stock.picking.in,incoterm:0
+#: field:stock.picking.out,incoterm:0
+msgid "Incoterm"
+msgstr ""
+
+#. module: stock_invoice_picking_incoterm
+#: model:ir.model,name:stock_invoice_picking_incoterm.model_stock_picking_in
+msgid "Incoming Shipments"
+msgstr ""
+
+#. module: stock_invoice_picking_incoterm
+#: model:ir.model,name:stock_invoice_picking_incoterm.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: stock_invoice_picking_incoterm
+#: model:ir.model,name:stock_invoice_picking_incoterm.model_stock_picking
+msgid "Picking List"
+msgstr ""
+
+#. module: stock_invoice_picking_incoterm
+#: model:ir.model,name:stock_invoice_picking_incoterm.model_stock_picking_out
+msgid "Delivery Orders"
+msgstr ""
+
+#. module: stock_invoice_picking_incoterm
+#: help:account.invoice,incoterm:0
+#: help:stock.picking,incoterm:0
+#: help:stock.picking.in,incoterm:0
+#: help:stock.picking.out,incoterm:0
+msgid "International Commercial Terms are a series of predefined commercial terms used in international transactions."
+msgstr ""
+
