@@ -24,7 +24,7 @@
     'version': '0.1',
     'category': 'Generic Modules/Accounting',
     'description': """
-This module allows to do not use the picking name on the picking lines.
+This module allows to not use the picking name on the picking lines.
 To do so, the user has to belong to
 group_not_use_picking_name_per_picking_line.
 This is possible by selecting the related option in the following menu:
