@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-19 15:35+0000\n"
-"PO-Revision-Date: 2014-05-19 15:35+0000\n"
+"POT-Creation-Date: 2014-05-19 15:51+0000\n"
+"PO-Revision-Date: 2014-05-19 15:51+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,8 @@ msgstr ""
 
 #. module: invoice_line_no_picking_name
 #: field:stock.config.settings,group_not_use_picking_name_per_picking_line:0
-msgid "Allow do not using the picking name on the picking lines"
-msgstr "Allow do not using the picking name on the picking lines"
+msgid "Allow not using the picking name on the picking lines"
+msgstr "Allow not using the picking name on the picking lines"
 
 #. module: invoice_line_no_picking_name
 #: model:res.groups,name:invoice_line_no_picking_name.group_not_use_picking_name_per_picking_line
@@ -26,14 +26,14 @@ msgid "Not use picking name on picking lines"
 msgstr "Not use picking name on picking lines"
 
 #. module: invoice_line_no_picking_name
-#: help:stock.config.settings,group_not_use_picking_name_per_picking_line:0
-msgid "Allows you to do not use the picking name on the picking lines."
-msgstr "Allows you to do not use the picking name on the picking lines."
-
-#. module: invoice_line_no_picking_name
 #: model:ir.model,name:invoice_line_no_picking_name.model_stock_config_settings
 msgid "stock.config.settings"
 msgstr "stock.config.settings"
+
+#. module: invoice_line_no_picking_name
+#: help:stock.config.settings,group_not_use_picking_name_per_picking_line:0
+msgid "Allows you to not use the picking name on the picking lines."
+msgstr "Allows you to not use the picking name on the picking lines."
 
 #. module: invoice_line_no_picking_name
 #: model:ir.model,name:invoice_line_no_picking_name.model_stock_picking
