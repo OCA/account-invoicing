@@ -3,7 +3,7 @@
 #
 #    Author: Alex Comba <alex.comba@agilebg.com>
 #    Copyright (C) 2014 Agile Business Group sagl
-#	 (<http://www.agilebg.com>)
+#   (<http://www.agilebg.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
