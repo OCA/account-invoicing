@@ -9,8 +9,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//label[@for='group_uos']" position="after">
                     <div>
-                        <field name="group_not_use_picking_name_per_picking_line" class="oe_inline"/>
-                        <label for="group_not_use_picking_name_per_picking_line"/>
+                        <field name="group_not_use_picking_name_per_invoice_line" class="oe_inline"/>
+                        <label for="group_not_use_picking_name_per_invoice_line"/>
                     </div>
                 </xpath>
             </field>

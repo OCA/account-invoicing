@@ -26,7 +26,7 @@
     'description': """
 This module allows to not use the picking name on the invoice lines.
 To do so, the user has to belong to
-group_not_use_picking_name_per_picking_line.
+group_not_use_picking_name_per_invoice_line.
 This is possible by selecting the related option in the following menu:
 
 Settings --> Configuration --> Warehouse --> Products
@@ -38,7 +38,7 @@ Settings --> Configuration --> Warehouse --> Products
         'sale_stock',
     ],
     "data": [
-        'security/stock_security.xml',
+        'security/invoice_security.xml',
         'res_config_view.xml',
     ],
     'test': [

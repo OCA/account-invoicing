@@ -27,10 +27,10 @@ class stock_config_settings(osv.TransientModel):
     _inherit = 'stock.config.settings'
 
     _columns = {
-        'group_not_use_picking_name_per_picking_line': fields.boolean(
-            "Allow not using the picking name on the picking lines",
+        'group_not_use_picking_name_per_invoice_line': fields.boolean(
+            "Allow not using the picking name on the invoice lines",
             implied_group="invoice_line_no_picking_name."
-            "group_not_use_picking_name_per_picking_line",
-            help="Allows you to not use the picking name on the picking lines."
+            "group_not_use_picking_name_per_invoice_line",
+            help="Allows you to not use the picking name on the invoice lines."
         ),
     }
