@@ -1,6 +1,6 @@
 -
     In order to test invoice_line_no_picking_name,
-    I assign group_use_product_description_per_invoice_line group to the admin user.
+    I assign group_not_use_picking_name_per_invoice_line group to the admin user.
 -
     !record {model: res.users, id: base.user_root}:
         groups_id:
