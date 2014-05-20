@@ -30,22 +30,21 @@ class stock_picking(orm.Model):
             self, cr, uid, group, picking, move_line,
             invoice_id, invoice_vals, context=None
     ):
-        user = self.pool.get('res.users').browse(
-            cr, uid, uid, context=context)
-        user_groups = [g.id for g in user.groups_id]
-        ref = self.pool.get('ir.model.data').get_object_reference(
-            cr, uid, 'invoice_line_no_picking_name',
-            'group_not_use_picking_name_per_picking_line'
+        res = super(stock_picking, self)._prepare_invoice_line(
+            cr, uid, group, picking, move_line,
+            invoice_id, invoice_vals, context=context
         )
-
-        if ref and len(ref) > 1 and ref[1]:
-            group_id = ref[1]
-            if group_id in user_groups:
-                group = False
-                # so the field name it's not created using the picking name
-            res = super(stock_picking, self)._prepare_invoice_line(
-                cr, uid, group, picking, move_line,
-                invoice_id, invoice_vals, context=context
+        if move_line:
+            user = self.pool.get('res.users').browse(
+                cr, uid, uid, context=context)
+            user_groups = [g.id for g in user.groups_id]
+            ref = self.pool.get('ir.model.data').get_object_reference(
+                cr, uid, 'invoice_line_no_picking_name',
+                'group_not_use_picking_name_per_picking_line'
             )
 
+            if ref and len(ref) > 1 and ref[1]:
+                group_id = ref[1]
+                if group_id in user_groups:
+                    res['name'] = move_line.name
         return res
