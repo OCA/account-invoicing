@@ -37,8 +37,7 @@
         assert len(sale_order.picking_ids) == 1, "'There are more than one matching picking, while only one was expected."
         picking_ids = [x.id for x in sale_order.picking_ids]
         wiz_id = self.create(cr, uid, {'journal_id': ref('account.sales_journal'), 'group': True},
-            context={'active_ids': picking_ids, 'active_model': 'stock.picking'}
-        )
+            context={'active_ids': picking_ids, 'active_model': 'stock.picking'})
         self.create_invoice(cr, uid, [wiz_id], {"active_ids": picking_ids, "active_id": picking_ids[0]})
 -
     I check the invoice details after dispatched delivery.
