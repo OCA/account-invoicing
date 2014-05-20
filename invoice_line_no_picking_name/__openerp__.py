@@ -44,6 +44,5 @@ Settings --> Configuration --> Warehouse --> Products
     'test': [
         'test/invoice_line_no_picking_name.yml',
     ],
-    "active": False,
     "installable": True
 }
