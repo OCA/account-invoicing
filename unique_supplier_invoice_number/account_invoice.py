@@ -27,6 +27,13 @@ from openerp.tools.translate import _
 class account_invoice(orm.Model):
     _inherit = "account.invoice"
 
+    def copy(self, cr, uid, id, default=None, context=None):
+        default = default or {}
+        default.update({
+            'supplier_invoice_number': '',
+        })
+        return super(account_invoice, self).copy(cr, uid, id, default, context)
+
     def _check_unique_supplier_invoice_number_insensitive(self, cr, uid, ids,
                                                           context=None):
         sr_ids = self.search(cr, uid, [], context=context)
