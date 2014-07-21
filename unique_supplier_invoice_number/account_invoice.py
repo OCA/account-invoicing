@@ -20,7 +20,6 @@
 #
 ##############################################################################
 
-
 from openerp.osv import orm
 from openerp.tools.translate import _
 
