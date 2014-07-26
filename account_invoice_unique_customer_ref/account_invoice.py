@@ -3,7 +3,7 @@
 #
 # OpenERP, Open Source Management Solution
 # This module copyright (C) 2010 - 2014 Savoir-faire Linux
-# (<http://www.savoirfairelinux.com>).
+#    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -35,7 +35,7 @@ class account_invoice(orm.Model):
         return super(account_invoice, self).copy(cr, uid, id, default, context)
 
     def _check_unique_name_insensitive(self, cr, uid, ids, context=None):
-        # this function only works with one ids
+        # this function only works with one id
         if ids:
             i_id = ids[0]
         else:
@@ -48,7 +48,9 @@ class account_invoice(orm.Model):
         if invoice_type not in ['out_invoice', 'out_refund']:
             return True
 
-        sr_ids = self.search(cr, uid, [("type", "=", invoice_type), ("partner_id", "=", invoice_partner.id)],
+        sr_ids = self.search(cr, uid,
+                             [("type", "=", invoice_type),
+                              ("partner_id", "=", invoice_partner.id)],
                              context=context)
 
         lst = [

@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 # #############################################################################
 #
-# OpenERP, Open Source Management Solution
-# This module copyright (C) 2010 - 2014 Savoir-faire Linux
-# (<http://www.savoirfairelinux.com>).
+#    OpenERP, Open Source Management Solution
+#    This module copyright (C) 2010 - 2014 Savoir-faire Linux
+#    (<http://www.savoirfairelinux.com>).
 #
-# This program is free software: you can redistribute it and/or modify
+#    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
 #    License, or (at your option) any later version.
@@ -36,16 +36,19 @@ class account_invoice(orm.Model):
 
     def _check_unique_supplier_invoice_number_insensitive(self, cr, uid, ids,
                                                           context=None):
-        # this function only works with one ids
+        # this function only works with one id
         if ids:
             i_id = ids[0]
         else:
-            raise orm.except_orm(_('Error'), 'Cannot check unique supplier ref without id.')
+            raise orm.except_orm(
+                _('Error'),
+                'Cannot check unique supplier ref without id.')
 
         invoice = self.browse(cr, uid, i_id, context=context)
         invoice_partner = invoice.partner_id
 
-        sr_ids = self.search(cr, uid, [("partner_id", "=", invoice_partner.id)],
+        sr_ids = self.search(cr, uid,
+                             [("partner_id", "=", invoice_partner.id)],
                              context=context)
         lst = [
             x.supplier_invoice_number.lower() for x in
@@ -57,7 +60,7 @@ class account_invoice(orm.Model):
         return True
 
     msg = _(
-        'The supplier invoice number must be unique for each client order !')
+        'The supplier invoice number must be unique for each supplier !')
     _constraints = [
         (_check_unique_supplier_invoice_number_insensitive, msg,
          ['supplier_invoice_number'])]

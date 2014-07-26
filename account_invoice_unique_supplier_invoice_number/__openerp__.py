@@ -21,7 +21,7 @@
 ##############################################################################
 
 {
-    'name': 'Unique Supplier Invoice Number',
+    'name': 'Unique Supplier Invoice Number in Invoice',
     "version": "1.0",
     'author': 'Savoir-faire Linux',
     'maintainer': 'Savoir-faire Linux',
