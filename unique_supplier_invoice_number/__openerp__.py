@@ -33,10 +33,11 @@ Unique Supplier Invoice Number
 ==============================
 
 This module adds a insensitive constraint on the supplier_invoice_number field:
-(supplier_id, supplier_invoice_number) must be unique.
+(partner_id, supplier_invoice_number) must be unique.
 
 Contributors
 ------------
+* Marc Cassuto (marc.cassuto@savoirfairelinux.com)
 * Mathieu Benoit (mathieu.benoit@savoirfairelinux.com)
     """,
     'depends': [

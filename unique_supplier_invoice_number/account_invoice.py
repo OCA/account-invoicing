@@ -5,7 +5,7 @@
 # This module copyright (C) 2010 - 2014 Savoir-faire Linux
 # (<http://www.savoirfairelinux.com>).
 #
-#    This program is free software: you can redistribute it and/or modify
+# This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
 #    License, or (at your option) any later version.
@@ -36,16 +36,24 @@ class account_invoice(orm.Model):
 
     def _check_unique_supplier_invoice_number_insensitive(self, cr, uid, ids,
                                                           context=None):
-        sr_ids = self.search(cr, uid, [], context=context)
+        # this function only works with one ids
+        if ids:
+            i_id = ids[0]
+        else:
+            raise orm.except_orm(_('Error'), 'Cannot check unique supplier ref without id.')
+
+        invoice = self.browse(cr, uid, i_id, context=context)
+        invoice_partner = invoice.partner_id
+
+        sr_ids = self.search(cr, uid, [("partner_id", "=", invoice_partner.id)],
+                             context=context)
         lst = [
             x.supplier_invoice_number.lower() for x in
             self.browse(cr, uid, sr_ids, context=context)
             if x.supplier_invoice_number and x.id not in ids
         ]
-        for self_obj in self.browse(cr, uid, ids, context=context):
-            if self_obj.supplier_invoice_number \
-                    and self_obj.supplier_invoice_number.lower() in lst:
-                return False
+        if invoice.supplier_invoice_number and invoice.supplier_invoice_number.lower() in lst:
+            return False
         return True
 
     msg = _(
