@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# ##############################################################################
+# #############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    This module copyright (C) 2010 - 2014 Savoir-faire Linux
@@ -24,7 +24,7 @@ from openerp.osv import orm
 from openerp.tools.translate import _
 
 
-class AccountInvoice(orm.Model):
+class account_invoice(orm.Model):
     _inherit = "account.invoice"
 
     def copy(self, cr, uid, ids, default=None, context=None):
@@ -32,7 +32,7 @@ class AccountInvoice(orm.Model):
         default.update({
             'name': '',
         })
-        return super(AccountInvoice, self).copy(cr, uid, ids, default, context)
+        return super(account_invoice, self).copy(cr, uid, ids, default, context)
 
     def _check_unique_name_insensitive(self, cr, uid, ids, context=None):
         # this function only works with one id
@@ -40,7 +40,7 @@ class AccountInvoice(orm.Model):
             i_id = ids[0]
         else:
             raise orm.except_orm(_('Error'),
-                                 'Cannot check unique name without id.')
+                                 _('Cannot check unique name without id.'))
 
         invoice = self.browse(cr, uid, i_id, context=context)
         invoice_type = invoice.type
