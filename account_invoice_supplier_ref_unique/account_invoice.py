@@ -37,7 +37,7 @@ class AccountInvoice(orm.Model):
     def _check_unique_supplier_invoice_number_insensitive(self, cr, uid, ids,
                                                           context=None):
         # this function only works with one id
-        if ids:
+        if ids and len(ids) == 1:
             i_id = ids[0]
         else:
             raise orm.except_orm(
@@ -60,8 +60,12 @@ class AccountInvoice(orm.Model):
             return False
         return True
 
-    msg = _(
-        'The supplier invoice number must be unique for each supplier !')
+    def _rec_message(self, cr, uid, ids, context=None):
+        return _('TThe supplier invoice number must be unique \
+                 for each supplier !')
+
     _constraints = [
-        (_check_unique_supplier_invoice_number_insensitive, msg,
-         ['supplier_invoice_number'])]
+        (_check_unique_supplier_invoice_number_insensitive,
+         _rec_message,
+         ['name'])
+    ]
