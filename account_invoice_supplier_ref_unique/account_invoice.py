@@ -42,7 +42,7 @@ class AccountInvoice(orm.Model):
         else:
             raise orm.except_orm(
                 _('Error'),
-                'Cannot check unique supplier ref without id.')
+                _('Cannot check unique supplier ref without id.'))
 
         invoice = self.browse(cr, uid, i_id, context=context)
         invoice_partner = invoice.partner_id
@@ -67,5 +67,5 @@ class AccountInvoice(orm.Model):
     _constraints = [
         (_check_unique_supplier_invoice_number_insensitive,
          _rec_message,
-         ['name'])
+         ['supplier_invoice_number'])
     ]
