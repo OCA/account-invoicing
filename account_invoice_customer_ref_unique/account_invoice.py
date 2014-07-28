@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-###############################################################################
+# ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    This module copyright (C) 2010 - 2014 Savoir-faire Linux
@@ -36,7 +36,7 @@ class AccountInvoice(orm.Model):
 
     def _check_unique_name_insensitive(self, cr, uid, ids, context=None):
         # this function only works with one id
-        if ids:
+        if ids and len(ids) == 1:
             i_id = ids[0]
         else:
             raise orm.except_orm(_('Error'),
