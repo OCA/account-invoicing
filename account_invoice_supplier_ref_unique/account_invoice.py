@@ -61,7 +61,7 @@ class AccountInvoice(orm.Model):
         return True
 
     def _rec_message(self, cr, uid, ids, context=None):
-        return _('TThe supplier invoice number must be unique \
+        return _('The supplier invoice number must be unique \
                  for each supplier !')
 
     _constraints = [
