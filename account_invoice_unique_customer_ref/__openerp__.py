@@ -32,8 +32,8 @@
 Unique Supplier Invoice Number
 ==============================
 
-This module adds a insensitive constraint on the name Customer Reference (name field):
-(partner_id, name) must be unique.
+This module adds a insensitive constraint on the name Customer Reference
+(name field): (partner_id, name) must be unique.
 
 Contributors
 ------------
@@ -41,7 +41,7 @@ Contributors
 * Mathieu Benoit (mathieu.benoit@savoirfairelinux.com)
     """,
     'depends': [
-        'account'
+        'account',
     ],
     'installable': True,
 }

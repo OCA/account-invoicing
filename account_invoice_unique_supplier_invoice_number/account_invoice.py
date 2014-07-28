@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# #############################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    This module copyright (C) 2010 - 2014 Savoir-faire Linux
@@ -18,21 +18,21 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+###############################################################################
 
 from openerp.osv import orm
 from openerp.tools.translate import _
 
 
-class account_invoice(orm.Model):
+class AccountInvoice(orm.Model):
     _inherit = "account.invoice"
 
-    def copy(self, cr, uid, id, default=None, context=None):
+    def copy(self, cr, uid, ids, default=None, context=None):
         default = default or {}
         default.update({
             'supplier_invoice_number': '',
         })
-        return super(account_invoice, self).copy(cr, uid, id, default, context)
+        return super(AccountInvoice, self).copy(cr, uid, ids, default, context)
 
     def _check_unique_supplier_invoice_number_insensitive(self, cr, uid, ids,
                                                           context=None):
@@ -55,7 +55,8 @@ class account_invoice(orm.Model):
             self.browse(cr, uid, sr_ids, context=context)
             if x.supplier_invoice_number and x.id not in ids
         ]
-        if invoice.supplier_invoice_number and invoice.supplier_invoice_number.lower() in lst:
+        if (invoice.supplier_invoice_number
+                and invoice.supplier_invoice_number.lower() in lst):
             return False
         return True
 

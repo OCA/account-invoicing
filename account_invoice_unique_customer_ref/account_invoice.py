@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-# #############################################################################
+###############################################################################
 #
-# OpenERP, Open Source Management Solution
-# This module copyright (C) 2010 - 2014 Savoir-faire Linux
+#    OpenERP, Open Source Management Solution
+#    This module copyright (C) 2010 - 2014 Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -18,28 +18,29 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+###############################################################################
 
 from openerp.osv import orm
 from openerp.tools.translate import _
 
 
-class account_invoice(orm.Model):
+class AccountInvoice(orm.Model):
     _inherit = "account.invoice"
 
-    def copy(self, cr, uid, id, default=None, context=None):
+    def copy(self, cr, uid, ids, default=None, context=None):
         default = default or {}
         default.update({
             'name': '',
         })
-        return super(account_invoice, self).copy(cr, uid, id, default, context)
+        return super(AccountInvoice, self).copy(cr, uid, ids, default, context)
 
     def _check_unique_name_insensitive(self, cr, uid, ids, context=None):
         # this function only works with one id
         if ids:
             i_id = ids[0]
         else:
-            raise orm.except_orm(_('Error'), 'Cannot check unique name without id.')
+            raise orm.except_orm(_('Error'),
+                                 'Cannot check unique name without id.')
 
         invoice = self.browse(cr, uid, i_id, context=context)
         invoice_type = invoice.type
@@ -62,8 +63,9 @@ class account_invoice(orm.Model):
             return False
         return True
 
-    msg = _(
-        'The customer reference must be unique for each customer !')
+    def _rec_message(self, cr, uid, ids, context=None):
+        return _('The customer reference must be unique for each customer !')
+
     _constraints = [
-        (_check_unique_name_insensitive, msg,
-         ['name'])]
+        (_check_unique_name_insensitive, _rec_message, ['name'])
+    ]
