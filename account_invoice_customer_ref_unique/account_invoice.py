@@ -24,7 +24,7 @@ from openerp.osv import orm
 from openerp.tools.translate import _
 
 
-class account_invoice(orm.Model):
+class AccountInvoice(orm.Model):
     _inherit = "account.invoice"
 
     def copy(self, cr, uid, ids, default=None, context=None):
@@ -32,36 +32,30 @@ class account_invoice(orm.Model):
         default.update({
             'name': '',
         })
-        return super(account_invoice, self).copy(cr, uid, ids, default, context)
+        return super(AccountInvoice, self).copy(cr, uid, ids, default, context)
 
     def _check_unique_name_insensitive(self, cr, uid, ids, context=None):
-        # this function only works with one id
-        if ids and len(ids) == 1:
-            i_id = ids[0]
-        else:
-            raise orm.except_orm(_('Error'),
-                                 _('Cannot check unique name without id.'))
+        for i_id in ids:
+            invoice = self.browse(cr, uid, i_id, context=context)
+            invoice_type = invoice.type
+            invoice_partner = invoice.partner_id
 
-        invoice = self.browse(cr, uid, i_id, context=context)
-        invoice_type = invoice.type
-        invoice_partner = invoice.partner_id
+            if invoice_type not in ['out_invoice', 'out_refund']:
+                return True
 
-        if invoice_type not in ['out_invoice', 'out_refund']:
+            sr_ids = self.search(cr, uid,
+                                 [("type", "=", invoice_type),
+                                  ("partner_id", "=", invoice_partner.id)],
+                                 context=context)
+
+            lst = [
+                x.name.lower() for x in
+                self.browse(cr, uid, sr_ids, context=context)
+                if x.name and x.id != i_id
+            ]
+            if invoice.name and invoice.name.lower() in lst:
+                return False
             return True
-
-        sr_ids = self.search(cr, uid,
-                             [("type", "=", invoice_type),
-                              ("partner_id", "=", invoice_partner.id)],
-                             context=context)
-
-        lst = [
-            x.name.lower() for x in
-            self.browse(cr, uid, sr_ids, context=context)
-            if x.name and x.id != i_id
-        ]
-        if invoice.name and invoice.name.lower() in lst:
-            return False
-        return True
 
     def _rec_message(self, cr, uid, ids, context=None):
         return _('The customer reference must be unique for each customer !')
