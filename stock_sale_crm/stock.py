@@ -23,7 +23,7 @@
 from openerp.osv import orm
 
 
-class stock_picking(orm.Model):
+class StockPicking(orm.Model):
     _inherit = "stock.picking"
 
     def _prepare_invoice(self, cr, uid, picking, partner, inv_type, journal_id, context=None):
@@ -34,7 +34,7 @@ class stock_picking(orm.Model):
             @param journal_id: ID of the accounting journal
             @return: dict that will be used to create the invoice object
         """
-        res = super(stock_picking, self)._prepare_invoice(
+        res = super(StockPicking, self)._prepare_invoice(
             cr, uid, picking, partner, inv_type, journal_id, context=context)
         if picking.sale_id and picking.sale_id.section_id:
             res["section_id"] = picking.sale_id.section_id.id
