@@ -37,4 +37,3 @@ This module allows invoices made from a delivery order to use the sale order sal
     'installable': True,
     'auto_install': True,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
