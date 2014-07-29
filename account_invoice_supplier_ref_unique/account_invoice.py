@@ -36,29 +36,22 @@ class AccountInvoice(orm.Model):
 
     def _check_unique_supplier_invoice_number_insensitive(self, cr, uid, ids,
                                                           context=None):
-        # this function only works with one id
-        if ids and len(ids) == 1:
-            i_id = ids[0]
-        else:
-            raise orm.except_orm(
-                _('Error'),
-                _('Cannot check unique supplier ref without id.'))
+        for i_id in ids:
+            invoice = self.browse(cr, uid, i_id, context=context)
+            invoice_partner = invoice.partner_id
 
-        invoice = self.browse(cr, uid, i_id, context=context)
-        invoice_partner = invoice.partner_id
-
-        sr_ids = self.search(cr, uid,
-                             [("partner_id", "=", invoice_partner.id)],
-                             context=context)
-        lst = [
-            x.supplier_invoice_number.lower() for x in
-            self.browse(cr, uid, sr_ids, context=context)
-            if x.supplier_invoice_number and x.id not in ids
-        ]
-        if (invoice.supplier_invoice_number
-                and invoice.supplier_invoice_number.lower() in lst):
-            return False
-        return True
+            sr_ids = self.search(cr, uid,
+                                 [("partner_id", "=", invoice_partner.id)],
+                                 context=context)
+            lst = [
+                x.supplier_invoice_number.lower() for x in
+                self.browse(cr, uid, sr_ids, context=context)
+                if x.supplier_invoice_number and x.id not in ids
+            ]
+            if (invoice.supplier_invoice_number
+                    and invoice.supplier_invoice_number.lower() in lst):
+                return False
+            return True
 
     def _rec_message(self, cr, uid, ids, context=None):
         return _('The supplier invoice number must be unique \
