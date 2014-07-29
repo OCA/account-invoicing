@@ -25,8 +25,9 @@
     'version': '1.0',
     'category': 'Hidden',
     'description': """
-This module allows invoices made from a delivery order to use the sale order sales team.
-    """,
+This module allows invoices made from a delivery order to use the sale order
+sales team. 
+""",
     'author': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
     'images': [],

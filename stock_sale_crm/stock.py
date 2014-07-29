@@ -26,11 +26,13 @@ from openerp.osv import orm
 class StockPicking(orm.Model):
     _inherit = "stock.picking"
 
-    def _prepare_invoice(self, cr, uid, picking, partner, inv_type, journal_id, context=None):
+    def _prepare_invoice(self, cr, uid, picking, partner, inv_type, journal_id,
+                         context=None):
         """ Builds the dict containing the values for the invoice
             @param picking: picking object
             @param partner: object of the partner to invoice
-            @param inv_type: type of the invoice ('out_invoice', 'in_invoice', ...)
+            @param inv_type: type of the invoice
+                ('out_invoice', 'in_invoice', ...)
             @param journal_id: ID of the accounting journal
             @return: dict that will be used to create the invoice object
         """
