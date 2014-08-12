@@ -20,27 +20,21 @@
 #
 ###############################################################################
 
-{
-    'name': 'Invoice Salesteam on Delivery Order',
-    'version': '1.0',
-    'category': 'Hidden',
-    'description': """
-This module allows:
+from openerp.osv import orm
 
-* Invoices made from a delivery order to use the sale order sales team.
-* Sale Order to get the partner's default sales team.
 
-""",
-    'author': 'Savoir-faire Linux',
-    'website': 'http://www.savoirfairelinux.com',
-    'images': [],
-    'depends': [
-        'sale_crm',
-        'stock'
-    ],
-    'data': [],
-    'demo': [],
-    'test': [],
-    'installable': True,
-    'auto_install': True,
-}
+class SaleOrder(orm.Model):
+    _name = 'sale.order'
+    _inherit = 'sale.order'
+
+    def onchange_partner_id(self, cr, uid, ids, part, context=None):
+        res = super(SaleOrder, self).onchange_partner_id(cr, uid, ids, part,
+                                                         context=context)
+        if not part:
+            return res
+
+        part = self.pool.get('res.partner').browse(cr, uid, part, context=context)
+        if part.section_id:
+            res['value']['section_id'] = part.section_id.id
+
+        return res
