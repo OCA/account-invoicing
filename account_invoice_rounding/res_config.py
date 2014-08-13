@@ -72,6 +72,8 @@ class AccountConfigSettings(orm.TransientModel):
                                           company_id, context=context)
         company = self.pool.get('res.company').browse(cr, uid, company_id,
                                                       context=context)
-        res['value']['tax_calculation_rounding'] = company.tax_calculation_rounding
-        res['value']['tax_calculation_rounding_account_id'] = company.tax_calculation_rounding_account_id.id
+        res['value'][
+            'tax_calculation_rounding'] = company.tax_calculation_rounding
+        res['value']['tax_calculation_rounding_account_id'] = \
+            company.tax_calculation_rounding_account_id.id
         return res
