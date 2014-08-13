@@ -47,4 +47,3 @@ class account_invoice(orm.Model):
                                             [line.id for line in lines],
                                             context=context)
         return result
-

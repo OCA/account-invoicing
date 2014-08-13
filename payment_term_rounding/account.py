@@ -32,16 +32,17 @@ from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 class AccountPaymentTermLine(orm.Model):
     _inherit = "account.payment.term.line"
     _columns = {
-        'amount_round': fields.float('Amount Rounding',
+        'amount_round': fields.float(
+            'Amount Rounding',
             digits_compute=dp.get_precision('Account'),
             help="Sets the amount so that it is a multiple of this value.\n"
-              "To have amounts that end in 0.99, set rounding 1, surcharge -0.01"
-            ),
+                 "To have amounts that end in 0.99, set rounding 1, "
+                 "surcharge -0.01"),
     }
 
-    def compute_line_amount(self, cr, uid, id, total_amount, remaining_amount, context=None):
-        """
-        Compute the amount for a payment term line.
+    def compute_line_amount(self, cr, uid, id, total_amount, remaining_amount,
+                            context=None):
+        """Compute the amount for a payment term line.
         In case of procent computation, use the payment
         term line rounding if defined
 
@@ -72,11 +73,10 @@ class AccountPaymentTerm(orm.Model):
     _inherit = "account.payment.term"
 
     def compute(self, cr, uid, id, value, date_ref=False, context=None):
+        """Complete overwrite of compute method to add rounding on line
+        computing.
         """
-        Complete overwrite of compute method to add rounding on line computing
-        """
-
-        obj_precision = self.pool.get('decimal.precision')
+        obj_precision = self.pool['decimal.precision']
         prec = obj_precision.precision_get(cr, uid, 'Account')
         if not date_ref:
             date_ref = datetime.now().strftime(DEFAULT_SERVER_DATE_FORMAT)
@@ -87,18 +87,21 @@ class AccountPaymentTerm(orm.Model):
             amt = line.compute_line_amount(value, amount)
             if not amt:
                 continue
-            next_date = (datetime.strptime(date_ref, DEFAULT_SERVER_DATE_FORMAT) + relativedelta(days=line.days))
+            next_date = (datetime.strptime(date_ref,
+                                           DEFAULT_SERVER_DATE_FORMAT) +
+                         relativedelta(days=line.days))
             if line.days2 < 0:
-                next_first_date = next_date + relativedelta(day=1,months=1) #Getting 1st of next month
+                # Getting 1st of next month
+                next_first_date = next_date + relativedelta(day=1, months=1)
                 next_date = next_first_date + relativedelta(days=line.days2)
             if line.days2 > 0:
                 next_date += relativedelta(day=line.days2, months=1)
-            result.append( (next_date.strftime(DEFAULT_SERVER_DATE_FORMAT), amt) )
+            result.append(
+                (next_date.strftime(DEFAULT_SERVER_DATE_FORMAT), amt))
             amount -= amt
 
-        amount = reduce(lambda x,y: x+y[1], result, 0.0)
-        dist = round(value-amount, prec)
+        amount = reduce(lambda x, y: x + y[1], result, 0.0)
+        dist = round(value - amount, prec)
         if dist:
-            result.append( (time.strftime(DEFAULT_SERVER_DATE_FORMAT), dist) )
+            result.append((time.strftime(DEFAULT_SERVER_DATE_FORMAT), dist))
         return result
-

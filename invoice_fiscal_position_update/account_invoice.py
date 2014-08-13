@@ -76,7 +76,7 @@ class account_invoice(orm.Model):
                 line.update({
                     'invoice_line_tax_id': [(6, 0, tax_ids)],
                     'account_id': account_id,
-                    })
+                })
             else:
                 lines_without_product.append(line.get('name'))
         res['value'] = {}
@@ -99,5 +99,5 @@ class account_invoice(orm.Model):
                     "to the new Fiscal Position because they don't have a "
                     "Product:\n %s\nYou should update the Account and the "
                     "Taxes of these invoice lines manually."
-                    ) % display_line_names,
+                ) % display_line_names,
         return res

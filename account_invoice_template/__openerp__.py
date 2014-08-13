@@ -48,7 +48,7 @@ Franco Tampieri <franco@tampieri.info>
         'invoice_template.xml',
         'wizard/select_template.xml',
         'security/ir.model.access.csv',
-        ],
+    ],
     "active": False,
     "installable": True
 }

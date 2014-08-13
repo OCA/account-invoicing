@@ -173,7 +173,8 @@ class AccountInvoice(orm.Model):
                 if line:
                     res[invoice.id]['amount_untaxed'] -= line.price_subtotal
 
-                amount_total = res[invoice.id]['amount_tax'] + res[invoice.id]['amount_untaxed']
+                amount_total = res[invoice.id][
+                    'amount_tax'] + res[invoice.id]['amount_untaxed']
                 res[invoice.id]['amount_total'] = amount_total
 
                 swedish_rounding = self._compute_swedish_rounding(
@@ -285,29 +286,28 @@ class AccountTax(orm.Model):
         so we add precision to do global computation
 
         """
-        if taxes and taxes[0].company_id.tax_calculation_rounding_method[:7] == 'swedish':
+        if taxes and taxes[0].company_id.tax_calculation_rounding_method[:7] \
+                == 'swedish':
             if not precision:
-                precision = self.pool.get('decimal.precision').precision_get(
+                precision = self.pool['decimal.precision'].precision_get(
                     cr, uid, 'Account')
             precision += 5
-        return super(AccountTax, self
-                     ).compute_inv(cr, uid, taxes, price_unit,
-                                   quantity, product=product,
-                                   partner=partner, precision=precision)
+        return super(AccountTax, self).compute_inv(
+            cr, uid, taxes, price_unit, quantity, product=product,
+            partner=partner, precision=precision)
 
     def _compute(self, cr, uid, taxes, price_unit, quantity,
                  product=None, partner=None, precision=None):
-        """
-        Using swedish rounding we want to keep standard global precision
+        """Using swedish rounding we want to keep standard global precision
         so we add precision to do global computation
 
         """
-        if taxes and taxes[0].company_id.tax_calculation_rounding_method[:7] == 'swedish':
+        if taxes and taxes[0].company_id.tax_calculation_rounding_method[:7] \
+                == 'swedish':
             if not precision:
-                precision = self.pool.get('decimal.precision'
-                                          ).precision_get(cr, uid, 'Account')
+                precision = self.pool['decimal.precision'].precision_get(
+                    cr, uid, 'Account')
             precision += 5
-        return super(AccountTax, self
-                     )._compute(cr, uid, taxes, price_unit,
-                                quantity, product=product,
-                                partner=partner, precision=precision)
+        return super(AccountTax, self)._compute(
+            cr, uid, taxes, price_unit, quantity, product=product,
+            partner=partner, precision=precision)

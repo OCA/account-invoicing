@@ -35,7 +35,7 @@ class wizard_select_template(orm.TransientModel):
             'template_id', 'Lines'),
         'state': fields.selection([
             ('template_selected', 'Template selected'),
-            ], 'State'),
+        ], 'State'),
     }
 
     def load_lines(self, cr, uid, ids, context=None):
@@ -57,7 +57,7 @@ class wizard_select_template(orm.TransientModel):
                         line.product_id and line.product_id.list_price or 0.0),
                     'account_id': line.account_id.id,
                     'product_id': line.product_id.id,
-                    }, context=context)
+                }, context=context)
         if not wizard.line_ids:
             return self.load_template(cr, uid, ids, context=context)
         wizard.write({'state': 'template_selected'}, context=context)

@@ -32,7 +32,7 @@ it in sale and picking invoicing""",
     'website': 'http://www.andreacometa.it',
     'data': [
         'invoice_view.xml',
-        ],
+    ],
     'demo': [],
     'installable': True,
     'active': False,

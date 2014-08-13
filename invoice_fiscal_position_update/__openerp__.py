@@ -25,12 +25,16 @@
     'version': '1.0',
     'category': 'Accounting & Finance',
     'license': 'AGPL-3',
-    'summary': 'Changing the fiscal position of an invoice will auto-update invoice lines',
+    'summary': 'Changing the fiscal position of an invoice will auto-update '
+               'invoice lines',
     'description': """
 Invoice Fiscal Position Update
 ==============================
 
-With this module, when a user changes the fiscal position of an invoice, the taxes and the accounts on all the invoice lines which have a product are automatically updated. The invoice lines without a product are not updated and a warning is displayed to the user in this case.
+With this module, when a user changes the fiscal position of an invoice, the
+taxes and the accounts on all the invoice lines which have a product are
+automatically updated. The invoice lines without a product are not updated and
+a warning is displayed to the user in this case.
 """,
     'author': 'Julius Network Solutions, Akretion',
     'depends': ['account'],

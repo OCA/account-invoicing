@@ -23,7 +23,7 @@
     'version': '1.0',
     'category': 'Generic Modules/Invoicing',
     'description':
-'''
+    '''
 This module adds 2 states between draft and open state in invoices:
 
 - To Validate: For invoices which need a validation

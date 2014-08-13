@@ -39,7 +39,7 @@ class account_invoice_line(orm.Model):
                 code_ids = product_customer_code_obj.search(cr, uid, [
                     ('product_id', '=', product.id),
                     ('partner_id', '=', partner.id),
-                    ], limit=1, context=context)
+                ], limit=1, context=context)
                 if code_ids:
                     code = product_customer_code_obj.browse(
                         cr, uid,

@@ -19,14 +19,14 @@
 #
 ##############################################################################
 {
-    "name" : "Automatically select invoicing partner on invoice",
-    "version" : "0.1",
-    "author" : "Therp BV",
+    "name": "Automatically select invoicing partner on invoice",
+    "version": "0.1",
+    "author": "Therp BV",
     "category": 'Accounting & Finance',
     "description": """
 On an invoice, when selecting a partner of any other type than 'invoice',
 replace the partner by an invoice contact if found.
     """,
     'website': 'https://launchpad.net/account-invoicing',
-    'depends' : ['account'],
+    'depends': ['account'],
 }
