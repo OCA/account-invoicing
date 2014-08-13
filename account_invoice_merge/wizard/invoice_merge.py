@@ -31,31 +31,49 @@ class invoice_merge(orm.TransientModel):
         if context.get('active_model', '') == 'account.invoice':
             ids = context['active_ids']
             if len(ids) < 2:
-                raise orm.except_orm(_('Warning!'), _('Please select multiple invoice to merge in the list view.'))
+                raise orm.except_orm(
+                    _('Warning!'),
+                    _('Please select multiple invoice to merge in the list '
+                      'view.'))
             inv_obj = self.pool.get('account.invoice')
-            invs = inv_obj.read(cr, uid, ids, ['account_id', 'state', 'type', 'company_id',
-                                               'partner_id', 'currency_id', 'journal_id'])
+            invs = inv_obj.read(cr, uid, ids,
+                                ['account_id', 'state', 'type', 'company_id',
+                                 'partner_id', 'currency_id', 'journal_id'])
             for d in invs:
                 if d['state'] != 'draft':
-                    raise orm.except_orm(_('Warning'), _('At least one of the selected invoices is %s!') % d['state'])
-                if (d['account_id'] != invs[0]['account_id']):
-                    raise orm.except_orm(_('Warning'), _('Not all invoices use the same account!'))
-                if (d['company_id'] != invs[0]['company_id']):
-                    raise orm.except_orm(_('Warning'), _('Not all invoices are at the same company!'))
-                if (d['partner_id'] != invs[0]['partner_id']):
-                    raise orm.except_orm(_('Warning'), _('Not all invoices are for the same partner!'))
-                if (d['type'] != invs[0]['type']):
-                    raise orm.except_orm(_('Warning'), _('Not all invoices are of the same type!'))
-                if (d['currency_id'] != invs[0]['currency_id']):
-                    raise orm.except_orm(_('Warning'), _('Not all invoices are at the same currency!'))
-                if (d['journal_id'] != invs[0]['journal_id']):
-                    raise orm.except_orm(_('Warning'), _('Not all invoices are at the same journal!'))
+                    raise orm.except_orm(
+                        _('Warning'),
+                        _('At least one of the selected invoices is %s!') %
+                        d['state'])
+                if d['account_id'] != invs[0]['account_id']:
+                    raise orm.except_orm(
+                        _('Warning'),
+                        _('Not all invoices use the same account!'))
+                if d['company_id'] != invs[0]['company_id']:
+                    raise orm.except_orm(
+                        _('Warning'),
+                        _('Not all invoices are at the same company!'))
+                if d['partner_id'] != invs[0]['partner_id']:
+                    raise orm.except_orm(
+                        _('Warning'),
+                        _('Not all invoices are for the same partner!'))
+                if d['type'] != invs[0]['type']:
+                    raise orm.except_orm(
+                        _('Warning'),
+                        _('Not all invoices are of the same type!'))
+                if d['currency_id'] != invs[0]['currency_id']:
+                    raise orm.except_orm(
+                        _('Warning'),
+                        _('Not all invoices are at the same currency!'))
+                if d['journal_id'] != invs[0]['journal_id']:
+                    raise orm.except_orm(
+                        _('Warning'),
+                        _('Not all invoices are at the same journal!'))
         return {}
 
     def fields_view_get(self, cr, uid, view_id=None, view_type='form',
                         context=None, toolbar=False, submenu=False):
-        """
-         Changes the view dynamically
+        """Changes the view dynamically
          @param self: The object pointer.
          @param cr: A database cursor
          @param uid: ID of the user currently logged in
@@ -64,13 +82,14 @@ class invoice_merge(orm.TransientModel):
         """
         if context is None:
             context = {}
-        res = super(invoice_merge, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=False)
+        res = super(invoice_merge, self).fields_view_get(
+            cr, uid, view_id=view_id, view_type=view_type, context=context,
+            toolbar=toolbar, submenu=False)
         self._dirty_check(cr, uid, context)
         return res
 
     def merge_invoices(self, cr, uid, ids, context=None):
-        """
-             To merge similar type of account invoices.
+        """To merge similar type of account invoices.
 
              @param self: The object pointer.
              @param cr: A database cursor
@@ -79,20 +98,18 @@ class invoice_merge(orm.TransientModel):
              @param context: A standard dictionary
 
              @return: account invoice view
-
         """
-        inv_obj = self.pool.get('account.invoice')
-        mod_obj = self.pool.get('ir.model.data')
-
+        inv_obj = self.pool['account.invoice']
+        mod_obj = self.pool['ir.model.data']
         if context is None:
             context = {}
         result = mod_obj._get_id(cr, uid, 'account', 'invoice_form')
         id = mod_obj.read(cr, uid, result, ['res_id'])
-
-        allinvoices = inv_obj.do_merge(cr, uid, context.get('active_ids', []), context)
-
+        allinvoices = inv_obj.do_merge(
+            cr, uid, context.get('active_ids', []), context)
         return {
-            'domain': "[('id','in', [" + ','.join(map(str, allinvoices.keys())) + "])]",
+            'domain': "[('id','in', ["
+                      ','.join(map(str, allinvoices.keys())) + "])]",
             'name': _('Partner Invoice'),
             'view_type': 'form',
             'view_mode': 'tree,form',
@@ -101,5 +118,3 @@ class invoice_merge(orm.TransientModel):
             'type': 'ir.actions.act_window',
             'search_view_id': id['res_id']
         }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
