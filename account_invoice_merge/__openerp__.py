@@ -25,8 +25,11 @@
     'version': '1.1',
     'category': 'Finance',
     'description': """
-This module adds an action in the invoices lists to merge of invoices. Here are the condition to allow merge:
-- Type should be the same (customer Invoice, supplier invoice, Customer or Supplier Refund)
+This module adds an action in the invoices lists to merge of invoices. Here are
+the condition to allow merge:
+
+- Type should be the same (customer Invoice, supplier invoice, Customer or
+  Supplier Refund)
 - Partner should be the same
 - Currency should be the same
 - Account receivable account should be the same
@@ -44,4 +47,3 @@ This module adds an action in the invoices lists to merge of invoices. Here are 
     'active': False,
     'certificate': False,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
