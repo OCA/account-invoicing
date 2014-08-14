@@ -3,7 +3,7 @@
   <data>
     <record id="view_invoice_line_tree" model="ir.ui.view">
       <field name="model">account.invoice</field>
-      <field name="inherit_id" ref="account.invoice_supplier_form" />
+      <field name="inherit_id" ref="account.invoice_form" />
       <field name="arch" type="xml">
         <xpath expr="//tree//field[@name='account_analytic_id']" position="after">
           <field name="origin" readonly="1" />
