@@ -19,12 +19,12 @@
 #
 ##############################################################################
 {
-    "name" : "Product Customer code for account invoice",
-    "version" : "1.0",
-    "author" : "Agile Business Group",
-    "website" : "http://www.agilebg.com",
-    "category" : "Account",
-    "depends" : [
+    "name": "Product Customer code for account invoice",
+    "version": "1.0",
+    "author": "Agile Business Group",
+    "website": "http://www.agilebg.com",
+    "category": "Account",
+    "depends": [
         'base',
         'product',
         'account',
@@ -35,10 +35,10 @@
     this module loads in every account invoice
     the customer code defined in the product,
     """,
-    "demo" : [],
-    "data" : [
+    "demo": [],
+    "data": [
         'account_invoice_view.xml',
     ],
-    'installable' : True,
-    'active' : False,
+    'installable': True,
+    'active': False,
 }

@@ -18,14 +18,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{'name' : 'Rounding on payment term',
- 'version' : '1.0',
+{'name': 'Rounding on payment term',
+ 'version': '1.0',
  'category': 'Accounting',
  'description': """Giving rounding functionality at payment term line level """,
- 'author' : 'Camptocamp',
+ 'author': 'Camptocamp',
  'maintainer': 'Camptocamp',
  'website': 'http://www.camptocamp.com/',
- 'depends' : ['account'],
+ 'depends': ['account'],
  'data': ['account_view.xml'],
  'test': [],
  'installable': True,

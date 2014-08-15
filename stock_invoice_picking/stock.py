@@ -52,7 +52,7 @@ class stock_picking(orm.Model):
                 if picking.invoice_id:
                     raise orm.except_orm(_('Error'), _(
                         'Picking %s has linked invoice %s'
-                        ) % (picking.name, picking.invoice_id.number))
+                    ) % (picking.name, picking.invoice_id.number))
                 picking.write({'invoice_state': '2binvoiced'})
         return True
 
@@ -61,7 +61,7 @@ class stock_picking_out(orm.Model):
     _inherit = 'stock.picking.out'
 
     def set_to_be_invoiced(self, cr, uid, ids, context=None):
-        #override in order to redirect to stock.picking object
+        # override in order to redirect to stock.picking object
         return self.pool.get('stock.picking').set_to_be_invoiced(
             cr, uid, ids, context=context)
 
@@ -70,6 +70,6 @@ class stock_picking_in(orm.Model):
     _inherit = 'stock.picking.in'
 
     def set_to_be_invoiced(self, cr, uid, ids, context=None):
-        #override in order to redirect to stock.picking object
+        # override in order to redirect to stock.picking object
         return self.pool.get('stock.picking').set_to_be_invoiced(
             cr, uid, ids, context=context)

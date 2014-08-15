@@ -48,12 +48,11 @@ in picking.
 """
 import logging
 _logger = logging.getLogger(__name__)
-
 from openerp.osv import orm, fields
 from openerp import netsvc
 
 
-class sale_order_line(orm.Model):
+class SaleOrderLine(orm.Model):
     _inherit = 'sale.order.line'
 
     def field_qty_invoiced(self, cr, uid, ids, fields, arg, context):
@@ -61,7 +60,7 @@ class sale_order_line(orm.Model):
         for line in self.browse(cr, uid, ids, context=context):
             for invoice_line in line.invoice_lines:
                 if invoice_line.invoice_id.state != 'cancel':
-                    res[line.id] += invoice_line.quantity # XXX uom !
+                    res[line.id] += invoice_line.quantity  # XXX uom !
         return res
 
     def field_qty_delivered(self, cr, uid, ids, fields, arg, context):
@@ -73,18 +72,18 @@ class sale_order_line(orm.Model):
             else:
                 for move in line.move_ids:
                     if (move.state == 'done' and
-                        move.picking_id and
-                        move.picking_id.type == 'out'):
+                            move.picking_id and
+                            move.picking_id.type == 'out'):
                         res[line.id] += move.product_qty
         return res
 
-    def _prepare_order_line_invoice_line(self, cr, uid, line, account_id=False, context=None):
-        res = super(sale_order_line,
-                    self)._prepare_order_line_invoice_line(cr,
-                                                           uid,
-                                                           line,
-                                                           account_id,
-                                                           context)
+    def _prepare_order_line_invoice_line(self, cr, uid, line, account_id=False,
+                                         context=None):
+        if context is None:
+            context = {}
+        res = super(SaleOrderLine,
+                    self)._prepare_order_line_invoice_line(
+            cr, uid, line, account_id, context=context)
         if '_partial_invoice' in context:
             # we are making a partial invoice for the line
             to_invoice_qty = context['_partial_invoice'][line.id]
@@ -103,32 +102,24 @@ class sale_order_line(orm.Model):
     def _order_lines_from_invoice2(self, cr, uid, ids, context=None):
         # overridden with different name because called by framework with
         # 'self' an instance of another class
-        return self.pool['sale.order.line']._order_lines_from_invoice(cr, uid, ids, context)
+        return self.pool['sale.order.line']._order_lines_from_invoice(
+            cr, uid, ids, context)
 
     _columns = {
-        'qty_invoiced': fields.function(field_qty_invoiced,
-                                        string='Invoiced Quantity',
-                                        type='float',
-                                        help="the quantity of product from this line "
-                                             "already invoiced"),
-        'qty_delivered': fields.function(field_qty_delivered,
-                                         string='Invoiced Quantity',
-                                         type='float',
-                                         help="the quantity of product from this line "
-                                              "already invoiced"),
-        'invoiced': fields.function(_fnct_line_invoiced,
-                                    string='Invoiced',
-                                    type='boolean',
-                                    store={
-                                        'account.invoice': (_order_lines_from_invoice2,
-                                                            ['state'], 10),
-                                        'sale.order.line': (
-                                            lambda self,cr,uid,ids,ctx=None: ids,
-                                            ['invoice_lines'], 10
-                                            )
-                                        }
-                                    ),
-        }
+        'qty_invoiced': fields.function(
+            field_qty_invoiced, string='Invoiced Quantity', type='float',
+            help="the quantity of product from this line already invoiced"),
+        'qty_delivered': fields.function(
+            field_qty_delivered, string='Invoiced Quantity', type='float',
+            help="the quantity of product from this line already invoiced"),
+        'invoiced': fields.function(
+            _fnct_line_invoiced, string='Invoiced', type='boolean',
+            store={
+                'account.invoice': (_order_lines_from_invoice2, ['state'], 10),
+                'sale.order.line': (lambda self, cr, uid, ids, ctx=None: ids,
+                                    ['invoice_lines'], 10)
+            }),
+    }
 
 
 class sale_advance_payment_inv(orm.TransientModel):
@@ -137,7 +128,8 @@ class sale_advance_payment_inv(orm.TransientModel):
     def create_invoices(self, cr, uid, ids, context=None):
         """override standard behavior if payment method is set to 'lines':
         """
-        res = super(sale_advance_payment_inv, self).create_invoices(cr, uid, ids, context)
+        res = super(sale_advance_payment_inv, self).create_invoices(
+            cr, uid, ids, context)
         wizard = self.browse(cr, uid, ids[0], context)
         if wizard.advance_payment_method != 'lines':
             return res
@@ -146,19 +138,23 @@ class sale_advance_payment_inv(orm.TransientModel):
             return res
         wizard_obj = self.pool['sale.order.line.invoice.partially']
         order_line_obj = self.pool['sale.order.line']
-        so_domain = [('order_id', 'in', sale_ids),]
-        so_line_ids = order_line_obj.search(cr, uid, so_domain, context=context)
+        so_domain = [('order_id', 'in', sale_ids), ]
+        so_line_ids = order_line_obj.search(
+            cr, uid, so_domain, context=context)
         line_values = []
-        for so_line in order_line_obj.browse(cr, uid, so_line_ids, context=context):
+        for so_line in order_line_obj.browse(cr, uid, so_line_ids,
+                                             context=context):
             if so_line.state in ('confirmed', 'done') and not so_line.invoiced:
-                val = {'sale_order_line_id': so_line.id,}
+                val = {'sale_order_line_id': so_line.id, }
                 if so_line.product_id and so_line.product_id.type == 'product':
-                    val['quantity'] = so_line.qty_delivered - so_line.qty_invoiced
+                    val['quantity'] = so_line.qty_delivered - \
+                        so_line.qty_invoiced
                 else:
                     # service or consumable
-                    val['quantity'] = so_line.product_uom_qty - so_line.qty_invoiced
+                    val['quantity'] = so_line.product_uom_qty - \
+                        so_line.qty_invoiced
                 line_values.append((0, 0, val))
-        val = {'line_ids': line_values,}
+        val = {'line_ids': line_values, }
         wizard_id = wizard_obj.create(cr, uid, val, context=context)
         wiz = wizard_obj.browse(cr, uid, wizard_id, context=context)
         print wiz.line_ids
@@ -173,7 +169,7 @@ class sale_advance_payment_inv(orm.TransientModel):
         return res
 
 
-class sale_order_line_invoice_partially_line(orm.TransientModel):
+class SaleOrderLineInvoicePartiallyLine(orm.TransientModel):
     _name = "sale.order.line.invoice.partially.line"
     _columns = {
         'wizard_id': fields.many2one('sale.order.line.invoice.partially',
@@ -189,16 +185,16 @@ class sale_order_line_invoice_partially_line(orm.TransientModel):
         'qty_delivered': fields.related('sale_order_line_id', 'qty_delivered',
                                         type='float', string="Shipped"),
         'quantity': fields.float('To invoice'),
-        }
+    }
 
 
-class sale_order_line_invoice_partially(orm.TransientModel):
+class SaleOrderLineInvoicePartially(orm.TransientModel):
     _name = "sale.order.line.invoice.partially"
     _columns = {
         'name': fields.char('Name'),
         'line_ids': fields.one2many('sale.order.line.invoice.partially.line',
                                     'wizard_id', string="Lines"),
-        }
+    }
 
     def create_invoice(self, cr, uid, ids, context=None):
         wf_service = netsvc.LocalService('workflow')
@@ -217,18 +213,15 @@ class sale_order_line_invoice_partially(orm.TransientModel):
                 if sale_order.id not in order_lines:
                     order_lines[sale_order.id] = []
                 order_lines[sale_order.id].append(line.sale_order_line_id.id)
-                ctx['_partial_invoice'][line.sale_order_line_id.id] = line.quantity
+                ctx['_partial_invoice'][
+                    line.sale_order_line_id.id] = line.quantity
         for order_id in order_lines:
             line_ids = order_lines[order_id]
-            invoice_line_ids = so_line_obj.invoice_line_create(cr,
-                                                               uid,
-                                                               line_ids,
-                                                               context=ctx)
+            invoice_line_ids = so_line_obj.invoice_line_create(
+                cr, uid, line_ids, context=ctx)
             order = so_obj.browse(cr, uid, order_id, context=context)
-            invoice_id = so_obj._make_invoice(cr, uid,
-                                              order,
-                                              invoice_line_ids,
-                                              context=ctx)
+            invoice_id = so_obj._make_invoice(
+                cr, uid, order, invoice_line_ids, context=ctx)
             _logger.info('created invoice %d', invoice_id)
             # the following is copied from many places around
             # (actually sale_line_invoice.py)
@@ -236,5 +229,6 @@ class sale_order_line_invoice_partially(orm.TransientModel):
                        '                                    invoice_id) '
                        'VALUES (%s,%s)', (order_id, invoice_id))
             if all(line.invoiced for line in order.order_line):
-                wf_service.trg_validate(uid, 'sale.order', order.id, 'manual_invoice', cr)
+                wf_service.trg_validate(
+                    uid, 'sale.order', order.id, 'manual_invoice', cr)
         return {'type': 'ir.actions.act_window_close'}

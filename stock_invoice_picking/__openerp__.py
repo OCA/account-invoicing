@@ -23,7 +23,8 @@
     'version': '0.1',
     'category': 'Warehouse Management',
     'description': """
-This module allows to create invoices directly from picking, without having to use sale or purchase orders.
+This module allows to create invoices directly from picking, without having to
+use sale or purchase orders.
 """,
     'author': 'Agile Business Group',
     'website': 'http://www.agilebg.com',

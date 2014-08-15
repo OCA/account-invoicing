@@ -49,4 +49,4 @@ as paid once it is opened.
           ],
  'installable': True,
  'auto_install': False,
-}
+ }

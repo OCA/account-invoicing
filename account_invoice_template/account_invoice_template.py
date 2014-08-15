@@ -39,8 +39,8 @@ class account_invoice_template(orm.Model):
             ('in_invoice', 'Supplier Invoice'),
             ('out_refund', 'Customer Refund'),
             ('in_refund', 'Supplier Refund'),
-            ], 'Type', required=True),
-        }
+        ], 'Type', required=True),
+    }
 
 
 class account_invoice_template_line(orm.Model):
@@ -64,7 +64,7 @@ class account_invoice_template_line(orm.Model):
             'account.invoice.template', 'Template',
             ondelete='cascade'),
         'product_id': fields.many2one('product.product', 'Product'),
-        }
+    }
 
     _sql_constraints = [
         ('sequence_template_uniq', 'unique (template_id,sequence)',
