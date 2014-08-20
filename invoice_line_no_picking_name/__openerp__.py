@@ -25,7 +25,11 @@
     'category': 'Generic Modules/Accounting',
     'description': """
 This module allows to not use the picking name on the invoice lines.
-To do so, the user has to belong to
+
+The picking name is added to invoice lines when you group pickings generating
+one invoice from more than one picking.
+
+To avoid this, the user has to belong to
 group_not_use_picking_name_per_invoice_line.
 This is possible by selecting the related option in the following menu:
 

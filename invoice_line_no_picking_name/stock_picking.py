@@ -35,10 +35,10 @@ class stock_picking(orm.Model):
             invoice_id, invoice_vals, context=context
         )
         if move_line:
-            user = self.pool.get('res.users').browse(
+            user = self.pool['res.users'].browse(
                 cr, uid, uid, context=context)
             user_groups = [g.id for g in user.groups_id]
-            ref = self.pool.get('ir.model.data').get_object_reference(
+            ref = self.pool['ir.model.data'].get_object_reference(
                 cr, uid, 'invoice_line_no_picking_name',
                 'group_not_use_picking_name_per_invoice_line'
             )
