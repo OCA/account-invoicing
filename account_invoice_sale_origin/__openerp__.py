@@ -24,7 +24,7 @@
     'version': '1.1',
     'category': 'Finance',
     'description': """
-    
+
     This module displays the origin field of account invoice lines and populate
     it when a customer invoice is create from a sale order.
 
