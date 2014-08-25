@@ -28,16 +28,9 @@ class PurchaseOrder(orm.Model):
 
     def _prepare_inv_line(self, cr, uid, account_id, order_line, context=None):
 
-        return {
-            'name': order_line.name,
-            'account_id': account_id,
-            'price_unit': order_line.price_unit or 0.0,
-            'origin': order_line.order_id.name,
-            'quantity': order_line.product_qty,
-            'product_id': order_line.product_id.id or False,
-            'uos_id': order_line.product_uom.id or False,
-            'invoice_line_tax_id': [
-                (6, 0,
-                 [x.id for x in order_line.taxes_id])],
-            'account_analytic_id': order_line.account_analytic_id.id or False,
-        }
+        res = super(PurchaseOrder, self)._prepare_inv_line(
+            cr, uid, account_id, order_line, context=context
+        )
+        res.update({
+            'origin': order_line.order_id.name, })
+        return res
