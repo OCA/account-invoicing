@@ -25,7 +25,12 @@
     'category': 'Finance',
     'description': """
     This module displays the origin field of account invoice lines and populate
-    them when an invoice is created from a purchase order
+    it when an invoice is created from a purchase order.
+
+Contributors
+------------
+* David Cormier (david.cormier@savoirfairelinux.com)
+* Marc Cassuto (marc.cassuto@savoirfairelinux.com)
     """,
     'author': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com/',

@@ -26,7 +26,12 @@
     'description': """
     
     This module displays the origin field of account invoice lines and populate
-    them when a customer invoice is create from a delivery order
+    it when a customer invoice is create from a sale order.
+
+Contributors
+------------
+* David Cormier (david.cormier@savoirfairelinux.com)
+* Marc Cassuto (marc.cassuto@savoirfairelinux.com)
     """,
     'author': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com/',
