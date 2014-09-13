@@ -21,7 +21,7 @@
 {'name': 'Rounding on payment term',
  'version': '1.0',
  'category': 'Accounting',
- 'description': """Giving rounding functionality at payment term line level """,
+ 'description': """Giving rounding functionality at payment term line level""",
  'author': 'Camptocamp',
  'maintainer': 'Camptocamp',
  'website': 'http://www.camptocamp.com/',

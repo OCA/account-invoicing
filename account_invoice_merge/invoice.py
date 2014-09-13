@@ -192,7 +192,9 @@ class account_invoice(orm.Model):
                     cr, uid,
                     [('invoice_ids', 'in', invoices_info[new_invoice_id])],
                     context=context)
-                for org_so in so_obj.browse(cr, uid, todo_ids, context=context):
+                for org_so in so_obj.browse(
+                    cr, uid, todo_ids, context=context
+                ):
                     so_obj.write(
                         cr, uid, [org_so.id],
                         {'invoice_ids': [(4, new_invoice_id)]}, context)
@@ -211,7 +213,9 @@ class account_invoice(orm.Model):
                     cr, uid,
                     [('invoice_ids', 'in', invoices_info[new_invoice_id])],
                     context=context)
-                for org_po in po_obj.browse(cr, uid, todo_ids, context=context):
+                for org_po in po_obj.browse(
+                    cr, uid, todo_ids, context=context
+                ):
                     po_obj.write(
                         cr, uid, [org_po.id],
                         {'invoice_ids': [(4, new_invoice_id)]}, context)
