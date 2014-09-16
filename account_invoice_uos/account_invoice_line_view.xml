@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_invoice_line_form_uos" model="ir.ui.view">
+            <field name="name">view_invoice_line_form_uos</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//form/group/group/div" position="after">
+                    <label for="sale_uos_qty"/>
+                    <div>
+                        <field name="sale_uos_qty" class="oe_inline"/>
+                        <field name="sale_uos_id" class="oe_inline"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

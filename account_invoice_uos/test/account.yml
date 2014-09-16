@@ -1,0 +1,8 @@
+-
+  I create a sale order
+-
+  !record {model: sale.order, id: sale_order_test_1, view: sale.view_order_form}:
+    partner_id: base.res_partner_2
+    order_line:
+      - product_uom_qty: 8
+      - product_uom: product.product_uom_hour
