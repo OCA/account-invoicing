@@ -31,6 +31,12 @@
     "description": """
 The module displays the UoS and related quantity on invoice lines, retrieving
 them from linked sale order(s)
+
+Contributors
+------------
+
+* Lorenzo Battistini <lorenzo.battistini@agilebg.com>
+* Alex Comba <alex.comba@agilebg.com>
 """,
     "demo": [],
     "data": [

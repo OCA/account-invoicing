@@ -16,32 +16,25 @@
 -
     !workflow {model: sale.order, action: order_confirm, ref: sale_order_test}
 -
-    Now, I dispatch delivery order.
+    I create advance invoice where type is 'Invoice all the Sale Order'.
 -
-    !python {model: stock.partial.picking}: |
-        order = self.pool.get('sale.order').browse(cr, uid, ref("sale_order_test"))
-        for pick in order.picking_ids:
-            data = pick.force_assign()
-            if data == True:
-              partial_id = self.create(cr, uid, {}, context={'active_model': 'stock.picking','active_ids': [pick.id]})
-              self.do_partial(cr, uid, [partial_id])
+    !python {model: sale.advance.payment.inv}: |
+        ctx = context.copy()
+        ctx.update({"active_model": 'sale.order', "active_ids": [ref("sale_order_test")], "active_id":ref("sale_order_test")})
+        pay_id = self.create(cr, uid, {'advance_payment_method': 'all'})
+        self.create_invoices(cr, uid, [pay_id], context=ctx)
 -
-    I create invoice from delivery order.
+    I check invoice which made advance where type is 'Invoice all the Sale Order'.
 -
-    !python {model: stock.invoice.onshipping}: |
-        sale = self.pool.get('sale.order')
-        sale_order = sale.browse(cr, uid, ref("sale_order_test"))
-        ship_ids = [x.id for x in sale_order.picking_ids]
-        wiz_id = self.create(cr, uid, {'journal_id': ref('account.sales_journal')},
-          {'active_ids': ship_ids, 'active_model': 'stock.picking'})
-        self.create_invoice(cr, uid, [wiz_id], {"active_ids": ship_ids, "active_id": ship_ids[0]})
+    !python {model: sale.order}: |
+        order = self.browse(cr, uid, ref('sale_order_test'))
+        assert order.invoice_ids, "Invoice should be created after make advance invoice where type is 'Invoice all the Sale Order'."
 -
-    I check the invoice details after dispatched delivery.
+    I check the invoice details after do manual.
 -
     !python {model: sale.order}: |
         order = self.browse(cr, uid, ref("sale_order_test"))
-        assert order.invoice_ids, "Invoice is not created."
         for sale_line in order.order_line:
             for invoice_line in sale_line.invoice_lines:
-                assert invoice_line.sale_uos_id == sale_line.product_uos, "Uos are not correspond"
-                assert invoice_line.sale_uos_qty == sale_line.product_uos_qty, "Uos qty are not correspond"
+                assert invoice_line.sale_uos_id.id == sale_line.product_uos.id, "Uos are not matching"
+                assert invoice_line.sale_uos_qty == sale_line.product_uos_qty, "Uos qty are not matching"
