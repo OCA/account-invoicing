@@ -32,10 +32,11 @@ class account_invoice_line(orm.Model):
             res[line.id] = {
                 'sale_uos_id': False,
                 'sale_uos_qty': False,
-                }
-            so_line_ids = sale_line_obj.search(cr, uid, [
-                ('invoice_lines', 'in', [line.id]),
-                ], context=context)
+            }
+            so_line_ids = sale_line_obj.search(
+                cr, uid, [('invoice_lines', 'in', [line.id])],
+                context=context
+            )
             if len(so_line_ids) == 1:
                 so_line = sale_line_obj.browse(
                     cr, uid, so_line_ids[0], context=context)
@@ -52,4 +53,4 @@ class account_invoice_line(orm.Model):
         'sale_uos_qty': fields.function(
             _get_uos_data, string="Quantity (UoS)", type="float",
             digits_compute=dp.get_precision('Product UoS'), multi="uos")
-        }
+    }
