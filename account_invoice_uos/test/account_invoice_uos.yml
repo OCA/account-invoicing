@@ -1,0 +1,41 @@
+-
+    In order to test process of the Account Invoice Uos,
+- 
+    I create a sale order.
+-  
+    !record {model: sale.order, id: sale_order_test}:
+        partner_id: base.res_partner_2
+        order_line:
+            - product_id: product.product_product_2
+              product_uom_qty: 8
+              product_uom: product.product_uom_hour
+              product_uos_qty: 1
+              product_uom: product.product_uom_day
+-
+    I confirm the sale order.
+-
+    !workflow {model: sale.order, action: order_confirm, ref: sale_order_test}
+-
+    I create advance invoice where type is 'Invoice all the Sale Order'.
+-
+    !python {model: sale.advance.payment.inv}: |
+        ctx = context.copy()
+        ctx.update({"active_model": 'sale.order', "active_ids": [ref("sale_order_test")], "active_id":ref("sale_order_test")})
+        pay_id = self.create(cr, uid, {'advance_payment_method': 'all'})
+        self.create_invoices(cr, uid, [pay_id], context=ctx)
+-
+    I check invoice which made advance where type is 'Invoice all the Sale Order'.
+-
+    !python {model: sale.order}: |
+        order = self.browse(cr, uid, ref('sale_order_test'))
+        assert order.invoice_ids, "Invoice should be created after make advance invoice where type is 'Invoice all the Sale Order'."
+-
+    I check the UoS and related quantity on invoice lines.
+-
+    !python {model: sale.order}: |
+        order = self.browse(cr, uid, ref("sale_order_test"))
+        for sale_line in order.order_line:
+            assert sale_line.invoice_lines, "Invoice lines on the sale order line should be created"
+            for invoice_line in sale_line.invoice_lines:
+                assert invoice_line.sale_uos_id.id == sale_line.product_uos.id, "Uos are not matching"
+                assert invoice_line.sale_uos_qty == sale_line.product_uos_qty, "Uos qty are not matching"
