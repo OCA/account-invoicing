@@ -15,5 +15,16 @@
                 </xpath>
             </field>
         </record>
+        <record id="invoice_form_uos" model="ir.ui.view">
+            <field name="name">invoice_form_uos</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"></field>
+            <field name="arch" type="xml">
+                <field name="uos_id" position="after">
+                    <field name="sale_uos_qty"/>
+                    <field name="sale_uos_id"/>
+                </field>
+            </field>
+        </record>
     </data>
 </openerp>
