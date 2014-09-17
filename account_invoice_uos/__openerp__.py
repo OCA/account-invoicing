@@ -43,7 +43,7 @@ Contributors
         'account_invoice_line_view.xml',
     ],
     'test': [
-        'test/account_invoice_line.yml',
+        'test/account_invoice_uos.yml',
     ],
     'installable': True,
 }
