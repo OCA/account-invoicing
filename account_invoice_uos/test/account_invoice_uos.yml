@@ -30,7 +30,7 @@
         order = self.browse(cr, uid, ref('sale_order_test'))
         assert order.invoice_ids, "Invoice should be created after make advance invoice where type is 'Invoice all the Sale Order'."
 -
-    I check the invoice details after do manual.
+    I check the UoS and related quantity on invoice lines.
 -
     !python {model: sale.order}: |
         order = self.browse(cr, uid, ref("sale_order_test"))
