@@ -35,6 +35,7 @@
     !python {model: sale.order}: |
         order = self.browse(cr, uid, ref("sale_order_test"))
         for sale_line in order.order_line:
+            assert sale_line.invoice_lines, "Invoice lines on the sale order line should be created"
             for invoice_line in sale_line.invoice_lines:
                 assert invoice_line.sale_uos_id.id == sale_line.product_uos.id, "Uos are not matching"
                 assert invoice_line.sale_uos_qty == sale_line.product_uos_qty, "Uos qty are not matching"
