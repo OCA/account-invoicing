@@ -4,10 +4,8 @@ python:
   - "2.7"
 
 env:
- - VERSION="7.0" ODOO_REPO="odoo/odoo" EXCLUDE="account_invoice_uos"
- - VERSION="7.0" ODOO_REPO="odoo/odoo" INCLUDE="account_invoice_uos"
- - VERSION="7.0" ODOO_REPO="OCA/OCB" EXCLUDE="account_invoice_uos"
- - VERSION="7.0" ODOO_REPO="OCA/OCB" INCLUDE="account_invoice_uos"
+ - VERSION="7.0" ODOO_REPO="odoo/odoo"
+ - VERSION="7.0" ODOO_REPO="OCA/OCB"
 
 virtualenv:
   system_site_packages: true
