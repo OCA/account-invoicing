@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    "name": "Unit of Sale for invoices",
+    "name": "Unit of measure for invoices",
     "version": "1.0",
     "author": "Agile Business Group",
     "website": "http://www.agilebg.com",
@@ -45,7 +45,7 @@ Contributors
         'account_invoice_line_view.xml',
     ],
     'test': [
-        'test/account_invoice_uos.yml',
+        'test/account_invoice_uom.yml',
     ],
     'installable': True,
 }
