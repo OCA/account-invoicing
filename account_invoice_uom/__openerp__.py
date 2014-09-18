@@ -26,11 +26,13 @@
     'license': 'AGPL-3',
     "category": "Account",
     "depends": [
-        'sale',
+        'sale_stock',
+        'stock_picking_invoice_link',
     ],
     "description": """
-The module displays the UoS and related quantity on invoice lines, retrieving
-them from linked sale order(s)
+The module displays the internal UoM and quantity on the invoice lines,
+retrieving them from the linked sale order(s), or from the picking lines
+(when the invoice is based on delivery).
 
 Contributors
 ------------

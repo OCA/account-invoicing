@@ -1,0 +1,91 @@
+-
+    In order to test process of the Account Invoice Uos,
+- 
+    I create a sale order.
+-  
+    !record {model: sale.order, id: sale_order_test}:
+        partner_id: base.res_partner_2
+        order_line:
+            - product_id: product.product_product_3
+              product_uom_qty: 1
+              product_uom: product.product_uom_unit
+              product_uos_qty: 2
+              product_uos: product.product_uom_kgm
+-
+    I confirm the sale order.
+-
+    !workflow {model: sale.order, action: order_confirm, ref: sale_order_test}
+-
+    I create advance invoice where type is 'Invoice all the Sale Order'.
+-
+    !python {model: sale.advance.payment.inv}: |
+        ctx = context.copy()
+        ctx.update({"active_model": 'sale.order', "active_ids": [ref("sale_order_test")], "active_id":ref("sale_order_test")})
+        pay_id = self.create(cr, uid, {'advance_payment_method': 'all'})
+        self.create_invoices(cr, uid, [pay_id], context=ctx)
+-
+    I check invoice which made advance where type is 'Invoice all the Sale Order'.
+-
+    !python {model: sale.order}: |
+        order = self.browse(cr, uid, ref('sale_order_test'))
+        assert order.invoice_ids, "Invoice should be created after make advance invoice where type is 'Invoice all the Sale Order'."
+-
+    I check the UoS and related quantity on invoice lines.
+-
+    !python {model: sale.order}: |
+        order = self.browse(cr, uid, ref("sale_order_test"))
+        for sale_line in order.order_line:
+            assert sale_line.invoice_lines, "Invoice lines on the sale order line should be created"
+            for invoice_line in sale_line.invoice_lines:
+                assert invoice_line.uom_id.id == ref('product.product_uom_unit'), "Uom are not matching"
+                assert invoice_line.uom_qty == 1, "Uom qty are not matching"
+                assert invoice_line.uos_id.id == ref('product.product_uom_kgm'), "UoS are not matching"
+                assert invoice_line.quantity == 2, "UoS qty are not matching"
+- 
+    I create another sale order, with invoice based on picking
+-  
+    !record {model: sale.order, id: sale_order_test_2}:
+        partner_id: base.res_partner_2
+        order_policy: 'picking'
+        order_line:
+            - product_id: product.product_product_3
+              product_uom_qty: 1
+              product_uom: product.product_uom_unit
+              product_uos_qty: 2
+              product_uos: product.product_uom_kgm
+-
+    I confirm the sale order.
+-
+    !workflow {model: sale.order, action: order_confirm, ref: sale_order_test_2}
+-
+  Now, I dispatch delivery order.
+-
+  !python {model: stock.partial.picking}: |
+    order = self.pool.get('sale.order').browse(cr, uid, ref("sale_order_test_2"))
+    for pick in order.picking_ids:
+        data = pick.force_assign()
+        if data == True:
+          partial_id = self.create(cr, uid, {}, context={'active_model': 'stock.picking','active_ids': [pick.id]})
+          self.do_partial(cr, uid, [partial_id])
+-
+  I create Invoice from Delivery Order.
+-
+  !python {model: stock.invoice.onshipping}: |
+    sale = self.pool.get('sale.order')
+    sale_order = sale.browse(cr, uid, ref("sale_order_test_2"))
+    ship_ids = [x.id for x in sale_order.picking_ids]
+    wiz_id = self.create(cr, uid, {'journal_id': ref('account.sales_journal')},
+      {'active_ids': ship_ids, 'active_model': 'stock.picking'})
+    self.create_invoice(cr, uid, [wiz_id], {"active_ids": ship_ids, "active_id": ship_ids[0]})
+-
+  I check the invoice details after dispatched delivery.
+-
+  !python {model: sale.order}: |
+    order = self.browse(cr, uid, ref("sale_order_test_2"))
+    assert order.invoice_ids, "Invoice is not created."
+    assert len(order.invoice_ids) == 1, "There must be 1 invoice"
+    assert len(order.invoice_ids[0].invoice_line) == 1, "There must be 1 invoice line"
+    assert order.invoice_ids[0].invoice_line[0].uom_id.id == ref('product.product_uom_unit'), "Uom are not matching"
+    assert order.invoice_ids[0].invoice_line[0].uom_qty == 1, "Uom qty are not matching"
+    assert order.invoice_ids[0].invoice_line[0].uos_id.id == ref('product.product_uom_kgm'), "UoS are not matching"
+    assert order.invoice_ids[0].invoice_line[0].quantity == 2, "UoS qty are not matching"

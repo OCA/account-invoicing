@@ -7,10 +7,10 @@
             <field name="inherit_id" ref="account.view_invoice_line_form"></field>
             <field name="arch" type="xml">
                 <xpath expr="//form/group/group/div" position="after">
-                    <label for="sale_uos_qty"/>
-                    <div>
-                        <field name="sale_uos_qty" class="oe_inline"/>
-                        <field name="sale_uos_id" class="oe_inline"/>
+                    <label for="sale_uos_qty" groups="product.group_uom"/>
+                    <div groups="product.group_uom">
+                        <field name="uom_qty" class="oe_inline"/>
+                        <field name="uom_id" class="oe_inline"/>
                     </div>
                 </xpath>
             </field>
@@ -21,8 +21,8 @@
             <field name="inherit_id" ref="account.invoice_form"></field>
             <field name="arch" type="xml">
                 <field name="uos_id" position="after">
-                    <field name="sale_uos_qty"/>
-                    <field name="sale_uos_id"/>
+                    <field name="uom_qty" groups="product.group_uom"/>
+                    <field name="uom_id" groups="product.group_uom"/>
                 </field>
             </field>
         </record>
