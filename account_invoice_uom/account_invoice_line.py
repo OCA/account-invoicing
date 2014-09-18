@@ -28,7 +28,6 @@ class account_invoice_line(orm.Model):
     def _get_uom_data(self, cr, uid, ids, field_name, arg, context):
         res = {}
         sale_line_obj = self.pool['sale.order.line']
-        move_obj = self.pool['stock.move']
         for line in self.browse(cr, uid, ids, context=context):
             res[line.id] = {
                 'uom_id': False,
