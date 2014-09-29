@@ -81,8 +81,7 @@ class SaleOrderLine(orm.Model):
                                          context=None):
         if context is None:
             context = {}
-        res = super(SaleOrderLine,
-                    self)._prepare_order_line_invoice_line(
+        res = super(SaleOrderLine, self)._prepare_order_line_invoice_line(
             cr, uid, line, account_id, context=context)
         if '_partial_invoice' in context:
             # we are making a partial invoice for the line
@@ -93,7 +92,9 @@ class SaleOrderLine(orm.Model):
         res['quantity'] = to_invoice_qty
         return res
 
-    def _fnct_line_invoiced(self, cr, uid, ids, field_name, args, context=None):
+    def _fnct_line_invoiced(
+            self, cr, uid, ids, field_name, args, context=None
+    ):
         res = dict.fromkeys(ids, False)
         for this in self.browse(cr, uid, ids, context=context):
             res[this.id] = (this.qty_invoiced == this.product_uom_qty)
