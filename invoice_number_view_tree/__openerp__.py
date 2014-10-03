@@ -23,25 +23,32 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #
-
 {
-    "name": "Invoice number",
-    "version": "1.0",
-    "author": "Vauxoo",
-    "category": "Localization",
-    "description" : """
+    "name": "Invoice number", 
+    "version": "1.0", 
+    "author": "Vauxoo", 
+    "category": "Localization", 
+    "description": """
 Invoice number:
 ===============
 
 supplier_invoice_number field added in the tree and search view by
 inheritance
-    """,
-    "website": "http://www.vauxoo.com/",
-    "license": "AGPL-3",
+    """, 
+    "website": "http://www.vauxoo.com/", 
+    "license": "AGPL-3", 
     "depends": [
-        "account",
-    ],
-    "data": ["view/invoice_number.xml"],
-    "installable": True,
-    "active": False,
+        "account"
+    ], 
+    "demo": [], 
+    "data": [
+        "view/invoice_number.xml"
+    ], 
+    "test": [], 
+    "js": [], 
+    "css": [], 
+    "qweb": [], 
+    "installable": True, 
+    "auto_install": False
 }
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
