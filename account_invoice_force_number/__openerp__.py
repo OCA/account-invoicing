@@ -22,7 +22,8 @@
 {
     'name': "Force Invoice Number",
     'version': '0.1',
-    'category': 'Generic Modules/Accounting',
+    'category': 'Accounting & Finance',
+    'summary': "Allows to force invoice numbering on specific invoices",
     'description': """
 This module allows to force the invoice numbering.
 It displays the internal_number field. If user fills that field, the typed
@@ -41,5 +42,5 @@ invoice numbering for a specific invoice.
         'invoice_view.xml'
     ],
     "active": False,
-    "installable": False
+    "installable": True,
 }
