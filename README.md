@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/OCA/account-invoicing.svg?branch=6.1)](https://travis-ci.org/OCA/account-invoicing)
-[![Coverage Status](https://coveralls.io/repos/OCA/l10n-spain/badge.png?branch=6.1)](https://coveralls.io/r/OCA/account-invoicing?branch=6.1)
+[![Coverage Status](https://coveralls.io/repos/OCA/account-invoicing/badge.png?branch=6.1)](https://coveralls.io/r/OCA/account-invoicing?branch=6.1)
 
 OCA account invoicing modules for OpenERP
 =========================================
