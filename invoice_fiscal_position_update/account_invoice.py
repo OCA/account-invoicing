@@ -22,26 +22,24 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
-from openerp.tools.translate import _
+from openerp import models, api, _
 
 
-class account_invoice(orm.Model):
+class account_invoice(models.Model):
     _inherit = "account.invoice"
 
+    @api.multi
     def fiscal_position_change(
-            self, cr, uid, ids, fiscal_position, type, invoice_line,
-            context=None):
+            self, fiscal_position_id, type, invoice_line):
         '''Function executed by the on_change on the fiscal_position field
         of invoice ; it updates taxes and accounts on all invoice lines'''
-        assert len(ids) in (0, 1), 'One ID max'
-        fp_obj = self.pool['account.fiscal.position']
-        res = {}
+        fp_obj = self.env['account.fiscal.position']
+        res = {'value': {}}
         line_dict = self.resolve_2many_commands(
-            cr, uid, 'invoice_line', invoice_line, context=context)
+            'invoice_line', invoice_line)
         lines_without_product = []
-        if fiscal_position:
-            fp = fp_obj.browse(cr, uid, fiscal_position, context=context)
+        if fiscal_position_id:
+            fp = fp_obj.browse(fiscal_position_id)
         else:
             fp = False
         for line in line_dict:
@@ -51,35 +49,31 @@ class account_invoice(orm.Model):
                 if isinstance(value, tuple) and len(value) == 2:
                     line[key] = value[0]
             if line.get('product_id'):
-                product = self.pool['product.product'].browse(
-                    cr, uid, line.get('product_id'), context=context)
+                product = self.env['product.product'].browse(
+                    line.get('product_id'))
                 if type in ('out_invoice', 'out_refund'):
-                    account_id = (
-                        product.property_account_income.id or
-                        product.categ_id.property_account_income_categ.id)
+                    account = (
+                        product.property_account_income or
+                        product.categ_id.property_account_income_categ)
                     taxes = product.taxes_id
                 else:
-                    account_id = (
-                        product.property_account_expense.id or
-                        product.categ_id.property_account_expense_categ.id)
+                    account = (
+                        product.property_account_expense or
+                        product.categ_id.property_account_expense_categ)
                     taxes = product.supplier_taxes_id
                 taxes = taxes or (
-                    account_id
-                    and self.pool['account.account'].browse(
-                        cr, uid, account_id, context=context).tax_ids
-                    or False)
-                account_id = fp_obj.map_account(
-                    cr, uid, fp, account_id, context=context)
-                tax_ids = fp_obj.map_tax(
-                    cr, uid, fp, taxes, context=context)
+                    account and account.tax_ids or False)
+                if fp:
+                    account = fp.map_account(account)
+                    taxes = fp.map_tax(taxes)
 
+                tax_ids = [tax.id for tax in taxes]
                 line.update({
                     'invoice_line_tax_id': [(6, 0, tax_ids)],
-                    'account_id': account_id,
+                    'account_id': account.id,
                 })
             else:
                 lines_without_product.append(line.get('name'))
-        res['value'] = {}
         res['value']['invoice_line'] = line_dict
 
         if lines_without_product:
