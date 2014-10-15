@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.org/OCA/account-invoicing.svg?branch=8.0)](https://travis-ci.org/OCA/account-invoicing)
 [![Coverage Status](https://coveralls.io/repos/OCA/account-invoicing/badge.png?branch=8.0)](https://coveralls.io/r/OCA/account-invoicing?branch=8.0)
 
-OCA account invoicing modules for OpenERP
-=========================================
+OCA account invoicing modules for Odoo
+======================================
 
 This project aim to deal with modules related to manage invoicing in a generic way. You'll find modules that:
 
