@@ -15,7 +15,7 @@ class res_partner(orm.Model):
 
     _columns = {
         'property_account_income': fields.property(
-            'account.account',
+            obj_prop='account.account',
             type='many2one',
             relation='account.account',
             string='Default Income Account',
@@ -28,7 +28,7 @@ class res_partner(orm.Model):
             help='When an account is selected on an invoice line, '
                  'automatically assign it as default income account'),
         'property_account_expense': fields.property(
-            'account.account',
+            obj_prop='account.account',
             type='many2one',
             relation='account.account',
             string='Default Expense Account',
