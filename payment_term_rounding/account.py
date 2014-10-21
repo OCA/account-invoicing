@@ -65,7 +65,7 @@ class AccountPaymentTermLine(orm.Model):
                 amt = float_round(amt, precision_rounding=line.amount_round)
             return float_round(amt, precision_digits=prec)
         elif line.value == 'balance':
-            amt = float_round(remaining_amount, precision_digits=prec)
+            return float_round(remaining_amount, precision_digits=prec)
         return None
 
 
