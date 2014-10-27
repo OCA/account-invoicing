@@ -38,6 +38,6 @@ a warning is displayed to the user in this case.
 """,
     'author': 'Julius Network Solutions, Akretion',
     'depends': ['account'],
-    'data': ['account_invoice_view.xml'],
+    'data': [],
     'installable': True,
 }
