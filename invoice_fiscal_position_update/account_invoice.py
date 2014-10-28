@@ -31,6 +31,7 @@ class account_invoice(models.Model):
     @api.onchange('fiscal_position')
     def fiscal_position_change(self):
         """Updates taxes and accounts on all invoice lines"""
+        self.ensure_one()
         res = {}
         lines_without_product = []
         fp = self.fiscal_position
