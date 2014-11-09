@@ -157,8 +157,6 @@ class sale_advance_payment_inv(orm.TransientModel):
                 line_values.append((0, 0, val))
         val = {'line_ids': line_values, }
         wizard_id = wizard_obj.create(cr, uid, val, context=context)
-        wiz = wizard_obj.browse(cr, uid, wizard_id, context=context)
-        print wiz.line_ids
         res = {'view_type': 'form',
                'view_mode': 'form',
                'res_model': 'sale.order.line.invoice.partially',
