@@ -20,10 +20,10 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm
 
 
-class stock_config_settings(osv.TransientModel):
+class stock_config_settings(orm.TransientModel):
     _inherit = 'stock.config.settings'
 
     _columns = {
