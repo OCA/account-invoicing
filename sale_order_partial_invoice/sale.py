@@ -219,7 +219,6 @@ class SaleOrderLineInvoicePartially(orm.TransientModel):
         ctx['_partial_invoice'] = {}
         so_line_obj = self.pool['sale.order.line']
         so_obj = self.pool['sale.order']
-        invoice_obj = self.pool['account.invoice']
         order_lines = {}
         for wiz in self.browse(cr, uid, ids, context=context):
             for line in wiz.line_ids:
@@ -252,7 +251,6 @@ class SaleOrderLineInvoicePartially(orm.TransientModel):
             if all(line.invoiced for line in order.order_line):
                 wf_service.trg_validate(
                     uid, 'sale.order', order.id, 'manual_invoice', cr)
-                so_obj.write(cr, uid, [order.id], {'state': 'progress'})
         # Open invoice
         ir_model_data = self.pool['ir.model.data']
         form_res = ir_model_data.get_object_reference(cr, uid, 'account',
