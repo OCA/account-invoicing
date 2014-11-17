@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form (invoice_partner_improve_ui)</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" name="%(account.action_invoice_tree4)d" type="action"
+                        attrs="{'invisible': [('supplier', '=', False)]}" icon="fa-pencil-square" help="Supplier Refunds"
+                        context="{'search_default_partner_id': active_id,'default_partner_id': active_id}">
+                        <field string="Sup. Refunds" name="supplier_refund_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_inline oe_stat_button" name="%(account.action_invoice_tree3)d" type="action"
+                        attrs="{'invisible': [('customer', '=', False)]}" icon="fa-pencil-square" help="Customer Refunds"
+                        context="{'search_default_partner_id': active_id,'default_partner_id': active_id}">
+                        <field string="Cust. Refunds " name="customer_refund_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
