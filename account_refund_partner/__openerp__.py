@@ -3,15 +3,7 @@
 #
 # Author: Anthony Muschang
 # Copyright (c) 2014 Acsone SA/NV (http://www.acsone.eu)
-# All Rights Reserved
-#
-# WARNING: This program as such is intended to be used by professional
-# programmers who take the whole responsibility of assessing all potential
-# consequences resulting from its eventual inadequacies and bugs.
-# End users who are looking for a ready-to-use solution with commercial
-# guarantees and support are strongly advised to contact a Free Software
-# Service Company.
-#
+
 # This program is Free Software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 2
@@ -40,7 +32,7 @@ Add shortcuts to Refunds in partner screen
 This module add shortcuts (i.e: smart button) in the Partner view to
  Customer Refunds and Supplier Refunds
 """,
-    'author': 'Anthony Muschang, ACSONE',
+    'author': 'ACSONE SA/NV',
     'depends': ['account'],
     'data': ['res_partner_view.xml'],
     'installable': True,
