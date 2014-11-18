@@ -45,4 +45,3 @@ class res_partner(models.Model):
             p.customer_refund_count = \
                 Invoice.search_count([('partner_id', '=', p.id),
                                       ('type', '=', 'out_refund')])
-
