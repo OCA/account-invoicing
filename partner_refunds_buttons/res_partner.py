@@ -25,23 +25,21 @@ from openerp import models, fields, api
 class res_partner(models.Model):
     _inherit = "res.partner"
 
-    supplier_refund_count = fields.Integer(compute='_refund_count',
-                                           string="# Supplier Refund",
-                                           groups='account.' +
-                                           'group_account_invoice')
+    supplier_refund_count = fields.Integer(
+        compute='_refund_count', string="# Supplier Refund",
+        groups='account.group_account_invoice')
 
-    customer_refund_count = fields.Integer(compute='_refund_count',
-                                           string="# Supplier Refund",
-                                           groups='account.' +
-                                           'group_account_invoice')
+    customer_refund_count = fields.Integer(
+        compute='_refund_count', string="# Customer Refund",
+        groups='account.group_account_invoice')
 
-    @api.multi
+    @api.one
     def _refund_count(self):
         Invoice = self.env['account.invoice']
-        for p in self:
-            p.supplier_refund_count = \
-                Invoice.search_count([('partner_id', '=', p.id),
-                                      ('type', '=', 'in_refund')])
-            p.customer_refund_count = \
-                Invoice.search_count([('partner_id', '=', p.id),
-                                      ('type', '=', 'out_refund')])
+
+        self.supplier_refund_count = \
+            Invoice.search_count([('partner_id', '=', self.id),
+                                  ('type', '=', 'in_refund')])
+        self.customer_refund_count = \
+            Invoice.search_count([('partner_id', '=', self.id),
+                                  ('type', '=', 'out_refund')])
