@@ -26,15 +26,19 @@ class res_partner(models.Model):
     _inherit = "res.partner"
 
     supplier_refund_count = fields.Integer(
-        compute='_refund_count', string="# Supplier Refund",
+        compute='_invoice_count', string="# Supplier Refund",
         groups='account.group_account_invoice')
 
     customer_refund_count = fields.Integer(
-        compute='_refund_count', string="# Customer Refund",
+        compute='_invoice_count', string="# Customer Refund",
+        groups='account.group_account_invoice')
+
+    customer_invoice_count = fields.Integer(
+        compute='_invoice_count', string="# Invoice Count",
         groups='account.group_account_invoice')
 
     @api.one
-    def _refund_count(self):
+    def _invoice_count(self):
         Invoice = self.env['account.invoice']
 
         self.supplier_refund_count = \
@@ -43,3 +47,6 @@ class res_partner(models.Model):
         self.customer_refund_count = \
             Invoice.search_count([('partner_id', '=', self.id),
                                   ('type', '=', 'out_refund')])
+        self.customer_invoice_count = \
+            Invoice.search_count([('partner_id', '=', self.id),
+                                  ('type', '=', 'out_invoice')])
