@@ -71,7 +71,8 @@ class account_invoice_template_line(orm.Model):
             'The sequence of the line must be unique per template !')
     ]
 
-    def product_id_change(self, cr, uid, ids, product_id, type, context=None):
+    def product_id_change(self, cr, uid, ids, product_id, invoice_type,
+                          context=None):
         if context is None:
             context = {}
 
@@ -88,7 +89,7 @@ class account_invoice_template_line(orm.Model):
 
         # account
         account_id = False
-        if type in ('out_invoice', 'out_refund'):
+        if invoice_type in ('out_invoice', 'out_refund'):
             account_id = product.product_tmpl_id.property_account_income.id
             if not account_id:
                 account_id = product.categ_id.property_account_income_categ.id
@@ -104,7 +105,7 @@ class account_invoice_template_line(orm.Model):
         account_obj = self.pool.get('account.account')
         taxes = account_id and account_obj.browse(
             cr, uid, account_id, context=context).tax_ids or False
-        if type in ('out_invoice', 'out_refund') and product.taxes_id:
+        if invoice_type in ('out_invoice', 'out_refund') and product.taxes_id:
             taxes = product.taxes_id
         elif product.supplier_taxes_id:
             taxes = product.supplier_taxes_id

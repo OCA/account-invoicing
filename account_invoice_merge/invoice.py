@@ -106,38 +106,38 @@ class account_invoice(orm.Model):
         seen_origins = {}
         seen_client_refs = {}
 
-        for account_invoice in draft_invoices:
+        for draft_invoice in draft_invoices:
             invoice_key = make_key(
-                account_invoice, self._get_invoice_key_cols(cr, uid,
-                                                            account_invoice))
+                draft_invoice, self._get_invoice_key_cols(cr, uid,
+                                                          draft_invoice))
             new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
             origins = seen_origins.setdefault(invoice_key, set())
             client_refs = seen_client_refs.setdefault(invoice_key, set())
-            new_invoice[1].append(account_invoice.id)
+            new_invoice[1].append(draft_invoice.id)
             invoice_infos = new_invoice[0]
             if not invoice_infos:
                 invoice_infos.update(
-                    self._get_first_invoice_fields(cr, uid, account_invoice))
-                origins.add(account_invoice.origin)
-                client_refs.add(account_invoice.reference)
+                    self._get_first_invoice_fields(cr, uid, draft_invoice))
+                origins.add(draft_invoice.origin)
+                client_refs.add(draft_invoice.reference)
             else:
-                if account_invoice.name:
+                if draft_invoice.name:
                     invoice_infos['name'] = \
                         (invoice_infos['name'] or '') + \
-                        (' %s' % (account_invoice.name,))
-                if account_invoice.origin and \
-                        account_invoice.origin not in origins:
+                        (' %s' % (draft_invoice.name,))
+                if draft_invoice.origin and \
+                        draft_invoice.origin not in origins:
                     invoice_infos['origin'] = \
                         (invoice_infos['origin'] or '') + ' ' + \
-                        account_invoice.origin
-                    origins.add(account_invoice.origin)
-                if account_invoice.reference \
-                        and account_invoice.reference not in client_refs:
+                        draft_invoice.origin
+                    origins.add(draft_invoice.origin)
+                if draft_invoice.reference \
+                        and draft_invoice.reference not in client_refs:
                     invoice_infos['reference'] = \
                         (invoice_infos['reference'] or '') + \
-                        (' %s' % (account_invoice.reference,))
-                    client_refs.add(account_invoice.reference)
-            for invoice_line in account_invoice.invoice_line:
+                        (' %s' % (draft_invoice.reference,))
+                    client_refs.add(draft_invoice.reference)
+            for invoice_line in draft_invoice.invoice_line:
                 line_key = make_key(
                     invoice_line, self._get_invoice_line_key_cols(
                         cr, uid, invoice_line))
