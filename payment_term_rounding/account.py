@@ -40,8 +40,8 @@ class AccountPaymentTermLine(orm.Model):
                  "surcharge -0.01"),
     }
 
-    def compute_line_amount(self, cr, uid, id, total_amount, remaining_amount,
-                            context=None):
+    def compute_line_amount(self, cr, uid, rec_id, total_amount,
+                            remaining_amount, context=None):
         """Compute the amount for a payment term line.
         In case of procent computation, use the payment
         term line rounding if defined
@@ -51,12 +51,12 @@ class AccountPaymentTermLine(orm.Model):
                 computed amount
             :returns: computed amount for this line
         """
-        if isinstance(id, (tuple, list)):
-            assert len(id) == 1, "compute_line_amount accepts only 1 ID"
-            id = id[0]
+        if isinstance(rec_id, (tuple, list)):
+            assert len(rec_id) == 1, "compute_line_amount accepts only 1 ID"
+            rec_id = rec_id[0]
         obj_precision = self.pool.get('decimal.precision')
         prec = obj_precision.precision_get(cr, uid, 'Account')
-        line = self.browse(cr, uid, id, context=context)
+        line = self.browse(cr, uid, rec_id, context=context)
         if line.value == 'fixed':
             return float_round(line.value_amount, precision_digits=prec)
         elif line.value == 'procent':
@@ -72,7 +72,7 @@ class AccountPaymentTermLine(orm.Model):
 class AccountPaymentTerm(orm.Model):
     _inherit = "account.payment.term"
 
-    def compute(self, cr, uid, id, value, date_ref=False, context=None):
+    def compute(self, cr, uid, rec_id, value, date_ref=False, context=None):
         """Complete overwrite of compute method to add rounding on line
         computing.
         """
@@ -80,7 +80,7 @@ class AccountPaymentTerm(orm.Model):
         prec = obj_precision.precision_get(cr, uid, 'Account')
         if not date_ref:
             date_ref = datetime.now().strftime(DEFAULT_SERVER_DATE_FORMAT)
-        pt = self.browse(cr, uid, id, context=context)
+        pt = self.browse(cr, uid, rec_id, context=context)
         amount = value
         result = []
         for line in pt.line_ids:

@@ -227,8 +227,8 @@ class AccountInvoiceRefund(orm.TransientModel):
             else:
                 xml_id = 'action_invoice_tree4'
             result = mod_obj.get_object_reference(cr, uid, 'account', xml_id)
-            id = result and result[1] or False
-            result = act_obj.read(cr, uid, id, context=context)
+            rec_id = result and result[1] or False
+            result = act_obj.read(cr, uid, rec_id, context=context)
             invoice_domain = eval(result['domain'])
             invoice_domain.append(('id', 'in', created_inv))
             result['domain'] = invoice_domain
