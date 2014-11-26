@@ -108,8 +108,8 @@ class invoice_merge(orm.TransientModel):
         allinvoices = inv_obj.do_merge(
             cr, uid, context.get('active_ids', []), context)
         return {
-            'domain': "[('id','in', ["
-                      ','.join(map(str, allinvoices.keys())) + "])]",
+            'domain': "[('id','in',[" +
+                       ','.join(map(str, allinvoices.keys())) + "])]",
             'name': _('Partner Invoice'),
             'view_type': 'form',
             'view_mode': 'tree,form',
