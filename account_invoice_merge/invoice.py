@@ -78,6 +78,9 @@ class account_invoice(orm.Model):
 
         """
         wf_service = netsvc.LocalService("workflow")
+        if context is None:
+            context = {}
+        context['is_merge'] = True
 
         def make_key(br, fields):
             list_key = []
@@ -142,10 +145,12 @@ class account_invoice(orm.Model):
                     invoice_line, self._get_invoice_line_key_cols(
                         cr, uid, invoice_line))
                 o_line = invoice_infos['invoice_line'].setdefault(line_key, {})
+                uos_factor = (invoice_line.uos_id and
+                              invoice_line.uos_id.factor or 1.0)
                 if o_line:
                     # merge the line with an existing line
                     o_line['quantity'] += invoice_line.quantity * \
-                        invoice_line.uos_id.factor / o_line['uom_factor']
+                        uos_factor / o_line['uom_factor']
                 else:
                     # append a new "standalone" line
                     for field in ('quantity', 'uos_id'):
@@ -153,8 +158,7 @@ class account_invoice(orm.Model):
                         if isinstance(field_val, browse_record):
                             field_val = field_val.id
                         o_line[field] = field_val
-                    o_line['uom_factor'] = (invoice_line.uos_id and
-                                            invoice_line.uos_id.factor or 1.0)
+                    o_line['uom_factor'] = uos_factor
         allinvoices = []
         invoices_info = {}
         for invoice_key, (invoice_data, old_ids) in new_invoices.iteritems():
@@ -170,7 +174,7 @@ class account_invoice(orm.Model):
                 (0, 0, value) for value in
                 invoice_data['invoice_line'].itervalues()]
             # create the new invoice
-            newinvoice_id = self.create(cr, uid, invoice_data)
+            newinvoice_id = self.create(cr, uid, invoice_data, context=context)
             invoices_info.update({newinvoice_id: old_ids})
             allinvoices.append(newinvoice_id)
             # make triggers pointing to the old invoices point to the new
