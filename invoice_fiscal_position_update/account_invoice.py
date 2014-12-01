@@ -49,8 +49,7 @@ class account_invoice(models.Model):
                         product.property_account_expense or
                         product.categ_id.property_account_expense_categ)
                     taxes = product.supplier_taxes_id
-                taxes = taxes or (
-                    account and account.tax_ids or False)
+                taxes = taxes or account.tax_ids
                 if fp:
                     account = fp.map_account(account)
                     taxes = fp.map_tax(taxes)
