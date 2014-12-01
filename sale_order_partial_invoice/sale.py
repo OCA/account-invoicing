@@ -50,6 +50,7 @@ import logging
 _logger = logging.getLogger(__name__)
 from openerp.osv import orm, fields
 from openerp import netsvc
+from openerp.tools.translate import _
 
 
 class SaleOrderLine(orm.Model):
@@ -117,19 +118,19 @@ class SaleOrderLine(orm.Model):
             _fnct_line_invoiced, string='Invoiced', type='boolean',
             store={
                 'account.invoice': (_order_lines_from_invoice2, ['state'], 10),
-                'sale.order.line': (lambda self, cr, uid, ids, ctx=None: ids,
-                                    ['invoice_lines'], 10)
+                'sale.order.line': (lambda self, cr, uid, ids, context=None:
+                                    ids, ['invoice_lines'], 10)
             }),
     }
 
 
-class sale_advance_payment_inv(orm.TransientModel):
+class SaleAdvancePaymentInv(orm.TransientModel):
     _inherit = "sale.advance.payment.inv"
 
     def create_invoices(self, cr, uid, ids, context=None):
         """override standard behavior if payment method is set to 'lines':
         """
-        res = super(sale_advance_payment_inv, self).create_invoices(
+        res = super(SaleAdvancePaymentInv, self).create_invoices(
             cr, uid, ids, context)
         wizard = self.browse(cr, uid, ids[0], context)
         if wizard.advance_payment_method != 'lines':
@@ -176,15 +177,30 @@ class SaleOrderLineInvoicePartiallyLine(orm.TransientModel):
         'sale_order_line_id': fields.many2one('sale.order.line',
                                               string='sale.order.line'),
         'name': fields.related('sale_order_line_id', 'name',
-                               type='char', string="Line"),
+                               type='text', string="Line", readonly=True),
         'order_qty': fields.related('sale_order_line_id', 'product_uom_qty',
-                                    type='float', string="Sold"),
+                                    type='float', string="Sold",
+                                    readonly=True),
         'qty_invoiced': fields.related('sale_order_line_id', 'qty_invoiced',
-                                       type='float', string="Invoiced"),
+                                       type='float', string="Invoiced",
+                                       readonly=True),
         'qty_delivered': fields.related('sale_order_line_id', 'qty_delivered',
-                                        type='float', string="Shipped"),
+                                        type='float', string="Shipped",
+                                        readonly=True),
         'quantity': fields.float('To invoice'),
     }
+
+    def _check_to_invoice_qty(self, cr, uid, ids, context=None):
+        for record in self.browse(cr, uid, ids, context=context):
+            if record.order_qty - record.qty_invoiced < record.quantity:
+                return False
+        return True
+
+    _constraints = [
+        (_check_to_invoice_qty,
+         "Quantity to invoice couldn't be greater than remaining quantity",
+         ['quantity']),
+    ]
 
 
 class SaleOrderLineInvoicePartially(orm.TransientModel):
@@ -212,16 +228,21 @@ class SaleOrderLineInvoicePartially(orm.TransientModel):
                 if sale_order.id not in order_lines:
                     order_lines[sale_order.id] = []
                 order_lines[sale_order.id].append(line.sale_order_line_id.id)
-                ctx['_partial_invoice'][
-                    line.sale_order_line_id.id] = line.quantity
+                ctx['_partial_invoice'][line.sale_order_line_id.id] = \
+                    line.quantity
         for order_id in order_lines:
-            line_ids = order_lines[order_id]
+            so_line_ids = order_lines[order_id]
             invoice_line_ids = so_line_obj.invoice_line_create(
-                cr, uid, line_ids, context=ctx)
+                cr, uid, so_line_ids, context=ctx)
             order = so_obj.browse(cr, uid, order_id, context=context)
-            invoice_id = so_obj._make_invoice(
-                cr, uid, order, invoice_line_ids, context=ctx)
-            _logger.info('created invoice %d', invoice_id)
+            # HACK: Avoid the creation of counterpart lines for compensating
+            # false "anticipated" invoice lines (which is the standard
+            # behaviour)
+            order.invoice_ids = []
+            # Call invoice creation
+            invoice_id = so_obj._make_invoice(cr, uid, order, invoice_line_ids,
+                                              context=ctx)
+            _logger.info(_('Created invoice %d'), invoice_id)
             # the following is copied from many places around
             # (actually sale_line_invoice.py)
             cr.execute('INSERT INTO sale_order_invoice_rel (order_id, '
@@ -230,4 +251,17 @@ class SaleOrderLineInvoicePartially(orm.TransientModel):
             if all(line.invoiced for line in order.order_line):
                 wf_service.trg_validate(
                     uid, 'sale.order', order.id, 'manual_invoice', cr)
-        return {'type': 'ir.actions.act_window_close'}
+        # Open invoice
+        ir_model_data = self.pool['ir.model.data']
+        form_res = ir_model_data.get_object_reference(cr, uid, 'account',
+                                                      'invoice_form')
+        form_id = form_res and form_res[1] or False
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'account.invoice',
+            'res_id': invoice_id,
+            'view_id': form_id,
+            'context': {'type': 'out_invoice'},
+            'type': 'ir.actions.act_window',
+        }

@@ -167,7 +167,10 @@
                             ],
                 }
     id = self.create(cr, uid, wiz_data, context=context)
-    self.create_invoice(cr, uid, [id], context=context)
+    second_invoice_id = self.create_invoice(cr, uid, [id], context=context)['res_id']
+    invoice_obj = self.pool['account.invoice']
+    invoice = invoice_obj.browse(cr, uid, second_invoice_id)
+    assert len(invoice.invoice_line) == 3, "Wrong number of lines in second invoice"
 -
  Check the 2nd invoice is created
 -
