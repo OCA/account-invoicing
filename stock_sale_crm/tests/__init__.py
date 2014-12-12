@@ -20,22 +20,8 @@
 #
 ###############################################################################
 
-from openerp.osv import orm
+from . import test_set_salesteam
 
-
-class SaleOrder(orm.Model):
-    _name = 'sale.order'
-    _inherit = 'sale.order'
-
-    def onchange_partner_id(self, cr, uid, ids, part, context=None):
-        res = super(SaleOrder, self).onchange_partner_id(cr, uid, ids, part,
-                                                         context=context)
-        if not part:
-            return res
-
-        part = self.pool.get('res.partner').browse(cr, uid, part,
-                                                   context=context)
-        if part.section_id:
-            res['value']['section_id'] = part.section_id.id
-
-        return res
+checks = [
+    test_set_salesteam,
+]

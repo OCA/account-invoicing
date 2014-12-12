@@ -21,15 +21,15 @@
 ###############################################################################
 
 {
-    'name': 'Invoice Salesteam on Delivery Order',
-    'version': '1.0',
-    'category': 'Hidden',
+    'name': 'Default Sales Team on Invoice',
+    'version': '1.1',
+    'category': 'Accounting & Finance',
     'description': """
-This module allows:
+This module set the Sales Team (section_id field) in the 2 following scenarios:
 
-* Invoices made from a delivery order to use the sale order sales team.
-* Sale Order to get the partner's default sales team.
-
+* when creating an invoice, set on partner_id.onchange() from the partner's
+  Sales Team
+* when invoicing from sales_order, set from the Sales Order's Sales Team.
 """,
     'author': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
