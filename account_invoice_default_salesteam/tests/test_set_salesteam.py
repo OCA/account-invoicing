@@ -30,6 +30,7 @@ class test_invoice_salesteam(TransactionCase):
         module, _, xmlid = xmlref.partition(".")
         return self.model_data_obj.get_object_reference(self.cr, self.uid,
                                                         module, xmlid)[1]
+
     def setUp(self):
         super(test_invoice_salesteam, self).setUp()
         self.invoice_obj = self.registry("account.invoice")
@@ -39,9 +40,8 @@ class test_invoice_salesteam(TransactionCase):
         self.section_id = self._ref("crm.crm_case_section_1")
         self.partner_id = self.partner_obj.create(
             self.cr, self.uid,
-            {"name":"Test Partner",
+            {"name": "Test Partner",
              "section_id": self.section_id})
-
 
     def test_onchange(self):
         res = self.invoice_obj.onchange_partner_id(
@@ -67,7 +67,8 @@ class test_invoice_salesteam(TransactionCase):
              "journal_id": ref("account.bank_journal"),
              "partner_id": self.partner_id,
              "reference_type": "none",
-            })
+             }
+        )
 
         inv = self.invoice_obj.browse(self.cr, self.uid, inv_id)
         self.assertEquals(inv.section_id.id, self.section_id)
