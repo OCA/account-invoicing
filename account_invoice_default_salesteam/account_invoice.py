@@ -46,12 +46,12 @@ class AccountInvoice(orm.Model):
             date_invoice=date_invoice, payment_term=payment_term,
             partner_bank_id=partner_bank_id, company_id=company_id)
 
-        part = self.pool["res.partner"].browse(cr, uid, partner_id,
-                                               context=context)
         values = res.setdefault("value", {})
-        if part.section_id:
-            values["section_id"] = part.section_id.id
-        else:
-            values["section_id"] = False
+        values["section_id"] = False
+        if partner_id:
+            part = self.pool["res.partner"].browse(cr, uid, partner_id,
+                                                   context=context)
+            if part.section_id:
+                values["section_id"] = part.section_id.id
 
         return res
