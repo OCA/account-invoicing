@@ -49,6 +49,12 @@ class test_invoice_salesteam(TransactionCase):
 
         self.assertEquals(res["value"]["section_id"], self.section_id)
 
+    def test_onchange_no_partner_id(self):
+        res = self.invoice_obj.onchange_partner_id(
+            self.cr, self.uid, [], type=None, partner_id=False)
+
+        self.assertEquals(res["value"]["section_id"], False)
+
     def test_create(self):
         ref = self._ref
         inv_id = self.invoice_obj.create(
