@@ -34,8 +34,7 @@ msgstr "stock.config.settings"
 #. module: invoice_line_no_picking_name
 #: help:stock.config.settings,group_not_use_picking_name_per_invoice_line:0
 msgid "Allows you to not use the picking name on the invoice lines."
-msgstr ""
-"Erlaubt Ihnen die Nicht-Verwendung des Liefernamens in Rechnungspositionen"
+msgstr "Erlaubt Ihnen die Nicht-Verwendung des Liefernamens in Rechnungspositionen"
 
 #. module: invoice_line_no_picking_name
 #: model:ir.model,name:invoice_line_no_picking_name.model_stock_picking
