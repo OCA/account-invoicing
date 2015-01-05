@@ -33,14 +33,12 @@ msgid ""
 "Allow using only the product sale description\n"
 "            on the invoice order lines"
 msgstr ""
-"Erlaubt die ausschließliche Verwendung der Verkaufsbeschreibung in "
-"Rechnungspositionen"
+"Erlaubt die ausschließliche Verwendung der Verkaufsbeschreibung in Rechnungspositionen"
 
 #. module: invoice_line_description
 #: model:res.groups,name:invoice_line_description.group_use_product_description_per_inv_line
 msgid "Use only product sale description on invoice lines"
-msgstr ""
-"Ausschließliche Verwendung der Verkaufsbeschreibung in Rechnungspositionen"
+msgstr "Ausschließliche Verwendung der Verkaufsbeschreibung in Rechnungspositionen"
 
 #. module: invoice_line_description
 #: model:ir.model,name:invoice_line_description.model_account_invoice_line
