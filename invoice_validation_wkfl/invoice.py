@@ -18,9 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields, api
+from openerp import models, fields, api, exceptions
 from openerp.osv import orm
-from openerp.osv.osv import except_osv
 from openerp.tools.translate import _
 from openerp import netsvc
 
@@ -41,7 +40,7 @@ class AccountInvoice(models.Model):
                     str_error_lines += "\n- %s" % line.name
                     errors = True
             if errors:
-                raise except_osv(
+                raise exceptions.Warning(
                     _('UserError'),
                     _("You are trying to validate invoice lines linked to a "
                       "closed or cancelled Analytic Account.\n\n"
