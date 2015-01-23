@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Joël Grand-Guillaume
-#    Copyright 2010 Camptocamp SA
+#    Copyright 2010-2015 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,4 +18,4 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import invoice
+from . import invoice

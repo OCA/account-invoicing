@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Joël Grand-Guillaume
-#    Copyright 2010 Camptocamp SA
+#    Copyright 2010-2015 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,6 +19,7 @@
 #
 ##############################################################################
 from openerp import models, fields, api
+from openerp.osv import orm
 from openerp.osv.osv import except_osv
 from openerp.tools.translate import _
 from openerp import netsvc
@@ -26,7 +27,6 @@ from openerp import netsvc
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
-
 
     @api.multi
     def action_to_valid(self):
@@ -50,15 +50,15 @@ class AccountInvoice(models.Model):
         return True
 
     state = fields.Selection(
-      [
-          ('draft', 'Draft'),
-          ('to_send', 'To Send'),
-          ('to_valid', 'To Validate'),
-          ('proforma2', 'Pro-forma'),
-          ('open', 'Open'),
-          ('paid', 'Paid'),
-          ('cancel', 'Canceled')
-      ], 'State', select=True, readonly=True)
+        [
+            ('draft', 'Draft'),
+            ('to_send', 'To Send'),
+            ('to_valid', 'To Validate'),
+            ('proforma2', 'Pro-forma'),
+            ('open', 'Open'),
+            ('paid', 'Paid'),
+            ('cancel', 'Canceled')
+        ], 'State', select=True, readonly=True)
 
 
 class AccountInvoiceRefund(models.TransientModel):
