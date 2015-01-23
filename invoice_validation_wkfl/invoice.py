@@ -59,7 +59,7 @@ class AccountInvoice(models.Model):
         ], 'State', select=True, readonly=True)
 
 
-class AccountInvoiceRefund(models.TransientModel):
+class AccountInvoiceRefund(orm.TransientModel):
     _inherit = "account.invoice.refund"
 
     def compute_refund(self, cr, uid, ids, mode='refund', context=None):
