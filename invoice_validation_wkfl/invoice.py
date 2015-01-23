@@ -41,7 +41,6 @@ class AccountInvoice(models.Model):
                     errors = True
             if errors:
                 raise exceptions.Warning(
-                    _('UserError'),
                     _("You are trying to validate invoice lines linked to a "
                       "closed or cancelled Analytic Account.\n\n"
                       "Check the following lines:") + str_error_lines)
