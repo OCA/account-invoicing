@@ -43,7 +43,7 @@ the condition to allow merge:
     'test': [
     ],
     'demo': [],
-    'installable': False,
+    'installable': True,
     'active': False,
     'certificate': False,
 }
