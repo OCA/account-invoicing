@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Joël Grand-Guillaume (Camptocamp)
-#    Copyright 2010 Camptocamp SA
+#    Copyright 2010-2015 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -39,7 +39,7 @@ This module adds 2 states between draft and open state in invoices:
     ],
     'demo': [],
     'test': [],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
     'application': False
 }

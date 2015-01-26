@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Joël Grand-Guillaume
-#    Copyright 2010 Camptocamp SA
+#    Copyright 2010-2015 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,20 +18,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm, fields
-from tools.translate import _
-import netsvc
+from openerp import models, fields, api, exceptions
+from openerp.osv import orm
+from openerp.tools.translate import _
+from openerp import netsvc
 
 
-class AccountInvoice(orm.Model):
+class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    def action_to_valid(self, cr, uid, ids):
+    @api.multi
+    def action_to_valid(self):
         """Check if analytic account of each lines is not closed"""
-        inv_ids = isinstance(ids, list) and ids[:] or [ids]
         str_error_lines = ""
         errors = False
-        for inv in self.browse(cr, uid, inv_ids):
+        for inv in self:
             for line in inv.invoice_line:
                 if line.account_analytic_id and \
                         line.account_analytic_id.state in ['close',
@@ -39,24 +40,23 @@ class AccountInvoice(orm.Model):
                     str_error_lines += "\n- %s" % line.name
                     errors = True
             if errors:
-                raise orm.except_orm(
-                    _('UserError'),
+                raise exceptions.Warning(
                     _("You are trying to validate invoice lines linked to a "
                       "closed or cancelled Analytic Account.\n\n"
                       "Check the following lines:") + str_error_lines)
-        self.write(cr, uid, inv_ids, {'state': 'to_valid'})
+        self.write({'state': 'to_valid'})
         return True
 
-    _columns = {
-        'state': fields.selection([
+    state = fields.Selection(
+        [
             ('draft', 'Draft'),
             ('to_send', 'To Send'),
             ('to_valid', 'To Validate'),
             ('proforma2', 'Pro-forma'),
             ('open', 'Open'),
             ('paid', 'Paid'),
-            ('cancel', 'Canceled')], 'State', select=True, readonly=True),
-    }
+            ('cancel', 'Canceled')
+        ], 'State', select=True, readonly=True)
 
 
 class AccountInvoiceRefund(orm.TransientModel):
@@ -67,7 +67,6 @@ class AccountInvoiceRefund(orm.TransientModel):
         @param cr: the current row, from the database cursor,
         @param uid: the current user’s ID for security checks,
         @param ids: the account invoice refund’s ID or list of IDs
-
         """
         inv_obj = self.pool['account.invoice']
         reconcile_obj = self.pool['account.move.reconcile']

@@ -2,15 +2,15 @@
 <openerp>
   <data>
 
-    <record model="ir.ui.view" id="invoice_supplier_formc2c">
-      <field name="name">account.invoice.supplier.formc2c</field>
+    <record model="ir.ui.view" id="invoice_supplier_form_validation_wkfl">
+      <field name="name">account.invoice.supplier.form.validation.wkfl</field>
       <field name="model">account.invoice</field>
       <field name="inherit_id" ref="account.invoice_supplier_form"/>
       <field name="arch" type="xml">
         <xpath expr="/form/header" position="replace">
           <header>
             <button name="invoice_cancel" states="draft,to_valid,to_send,proforma2,sale,open" string="Cancel" icon="gtk-cancel"/>
-            <button name="action_cancel_draft" states="cancel" string="Set to Drafttttt" type="object" icon="terp-stock_effects-object-colorize"/>
+            <button name="action_cancel_draft" states="cancel" string="Set to Draft" type="object" icon="terp-stock_effects-object-colorize"/>
             <button name="%(account.action_account_invoice_refund)d" type='action' string='Refund' states='open,paid' icon="gtk-execute"/>
             <button name="%(account.action_account_state_open)d" type='action' string='Re-Open' states='paid' icon="gtk-convert" groups="account.group_account_user"/>
             <button name="invoice_open" states="to_send,proforma2" string="Approve" icon="terp-camera_test"/>
@@ -22,8 +22,8 @@
       </field>
     </record>
 
-    <record model="ir.ui.view" id="invoice_formc2c">
-      <field name="name">account.invoice.formc2c</field>
+    <record model="ir.ui.view" id="invoice_form_validation_wkfl">
+      <field name="name">account.invoice.form.validation.wkfl</field>
       <field name="model">account.invoice</field>
       <field name="inherit_id" ref="account.invoice_form"/>
       <field name="arch" type="xml">
