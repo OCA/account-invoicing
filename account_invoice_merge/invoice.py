@@ -84,7 +84,7 @@ class account_invoice(models.Model):
                     if not field_val:
                         field_val = False
                 if (isinstance(field_val, browse_record) and
-                      field != 'invoice_line_tax_id'):
+                   field != 'invoice_line_tax_id'):
                     field_val = field_val.id
                 elif isinstance(field_val, browse_null):
                     field_val = False
