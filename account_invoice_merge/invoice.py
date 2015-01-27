@@ -22,6 +22,15 @@ from openerp import models, api
 from openerp import workflow
 from openerp.osv.orm import browse_record, browse_null
 
+INVOICE_KEY_COLS = ('partner_id', 'user_id', 'type',
+                    'account_id', 'currency_id',
+                    'journal_id', 'company_id')
+
+INVOICE_LINE_KEY_COLS = ('name', 'origin', 'discount',
+                         'invoice_line_tax_id', 'price_unit',
+                         'product_id', 'account_id',
+                         'account_analytic_id')
+
 
 class account_invoice(models.Model):
     _inherit = "account.invoice"
@@ -45,19 +54,6 @@ class account_invoice(models.Model):
             'period_id': invoice.period_id.id,
             'invoice_line': {},
         }
-
-    @api.model
-    def _get_invoice_key_cols(self, invoice):
-        return ('partner_id', 'user_id', 'type',
-                'account_id', 'currency_id',
-                'journal_id', 'company_id')
-
-    @api.model
-    def _get_invoice_line_key_cols(self, invoice_line):
-        return ('name', 'origin', 'discount',
-                'invoice_line_tax_id', 'price_unit',
-                'product_id', 'account_id',
-                'account_analytic_id')
 
     @api.multi
     def do_merge(self):
@@ -110,7 +106,7 @@ class account_invoice(models.Model):
 
         for account_invoice in draft_invoices:
             invoice_key = make_key(
-                account_invoice, self._get_invoice_key_cols(account_invoice))
+                account_invoice, INVOICE_KEY_COLS)
             new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
             origins = seen_origins.setdefault(invoice_key, set())
             client_refs = seen_client_refs.setdefault(invoice_key, set())
@@ -140,8 +136,7 @@ class account_invoice(models.Model):
                     client_refs.add(account_invoice.reference)
             for invoice_line in account_invoice.invoice_line:
                 line_key = make_key(
-                    invoice_line, self._get_invoice_line_key_cols(
-                        invoice_line))
+                    invoice_line, INVOICE_LINE_KEY_COLS)
                 o_line = invoice_infos['invoice_line'].setdefault(line_key, {})
                 if o_line:
                     # merge the line with an existing line
