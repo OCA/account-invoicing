@@ -19,7 +19,7 @@
 #
 ##############################################################################
 from openerp import models, api
-from openerp import netsvc
+from openerp import workflow
 from openerp.osv.orm import browse_record, browse_null
 
 
@@ -80,8 +80,6 @@ class account_invoice(models.Model):
          @return: new account invoice id
 
         """
-        wf_service = netsvc.LocalService("workflow")
-
         def make_key(br, fields):
             list_key = []
             for field in fields:
@@ -179,10 +177,10 @@ class account_invoice(models.Model):
             # make triggers pointing to the old invoices point to the new
             # invoice
             for old_id in old_ids:
-                wf_service.trg_redirect(
+                workflow.trg_redirect(
                     self.env.uid, 'account.invoice', old_id, newinvoice.id,
                     self.env.cr)
-                wf_service.trg_validate(
+                workflow.trg_validate(
                     self.env.uid, 'account.invoice', old_id, 'invoice_cancel',
                     self.env.cr)
         # make link between original sale order or purchase order
