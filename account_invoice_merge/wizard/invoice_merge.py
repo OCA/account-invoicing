@@ -31,8 +31,7 @@ class invoice_merge(models.TransientModel):
         if self.env.context.get('active_model', '') == 'account.invoice':
             ids = self.env.context['active_ids']
             if len(ids) < 2:
-                raise exceptions.except_orm(
-                    _('Warning!'),
+                raise exceptions.Warning(
                     _('Please select multiple invoice to merge in the list '
                       'view.'))
             inv_obj = self.env['account.invoice']
@@ -41,33 +40,26 @@ class invoice_merge(models.TransientModel):
                                  'partner_id', 'currency_id', 'journal_id'])
             for d in invs:
                 if d['state'] != 'draft':
-                    raise exceptions.except_orm(
-                        _('Warning'),
+                    raise exceptions.Warning(
                         _('At least one of the selected invoices is %s!') %
                         d['state'])
                 if d['account_id'] != invs[0]['account_id']:
-                    raise exceptions.except_orm(
-                        _('Warning'),
+                    raise exceptions.Warning(
                         _('Not all invoices use the same account!'))
                 if d['company_id'] != invs[0]['company_id']:
-                    raise exceptions.except_orm(
-                        _('Warning'),
+                    raise exceptions.Warning(
                         _('Not all invoices are at the same company!'))
                 if d['partner_id'] != invs[0]['partner_id']:
-                    raise exceptions.except_orm(
-                        _('Warning'),
+                    raise exceptions.Warning(
                         _('Not all invoices are for the same partner!'))
                 if d['type'] != invs[0]['type']:
-                    raise exceptions.except_orm(
-                        _('Warning'),
+                    raise exceptions.Warning(
                         _('Not all invoices are of the same type!'))
                 if d['currency_id'] != invs[0]['currency_id']:
-                    raise exceptions.except_orm(
-                        _('Warning'),
+                    raise exceptions.Warning(
                         _('Not all invoices are at the same currency!'))
                 if d['journal_id'] != invs[0]['journal_id']:
-                    raise exceptions.except_orm(
-                        _('Warning'),
+                    raise exceptions.Warning(
                         _('Not all invoices are at the same journal!'))
         return {}
 
