@@ -76,6 +76,8 @@ class account_invoice(models.Model):
          @return: new account invoice id
 
         """
+	context = self.env.context.copy()
+	context['is_merge'] = True
         def make_key(br, fields):
             list_key = []
             for field in fields:
@@ -138,10 +140,12 @@ class account_invoice(models.Model):
                 line_key = make_key(
                     invoice_line, INVOICE_LINE_KEY_COLS)
                 o_line = invoice_infos['invoice_line'].setdefault(line_key, {})
+                uos_factor = (invoice_line.uos_id and
+                              invoice_line.uos_id.factor or 1.0)
                 if o_line:
                     # merge the line with an existing line
                     o_line['quantity'] += invoice_line.quantity * \
-                        invoice_line.uos_id.factor / o_line['uom_factor']
+                        uos_factor / o_line['uom_factor']
                 else:
                     # append a new "standalone" line
                     for field in ('quantity', 'uos_id'):
@@ -149,8 +153,7 @@ class account_invoice(models.Model):
                         if isinstance(field_val, browse_record):
                             field_val = field_val.id
                         o_line[field] = field_val
-                    o_line['uom_factor'] = (invoice_line.uos_id and
-                                            invoice_line.uos_id.factor or 1.0)
+                    o_line['uom_factor'] = uos_factor
         allinvoices = []
         invoices_info = {}
         for invoice_key, (invoice_data, old_ids) in new_invoices.iteritems():
@@ -166,7 +169,7 @@ class account_invoice(models.Model):
                 (0, 0, value) for value in
                 invoice_data['invoice_line'].itervalues()]
             # create the new invoice
-            newinvoice = self.create(invoice_data)
+            newinvoice = self.with_context(context).create(invoice_data)
             invoices_info.update({newinvoice.id: old_ids})
             allinvoices.append(newinvoice.id)
             # make triggers pointing to the old invoices point to the new
