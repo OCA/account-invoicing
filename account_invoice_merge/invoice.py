@@ -76,8 +76,9 @@ class account_invoice(models.Model):
          @return: new account invoice id
 
         """
-	context = self.env.context.copy()
-	context['is_merge'] = True
+        context = self.env.context.copy()
+        context['is_merge'] = True
+
         def make_key(br, fields):
             list_key = []
             for field in fields:
