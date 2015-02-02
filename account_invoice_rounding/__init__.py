@@ -18,6 +18,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import company
-from . import res_config
-from . import account
+import company
+import res_config
+import account
