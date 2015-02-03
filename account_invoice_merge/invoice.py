@@ -191,8 +191,8 @@ class account_invoice(models.Model):
             if so_obj:
                 todos = so_obj.search(
                     [('invoice_ids', 'in', invoices_info[new_invoice_id])])
+                todos.write({'invoice_ids': [(4, new_invoice_id)]})
                 for org_so in todos:
-                    org_so.write({'invoice_ids': [(4, new_invoice_id)]})
                     for so_line in org_so.order_line:
                         invoice_line_ids = invoice_line_obj.search(
                             [('product_id', '=', so_line.product_id.id),
@@ -203,8 +203,7 @@ class account_invoice(models.Model):
             if po_obj:
                 todos = po_obj.search(
                     [('invoice_ids', 'in', invoices_info[new_invoice_id])])
-                for org_po in todos:
-                    org_po.write({'invoice_ids': [(4, new_invoice_id)]})
+                todos.write({'invoice_ids': [(4, new_invoice_id)]})
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
         anal_line_obj = self.env['account.analytic.line']
