@@ -76,9 +76,6 @@ class account_invoice(models.Model):
          @return: new account invoice id
 
         """
-        context = self.env.context.copy()
-        context['is_merge'] = True
-
         def make_key(br, fields):
             list_key = []
             for field in fields:
@@ -170,7 +167,7 @@ class account_invoice(models.Model):
                 (0, 0, value) for value in
                 invoice_data['invoice_line'].itervalues()]
             # create the new invoice
-            newinvoice = self.with_context(context).create(invoice_data)
+            newinvoice = self.with_context(is_merge=True).create(invoice_data)
             invoices_info.update({newinvoice.id: old_ids})
             allinvoices.append(newinvoice.id)
             # make triggers pointing to the old invoices point to the new
