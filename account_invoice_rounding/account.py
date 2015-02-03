@@ -28,12 +28,13 @@ import openerp.addons.decimal_precision as dp
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    @api.model
-    def _swedish_add_invoice_line(self, invoice, rounded_total, delta):
+    def _swedish_add_invoice_line(self, cr, uid, invoice, amounts,
+                                  rounded_total, delta, context=None):
         """ Create a invoice_line with the diff of rounding """
-        invoice_line_obj = self.env['account.invoice.line']
-        obj_precision = self.env['decimal.precision']
-        prec = obj_precision.precision_get('Account')
+        invoice_line_obj = self.pool.get('account.invoice.line')
+        obj_precision = self.pool.get('decimal.precision')
+        prec = obj_precision.precision_get(cr, uid, 'Account')
+
         company = invoice.company_id
         if not invoice.global_round_line_id:
             new_invoice_line = {
@@ -43,11 +44,14 @@ class AccountInvoice(models.Model):
                 'invoice_id': invoice.id,
                 'is_rounding': True,
             }
-            invoice_line_obj.create(new_invoice_line)
+            invoice_line_obj.create(cr, uid, new_invoice_line, context=context)
         elif float_compare(invoice.global_round_line_id.price_unit, -delta,
                            precision_digits=prec) != 0:
-            invoice.global_round_line_id.price_unit = -delta
-        amount_untaxed = float_round(self.amount_untaxed - delta,
+            invoice_line_obj.write(
+                cr, uid, invoice.global_round_line_id.id,
+                {'price_unit': -delta}, context=context)
+
+        amount_untaxed = float_round(amounts['amount_untaxed'] - delta,
                                      precision_digits=prec)
         return {'amount_total': rounded_total,
                 'amount_untaxed': amount_untaxed}
@@ -66,93 +70,93 @@ class AccountInvoice(models.Model):
         computed_tax_ids = [tax.id for tax in invoice.tax_line]
         return len(tax_ids) == len(computed_tax_ids)
 
-    @api.model
-    def _swedish_round_globally(self, rounded_total,
-                                delta):
+    def _swedish_round_globally(self, cr, uid, invoice, amounts,
+                                rounded_total, delta, context=None):
         """ Add the diff to the biggest tax line
         This ajustment must be done only after all tax are computed
         """
         # Here we identify that all taxe lines have been computed
-        if not self._all_invoice_tax_line_computed(self):
+        if not self._all_invoice_tax_line_computed(invoice):
             return {}
 
-        obj_precision = self.env['decimal.precision']
-        prec = obj_precision.precision_get('Account')
-        inv_tax_obj = self.env['account.invoice.tax']
+        obj_precision = self.pool.get('decimal.precision')
+        prec = obj_precision.precision_get(cr, uid, 'Account')
+        inv_tax_obj = self.pool.get('account.invoice.tax')
 
         ajust_line = None
-        for tax_line in self.tax_line:
+        for tax_line in invoice.tax_line:
             if not ajust_line or tax_line.amount > ajust_line.amount:
                 ajust_line = tax_line
         if ajust_line:
             amount = ajust_line.amount - delta
             vals = inv_tax_obj.amount_change(
-                self.env.cr, self.env.uid, [ajust_line.id],
+                cr, uid, [ajust_line.id],
                 amount,
-                currency_id=self.currency_id.id,
-                company_id=self.company_id.id,
-                date_invoice=self.date_invoice)['value']
+                currency_id=invoice.currency_id.id,
+                company_id=invoice.company_id.id,
+                date_invoice=invoice.date_invoice)['value']
             ajust_line.write({'amount': amount,
                               'tax_amount': vals['tax_amount']})
 
-            amount_tax = float_round(self.amount_tax - delta,
+            amount_tax = float_round(invoice.amount_tax - delta,
                                      precision_digits=prec)
             return {'amount_total': rounded_total,
                     'amount_tax': amount_tax}
         return {}
 
-    @api.model
-    def _compute_swedish_rounding(self):
+    def _compute_swedish_rounding(self, cr, uid, invoice, amounts,
+                                  context=None):
         """
         Depending on the method defined, we add an invoice line or adapt the
         tax lines to have a rounded total amount on the invoice
+        :param invoice: invoice browse record
+        :param amounts: unrounded computed totals for the invoice
         :return dict: updated values for _amount_all
-
         """
-        obj_precision = self.env['decimal.precision']
+        obj_precision = self.pool.get('decimal.precision')
 
         # avoid recusivity
-        if 'swedish_write' in self.env.context:
+        if 'swedish_write' in context:
             return {}
 
-        company = self.company_id
+        company = invoice.company_id
         round_method = company.tax_calculation_rounding_method
 
         if round_method[:7] != 'swedish':
             return {}
 
-        prec = obj_precision.precision_get('Account')
+        prec = obj_precision.precision_get(cr, uid, 'Account')
         rounding_prec = company.tax_calculation_rounding
-        rounded_total = float_round(self.amount_total,
+        rounded_total = float_round(invoice.amount_total,
                                     precision_rounding=rounding_prec)
 
-        if float_compare(rounded_total, self.amount_total,
+        if float_compare(rounded_total, invoice.amount_total,
                          precision_digits=prec) == 0:
             return {}
 
         # To avoid recursivity as we need to write on invoice or
         # on objects triggering computation of _amount_all
-        ctx = self.env.context.copy()
+        ctx = context.copy()
         ctx['swedish_write'] = True
 
-        delta = float_round(self.amount_total - rounded_total,
+        delta = float_round(invoice.amount_total - rounded_total,
                             precision_digits=prec)
 
         if round_method == 'swedish_add_invoice_line':
-            return self.with_context(ctx)._swedish_add_invoice_line(
-                rounded_total, delta)
+            return self._swedish_add_invoice_line(cr, uid, invoice, amounts,
+                                                  rounded_total, delta,
+                                                  context=ctx)
         elif round_method == 'swedish_round_globally':
-            return self.with_context(ctx)._swedish_round_globally(
-                rounded_total, delta)
+            return self._swedish_round_globally(cr, uid, invoice, amounts,
+                                                rounded_total, delta,
+                                                context=ctx)
         return {}
 
     @api.one
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount')
     def _compute_amount(self):
         """ Add swedish rounding computing
-
         Makes sure invoice line for rounding is not computed in totals
-
         """
         res = super(AccountInvoice, self
                     )._compute_amount()
@@ -162,7 +166,9 @@ class AccountInvoice(models.Model):
                 self.amount_untaxed -= line.price_subtotal
             amount_total = self.amount_tax + self.amount_untaxed
             self.amount_total = amount_total
-            swedish_rounding = self._compute_swedish_rounding()
+            swedish_rounding = self._compute_swedish_rounding(
+                self,
+                [self.id])
             if swedish_rounding:
                 self.amount_total = swedish_rounding['amount_total']
                 self.amount_tax = swedish_rounding['amount_tax']
@@ -173,6 +179,7 @@ class AccountInvoice(models.Model):
             [('invoice_id', '=', self.id),
              ('is_rounding', '=', True)])
         self.global_round_line_id = line_ids and line_ids[0] or False
+
 
     global_round_line_id = fields.Many2one(
         'account.move.line',
