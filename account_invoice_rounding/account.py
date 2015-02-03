@@ -55,7 +55,6 @@ class AccountInvoice(models.Model):
     @staticmethod
     def _all_invoice_tax_line_computed(invoice):
         """ Check if all taxes have been computed on invoice lines
-
         :return boolean True if all tax were computed
         """
         tax_ids = set()
@@ -68,36 +67,33 @@ class AccountInvoice(models.Model):
         return len(tax_ids) == len(computed_tax_ids)
 
     @api.model
-    def _swedish_round_globally(self, invoice, rounded_total,
-                                delta, context=None):
+    def _swedish_round_globally(self, rounded_total,
+                                delta):
         """ Add the diff to the biggest tax line
-
         This ajustment must be done only after all tax are computed
-
         """
         # Here we identify that all taxe lines have been computed
-        if not self._all_invoice_tax_line_computed(invoice):
+        if not self._all_invoice_tax_line_computed(self):
             return {}
 
-        obj_precision = self.pool.get('decimal.precision')
-        prec = obj_precision.precision_get(cr, uid, 'Account')
-        inv_tax_obj = self.pool.get('account.invoice.tax')
+        obj_precision = self.env['decimal.precision']
+        prec = obj_precision.precision_get('Account')
+        inv_tax_obj = self.env['account.invoice.tax']
 
         ajust_line = None
-        for tax_line in invoice.tax_line:
+        for tax_line in self.tax_line:
             if not ajust_line or tax_line.amount > ajust_line.amount:
                 ajust_line = tax_line
         if ajust_line:
             amount = ajust_line.amount - delta
             vals = inv_tax_obj.amount_change(
-                cr, uid, [ajust_line.id],
+                self.env.cr, self.env.uid, [ajust_line.id],
                 amount,
-                currency_id=invoice.currency_id.id,
-                company_id=invoice.company_id.id,
-                date_invoice=invoice.date_invoice)['value']
+                currency_id=self.currency_id.id,
+                company_id=self.company_id.id,
+                date_invoice=self.date_invoice)['value']
             ajust_line.write({'amount': amount,
-                              'tax_amount': vals['tax_amount']},
-                             context=context)
+                              'tax_amount': vals['tax_amount']})
 
             amount_tax = float_round(self.amount_tax - delta,
                                      precision_digits=prec)
@@ -144,10 +140,10 @@ class AccountInvoice(models.Model):
 
         if round_method == 'swedish_add_invoice_line':
             return self.with_context(ctx)._swedish_add_invoice_line(
-                self.id, rounded_total, delta)
+                rounded_total, delta)
         elif round_method == 'swedish_round_globally':
             return self.with_context(ctx)._swedish_round_globally(
-                self.id, rounded_total, delta)
+                rounded_total, delta)
         return {}
 
     @api.one
@@ -210,39 +206,33 @@ class AccountInvoiceLine(models.Model):
 class AccountTax(models.Model):
     _inherit = 'account.tax'
 
-    @api.multi
-    def compute_inv(self, taxes, price_unit, quantity,
+    def compute_inv(self, cr, uid, taxes, price_unit, quantity,
                     product=None, partner=None, precision=None):
         """
         Using swedish rounding we want to keep standard global precision
         so we add precision to do global computation
-
         """
         if taxes and taxes[0].company_id.tax_calculation_rounding_method[:7] \
                 == 'swedish':
             if not precision:
-                precision = self.env['decimal.precision'].precision_get(
-                    self.env.cr, self.env.uid, 'Account')
+                precision = self.pool['decimal.precision'].precision_get(
+                    cr, uid, 'Account')
             precision += 5
         return super(AccountTax, self).compute_inv(
-            self.env.cr, self.env.uid,
-            taxes, price_unit, quantity, product=product,
+            cr, uid, taxes, price_unit, quantity, product=product,
             partner=partner, precision=precision)
 
-    @api.multi
-    def _compute(self, taxes, price_unit, quantity,
+    def _compute(self, cr, uid, taxes, price_unit, quantity,
                  product=None, partner=None, precision=None):
         """Using swedish rounding we want to keep standard global precision
         so we add precision to do global computation
-
         """
         if taxes and taxes[0].company_id.tax_calculation_rounding_method[:7] \
                 == 'swedish':
             if not precision:
-                precision = self.env['decimal.precision'].precision_get(
-                    self.env.cr, self.env.uid, 'Account')
+                precision = self.pool['decimal.precision'].precision_get(
+                    cr, uid, 'Account')
             precision += 5
         return super(AccountTax, self)._compute(
-            self.env.cr, self.env.uid,
-            taxes, price_unit, quantity, product=product,
+            cr, uid, taxes, price_unit, quantity, product=product,
             partner=partner, precision=precision)
