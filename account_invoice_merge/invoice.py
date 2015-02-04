@@ -22,14 +22,14 @@ from openerp import models, api
 from openerp import workflow
 from openerp.osv.orm import browse_record, browse_null
 
-INVOICE_KEY_COLS = ('partner_id', 'user_id', 'type',
+INVOICE_KEY_COLS = ['partner_id', 'user_id', 'type',
                     'account_id', 'currency_id',
-                    'journal_id', 'company_id')
+                    'journal_id', 'company_id']
 
-INVOICE_LINE_KEY_COLS = ('name', 'origin', 'discount',
+INVOICE_LINE_KEY_COLS = ['name', 'origin', 'discount',
                          'invoice_line_tax_id', 'price_unit',
                          'product_id', 'account_id',
-                         'account_analytic_id')
+                         'account_analytic_id']
 
 
 class account_invoice(models.Model):
