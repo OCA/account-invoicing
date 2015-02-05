@@ -164,14 +164,16 @@ class AccountInvoice(models.Model):
             line = self.global_round_line_id
             if line:
                 self.amount_untaxed -= line.price_subtotal
-            amount_total = self.amount_tax + self.amount_untaxed
-            self.amount_total = amount_total
+            self.amount_total = self.amount_tax + self.amount_untaxed
             swedish_rounding = self._compute_swedish_rounding(
                 self,
                 [self.id])
             if swedish_rounding:
                 self.amount_total = swedish_rounding['amount_total']
-                self.amount_tax = swedish_rounding['amount_tax']
+                if 'amount_tax' in swedish_rounding:
+                    self.amount_tax = swedish_rounding['amount_tax']
+                elif 'amount_untaxed' in swedish_rounding:
+                    self.amount_untaxed = swedish_rounding['amount_untaxed']
 
     @api.one
     def _get_rounding_invoice_line_id(self):
