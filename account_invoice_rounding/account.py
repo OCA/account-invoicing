@@ -36,7 +36,7 @@ class AccountInvoice(models.Model):
         prec = obj_precision.precision_get(cr, uid, 'Account')
 
         company = invoice.company_id
-        if not invoice.global_round_line_id:
+        if not invoice.global_round_line_id.id:
             new_invoice_line = {
                 'name': _('Rounding'),
                 'price_unit': -delta,
