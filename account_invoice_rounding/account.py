@@ -51,7 +51,7 @@ class AccountInvoice(models.Model):
                 cr, uid, invoice.global_round_line_id.id,
                 {'price_unit': -delta}, context=context)
 
-        amount_untaxed = float_round(amounts['amount_untaxed'] - delta,
+        amount_untaxed = float_round(invoice.amount_untaxed - delta,
                                      precision_digits=prec)
         return {'amount_total': rounded_total,
                 'amount_untaxed': amount_untaxed}
