@@ -31,6 +31,7 @@ class AccountInvoice(models.Model):
     def _swedish_add_invoice_line(self, cr, uid, invoice, amounts,
                                   rounded_total, delta, context=None):
         """ Create a invoice_line with the diff of rounding """
+
         invoice_line_obj = self.pool.get('account.invoice.line')
         obj_precision = self.pool.get('decimal.precision')
         prec = obj_precision.precision_get(cr, uid, 'Account')
@@ -141,7 +142,6 @@ class AccountInvoice(models.Model):
 
         delta = float_round(invoice.amount_total - rounded_total,
                             precision_digits=prec)
-
         if round_method == 'swedish_add_invoice_line':
             return self._swedish_add_invoice_line(cr, uid, invoice, amounts,
                                                   rounded_total, delta,
@@ -165,16 +165,17 @@ class AccountInvoice(models.Model):
                 line = self.global_round_line_id
                 if line:
                     self.amount_untaxed -= line.price_subtotal
-                self.amount_total = self.amount_tax + self.amount_untaxed
-                swedish_rounding = self._compute_swedish_rounding(
-                    self,
-                    [self.id])
-                if swedish_rounding:
-                    self.amount_total = swedish_rounding['amount_total']
-                    if 'amount_tax' in swedish_rounding:
-                        self.amount_tax = swedish_rounding['amount_tax']
-                    elif 'amount_untaxed' in swedish_rounding:
-                        self.amount_untaxed = swedish_rounding['amount_untaxed']
+            self.amount_total = self.amount_tax + self.amount_untaxed
+            swedish_rounding = self._compute_swedish_rounding(
+                self,
+                [self.id])
+            if swedish_rounding:
+                self.amount_total = swedish_rounding['amount_total']
+                if 'amount_tax' in swedish_rounding:
+                    self.amount_tax = swedish_rounding['amount_tax']
+                elif 'amount_untaxed' in swedish_rounding:
+                    self.amount_untaxed = (
+                        swedish_rounding['amount_untaxed'])
 
     @api.one
     def _get_rounding_invoice_line_id(self):
@@ -183,9 +184,8 @@ class AccountInvoice(models.Model):
              ('is_rounding', '=', True)])
         self.global_round_line_id = line_ids and line_ids[0] or False
 
-
     global_round_line_id = fields.Many2one(
-        'account.move.line',
+        'account.invoice.line',
         string='Invoice Line for total rounding',
         compute=_get_rounding_invoice_line_id,
         readonly=True)
