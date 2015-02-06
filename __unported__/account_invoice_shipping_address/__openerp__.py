@@ -30,6 +30,7 @@
     "description": """This module adds a shipping address field to the invoice, also it fills
 it in sale and picking invoicing""",
     'website': 'http://www.andreacometa.it',
+    'license': 'AGPL-3',
     'data': [
         'invoice_view.xml',
     ],
