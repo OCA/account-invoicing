@@ -20,3 +20,25 @@ rounding
 You can choose the account on which the invoice line will be written
 
 .. _Swedish rounding : https://en.wikipedia.org/wiki/Swedish_rounding
+
+Credits
+=======
+
+Contributors
+------------
+
+Yannick Vaucher
+Nicola Malcontenti <nicola.malcontenti@agilebg.com>
+
+Maintainer
+----------
+
+.. image:: http://odoo-community.org/logo.png
+   :alt: Odoo Community Association
+   :target: http://odoo-community.org
+
+This module is maintained by the OCA.
+
+OCA, or the Odoo Community Association, is a nonprofit organization whose mission is to support the collaborative development of Odoo features and promote its widespread use.
+
+To contribute to this module, please visit http://odoo-community.org.
