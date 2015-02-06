@@ -158,8 +158,7 @@ class AccountInvoice(models.Model):
         """ Add swedish rounding computing
         Makes sure invoice line for rounding is not computed in totals
         """
-        res = super(AccountInvoice, self
-                    )._compute_amount()
+        super(AccountInvoice, self)._compute_amount()
         if self.type in ('out_invoice', 'out_refund'):
             if self.global_round_line_id.id:
                 line = self.global_round_line_id
@@ -179,10 +178,10 @@ class AccountInvoice(models.Model):
 
     @api.one
     def _get_rounding_invoice_line_id(self):
-        line_ids = self.env['account.invoice.line'].search(
+        lines = self.env['account.invoice.line'].search(
             [('invoice_id', '=', self.id),
              ('is_rounding', '=', True)])
-        self.global_round_line_id = line_ids and line_ids[0] or False
+        self.global_round_line_id = lines
 
     global_round_line_id = fields.Many2one(
         'account.invoice.line',
@@ -193,18 +192,15 @@ class AccountInvoice(models.Model):
         digits_compute=dp.get_precision('Account'),
         string='Subtotal',
         track_visibility='always',
-        compute=_compute_amount,
-        multi='all')
+        compute=_compute_amount)
     amount_tax = fields.Float(
         compute=_compute_amount,
         digits_compute=dp.get_precision('Account'),
-        string='Tax',
-        multi='all')
+        string='Tax')
     amount_total = fields.Float(
         compute=_compute_amount,
         digits_compute=dp.get_precision('Account'),
-        string='Total',
-        multi='all')
+        string='Total')
 
 
 class AccountInvoiceLine(models.Model):
