@@ -32,6 +32,7 @@ This module adds 2 states between draft and open state in invoices:
 ''',
     'author': 'Camptocamp',
     'website': 'http://camptocamp.com',
+    'license': 'AGPL-3',
     'depends': ['account'],
     'data': [
         'invoice_wkf.xml',
