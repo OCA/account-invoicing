@@ -33,13 +33,14 @@
       <field name="act_to" ref="account.act_proforma2"/>
       <field name="signal">invoice_proforma2</field>
     </record>
+
     <record model="workflow.transition" id="account.t4">
       <field name="act_from" ref="act_to_send"/>
       <field name="act_to" ref="account.act_open"/>
       <field name="signal">invoice_open</field>
     </record>
 
-    <record model="workflow.transition" id="account.t9">
+    <record model="workflow.transition" id="t_send_to_cancel">
       <field name="act_from" ref="act_to_send"/>
       <field name="act_to" ref="account.act_cancel"/>
       <field name="signal">invoice_cancel</field>
