@@ -28,6 +28,7 @@ Contributors
 ------------
 
 Yannick Vaucher
+
 Nicola Malcontenti <nicola.malcontenti@agilebg.com>
 
 Maintainer
