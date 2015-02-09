@@ -23,6 +23,7 @@
     "version": "1.0",
     "author": "Agile Business Group",
     "website": "http://www.agilebg.com",
+    "license": "AGPL-3",
     "category": "Account",
     "depends": [
         'base',

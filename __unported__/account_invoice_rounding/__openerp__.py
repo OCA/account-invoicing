@@ -48,6 +48,7 @@ You can choose the account on which the invoice line will be written
  'author': 'Camptocamp',
  'maintainer': 'Camptocamp',
  'website': 'http://www.camptocamp.com/',
+ 'license': 'AGPL-3',
  'depends': ['account'],
  'data': ['res_config_view.xml'],
  'test': [],
