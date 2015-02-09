@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    This module copyright (C) 2012-2013 Therp BV (<http://therp.nl>).
+#    Account Invoice partner test module for OpenERP
+#    Copyright (C) 2015 ACSONE SA/NV (http://acsone.eu)
+#    @author Laurent Mignon <laurent.mignon@acsone.eu>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,17 +19,5 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name": "Automatically select invoicing partner on invoice",
-    "version": "0.1",
-    "author": "Therp BV",
-    "category": 'Accounting & Finance',
-    "description": """
-On an invoice, when selecting a partner of any other type than 'invoice',
-replace the partner by an invoice contact if found.
-    """,
-    'website': 'https://launchpad.net/account-invoicing',
-    'license': 'AGPL-3',
-    'depends': ['account'],
-    'installable': False,
-}
+
+from . import test_account_invoice_partner

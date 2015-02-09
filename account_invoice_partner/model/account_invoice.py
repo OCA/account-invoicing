@@ -18,25 +18,26 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.osv import orm
+from openerp import models, api
 
 
-class AccountInvoice(orm.Model):
+class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
+    @api.multi
     def onchange_partner_id(
-            self, cr, uid, ids, type, partner_id,
-            date_invoice=False, payment_term=False,
-            partner_bank_id=False, company_id=False):
+            self, invoice_type, partner_id, date_invoice=False,
+            payment_term=False, partner_bank_id=False, company_id=False):
         """
         Replace the selected partner with the preferred invoice contact
         """
         partner_invoice_id = partner_id
         if partner_id:
-            partner_invoice_id = self.pool.get('res.partner').address_get(
-                cr, uid, [partner_id], adr_pref=['invoice'])['invoice']
+            partner = self.env['res.partner'].browse(partner_id)
+            addr_ids = partner.address_get(adr_pref=['invoice'])
+            partner_invoice_id = addr_ids['invoice']
         result = super(AccountInvoice, self).onchange_partner_id(
-            cr, uid, ids, type, partner_invoice_id,
+            invoice_type, partner_invoice_id,
             date_invoice=date_invoice, payment_term=payment_term,
             partner_bank_id=partner_bank_id, company_id=company_id)
         if partner_invoice_id != partner_id:
