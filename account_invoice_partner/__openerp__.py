@@ -20,15 +20,11 @@
 ##############################################################################
 {
     "name": "Automatically select invoicing partner on invoice",
-    "version": "0.1",
+    "version": "0.2",
     "author": "Therp BV",
     "category": 'Accounting & Finance',
-    "description": """
-On an invoice, when selecting a partner of any other type than 'invoice',
-replace the partner by an invoice contact if found.
-    """,
-    'website': 'https://launchpad.net/account-invoicing',
+    'website': 'https://github.com/OCA/account-invoicing',
     'license': 'AGPL-3',
     'depends': ['account'],
-    'installable': False,
+    'installable': True,
 }
