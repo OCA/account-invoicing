@@ -28,7 +28,7 @@ import openerp.addons.decimal_precision as dp
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    def _swedish_add_invoice_line(self, cr, uid, invoice, amounts,
+    def _swedish_add_invoice_line(self, cr, uid, invoice,
                                   rounded_total, delta, context=None):
         """ Create a invoice_line with the diff of rounding """
 
@@ -71,7 +71,7 @@ class AccountInvoice(models.Model):
         computed_tax_ids = [tax.id for tax in invoice.tax_line]
         return len(tax_ids) == len(computed_tax_ids)
 
-    def _swedish_round_globally(self, cr, uid, invoice, amounts,
+    def _swedish_round_globally(self, cr, uid, invoice,
                                 rounded_total, delta, context=None):
         """ Add the diff to the biggest tax line
         This ajustment must be done only after all tax are computed
@@ -105,13 +105,12 @@ class AccountInvoice(models.Model):
                     'amount_tax': amount_tax}
         return {}
 
-    def _compute_swedish_rounding(self, cr, uid, invoice, amounts,
+    def _compute_swedish_rounding(self, cr, uid, invoice,
                                   context=None):
         """
         Depending on the method defined, we add an invoice line or adapt the
         tax lines to have a rounded total amount on the invoice
         :param invoice: invoice browse record
-        :param amounts: unrounded computed totals for the invoice
         :return dict: updated values for _amount_all
         """
         obj_precision = self.pool.get('decimal.precision')
@@ -143,11 +142,11 @@ class AccountInvoice(models.Model):
         delta = float_round(invoice.amount_total - rounded_total,
                             precision_digits=prec)
         if round_method == 'swedish_add_invoice_line':
-            return self._swedish_add_invoice_line(cr, uid, invoice, amounts,
+            return self._swedish_add_invoice_line(cr, uid, invoice,
                                                   rounded_total, delta,
                                                   context=ctx)
         elif round_method == 'swedish_round_globally':
-            return self._swedish_round_globally(cr, uid, invoice, amounts,
+            return self._swedish_round_globally(cr, uid, invoice,
                                                 rounded_total, delta,
                                                 context=ctx)
         return {}
@@ -192,15 +191,18 @@ class AccountInvoice(models.Model):
         digits_compute=dp.get_precision('Account'),
         string='Subtotal',
         track_visibility='always',
-        compute=_compute_amount)
+        compute=_compute_amount,
+        store=True)
     amount_tax = fields.Float(
         compute=_compute_amount,
         digits_compute=dp.get_precision('Account'),
-        string='Tax')
+        string='Tax',
+        store=True)
     amount_total = fields.Float(
         compute=_compute_amount,
         digits_compute=dp.get_precision('Account'),
-        string='Total')
+        string='Total',
+        store=True)
 
 
 class AccountInvoiceLine(models.Model):
