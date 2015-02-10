@@ -105,8 +105,7 @@ class AccountInvoice(models.Model):
                     'amount_tax': amount_tax}
         return {}
 
-    def _compute_swedish_rounding(self, cr, uid, invoice,
-                                  context=None):
+    def _compute_swedish_rounding(self, cr, uid, invoice, context=None):
         """
         Depending on the method defined, we add an invoice line or adapt the
         tax lines to have a rounded total amount on the invoice
@@ -164,9 +163,7 @@ class AccountInvoice(models.Model):
                 if line:
                     self.amount_untaxed -= line.price_subtotal
             self.amount_total = self.amount_tax + self.amount_untaxed
-            swedish_rounding = self._compute_swedish_rounding(
-                self,
-                [self.id])
+            swedish_rounding = self._compute_swedish_rounding(self)
             if swedish_rounding:
                 self.amount_total = swedish_rounding['amount_total']
                 if 'amount_tax' in swedish_rounding:
