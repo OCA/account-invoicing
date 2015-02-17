@@ -89,22 +89,21 @@ class invoice_merge(models.TransientModel):
              @param ids: the ID or list of IDs
              @param context: A standard dictionary
 
-             @return: account invoice view
+             @return: account invoice action
         """
         inv_obj = self.env['account.invoice']
-        mod_obj = self.env['ir.model.data']
-        result = mod_obj._get_id('account', 'invoice_form')
-        data = mod_obj.search_read([('id', '=', result)], ['res_id'])[0]\
-            or False
-        invoices = inv_obj.browse(self.env.context.get('active_ids', []))
+        aw_obj = self.env['ir.actions.act_window']
+        ids = self.env.context.get('active_ids', [])
+        invoices = inv_obj.browse(ids)
         allinvoices = invoices.do_merge()
-        return {
-            'domain': [('id', 'in', allinvoices.keys())],
-            'name': _('Partner Invoice'),
-            'view_type': 'form',
-            'view_mode': 'tree,form',
-            'res_model': 'account.invoice',
-            'view_id': False,
-            'type': 'ir.actions.act_window',
-            'search_view_id': data['res_id']
-        }
+        xid = {
+            'out_invoice': 'action_invoice_tree1',
+            'out_refund': 'action_invoice_tree3',
+            'in_invoice': 'action_invoice_tree2',
+            'in_refund': 'action_invoice_tree4',
+        }[invoices[0].type]
+        action = aw_obj.for_xml_id('account', xid)
+        action.update({
+            'domain': [('id', 'in', ids + allinvoices.keys())],
+        })
+        return action
