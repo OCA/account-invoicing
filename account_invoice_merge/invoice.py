@@ -56,7 +56,7 @@ class account_invoice(models.Model):
         }
 
     @api.multi
-    def do_merge(self):
+    def do_merge(self, keep_references=True):
         """
         To merge similar type of account invoices.
         Invoices will only be merged if:
@@ -68,10 +68,7 @@ class account_invoice(models.Model):
         * Invoice lines are exactly the same except for the quantity and unit
 
          @param self: The object pointer.
-         @param cr: A database cursor
-         @param uid: ID of the user currently logged in
-         @param ids: the ID or list of IDs
-         @param context: A standard dictionary
+         @param keep_references: If True, keep reference of original invoices
 
          @return: new account invoice id
 
@@ -117,8 +114,10 @@ class account_invoice(models.Model):
                     self._get_first_invoice_fields(account_invoice))
                 origins.add(account_invoice.origin)
                 client_refs.add(account_invoice.reference)
+                if not keep_references:
+                    invoice_infos.pop('name')
             else:
-                if account_invoice.name:
+                if account_invoice.name and keep_references:
                     invoice_infos['name'] = \
                         (invoice_infos['name'] or '') + \
                         (' %s' % (account_invoice.name,))
