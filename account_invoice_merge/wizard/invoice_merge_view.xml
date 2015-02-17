@@ -20,6 +20,9 @@ Lines will only be merged if:<br/>
 * Invoice lines are exactly the same except for the product,quantity and unit<br/>
                             </p>
                     </group>
+                    <group name="options">
+                        <field name="keep_references"/>
+                    </group>
                     <footer>
                         <button name="merge_invoices" string="Merge Invoices"
                             type="object" class="oe_highlight" />
