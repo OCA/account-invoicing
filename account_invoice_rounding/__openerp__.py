@@ -52,7 +52,7 @@ You can choose the account on which the invoice line will be written
  'depends': ['account'],
  'data': ['res_config_view.xml'],
  'test': [],
- 'installable': False,
+ 'installable': True,
  'auto_install': False,
  'application': True,
  }
