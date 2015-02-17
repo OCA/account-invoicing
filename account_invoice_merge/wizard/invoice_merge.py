@@ -111,19 +111,18 @@ class invoice_merge(orm.TransientModel):
                         'invoice_ids': [(4, new_invoice)]
                     }, context)
 
-        return {
-            'domain': "[('id', 'in', [%s])]" % ','.join(
-                str(inv_id) for inv_id in allinvoices
-            ),
-            'name': _('Partner Invoice'),
-            'view_type': 'form',
-            'view_mode': 'tree,form',
-            'res_model': 'account.invoice',
-            #'view_id': [view_id],
-            'view_id': False,
-            'type': 'ir.actions.act_window',
-            'search_view_id': search_view_id,
-            #'target': 'current',
-        }
-
+        aw_obj = self.pool['ir.actions.act_window']
+        ids = context.get('active_ids', [])
+        invoices = invoice_obj.browse(cr, uid, ids, context=context)
+        xid = {
+            'out_invoice': 'action_invoice_tree1',
+            'out_refund': 'action_invoice_tree3',
+            'in_invoice': 'action_invoice_tree2',
+            'in_refund': 'action_invoice_tree4',
+        }[invoices[0].type]
+        action = aw_obj.for_xml_id(cr, uid, 'account', xid, context=context)
+        action.update({
+            'domain': [('id', 'in', ids + allinvoices.keys())],
+        })
+        return action
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
