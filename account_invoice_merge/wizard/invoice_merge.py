@@ -111,4 +111,3 @@ class invoice_merge(models.TransientModel):
             'domain': [('id', 'in', ids + allinvoices.keys())],
         })
         return action
-
