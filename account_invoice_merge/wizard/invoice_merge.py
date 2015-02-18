@@ -18,13 +18,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, api, exceptions
+from openerp import models, fields, api, exceptions
 from openerp.tools.translate import _
 
 
 class invoice_merge(models.TransientModel):
     _name = "invoice.merge"
     _description = "Merge Partner Invoice"
+
+    keep_references = fields.Boolean('Keep references'
+                                     ' from original invoices',
+                                     default=True)
 
     @api.model
     def _dirty_check(self):
@@ -95,7 +99,7 @@ class invoice_merge(models.TransientModel):
         aw_obj = self.env['ir.actions.act_window']
         ids = self.env.context.get('active_ids', [])
         invoices = inv_obj.browse(ids)
-        allinvoices = invoices.do_merge()
+        allinvoices = invoices.do_merge(keep_references=self.keep_references)
         xid = {
             'out_invoice': 'action_invoice_tree1',
             'out_refund': 'action_invoice_tree3',
