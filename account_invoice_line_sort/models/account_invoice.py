@@ -74,12 +74,11 @@ class account_invoice(models.Model):
 
     @api.one
     def _sort_account_invoice_line(self):
-        line_model = self.env['account.invoice.line']
         if self.invoice_line:
-            order = "%s %s" % (self.line_order, self.line_order_direction)
-            domain = [('id', 'in', self.invoice_line.ids)]
             sequence = 0
-            for line in line_model.search(domain, order=order):
+            key = attrgetter(self.line_order)
+            reverse = self.line_order_direction == 'desc'
+            for line in self.invoice_line.sorted(key=key, reverse=reverse):
                 sequence += 10
                 line.sequence = sequence
 
