@@ -7,7 +7,7 @@
             <field name="model">account.invoice</field>
             <field name="arch" type="xml">
                 <xpath expr="//notebook/page[@string='Other Info']/group[group[field[@name='move_id']]]" position="after">
-                    <group name = "line_sort">
+                    <group name="line_sort">
                         <label for="line_order"/>
                         <div>
                             <field name="line_order" class="oe_inline"/> 
@@ -19,3 +19,4 @@
         </record>
     </data>
 </openerp>
+
