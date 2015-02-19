@@ -23,6 +23,7 @@
 ##############################################################################
 
 from openerp import models, fields, api
+from operator import attrgetter 
 
 AVAILABLE_SORT_OPTIONS = [
     ('sequence', 'Sequence'),
