@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales_purchases']/group[group[field[@name='user_id']]]" position="after">
+                    <group name="line_sort" attrs="{'invisible': [('customer', '=', False)]}">
+                        <label for="line_order"/>
+                        <div>
+	                        <field name="line_order" class="oe_inline"/> 
+	                        (<field name="line_order_direction" class="oe_inline"/>)
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
+
