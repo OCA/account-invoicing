@@ -24,7 +24,7 @@
     'name': 'Account Invoice Merge Wizard',
     'version': '1.1.1',
     'category': 'Finance',
-    'author': 'Elico Corp',
+    'author': "Elico Corp,Odoo Community Association (OCA)",
     'website': 'http://www.openerp.net.cn',
     'license': 'AGPL-3',
     'depends': ['account'],
