@@ -37,7 +37,7 @@ the conditions to allow the merge:
 - Account receivable account should be the same
 No merge is done at invoice line level.
     """,
-    'author': 'Camptocamp',
+    'author': "Camptocamp,Odoo Community Association (OCA)",
     'website': 'http://www.camptocamp.com',
     'depends': ['base', 'account'],
     'data': [

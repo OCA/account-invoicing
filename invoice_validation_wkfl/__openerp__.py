@@ -32,7 +32,7 @@
 {
      "name" : "Add 'To Send' and 'To Validate' states in Invoices",
      "version" : "1.0",
-     "author" : "Camptocamp",
+     "author" : "Camptocamp,Odoo Community Association (OCA)",
      "category" : "Generic Modules/Invoicing",
      "description":
 """

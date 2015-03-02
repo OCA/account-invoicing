@@ -33,7 +33,7 @@ In OpenERP 7.0, this module has been superseded by a configurable setting. Go to
 Settings/configuration/accounting and tick the boolean "Check the total of supplier invoices"
 in the section "eInvoicing & Payments"
     """,
-    'author': 'Ren Dao Solutions bvba, ACSONE SA/NV',
+    'author': "Ren Dao Solutions bvba, ACSONE SA/NV,Odoo Community Association (OCA)",
     'depends': [
         'account',
     ],
