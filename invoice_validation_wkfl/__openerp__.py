@@ -30,7 +30,7 @@ This module adds 2 states between draft and open state in invoices:
 - To Send: For all invoices that need to be sent
 
 ''',
-    'author': 'Camptocamp',
+    'author': "Camptocamp,Odoo Community Association (OCA)",
     'website': 'http://camptocamp.com',
     'depends': ['account'],
     'data': [

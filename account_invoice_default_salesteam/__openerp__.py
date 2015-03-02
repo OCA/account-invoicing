@@ -31,7 +31,7 @@ This module set the Sales Team (section_id field) in the 2 following scenarios:
   Sales Team
 * when invoicing from sales_order, set from the Sales Order's Sales Team.
 """,
-    'author': 'Savoir-faire Linux',
+    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'website': 'http://www.savoirfairelinux.com',
     'images': [],
     'depends': [

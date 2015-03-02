@@ -34,7 +34,7 @@ the condition to allow merge:
 - Currency should be the same
 - Account receivable account should be the same
     """,
-    'author': 'Elico Corp',
+    'author': "Elico Corp,Odoo Community Association (OCA)",
     'website': 'http://www.openerp.net.cn',
     'depends': ['account'],
     'data': [

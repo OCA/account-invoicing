@@ -22,7 +22,7 @@
  'version': '1.0',
  'category': 'Accounting',
  'description': "Giving rounding functionality at payment term line level",
- 'author': 'Camptocamp',
+ 'author': "Camptocamp,Odoo Community Association (OCA)",
  'maintainer': 'Camptocamp',
  'website': 'http://www.camptocamp.com/',
  'depends': ['account'],
