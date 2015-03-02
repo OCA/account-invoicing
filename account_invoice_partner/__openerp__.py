@@ -21,7 +21,7 @@
 {
     "name": "Automatically select invoicing partner on invoice",
     "version": "0.2",
-    "author": "Therp BV",
+    "author": "Therp BV,Odoo Community Association (OCA)",
     "category": 'Accounting & Finance',
     'website': 'https://github.com/OCA/account-invoicing',
     'license': 'AGPL-3',
