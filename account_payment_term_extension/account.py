@@ -3,6 +3,9 @@
 #
 #    Author: Yannick Vaucher
 #    Copyright 2013 Camptocamp SA
+#    Copyright (C) 2004-2010 OpenERP S.A. (www.odoo.com)
+#    Copyright (C) 2015 Akretion (http://www.akretion.com)
+#    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,30 +21,33 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import time
 
-from openerp.osv import orm, fields
+from openerp import models, fields, api
 from openerp.tools.float_utils import float_round
 
 import openerp.addons.decimal_precision as dp
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
-class AccountPaymentTermLine(orm.Model):
+class AccountPaymentTermLine(models.Model):
     _inherit = "account.payment.term.line"
-    _columns = {
-        'amount_round': fields.float(
-            'Amount Rounding',
-            digits_compute=dp.get_precision('Account'),
-            help="Sets the amount so that it is a multiple of this value.\n"
-                 "To have amounts that end in 0.99, set rounding 1, "
-                 "surcharge -0.01"),
-    }
 
-    def compute_line_amount(self, cr, uid, id, total_amount, remaining_amount,
-                            context=None):
+    amount_round = fields.Float(
+        string='Amount Rounding',
+        digits=dp.get_precision('Account'),
+        help="Sets the amount so that it is a multiple of this value.\n"
+             "To have amounts that end in 0.99, set rounding 1, "
+             "surcharge -0.01")
+        # TODO : I don't understand this help msg ; what is surcharge ?
+    months = fields.Integer(string='Number of Months')
+    weeks = fields.Integer(string='Number of Weeks')
+
+    @api.multi
+    def compute_line_amount(self, total_amount, remaining_amount):
         """Compute the amount for a payment term line.
         In case of procent computation, use the payment
         term line rounding if defined
@@ -51,30 +57,26 @@ class AccountPaymentTermLine(orm.Model):
                 computed amount
             :returns: computed amount for this line
         """
-        if isinstance(id, (tuple, list)):
-            assert len(id) == 1, "compute_line_amount accepts only 1 ID"
-            id = id[0]
-        obj_precision = self.pool.get('decimal.precision')
-        prec = obj_precision.precision_get(cr, uid, 'Account')
-        line = self.browse(cr, uid, id, context=context)
-        if line.value == 'fixed':
-            return float_round(line.value_amount, precision_digits=prec)
-        elif line.value == 'procent':
-            amt = total_amount * line.value_amount
-            if line.amount_round:
-                amt = float_round(amt, precision_rounding=line.amount_round)
+        self.ensure_one()
+        prec = self.env['decimal.precision'].precision_get('Account')
+        if self.value == 'fixed':
+            return float_round(self.value_amount, precision_digits=prec)
+        elif self.value == 'procent':
+            amt = total_amount * self.value_amount
+            if self.amount_round:
+                amt = float_round(amt, precision_rounding=self.amount_round)
             return float_round(amt, precision_digits=prec)
-        elif line.value == 'balance':
-            amt = float_round(remaining_amount,  precision_digits=prec)
+        elif self.value == 'balance':
+            return float_round(remaining_amount,  precision_digits=prec)
         return None
 
 
-class AccountPaymentTerm(orm.Model):
+class AccountPaymentTerm(models.Model):
     _inherit = "account.payment.term"
 
     def compute(self, cr, uid, id, value, date_ref=False, context=None):
         """Complete overwrite of compute method to add rounding on line
-        computing.
+        computing and also to handle weeks and months
         """
         obj_precision = self.pool['decimal.precision']
         prec = obj_precision.precision_get(cr, uid, 'Account')
@@ -89,7 +91,9 @@ class AccountPaymentTerm(orm.Model):
                 continue
             next_date = (datetime.strptime(date_ref,
                                            DEFAULT_SERVER_DATE_FORMAT) +
-                         relativedelta(days=line.days))
+                         relativedelta(days=line.days,
+                                       weeks=line.weeks,
+                                       months=line.months))
             if line.days2 < 0:
                 # Getting 1st of next month
                 next_first_date = next_date + relativedelta(day=1, months=1)

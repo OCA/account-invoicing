@@ -3,6 +3,8 @@
 #
 #    Author: Yannick Vaucher
 #    Copyright 2013 Camptocamp SA
+#    Copyright 2015 Akretion (www.akretion.com)
+#    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,18 +20,20 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{'name': 'Rounding on payment term',
- 'version': '1.0',
- 'category': 'Accounting',
- 'description': """Giving rounding functionality at payment term line level """,
- 'author': "Camptocamp,Odoo Community Association (OCA)",
- 'maintainer': 'Camptocamp',
- 'website': 'http://www.camptocamp.com/',
- 'license': 'AGPL-3',
- 'depends': ['account'],
- 'data': ['account_view.xml'],
- 'test': [],
- 'installable': False,
- 'auto_install': False,
- 'application': True,
- }
+
+{
+    'name': 'Payment Term Extension',
+    'version': '1.0',
+    'category': 'Accounting & Finance',
+    'summary': 'Adds rounding, months and weeks properties and payment term lines',
+    'description': "",
+    'author': 'Camptocamp,Odoo Community Association (OCA)',
+    'maintainer': 'OCA',
+    'website': 'http://www.camptocamp.com/',
+    'license': 'AGPL-3',
+    'depends': ['account'],
+    'data': ['account_view.xml'],
+    'demo': ['account_demo.xml'],
+    'test': [],
+    'installable': True,
+}
