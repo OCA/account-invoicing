@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+<data noupdate="1">
+
+<record id="account.account_payment_term_line" model="account.payment.term.line">
+    <field name="days" eval="0"/>
+    <field name="months" eval="1"/>
+</record>
+
+<record id="sixty_days_end_of_month" model="account.payment.term">
+    <field name="name">60 Days End of Month</field>
+    <field name="note">60 Days End of Month</field>
+</record>
+
+<record id="sixty_days_end_of_month_line" model="account.payment.term.line">
+    <field name="payment_id" ref="sixty_days_end_of_month"/>
+    <field name="value">balance</field>
+    <field name="months" eval="2"/>
+    <field name="days" eval="0"/>
+    <field name="days2" eval="-1"/>
+</record>
+
+</data>
+</openerp>

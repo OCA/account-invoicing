@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_payment_term_line_form" model="ir.ui.view">
+            <field name="name">account.payment.term.line.form.extension</field>
+            <field name="model">account.payment.term.line</field>
+            <field name="inherit_id" ref="account.view_payment_term_line_form"/>
+            <field name="arch" type="xml">
+                <div attrs="{'invisible':[('value','=','balance')]}" position="after">
+                    <field name="amount_round"
+                        attrs="{'invisible':[('value','=','balance')]}"/>
+                </div>
+                <field name="days" position="after">
+                    <field name="weeks"/>
+                    <field name="months"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_payment_term_line_tree" model="ir.ui.view">
+            <field name="name">account.payment.term.line.tree.extension</field>
+            <field name="model">account.payment.term.line</field>
+            <field name="inherit_id" ref="account.view_payment_term_line_tree" />
+            <field name="arch"  type="xml">
+                <field name="value_amount" position="after">
+                    <field name="amount_round"/>
+                </field>
+                <field name="days" position="after">
+                    <field name="weeks"/>
+                    <field name="months"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
