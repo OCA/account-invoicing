@@ -30,7 +30,7 @@ refer to the incoterm of the order (which could even be missing).
 The module extends 'stock_invoice_picking' so that the invoices created
 from pickings will have the same incoterm set in the picking.
 """,
-    'author': 'Agile Business Group',
+    'author': "Agile Business Group,Odoo Community Association (OCA)",
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
     'depends': [

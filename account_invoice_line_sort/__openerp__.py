@@ -27,7 +27,7 @@
     'summary': """
         Manage sort of customer invoice lines by customers""",
 
-    'author': "ACSONE SA/NV",
+    'author': "ACSONE SA/NV,Odoo Community Association (OCA)",
     'website': "http://acsone.eu",
 
     'category': 'Finance',

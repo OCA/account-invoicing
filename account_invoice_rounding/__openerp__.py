@@ -45,7 +45,7 @@ You can choose the account on which the invoice line will be written
 
 .. _Swedish rounding : https://en.wikipedia.org/wiki/Swedish_rounding
 """,
- 'author': 'Camptocamp',
+ 'author': "Camptocamp,Odoo Community Association (OCA)",
  'maintainer': 'Camptocamp',
  'website': 'http://www.camptocamp.com/',
  'license': 'AGPL-3',
