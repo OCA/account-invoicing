@@ -65,10 +65,10 @@ class account_invoice(orm.Model):
                         product.categ_id.property_account_expense_categ.id)
                     taxes = product.supplier_taxes_id
                 taxes = taxes or (
-                    account_id
-                    and self.pool['account.account'].browse(
-                        cr, uid, account_id, context=context).tax_ids
-                    or False)
+                    account_id and
+                    self.pool['account.account'].browse(
+                        cr, uid, account_id, context=context).tax_ids or
+                    False)
                 account_id = fp_obj.map_account(
                     cr, uid, fp, account_id, context=context)
                 tax_ids = fp_obj.map_tax(

@@ -47,10 +47,13 @@ in picking.
 
 """
 import logging
-_logger = logging.getLogger(__name__)
+
 from openerp.osv import orm, fields
 from openerp import netsvc
 from openerp.tools.translate import _
+
+
+_logger = logging.getLogger(__name__)
 
 
 class SaleOrderLine(orm.Model):

@@ -51,9 +51,9 @@ class account_invoice_line(orm.Model):
                     product = product_obj.browse(
                         cr, uid, product_id, context=context)
                     if (
-                        product
-                        and product.description
-                        and 'value' in res
+                        product and
+                        product.description and
+                        'value' in res
                     ):
                         res['value']['name'] = product.description
         return res
