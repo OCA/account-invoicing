@@ -20,6 +20,6 @@
 #
 ##############################################################################
 
-import invoice
-import sale
-import stock
+from . import invoice
+from . import sale
+from . import stock
