@@ -35,7 +35,7 @@ class TestAccountInvoiceShippement(common.TransactionCase):
         self.partner_2 = self.ref('base.res_partner_2')
         self.partner_address_3 = self.ref('base.res_partner_address_3')
         self.shipment4 = self.ref('stock.incomming_shipment4')
-        self.account_journal = self.ref('account.check_journal') 
+        self.account_journal = self.ref('account.check_journal')
 
     def test_create_invoice_from_stock(self):
         stock = self.stock_model.browse(self.shipment4)
@@ -50,5 +50,7 @@ class TestAccountInvoiceShippement(common.TransactionCase):
 
         created_invoice = self.inv_model.browse(inv_id)
 
-        self.assertEqual(created_invoice.partner_id.id, self.partner_address_3)
-        self.assertEqual(created_invoice.address_shipping_id.id, self.partner_2)
+        self.assertEqual(created_invoice.partner_id.id,
+                         self.partner_address_3)
+        self.assertEqual(created_invoice.address_shipping_id.id,
+                         self.partner_2)
