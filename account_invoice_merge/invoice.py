@@ -24,7 +24,7 @@ from openerp.osv.orm import browse_record, browse_null
 
 INVOICE_KEY_COLS = ['partner_id', 'user_id', 'type',
                     'account_id', 'currency_id',
-                    'journal_id', 'company_id']
+                    'journal_id', 'company_id', 'partner_bank_id']
 
 INVOICE_LINE_KEY_COLS = ['name', 'origin', 'discount',
                          'invoice_line_tax_id', 'price_unit',
@@ -53,6 +53,7 @@ class account_invoice(models.Model):
             'payment_term': invoice.payment_term.id,
             'period_id': invoice.period_id.id,
             'invoice_line': {},
+            'partner_bank_id': invoice.partner_bank_id.id,
         }
 
     @api.multi
