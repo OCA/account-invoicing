@@ -26,7 +26,7 @@
     'name': "account_invoice_merge_payment",
     'summary': """
         Use invoice merge regarding fields on Account Payment Partner""",
-    'author': "ACSONE SA/NV",
+    'author': "ACSONE SA/NV,Odoo Community Association (OCA)",
     'website': "http://acsone.eu",
     'category': 'Invoicing & Payments',
     'version': '0.1',
