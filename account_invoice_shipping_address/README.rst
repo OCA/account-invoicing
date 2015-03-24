@@ -9,7 +9,7 @@ Credits
 Contributors
 ------------
 
-* Leonardo Pistone <leonardo.pistone@domsense.com>
+* Leonardo Pistone <leonardo.pistone@camptocamp.com>
 * Andrea Cometa <info@andreacometa.it>
 * Anthony Muschang <anthony.muschang@acsone.eu>
 
