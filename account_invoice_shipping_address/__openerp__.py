@@ -20,6 +20,20 @@
 #
 ##############################################################################
 
-import invoice
-import sale
-import stock
+
+{
+    "name": "Invoice Shipping Address",
+    'summary': """
+        Adds a shipping address field to the invoice.""",
+    "version": "0.1.1",
+    'category': 'Generic Modules/Accounting',
+    "depends": ["account", "sale", "sale_stock"],
+    "author": "Andrea Cometa, Agile Business Group,"
+              "Odoo Community Association (OCA)",
+    'website': 'http://www.andreacometa.it',
+    'license': 'AGPL-3',
+    'data': [
+        'invoice_view.xml',
+    ],
+    'installable': True,
+}

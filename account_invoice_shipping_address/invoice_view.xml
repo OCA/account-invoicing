@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
                 <field name="fiscal_position" position="before">
-                    <field name="address_shipping_id" />
+                    <field name="address_shipping_id"/>
                 </field>
             </field>
         </record>
