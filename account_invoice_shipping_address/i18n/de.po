@@ -1,0 +1,29 @@
+# Spanish translation for account-invoicing
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the account-invoicing package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: account-invoicing\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-09-04 14:39+0000\n"
+"PO-Revision-Date: 2015-01-04 15:36+0100\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-03-21 06:54+0000\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: de\n"
+
+#. module: account_invoice_shipping_address
+#: field:account.invoice,address_shipping_id:0
+msgid "Shipping Address"
+msgstr "Lieferanschrift"
+
+#. module: account_invoice_shipping_address
+#: help:account.invoice,address_shipping_id:0
+msgid "Delivery address for current invoice."
+msgstr "Lieferanschrift der aktuellen Rechnung."
