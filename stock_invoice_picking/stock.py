@@ -18,30 +18,33 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
-from openerp.tools.translate import _
+from openerp import models, fields, api, _
+from openerp.exceptions import except_orm, Warning, RedirectWarning
+import openerp.addons.decimal_precision as dp
 
 
-class stock_picking(orm.Model):
+
+class stock_picking(models.Model):
     _inherit = "stock.picking"
 
-    def _get_partner_to_invoice(self, cr, uid, picking, context=None):
-        partner_obj = self.pool.get('res.partner')
+    @api.model
+    def _get_partner_to_invoice(self, picking):
+        partner_obj = self.env['res.partner']
         partner = super(stock_picking, self)._get_partner_to_invoice(
-            cr, uid, picking, context=context)
+            picking)
         if isinstance(partner, int):
-            partner = partner_obj.browse(cr, uid, partner, context=context)
+            partner = partner_obj.browse(partner)
         if picking.partner_id.id != partner.id:
             # if someone else modified invoice partner, I use it
             return partner.id
-        return partner_obj.address_get(
-            cr, uid, [partner.id], ['invoice'], context=context
-        )['invoice']
+        return partner.address_get(
+            ['invoice'])['invoice']
 
-    def set_to_be_invoiced(self, cr, uid, ids, context=None):
-        for picking in self.browse(cr, uid, ids, context):
+    @api.multi
+    def set_to_be_invoiced(self):
+        for picking in self:
             if picking.invoice_state == '2binvoiced':
-                raise orm.except_orm(
+                raise Warning(
                     _('Error'),
                     _(
                         "Can't update invoice control for picking %s: "
@@ -50,26 +53,8 @@ class stock_picking(orm.Model):
                 )
             if picking.invoice_state in ('none', 'invoiced'):
                 if picking.invoice_id:
-                    raise orm.except_orm(_('Error'), _(
+                    raise Warning(_('Error'), _(
                         'Picking %s has linked invoice %s'
                     ) % (picking.name, picking.invoice_id.number))
                 picking.write({'invoice_state': '2binvoiced'})
         return True
-
-
-class stock_picking_out(orm.Model):
-    _inherit = 'stock.picking.out'
-
-    def set_to_be_invoiced(self, cr, uid, ids, context=None):
-        # override in order to redirect to stock.picking object
-        return self.pool.get('stock.picking').set_to_be_invoiced(
-            cr, uid, ids, context=context)
-
-
-class stock_picking_in(orm.Model):
-    _inherit = 'stock.picking.in'
-
-    def set_to_be_invoiced(self, cr, uid, ids, context=None):
-        # override in order to redirect to stock.picking object
-        return self.pool.get('stock.picking').set_to_be_invoiced(
-            cr, uid, ids, context=context)

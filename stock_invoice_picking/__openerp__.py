@@ -37,5 +37,5 @@ use sale or purchase orders.
     'test': [
     ],
     "active": False,
-    "installable": False
+    "installable": True
 }
