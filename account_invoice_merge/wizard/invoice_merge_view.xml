@@ -22,6 +22,7 @@ Lines will only be merged if:<br/>
                     </group>
                     <group name="options">
                         <field name="keep_references"/>
+                        <field name="date_invoice"/>
                     </group>
                     <footer>
                         <button name="merge_invoices" string="Merge Invoices"

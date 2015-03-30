@@ -29,6 +29,7 @@ class invoice_merge(models.TransientModel):
     keep_references = fields.Boolean('Keep references'
                                      ' from original invoices',
                                      default=True)
+    date_invoice = fields.Date('Invoice Date')
 
     @api.model
     def _dirty_check(self):
@@ -99,7 +100,8 @@ class invoice_merge(models.TransientModel):
         aw_obj = self.env['ir.actions.act_window']
         ids = self.env.context.get('active_ids', [])
         invoices = inv_obj.browse(ids)
-        allinvoices = invoices.do_merge(keep_references=self.keep_references)
+        allinvoices = invoices.do_merge(keep_references=self.keep_references,
+                                        date_invoice=self.date_invoice)
         xid = {
             'out_invoice': 'action_invoice_tree1',
             'out_refund': 'action_invoice_tree3',
