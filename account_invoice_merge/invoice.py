@@ -57,7 +57,7 @@ class account_invoice(models.Model):
         }
 
     @api.multi
-    def do_merge(self, keep_references=True):
+    def do_merge(self, keep_references=True, date_invoice=False):
         """
         To merge similar type of account invoices.
         Invoices will only be merged if:
@@ -166,6 +166,8 @@ class account_invoice(models.Model):
             invoice_data['invoice_line'] = [
                 (0, 0, value) for value in
                 invoice_data['invoice_line'].itervalues()]
+            if date_invoice:
+                invoice_data['date_invoice'] = date_invoice
             # create the new invoice
             newinvoice = self.with_context(is_merge=True).create(invoice_data)
             invoices_info.update({newinvoice.id: old_ids})
