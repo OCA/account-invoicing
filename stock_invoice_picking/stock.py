@@ -18,10 +18,8 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api, _
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-import openerp.addons.decimal_precision as dp
-
+from openerp import models, api, _
+from openerp.exceptions import Warning
 
 
 class stock_picking(models.Model):
