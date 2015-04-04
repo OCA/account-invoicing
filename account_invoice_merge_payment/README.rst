@@ -7,13 +7,7 @@ module to support fields added in Account Payment Partner from OCA/bank-payment
 Installation
 ============
 
-To install this module, you need to:
-
- * Click on install button
-
-For further information, please visit:
-
- * https://www.odoo.com/forum/help-1
+* the module is automatically installed when account_invoice_merge and account_payment_partner are installed
 
 Credits
 =======
