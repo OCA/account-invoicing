@@ -35,6 +35,5 @@
         'account_invoice_merge',
         'account_payment_partner',
     ],
-    'data': [],
     'auto_install': True
 }
