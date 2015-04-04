@@ -7,7 +7,7 @@ module to support fields added in Account Payment Partner from OCA/bank-payment
 Installation
 ============
 
-* the module is automatically installed when account_invoice_merge and account_payment_partner are installed
+* The module is automatically installed when account_invoice_merge and account_payment_partner are installed
 
 Credits
 =======
