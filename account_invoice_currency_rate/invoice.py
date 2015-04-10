@@ -26,11 +26,42 @@ from openerp.osv import fields, orm
 class account_invoice(orm.Model):
     _inherit = "account.invoice"
 
+    def _show_force_currency(self, cr, uid, ids, name, arg, context=None):
+        res = {}
+        for invoice in self.browse(cr, uid, ids, context=context):
+            if invoice.state == 'draft':
+                if invoice.currency_id.id == invoice.company_id.currency_id.id:
+                    res[invoice.id] = False
+                else:
+                    res[invoice.id] = True
+            else:
+                res[invoice.id] = False
+        return res
+
+    def _get_invoice_from_company(self, cr, uid, ids, context=None):
+        invoice_obj = self.pool['account.invoice']
+        return invoice_obj.search(cr, uid,
+                                  [('state', '=', 'draft'),
+                                   ('company_id', 'in', ids)],
+                                  context=context)
+
     _columns = {
         'currency_rate': fields.float(
             'Forced currency rate',
             help="You can force the currency rate on the invoice with this "
-                 "field.")
+                 "field."),
+        'show_force_currency': fields.function(
+            _show_force_currency,
+            string="Show force currency",
+            type="boolean",
+            store={
+                'account.invoice': (
+                    lambda self, cr, uid, ids, c={}: ids,
+                    ['currency_id', 'state', 'company_id'],
+                    10),
+                'res.company': (
+                    _get_invoice_from_company, ['currency_id'], 20),
+                }),
         }
 
     def action_move_create(self, cr, uid, ids, context=None):

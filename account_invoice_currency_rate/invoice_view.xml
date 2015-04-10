@@ -9,12 +9,14 @@
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='invoice_open']" position="before">
                     <button name="%(action_force_currency_rate)d" type="action"
-                        string="Force currency rate" states="draft"/>
+                        string="Force currency rate"
+                        attrs="{'invisible': [('show_force_currency', '=', False)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='currency_id']/.." position="after">
                     <field name="currency_rate"
                            attrs="{'readonly':[('state','!=','draft')], 'invisible':[('currency_rate', '=', 0.0)]}"
                            groups="base.group_multi_currency"/>
+                    <field name="show_force_currency" invisible="1"/>
                 </xpath>
             </field>
         </record>
@@ -26,12 +28,14 @@
             <field name="arch" type="xml">
                 <xpath expr="//button[@name='invoice_open']" position="before">
                     <button name="%(action_force_currency_rate)d" type="action"
-                        string="Force currency rate" states="draft"/>
+                        string="Force currency rate"
+                        attrs="{'invisible': [('show_force_currency', '=', False)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='currency_id']" position="after">
                     <field name="currency_rate"
                            attrs="{'readonly':[('state','!=','draft')], 'invisible':[('currency_rate', '=', 0.0)]}"
                            groups="base.group_multi_currency"/>
+                    <field name="show_force_currency" invisible="1"/>
                 </xpath>
             </field>
         </record>
