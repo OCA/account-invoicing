@@ -43,16 +43,14 @@ class stock_picking(models.Model):
         for picking in self:
             if picking.invoice_state == '2binvoiced':
                 raise Warning(
-                    _('Error'),
-                    _(
-                        "Can't update invoice control for picking %s: "
+                    _( "Can't update invoice control for picking %s: "
                         "It's 'to be invoiced' yet"
                     ) % picking.name
                 )
             if picking.invoice_state in ('none', 'invoiced'):
                 if picking.invoice_id:
-                    raise Warning(_('Error'), _(
-                        'Picking %s has linked invoice %s'
+                    raise Warning( 
+			_('Picking %s has linked invoice %s'
                     ) % (picking.name, picking.invoice_id.number))
                 picking.write({'invoice_state': '2binvoiced'})
         return True
