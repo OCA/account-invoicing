@@ -28,8 +28,7 @@ class stock_picking(models.Model):
     @api.model
     def _get_partner_to_invoice(self, picking):
         partner_obj = self.env['res.partner']
-        partner = super(stock_picking, self)._get_partner_to_invoice(
-            picking)
+        partner = super(stock_picking, self)._get_partner_to_invoice(picking)
         if isinstance(partner, int):
             partner = partner_obj.browse(partner)
         if picking.partner_id.id != partner.id:
@@ -42,15 +41,11 @@ class stock_picking(models.Model):
     def set_to_be_invoiced(self):
         for picking in self:
             if picking.invoice_state == '2binvoiced':
-                raise Warning(
-                    _( "Can't update invoice control for picking %s: "
-                        "It's 'to be invoiced' yet"
-                    ) % picking.name
-                )
+                raise Warning(_("Can't update invoice control for picking %s: "
+                                "It's 'to be invoiced' yet") % picking.name)
             if picking.invoice_state in ('none', 'invoiced'):
                 if picking.invoice_id:
-                    raise Warning( 
-			_('Picking %s has linked invoice %s'
-                    ) % (picking.name, picking.invoice_id.number))
+                    raise Warning(_('Picking %s has linked invoice %s') %
+                                  (picking.name, picking.invoice_id.number))
                 picking.write({'invoice_state': '2binvoiced'})
         return True

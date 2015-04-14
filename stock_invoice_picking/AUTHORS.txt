@@ -1,2 +1,0 @@
-Lorenzo Battistini <lorenzo.battistini@agilebg.com>
-Leonardo Pistone <leonardo.pistone@agilebg.com>
