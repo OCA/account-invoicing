@@ -47,84 +47,12 @@ in picking.
 
 """
 import logging
-
 from openerp.osv import orm, fields
 from openerp import netsvc
 from openerp.tools.translate import _
 
 
 _logger = logging.getLogger(__name__)
-
-
-class SaleOrderLine(orm.Model):
-    _inherit = 'sale.order.line'
-
-    def field_qty_invoiced(self, cr, uid, ids, field_list, arg, context):
-        res = dict.fromkeys(ids, 0)
-        for line in self.browse(cr, uid, ids, context=context):
-            for invoice_line in line.invoice_lines:
-                if invoice_line.invoice_id.state != 'cancel':
-                    res[line.id] += invoice_line.quantity  # XXX uom !
-        return res
-
-    def field_qty_delivered(self, cr, uid, ids, field_list, arg, context):
-        res = dict.fromkeys(ids, 0)
-        for line in self.browse(cr, uid, ids, context=context):
-            if not line.move_ids:
-                # consumable or service: assume delivered == invoiced
-                res[line.id] = line.qty_invoiced
-            else:
-                for move in line.move_ids:
-                    if (move.state == 'done' and
-                            move.picking_id and
-                            move.picking_id.type == 'out'):
-                        res[line.id] += move.product_qty
-        return res
-
-    def _prepare_order_line_invoice_line(self, cr, uid, line, account_id=False,
-                                         context=None):
-        if context is None:
-            context = {}
-        res = super(SaleOrderLine, self)._prepare_order_line_invoice_line(
-            cr, uid, line, account_id, context=context)
-        if '_partial_invoice' in context:
-            # we are making a partial invoice for the line
-            to_invoice_qty = context['_partial_invoice'][line.id]
-        else:
-            # we are invoicing the yet uninvoiced part of the line
-            to_invoice_qty = line.product_uom_qty - line.qty_invoiced
-        res['quantity'] = to_invoice_qty
-        return res
-
-    def _fnct_line_invoiced(
-            self, cr, uid, ids, field_name, args, context=None
-    ):
-        res = dict.fromkeys(ids, False)
-        for this in self.browse(cr, uid, ids, context=context):
-            res[this.id] = (this.qty_invoiced == this.product_uom_qty)
-        return res
-
-    def _order_lines_from_invoice2(self, cr, uid, ids, context=None):
-        # overridden with different name because called by framework with
-        # 'self' an instance of another class
-        return self.pool['sale.order.line']._order_lines_from_invoice(
-            cr, uid, ids, context)
-
-    _columns = {
-        'qty_invoiced': fields.function(
-            field_qty_invoiced, string='Invoiced Quantity', type='float',
-            help="the quantity of product from this line already invoiced"),
-        'qty_delivered': fields.function(
-            field_qty_delivered, string='Invoiced Quantity', type='float',
-            help="the quantity of product from this line already invoiced"),
-        'invoiced': fields.function(
-            _fnct_line_invoiced, string='Invoiced', type='boolean',
-            store={
-                'account.invoice': (_order_lines_from_invoice2, ['state'], 10),
-                'sale.order.line': (lambda self, cr, uid, ids, context=None:
-                                    ids, ['invoice_lines'], 10)
-            }),
-    }
 
 
 class SaleAdvancePaymentInv(orm.TransientModel):
