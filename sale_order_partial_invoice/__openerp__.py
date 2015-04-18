@@ -23,22 +23,54 @@
     'name': 'Sale Partial Invoice',
     'version': '1.1',
     'category': 'Accounting & Finance',
-    'description': """Allow to partialy invoice Sale Order lines
+    'description': """
+.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+    :alt: License: AGPL-3
 
-    With a sale order in 'manual' invoicing policy, when the user selects to
-    invoice some SO lines, a new wizard is display in which it is possible to
-    select how much of the different lines is to be invoiced. The amounts
-    invoiced and the amounts delivered are also displayed. When generating an
-    invoice for the whole sale order, the partial invoices are taken into
-    account and only the amounts not already invoiced are part of the new
-    invoice
+Allow to partially invoice sale order lines
+===========================================
+
+With a sale order in 'manual' invoicing policy, when the user selects to
+invoice some SO lines, a new wizard is display in which it is possible to
+select how much of the different lines is to be invoiced. The amounts
+invoiced and the amounts delivered are also displayed. When generating an
+invoice for the whole sale order, the partial invoices are taken into
+account and only the amounts not already invoiced are part of the new
+invoice.
+
+Credits
+=======
+
+Contributors
+------------
+
+* Alexandre Fayolle <alexandre.fayolle@camptocamp.com>
+* Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
+
+Maintainer
+----------
+
+.. image:: http://odoo-community.org/logo.png
+   :alt: Odoo Community Association
+   :target: http://odoo-community.org
+
+This module is maintained by the OCA.
+
+OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.
+
+To contribute to this module, please visit http://odoo-community.org.
     """,
-    'author': "Camptocamp,Odoo Community Association (OCA)",
+    'author': "Camptocamp, "
+              "Serv. Tecnol. Avanzados - Pedro M. Baeza, "
+              "Odoo Community Association (OCA)",
     'website': 'http://www.camptocamp.com',
     'license': 'AGPL-3',
     'depends': ['sale', 'account', 'sale_stock'],
     'data': [
-        'sale_view.xml',
+        'view/sale_order_view.xml',
+        'wizard/sale_view.xml',
     ],
     'test': [
         'test/partial_so_invoice.yml',
@@ -48,4 +80,3 @@
     'installable': True,
     'active': False,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
