@@ -31,5 +31,17 @@
       </field>
     </record>
 
+    <record id="view_sale_advance_payment_inv" model="ir.ui.view">
+        <field name="name">Invoice Order</field>
+        <field name="model">sale.advance.payment.inv</field>
+        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+        <field name="arch" type="xml">
+            <label string="After clicking 'Show Lines to Invoice', select lines to invoice and create the invoice from the 'More' dropdown menu." position="attributes">
+                <attribute name="invisible">1</attribute>
+                <attribute name="attrs"/>
+            </label>
+        </field>
+     </record>
+
   </data>
 </openerp>
