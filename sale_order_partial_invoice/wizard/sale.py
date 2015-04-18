@@ -151,6 +151,7 @@ class SaleOrderLineInvoicePartially(orm.TransientModel):
         so_line_obj = self.pool['sale.order.line']
         so_obj = self.pool['sale.order']
         order_lines = {}
+        invoice_id = False
         for wiz in self.browse(cr, uid, ids, context=context):
             for line in wiz.line_ids:
                 if line.quantity == 0:
@@ -187,12 +188,15 @@ class SaleOrderLineInvoicePartially(orm.TransientModel):
         form_res = ir_model_data.get_object_reference(cr, uid, 'account',
                                                       'invoice_form')
         form_id = form_res and form_res[1] or False
-        return {
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'account.invoice',
-            'res_id': invoice_id,
-            'view_id': form_id,
-            'context': {'type': 'out_invoice'},
-            'type': 'ir.actions.act_window',
-        }
+        if invoice_id:
+            # Control if no quantities have been selected
+            return {
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'account.invoice',
+                'res_id': invoice_id,
+                'view_id': form_id,
+                'context': {'type': 'out_invoice'},
+                'type': 'ir.actions.act_window',
+            }
+        return True
