@@ -7,11 +7,11 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
-                <field name="internal_number" position="replace">
-                    <field name="internal_number"
-                        attrs="{'invisible': [('state', '!=', 'draft')]}"
-                        string="Force Number"
-                        help="Force invoice number. Use this field if you don't want to use the default numbering"/>
+                <field name="internal_number" position="attributes">
+                    <attribute name="attrs">{'invisible': [('state', '!=', 'draft')]}</attribute>
+                    <attribute name="string">Force Number</attribute>
+                    <attribute name="help">Force invoice number. Use this field if you don't want to use the default numbering</attribute>
+                    <attribute name="invisible">0</attribute>
                 </field>
             </field>
         </record>
@@ -21,11 +21,11 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
-                <field name="internal_number" position="replace">
-                    <field name="internal_number"
-                        attrs="{'invisible': [('state', '!=', 'draft')]}"
-                        string="Force Number"
-                        help="Force invoice number. Use this field if you don't want to use the default numbering"/>
+                <field name="internal_number" position="attributes">
+                    <attribute name="attrs">{'invisible': [('state', '!=', 'draft')]}</attribute>
+                    <attribute name="string">Force Number</attribute>
+                    <attribute name="help">Force invoice number. Use this field if you don't want to use the default numbering</attribute>
+                    <attribute name="invisible">0</attribute>
                 </field>
             </field>
         </record>
