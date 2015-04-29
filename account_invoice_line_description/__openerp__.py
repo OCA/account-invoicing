@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    'name': "Invoice line description",
+    'name': "Account invoice line description",
     'version': '1.0',
     'category': 'Generic Modules/Accounting',
     'author': "Agile Business Group, Odoo Community Association (OCA)",

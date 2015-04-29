@@ -1,8 +1,8 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-Invoice line description
-========================
+Account invoice line description
+================================
 
 This module allows to use only the product description on the invoice
 order lines.
