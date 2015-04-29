@@ -22,12 +22,12 @@
 from openerp.osv import orm
 
 
-class stock_move(orm.Model):
+class StockMove(orm.Model):
     _inherit = "stock.move"
 
     def _get_invoice_line_vals(
             self, cr, uid, move, partner, inv_type, context=None):
-        res = super(stock_move, self)._get_invoice_line_vals(
+        res = super(StockMove, self)._get_invoice_line_vals(
             cr, uid, move, partner, inv_type, context=context)
         if move:
             user = self.pool['res.users'].browse(

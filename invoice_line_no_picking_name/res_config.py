@@ -22,7 +22,7 @@
 from openerp.osv import fields, orm
 
 
-class stock_config_settings(orm.TransientModel):
+class StockConfigSettings(orm.TransientModel):
     _inherit = 'stock.config.settings'
 
     _columns = {
