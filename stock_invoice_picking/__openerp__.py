@@ -22,10 +22,6 @@
     'name': "Stock invoice picking",
     'version': '1.0',
     'category': 'Warehouse Management',
-    'description': """
-This module allows to create invoices directly from picking, without having to
-use sale or purchase orders.
-""",
     'author': "Agile Business Group,Odoo Community Association (OCA)",
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
