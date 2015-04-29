@@ -21,13 +21,13 @@
 -
     Now, I dispatch delivery order.
 -
-    !python {model: stock.partial.picking}: |
+    !python {model: stock.transfer_details}: |
         order = self.pool.get('sale.order').browse(cr, uid, ref("sale_order_test"))
         for picking in order.picking_ids:
             data = picking.force_assign()
             if data == True:
                 partial_id = self.create(cr, uid, {}, context={'active_model': 'stock.picking','active_ids': [picking.id]})
-                self.do_partial(cr, uid, [partial_id])
+                self.do_detailed_transfer(cr, uid, [partial_id])
 -
     I create invoice from delivery order having group as True.
 -
