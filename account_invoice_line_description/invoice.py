@@ -47,10 +47,6 @@ class AccountInvoiceLine(models.Model):
                 group_id = ref.id
                 if group_id in user_groups:
                     product = self.env['product.product'].browse(product)
-                    if (
-                        product and
-                        product.description and
-                        'value' in res
-                    ):
+                    if (product.description and 'value' in res):
                         res['value']['name'] = product.description
         return res
