@@ -22,18 +22,14 @@
 from openerp.osv import orm
 
 
-class stock_picking(orm.Model):
-    _inherit = "stock.picking"
+class stock_move(orm.Model):
+    _inherit = "stock.move"
 
-    def _prepare_invoice_line(
-            self, cr, uid, group, picking, move_line,
-            invoice_id, invoice_vals, context=None
-    ):
-        res = super(stock_picking, self)._prepare_invoice_line(
-            cr, uid, group, picking, move_line,
-            invoice_id, invoice_vals, context=context
-        )
-        if move_line:
+    def _get_invoice_line_vals(
+            self, cr, uid, move, partner, inv_type, context=None):
+        res = super(stock_move, self)._get_invoice_line_vals(
+            cr, uid, move, partner, inv_type, context=context)
+        if move:
             user = self.pool['res.users'].browse(
                 cr, uid, uid, context=context)
             user_groups = [g.id for g in user.groups_id]
@@ -41,9 +37,8 @@ class stock_picking(orm.Model):
                 cr, uid, 'invoice_line_no_picking_name',
                 'group_not_use_picking_name_per_invoice_line'
             )
-
             if ref and len(ref) > 1 and ref[1]:
                 group_id = ref[1]
                 if group_id in user_groups:
-                    res['name'] = move_line.name
+                    res['name'] = move.name
         return res
