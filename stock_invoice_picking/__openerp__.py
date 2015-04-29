@@ -19,8 +19,8 @@
 ##############################################################################
 
 {
-    'name': "Invoice picking",
-    'version': '0.1',
+    'name': "Stock invoice picking",
+    'version': '1.0',
     'category': 'Warehouse Management',
     'description': """
 This module allows to create invoices directly from picking, without having to
@@ -33,9 +33,5 @@ use sale or purchase orders.
     "data": [
         "stock_view.xml",
     ],
-    "demo": [],
-    'test': [
-    ],
-    "active": False,
     "installable": True
 }
