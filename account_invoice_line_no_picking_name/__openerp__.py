@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    'name': "Invoice line no picking name",
+    'name': "Account invoice line no picking name",
     'version': '1.0',
     'category': 'Generic Modules/Accounting',
     'author': "Agile Business Group,Odoo Community Association (OCA)",

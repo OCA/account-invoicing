@@ -1,8 +1,8 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-Module name
-===========
+Account invoice line no picking name
+====================================
 
 This module allows to not use the picking name on the invoice lines.
 
