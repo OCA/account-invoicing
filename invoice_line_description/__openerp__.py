@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': "Invoice line description",
-    'version': '0.1',
+    'version': '1.0',
     'category': 'Generic Modules/Accounting',
     'author': "Agile Business Group, Odoo Community Association (OCA)",
     'website': 'http://www.agilebg.com',
@@ -32,6 +32,5 @@
         'security/invoice_security.xml',
         'res_config_view.xml',
     ],
-    "active": False,
     "installable": True
 }
