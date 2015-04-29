@@ -29,7 +29,7 @@ class account_invoice_line(orm.Model):
         self, cr, uid, ids, product_id, uom_id, qty=0,
         name='', type='out_invoice', partner_id=False, fposition_id=False,
         price_unit=False, currency_id=False, context=None, company_id=None
-    ):
+    ):  # noqa
         res = super(account_invoice_line, self).product_id_change(
             cr, uid, ids, product_id, uom_id, qty=qty,
             name=name, type=type, partner_id=partner_id,
@@ -51,9 +51,9 @@ class account_invoice_line(orm.Model):
                     product = product_obj.browse(
                         cr, uid, product_id, context=context)
                     if (
-                        product
-                        and product.description
-                        and 'value' in res
+                        product and
+                        product.description and
+                        'value' in res
                     ):
                         res['value']['name'] = product.description
         return res

@@ -42,5 +42,5 @@ Settings --> Configuration --> Invoicing --> Features
         'res_config_view.xml',
     ],
     "active": False,
-    "installable": False
+    "installable": True
 }
