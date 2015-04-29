@@ -5,11 +5,7 @@ Invoice line description
 ========================
 
 This module allows to use only the product description on the invoice
-order lines. To do so, the user has to belong to
-group_use_product_description_per_inv_line.
-This is possible by selecting the related option in the following menu:
-
-Settings --> Configuration --> Invoicing --> Features
+order lines.
 
 Configuration
 =============
