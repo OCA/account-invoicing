@@ -1,0 +1,50 @@
+-
+    In order to test invoice_line_no_picking_name,
+    I assign group_not_use_picking_name_per_invoice_line group to the admin user.
+-
+    !record {model: res.users, id: base.user_root}:
+        groups_id:
+        - invoice_line_no_picking_name.group_not_use_picking_name_per_invoice_line
+-
+    I create sale order having picking as order_policy.
+-
+    !record {model: sale.order, id: sale_order_test}:
+        partner_id: base.res_partner_2
+        order_policy: picking
+        order_line: 
+            - product_id: product.product_product_7
+              product_uom_qty: 8
+-
+    I confirm sale order.
+-
+    !workflow {model: sale.order, action: order_confirm, ref: sale_order_test}
+-
+    Now, I dispatch delivery order.
+-
+    !python {model: stock.partial.picking}: |
+        order = self.pool.get('sale.order').browse(cr, uid, ref("sale_order_test"))
+        for picking in order.picking_ids:
+            data = picking.force_assign()
+            if data == True:
+                partial_id = self.create(cr, uid, {}, context={'active_model': 'stock.picking','active_ids': [picking.id]})
+                self.do_partial(cr, uid, [partial_id])
+-
+    I create invoice from delivery order having group as True.
+-
+    !python {model: stock.invoice.onshipping}: |
+        sale = self.pool.get('sale.order')
+        sale_order = sale.browse(cr, uid, ref("sale_order_test"))
+        assert len(sale_order.picking_ids) == 1, "'There are more than one matching picking, while only one was expected."
+        picking_ids = [x.id for x in sale_order.picking_ids]
+        wiz_id = self.create(cr, uid, {'journal_id': ref('account.sales_journal'), 'group': True},
+            context={'active_ids': picking_ids, 'active_model': 'stock.picking'})
+        self.create_invoice(cr, uid, [wiz_id], {"active_ids": picking_ids, "active_id": picking_ids[0]})
+-
+    I check the invoice details after dispatched delivery.
+-
+    !python {model: sale.order}: |
+        order = self.browse(cr, uid, ref("sale_order_test"))
+        assert order.invoice_ids, "Invoice is not created."
+        assert len(order.invoice_ids) == 1, "'There are more than one matching invoice, while only one was expected."
+        assert len(order.invoice_ids[0].invoice_line) == 1, "'There are more than one matching invoice line, while only one was expected"
+        assert order.picking_ids[0].name not in order.invoice_ids[0].invoice_line[0].name, 'The invoice line description contains the picking name'
