@@ -19,37 +19,34 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
+from openerp import models, api
 
 
-class account_invoice_line(orm.Model):
+class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
+    @api.multi
     def product_id_change(
-        self, cr, uid, ids, product_id, uom_id, qty=0,
-        name='', type='out_invoice', partner_id=False, fposition_id=False,
-        price_unit=False, currency_id=False, context=None, company_id=None
-    ):  # noqa
-        res = super(account_invoice_line, self).product_id_change(
-            cr, uid, ids, product_id, uom_id, qty=qty,
+            self, product, uom_id, qty=0, name='', type='out_invoice',
+            partner_id=False, fposition_id=False, price_unit=False,
+            currency_id=False, company_id=None
+    ):
+        res = super(AccountInvoiceLine, self).product_id_change(
+            product, uom_id, qty=qty,
             name=name, type=type, partner_id=partner_id,
             fposition_id=fposition_id, price_unit=price_unit,
-            currency_id=currency_id, context=context, company_id=company_id
+            currency_id=currency_id,  company_id=company_id
         )
-        if product_id:
-            user = self.pool.get('res.users').browse(
-                cr, uid, uid, context=context)
+        if product:
+            user = self.env.user
             user_groups = [g.id for g in user.groups_id]
-            ref = self.pool.get('ir.model.data').get_object_reference(
-                cr, uid, 'invoice_line_description',
-                'group_use_product_description_per_inv_line'
-            )
-            if ref and len(ref) > 1 and ref[1]:
-                group_id = ref[1]
+            ref = self.env.ref(
+                'invoice_line_description.'
+                'group_use_product_description_per_inv_line')
+            if ref:
+                group_id = ref.id
                 if group_id in user_groups:
-                    product_obj = self.pool.get('product.product')
-                    product = product_obj.browse(
-                        cr, uid, product_id, context=context)
+                    product = self.env['product.product'].browse(product)
                     if (
                         product and
                         product.description and
