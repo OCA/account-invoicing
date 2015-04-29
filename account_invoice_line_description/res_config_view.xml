@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_config" model="ir.ui.view">
+            <field name="name">account settings</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='module_account_budget']" position="after">
+                    <div>
+                        <field name="group_use_product_description_per_inv_line" class="oe_inline"/>
+                        <label for="group_use_product_description_per_inv_line"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
