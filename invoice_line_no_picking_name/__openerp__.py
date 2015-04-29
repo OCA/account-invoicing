@@ -20,20 +20,8 @@
 ##############################################################################
 {
     'name': "Invoice line no picking name",
-    'version': '0.1',
+    'version': '1.0',
     'category': 'Generic Modules/Accounting',
-    'description': """
-This module allows to not use the picking name on the invoice lines.
-
-The picking name is added to invoice lines when you group pickings generating
-one invoice from more than one picking.
-
-To avoid this, the user has to belong to
-group_not_use_picking_name_per_invoice_line.
-This is possible by selecting the related option in the following menu:
-
-Settings --> Configuration --> Warehouse --> Products
-    """,
     'author': "Agile Business Group,Odoo Community Association (OCA)",
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
