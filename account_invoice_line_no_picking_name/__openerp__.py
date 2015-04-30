@@ -33,7 +33,7 @@
         'res_config_view.xml',
     ],
     'test': [
-        'test/invoice_line_no_picking_name.yml',
+        'test/account_invoice_line_no_picking_name.yml',
     ],
     "installable": True
 }

@@ -28,7 +28,7 @@ class StockConfigSettings(orm.TransientModel):
     _columns = {
         'group_not_use_picking_name_per_invoice_line': fields.boolean(
             "Not add picking name on invoice lines",
-            implied_group="invoice_line_no_picking_name."
+            implied_group="account_invoice_line_no_picking_name."
             "group_not_use_picking_name_per_invoice_line",
             help="Allows you to not use the picking name on the invoice lines."
                  " The picking name is added to invoice lines when you "
