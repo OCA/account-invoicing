@@ -22,7 +22,7 @@
 from openerp.osv import fields, orm
 
 
-class account_invoice(orm.Model):
+class AccountInvoice(orm.Model):
     _inherit = "account.invoice"
 
     _columns = {

@@ -22,7 +22,7 @@
 from openerp.osv import fields, orm
 
 
-class stock_picking(orm.Model):
+class StockPicking(orm.Model):
     _inherit = "stock.picking"
 
     _columns = {
@@ -37,7 +37,7 @@ class stock_picking(orm.Model):
     def _get_invoice_vals(
             self, cr, uid, key,
             inv_type, journal_id, move, context=None):
-        invoice_vals = super(stock_picking, self)._get_invoice_vals(
+        invoice_vals = super(StockPicking, self)._get_invoice_vals(
             cr, uid, key, inv_type, journal_id, move, context=context)
         if move.picking_id.incoterm:
             invoice_vals['incoterm'] = move.picking_id.incoterm.id
