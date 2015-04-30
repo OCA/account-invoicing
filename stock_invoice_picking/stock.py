@@ -22,13 +22,13 @@ from openerp import models, api, _
 from openerp.exceptions import Warning
 
 
-class stock_picking(models.Model):
+class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     @api.model
     def _get_partner_to_invoice(self, picking):
         partner_obj = self.env['res.partner']
-        partner = super(stock_picking, self)._get_partner_to_invoice(picking)
+        partner = super(StockPicking, self)._get_partner_to_invoice(picking)
         if isinstance(partner, int):
             partner = partner_obj.browse(partner)
         if picking.partner_id.id != partner.id:
