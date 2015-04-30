@@ -43,5 +43,5 @@ from pickings will have the same incoterm set in the picking.
     'test': [
         'test/invoice_picking_incoterm.yml',
     ],
-    'installable': False
+    'installable': True
 }
