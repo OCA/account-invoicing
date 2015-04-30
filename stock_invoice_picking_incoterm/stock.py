@@ -34,70 +34,11 @@ class stock_picking(orm.Model):
         ),
     }
 
-    def _prepare_invoice_group(
-            self, cr, uid, picking,
-            partner, invoice, context=None):
-        invoice_vals = super(stock_picking, self)._prepare_invoice_group(
-            cr, uid, picking, partner, invoice, context)
-        if picking.incoterm:
-            invoice_vals['incoterm'] = picking.incoterm.id
+    def _get_invoice_vals(
+            self, cr, uid, key,
+            inv_type, journal_id, move, context=None):
+        invoice_vals = super(stock_picking, self)._get_invoice_vals(
+            cr, uid, key, inv_type, journal_id, move, context=context)
+        if move.picking_id.incoterm:
+            invoice_vals['incoterm'] = move.picking_id.incoterm.id
         return invoice_vals
-
-    def _prepare_invoice(
-            self, cr, uid, picking,
-            partner, inv_type, journal_id, context=None):
-        invoice_vals = super(stock_picking, self)._prepare_invoice(
-            cr, uid, picking, partner, inv_type, journal_id, context=context)
-        if picking.incoterm:
-            invoice_vals['incoterm'] = picking.incoterm.id
-        return invoice_vals
-
-
-class stock_picking_in(orm.Model):
-    _inherit = "stock.picking.in"
-
-    _columns = {
-        'incoterm': fields.many2one(
-            'stock.incoterms',
-            'Incoterm',
-            help="International Commercial Terms are a series of predefined "
-            "commercial terms used in international transactions."
-        ),
-    }
-
-    def _prepare_invoice_group(
-            self, cr, uid, picking,
-            partner, invoice, context=None):
-        return self.pool.get('stock.picking')._prepare_invoice_group(
-            cr, uid, picking, partner, invoice, context=context)
-
-    def _prepare_invoice(
-            self, cr, uid, picking,
-            partner, inv_type, journal_id, context=None):
-        return self.pool.get('stock.picking')._prepare_invoice(
-            cr, uid, picking, partner, inv_type, journal_id, context=context)
-
-
-class stock_picking_out(orm.Model):
-    _inherit = "stock.picking.out"
-
-    _columns = {
-        'incoterm': fields.many2one(
-            'stock.incoterms',
-            'Incoterm',
-            help="International Commercial Terms are a series of predefined "
-            "commercial terms used in international transactions."
-        ),
-    }
-
-    def _prepare_invoice_group(
-            self, cr, uid, picking,
-            partner, invoice, context=None):
-        return self.pool.get('stock.picking')._prepare_invoice_group(
-            cr, uid, picking, partner, invoice, context=context)
-
-    def _prepare_invoice(
-            self, cr, uid, picking,
-            partner, inv_type, journal_id, context=None):
-        return self.pool.get('stock.picking')._prepare_invoice(
-            cr, uid, picking, partner, inv_type, journal_id, context=context)
