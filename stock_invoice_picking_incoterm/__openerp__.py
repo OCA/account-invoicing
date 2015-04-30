@@ -33,7 +33,7 @@
         'stock_view.xml',
     ],
     'test': [
-        'test/invoice_picking_incoterm.yml',
+        'test/stock_invoice_picking_incoterm.yml',
     ],
     'installable': True
 }
