@@ -47,5 +47,5 @@ class stock_picking(models.Model):
                 if picking.invoice_id:
                     raise Warning(_('Picking %s has linked invoice %s') %
                                   (picking.name, picking.invoice_id.number))
-                picking.write({'invoice_state': '2binvoiced'})
+                picking.invoice_state = '2binvoiced'
         return True
