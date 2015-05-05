@@ -23,7 +23,7 @@ from openerp.osv import orm, fields
 import openerp.addons.decimal_precision as dp
 
 
-class account_invoice_line(orm.Model):
+class AccountInvoiceLine(orm.Model):
 
     def _get_uom_data(self, cr, uid, ids, field_name, arg, context):
         res = {}
