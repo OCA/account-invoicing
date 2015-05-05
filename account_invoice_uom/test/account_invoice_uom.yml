@@ -60,13 +60,13 @@
 -
   Now, I dispatch delivery order.
 -
-  !python {model: stock.partial.picking}: |
+  !python {model: stock.transfer_details}: |
     order = self.pool.get('sale.order').browse(cr, uid, ref("sale_order_test_2"))
     for pick in order.picking_ids:
         data = pick.force_assign()
         if data == True:
           partial_id = self.create(cr, uid, {}, context={'active_model': 'stock.picking','active_ids': [pick.id]})
-          self.do_partial(cr, uid, [partial_id])
+          self.do_detailed_transfer(cr, uid, [partial_id])
 -
   I create Invoice from Delivery Order.
 -
