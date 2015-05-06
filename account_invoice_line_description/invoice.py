@@ -43,6 +43,8 @@ class AccountInvoiceLine(models.Model):
                     'group_use_product_description_per_inv_line',
             ):
                 product = self.env['product.product'].browse(product)
-                if (product.description and 'value' in res):
+                if product.description:
+                    if 'value' not in res:
+                        res['value'] = {}
                     res['value']['name'] = product.description
         return res
