@@ -41,7 +41,7 @@ class AccountInvoiceLine(models.Model):
             user = self.env.user
             user_groups = [g.id for g in user.groups_id]
             ref = self.env.ref(
-                'invoice_line_description.'
+                'accout_invoice_line_description.'
                 'group_use_product_description_per_inv_line')
             if ref:
                 group_id = ref.id
