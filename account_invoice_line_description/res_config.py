@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2014 Agile Business Group sagl
+#    Copyright (C) 2015 Agile Business Group sagl
 #    (<http://www.agilebg.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -19,10 +19,10 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, osv
+from openerp.osv import orm, fields
 
 
-class account_config_settings(osv.TransientModel):
+class AccountConfigSettings(orm.TransientModel):
     _inherit = 'account.config.settings'
 
     _columns = {
