@@ -38,15 +38,11 @@ class AccountInvoiceLine(models.Model):
             currency_id=currency_id,  company_id=company_id
         )
         if product:
-            user = self.env.user
-            user_groups = [g.id for g in user.groups_id]
-            ref = self.env.ref(
-                'accout_invoice_line_description.'
-                'group_use_product_description_per_inv_line')
-            if ref:
-                group_id = ref.id
-                if group_id in user_groups:
-                    product = self.env['product.product'].browse(product)
-                    if (product.description and 'value' in res):
-                        res['value']['name'] = product.description
+            if self.user_has_groups(
+                    'accout_invoice_line_description.'
+                    'group_use_product_description_per_inv_line',
+            ):
+                product = self.env['product.product'].browse(product)
+                if (product.description and 'value' in res):
+                    res['value']['name'] = product.description
         return res
