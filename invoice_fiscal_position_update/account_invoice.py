@@ -30,10 +30,11 @@ class account_invoice(orm.Model):
     _inherit = "account.invoice"
 
     def fiscal_position_change(
-            self, cr, uid, ids, fiscal_position, type, invoice_line,
+            self, cr, uid, ids, fiscal_position, invoice_type, invoice_line,
             context=None):
-        '''Function executed by the on_change on the fiscal_position field
-        of invoice ; it updates taxes and accounts on all invoice lines'''
+        """Function executed by the on_change on the fiscal_position field
+        of invoice ; it updates taxes and accounts on all invoice lines
+        """
         assert len(ids) in (0, 1), 'One ID max'
         fp_obj = self.pool['account.fiscal.position']
         res = {}
@@ -53,7 +54,7 @@ class account_invoice(orm.Model):
             if line.get('product_id'):
                 product = self.pool['product.product'].browse(
                     cr, uid, line.get('product_id'), context=context)
-                if type in ('out_invoice', 'out_refund'):
+                if invoice_type in ('out_invoice', 'out_refund'):
                     account_id = (
                         product.property_account_income.id or
                         product.categ_id.property_account_income_categ.id)
@@ -64,10 +65,10 @@ class account_invoice(orm.Model):
                         product.categ_id.property_account_expense_categ.id)
                     taxes = product.supplier_taxes_id
                 taxes = taxes or (
-                    account_id
-                    and self.pool['account.account'].browse(
-                        cr, uid, account_id, context=context).tax_ids
-                    or False)
+                    account_id and
+                    self.pool['account.account'].browse(
+                        cr, uid, account_id, context=context).tax_ids or
+                    False)
                 account_id = fp_obj.map_account(
                     cr, uid, fp, account_id, context=context)
                 tax_ids = fp_obj.map_tax(

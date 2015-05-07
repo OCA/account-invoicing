@@ -21,7 +21,7 @@
 {
     "name": "Automatically select invoicing partner on invoice",
     "version": "0.1",
-    "author": "Therp BV",
+    "author": "Therp BV,Odoo Community Association (OCA)",
     "category": 'Accounting & Finance',
     "description": """
 On an invoice, when selecting a partner of any other type than 'invoice',

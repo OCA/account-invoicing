@@ -31,7 +31,7 @@ Otherwise, the next sequence number will be retrieved and saved.
 So, the new field has to be used when user doesn't want to use the default
 invoice numbering for a specific invoice.
     """,
-    'author': 'Agile Business Group',
+    'author': "Agile Business Group,Odoo Community Association (OCA)",
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
     "depends": [

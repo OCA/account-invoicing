@@ -48,8 +48,8 @@ class AccountInvoice(orm.Model):
                 self.browse(cr, uid, sr_ids, context=context)
                 if x.supplier_invoice_number and x.id not in ids
             ]
-            if (invoice.supplier_invoice_number
-                    and invoice.supplier_invoice_number.lower() in lst):
+            if (invoice.supplier_invoice_number and
+                    invoice.supplier_invoice_number.lower() in lst):
                 return False
             return True
 

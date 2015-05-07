@@ -1,0 +1,55 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_force_number
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-11-16 16:44+0000\n"
+"PO-Revision-Date: 2015-01-04 15:10+0100\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: de\n"
+
+#. module: account_invoice_force_number
+#: view:account.invoice:0
+msgid "Force Number"
+msgstr "Nummer erzwingen"
+
+#. module: account_invoice_force_number
+#: model:ir.module.module,description:account_invoice_force_number.module_meta_information
+msgid ""
+"\n"
+"    This module allows to force the invoice numbering.\n"
+"    It displays the internal_number field. If user fills that field, the "
+"typed value will be used as invoice (and move) number. Otherwise, the next "
+"sequence sequence number will be retrieved and saved.\n"
+"    So, the new field has to be used when user doesn't want to use the "
+"default invoice numbering for a specific invoice.\n"
+"    "
+msgstr ""
+"\n"
+"    Dieses Modul erlaubt eine Rechnungnummern-Vorgabe.\n"
+"    Es wird das interne Nummernfeld angezeigt. Nimmt der Benutzer eine "
+"Eingabe vor wird diese als Rechnungsnummer (und Buchungsnummer) verwendet. "
+"Anderenfalls wird die nächste freie Folgennummer für Rechnungen gezogen und "
+"gespeichert.\n"
+"    So muss das neue Feld zur Vergabe einer Rechnungsnummer eingegeben "
+"werde, wenn der Benutzer die standardmässige Nummernvorgabe für eine "
+"bestimmte Rechnung nicht verwenden möchte.\n"
+"    "
+
+#. module: account_invoice_force_number
+#: model:ir.module.module,shortdesc:account_invoice_force_number.module_meta_information
+msgid "Force Invoice Number"
+msgstr "Rechnungsnummernvorgabe"
+
+#. module: account_invoice_force_number
+#: model:ir.model,name:account_invoice_force_number.model_account_invoice
+msgid "Invoice"
+msgstr "Rechnung"

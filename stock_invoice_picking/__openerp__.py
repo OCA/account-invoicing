@@ -26,7 +26,7 @@
 This module allows to create invoices directly from picking, without having to
 use sale or purchase orders.
 """,
-    'author': 'Agile Business Group',
+    'author': "Agile Business Group,Odoo Community Association (OCA)",
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
     "depends": ['stock_picking_invoice_link'],

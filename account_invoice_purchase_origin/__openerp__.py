@@ -32,7 +32,7 @@ Contributors
 * David Cormier (david.cormier@savoirfairelinux.com)
 * Marc Cassuto (marc.cassuto@savoirfairelinux.com)
     """,
-    'author': 'Savoir-faire Linux',
+    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'website': 'http://www.savoirfairelinux.com/',
     'depends': ['account', 'purchase'],
     'data': [
