@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.1\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2009-09-05 14:26+0000\n"
+"PO-Revision-Date: 2012-11-22 18:54+0000\n"
+"Last-Translator: António Anacleto (www.biztek.cv) "
+"<antonio.anacleto@biztek.cv>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-12-11 05:25+0000\n"
+"X-Generator: Launchpad (build 16356)\n"
+
+#. module: paydays
+#: model:ir.module.module,shortdesc:paydays.module_meta_information
+msgid "Paydays"
+msgstr "Dia de pagamento"
+
+#. module: paydays
+#: help:account.payment.term,payment_days:0
+msgid ""
+"If a company has more than one payment days in a month you should fill them "
+"in this field and set 'Day of the Month' field in line to zero. For example, "
+"if a company pays the 5th and 20th days of the month you should write '5-20' "
+"here."
+msgstr ""
+"Se a empresa tem mais do que um dia de pagamento em um mês deve preencher-"
+"los neste campo e definir o campo 'Dia do Mês' na linha para zero. Por "
+"exemplo, se a empresa pagar no dia 5 e 20 do mês deve escrever aqui '5-20'."
+
+#. module: paydays
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "XML inválido para a arquitectura de vista!"
+
+#. module: paydays
+#: model:ir.module.module,description:paydays.module_meta_information
+msgid ""
+"This module allows setting more than one payment days in payment terms."
+msgstr ""
+"Este módulo permite a definição de mais de um dia de pagamento em termos de "
+"pagamento."
+
+#. module: paydays
+#: field:account.payment.term,payment_days:0
+msgid "Payment days"
+msgstr "Dias de pagamento"
