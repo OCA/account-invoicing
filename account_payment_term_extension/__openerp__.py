@@ -25,7 +25,8 @@
     'name': 'Payment Term Extension',
     'version': '1.0',
     'category': 'Accounting & Finance',
-    'summary': 'Adds rounding, months and weeks properties and payment term lines',
+    'summary': 'Adds rounding, months and weeks properties on '
+               'payment term lines',
     'description': "",
     'author': 'Camptocamp,Odoo Community Association (OCA)',
     'maintainer': 'OCA',

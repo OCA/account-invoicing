@@ -45,12 +45,12 @@ class TestAccountPaymentTerm(TransactionCase):
         cr, uid = self.cr, self.uid
         two_week_payterm_id = self.account_payment_term.create(
             cr, uid, {
-            'name': '2 weeks',
-            'line_ids': [(0, 0, {
-                'value': 'balance',
-                'days': 0,
-                'weeks': 2})]
-            })
+                'name': '2 weeks',
+                'line_ids': [(0, 0, {
+                    'value': 'balance',
+                    'days': 0,
+                    'weeks': 2})]
+                })
         res = self.account_payment_term.compute(
             cr, uid, two_week_payterm_id, 10, date_ref='2015-03-02')
         self.assertEquals(
