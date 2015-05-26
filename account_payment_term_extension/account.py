@@ -39,10 +39,10 @@ class AccountPaymentTermLine(models.Model):
     amount_round = fields.Float(
         string='Amount Rounding',
         digits=dp.get_precision('Account'),
+        # TODO : I don't understand this help msg ; what is surcharge ?
         help="Sets the amount so that it is a multiple of this value.\n"
              "To have amounts that end in 0.99, set rounding 1, "
              "surcharge -0.01")
-        # TODO : I don't understand this help msg ; what is surcharge ?
     months = fields.Integer(string='Number of Months')
     weeks = fields.Integer(string='Number of Weeks')
 
