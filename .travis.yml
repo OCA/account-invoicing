@@ -19,10 +19,12 @@ env:
 virtualenv:
   system_site_packages: true
 
+before_install:
+  - git clone https://github.com/akretion/stock-logistics-workflow.git $HOME/stock-logistics-workflow -b 7.0-picking-line-sale-link
+
 install:
   - git clone https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - git clone https://github.com/OCA/account-financial-tools.git -b ${VERSION} ${HOME}/account-financial-tools
-  - git clone https://github.com/OCA/stock-logistics-workflow.git -b ${VERSION} ${HOME}/stock-logistics-workflow
   - git clone https://github.com/OCA/product-attribute.git -b ${VERSION} ${HOME}/product-attribute
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
