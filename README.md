@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/OCA/account-invoicing.svg?branch=7.0)](https://travis-ci.org/OCA/account-invoicing)
-[![Coverage Status](https://coveralls.io/repos/OCA/account-invoicing/badge.png?branch=7.0)](https://coveralls.io/r/OCA/account-invoicing?branch=7.0)
+[![Coverage Status](https://coveralls.io/repos/OCA/account-invoicing/badge.svg?branch=7.0)](https://coveralls.io/r/OCA/account-invoicing?branch=7.0)
 
 OCA account invoicing modules for OpenERP
 =========================================
@@ -10,6 +10,11 @@ This project aim to deal with modules related to manage invoicing in a generic w
  - Add check on invoice
  - Utils and ease of use for invoicing with OpenERP
  - ...
+
+Translation Status
+------------------
+[![Transifex Status](https://www.transifex.com/projects/p/OCA-account-invoicing-7-0/chart/image_png)](https://www.transifex.com/projects/p/OCA-account-invoicing-7-0)
+
 
 ----
 

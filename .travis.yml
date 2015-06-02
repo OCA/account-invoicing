@@ -1,29 +1,36 @@
-addons:
-  apt:
-    packages:
-      - expect-dev  # provides unbuffer utility
-      - python-lxml # because pip installation is slow
-
 language: python
 
 python:
   - "2.7"
 
+addons:
+  apt:
+    packages:
+      - expect-dev  # provides unbuffer utility
+      - python-lxml # because pip installation is slow
+      - python-simplejson
+      - python-serial
+
 env:
- - VERSION="7.0" ODOO_REPO="odoo/odoo" EXCLUDE="invoice_validation_wkfl"
- - VERSION="7.0" ODOO_REPO="OCA/OCB" EXCLUDE="invoice_validation_wkfl"
- - VERSION="7.0" ODOO_REPO="odoo/odoo" INCLUDE="invoice_validation_wkfl"
- - VERSION="7.0" ODOO_REPO="OCA/OCB" INCLUDE="invoice_validation_wkfl"
- - VERSION="7.0" UNIT_TEST="1"
+  global:
+  - VERSION="7.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
+  - TRANSIFEX_USER='transbot@odoo-community.org'
+  - secure: "hyBSe2obvvpXtvIxYBoELvgy51tR36MUrUQ4HvOo+qoIjFc1u1YVvTzlgJrUXoAAtha0mJN/nQwEvkN18ipcZItpsoWWsGhHPIbz1NhalbZwpCbkoLZKvS3rAstMdzKkHKCvI9Sg4iQ2gpZr6UTchxu+RO1BFatLkQJiNrUjMjQ="
+
+  matrix:
+  - LINT_CHECK="1"
+  - TRANSIFEX="1"
+  - UNIT_TEST
+  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="invoice_validation_wkfl"
+  - TESTS="1" ODOO_REPO="OCA/OCB" EXCLUDE="invoice_validation_wkfl"
+  - TESTS="1" ODOO_REPO="odoo/odoo" INCLUDE="invoice_validation_wkfl"
+  - TESTS="1" ODOO_REPO="OCA/OCB" INCLUDE="invoice_validation_wkfl"
 
 virtualenv:
   system_site_packages: true
 
 install:
   - git clone https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
-  - git clone https://github.com/OCA/account-financial-tools.git -b ${VERSION} ${HOME}/account-financial-tools
-  - git clone https://github.com/OCA/stock-logistics-workflow.git -b ${VERSION} ${HOME}/stock-logistics-workflow
-  - git clone https://github.com/OCA/product-attribute.git -b ${VERSION} ${HOME}/product-attribute
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
 
@@ -31,4 +38,4 @@ script:
   - travis_run_tests
 
 after_success:
-  coveralls
+  - travis_after_tests_success
