@@ -23,7 +23,7 @@ msgstr "* Son exactamente iguales a excepción de la cantidad del producto y/o l
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid "* Invoices are have same company, partner, address, currency, journal, salesman, account, type"
-msgstr "* Tienen la misma compañía, dirección, moneda, diario, comercial, cuenta y tipo"
+msgstr "* Tienen la misma compañía, empresa, dirección, moneda, diario, comercial, cuenta y tipo"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
@@ -38,7 +38,7 @@ msgstr "* Pertenecen al mismo cliente/proveedor."
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid "Are you sure you want to merge these invoices ?"
-msgstr "¿Está seguro que quiere unir las facturas?"
+msgstr "¿Está seguro de que quiere fusionar las facturas?"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:49
@@ -79,7 +79,7 @@ msgstr "Fecha de la factura"
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid "Invoices will only be merged if:"
-msgstr "Las facturas sólo se unirán si:"
+msgstr "Las facturas sólo se fusionarán si:"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,keep_references:0
@@ -99,31 +99,31 @@ msgstr "Última actualización en"
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid "Lines will only be merged if:"
-msgstr "Las líneas se unirán si:"
+msgstr "Las líneas se fusionarán si:"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
-msgstr ""
+msgstr "Fusionar facturas"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 #: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_invoice_merge
 msgid "Merge Partner Invoice"
-msgstr "Unir facturas"
+msgstr "Fusionar factura de empresa"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:56
 #, python-format
 msgid "Not all invoices are at the same company!"
-msgstr ""
+msgstr "¡No todas las facturas son de la misma compañía!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:65
 #, python-format
 msgid "Not all invoices are at the same currency!"
-msgstr "¡No todas las facturas son de la misma compañía!"
+msgstr "¡No todas las facturas son de la misma moneda!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:68
@@ -158,7 +158,7 @@ msgstr "Tenga en cuenta que:"
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:40
 #, python-format
 msgid "Please select multiple invoice to merge in the list view."
-msgstr "Seleccione por favor múltiples facturas a ser unidad en la vista de listado"
+msgstr "Seleccione por favor múltiples facturas a ser fusionadas en la vista de listado"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
