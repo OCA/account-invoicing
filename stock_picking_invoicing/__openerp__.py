@@ -19,7 +19,7 @@
 ##############################################################################
 
 {
-    'name': "Stock invoice picking",
+    'name': "Stock Picking Invoicing",
     'version': '1.0',
     'category': 'Warehouse Management',
     'author': "Agile Business Group,Odoo Community Association (OCA)",
