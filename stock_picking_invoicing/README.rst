@@ -1,8 +1,8 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-Stock invoice picking
-=====================
+Stock picking invoicing
+=======================
 
 This module allows to create invoices directly from picking, without having to
 use sale or purchase orders.
