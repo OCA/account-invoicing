@@ -26,7 +26,7 @@
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
     'depends': [
-        'stock_invoice_picking',
+        'stock_picking_invoicing',
     ],
     'data': [
         'account_invoice_view.xml',
