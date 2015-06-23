@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2013 Agile Business Group sagl (<http://www.agilebg.com>)
+#    Copyright (C) 2013-15 Agile Business Group sagl (<http://www.agilebg.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -18,4 +18,16 @@
 #
 ##############################################################################
 
-import stock
+{
+    'name': "Stock Picking Invoicing",
+    'version': '1.0',
+    'category': 'Warehouse Management',
+    'author': "Agile Business Group,Odoo Community Association (OCA)",
+    'website': 'http://www.agilebg.com',
+    'license': 'AGPL-3',
+    "depends": ['stock_picking_invoice_link'],
+    "data": [
+        "stock_view.xml",
+    ],
+    "installable": True
+}
