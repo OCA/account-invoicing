@@ -46,24 +46,6 @@
   !assert {model: account.invoice, id: invoice_round_down}:
     - state == 'draft'
 -
-  I call the workflow "invoice_to_valid"
--
-  !workflow {model: account.invoice, action: invoice_to_valid, ref: invoice_round_down}
--
-  I check that the invoice state is "to_valid"
--
-  !assert {model: account.invoice, id: invoice_round_down, string: Invoce is in open state}:
-    - state == 'to_valid'
--
-  I call the workflow "invoice_to_send"
--
-  !workflow {model: account.invoice, action: invoice_to_send, ref: invoice_round_down}
--
-  I check that the invoice state is "to_send"
--
-  !assert {model: account.invoice, id: invoice_round_down, string: Invoce is in open state}:
-    - state == 'to_send'
--
   I call the workflow "invoice_open"
 -
   !workflow {model: account.invoice, action: invoice_open, ref: invoice_round_down}
@@ -98,26 +80,6 @@
 -
   !assert {model: account.invoice, id: invoice_round_up}:
     - state == 'draft'
--
-  I call the workflow "invoice_to_valid"
--
-  !workflow {model: account.invoice, action: invoice_to_valid, ref: invoice_round_up}
--
-  I check that the invoice state is "to_valid"
--
-  !assert {model: account.invoice, id: invoice_round_up, string: Invoce is in open state}:
-    - state == 'to_valid'
--
-  I call the workflow "invoice_to_send"
--
-  !workflow {model: account.invoice, action: invoice_to_send, ref: invoice_round_up}
--
-  I check that the invoice state is "to_send"
--
-  !assert {model: account.invoice, id: invoice_round_up, string: Invoce is in open state}:
-    - state == 'to_send'
--
-  I call the workflow "invoice_open"
 -
   !workflow {model: account.invoice, action: invoice_open, ref: invoice_round_up}
 -
