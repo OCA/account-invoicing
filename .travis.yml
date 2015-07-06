@@ -20,8 +20,10 @@ env:
   matrix:
   - LINT_CHECK="1"
   - TRANSIFEX="1"
-  - TESTS="1" ODOO_REPO="odoo/odoo"
-  - TESTS="1" ODOO_REPO="OCA/OCB"
+  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="account_invoice_validation_workflow"
+  - TESTS="1" ODOO_REPO="OCA/OCB"   EXCLUDE="account_invoice_validation_workflow"
+  - TESTS="1" ODOO_REPO="odoo/odoo" INCLUDE="account_invoice_validation_workflow" EXCLUDE="stock_picking_invoicing,invoice_fiscal_position_update,account_payment_term_extension,account_invoice_shipping_address,account_invoice_rounding,account_invoice_partner,account_invoice_merge,account_invoice_line_sort,account_invoice_line_description,account_invoice_force_number"
+  - TESTS="1" ODOO_REPO="OCA/OCB"   INCLUDE="account_invoice_validation_workflow" EXCLUDE="stock_picking_invoicing,invoice_fiscal_position_update,account_payment_term_extension,account_invoice_shipping_address,account_invoice_rounding,account_invoice_partner,account_invoice_merge,account_invoice_line_sort,account_invoice_line_description,account_invoice_force_number"
 
 virtualenv:
   system_site_packages: true
