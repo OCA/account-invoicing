@@ -46,11 +46,29 @@
   !assert {model: account.invoice, id: invoice_round_down}:
     - state == 'draft'
 -
-  I confirm the Invoice
+  I call the workflow "invoice_to_valid"
+-
+  !workflow {model: account.invoice, action: invoice_to_valid, ref: invoice_round_down}
+-
+  I check that the invoice state is "to_valid"
+-
+  !assert {model: account.invoice, id: invoice_round_down, string: Invoce is in open state}:
+    - state == 'to_valid'
+-
+  I call the workflow "invoice_to_send"
+-
+  !workflow {model: account.invoice, action: invoice_to_send, ref: invoice_round_down}
+-
+  I check that the invoice state is "to_send"
+-
+  !assert {model: account.invoice, id: invoice_round_down, string: Invoce is in open state}:
+    - state == 'to_send'
+-
+  I call the workflow "invoice_open"
 -
   !workflow {model: account.invoice, action: invoice_open, ref: invoice_round_down}
 -
-  I check that the invoice state is "Open" and the total amount is 110.00
+  I check that the invoice state is "open" and the total amount is 110.00
 -
   !assert {model: account.invoice, id: invoice_round_down, string: Invoce is in open state}:
     - state == 'open'
@@ -81,11 +99,29 @@
   !assert {model: account.invoice, id: invoice_round_up}:
     - state == 'draft'
 -
-  I confirm the Invoice
+  I call the workflow "invoice_to_valid"
+-
+  !workflow {model: account.invoice, action: invoice_to_valid, ref: invoice_round_up}
+-
+  I check that the invoice state is "to_valid"
+-
+  !assert {model: account.invoice, id: invoice_round_up, string: Invoce is in open state}:
+    - state == 'to_valid'
+-
+  I call the workflow "invoice_to_send"
+-
+  !workflow {model: account.invoice, action: invoice_to_send, ref: invoice_round_up}
+-
+  I check that the invoice state is "to_send"
+-
+  !assert {model: account.invoice, id: invoice_round_up, string: Invoce is in open state}:
+    - state == 'to_send'
+-
+  I call the workflow "invoice_open"
 -
   !workflow {model: account.invoice, action: invoice_open, ref: invoice_round_up}
 -
-  I check that the invoice state is "Open" and the total amount is 110.05
+  I check that the invoice state is "open" and the total amount is 110.05
 -
   !assert {model: account.invoice, id: invoice_round_up, string: Invoce is in open state}:
     - state == 'open'
