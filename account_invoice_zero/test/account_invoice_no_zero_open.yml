@@ -21,24 +21,6 @@
   !assert {model: account.invoice, id: account_invoice_state}:
     - state == 'draft'
 -
-  I change the state of the invoice by executing the "invoice_to_valid" workflow
--
-  !workflow {model: account.invoice, action: invoice_to_valid, ref: account_invoice_state}
--
-  I check that customer invoice state is now "to_valid"
--
-  !assert {model: account.invoice, id: account_invoice_state}:
-    - state == 'to_valid'
--
-  I change the state of invoice by executing the "invoice_to_send" workflow
--
-  !workflow {model: account.invoice, action: invoice_to_send, ref: account_invoice_state}
--
-  I check that customer invoice state is now "to_send"
--
-  !assert {model: account.invoice, id: account_invoice_state}:
-    - state == 'to_send'
--
   I change the state of invoice by clicking validate button
 -
   !workflow {model: account.invoice, action: invoice_open, ref: account_invoice_state}
