@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="product.product_product_3" model="product.product">
+            <field name="uos_id" ref="product.product_uom_kgm"/>
+        </record>
+
+    </data>
+</openerp>
