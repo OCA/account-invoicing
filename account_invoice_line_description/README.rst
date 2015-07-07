@@ -4,8 +4,7 @@
 Account invoice line description
 ================================
 
-This module allows to use only the product description on the invoice
-order lines.
+This module allows to use only the product description on the invoice lines.
 
 Configuration
 =============
