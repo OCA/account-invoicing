@@ -49,3 +49,19 @@ class StockPicking(models.Model):
                                   (picking.name, picking.invoice_id.number))
                 picking.invoice_state = '2binvoiced'
         return True
+
+
+class StockMove(models.Model):
+    _inherit = 'stock.move'
+
+    @api.model
+    def _get_master_data(self, move, company):
+        data = super(StockMove, self)._get_master_data(move, company)
+        if move.picking_id.partner_id.id != data[0].id:
+            # if someone else modified invoice partner, I use it
+            return data
+        partner_invoice_id = move.picking_id.partner_id.address_get(
+            ['invoice'])['invoice']
+        partner = self.env['res.partner'].browse(partner_invoice_id)
+        new_data = partner, data[1], data[2]
+        return new_data
