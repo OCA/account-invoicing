@@ -40,7 +40,9 @@ Contributors
 * Lorenzo Battistini <lorenzo.battistini@agilebg.com>
 * Alex Comba <alex.comba@agilebg.com>
 """,
-    "demo": [],
+    "demo": [
+        'product_data.xml'
+    ],
     "data": [
         'account_invoice_line_view.xml',
     ],
