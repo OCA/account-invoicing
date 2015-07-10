@@ -1,0 +1,90 @@
+-
+  I create a Tax Codes
+-
+  !record {model: account.tax.code, id: tax_case}:
+    name: Tax_case
+    company_id: base.main_company
+    sign: 1
+-
+  I create a Tax
+-
+  !record {model: account.tax, id: tax10}:
+    name: Tax 10.0
+    amount: 10.0
+    type: fixed
+    sequence: 1
+    company_id: base.main_company
+    type_tax_use: all
+    tax_code_id: tax_case
+-
+  In order to test invoice rounding, I configure rounding method to swedish round globally
+- !python {model: res.company, id: base.main_company}: |
+     self.tax_calculation_rounding = 0.05
+     self.tax_calculation_rounding_method = 'swedish_round_globally'
+-
+  In order to test that an invoice is correctly rounded down, I configure an invoice.
+-
+  !record {model: account.invoice, id: invoice_round_down}:
+    account_id: account.a_recv
+    company_id: base.main_company
+    currency_id: base.EUR
+    invoice_line:
+      - account_id: account.a_sale
+        name: '[PCSC234] PC Assemble SC234'
+        price_unit: 100.02
+        quantity: 1.0
+        product_id: product.product_product_3
+        uos_id: product.product_uom_unit
+        invoice_line_tax_id:
+          - tax10
+    journal_id: account.bank_journal
+    partner_id: base.res_partner_12
+    reference_type: none
+-
+  I check that Initially customer invoice state is "Draft"
+-
+  !assert {model: account.invoice, id: invoice_round_down}:
+    - state == 'draft'
+-
+  I call the workflow "invoice_open"
+-
+  !workflow {model: account.invoice, action: invoice_open, ref: invoice_round_down}
+-
+  I check that the invoice state is "open" and the total amount is 110.00
+-
+  !assert {model: account.invoice, id: invoice_round_down, string: Invoce is in open state}:
+    - state == 'open'
+    - amount_total == 110.00
+-
+  In order to test that an invoice is correctly rounded up, I configure 
+  an invoice.
+-
+  !record {model: account.invoice, id: invoice_round_up}:
+    account_id: account.a_recv
+    company_id: base.main_company
+    currency_id: base.EUR
+    invoice_line:
+      - account_id: account.a_sale
+        name: '[PCSC234] PC Assemble SC234'
+        price_unit: 100.04
+        quantity: 1.0
+        product_id: product.product_product_3
+        uos_id: product.product_uom_unit
+        invoice_line_tax_id:
+          - tax10
+    journal_id: account.bank_journal
+    partner_id: base.res_partner_12
+    reference_type: none
+-
+  I check that Initially customer invoice state is "Draft"
+-
+  !assert {model: account.invoice, id: invoice_round_up}:
+    - state == 'draft'
+-
+  !workflow {model: account.invoice, action: invoice_open, ref: invoice_round_up}
+-
+  I check that the invoice state is "open" and the total amount is 110.05
+-
+  !assert {model: account.invoice, id: invoice_round_up, string: Invoce is in open state}:
+    - state == 'open'
+    - amount_total == 110.05
