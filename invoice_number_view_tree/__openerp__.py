@@ -6,6 +6,8 @@
 #    All Rights Reserved.
 #    info Vauxoo (info@vauxoo.com)
 #
+#    Copyright (C) 2015 Agile Business Group <http://www.agilebg.com>
+#
 #    Coded by: Fernando.Rangel (fernando.rangel@vauxoo.com)
 #
 #
@@ -24,31 +26,24 @@
 #
 #
 {
-    "name": "Invoice number", 
-    "version": "1.0", 
-    "author": "Vauxoo", 
-    "category": "Localization", 
-    "description": """
-Invoice number:
-===============
-
-supplier_invoice_number field added in the tree and search view by
-inheritance
-    """, 
-    "website": "http://www.vauxoo.com/", 
-    "license": "AGPL-3", 
+    "name": "Invoice number",
+    "version": "1.0",
+    "author": "Vauxoo",
+    "category": "Localization",
+    "description": """""",
+    "website": "http://www.vauxoo.com/",
+    "license": "AGPL-3",
     "depends": [
         "account"
-    ], 
-    "demo": [], 
+    ],
+    "demo": [],
     "data": [
         "view/invoice_number.xml"
-    ], 
-    "test": [], 
-    "js": [], 
-    "css": [], 
-    "qweb": [], 
-    "installable": True, 
+    ],
+    "test": [],
+    "js": [],
+    "css": [],
+    "qweb": [],
+    "installable": True,
     "auto_install": False
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
