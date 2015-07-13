@@ -30,20 +30,14 @@
     "version": "1.0",
     "author": "Vauxoo",
     "category": "Localization",
-    "description": """""",
     "website": "http://www.vauxoo.com/",
     "license": "AGPL-3",
     "depends": [
         "account"
     ],
-    "demo": [],
     "data": [
         "view/invoice_number.xml"
     ],
-    "test": [],
-    "js": [],
-    "css": [],
-    "qweb": [],
     "installable": True,
     "auto_install": False
 }
