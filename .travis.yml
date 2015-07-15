@@ -30,7 +30,9 @@ virtualenv:
 
 install:
   - git clone https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - git clone https://github.com/OCA/bank-payment.git -b ${VERSION} ${HOME}/bank-payment
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
+  - sudo pip install unidecode
   - travis_install_nightly
   - pip install anybox.testing.openerp # needed for testing account_invoice_line_sort
 
