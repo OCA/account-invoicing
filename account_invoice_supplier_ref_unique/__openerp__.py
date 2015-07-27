@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 # #############################################################################
 #
-#    OpenERP, Open Source Management Solution
+#    Odoo, Open Source Management Solution
 #    This module copyright (C) 2010 - 2014 Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
@@ -22,26 +22,13 @@
 
 {
     'name': 'Unique Supplier Invoice Number in Invoice',
-    "version": "1.0",
+    'version': '1.1',
+    'summary': 'Checks that supplier invoices are not entered twice',
     'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'maintainer': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
-    'description': """
-Unique Supplier Invoice Number
-==============================
-
-This module adds a insensitive constraint on the supplier_invoice_number field:
-(partner_id, supplier_invoice_number) must be unique.
-
-Contributors
-------------
-* Marc Cassuto (marc.cassuto@savoirfairelinux.com)
-* Mathieu Benoit (mathieu.benoit@savoirfairelinux.com)
-    """,
-    'depends': [
-        'account'
-    ],
-    'installable': False,
+    'depends': ['account'],
+    'installable': True,
 }
