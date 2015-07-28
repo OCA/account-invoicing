@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
+#    Odoo, Open Source Management Solution
 #    This module copyright (C) 2010 - 2014 Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
 #
