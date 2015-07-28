@@ -16,12 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_supplier_ref_unique
-#: code:addons/account_invoice_supplier_ref_unique/account_invoice.py:54
-#, python-format
-msgid "(draft)"
-msgstr ""
-
-#. module: account_invoice_supplier_ref_unique
 #: model:ir.model,name:account_invoice_supplier_ref_unique.model_account_invoice
 msgid "Invoice"
 msgstr ""
