@@ -7,7 +7,7 @@ Account Invoice Zero
 
 Invoices with a amount of 0 are automatically set as paid.
 
-When an invoice has an amount of 0, OpenERP still generates a
+When an invoice has an amount of 0, Odoo still generates a
 receivable/payable move line with a 0 balance.  The invoice stays as
 open even if there is nothing to pay.  The user has 2 ways to set the
 invoice as paid: create a payment of 0 and reconcile the line with the
@@ -16,23 +16,13 @@ This module takes the latter approach and will directly set the invoice
 as paid once it is opened.
 
  
-
-For further information, please visit:
-
-* https://www.odoo.com/forum/help-1
-
-Known issues / Roadmap
-======================
-
-* ...
-
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/OCA/{project_repo}/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed feedback
-`here <https://github.com/OCA/{project_repo}/issues/new?body=module:%20{module_name}%0Aversion:%20{version}%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`here <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_zero%0Aversion:%208.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 
 Credits
