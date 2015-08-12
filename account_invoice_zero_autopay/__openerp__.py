@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-{'name': 'Account Invoice Zero',
+{'name': 'Account Invoice Zero Autopay',
  'version': '1.0',
  'author': "Camptocamp,Odoo Community Association (OCA)",
  'maintainer': 'Camptocamp',
@@ -27,26 +27,11 @@
  'category': 'Accounting & Finance',
  'depends': ['account',
              ],
- 'description': """
-Account Invoice Zero
-====================
-
-Invoices with a amount of 0 are automatically set as paid.
-
-When an invoice has an amount of 0, OpenERP still generates a
-receivable/payable move line with a 0 balance.  The invoice stays as
-open even if there is nothing to pay.  The user has 2 ways to set the
-invoice as paid: create a payment of 0 and reconcile the line with the
-payment or reconcile the receivable/payable move line with itself.
-This module takes the latter approach and will directly set the invoice
-as paid once it is opened.
-
- """,
  'website': 'http://www.camptocamp.com',
  'data': [],
  'test': ['test/account_invoice_zero_paid.yml',
           'test/account_invoice_no_zero_open.yml',
           ],
- 'installable': False,
+ 'installable': True,
  'auto_install': False,
  }

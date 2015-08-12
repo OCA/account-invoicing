@@ -26,17 +26,9 @@
   !assert {model: account.invoice, id: account_invoice_zero_paid}:
     - state == 'draft'
 -
-  I called the "Confirm Draft Invoices" wizard
+  I change the state of invoice by executing the "invoice_open" workflow
 -
-  !record {model: account.invoice.confirm, id: account_invoice_confirm_0}:
-    {}
--
-  I clicked on Confirm Invoices Button
--
-  !python {model: account.invoice.confirm}: |
-    self.invoice_confirm(cr, uid, [ref("account_invoice_confirm_0")], {"lang": 'en_US',
-      "tz": False, "active_model": "account.invoice", "active_ids": [ref("account_invoice_zero_paid")],
-      "type": "out_invoice", "active_id": ref("account_invoice_zero_paid"), })
+  !workflow {model: account.invoice, action: invoice_open, ref: account_invoice_zero_paid}
 -
   I check that customer invoice state is "Paid"
 -
