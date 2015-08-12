@@ -15,6 +15,7 @@ payment or reconcile the receivable/payable move line with itself.
 This module takes the latter approach and will directly set the invoice
 as paid once it is opened.
 
+This module was named 'account_invoice_zero' before v8
  
 Bug Tracker
 ===========
