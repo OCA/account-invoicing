@@ -15,6 +15,10 @@ payment or reconcile the receivable/payable move line with itself.
 This module takes the latter approach and will directly set the invoice
 as paid once it is opened.
 
+One possible use case is that users create sales orders with price 0
+to deliver free products (gifts, faulty products replenishment...),
+and always stay undone due to this.
+
 This module was named 'account_invoice_zero' before v8
  
 Bug Tracker
