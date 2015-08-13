@@ -17,7 +17,8 @@ as paid once it is opened.
 
 One possible use case is that users create sales orders with price 0
 to deliver free products (gifts, faulty products replenishment...),
-and always stay undone due to this.
+and always stay undone due to this. Another one is when dealing with 
+discount coupon codes that leads to a 0 amount sales order.
 
 This module was named 'account_invoice_zero' before v8
  
