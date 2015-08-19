@@ -53,6 +53,12 @@ def pay_invoice(self, invoice):
     writeoff.trans_rec_reconcile()
 
 
+def invoice_picking(self, picking):
+    wizard = self.invoice_picking_wiz.with_context(active_ids=[picking.id])\
+        .create({})
+    return wizard.with_context(active_ids=[picking.id]).create_invoice()
+
+
 class TestAccountInvoiceMergePurchase(common.TransactionCase):
 
     def setUp(self):
@@ -65,8 +71,10 @@ class TestAccountInvoiceMergePurchase(common.TransactionCase):
         self.journal01 = self.env.ref('account.miscellaneous_journal')
         self.account01 = self.env.ref('account.a_pay')
         self.writeoff_obj = self.env['account.move.line.reconcile.writeoff']
+        self.picking_obj = self.env['stock.picking']
+        self.invoice_picking_wiz = self.env['stock.invoice.onshipping']
 
-    def test_multi_purchase_order(self):
+    def test_order_multi_purchase_order(self):
         purchase_order01 = create_simple_po(self, self.partner01, 'order')
         # I confirm the purchase order
         workflow.trg_validate(self.uid, 'purchase.order',
@@ -78,7 +86,7 @@ class TestAccountInvoiceMergePurchase(common.TransactionCase):
                          "Purchase order's state isn't correct")
         invoice_ids = purchase_order01.invoice_ids.ids
         purchase_order02 = purchase_order01.copy()
-        # I confirm the purchase order
+        # I confirm the second purchase order
         workflow.trg_validate(self.uid, 'purchase.order',
                               purchase_order02.id, 'purchase_confirm',
                               self.cr)
@@ -87,6 +95,60 @@ class TestAccountInvoiceMergePurchase(common.TransactionCase):
         self.assertEqual(purchase_order02.state, 'approved',
                          "Purchase order's state isn't correct")
         invoice_ids.extend(purchase_order02.invoice_ids.ids)
+        invoices = self.inv_obj.browse(invoice_ids)
+        invoices_info = invoices.do_merge()
+        new_invoice_ids = invoices_info.keys()
+        # Ensure there is only one new invoice
+        self.assertEqual(len(new_invoice_ids), 1)
+        # I post the created invoice
+        workflow.trg_validate(self.uid, 'account.invoice', new_invoice_ids[0],
+                              'invoice_open', self.cr)
+        # I pay the merged invoice
+        invoice = self.inv_obj.browse(new_invoice_ids)[0]
+        pay_invoice(self, invoice)
+        # I check if merge invoice is paid
+        self.assertEqual(invoice.state, 'paid')
+        purchase_order01.invalidate_cache()
+        # I check if purchase order are done
+        self.assertEqual(purchase_order01.state, 'done')
+        self.assertEqual(purchase_order02.state, 'done')
+
+    def test_picking_multi_purchase_order(self):
+        purchase_order01 = self.env.ref('purchase.purchase_order_1')
+        # I set the invoice method to picking
+        purchase_order01.invoice_method = 'picking'
+        # I confirm the purchase order
+        workflow.trg_validate(self.uid, 'purchase.order',
+                              purchase_order01.id, 'purchase_confirm',
+                              self.cr)
+        # I check if the purchase order is confirmed
+        purchase_order01.invalidate_cache()
+        self.assertEqual(purchase_order01.state, 'approved',
+                         "Purchase order's state isn't correct")
+        # I check if there is a picking
+        self.assertEqual(len(purchase_order01.picking_ids.ids), 1)
+        picking01 = purchase_order01.picking_ids[0]
+        # I transfer the picking
+        picking01.do_transfer()
+        invoice_ids = invoice_picking(self, picking01)
+
+        purchase_order02 = purchase_order01.copy()
+        # I set the invoice method to picking
+        purchase_order02.invoice_method = 'picking'
+        # I confirm the second purchase order
+        workflow.trg_validate(self.uid, 'purchase.order',
+                              purchase_order02.id, 'purchase_confirm',
+                              self.cr)
+        # I check if the purchase order is confirmed
+        purchase_order02.invalidate_cache()
+        self.assertEqual(purchase_order02.state, 'approved',
+                         "Purchase order's state isn't correct")
+        # I check if there is a picking
+        self.assertEqual(len(purchase_order02.picking_ids.ids), 1)
+        picking02 = purchase_order02.picking_ids[0]
+        # I transfer the picking
+        picking02.do_transfer()
+        invoice_ids.extend(invoice_picking(self, picking02))
         invoices = self.inv_obj.browse(invoice_ids)
         invoices_info = invoices.do_merge()
         new_invoice_ids = invoices_info.keys()
