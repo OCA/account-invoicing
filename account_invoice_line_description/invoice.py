@@ -39,7 +39,7 @@ class AccountInvoiceLine(models.Model):
         )
         if product:
             if self.user_has_groups(
-                    'accout_invoice_line_description.'
+                    'account_invoice_line_description.'
                     'group_use_product_description_per_inv_line',
             ):
                 product = self.env['product.product'].browse(product)
