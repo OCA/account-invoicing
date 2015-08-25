@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': "Supplier Invoice Number Info",
-    'version': '0.1',
+    'version': '1.1.0',
     'category': 'Accounting',
     'summary': "Allows to force invoice numbering on specific invoices",
     'author': "Agile Business Group,Odoo Community Association (OCA)",
@@ -31,6 +31,5 @@
     "data": [
         'view/invoice_view.xml'
     ],
-    "active": False,
     "installable": True,
 }
