@@ -1,0 +1,116 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * account_invoice_split
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-27 14:10+0000\n"
+"PO-Revision-Date: 2015-08-27 14:10+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_split
+#: view:account.invoice.split:account_invoice_split.view_invoice_split
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: account_invoice_split
+#: field:account.invoice.split,create_uid:0
+#: field:account.invoice.split.line,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: account_invoice_split
+#: field:account.invoice.split,create_date:0
+#: field:account.invoice.split.line,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: account_invoice_split
+#: field:account.invoice.split.line,name:0
+msgid "Description"
+msgstr "Description"
+
+#. module: account_invoice_split
+#: field:account.invoice.split,id:0
+#: field:account.invoice.split.line,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_split
+#: view:account.invoice.split:account_invoice_split.view_invoice_split
+msgid "Invoice Line to Split in a new invoice"
+msgstr "Ligne de facture à diviser dans une nouvelle facture"
+
+#. module: account_invoice_split
+#: field:account.invoice.split,line_ids:0
+msgid "Invoice lines to Split"
+msgstr "Lignes de facture à diviser"
+
+#. module: account_invoice_split
+#: code:addons/account_invoice_split/wizard/account_invoice_split.py:49
+#, python-format
+msgid "Invoice must be draft not %s"
+msgstr "La facture dans être dans l'état brouillon, pas %s"
+
+#. module: account_invoice_split
+#: field:account.invoice.split,write_uid:0
+#: field:account.invoice.split.line,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: account_invoice_split
+#: field:account.invoice.split,write_date:0
+#: field:account.invoice.split.line,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: account_invoice_split
+#: field:account.invoice.split.line,origin_invoice_line_id:0
+msgid "Origin Invoice Line"
+msgstr "Ligne de facture d'origine"
+
+#. module: account_invoice_split
+#: field:account.invoice.split.line,product_id:0
+msgid "Product"
+msgstr "Produit"
+
+#. module: account_invoice_split
+#: field:account.invoice.split.line,quantity_to_split:0
+msgid "Quantity To split in a new invoice"
+msgstr "Quantité à diviser dans une nouvelle facture"
+
+#. module: account_invoice_split
+#: code:addons/account_invoice_split/wizard/account_invoice_split.py:119
+#, python-format
+msgid "Quantity to split is greater\n"
+"                        than available quantity"
+msgstr "La quantité à divier est plus grande\n"
+"                        que la quantité disponible"
+
+#. module: account_invoice_split
+#: view:account.invoice.split:account_invoice_split.view_invoice_split
+#: model:ir.actions.act_window,name:account_invoice_split.action_view_invoice_split
+msgid "Split Invoice"
+msgstr "Diviser la facture"
+
+#. module: account_invoice_split
+#: field:account.invoice.split.line,total_quantity:0
+msgid "Total Quantity"
+msgstr "Quantité totale"
+
+#. module: account_invoice_split
+#: field:account.invoice.split.line,wizard_id:0
+msgid "Wizard"
+msgstr "Assistant"
+
+#. module: account_invoice_split
+#: view:account.invoice.split:account_invoice_split.view_invoice_split
+msgid "or"
+msgstr "Ou"

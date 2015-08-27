@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_invoice_split" model="ir.ui.view">
+            <field name="name">Split Invoice</field>
+            <field name="model">account.invoice.split</field>
+            <field name="arch" type="xml">
+                <form string="Split Invoice" version="7.0">
+                    <notebook>
+                        <page string="Invoice Line to Split in a new invoice">
+                            <field name="line_ids" >
+                                <tree editable="bottom" create="false" >
+                                    <field name="name" readonly="1"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="total_quantity" readonly="1"/>
+                                    <field name="quantity_to_split" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="split_invoice" string="Split Invoice" type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Split Invoice" res_model="account.invoice.split"
+            src_model="account.invoice" view_mode="form" target="new"
+            id="action_view_invoice_split" />
+    </data>
+</openerp>
+
