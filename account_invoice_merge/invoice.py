@@ -22,18 +22,27 @@ from openerp import models, api
 from openerp import workflow
 from openerp.osv.orm import browse_record, browse_null
 
-INVOICE_KEY_COLS = ['partner_id', 'user_id', 'type',
-                    'account_id', 'currency_id',
-                    'journal_id', 'company_id', 'partner_bank_id']
-
-INVOICE_LINE_KEY_COLS = ['name', 'origin', 'discount',
-                         'invoice_line_tax_id', 'price_unit',
-                         'product_id', 'account_id',
-                         'account_analytic_id']
-
 
 class account_invoice(models.Model):
     _inherit = "account.invoice"
+
+    @api.model
+    def _get_invoice_key_cols(self):
+        return [
+            'partner_id', 'user_id', 'type', 'account_id', 'currency_id',
+            'journal_id', 'company_id', 'partner_bank_id',
+        ]
+
+    @api.model
+    def _get_invoice_line_key_cols(self):
+        fields = [
+            'name', 'origin', 'discount', 'invoice_line_tax_id', 'price_unit',
+            'product_id', 'account_id', 'account_analytic_id',
+        ]
+        for field in ['analytics_id']:
+            if field in self.env['account.invoice.line']._fields:
+                fields.append(field)
+        return fields
 
     @api.model
     def _get_first_invoice_fields(self, invoice):
@@ -104,7 +113,7 @@ class account_invoice(models.Model):
 
         for account_invoice in draft_invoices:
             invoice_key = make_key(
-                account_invoice, INVOICE_KEY_COLS)
+                account_invoice, self._get_invoice_key_cols())
             new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
             origins = seen_origins.setdefault(invoice_key, set())
             client_refs = seen_client_refs.setdefault(invoice_key, set())
@@ -136,7 +145,7 @@ class account_invoice(models.Model):
                     client_refs.add(account_invoice.reference)
             for invoice_line in account_invoice.invoice_line:
                 line_key = make_key(
-                    invoice_line, INVOICE_LINE_KEY_COLS)
+                    invoice_line, self._get_invoice_line_key_cols())
                 o_line = invoice_infos['invoice_line'].setdefault(line_key, {})
                 uos_factor = (invoice_line.uos_id and
                               invoice_line.uos_id.factor or 1.0)
