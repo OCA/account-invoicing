@@ -41,36 +41,34 @@ class AccountInvoice(models.Model):
                 " to reporting.")
 
     # Compute Section
-    @api.multi
+    @api.one
     @api.depends('partner_id')
     def compute_pricelist_id(self):
         partner_obj = self.env['res.partner']
-        for item in self:
-            if 'active_test' in self._context.keys():
-                # Module is installing we have to manage multi company case
-                # which current user is not on the company of the invoices
-                partner = partner_obj.with_context(
-                    force_company=item.company_id.id).browse(
-                    item.partner_id.id)
-            else:
-                partner = item.partner_id
+        if 'active_test' in self._context.keys():
+            # Module is installing we have to manage multi company case
+            # which current user is not on the company of the invoices
+            partner = partner_obj.with_context(
+                force_company=self.company_id.id).browse(self.partner_id.id)
+        else:
+            partner = self.partner_id
 
-            if item.type in ('out_invoice', 'out_refund'):
-                # Customer Invoices
-                item.pricelist_id =\
-                    partner.property_product_pricelist.id
-            elif item.type in ('in_invoice', 'in_refund'):
-                # Supplier Invoices
-                if item.partner_id._model._columns.get(
-                        'property_product_pricelist_purchase', False):
-                    item.pricelist_id =\
-                        partner.property_product_pricelist_purchase.id
-                else:
-                    _logger.warning(_(
-                        "Can not compute Pricelist for invoices with"
-                        " type '%s' because 'purchase' module is not"
-                        " installed.") % (item.type))
+        if self.type in ('out_invoice', 'out_refund'):
+            # Customer Invoices
+            self.pricelist_id =\
+                partner.property_product_pricelist.id
+        elif self.type in ('in_invoice', 'in_refund'):
+            # Supplier Invoices
+            if self.partner_id._model._columns.get(
+                    'property_product_pricelist_purchase', False):
+                self.pricelist_id =\
+                    partner.property_product_pricelist_purchase.id
             else:
-                raise ValidationError(_(
+                _logger.warning(_(
                     "Can not compute Pricelist for invoices with"
-                    " type '%s'.") % (item.type))
+                    " type '%s' because 'purchase' module is not"
+                    " installed.") % (self.type))
+        else:
+            raise ValidationError(_(
+                "Can not compute Pricelist for invoices with"
+                " type '%s'.") % (self.type))
