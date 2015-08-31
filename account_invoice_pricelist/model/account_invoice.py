@@ -36,9 +36,9 @@ class AccountInvoice(models.Model):
     pricelist_id = fields.Many2one(
         comodel_name='product.pricelist', string='Pricelist', readonly=True,
         compute='compute_pricelist_id', store=True,
-        help= "The pricelist of the partner, when the invoice is"
-            " created or the partner has changed. This is a technical field"
-            " used to reporting.")
+        help="The pricelist of the partner, when the invoice is created"
+                " or the partner has changed. This is a technical field used"
+                " to reporting.")
 
     # Compute Section
     @api.multi
@@ -46,11 +46,12 @@ class AccountInvoice(models.Model):
     def compute_pricelist_id(self):
         partner_obj = self.env['res.partner']
         for item in self:
-            if self._context.has_key('active_test'):
+            if 'active_test' in self._context.keys():
                 # Module is installing we have to manage multi company case
                 # which current user is not on the company of the invoices
                 partner = partner_obj.with_context(
-                    force_company=item.company_id.id).browse(item.partner_id.id)
+                    force_company=item.company_id.id).browse(
+                    item.partner_id.id)
             else:
                 partner = item.partner_id
 
@@ -72,4 +73,4 @@ class AccountInvoice(models.Model):
             else:
                 raise ValidationError(_(
                     "Can not compute Pricelist for invoices with"
-                    " type '%s'.") %(item.type))
+                    " type '%s'.") % (item.type))
