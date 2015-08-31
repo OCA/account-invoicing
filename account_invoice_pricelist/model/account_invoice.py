@@ -68,7 +68,3 @@ class AccountInvoice(models.Model):
                     "Can not compute Pricelist for invoices with"
                     " type '%s' because 'purchase' module is not"
                     " installed.") % (self.type))
-        else:
-            raise ValidationError(_(
-                "Can not compute Pricelist for invoices with"
-                " type '%s'.") % (self.type))
