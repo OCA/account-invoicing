@@ -22,16 +22,17 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from openerp import models, api
-from openerp.addons.account_invoice_merge.invoice import INVOICE_KEY_COLS
-
-
-INVOICE_KEY_COLS.append('payment_mode_id')
 
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
+
+    @api.model
+    def _get_invoice_key_cols(self):
+        return super(AccountInvoice, self)._get_invoice_key_cols() + [
+            'payment_mode_id',
+        ]
 
     @api.model
     def _get_first_invoice_fields(self, invoice):
