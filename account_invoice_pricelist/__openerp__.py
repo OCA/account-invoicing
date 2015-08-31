@@ -24,7 +24,7 @@
     'name': 'Account - Pricelist on Invoices',
     'version': '8.0.1.0.0',
     'summary': 'Add partner pricelist on invoices',
-    'category': 'account',
+    'category': 'Accounting & Finance',
     'author': 'GRAP,Odoo Community Association (OCA)',
     'website': 'http://www.grap.coop',
     'license': 'AGPL-3',

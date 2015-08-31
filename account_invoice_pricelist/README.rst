@@ -12,7 +12,7 @@ Pricelist on Invoices
 .. image:: static/src/description/screenshot_group_by.png
 
 
-This module doesn't add real feature by it self for end-users, but is usefull
+This module doesn't add real feature by it self for end-users, but is useful
 to do reporting, in a inherited module.
 
 Installation
