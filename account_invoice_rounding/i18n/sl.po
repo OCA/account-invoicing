@@ -1,43 +1,22 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_rounding
-#
-# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015.
+# * account_invoice_rounding
+# 
+# Translators:
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0\n"
+"Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-14 15:15+0000\n"
-"PO-Revision-Date: 2015-03-06 08:15+0100\n"
+"POT-Creation-Date: 2015-08-25 16:48+0000\n"
+"PO-Revision-Date: 2015-08-16 11:39+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
-"Language-Team: Slovenian <translate@matmoz.si>\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
 "Language: sl\n"
-"X-Generator: Lokalize 1.5\n"
-
-#. module: account_invoice_rounding
-#: field:res.company,tax_calculation_rounding_account_id:0
-msgid "Tax Rounding Account"
-msgstr "Konto zaokroževanja davka"
-
-#. module: account_invoice_rounding
-#: field:account.invoice,global_round_line_id:0
-msgid "Invoice Line for total rounding"
-msgstr "Postavka računa za skupno zaokroževanje"
-
-#. module: account_invoice_rounding
-#: model:ir.model,name:account_invoice_rounding.model_account_config_settings
-msgid "account.config.settings"
-msgstr "account.config.settings"
-
-#. module: account_invoice_rounding
-#: code:addons/account_invoice_rounding/account.py:52
-#, python-format
-msgid "Rounding"
-msgstr "Zaokroževanje"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_res_company
@@ -45,15 +24,20 @@ msgid "Companies"
 msgstr "Družbe"
 
 #. module: account_invoice_rounding
+#: model:ir.model,name:account_invoice_rounding.model_account_invoice
+msgid "Invoice"
+msgstr "Račun"
+
+#. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice_line
 msgid "Invoice Line"
 msgstr "Postavka računa"
 
 #. module: account_invoice_rounding
-#: field:account.config.settings,tax_calculation_rounding:0
-#: field:res.company,tax_calculation_rounding:0
-msgid "Tax Rounding unit"
-msgstr "Enota zaokroževanja davka"
+#: code:addons/account_invoice_rounding/account.py:42
+#, python-format
+msgid "Rounding"
+msgstr "Zaokroževanje"
 
 #. module: account_invoice_rounding
 #: field:account.invoice.line,is_rounding:0
@@ -61,18 +45,16 @@ msgid "Rounding Line"
 msgstr "Postavka zaokroževanja"
 
 #. module: account_invoice_rounding
-#: model:ir.model,name:account_invoice_rounding.model_account_invoice
-msgid "Invoice"
-msgstr "Račun"
+#: model:ir.model,name:account_invoice_rounding.model_account_tax
+msgid "Tax"
+msgstr "Davek"
 
 #. module: account_invoice_rounding
-#: field:account.config.settings,tax_calculation_rounding_account_id:0
-msgid "Tax Rounding account"
+#: field:res.company,tax_calculation_rounding_account_id:0
+msgid "Tax Rounding Account"
 msgstr "Konto zaokroževanja davka"
 
 #. module: account_invoice_rounding
-#: model:ir.model,name:account_invoice_rounding.model_account_tax
-msgid "account.tax"
-msgstr "account.tax"
-
-
+#: field:res.company,tax_calculation_rounding:0
+msgid "Tax Rounding unit"
+msgstr "Enota zaokroževanja davka"
