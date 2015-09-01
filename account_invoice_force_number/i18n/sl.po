@@ -1,60 +1,44 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_force_number
-#
-# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015.
+# * account_invoice_force_number
+# 
+# Translators:
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.3\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-11-16 16:44+0000\n"
-"PO-Revision-Date: 2015-03-06 08:07+0100\n"
+"Project-Id-Version: account-invoicing (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-25 16:48+0000\n"
+"PO-Revision-Date: 2015-08-16 11:39+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
-"Language-Team: Slovenian <translate@matmoz.si>\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-03-21 06:54+0000\n"
-"X-Generator: Lokalize 1.5\n"
+"Content-Transfer-Encoding: \n"
 "Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%"
-"100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #. module: account_invoice_force_number
-#: view:account.invoice:0
+#: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
+#: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
 msgid "Force Number"
 msgstr "Vsili številko"
 
 #. module: account_invoice_force_number
-#: model:ir.module.module,description:account_invoice_force_number.module_meta_information
+#: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
+#: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
 msgid ""
-"\n"
-"    This module allows to force the invoice numbering.\n"
-"    It displays the internal_number field. If user fills that field, the "
-"typed value will be used as invoice (and move) number. Otherwise, the next "
-"sequence sequence number will be retrieved and saved.\n"
-"    So, the new field has to be used when user doesn't want to use the "
-"default invoice numbering for a specific invoice.\n"
-"    "
-msgstr ""
-"\n"
-"    Ta modul omogoča vsiljevanje številčenja računov.\n"
-"    Prikaže polje interno število (internal_number). Če uporabnik izpolni to "
-"polje, "
-"bo vnesena vrednost uporabljena kot številke računa (in vknjižbe). V "
-"nasprotnem primeru "
-"se uporabi in shrani naslednje število iz zaporedja.\n"
-"    To novo polje se torej uporablja, kadar uporabnik ne želi uporabljati "
-"privzetega načina številčenja za specifičen račun.\n"
-"    "
-
-#. module: account_invoice_force_number
-#: model:ir.module.module,shortdesc:account_invoice_force_number.module_meta_information
-msgid "Force Invoice Number"
-msgstr "Vsili številko računa"
+"Force invoice number. Use this field if you don't want to use the default "
+"numbering"
+msgstr "Vsili številko računa. Uporabite to polje, če ne želite uporabiti privzetega številčenja"
 
 #. module: account_invoice_force_number
 #: model:ir.model,name:account_invoice_force_number.model_account_invoice
 msgid "Invoice"
 msgstr "Račun"
 
+#. module: account_invoice_force_number
+#: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
+#: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
+msgid "{'invisible': [('state', '!=', 'draft')]}"
+msgstr "{'invisible': [('state', '!=', 'draft')]}"
