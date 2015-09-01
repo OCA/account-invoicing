@@ -45,6 +45,7 @@ invoicing "based on delivery" that will look at those values instead of looking
 in picking.
 """
 from openerp.osv import orm, fields
+import openerp.addons.decimal_precision as dp
 
 
 class SaleOrderLine(orm.Model):
@@ -52,14 +53,19 @@ class SaleOrderLine(orm.Model):
 
     def field_qty_invoiced(self, cr, uid, ids, field_list, arg, context):
         res = dict.fromkeys(ids, 0)
+        precision = self.pool['decimal.precision'].precision_get(
+            cr, uid, 'Product UoS')
         for line in self.browse(cr, uid, ids, context=context):
             for invoice_line in line.invoice_lines:
                 if invoice_line.invoice_id.state != 'cancel':
                     res[line.id] += invoice_line.quantity  # XXX uom !
+            res[line.id] = round(res[line.id], precision)
         return res
 
     def field_qty_delivered(self, cr, uid, ids, field_list, arg, context):
         res = dict.fromkeys(ids, 0)
+        precision = self.pool['decimal.precision'].precision_get(
+            cr, uid, 'Product UoS')
         for line in self.browse(cr, uid, ids, context=context):
             if not line.move_ids:
                 # consumable or service: assume delivered == invoiced
@@ -70,6 +76,7 @@ class SaleOrderLine(orm.Model):
                             move.picking_id and
                             move.picking_id.type == 'out'):
                         res[line.id] += move.product_qty
+            res[line.id] = round(res[line.id], precision)
         return res
 
     def _prepare_order_line_invoice_line(self, cr, uid, line, account_id=False,
@@ -104,9 +111,11 @@ class SaleOrderLine(orm.Model):
     _columns = {
         'qty_invoiced': fields.function(
             field_qty_invoiced, string='Invoiced Quantity', type='float',
+            digits_compute=dp.get_precision('Product UoS'),
             help="the quantity of product from this line already invoiced"),
         'qty_delivered': fields.function(
             field_qty_delivered, string='Invoiced Quantity', type='float',
+            digits_compute=dp.get_precision('Product UoS'),
             help="the quantity of product from this line already invoiced"),
         'invoiced': fields.function(
             _fnct_line_invoiced, string='Invoiced', type='boolean',
