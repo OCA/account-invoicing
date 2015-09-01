@@ -1,21 +1,21 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_force_number
-#
+# * account_invoice_force_number
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.3\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-11-16 16:44+0000\n"
-"PO-Revision-Date: 2014-01-17 18:31+0000\n"
-"Last-Translator: Lorenzo Battistini - Agile BG "
-"<lorenzo.battistini@agilebg.com>\n"
-"Language-Team: \n"
+"Project-Id-Version: account-invoicing (7.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-14 14:58+0000\n"
+"PO-Revision-Date: 2015-06-03 05:00+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: Italian (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-03-21 06:54+0000\n"
-"X-Generator: Launchpad (build 16967)\n"
+"Content-Transfer-Encoding: \n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_force_number
 #: view:account.invoice:0
@@ -23,30 +23,11 @@ msgid "Force Number"
 msgstr "Forza numero"
 
 #. module: account_invoice_force_number
-#: model:ir.module.module,description:account_invoice_force_number.module_meta_information
+#: view:account.invoice:0
 msgid ""
-"\n"
-"    This module allows to force the invoice numbering.\n"
-"    It displays the internal_number field. If user fills that field, the "
-"typed value will be used as invoice (and move) number. Otherwise, the next "
-"sequence sequence number will be retrieved and saved.\n"
-"    So, the new field has to be used when user doesn't want to use the "
-"default invoice numbering for a specific invoice.\n"
-"    "
+"Force invoice number. Use this field if you don't want to use the default "
+"numbering"
 msgstr ""
-"\n"
-"    This module allows to force the invoice numbering.\n"
-"    It displays the internal_number field. If user fills that field, the "
-"typed value will be used as invoice (and move) number. Otherwise, the next "
-"sequence sequence number will be retrieved and saved.\n"
-"    So, the new field has to be used when user doesn't want to use the "
-"default invoice numbering for a specific invoice.\n"
-"    "
-
-#. module: account_invoice_force_number
-#: model:ir.module.module,shortdesc:account_invoice_force_number.module_meta_information
-msgid "Force Invoice Number"
-msgstr "Forza numero fattura"
 
 #. module: account_invoice_force_number
 #: model:ir.model,name:account_invoice_force_number.model_account_invoice

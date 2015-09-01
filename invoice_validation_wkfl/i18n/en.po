@@ -1,0 +1,161 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * invoice_validation_wkfl
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: account-invoicing (7.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-14 14:58+0000\n"
+"PO-Revision-Date: 2015-06-03 04:45+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: English (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: invoice_validation_wkfl
+#: code:addons/invoice_validation_wkfl/invoice.py:98
+#, python-format
+msgid "Can not %s draft/proforma/cancel invoice."
+msgstr "Can not %s draft/proforma/cancel invoice."
+
+#. module: invoice_validation_wkfl
+#: code:addons/invoice_validation_wkfl/invoice.py:44
+#, python-format
+msgid ""
+"You are trying to validate invoice lines linked to a closed or cancelled Analytic Account.\n"
+"\n"
+"Check the following lines:"
+msgstr "You are trying to validate invoice lines linked to a closed or cancelled Analytic Account.\n\nCheck the following lines:"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "Print"
+msgstr "Print"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "PRO-FORMA"
+msgstr "PRO-FORMA"
+
+#. module: invoice_validation_wkfl
+#: code:addons/invoice_validation_wkfl/invoice.py:97
+#: code:addons/invoice_validation_wkfl/invoice.py:101
+#, python-format
+msgid "Error !"
+msgstr "Error !"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "To Send Invoices"
+msgstr "To Send Invoices"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "To Validate Invoices"
+msgstr "To Validate Invoices"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "Invoice To Send"
+msgstr "Invoice To Send"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "Re-Open"
+msgstr "Re-Open"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "To Validation"
+msgstr "To Validation"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "Validate"
+msgstr "Validate"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "To Validate"
+msgstr "To Validate"
+
+#. module: invoice_validation_wkfl
+#: code:addons/invoice_validation_wkfl/invoice.py:144
+#, python-format
+msgid "No Period found on Invoice!"
+msgstr "No Period found on Invoice!"
+
+#. module: invoice_validation_wkfl
+#: code:addons/invoice_validation_wkfl/invoice.py:43
+#, python-format
+msgid "UserError"
+msgstr "UserError"
+
+#. module: invoice_validation_wkfl
+#: model:ir.model,name:invoice_validation_wkfl.model_account_invoice_refund
+msgid "Invoice Refund"
+msgstr "Invoice Refund"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "To Send"
+msgstr "To Send"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "Approve"
+msgstr "Approve"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "Invoice to send"
+msgstr "Invoice to send"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "Refund"
+msgstr "Refund"
+
+#. module: invoice_validation_wkfl
+#: code:addons/invoice_validation_wkfl/invoice.py:143
+#, python-format
+msgid "Data Insufficient !"
+msgstr "Data Insufficient !"
+
+#. module: invoice_validation_wkfl
+#: code:addons/invoice_validation_wkfl/invoice.py:102
+#, python-format
+msgid ""
+"Can not %s invoice which is already reconciled, invoice should be "
+"unreconciled first. You can only Refund this invoice"
+msgstr "Can not %s invoice which is already reconciled, invoice should be unreconciled first. You can only Refund this invoice"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "Set to Drafttttt"
+msgstr "Set to Drafttttt"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "Reset to Draft"
+msgstr "Reset to Draft"
+
+#. module: invoice_validation_wkfl
+#: model:ir.model,name:invoice_validation_wkfl.model_account_invoice
+msgid "Invoice"
+msgstr "Invoice"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: invoice_validation_wkfl
+#: view:account.invoice:0
+msgid "Print Invoice"
+msgstr "Print Invoice"

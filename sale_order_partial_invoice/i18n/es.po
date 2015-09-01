@@ -1,116 +1,32 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* sale_order_partial_invoice
-#
+# * sale_order_partial_invoice
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0\n"
+"Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-16 11:10+0000\n"
-"PO-Revision-Date: 2014-08-16 11:10+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2015-08-14 14:58+0000\n"
+"PO-Revision-Date: 2015-06-03 05:00+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: sale_order_partial_invoice
-#: view:sale.order.line.invoice.partially:0
-msgid "Cancel"
-msgstr "Cancelar"
-
-#. module: sale_order_partial_invoice
-#: view:sale.order.line.invoice.partially:0
-msgid "Create Invoice"
-msgstr "Crear factura"
-
-#. module: sale_order_partial_invoice
-#: code:addons/sale_order_partial_invoice/sale.py:242
+#: code:addons/sale_order_partial_invoice/wizard/sale.py:177
 #, python-format
 msgid "Created invoice %d"
 msgstr "Factura %d creada"
 
 #. module: sale_order_partial_invoice
-#: view:sale.order.line:0
-msgid "Inv. Qty"
-msgstr "Cant. facturada"
-
-#. module: sale_order_partial_invoice
-#: view:sale.order.line.invoice.partially:0
-msgid "Invoice Sale Order Lines"
-msgstr "Facturar líneas de pedido de ventas"
-
-#. module: sale_order_partial_invoice
-#: view:sale.order.line.invoice.partially:0
-msgid "Invoice lines"
-msgstr "Líneas de factura"
-
-#. module: sale_order_partial_invoice
-#: field:sale.order.line.invoice.partially.line,qty_invoiced:0
-msgid "Invoiced"
-msgstr "Facturado"
-
-#. module: sale_order_partial_invoice
-#: field:sale.order.line,qty_delivered:0
-#: field:sale.order.line,qty_invoiced:0
-msgid "Invoiced Quantity"
-msgstr "Cantidad facturada"
-
-#. module: sale_order_partial_invoice
-#: field:sale.order.line.invoice.partially.line,name:0
-msgid "Line"
-msgstr "Líneas"
-
-#. module: sale_order_partial_invoice
-#: view:sale.order.line.invoice.partially:0
-#: field:sale.order.line.invoice.partially,line_ids:0
-msgid "Lines"
-msgstr "Líneas"
-
-#. module: sale_order_partial_invoice
-#: field:sale.order.line.invoice.partially,name:0
-msgid "Name"
-msgstr "Nombre"
-
-#. module: sale_order_partial_invoice
-#: constraint:sale.order.line.invoice.partially.line:0
-msgid "Quantity to invoice couldn't be greater than remaining quantity"
-msgstr "La cantidad a facturar no puede ser mayor que la cantidad restante"
-
-#. module: sale_order_partial_invoice
-#: code:_description:0
-#: model:ir.model,name:sale_order_partial_invoice.model_sale_advance_payment_inv
-#, python-format
-msgid "Sales Advance Payment Invoice"
-msgstr "Ventas. Anticipo pago factura"
-
-#. module: sale_order_partial_invoice
-#: code:_description:0
-#: model:ir.model,name:sale_order_partial_invoice.model_sale_order_line
-#, python-format
-msgid "Sales Order Line"
-msgstr "Línea de pedido de venta"
-
-#. module: sale_order_partial_invoice
-#: field:sale.order.line.invoice.partially.line,qty_delivered:0
-msgid "Shipped"
-msgstr "Enviado"
-
-#. module: sale_order_partial_invoice
-#: view:sale.order.line:0
-msgid "Shipped Qty"
-msgstr "Cant. enviada"
-
-#. module: sale_order_partial_invoice
-#: field:sale.order.line.invoice.partially.line,order_qty:0
-msgid "Sold"
-msgstr "Vendido"
-
-#. module: sale_order_partial_invoice
-#: field:sale.order.line.invoice.partially.line,quantity:0
-msgid "To invoice"
-msgstr "A facturar"
+#: model:ir.model,name:sale_order_partial_invoice.model_sale_order_line_invoice_partially_line
+msgid "sale.order.line.invoice.partially.line"
+msgstr "Línea de pedido de venta para facturaración parcial"
 
 #. module: sale_order_partial_invoice
 #: field:sale.order.line.invoice.partially.line,wizard_id:0
@@ -119,8 +35,86 @@ msgstr "Asistente"
 
 #. module: sale_order_partial_invoice
 #: view:sale.order.line.invoice.partially:0
-msgid "or"
-msgstr "o"
+msgid "Create Invoice"
+msgstr "Crear factura"
+
+#. module: sale_order_partial_invoice
+#: model:ir.model,name:sale_order_partial_invoice.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Ventas. Anticipo pago factura"
+
+#. module: sale_order_partial_invoice
+#: field:sale.order.line,qty_delivered:0 field:sale.order.line,qty_invoiced:0
+msgid "Invoiced Quantity"
+msgstr "Cantidad facturada"
+
+#. module: sale_order_partial_invoice
+#: field:sale.order.line.invoice.partially.line,order_qty:0
+msgid "Sold"
+msgstr "Vendido"
+
+#. module: sale_order_partial_invoice
+#: field:sale.order.line.invoice.partially.line,name:0
+msgid "Line"
+msgstr "Líneas"
+
+#. module: sale_order_partial_invoice
+#: field:sale.order.line.invoice.partially.line,quantity:0
+msgid "To invoice"
+msgstr "A facturar"
+
+#. module: sale_order_partial_invoice
+#: view:sale.order.line.invoice.partially:0
+msgid "Invoice lines"
+msgstr "Líneas de factura"
+
+#. module: sale_order_partial_invoice
+#: view:sale.order.line:0
+msgid "Inv. Qty"
+msgstr "Cant. facturada"
+
+#. module: sale_order_partial_invoice
+#: view:sale.order.line:0
+msgid "Shipped Qty"
+msgstr "Cant. enviada"
+
+#. module: sale_order_partial_invoice
+#: view:sale.advance.payment.inv:0
+msgid ""
+"After clicking 'Show Lines to Invoice', select lines to invoice and create "
+"the invoice from the 'More' dropdown menu."
+msgstr ""
+
+#. module: sale_order_partial_invoice
+#: field:sale.order.line.invoice.partially,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: sale_order_partial_invoice
+#: model:ir.model,name:sale_order_partial_invoice.model_sale_order_line_invoice_partially
+msgid "sale.order.line.invoice.partially"
+msgstr "Pedido de venta para facturación parcial"
+
+#. module: sale_order_partial_invoice
+#: view:sale.order.line.invoice.partially:0
+#: field:sale.order.line.invoice.partially,line_ids:0
+msgid "Lines"
+msgstr "Líneas"
+
+#. module: sale_order_partial_invoice
+#: field:sale.order.line.invoice.partially.line,qty_delivered:0
+msgid "Shipped"
+msgstr "Enviado"
+
+#. module: sale_order_partial_invoice
+#: help:sale.order.line,qty_delivered:0 help:sale.order.line,qty_invoiced:0
+msgid "the quantity of product from this line already invoiced"
+msgstr "la cantidad de producto de esta línea ya facturada"
+
+#. module: sale_order_partial_invoice
+#: view:sale.order.line.invoice.partially:0
+msgid "Invoice Sale Order Lines"
+msgstr "Facturar líneas de pedido de ventas"
 
 #. module: sale_order_partial_invoice
 #: field:sale.order.line.invoice.partially.line,sale_order_line_id:0
@@ -128,22 +122,26 @@ msgid "sale.order.line"
 msgstr "Línea de pedido de venta"
 
 #. module: sale_order_partial_invoice
-#: code:_description:0
-#: model:ir.model,name:sale_order_partial_invoice.model_sale_order_line_invoice_partially
-#, python-format
-msgid "sale.order.line.invoice.partially"
-msgstr "Pedido de venta para facturación parcial"
+#: view:sale.order.line.invoice.partially:0
+msgid "Cancel"
+msgstr "Cancelar"
 
 #. module: sale_order_partial_invoice
-#: code:_description:0
-#: model:ir.model,name:sale_order_partial_invoice.model_sale_order_line_invoice_partially_line
-#, python-format
-msgid "sale.order.line.invoice.partially.line"
-msgstr "Línea de pedido de venta para facturaración parcial"
+#: field:sale.order.line.invoice.partially.line,qty_invoiced:0
+msgid "Invoiced"
+msgstr "Facturado"
 
 #. module: sale_order_partial_invoice
-#: help:sale.order.line,qty_delivered:0
-#: help:sale.order.line,qty_invoiced:0
-msgid "the quantity of product from this line already invoiced"
-msgstr "la cantidad de producto de esta línea ya facturada"
+#: view:sale.order.line.invoice.partially:0
+msgid "or"
+msgstr "o"
 
+#. module: sale_order_partial_invoice
+#: model:ir.model,name:sale_order_partial_invoice.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: sale_order_partial_invoice
+#: constraint:sale.order.line.invoice.partially.line:0
+msgid "Quantity to invoice couldn't be greater than remaining quantity"
+msgstr "La cantidad a facturar no puede ser mayor que la cantidad restante"
