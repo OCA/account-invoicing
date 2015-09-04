@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="1">
+
+    <!-- Resource: res.partner -->
+
+    <record id="partner_1" model="res.partner">
+        <field name="name">Partner 1</field>
+    </record>
+    <record id="partner_2" model="res.partner">
+        <field name="name">Partner 2</field>
+    </record>
+
+    <!-- Resource: product.category -->
+
+    <record id="category_1" model="product.category">
+        <field name="name">Category 1</field>
+    </record>
+    <record id="category_2" model="product.category">
+        <field name="name">Category 2</field>
+    </record>
+    <record id="category_3" model="product.category">
+        <field name="name">Category 3</field>
+    </record>
+
+    <!-- Resource: product.product -->
+
+    <record id="product_A" model="product.product">
+        <field name="name">Product A</field>
+        <field name="categ_id" ref="category_1"/>
+    </record>
+    <record id="product_B" model="product.product">
+        <field name="name">Product B</field>
+        <field name="categ_id" ref="category_2"/>
+    </record>
+    <record id="product_C" model="product.product">
+        <field name="name">Product C</field>
+        <field name="categ_id" ref="category_2"/>
+    </record>
+    <record id="product_D" model="product.product">
+        <field name="name">Product D</field>
+        <field name="categ_id" ref="category_3"/>
+    </record>
+
+  </data>
+</openerp>
