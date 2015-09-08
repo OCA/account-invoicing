@@ -31,7 +31,7 @@ class AccountInvoice(models.Model):
         comodel_name='product.pricelist', string='Pricelist',
         help="The pricelist of the partner, when the invoice is created"
         " or the partner has changed. This is a technical field used"
-        " to reporting.")
+        " for reporting.")
 
     @api.multi
     def onchange_partner_id(
