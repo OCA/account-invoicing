@@ -18,10 +18,7 @@ to do reporting, in a inherited module.
 Installation
 ============
 
-Current invoices will be filled with the corresponding partner pricelist when
-this module is installed, but supplier invoices and refund don't if you don't
-have already installed purchase module previously, as there is no supplier
-pricelist on the partner if you don't install it.
+Nothing special.
 
 Configuration
 =============

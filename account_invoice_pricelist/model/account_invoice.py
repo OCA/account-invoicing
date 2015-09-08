@@ -20,13 +20,7 @@
 #
 ##############################################################################
 
-import logging
-
 from openerp import models, fields, api
-from openerp.tools.translate import _
-from openerp.exceptions import ValidationError
-
-_logger = logging.getLogger(__name__)
 
 
 class AccountInvoice(models.Model):
@@ -35,31 +29,30 @@ class AccountInvoice(models.Model):
     # Column Section
     pricelist_id = fields.Many2one(
         comodel_name='product.pricelist', string='Pricelist',
-        compute='compute_pricelist_id', store=True,
         help="The pricelist of the partner, when the invoice is created"
-                " or the partner has changed. This is a technical field used"
-                " to reporting.")
+        " or the partner has changed. This is a technical field used"
+        " to reporting.")
 
-    # Compute Section
-    @api.one
-    @api.depends('partner_id')
-    def compute_pricelist_id(self):
+    @api.multi
+    def onchange_partner_id(
+            self, type, partner_id, date_invoice=False, payment_term=False,
+            partner_bank_id=False, company_id=False):
         partner_obj = self.env['res.partner']
-        if 'active_test' in self._context.keys():
-            # Module is installing we have to manage multi company case
-            # which current user is not on the company of the invoices
-            partner = partner_obj.with_context(
-                force_company=self.company_id.id).browse(self.partner_id.id)
-        else:
-            partner = self.partner_id
-
-        if self.type in ('out_invoice', 'out_refund'):
-            # Customer Invoices
-            self.pricelist_id =\
-                partner.property_product_pricelist.id
-        elif self.type in ('in_invoice', 'in_refund'):
-            # Supplier Invoices
-            if self.partner_id._model._columns.get(
-                    'property_product_pricelist_purchase', False):
-                self.pricelist_id =\
-                    partner.property_product_pricelist_purchase.id
+        res = super(AccountInvoice, self).onchange_partner_id(
+            type, partner_id, date_invoice=date_invoice,
+            payment_term=payment_term, partner_bank_id=partner_bank_id,
+            company_id=company_id)
+        pricelist_id = False
+        if partner_id:
+            partner = partner_obj.browse(partner_id)
+            if type in ('out_invoice', 'out_refund'):
+                # Customer Invoices
+                pricelist_id = partner.property_product_pricelist.id
+            elif type in ('in_invoice', 'in_refund'):
+                # Supplier Invoices
+                if partner._model._columns.get(
+                        'property_product_pricelist_purchase', False):
+                    pricelist_id =\
+                        partner.property_product_pricelist_purchase.id
+        res['value']['pricelist_id'] = pricelist_id
+        return res
