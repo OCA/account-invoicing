@@ -47,8 +47,7 @@ For further information, please visit:
 Known issues / Roadmap
 ======================
 
-* The pricelist field is readonly, so it's not possible to change it and to
-  manage price changes;
+* When changing the pricelist, give the possibility to recompute prices;
 
 Bug Tracker
 ===========
