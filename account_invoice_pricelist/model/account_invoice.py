@@ -34,7 +34,7 @@ class AccountInvoice(models.Model):
 
     # Column Section
     pricelist_id = fields.Many2one(
-        comodel_name='product.pricelist', string='Pricelist', readonly=True,
+        comodel_name='product.pricelist', string='Pricelist',
         compute='compute_pricelist_id', store=True,
         help="The pricelist of the partner, when the invoice is created"
                 " or the partner has changed. This is a technical field used"
