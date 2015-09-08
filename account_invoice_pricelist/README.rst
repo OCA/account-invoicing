@@ -18,19 +18,16 @@ to do reporting, in a inherited module.
 Installation
 ============
 
-Classical installation.
+Current invoices will be filled with the corresponding partner pricelist when
+this module is installed, but supplier invoices and refund don't if you don't
+have already installed purchase module previously, as there is no supplier
+pricelist on the partner if you don't install it.
 
 Configuration
 =============
 
 Nothing to do.
 
-Note
-====
-
-* The field will not be stored for purchase invoices as long as 'purchase'
-  module is not installed; (in invoice / in refund). (because purchase
-  pricelist field on partner model is defined in 'purchase' module).
 
 Usage
 =====

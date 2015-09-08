@@ -63,8 +63,3 @@ class AccountInvoice(models.Model):
                     'property_product_pricelist_purchase', False):
                 self.pricelist_id =\
                     partner.property_product_pricelist_purchase.id
-            else:
-                _logger.warning(_(
-                    "Can not compute Pricelist for invoices with"
-                    " type '%s' because 'purchase' module is not"
-                    " installed.") % (self.type))
