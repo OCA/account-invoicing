@@ -24,13 +24,16 @@
 ##############################################################################
 
 from openerp import models, api
-from openerp.addons.account_invoice_merge.invoice import INVOICE_LINE_KEY_COLS
-
-INVOICE_LINE_KEY_COLS.append('purchase_line_id')
 
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
+
+    @api.model
+    def _get_invoice_line_key_cols(self):
+        res = super(AccountInvoice, self)._get_invoice_line_key_cols()
+        res.append('purchase_line_id')
+        return res
 
     @api.multi
     def do_merge(self, keep_references=True, date_invoice=False):
