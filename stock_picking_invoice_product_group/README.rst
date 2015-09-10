@@ -34,7 +34,7 @@ Selecting option 'Group by product category' I get the following invoices:
     2. product_A - category_1 --> picking_3
 2. invoice_2 - partner_1
     1. product_B - category_2 --> picking_1
-    2. product_C - category_2 --> picking_2
+    2. product_C - category_2 --> picking_3
 3. invoice_3 - partner_1
     1. product_D - category_3 --> picking_3
 4. invoice_4 - partner_2
