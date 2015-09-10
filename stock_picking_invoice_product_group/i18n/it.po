@@ -1,0 +1,98 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_invoice_product_group
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-10 13:12+0000\n"
+"PO-Revision-Date: 2015-09-10 15:38+0100\n"
+"Last-Translator: Alex Comba <alex.comba@agilebg.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: it\n"
+"X-Generator: Poedit 1.7.5\n"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.category,name:stock_picking_invoice_product_group.category_1
+msgid "Category 1"
+msgstr "Category 1"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.category,name:stock_picking_invoice_product_group.category_2
+msgid "Category 2"
+msgstr "Category 2"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.category,name:stock_picking_invoice_product_group.category_3
+msgid "Category 3"
+msgstr "Category 3"
+
+#. module: stock_picking_invoice_product_group
+#: field:stock.invoice.onshipping,group_type:0
+msgid "Group Type"
+msgstr "Tipo Raggruppo"
+
+#. module: stock_picking_invoice_product_group
+#: selection:stock.invoice.onshipping,group_type:0
+msgid "Group by product"
+msgstr "Raggruppo per Prodotto"
+
+#. module: stock_picking_invoice_product_group
+#: selection:stock.invoice.onshipping,group_type:0
+msgid "Group by product category"
+msgstr "Raggruppo per Categoria"
+
+#. module: stock_picking_invoice_product_group
+#: model:ir.model,name:stock_picking_invoice_product_group.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: stock_picking_invoice_product_group
+#: model:ir.model,name:stock_picking_invoice_product_group.model_stock_picking
+msgid "Picking List"
+msgstr "Picking List"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.template,name:stock_picking_invoice_product_group.product_A_product_template
+msgid "Product A"
+msgstr "Product A"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.template,name:stock_picking_invoice_product_group.product_B_product_template
+msgid "Product B"
+msgstr "Product B"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.template,name:stock_picking_invoice_product_group.product_C_product_template
+msgid "Product C"
+msgstr "Product C"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.template,name:stock_picking_invoice_product_group.product_D_product_template
+msgid "Product D"
+msgstr "Product D"
+
+#. module: stock_picking_invoice_product_group
+#: field:account.invoice,related_picking_ids:0
+msgid "Related Pickings"
+msgstr "Picking collegati"
+
+#. module: stock_picking_invoice_product_group
+#: help:account.invoice,related_picking_ids:0
+msgid "Related pickings (only when the invoice has been generated from the picking)."
+msgstr "Picking collegati (solo quando la fattura è stata generata a partire da un picking)."
+
+#. module: stock_picking_invoice_product_group
+#: model:ir.model,name:stock_picking_invoice_product_group.model_stock_invoice_onshipping
+msgid "Stock Invoice Onshipping"
+msgstr "Fattura su spedizioni"
+
+#. module: stock_picking_invoice_product_group
+#: model:ir.model,name:stock_picking_invoice_product_group.model_stock_move
+msgid "Stock Move"
+msgstr "Movimento di magazzino"
