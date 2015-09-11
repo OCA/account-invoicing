@@ -29,8 +29,8 @@
     'contributors': ['Jacques-Etienne Baudoux <je@bcim.be>'],
     'category': 'Accounting',
     'data': [
-        'view/res_partner.xml',
-        'view/account_invoice.xml',
+        'views/res_partner.xml',
+        'views/account_invoice.xml',
     ],
     'demo': [],
     'test': [],

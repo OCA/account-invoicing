@@ -9,4 +9,4 @@ http://www.therp.nl
 
 Ported to 7.0 on Sept. 17, 2013 by Jacques-Etienne Baudoux, BCIM (www.bcim.be)
 '''
-from . import model
+from . import models
