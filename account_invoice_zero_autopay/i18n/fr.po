@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * account_invoice_supplier_ref_unique
+# * account_invoice_zero_autopay
 # 
 # Translators:
 # Maxime Chambreuil <maxime.chambreuil@gmail.com>, 2015
@@ -18,15 +18,7 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. module: account_invoice_supplier_ref_unique
-#: model:ir.model,name:account_invoice_supplier_ref_unique.model_account_invoice
+#. module: account_invoice_zero_autopay
+#: model:ir.model,name:account_invoice_zero_autopay.model_account_invoice
 msgid "Invoice"
 msgstr "Facture"
-
-#. module: account_invoice_supplier_ref_unique
-#: code:addons/account_invoice_supplier_ref_unique/account_invoice.py:50
-#, python-format
-msgid ""
-"The invoice/refund with supplier invoice number '%s' already exists in Odoo "
-"under the number '%s' for supplier '%s'."
-msgstr "La facture/avoir ayant le numéro de facture fournisseur '%s' existe déjà dans Odoo sous le numéro '%s' pour le fournisseur '%s'."
