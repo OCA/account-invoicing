@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- notify all employees of module installation -->
+        <record model="mail.message" id="module_install_notification">
+            <field name="model">mail.group</field>
+            <field name="res_id" ref="mail.group_all_employees"/>
+            <field name="type">notification</field>
+            <field name="subtype_id" ref="mail.mt_comment"/>
+            <field name="subject">Billing Process application installed!</field>
+            <field name="body"><![CDATA[<p>OpenERP's Billing Process module allow you to group unpaid dued invoice together before sending to your partner.</p>
+<p>Once payment is made, you can use the billing number to reference to the payment easily.</p>]]></field>
+        </record>
+
+        <!-- mail: subtypes -->
+        <record id="mt_billing" model="mail.message.subtype">
+            <field name="name">Status Change</field>
+            <field name="res_model">account.billing</field>
+        </record>
+
+    </data>
+</openerp>
