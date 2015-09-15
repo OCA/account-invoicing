@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="invoice_supplier_form">
+            <field name="name">account.invoice.supplier.form (account_invoice_period_usability)</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <field name="period_id" position="replace"/>
+                <field name="date_invoice" position="replace">
+                    <label for="date_invoice"/>
+                    <div>
+                        <field name="date_invoice"
+                               on_change="onchange_payment_term_date_invoice(payment_term, date_invoice)"
+                               class="oe_inline"/>
+
+                        <field name="period_id" domain="[('state', '=', 'draft'), ('special', '=', False), ('company_id', '=', company_id)]"
+                               groups="account.group_account_manager"
+                               string="Accounting Period"
+                               placeholder="force period"
+                               class="oe_inline"/>
+                    </div>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
