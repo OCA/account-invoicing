@@ -97,6 +97,10 @@ class AccountInvoiceSplit(models.TransientModel):
         new_invoice = False
         if vals['invoice_line']:
             new_invoice = self.env['account.invoice'].create(vals)
+        if not new_invoice:
+            raise exceptions.Warning(
+                 _("""There is nothing to split. Please fill
+                      the 'quantities to split' column."""))
         return new_invoice
 
     @api.multi
