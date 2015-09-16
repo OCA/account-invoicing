@@ -52,28 +52,7 @@ class AccountInvoice(models.Model):
                 self.journal_id.group_method == 'account'):
             res['name'] = '/'
             res['product_id'] = False
-        from pprint import pprint
-        print "line_get_convert"
-        pprint(res)
         return res
-
-#    @api.multi
-#    def finalize_invoice_move_lines(self, move_lines):
-#        '''When grouping per account, remove product name from
-#        account move line label and remove link to product'''
-#        move_lines = super(AccountInvoice, self).finalize_invoice_move_lines(
-#            move_lines)
-#        if (
-#                self.journal_id.group_invoice_lines and
-#                self.journal_id.group_method == 'account'):
-#            for move_line in move_lines:
-#                if move_line[2].get('product_id'):
-#                    move_line[2]['name'] = '/'
-#                    move_line[2]['product_id'] = False
-#        print "FINAL move_lines"
-#        from pprint import pprint
-#        pprint(move_lines)
-#        return move_lines
 
 
 class AccountJournal(models.Model):
