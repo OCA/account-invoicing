@@ -1,13 +1,13 @@
-# Translation of OpenERP Server.
+# Translation of Odoo Server.
 # This file contains the translation of the following modules:
 #	* account_group_invoice_lines
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.1\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-11 21:10+0000\n"
-"PO-Revision-Date: 2012-12-11 21:10+0000\n"
+"POT-Creation-Date: 2015-09-16 20:43+0000\n"
+"PO-Revision-Date: 2015-09-16 20:43+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,13 +17,13 @@ msgstr ""
 
 #. module: account_group_invoice_lines
 #: selection:account.journal,group_method:0
-msgid "By Account Accountant"
+msgid "By Account"
 msgstr "Par compte comptable"
 
 #. module: account_group_invoice_lines
-#: help:account.journal,group_method:0
-msgid "By default, OpenERP group by product but if choice by account accountant, the name of account move line will be invoice number with maturity date"
-msgstr "Par défaut, OpenERP regroupe par produit mais si vous choisissez par compte comptable le libellé des lignes d'écriture sera composé du numéro de facture et date d'échéance"
+#: selection:account.journal,group_method:0
+msgid "By Product"
+msgstr "Par article"
 
 #. module: account_group_invoice_lines
 #: field:account.journal,group_method:0
@@ -31,7 +31,17 @@ msgid "Group by"
 msgstr "Grouper par"
 
 #. module: account_group_invoice_lines
-#: selection:account.journal,group_method:0
-msgid "By Product"
-msgstr "Par produit"
+#: help:account.journal,group_method:0
+msgid "If you select 'By Product', the account move lines generated when you validate an invoice will be grouped by product, account, analytic account and tax code. If you select 'By Account', they will be grouped by account, analytic account and tax code, without taking into account the product."
+msgstr "Si vous sélectionnez 'Par article', les lignes comptables générées lors de la validation d'une facture seront groupées par article, compte comptable, compte analytique et code de taxe. Si vous sélectionnez 'Par compte comptable', elles seront groupées par compte comptable, compte analytique et code de taxe, sans tenir compte de l'article."
+
+#. module: account_group_invoice_lines
+#: model:ir.model,name:account_group_invoice_lines.model_account_invoice
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: account_group_invoice_lines
+#: model:ir.model,name:account_group_invoice_lines.model_account_journal
+msgid "Journal"
+msgstr "Journal"
 

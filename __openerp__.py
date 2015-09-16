@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    account_group_invoice_lines module for OpenERP, Change method to group invoice lines in account
-#    Copyright (C) 2012 SYLEAM Info Services (<http://www.syleam.fr/>)
-#              Sebastien LANGE <sebastien.lange@syleam.fr>
+#    account_group_invoice_lines module for Odoo
+#    Copyright (C) 2012-2015 SYLEAM Info Services (<http://www.syleam.fr/>)
+#    Copyright (C) 2015 Akretion (http://www.akretion.com)
+#    @author: Sébastien LANGE <sebastien.lange@syleam.fr>
+#    @author: Alexis de Lattre <alexis.delattre@akretion.com>
 #
-#    This file is a part of account_group_invoice_lines
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
 #
-#    account_group_invoice_lines is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    account_group_invoice_lines is distributed in the hope that it will be useful,
+#    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU Affero General Public License for more details.
@@ -24,28 +24,13 @@
 
 {
     'name': 'Account Group Invoice Lines',
-    'version': '1.0',
-    "category": 'Accounting & Finance',
-    'complexity': "easy",
-    'description': """Change method to group invoice lines in account
-    Group by account, not by product
-    """,
-    'author': 'SYLEAM',
-    'website': 'http://www.syleam.fr/',
-    'depends': [
-        'base',
-        'account',
-    ],
-    'init_xml': [],
-    'images': [],
-    'update_xml': [
-        'account_view.xml',
-    ],
-    'demo_xml': [],
-    'test': [],
-    'installable': True,
-    'active': False,
+    'version': '1.1',
+    'category': 'Accounting & Finance',
+    'summary': 'Add option to group invoice line per account',
+    'author': 'SYLEAM,Akretion,Odoo Community Association (OCA)',
     'license': 'AGPL-3',
+    'website': 'http://www.syleam.fr/',
+    'depends': ['account'],
+    'data': ['account_view.xml'],
+    'installable': True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

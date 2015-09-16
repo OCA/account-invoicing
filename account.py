@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    account_group_invoice_lines module for OpenERP, Change method to group invoice lines in account
+#    account_group_invoice_lines module for Odoo
 #    Copyright (C) 2012 SYLEAM Info Services (<http://www.syleam.fr/>)
-#              Sebastien LANGE <sebastien.lange@syleam.fr>
+#    Copyright (C) 2015 Akretion (http://www.akretion.com)
+#    @author: Sébastien LANGE <sebastien.lange@syleam.fr>
+#    @author: Alexis de Lattre <alexis.delattre@akretion.com>
 #
-#    This file is a part of account_group_invoice_lines
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
 #
-#    account_group_invoice_lines is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    account_group_invoice_lines is distributed in the hope that it will be useful,
+#    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU Affero General Public License for more details.
@@ -22,56 +22,70 @@
 #
 ##############################################################################
 
-from datetime import datetime
-from openerp import Model, api, fields
+from openerp import models, fields, api
 
 
-class account_invoice(Model):
+class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    @api.multi
     def inv_line_characteristic_hashcode(self, invoice_line):
-        """Overridable hashcode generation for invoice lines. Lines having the same hashcode
-        will be grouped together if the journal has the 'group line' option. Of course a module
-        can add fields to invoice lines that would need to be tested too before merging lines
-        or not."""
-        if self.journal_id.group_method == 'product':
-            return super(account_invoice, self).inv_line_characteristic_hashcode(invoice_line)
-        return "%s-%s-%s-%s" % (
-            invoice_line['account_id'],
-            invoice_line.get('tax_code_id', "False"),
-            invoice_line.get('analytic_account_id', "False"),
-            invoice_line.get('date_maturity', "False"))
+        '''When grouping per account, we remove the product_id from
+        the hashcode.
+        WARNING: I suppose that the other methods that inherit this
+        method add data on the end of the hashcode, not at the beginning.
+        This is the case of github/OCA/account-closing/
+        account_cutoff_prepaid/account.py'''
+        res = super(AccountInvoice, self).inv_line_characteristic_hashcode(
+            invoice_line)
+        if self.journal_id.group_method == 'account':
+            hash_list = res.split('-')
+            # remove product_id from hashcode
+            hash_list.pop(2)
+            res = '-'.join(hash_list)
+        return res
+
+    @api.model
+    def line_get_convert(self, line, part, date):
+        res = super(AccountInvoice, self).line_get_convert(line, part, date)
+        if (
+                self.journal_id.group_invoice_lines and
+                self.journal_id.group_method == 'account'):
+            res['name'] = '/'
+            res['product_id'] = False
+        from pprint import pprint
+        print "line_get_convert"
+        pprint(res)
+        return res
+
+#    @api.multi
+#    def finalize_invoice_move_lines(self, move_lines):
+#        '''When grouping per account, remove product name from
+#        account move line label and remove link to product'''
+#        move_lines = super(AccountInvoice, self).finalize_invoice_move_lines(
+#            move_lines)
+#        if (
+#                self.journal_id.group_invoice_lines and
+#                self.journal_id.group_method == 'account'):
+#            for move_line in move_lines:
+#                if move_line[2].get('product_id'):
+#                    move_line[2]['name'] = '/'
+#                    move_line[2]['product_id'] = False
+#        print "FINAL move_lines"
+#        from pprint import pprint
+#        pprint(move_lines)
+#        return move_lines
 
 
-class account_move(Model):
-    _inherit = 'account.move'
-
-    @api.multi
-    def post(self):
-        """
-        Change name of account move line if we group invoice line
-        """
-        super(account_move, self).post()
-        invoice = self.env.context['invoice']
-        if invoice.journal_id.group_invoice_lines and invoice.journal_id.group_method == 'account':
-            lang = self.env['res.users'].context_get()['lang']
-            res_lang_ids = self.env['res.lang'].search([('code', '=', lang)], limit=1)
-            format_date = res_lang_ids.date_format
-            for move in self:
-                if move.name != '/':
-                    date_due = invoice.date_due and datetime.strptime(invoice.date_due, '%Y-%m-%d').strftime(format_date) or ''
-                    move.line_id.write({'name': move.name.ljust(20) + date_due})
-        return True
-
-
-class account_journal(Model):
+class AccountJournal(models.Model):
     _inherit = 'account.journal'
 
     group_method = fields.Selection([
         ('product', 'By Product'),
-        ('account', 'By Account Accountant')
-    ], string='Group by', default='product', help='By default, OpenERP group by product but if choice by account accountant, the name of account move line will be invoice number with maturity date')
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        ('account', 'By Account')
+        ], string='Group by', default='account',
+        help="If you select 'By Product', the account move lines generated "
+        "when you validate an invoice will be "
+        "grouped by product, account, analytic account and tax code. "
+        "If you select 'By Account', they will be grouped by account, "
+        "analytic account and tax code, without taking into account "
+        "the product.")
