@@ -83,7 +83,7 @@ msgstr "Produit"
 
 #. module: account_invoice_split
 #: field:account.invoice.split.line,quantity_to_split:0
-msgid "Quantity To split in a new invoice"
+msgid "Quantity to split in a new invoice"
 msgstr "Quantité à diviser dans une nouvelle facture"
 
 #. module: account_invoice_split

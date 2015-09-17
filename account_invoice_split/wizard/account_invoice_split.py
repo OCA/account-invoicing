@@ -148,7 +148,7 @@ class AccountInvoiceSplitLine(models.TransientModel):
         string='Total Quantity',
         digits=dp.get_precision('Product Unit of Measure'))
     quantity_to_split = fields.Float(
-        string='Quantity To split in a new invoice',
+        string='Quantity to split in a new invoice',
         digits=dp.get_precision('Product Unit of Measure'))
 
     @api.multi
