@@ -30,8 +30,9 @@ class AccountInvoiceSplit(models.TransientModel):
     _inherit = 'account.invoice.split'
 
     @api.model
-    def _create_invoice(self, vals):
-        new_invoice = super(AccountInvoiceSplit, self)._create_invoice(vals)
+    def _create_invoice(self, invoice_to_split, invoice_lines):
+        new_invoice = super(AccountInvoiceSplit, self)\
+            ._create_invoice(invoice_to_split, invoice_lines)
         so = self.env['sale.order'].search([('order_line.invoice_lines', 'in',
                                              new_invoice.invoice_line.ids)])
         so.write({'invoice_ids': [(4, new_invoice.id)]})

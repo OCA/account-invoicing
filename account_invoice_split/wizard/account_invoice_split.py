@@ -69,34 +69,17 @@ class AccountInvoiceSplit(models.TransientModel):
 
     @api.model
     def _get_invoice_values(self, invoice):
-        """Return all necessary values to create the new invoice.
+        """Return default value for copy method.
         Can be override to add some fields"""
-        return {
-            'origin': '%s' % (invoice.origin or '',),
-            'partner_id': invoice.partner_id.id,
-            'journal_id': invoice.journal_id.id,
-            'user_id': invoice.user_id.id,
-            'currency_id': invoice.currency_id.id,
-            'company_id': invoice.company_id.id,
-            'type': invoice.type,
-            'account_id': invoice.account_id.id,
-            'state': 'draft',
-            'reference': '%s' % (invoice.reference or '',),
-            'name': '%s' % (invoice.name or '',),
-            'fiscal_position': invoice.fiscal_position.id,
-            'payment_term': invoice.payment_term.id,
-            'period_id': invoice.period_id.id,
-            'invoice_line': [],
-            'partner_bank_id': invoice.partner_bank_id.id,
-            'date_invoice': invoice.date_invoice,
-            'date_due': invoice.date_due,
-        }
+        return {'invoice_line': []}
 
     @api.model
-    def _create_invoice(self, vals):
+    def _create_invoice(self, invoice_to_split, invoice_lines):
         new_invoice = False
-        if vals['invoice_line']:
-            new_invoice = self.env['account.invoice'].create(vals)
+        if invoice_lines:
+            default = self._get_invoice_values(invoice_to_split)
+            new_invoice = invoice_to_split.copy(default=default)
+            new_invoice.write({'invoice_line': invoice_lines})
         if not new_invoice:
             raise exceptions.Warning(
                  _("""There is nothing to split. Please fill
@@ -109,7 +92,7 @@ class AccountInvoiceSplit(models.TransientModel):
         active_ids = self.env.context.get('active_ids')
         assert len(active_ids) == 1
         invoice_to_split = self.env['account.invoice'].browse(active_ids)[0]
-        invoice_data = self._get_invoice_values(invoice_to_split)
+        invoice_lines = []
         for line in self.line_ids:
             if line.quantity_to_split != 0.0:
                 # I Check if the quantity to split isn't greater then the
@@ -125,8 +108,8 @@ class AccountInvoiceSplit(models.TransientModel):
                 # Unlink origin invoice line if quantity is equal to zero
                 if line.origin_invoice_line_id.quantity == 0.0:
                     line.origin_invoice_line_id.unlink()
-                invoice_data['invoice_line'].append((4, new_invoice_line.id))
-        new_invoice = self._create_invoice(invoice_data)
+                invoice_lines.append((4, new_invoice_line.id))
+        new_invoice = self._create_invoice(invoice_to_split, invoice_lines)
         return new_invoice.id
 
     @api.multi
@@ -171,26 +154,13 @@ class AccountInvoiceSplitLine(models.TransientModel):
     @api.multi
     def _create_invoice_line(self):
         self.ensure_one()
-        new_line_values = self._get_invoice_line_values()
-        invoice_line = self.env['account.invoice.line'].create(new_line_values)
+        default = self._get_invoice_line_values()
+        invoice_line = self.origin_invoice_line_id.copy(default=default)
         return invoice_line
 
     @api.multi
     def _get_invoice_line_values(self):
-        """Return all necessary values to create the new invoice line.
+        """Return default value for copy method
         Can be override to add some fields"""
         self.ensure_one()
-        invoice_line = self.origin_invoice_line_id
-        return {
-            'name': '%s' % (invoice_line.name or '',),
-            'origin': '%s' % (invoice_line.origin or '',),
-            'discount': invoice_line.discount,
-            'invoice_line_tax_id': [(6, 0, [v.id for v in
-                                            invoice_line.invoice_line_tax_id]
-                                     )],
-            'quantity': self.quantity_to_split,
-            'price_unit': invoice_line.price_unit,
-            'product_id': invoice_line.product_id.id,
-            'account_id': invoice_line.account_id.id,
-            'account_analytic_id': invoice_line.account_analytic_id.id,
-        }
+        return {'quantity': self.quantity_to_split}
