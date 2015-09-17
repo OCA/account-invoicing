@@ -71,9 +71,7 @@ class TestAccountInvoiceSplit(common.TransactionCase):
         wiz_line.quantity_to_split = quantity_to_split
         wiz._split_invoice()
         # I check that the line to split is deleted
-        invoice_line = \
-            self.invoice_line_obj.search([('id', '=', line_to_split.id)])
-        self.assertFalse(invoice_line)
+        self.assertFalse(line_to_split.exists())
 
     def test_split_open_invoice(self):
         # I post the created invoice
