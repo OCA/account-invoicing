@@ -29,12 +29,13 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     def inv_line_characteristic_hashcode(self, invoice_line):
-        '''When grouping per account, we remove the product_id from
+        """Inherit the native method that generate hashcodes for grouping.
+        When grouping per account, we remove the product_id from
         the hashcode.
         WARNING: I suppose that the other methods that inherit this
         method add data on the end of the hashcode, not at the beginning.
         This is the case of github/OCA/account-closing/
-        account_cutoff_prepaid/account.py'''
+        account_cutoff_prepaid/account.py"""
         res = super(AccountInvoice, self).inv_line_characteristic_hashcode(
             invoice_line)
         if self.journal_id.group_method == 'account':
