@@ -45,6 +45,12 @@ class AccountPaymentTermLine(models.Model):
              "surcharge -0.01")
     months = fields.Integer(string='Number of Months')
     weeks = fields.Integer(string='Number of Weeks')
+    start_with_end_month = fields.Boolean(
+        string='Start by End of Month',
+        help="If you have a payment term 'End of month 45 days' "
+        "(which is not the same as '45 days end of month' !), you "
+        "should activate this option and then set "
+        "'Number of days' = 45 and 'Day of the month' = 0.")
 
     @api.multi
     def compute_line_amount(self, total_amount, remaining_amount):
@@ -89,19 +95,19 @@ class AccountPaymentTerm(models.Model):
             amt = line.compute_line_amount(value, amount)
             if not amt:
                 continue
-            next_date = (datetime.strptime(date_ref,
-                                           DEFAULT_SERVER_DATE_FORMAT) +
-                         relativedelta(days=line.days,
-                                       weeks=line.weeks,
-                                       months=line.months))
+
+            next_date = fields.Date.from_string(date_ref)
+            if line.start_with_end_month:
+                next_date += relativedelta(day=1, months=1, days=-1)
+            next_date += relativedelta(
+                days=line.days, weeks=line.weeks, months=line.months)
             if line.days2 < 0:
                 # Getting 1st of next month
-                next_first_date = next_date + relativedelta(day=1, months=1)
-                next_date = next_first_date + relativedelta(days=line.days2)
+                next_date += relativedelta(day=1, months=1, days=line.days2)
             if line.days2 > 0:
                 next_date += relativedelta(day=line.days2, months=1)
             result.append(
-                (next_date.strftime(DEFAULT_SERVER_DATE_FORMAT), amt))
+                (fields.Date.to_string(next_date), amt))
             amount -= amt
 
         amount = reduce(lambda x, y: x + y[1], result, 0.0)
