@@ -7,13 +7,10 @@ Pricelist on Invoices
 =====================
 
 * Add a stored field pricelist on invoices, related to the partner pricelist;
+* Use this pricelist when manually adding invoice lines
 * Possibility to group by pricelist on account.invoice view;
 
 .. image:: static/src/description/screenshot_group_by.png
-
-
-This module doesn't add real feature by it self for end-users, but is useful
-to do reporting, in a inherited module.
 
 Installation
 ============
@@ -44,7 +41,7 @@ For further information, please visit:
 Known issues / Roadmap
 ======================
 
-* When changing the pricelist, give the possibility to recompute prices;
+None currently
 
 Bug Tracker
 ===========
@@ -62,6 +59,7 @@ Contributors
 ------------
 
 * Sylvain LE GAL (https://twitter.com/legalsylvain)
+* Holger Brunn <hbrunn@therp.nl>
 
 Maintainer
 ----------
