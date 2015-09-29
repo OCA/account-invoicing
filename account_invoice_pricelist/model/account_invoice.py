@@ -31,7 +31,8 @@ class AccountInvoice(models.Model):
         comodel_name='product.pricelist', string='Pricelist',
         help="The pricelist of the partner, when the invoice is created"
         " or the partner has changed. This is a technical field used"
-        " for reporting.")
+        " for reporting.",
+        readonly=True, states={'draft': [('readonly', False)]})
 
     @api.multi
     def onchange_partner_id(
@@ -56,3 +57,9 @@ class AccountInvoice(models.Model):
                         partner.property_product_pricelist_purchase.id
         res['value']['pricelist_id'] = pricelist_id
         return res
+
+    @api.multi
+    def button_update_prices_from_pricelist(self):
+        for this in self:
+            this.invoice_line.filtered('product_id').update_from_pricelist()
+            this.button_reset_taxes()
