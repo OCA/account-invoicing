@@ -25,7 +25,7 @@
     'version': '8.0.1.0.0',
     'summary': 'Add partner pricelist on invoices',
     'category': 'Accounting & Finance',
-    'author': 'GRAP,Odoo Community Association (OCA)',
+    'author': 'GRAP,Therp BV,Odoo Community Association (OCA)',
     'website': 'http://www.grap.coop',
     'license': 'AGPL-3',
     'depends': [
