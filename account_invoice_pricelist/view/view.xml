@@ -26,8 +26,14 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button type="object" name="button_update_prices_from_pricelist" string="Update prices from pricelist" attrs="{'invisible': ['|', ('pricelist_id', '=', False), ('state', 'not in', ['draft'])]}" />
+                </field>
                 <field name="user_id" position="after">
                     <field name="pricelist_id"/>
+                </field>
+                <field name="invoice_line" position="attributes">
+                    <attribute name="context">{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type, 'pricelist_id': pricelist_id}</attribute>
                 </field>
             </field>
         </record>
@@ -36,8 +42,14 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button type="object" name="button_update_prices_from_pricelist" string="Update prices from pricelist" attrs="{'invisible': ['|', ('pricelist_id', '=', False), ('state', 'not in', ['draft'])]}" />
+                </field>
                 <field name="user_id" position="after">
                     <field name="pricelist_id"/>
+                </field>
+                <field name="invoice_line" position="attributes">
+                    <attribute name="context">{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type, 'pricelist_id': pricelist_id}</attribute>
                 </field>
             </field>
         </record>
