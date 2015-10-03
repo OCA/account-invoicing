@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="view_order_line_tree" model="ir.ui.view">
+      <field name="name">sale.order.line.tree</field>
+      <field name="model">sale.order.line</field>
+      <field name="inherit_id" ref="sale.view_order_line_tree"/>
+      <field name="arch" type="xml">
+        <field name="product_uom_qty" position="after">
+          <field name="qty_invoiced" string="Inv. Qty"/>
+          <field name="qty_delivered" string="Shipped Qty"/>
+        </field>
+      </field>
+    </record>
+
+    <record id="view_order_line_form2" model="ir.ui.view">
+      <field name="name">sale.order.line.form2</field>
+      <field name="model">sale.order.line</field>
+      <field name="inherit_id" ref="sale.view_order_line_form2"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='product_uom_qty']/.." position="after">
+          <field name="qty_invoiced" />
+          <field name="qty_delivered"/>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</openerp>
