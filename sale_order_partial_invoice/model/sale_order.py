@@ -79,11 +79,9 @@ class SaleOrderLine(models.Model):
 #     def field_qty_invoiced(self):
 #         precision = self.env['decimal.precision'].precision_get('Product UoS')
 #         qty_invoiced = 0.0
-#         print self.invoice_lines
 #         for invoice_line in self.invoice_lines:
 #             if invoice_line.invoice_id.state != 'cancel':
 #                 qty_invoiced += invoice_line.quantity  # XXX uom !
-#         print 'qty_invoiced : ', qty_invoiced
 #         self.qty_invoiced = round(qty_invoiced, precision)
 
     @api.one
@@ -106,7 +104,6 @@ class SaleOrderLine(models.Model):
     def _prepare_order_line_invoice_line(self, line, account_id=False):
         res = super(SaleOrderLine, self)._prepare_order_line_invoice_line(
             line, account_id)
-        print self._context
         if '_partial_invoice' in self._context:
             # we are making a partial invoice for the line
             to_invoice_qty = self._context['_partial_invoice'][line.id]
@@ -119,8 +116,6 @@ class SaleOrderLine(models.Model):
     @api.one
     @api.depends('order_id.invoice_ids.state', 'invoice_lines')
     def _fnct_line_invoiced(self):
-        print 'trigger invoiced = ', str((self.qty_invoiced == self.product_uom_qty))
-        print self.qty_invoiced
         self.invoiced = (self.qty_invoiced == self.product_uom_qty)
 
 # V8
@@ -141,7 +136,6 @@ class SaleOrderLine(models.Model):
 
     def search(self, cr, uid, args, offset=0, limit=None, order=None,
                context=None, count=False):
-        print 'searching sale_order_line'
         if '_partial_invoice' in context:
             args.remove(('invoiced', '=', True))
         return super(SaleOrderLine, self).search(
