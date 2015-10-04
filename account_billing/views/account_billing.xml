@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_billing_filter_customer_pay" model="ir.ui.view">
+            <field name="name">account.billing.customer.pay.select</field>
+            <field name="model">account.billing</field>
+            <field name="arch" type="xml">
+                <search string="Search Billings">
+                    <filter string="Draft" domain="[('state','=','draft')]" help="Draft Billing"/>
+                    <filter string="Billed" domain="[('state','=','billed')]" help="Billed Billing"/>
+                    <field name="number" string="Billing"/>
+                    <field name="date"/>	
+                    <field name="partner_id" string="Customer"/>
+                    <field name="currency_id" string="Currency"/>
+                    <field name="period_id"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Customer" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Currency" domain="[]" context="{'group_by':'currency_id'}"/>
+                        <filter string="Period" domain="[]" context="{'group_by':'period_id','visible':True}"/>
+                        <filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    
+       	<record model="ir.ui.view" id="view_billing_tree">
+            <field name="name">account.billing.tree</field>
+            <field name="model">account.billing</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:state == 'draft';gray:state == 'cancel'" string="Billing Entries">
+                    <field name="date"/>
+                    <field name="number"/>
+                    <field name="reference"/>
+                    <field name="partner_id"/>
+                    <field name="currency_id"/>
+                    <field name="period_id" invisible="context.get('visible', True)"/>
+                    <field name="billing_amount" sum="Total Billing Amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_billing_receipt_form">
+            <field name="name">account.billing.receipt.form</field>
+            <field name="model">account.billing</field>
+            <field name="arch" type="xml">
+                <form string="Receipt" version="7.0">
+                <header>
+                    <button name="validate_billing" string="Validate" states="draft" class="oe_highlight"/>
+                    <button name="cancel_billing" string="Cancel" states="draft"/>
+                    <button name="cancel_billing" string="Cancel" type="object" states="billed" confirm="Are you sure to cancel this record ?"/>
+                    <button name="action_cancel_draft" type="object" states="cancel" string="Set to Draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,billed" statusbar_colors='{"billed":"blue"}'/>
+                </header>
+                <sheet>
+                    <h1 attrs="{'invisible': [('number','=',False)]}"><field name="number"/></h1>
+                    <group>
+                        <group>
+                            <field name="partner_id" domain="[('customer','=',True)]" required="1" on_change="onchange_partner_id(company_id, partner_id, currency_id, date)" string="Customer"/>
+                            <field name="currency_id" options="{'no_create': True}"
+                                on_change="onchange_currency_id(company_id, currency_id, partner_id, date)"/>
+                        </group>
+                        <group>
+                            <field name="date" string="Billing Date"  on_change="onchange_date(company_id, date, partner_id, currency_id)" />
+                            <field name="payment_id"/>
+                            <field name="name" colspan="2" placeholder="e.g. Invoice SAJ/0042"/>
+                            <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Payment Information" groups="base.group_user">
+                            <field name="line_cr_ids" >
+                                <tree string="Invoices and outstanding transactions" editable="bottom" colors="gray:amount==0">
+                                    <field name="reconcile" string="Select" on_change="onchange_reconcile(reconcile, amount, amount_unreconciled)" groups="account.group_account_user"/>
+                                    <field name="move_line_id"
+                                        required="1" readonly="1"
+                                        groups="account.group_account_user"/>
+                                    <field name="reference" />
+                                    <field name="date_original" readonly="1"/>
+                                    <field name="date_due" readonly="1"/>
+                                    <field name="amount_original" readonly="1"/>
+                                    <field name="amount_unreconciled" readonly="1" groups="account.group_account_user"/>
+                                    <field name="amount" sum="Total Allocation" string="Allocation" on_change="onchange_amount(reconcile, amount, amount_unreconciled)" />
+                                </tree>
+                            </field>
+                            <group col="3">
+                                <group>
+                                    <field name="narration" colspan="2" nolabel="1"/>
+                                </group>
+                                <group>
+                                    <field name="billing_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </group>
+                        </page>
+                       
+                    </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+    
+		<record id="action_billing_receipt" model="ir.actions.act_window">
+            <field name="name">Customer Billing</field>
+            <field name="res_model">account.billing</field>
+            <field name="view_type">form</field>
+            <field name="view_id" eval="False"/>
+            <field name="target">current</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to register a new billing.
+              </p><p>
+                Enter the customer the invoices expect to be paid by the customer for this 
+                bill period. By default the pending invoices will be listed, automatically.
+              </p>
+            </field>
+        </record>
+        <record id="action_billing_receipt_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="action_billing_receipt"/>
+        </record>
+        <record id="action_billing_receipt_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_billing_receipt_form"/>
+            <field name="act_window_id" ref="action_billing_receipt"/>
+        </record>
+
+	    <menuitem action="action_billing_receipt" icon="STOCK_JUSTIFY_FILL" sequence="11"
+	    id="menu_action_billing_receipt"  parent="account.menu_finance_receivables"/>
+	    
+    </data>
+</openerp>

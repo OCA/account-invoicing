@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_vendor_receipt_form_ext" model="ir.ui.view">
+            <field name="name">view.vendor.receipt.form.ext</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form" />
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="/form/sheet/notebook/page/field[@name='line_cr_ids']/tree/field[@name='account_id']" position="before">
+                    	<field name="reference" />
+                    </xpath>
+                    <xpath expr="/form/sheet/notebook/page/field[@name='line_dr_ids']/tree/field[@name='account_id']" position="before">
+                    	<field name="reference" />
+                    </xpath>     
+	                <xpath expr="/form/sheet/group/group/field[@name='partner_id']" position="attributes">
+	                    <attribute name="context">{'search_default_customer': 1, 'billing_id': billing_id}</attribute>
+					</xpath>
+	                <xpath expr="/form/sheet/group/group/field[@name='amount']" position="attributes">
+	                    <attribute name="context">{'billing_id': billing_id}</attribute>
+		            </xpath>
+	                <xpath expr="/form/sheet//field[@name='partner_id']" position="after">
+	                	<field name="billing_id" on_change="onchange_billing_id(partner_id, journal_id, amount, currency_id, type, date, context)"
+		                	options="{'no_create': True}"	
+		                	domain="[('state','=','billed'),('payment_id','=',False),('partner_id','=',partner_id)]"
+	                		context="{'billing_id': billing_id}"/> 
+	                </xpath>           
+				</data>
+            </field>
+        </record>
+    </data>
+</openerp>
