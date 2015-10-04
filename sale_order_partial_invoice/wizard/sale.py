@@ -46,37 +46,34 @@ in picking.
 
 
 """
+
 import logging
-from openerp.osv import orm, fields
-from openerp import netsvc
+from openerp import models, fields, api
 from openerp.tools.translate import _
 
 
 _logger = logging.getLogger(__name__)
 
 
-class SaleAdvancePaymentInv(orm.TransientModel):
+class SaleAdvancePaymentInv(models.TransientModel):
     _inherit = "sale.advance.payment.inv"
 
-    def create_invoices(self, cr, uid, ids, context=None):
+    @api.multi
+    def create_invoices(self):
         """override standard behavior if payment method is set to 'lines':
         """
-        res = super(SaleAdvancePaymentInv, self).create_invoices(
-            cr, uid, ids, context)
-        wizard = self.browse(cr, uid, ids[0], context)
-        if wizard.advance_payment_method != 'lines':
+        res = super(SaleAdvancePaymentInv, self).create_invoices()
+        if self.advance_payment_method != 'lines':
             return res
-        sale_ids = context.get('active_ids', [])
+        sale_ids = self._context.get('active_ids', [])
         if not sale_ids:
             return res
-        wizard_obj = self.pool['sale.order.line.invoice.partially']
-        order_line_obj = self.pool['sale.order.line']
+        wizard_obj = self.env['sale.order.line.invoice.partially']
+        order_line_obj = self.env['sale.order.line']
         so_domain = [('order_id', 'in', sale_ids), ]
-        so_line_ids = order_line_obj.search(
-            cr, uid, so_domain, context=context)
+        so_lines = order_line_obj.search(so_domain)
         line_values = []
-        for so_line in order_line_obj.browse(cr, uid, so_line_ids,
-                                             context=context):
+        for so_line in so_lines:
             if so_line.state in ('confirmed', 'done') and not so_line.invoiced:
                 val = {'sale_order_line_id': so_line.id, }
                 if so_line.product_id and so_line.product_id.type == 'product':
@@ -88,71 +85,71 @@ class SaleAdvancePaymentInv(orm.TransientModel):
                         so_line.qty_invoiced
                 line_values.append((0, 0, val))
         val = {'line_ids': line_values, }
-        wizard_id = wizard_obj.create(cr, uid, val, context=context)
+        wizard = wizard_obj.create(val)
         res = {'view_type': 'form',
                'view_mode': 'form',
                'res_model': 'sale.order.line.invoice.partially',
-               'res_id': wizard_id,
+               'res_id': wizard.id,
                'type': 'ir.actions.act_window',
                'target': 'new',
-               'context': context,
+               'context': self._context,
                }
         return res
 
 
-class SaleOrderLineInvoicePartiallyLine(orm.TransientModel):
+class SaleOrderLineInvoicePartiallyLine(models.TransientModel):
     _name = "sale.order.line.invoice.partially.line"
-    _columns = {
-        'wizard_id': fields.many2one('sale.order.line.invoice.partially',
-                                     string='Wizard'),
-        'sale_order_line_id': fields.many2one('sale.order.line',
-                                              string='sale.order.line'),
-        'name': fields.related('sale_order_line_id', 'name',
-                               type='text', string="Line", readonly=True),
-        'order_qty': fields.related('sale_order_line_id', 'product_uom_qty',
-                                    type='float', string="Sold",
-                                    readonly=True),
-        'qty_invoiced': fields.related('sale_order_line_id', 'qty_invoiced',
-                                       type='float', string="Invoiced",
-                                       readonly=True),
-        'qty_delivered': fields.related('sale_order_line_id', 'qty_delivered',
-                                        type='float', string="Shipped",
-                                        readonly=True),
-        'quantity': fields.float('To invoice'),
-    }
 
-    def _check_to_invoice_qty(self, cr, uid, ids, context=None):
-        for record in self.browse(cr, uid, ids, context=context):
-            if record.order_qty - record.qty_invoiced < record.quantity:
-                return False
-        return True
+    wizard_id = fields.Many2one(
+        'sale.order.line.invoice.partially',
+        string='Wizard')
+    sale_order_line_id = fields.Many2one(
+        'sale.order.line',
+        string='sale.order.line')
+    name = fields.Text(
+        related='sale_order_line_id.name',
+        string="Line",
+        readonly=True)
+    order_qty = fields.Float(
+        related='sale_order_line_id.product_uom_qty',
+        string="Sold",
+        readonly=True)
+    qty_invoiced = fields.Float(
+       related='sale_order_line_id.qty_invoiced',
+       type='float', string="Invoiced",
+       readonly=True)
+    qty_delivered = fields.Float(
+        related='sale_order_line_id.qty_delivered',
+        string="Shipped",
+        readonly=True)
+    quantity = fields.Float(
+        string='To invoice')
 
-    _constraints = [
-        (_check_to_invoice_qty,
-         "Quantity to invoice couldn't be greater than remaining quantity",
-         ['quantity']),
-    ]
+    @api.one
+    @api.constrains('quantity')
+    def _check_to_invoice_qty(self):
+        if self.order_qty - self.qty_invoiced < self.quantity:
+            raise Warning(
+                _("Quantity to invoice couldn't be "
+                  "greater than remaining quantity"))
 
 
-class SaleOrderLineInvoicePartially(orm.TransientModel):
+class SaleOrderLineInvoicePartially(models.TransientModel):
     _name = "sale.order.line.invoice.partially"
-    _columns = {
-        'name': fields.char('Name'),
-        'line_ids': fields.one2many('sale.order.line.invoice.partially.line',
-                                    'wizard_id', string="Lines"),
-    }
 
-    def create_invoice(self, cr, uid, ids, context=None):
-        wf_service = netsvc.LocalService('workflow')
-        if context is None:
-            context = {}
-        ctx = context.copy()
-        ctx['_partial_invoice'] = {}
-        so_line_obj = self.pool['sale.order.line']
-        so_obj = self.pool['sale.order']
+    name = fields.Char(string='Name')
+    line_ids = fields.One2many(
+        'sale.order.line.invoice.partially.line',
+        'wizard_id', string="Lines")
+
+    @api.multi
+    def create_invoice(self):
+        partial_invoice = {}
+        so_line_obj = self.env['sale.order.line']
+        so_obj = self.env['sale.order']
         order_lines = {}
         invoice_id = False
-        for wiz in self.browse(cr, uid, ids, context=context):
+        for wiz in self:
             for line in wiz.line_ids:
                 if line.quantity == 0:
                     continue
@@ -160,34 +157,31 @@ class SaleOrderLineInvoicePartially(orm.TransientModel):
                 if sale_order.id not in order_lines:
                     order_lines[sale_order.id] = []
                 order_lines[sale_order.id].append(line.sale_order_line_id.id)
-                ctx['_partial_invoice'][line.sale_order_line_id.id] = \
+                partial_invoice[line.sale_order_line_id.id] = \
                     line.quantity
         for order_id in order_lines:
-            so_line_ids = order_lines[order_id]
-            invoice_line_ids = so_line_obj.invoice_line_create(
-                cr, uid, so_line_ids, context=ctx)
-            order = so_obj.browse(cr, uid, order_id, context=context)
+            so_lines = so_line_obj.browse(order_lines[order_id])
+            invoice_line_ids = so_lines.with_context(
+                _partial_invoice=partial_invoice).invoice_line_create()
+            order = so_obj.browse(order_id)
             # HACK: Avoid the creation of counterpart lines for compensating
             # false "anticipated" invoice lines (which is the standard
             # behaviour)
             order.invoice_ids = []
             # Call invoice creation
-            invoice_id = so_obj._make_invoice(cr, uid, order, invoice_line_ids,
-                                              context=ctx)
+            invoice_id = so_obj.with_context(
+                _partial_invoice=partial_invoice)._make_invoice(
+                    order, invoice_line_ids)
             _logger.info(_('Created invoice %d'), invoice_id)
             # the following is copied from many places around
             # (actually sale_line_invoice.py)
-            cr.execute('INSERT INTO sale_order_invoice_rel (order_id, '
-                       '                                    invoice_id) '
-                       'VALUES (%s,%s)', (order_id, invoice_id))
+            self._cr.execute('INSERT INTO sale_order_invoice_rel (order_id, '
+                             '                                    invoice_id) '
+                             'VALUES (%s,%s)', (order_id, invoice_id))
             if all(line.invoiced for line in order.order_line):
-                wf_service.trg_validate(
-                    uid, 'sale.order', order.id, 'manual_invoice', cr)
+                order.signal_workflow('manual_invoice')
         # Open invoice
-        ir_model_data = self.pool['ir.model.data']
-        form_res = ir_model_data.get_object_reference(cr, uid, 'account',
-                                                      'invoice_form')
-        form_id = form_res and form_res[1] or False
+        form_res = self.env.ref('account.invoice_form')
         if invoice_id:
             # Control if no quantities have been selected
             return {
@@ -195,7 +189,7 @@ class SaleOrderLineInvoicePartially(orm.TransientModel):
                 'view_mode': 'form',
                 'res_model': 'account.invoice',
                 'res_id': invoice_id,
-                'view_id': form_id,
+                'view_id': form_res.id,
                 'context': {'type': 'out_invoice'},
                 'type': 'ir.actions.act_window',
             }
