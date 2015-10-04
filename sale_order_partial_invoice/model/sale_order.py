@@ -44,12 +44,15 @@ By having the delivered quantity, we can imagine in the future to provide an
 invoicing "based on delivery" that will look at those values instead of looking
 in picking.
 """
-from openerp.osv import orm, fields
+from openerp import models, fields, api, osv
 import openerp.addons.decimal_precision as dp
+from openerp.addons.sale.sale import sale_order_line
 
 
-class SaleOrderLine(orm.Model):
+class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
+
+    # This section is in V7
 
     def field_qty_invoiced(self, cr, uid, ids, field_list, arg, context):
         res = dict.fromkeys(ids, 0)
@@ -62,75 +65,85 @@ class SaleOrderLine(orm.Model):
             res[line.id] = round(res[line.id], precision)
         return res
 
-    def field_qty_delivered(self, cr, uid, ids, field_list, arg, context):
-        res = dict.fromkeys(ids, 0)
-        precision = self.pool['decimal.precision'].precision_get(
-            cr, uid, 'Product UoS')
-        lines = self.browse(cr, uid, ids, context=context)
-        for procurement in lines.mapped('procurement_ids'):
+    _columns = {
+        'qty_invoiced': osv.fields.function(
+            field_qty_invoiced, string='Invoiced Quantity', type='float',
+            digits_compute=dp.get_precision('Product UoS'),
+            help="the quantity of product from this line already invoiced"),
+    }
+
+    # End v7 section
+
+# V8
+#     @api.one
+#     def field_qty_invoiced(self):
+#         precision = self.env['decimal.precision'].precision_get('Product UoS')
+#         qty_invoiced = 0.0
+#         print self.invoice_lines
+#         for invoice_line in self.invoice_lines:
+#             if invoice_line.invoice_id.state != 'cancel':
+#                 qty_invoiced += invoice_line.quantity  # XXX uom !
+#         print 'qty_invoiced : ', qty_invoiced
+#         self.qty_invoiced = round(qty_invoiced, precision)
+
+    @api.one
+    def field_qty_delivered(self):
+        precision = self.env['decimal.precision'].precision_get('Product UoS')
+        qty_invoiced = 0.0
+        for procurement in self.mapped('procurement_ids'):
             if not procurement.move_ids:
                 # consumable or service: assume delivered == invoiced
-                res[procurement.sale_line_id.id] = procurement.sale_line_id.qty_invoiced
+                qty_invoiced = procurement.sale_line_id.qty_invoiced
             else:
                 for move in procurement.move_ids:
                     if (move.state == 'done' and
                             move.picking_id and
                             move.picking_type_id.code == 'outgoing'):
-                        res[procurement.sale_line_id.id] += move.product_qty
-            res[procurement.sale_line_id.id] = round(res[procurement.sale_line_id.id], precision)
-        return res
+                        qty_invoiced += move.product_qty
+            self.qty_invoiced = round(qty_invoiced, precision)
 
-    def _prepare_order_line_invoice_line(self, cr, uid, line, account_id=False,
-                                         context=None):
-        if context is None:
-            context = {}
+    @api.model
+    def _prepare_order_line_invoice_line(self, line, account_id=False):
         res = super(SaleOrderLine, self)._prepare_order_line_invoice_line(
-            cr, uid, line, account_id, context=context)
-        if '_partial_invoice' in context:
+            line, account_id)
+        print self._context
+        if '_partial_invoice' in self._context:
             # we are making a partial invoice for the line
-            to_invoice_qty = context['_partial_invoice'][line.id]
+            to_invoice_qty = self._context['_partial_invoice'][line.id]
         else:
             # we are invoicing the yet uninvoiced part of the line
             to_invoice_qty = line.product_uom_qty - line.qty_invoiced
         res['quantity'] = to_invoice_qty
         return res
 
-    def _fnct_line_invoiced(
-            self, cr, uid, ids, field_name, args, context=None
-    ):
-        res = dict.fromkeys(ids, False)
-        for this in self.browse(cr, uid, ids, context=context):
-            res[this.id] = (this.qty_invoiced == this.product_uom_qty)
-        return res
+    @api.one
+    @api.depends('order_id.invoice_ids.state', 'invoice_lines')
+    def _fnct_line_invoiced(self):
+        print 'trigger invoiced = ', str((self.qty_invoiced == self.product_uom_qty))
+        print self.qty_invoiced
+        self.invoiced = (self.qty_invoiced == self.product_uom_qty)
 
-    def _order_lines_from_invoice2(self, cr, uid, ids, context=None):
-        # overridden with different name because called by framework with
-        # 'self' an instance of another class
-        return self.pool['sale.order.line']._order_lines_from_invoice(
-            cr, uid, ids, context)
-
-    _columns = {
-        'qty_invoiced': fields.function(
-            field_qty_invoiced, string='Invoiced Quantity', type='float',
-            digits_compute=dp.get_precision('Product UoS'),
-            help="the quantity of product from this line already invoiced"),
-        'qty_delivered': fields.function(
-            field_qty_delivered, string='Invoiced Quantity', type='float',
-            digits_compute=dp.get_precision('Product UoS'),
-            help="the quantity of product from this line already invoiced"),
-        'invoiced': fields.function(
-            _fnct_line_invoiced, string='Invoiced', type='boolean',
-            store={
-                'account.invoice': (_order_lines_from_invoice2, ['state'], 10),
-                'sale.order.line': (lambda self, cr, uid, ids, context=None:
-                                    ids, ['invoice_lines'], 10)
-            }),
-    }
+# V8
+#     qty_invoiced = fields.Float(
+#         compute='field_qty_invoiced',
+#         string='Invoiced Quantity',
+#         digits_compute=dp.get_precision('Product UoS'),
+#         help="the quantity of product from this line already invoiced")
+    qty_delivered = fields.Float(
+        compute='field_qty_delivered',
+        string='Invoiced Quantity',
+        digits_compute=dp.get_precision('Product UoS'),
+        help="the quantity of product from this line already invoiced")
+    invoiced = fields.Boolean(
+        compute='_fnct_line_invoiced',
+        string='Invoiced',
+        store=True)
 
     def search(self, cr, uid, args, offset=0, limit=None, order=None,
-            context=None, count=False):
+               context=None, count=False):
+        print 'searching sale_order_line'
         if '_partial_invoice' in context:
             args.remove(('invoiced', '=', True))
-        return super(SaleOrderLine, self).search(cr, uid, args=args, offset=offset, limit=limit, order=order,
-            context=context, count=count)
-
+        return super(SaleOrderLine, self).search(
+            cr, uid, args=args, offset=offset, limit=limit,
+            order=order, context=context, count=count)
