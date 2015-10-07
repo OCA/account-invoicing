@@ -17,6 +17,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[account_group_invoice_lines](account_group_invoice_lines/) | 8.0.1.1.0 | Add option to group invoice line per account
 [account_invoice_force_number](account_invoice_force_number/) | 0.1 | Allows to force invoice numbering on specific invoices
 [account_invoice_line_description](account_invoice_line_description/) | 1.0 | Account invoice line description
 [account_invoice_line_sort](account_invoice_line_sort/) | 0.1 | Manage sort of customer invoice lines by customers
