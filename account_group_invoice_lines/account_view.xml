@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+
+<!--
+    Copyright (C) 2012-2015 SYLEAM Info Services ([http://www.syleam.fr/])
+    @author: Sébastien LANGE [sebastien.lange@syleam.fr]
+    The licence is in the file __openerp__.py
+-->
+
+<record id="view_account_journal_form" model="ir.ui.view">
+    <field name="name">group.invoice.lines.account.journal.form</field>
+    <field name="model">account.journal</field>
+    <field name="inherit_id" ref="account.view_account_journal_form"/>
+    <field name="arch" type="xml">
+        <field name="group_invoice_lines" position="after">
+            <field name="group_method"
+                attrs="{'invisible': [('group_invoice_lines','=', False)], 'required': [('group_invoice_lines','=', True)]}"/>
+        </field>
+    </field>
+</record>
+
+</data>
+</openerp>
