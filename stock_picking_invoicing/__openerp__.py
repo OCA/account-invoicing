@@ -20,7 +20,7 @@
 
 {
     'name': "Stock Picking Invoicing",
-    'version': '1.0',
+    'version': '8.0.1.0.0',
     'category': 'Warehouse Management',
     'author': "Agile Business Group,Odoo Community Association (OCA)",
     'website': 'http://www.agilebg.com',
