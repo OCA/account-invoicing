@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Automatically select invoicing partner on invoice",
-    "version": "0.2",
+    "version": "8.0.0.2.0",
     "author": "Therp BV,Odoo Community Association (OCA)",
     "category": 'Accounting & Finance',
     'website': 'https://github.com/OCA/account-invoicing',

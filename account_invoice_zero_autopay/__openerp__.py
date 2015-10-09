@@ -20,7 +20,7 @@
 ##############################################################################
 
 {'name': 'Account Invoice Zero Autopay',
- 'version': '1.0',
+ 'version': '8.0.1.0.0',
  'author': "Camptocamp,Odoo Community Association (OCA)",
  'maintainer': 'Camptocamp',
  'license': 'AGPL-3',

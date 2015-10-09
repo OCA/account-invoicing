@@ -18,24 +18,24 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [account_group_invoice_lines](account_group_invoice_lines/) | 8.0.1.1.0 | Add option to group invoice line per account
-[account_invoice_force_number](account_invoice_force_number/) | 0.1 | Allows to force invoice numbering on specific invoices
-[account_invoice_line_description](account_invoice_line_description/) | 1.0 | Account invoice line description
-[account_invoice_line_sort](account_invoice_line_sort/) | 0.1 | Manage sort of customer invoice lines by customers
-[account_invoice_merge](account_invoice_merge/) | 1.1.1 | Account Invoice Merge Wizard
-[account_invoice_merge_payment](account_invoice_merge_payment/) | 0.1 | Use invoice merge regarding fields on Account Payment Partner
+[account_invoice_force_number](account_invoice_force_number/) | 8.0.0.1.0 | Allows to force invoice numbering on specific invoices
+[account_invoice_line_description](account_invoice_line_description/) | 8.0.1.0.0 | Account invoice line description
+[account_invoice_line_sort](account_invoice_line_sort/) | 8.0.0.1.0 | Manage sort of customer invoice lines by customers
+[account_invoice_merge](account_invoice_merge/) | 8.0.1.1.1 | Account Invoice Merge Wizard
+[account_invoice_merge_payment](account_invoice_merge_payment/) | 8.0.0.1.0 | Use invoice merge regarding fields on Account Payment Partner
 [account_invoice_merge_purchase](account_invoice_merge_purchase/) | 8.0.1.0.0 | Compatibility between purchase and account invoice merge
-[account_invoice_partner](account_invoice_partner/) | 0.2 | Automatically select invoicing partner on invoice
-[account_invoice_period_usability](account_invoice_period_usability/) | 1.0 | Display in the supplier invoice form the fiscal period next to the invoice date
+[account_invoice_partner](account_invoice_partner/) | 8.0.0.2.0 | Automatically select invoicing partner on invoice
+[account_invoice_period_usability](account_invoice_period_usability/) | 8.0.1.0.0 | Display in the supplier invoice form the fiscal period next to the invoice date
 [account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.0.0 | Add partner pricelist on invoices
-[account_invoice_rounding](account_invoice_rounding/) | 1.0 | Unit rounded invoice
-[account_invoice_shipping_address](account_invoice_shipping_address/) | 0.1.1 | Adds a shipping address field to the invoice.
-[account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 1.1 | Checks that supplier invoices are not entered twice
+[account_invoice_rounding](account_invoice_rounding/) | 8.0.1.0.0 | Unit rounded invoice
+[account_invoice_shipping_address](account_invoice_shipping_address/) | 8.0.0.1.1 | Adds a shipping address field to the invoice.
+[account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 8.0.1.1.0 | Checks that supplier invoices are not entered twice
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 | Unit of measure for invoices
-[account_invoice_validation_workflow](account_invoice_validation_workflow/) | 1.0 | Add "To Send" and "To Validate" states in Invoices
-[account_invoice_zero_autopay](account_invoice_zero_autopay/) | 1.0 | Account Invoice Zero Autopay
-[account_payment_term_extension](account_payment_term_extension/) | 1.0 | Adds rounding, months and weeks properties on payment term lines
-[invoice_fiscal_position_update](invoice_fiscal_position_update/) | 1.0 | Changing the fiscal position of an invoice will auto-update invoice lines
-[stock_picking_invoicing](stock_picking_invoicing/) | 1.0 | Stock Picking Invoicing
+[account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.0 | Add "To Send" and "To Validate" states in Invoices
+[account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 | Account Invoice Zero Autopay
+[account_payment_term_extension](account_payment_term_extension/) | 8.0.1.0.0 | Adds rounding, months and weeks properties on payment term lines
+[invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
+[stock_picking_invoicing](stock_picking_invoicing/) | 8.0.1.0.0 | Stock Picking Invoicing
 
 Unported addons
 ---------------
