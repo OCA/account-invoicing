@@ -22,7 +22,7 @@
 
 {
     'name': 'Unique Supplier Invoice Number in Invoice',
-    'version': '1.1',
+    'version': '8.0.1.1.0',
     'summary': 'Checks that supplier invoices are not entered twice',
     'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'maintainer': 'Savoir-faire Linux',
