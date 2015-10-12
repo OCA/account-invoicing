@@ -18,16 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields, api
-from openerp.tools.float_utils import float_round, float_compare
-from openerp.tools.translate import _
-
-import openerp.addons.decimal_precision as dp
+from openerp import models
 
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
-
 
     def _compute_swedish_rounding(self, cr, uid, invoice, context=None):
         """
@@ -42,8 +37,6 @@ class AccountInvoice(models.Model):
             return {}
         rounding_rule_model = self.pool.get('company.rounding')
         company = invoice.company_id
-        round_method = ''
-        rounding_prec = 0.0
         if invoice.currency_id.id != company.currency_id.id:
             ret_ids = rounding_rule_model.search(
                 cr, uid,
@@ -53,8 +46,9 @@ class AccountInvoice(models.Model):
                 ],
                 context=context)
             if ret_ids:
-                rule = rounding_rule_model.browse(cr, uid, ret_ids[0], context=context)
-                company.tax_calculation_rounding_method =(
+                rule = rounding_rule_model.browse(
+                    cr, uid, ret_ids[0], context=context)
+                company.tax_calculation_rounding_method = (
                     rule.tax_calculation_rounding_method)
                 company.tax_calculation_rounding = (
                     rule.tax_calculation_rounding)
@@ -65,6 +59,3 @@ class AccountInvoice(models.Model):
 
         return super(AccountInvoice, self)._compute_swedish_rounding(
             cr, uid, invoice, context=context)
-
-
-

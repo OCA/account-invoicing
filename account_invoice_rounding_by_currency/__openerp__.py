@@ -18,16 +18,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{'name': 'Unit rounded invoice by Currency',
- 'version': '8.0.1.0.0',
- 'category': 'Accounting',
- 'author': "Agile Business Group,,Odoo Community Association (OCA)",
- 'maintainer': 'Camptocamp',
- 'website': 'http://www.agilebg.com/',
- 'license': 'AGPL-3',
- 'depends': ['account_invoice_rounding'],
- 'data': ['res_company.xml'],
- 'installable': True,
- 'auto_install': False,
- 'application': False,
- }
+{
+    'name': 'Unit rounded invoice by Currency',
+    'version': '8.0.1.0.0',
+    'category': 'Accounting',
+    'author': "Agile Business Group,,Odoo Community Association (OCA)",
+    'maintainer': 'Camptocamp',
+    'website': 'http://www.agilebg.com/',
+    'license': 'AGPL-3',
+    'depends': ['account_invoice_rounding'],
+    'data': [
+         'res_company.xml',
+         'security/ir.model.access.csv',
+    ],
+    "demo": ['demo/data.xml'],
+    'installable': True,
+    'auto_install': False,
+    'application': False
+}

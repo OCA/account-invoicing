@@ -1,8 +1,8 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-Unit rounded invoice (_`Swedish rounding`) by currency
-==========================================
+Unit rounded invoice (Swedish rounding) by currency
+=======================================================
 
 This module extende functionallity of module `Unit rounded invoice <https://github.com/OCA/account-invoicing/tree/8.0/account_invoice_rounding>`_.
 
@@ -23,9 +23,6 @@ Set currency rule for aech type of currency you need hadled.
   To round your invoice total amount, this option create a invoice line without
   taxes on it. This invoice line is tagged as `is_rounding`
 
-You can choose the account on which the invoice line will be written
-
-.. _Swedish rounding : https://en.wikipedia.org/wiki/Swedish_rounding
 
 
 Usage
@@ -33,7 +30,7 @@ Usage
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/PR/8.0
+   :target: https://runbot.odoo-community.org/runbot/95/8.0
 
 
 Bug Tracker

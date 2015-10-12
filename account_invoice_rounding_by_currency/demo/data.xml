@@ -1,0 +1,114 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+
+<!--
+        <record forcecreate="True" id="decimal_payment" model="decimal.precision">
+            <field name="name">Account</field>
+            <field name="digits">2</field>
+        </record>
+-->
+
+        <record id="tax_code_10" model="account.tax.code">
+            <field name="name">IVA a credito 10%</field>
+        </record>
+
+        <record id="tax_base_code_10" model="account.tax.code">
+            <field name="name">IVA a credito 10% (imponibile)</field>
+        </record>
+
+        <record id="tax_10" model="account.tax">
+            <field name="name">10% test</field>
+            <field name="description">10</field>
+            <field name="amount">0.10</field>
+            <field name="base_code_id" ref="tax_base_code_10"></field>
+            <field name="tax_code_id" ref="tax_code_10"></field>
+        </record>
+
+        <record id="base.main_company" model="res.company">
+            <field name="tax_calculation_rounding" eval="0.05"/>
+            <field name="tax_calculation_rounding_method"  eval="'swedish_round_globally'"/>
+        </record>
+
+        <record id="currency_rounding_rule" model="company.rounding">
+            <field name="currency_id" ref="base.CHF"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="tax_calculation_rounding"  eval="0.50"/>
+            <field name="tax_calculation_rounding_method"  eval="'swedish_round_globally'"/>
+        </record>
+
+<!-- invoice 0 -->
+
+        <record id="invtest_invoice_0" model="account.invoice">
+            <field name="journal_id" ref="account.bank_journal"/>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="user_id" ref="base.user_demo"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="type">out_invoice</field>
+            <field name="account_id" ref="account.a_pay"/>
+            <field name="date_invoice" eval="'2015-10-07'"/>
+            <field name="partner_id" ref="base.res_partner_12"/>
+        </record>
+
+        <record id="invtest_invoice_0_line_0" model="account.invoice.line">
+            <field name="invoice_id" ref="invtest_invoice_0"/>
+            <field name="account_id" ref="account.a_sale"/>
+            <field name="price_unit" eval="100.02" />
+            <field name="uos_id" ref="product.product_uom_unit"/>
+            <field name="invoice_line_tax_id" eval="[(6,0,[ref('tax_10')])]"/>
+            <field name="product_id" ref="product.product_product_3"/>
+            <field name="quantity" eval="1.0" />
+            <field name="name">[PCSC234] PC Assemble SC234-2</field>
+        </record>
+
+
+<!-- invoice 1 -->
+
+        <record id="invtest_invoice_1" model="account.invoice">
+            <field name="journal_id" ref="account.bank_journal"/>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="user_id" ref="base.user_demo"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="type">out_invoice</field>
+            <field name="account_id" ref="account.a_pay"/>
+            <field name="date_invoice" eval="'2015-10-07'"/>
+            <field name="partner_id" ref="base.res_partner_12"/>
+        </record>
+
+        <record id="invtest_invoice_1_line_0" model="account.invoice.line">
+            <field name="invoice_id" ref="invtest_invoice_1"/>
+            <field name="account_id" ref="account.a_sale"/>
+            <field name="price_unit" eval="100.43" />
+            <field name="uos_id" ref="product.product_uom_unit"/>
+            <field name="invoice_line_tax_id" eval="[(6,0,[ref('tax_10')])]"/>
+            <field name="product_id" ref="product.product_product_3"/>
+            <field name="quantity" eval="1.0" />
+            <field name="name">[PCSC234] PC Assemble SC234-2</field>
+        </record>
+
+<!-- invoice 2 -->
+
+        <record id="invtest_invoice_2" model="account.invoice">
+            <field name="journal_id" ref="account.bank_journal"/>
+            <field name="currency_id" ref="base.CHF"/>
+            <field name="user_id" ref="base.user_demo"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="type">out_invoice</field>
+            <field name="account_id" ref="account.a_pay"/>
+            <field name="date_invoice" eval="'2015-10-07'"/>
+            <field name="partner_id" ref="base.res_partner_12"/>
+        </record>
+
+        <record id="invtest_invoice_2_line_0" model="account.invoice.line">
+            <field name="invoice_id" ref="invtest_invoice_2"/>
+            <field name="account_id" ref="account.a_sale"/>
+            <field name="price_unit" eval="100.43" />
+            <field name="uos_id" ref="product.product_uom_unit"/>
+            <field name="invoice_line_tax_id" eval="[(6,0,[ref('tax_10')])]"/>
+            <field name="product_id" ref="product.product_product_3"/>
+            <field name="quantity" eval="1.0" />
+            <field name="name">[PCSC234] PC Assemble SC234-2</field>
+        </record>
+
+    </data>
+</openerp>

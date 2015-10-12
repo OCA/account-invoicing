@@ -1,59 +1,107 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * account_invoice_rounding
-# 
-# Translators:
+#   * account_invoice_rounding_by_currency
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: account-invoicing (8.0)\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-06-03 04:58+0000\n"
+"POT-Creation-Date: 2015-10-12 16:28+0000\n"
+"PO-Revision-Date: 2015-10-12 16:28+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Italian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/it/)\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
-#. module: account_invoice_rounding
-#: model:ir.model,name:account_invoice_rounding.model_res_company
+#. module: account_invoice_rounding_by_currency
+#: model:ir.model,name:account_invoice_rounding_by_currency.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Aziende"
 
-#. module: account_invoice_rounding
-#: model:ir.model,name:account_invoice_rounding.model_account_invoice
+#. module: account_invoice_rounding_by_currency
+#: field:company.rounding,company_id:0
+msgid "Company"
+msgstr "Company"
+
+#. module: account_invoice_rounding_by_currency
+#: field:company.rounding,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: account_invoice_rounding_by_currency
+#: field:company.rounding,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: account_invoice_rounding_by_currency
+#: view:res.company:account_invoice_rounding_by_currency.view_res_company_currencies_settings
+msgid "Currencies Rounding Rules"
+msgstr "Regole di Arrotondamento per Valuta"
+
+#. module: account_invoice_rounding_by_currency
+#: field:company.rounding,currency_id:0
+msgid "Currency"
+msgstr "Valuta"
+
+#. module: account_invoice_rounding_by_currency
+#: sql_constraint:company.rounding:0
+msgid "Currency must be unique  per Company!"
+msgstr "LA valuta deve essere univoca per azienda!"
+
+#. module: account_invoice_rounding_by_currency
+#: field:company.rounding,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_rounding_by_currency
+#: help:company.rounding,tax_calculation_rounding_method:0
+msgid "If you select 'Round per line' : for each tax, the tax amount will first be computed and rounded for each PO/SO/invoice line and then these rounded amounts will be summed, leading to the total amount for that tax. If you select 'Round globally': for each tax, the tax amount will be computed for each PO/SO/invoice line, then these amounts will be summed and eventually this total tax amount will be rounded. If you sell with tax included, you should choose 'Round per line' because you certainly want the sum of your tax-included line subtotals to be equal to the total amount with taxes."
+msgstr "Se si seleziona 'Arrotondamento per riga ' : per ciascuna imposta , l'importo dell'imposta viene calcolato e arrotondato per ogni riga di fattura e quindi tali importi arrotondati verranno riassunti , nella somma totale per tale imposta . Se si seleziona 'Arrotondamento a livello globale ' : per ciascuna imposta , l'importo dell'imposta sarà calcolato, quindi questi importi saranno sommati e alla fine l'importo totale dell'imposta sarà arrotondato . Se si vende con tasse incluse , si dovrebbe scegliere 'Arrotondamento per linea ' perché si vuole certamente la somma dei subtotali per riga fiscale incluso per essere pari all'importo totale con le tasse"
+
+#. module: account_invoice_rounding_by_currency
+#: model:ir.model,name:account_invoice_rounding_by_currency.model_account_invoice
 msgid "Invoice"
 msgstr "Fattura"
 
-#. module: account_invoice_rounding
-#: model:ir.model,name:account_invoice_rounding.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Righe Fattura"
+#. module: account_invoice_rounding_by_currency
+#: field:company.rounding,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
 
-#. module: account_invoice_rounding
-#: code:addons/account_invoice_rounding/account.py:42
-#, python-format
-msgid "Rounding"
-msgstr ""
+#. module: account_invoice_rounding_by_currency
+#: field:company.rounding,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
 
-#. module: account_invoice_rounding
-#: field:account.invoice.line,is_rounding:0
-msgid "Rounding Line"
-msgstr ""
+#. module: account_invoice_rounding_by_currency
+#: field:res.company,currency_rounding_rules:0
+msgid "Rounding Rule"
+msgstr "Regola di Arrotondamento"
 
-#. module: account_invoice_rounding
-#: model:ir.model,name:account_invoice_rounding.model_account_tax
-msgid "Tax"
-msgstr ""
+#. module: account_invoice_rounding_by_currency
+#: selection:company.rounding,tax_calculation_rounding_method:0
+msgid "Swedish Round by adding a line"
+msgstr "Swedish Round , per riga"
 
-#. module: account_invoice_rounding
-#: field:res.company,tax_calculation_rounding_account_id:0
+#. module: account_invoice_rounding_by_currency
+#: selection:company.rounding,tax_calculation_rounding_method:0
+msgid "Swedish Round globally"
+msgstr "Swedish Round Globale"
+
+#. module: account_invoice_rounding_by_currency
+#: field:company.rounding,tax_calculation_rounding_method:0
+msgid "Tax Calculation Rounding Method"
+msgstr "Metodo di arrotondamento calcolo Imposte"
+
+#. module: account_invoice_rounding_by_currency
+#: field:company.rounding,tax_calculation_rounding_account_id:0
 msgid "Tax Rounding Account"
-msgstr ""
+msgstr "Conto per arrotondamento imposte"
 
-#. module: account_invoice_rounding
-#: field:res.company,tax_calculation_rounding:0
+#. module: account_invoice_rounding_by_currency
+#: field:company.rounding,tax_calculation_rounding:0
 msgid "Tax Rounding unit"
-msgstr ""
+msgstr "Percentuale di arrotondamento"
+
