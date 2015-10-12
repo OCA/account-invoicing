@@ -4,13 +4,14 @@
 Unit rounded invoice (_`Swedish rounding`) by currency
 ==========================================
 
-This module extende functionallity of module Unit rounded invoice
+This module extende functionallity of module `Unit rounded invoice <https://github.com/OCA/account-invoicing/tree/8.0/account_invoice_rounding>`_.
 
 Add a parameter to give a unit for rounding such as CHF 0.05 for Swiss
 invoices
 
-In Settings -> Configuration -> Accounting you will find 2 new types of
-rounding
+In Settings -> Company -> Configurations you will find
+Currencies Rounding Rules
+Set currency rule for aech type of currency you need hadled.
 
 - `Swedish Round globally`
 

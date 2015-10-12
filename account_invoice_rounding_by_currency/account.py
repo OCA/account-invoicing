@@ -46,12 +46,14 @@ class AccountInvoice(models.Model):
         rounding_prec = 0.0
         if invoice.currency_id.id != company.currency_id.id:
             ret_ids = rounding_rule_model.search(
+                cr, uid,
                 [
                     ('company_id', '=', company.id),
                     ('currency_id', '=', invoice.currency_id.id),
-                ])
+                ],
+                context=context)
             if ret_ids:
-                rule = rounding_rule_model.browse(ret_ids[0])
+                rule = rounding_rule_model.browse(cr, uid, ret_ids[0], context=context)
                 company.tax_calculation_rounding_method =(
                     rule.tax_calculation_rounding_method)
                 company.tax_calculation_rounding = (

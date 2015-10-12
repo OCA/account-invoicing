@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{'name': 'Unit rounded invoice by currencies',
+{'name': 'Unit rounded invoice by Currency',
  'version': '8.0.1.0.0',
  'category': 'Accounting',
  'author': "Agile Business Group,,Odoo Community Association (OCA)",
