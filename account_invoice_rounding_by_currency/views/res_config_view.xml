@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_config_settings_currency" model="ir.ui.view">
+            <field name="name">account settings.add.rounding.currency</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account_invoice_rounding.view_account_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tax_calculation_rounding_account_id']/ancestor::div[1]" position="after">
+                <div name="account_grp_currency">
+                <p class="oe_horizontal_separator" style="color: #555;">Currencies Rounding Rules</p>
+                    <field name="currency_rounding_rules" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="currency_id"></field>
+                            <field name="tax_calculation_rounding"></field>
+                            <field name="tax_calculation_rounding_method"></field>
+                            <field name="tax_calculation_rounding_account_id"
+                            attrs="{'readonly': [('tax_calculation_rounding_method', '!=', 'swedish_add_invoice_line')] }"></field>
+                        </tree>
+                    </field>
+                </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
