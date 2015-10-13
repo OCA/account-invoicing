@@ -126,6 +126,8 @@ class AccountInvoice(models.Model):
 
         prec = obj_precision.precision_get(cr, uid, 'Account')
         rounding_prec = company.tax_calculation_rounding
+        if rounding_prec <= 0.00:
+            return {}
         rounded_total = float_round(invoice.amount_total,
                                     precision_rounding=rounding_prec)
 
