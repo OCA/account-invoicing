@@ -28,8 +28,8 @@
     'license': 'AGPL-3',
     'depends': ['account_invoice_rounding'],
     'data': [
-         'res_company.xml',
-         'security/ir.model.access.csv',
+        'res_company.xml',
+        'security/ir.model.access.csv',
     ],
     "demo": ['demo/data.xml'],
     'installable': True,
