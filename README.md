@@ -41,11 +41,11 @@ Unported addons
 ---------------
 addon | version | summary
 --- | --- | ---
-[account_invoice_customer_ref_unique](__unported__/account_invoice_customer_ref_unique/) | 1.0 (unported) | Unique Customer Reference in Invoice
-[account_invoice_template](__unported__/account_invoice_template/) | 0.1 (unported) | Account Invoice Template
-[product_customer_code_invoice](__unported__/product_customer_code_invoice/) | 1.0 (unported) | Product Customer code for account invoice
-[sale_order_partial_invoice](__unported__/sale_order_partial_invoice/) | 1.1 (unported) | Sale Partial Invoice
-[stock_invoice_picking_incoterm](__unported__/stock_invoice_picking_incoterm/) | 0.1 (unported) | Stock Invoice Picking Incoterm
+[account_invoice_customer_ref_unique](account_invoice_customer_ref_unique/) | 1.0 (unported) | Unique Customer Reference in Invoice
+[account_invoice_template](account_invoice_template/) | 0.1 (unported) | Account Invoice Template
+[product_customer_code_invoice](product_customer_code_invoice/) | 1.0 (unported) | Product Customer code for account invoice
+[sale_order_partial_invoice](sale_order_partial_invoice/) | 1.1 (unported) | Sale Partial Invoice
+[stock_invoice_picking_incoterm](stock_invoice_picking_incoterm/) | 0.1 (unported) | Stock Invoice Picking Incoterm
 
 [//]: # (end addons)
 
