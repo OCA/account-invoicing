@@ -18,21 +18,28 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': 'Unit rounded invoice by Currency',
-    'version': '8.0.1.0.0',
-    'category': 'Accounting',
-    'author': "Agile Business Group, Odoo Community Association (OCA)",
-    'maintainer': 'Camptocamp',
-    'website': 'http://www.agilebg.com/',
-    'license': 'AGPL-3',
-    'depends': ['account_invoice_rounding'],
-    'data': [
-        'res_config_view.xml',
-        'security/ir.model.access.csv',
-    ],
-    "demo": ['demo/data.xml'],
-    'installable': True,
-    'auto_install': False,
-    'application': False
-}
+from openerp import models, fields
+
+
+class AccountConfigSettings(models.TransientModel):
+    _inherit = 'account.config.settings'
+
+    def _default_company(self):
+        return self.env.user.company_id.id
+
+    company_id = fields.Many2one(
+        'res.company', 'Company', required=True, default=_default_company)
+    currency_rounding_rules = fields.One2many(
+        related='company_id.currency_rounding_rules',
+        string='Rounding Rule',
+        domain=[('type', '<>', 'view')])
+
+    def onchange_company_id(self, cr, uid, ids, company_id, context=None):
+        res = super(AccountConfigSettings, self
+                    ).onchange_company_id(cr, uid, ids,
+                                          company_id, context=context)
+        company = self.pool.get('res.company').browse(cr, uid, company_id,
+                                                      context=context)
+        res['value']['currency_rounding_rules'] = \
+            company.currency_rounding_rules
+        return res

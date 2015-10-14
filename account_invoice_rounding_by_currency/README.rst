@@ -1,8 +1,10 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-    :alt: License: AGPL-3
+   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+   :alt: License: AGPL-3
 
+===================================================
 Unit rounded invoice (Swedish rounding) by currency
-=======================================================
+===================================================
 
 This module extends functionallity of module `Unit rounded invoice <https://github.com/OCA/account-invoicing/tree/8.0/account_invoice_rounding>`_.
 
@@ -12,7 +14,7 @@ invoices
 Configuration
 =============
 
-In Settings -> Company -> Configurations you will find
+In Settings -> Configuration -> Accounting you will find
 Currencies Rounding Rules
 Set currency rule for each currency you need to handle.
 

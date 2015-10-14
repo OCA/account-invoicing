@@ -2,13 +2,6 @@
 <openerp>
     <data noupdate="1">
 
-<!--
-        <record forcecreate="True" id="decimal_payment" model="decimal.precision">
-            <field name="name">Account</field>
-            <field name="digits">2</field>
-        </record>
--->
-
         <record id="tax_code_10" model="account.tax.code">
             <field name="name">IVA a credito 10%</field>
         </record>

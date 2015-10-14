@@ -2,14 +2,14 @@
 <openerp>
     <data>
 
-        <record id="view_res_company_currencies_settings" model="ir.ui.view">
-            <field name="name">res.company.add.rounding.correncies</field>
-            <field name="model">res.company</field>
-            <field name="priority">50</field>
-            <field name="inherit_id" ref="base.view_company_form"/>
+        <record id="view_account_config_settings_currency" model="ir.ui.view">
+            <field name="name">account settings.add.rounding.currency</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account_invoice_rounding.view_account_config_settings"/>
             <field name="arch" type="xml">
-                <xpath expr="//group[@name='account_grp']" position="after">
-                <group name="account_grp_currency" string="Currencies Rounding Rules">
+                <xpath expr="//field[@name='tax_calculation_rounding_account_id']/ancestor::div[1]" position="after">
+                <div name="account_grp_currency">
+                <p class="oe_horizontal_separator" style="color: #555;">Currencies Rounding Rules</p>
                     <field name="currency_rounding_rules" nolabel="1">
                         <tree editable="bottom">
                             <field name="currency_id"></field>
@@ -19,7 +19,7 @@
                             attrs="{'readonly': [('tax_calculation_rounding_method', '!=', 'swedish_add_invoice_line')] }"></field>
                         </tree>
                     </field>
-                </group>
+                </div>
                 </xpath>
             </field>
         </record>
