@@ -40,7 +40,7 @@ This module adds 2 states between draft and open state in invoices:
     ],
     'demo': [],
     'test': [],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False
 }
