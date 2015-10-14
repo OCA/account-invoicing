@@ -52,8 +52,8 @@ class RoundingByCurrency(models.Model):
     )
 
     _sql_constraints = [
-        ('currency_id_uniq_per+company', 'unique (currency_id, company_id)',
-            'Currency must be unique  per Company!'),
+        ('currency_id_uniq_per_company', 'unique (currency_id, company_id)',
+            'Currency must be unique per Company!'),
     ]
 
 

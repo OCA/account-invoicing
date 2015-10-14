@@ -32,7 +32,7 @@ class TestRoundingByCurrencies(test_common.SingleTransactionCase):
         self.maxDiff = None
         self.company = self.env.ref('base.main_company')
 
-    def test_0_xml_export(self):
+    def test_0_invoice(self):
         cr, uid = self.cr, self.uid
         invoice_id = self.data_model.get_object_reference(
             cr, uid, 'account_invoice_rounding_by_currency',
@@ -48,7 +48,7 @@ class TestRoundingByCurrencies(test_common.SingleTransactionCase):
         self.assertEqual(invoice.state, 'open')
         self.assertEqual(invoice.amount_total, 110.0)
 
-    def test_1_xml_export(self):
+    def test_1_invoice(self):
         cr, uid = self.cr, self.uid
         invoice_id = self.data_model.get_object_reference(
             cr, uid, 'account_invoice_rounding_by_currency',
@@ -64,7 +64,7 @@ class TestRoundingByCurrencies(test_common.SingleTransactionCase):
         self.assertEqual(invoice.state, 'open')
         self.assertEqual(invoice.amount_total, 110.45)
 
-    def test_2_xml_export(self):
+    def test_2_invoice(self):
         cr, uid = self.cr, self.uid
         invoice_id = self.data_model.get_object_reference(
             cr, uid, 'account_invoice_rounding_by_currency',
