@@ -26,5 +26,5 @@
     'website': 'https://github.com/OCA/account-invoicing',
     'license': 'AGPL-3',
     'depends': ['account'],
-    'installable': True,
+    'installable': False,
 }
