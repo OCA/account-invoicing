@@ -30,5 +30,5 @@
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'depends': ['account'],
-    'installable': True,
+    'installable': False,
 }
