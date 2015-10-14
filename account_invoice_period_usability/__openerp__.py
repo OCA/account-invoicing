@@ -39,7 +39,7 @@ next to the invoice date""",
     'data': [
         'views/account_invoice_view.xml',
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }

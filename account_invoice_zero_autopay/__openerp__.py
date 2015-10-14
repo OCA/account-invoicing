@@ -32,6 +32,6 @@
  'test': ['test/account_invoice_zero_paid.yml',
           'test/account_invoice_no_zero_open.yml',
           ],
- 'installable': True,
+ 'installable': False,
  'auto_install': False,
  }

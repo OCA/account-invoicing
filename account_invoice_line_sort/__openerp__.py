@@ -45,4 +45,5 @@
 
     'demo': [
     ],
+    'installable': False,
 }

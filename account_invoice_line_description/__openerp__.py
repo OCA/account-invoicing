@@ -32,5 +32,5 @@
         'security/invoice_security.xml',
         'res_config_view.xml',
     ],
-    "installable": True
+    'installable': False
 }

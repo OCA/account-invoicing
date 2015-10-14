@@ -36,5 +36,5 @@
     'test': [
         'test/account_invoice_uom.yml',
     ],
-    'installable': True,
+    'installable': False,
 }
