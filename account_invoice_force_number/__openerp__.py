@@ -42,5 +42,5 @@ invoice numbering for a specific invoice.
         'invoice_view.xml'
     ],
     "active": False,
-    "installable": True,
+    'installable': False,
 }
