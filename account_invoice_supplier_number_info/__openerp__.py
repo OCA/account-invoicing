@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2014-15 Agile Business Group sagl
-#    (<http://www.agilebg.com>)
+#    Copyright (C) 2011-2013 Agile Business Group (<http://www.agilebg.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -18,27 +17,19 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-from openerp.osv import fields, orm
-
-
-class StockPicking(orm.Model):
-    _inherit = "stock.picking"
-
-    _columns = {
-        'incoterm': fields.many2one(
-            'stock.incoterms',
-            'Incoterm',
-            help="International Commercial Terms are a series of predefined "
-            "commercial terms used in international transactions."
-        ),
-    }
-
-    def _get_invoice_vals(
-            self, cr, uid, key,
-            inv_type, journal_id, move, context=None):
-        invoice_vals = super(StockPicking, self)._get_invoice_vals(
-            cr, uid, key, inv_type, journal_id, move, context=context)
-        if move.picking_id.incoterm:
-            invoice_vals['incoterm'] = move.picking_id.incoterm.id
-        return invoice_vals
+{
+    'name': "Supplier Invoice Number Info",
+    'version': '1.1.0',
+    'category': 'Accounting',
+    'summary': "Allows to force invoice numbering on specific invoices",
+    'author': "Agile Business Group,Odoo Community Association (OCA)",
+    'website': 'http://www.agilebg.com',
+    'license': 'AGPL-3',
+    "depends": [
+        'account'
+    ],
+    "data": [
+        'view/invoice_view.xml'
+    ],
+    "installable": True,
+}

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2014 Agile Business Group sagl
+#    Copyright (C) 2014-15 Agile Business Group sagl
 #    (<http://www.agilebg.com>)
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@
 from openerp.osv import fields, orm
 
 
-class account_invoice(orm.Model):
+class AccountInvoice(orm.Model):
     _inherit = "account.invoice"
 
     _columns = {
