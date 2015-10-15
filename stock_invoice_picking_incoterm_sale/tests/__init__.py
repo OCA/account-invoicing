@@ -2,5 +2,4 @@
 # (c) 2015 Alex Comba - Agile Business Group
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from . import stock_move
-from . import sale_order
+from . import test_stock_invoice_picking_incoterm_sale

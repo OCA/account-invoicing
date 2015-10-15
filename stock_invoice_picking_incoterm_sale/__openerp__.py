@@ -4,7 +4,7 @@
 
 {
     'name': 'Stock invoice picking incoterm sale',
-    'summary': '',
+    'summary': 'Copy incoterm from sale to invoice and to picking',
     'version': '8.0.1.0.0',
     'category': 'Generic Modules/Accounting',
     'author': 'Agile Business Group, Odoo Community Association (OCA)',
@@ -12,7 +12,7 @@
     'license': 'AGPL-3',
     'depends': [
         'stock_invoice_picking_incoterm',
-        'sale_stock',
+        'sale',
     ],
     'installable': True,
 }

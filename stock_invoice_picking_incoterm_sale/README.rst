@@ -5,8 +5,10 @@
 Stock invoice picking incoterm sale
 ===================================
 
-The module extends 'stock_invoice_picking_incoterm' so that the pickings
-and invoices created from sale orders will have the same incoterm.
+This module was written to extend the functionality of
+**stock_invoice_picking_incoterm** and allow to also recover incoterm value
+from sale orders. So that the pickings and invoices created from them will
+have the same incoterm set in the sale order..
 
 Usage
 =====
