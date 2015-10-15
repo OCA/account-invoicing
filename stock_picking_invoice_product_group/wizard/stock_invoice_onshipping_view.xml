@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="view_stock_invoice_onshipping" model="ir.ui.view">
+      <field name="name">view_stock_invoice_onshipping</field>
+      <field name="model">stock.invoice.onshipping</field>
+      <field name="inherit_id" ref="stock_account.view_stock_invoice_onshipping"/>
+      <field name="arch" type="xml">
+        <field name="group" position="after">
+          <field name="group_type" widget="selection"/>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</openerp>
