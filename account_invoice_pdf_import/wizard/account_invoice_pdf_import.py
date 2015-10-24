@@ -124,14 +124,12 @@ class AccountInvoicePdfImport(models.TransientModel):
             vals['date_due'] = parsed_inv.get('date_due')
         config = partner.invoice_import_id
         if config.invoice_line_method == 'no_product':
-            tax_ids = config.tax_ids and [(6, 0, config.tax_ids.ids)] or False
             il_vals = {
                 'name':
                 parsed_inv.get('description', _('MISSING DESCRIPTION')),
                 'account_id': config.account_id.id,
                 'account_analytic_id': config.account_analytic_id.id or False,
-                'invoice_line_tax_id': tax_ids,
-                'quantity': 1,
+                'invoice_line_tax_id': config.tax_ids.ids or False,
                 'price_unit': parsed_inv.get('total_untaxed'),
                 }
         elif config.invoice_line_method == 'static_product':
@@ -143,18 +141,28 @@ class AccountInvoicePdfImport(models.TransientModel):
                 company_id=company.id)['value']
             il_vals.update({
                 'product_id': product.id,
-                'quantity': 1,
                 'price_unit': parsed_inv.get('total_untaxed'),
                 })
             if config.account_analytic_id:
                 il_vals['account_analytic_id'] = config.account_analytic_id.id
-            if il_vals['invoice_line_tax_id']:
-                il_vals['invoice_line_tax_id'] = [
-                    (6, 0, il_vals['invoice_line_tax_id'])]
-        # TODO Set price_unit in a dedicated method
-        # TODO : handle tax with price include
+        self.set_price_unit_and_quantity(il_vals, parsed_inv)
+        if il_vals.get('invoice_line_tax_id'):
+            il_vals['invoice_line_tax_id'] = [
+                (6, 0, il_vals['invoice_line_tax_id'])]
         vals['invoice_line'] = [(0, 0, il_vals)]
         return vals
+
+    @api.model
+    def set_price_unit_and_quantity(self, il_vals, parsed_inv):
+        '''For the moment, we only take into account the 'price_include'
+        option of the first tax'''
+        il_vals['quantity'] = 1
+        il_vals['price_unit'] = parsed_inv.get('total_with_taxes')
+        if il_vals.get('invoice_line_tax_id'):
+            first_tax = self.env['account.tax'].browse(
+                il_vals['invoice_line_tax_id'][0])
+            if not first_tax.price_include:
+                il_vals['price_unit'] = parsed_inv.get('total_untaxed')
 
     @api.multi
     def import_invoice(self):
@@ -186,5 +194,4 @@ class AccountInvoicePdfImport(models.TransientModel):
             'views': False,
             'res_id': invoice.id,
             })
-        print "action=", action
         return action
