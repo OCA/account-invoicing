@@ -17,7 +17,7 @@ msgstr ""
 "X-Launchpad-Export-Date: 2014-04-26 07:12+0000\n"
 "X-Generator: Launchpad (build 16985)\n"
 
-#. module: stock_invoice_picking_incoterm
+#. module: stock_picking_invoicing_incoterm
 #: field:account.invoice,incoterm:0
 #: field:stock.picking,incoterm:0
 #: field:stock.picking.in,incoterm:0
@@ -25,27 +25,27 @@ msgstr ""
 msgid "Incoterm"
 msgstr "Incoterm"
 
-#. module: stock_invoice_picking_incoterm
-#: model:ir.model,name:stock_invoice_picking_incoterm.model_stock_picking_in
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model,name:stock_picking_invoicing_incoterm.model_stock_picking_in
 msgid "Incoming Shipments"
 msgstr "Albaranes de entrada"
 
-#. module: stock_invoice_picking_incoterm
-#: model:ir.model,name:stock_invoice_picking_incoterm.model_account_invoice
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model,name:stock_picking_invoicing_incoterm.model_account_invoice
 msgid "Invoice"
 msgstr "Factura"
 
-#. module: stock_invoice_picking_incoterm
-#: model:ir.model,name:stock_invoice_picking_incoterm.model_stock_picking
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model,name:stock_picking_invoicing_incoterm.model_stock_picking
 msgid "Picking List"
 msgstr "Albarán"
 
-#. module: stock_invoice_picking_incoterm
-#: model:ir.model,name:stock_invoice_picking_incoterm.model_stock_picking_out
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model,name:stock_picking_invoicing_incoterm.model_stock_picking_out
 msgid "Delivery Orders"
 msgstr "Albaranes de salida"
 
-#. module: stock_invoice_picking_incoterm
+#. module: stock_picking_invoicing_incoterm
 #: help:account.invoice,incoterm:0
 #: help:stock.picking,incoterm:0
 #: help:stock.picking.in,incoterm:0

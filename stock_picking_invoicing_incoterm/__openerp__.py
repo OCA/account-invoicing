@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {
-    'name': "Stock Invoice Picking Incoterm",
+    'name': "Stock Picking Invoicing Incoterm",
     'version': '8.0.1.0.0',
     'category': 'Warehouse Management',
     'author': "Agile Business Group, Odoo Community Association (OCA)",
@@ -33,7 +33,7 @@
         'stock_view.xml',
     ],
     'test': [
-        'test/stock_invoice_picking_incoterm.yml',
+        'test/stock_picking_invoicing_incoterm.yml',
     ],
     'installable': True
 }
