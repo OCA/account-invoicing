@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* stock_invoice_picking_incoterm_sale
+#	* stock_picking_invoicing_incoterm_sale
 #
 msgid ""
 msgstr ""
@@ -15,13 +15,13 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: stock_invoice_picking_incoterm_sale
-#: model:ir.model,name:stock_invoice_picking_incoterm_sale.model_sale_order
+#. module: stock_picking_invoicing_incoterm_sale
+#: model:ir.model,name:stock_picking_invoicing_incoterm_sale.model_sale_order
 msgid "Sales Order"
 msgstr "Ordine di vendita"
 
-#. module: stock_invoice_picking_incoterm_sale
-#: model:ir.model,name:stock_invoice_picking_incoterm_sale.model_stock_move
+#. module: stock_picking_invoicing_incoterm_sale
+#: model:ir.model,name:stock_picking_invoicing_incoterm_sale.model_stock_move
 msgid "Stock Move"
 msgstr "Movimento di magazzino"
 

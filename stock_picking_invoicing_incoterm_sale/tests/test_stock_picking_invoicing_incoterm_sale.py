@@ -5,10 +5,10 @@
 from openerp.tests.common import TransactionCase
 
 
-class TestStockInvoicePickingIncotermSale(TransactionCase):
+class TestStockPickingInvoicingIncotermSale(TransactionCase):
 
     def setUp(self):
-        super(TestStockInvoicePickingIncotermSale, self).setUp()
+        super(TestStockPickingInvoicingIncotermSale, self).setUp()
 
         self.so = self.env['sale.order'].create({
             'partner_id': self.ref('base.res_partner_3'),
