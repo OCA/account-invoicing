@@ -107,7 +107,7 @@ class AccountInvoiceSplit(models.TransientModel):
                 line.origin_invoice_line_id.quantity -= line.quantity_to_split
                 # Unlink origin invoice line if quantity is equal to zero
                 if line.origin_invoice_line_id.quantity == 0.0:
-                    line.origin_invoice_line_id.unlink()
+                    line.origin_invoice_line_id.sudo().unlink()
                 invoice_lines.append((4, new_invoice_line.id))
         new_invoice = self._create_invoice(invoice_to_split, invoice_lines)
         return new_invoice.id
