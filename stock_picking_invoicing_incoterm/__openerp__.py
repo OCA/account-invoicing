@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2014 Agile Business Group sagl
+#    Copyright (C) 2014-15 Agile Business Group sagl
 #    (<http://www.agilebg.com>)
-#    @author Alex Comba <alex.comba@agilebg.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -20,28 +19,21 @@
 #
 ##############################################################################
 {
-    'name': "Stock Invoice Picking Incoterm",
-    'version': '0.1',
+    'name': "Stock Picking Invoicing Incoterm",
+    'version': '8.0.1.0.0',
     'category': 'Warehouse Management',
-    'description': """
-This module adds the field incoterm to invoice and picking. In this way the
-user can specify the incoterm directly on these documents, with no need to
-refer to the incoterm of the order (which could even be missing).
-The module extends 'stock_invoice_picking' so that the invoices created
-from pickings will have the same incoterm set in the picking.
-""",
-    'author': "Agile Business Group,Odoo Community Association (OCA)",
+    'author': "Agile Business Group, Odoo Community Association (OCA)",
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
     'depends': [
-        'stock_invoice_picking',
+        'stock_picking_invoicing',
     ],
     'data': [
         'account_invoice_view.xml',
         'stock_view.xml',
     ],
     'test': [
-        'test/invoice_picking_incoterm.yml',
+        'test/stock_picking_invoicing_incoterm.yml',
     ],
-    'installable': False
+    'installable': True
 }

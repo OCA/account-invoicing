@@ -1,6 +1,6 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* stock_invoice_picking_incoterm
+#	* stock_picking_invoicing_incoterm
 #
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: stock_invoice_picking_incoterm
+#. module: stock_picking_invoicing_incoterm
 #: field:account.invoice,incoterm:0
 #: field:stock.picking,incoterm:0
 #: field:stock.picking.in,incoterm:0
@@ -23,27 +23,27 @@ msgstr ""
 msgid "Incoterm"
 msgstr ""
 
-#. module: stock_invoice_picking_incoterm
-#: model:ir.model,name:stock_invoice_picking_incoterm.model_stock_picking_in
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model,name:stock_picking_invoicing_incoterm.model_stock_picking_in
 msgid "Incoming Shipments"
 msgstr ""
 
-#. module: stock_invoice_picking_incoterm
-#: model:ir.model,name:stock_invoice_picking_incoterm.model_account_invoice
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model,name:stock_picking_invoicing_incoterm.model_account_invoice
 msgid "Invoice"
 msgstr ""
 
-#. module: stock_invoice_picking_incoterm
-#: model:ir.model,name:stock_invoice_picking_incoterm.model_stock_picking
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model,name:stock_picking_invoicing_incoterm.model_stock_picking
 msgid "Picking List"
 msgstr ""
 
-#. module: stock_invoice_picking_incoterm
-#: model:ir.model,name:stock_invoice_picking_incoterm.model_stock_picking_out
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model,name:stock_picking_invoicing_incoterm.model_stock_picking_out
 msgid "Delivery Orders"
 msgstr ""
 
-#. module: stock_invoice_picking_incoterm
+#. module: stock_picking_invoicing_incoterm
 #: help:account.invoice,incoterm:0
 #: help:stock.picking,incoterm:0
 #: help:stock.picking.in,incoterm:0
