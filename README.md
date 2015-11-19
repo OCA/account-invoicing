@@ -36,6 +36,7 @@ addon | version | summary
 [account_payment_term_extension](account_payment_term_extension/) | 8.0.1.0.0 | Adds rounding, months and weeks properties on payment term lines
 [invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
 [stock_picking_invoicing](stock_picking_invoicing/) | 8.0.1.0.0 | Stock Picking Invoicing
+[stock_picking_invoicing_incoterm](stock_picking_invoicing_incoterm/) | 8.0.1.0.0 | Stock Picking Invoicing Incoterm
 
 Unported addons
 ---------------
@@ -45,7 +46,6 @@ addon | version | summary
 [account_invoice_template](account_invoice_template/) | 0.1 (unported) | Account Invoice Template
 [product_customer_code_invoice](product_customer_code_invoice/) | 1.0 (unported) | Product Customer code for account invoice
 [sale_order_partial_invoice](sale_order_partial_invoice/) | 1.1 (unported) | Sale Partial Invoice
-[stock_invoice_picking_incoterm](stock_invoice_picking_incoterm/) | 0.1 (unported) | Stock Invoice Picking Incoterm
 
 [//]: # (end addons)
 
