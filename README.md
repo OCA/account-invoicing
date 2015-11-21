@@ -37,6 +37,7 @@ addon | version | summary
 [invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
 [stock_picking_invoicing](stock_picking_invoicing/) | 8.0.1.0.0 | Stock Picking Invoicing
 [stock_picking_invoicing_incoterm](stock_picking_invoicing_incoterm/) | 8.0.1.0.0 | Stock Picking Invoicing Incoterm
+[stock_picking_invoicing_incoterm_sale](stock_picking_invoicing_incoterm_sale/) | 8.0.1.0.0 | Copy incoterm from sale to invoice and to picking
 
 Unported addons
 ---------------
