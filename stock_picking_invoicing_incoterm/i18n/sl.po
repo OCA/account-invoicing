@@ -3,20 +3,20 @@
 # * stock_picking_invoicing_incoterm
 # 
 # Translators:
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-21 01:41+0000\n"
-"PO-Revision-Date: 2015-11-18 14:35+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/es/)\n"
+"PO-Revision-Date: 2015-11-19 06:06+0000\n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #. module: stock_picking_invoicing_incoterm
 #: field:account.invoice,incoterm:0 field:stock.picking,incoterm:0
@@ -28,14 +28,14 @@ msgstr "Incoterm"
 msgid ""
 "International Commercial Terms are a series of predefined commercial terms "
 "used in international transactions."
-msgstr "Los términos de comercio internacional son una serie de condiciones comerciales usadas en las transacciones internacionales."
+msgstr "Incoterms oz. mednarodni komercialni izrazi so serija v naprej določenih komercialnih izrazov, ki se uporabljajo pri mednarodnih transakcijah."
 
 #. module: stock_picking_invoicing_incoterm
 #: model:ir.model,name:stock_picking_invoicing_incoterm.model_account_invoice
 msgid "Invoice"
-msgstr "Factura"
+msgstr "Račun"
 
 #. module: stock_picking_invoicing_incoterm
 #: model:ir.model,name:stock_picking_invoicing_incoterm.model_stock_picking
 msgid "Picking List"
-msgstr "Albarán"
+msgstr "Zbirni seznam"

@@ -3,13 +3,14 @@
 # * account_invoice_line_sort
 # 
 # Translators:
+# Rudolf Schnapka <rs@techno-flex.de>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-06-03 04:59+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2015-11-21 01:40+0000\n"
+"PO-Revision-Date: 2015-11-24 09:34+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
 "Language-Team: German (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,29 +21,29 @@ msgstr ""
 #. module: account_invoice_line_sort
 #: selection:account.invoice,line_order:0 selection:res.partner,line_order:0
 msgid "Amount"
-msgstr ""
+msgstr "Betrag"
 
 #. module: account_invoice_line_sort
 #: selection:account.invoice,line_order_direction:0
 #: selection:res.partner,line_order_direction:0
 msgid "Ascending"
-msgstr ""
+msgstr "Aufsteigend"
 
 #. module: account_invoice_line_sort
 #: selection:account.invoice,line_order_direction:0
 #: selection:res.partner,line_order_direction:0
 msgid "Descending"
-msgstr ""
+msgstr "Fallend"
 
 #. module: account_invoice_line_sort
 #: selection:account.invoice,line_order:0 selection:res.partner,line_order:0
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #. module: account_invoice_line_sort
 #: model:ir.model,name:account_invoice_line_sort.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Rechnung"
 
 #. module: account_invoice_line_sort
 #: model:ir.model,name:account_invoice_line_sort.model_account_invoice_line
@@ -52,30 +53,30 @@ msgstr "Rechnungsposition"
 #. module: account_invoice_line_sort
 #: model:ir.model,name:account_invoice_line_sort.model_res_partner
 msgid "Partner"
-msgstr ""
+msgstr "Partner"
 
 #. module: account_invoice_line_sort
 #: selection:account.invoice,line_order:0 selection:res.partner,line_order:0
 msgid "Sequence"
-msgstr ""
+msgstr "Reihenfolge"
 
 #. module: account_invoice_line_sort
 #: field:account.invoice,line_order_direction:0
 #: field:res.partner,line_order_direction:0
 msgid "Sort Direction"
-msgstr ""
+msgstr "Sortierung"
 
 #. module: account_invoice_line_sort
 #: field:res.partner,line_order:0
 msgid "Sort Invoice Lines By"
-msgstr ""
+msgstr "Sortiere Rechnungspositionen nach"
 
 #. module: account_invoice_line_sort
 #: field:account.invoice,line_order:0
 msgid "Sort Lines By"
-msgstr ""
+msgstr "Positionen sortieren nach"
 
 #. module: account_invoice_line_sort
 #: selection:account.invoice,line_order:0 selection:res.partner,line_order:0
 msgid "Unit Price"
-msgstr ""
+msgstr "Einzelpreis"
