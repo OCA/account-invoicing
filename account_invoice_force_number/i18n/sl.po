@@ -3,13 +3,13 @@
 # * account_invoice_force_number
 # 
 # Translators:
-# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-08-16 11:39+0000\n"
+"POT-Creation-Date: 2016-04-14 03:03+0000\n"
+"PO-Revision-Date: 2016-04-10 06:23+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+
+#. module: account_invoice_force_number
+#: model:res.groups,name:account_invoice_force_number.group_allow_invoice_force_number
+msgid "Allow \"Invoice Force Number\""
+msgstr "Omogoči vsiljevanje številke računa"
 
 #. module: account_invoice_force_number
 #: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
@@ -36,6 +41,12 @@ msgstr "Vsili številko računa. Uporabite to polje, če ne želite uporabiti pr
 #: model:ir.model,name:account_invoice_force_number.model_account_invoice
 msgid "Invoice"
 msgstr "Račun"
+
+#. module: account_invoice_force_number
+#: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
+#: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
+msgid "account_invoice_force_number.group_allow_invoice_force_number"
+msgstr "account_invoice_force_number.group_allow_invoice_force_number"
 
 #. module: account_invoice_force_number
 #: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number

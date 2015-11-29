@@ -3,27 +3,30 @@
 # * account_invoice_force_number
 # 
 # Translators:
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014
-# Javier García-Panach <panaka7@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-04 01:38+0000\n"
-"PO-Revision-Date: 2016-02-16 16:21+0000\n"
-"Last-Translator: Javier García-Panach <panaka7@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/es/)\n"
+"POT-Creation-Date: 2016-12-28 09:48+0000\n"
+"PO-Revision-Date: 2016-12-27 08:23+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. module: account_invoice_force_number
+#: model:res.groups,name:account_invoice_force_number.group_allow_invoice_force_number
+msgid "Allow \"Invoice Force Number\""
+msgstr ""
 
 #. module: account_invoice_force_number
 #: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
 #: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
 msgid "Force Number"
-msgstr "Forzar número"
+msgstr ""
 
 #. module: account_invoice_force_number
 #: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
@@ -31,15 +34,21 @@ msgstr "Forzar número"
 msgid ""
 "Force invoice number. Use this field if you don't want to use the default "
 "numbering"
-msgstr "Forzar número de factura. Utilice este campo si no quiere usar la numeración por defecto"
+msgstr ""
 
 #. module: account_invoice_force_number
 #: model:ir.model,name:account_invoice_force_number.model_account_invoice
 msgid "Invoice"
-msgstr "Factura"
+msgstr "Sąskaita faktūra"
+
+#. module: account_invoice_force_number
+#: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
+#: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
+msgid "account_invoice_force_number.group_allow_invoice_force_number"
+msgstr ""
 
 #. module: account_invoice_force_number
 #: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
 #: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
 msgid "{'invisible': [('state', '!=', 'draft')]}"
-msgstr "{'invisible': [('estado', '!=', 'borrador')]}"
+msgstr ""
