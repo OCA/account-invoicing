@@ -36,6 +36,7 @@
     'depends': [
         'account_invoice_split',
         'purchase',
+        'base_suspend_security',
     ],
     'auto_install': True,
 }

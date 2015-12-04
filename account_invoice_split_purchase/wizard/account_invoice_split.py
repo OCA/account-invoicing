@@ -33,13 +33,15 @@ class AccountInvoiceSplit(models.TransientModel):
     def _split_invoice(self):
         new_invoice_id = super(AccountInvoiceSplit, self)._split_invoice()
         invoice = self.env['account.invoice'].browse([new_invoice_id])[0]
+        self = self.suspend_security()
         po_ids = set([])
-        for line in invoice.invoice_line:
+        for line in invoice.suspend_security().invoice_line:
             if line.purchase_line_id.id:
                 po_ids.add(line.purchase_line_id.order_id.id)
                 # Link purchase line with the new invoice line
                 line.purchase_line_id.invoice_lines = [(4, line.id)]
-        purchase_orders = self.env['purchase.order'].browse(list(po_ids))
+        purchase_orders =\
+            self.suspend_security().env['purchase.order'].browse(list(po_ids))
         # Link the new invoice with related purchase order
         purchase_orders.write({'invoice_ids': [(4, invoice.id)]})
         return new_invoice_id
@@ -53,5 +55,5 @@ class AccountInvoiceSplitLine(models.TransientModel):
         res = super(AccountInvoiceSplitLine, self)\
             ._get_invoice_line_values()
         res['purchase_line_id'] = \
-            self.origin_invoice_line_id.purchase_line_id.id
+            self.suspend_security().origin_invoice_line_id.purchase_line_id.id
         return res

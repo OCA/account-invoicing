@@ -33,8 +33,9 @@ class AccountInvoiceSplit(models.TransientModel):
     def _create_invoice(self, invoice_to_split, invoice_lines):
         new_invoice = super(AccountInvoiceSplit, self)\
             ._create_invoice(invoice_to_split, invoice_lines)
-        so = self.env['sale.order'].search([('order_line.invoice_lines', 'in',
-                                             new_invoice.invoice_line.ids)])
+        so = self.suspend_security().env['sale.order']\
+            .search([('order_line.invoice_lines', 'in',
+                      new_invoice.invoice_line.ids)])
         so.write({'invoice_ids': [(4, new_invoice.id)]})
         # Reevaluates sale order workflow instance
         so.step_workflow()
@@ -48,7 +49,7 @@ class AccountInvoiceSplitLine(models.TransientModel):
     def _create_invoice_line(self):
         new_invoice_line = \
             super(AccountInvoiceSplitLine, self)._create_invoice_line()
-        so_lines = self.env['sale.order.line']\
+        so_lines = self.suspend_security().env['sale.order.line']\
             .search([('invoice_lines', 'in',
                       [self.origin_invoice_line_id.id])])
         so_lines.write({'invoice_lines': [(4, new_invoice_line.id)]})
