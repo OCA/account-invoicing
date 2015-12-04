@@ -29,6 +29,7 @@ addon | version | summary
 [account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.0.0 | Add partner pricelist on invoices
 [account_invoice_rounding](account_invoice_rounding/) | 8.0.1.0.0 | Unit rounded invoice
 [account_invoice_shipping_address](account_invoice_shipping_address/) | 8.0.0.1.1 | Adds a shipping address field to the invoice.
+[account_invoice_supplier_number_info](account_invoice_supplier_number_info/) | 8.0.1.0.0 | Allows to force invoice numbering on specific invoices
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 8.0.1.1.0 | Checks that supplier invoices are not entered twice
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 | Unit of measure for invoices
 [account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.0 | Add "To Send" and "To Validate" states in Invoices
