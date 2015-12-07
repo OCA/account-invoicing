@@ -66,6 +66,9 @@ class invoice_merge(models.TransientModel):
                 if d['journal_id'] != invs[0]['journal_id']:
                     raise exceptions.Warning(
                         _('Not all invoices are at the same journal!'))
+                if d['user_id'] != invs[0]['user_id']:
+                    raise exceptions.Warning(
+                        _('Not all invoices are by the same user!'))
         return {}
 
     @api.model
