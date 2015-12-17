@@ -1,11 +1,11 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :alt: License: AGPL-3
 
-====================================
-Sale order line gross price subtotal
-====================================
+=========================================
+Account invoice line gross price subtotal
+=========================================
 
-This module adds a new field 'price_subtotal_gross' to sale order line and
+This module adds a new field 'price_subtotal_gross' to account invoice line and
 customizes the view to replace 'price_subtotal' with 'price_subtotal_gross'.
 This is mostly to customize what is displayed in the client to customer
 requirements. The behaviour of price_subtotal is not changed.
