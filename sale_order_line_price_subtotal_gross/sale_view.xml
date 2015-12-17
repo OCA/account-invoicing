@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_sale_order_line_price_subtotal_gross" model="ir.ui.view">
+            <field name="name">sale.order.line.price.subtotal.gross</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='order_line']//field[@name='price_subtotal']" position="replace">
+                    <field name="price_subtotal_gross"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>
