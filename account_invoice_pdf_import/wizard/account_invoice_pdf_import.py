@@ -24,6 +24,10 @@ from openerp import models, fields, api, _
 from datetime import datetime
 from openerp.exceptions import Warning as UserError
 import logging
+import os
+import base64
+from tempfile import mkstemp
+from invoice2data.main import extract_data
 
 logger = logging.getLogger(__name__)
 
@@ -38,25 +42,35 @@ class AccountInvoicePdfImport(models.TransientModel):
 
     @api.model
     def parse_invoice(self):
+        fd, file_name = mkstemp()
+        try:
+            os.write(fd, base64.decodestring(self.pdf_file))
+        finally:
+            os.close(fd)
+        res = extract_data(file_name)
+        print "res=", res
+        return res
         return {
             # 'currency_iso': 'EUR',
             'currency_symbol': u'€',  # The one or the other
-            'date_invoice': datetime.strptime('2015-10-08', '%Y-%m-%d'),
+            'date': datetime.strptime('2015-10-08', '%Y-%m-%d'),
             # must be in datetime
             'date_due': datetime.strptime('2015-11-07', '%Y-%m-%d'),
-            'total_untaxed': 10.0,
+            # OLD 'total_untaxed': 10.0,
+            'amount_untaxed': 10.0,
             'total_tax': 2.0,
-            'total_with_taxes': 12.0,
-            'supplier_vat': 'FR15448819680',
-            'supplier_siren': '448819680',
-            'supplier_invoice_number': 'I1501243',
+            # OLD 'total_with_taxes': 12.0,
+            'amount': 12.0,
+            'vat': 'FR15448819680',
+            'siren': '448819680',
+            'invoice_number': 'I1501243',
             'description': 'TGV Paris-Lyon',
         }
 
     @api.model
     def _select_partner(self, parsed_inv):
-        if parsed_inv.get('supplier_vat'):
-            vat = parsed_inv['supplier_vat'].replace(' ', '')
+        if parsed_inv.get('vat'):
+            vat = parsed_inv['vat'].replace(' ', '')
             partners = self.env['res.partner'].search([
                 ('supplier', '=', True),
                 ('is_company', '=', True),
@@ -83,12 +97,12 @@ class AccountInvoicePdfImport(models.TransientModel):
             'type': 'in_invoice',
             'company_id': company.id,
             'supplier_invoice_number':
-            parsed_inv.get('supplier_invoice_number'),
-            'date_invoice': parsed_inv.get('date_invoice'),
+            parsed_inv.get('invoice_number'),
+            'date_invoice': parsed_inv.get('date'),
             'journal_id':
             aio.with_context(type='in_invoice')._default_journal().id,
             'invoice_line': [],
-            'check_total': parsed_inv.get('total_with_taxes'),
+            'check_total': parsed_inv.get('amount'),
             }
         currency = False
         if parsed_inv.get('currency_iso'):
@@ -130,7 +144,7 @@ class AccountInvoicePdfImport(models.TransientModel):
                 'account_id': config.account_id.id,
                 'account_analytic_id': config.account_analytic_id.id or False,
                 'invoice_line_tax_id': config.tax_ids.ids or False,
-                'price_unit': parsed_inv.get('total_untaxed'),
+                'price_unit': parsed_inv.get('amount_untaxed'),
                 }
         elif config.invoice_line_method == 'static_product':
             product = config.static_product_id
@@ -141,7 +155,7 @@ class AccountInvoicePdfImport(models.TransientModel):
                 company_id=company.id)['value']
             il_vals.update({
                 'product_id': product.id,
-                'price_unit': parsed_inv.get('total_untaxed'),
+                'price_unit': parsed_inv.get('amount_untaxed'),
                 })
             if config.account_analytic_id:
                 il_vals['account_analytic_id'] = config.account_analytic_id.id
@@ -157,12 +171,12 @@ class AccountInvoicePdfImport(models.TransientModel):
         '''For the moment, we only take into account the 'price_include'
         option of the first tax'''
         il_vals['quantity'] = 1
-        il_vals['price_unit'] = parsed_inv.get('total_with_taxes')
+        il_vals['price_unit'] = parsed_inv.get('amount')
         if il_vals.get('invoice_line_tax_id'):
             first_tax = self.env['account.tax'].browse(
                 il_vals['invoice_line_tax_id'][0])
             if not first_tax.price_include:
-                il_vals['price_unit'] = parsed_inv.get('total_untaxed')
+                il_vals['price_unit'] = parsed_inv.get('amount_untaxed')
 
     @api.multi
     def import_invoice(self):
