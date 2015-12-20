@@ -31,7 +31,7 @@
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
     'depends': ['account'],
-    'external_dependencies': {'python': ['pdfminer']},
+    'external_dependencies': {'python': ['invoice2data']},
     'data': [
         'security/ir.model.access.csv',
         'account_invoice_import_config_view.xml',
