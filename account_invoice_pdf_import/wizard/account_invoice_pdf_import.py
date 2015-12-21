@@ -21,8 +21,9 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
-from datetime import datetime
+from openerp.tools import float_compare
 from openerp.exceptions import Warning as UserError
+from datetime import datetime
 import logging
 import os
 import base64
@@ -53,6 +54,10 @@ class AccountInvoicePdfImport(models.TransientModel):
             raise UserError(_(
                 "PDF Invoice parsing failed."))
         logger.info('Result of invoice2data PDF extraction: %s', res)
+        prec = self.env['decimal.precision'].precision_get('Account')
+        for entry in ['amount_untaxed', 'amount']:
+            if res.get(entry):
+                res[entry] = round(res[entry], prec)
         return res
         return {
             # 'currency_iso': 'EUR',
@@ -60,13 +65,9 @@ class AccountInvoicePdfImport(models.TransientModel):
             'date': datetime.strptime('2015-10-08', '%Y-%m-%d'),
             # must be in datetime
             'date_due': datetime.strptime('2015-11-07', '%Y-%m-%d'),
-            # OLD 'total_untaxed': 10.0,
             'amount_untaxed': 10.0,
-            'total_tax': 2.0,
-            # OLD 'total_with_taxes': 12.0,
-            'amount': 12.0,
-            'vat': 'FR15448819680',
-            'siren': '448819680',
+            'amount': 12.0,  # Total with taxes
+            'vat': 'FR25499247138',
             'invoice_number': 'I1501243',
             'description': 'TGV Paris-Lyon',
         }
@@ -197,7 +198,24 @@ class AccountInvoicePdfImport(models.TransientModel):
         invoice = aio.create(vals)
         invoice.button_reset_taxes()
 
-        # Force tax amount, cf ovh
+        # Force tax amount if necessary
+        prec = self.env['decimal.precision'].precision_get('Account')
+        if (
+                parsed_inv.get('amount') and
+                parsed_inv.get('amount_untaxed') and
+                float_compare(
+                    invoice.amount_total,
+                    parsed_inv['amount'],
+                    precision_digits=prec)):
+            assert invoice.tax_line, 'Invoice has no tax line'
+            initial_tax_amount = invoice.tax_line[0].amount
+            tax_amount = parsed_inv['amount'] - parsed_inv['amount_untaxed']
+            invoice.tax_line[0].amount = tax_amount
+            cur_symbol = invoice.currency_id.symbol
+            invoice.message_post(
+                'The total tax amount has been forced to %s %s '
+                '(amount computed by Odoo was: %s %s).'
+                % (tax_amount, cur_symbol, initial_tax_amount, cur_symbol))
         # Attach PDF to invoice
         self.env['ir.attachment'].create({
             'name': self.pdf_filename,
