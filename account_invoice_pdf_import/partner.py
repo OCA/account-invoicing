@@ -28,4 +28,5 @@ class ResPartner(models.Model):
 
     invoice_import_id = fields.Many2one(
         'account.invoice.import.config',
-        string='Invoice Import Configuration')
+        string='Invoice Import Configuration',
+        company_dependent=True)
