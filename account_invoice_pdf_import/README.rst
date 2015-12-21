@@ -15,6 +15,11 @@ In the future, we hope we will have structured information embedded inside the m
 
 For example, there is already a standard in Germany called `ZUGFeRD <http://www.pdflib.com/knowledge-base/pdfa/zugferd-invoices/>`_ which is based on CII.
 
+Installation
+============
+
+This module requires the Python lib *invoice2data* available on Github. The main project is `here <https://github.com/manuelRiel/invoice2data>`, but for the moment you should get Akretion's version available `here <https://github.com/akretion/invoice2data/tree/odoo-pdf-import>`.
+
 Configuration
 =============
 
