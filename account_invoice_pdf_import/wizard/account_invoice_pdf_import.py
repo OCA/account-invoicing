@@ -47,8 +47,12 @@ class AccountInvoicePdfImport(models.TransientModel):
             os.write(fd, base64.decodestring(self.pdf_file))
         finally:
             os.close(fd)
-        res = extract_data(file_name)
-        print "res=", res
+        try:
+            res = extract_data(file_name)
+        except:
+            raise UserError(_(
+                "PDF Invoice parsing failed."))
+        logger.info('Result of invoice2data PDF extraction: %s', res)
         return res
         return {
             # 'currency_iso': 'EUR',
@@ -85,7 +89,10 @@ class AccountInvoicePdfImport(models.TransientModel):
                     "supplier VAT number. But there are no supplier "
                     "with this VAT number and with an "
                     "Invoice Import Configuration in Odoo.") % vat)
-        return self.env.ref('base.res_partner_1')
+        else:
+            raise UserError(_(
+                "PDF Invoice parsing didn't return the VAT number of the "
+                "supplier."))
 
     @api.model
     def _prepare_invoice_vals(self, parsed_inv, partner):
