@@ -14,6 +14,7 @@
     <field name="arch"  type="xml">
         <form string="Account Invoice Import Configuration">
             <group name="main">
+                <field name="name"/>
                 <field name="company_id" groups="base.group_multi_company"/>
                 <field name="active"/>
             </group>
@@ -26,6 +27,8 @@
                     groups="analytic.group_analytic_accounting"/>
                 <field name="tax_ids"
                     widget="many2many_tags"
+                    attrs="{'invisible': [('invoice_line_method', '!=', 'no_product')]}"/>
+                <field name="label"
                     attrs="{'invisible': [('invoice_line_method', '!=', 'no_product')]}"/>
                 <field name="static_product_id"
                     attrs="{'invisible': [('invoice_line_method', '!=', 'static_product')], 'required': [('invoice_line_method', '=', 'static_product')]}"/>
@@ -43,9 +46,9 @@
     <field name="model">account.invoice.import.config</field>
     <field name="arch"  type="xml">
         <tree string="Account Invoice Import Configurations">
+            <field name="name"/>
             <field name="company_id" groups="base.group_multi_company"/>
             <field name="invoice_line_method"/>
-            <field name="partner_ids"/>
         </tree>
     </field>
 </record>

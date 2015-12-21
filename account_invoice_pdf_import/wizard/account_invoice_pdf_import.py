@@ -139,7 +139,7 @@ class AccountInvoicePdfImport(models.TransientModel):
         config = partner.invoice_import_id
         if config.invoice_line_method == 'no_product':
             il_vals = {
-                'name':
+                'name': config.label or
                 parsed_inv.get('description', _('MISSING DESCRIPTION')),
                 'account_id': config.account_id.id,
                 'account_analytic_id': config.account_analytic_id.id or False,

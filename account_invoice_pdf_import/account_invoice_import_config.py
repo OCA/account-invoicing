@@ -21,7 +21,6 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
-# from openerp.exceptions import Warning as UserError
 from openerp.exceptions import ValidationError
 
 
@@ -29,6 +28,7 @@ class AccountInvoiceImportConfig(models.Model):
     _name = 'account.invoice.import.config'
     _description = 'Configuration for the import of Supplier Invoice'
 
+    name = fields.Char(string='Name', required=True)
     partner_ids = fields.One2many(
         'res.partner', 'invoice_import_id',
         string='Partners')
@@ -50,6 +50,8 @@ class AccountInvoiceImportConfig(models.Model):
     account_analytic_id = fields.Many2one(
         'account.analytic.account', string='Analytic Account',
         domain=[('type', '!=', 'view')])
+    label = fields.Char(
+        string='Force Description', help="Force invoice line description")
     tax_ids = fields.Many2many(
         'account.tax', string='Taxes',
         domain=[('type_tax_use', 'in', ('all', 'purchase'))])
