@@ -76,20 +76,22 @@ class AccountInvoicePdfImport(models.TransientModel):
     def _select_partner(self, parsed_inv):
         if parsed_inv.get('vat'):
             vat = parsed_inv['vat'].replace(' ', '')
-            partners = self.env['res.partner'].search([
-                ('supplier', '=', True),
-                ('is_company', '=', True),
-                ('vat', '=', vat),
-                ('invoice_import_id', '!=', False),
-                ])
-            if partners:
-                return partners[0]
+            # Match even if the VAT number has spaces in Odoo
+            self._cr.execute(
+                """SELECT id FROM res_partner
+                WHERE supplier=true
+                AND is_company=true
+                AND replace(vat, ' ', '') = %s""",
+                (vat, ))
+            res = self._cr.fetchall()
+            if res:
+                partner_id = res[0][0]
+                return self.env['res.partner'].browse(partner_id)
             else:
                 raise UserError(_(
                     "The analysis of the PDF invoice returned '%s' as "
                     "supplier VAT number. But there are no supplier "
-                    "with this VAT number and with an "
-                    "Invoice Import Configuration in Odoo.") % vat)
+                    "with this VAT number in Odoo.") % vat)
         else:
             raise UserError(_(
                 "PDF Invoice parsing didn't return the VAT number of the "
@@ -193,6 +195,10 @@ class AccountInvoicePdfImport(models.TransientModel):
         aio = self.env['account.invoice']
         parsed_inv = self.parse_invoice()
         partner = self._select_partner(parsed_inv)
+        if not partner.invoice_import_id:
+            raise UserError(_(
+                "Missing Invoice Import Configuration on partner %s")
+                % partner.name)
         vals = self._prepare_invoice_vals(
             parsed_inv, partner)
         invoice = aio.create(vals)
