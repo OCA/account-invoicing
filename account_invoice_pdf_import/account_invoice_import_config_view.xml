@@ -21,17 +21,16 @@
             <group string="Accounting Parameters" name="accounting">
                 <field name="invoice_line_method"/>
                 <field name="account_id"
-                    attrs="{'invisible': [('invoice_line_method', '!=', 'no_product')], 'required': [('invoice_line_method', '=', 'no_product')]}"/>
-                <field name="account_analytic_id"
-                    attrs="{'invisible': [('invoice_line_method', '!=', 'no_product')]}"
-                    groups="analytic.group_analytic_accounting"/>
+                    attrs="{'invisible': [('invoice_line_method', 'not in', ('1line_no_product', 'nline_no_product'))], 'required': [('invoice_line_method', 'in', ('1line_no_product', 'nline_no_product'))]}"/>
                 <field name="tax_ids"
                     widget="many2many_tags"
-                    attrs="{'invisible': [('invoice_line_method', '!=', 'no_product')]}"/>
-                <field name="label"
-                    attrs="{'invisible': [('invoice_line_method', '!=', 'no_product')]}"/>
+                    attrs="{'invisible': [('invoice_line_method', 'not in', ('1line_no_product', 'nline_no_product'))]}"/>
                 <field name="static_product_id"
-                    attrs="{'invisible': [('invoice_line_method', '!=', 'static_product')], 'required': [('invoice_line_method', '=', 'static_product')]}"/>
+                    attrs="{'invisible': [('invoice_line_method', 'not in', ('1line_static_product', 'nline_static_product'))], 'required': [('invoice_line_method', 'in', ('1line_static_product', 'nline_static_product'))]}"/>
+                <field name="account_analytic_id"
+                    groups="analytic.group_analytic_accounting"/>
+                <field name="label"
+                    attrs="{'invisible': [('invoice_line_method', 'not in', ('1line_no_product', '1line_static_product'))]}"/>
             </group>
             <group name="partner" string="Partners">
                 <field name="partner_ids" nolabel="1"
