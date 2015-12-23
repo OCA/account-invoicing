@@ -12,14 +12,19 @@
     <field name="name">account.invoice.pdf.import.form</field>
     <field name="model">account.invoice.pdf.import</field>
     <field name="arch"  type="xml">
-        <form string="Import Supplier PDF Invoice">
+        <form string="Import Supplier Invoice or Refund as PDF">
+            <group name="help">
+                <label colspan="2" string="Select your supplier invoice or refund as PDF file. When you run the import:"/>
+                <label colspan="2" string="1. Odoo will try to extract an XML file embedded inside the PDF file. It will work only if the invoice complies with the ZUGFeRD standard (an implementation of the Core Industry Invoice specifications). If it find one, it will use this information to create a draft supplier invoice or refund (or update an existing draft invoice/refund)"/>
+                <label colspan="2" string="2. Otherwise, Odoo will use the invoice2data library to read the text of the PDF and get the information. It will work only if the invoice2data library has a template for the invoices of that supplier."/>
+            </group>
             <group name="main">
                 <field name="pdf_file" filename="pdf_filename"/>
                 <field name="pdf_filename" invisible="1"/>
             </group>
             <footer>
                 <button name="import_invoice" type="object"
-                    class="oe_highlight" string="Import Invoice"/>
+                    class="oe_highlight" string="Import"/>
                 <button special="cancel" string="Cancel" class="oe_link"/>
             </footer>
         </form>
@@ -27,7 +32,7 @@
 </record>
 
 <record id="account_invoice_pdf_import_action" model="ir.actions.act_window">
-    <field name="name">Import PDF Invoices</field>
+    <field name="name">Import PDF Invoice</field>
     <field name="res_model">account.invoice.pdf.import</field>
     <field name="view_mode">form</field>
     <field name="target">new</field>
