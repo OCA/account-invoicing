@@ -6,14 +6,24 @@
 Account Invoice PDF Import
 ==========================
 
-This module has been started by lazy accounting users who hate enter they supplier invoices manually in Odoo. As ERP consultants, we have a number of supplier invoices to enter regularly in the system from the same suppliers : phone bill, Internet access, train tickets. Most of these invoices are available as PDF. We dream that we would be able to automatically extract from the PDF the required information to enter the invoice as supplier invoice in Odoo.
+This module has been started by lazy accounting users who hate enter they supplier invoices manually in Odoo. As ERP consultants, we have a number of supplier invoices to enter regularly in the system from the same suppliers : phone bill, Internet access, train tickets, etc. Most of these invoices are available as PDF. We dream that we would be able to automatically extract from the PDF the required information to enter the invoice as supplier invoice in Odoo.
 
-In the future, we hope we will have structured information embedded inside the metadata of PDF invoices. There are 2 main standards for electronic invoicing :
+In the future, we believe we will have structured information embedded inside the metadata of PDF invoices. There are 2 main standards for electronic invoicing :
 
 * `CII <>`_ (Cross-Industry Invoice) developped by `UN/CEFACT <http://www.unece.org/cefact>`_ United Nations Centre for Trade Facilitation and Electronic Business
 * `UBL <http://ubl.xml.org/>`_ (Universal Business Language) developped by `OASIS <https://www.oasis-open.org/>`_ (Organization for the Advancement of Structured Information Standards)
 
 For example, there is already a standard in Germany called `ZUGFeRD <http://www.pdflib.com/knowledge-base/pdfa/zugferd-invoices/>`_ which is based on CII.
+
+Here is how the module works:
+
+* the user starts a wizard and uploads the PDF invoice,
+* if the PDF file has an embedded XML file, Odoo will read this file,
+* otherwise, Odoo will use the *invoice2data* Python lib to try to interpret the text of the PDF,
+* if there is already some draft supplier invoice for this supplier, propose to select one to update or create a new invoice
+* create the draft supplier invoice and show it to the user, so that he can verify and then validate.
+
+This module also works with supplier refunds.
 
 Installation
 ============

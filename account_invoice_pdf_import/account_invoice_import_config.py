@@ -34,11 +34,17 @@ class AccountInvoiceImportConfig(models.Model):
         string='Partners')
     active = fields.Boolean(default=True)
     invoice_line_method = fields.Selection([
-        ('static_product', 'Static Product'),
-        ('auto_product', 'Auto-selected Product'),
-        ('no_product', 'Without Product'),
+        ('1line_no_product', 'Single Line, No Product'),
+        ('1line_static_product', 'Single Line, Static Product'),
+        ('nline_no_product', 'Multi Line, No Product'),
+        ('nline_static_product', 'Multi Line, Static Product'),
+        ('nline_auto_product', 'Multi Line, Auto Product'),
         ], string='Method for Invoice Line', required=True,
-        default='no_product')
+        default='no_product',
+        help="The multi-line methods will only work for PDF invoices "
+        "that have an embedded XML file (which is not very common today). "
+        "The 'Multi Line, Auto Product' method will only work with ZUGFeRD "
+        "at Comfort or Extended level, not at Basic level.")
     company_id = fields.Many2one(
         'res.company', string='Company',
         ondelete='cascade', required=True,
