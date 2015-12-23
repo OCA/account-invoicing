@@ -37,14 +37,14 @@ import StringIO
 
 logger = logging.getLogger(__name__)
 # TODO : update existing draft invoice
-# TODO : check if already exists
+
 
 class AccountInvoicePdfImport(models.TransientModel):
     _name = 'account.invoice.pdf.import'
-    _description = 'Wizard to import supplier invoices as PDF'
+    _description = 'Wizard to import supplier invoices/refunds as PDF'
 
     pdf_file = fields.Binary(
-        string='Supplier PDF Invoice', required=True)
+        string='PDF Invoice', required=True)
     pdf_filename = fields.Char(string='Filename')
 
     @api.model
@@ -110,6 +110,14 @@ class AccountInvoicePdfImport(models.TransientModel):
             "//ram:ApplicableSupplyChainTradeSettlement"
             "/ram:SpecifiedTradeSettlementMonetarySummation"
             "/ram:TaxBasisTotalAmount", namespaces=namespaces)
+        iban_xpath = xml_root.xpath(
+            "//ram:SpecifiedTradeSettlementPaymentMeans"
+            "/ram:PayeePartyCreditorFinancialAccount"
+            "/ram:IBANID", namespaces=namespaces)
+        bic_xpath = xml_root.xpath(
+            "//ram:SpecifiedTradeSettlementPaymentMeans"
+            "/ram:PayeeSpecifiedCreditorFinancialInstitution"
+            "/ram:BICID", namespaces=namespaces)
         inv_line_xpath = xml_root.xpath(
             "//ram:IncludedSupplyChainTradeLineItem", namespaces=namespaces)
         res_lines = []
@@ -164,6 +172,8 @@ class AccountInvoicePdfImport(models.TransientModel):
             'currency_iso': currency_iso_xpath[0].text,
             'amount_total': float(amount_total_xpath[0].text),
             'amount_untaxed': float(amount_untaxed_xpath[0].text),
+            'iban': iban_xpath and iban_xpath[0].text or False,
+            'bic': bic_xpath and bic_xpath[0].text or False,
             'lines': res_lines,
             }
         logger.info('Result of CII XML parsing: %s', res)
@@ -293,6 +303,27 @@ class AccountInvoicePdfImport(models.TransientModel):
         # Force due date of the invoice
         if parsed_inv.get('date_due'):
             vals['date_due'] = parsed_inv.get('date_due')
+        # Bank info
+        if parsed_inv.get('iban'):
+            iban = parsed_inv.get('iban').replace(' ', '')
+            self._cr.execute(
+                """SELECT id FROM res_partner_bank
+                WHERE replace(acc_number, ' ', '')=%s
+                AND state='iban'
+                AND partner_id=%s
+                """, (iban, vals['partner_id']))
+            rpb_res = self._cr.fetchall()
+            if rpb_res:
+                vals['partner_bank_id'] = rpb_res[0][0]
+            else:
+                partner_bank = self.env['res.partner.bank'].create({
+                    'partner_id': vals['partner_id'],
+                    'state': 'iban',
+                    'acc_number': parsed_inv['iban'],
+                    'bank_bic': parsed_inv.get('bic'),
+                    })
+                vals['partner_bank_id'] = partner_bank.id
+                # TODO : add message
         config = partner.invoice_import_id
         if config.invoice_line_method.startswith('1line'):
             if config.invoice_line_method == '1line_no_product':
@@ -412,9 +443,8 @@ class AccountInvoicePdfImport(models.TransientModel):
         aio = self.env['account.invoice']
         file_data = base64.b64decode(self.pdf_file)
         parsed_inv = {}
-        parsed_inv = self.parse_invoice_with_embedded_xml(file_data)
         try:
-            print "TODO"
+            parsed_inv = self.parse_invoice_with_embedded_xml(file_data)
         except:
             pass
         if not parsed_inv:
@@ -432,6 +462,26 @@ class AccountInvoicePdfImport(models.TransientModel):
         vals = self._prepare_invoice_vals(
             parsed_inv, partner)
         logger.debug('Invoice vals for creation: %s', vals)
+        domain = [
+            ('commercial_partner_id', '=', vals['partner_id']),
+            ('type', '=', vals['type'])]
+        existing_invs = aio.search(
+            domain +
+            [(
+                'supplier_invoice_number',
+                '=ilike',
+                vals['supplier_invoice_number'])])
+        if existing_invs:
+            raise UserError(_(
+                "This invoice has already been created in Odoo. It's "
+                "Supplier Invoice Number is '%s' and it's Odoo number "
+                "is '%s'")
+                % (vals['supplier_invoice_number'], existing_invs[0].number))
+        draft_same_supplier_invs = aio.search(
+            domain + [('state', '=', 'draft')])
+        if draft_same_supplier_invs:
+            action = {}  # TODO
+            return action
         invoice = aio.create(vals)
         invoice.button_reset_taxes()
 
