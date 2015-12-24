@@ -36,8 +36,10 @@
         'security/ir.model.access.csv',
         'account_invoice_import_config_view.xml',
         'wizard/account_invoice_pdf_import_view.xml',
+#        'wizard/account_invoice_pdf_update_view.xml',
         'partner_view.xml',
     ],
-    'demo': [],
+    'test': ['test/free.yml'],
+    'demo': ['demo/demo_data.xml'],
     'installable': True,
 }
