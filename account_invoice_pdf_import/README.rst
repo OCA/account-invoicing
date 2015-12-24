@@ -28,7 +28,13 @@ This module also works with supplier refunds.
 Installation
 ============
 
-This module requires the Python lib *invoice2data* available on Github. The main project is `here <https://github.com/manuelRiel/invoice2data>`, but for the moment you should get Akretion's version available `here <https://github.com/akretion/invoice2data/tree/odoo-pdf-import>`.
+This module requires the Python library *invoice2data* available on Github. The main project is `here <https://github.com/manuelRiel/invoice2data>`, but for the moment you should get Akretion's version available `here <https://github.com/akretion/invoice2data/tree/odoo-pdf-import>`.
+
+To install the right version of the library, run:
+
+```
+sudo pip install git+https://github.com/akretion/invoice2data.git@odoo-pdf-import
+```
 
 Configuration
 =============
