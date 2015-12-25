@@ -33,5 +33,23 @@
     <field name="invoice_import_id" ref="free_import_config"/>
 </record>
 
+<record id="lieferant_import_config" model="account.invoice.import.config">
+    <field name="name">Lieferant</field>
+    <field name="invoice_line_method">nline_no_product</field>
+    <field name="account_id" ref="account.a_expense"/>
+</record>
+
+<record id="lieferant" model="res.partner">
+    <field name="name">Lieferant GmbH</field>
+    <field name="is_company" eval="True"/>
+    <field name="supplier" eval="True"/>
+    <field name="customer" eval="False"/>
+    <field name="street">Lieferantenstraße 20</field>
+    <field name="zip">80333</field>
+    <field name="city">München</field>
+    <field name="country_id" ref="base.de"/>
+    <field name="invoice_import_id" ref="lieferant_import_config"/>
+</record>
+
 </data>
 </openerp>
