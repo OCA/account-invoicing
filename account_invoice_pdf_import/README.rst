@@ -59,11 +59,11 @@ Here are some hints to help you add a template for your supplier:
 
 * Try to run the invoice2data library manually on the sample invoice of Free:
 
-```
-% python -m invoice2data.main invoice2data/test/pdfs/2015-07-02-invoice_free_fiber.pdf
-```
+.. code::
 
-  On the output, you will get first the text of the PDF, then some debug info on the parsing of the invoice and the regexps, and, on the last line, you will have the dict that contain the result of the parsing.
+  % python -m invoice2data.main invoice2data/test/pdfs/2015-07-02-invoice_free_fiber.pdf
+
+On the output, you will get first the text of the PDF, then some debug info on the parsing of the invoice and the regexps, and, on the last line, you will have the dict that contain the result of the parsing.
 
 * if the VAT number of the supplier is present in the text of the PDF invoice, I think it's a good idea to use it as the keyword
 
