@@ -47,6 +47,7 @@
         ], context=context)
     assert len(inv_ids) == 1, 'Supplier draft invoice has not been created'
     inv = self.browse(cr, uid, inv_ids[0], context=context)
+    assert inv.type == 'in_invoice', 'Wrong invoice type'
     assert inv.date_invoice == '2015-07-02', 'Wrong invoice date'
     assert inv.partner_id.id == ref('free'), 'Wrong supplier on invoice'
     assert inv.journal_id.type == 'purchase', 'Wrong journal'
