@@ -22,7 +22,7 @@
 
 from openerp import models, fields, api, _
 import openerp.addons.decimal_precision as dp
-from openerp.tools import float_compare
+from openerp.tools import float_compare, float_round
 from openerp.exceptions import Warning as UserError
 from datetime import datetime
 import logging
@@ -94,16 +94,11 @@ class AccountInvoicePdfImport(models.TransientModel):
     @api.model
     def parse_cii_xml(self, xml_root):
         """Parse Core Industry Invoice XML file"""
-        ns = xml_root.tag
-        assert ns.startswith('{urn:ferd:CrossIndustryDocument:invoice:1p0'),\
+        assert xml_root.tag.startswith(
+            '{urn:ferd:CrossIndustryDocument:invoice:1p0'),\
             'wrong Core Industry Invoice namespace'
-        # TODO : don't hardcode namespace, read it dynamically ?
-        namespaces = {
-            'ram': 'urn:un:unece:uncefact:data:standard:'
-                   'ReusableAggregateBusinessInformationEntity:12',
-            'rsm': 'urn:ferd:CrossIndustryDocument:invoice:1p0',
-            'udt': 'urn:un:unece:uncefact:data:standard:UnqualifiedDataType:15'
-            }
+        namespaces = xml_root.nsmap
+        logger.debug('XML file namespaces=%s', namespaces)
         inv_number_xpath = xml_root.xpath(
             '//rsm:HeaderExchangedDocument/ram:ID', namespaces=namespaces)
         supplier_xpath = xml_root.xpath(
@@ -176,8 +171,6 @@ class AccountInvoicePdfImport(models.TransientModel):
                     namespaces=namespaces)
                 price_subtotal = float(price_subtotal_xpath[0].text)
                 price_unit = price_subtotal / qty
-                if qty < 0 and price_subtotal < 0:
-                    price_unit *= -1
             vals = {
                 'ean13': ean13_xpath and ean13_xpath[0].text or False,
                 'product_code':
@@ -243,7 +236,13 @@ class AccountInvoicePdfImport(models.TransientModel):
         # 'partner_name': 'Capitaine Train'  # Not needed if we have VAT
         # 'invoice_number': 'I1501243',
         # 'description': 'TGV Paris-Lyon',
-        # 'lines': [],
+        # 'lines': [{
+        #       'ean13': '4123456000021',
+        #       'price_unit': 1.45,  # price_unit always positive
+        #       'product_code': 'GZ250',
+        #       'name': 'Gelierzucker Extra 250g',
+        #       'quantity': -2.0,  # < 0 when it's a refund
+        #       }],
         # }
 
     @api.model
@@ -286,21 +285,10 @@ class AccountInvoicePdfImport(models.TransientModel):
         ailo = self.env['account.invoice.line']
         company = self.env.user.company_id
         assert parsed_inv.get('amount_total'), 'Missing amount_total'
-        # TODO : move this code to rounding ?
-        if parsed_inv['amount_total'] < 0:
-            itype = 'in_refund'
-            parsed_inv['amount_total'] *= -1
-            parsed_inv['amount_untaxed'] *= -1
-            if parsed_inv.get('lines'):
-                for line in parsed_inv['lines']:
-                    line['quantity'] *= -1
-                    line['price_unit'] *= -1
-        else:
-            itype = 'in_invoice'
         vals = {
             'partner_id': self.partner_id.id,
             'currency_id': self.currency_id.id,
-            'type': itype,
+            'type': parsed_inv['type'],
             'company_id': company.id,
             'supplier_invoice_number':
             parsed_inv.get('invoice_number'),
@@ -335,7 +323,10 @@ class AccountInvoicePdfImport(models.TransientModel):
                     'bank_bic': parsed_inv.get('bic'),
                     })
                 vals['partner_bank_id'] = partner_bank.id
-                # TODO : add message
+                parsed_inv['chatter_msg'] = _(
+                    "The bank account <b>IBAN %s</b> has been automatically "
+                    "added on the supplier <b>%s</b>") % (
+                        parsed_inv['iban'], self.partner_id.name)
         config = self.partner_id.invoice_import_id
         if config.invoice_line_method.startswith('1line'):
             if config.invoice_line_method == '1line_no_product':
@@ -479,11 +470,8 @@ class AccountInvoicePdfImport(models.TransientModel):
         return currency
 
     @api.multi
-    def import_invoice(self):
+    def parse_invoice(self):
         self.ensure_one()
-        logger.info('Starting to import PDF invoice')
-        aio = self.env['account.invoice']
-        iaao = self.env['ir.actions.act_window']
         file_data = base64.b64decode(self.pdf_file)
         parsed_inv = {}
         try:
@@ -492,11 +480,37 @@ class AccountInvoicePdfImport(models.TransientModel):
             pass
         if not parsed_inv:
             parsed_inv = self.parse_invoice_with_invoice2data(file_data)
-        prec = self.env['decimal.precision'].precision_get('Account')
-        # TODO : also check lines ?
+        prec_ac = self.env['decimal.precision'].precision_get('Account')
+        prec_pp = self.env['decimal.precision'].precision_get('Product Price')
+        prec_uom = self.env['decimal.precision'].precision_get(
+            'Product Unit of Measure')
+        if parsed_inv['amount_total'] < 0:
+            parsed_inv['type'] = 'in_refund'
+        else:
+            parsed_inv['type'] = 'in_invoice'
         for entry in ['amount_untaxed', 'amount_total']:
-            if parsed_inv.get(entry):
-                parsed_inv[entry] = round(parsed_inv[entry], prec)
+            parsed_inv[entry] = float_round(
+                parsed_inv[entry], precision_digits=prec_ac)
+            if parsed_inv['type'] == 'in_refund':
+                parsed_inv[entry] *= -1
+        if parsed_inv.get('lines'):
+            for line in parsed_inv['lines']:
+                line['quantity'] = float_round(
+                    line['quantity'], precision_digits=prec_uom)
+                line['price_unit'] = float_round(
+                    line['price_unit'], precision_digits=prec_pp)
+                if parsed_inv['type'] == 'in_refund':
+                    line['quantity'] *= -1
+        logger.debug('Resulf of invoice parsing parsed_inv=%s', parsed_inv)
+        return parsed_inv
+
+    @api.multi
+    def import_invoice(self):
+        self.ensure_one()
+        logger.info('Starting to import PDF invoice')
+        aio = self.env['account.invoice']
+        iaao = self.env['ir.actions.act_window']
+        parsed_inv = self.parse_invoice()
         partner = self._select_partner(parsed_inv)
         currency = self._get_currency(parsed_inv)
         self.write({
@@ -567,8 +581,9 @@ class AccountInvoicePdfImport(models.TransientModel):
                     invoice.amount_total,
                     parsed_inv['amount_total'],
                     precision_digits=prec)):
-            # TODO : put a good error msg
-            assert invoice.tax_line, 'Invoice has no tax line'
+            raise UserError(_(
+                "The total amount is different from the untaxed amount, "
+                "but no tax has been configured !"))
             initial_tax_amount = invoice.tax_line[0].amount
             tax_amount = parsed_inv['amount_total'] -\
                 parsed_inv['amount_untaxed']
@@ -587,6 +602,8 @@ class AccountInvoicePdfImport(models.TransientModel):
             })
         invoice.message_post(_(
             "This invoice has been created automatically via PDF import"))
+        if parsed_inv.get('chatter_msg'):
+            invoice.message_post(parsed_inv['chatter_msg'])
         action = iaao.for_xml_id('account', 'action_invoice_tree2')
         action.update({
             'view_mode': 'form,tree,calendar,graph',
