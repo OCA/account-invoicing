@@ -581,9 +581,10 @@ class AccountInvoicePdfImport(models.TransientModel):
                     invoice.amount_total,
                     parsed_inv['amount_total'],
                     precision_digits=prec)):
-            raise UserError(_(
-                "The total amount is different from the untaxed amount, "
-                "but no tax has been configured !"))
+            if not invoice.tax_line:
+                raise UserError(_(
+                    "The total amount is different from the untaxed amount, "
+                    "but no tax has been configured !"))
             initial_tax_amount = invoice.tax_line[0].amount
             tax_amount = parsed_inv['amount_total'] -\
                 parsed_inv['amount_untaxed']
