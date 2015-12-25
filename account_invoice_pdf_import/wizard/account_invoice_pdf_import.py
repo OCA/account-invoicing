@@ -231,19 +231,20 @@ class AccountInvoicePdfImport(models.TransientModel):
                 res[key] = fields.Date.to_string(value)
         logger.info('Result of invoice2data PDF extraction: %s', res)
         return res
-        return {
-            # 'currency_iso': 'EUR',
-            'currency_symbol': u'€',  # The one or the other
-            'date': datetime.strptime('2015-10-08', '%Y-%m-%d'),
-            # must be in datetime
-            'date_due': datetime.strptime('2015-11-07', '%Y-%m-%d'),
-            'amount_untaxed': 10.0,
-            'amount_total': 12.0,  # Total with taxes
-            'vat': 'FR25499247138',
-            'invoice_number': 'I1501243',
-            'description': 'TGV Paris-Lyon',
-            'lines': [],
-        }
+        # Dict to return:
+        # {
+        # 'currency_iso': 'EUR',
+        # 'currency_symbol': u'€',  # The one or the other
+        # 'date': '2015-10-08',  # Must be a string
+        # 'date_due': '2015-11-07',
+        # 'amount_untaxed': 10.0,
+        # 'amount_total': 12.0,  # Total with taxes
+        # 'vat': 'FR25499247138',
+        # 'partner_name': 'Capitaine Train'  # Not needed if we have VAT
+        # 'invoice_number': 'I1501243',
+        # 'description': 'TGV Paris-Lyon',
+        # 'lines': [],
+        # }
 
     @api.model
     def _select_partner(self, parsed_inv):
