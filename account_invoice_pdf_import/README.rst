@@ -33,6 +33,7 @@ This module requires the Python library *invoice2data* available on Github. The 
 To install the right version of the library, run:
 
 .. code::
+
   sudo pip install git+https://github.com/akretion/invoice2data.git@odoo-pdf-import
 
 
