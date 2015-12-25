@@ -20,15 +20,14 @@
   Set this tax on Internet access product
 -
   !python {model: product.product, id: account_invoice_pdf_import.internet_access}: |
-    self.supplier_taxes_id = [
-        (6, 0, [ref('account_invoice_pdf_import.fr_vat_purchase_20')])]
+    self.supplier_taxes_id = [(6, 0, [ref('fr_vat_purchase_20')])]
 -
   Import PDF
 -
   !python {model: account.invoice.pdf.import}: |
     import base64
     from openerp.tools import file_open
-    f = file_open('account_invoice_pdf_import/test/invoice_free_fiber_201507.pdf', 'rb')
+    f = file_open('account_invoice_pdf_import/test/pdf/invoice_free_fiber_201507.pdf', 'rb')
     pdf_file = f.read()
     wiz_id = self.create(cr, uid, {
         'pdf_file': base64.b64encode(pdf_file),
@@ -37,7 +36,7 @@
     f.close()
     self.import_invoice(cr, uid, wiz_id, context=context)
 -
-  Check result
+  Check result of invoice creation
 -
   !python {model: account.invoice}: |
     from openerp.tools import float_compare
@@ -60,3 +59,48 @@
     assert iline.product_id.id == ref('internet_access'), 'Wrong product on invoice line'
     assert float_compare(iline.quantity, 1.0, precision_digits=0) == 0, 'Wrong qty on invoice line'
     assert float_compare(iline.price_unit, 24.99, precision_digits=2) == 0, 'Wrong price unit on invoice line'
+-
+  Prepare data for next test i.e. invoice update (we re-use the invoice created by the first import !)
+-
+  !python {model: account.invoice}: |
+    inv_ids = self.search(cr, uid, [
+        ('state', '=', 'draft'),
+        ('type', '=', 'in_invoice'),
+        ('supplier_invoice_number', '=', '562044387')
+        ], context=context)
+    assert len(inv_ids) == 1, 'Supplier draft invoice has not been created'
+    inv = self.write(cr, uid, inv_ids[0], {
+        'date_invoice': False,
+        'supplier_invoice_number': False,
+        'check_total': False}, context=context)
+-
+  New import with update of an existing draft invoice
+-
+  !python {model: account.invoice.pdf.import}: |
+    import base64
+    from openerp.tools import file_open
+    f = file_open('account_invoice_pdf_import/test/pdf/invoice_free_fiber_201507.pdf', 'rb')
+    pdf_file = f.read()
+    wiz_id = self.create(cr, uid, {
+        'pdf_file': base64.b64encode(pdf_file),
+        'pdf_filename': 'invoice_free_fiber_201507.pdf',
+        }, context=context),
+    f.close()
+    action = self.import_invoice(cr, uid, wiz_id, context=context)
+    # Choose to update the existing invoice
+    self.update_invoice(cr, uid, wiz_id, context=action['context'])
+-
+  Check result of invoice update
+-
+  !python {model: account.invoice}: |
+    from openerp.tools import float_compare
+    inv_ids = self.search(cr, uid, [
+        ('state', '=', 'draft'),
+        ('type', '=', 'in_invoice'),
+        ('supplier_invoice_number', '=', '562044387')
+        ], context=context)
+    assert len(inv_ids) == 1, 'Supplier draft invoice has not been updated'
+    inv = self.browse(cr, uid, inv_ids[0], context=context)
+    assert inv.date_invoice == '2015-07-02', 'Update: Wrong invoice date'
+    assert float_compare(inv.check_total, 29.99, precision_digits=2) == 0, 'Update: Wrong check_total'
+ 

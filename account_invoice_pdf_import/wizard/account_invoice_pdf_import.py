@@ -106,13 +106,19 @@ class AccountInvoicePdfImport(models.TransientModel):
             }
         inv_number_xpath = xml_root.xpath(
             '//rsm:HeaderExchangedDocument/ram:ID', namespaces=namespaces)
+        supplier_xpath = xml_root.xpath(
+            '//ram:ApplicableSupplyChainTradeAgreement'
+            '/ram:SellerTradeParty'
+            '/ram:Name', namespaces=namespaces)
         vat_xpath = xml_root.xpath(
-            "//ram:SellerTradeParty"
+            '//ram:ApplicableSupplyChainTradeAgreement'
+            "/ram:SellerTradeParty"
             "/ram:SpecifiedTaxRegistration"
             "/ram:ID[@schemeID='VA']",
             namespaces=namespaces)
         date_xpath = xml_root.xpath(
-            '//ram:IssueDateTime/udt:DateTimeString', namespaces=namespaces)
+            '//rsm:HeaderExchangedDocument'
+            '/ram:IssueDateTime/udt:DateTimeString', namespaces=namespaces)
         date_dt = datetime.strptime(date_xpath[0].text, '%Y%m%d')
         currency_iso_xpath = xml_root.xpath(
             "//ram:ApplicableSupplyChainTradeSettlement"
@@ -183,6 +189,7 @@ class AccountInvoicePdfImport(models.TransientModel):
             res_lines.append(vals)
         res = {
             'vat': vat_xpath[0].text,
+            'partner_name': supplier_xpath[0].text,
             'invoice_number': inv_number_xpath[0].text,
             'date': fields.Date.to_string(date_dt),
             'currency_iso': currency_iso_xpath[0].text,
@@ -192,9 +199,10 @@ class AccountInvoicePdfImport(models.TransientModel):
             'bic': bic_xpath and bic_xpath[0].text or False,
             'lines': res_lines,
             }
+        # Hack for the sample ZUGFeRD invoices that use an invalid VAT number !
+        if res['vat'] == 'DE123456789':
+            res.pop('vat')
         logger.info('Result of CII XML parsing: %s', res)
-        # TODO remove when dev is finished
-        res['vat'] = 'FR74397480930'
         return res
 
     @api.model
@@ -257,10 +265,19 @@ class AccountInvoicePdfImport(models.TransientModel):
                     "The analysis of the PDF invoice returned '%s' as "
                     "supplier VAT number. But there are no supplier "
                     "with this VAT number in Odoo.") % vat)
-        else:
-            raise UserError(_(
-                "PDF Invoice parsing didn't return the VAT number of the "
-                "supplier."))
+        elif parsed_inv.get('partner_name'):
+            partners = self.env['res.partner'].search([
+                ('name', '=ilike', parsed_inv['partner_name']),
+                ('is_company', '=', True),
+                ('supplier', '=', True)])
+            if partners:
+                return partners[0]
+            else:
+                raise UserError(_(
+                    "PDF Invoice parsing didn't return the VAT number of the "
+                    "supplier and the returned supplier name (%s) "
+                    "is not a supplier company in Odoo.")
+                    % parsed_inv['partner_name'])
 
     @api.model
     def _prepare_create_invoice_vals(self, parsed_inv):
@@ -537,6 +554,7 @@ class AccountInvoicePdfImport(models.TransientModel):
         vals = self._prepare_create_invoice_vals(parsed_inv)
         logger.debug('Invoice vals for creation: %s', vals)
         invoice = aio.create(vals)
+        logger.info('Invoice ID %d created from PDF', invoice.id)
         invoice.button_reset_taxes()
 
         # Force tax amount if necessary
@@ -568,7 +586,6 @@ class AccountInvoicePdfImport(models.TransientModel):
             })
         invoice.message_post(_(
             "This invoice has been created automatically via PDF import"))
-        logger.info('End of the import of the PDF invoice')
         action = iaao.for_xml_id('account', 'action_invoice_tree2')
         action.update({
             'view_mode': 'form,tree,calendar,graph',
@@ -601,6 +618,7 @@ class AccountInvoicePdfImport(models.TransientModel):
         # When invoice with embedded XML files will be more widely used,
         # we should also update invoice lines
         vals = self._prepare_update_invoice_vals(parsed_inv)
+        logger.debug('Updating supplier invoice with vals=%s', vals)
         self.invoice_id.write(vals)
         self.env['ir.attachment'].create({
             'name': self.pdf_filename,
@@ -608,6 +626,7 @@ class AccountInvoicePdfImport(models.TransientModel):
             'res_model': 'account.invoice',
             'datas': self.pdf_file,
             })
+        logger.info('Supplier invoice ID %d updated', self.invoice_id.id)
         self.invoice_id.message_post(_(
             "This invoice has been updated automatically via PDF import"))
         action = iaao.for_xml_id('account', 'action_invoice_tree2')
