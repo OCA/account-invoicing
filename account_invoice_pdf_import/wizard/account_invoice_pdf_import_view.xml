@@ -13,18 +13,39 @@
     <field name="model">account.invoice.pdf.import</field>
     <field name="arch"  type="xml">
         <form string="Import Supplier Invoice or Refund as PDF">
-            <group name="help">
-                <label colspan="2" string="Select your supplier invoice or refund as PDF file. When you run the import:"/>
-                <label colspan="2" string="1. Odoo will try to extract an XML file embedded inside the PDF file. It will work only if the invoice complies with the ZUGFeRD standard (an implementation of the Core Industry Invoice specifications). If it find one, it will use this information to create a draft supplier invoice or refund (or update an existing draft invoice/refund)"/>
-                <label colspan="2" string="2. Otherwise, Odoo will use the invoice2data library to read the text of the PDF and get the information. It will work only if the invoice2data library has a template for the invoices of that supplier."/>
+            <group name="technical" invisible="1">
+                <field name="state"/>
+                <field name="currency_id"/>
             </group>
-            <group name="main">
+            <group name="help-import" states="import">
+                <label colspan="2" string="Upload below the supplier invoice or refund as PDF file. When you click on the Import button:"/>
+                <label colspan="2" string="1. Odoo will try to extract an XML file embedded inside the PDF file. It will work only if the invoice complies with the ZUGFeRD standard (an implementation of the Core Industry Invoice specifications)."/>
+                <label colspan="2" string="2. Otherwise, Odoo will use the invoice2data library to read the text of the PDF and get the information. It will work only if the invoice2data library has a template for the invoices of that supplier."/>
+                <label colspan="2" string="3. Odoo will use this information to create a draft supplier invoice. If there is already a draft invoice for that supplier in Odoo, you will have the option to update that invoice."/>
+            </group>
+            <group name="help-update" states="update">
+                <label colspan="2" string="Some draft supplier invoices/refunds have been found for the supplier of the PDF invoice you are importing ; one of them may correspond to the PDF invoice. You can either select an existing draft supplier invoice to update with the information of the PDF (information that will be updated include invoice date, supplier invoice number, etc...) or create a new invoice."/>
+            </group>
+            <group name="import" states="import">
                 <field name="pdf_file" filename="pdf_filename"/>
                 <field name="pdf_filename" invisible="1"/>
             </group>
+            <group name="update" states="update">
+                <field name="partner_id"/>
+                <field name="amount_untaxed"
+                    widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="amount_total"
+                    widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="invoice_id"
+                    domain="[('state', '=', 'draft'), ('type', 'in', ('in_invoice', 'in_refund')), ('commercial_partner_id', '=', partner_id)]"/>
+            </group>
             <footer>
                 <button name="import_invoice" type="object"
-                    class="oe_highlight" string="Import"/>
+                    class="oe_highlight" string="Import" states="import"/>
+                <button name="update_invoice" type="object"
+                    class="oe_highlight" string="Update Existing" states="update"/>
+                <button name="create_invoice" type="object"
+                    class="oe_highlight" string="Create New" states="update"/>
                 <button special="cancel" string="Cancel" class="oe_link"/>
             </footer>
         </form>

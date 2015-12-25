@@ -57,7 +57,9 @@ For further information, please visit:
 Known issues / Roadmap
 ======================
 
- * Add support for more suppliers via a lib.
+ * Remove dependancy on *base_iban* and develop de separate blue module between this module and base_iban
+
+ * Enhance the update of an existing invoice by analysing the lines
 
 Bug Tracker
 ===========
