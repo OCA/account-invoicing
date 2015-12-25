@@ -21,6 +21,7 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
+import openerp.addons.decimal_precision as dp
 from openerp.tools import float_compare
 from openerp.exceptions import Warning as UserError
 from datetime import datetime
@@ -36,7 +37,6 @@ from lxml import etree
 import StringIO
 
 logger = logging.getLogger(__name__)
-# TODO : update existing draft invoice
 
 
 class AccountInvoicePdfImport(models.TransientModel):
@@ -46,6 +46,22 @@ class AccountInvoicePdfImport(models.TransientModel):
     pdf_file = fields.Binary(
         string='PDF Invoice', required=True)
     pdf_filename = fields.Char(string='Filename')
+    state = fields.Selection([
+        ('import', 'Import'),
+        ('update', 'Update'),
+        ], string='State', default="import")
+    partner_id = fields.Many2one(
+        'res.partner', string="Supplier", readonly=True)
+    currency_id = fields.Many2one(
+        'res.currency', 'Currency', readonly=True)
+    amount_untaxed = fields.Float(
+        string='Total Untaxed', digits=dp.get_precision('Account'),
+        readonly=True)
+    amount_total = fields.Float(
+        string='Total', digits=dp.get_precision('Account'),
+        readonly=True)
+    invoice_id = fields.Many2one(
+        'account.invoice', string='Draft Supplier Invoice to Update')
 
     @api.model
     def parse_invoice_with_embedded_xml(self, file_data):
@@ -97,6 +113,7 @@ class AccountInvoicePdfImport(models.TransientModel):
             namespaces=namespaces)
         date_xpath = xml_root.xpath(
             '//ram:IssueDateTime/udt:DateTimeString', namespaces=namespaces)
+        date_dt = datetime.strptime(date_xpath[0].text, '%Y%m%d')
         currency_iso_xpath = xml_root.xpath(
             "//ram:ApplicableSupplyChainTradeSettlement"
             "/ram:InvoiceCurrencyCode",
@@ -163,12 +180,11 @@ class AccountInvoicePdfImport(models.TransientModel):
                 'price_unit': price_unit,
                 'name': name_xpath[0].text,
                 }
-            print "vals=", vals
             res_lines.append(vals)
         res = {
             'vat': vat_xpath[0].text,
             'invoice_number': inv_number_xpath[0].text,
-            'date': datetime.strptime(date_xpath[0].text, '%Y%m%d'),
+            'date': fields.Date.to_string(date_dt),
             'currency_iso': currency_iso_xpath[0].text,
             'amount_total': float(amount_total_xpath[0].text),
             'amount_untaxed': float(amount_untaxed_xpath[0].text),
@@ -194,7 +210,6 @@ class AccountInvoicePdfImport(models.TransientModel):
         except:
             raise UserError(_(
                 "PDF Invoice parsing failed."))
-        logger.info('Result of invoice2data PDF extraction: %s', res)
         if not res:
             raise UserError(_(
                 "This PDF invoice doesn't match a known template of "
@@ -202,6 +217,11 @@ class AccountInvoicePdfImport(models.TransientModel):
         # rewrite a few keys
         res['amount_total'] = res['amount']
         res.pop('amount')
+        # convert datetime to string, to make it json serializable
+        for key, value in res.iteritems():
+            if value and isinstance(value, datetime):
+                res[key] = fields.Date.to_string(value)
+        logger.info('Result of invoice2data PDF extraction: %s', res)
         return res
         return {
             # 'currency_iso': 'EUR',
@@ -243,7 +263,7 @@ class AccountInvoicePdfImport(models.TransientModel):
                 "supplier."))
 
     @api.model
-    def _prepare_invoice_vals(self, parsed_inv, partner):
+    def _prepare_create_invoice_vals(self, parsed_inv):
         aio = self.env['account.invoice']
         ailo = self.env['account.invoice.line']
         company = self.env.user.company_id
@@ -260,7 +280,8 @@ class AccountInvoicePdfImport(models.TransientModel):
         else:
             itype = 'in_invoice'
         vals = {
-            'partner_id': partner.id,
+            'partner_id': self.partner_id.id,
+            'currency_id': self.currency_id.id,
             'type': itype,
             'company_id': company.id,
             'supplier_invoice_number':
@@ -271,35 +292,8 @@ class AccountInvoicePdfImport(models.TransientModel):
             'invoice_line': [],
             'check_total': parsed_inv.get('amount_total'),
             }
-        currency = False
-        if parsed_inv.get('currency_iso'):
-            currency_iso = parsed_inv['currency_iso'].upper()
-            currencies = self.env['res.currency'].search(
-                [('name', '=', currency_iso)])
-            if currencies:
-                currency = currencies[0]
-            else:
-                raise UserError(_(
-                    "The analysis of the PDF invoice returned '%s' as "
-                    "the currency ISO code. But there are no currency "
-                    "with that name in Odoo.") % currency_iso)
-        if not currency and parsed_inv.get('currency_symbol'):
-            cur_symbol = parsed_inv['currency_symbol']
-            currencies = self.env['res.currency'].search(
-                [('symbol', '=', cur_symbol)])
-            if currencies:
-                currency = currencies[0]
-            else:
-                raise UserError(_(
-                    "The analysis of the PDF invoice returned '%s' as "
-                    "the currency symbol. But there are no currency "
-                    "with that symbol in Odoo.") % cur_symbol)
-        if currency:
-            vals['currency_id'] = currency.id
-        # otherwise, it will take the currency of the company
-
         vals.update(aio.onchange_partner_id(
-            'in_invoice', partner.id, company_id=company.id)['value'])
+            'in_invoice', self.partner_id.id, company_id=company.id)['value'])
         # Force due date of the invoice
         if parsed_inv.get('date_due'):
             vals['date_due'] = parsed_inv.get('date_due')
@@ -324,7 +318,7 @@ class AccountInvoicePdfImport(models.TransientModel):
                     })
                 vals['partner_bank_id'] = partner_bank.id
                 # TODO : add message
-        config = partner.invoice_import_id
+        config = self.partner_id.invoice_import_id
         if config.invoice_line_method.startswith('1line'):
             if config.invoice_line_method == '1line_no_product':
                 il_vals = {
@@ -336,8 +330,8 @@ class AccountInvoicePdfImport(models.TransientModel):
                 product = config.static_product_id
                 il_vals = ailo.product_id_change(
                     product.id, product.uom_id.id, type='in_invoice',
-                    partner_id=partner.id,
-                    fposition_id=partner.property_account_position.id,
+                    partner_id=self.partner_id.id,
+                    fposition_id=self.partner_id.property_account_position.id,
                     company_id=company.id)['value']
                 il_vals.update({
                     'product_id': product.id,
@@ -366,8 +360,8 @@ class AccountInvoicePdfImport(models.TransientModel):
                 sproduct = config.static_product_id
                 static_vals = ailo.product_id_change(
                     sproduct.id, sproduct.uom_id.id, type='in_invoice',
-                    partner_id=partner.id,
-                    fposition_id=partner.property_account_position.id,
+                    partner_id=self.partner_id.id,
+                    fposition_id=self.partner_id.property_account_position.id,
                     company_id=company.id)['value']
                 static_vals['product_id'] = sproduct.id
             else:
@@ -376,11 +370,12 @@ class AccountInvoicePdfImport(models.TransientModel):
                 il_vals = static_vals.copy()
                 if config.invoice_line_method == 'nline_auto_product':
                     product = self._match_product(line)
+                    fposition_id = self.partner_id.property_account_position.id
                     il_vals.update(
                         ailo.product_id_change(
                             product.id, product.uom_id.id, type='in_invoice',
-                            partner_id=partner.id,
-                            fposition_id=partner.property_account_position.id,
+                            partner_id=self.partner_id.id,
+                            fposition_id=fposition_id,
                             company_id=company.id)['value'])
                     il_vals['product_id'] = product.id
                 if line.get('name'):
@@ -436,11 +431,41 @@ class AccountInvoicePdfImport(models.TransientModel):
             if not first_tax.price_include:
                 il_vals['price_unit'] = parsed_inv.get('amount_untaxed')
 
+    @api.model
+    def _get_currency(self, parsed_inv):
+        currency = False
+        if parsed_inv.get('currency_iso'):
+            currency_iso = parsed_inv['currency_iso'].upper()
+            currencies = self.env['res.currency'].search(
+                [('name', '=', currency_iso)])
+            if currencies:
+                currency = currencies[0]
+            else:
+                raise UserError(_(
+                    "The analysis of the PDF invoice returned '%s' as "
+                    "the currency ISO code. But there are no currency "
+                    "with that name in Odoo.") % currency_iso)
+        if not currency and parsed_inv.get('currency_symbol'):
+            cur_symbol = parsed_inv['currency_symbol']
+            currencies = self.env['res.currency'].search(
+                [('symbol', '=', cur_symbol)])
+            if currencies:
+                currency = currencies[0]
+            else:
+                raise UserError(_(
+                    "The analysis of the PDF invoice returned '%s' as "
+                    "the currency symbol. But there are no currency "
+                    "with that symbol in Odoo.") % cur_symbol)
+        if not currency:
+            currency = self.env.user.company_id.currency_id
+        return currency
+
     @api.multi
     def import_invoice(self):
         self.ensure_one()
         logger.info('Starting to import PDF invoice')
         aio = self.env['account.invoice']
+        iaao = self.env['ir.actions.act_window']
         file_data = base64.b64decode(self.pdf_file)
         parsed_inv = {}
         try:
@@ -455,33 +480,62 @@ class AccountInvoicePdfImport(models.TransientModel):
             if parsed_inv.get(entry):
                 parsed_inv[entry] = round(parsed_inv[entry], prec)
         partner = self._select_partner(parsed_inv)
-        if not partner.invoice_import_id:
+        currency = self._get_currency(parsed_inv)
+        self.write({
+            'partner_id': partner.id,
+            'currency_id': currency.id,
+            'amount_untaxed': parsed_inv['amount_untaxed'],
+            'amount_total': parsed_inv['amount_total'],
+            })
+        if not self.partner_id.invoice_import_id:
             raise UserError(_(
                 "Missing Invoice Import Configuration on partner %s")
-                % partner.name)
-        vals = self._prepare_invoice_vals(
-            parsed_inv, partner)
-        logger.debug('Invoice vals for creation: %s', vals)
+                % self.partner_id.name)
         domain = [
-            ('commercial_partner_id', '=', vals['partner_id']),
-            ('type', '=', vals['type'])]
+            ('commercial_partner_id', '=', self.partner_id.id),
+            ('type', 'in', ('in_invoice', 'in_refund'))]
         existing_invs = aio.search(
             domain +
             [(
                 'supplier_invoice_number',
                 '=ilike',
-                vals['supplier_invoice_number'])])
+                parsed_inv.get('invoice_number'))])
         if existing_invs:
             raise UserError(_(
                 "This invoice has already been created in Odoo. It's "
                 "Supplier Invoice Number is '%s' and it's Odoo number "
                 "is '%s'")
-                % (vals['supplier_invoice_number'], existing_invs[0].number))
+                % (parsed_inv.get('invoice_number'), existing_invs[0].number))
         draft_same_supplier_invs = aio.search(
             domain + [('state', '=', 'draft')])
+        logger.debug('draft_same_supplier_invs=%s', draft_same_supplier_invs)
         if draft_same_supplier_invs:
-            action = {}  # TODO
+            action = iaao.for_xml_id(
+                'account_invoice_pdf_import',
+                'account_invoice_pdf_import_action')
+            default_invoice_id = False
+            if len(draft_same_supplier_invs) == 1:
+                default_invoice_id = draft_same_supplier_invs[0].id
+            self.write({
+                'state': 'update',
+                'invoice_id': default_invoice_id,
+            })
+            action['res_id'] = self.id
+            action['context'] = {'parsed_inv': parsed_inv}
             return action
+        else:
+            action = self.with_context(parsed_inv=parsed_inv).create_invoice()
+            return action
+
+    @api.multi
+    def create_invoice(self):
+        self.ensure_one()
+        aio = self.env['account.invoice']
+        iaao = self.env['ir.actions.act_window']
+        assert self._context.get('parsed_inv'), 'Missing parsed_invoice'
+        parsed_inv = self._context['parsed_inv']
+        vals = self._prepare_create_invoice_vals(parsed_inv)
+        logger.debug('Invoice vals for creation: %s', vals)
         invoice = aio.create(vals)
         invoice.button_reset_taxes()
 
@@ -515,11 +569,51 @@ class AccountInvoicePdfImport(models.TransientModel):
         invoice.message_post(_(
             "This invoice has been created automatically via PDF import"))
         logger.info('End of the import of the PDF invoice')
-        action = self.env['ir.actions.act_window'].for_xml_id(
-            'account', 'action_invoice_tree2')
+        action = iaao.for_xml_id('account', 'action_invoice_tree2')
         action.update({
             'view_mode': 'form,tree,calendar,graph',
             'views': False,
             'res_id': invoice.id,
+            })
+        return action
+
+    @api.model
+    def _prepare_update_invoice_vals(self, parsed_inv):
+        vals = {
+            'supplier_invoice_number':
+            parsed_inv.get('invoice_number'),
+            'date_invoice': parsed_inv.get('date'),
+            'check_total': parsed_inv.get('amount_total'),
+        }
+        if parsed_inv.get('date_due'):
+            vals['date_due'] = parsed_inv['date_due']
+        return vals
+
+    @api.multi
+    def update_invoice(self):
+        self.ensure_one()
+        iaao = self.env['ir.actions.act_window']
+        if not self.invoice_id:
+            raise UserError(_(
+                'You must select a supplier invoice or refund to update'))
+        assert self._context.get('parsed_inv'), 'Missing parsed_invoice'
+        parsed_inv = self._context['parsed_inv']
+        # When invoice with embedded XML files will be more widely used,
+        # we should also update invoice lines
+        vals = self._prepare_update_invoice_vals(parsed_inv)
+        self.invoice_id.write(vals)
+        self.env['ir.attachment'].create({
+            'name': self.pdf_filename,
+            'res_id': self.invoice_id.id,
+            'res_model': 'account.invoice',
+            'datas': self.pdf_file,
+            })
+        self.invoice_id.message_post(_(
+            "This invoice has been updated automatically via PDF import"))
+        action = iaao.for_xml_id('account', 'action_invoice_tree2')
+        action.update({
+            'view_mode': 'form,tree,calendar,graph',
+            'views': False,
+            'res_id': self.invoice_id.id,
             })
         return action
