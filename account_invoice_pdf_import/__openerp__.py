@@ -38,7 +38,7 @@
         'wizard/account_invoice_pdf_import_view.xml',
         'partner_view.xml',
     ],
-    'test': ['test/free.yml'],
+    'test': ['test/free.yml', 'test/zugferd.yml'],
     'demo': ['demo/demo_data.xml'],
     'installable': True,
 }
