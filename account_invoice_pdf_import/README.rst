@@ -20,8 +20,8 @@ Here is how the module works:
 * the user starts a wizard and uploads the PDF invoice,
 * if the PDF file has an embedded XML file, Odoo will read this file,
 * otherwise, Odoo will use the *invoice2data* Python lib to try to interpret the text of the PDF,
-* if there is already some draft supplier invoice for this supplier, propose to select one to update or create a new invoice
-* create the draft supplier invoice and show it to the user, so that he can verify and then validate.
+* if there is already some draft supplier invoice for this supplier, Odoo will propose to select one to update or create a new draft invoice,
+* otherwise, Odoo will directly create a new draft supplier invoice and attach the PDF to it.
 
 This module also works with supplier refunds.
 
@@ -36,15 +36,46 @@ To install the right version of the library, run:
 sudo pip install git+https://github.com/akretion/invoice2data.git@odoo-pdf-import
 ```
 
+French users should also install the module *l10n_fr_invoice_pdf_import* available in the `French localization <https://github.com/OCA/l10n-france/>`.
+
 Configuration
 =============
 
 To configure this module, go to the menu *Accounting > Configuration > Miscellaneous > Import Supplier Invoices* and create the import configuration entries for some suppliers.
 
+Then, go to the form view of the suppliers and make sure that:
+* *is a Company ?* is True
+* *Supplier* is True
+* the *TIN* (i.e. VAT number) is set (the VAT number is used by default when searching the supplier in the Odoo partner database)
+* in the *Accounting* tab, select the *Invoice Import Configuration*.
+
+For the PDF invoice of your supplier that don't have an embedded XML file, you will have to update the `template file <https://github.com/akretion/invoice2data/blob/odoo-pdf-import/invoice2data/templates.py>` of the invoice2data Python library. It is quite easy to do ; if you are familiar with `regexp <https://docs.python.org/2/library/re.html>`, it should not take more than 10 minutes for each supplier.
+
+Here is some hints to help you add a template for your supplier:
+
+* Take Free SAS (keyword = FR 604 219 388 61) as an example. You will find a sample PDF invoice for this supplier under invoice2data/test/pdfs/2015-07-02-invoice_free_fiber.pdf
+
+* Try to run the invoice2data lib manually on the sample invoice of Free:
+
+```
+% python -m invoice2data.main invoice2data/test/pdfs/2015-07-02-invoice_free_fiber.pdf
+```
+
+On the output, you will get first the text of the PDF, then some debug info on the parsing of the invoice and the regexps, and, on the last line, you will have the dict that contain the result of the parsing.
+
+* if the VAT number of the supplier is present in the text of the PDF invoice, I think it's a good idea to use it as the keyword
+
+* the 'data' dict should contain the following keys:
+  * 'vat' with the VAT number of the supplier (if thre is not VAT number in the text of PDF file, add a 'partner_name' key, or, if the supplier is French and the module *l10n_fr_invoice_pdf_import* is installed, a 'siren' key)
+  * 'amount_untaxed' and 'amount' ('amount' is the total amount with taxes). There 2 keys are required.
+  * 'date': the date of the invoice
+  * 'invoice_number'
+  * 'date_due', if this information is available in the text of the PDF file
+
 Usage
 =====
 
-To use this module, go to the menu *Accounting > Suppliers > Import PDF Invoices* and select the PDF invoices of your supplier.
+To use this module, go to the menu *Accounting > Suppliers > Import PDF Invoices* and upload a PDF invoice of your supplier.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
