@@ -32,9 +32,9 @@ This module requires the Python library *invoice2data* available on Github. The 
 
 To install the right version of the library, run:
 
-``
-sudo pip install git+https://github.com/akretion/invoice2data.git@odoo-pdf-import
-``
+.. code::
+  sudo pip install git+https://github.com/akretion/invoice2data.git@odoo-pdf-import
+
 
 French users should also install the module *l10n_fr_invoice_pdf_import* available in the `French localization <https://github.com/OCA/l10n-france/>`_.
 
