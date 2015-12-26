@@ -6,7 +6,7 @@
 Account Invoice PDF Import
 ==========================
 
-This module has been started by lazy accounting users who hate enter they supplier invoices manually in Odoo. As ERP consultants, we have several supplier invoices to enter regularly in the system from the same suppliers: phone bill, Internet access, train tickets, etc. Most of these invoices are available as PDF. We dream that we would be able to automatically extract from the PDF the required information to enter the invoice as supplier invoice in Odoo.
+This module has been started by lazy accounting users who hate enter they supplier invoices manually in Odoo. As ERP consultants, we have several supplier invoices to enter regularly in the system from the same suppliers: phone bill, Internet access, train tickets, etc. Most of these invoices are available as PDF. We dream that we would be able to automatically extract from the PDF the required information to enter the invoice as supplier invoice in Odoo. To know the full story behind the development of this module, read this `blog post <http://www.akretion.com/blog/akretions-christmas-present-for-the-odoo-community>`_.
 
 In the future, we believe we will have structured information embedded inside the metadata of PDF invoices. There are 2 main standards for electronic invoicing:
 
