@@ -26,7 +26,7 @@ from openerp.exceptions import ValidationError
 
 class AccountInvoiceImportConfig(models.Model):
     _name = 'account.invoice.import.config'
-    _description = 'Configuration for the import of Supplier Invoice'
+    _description = 'Configuration for the import of Supplier Invoices'
 
     name = fields.Char(string='Name', required=True)
     partner_ids = fields.One2many(
@@ -38,13 +38,13 @@ class AccountInvoiceImportConfig(models.Model):
         ('1line_static_product', 'Single Line, Static Product'),
         ('nline_no_product', 'Multi Line, No Product'),
         ('nline_static_product', 'Multi Line, Static Product'),
-        ('nline_auto_product', 'Multi Line, Auto Product'),
+        ('nline_auto_product', 'Multi Line, Auto-selected Product'),
         ], string='Method for Invoice Line', required=True,
         default='no_product',
         help="The multi-line methods will only work for PDF invoices "
         "that have an embedded XML file (which is not very common today). "
-        "The 'Multi Line, Auto Product' method will only work with ZUGFeRD "
-        "at Comfort or Extended level, not at Basic level.")
+        "The 'Multi Line, Auto-selected Product' method will only work with "
+        "ZUGFeRD invoices at Comfort or Extended level, not at Basic level.")
     company_id = fields.Many2one(
         'res.company', string='Company',
         ondelete='cascade', required=True,
@@ -57,7 +57,8 @@ class AccountInvoiceImportConfig(models.Model):
         'account.analytic.account', string='Analytic Account',
         domain=[('type', '!=', 'view')])
     label = fields.Char(
-        string='Force Description', help="Force invoice line description")
+        string='Force Description',
+        help="Force supplier invoice line description")
     tax_ids = fields.Many2many(
         'account.tax', string='Taxes',
         domain=[('type_tax_use', 'in', ('all', 'purchase'))])

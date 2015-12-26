@@ -54,6 +54,10 @@ class AccountInvoicePdfImport(models.TransientModel):
         'res.partner', string="Supplier", readonly=True)
     currency_id = fields.Many2one(
         'res.currency', 'Currency', readonly=True)
+    invoice_type = fields.Selection([
+        ('in_invoice', 'Invoice'),
+        ('in_refund', 'Refund'),
+        ], string="Invoice or Refund", readonly=True)
     amount_untaxed = fields.Float(
         string='Total Untaxed', digits=dp.get_precision('Account'),
         readonly=True)
@@ -515,6 +519,7 @@ class AccountInvoicePdfImport(models.TransientModel):
         currency = self._get_currency(parsed_inv)
         self.write({
             'partner_id': partner.id,
+            'invoice_type': parsed_inv['type'],
             'currency_id': currency.id,
             'amount_untaxed': parsed_inv['amount_untaxed'],
             'amount_total': parsed_inv['amount_total'],
@@ -525,7 +530,7 @@ class AccountInvoicePdfImport(models.TransientModel):
                 % self.partner_id.name)
         domain = [
             ('commercial_partner_id', '=', self.partner_id.id),
-            ('type', 'in', ('in_invoice', 'in_refund'))]
+            ('type', '=', parsed_inv['type'])]
         existing_invs = aio.search(
             domain +
             [(
@@ -534,7 +539,7 @@ class AccountInvoicePdfImport(models.TransientModel):
                 parsed_inv.get('invoice_number'))])
         if existing_invs:
             raise UserError(_(
-                "This invoice has already been created in Odoo. It's "
+                "This invoice already exists in Odoo. It's "
                 "Supplier Invoice Number is '%s' and it's Odoo number "
                 "is '%s'")
                 % (parsed_inv.get('invoice_number'), existing_invs[0].number))
