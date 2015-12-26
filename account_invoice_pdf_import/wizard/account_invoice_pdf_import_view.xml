@@ -29,7 +29,7 @@
             </group>
             <group name="help-update" states="update">
                 <div>
-                    <p>Some draft supplier invoices/refunds have been found for the supplier of the PDF invoice you are importing ; one of them may correspond to the PDF invoice. You can either select an existing draft supplier invoice to update with the information of the PDF (information that will be updated include invoice date, supplier invoice number, etc...) or create a new invoice.</p>
+                    <p>Some draft supplier invoices/refunds have been found for the supplier of the PDF invoice you are importing ; one of them may correspond to the PDF invoice. You can either select an existing draft supplier invoice to update with the information of the PDF (information that will be updated include invoice date, supplier invoice number and attachment) or create a new draft invoice.</p>
                 </div>
             </group>
             <group name="import" states="import">
@@ -38,12 +38,13 @@
             </group>
             <group name="update" states="update">
                 <field name="partner_id"/>
+                <field name="invoice_type"/>
                 <field name="amount_untaxed"
                     widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="amount_total"
                     widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="invoice_id"
-                    domain="[('state', '=', 'draft'), ('type', 'in', ('in_invoice', 'in_refund')), ('commercial_partner_id', '=', partner_id)]"/>
+                    domain="[('state', '=', 'draft'), ('type', 'in', ('in_invoice', 'in_refund')), ('commercial_partner_id', '=', partner_id), ('type', '=', invoice_type)]"/>
             </group>
             <footer>
                 <button name="import_invoice" type="object"
