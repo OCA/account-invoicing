@@ -40,7 +40,7 @@ class AccountInvoiceImportConfig(models.Model):
         ('nline_static_product', 'Multi Line, Static Product'),
         ('nline_auto_product', 'Multi Line, Auto-selected Product'),
         ], string='Method for Invoice Line', required=True,
-        default='no_product',
+        default='1line_no_product',
         help="The multi-line methods will only work for PDF invoices "
         "that have an embedded XML file (which is not very common today). "
         "The 'Multi Line, Auto-selected Product' method will only work with "
