@@ -19,19 +19,19 @@
 -
   Set this tax on Internet access product
 -
-  !python {model: product.product, id: account_invoice_pdf_import.internet_access}: |
+  !python {model: product.product, id: account_invoice_import.internet_access}: |
     self.supplier_taxes_id = [(6, 0, [ref('fr_vat_purchase_20')])]
 -
   Import PDF
 -
-  !python {model: account.invoice.pdf.import}: |
+  !python {model: account.invoice.import}: |
     import base64
     from openerp.tools import file_open
-    f = file_open('account_invoice_pdf_import/test/pdf/invoice_free_fiber_201507.pdf', 'rb')
+    f = file_open('account_invoice_import/test/pdf/invoice_free_fiber_201507.pdf', 'rb')
     pdf_file = f.read()
     wiz_id = self.create(cr, uid, {
-        'pdf_file': base64.b64encode(pdf_file),
-        'pdf_filename': 'invoice_free_fiber_201507.pdf',
+        'invoice_file': base64.b64encode(pdf_file),
+        'invoice_filename': 'invoice_free_fiber_201507.pdf',
         }, context=context),
     f.close()
     self.import_invoice(cr, uid, wiz_id, context=context)
@@ -77,14 +77,14 @@
 -
   New import with update of an existing draft invoice
 -
-  !python {model: account.invoice.pdf.import}: |
+  !python {model: account.invoice.import}: |
     import base64
     from openerp.tools import file_open
-    f = file_open('account_invoice_pdf_import/test/pdf/invoice_free_fiber_201507.pdf', 'rb')
+    f = file_open('account_invoice_import/test/pdf/invoice_free_fiber_201507.pdf', 'rb')
     pdf_file = f.read()
     wiz_id = self.create(cr, uid, {
-        'pdf_file': base64.b64encode(pdf_file),
-        'pdf_filename': 'invoice_free_fiber_201507.pdf',
+        'invoice_file': base64.b64encode(pdf_file),
+        'invoice_filename': 'invoice_free_fiber_201507.pdf',
         }, context=context),
     f.close()
     action = self.import_invoice(cr, uid, wiz_id, context=context)

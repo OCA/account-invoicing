@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Account Invoice PDF import module for Odoo
+#    Account Invoice Import module for Odoo
 #    Copyright (C) 2015 Akretion (http://www.akretion.com)
 #    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
