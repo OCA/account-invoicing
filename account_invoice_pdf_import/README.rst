@@ -28,13 +28,13 @@ This module also works with supplier refunds.
 Installation
 ============
 
-This module requires the Python library *invoice2data* available on Github. The main project is `here <https://github.com/manuelRiel/invoice2data>`_, but, for the moment, you should get Akretion's version available `here <https://github.com/akretion/invoice2data/tree/odoo-pdf-import>`_.
+This module requires the Python library *invoice2data* available on Github. The main project is `here <https://github.com/manuelRiel/invoice2data>`_ (you should check the `pending pull requests <https://github.com/manuelRiel/invoice2data/pulls>`_ to get the latest code and templates).
 
 To install the right version of the library, run:
 
 .. code::
 
-  sudo pip install git+https://github.com/akretion/invoice2data.git@odoo-pdf-import
+  sudo pip install git+https://github.com/manuelRiel/invoice2data.git
 
 
 French users should also install the module *l10n_fr_invoice_pdf_import* available in the `French localization <https://github.com/OCA/l10n-france/>`_.
@@ -51,7 +51,7 @@ Then, go to the form view of the suppliers and make sure that:
 * the *TIN* (i.e. VAT number) is set (the VAT number is used by default when searching the supplier in the Odoo partner database)
 * in the *Accounting* tab, select the *Invoice Import Configuration*.
 
-For the PDF invoice of your supplier that don't have an embedded XML file, you will have to update the `template file <https://github.com/akretion/invoice2data/blob/odoo-pdf-import/invoice2data/templates.py>`_ of the invoice2data Python library. It is quite easy to do ; if you are familiar with `regexp <https://docs.python.org/2/library/re.html>`_, it should not take more than 10 minutes for each supplier.
+For the PDF invoice of your supplier that don't have an embedded XML file, you will have to update the `template file <https://github.com/manuelRiel/invoice2data/blob/master/invoice2data/templates.py>`_ of the invoice2data Python library. It is quite easy to do ; if you are familiar with `regexp <https://docs.python.org/2/library/re.html>`_, it should not take more than 10 minutes for each supplier.
 
 Here are some hints to help you add a template for your supplier:
 
