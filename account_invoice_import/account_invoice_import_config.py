@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Account Invoice PDF import module for Odoo
+#    Account Invoice Import module for Odoo
 #    Copyright (C) 2015 Akretion (http://www.akretion.com)
 #    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
@@ -41,8 +41,8 @@ class AccountInvoiceImportConfig(models.Model):
         ('nline_auto_product', 'Multi Line, Auto-selected Product'),
         ], string='Method for Invoice Line', required=True,
         default='1line_no_product',
-        help="The multi-line methods will only work for PDF invoices "
-        "that have an embedded XML file (which is not very common today). "
+        help="The multi-line methods will not work for PDF invoices "
+        "that don't have an embedded XML file. "
         "The 'Multi Line, Auto-selected Product' method will only work with "
         "ZUGFeRD invoices at Comfort or Extended level, not at Basic level.")
     company_id = fields.Many2one(

@@ -24,14 +24,14 @@
 -
   Import PDF
 -
-  !python {model: account.invoice.pdf.import}: |
+  !python {model: account.invoice.import}: |
     import base64
     from openerp.tools import file_open
-    f = file_open('account_invoice_pdf_import/test/pdf/ZUGFeRD_1p0_BASIC_Einfach.pdf', 'rb')
+    f = file_open('account_invoice_import/test/pdf/ZUGFeRD_1p0_BASIC_Einfach.pdf', 'rb')
     pdf_file = f.read()
     wiz_id = self.create(cr, uid, {
-        'pdf_file': base64.b64encode(pdf_file),
-        'pdf_filename': 'ZUGFeRD_1p0_BASIC_Einfach.pdf',
+        'invoice_file': base64.b64encode(pdf_file),
+        'invoice_filename': 'ZUGFeRD_1p0_BASIC_Einfach.pdf',
         }, context=context),
     f.close()
     self.import_invoice(cr, uid, wiz_id, context=context)

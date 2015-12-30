@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Account Invoice PDF import module for Odoo
+#    Account Invoice Import module for Odoo
 #    Copyright (C) 2015 Akretion (http://www.akretion.com)
 #    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
@@ -20,20 +20,24 @@
 #
 ##############################################################################
 
-from openerp import models, api, _
 
-
-class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
-
-    @api.multi
-    def name_get(self):
-        """Add amount_untaxed in name_get of invoices"""
-        res = super(AccountInvoice, self).name_get()
-        new_res = []
-        for (inv_id, name) in res:
-            inv = self.browse(inv_id)
-            name += _(' Amount w/o tax: %s %s') % (
-                inv.amount_untaxed, inv.currency_id.name)
-            new_res.append((inv_id, name))
-        return new_res
+{
+    'name': 'Account Invoice Import',
+    'version': '8.0.0.1.0',
+    'category': 'Accounting & Finance',
+    'license': 'AGPL-3',
+    'summary': 'Import supplier invoices/refunds as PDF or XML files',
+    'author': 'Akretion,Odoo Community Association (OCA)',
+    'website': 'http://www.akretion.com',
+    'depends': ['account', 'base_iban'],
+    'external_dependencies': {'python': ['invoice2data', 'pdfminer', 'lxml']},
+    'data': [
+        'security/ir.model.access.csv',
+        'account_invoice_import_config_view.xml',
+        'wizard/account_invoice_import_view.xml',
+        'partner_view.xml',
+    ],
+    'test': ['test/free.yml', 'test/zugferd.yml'],
+    'demo': ['demo/demo_data.xml'],
+    'installable': True,
+}
