@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==========================
-Account Invoice PDF Import
-==========================
+======================
+Account Invoice Import
+======================
 
 This module has been started by lazy accounting users who hate enter they supplier invoices manually in Odoo. As ERP consultants, we have several supplier invoices to enter regularly in the system from the same suppliers: phone bill, Internet access, train tickets, etc. Most of these invoices are available as PDF. We dream that we would be able to automatically extract from the PDF the required information to enter the invoice as supplier invoice in Odoo. To know the full story behind the development of this module, read this `blog post <http://www.akretion.com/blog/akretions-christmas-present-for-the-odoo-community>`_.
 
@@ -17,7 +17,7 @@ For example, there is already a standard in Germany called `ZUGFeRD <http://www.
 
 Here is how the module works:
 
-* the user starts a wizard and uploads the PDF invoice,
+* the user starts a wizard and uploads the PDF or XML invoice,
 * if the PDF file has an embedded XML file in ZUGFeRD/CII format, Odoo will read this file,
 * otherwise, Odoo will use the *invoice2data* Python library to try to interpret the text of the PDF,
 * if there is already some draft supplier invoice for this supplier, Odoo will propose to select one to update or create a new draft invoice,
@@ -78,7 +78,7 @@ On the output, you will get first the text of the PDF, then some debug info on t
 Usage
 =====
 
-To use this module, go to the menu *Accounting > Suppliers > Import PDF Invoices* and upload a PDF invoice of your supplier.
+To use this module, go to the menu *Accounting > Suppliers > Import Invoices* and upload a PDF invoice of your supplier.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
@@ -103,7 +103,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed feedback
-`here <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_pdf_import%0Aversion:%208.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`here <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_import%0Aversion:%208.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Credits
 =======

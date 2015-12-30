@@ -32,9 +32,9 @@
                 <field name="label"
                     attrs="{'invisible': [('invoice_line_method', 'not in', ('1line_no_product', '1line_static_product'))]}"/>
             </group>
-            <group name="partner" string="Partners">
-                <field name="partner_ids" nolabel="1"
-                    invisible="not context.get('invoice_import_config_main_view')"/>
+            <group name="partner" string="Partners"
+                invisible="not context.get('invoice_import_config_main_view')">
+                <field name="partner_ids" nolabel="1"/>
             </group>
         </form>
     </field>

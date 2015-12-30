@@ -8,18 +8,18 @@
 <openerp>
 <data>
 
-<record id="account_invoice_pdf_import_form" model="ir.ui.view">
-    <field name="name">account.invoice.pdf.import.form</field>
-    <field name="model">account.invoice.pdf.import</field>
+<record id="account_invoice_import_form" model="ir.ui.view">
+    <field name="name">account.invoice.import.form</field>
+    <field name="model">account.invoice.import</field>
     <field name="arch"  type="xml">
-        <form string="Import Supplier Invoice or Refund as PDF">
+        <form string="Import Supplier Invoice or Refund">
             <group name="technical" invisible="1">
                 <field name="state"/>
                 <field name="currency_id"/>
             </group>
             <group name="help-import" states="import">
               <div>
-                <p>Upload below the supplier invoice or refund as PDF file. When you click on the Import button:</p>
+                <p>Upload below the supplier invoice or refund as PDF or XML file. When you click on the Import button:</p>
                 <ol>
                   <li>Odoo will try to extract an XML file embedded inside the PDF file. It will work only if the invoice complies with the <a href="//www.pdflib.com/knowledge-base/pdfa/zugferd-invoices/" target="_blank">ZUGFeRD</a> standard (an implementation of the <a href="http://tfig.unece.org/contents/cross-industry-invoice-cii.htm" target="_blank">Core Industry Invoice</a> specifications).</li>
                   <li>Otherwise, Odoo will use the <a href="https://github.com/akretion/invoice2data/" target="_blank">invoice2data</a> library to read the text of the PDF and get the information. It will work only if the invoice2data library has a template for the invoices of that supplier.</li>
@@ -33,8 +33,8 @@
                 </div>
             </group>
             <group name="import" states="import">
-                <field name="pdf_file" filename="pdf_filename"/>
-                <field name="pdf_filename" invisible="1"/>
+                <field name="invoice_file" filename="invoice_filename"/>
+                <field name="invoice_filename" invisible="1"/>
             </group>
             <group name="update" states="update">
                 <field name="partner_id"/>
@@ -59,16 +59,16 @@
     </field>
 </record>
 
-<record id="account_invoice_pdf_import_action" model="ir.actions.act_window">
-    <field name="name">Import PDF Invoice</field>
-    <field name="res_model">account.invoice.pdf.import</field>
+<record id="account_invoice_import_action" model="ir.actions.act_window">
+    <field name="name">Import Invoice</field>
+    <field name="res_model">account.invoice.import</field>
     <field name="view_mode">form</field>
     <field name="target">new</field>
 </record>
 
-<menuitem id="account_invoice_pdf_import_menu"
+<menuitem id="account_invoice_import_menu"
     parent="account.menu_finance_payables"
-    action="account_invoice_pdf_import_action" sequence="15"/>
+    action="account_invoice_import_action" sequence="15"/>
 
 </data>
 </openerp>

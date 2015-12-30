@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Account Invoice PDF import module for Odoo
+#    Account Invoice Import module for Odoo
 #    Copyright (C) 2015 Akretion (http://www.akretion.com)
 #    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
@@ -39,13 +39,13 @@ import StringIO
 logger = logging.getLogger(__name__)
 
 
-class AccountInvoicePdfImport(models.TransientModel):
-    _name = 'account.invoice.pdf.import'
-    _description = 'Wizard to import supplier invoices/refunds as PDF'
+class AccountInvoiceImport(models.TransientModel):
+    _name = 'account.invoice.import'
+    _description = 'Wizard to import supplier invoices/refunds'
 
-    pdf_file = fields.Binary(
-        string='PDF Invoice', required=True)
-    pdf_filename = fields.Char(string='Filename')
+    invoice_file = fields.Binary(
+        string='PDF or XML Invoice', required=True)
+    invoice_filename = fields.Char(string='Filename')
     state = fields.Selection([
         ('import', 'Import'),
         ('update', 'Update'),
@@ -266,7 +266,7 @@ class AccountInvoicePdfImport(models.TransientModel):
                 return self.env['res.partner'].browse(partner_id)
             else:
                 raise UserError(_(
-                    "The analysis of the PDF invoice returned '%s' as "
+                    "The analysis of the invoice returned '%s' as "
                     "supplier VAT number. But there are no supplier "
                     "with this VAT number in Odoo.") % vat)
         elif parsed_inv.get('partner_name'):
@@ -278,7 +278,7 @@ class AccountInvoicePdfImport(models.TransientModel):
                 return partners[0]
             else:
                 raise UserError(_(
-                    "PDF Invoice parsing didn't return the VAT number of the "
+                    "Invoice parsing didn't return the VAT number of the "
                     "supplier and the returned supplier name (%s) "
                     "is not a supplier company in Odoo.")
                     % parsed_inv['partner_name'])
@@ -455,7 +455,7 @@ class AccountInvoicePdfImport(models.TransientModel):
                 currency = currencies[0]
             else:
                 raise UserError(_(
-                    "The analysis of the PDF invoice returned '%s' as "
+                    "The analysis of the invoice returned '%s' as "
                     "the currency ISO code. But there are no currency "
                     "with that name in Odoo.") % currency_iso)
         if not currency and parsed_inv.get('currency_symbol'):
@@ -466,7 +466,7 @@ class AccountInvoicePdfImport(models.TransientModel):
                 currency = currencies[0]
             else:
                 raise UserError(_(
-                    "The analysis of the PDF invoice returned '%s' as "
+                    "The analysis of the invoice returned '%s' as "
                     "the currency symbol. But there are no currency "
                     "with that symbol in Odoo.") % cur_symbol)
         if not currency:
@@ -476,7 +476,7 @@ class AccountInvoicePdfImport(models.TransientModel):
     @api.multi
     def parse_invoice(self):
         self.ensure_one()
-        file_data = base64.b64decode(self.pdf_file)
+        file_data = base64.b64decode(self.invoice_file)
         parsed_inv = {}
         try:
             parsed_inv = self.parse_invoice_with_embedded_xml(file_data)
@@ -511,7 +511,7 @@ class AccountInvoicePdfImport(models.TransientModel):
     @api.multi
     def import_invoice(self):
         self.ensure_one()
-        logger.info('Starting to import PDF invoice')
+        logger.info('Starting to import invoice')
         aio = self.env['account.invoice']
         iaao = self.env['ir.actions.act_window']
         parsed_inv = self.parse_invoice()
@@ -548,8 +548,8 @@ class AccountInvoicePdfImport(models.TransientModel):
         logger.debug('draft_same_supplier_invs=%s', draft_same_supplier_invs)
         if draft_same_supplier_invs:
             action = iaao.for_xml_id(
-                'account_invoice_pdf_import',
-                'account_invoice_pdf_import_action')
+                'account_invoice_import',
+                'account_invoice_import_action')
             default_invoice_id = False
             if len(draft_same_supplier_invs) == 1:
                 default_invoice_id = draft_same_supplier_invs[0].id
@@ -574,7 +574,7 @@ class AccountInvoicePdfImport(models.TransientModel):
         vals = self._prepare_create_invoice_vals(parsed_inv)
         logger.debug('Invoice vals for creation: %s', vals)
         invoice = aio.create(vals)
-        logger.info('Invoice ID %d created from PDF', invoice.id)
+        logger.info('Invoice ID %d created', invoice.id)
         invoice.button_reset_taxes()
 
         # Force tax amount if necessary
@@ -599,15 +599,15 @@ class AccountInvoicePdfImport(models.TransientModel):
                 'The total tax amount has been forced to %s %s '
                 '(amount computed by Odoo was: %s %s).'
                 % (tax_amount, cur_symbol, initial_tax_amount, cur_symbol))
-        # Attach PDF to invoice
+        # Attach imported invoice
         self.env['ir.attachment'].create({
-            'name': self.pdf_filename,
+            'name': self.invoice_filename,
             'res_id': invoice.id,
             'res_model': 'account.invoice',
-            'datas': self.pdf_file,
+            'datas': self.invoice_file,
             })
         invoice.message_post(_(
-            "This invoice has been created automatically via PDF import"))
+            "This invoice has been created automatically via file import"))
         if parsed_inv.get('chatter_msg'):
             invoice.message_post(parsed_inv['chatter_msg'])
         action = iaao.for_xml_id('account', 'action_invoice_tree2')
@@ -645,14 +645,14 @@ class AccountInvoicePdfImport(models.TransientModel):
         logger.debug('Updating supplier invoice with vals=%s', vals)
         self.invoice_id.write(vals)
         self.env['ir.attachment'].create({
-            'name': self.pdf_filename,
+            'name': self.invoice_filename,
             'res_id': self.invoice_id.id,
             'res_model': 'account.invoice',
-            'datas': self.pdf_file,
+            'datas': self.invoice_file,
             })
         logger.info('Supplier invoice ID %d updated', self.invoice_id.id)
         self.invoice_id.message_post(_(
-            "This invoice has been updated automatically via PDF import"))
+            "This invoice has been updated automatically via file import"))
         action = iaao.for_xml_id('account', 'action_invoice_tree2')
         action.update({
             'view_mode': 'form,tree,calendar,graph',
