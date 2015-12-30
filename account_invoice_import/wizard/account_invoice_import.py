@@ -282,6 +282,10 @@ class AccountInvoiceImport(models.TransientModel):
                     "supplier and the returned supplier name (%s) "
                     "is not a supplier company in Odoo.")
                     % parsed_inv['partner_name'])
+        else:
+            raise UserError(_(
+                "Invoice parsing didn't return the VAT number of the "
+                "supplier nor the supplier name."))
 
     @api.model
     def _prepare_create_invoice_vals(self, parsed_inv):
