@@ -110,6 +110,8 @@ class AccountInvoiceSplit(models.TransientModel):
                     line.origin_invoice_line_id.sudo().unlink()
                 invoice_lines.append((4, new_invoice_line.id))
         new_invoice = self._create_invoice(invoice_to_split, invoice_lines)
+        new_invoice.button_reset_taxes()
+        invoice_to_split.button_reset_taxes()
         return new_invoice.id
 
     @api.multi
