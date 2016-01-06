@@ -28,7 +28,7 @@ This module also works with supplier refunds.
 Installation
 ============
 
-This module requires the Python library *invoice2data* available on Github. The main project is `here <https://github.com/manuelRiel/invoice2data>`_ (you should check the `pending pull requests <https://github.com/manuelRiel/invoice2data/pulls>`_ to get the latest code and templates).
+This module requires the Python library *invoice2data* available on `Github <https://github.com/manuelRiel/invoice2data>`_.
 
 To install the right version of the library, run:
 
@@ -36,6 +36,13 @@ To install the right version of the library, run:
 
   sudo pip install git+https://github.com/manuelRiel/invoice2data.git
 
+This librairy requires the *pdftotext* utility, which is available on most Linux distributions in the package *poppler-utils*. To install it on a Debian or Ubuntu system, run:
+
+.. code::
+
+  sudo apt-get install poppler-utils
+
+For some suppliers, it may be important to have a recent version of poppler-utils, to have a better support for accents. For example, the invoices of Free mobile work fine with poppler-utils version 0.33.0, but don't work with poppler-utils version 0.24.5 when the month name has accents (Décembre, which is December in French).
 
 French users should also install the module *l10n_fr_invoice_pdf_import* available in the `French localization <https://github.com/OCA/l10n-france/>`_.
 
