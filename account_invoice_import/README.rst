@@ -42,7 +42,17 @@ This librairy requires the *pdftotext* utility, which is available on most Linux
 
   sudo apt-get install poppler-utils
 
-For some suppliers, it may be important to have a recent version of poppler-utils, to have a better support for accents. For example, the invoices of Free mobile work fine with poppler-utils version 0.33.0, but don't work with poppler-utils version 0.24.5 when the month name has accents (Décembre, which is December in French).
+For some suppliers, it may be important to have a recent version of poppler-utils, to have a better support for accents. For example, the invoices of Free mobile work fine with poppler-utils version 0.33.0, but don't work with poppler-utils version 0.24.5 when the month name has accents (Décembre for example, which is December in French).
+
+If Odoo runs on Ubuntu 14.04 LTS, you will have `poppler-utils 0.24.5 <http://packages.ubuntu.com/trusty/poppler-utils>`_ which doesn't have a good support of accents. To make it easy to solve this issue, I setup a Personal Package Archives (PPA) with a backport of a recent version poppler-utils for Ubuntu 14.04 LTS. To deploy it, run:
+
+.. code::
+
+  sudo add-apt-repository ppa:alexis-via/poppler-utils-backport
+  sudo apt-get update
+  sudo apt-get install poppler-utils
+
+After that, the package poppler-utils should be in version *0.38.0-0ubuntu1~ubuntu14.04.1~ppa1*.
 
 French users should also install the module *l10n_fr_invoice_pdf_import* available in the `French localization <https://github.com/OCA/l10n-france/>`_.
 
