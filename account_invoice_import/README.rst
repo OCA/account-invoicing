@@ -54,6 +54,12 @@ If Odoo runs on Ubuntu 14.04 LTS, you will have `poppler-utils 0.24.5 <http://pa
 
 After that, the package poppler-utils should be in version *0.38.0-0ubuntu1~ubuntu14.04.1~ppa1*.
 
+If you want the invoice2data library to fallback on OCR if the PDF doesn't contain text (only a very small minority of PDF invoices are image-based and require OCR), you should also install `Imagemagick <http://www.imagemagick.org/>`_ (to get the *convert* utility to convert PDF to TIFF) and `Tesseract OCR <https://github.com/tesseract-ocr/tesseract>`_ :
+
+.. code::
+
+  sudo add-get install imagemagick tesseract-ocr
+
 French users should also install the module *l10n_fr_invoice_pdf_import* available in the `French localization <https://github.com/OCA/l10n-france/>`_.
 
 Configuration
