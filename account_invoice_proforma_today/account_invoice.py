@@ -34,9 +34,9 @@ class account_invoice(orm.Model):
             if inv.state == "proforma2":
                 ids_to_change.append(inv.id)
         if ids_to_change:
-            data = {
-                'date_invoice':
-                    date.today().strftime(DEFAULT_SERVER_DATE_FORMAT),
-            }
+            data = {'date_invoice': date.today().
+                    strftime(DEFAULT_SERVER_DATE_FORMAT),
+                    }
             self.write(cr, uid, ids_to_change, data)
-        return super(account_invoice, self).action_date_assign(cr, uid, ids, *args)
+        return super(account_invoice, self).\
+            action_date_assign(cr, uid, ids, *args)
