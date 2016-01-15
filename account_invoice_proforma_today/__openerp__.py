@@ -26,8 +26,9 @@
     'category': '',
     'description':
     """
-    The module extends the account.invoice model to set the date of the invoice as the today's
-     date when changing state from 'proforma' to 'open'.
+    The module extends the account.invoice model
+    to set the date of the invoice as the today's
+    date when changing state from 'proforma' to 'open'.
     """,
     'website': 'http://www.initos.com',
     'license': 'AGPL-3',
@@ -35,16 +36,6 @@
     'depends': ['account',
                 ],
     'data': [
-    ],
-    'js': [
-    ],
-    'qweb': [
-    ],
-    'css': [
-    ],
-    'demo': [
-    ],
-    'test': [
     ],
     'active': False,
     'installable': True
