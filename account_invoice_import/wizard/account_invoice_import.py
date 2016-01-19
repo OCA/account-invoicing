@@ -35,6 +35,7 @@ from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdftypes import resolve1
 from lxml import etree
 import StringIO
+import mimetypes
 
 logger = logging.getLogger(__name__)
 
@@ -93,6 +94,12 @@ class AccountInvoiceImport(models.TransientModel):
         logger.debug(etree.tostring(
             xml_root, pretty_print=True, encoding='UTF-8',
             xml_declaration=True))
+        return self.parse_cii_xml(xml_root)
+
+    @api.model
+    def parse_xml_invoice(self, file_data):
+        logger.debug('Starting to parse XML file')
+        xml_root = etree.fromstring(file_data)
         return self.parse_cii_xml(xml_root)
 
     @api.model
@@ -482,12 +489,21 @@ class AccountInvoiceImport(models.TransientModel):
         self.ensure_one()
         file_data = base64.b64decode(self.invoice_file)
         parsed_inv = {}
-        try:
-            parsed_inv = self.parse_invoice_with_embedded_xml(file_data)
-        except:
-            pass
-        if not parsed_inv:
-            parsed_inv = self.parse_invoice_with_invoice2data(file_data)
+        filetype = mimetypes.guess_type(self.invoice_filename)
+        logger.debug('Invoice mimetype: %s', filetype)
+        if filetype and filetype[0] == 'application/xml':
+            try:
+                parsed_inv = self.parse_xml_invoice(file_data)
+            except:
+                raise UserError(_('Failed to parse this XML file'))
+        # Fallback on PDF
+        else:
+            try:
+                parsed_inv = self.parse_invoice_with_embedded_xml(file_data)
+            except:
+                pass
+            if not parsed_inv:
+                parsed_inv = self.parse_invoice_with_invoice2data(file_data)
         prec_ac = self.env['decimal.precision'].precision_get('Account')
         prec_pp = self.env['decimal.precision'].precision_get('Product Price')
         prec_uom = self.env['decimal.precision'].precision_get(
