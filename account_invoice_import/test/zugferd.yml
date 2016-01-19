@@ -27,12 +27,12 @@
   !python {model: account.invoice.import}: |
     import base64
     from openerp.tools import file_open
-    f = file_open('account_invoice_import/test/pdf/ZUGFeRD_1p0_BASIC_Einfach.pdf', 'rb')
+    f = file_open('account_invoice_import/test/invoices/ZUGFeRD_1p0_BASIC_Einfach.pdf', 'rb')
     pdf_file = f.read()
     wiz_id = self.create(cr, uid, {
         'invoice_file': base64.b64encode(pdf_file),
         'invoice_filename': 'ZUGFeRD_1p0_BASIC_Einfach.pdf',
-        }, context=context),
+        }, context=context)
     f.close()
     self.import_invoice(cr, uid, wiz_id, context=context)
 -
@@ -53,3 +53,38 @@
     assert inv.journal_id.type == 'purchase', 'Wrong journal'
     assert float_compare(inv.check_total, 235.62, precision_digits=2) == 0, 'Wrong check_total'
     assert float_compare(inv.amount_untaxed, 198.00, precision_digits=2) == 0, 'Wrong untaxed amount'
+    # Delete invoice because all Zugferd tests use the same inv number
+    self.unlink(cr, uid, inv_ids, context=context)
+-
+  Now try to import XML file directly
+-
+  !python {model: account.invoice.import}: |
+    import base64
+    from openerp.tools import file_open
+    f = file_open('account_invoice_import/test/invoices/ZUGFeRD_1p0_COMFORT_Einfach.pdf-ZUGFeRD-invoice.xml', 'rb')
+    xml_file = f.read()
+    wiz_id = self.create(cr, uid, {
+        'invoice_file': base64.b64encode(xml_file),
+        'invoice_filename': 'ZUGFeRD_1p0_COMFORT_Einfach.pdf-ZUGFeRD-invoice.xml',
+        }, context=context)
+    f.close()
+    self.import_invoice(cr, uid, wiz_id, context=context)
+-
+  Check result of invoice creation from XML file
+-
+  !python {model: account.invoice}: |
+    from openerp.tools import float_compare
+    inv_ids = self.search(cr, uid, [
+        ('state', '=', 'draft'),
+        ('type', '=', 'in_invoice'),
+        ('supplier_invoice_number', '=', '471102')
+        ], context=context)
+    assert len(inv_ids) == 1, 'Supplier draft invoice has not been created'
+    inv = self.browse(cr, uid, inv_ids[0], context=context)
+    assert inv.type == 'in_invoice', 'Wrong invoice type'
+    assert inv.date_invoice == '2013-03-05', 'Wrong invoice date'
+    assert inv.partner_id.id == ref('lieferant'), 'Wrong supplier on invoice'
+    assert inv.journal_id.type == 'purchase', 'Wrong journal'
+    assert float_compare(inv.check_total, 529.87, precision_digits=2) == 0, 'Wrong check_total'
+    assert float_compare(inv.amount_untaxed, 473.00, precision_digits=2) == 0, 'Wrong untaxed amount'
+    self.unlink(cr, uid, inv_ids, context=context)
