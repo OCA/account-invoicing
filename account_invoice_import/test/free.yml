@@ -27,7 +27,7 @@
   !python {model: account.invoice.import}: |
     import base64
     from openerp.tools import file_open
-    f = file_open('account_invoice_import/test/pdf/invoice_free_fiber_201507.pdf', 'rb')
+    f = file_open('account_invoice_import/test/invoices/invoice_free_fiber_201507.pdf', 'rb')
     pdf_file = f.read()
     wiz_id = self.create(cr, uid, {
         'invoice_file': base64.b64encode(pdf_file),
@@ -80,7 +80,7 @@
   !python {model: account.invoice.import}: |
     import base64
     from openerp.tools import file_open
-    f = file_open('account_invoice_import/test/pdf/invoice_free_fiber_201507.pdf', 'rb')
+    f = file_open('account_invoice_import/test/invoices/invoice_free_fiber_201507.pdf', 'rb')
     pdf_file = f.read()
     wiz_id = self.create(cr, uid, {
         'invoice_file': base64.b64encode(pdf_file),
