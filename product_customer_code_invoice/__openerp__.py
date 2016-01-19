@@ -1,45 +1,17 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Copyright (C) 2013 Agile Business Group sagl (<http://www.agilebg.com>)
-#    Author: Nicola Malcontenti <nicola.malcontenti@agilebg.com>
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2016 Nicola Malcontenti - Agile Business Group
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 {
-    "name": "Product Customer code for account invoice",
-    "version": "1.0",
-    "author": "Agile Business Group,Odoo Community Association (OCA)",
+    "name": "Product Customer code for Account Invoice",
+    "version": "8.0.1.0.0",
+    "author": "Agile Business Group, Odoo Community Association (OCA)",
     "website": "http://www.agilebg.com",
-    "license": "AGPL-3",
-    "category": "Account",
+    "license": 'AGPL-3',
+    "category": 'Accounting & Finance',
     "depends": [
-        'base',
-        'product',
+        'product_customer_code',
         'account',
-        'product_customer_code'
     ],
-    "description": """
-    Based on product_customer_code,
-    this module loads in every account invoice
-    the customer code defined in the product,
-    """,
-    "demo": [],
-    "data": [
-        'account_invoice_view.xml',
-    ],
-    'installable': False,
-    'active': False,
+    "data": ['views/account_invoice_view.xml'],
+    "installable": True,
 }
