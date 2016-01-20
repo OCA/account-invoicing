@@ -229,6 +229,8 @@ class AccountInvoiceImport(models.TransientModel):
         # rewrite a few keys
         res['amount_total'] = res['amount']
         res.pop('amount')
+        if 'amount_tax' in res and not 'amount_untaxed' in res:
+            res['amount_untaxed'] = res['amount_total'] - res['amount_tax']
         # convert datetime to string, to make it json serializable
         for key, value in res.iteritems():
             if value and isinstance(value, datetime):
