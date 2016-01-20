@@ -39,5 +39,6 @@
     ],
     'test': ['test/free.yml', 'test/zugferd.yml'],
     'demo': ['demo/demo_data.xml'],
+    'images': ['images/sshot-wizard1.png'],
     'installable': True,
 }
