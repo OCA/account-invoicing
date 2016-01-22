@@ -231,6 +231,9 @@ class AccountInvoiceImport(models.TransientModel):
         res.pop('amount')
         if 'amount_tax' in res and not 'amount_untaxed' in res:
             res['amount_untaxed'] = res['amount_total'] - res['amount_tax']
+        elif not 'amount_untaxed' in res and not 'amount_tax' in res:
+            # For invoices that never have taxes
+            res['amount_untaxed'] = res['amount_total']
         # convert datetime to string, to make it json serializable
         for key, value in res.iteritems():
             if value and isinstance(value, datetime):
@@ -243,6 +246,8 @@ class AccountInvoiceImport(models.TransientModel):
         # 'currency_symbol': u'€',  # The one or the other
         # 'date': '2015-10-08',  # Must be a string
         # 'date_due': '2015-11-07',
+        # 'date_start': '2015-10-01',  # for services over a period of time
+        # 'date_end': '2015-10-31',
         # 'amount_untaxed': 10.0,
         # 'amount_total': 12.0,  # Total with taxes
         # 'vat': 'FR25499247138',
@@ -370,6 +375,7 @@ class AccountInvoiceImport(models.TransientModel):
             elif not il_vals.get('name'):
                 il_vals['name'] = _('MISSING DESCRIPTION')
             self.set_1line_price_unit_and_quantity(il_vals, parsed_inv)
+            self.set_1line_start_end_dates(il_vals, parsed_inv)
             vals['invoice_line'].append((0, 0, il_vals))
         elif config.invoice_line_method.startswith('nline'):
             if not parsed_inv.get('lines'):
@@ -456,6 +462,19 @@ class AccountInvoiceImport(models.TransientModel):
                 il_vals['invoice_line_tax_id'][0])
             if not first_tax.price_include:
                 il_vals['price_unit'] = parsed_inv.get('amount_untaxed')
+
+    @api.model
+    def set_1line_start_end_dates(self, il_vals, parsed_inv):
+        """Only useful if you have installed the module account_cutoff_prepaid
+        from https://github.com/OCA/account-closing"""
+        fakeiline = self.env['account.invoice.line'].browse(False)
+        if (
+                parsed_inv.get('date_start') and
+                parsed_inv.get('date_end') and
+                hasattr(fakeiline, 'start_date') and
+                hasattr(fakeiline, 'end_date')):
+            il_vals['start_date'] = parsed_inv.get('date_start')
+            il_vals['end_date'] = parsed_inv.get('date_end')
 
     @api.model
     def _get_currency(self, parsed_inv):
