@@ -61,6 +61,14 @@ If you want the invoice2data library to fallback on OCR if the PDF doesn't conta
 
   sudo add-get install imagemagick tesseract-ocr
 
+For date parsing, the invoice2data library will try both *en_US* and the default locale of the server. So you should make sure that the locale of your language is installed on the server:
+
+.. code::
+
+  locale -a
+
+You can get the default locale with the command **locale**. On Debian/Ubuntu, you can change the default locale by editing the configuration file */etc/default/locale*.
+
 French users should also install the module *l10n_fr_invoice_pdf_import* available in the `French localization <https://github.com/OCA/l10n-france/>`_.
 
 Configuration
