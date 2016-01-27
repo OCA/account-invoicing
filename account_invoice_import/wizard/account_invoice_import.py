@@ -227,11 +227,13 @@ class AccountInvoiceImport(models.TransientModel):
                 "This PDF invoice doesn't match a known template of "
                 "the invoice2data lib."))
         # rewrite a few keys
-        res['amount_total'] = res['amount']
-        res.pop('amount')
-        if 'amount_tax' in res and not 'amount_untaxed' in res:
+        res['amount_total'] = res.pop('amount')
+        # If you crash here, you should just update invoice2data to the
+        # latest version from github
+        res['currency_iso'] = res.pop('currency')
+        if 'amount_tax' in res and 'amount_untaxed' not in res:
             res['amount_untaxed'] = res['amount_total'] - res['amount_tax']
-        elif not 'amount_untaxed' in res and not 'amount_tax' in res:
+        elif 'amount_untaxed' not in res and 'amount_tax' not in res:
             # For invoices that never have taxes
             res['amount_untaxed'] = res['amount_total']
         # convert datetime to string, to make it json serializable
