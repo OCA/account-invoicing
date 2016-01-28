@@ -44,7 +44,8 @@
                 <field name="amount_total"
                     widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="invoice_id"
-                    domain="[('state', '=', 'draft'), ('type', 'in', ('in_invoice', 'in_refund')), ('commercial_partner_id', '=', partner_id), ('type', '=', invoice_type)]"/>
+                    domain="[('state', '=', 'draft'), ('type', 'in', ('in_invoice', 'in_refund')), ('commercial_partner_id', '=', partner_id), ('type', '=', invoice_type)]"
+                    context="{'invoice_show_amount': True}"/>
             </group>
             <footer>
                 <button name="import_invoice" type="object"
@@ -64,6 +65,7 @@
     <field name="res_model">account.invoice.import</field>
     <field name="view_mode">form</field>
     <field name="target">new</field>
+    <field name="context">{'invoice_show_amount': True}</field>
 </record>
 
 <menuitem id="account_invoice_import_menu"
