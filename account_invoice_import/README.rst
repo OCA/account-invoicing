@@ -29,13 +29,13 @@ This module also works with supplier refunds.
 Installation
 ============
 
-This module requires the Python library *invoice2data* available on `Github <https://github.com/manuelRiel/invoice2data>`_.
+This module requires the Python library *invoice2data* available on `Github <https://github.com/m3nu/invoice2data>`_.
 
 To install the right version of the library, run:
 
 .. code::
 
-  sudo pip install git+https://github.com/manuelRiel/invoice2data.git
+  sudo pip install git+https://github.com/m3nu/invoice2data.git
 
 This librairy requires the *pdftotext* utility, which is available on most Linux distributions in the package *poppler-utils*. To install it on a Debian or Ubuntu system, run:
 
@@ -83,11 +83,11 @@ Then, go to the form view of the suppliers and make sure that:
 * the *TIN* (i.e. VAT number) is set (the VAT number is used by default when searching the supplier in the Odoo partner database)
 * in the *Accounting* tab, select the *Invoice Import Configuration*.
 
-For the PDF invoice of your supplier that don't have an embedded XML file, you will have to update the `template file <https://github.com/manuelRiel/invoice2data/blob/master/invoice2data/templates.py>`_ of the invoice2data Python library. It is quite easy to do ; if you are familiar with `regexp <https://docs.python.org/2/library/re.html>`_, it should not take more than 10 minutes for each supplier.
+For the PDF invoice of your supplier that don't have an embedded XML file, you will have to create a `template file <https://github.com/m3nu/invoice2data/blob/master/invoice2data/templates>`_ in YAML format in the invoice2data Python library. It is quite easy to do ; if you are familiar with `regexp <https://docs.python.org/2/library/re.html>`_, it should not take more than 10 minutes for each supplier.
 
 Here are some hints to help you add a template for your supplier:
 
-* Take Free SAS (keyword = FR 604 219 388 61) as an example. You will find a sample PDF invoice for this supplier under invoice2data/test/pdfs/2015-07-02-invoice_free_fiber.pdf
+* Take `Free SAS template file <https://github.com/m3nu/invoice2data/blob/master/invoice2data/templates/fr/fr.free.adsl-fiber.yml>`_ as an example. You will find a sample PDF invoice for this supplier under invoice2data/test/pdfs/2015-07-02-invoice_free_fiber.pdf
 
 * Try to run the invoice2data library manually on the sample invoice of Free:
 
