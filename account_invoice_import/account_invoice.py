@@ -30,10 +30,13 @@ class AccountInvoice(models.Model):
     def name_get(self):
         """Add amount_untaxed in name_get of invoices"""
         res = super(AccountInvoice, self).name_get()
-        new_res = []
-        for (inv_id, name) in res:
-            inv = self.browse(inv_id)
-            name += _(' Amount w/o tax: %s %s') % (
-                inv.amount_untaxed, inv.currency_id.name)
-            new_res.append((inv_id, name))
-        return new_res
+        if self._context.get('invoice_show_amount'):
+            new_res = []
+            for (inv_id, name) in res:
+                inv = self.browse(inv_id)
+                name += _(' Amount w/o tax: %s %s') % (
+                    inv.amount_untaxed, inv.currency_id.name)
+                new_res.append((inv_id, name))
+            return new_res
+        else:
+            return res
