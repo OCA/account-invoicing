@@ -37,37 +37,34 @@ To install the right version of the library, run:
 
   sudo pip install git+https://github.com/m3nu/invoice2data.git
 
-This librairy requires the *pdftotext* utility, which is available on most Linux distributions in the package *poppler-utils*. To install it on a Debian or Ubuntu system, run:
+After installation, you will unfortunately have 2 versions of the pdfminer library:
 
 .. code::
 
-  sudo apt-get install poppler-utils
+  $ pip freeze | grep pdfminer
+  pdfminer==20140328
+  pdfminer3k==1.3.0
 
-For some suppliers, it may be important to have a recent version of poppler-utils, to have a better support for accents. For example, the invoices of Free mobile work fine with poppler-utils version 0.33.0, but don't work with poppler-utils version 0.24.5 when the month name has accents (Décembre for example, which is December in French).
-
-If Odoo runs on Ubuntu 14.04 LTS, you will have `poppler-utils 0.24.5 <http://packages.ubuntu.com/trusty/poppler-utils>`_ which doesn't have a good support of accents. To make it easy to solve this issue, I setup a Personal Package Archives (PPA) with a backport of a recent version poppler-utils for Ubuntu 14.04 LTS. To deploy it, run:
+You should uninstall the pdfminer3k, which is for Python 3 and blocks the use of invoice2data with Python 2:
 
 .. code::
 
-  sudo add-apt-repository ppa:alexis-via/poppler-utils-backport
-  sudo apt-get update
-  sudo apt-get install poppler-utils
+  sudo pip uninstall pdfminer3k
 
-After that, the package poppler-utils should be in version *0.38.0-0ubuntu1~ubuntu14.04.1~ppa1*.
+After that, check that only pdfminer for Python 2 is installed:
+
+.. code::
+
+  $ pip freeze | grep pdfminer
+  pdfminer==20140328
+
+The invoice2data library requires the latest version of the *pdftotext* utility, which is not yet packaged in Debian/Ubuntu. So you should download it from `the FTP server of Foolabs <ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-linux-3.04.tar.gz>`_ then uncompress it and copy the file *bin64/pdftotext* to */usr/local/bin*.
 
 If you want the invoice2data library to fallback on OCR if the PDF doesn't contain text (only a very small minority of PDF invoices are image-based and require OCR), you should also install `Imagemagick <http://www.imagemagick.org/>`_ (to get the *convert* utility to convert PDF to TIFF) and `Tesseract OCR <https://github.com/tesseract-ocr/tesseract>`_ :
 
 .. code::
 
   sudo add-get install imagemagick tesseract-ocr
-
-For date parsing, the invoice2data library will try both *en_US* and the default locale of the server. So you should make sure that the locale of your language is installed on the server:
-
-.. code::
-
-  locale -a
-
-You can get the default locale with the command **locale**. On Debian/Ubuntu, you can change the default locale by editing the configuration file */etc/default/locale*.
 
 French users should also install the module *l10n_fr_invoice_pdf_import* available in the `French localization <https://github.com/OCA/l10n-france/>`_.
 
@@ -93,16 +90,17 @@ Here are some hints to help you add a template for your supplier:
 
 .. code::
 
-  % python -m invoice2data.main invoice2data/test/pdfs/2015-07-02-invoice_free_fiber.pdf
+  % python -m invoice2data.main --debug invoice2data/test/pdfs/2015-07-02-invoice_free_fiber.pdf
 
 On the output, you will get first the text of the PDF, then some debug info on the parsing of the invoice and the regexps, and, on the last line, you will have the dict that contain the result of the parsing.
 
-* if the VAT number of the supplier is present in the text of the PDF invoice, I think it's a good idea to use it as the keyword
+* if the VAT number of the supplier is present in the text of the PDF invoice, I think it's a good idea to use it as the keyword. It is a good practice to add 2 other keywoards: one for the language (for example, match on the word *Invoice* in the language of the invoice) and one for the currency, so as to match only the invoices of that supplier in this particular language and currency.
 
-* the 'data' dict should contain the following keys:
+* the list of *fields* should contain the following entries:
 
   * 'vat' with the VAT number of the supplier (if the VAT number of the supplier is not in the text of PDF file, add a 'partner_name' key, or, if the supplier is French and the module *l10n_fr_invoice_pdf_import* is installed, add a 'siren' key)
-  * 'amount_untaxed' and 'amount' ('amount' is the total amount with taxes). These 2 keys are required.
+  * 'amount' ('amount' is the total amount with taxes)
+  * 'amount_untaxed' or 'amount_tax' (one or the other, no need for both)
   * 'date': the date of the invoice
   * 'invoice_number'
   * 'date_due', if this information is available in the text of the PDF file.
