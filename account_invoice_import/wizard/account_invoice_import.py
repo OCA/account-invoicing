@@ -253,7 +253,10 @@ class AccountInvoiceImport(models.TransientModel):
         # 'amount_untaxed': 10.0,
         # 'amount_total': 12.0,  # Total with taxes
         # 'vat': 'FR25499247138',
-        # 'partner_name': 'Capitaine Train'  # Not needed if we have VAT
+        # 'partner_email': 'support@browserstack.com'
+        #          partner_email is not needed if we have VAT
+        # 'partner_name': 'Capitaine Train'
+        #          partner_name is not needed if we have VAT or partner_email
         # 'invoice_number': 'I1501243',
         # 'description': 'TGV Paris-Lyon',
         # 'lines': [{
@@ -285,23 +288,25 @@ class AccountInvoiceImport(models.TransientModel):
                     "The analysis of the invoice returned '%s' as "
                     "supplier VAT number. But there are no supplier "
                     "with this VAT number in Odoo.") % vat)
-        elif parsed_inv.get('partner_name'):
+        if parsed_inv.get('partner_email'):
+            partners = self.env['res.partner'].search([
+                ('email', '=ilike', parsed_inv['partner_email']),
+                ('supplier', '=', True)])
+            if partners:
+                return partners[0].commercial_partner_id
+        if parsed_inv.get('partner_name'):
             partners = self.env['res.partner'].search([
                 ('name', '=ilike', parsed_inv['partner_name']),
                 ('is_company', '=', True),
                 ('supplier', '=', True)])
             if partners:
                 return partners[0]
-            else:
-                raise UserError(_(
-                    "Invoice parsing didn't return the VAT number of the "
-                    "supplier and the returned supplier name (%s) "
-                    "is not a supplier company in Odoo.")
-                    % parsed_inv['partner_name'])
-        else:
-            raise UserError(_(
-                "Invoice parsing didn't return the VAT number of the "
-                "supplier nor the supplier name."))
+        raise UserError(_(
+            "Invoice parsing didn't return the VAT number of the "
+            "supplier. In this case, invoice parsing should return the "
+            "email or the name of the partner, but it was not returned "
+            "or it was returned but it didn't match any "
+            "existing supplier."))
 
     @api.model
     def _prepare_create_invoice_vals(self, parsed_inv):
@@ -350,7 +355,7 @@ class AccountInvoiceImport(models.TransientModel):
                 parsed_inv['chatter_msg'] = _(
                     "The bank account <b>IBAN %s</b> has been automatically "
                     "added on the supplier <b>%s</b>") % (
-                        parsed_inv['iban'], self.partner_id.name)
+                    parsed_inv['iban'], self.partner_id.name)
         config = self.partner_id.invoice_import_id
         if config.invoice_line_method.startswith('1line'):
             if config.invoice_line_method == '1line_no_product':
