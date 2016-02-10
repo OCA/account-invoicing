@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+        <record model="ir.ui.view" id="account_invoice_form_currency_rate">
+            <field name="name">account.invoice.form.currency_rate</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='invoice_open']" position="before">
+                    <button name="%(action_force_currency_rate)d" type="action"
+                        string="Force currency rate"
+                        attrs="{'invisible': [('show_force_currency', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='currency_id']/.." position="after">
+                    <field name="currency_rate"
+                           attrs="{'readonly':[('state','!=','draft')], 'invisible':[('currency_rate', '=', 0.0)]}"
+                           groups="base.group_multi_currency"/>
+                    <field name="show_force_currency" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_invoice_supplier_form_currency_rate">
+            <field name="name">account.invoice.supplier.form.currency_rate</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='invoice_open']" position="before">
+                    <button name="%(action_force_currency_rate)d" type="action"
+                        string="Force currency rate"
+                        attrs="{'invisible': [('show_force_currency', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="currency_rate"
+                           attrs="{'readonly':[('state','!=','draft')], 'invisible':[('currency_rate', '=', 0.0)]}"
+                           groups="base.group_multi_currency"/>
+                    <field name="show_force_currency" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+</data>
+</openerp>
