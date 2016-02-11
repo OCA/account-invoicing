@@ -37,27 +37,6 @@ To install the right version of the library, run:
 
   sudo pip install git+https://github.com/m3nu/invoice2data.git
 
-After installation, you will unfortunately have 2 versions of the pdfminer library:
-
-.. code::
-
-  $ pip freeze | grep pdfminer
-  pdfminer==20140328
-  pdfminer3k==1.3.0
-
-You should uninstall the pdfminer3k, which is for Python 3 and blocks the use of invoice2data with Python 2:
-
-.. code::
-
-  sudo pip uninstall pdfminer3k
-
-After that, check that only pdfminer for Python 2 is installed:
-
-.. code::
-
-  $ pip freeze | grep pdfminer
-  pdfminer==20140328
-
 The invoice2data library requires the latest version of the *pdftotext* utility, which is not yet packaged in Debian/Ubuntu. So you should download it from `the FTP server of Foolabs <ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-linux-3.04.tar.gz>`_ then uncompress it and copy the file *bin64/pdftotext* to */usr/local/bin*.
 
 If you want the invoice2data library to fallback on OCR if the PDF doesn't contain text (only a very small minority of PDF invoices are image-based and require OCR), you should also install `Imagemagick <http://www.imagemagick.org/>`_ (to get the *convert* utility to convert PDF to TIFF) and `Tesseract OCR <https://github.com/tesseract-ocr/tesseract>`_ :
