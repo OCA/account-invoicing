@@ -21,6 +21,7 @@
 from openerp import models, fields, api, exceptions
 from openerp.osv import orm
 from openerp.tools.translate import _
+from openerp.tools.safe_eval import safe_eval
 from openerp import netsvc
 
 
@@ -228,7 +229,7 @@ class AccountInvoiceRefund(orm.TransientModel):
             result = mod_obj.get_object_reference(cr, uid, 'account', xml_id)
             id = result and result[1] or False
             result = act_obj.read(cr, uid, id, context=context)
-            invoice_domain = eval(result['domain'])
+            invoice_domain = safe_eval(result['domain'])
             invoice_domain.append(('id', 'in', created_inv))
             result['domain'] = invoice_domain
             return result
