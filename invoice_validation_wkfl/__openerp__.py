@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'Add "To Send" and "To Validate" states in Invoices',
-    'version': '1.0',
+    'version': '7.0.1.0.1',
     'category': 'Generic Modules/Invoicing',
     'description':
     '''
