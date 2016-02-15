@@ -15,10 +15,7 @@ class StockMove(models.Model):
         """
         procs_to_check = []
         for move in self:
-            if (
-                move.procurement_id and move.procurement_id.sale_line_id
-                and move.procurement_id.sale_line_id.order_id.incoterm
-            ):
+            if move.procurement_id.sale_line_id.order_id.incoterm:
                 procs_to_check += [move.procurement_id]
         res = super(StockMove, self).action_confirm()
         for proc in procs_to_check:
