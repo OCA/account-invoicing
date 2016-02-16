@@ -32,7 +32,7 @@ addon | version | summary
 [account_invoice_supplier_number_info](account_invoice_supplier_number_info/) | 8.0.1.0.0 | Allows to force invoice numbering on specific invoices
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 8.0.1.1.0 | Checks that supplier invoices are not entered twice
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 | Unit of measure for invoices
-[account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.0 | Add "To Send" and "To Validate" states in Invoices
+[account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.1 | Add "To Send" and "To Validate" states in Invoices
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 | Account Invoice Zero Autopay
 [account_payment_term_extension](account_payment_term_extension/) | 8.0.1.0.0 | Adds rounding, months and weeks properties on payment term lines
 [invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
