@@ -33,7 +33,7 @@ addon | version | summary
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 8.0.1.1.0 (unported) | Checks that supplier invoices are not entered twice
 [account_invoice_template](account_invoice_template/) | 0.1 (unported) | Account Invoice Template
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 (unported) | Unit of measure for invoices
-[account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.0 (unported) | Add "To Send" and "To Validate" states in Invoices
+[account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.1 (unported) | Add "To Send" and "To Validate" states in Invoices
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 (unported) | Account Invoice Zero Autopay
 [account_payment_term_extension](account_payment_term_extension/) | 8.0.1.0.0 (unported) | Adds rounding, months and weeks properties on payment term lines
 [invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 (unported) | Changing the fiscal position of an invoice will auto-update invoice lines
