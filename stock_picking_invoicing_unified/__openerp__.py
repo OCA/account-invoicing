@@ -7,9 +7,11 @@
     "version": "8.0.1.0.0",
     'author': 'OdooMRP team',
     'website': "http://www.odoomrp.com",
-    'contributors': ["Ainara Galdona <ainaragaldona@avanzosc.es>",
-                     "Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>",
-                     "Ana Juaristi <ajuaristio@gmail.com>"],
+    "license": "AGPL-3",
+    'contributors': [
+        "Ainara Galdona <ainaragaldona@avanzosc.es>",
+        "Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>"
+    ],
     "depends": ['stock_account'],
     "category": "Warehouse Management",
     "data": ['wizard/stock_invoice_onshipping_view.xml'],

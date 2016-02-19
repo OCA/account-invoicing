@@ -52,8 +52,8 @@ class StockInvoiceOnshipping(models.TransientModel):
         else:
             moves = pickings.mapped('move_lines').filtered(
                 lambda x: x.location_id.usage == usage)
-        return (sum([(move_obj._get_price_unit_invoice(m, inv_type)
-                      * m.product_uom_qty) for m in moves]),
+        return (sum([(move_obj._get_price_unit_invoice(m, inv_type) *
+                      m.product_uom_qty) for m in moves]),
                 moves.mapped('picking_id'))
 
     @api.multi
