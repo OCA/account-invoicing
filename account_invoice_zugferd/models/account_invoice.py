@@ -107,7 +107,8 @@ class AccountInvoice(models.Model):
             header_doc, ns['ram'] + 'TypeCode')
         header_doc_typecode.text = '380'
         # 380 = Commercial invoices (including refund)
-        date_invoice_dt = fields.Date.from_string(self.date_invoice)
+        date_invoice_dt = fields.Date.from_string(
+            self.date_invoice or fields.Date.context_today(self))
         self._add_date('IssueDateTime', date_invoice_dt, header_doc, ns)
         if self.comment:
             note = etree.SubElement(header_doc, ns['ram'] + 'IncludedNote')
