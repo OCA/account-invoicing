@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+
+<record id="product.product_uom_unit" model="product.uom">
+    <field name="zugferd_code">C62</field>
+</record>
+
+<record id="product.product_uom_kgm" model="product.uom">
+    <field name="zugferd_code">KGM</field>
+</record>
+
+<record id="product.product_uom_hour" model="product.uom">
+    <field name="zugferd_code">HUR</field>
+</record>
+
+<record id="product.product_uom_day" model="product.uom">
+    <field name="zugferd_code">DAY</field>
+</record>
+
+<record id="product.product_uom_ton" model="product.uom">
+    <field name="zugferd_code">TNE</field>
+</record>
+
+<record id="product.product_uom_meter" model="product.uom">
+    <field name="zugferd_code">MTR</field>
+</record>
+
+<record id="product.product_uom_km" model="product.uom">
+    <field name="zugferd_code">KTM</field>
+</record>
+
+<record id="product.product_uom_litre" model="product.uom">
+    <field name="zugferd_code">LTR</field>
+</record>
+
+<record id="account_banking_payment_export.manual_bank_tranfer" model="payment.mode.type">
+    <field name="zugferd_code">31</field>
+</record>
+
+</data>
+</openerp>

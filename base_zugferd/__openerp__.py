@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Account Invoice Import module for Odoo
-#    Copyright (C) 2015 Akretion (http://www.akretion.com)
+#    Base ZUGFeRD module for Odoo
+#    Copyright (C) 2016 Akretion (http://www.akretion.com)
 #    @author Alexis de Lattre <alexis.delattre@akretion.com>
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -22,23 +22,19 @@
 
 
 {
-    'name': 'Account Invoice Import',
+    'name': 'Base ZUGFeRD',
     'version': '8.0.0.1.0',
     'category': 'Accounting & Finance',
     'license': 'AGPL-3',
-    'summary': 'Import supplier invoices/refunds as PDF or XML files',
+    'summary': 'Base module for ZUGFeRD',
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
-    'depends': ['account', 'base_iban'],
-    'external_dependencies': {'python': ['invoice2data', 'lxml']},
+    'depends': ['account_banking_payment_export'],
     'data': [
-        'security/ir.model.access.csv',
-        'account_invoice_import_config_view.xml',
-        'wizard/account_invoice_import_view.xml',
-        'partner_view.xml',
-    ],
-    'test': ['test/free.yml'],
-    'demo': ['demo/demo_data.xml'],
-    'images': ['images/sshot-wizard1.png'],
+        'views/account_tax.xml',
+        'views/payment_mode_type.xml',
+        'views/product_uom.xml',
+        'data/zugferd_codes.xml',
+        ],
     'installable': True,
 }
