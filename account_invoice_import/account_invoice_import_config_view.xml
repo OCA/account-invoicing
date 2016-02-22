@@ -24,7 +24,7 @@
                     attrs="{'invisible': [('invoice_line_method', 'not in', ('1line_no_product', 'nline_no_product'))], 'required': [('invoice_line_method', 'in', ('1line_no_product', 'nline_no_product'))]}"/>
                 <field name="tax_ids"
                     widget="many2many_tags"
-                    attrs="{'invisible': [('invoice_line_method', 'not in', ('1line_no_product', 'nline_no_product'))]}"/>
+                    attrs="{'invisible': [('invoice_line_method', '!=', '1line_no_product')]}"/>
                 <field name="static_product_id"
                     attrs="{'invisible': [('invoice_line_method', 'not in', ('1line_static_product', 'nline_static_product'))], 'required': [('invoice_line_method', 'in', ('1line_static_product', 'nline_static_product'))]}"/>
                 <field name="account_analytic_id"
