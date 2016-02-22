@@ -21,7 +21,7 @@
               <div>
                 <p>Upload below the supplier invoice or refund as PDF or XML file. When you click on the Import button:</p>
                 <ol>
-                  <li>Odoo will try to extract an XML file embedded inside the PDF file. It will work only if the invoice complies with the <a href="//www.pdflib.com/knowledge-base/pdfa/zugferd-invoices/" target="_blank">ZUGFeRD</a> standard (an implementation of the <a href="http://tfig.unece.org/contents/cross-industry-invoice-cii.htm" target="_blank">Core Industry Invoice</a> specifications).</li>
+                  <li>If the module account_invoice_import_zugferd is installed, Odoo will try to extract an XML file embedded inside the PDF file. It will work only if the invoice complies with the <a href="//www.pdflib.com/knowledge-base/pdfa/zugferd-invoices/" target="_blank">ZUGFeRD</a> standard (based on the <a href="http://tfig.unece.org/contents/cross-industry-invoice-cii.htm" target="_blank">Core Industry Invoice</a> specifications).</li>
                   <li>Otherwise, Odoo will use the <a href="https://github.com/akretion/invoice2data/" target="_blank">invoice2data</a> library to read the text of the PDF and get the information. It will work only if the invoice2data library has a template for the invoices of that supplier.</li>
                   <li>Odoo will use this information to create a draft supplier invoice. If there is already a draft invoice for that supplier in Odoo, you will have the option to update that invoice.</li>
                 </ol>

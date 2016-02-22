@@ -24,17 +24,13 @@ from openerp import models, fields, api, _
 import openerp.addons.decimal_precision as dp
 from openerp.tools import float_compare, float_round
 from openerp.exceptions import Warning as UserError
+from lxml import etree
 from datetime import datetime
 import logging
 import os
 import base64
 from tempfile import mkstemp
 from invoice2data.main import extract_data
-from pdfminer.pdfparser import PDFParser
-from pdfminer.pdfdocument import PDFDocument
-from pdfminer.pdftypes import resolve1
-from lxml import etree
-import StringIO
 import mimetypes
 
 logger = logging.getLogger(__name__)
@@ -69,148 +65,16 @@ class AccountInvoiceImport(models.TransientModel):
         'account.invoice', string='Draft Supplier Invoice to Update')
 
     @api.model
-    def parse_invoice_with_embedded_xml(self, file_data):
-        logger.info('Trying to find an embedded XML file inside PDF')
-        fd = StringIO.StringIO(file_data)
-        parser = PDFParser(fd)
-        doc = PDFDocument(parser)
-        logger.debug('doc.catalog=%s', doc.catalog)
-        # The code below will have to be adapted when we get samples
-        # of PDF files with embedded XML other than ZUGFeRD
-        embeddedfile = doc.catalog['Names']['EmbeddedFiles']['Names']
-        if embeddedfile[0] == 'ZUGFeRD-invoice.xml':
-            pdfobjref1 = embeddedfile[1]
-        else:
-            logger.info('No embedded file ZUGFeRD-invoice.xml')
-            return False
-        logger.debug('pdfobjref1=%s', pdfobjref1)
-        respdfobjref1 = resolve1(pdfobjref1)
-        pdfobjref2 = respdfobjref1['EF']['F']
-        respdfobjref2 = resolve1(pdfobjref2)
-        xml_string = respdfobjref2.get_data()
-        xml_root = etree.fromstring(xml_string)
-        logger.info('A valid XML file has been found in the PDF file')
-        logger.debug('xml_root:')
-        logger.debug(etree.tostring(
-            xml_root, pretty_print=True, encoding='UTF-8',
-            xml_declaration=True))
-        return self.parse_cii_xml(xml_root)
+    def parse_xml_invoice(self, xml_root):
+        raise UserError(_(
+            "This type of XML invoice is not supported. Did you install "
+            "the module to support this type of file?"))
 
     @api.model
-    def parse_xml_invoice(self, file_data):
-        logger.debug('Starting to parse XML file')
-        xml_root = etree.fromstring(file_data)
-        return self.parse_cii_xml(xml_root)
-
-    @api.model
-    def parse_cii_xml(self, xml_root):
-        """Parse Core Industry Invoice XML file"""
-        assert xml_root.tag.startswith(
-            '{urn:ferd:CrossIndustryDocument:invoice:1p0'),\
-            'wrong Core Industry Invoice namespace'
-        namespaces = xml_root.nsmap
-        logger.debug('XML file namespaces=%s', namespaces)
-        inv_number_xpath = xml_root.xpath(
-            '//rsm:HeaderExchangedDocument/ram:ID', namespaces=namespaces)
-        supplier_xpath = xml_root.xpath(
-            '//ram:ApplicableSupplyChainTradeAgreement'
-            '/ram:SellerTradeParty'
-            '/ram:Name', namespaces=namespaces)
-        vat_xpath = xml_root.xpath(
-            '//ram:ApplicableSupplyChainTradeAgreement'
-            "/ram:SellerTradeParty"
-            "/ram:SpecifiedTaxRegistration"
-            "/ram:ID[@schemeID='VA']",
-            namespaces=namespaces)
-        date_xpath = xml_root.xpath(
-            '//rsm:HeaderExchangedDocument'
-            '/ram:IssueDateTime/udt:DateTimeString', namespaces=namespaces)
-        date_dt = datetime.strptime(date_xpath[0].text, '%Y%m%d')
-        currency_iso_xpath = xml_root.xpath(
-            "//ram:ApplicableSupplyChainTradeSettlement"
-            "/ram:InvoiceCurrencyCode",
-            namespaces=namespaces)
-        amount_total_xpath = xml_root.xpath(
-            "//ram:ApplicableSupplyChainTradeSettlement"
-            "/ram:SpecifiedTradeSettlementMonetarySummation/"
-            "ram:GrandTotalAmount",
-            namespaces=namespaces)
-        amount_untaxed_xpath = xml_root.xpath(
-            "//ram:ApplicableSupplyChainTradeSettlement"
-            "/ram:SpecifiedTradeSettlementMonetarySummation"
-            "/ram:TaxBasisTotalAmount", namespaces=namespaces)
-        iban_xpath = xml_root.xpath(
-            "//ram:SpecifiedTradeSettlementPaymentMeans"
-            "/ram:PayeePartyCreditorFinancialAccount"
-            "/ram:IBANID", namespaces=namespaces)
-        bic_xpath = xml_root.xpath(
-            "//ram:SpecifiedTradeSettlementPaymentMeans"
-            "/ram:PayeeSpecifiedCreditorFinancialInstitution"
-            "/ram:BICID", namespaces=namespaces)
-        inv_line_xpath = xml_root.xpath(
-            "//ram:IncludedSupplyChainTradeLineItem", namespaces=namespaces)
-        res_lines = []
-        for iline in inv_line_xpath:
-            price_unit_xpath = iline.xpath(
-                "ram:SpecifiedSupplyChainTradeAgreement"
-                "/ram:NetPriceProductTradePrice"
-                "/ram:ChargeAmount",
-                namespaces=namespaces)
-            qty_xpath = iline.xpath(
-                "ram:SpecifiedSupplyChainTradeDelivery/ram:BilledQuantity",
-                namespaces=namespaces)
-            if not qty_xpath:
-                continue
-            qty = float(qty_xpath[0].text)
-            ean13_xpath = iline.xpath(
-                "ram:SpecifiedTradeProduct/ram:GlobalID",
-                namespaces=namespaces)
-            # Check SchemeID ?
-            product_code_xpath = iline.xpath(
-                "ram:SpecifiedTradeProduct/ram:SellerAssignedID",
-                namespaces=namespaces)
-            name_xpath = iline.xpath(
-                "ram:SpecifiedTradeProduct/ram:Name",
-                namespaces=namespaces)
-            if price_unit_xpath:
-                price_unit = float(price_unit_xpath[0].text)
-            else:
-                price_subtotal_xpath = iline.xpath(
-                    "ram:SpecifiedSupplyChainTradeSettlement"
-                    "/ram:SpecifiedTradeSettlementMonetarySummation"
-                    "/ram:LineTotalAmount",
-                    namespaces=namespaces)
-                price_subtotal = float(price_subtotal_xpath[0].text)
-                price_unit = price_subtotal / qty
-            vals = {
-                'ean13': ean13_xpath and ean13_xpath[0].text or False,
-                'product_code':
-                product_code_xpath and product_code_xpath[0].text or False,
-                'quantity': qty,
-                'price_unit': price_unit,
-                'name': name_xpath[0].text,
-                }
-            res_lines.append(vals)
-        res = {
-            'vat': vat_xpath[0].text,
-            'partner_name': supplier_xpath[0].text,
-            'invoice_number': inv_number_xpath[0].text,
-            'date': fields.Date.to_string(date_dt),
-            'currency_iso': currency_iso_xpath[0].text,
-            'amount_total': float(amount_total_xpath[0].text),
-            'amount_untaxed': float(amount_untaxed_xpath[0].text),
-            'iban': iban_xpath and iban_xpath[0].text or False,
-            'bic': bic_xpath and bic_xpath[0].text or False,
-            'lines': res_lines,
-            }
-        # Hack for the sample ZUGFeRD invoices that use an invalid VAT number !
-        if res['vat'] == 'DE123456789':
-            res.pop('vat')
-        logger.info('Result of CII XML parsing: %s', res)
-        return res
-
-    @api.model
-    def parse_invoice_with_invoice2data(self, file_data):
+    def parse_pdf_invoice(self, file_data):
+        '''This method must be inherited by additionnal modules with
+        the same kind of logic as the account_bank_statement_import_*
+        modules'''
         logger.info('Trying to analyze PDF invoice with invoice2data lib')
         fd, file_name = mkstemp()
         try:
@@ -393,7 +257,6 @@ class AccountInvoiceImport(models.TransientModel):
             if config.invoice_line_method == 'nline_no_product':
                 static_vals = {
                     'account_id': config.account_id.id,
-                    'invoice_line_tax_id': config.tax_ids.ids or False,
                     }
             elif config.invoice_line_method == 'nline_static_product':
                 sproduct = config.static_product_id
@@ -417,10 +280,14 @@ class AccountInvoiceImport(models.TransientModel):
                             fposition_id=fposition_id,
                             company_id=company.id)['value'])
                     il_vals['product_id'] = product.id
+                elif config.invoice_line_method == 'nline_no_product':
+                    il_vals['invoice_line_tax_id'] = line['tax_ids']
                 if line.get('name'):
                     il_vals['name'] = line['name']
                 elif not il_vals.get('name'):
                     il_vals['name'] = _('MISSING DESCRIPTION')
+                if line.get('uos_id'):
+                    il_vals['uos_id'] = line['uos_id']
                 il_vals.update({
                     'quantity': line['quantity'],
                     'price_unit': line['price_unit'],
@@ -515,23 +382,26 @@ class AccountInvoiceImport(models.TransientModel):
     @api.multi
     def parse_invoice(self):
         self.ensure_one()
+        logger.info('Starting to import invoice %s', self.invoice_filename)
         file_data = base64.b64decode(self.invoice_file)
         parsed_inv = {}
         filetype = mimetypes.guess_type(self.invoice_filename)
         logger.debug('Invoice mimetype: %s', filetype)
         if filetype and filetype[0] == 'application/xml':
             try:
-                parsed_inv = self.parse_xml_invoice(file_data)
+                xml_root = etree.fromstring(file_data)
             except:
-                raise UserError(_('Failed to parse this XML file'))
+                raise UserError(_(
+                    "This XML file is not XML-compliant"))
+            pretty_xml_string = etree.tostring(
+                xml_root, pretty_print=True, encoding='UTF-8',
+                xml_declaration=True)
+            logger.debug('Starting to import the following XML file:')
+            logger.debug(pretty_xml_string)
+            parsed_inv = self.parse_xml_invoice(xml_root)
         # Fallback on PDF
         else:
-            try:
-                parsed_inv = self.parse_invoice_with_embedded_xml(file_data)
-            except:
-                pass
-            if not parsed_inv:
-                parsed_inv = self.parse_invoice_with_invoice2data(file_data)
+            parsed_inv = self.parse_pdf_invoice(file_data)
         prec_ac = self.env['decimal.precision'].precision_get('Account')
         prec_pp = self.env['decimal.precision'].precision_get('Product Price')
         prec_uom = self.env['decimal.precision'].precision_get(
@@ -559,7 +429,6 @@ class AccountInvoiceImport(models.TransientModel):
     @api.multi
     def import_invoice(self):
         self.ensure_one()
-        logger.info('Starting to import invoice')
         aio = self.env['account.invoice']
         iaao = self.env['ir.actions.act_window']
         parsed_inv = self.parse_invoice()
