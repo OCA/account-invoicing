@@ -37,7 +37,8 @@ install:
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - pip install unidecode
   - travis_install_nightly
-  - pip install anybox.testing.openerp # needed for testing account_invoice_line_sort
+  - pip install anybox.testing.openerp # needed to test account_invoice_line_sort
+  - pip install git+https://github.com/manuelRiel/invoice2data.git # needed to test account_invoice_pdf_import
 
 script:
   - travis_run_tests

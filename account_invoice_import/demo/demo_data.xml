@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+<data noupdate="1">
+
+<record id="internet_access" model="product.product">
+    <field name="name">Internet Access</field>
+    <field name="categ_id" ref="product.product_category_5"/>
+    <field name="sale_ok" eval="False"/>
+    <field name="type">service</field>
+    <field name="uom_id" ref="product.product_uom_unit"/>
+    <field name="uom_po_id" ref="product.product_uom_unit"/>
+</record>
+
+<record id="free_import_config" model="account.invoice.import.config">
+    <field name="name">Free</field>
+    <field name="invoice_line_method">1line_static_product</field>
+    <field name="label">Fiber optic access at the main office</field>
+    <field name="static_product_id" ref="internet_access"/>
+</record>
+
+<record id="free" model="res.partner">
+    <field name="name">Free SAS</field>
+    <field name="is_company" eval="True"/>
+    <field name="supplier" eval="True"/>
+    <field name="customer" eval="False"/>
+    <field name="street">8 rue de la Ville l’Évèque</field>
+    <field name="zip">75008</field>
+    <field name="city">Paris</field>
+    <field name="country_id" ref="base.fr"/>
+    <field name="website">http://www.free.fr</field>
+    <field name="vat">FR 604 219 388 61</field>
+    <field name="invoice_import_id" ref="free_import_config"/>
+</record>
+
+</data>
+</openerp>

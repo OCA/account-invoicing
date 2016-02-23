@@ -1,0 +1,50 @@
+# -*- coding: utf-8 -*-
+# Copyright (C) 2015 Akretion France (www.akretion.com)
+# @author: Alexis de Lattre <alexis.delattre@akretion.com>
+# The licence is in the file __openerp__.py
+
+-
+  Print demo customer invoice n°1 to 5
+-
+  !python {model: account.invoice}: |
+    inv_xmlids = [
+        'account.invoice_1',
+        'account.invoice_2',
+        'account.invoice_3',
+        'account.invoice_4',
+        'account.invoice_5',
+        ]
+    for invoice_xmlid in inv_xmlids:
+        invoice_id = self.pool['ir.model.data'].xmlid_to_res_id(
+            cr, uid, invoice_xmlid, raise_if_not_found=True)
+        pdf_content = self.pool['report'].get_pdf(
+            cr, uid, [invoice_id], 'account.report_invoice', context=context)
+        assert self.pdf_is_zugferd(
+            cr, uid, pdf_content, context=context) == True,\
+                'The generated PDF is NOT ZUGFeRD'
+-
+  Deeper test of the demo customer invoice n°3
+-
+  !python {model: account.invoice, id: account.invoice_3}: |
+    from pdfminer.pdfparser import PDFParser
+    from pdfminer.pdfdocument import PDFDocument
+    from pdfminer.pdftypes import resolve1
+    from lxml import etree
+    from StringIO import StringIO
+    pdf_content = self.pool['report'].get_pdf(
+        self._cr, self._uid, self.ids, 'account.report_invoice')
+    fd = StringIO(pdf_content)
+    parser = PDFParser(fd)
+    doc = PDFDocument(parser)
+    embeddedfile = doc.catalog['Names']['EmbeddedFiles']['Names']
+    assert embeddedfile[0] == 'ZUGFeRD-invoice.xml',\
+        'Could not find any embedded file named ZUGFeRD-invoice.xml'
+    pdfobjref1 = embeddedfile[1]
+    respdfobjref1 = resolve1(pdfobjref1)
+    pdfobjref2 = respdfobjref1['EF']['F']
+    respdfobjref2 = resolve1(pdfobjref2)
+    xml_string = respdfobjref2.get_data()
+    xml_root = etree.fromstring(xml_string)
+    assert xml_root.tag.startswith(
+        '{urn:ferd:CrossIndustryDocument:invoice:1p0'),\
+            'Could not find the proper header in the ZUGFeRD XML file'
