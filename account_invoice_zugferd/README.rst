@@ -26,6 +26,15 @@ On the form view of a customer invoice/refund, just click on the *Print* button 
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/95/8.0
 
+Known issues / Roadmap
+======================
+
+* In order to be fully compliant with the ZUGFeRD standard, we need to update a few more entries in the metadata of the PDF file (AF, extension schema).
+
+* Add a hook in the _run_wkhtmltopdf() of the report module to embed the XML file inside the PDF file just after its generation and before it is saved as attachment (and do the same for the report_aeroo module) and try to have the related pull request accepted in Odoo. The current inherit of the get_pdf() is not good because it is not called when selecting the invoice from the attachment. In the meantime, you should always use the *Print Invoice* button to have a ZUGFeRD compliant file.
+
+* develop glue modules (or use hasattr() ?) to add to the XML file pieces of information that is carried out by fields defined in other modules such as sale or stock (customer order reference, incoterms, delivery address, etc...).
+
 Bug Tracker
 ===========
 
