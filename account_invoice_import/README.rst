@@ -37,6 +37,8 @@ To install the right version of the library, run:
 
   sudo pip install git+https://github.com/m3nu/invoice2data.git
 
+In order to use a recent version of invoice2data on Odoo v8, you need an Odoo v8 dated after January 29th 2016, so that it contains `this fix <https://github.com/odoo/odoo/commit/edeb5a8c0fb5c837364f1d92db731f89824bb28a>`_ which fixes `this bug <https://github.com/odoo/odoo/issues/10670>`_.
+
 The invoice2data library requires the latest version of the *pdftotext* utility, which is not yet packaged in Debian/Ubuntu. So you should download it from `the FTP server of Foolabs <ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-linux-3.04.tar.gz>`_ then uncompress it and copy the file *bin64/pdftotext* to */usr/local/bin*.
 
 If you want the invoice2data library to fallback on OCR if the PDF doesn't contain text (only a very small minority of PDF invoices are image-based and require OCR), you should also install `Imagemagick <http://www.imagemagick.org/>`_ (to get the *convert* utility to convert PDF to TIFF) and `Tesseract OCR <https://github.com/tesseract-ocr/tesseract>`_ :
