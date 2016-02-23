@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="invoice_form" model="ir.ui.view">
+            <field name="name">invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="fiscal_position" position="after">
+                	<field name="is_deposit" attrs="{'invisible': [('is_deposit','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_account_invoice_filter" model="ir.ui.view">
+            <field name="name">view.account.invoice.filter</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <search position="inside">
+                	<filter name="advance" string="Advance Invoice" domain="[('is_deposit','=',True)]" help="Advance Invoices"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</openerp>

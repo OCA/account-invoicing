@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+       <record id="purchase_order_form" model="ir.ui.view">
+            <field name="name">purchase.order.form.ext</field>
+            <field name="model">purchase.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="/form/header/button[@name='view_invoice']" position="attributes">
+					<attribute name="attrs">{'invisible': ['|', ('invoice_method','in', ['picking', 'manual', 'line_percentage']), '|', ('state','!=', 'approved'), ('invoiced','=',True) ]}</attribute>								
+				</xpath>
+				<xpath expr="/form/header/button[@name='view_invoice']" position="after">
+                    <button name="%(action_view_purchase_advance_payment_inv)d" string="Create Invoice (%)"
+                    	attrs="{'invisible': ['|', ('invoice_method','in', ['picking', 'manual', 'order']), '|', ('state', '!=', 'approved'), ('invoiced','=',True)]}"
+                        type="action" class="oe_highlight" groups="base.group_user" />
+				</xpath>
+				<field name='invoiced' position="before">
+                    <field name="invoiced_rate"/>
+                </field>
+            </field>
+        </record>        
+    </data>
+</openerp>

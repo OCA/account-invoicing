@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_purchase_advance_payment_inv" model="ir.ui.view">
+            <field name="name">Invoice Purchase Order</field>
+            <field name="model">purchase.advance.payment.inv</field>
+            <field name="arch" type="xml">
+                <form string="Invoice Purchase Order" version="7.0">
+                    <group>
+						<group name="line_percentage" >
+							<label for="line_percent"/>
+		                    <div>
+		                        <field name="line_percent" class="oe_inline"/>
+		                        <label string="%%" class="oe_inline"/>
+		                    </div>   
+	                    </group>
+	                   	<group></group>
+                    </group>
+                    <footer>
+                        <button name="create_invoices" string="Create and View Invoice" type="object"
+                            context="{'open_invoices': True}" class="oe_highlight"/>
+                        <button name="create_invoices" string="Create Invoice" type="object"
+                            class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_purchase_advance_payment_inv" model="ir.actions.act_window">
+            <field name="name">Invoice Purchase Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.advance.payment.inv</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

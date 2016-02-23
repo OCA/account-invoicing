@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_sale_advance_payment_inv" model="ir.ui.view">
+            <field name="name">view.sale.advance.payment.inv</field>
+            <field name="model">sale.advance.payment.inv</field>
+            <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="attributes">
+                	<attribute name="invisible">True</attribute>"
+                </field>
+                <xpath expr="/form/group/div[1]" position="after">
+                    <label for="line_percent" attrs="{'invisible': [('advance_payment_method', 'not in', ('line_percentage'))]}"/>
+                    <div attrs="{'invisible': [('advance_payment_method', 'not in', ('line_percentage'))]}">
+                        <field name="line_percent"
+                            attrs="{'required': [('advance_payment_method', 'in', ('line_percentage'))]}" class="oe_inline"/>
+                        <label string="%%"
+                            attrs="{'invisible': [('advance_payment_method', '!=', 'line_percentage')]}" class="oe_inline"/>
+                    </div>                
+				</xpath>  
+            </field>
+        </record>
+	</data>
+</openerp>

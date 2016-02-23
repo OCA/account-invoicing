@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_config_settings" model="ir.ui.view">
+            <field name="name">view.account.config.settings</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="arch" type="xml">
+                <field name="purchase_refund_journal_id" position="after">
+                    <separator string="Accounting"/>
+                    <group name="account_deposit">
+                        <label for="id" string="Account Advance"/>
+                        <div>
+		                    <div>
+		                        <label string="Customer"/>
+		                        <field name="property_account_deposit_customer" class="oe_inline"/>
+		                    </div>
+                        </div>
+                    </group>    
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

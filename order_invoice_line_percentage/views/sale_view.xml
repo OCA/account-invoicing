@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+    	<record id="action_view_sale_advance_payment_inv1" model="ir.actions.act_window">
+            <field name="name">Invoice Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.advance.payment.inv</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+    	<record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+					<xpath expr="/form/sheet/notebook/page[@string='Other Information']/group//field[@name='invoiced']" position="before">
+						<field name="invoiced_rate" />
+					</xpath>	
+					<!-- Additional case to show "Create Invoice" button, state=Done but invoiced_rate still < 100 -->
+					<xpath expr="//button[@name='invoice_recreate']" position="replace">
+                        <button name="%(action_view_sale_advance_payment_inv1)d" states="invoice_except" type="action" string="Recreate Invoice." groups="base.group_user"/>
+					</xpath>	
+				</data> 
+            </field>
+       </record>
+    	
+    </data>
+</openerp>
