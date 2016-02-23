@@ -4,6 +4,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 from openerp import models, fields, api
+from openerp.tools import config
 
 
 class StockInvoiceOnshipping(models.TransientModel):
@@ -112,6 +113,9 @@ class StockInvoiceOnshipping(models.TransientModel):
 
     @api.multi
     def create_invoice(self):
+        if (config['test_enable'] and
+                not self.env.context.get('test_picking_invoicing_unified')):
+            return super(StockInvoiceOnshipping, self).create_invoice()
         self.ensure_one()
         res = []
         (sale_pickings, sale_refund_pickings, purchase_pickings,
