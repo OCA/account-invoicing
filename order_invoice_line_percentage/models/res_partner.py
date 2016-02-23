@@ -11,7 +11,7 @@ class ResPartner(models.Model):
         string="Account Advance Customer",
         company_dependent=True,
         view_load=True,
-        domain="[('type', '!=', 'view')]",
+        domain=[('type', '!=', 'view')],
         required=True,
         readonly=True,
         help="This account will be used instead of the "

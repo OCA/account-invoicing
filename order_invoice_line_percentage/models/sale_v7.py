@@ -4,7 +4,6 @@ from openerp.osv import fields, osv
 
 
 class sale_order(osv.osv):
-
     _inherit = 'sale.order'
 
     def _invoiced_rate(self, cursor, user, ids, name, arg, context=None):

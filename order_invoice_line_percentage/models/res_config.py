@@ -1,24 +1,22 @@
 # -*- coding: utf-8 -*-
-
-import logging
-from openerp.osv import fields, osv
-_logger = logging.getLogger(__name__)
+from openerp import models, fields, api
 
 
-class account_config_settings(osv.osv_memory):
+class account_config_settings(models.TransientModel):
     _inherit = 'account.config.settings'
-    _columns = {
-        'property_account_deposit_customer': fields.many2one(
-            'account.account',
-            'Account Advance Customer',
-            domain="[('type', '!=', 'view')]",),
-    }
 
-    def set_default_account_advance(self, cr, uid, ids, context=None):
+    property_account_deposit_customer = fields.Many2one(
+        'account.account',
+        string='Account Advance Customer',
+        domain=[('type', '!=', 'view')],
+    )
+
+    @api.multi
+    def set_default_account_advance(self):
         """ set property advance account for customer and supplier """
-        wizard = self.browse(cr, uid, ids)[0]
-        property_obj = self.pool.get('ir.property')
-        field_obj = self.pool.get('ir.model.fields')
+        wizard = self[0]
+        property_obj = self.env['ir.property']
+        field_obj = self.env['ir.model.fields']
         todo_list = [
             ('property_account_deposit_customer',
              'res.partner', 'account.account'),
@@ -27,26 +25,23 @@ class account_config_settings(osv.osv_memory):
             account = getattr(wizard, record[0])
             value = account and 'account.account,' + str(account.id) or False
             if value:
-                field = field_obj.search(cr, uid, [
-                    ('name', '=', record[0]),
-                    ('model', '=', record[1]),
-                    ('relation', '=', record[2])],
-                    context=context)
+                fields = field_obj.search(
+                    [('name', '=', record[0]),
+                     ('model', '=', record[1]),
+                     ('relation', '=', record[2])])
                 vals = {
                     'name': record[0],
                     'company_id': False,
-                    'fields_id': field[0],
+                    'fields_id': fields and fields[0].id,
                     'value': value,
                 }
-                property_ids = property_obj.search(
-                    cr, uid, [('name', '=', record[0])], context=context)
-                if property_ids:
+                properties = property_obj.search([('name', '=', record[0])])
+                if properties:
                     # the property exist: modify it
-                    property_obj.write(
-                        cr, uid, property_ids, vals, context=context)
+                    properties.write(vals)
                 else:
                     # create the property
-                    property_obj.create(cr, uid, vals, context=context)
+                    property_obj.create(vals)
         return True
 
     def get_default_account_advance(self, cr, uid, fields, context=None):

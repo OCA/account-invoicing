@@ -5,7 +5,6 @@ from openerp.exceptions import except_orm
 
 
 class account_invoice(models.Model):
-
     _inherit = "account.invoice"
 
     is_deposit = fields.Boolean('Advance', readonly=True)
