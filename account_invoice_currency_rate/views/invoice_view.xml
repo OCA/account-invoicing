@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+        <record model="ir.ui.view" id="account_invoice_form_currency_rate">
+            <field name="name">account.invoice.form.currency_rate</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']/.." position="after">
+                    <field name="label_rate" nolabel="1" readonly="1" />
+                    <field name="currency_rate" 
+                        attrs="{'readonly':[('state','!=','draft')]}"
+                        nolabel="1" 
+                        groups="base.group_multi_currency" />
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_invoice_supplier_form_currency_rate">
+            <field name="name">account.invoice.supplier.form.currency_rate</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="label_rate" nolabel="1" readonly="1" />
+                    <field name="currency_rate"
+                           attrs="{'readonly':[('state','!=','draft')],}"
+                           groups="base.group_multi_currency" />
+                </xpath>
+            </field>
+        </record>
+
+</data>
+</openerp>
