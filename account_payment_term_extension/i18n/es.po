@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Antonio Trueba, 2016
+# Antonio Trueba, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-04 01:38+0000\n"
-"PO-Revision-Date: 2016-02-16 15:30+0000\n"
+"PO-Revision-Date: 2016-02-23 12:44+0000\n"
 "Last-Translator: Antonio Trueba\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +23,12 @@ msgstr ""
 #: model:account.payment.term,name:account_payment_term_extension.sixty_days_end_of_month
 #: model:account.payment.term,note:account_payment_term_extension.sixty_days_end_of_month
 msgid "60 Days End of Month"
-msgstr ""
+msgstr "60 días fin de mes"
 
 #. module: account_payment_term_extension
 #: field:account.payment.term.line,amount_round:0
 msgid "Amount Rounding"
-msgstr ""
+msgstr "Redondeo de cantidad"
 
 #. module: account_payment_term_extension
 #: field:account.payment.term.line,months:0
@@ -42,16 +43,16 @@ msgstr "Número de semanas"
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term
 msgid "Payment Term"
-msgstr ""
+msgstr "Condiciones de pago"
 
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term_line
 msgid "Payment Term Line"
-msgstr ""
+msgstr "Linea de condiciones de pago"
 
 #. module: account_payment_term_extension
 #: help:account.payment.term.line,amount_round:0
 msgid ""
 "Sets the amount so that it is a multiple of this value.\n"
 "To have amounts that end in 0.99, set rounding 1, surcharge -0.01"
-msgstr ""
+msgstr "Ajusta la cantidad para que sea un múltiplo de este valor. Para obtener cantidades que terminen en x,99, fije el redonde a 1 y el descuento a -0,01"

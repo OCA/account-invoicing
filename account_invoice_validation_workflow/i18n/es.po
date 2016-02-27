@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Antonio Trueba, 2016
+# Antonio Trueba, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-12-04 01:38+0000\n"
-"PO-Revision-Date: 2016-02-16 15:31+0000\n"
+"PO-Revision-Date: 2016-02-23 12:45+0000\n"
 "Last-Translator: Antonio Trueba\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,7 @@ msgstr ""
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_supplier_form_validation_wkfl
 msgid "Approve"
-msgstr ""
+msgstr "Aprobar"
 
 #. module: account_invoice_validation_workflow
 #: code:addons/account_invoice_validation_workflow/invoice.py:97
@@ -85,7 +86,7 @@ msgstr ""
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 msgid "PRO-FORMA"
-msgstr ""
+msgstr "Proforma"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
@@ -157,4 +158,4 @@ msgid ""
 "You are trying to validate invoice lines linked to a closed or cancelled Analytic Account.\n"
 "\n"
 "Check the following lines:"
-msgstr ""
+msgstr "Está intentando validar lineas de factura asociadas a una cuenta analítica cerrada o cancelada.\n\nRevise las siguientes lineas:"

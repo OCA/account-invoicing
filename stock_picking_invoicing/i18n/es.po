@@ -3,13 +3,14 @@
 # * stock_picking_invoicing
 # 
 # Translators:
+# Antonio Trueba, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-21 01:40+0000\n"
-"PO-Revision-Date: 2015-11-18 14:35+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"POT-Creation-Date: 2015-12-04 01:38+0000\n"
+"PO-Revision-Date: 2016-02-23 12:43+0000\n"
+"Last-Translator: Antonio Trueba\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +28,7 @@ msgstr ""
 #: code:addons/stock_picking_invoicing/stock.py:48
 #, python-format
 msgid "Picking %s has linked invoice %s"
-msgstr ""
+msgstr "La recogida %s tiene asociada la factura %s"
 
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_picking
@@ -37,7 +38,7 @@ msgstr "Albarán"
 #. module: stock_picking_invoicing
 #: view:stock.picking:stock_picking_invoicing.stock_picking_invoice_out_form
 msgid "Set to be invoiced"
-msgstr ""
+msgstr "Para facturar"
 
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_move
