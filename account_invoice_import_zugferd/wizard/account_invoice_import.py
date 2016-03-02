@@ -59,11 +59,11 @@ class AccountInvoiceImport(models.TransientModel):
         embeddedfiles = doc.catalog['Names']['EmbeddedFiles']['Names']
         pdfobjref1 = False
         i = 0
-        for embeddedfile in embeddedfiles:
-            i += 1
+        for embeddedfile in embeddedfiles[:-1]:
             if embeddedfile == 'ZUGFeRD-invoice.xml':
-                pdfobjref1 = embeddedfiles[i]
+                pdfobjref1 = embeddedfiles[i+1]
                 break
+            i += 1
         if not pdfobjref1:
             logger.info('No embedded file ZUGFeRD-invoice.xml')
             return False
