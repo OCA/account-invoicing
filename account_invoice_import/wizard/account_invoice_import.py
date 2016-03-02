@@ -90,6 +90,7 @@ class AccountInvoiceImport(models.TransientModel):
             raise UserError(_(
                 "This PDF invoice doesn't match a known template of "
                 "the invoice2data lib."))
+        logger.info('Result of invoice2data PDF extraction: %s', res)
         # rewrite a few keys
         res['amount_total'] = res.pop('amount')
         # If you crash here, you should just update invoice2data to the
@@ -104,7 +105,6 @@ class AccountInvoiceImport(models.TransientModel):
         for key, value in res.iteritems():
             if value and isinstance(value, datetime):
                 res[key] = fields.Date.to_string(value)
-        logger.info('Result of invoice2data PDF extraction: %s', res)
         return res
         # Dict to return:
         # {
