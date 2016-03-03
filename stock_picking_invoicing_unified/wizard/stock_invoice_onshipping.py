@@ -111,16 +111,17 @@ class StockInvoiceOnshipping(models.TransientModel):
     def get_split_pickings_nogrouped(self, pickings):
         sale_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == 'outgoing' and
-            x.move_lines[0].location_dest_id.usage == 'customer')
+            x.move_lines[:1].location_dest_id.usage == 'customer')
+        # use [:1] instead of [0] to avoid a errors on empty pickings
         sale_refund_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == 'incoming' and
-            x.move_lines[0].location_id.usage == 'customer')
+            x.move_lines[:1].location_id.usage == 'customer')
         purchase_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == 'incoming' and
-            x.move_lines[0].location_id.usage == 'supplier')
+            x.move_lines[:1].location_id.usage == 'supplier')
         purchase_refund_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == 'outgoing' and
-            x.move_lines[0].location_dest_id.usage == 'supplier')
+            x.move_lines[:1].location_dest_id.usage == 'supplier')
         return (sale_pickings, sale_refund_pickings, purchase_pickings,
                 purchase_refund_pickings)
 
