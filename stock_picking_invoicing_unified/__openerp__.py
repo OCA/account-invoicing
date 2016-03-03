@@ -5,6 +5,7 @@
 
 {
     "name": "Stock Picking Invoicing Unified",
+    "summary": "Create invoices/refunds from pickings of different types",
     "version": "8.0.1.0.0",
     'author': 'Serv. Tecnol. Avanzados - Pedro M. Baeza, '
               'AvanzOSC, '

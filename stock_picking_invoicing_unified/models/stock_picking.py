@@ -13,7 +13,7 @@ class StockMove(models.Model):
     def _get_invoice_line_vals(self, move, partner, inv_type):
         res = super(StockMove, self)._get_invoice_line_vals(move, partner,
                                                             inv_type)
-        # price to negative value
+        # negative value on quantity
         if ((inv_type == 'out_invoice' and
                 move.location_id.usage == 'customer') or
                 (inv_type == 'out_refund' and
@@ -22,5 +22,5 @@ class StockMove(models.Model):
                  move.location_dest_id.usage == 'supplier') or
                 (inv_type == 'in_refund' and
                  move.location_id.usage == 'supplier')):
-            res['price_unit'] *= -1
+            res['quantity'] *= -1
         return res

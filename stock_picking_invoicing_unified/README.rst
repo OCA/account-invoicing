@@ -6,10 +6,10 @@
 Stock Picking Invoicing Unified
 ===============================
 
-Odoo allows to select several pickings and click on "Create Draft Invoices"
-option for creating the corresponding invoice(s) depending if you have
-selected several partners and if you have marked the "Group by partner"
-check.
+Odoo allows to select several pickings and click on *Create Draft Invoices*
+option to create the corresponding invoice(s)/refund(s). If you have
+selected several partners and you have checked the option *Group by partner*,
+it will create a single invoice or refund per partner.
 
 But it only takes into account the first picking for selecting the type of the
 invoice you are going to create (customer/supplier invoice/refund), mixing all
@@ -17,11 +17,13 @@ the lines on it. And not only that: if you have returned pickings, the returned
 quantities are summed to the rest, instead of decreasing the amount to invoice,
 which is the common practise when you have some returns.
 
-This module overpasses this limitation, allowing to invoice them all together
-without having to worry about that, and also having the extra feature of
-reducing the amount in the invoice when you have delivered or received goods
-and some of them (or previous ones) have been returned, instead of needing
-to create 2 invoices and to conciliate them for the final/real amount.
+This module fixes this problem, allowing to invoice them all together:
+if you have delivered and received goods for the same customer and you
+have checked the option *Group by partner*, you will have a single
+invoice with the goods delivered and received and the quantities of the
+goods received will be negative. So it will avoid you to send both an
+invoice and a refund to your customer and have to reconciliate them to
+compute the good residual amount.
 
 Usage
 =====

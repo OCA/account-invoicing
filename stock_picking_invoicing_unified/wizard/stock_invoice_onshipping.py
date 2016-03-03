@@ -11,19 +11,41 @@ class StockInvoiceOnshipping(models.TransientModel):
 
     _inherit = 'stock.invoice.onshipping'
 
+    @api.model
+    def _default_journal(self, journal_type):
+        journals = self.env['account.journal'].search(
+            [('type', '=', journal_type)])
+        return journals and journals[0] or False
+
+    def _default_sale_journal(self):
+        return self._default_journal('sale')
+
+    def _default_sale_refund_journal(self):
+        return self._default_journal('sale_refund')
+
+    def _default_purchase_journal(self):
+        return self._default_journal('purchase')
+
+    def _default_purchase_refund_journal(self):
+        return self._default_journal('purchase_refund')
+
     journal_id = fields.Many2one(required=False)
     sale_journal = fields.Many2one(
         comodel_name='account.journal', string='Sale Journal',
-        domain="[('type', '=', 'sale')]")
+        domain="[('type', '=', 'sale')]",
+        default=_default_sale_journal)
     sale_refund_journal = fields.Many2one(
         comodel_name='account.journal', string='Sale Refund Journal',
-        domain="[('type', '=', 'sale_refund')]")
+        domain="[('type', '=', 'sale_refund')]",
+        default=_default_sale_refund_journal)
     purchase_journal = fields.Many2one(
         comodel_name='account.journal', string='Purchase Journal',
-        domain="[('type', '=', 'purchase')]")
+        domain="[('type', '=', 'purchase')]",
+        default=_default_purchase_journal)
     purchase_refund_journal = fields.Many2one(
         comodel_name='account.journal', string="Purchase Refund Journal",
-        domain="[('type', '=', 'purchase_refund')]")
+        domain="[('type', '=', 'purchase_refund')]",
+        default=_default_purchase_refund_journal)
     show_sale_journal = fields.Boolean(string="Show Sale Journal")
     show_sale_refund_journal = fields.Boolean(
         string="Show Refund Sale Journal")
@@ -89,16 +111,16 @@ class StockInvoiceOnshipping(models.TransientModel):
     def get_split_pickings_nogrouped(self, pickings):
         sale_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == 'outgoing' and
-            x.move_lines[:1].location_dest_id.usage == 'customer')
+            x.move_lines[0].location_dest_id.usage == 'customer')
         sale_refund_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == 'incoming' and
-            x.move_lines[:1].location_id.usage == 'customer')
+            x.move_lines[0].location_id.usage == 'customer')
         purchase_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == 'incoming' and
-            x.move_lines[:1].location_id.usage == 'supplier')
+            x.move_lines[0].location_id.usage == 'supplier')
         purchase_refund_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == 'outgoing' and
-            x.move_lines[:1].location_dest_id.usage == 'supplier')
+            x.move_lines[0].location_dest_id.usage == 'supplier')
         return (sale_pickings, sale_refund_pickings, purchase_pickings,
                 purchase_refund_pickings)
 
