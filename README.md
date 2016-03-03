@@ -19,7 +19,7 @@ addon | version | summary
 --- | --- | ---
 [account_group_invoice_lines](account_group_invoice_lines/) | 8.0.1.1.0 | Add option to group invoice line per account
 [account_invoice_force_number](account_invoice_force_number/) | 8.0.0.1.0 | Allows to force invoice numbering on specific invoices
-[account_invoice_line_description](account_invoice_line_description/) | 8.0.1.0.0 | Account invoice line description
+[account_invoice_line_description](account_invoice_line_description/) | 8.0.1.0.1 | Account invoice line description
 [account_invoice_line_sort](account_invoice_line_sort/) | 8.0.0.1.0 | Manage sort of customer invoice lines by customers
 [account_invoice_merge](account_invoice_merge/) | 8.0.1.1.1 | Account Invoice Merge Wizard
 [account_invoice_merge_payment](account_invoice_merge_payment/) | 8.0.0.1.0 | Use invoice merge regarding fields on Account Payment Partner
