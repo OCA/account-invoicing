@@ -19,6 +19,8 @@ import logging
 # from pprint import pprint
 
 logger = logging.getLogger(__name__)
+ZUGFERD_LEVEL = 'comfort'
+ZUGFERD_FILENAME = 'ZUGFeRD-invoice.xml'
 
 
 class AccountInvoice(models.Model):
@@ -89,7 +91,7 @@ class AccountInvoice(models.Model):
         ctx_param = etree.SubElement(
             doc_ctx, ns['ram'] + 'GuidelineSpecifiedDocumentContextParameter')
         ctx_param_id = etree.SubElement(ctx_param, ns['ram'] + 'ID')
-        ctx_param_id.text = nsmap['rsm'] + ':comfort'
+        ctx_param_id.text = '%s:%s' % (nsmap['rsm'], ZUGFERD_LEVEL)
 
     @api.multi
     def _add_header_block(self, root, ns):
@@ -526,7 +528,7 @@ class AccountInvoice(models.Model):
             # The code below will have to be adapted when we get samples
             # of PDF files with embedded XML other than ZUGFeRD
             embeddedfile = doc.catalog['Names']['EmbeddedFiles']['Names']
-            if embeddedfile[0] == 'ZUGFeRD-invoice.xml':
+            if embeddedfile[0] == ZUGFERD_FILENAME:
                 is_zugferd = True
             else:
                 is_zugferd = False
@@ -574,11 +576,13 @@ class AccountInvoice(models.Model):
         nsmap_pdf = {'pdf': 'http://ns.adobe.com/pdf/1.3/'}
         nsmap_xmp = {'xmp': 'http://ns.adobe.com/xap/1.0/'}
         nsmap_pdfaid = {'pdfaid': 'http://www.aiim.org/pdfa/ns/id/'}
+        nsmap_zf = {'zf': 'urn:ferd:pdfa:CrossIndustryDocument:invoice:1p0#'}
         ns_dc = '{%s}' % nsmap_dc['dc']
         ns_rdf = '{%s}' % nsmap_rdf['rdf']
         ns_pdf = '{%s}' % nsmap_pdf['pdf']
         ns_xmp = '{%s}' % nsmap_xmp['xmp']
         ns_pdfaid = '{%s}' % nsmap_pdfaid['pdfaid']
+        ns_zf = '{%s}' % nsmap_zf['zf']
         ns_xml = '{http://www.w3.org/XML/1998/namespace}'
 
         root = etree.Element(ns_rdf + 'RDF', nsmap=nsmap_rdf)
@@ -624,6 +628,21 @@ class AccountInvoice(models.Model):
         timestamp = self._get_metadata_timestamp()
         etree.SubElement(desc_xmp, ns_xmp + 'CreateDate').text = timestamp
         etree.SubElement(desc_xmp, ns_xmp + 'ModifyDate').text = timestamp
+
+        zugferd_ext_schema_root = etree.parse(tools.file_open(
+            'account_invoice_zugferd/data/ZUGFeRD_extension_schema.xmp'))
+        # The ZUGFeRD extension schema must be embedded into each PDF document
+        zugferd_ext_schema_desc_xpath = zugferd_ext_schema_root.xpath(
+            '//rdf:Description', namespaces=nsmap_rdf)
+        root.append(zugferd_ext_schema_desc_xpath[1])
+        # Now is the ZUGFeRD description tag
+        zugferd_desc = etree.SubElement(
+            root, ns_rdf + 'Description', nsmap=nsmap_zf)
+        zugferd_desc.set(ns_rdf + 'about', '')
+        zugferd_desc.set(ns_zf + 'ConformanceLevel', ZUGFERD_LEVEL.upper())
+        zugferd_desc.set(ns_zf + 'DocumentFileName', ZUGFERD_FILENAME)
+        zugferd_desc.set(ns_zf + 'DocumentType', 'INVOICE')
+        zugferd_desc.set(ns_zf + 'Version', '1.0')
 
         xml_str = etree.tostring(
             root, pretty_print=True, encoding="UTF-8", xml_declaration=False)
@@ -706,12 +725,12 @@ class AccountInvoice(models.Model):
                 new_pdf_filestream = PdfFileWriter()
                 new_pdf_filestream.appendPagesFromReader(original_pdf)
                 self.zugferd_update_metadata_add_attachment(
-                    new_pdf_filestream, 'ZUGFeRD-invoice.xml', zugferd_xml_str)
+                    new_pdf_filestream, ZUGFERD_FILENAME, zugferd_xml_str)
                 prefix = 'odoo-invoice-zugferd-'
                 with NamedTemporaryFile(prefix=prefix, suffix='.pdf') as f:
                     new_pdf_filestream.write(f)
                     f.seek(0)
                     pdf_content = f.read()
                     f.close()
-                logger.info('ZUGFeRD-invoice.xml file added to PDF invoice')
+                logger.info('%s file added to PDF invoice', ZUGFERD_FILENAME)
         return pdf_content
