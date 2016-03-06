@@ -13,39 +13,26 @@ class StockInvoiceOnshipping(models.TransientModel):
 
     @api.model
     def _default_journal(self, journal_type):
-        journals = self.env['account.journal'].search(
-            [('type', '=', journal_type)])
-        return journals and journals[0] or False
-
-    def _default_sale_journal(self):
-        return self._default_journal('sale')
-
-    def _default_sale_refund_journal(self):
-        return self._default_journal('sale_refund')
-
-    def _default_purchase_journal(self):
-        return self._default_journal('purchase')
-
-    def _default_purchase_refund_journal(self):
-        return self._default_journal('purchase_refund')
+        return self.env['account.journal'].search(
+            [('type', '=', journal_type)])[:1]
 
     journal_id = fields.Many2one(required=False)
     sale_journal = fields.Many2one(
         comodel_name='account.journal', string='Sale Journal',
         domain="[('type', '=', 'sale')]",
-        default=_default_sale_journal)
+        default=lambda self: self._default_journal('sale'))
     sale_refund_journal = fields.Many2one(
         comodel_name='account.journal', string='Sale Refund Journal',
         domain="[('type', '=', 'sale_refund')]",
-        default=_default_sale_refund_journal)
+        default=lambda self: self._default_journal('sale_refund'))
     purchase_journal = fields.Many2one(
         comodel_name='account.journal', string='Purchase Journal',
         domain="[('type', '=', 'purchase')]",
-        default=_default_purchase_journal)
+        default=lambda self: self._default_journal('purchase'))
     purchase_refund_journal = fields.Many2one(
         comodel_name='account.journal', string="Purchase Refund Journal",
         domain="[('type', '=', 'purchase_refund')]",
-        default=_default_purchase_refund_journal)
+        default=lambda self: self._default_journal('purchase_refund'))
     show_sale_journal = fields.Boolean(string="Show Sale Journal")
     show_sale_refund_journal = fields.Boolean(
         string="Show Refund Sale Journal")
