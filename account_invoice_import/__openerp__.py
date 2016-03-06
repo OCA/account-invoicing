@@ -40,7 +40,7 @@
     # The test below works well, but the full installation of invoice2data
     # with the special version of the pdftotext binary is difficult
     # and I don't know how to put it in the configuration of Travis
-    #'test': ['test/free.yml'],
+    # 'test': ['test/free.yml'],
     'demo': ['demo/demo_data.xml'],
     'images': ['images/sshot-wizard1.png'],
     'installable': True,
