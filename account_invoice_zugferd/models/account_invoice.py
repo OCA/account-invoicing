@@ -132,8 +132,9 @@ class AccountInvoice(models.Model):
         seller_name = etree.SubElement(
             seller, ns['ram'] + 'Name')
         seller_name.text = company.name
-        self._add_trade_contact_block(
-            self.user_id.partner_id or company.partner_id, seller, ns)
+        # Only with EXTENDED profile
+        # self._add_trade_contact_block(
+        #    self.user_id.partner_id or company.partner_id, seller, ns)
         self._add_address_block(company.partner_id, seller, ns)
         if company.vat:
             seller_tax_reg = etree.SubElement(
@@ -150,9 +151,10 @@ class AccountInvoice(models.Model):
         buyer_name = etree.SubElement(
             buyer, ns['ram'] + 'Name')
         buyer_name.text = self.commercial_partner_id.name
-        if self.commercial_partner_id != self.partner_id:
-            self._add_trade_contact_block(
-                self.partner_id, buyer, ns)
+        # Only with EXTENDED profile
+        # if self.commercial_partner_id != self.partner_id:
+        #    self._add_trade_contact_block(
+        #        self.partner_id, buyer, ns)
         self._add_address_block(self.partner_id, buyer, ns)
         if self.commercial_partner_id.vat:
             buyer_tax_reg = etree.SubElement(
@@ -160,6 +162,14 @@ class AccountInvoice(models.Model):
             buyer_tax_reg_id = etree.SubElement(
                 buyer_tax_reg, ns['ram'] + 'ID', schemeID='VA')
             buyer_tax_reg_id.text = self.commercial_partner_id.vat
+
+    @api.multi
+    def _add_trade_delivery_block(self, trade_transaction, ns):
+        self.ensure_one()
+        trade_agreement = etree.SubElement(
+            trade_transaction,
+            ns['ram'] + 'ApplicableSupplyChainTradeDelivery')
+        return trade_agreement
 
     @api.multi
     def _add_trade_settlement_payment_means_block(
@@ -288,10 +298,15 @@ class AccountInvoice(models.Model):
                     percent.text = unicode(tax.amount * 100)
         trade_payment_term = etree.SubElement(
             trade_settlement, ns['ram'] + 'SpecifiedTradePaymentTerms')
+        trade_payment_term_desc = etree.SubElement(
+            trade_payment_term, ns['ram'] + 'Description')
+        # The 'Description' field of SpecifiedTradePaymentTerms
+        # is a required field, so we must always give a value
         if self.payment_term:
-            trade_payment_term_desc = etree.SubElement(
-                trade_payment_term, ns['ram'] + 'Description')
             trade_payment_term_desc.text = self.payment_term.name
+        else:
+            trade_payment_term_desc.text =\
+                _('No specific payment term selected')
 
         date_due_dt = fields.Date.from_string(self.date_due)
         self._add_date(
@@ -330,7 +345,8 @@ class AccountInvoice(models.Model):
         residual.text = unicode(self.residual * sign)
 
     @api.multi
-    def _add_invoice_line_block(self, trade_transaction, iline, sign, ns):
+    def _add_invoice_line_block(
+            self, trade_transaction, iline, line_number, sign, ns):
         self.ensure_one()
         pp_prec = self.env['decimal.precision'].precision_get('Product Price')
         disc_prec = self.env['decimal.precision'].precision_get('Discount')
@@ -338,6 +354,10 @@ class AccountInvoice(models.Model):
         line_item = etree.SubElement(
             trade_transaction,
             ns['ram'] + 'IncludedSupplyChainTradeLineItem')
+        line_doc = etree.SubElement(
+            line_item, ns['ram'] + 'AssociatedDocumentLineDocument')
+        etree.SubElement(
+            line_doc, ns['ram'] + 'LineID').text = unicode(line_number)
         line_trade_agreement = etree.SubElement(
             line_item,
             ns['ram'] + 'SpecifiedSupplyChainTradeAgreement')
@@ -479,10 +499,14 @@ class AccountInvoice(models.Model):
             root, ns['rsm'] + 'SpecifiedSupplyChainTradeTransaction')
 
         self._add_trade_agreement_block(trade_transaction, ns)
+        self._add_trade_delivery_block(trade_transaction, ns)
         self._add_trade_settlement_block(trade_transaction, sign, ns)
 
+        line_number = 0
         for iline in self.invoice_line:
-            self._add_invoice_line_block(trade_transaction, iline, sign, ns)
+            line_number += 1
+            self._add_invoice_line_block(
+                trade_transaction, iline, line_number, sign, ns)
 
         xml_string = etree.tostring(
             root, pretty_print=True, encoding='UTF-8', xml_declaration=True)
