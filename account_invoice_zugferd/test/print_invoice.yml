@@ -26,24 +26,20 @@
   Deeper test of the demo customer invoice n°3
 -
   !python {model: account.invoice, id: account.invoice_3}: |
-    from pdfminer.pdfparser import PDFParser
-    from pdfminer.pdfdocument import PDFDocument
-    from pdfminer.pdftypes import resolve1
+    import PyPDF2
     from lxml import etree
     from StringIO import StringIO
     pdf_content = self.pool['report'].get_pdf(
         self._cr, self._uid, self.ids, 'account.report_invoice')
     fd = StringIO(pdf_content)
-    parser = PDFParser(fd)
-    doc = PDFDocument(parser)
-    embeddedfile = doc.catalog['Names']['EmbeddedFiles']['Names']
+    pdf = PyPDF2.PdfFileReader(fd)
+    pdf_root = pdf.trailer['/Root']
+    embeddedfile = pdf_root['/Names']['/EmbeddedFiles']['/Names']
     assert embeddedfile[0] == 'ZUGFeRD-invoice.xml',\
         'Could not find any embedded file named ZUGFeRD-invoice.xml'
-    pdfobjref1 = embeddedfile[1]
-    respdfobjref1 = resolve1(pdfobjref1)
-    pdfobjref2 = respdfobjref1['EF']['F']
-    respdfobjref2 = resolve1(pdfobjref2)
-    xml_string = respdfobjref2.get_data()
+    zugferd_file_dict_obj = embeddedfile[1]
+    zugferd_file_dict = zugferd_file_dict_obj.getObject()
+    xml_string = zugferd_file_dict['/EF']['/F'].getData()
     xml_root = etree.fromstring(xml_string)
     assert xml_root.tag.startswith(
         '{urn:ferd:CrossIndustryDocument:invoice:1p0'),\

@@ -11,11 +11,11 @@ This module is an extension of the module *account_invoice_import* to add the ab
 Installation
 ============
 
-This module requires the Python library *pdfminer*. To install it, run:
+This module requires the Python library *PyPDF2*. To install it, run:
 
 .. code::
 
-  sudo pip install pdfminer
+  sudo pip install PyPDF2
 
 Configuration
 =============

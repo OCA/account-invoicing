@@ -30,7 +30,7 @@
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
     'depends': ['account_payment_partner', 'base_zugferd', 'base_vat'],
-    'external_dependencies': {'python': ['PyPDF2', 'lxml', 'pdfminer']},
+    'external_dependencies': {'python': ['PyPDF2', 'lxml']},
     'data': [],
     'test': ['test/print_invoice.yml'],
     'installable': True,

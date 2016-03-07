@@ -46,8 +46,7 @@ install:
   - travis_install_nightly
   - pip install anybox.testing.openerp # needed to test account_invoice_line_sort
   - pip install git+https://github.com/m3nu/invoice2data.git # needed to test account_invoice_import
-  - pip install PyPDF2  # needed for account_invoice_zugferd
-  - pip install pdfminer  # needed for account_invoice_import_zugferd
+  - pip install PyPDF2  # needed for account_invoice*zugferd
 
 script:
   - travis_run_tests

@@ -25,9 +25,7 @@ from openerp.exceptions import Warning as UserError
 from openerp.tools import float_compare
 from datetime import datetime
 import logging
-from pdfminer.pdfparser import PDFParser
-from pdfminer.pdfdocument import PDFDocument
-from pdfminer.pdftypes import resolve1
+import PyPDF2
 from lxml import etree
 from StringIO import StringIO
 
@@ -53,28 +51,26 @@ class AccountInvoiceImport(models.TransientModel):
     def _check_zugferd_pdf(self, file_data):
         logger.info('Trying to find an embedded XML file inside PDF')
         fd = StringIO(file_data)
-        parser = PDFParser(fd)
-        doc = PDFDocument(parser)
-        logger.debug('doc.catalog=%s', doc.catalog)
-        embeddedfiles = doc.catalog['Names']['EmbeddedFiles']['Names']
-        pdfobjref1 = False
+        pdf = PyPDF2.PdfFileReader(fd)
+        logger.debug('pdf.trailer=%s', pdf.trailer)
+        pdf_root = pdf.trailer['/Root']
+        logger.debug('pdf_root=%s', pdf_root)
+        embeddedfiles = pdf_root['/Names']['/EmbeddedFiles']['/Names']
+        zugferd_file_dict_obj = False
         i = 0
         for embeddedfile in embeddedfiles[:-1]:
             if embeddedfile == 'ZUGFeRD-invoice.xml':
-                pdfobjref1 = embeddedfiles[i+1]
+                zugferd_file_dict_obj = embeddedfiles[i+1]
                 break
             i += 1
-        if not pdfobjref1:
+        if not zugferd_file_dict_obj:
             logger.info('No embedded file ZUGFeRD-invoice.xml')
             return False
-        logger.debug('pdfobjref1=%s', pdfobjref1)
-        respdfobjref1 = resolve1(pdfobjref1)
-        pdfobjref2 = respdfobjref1['EF']['F']
-        respdfobjref2 = resolve1(pdfobjref2)
-        xml_string = respdfobjref2.get_data()
+        zugferd_file_dict = zugferd_file_dict_obj.getObject()
+        logger.debug('zugferd_file_dict=%s', zugferd_file_dict)
+        xml_string = zugferd_file_dict['/EF']['/F'].getData()
         xml_root = etree.fromstring(xml_string)
         logger.info('A valid XML file has been found in the PDF file')
-        logger.debug('zugferd_xml_root:')
         logger.debug(etree.tostring(
             xml_root, pretty_print=True, encoding='UTF-8',
             xml_declaration=True))

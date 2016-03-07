@@ -8,8 +8,6 @@ from openerp.exceptions import Warning as UserError
 from openerp.tools import float_compare, float_is_zero
 from StringIO import StringIO
 from lxml import etree
-from pdfminer.pdfparser import PDFParser
-from pdfminer.pdfdocument import PDFDocument
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from PyPDF2.generic import DictionaryObject, DecodedStreamObject,\
     NameObject, createStringObject, ArrayObject
@@ -546,16 +544,14 @@ class AccountInvoice(models.Model):
         is_zugferd = False
         try:
             fd = StringIO(pdf_content)
-            parser = PDFParser(fd)
-            doc = PDFDocument(parser)
-            logger.debug('doc.catalog=%s', doc.catalog)
-            # The code below will have to be adapted when we get samples
-            # of PDF files with embedded XML other than ZUGFeRD
-            embeddedfile = doc.catalog['Names']['EmbeddedFiles']['Names']
-            if embeddedfile[0] == ZUGFERD_FILENAME:
-                is_zugferd = True
-            else:
-                is_zugferd = False
+            pdf = PdfFileReader(fd)
+            pdf_root = pdf.trailer['/Root']
+            logger.debug('pdf_root=%s', pdf_root)
+            embeddedfiles = pdf_root['/Names']['/EmbeddedFiles']['/Names']
+            for embeddedfile in embeddedfiles:
+                if embeddedfile == ZUGFERD_FILENAME:
+                    is_zugferd = True
+                    break
         except:
             pass
         logger.debug('pdf_is_zugferd returns %s', is_zugferd)
