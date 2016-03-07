@@ -4,6 +4,13 @@ Invoice Shipping Address
 This module adds a shipping address field to the invoice, also it fills it in sale and picking invoicing
 
 
+Usage
+=====
+.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+   :alt: Try me on Runbot
+   :target: https://runbot.odoo-community.org/runbot/95/9.0
+
+
 Bug Tracker
 ===========
 
