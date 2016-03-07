@@ -20,20 +20,17 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from openerp import api, models
 
 
-class account_invoice(orm.Model):
-    _inherit = "account.invoice"
+class SaleOrder(models.Model):
 
-    _columns = {
-        'address_shipping_id': fields.many2one(
-            'res.partner',
-            'Shipping Address',
-            readonly=True,
-            states={
-                'draft': [('readonly', False)],
-                'sent': [('readonly', False)]
-            },
-            help="Delivery address for current invoice."),
-    }
+    _inherit = 'sale.order'
+
+    @api.multi
+    def _prepare_invoice(self, context=None):
+
+        invoice_vals = super(SaleOrder, self)._prepare_invoice()
+        invoice_vals.update({
+            'address_shipping_id': self.partner_shipping_id.id, })
+        return invoice_vals

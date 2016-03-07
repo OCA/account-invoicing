@@ -23,9 +23,9 @@
 
 {
     "name": "Invoice Shipping Address",
-    'summary': """
+    'description': """
         Adds a shipping address field to the invoice.""",
-    "version": "8.0.0.1.1",
+    "version": "9.0.0.1.1",
     'category': 'Generic Modules/Accounting',
     "depends": ["account", "sale", "sale_stock"],
     "author": "Andrea Cometa, Agile Business Group,"
@@ -33,7 +33,8 @@
     'website': 'http://www.andreacometa.it',
     'license': 'AGPL-3',
     'data': [
-        'invoice_view.xml',
+        'views/account_invoice.xml',
     ],
-    'installable': False,
+    'installable': True,
+    'auto_install': False,
 }
