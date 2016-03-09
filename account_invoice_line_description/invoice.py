@@ -38,11 +38,13 @@ class AccountInvoiceLine(models.Model):
             currency_id=currency_id,  company_id=company_id
         )
         if product:
+            product_model = self.env['product.product']
             if self.user_has_groups(
                     'account_invoice_line_description.'
                     'group_use_product_description_per_inv_line',
             ):
-                product = self.env['product.product'].browse(product)
+                lang = self.env['res.partner'].browse(partner_id).lang
+                product = product_model.with_context(lang=lang).browse(product)
                 description = ((product.description_sale
                                if type in ('out_invoice', 'out_refund')
                                else product.description_purchase) or
