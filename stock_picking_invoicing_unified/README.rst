@@ -45,6 +45,8 @@ Usage
 Known issues / Roadmap
 ======================
 
+* Generated invoices are all seen with the supplier invoice form view, independently of 
+  its type.
 * Add tests
 
 Bug Tracker
