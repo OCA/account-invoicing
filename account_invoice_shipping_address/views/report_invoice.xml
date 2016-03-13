@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<template id="account.report_invoice_document1" inherit_id="account.report_invoice_document">
+			<xpath expr="//div[@class='col-xs-5 col-xs-offset-7']" position="replace">
+                <div class="col-xs-5 col-xs-offset-7">
+					<t t-if="o.address_shipping_id">
+						<adres t-field="o.address_shipping_id"
+							t-field-options='{"widget": "contact",
+								"fields": ["address", "name"],
+								"no_marker": true}' />
+					</t>
+					<t t-if="not o.address_shipping_id">
+						<adres t-field="o.partner_id"
+							t-field-options='{"widget": "contact",
+								"fields": ["address", "name"],
+								"no_marker": true}' />
+					</t>
+
+                    <span t-if="o.partner_id.vat">TIN: <span t-field="o.partner_id.vat"/></span>
+                </div>
+			</xpath>
+		</template>
+
+	</data>
+</openerp>
