@@ -1,39 +1,28 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2011 Domsense s.r.l. (<http://www.domsense.com>).
-#    Copyright (C) 2013 Andrea Cometa Perito Informatico (www.andreacometa.it)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
+# © 2011 Domsense s.r.l. (<http://www.domsense.com>).
+# © 2013 Andrea Cometa Perito Informatico (www.andreacometa.it)
+# © 2016 Farid Shahy (<fshahy@gmail.com>)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
     "name": "Invoice Shipping Address",
+    "summary": "Add shipping address to customer invoices.",
     "version": "9.0.0.1.1",
-    'category': 'Generic Modules/Accounting',
-    "depends": ["account", "sale", "sale_stock"],
+    "category": "Generic Modules/Accounting",
     "author": "Andrea Cometa, Agile Business Group,"
               "Odoo Community Association (OCA)",
-    'website': 'http://www.andreacometa.it',
-    'license': 'AGPL-3',
-    'data': [
-        'views/account_invoice.xml',
+    "website": "https://odoo-community.org/",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "auto_install": False,
+    "depends": [
+        "account",
+        "sale",
+        "sale_stock"],
+    "data": [
+        "views/account_invoice.xml",
+        "views/report_invoice.xml",
     ],
-    'images': [],
-    'installable': True,
-    'auto_install': False,
+
 }

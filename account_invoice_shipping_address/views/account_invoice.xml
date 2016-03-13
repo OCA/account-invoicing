@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+
         <record id="invoice_form" model="ir.ui.view">
             <field name="name">account.invoice.form</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='fiscal_position_id']" position="before">
-                    <field name="address_shipping_id"/>
+                    <field name="address_shipping_id" domain="[('type','=','delivery')]"/>
                 </xpath>
             </field>
         </record>
+
     </data>
 </openerp>

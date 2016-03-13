@@ -18,38 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-"""
- * Adding qty_invoiced field on SO lines, computed based on invoice lines
-   linked to it that has the same product. So this way, advance invoice will
-   still work !
 
- * Adding qty_delivered field in SO Lines, computed from move lines linked to
-   it. For services, the quantity delivered is a problem, the MRP will
-   automatically run the procurement linked to this line and pass it to done. I
-   suggest that in that case, delivered qty = invoiced_qty as the procurement
-   is for the whole qty, it'll be a good alternative to follow what has been
-   done and not.
-
- * Add in the "Order Line to invoice" view those fields
-
- * Change the behavior of the "invoiced" field of the SO line to be true when
-   all is invoiced
-
- * Adapt the "_make_invoice" method in SO to deal with qty_invoiced
-
- * Adapt the sale_line_invoice.py wizard to deal with qty_invoiced, asking the
-   user how much he want to invoice.
-
-By having the delivered quantity, we can imagine in the future to provide an
-invoicing "based on delivery" that will look at those values instead of looking
-in picking.
-
-
-"""
 import logging
-_logger = logging.getLogger(__name__)
 from openerp.osv import orm, fields
 from openerp import netsvc
+_logger = logging.getLogger(__name__)
 
 
 class SaleOrderLine(orm.Model):
@@ -77,7 +50,8 @@ class SaleOrderLine(orm.Model):
                         res[line.id] += move.product_qty
         return res
 
-    def _prepare_order_line_invoice_line(self, cr, uid, line, account_id=False,
+    def _prepare_order_line_invoice_line(self, cr, uid,
+                                         line, account_id=False,
                                          context=None):
         if context is None:
             context = {}
@@ -93,7 +67,8 @@ class SaleOrderLine(orm.Model):
         res['quantity'] = to_invoice_qty
         return res
 
-    def _fnct_line_invoiced(self, cr, uid, ids, field_name, args, context=None):
+    def _fnct_line_invoiced(self, cr, uid, ids,
+                            field_name, args, context=None):
         res = dict.fromkeys(ids, False)
         for this in self.browse(cr, uid, ids, context=context):
             res[this.id] = (this.qty_invoiced == this.product_uom_qty)
@@ -115,7 +90,8 @@ class SaleOrderLine(orm.Model):
         'invoiced': fields.function(
             _fnct_line_invoiced, string='Invoiced', type='boolean',
             store={
-                'account.invoice': (_order_lines_from_invoice2, ['state'], 10),
+                'account.invoice':
+                    (_order_lines_from_invoice2, ['state'], 10),
                 'sale.order.line': (lambda self, cr, uid, ids, ctx=None: ids,
                                     ['invoice_lines'], 10)
             }),
@@ -144,9 +120,11 @@ class sale_advance_payment_inv(orm.TransientModel):
         line_values = []
         for so_line in order_line_obj.browse(cr, uid, so_line_ids,
                                              context=context):
-            if so_line.state in ('confirmed', 'done') and not so_line.invoiced:
+            if so_line.state in ('confirmed', 'done') \
+                    and not so_line.invoiced:
                 val = {'sale_order_line_id': so_line.id, }
-                if so_line.product_id and so_line.product_id.type == 'product':
+                if so_line.product_id \
+                        and so_line.product_id.type == 'product':
                     val['quantity'] = so_line.qty_delivered - \
                         so_line.qty_invoiced
                 else:
