@@ -179,14 +179,12 @@ class AccountInvoice(models.Model):
                 workflow.trg_validate(
                     self.env.uid, 'account.invoice', old_id, 'invoice_cancel',
                     self.env.cr)
-        # make link between original sale order or purchase order
-        # None if sale is not installed
-        so_obj = self.env['sale.order']\
-            if 'sale.order' in self.env.registry else False
-        invoice_line_obj = self.env['account.invoice.line']
+        # make link between original sale order if sale is not installed
         # None if purchase is not installed
-        for new_invoice_id in invoices_info:
-            if so_obj:
+        if 'sale.order' in self.env.registry:
+            so_obj = self.env['sale.order']
+            invoice_line_obj = self.env['account.invoice.line']
+            for new_invoice_id in invoices_info:
                 todos = so_obj.search(
                     [('invoice_ids', 'in', invoices_info[new_invoice_id])])
                 todos.write({'invoice_ids': [(4, new_invoice_id)]})
