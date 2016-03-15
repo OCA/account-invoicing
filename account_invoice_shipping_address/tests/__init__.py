@@ -4,4 +4,4 @@
 # © 2016 Farid Shahy (<fshahy@gmail.com>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from . import test_invoice_shipping_test
+from . import test_invoice_shipping

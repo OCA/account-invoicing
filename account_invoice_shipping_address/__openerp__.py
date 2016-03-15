@@ -12,6 +12,7 @@
     "author": "Andrea Cometa, Agile Business Group,"
               "Odoo Community Association (OCA)",
     "website": "https://odoo-community.org/",
+    "images": [],
     "license": "AGPL-3",
     "application": False,
     "installable": True,
