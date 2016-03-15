@@ -45,9 +45,9 @@ If you want the invoice2data library to fallback on OCR if the PDF doesn't conta
 
 .. code::
 
-  sudo add-get install imagemagick tesseract-ocr
+  sudo apt-get install imagemagick tesseract-ocr
 
-French users should also install the module *l10n_fr_invoice_pdf_import* available in the `French localization <https://github.com/OCA/l10n-france/>`_.
+French users should also install the module *l10n_fr_invoice_pdf_import* available in the `French localization <https://github.com/OCA/l10n-france/>`_, cf `this PR <https://github.com/OCA/l10n-france/pull/55>`_.
 
 Configuration
 =============
