@@ -330,7 +330,7 @@ class AccountInvoiceImport(models.TransientModel):
         if float_compare(
                 total_line, total_line_lines, precision_digits=prec):
             logger.warning(
-                "The gloabl LineTotalAmount (%s) doesn't match the "
+                "The global LineTotalAmount (%s) doesn't match the "
                 "sum of the LineTotalAmount of each line (%s). It can "
                 "have a diff of a few cents due to sum of rounded values vs "
                 "rounded sum policies.", total_line, total_line_lines)
