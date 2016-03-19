@@ -27,6 +27,7 @@
     'license': 'AGPL-3',
     "depends": [
         #'stock_picking_invoice_link'
+        "stock"
         
         ],
     "data": [
