@@ -20,14 +20,17 @@
 
 {
     'name': "Stock Picking Invoicing",
-    'version': '8.0.1.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Warehouse Management',
     'author': "Agile Business Group,Odoo Community Association (OCA)",
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
-    "depends": ['stock_picking_invoice_link'],
+    "depends": [
+        #'stock_picking_invoice_link'
+        
+        ],
     "data": [
-        "stock_view.xml",
+        "views/stock_view.xml",
     ],
-    'installable': False
+    'installable': True
 }
