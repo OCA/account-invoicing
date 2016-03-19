@@ -18,13 +18,97 @@
 #
 ##############################################################################
 
-from openerp import models, api, _
+import logging
+from openerp import models, api, fields, _
 from openerp.exceptions import Warning
 
+_logger = logging.getLogger(__name__)
+
+INVOICE_STATE = [
+            ("invoiced", "Invoiced"),
+            ("2binvoiced", "To Be Invoiced"),
+            ("none", "Not Applicable")
+            ]
+
+
+
+class StockLocationPath(models.Model):
+    _inherit = "stock.location.path"
+    
+    invoice_state =  fields.Selection(INVOICE_STATE, 
+                                        string="Invoice Status", default="none")
+    
+    
+    @api.v7
+    def _prepare_push_apply(self, cr, uid, rule, move, context=None):
+        res = super(stock_location_path, self)._prepare_push_apply(cr, uid, rule, move, context=context)
+        res['invoice_state'] = rule.invoice_state or 'none'
+        return res
+
+#----------------------------------------------------------
+# Procurement Rule
+#----------------------------------------------------------
+class ProcurementRule(models.Model):
+    _inherit = 'procurement.rule'
+    
+    invoice_state =  fields.Selection(INVOICE_STATE, 
+                                        string="Invoice Status", default="none")
+
+#----------------------------------------------------------
+# Procurement Order
+#----------------------------------------------------------
+
+
+class ProcurementOrder(models.Model):
+    _inherit = "procurement.order"
+    
+    
+    invoice_state =  fields.Selection(INVOICE_STATE, 
+                                        string="Invoice Status", default="none")
+
+    @api.v7
+    def _run_move_create(self, cr, uid, procurement, context=None):
+        res = super(procurement_order, self)._run_move_create(cr, uid, procurement, context=context)
+        res.update({'invoice_state': procurement.rule_id.invoice_state or procurement.invoice_state or 'none'})
+        return res
+
+
+
+#----------------------------------------------------------
+# Move
+#----------------------------------------------------------
+
+class stock_move(models.Model):
+    _inherit = "stock.move"
+
+    invoice_state =  fields.Selection(INVOICE_STATE, 
+                                        string="Invoice Status", default="none")
+
+    @api.model
+    def _get_master_data(self, move, company):
+        data = super(StockMove, self)._get_master_data(move, company)
+        if move.picking_id.partner_id.id != data[0].id:
+            # if someone else modified invoice partner, I use it
+            return data
+        partner_invoice_id = move.picking_id.partner_id.address_get(
+            ['invoice'])['invoice']
+        partner = self.env['res.partner'].browse(partner_invoice_id)
+        new_data = partner, data[1], data[2]
+        return new_data
+
+
+
+#----------------------------------------------------------
+# Picking
+#----------------------------------------------------------
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
+    invoice_state =  fields.Selection(INVOICE_STATE, 
+                                        string="Invoice Status", default="none")
+    
+    
     @api.model
     def _get_partner_to_invoice(self, picking):
         partner_obj = self.env['res.partner']
@@ -50,18 +134,3 @@ class StockPicking(models.Model):
                 picking.invoice_state = '2binvoiced'
         return True
 
-
-class StockMove(models.Model):
-    _inherit = 'stock.move'
-
-    @api.model
-    def _get_master_data(self, move, company):
-        data = super(StockMove, self)._get_master_data(move, company)
-        if move.picking_id.partner_id.id != data[0].id:
-            # if someone else modified invoice partner, I use it
-            return data
-        partner_invoice_id = move.picking_id.partner_id.address_get(
-            ['invoice'])['invoice']
-        partner = self.env['res.partner'].browse(partner_invoice_id)
-        new_data = partner, data[1], data[2]
-        return new_data
