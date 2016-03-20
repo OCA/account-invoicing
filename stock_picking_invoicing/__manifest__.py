@@ -30,8 +30,8 @@
         
         ],
     "data": [
-        "views/stock_view.xml",
         "wizard/stock_invoice_onshipping_view.xml",
+        "views/stock_view.xml",
     ],
     
     'installable': True
