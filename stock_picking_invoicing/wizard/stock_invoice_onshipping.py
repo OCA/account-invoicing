@@ -22,6 +22,7 @@
 import logging
 from openerp.tools.translate import _
 from openerp import models, fields, api
+from openerp.exceptions import Warning
 from openerp.tools import config
 
 
@@ -49,28 +50,79 @@ class StockInvoiceOnshipping(models.TransientModel):
     _description = "Stock Invoice Onshipping"
     
     
+    #==================
+    # View Parts
+    #==================
+    
+    @api.model
+    def view_init(self, fields):
+        _logger.debug("VIEW init")
+        context = self.env.context or {}
+        
+        res = super(StockInvoiceOnshipping, self).view_init(fields)
+        pick_obj = self.env['stock.picking']
+        count = 0
+        active_ids = context.get('active_ids',[])        
+        for pick in pick_obj.search([('id', 'in', active_ids)]):
+            if pick.invoice_state != '2binvoiced':
+                count += 1
+            if not pick.partner_id :
+                raise Warning(_('All your picking must have a partner to be invoiced!'))
+        if len(active_ids) == count:
+            _logger.debug("Raise ")
+            raise Warning(_('None of these picking lists require invoicing.'))
+            
+        
+        _logger.debug("RESULT %s")
+        
+        return res
+
+    
+    @api.onchange('group')
+    def onchange_group(self):
+        self.ensure_one()
+        (sale_pickings, sale_refund_pickings, purchase_pickings,
+            purchase_refund_pickings) = self.get_split_pickings()
+        self.show_sale_journal = bool(sale_pickings)
+        self.show_sale_refund_journal = bool(sale_refund_pickings)
+        self.show_purchase_journal = bool(purchase_pickings)
+        self.show_purchase_refund_journal = bool(purchase_refund_pickings)
+
+#    @api.onchange('journal_id')
+#    def onchange_journal_id(self): 
+#        _logger.debug("ON CHANGE")
+#        context = self.env.context or {}
+#        domain = {}
+#        value = {}
+#        active_id = context.get('active_id')
+#        if active_id:
+#            picking = self.env['stock.picking'].search(active_id)
+#            type = picking.picking_type_id.code
+#            usage = picking.move_lines[0].location_id.usage if type == 'incoming' else picking.move_lines[0].location_dest_id.usage
+#            journal_types = JOURNAL_TYPE_MAP.get((type, usage), ['sale', 'purchase', 'sale_refund', 'purchase_refund'])
+#            domain['journal_id'] = [('type', 'in', journal_types)]
+#        if self.journal_id:
+#            journal = self.env['account.journal'].search(journal_id)
+#            
+#            value['journal_type'] = journal.type
+#        
+#        return {'value': value, 'domain': domain}
+
+    
     
     @api.model
     def _default_journal(self, journal_type):
+        company_id = self.env['res.users']._get_company()
         default_journal = self.env['account.journal'].search(
-            [('type', '=', journal_type)])[:1]
-            
-        _logger.debug("default_journal : %s " % default_journal)
-        
+            [('type', '=', journal_type),('company_id','=', company_id )])[:1]
         return default_journal
     
     @api.model
     def _get_journal(self):
         journal_obj = self.env['account.journal']
         journal_type = self._get_journal_type()
-        _logger.debug("JOURNAL TYPE %s" % journal_type)
-        journals = journal_obj.search([('type', '=', journal_type)])
-        _logger.debug("Journals %s" % journals)
-        _logger.debug("Journals %s" % journals[0].id)
-        
-        result = journals and journals[0]
-        _logger.debug("Journals %s" % result)
-        
+        company_id = self.env['res.users']._get_company()
+        journals = journal_obj.search([('type', '=', journal_type),('company_id','=', company_id)])   
         return journals[:1]
     
     @api.model
@@ -126,87 +178,35 @@ class StockInvoiceOnshipping(models.TransientModel):
         string="Show Refund Purchase Journal")
         
         
-    @api.onchange('group')
-    def onchange_group(self):
-        self.ensure_one()
-        (sale_pickings, sale_refund_pickings, purchase_pickings,
-            purchase_refund_pickings) = self.get_split_pickings()
-        self.show_sale_journal = bool(sale_pickings)
-        self.show_sale_refund_journal = bool(sale_refund_pickings)
-        self.show_purchase_journal = bool(purchase_pickings)
-        self.show_purchase_refund_journal = bool(purchase_refund_pickings)
-
-#    @api.onchange('journal_id')
-    def onchange_journal_id(self): 
-        _logger.debug("ON CHANGE")
-        context = self.env.context or {}
-        domain = {}
-        value = {}
-        active_id = context.get('active_id')
-        if active_id:
-            picking = self.env['stock.picking'].search(active_id)
-            type = picking.picking_type_id.code
-            usage = picking.move_lines[0].location_id.usage if type == 'incoming' else picking.move_lines[0].location_dest_id.usage
-            journal_types = JOURNAL_TYPE_MAP.get((type, usage), ['sale', 'purchase', 'sale_refund', 'purchase_refund'])
-            domain['journal_id'] = [('type', 'in', journal_types)]
-        if self.journal_id:
-            journal = self.env['account.journal'].search(journal_id)
-            
-            value['journal_type'] = journal.type
-        
-        return {'value': value, 'domain': domain}
-
-
-#    @api.cr_uid_ids_context
-    
-    @api.model
-    def view_init(self, fields):
-        _logger.debug("VIEW init")
-        context = self.env.context or {}
-        
-        res = super(StockInvoiceOnshipping, self).view_init(fields)
-        pick_obj = self.env['stock.picking']
-        count = 0
-        active_ids = context.get('active_ids',[])        
-        for pick in pick_obj.search([('id', 'in', active_ids)]):
-            if pick.invoice_state != '2binvoiced':
-                count += 1
-        if len(active_ids) == count:
-            raise osv.except_osv(_('Warning!'), _('None of these picking lists require invoicing.'))
-        return res
+    #=================
+    # Business part
+    #=================
 
     @api.multi
     def open_invoice(self):
-        _logger.debug("OPEN INVOICE")
         self.ensure_one()
-        if context is None:
-            context = {}
         
-        invoice_ids = self.create_invoice(cr, uid, ids, context=context)
+        invoice_ids = self.create_invoice()
         if not invoice_ids:
-            raise osv.except_osv(_('Error!'), _('No invoice created!'))
+            raise Warning(_('No invoice created!'))
 
-        data = self.search([self[0].id])
+        data = self.search([('id', 'in', [self[0].id])])
 
         action_model = False
         action = {}
         
         journal2type = {'sale':'out_invoice', 'purchase':'in_invoice' , 'sale_refund':'out_refund', 'purchase_refund':'in_refund'}
         inv_type = journal2type.get(data.journal_type) or 'out_invoice'
-        data_pool = self.env[ir.model.data]
-        if inv_type == "out_invoice":
-            action_id = data_pool.xmlid_to_res_id('account.action_invoice_tree1')
+        data_pool = self.env['ir.actions.act_window']
+        
+        if inv_type in ["out_invoice", "out_refund"]:
+            action_id = data_pool.for_xml_id('account','action_invoice_tree1')
         elif inv_type == "in_invoice":
-            action_id = data_pool.xmlid_to_res_id('account.action_invoice_tree2')
-        elif inv_type == "out_refund":
-            action_id = data_pool.xmlid_to_res_id('account.action_invoice_tree3')
-        elif inv_type == "in_refund":
-            action_id = data_pool.xmlid_to_res_id('account.action_invoice_tree4')
+            action_id = data_pool.for_xml_id('account','action_invoice_tree2')
 
         if action_id:
-            action_pool = self.env['ir.actions.act_window']
-            action = action_pool.search(action_id)
-            action['domain'] = "[('id','in', ["+','.join(map(str,invoice_ids))+"])]"
+            action = action_id.copy()
+            action['domain'] = [('id','in', invoice_ids)]
             return action
         return True
 
@@ -214,25 +214,24 @@ class StockInvoiceOnshipping(models.TransientModel):
     def create_invoice(self):
         self.ensure_one()
         context = self.env.context or {}
-        picking_pool = self.env[stock.picking]
-#        data = self.search(ids[0], context=context)
+        picking_pool = self.env['stock.picking']
         journal2type = {'sale':'out_invoice', 'purchase':'in_invoice', 'sale_refund':'out_refund', 'purchase_refund':'in_refund'}
-        context['date_inv'] = self.invoice_date
-        acc_journal = self.env[account.journal]
+        
         inv_type = journal2type.get(self.journal_type) or 'out_invoice'
-        context['inv_type'] = inv_type
+        
 
         active_ids = context.get('active_ids', [])
-        res = picking_pool.action_invoice_create(cr, uid, active_ids,
-              journal_id = data.journal_id.id,
-              group = data.group,
-              type = inv_type,
-              context=context)
-#        return res
+        self = self.with_context(
+                date_inv = self.invoice_date,
+                inv_type = inv_type
+               )
 
+        res = picking_pool.action_invoice_create(active_ids,
+              journal_id = self.journal_id.id,
+              group = self.group,
+              type = inv_type)
+        return res
 
-#    @api.multi
-#    def create_invoice(self):
         if (config['test_enable'] and
                 not self.env.context.get('test_picking_invoicing_unified')):
             return res
