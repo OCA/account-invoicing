@@ -3,7 +3,7 @@
     <data>
     
         
-        <!-- Odoo SA GNU Affero General Public License v3 -->
+        
         <record id="view_picking_inherit_tree2" model="ir.ui.view">
             <field name="name">stock.picking.tree.inherit</field>
             <field name="model">stock.picking</field>
@@ -14,10 +14,20 @@
                 </xpath>
             </field>
         </record>
+        
+        
+        <record id="view_picking_invoicing_inherit_tree" model="ir.ui.view">
+            <field name="name">stock.picking.search.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="before">
+                    <filter name="picking_to_invoice" string="Shipments to Invoice" domain="[('invoice_state', '=', '2binvoiced')]"/>
+                </xpath>
 
-
-
-    
+            </field>
+        </record>
+        
         <record id="view_picking_inherit_form2" model="ir.ui.view">
             <field name="name">stock.picking.form.inherit</field>
             <field name="model">stock.picking</field>
@@ -31,9 +41,9 @@
                 </field>
                 <xpath expr="//field[@name='move_type']" position="after">
                     <field name="invoice_state" groups="account.group_account_invoice"/>
-                    <field name="invoice_id" 
-                           attrs="{'invisible':[('invoice_id', '=', False)]}"
+                    <field name="invoice_id"                           
                            groups="account.group_account_invoice"/>
+
                 </xpath>
             </field>
         </record>
@@ -44,7 +54,9 @@
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
                 <button name="%(stock.act_stock_return_picking)d" position="after">
-                    <button name="set_to_be_invoiced" type="object" string="Set to be invoiced" attrs="{'invisible':[('invoice_state', '=', '2binvoiced')]}" ></button>
+                    <button name="set_to_be_invoiced" type="object" string="Set to be invoiced" 
+                            attrs="{'invisible':['|',('invoice_state', '=', '2binvoiced'),('invoice_id', '!=', False)]}" >
+                    </button>
                 </button>
             </field>
         </record>
@@ -57,9 +69,14 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='date_expected']" position="after">
                     <field name="invoice_state" groups="account.group_account_invoice"/>
-                    <field name="invoice_id" 
-                           attrs="{'invisible':[('invoice_id', '=', False)]}"
+                    <field name="invoice_line_id" 
+                           
                            groups="account.group_account_invoice"/>
+                    
+                    <field name="invoice_id" 
+                           attrs="{'invisible':[('invoice_line_id', '=', False)]}"
+                           groups="account.group_account_invoice"/>
+                    
                 </xpath>
             </field>
         </record>
@@ -72,9 +89,21 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='picking_type_id']" position="after">
                     <field name="invoice_state" groups="account.group_account_invoice"/>
+                    
+                    
+                    <field name="invoice_id" 
+                           attrs="{'invisible':[('invoice_line_id', '=', False)]}"
+                           groups="account.group_account_invoice"/>
+                    
+                    <field name="invoice_line_id" 
+                            invisible="1"
+                           groups="account.group_account_invoice"/>
                 </xpath>
             </field>
         </record>
+        
+        
+        
         <record model="ir.ui.view" id="view_procurement_rule_form_stockaccount_inherit">
             <field name="name">stock.procurement.rule.inherit.form</field>
             <field name="model">procurement.rule</field>
