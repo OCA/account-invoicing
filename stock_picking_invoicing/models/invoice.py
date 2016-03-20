@@ -18,5 +18,34 @@
 #
 ##############################################################################
 
-from . import stock
-from . import invoice
+import logging
+from openerp import _
+from openerp import api
+from openerp import fields
+from openerp import models
+from openerp.exceptions import Warning
+
+_logger = logging.getLogger(__name__)
+
+INVOICE_STATE = [
+    ("invoiced", "Invoiced"),
+    ("2binvoiced", "To Be Invoiced"),
+    ("none", "Not Applicable")
+    ]
+
+class AccountInvoice(models.Model):
+    _inherit = "account.invoice"
+    
+    @api.multi
+    def compute_invoice_tax_lines(self):
+        self.ensure_one()
+        taxes_grouped = self.get_taxes_values()
+        tax_lines = self.tax_line_ids.browse([])
+        for tax in taxes_grouped.values():
+            tax_lines += tax_lines.new(tax)
+
+        self.tax_line_ids = tax_lines
+            
+        return []
+
+    
