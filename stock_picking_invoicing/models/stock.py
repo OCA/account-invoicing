@@ -43,7 +43,7 @@ class StockLocationPath(models.Model):
     
     @api.v7
     def _prepare_push_apply(self, cr, uid, rule, move, context=None):
-        res = super(stock_location_path, self)._prepare_push_apply(cr, uid, rule, move, context=context)
+        res = super(StockLocationPath, self)._prepare_push_apply(cr, uid, rule, move, context=context)
         res['invoice_state'] = rule.invoice_state or 'none'
         return res
 
@@ -70,7 +70,7 @@ class ProcurementOrder(models.Model):
 
     @api.v7
     def _run_move_create(self, cr, uid, procurement, context=None):
-        res = super(procurement_order, self)._run_move_create(cr, uid, procurement, context=context)
+        res = super(ProcurementOrder, self)._run_move_create(cr, uid, procurement, context=context)
         res.update({'invoice_state': procurement.rule_id.invoice_state or procurement.invoice_state or 'none'})
         return res
 
