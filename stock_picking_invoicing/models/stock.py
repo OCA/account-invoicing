@@ -34,7 +34,6 @@ INVOICE_STATE = [
     ]
 
 
-
 class StockLocationPath(models.Model):
     _inherit = "stock.location.path"
     
@@ -128,11 +127,22 @@ class stock_move(models.Model):
         return new_data
         
     @api.multi
-    def _get_taxes(self):
+    def _get_taxes(self, fiscal_position):
+        self.ensure_one()
         taxes_ids = self.product_id.taxes_id        
         my_taxes = taxes_ids.filtered(lambda r: r.company_id.id == self.company_id.id)    
+        my_taxes = fiscal_position.map_tax(my_taxes)
         my_taxes = [t.id for t in my_taxes]
+        _logger.debug("TAXES %s" % my_taxes)
+        
         return my_taxes
+    
+    @api.multi
+    def _get_account(self, fiscal_position, account_id):
+        self.ensure_one()
+        account_id = fiscal_position.map_account(account_id)
+        
+        return account_id
 
     @api.multi
     def _get_invoice_line_vals(self, partner, inv_type):
@@ -154,7 +164,8 @@ class stock_move(models.Model):
             if not account_id:
                 account_id = self.product_id.categ_id.property_account_expense_categ_id.id
         fiscal_position = fp or partner.property_account_position_id
-        account_id = fiscal_position.map_account(account_id)
+        
+        account_id = self._get_account(fiscal_position, account_id)  
 
         # set UoS if it's a sale and the picking doesn't have one
         uos_id = self.product_uom.id
@@ -164,13 +175,14 @@ class stock_move(models.Model):
 #            quantity = move.product_uos_qty
             
                 
-        taxes_ids = self._get_taxes()
+        taxes_ids = self._get_taxes(fiscal_position)
 
         res = {
-            'name': name or self.name,
+            'name': name or (self.picking_id.name + '\n' +  self.name),
             'account_id': account_id,
             'product_id': self.product_id.id,
             'uos_id': uos_id,
+            'uom_id': uos_id,
             'quantity': quantity,
             'price_unit': self._get_price_unit_invoice(inv_type),
             'invoice_line_tax_ids': [(6, 0, taxes_ids)],
@@ -215,7 +227,7 @@ class stock_move(models.Model):
                                          pricelist=self.partner_id.property_product_pricelist.id,
                                          uom=self.product_uom.id
                                             )
-        result = self.product_id.price
+        result = self.product_id.price        
 
         return result
     
@@ -345,6 +357,7 @@ class StockPicking(models.Model):
         is_extra_move, extra_move_tax = move_obj._get_moves_taxes(moves, inv_type)
         product_price_unit = {}
         
+        invoice_id = None
         for move in moves:
             company = move.company_id
             origin = move.picking_id.name
@@ -401,6 +414,8 @@ class StockPicking(models.Model):
                                     'invoice_state': 'invoiced'
                 })
                 
+        
+        invoice_id.compute_invoice_tax_lines()
 
 #        invoice_obj.button_compute(cr, uid, invoices.values(), context=context, set_total=(inv_type in ('in_invoice', 'in_refund')))
 #       
