@@ -11,7 +11,17 @@
                         <field name="journal_type" readonly="1"/>
                     </h1>
                     <group>
-                        <field name="journal_id" domain="[('type','=',journal_type)]" on_change="onchange_journal_id(journal_id)"/>
+                        <field name="journal_id" domain="[('type','=',journal_type)]"  
+                               invisible="1"
+                        />
+                        <field name="show_sale_journal" invisible="1"/>
+                        <field name="show_sale_refund_journal" invisible="1"/>
+                        <field name="show_purchase_journal" invisible="1"/>
+                        <field name="show_purchase_refund_journal" invisible="1"/>
+                        <field name="sale_journal" attrs="{'invisible':[('show_sale_journal', '=', False)], 'required':[('show_sale_journal', '=', True)]}"/>
+                        <field name="sale_refund_journal" attrs="{'invisible':[('show_sale_refund_journal', '=', False)], 'required':[('show_sale_refund_journal', '=', True)]}"/>
+                        <field name="purchase_journal" attrs="{'invisible':[('show_purchase_journal', '=', False)], 'required':[('show_purchase_journal', '=', True)]}"/>
+                        <field name="purchase_refund_journal" domain="[('type', '=', 'purchase_refund')]" attrs="{'invisible':[('show_purchase_refund_journal', '=', False)], 'required':[('show_purchase_refund_journal', '=', True)]}"/>
                         <field name="group"/>
                         <field name="invoice_date" />
                     </group>
@@ -32,6 +42,6 @@
                     view_mode="form"
                     view_type="form"
                     target="new"
-                    id="action_stock_invoice_onshipping"/>
+                    id="action_stock_invoice_onshipping"/>       
     </data>
 </openerp>

@@ -26,12 +26,13 @@
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
     "depends": [
-        #'stock_picking_invoice_link'
         "stock"
         
         ],
     "data": [
         "views/stock_view.xml",
+        "wizard/stock_invoice_onshipping_view.xml",
     ],
+    
     'installable': True
 }
