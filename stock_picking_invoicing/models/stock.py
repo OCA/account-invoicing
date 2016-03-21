@@ -183,7 +183,7 @@ class stock_move(models.Model):
             'uos_id': uos_id,
             'uom_id': uos_id,
             'quantity': quantity,
-            'price_unit': self._get_price_unit_invoice(inv_type),
+            'price_unit': self._get_price_unit_invoice(inv_type, partner),
             'invoice_line_tax_ids': [(6, 0, taxes_ids)],
             'discount': 0.0,
             'account_analytic_id': False,
@@ -207,27 +207,34 @@ class stock_move(models.Model):
         
         
     @api.multi
-    def _get_price_unit_invoice(self, inv_type):
+    def _get_price_unit_invoice(self, inv_type, partner):
         """ Gets price unit for invoice
         @param move_line: Stock move lines
         @param type: Type of invoice
         @return: The price unit for the move line
         """
-        
-        if type in ('in_invoice', 'in_refund'):
-            return move_line.product_id.price        
+        result = 0.0
+        if inv_type in ('in_invoice', 'in_refund'):
+            return self.product_id.price        
         else:
             # If partner given, search price in its sale pricelist
-            if self.partner_id and self.partner_id.property_product_pricelist:
-                self = self.with_context(
+            
+            if partner and partner.property_product_pricelist:
+                product_id = self.product_id.with_context(
                                          partner=self.partner_id.id,
                                          quantity=self.product_uom_qty,
                                          date=self.date,
-                                         pricelist=self.partner_id.property_product_pricelist.id,
+                                         pricelist=partner.property_product_pricelist.id,
                                          uom=self.product_uom.id
-                                            )
-        result = self.product_id.price        
-
+                                        )                
+                result = product_id.price
+                
+            else :
+                
+                result = product_id.lst_price
+        
+        _logger.debug("Calcul du prix : %s " % result)
+        
         return result
     
     @api.multi
