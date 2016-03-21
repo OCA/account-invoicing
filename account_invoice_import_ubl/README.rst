@@ -11,7 +11,7 @@ This module is an extension of the module *account_invoice_import* to add the ab
 Configuration
 =============
 
-There is no configuration specific to this module. Please refer to the configuration section of the modules *account_invoice_import* and *base_zugferd* (this module should be renamed).
+There is no configuration specific to this module. Please refer to the configuration section of the modules *account_invoice_import* and *account_tax_unece*.
 
 Usage
 =====

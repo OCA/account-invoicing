@@ -29,10 +29,12 @@
     'summary': 'Import UBL XML supplier invoices/refunds',
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
-    # TODO : rename module base_zugferd
-    # because it seems payment means code and some tax codes
-    # are common between zugferd/CII and UBL !
-    'depends': ['account_invoice_import', 'base_vat', 'base_zugferd'],
+    'depends': [
+        'account_invoice_import',
+        'base_vat',
+        'account_tax_unece',
+        'product_uom_unece',
+        ],
     'data': [],
     'demo': ['demo/demo_data.xml'],
     'test': ['test/ubl.yml'],

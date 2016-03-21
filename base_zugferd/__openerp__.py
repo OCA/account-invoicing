@@ -29,12 +29,7 @@
     'summary': 'Base module for ZUGFeRD',
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
-    'depends': ['account_banking_payment_export'],
-    'data': [
-        'views/account_tax.xml',
-        'views/payment_mode_type.xml',
-        'views/product_uom.xml',
-        'data/zugferd_codes.xml',
-        ],
+    'depends': ['product_uom_unece', 'account_tax_unece', 'account_payment_unece'],
+    'data': ['data/zugferd_codes.xml'],
     'installable': True,
 }

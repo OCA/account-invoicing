@@ -89,7 +89,7 @@ class AccountInvoiceImport(models.TransientModel):
 
     @api.model
     def select_taxes_of_invoice_line(
-            self, taxes_xpath, namespaces, zug2odoo_tax, line_name=False):
+            self, taxes_xpath, namespaces, unece2odoo_tax, line_name=False):
         '''This method is designed to be inherited'''
         tax_ids = []
         prec = self.env['decimal.precision'].precision_get('Account')
@@ -105,13 +105,16 @@ class AccountInvoiceImport(models.TransientModel):
             percent = percent_xpath[0].text and float(percent_xpath[0].text)\
                 or 0.0
             odoo_tax_found = False
-            for otax in zug2odoo_tax:
+            logger.debug(
+                'select_taxes_of_invoice_line type_code=%s '
+                'categ_code=%s percent=%s', type_code, categ_code, percent)
+            for otax in unece2odoo_tax:
                 if (
-                        otax['zugferd_type_code'] == type_code and
+                        otax['unece_type_code'] == type_code and
                         otax['type'] == 'percent' and
                         not float_compare(
                             percent, otax['amount'], precision_digits=prec)):
-                    if categ_code and categ_code != otax['zugferd_categ_code']:
+                    if categ_code and categ_code != otax['unece_categ_code']:
                         continue
                     tax_ids.append(otax['id'])
                     odoo_tax_found = True
@@ -237,34 +240,34 @@ class AccountInvoiceImport(models.TransientModel):
                 "//ram:SpecifiedTradeSettlementPaymentMeans"
                 "/ram:PayeeSpecifiedCreditorFinancialInstitution"
                 "/ram:BICID", namespaces=namespaces)
-        uoms = self.env['product.uom'].search([('zugferd_code', '!=', False)])
-        zug2odoo_uom = {}
+        uoms = self.env['product.uom'].search([('unece_code', '!=', False)])
+        unece2odoo_uom = {}
         for uom in uoms:
-            zug2odoo_uom[uom.zugferd_code] = uom.id
-        logger.debug('zug2odoo_uom = %s', zug2odoo_uom)
+            unece2odoo_uom[uom.unece_code] = uom.id
+        logger.debug('unece2odoo_uom = %s', unece2odoo_uom)
         taxes = self.env['account.tax'].search([
-            ('zugferd_type_code', '!=', False),
-            ('zugferd_categ_code', '!=', False),
+            ('unece_type_id', '!=', False),
+            ('unece_categ_id', '!=', False),
             ('type_tax_use', 'in', ('all', 'purchase')),
             ('price_include', '=', False),  # TODO : check what the standard
             ])                              # says about this
-        zug2odoo_tax = []
+        unece2odoo_tax = []
         for tax in taxes:
-            zug2odoo_tax.append({
-                'zugferd_type_code': tax.zugferd_type_code,
-                'zugferd_categ_code': tax.zugferd_categ_code,
+            unece2odoo_tax.append({
+                'unece_type_code': tax.unece_type_code,
+                'unece_categ_code': tax.unece_categ_code,
                 'type': tax.type,
                 'amount': tax.amount * 100,
                 'id': tax.id,
                 })
-        logger.debug('zug2odoo_tax=%s', zug2odoo_tax)
+        logger.debug('unece2odoo_tax=%s', unece2odoo_tax)
         # global_tax_ids only used as fallback when taxes are not detailed
         # on invoice lines (which is the case at Basic level)
         global_taxes_xpath = xml_root.xpath(
             "//ram:ApplicableSupplyChainTradeSettlement"
             "/ram:ApplicableTradeTax", namespaces=namespaces)
         global_tax_ids = self.select_taxes_of_invoice_line(
-            global_taxes_xpath, namespaces, zug2odoo_tax)
+            global_taxes_xpath, namespaces, unece2odoo_tax)
         logger.debug('global_tax_ids=%s', global_tax_ids)
         res_lines = []
         total_line_lines = 0.0
@@ -284,8 +287,8 @@ class AccountInvoiceImport(models.TransientModel):
             qty = float(qty_xpath[0].text)
             uos_id = False
             if qty_xpath[0].attrib and qty_xpath[0].attrib.get('unitCode'):
-                zug_uom = qty_xpath[0].attrib['unitCode']
-                uos_id = zug2odoo_uom.get(zug_uom)
+                unece_uom = qty_xpath[0].attrib['unitCode']
+                uos_id = unece2odoo_uom.get(unece_uom)
             ean13_xpath = iline.xpath(
                 "ram:SpecifiedTradeProduct/ram:GlobalID",
                 namespaces=namespaces)
@@ -314,7 +317,7 @@ class AccountInvoiceImport(models.TransientModel):
                 "ram:SpecifiedSupplyChainTradeSettlement"
                 "//ram:ApplicableTradeTax", namespaces=namespaces)
             tax_ids = self.select_taxes_of_invoice_line(
-                taxes_xpath, namespaces, zug2odoo_tax, name)
+                taxes_xpath, namespaces, unece2odoo_tax, name)
             vals = {
                 'ean13': ean13_xpath and ean13_xpath[0].text or False,
                 'product_code':
@@ -350,7 +353,7 @@ class AccountInvoiceImport(models.TransientModel):
             taxes_xpath = chline.xpath(
                 "ram:AppliedTradeTax", namespaces=namespaces)
             tax_ids = self.select_taxes_of_invoice_line(
-                taxes_xpath, namespaces, zug2odoo_tax, name)
+                taxes_xpath, namespaces, unece2odoo_tax, name)
             vals = {
                 'name': name,
                 'quantity': 1,
@@ -396,7 +399,7 @@ class AccountInvoiceImport(models.TransientModel):
             taxes_xpath = alline.xpath(
                 "ram:CategoryTradeTax", namespaces=namespaces)
             tax_ids = self.select_taxes_of_invoice_line(
-                taxes_xpath, namespaces, zug2odoo_tax, name)
+                taxes_xpath, namespaces, unece2odoo_tax, name)
             vals = {
                 'name': name,
                 'quantity': tradeallowance_qty,

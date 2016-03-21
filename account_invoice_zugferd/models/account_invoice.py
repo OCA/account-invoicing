@@ -180,7 +180,7 @@ class AccountInvoice(models.Model):
         payment_means_info = etree.SubElement(
             payment_means, ns['ram'] + 'Information')
         if self.payment_mode_id:
-            payment_means_code.text = self.payment_mode_id.type.zugferd_code
+            payment_means_code.text = self.payment_mode_id.type.unece_code
             payment_means_info.text =\
                 self.payment_mode_id.note or self.payment_mode_id.name
         else:
@@ -188,7 +188,7 @@ class AccountInvoice(models.Model):
             payment_means_info.text = _('Wire transfer')
             logger.warning(
                 'Missing payment mode on invoice ID %d. '
-                'Using 31 (wire transfer) as zugferd code as fallback '
+                'Using 31 (wire transfer) as UNECE code as fallback '
                 'for payment mean',
                 self.id)
         if payment_means_code.text in ['31', '42']:
@@ -231,14 +231,14 @@ class AccountInvoice(models.Model):
         invoice_currency.text = inv_currency_name
         if (
                 self.payment_mode_id and
-                not self.payment_mode_id.type.zugferd_code):
+                not self.payment_mode_id.type.unece_code):
             raise UserError(_(
-                "Missing ZUGFeRD code on payment export type '%s'")
+                "Missing UNECE code on payment export type '%s'")
                 % self.payment_mode_id.type.name)
         if (
                 self.type == 'out_invoice' or
                 (self.payment_mode_id and
-                 self.payment_mode_id.type.zugferd_code not in [31, 42])):
+                 self.payment_mode_id.type.unece_code not in [31, 42])):
             self._add_trade_settlement_payment_means_block(
                 trade_settlement, sign, ns)
         tax_basis_total = 0.0
@@ -254,12 +254,12 @@ class AccountInvoice(models.Model):
                         "The tax code '%s' is not linked to a tax.")
                         % tline.base_code_id.name)
                 tax = taxes[0]
-                if not tax.zugferd_type_code:
+                if not tax.unece_type_code:
                     raise UserError(_(
-                        "Missing ZUGFeRD Type Code on tax '%s'") % tax.name)
-                if not tax.zugferd_categ_code:
+                        "Missing UNECE Tax Type on tax '%s'") % tax.name)
+                if not tax.unece_categ_code:
                     raise UserError(_(
-                        "Missing ZUGFeRD Category Code on tax '%s'")
+                        "Missing UNECE Tax Category on tax '%s'")
                         % tax.name)
                 trade_tax = etree.SubElement(
                     trade_settlement, ns['ram'] + 'ApplicableTradeTax')
@@ -269,10 +269,10 @@ class AccountInvoice(models.Model):
                 amount.text = unicode(tline.amount * sign)
                 tax_type = etree.SubElement(
                     trade_tax, ns['ram'] + 'TypeCode')
-                tax_type.text = tax.zugferd_type_code
+                tax_type.text = tax.unece_type_code
 
                 if (
-                        tax.zugferd_categ_code != 'S' and
+                        tax.unece_categ_code != 'S' and
                         float_is_zero(tax.amount, precision_digits=prec) and
                         self.fiscal_position and
                         self.fiscal_position.note):
@@ -289,7 +289,7 @@ class AccountInvoice(models.Model):
                 tax_basis_total += tline.base
                 tax_categ_code = etree.SubElement(
                     trade_tax, ns['ram'] + 'CategoryCode')
-                tax_categ_code.text = tax.zugferd_categ_code
+                tax_categ_code.text = tax.unece_categ_code
                 if tax.type == 'percent':
                     percent = etree.SubElement(
                         trade_tax, ns['ram'] + 'ApplicablePercent')
@@ -396,8 +396,8 @@ class AccountInvoice(models.Model):
         net_price_amount.text = unicode(net_price_val)
         line_trade_delivery = etree.SubElement(
             line_item, ns['ram'] + 'SpecifiedSupplyChainTradeDelivery')
-        if iline.uos_id and iline.uos_id.zugferd_code:
-            unitCode = iline.uos_id.zugferd_code
+        if iline.uos_id and iline.uos_id.unece_code:
+            unitCode = iline.uos_id.unece_code
         else:
             unitCode = 'C62'
             if not iline.uos_id:
@@ -407,7 +407,7 @@ class AccountInvoice(models.Model):
                     iline.name)
             else:
                 logger.warning(
-                    'Missing zugferd_code on unit of measure %s, '
+                    'Missing UNECE Code on unit of measure %s, '
                     'using C62 (piece) as fallback',
                     iline.uos_id.name)
         billed_qty = etree.SubElement(
@@ -423,18 +423,18 @@ class AccountInvoice(models.Model):
                     ns['ram'] + 'ApplicableTradeTax')
                 trade_tax_typecode = etree.SubElement(
                     trade_tax, ns['ram'] + 'TypeCode')
-                if not tax.zugferd_type_code:
+                if not tax.unece_type_code:
                     raise UserError(_(
-                        "Missing ZUGFeRD Type Code on tax '%s'")
+                        "Missing UNECE Tax Type on tax '%s'")
                         % tax.name)
-                trade_tax_typecode.text = tax.zugferd_type_code
+                trade_tax_typecode.text = tax.unece_type_code
                 trade_tax_categcode = etree.SubElement(
                     trade_tax, ns['ram'] + 'CategoryCode')
-                if not tax.zugferd_categ_code:
+                if not tax.unece_categ_code:
                     raise UserError(_(
-                        "Missing ZUGFeRD Category Code on tax '%s'")
+                        "Missing UNECE Tax Category on tax '%s'")
                         % tax.name)
-                trade_tax_categcode.text = tax.zugferd_categ_code
+                trade_tax_categcode.text = tax.unece_categ_code
                 if tax.type == 'percent':
                     trade_tax_percent = etree.SubElement(
                         trade_tax, ns['ram'] + 'ApplicablePercent')

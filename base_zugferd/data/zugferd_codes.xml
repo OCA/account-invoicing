@@ -3,41 +3,44 @@
 <data noupdate="0">
 
 
-<record id="product.product_uom_unit" model="product.uom">
-    <field name="zugferd_code">C62</field>
+<!-- ZUGFeRD has some slight variations/additions to UNECE code lists -->
+<!-- payment means 49 was part of older versions of UNCL 4461
+such as http://www.unece.org/trade/untdid/d04a/tred/tred4461.htm
+but it was later removed, I don't know why -->
+<record id="payment_means_49" model="unece.code.list">
+    <field name="type">payment_means</field>
+    <field name="code">49</field>
+    <field name="name">Direct debit</field>
+    <field name="description">The amount is to be, or has been, directly debited to the customer's bank account.</field>
 </record>
 
-<record id="product.product_uom_kgm" model="product.uom">
-    <field name="zugferd_code">KGM</field>
+<record id="tax_type_zf_insurance_tax" model="unece.code.list">
+    <field name="type">tax_type</field>
+    <field name="code">ZF_INSURANCE_TAX</field>
+    <field name="name">Insurance tax</field>
+    <field name="description">ZUGFeRD Code (temporary)</field>
 </record>
 
-<record id="product.product_uom_hour" model="product.uom">
-    <field name="zugferd_code">HUR</field>
+<record id="tax_type_aaj" model="unece.code.list">
+    <field name="type">tax_type</field>
+    <field name="code">AAJ</field>
+    <field name="name">Tax on replacement part</field>
 </record>
 
-<record id="product.product_uom_day" model="product.uom">
-    <field name="zugferd_code">DAY</field>
+<record id="tax_categ_ae" model="unece.code.list">
+    <field name="type">tax_categ</field>
+    <field name="code">AE</field>
+    <field name="name">VAT Reverse Charge</field>
+    <field name="description">Code specifying that the VAT rate is levied from the invoicee.</field>
 </record>
 
-<record id="product.product_uom_ton" model="product.uom">
-    <field name="zugferd_code">TNE</field>
+<record id="tax_categ_ic" model="unece.code.list">
+    <field name="type">tax_categ</field>
+    <field name="code">IC</field>
+    <field name="name">Intra-Community Supply</field>
+    <field name="description">Code specifying that the VAT rate is levied from the invoicee for Intra-Community supplies.</field>
 </record>
 
-<record id="product.product_uom_meter" model="product.uom">
-    <field name="zugferd_code">MTR</field>
-</record>
-
-<record id="product.product_uom_km" model="product.uom">
-    <field name="zugferd_code">KTM</field>
-</record>
-
-<record id="product.product_uom_litre" model="product.uom">
-    <field name="zugferd_code">LTR</field>
-</record>
-
-<record id="account_banking_payment_export.manual_bank_tranfer" model="payment.mode.type">
-    <field name="zugferd_code">31</field>
-</record>
 
 </data>
 </openerp>

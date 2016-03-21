@@ -65,8 +65,8 @@ Versicherungsverein Musterstadt a.G.</field>
     <field name="type_tax_use">purchase</field>
     <field name="amount">0.19</field>
     <field name="type">percent</field>
-    <field name="zugferd_type_code">VAT</field>
-    <field name="zugferd_categ_code">S</field>
+    <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+    <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
     <field name="account_collected_id" ref="account.a_expense"/>
     <field name="account_paid_id" ref="account.a_expense"/>
     <field name="base_sign">-1</field>
@@ -79,8 +79,8 @@ Versicherungsverein Musterstadt a.G.</field>
     <field name="type_tax_use">purchase</field>
     <field name="amount">0.07</field>
     <field name="type">percent</field>
-    <field name="zugferd_type_code">VAT</field>
-    <field name="zugferd_categ_code">S</field>
+    <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+    <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
     <field name="account_collected_id" ref="account.a_expense"/>
     <field name="account_paid_id" ref="account.a_expense"/>
     <field name="base_sign">-1</field>
@@ -93,8 +93,8 @@ Versicherungsverein Musterstadt a.G.</field>
     <field name="type_tax_use">purchase</field>
     <field name="amount">0.19</field>
     <field name="type">percent</field>
-    <field name="zugferd_type_code">ZF_INSURANCE_TAX</field>
-    <field name="zugferd_categ_code">S</field>
+    <field name="unece_type_id" ref="base_zugferd.tax_type_zf_insurance_tax"/>
+    <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
     <field name="account_collected_id" ref="account.a_expense"/>
     <field name="account_paid_id" ref="account.a_expense"/>
     <field name="base_sign">-1</field>
@@ -107,8 +107,8 @@ Versicherungsverein Musterstadt a.G.</field>
     <field name="type_tax_use">purchase</field>
     <field name="amount">0.1634</field>
     <field name="type">percent</field>
-    <field name="zugferd_type_code">ZF_INSURANCE_TAX</field>
-    <field name="zugferd_categ_code">S</field>
+    <field name="unece_type_id" ref="base_zugferd.tax_type_zf_insurance_tax"/>
+    <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
     <field name="account_collected_id" ref="account.a_expense"/>
     <field name="account_paid_id" ref="account.a_expense"/>
     <field name="base_sign">-1</field>
