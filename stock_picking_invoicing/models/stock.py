@@ -133,7 +133,6 @@ class stock_move(models.Model):
         my_taxes = taxes_ids.filtered(lambda r: r.company_id.id == self.company_id.id)    
         my_taxes = fiscal_position.map_tax(my_taxes)
         my_taxes = [t.id for t in my_taxes]
-        _logger.debug("TAXES %s" % my_taxes)
         
         return my_taxes
     
