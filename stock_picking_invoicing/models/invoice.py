@@ -27,11 +27,6 @@ from openerp.exceptions import Warning
 
 _logger = logging.getLogger(__name__)
 
-INVOICE_STATE = [
-    ("invoiced", "Invoiced"),
-    ("2binvoiced", "To Be Invoiced"),
-    ("none", "Not Applicable")
-    ]
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
