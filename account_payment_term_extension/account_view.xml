@@ -7,14 +7,18 @@
             <field name="model">account.payment.term.line</field>
             <field name="inherit_id" ref="account.view_payment_term_line_form"/>
             <field name="arch" type="xml">
-                <div attrs="{'invisible':[('value','=','balance')]}" position="after">
+                <div attrs="{'invisible':[('value','=', 'balance')]}" position="after">
                     <field name="amount_round"
                         attrs="{'invisible':[('value','=','balance')]}"/>
                 </div>
-                <field name="days" position="after">
-                    <field name="weeks"/>
-                    <field name="months"/>
-                </field>
+                 <xpath expr="/form/group/group[2]"  position="replace">
+                     <group string="Due Date Computation">
+                        <field name="days" attrs="{'invisible': [('option', 'in', ['last_day_following_month', 'last_day_current_month'])]}"/>
+                        <field name="weeks" attrs="{'invisible': [('option', 'in', ['last_day_following_month', 'last_day_current_month'])]}"/>
+                        <field name="months" attrs="{'invisible': [('option', 'in', ['last_day_following_month', 'last_day_current_month'])]}"/>
+                        <field name="option" widget="radio"/>
+                    </group>
+                 </xpath>
             </field>
         </record>
 
