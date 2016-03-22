@@ -37,7 +37,7 @@ class TestAccountPaymentTerm(TransactionCase):
         res = self.account_payment_term.compute(
             cr, uid, self.sixty_days_end_of_month, 10, date_ref='2015-01-30')
         self.assertEquals(
-            res[0][0],
+            res[0][0][0],
             '2015-03-31',
             'Error in the compute of payment terms with months')
 
@@ -49,11 +49,12 @@ class TestAccountPaymentTerm(TransactionCase):
                 'line_ids': [(0, 0, {
                     'value': 'balance',
                     'days': 0,
-                    'weeks': 2})]
+                    'weeks': 2,
+                    'option': 'day_after_invoice_date'})]
                 })
         res = self.account_payment_term.compute(
             cr, uid, two_week_payterm_id, 10, date_ref='2015-03-02')
         self.assertEquals(
-            res[0][0],
+            res[0][0][0],
             '2015-03-16',
             'Error in the compute of payment terms with weeks')
