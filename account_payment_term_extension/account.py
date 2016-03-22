@@ -22,15 +22,14 @@
 #
 ##############################################################################
 
-from datetime import datetime
 from dateutil.relativedelta import relativedelta
-import time
 
-from openerp import models, fields, api
-from openerp.tools.float_utils import float_round
+from openerp import models, fields, api, exceptions, _
+from openerp.tools.float_utils import float_is_zero, float_round
 
 import openerp.addons.decimal_precision as dp
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
+
+import calendar
 
 
 class AccountPaymentTermLine(models.Model):
@@ -58,11 +57,16 @@ class AccountPaymentTermLine(models.Model):
             :returns: computed amount for this line
         """
         self.ensure_one()
-        prec = self.env['decimal.precision'].precision_get('Account')
+        if self.env.context.get('currency_id'):
+            currency = self.env['res.currency'].browse(
+                self.env.context['currency_id'])
+        else:
+            currency = self.env.user.company_id.currency_id
+        prec = currency.decimal_places
         if self.value == 'fixed':
             return float_round(self.value_amount, precision_digits=prec)
-        elif self.value == 'procent':
-            amt = total_amount * self.value_amount
+        elif self.value == 'percent':
+            amt = total_amount * (self.value_amount / 100.0)
             if self.amount_round:
                 amt = float_round(amt, precision_rounding=self.amount_round)
             return float_round(amt, precision_digits=prec)
@@ -70,42 +74,110 @@ class AccountPaymentTermLine(models.Model):
             return float_round(remaining_amount,  precision_digits=prec)
         return None
 
+    def _decode_payment_days(self, days_char):
+        # Admit space, dash and comma as separators
+        days_char = days_char.replace(' ', '-').replace(',', '-')
+        days_char = [x.strip() for x in days_char.split('-') if x]
+        days = [int(x) for x in days_char]
+        days.sort()
+        return days
+
+    @api.one
+    @api.constrains('payment_days')
+    def _check_payment_days(self):
+        if not self.payment_days:
+            return
+        try:
+            payment_days = self._decode_payment_days(self.payment_days)
+            error = any(day <= 0 or day > 31 for day in payment_days)
+        except:
+            error = True
+        if error:
+            raise exceptions.Warning(
+                _('Payment days field format is not valid.'))
+
+    payment_days = fields.Char(
+        string='Payment day(s)',
+        help="Put here the day or days when the partner makes the payment. "
+             "Separate each possible payment day with dashes (-), commas (,) "
+             "or spaces ( ).")
+
 
 class AccountPaymentTerm(models.Model):
     _inherit = "account.payment.term"
 
-    def compute(self, cr, uid, id, value, date_ref=False, context=None):
+    sequential_lines = fields.Boolean(
+        string='Sequential lines',
+        default=False,
+        help="Allows to apply a chronological order on lines.")
+
+    def apply_payment_days(self, line, date):
+        """Calculate the new date with days of payments"""
+        if line.payment_days:
+            payment_days = line._decode_payment_days(line.payment_days)
+            if payment_days:
+                new_date = None
+                payment_days.sort()
+                days_in_month = calendar.monthrange(date.year, date.month)[1]
+                for day in payment_days:
+                    if date.day <= day:
+                        if day > days_in_month:
+                            day = days_in_month
+                        new_date = date + relativedelta(day=day)
+                        break
+                if not new_date:
+                    day = payment_days[0]
+                    if day > days_in_month:
+                        day = days_in_month
+                    new_date = date + relativedelta(day=day, months=1)
+                return new_date
+        return date
+
+    @api.one
+    def compute(self, value, date_ref=False):
         """Complete overwrite of compute method to add rounding on line
         computing and also to handle weeks and months
         """
-        obj_precision = self.pool['decimal.precision']
-        prec = obj_precision.precision_get(cr, uid, 'Account')
-        if not date_ref:
-            date_ref = datetime.now().strftime(DEFAULT_SERVER_DATE_FORMAT)
-        pt = self.browse(cr, uid, id, context=context)
+        date_ref = date_ref or fields.Date.today()
         amount = value
         result = []
-        for line in pt.line_ids:
+        if self.env.context.get('currency_id'):
+            currency = self.env['res.currency'].browse(
+                self.env.context['currency_id'])
+        else:
+            currency = self.env.user.company_id.currency_id
+        prec = currency.decimal_places
+        next_date = fields.Date.from_string(date_ref)
+        for line in self.line_ids:
             amt = line.compute_line_amount(value, amount)
-            if not amt:
-                continue
-            next_date = (datetime.strptime(date_ref,
-                                           DEFAULT_SERVER_DATE_FORMAT) +
-                         relativedelta(days=line.days,
-                                       weeks=line.weeks,
-                                       months=line.months))
-            if line.days2 < 0:
+            if not self.sequential_lines:
+                # For all lines, the beginning date is `date_ref`
+                next_date = fields.Date.from_string(date_ref)
+                if float_is_zero(amt, precision_rounding=prec):
+                    continue
+            if line.option == 'day_after_invoice_date':
+                next_date += relativedelta(days=line.days,
+                                           weeks=line.weeks,
+                                           months=line.months)
+            elif line.option == 'fix_day_following_month':
                 # Getting 1st of next month
                 next_first_date = next_date + relativedelta(day=1, months=1)
-                next_date = next_first_date + relativedelta(days=line.days2)
-            if line.days2 > 0:
-                next_date += relativedelta(day=line.days2, months=1)
-            result.append(
-                (next_date.strftime(DEFAULT_SERVER_DATE_FORMAT), amt))
-            amount -= amt
-
+                next_date = next_first_date + relativedelta(days=line.days - 1,
+                                                            weeks=line.weeks,
+                                                            months=line.months)
+            elif line.option == 'last_day_following_month':
+                # Getting last day of next month
+                next_date += relativedelta(day=31, months=1)
+            elif line.option == 'last_day_current_month':
+                # Getting last day of next month
+                next_date += relativedelta(day=31, months=0)
+            next_date = self.apply_payment_days(line, next_date)
+            if not float_is_zero(amt, precision_rounding=prec):
+                result.append((fields.Date.to_string(next_date), amt))
+                amount -= amt
         amount = reduce(lambda x, y: x + y[1], result, 0.0)
         dist = round(value - amount, prec)
         if dist:
-            result.append((time.strftime(DEFAULT_SERVER_DATE_FORMAT), dist))
+            last_date = result and result[-1][0] or fields.Date.today()
+            result.append((last_date, dist))
         return result
