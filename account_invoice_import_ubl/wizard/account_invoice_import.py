@@ -95,10 +95,15 @@ class AccountInvoiceImport(models.TransientModel):
         namespaces.pop(None)
         doc_type_xpath = xml_root.xpath(
             "//cbc:InvoiceTypeCode[@listAgencyID='6']", namespaces=namespaces)
-        if doc_type_xpath and doc_type_xpath[0].text != '380':
-            raise UserError(_(
-                "This UBL XML file is not an invoice/refund file "
-                "(TypeCode is %s") % doc_type_xpath[0].text)
+        sign = 1
+        if doc_type_xpath:
+            inv_type_code = doc_type_xpath[0].text
+            if inv_type_code not in ['380', '381']:
+                raise UserError(_(
+                    "This UBL XML file is not an invoice/refund file "
+                    "(InvoiceTypeCode is %s") % inv_type_code)
+            if inv_type_code == '381':
+                sign = -1
         inv_number_xpath = xml_root.xpath('//cbc:ID', namespaces=namespaces)
         supplier_xpath = xml_root.xpath(
             '//cac:AccountingSupplierParty/cac:Party/cac:PartyName/cbc:Name',
@@ -231,7 +236,7 @@ class AccountInvoiceImport(models.TransientModel):
                 'ean13': ean13_xpath and ean13_xpath[0].text or False,
                 'product_code':
                 product_code_xpath and product_code_xpath[0].text or False,
-                'quantity': qty,
+                'quantity': qty * sign,
                 'uos_id': uos_id,
                 'price_unit': price_unit,
                 'name': name,
@@ -255,8 +260,8 @@ class AccountInvoiceImport(models.TransientModel):
             'date': fields.Date.to_string(date_dt),
             'date_due': date_due_str,
             'currency_iso': currency_iso_xpath[0].text,
-            'amount_total': amount_total,
-            'amount_untaxed': amount_untaxed,
+            'amount_total': amount_total * sign,
+            'amount_untaxed': amount_untaxed * sign,
             'iban': iban_xpath and iban_xpath[0].text or False,
             'bic': bic_xpath and bic_xpath[0].text or False,
             'lines': res_lines,

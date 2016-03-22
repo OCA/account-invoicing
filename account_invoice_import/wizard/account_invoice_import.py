@@ -114,7 +114,7 @@ class AccountInvoiceImport(models.TransientModel):
         # 'date_due': '2015-11-07',
         # 'date_start': '2015-10-01',  # for services over a period of time
         # 'date_end': '2015-10-31',
-        # 'amount_untaxed': 10.0,
+        # 'amount_untaxed': 10.0,  # < 0 for refunds
         # 'amount_total': 12.0,  # Total with taxes
         # 'vat': 'FR25499247138',
         # 'partner_email': 'support@browserstack.com'
