@@ -22,15 +22,12 @@
 #
 ##############################################################################
 
-from datetime import datetime
 from dateutil.relativedelta import relativedelta
-import time
 
 from openerp import models, fields, api
 from openerp.tools.float_utils import float_round
 
 import openerp.addons.decimal_precision as dp
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
 class AccountPaymentTermLine(models.Model):
@@ -58,11 +55,16 @@ class AccountPaymentTermLine(models.Model):
             :returns: computed amount for this line
         """
         self.ensure_one()
-        prec = self.env['decimal.precision'].precision_get('Account')
+        if self.env.context.get('currency_id'):
+            currency = self.env['res.currency'].browse(
+                self.env.context['currency_id'])
+        else:
+            currency = self.env.user.company_id.currency_id
+        prec = currency.decimal_places
         if self.value == 'fixed':
             return float_round(self.value_amount, precision_digits=prec)
-        elif self.value == 'procent':
-            amt = total_amount * self.value_amount
+        elif self.value == 'percent':
+            amt = total_amount * (self.value_amount / 100.0)
             if self.amount_round:
                 amt = float_round(amt, precision_rounding=self.amount_round)
             return float_round(amt, precision_digits=prec)
@@ -74,38 +76,47 @@ class AccountPaymentTermLine(models.Model):
 class AccountPaymentTerm(models.Model):
     _inherit = "account.payment.term"
 
-    def compute(self, cr, uid, id, value, date_ref=False, context=None):
+    @api.one
+    def compute(self, value, date_ref=False):
         """Complete overwrite of compute method to add rounding on line
         computing and also to handle weeks and months
         """
-        obj_precision = self.pool['decimal.precision']
-        prec = obj_precision.precision_get(cr, uid, 'Account')
-        if not date_ref:
-            date_ref = datetime.now().strftime(DEFAULT_SERVER_DATE_FORMAT)
-        pt = self.browse(cr, uid, id, context=context)
+        date_ref = date_ref or fields.Date.today()
         amount = value
         result = []
-        for line in pt.line_ids:
+        if self.env.context.get('currency_id'):
+            currency = self.env['res.currency'].browse(
+                self.env.context['currency_id'])
+        else:
+            currency = self.env.user.company_id.currency_id
+        prec = currency.decimal_places
+        for line in self.line_ids:
             amt = line.compute_line_amount(value, amount)
             if not amt:
                 continue
-            next_date = (datetime.strptime(date_ref,
-                                           DEFAULT_SERVER_DATE_FORMAT) +
-                         relativedelta(days=line.days,
-                                       weeks=line.weeks,
-                                       months=line.months))
-            if line.days2 < 0:
+            next_date = fields.Date.from_string(date_ref)
+            if line.option == 'day_after_invoice_date':
+                next_date += relativedelta(days=line.days,
+                                           weeks=line.weeks,
+                                           months=line.months)
+            elif line.option == 'fix_day_following_month':
+                next_date += relativedelta(days=line.days,
+                                           weeks=line.weeks,
+                                           months=line.months)
                 # Getting 1st of next month
                 next_first_date = next_date + relativedelta(day=1, months=1)
-                next_date = next_first_date + relativedelta(days=line.days2)
-            if line.days2 > 0:
-                next_date += relativedelta(day=line.days2, months=1)
-            result.append(
-                (next_date.strftime(DEFAULT_SERVER_DATE_FORMAT), amt))
+                next_date = next_first_date + relativedelta(days=line.days - 1)
+            elif line.option == 'last_day_following_month':
+                # Getting last day of next month
+                next_date += relativedelta(day=31, months=1)
+            elif line.option == 'last_day_current_month':
+                # Getting last day of next month
+                next_date += relativedelta(day=31, months=0)
+            result.append((fields.Date.to_string(next_date), amt))
             amount -= amt
-
         amount = reduce(lambda x, y: x + y[1], result, 0.0)
         dist = round(value - amount, prec)
         if dist:
-            result.append((time.strftime(DEFAULT_SERVER_DATE_FORMAT), dist))
+            last_date = result and result[-1][0] or fields.Date.today()
+            result.append((last_date, dist))
         return result

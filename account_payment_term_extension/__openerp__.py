@@ -23,7 +23,7 @@
 
 {
     'name': 'Payment Term Extension',
-    'version': '8.0.1.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Accounting & Finance',
     'summary': 'Adds rounding, months and weeks properties on '
                'payment term lines',
@@ -36,5 +36,5 @@
     'data': ['account_view.xml'],
     'demo': ['account_demo.xml'],
     'test': [],
-    'installable': False,
+    'installable': True,
 }
