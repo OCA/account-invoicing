@@ -5,6 +5,8 @@ This module was written to extend the functionality of payment terms to support 
 
 By default in Odoo, if you have a payment term of *30 days end of months* and you invoice on January 30, you will have a due date on March 31st. With this module, if you configure the payment term line with months = 1, days = 0 and days2 = -1, you will have a due date on February 28th.
 
+This module also adds support for payment terms such as *End of month 45 days* (which is not the same as *45 days end of month* !).
+
 Configuration
 =============
 
