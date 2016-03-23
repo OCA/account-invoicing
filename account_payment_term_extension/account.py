@@ -25,7 +25,7 @@
 from dateutil.relativedelta import relativedelta
 
 from openerp import models, fields, api
-from openerp.tools.float_utils import float_round
+from openerp.tools.float_utils import float_is_zero, float_round
 
 import openerp.addons.decimal_precision as dp
 
@@ -76,6 +76,11 @@ class AccountPaymentTermLine(models.Model):
 class AccountPaymentTerm(models.Model):
     _inherit = "account.payment.term"
 
+    sequential_lines = fields.Boolean(
+        string='Sequential lines',
+        default=False,
+        help="Allows to apply a chronological order on lines.")
+
     @api.one
     def compute(self, value, date_ref=False):
         """Complete overwrite of compute method to add rounding on line
@@ -90,30 +95,33 @@ class AccountPaymentTerm(models.Model):
         else:
             currency = self.env.user.company_id.currency_id
         prec = currency.decimal_places
+        next_date = fields.Date.from_string(date_ref)
         for line in self.line_ids:
             amt = line.compute_line_amount(value, amount)
-            if not amt:
-                continue
-            next_date = fields.Date.from_string(date_ref)
+            if not self.sequential_lines:
+                # For all lines, the beginning date is `date_ref`
+                next_date = fields.Date.from_string(date_ref)
+                if float_is_zero(amt, precision_rounding=prec):
+                    continue
             if line.option == 'day_after_invoice_date':
                 next_date += relativedelta(days=line.days,
                                            weeks=line.weeks,
                                            months=line.months)
             elif line.option == 'fix_day_following_month':
-                next_date += relativedelta(days=line.days,
-                                           weeks=line.weeks,
-                                           months=line.months)
                 # Getting 1st of next month
                 next_first_date = next_date + relativedelta(day=1, months=1)
-                next_date = next_first_date + relativedelta(days=line.days - 1)
+                next_date = next_first_date + relativedelta(days=line.days - 1,
+                                                            weeks=line.weeks,
+                                                            months=line.months)
             elif line.option == 'last_day_following_month':
                 # Getting last day of next month
                 next_date += relativedelta(day=31, months=1)
             elif line.option == 'last_day_current_month':
                 # Getting last day of next month
                 next_date += relativedelta(day=31, months=0)
-            result.append((fields.Date.to_string(next_date), amt))
-            amount -= amt
+            if not float_is_zero(amt, precision_rounding=prec):
+                result.append((fields.Date.to_string(next_date), amt))
+                amount -= amt
         amount = reduce(lambda x, y: x + y[1], result, 0.0)
         dist = round(value - amount, prec)
         if dist:
