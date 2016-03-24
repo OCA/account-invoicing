@@ -10,7 +10,7 @@
     'description':
     """
     The module extends the account.invoice model
-    to set the date of the invoice as the today's
+    to set the date of the invoice as today's
     date when changing state from 'proforma' to 'open'.
     """,
     'website': 'http://www.initos.com',

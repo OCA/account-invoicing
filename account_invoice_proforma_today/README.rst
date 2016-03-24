@@ -6,13 +6,13 @@
 Account Invoice - Proforma Today
 ================================
 
-* The module extends the account.invoice model to set the date of the invoice as the today's
+* The module extends the account.invoice model to set the date of the invoice as today's
  date when changing state from 'proforma' to 'open'.
 
 Installation
 ============
 
-* No thing is required to install this module
+* Nothing is required to install this module
 
 Contributors
 ------------
