@@ -3,13 +3,13 @@
 # * account_payment_term_extension
 # 
 # Translators:
-# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-06-26 09:44+0000\n"
+"POT-Creation-Date: 2016-03-24 01:41+0000\n"
+"PO-Revision-Date: 2016-03-24 05:12+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,14 @@ msgstr "60 dni od konca meseca"
 #: field:account.payment.term.line,amount_round:0
 msgid "Amount Rounding"
 msgstr "Zaokroževanje zneska"
+
+#. module: account_payment_term_extension
+#: help:account.payment.term.line,start_with_end_month:0
+msgid ""
+"If you have a payment term 'End of month 45 days' (which is not the same as "
+"'45 days end of month' !), you should activate this option and then set "
+"'Number of days' = 45 and 'Day of the month' = 0."
+msgstr "Pri plačilnem pogoju 'Konec meseca po 45 dneh' (kar ni isto kot '45 dni od konca meseca' !), morate aktivirati to opcijo in nastaviti 'Število dni' = 45 in 'Dan v mesecu' = 0."
 
 #. module: account_payment_term_extension
 #: field:account.payment.term.line,months:0
@@ -55,3 +63,8 @@ msgid ""
 "Sets the amount so that it is a multiple of this value.\n"
 "To have amounts that end in 0.99, set rounding 1, surcharge -0.01"
 msgstr "Znesek nastavi kot večkratnik te vrednosti.\nDa bi zneske, ki se končujejo z 0.99 zaokrožili na 1, dodajte -0.01"
+
+#. module: account_payment_term_extension
+#: field:account.payment.term.line,start_with_end_month:0
+msgid "Start by End of Month"
+msgstr "Začetek ob koncu meseca"
