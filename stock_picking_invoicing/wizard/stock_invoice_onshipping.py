@@ -1,27 +1,9 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2016 <OCA>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
-from openerp.tools.translate import _
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 from openerp.exceptions import Warning
 from openerp.tools import config
 
@@ -67,10 +49,10 @@ class StockInvoiceOnshipping(models.TransientModel):
             if pick.invoice_state != '2binvoiced':
                 count += 1
             if not pick.partner_id :
-                raise Warning(_('All your picking must have a partner to be invoiced!'))
+                raise Warning(_('All your pickings must have a partner to be invoiced!'))
         if len(active_ids) == count:
             _logger.debug("Raise ")
-            raise Warning(_('None of these picking lists require invoicing.'))
+            raise Warning(_('None of these picking require invoicing.'))
             
         
         _logger.debug("RESULT %s")
@@ -87,27 +69,6 @@ class StockInvoiceOnshipping(models.TransientModel):
         self.show_sale_refund_journal = bool(sale_refund_pickings)
         self.show_purchase_journal = bool(purchase_pickings)
         self.show_purchase_refund_journal = bool(purchase_refund_pickings)
-
-#    @api.onchange('journal_id')
-#    def onchange_journal_id(self): 
-#        _logger.debug("ON CHANGE")
-#        context = self.env.context or {}
-#        domain = {}
-#        value = {}
-#        active_id = context.get('active_id')
-#        if active_id:
-#            picking = self.env['stock.picking'].search(active_id)
-#            type = picking.picking_type_id.code
-#            usage = picking.move_lines[0].location_id.usage if type == 'incoming' else picking.move_lines[0].location_dest_id.usage
-#            journal_types = JOURNAL_TYPE_MAP.get((type, usage), ['sale', 'purchase', 'sale_refund', 'purchase_refund'])
-#            domain['journal_id'] = [('type', 'in', journal_types)]
-#        if self.journal_id:
-#            journal = self.env['account.journal'].search(journal_id)
-#            
-#            value['journal_type'] = journal.type
-#        
-#        return {'value': value, 'domain': domain}
-
     
     
     @api.model
