@@ -50,7 +50,7 @@ class ProcurementOrder(models.Model):
 #        return res
 
 
-class stock_move(models.Model):
+class StockMove(models.Model):
     _inherit = "stock.move"
 
     #=====================
