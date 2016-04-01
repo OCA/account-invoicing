@@ -4,7 +4,7 @@
 
 import logging
 from openerp import models, fields, api, _
-from openerp.exceptions import Warning
+from openerp.exceptions import Warning as UserError
 from openerp.tools import config
 
 
@@ -49,10 +49,10 @@ class StockInvoiceOnshipping(models.TransientModel):
             if pick.invoice_state != '2binvoiced':
                 count += 1
             if not pick.partner_id :
-                raise Warning(_('All your pickings must have a partner to be invoiced!'))
+                raise UserError(_('All your pickings must have a partner to be invoiced!'))
         if len(active_ids) == count:
             _logger.debug("Raise ")
-            raise Warning(_('None of these picking require invoicing.'))
+            raise UserError(_('None of these picking require invoicing.'))
             
         
         _logger.debug("RESULT %s")
@@ -149,7 +149,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         
         invoice_ids = self.create_invoice()
         if not invoice_ids:
-            raise Warning(_('No invoice created!'))
+            raise UserError(_('No invoice created!'))
 
         data = self.search([('id', 'in', [self[0].id])])
 
