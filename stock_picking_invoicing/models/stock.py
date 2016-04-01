@@ -4,7 +4,7 @@
 
 import logging
 from openerp import models, api, fields, _
-from openerp.exceptions import Warning
+from openerp.exceptions import Warning as UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -227,10 +227,10 @@ class StockPicking(models.Model):
     def set_to_be_invoiced(self):
         for picking in self:
             if picking.invoice_state == '2binvoiced':
-                raise Warning(_("Invoice control cannot be updated for picking %s as it is already set as \"To be invoiced\"") % picking.name)
+                raise UserError(_("Invoice control cannot be updated for picking %s as it is already set as \"To be invoiced\"") % picking.name)
             if picking.invoice_state in ('none', 'invoiced'):
                 if picking.invoice_id:
-                    raise Warning(_("Picking %s is already linked to invoice %s") %
+                    raise UserError(_("Picking %s is already linked to invoice %s") %
                                   (picking.name, picking.invoice_id.number))
             picking.invoice_state = '2binvoiced'
             for move in picking.move_lines:
@@ -242,10 +242,10 @@ class StockPicking(models.Model):
     def set_invoiced(self):
         for picking in self:
             if picking.invoice_state == 'invoiced' or picking.invoice_id :
-                raise Warning(_("Invoice control cannot be updated for picking %s as it is already set as \"Invoiced\"") % picking.name)
+                raise UserError(_("Invoice control cannot be updated for picking %s as it is already set as \"Invoiced\"") % picking.name)
             if picking.invoice_state in ('2binvoiced'):
                 if picking.invoice_id:
-                    raise Warning(_('Picking %s is already linked to invoice %s') %
+                    raise UserError(_('Picking %s is already linked to invoice %s') %
                                   (picking.name, picking.invoice_id.number))
             picking.invoice_state = '2binvoiced'
             for move in picking.move_lines:
