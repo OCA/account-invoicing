@@ -194,13 +194,9 @@ class stock_move(models.Model):
                                          pricelist=partner.property_product_pricelist.id,
                                          uom=self.product_uom.id
                                         )                
-                result = product_id.price
-                
-            else :
-                
+                result = product_id.price                
+            else :                
                 result = product_id.lst_price
-        
-        _logger.debug("Calcul du prix : %s " % result)
         
         return result
     
