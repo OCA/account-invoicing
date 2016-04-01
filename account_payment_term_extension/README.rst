@@ -9,6 +9,7 @@ Account Payment Term Extension
 This module extends the functionality of payment terms to :
 
 * support rounding, months and weeks on payment term lines
+* allow to set more than one day of payment in payment terms
 * allow to apply a chronological order on lines
  * for example, with a payment term which contains 2 lines
   * on standard, the due date of all lines is calculated from the invoice date
@@ -20,6 +21,8 @@ Configuration
 To configure the Payment Terms and see the new options on the Payment Term Lines, you need to:
 
 #. Go to the menu Accounting > Configuration > Management > Payment Terms.
+
+To use multiple payment days, define for each payment term line which payment days apply, separated by spaces, commas or dashes.
 
 Bug Tracker
 ===========
@@ -47,6 +50,7 @@ Contributors
 * Yannick Vaucher <yannick.vaucher@camptocamp.com>
 * Alexis de Lattre <alexis.delattre@akretion.com>
 * Julien Coux <julien.coux@camptocamp.com>
+* Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
 
 Maintainer
 ----------

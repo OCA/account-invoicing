@@ -24,10 +24,12 @@
 
 from dateutil.relativedelta import relativedelta
 
-from openerp import models, fields, api
+from openerp import models, fields, api, exceptions, _
 from openerp.tools.float_utils import float_is_zero, float_round
 
 import openerp.addons.decimal_precision as dp
+
+import calendar
 
 
 class AccountPaymentTermLine(models.Model):
@@ -72,6 +74,34 @@ class AccountPaymentTermLine(models.Model):
             return float_round(remaining_amount,  precision_digits=prec)
         return None
 
+    def _decode_payment_days(self, days_char):
+        # Admit space, dash and comma as separators
+        days_char = days_char.replace(' ', '-').replace(',', '-')
+        days_char = [x.strip() for x in days_char.split('-') if x]
+        days = [int(x) for x in days_char]
+        days.sort()
+        return days
+
+    @api.one
+    @api.constrains('payment_days')
+    def _check_payment_days(self):
+        if not self.payment_days:
+            return
+        try:
+            payment_days = self._decode_payment_days(self.payment_days)
+            error = any(day <= 0 or day > 31 for day in payment_days)
+        except:
+            error = True
+        if error:
+            raise exceptions.Warning(
+                _('Payment days field format is not valid.'))
+
+    payment_days = fields.Char(
+        string='Payment day(s)',
+        help="Put here the day or days when the partner makes the payment. "
+             "Separate each possible payment day with dashes (-), commas (,) "
+             "or spaces ( ).")
+
 
 class AccountPaymentTerm(models.Model):
     _inherit = "account.payment.term"
@@ -80,6 +110,28 @@ class AccountPaymentTerm(models.Model):
         string='Sequential lines',
         default=False,
         help="Allows to apply a chronological order on lines.")
+
+    def apply_payment_days(self, line, date):
+        """Calculate the new date with days of payments"""
+        if line.payment_days:
+            payment_days = line._decode_payment_days(line.payment_days)
+            if payment_days:
+                new_date = None
+                payment_days.sort()
+                days_in_month = calendar.monthrange(date.year, date.month)[1]
+                for day in payment_days:
+                    if date.day <= day:
+                        if day > days_in_month:
+                            day = days_in_month
+                        new_date = date + relativedelta(day=day)
+                        break
+                if not new_date:
+                    day = payment_days[0]
+                    if day > days_in_month:
+                        day = days_in_month
+                    new_date = date + relativedelta(day=day, months=1)
+                return new_date
+        return date
 
     @api.one
     def compute(self, value, date_ref=False):
@@ -119,6 +171,7 @@ class AccountPaymentTerm(models.Model):
             elif line.option == 'last_day_current_month':
                 # Getting last day of next month
                 next_date += relativedelta(day=31, months=0)
+            next_date = self.apply_payment_days(line, next_date)
             if not float_is_zero(amt, precision_rounding=prec):
                 result.append((fields.Date.to_string(next_date), amt))
                 amount -= amt
