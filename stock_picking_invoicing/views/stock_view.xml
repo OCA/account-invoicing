@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-    
-        
-        
         <record id="view_picking_inherit_tree2" model="ir.ui.view">
             <field name="name">stock.picking.tree.inherit</field>
             <field name="model">stock.picking</field>
