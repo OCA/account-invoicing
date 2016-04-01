@@ -27,6 +27,7 @@
                         <field name="days" attrs="{'invisible': [('option', 'in', ['last_day_following_month', 'last_day_current_month'])]}"/>
                         <field name="weeks" attrs="{'invisible': [('option', 'in', ['last_day_following_month', 'last_day_current_month'])]}"/>
                         <field name="months" attrs="{'invisible': [('option', 'in', ['last_day_following_month', 'last_day_current_month'])]}"/>
+                        <field name="payment_days" attrs="{'invisible': [('option', 'in', ['last_day_following_month', 'last_day_current_month'])]}"/>
                         <field name="option" widget="radio"/>
                     </group>
                 </xpath>
@@ -44,6 +45,7 @@
                 <field name="days" position="after">
                     <field name="weeks"/>
                     <field name="months"/>
+                    <field name="payment_days"/>
                 </field>
             </field>
         </record>
