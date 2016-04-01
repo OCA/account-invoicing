@@ -10,7 +10,8 @@
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
     "depends": [
-        "stock"
+        "stock",
+        "account"
         
         ],
     "data": [
