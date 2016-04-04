@@ -22,7 +22,7 @@ from openerp import models, fields, api, exceptions
 from openerp.tools.translate import _
 
 
-class invoice_merge(models.TransientModel):
+class InvoiceMerge(models.TransientModel):
     _name = "invoice.merge"
     _description = "Merge Partner Invoice"
 
@@ -39,10 +39,8 @@ class invoice_merge(models.TransientModel):
                 raise exceptions.Warning(
                     _('Please select multiple invoice to merge in the list '
                       'view.'))
-            inv_obj = self.env['account.invoice']
-            invs = inv_obj.read(ids,
-                                ['account_id', 'state', 'type', 'company_id',
-                                 'partner_id', 'currency_id', 'journal_id'])
+
+            invs = self.env['account.invoice'].browse(ids)
             for d in invs:
                 if d['state'] != 'draft':
                     raise exceptions.Warning(
@@ -78,7 +76,7 @@ class invoice_merge(models.TransientModel):
          @param context: A standard dictionary
          @return: New arch of view.
         """
-        res = super(invoice_merge, self).fields_view_get(
+        res = super(InvoiceMerge, self).fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar,
             submenu=False)
         self._dirty_check()
