@@ -98,7 +98,7 @@ class AccountInvoice(models.Model):
                 elif isinstance(field_val, browse_null):
                     field_val = False
                 elif (isinstance(field_val, list) or
-                          field == 'invoice_line_tax_ids'):
+                        field == 'invoice_line_tax_ids'):
                     field_val = ((6, 0, tuple([v.id for v in field_val])),)
                 list_key.append((field, field_val))
             list_key.sort()
