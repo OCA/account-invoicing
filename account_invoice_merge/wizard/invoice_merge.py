@@ -39,10 +39,8 @@ class invoice_merge(models.TransientModel):
                 raise exceptions.Warning(
                     _('Please select multiple invoice to merge in the list '
                       'view.'))
-            inv_obj = self.env['account.invoice']
-            invs = inv_obj.read(ids,
-                                ['account_id', 'state', 'type', 'company_id',
-                                 'partner_id', 'currency_id', 'journal_id'])
+
+            invs = self.env['account.invoice'].browse(ids)
             for d in invs:
                 if d['state'] != 'draft':
                     raise exceptions.Warning(
