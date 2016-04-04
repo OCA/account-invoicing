@@ -93,12 +93,12 @@ class AccountInvoice(models.Model):
                     if not field_val:
                         field_val = False
                 if (isinstance(field_val, browse_record) and
-                            field != 'invoice_line_tax_ids'):
+                        field != 'invoice_line_tax_ids'):
                     field_val = field_val.id
                 elif isinstance(field_val, browse_null):
                     field_val = False
                 elif (isinstance(field_val, list) or
-                              field == 'invoice_line_tax_ids'):
+                          field == 'invoice_line_tax_ids'):
                     field_val = ((6, 0, tuple([v.id for v in field_val])),)
                 list_key.append((field, field_val))
             list_key.sort()
@@ -135,7 +135,7 @@ class AccountInvoice(models.Model):
                         (invoice_infos['name'] or '') + \
                         (' %s' % (account_invoice.name,))
                 if account_invoice.origin and \
-                                account_invoice.origin not in origins:
+                        account_invoice.origin not in origins:
                     invoice_infos['origin'] = \
                         (invoice_infos['origin'] or '') + ' ' + \
                         account_invoice.origin
