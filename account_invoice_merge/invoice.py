@@ -23,7 +23,7 @@ from openerp import workflow
 from openerp.osv.orm import browse_record, browse_null
 
 
-class account_invoice(models.Model):
+class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     @api.model
@@ -84,6 +84,7 @@ class account_invoice(models.Model):
          @return: new account invoice id
 
         """
+
         def make_key(br, fields):
             list_key = []
             for field in fields:
@@ -92,12 +93,12 @@ class account_invoice(models.Model):
                     if not field_val:
                         field_val = False
                 if (isinstance(field_val, browse_record) and
-                   field != 'invoice_line_tax_ids'):
+                            field != 'invoice_line_tax_ids'):
                     field_val = field_val.id
                 elif isinstance(field_val, browse_null):
                     field_val = False
                 elif (isinstance(field_val, list) or
-                      field == 'invoice_line_tax_ids'):
+                              field == 'invoice_line_tax_ids'):
                     field_val = ((6, 0, tuple([v.id for v in field_val])),)
                 list_key.append((field, field_val))
             list_key.sort()
@@ -134,7 +135,7 @@ class account_invoice(models.Model):
                         (invoice_infos['name'] or '') + \
                         (' %s' % (account_invoice.name,))
                 if account_invoice.origin and \
-                        account_invoice.origin not in origins:
+                                account_invoice.origin not in origins:
                     invoice_infos['origin'] = \
                         (invoice_infos['origin'] or '') + ' ' + \
                         account_invoice.origin
@@ -151,7 +152,8 @@ class account_invoice(models.Model):
                 line_key = make_key(
                     invoice_line, cols)
 
-                o_line = invoice_infos['invoice_line_ids'].setdefault(line_key, {})
+                o_line = invoice_infos['invoice_line_ids'].setdefault(line_key,
+                                                                      {})
 
                 if o_line:
                     # merge the line with an existing line
@@ -175,7 +177,8 @@ class account_invoice(models.Model):
             if remove_empty_invoice_lines:
                 invoice_data['invoice_line_ids'] = [
                     (0, 0, value) for value in
-                    invoice_data['invoice_line_ids'].itervalues() if value['quantity'] != 0.0]
+                    invoice_data['invoice_line_ids'].itervalues() if
+                    value['quantity'] != 0.0]
             else:
                 invoice_data['invoice_line_ids'] = [
                     (0, 0, value) for value in
@@ -201,7 +204,7 @@ class account_invoice(models.Model):
 
         # make link between original sale order or purchase order
         # None if sale is not installed
-        so_obj = self.env['sale.order']\
+        so_obj = self.env['sale.order'] \
             if 'sale.order' in self.env.registry else False
         invoice_line_obj = self.env['account.invoice.line']
         # None if purchase is not installed
