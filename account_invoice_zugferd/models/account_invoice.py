@@ -458,13 +458,13 @@ class AccountInvoice(models.Model):
                 product_code = etree.SubElement(
                     trade_product, ns['ram'] + 'SellerAssignedID')
                 product_code.text = iline.product_id.default_code
-            if iline.product_id.description_sale:
-                product_desc = etree.SubElement(
-                    trade_product, ns['ram'] + 'Description')
-                product_desc.text = iline.product_id.description_sale
         product_name = etree.SubElement(
             trade_product, ns['ram'] + 'Name')
         product_name.text = iline.name
+        if iline.product_id and iline.product_id.description_sale:
+            product_desc = etree.SubElement(
+                trade_product, ns['ram'] + 'Description')
+            product_desc.text = iline.product_id.description_sale
 
     @api.multi
     def generate_zugferd_xml(self):
