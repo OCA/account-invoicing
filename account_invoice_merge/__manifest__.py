@@ -34,7 +34,6 @@
     'test': [
     ],
     'demo': [],
-    'installable': False,
-    'active': False,
+    'installable': True,
     'certificate': False,
 }
