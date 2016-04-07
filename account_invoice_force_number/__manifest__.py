@@ -39,6 +39,7 @@ invoice numbering for a specific invoice.
         'account'
     ],
     "data": [
+        'security/security.xml',
         'invoice_view.xml'
     ],
     "active": False,
