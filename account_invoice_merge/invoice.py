@@ -199,7 +199,7 @@ class account_invoice(models.Model):
         po_obj = self.env['purchase.order']\
             if 'purchase.order' in self.env.registry else False
         for new_invoice_id in invoices_info:
-            if so_obj:
+            if isinstance(so_obj, browse_record):
                 todos = so_obj.search(
                     [('invoice_ids', 'in', invoices_info[new_invoice_id])])
                 todos.write({'invoice_ids': [(4, new_invoice_id)]})
@@ -210,11 +210,22 @@ class account_invoice(models.Model):
                              ('invoice_id', '=', new_invoice_id)])
                         if invoice_line_ids:
                             so_line.write(
-                                {'invoice_lines': [(6, 0, invoice_line_ids)]})
-            if po_obj:
+                                {'invoice_lines': [(6, 0,
+                                                    invoice_line_ids.ids)]})
+            if isinstance(po_obj, browse_record):
                 todos = po_obj.search(
                     [('invoice_ids', 'in', invoices_info[new_invoice_id])])
                 todos.write({'invoice_ids': [(4, new_invoice_id)]})
+                for org_po in todos:
+                    for po_line in org_po.order_line:
+                        invoice_line_ids = invoice_line_obj.search(
+                            [('product_id', '=', po_line.product_id.id),
+                             ('invoice_id', '=', new_invoice_id)])
+                        if invoice_line_ids:
+                            po_line.write(
+                                {'invoice_lines': [
+                                    (6, 0, invoice_line_ids.ids)]})
+
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
         anal_line_obj = self.env['account.analytic.line']
