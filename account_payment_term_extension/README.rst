@@ -43,6 +43,8 @@ Images
 ------
 
 * Odoo Community Association: `Icon <https://github.com/OCA/maintainer-tools/blob/master/template/module/static/description/icon.svg>`_.
+* https://openclipart.org/detail/198659/mono-template-invoice
+* https://openclipart.org/detail/5571/calendar-icon-large
 
 Contributors
 ------------
