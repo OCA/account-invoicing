@@ -50,16 +50,34 @@ class StockInvoiceOnshipping(models.TransientModel):
                 count += 1
             if not pick.partner_id :
                 raise UserError(_('All your pickings must have a partner to be invoiced!'))
-        if len(active_ids) == count:
-            _logger.debug("Raise ")
-            raise UserError(_('None of these picking require invoicing.'))
+#        if len(active_ids) == count:
+#            _logger.debug("Raise ")
+#            self.invoice_force = True
+#            raise UserError(_('None of these picking require invoicing.'))
             
         
         _logger.debug("RESULT %s")
         
         return res
-
     
+    @api.multi
+    def check_to_be_invoiced(self):
+        self.ensure_one()
+        count = 0
+        context = self.env.context or {}
+        active_ids = context.get('active_ids',[])   
+        pick_obj = self.env['stock.picking']
+        for pick in pick_obj.search([('id', 'in', active_ids)]):
+            if pick.invoice_state != '2binvoiced':
+                count += 1
+
+        if len(active_ids) == count and not self.invoice_force :
+            _logger.debug("Raise ")
+            self.invoice_force = True
+            raise UserError(_('None of these picking require invoicing.\nYou need to force the invoicing.'))
+
+        
+
     @api.onchange('group')
     def onchange_group(self):
         self.ensure_one()
@@ -114,6 +132,7 @@ class StockInvoiceOnshipping(models.TransientModel):
     
     group = fields.Boolean("Group by partner")
     invoice_date = fields.Date('Invoice Date')
+    invoice_force = fields.Boolean('Force Invoicing', default=False)
     
     sale_journal = fields.Many2one(
         comodel_name='account.journal', string='Sale Journal',
@@ -146,7 +165,7 @@ class StockInvoiceOnshipping(models.TransientModel):
     @api.multi
     def open_invoice(self):
         self.ensure_one()
-        
+        self.check_to_be_invoiced()
         invoice_ids = self.create_invoice()
         if not invoice_ids:
             raise UserError(_('No invoice created!'))
@@ -182,6 +201,13 @@ class StockInvoiceOnshipping(models.TransientModel):
         
 
         active_ids = context.get('active_ids', [])
+        
+        if self.invoice_force:
+            _logger.debug("Force set_invoice")
+            pickings  =   self.env['stock.picking'].search([('id', 'in', active_ids)])
+            pickings.set_invoiced()
+            
+        
         self = self.with_context(
                 date_inv = self.invoice_date,
                 inv_type = inv_type
