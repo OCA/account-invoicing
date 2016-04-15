@@ -24,6 +24,7 @@
                         <field name="purchase_refund_journal" domain="[('type', '=', 'purchase_refund')]" attrs="{'invisible':[('show_purchase_refund_journal', '=', False)], 'required':[('show_purchase_refund_journal', '=', True)]}"/>
                         <field name="group"/>
                         <field name="invoice_date" />
+                        <field name="invoice_force" />
                     </group>
                     <footer>
                         <button name="open_invoice" string="Create" type="object" class="oe_highlight"/>
