@@ -37,4 +37,4 @@ class TestStockPickingInvoicingIncotermSale(TransactionCase):
         invoices = self.env['account.invoice'].browse(invoice_ids)
         self.assertEqual(1, len(invoices))
         # check incoterm on invoice
-        self.assertEqual(self.ref('stock.incoterm_EXW'), pickings.incoterm.id)
+        self.assertEqual(self.ref('stock.incoterm_EXW'), invoices.incoterm.id)
