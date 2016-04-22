@@ -6,4 +6,4 @@ Mauro Soligo <mauro.soligo@katodo.com>
 Giovanni Barzan <giovanni.barzan@gmail.com>
 Lorenzo Battistini <lorenzo.battistini@albatos.com>
 Roberto Onnis <onnis.roberto@gmail.com>
-
+Francesco Apruzzese <f.apruzzese@apuliasoftware.it>
