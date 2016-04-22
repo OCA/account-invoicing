@@ -4,22 +4,14 @@
 
 {
     'name': 'Check invoice date consistency',
-    'version': '0.1',
+    'version': '8.0.0.1.0',
     'category': 'Tools',
-    'description': """This module customizes OpenERP in order to make invoices with consistent dates.
-
-Functionalities:
-
-- Check invoice date consistency
-
-""",
     'author': "OpenERP Italian Community,Odoo Community Association (OCA)",
     'website': 'http://www.openerp-italia.org',
     'license': 'AGPL-3',
     "depends" : ['account',],
     "data" : [],
     "demo_xml" : [],
-    "active": False,
     'installable': True
 }
 
