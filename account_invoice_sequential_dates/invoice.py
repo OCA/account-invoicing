@@ -5,7 +5,7 @@
 from openerp import models, _
 from openerp.exceptions import Warning as UserError
 
-class account_invoice(models.Model):
+class AccountInvoice(models.Model):
 
     _inherit = 'account.invoice'
 
