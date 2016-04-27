@@ -29,7 +29,7 @@
                'properties on payment term lines',
     'description': "",
     'author': 'Camptocamp,'
-              'Serv. Tecnol. Avanzados - Pedro M. Baeza,'
+              'Tecnativa,'
               'Odoo Community Association (OCA)',
     'maintainer': 'OCA',
     'website': 'http://www.camptocamp.com/',
