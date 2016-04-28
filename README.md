@@ -13,6 +13,12 @@ This project aim to deal with modules related to manage invoicing in a generic w
  - ...
 
 [//]: # (addons)
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[account_payment_term_extension](account_payment_term_extension/) | 9.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
+
 Unported addons
 ---------------
 addon | version | summary
@@ -35,7 +41,6 @@ addon | version | summary
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 (unported) | Unit of measure for invoices
 [account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.1 (unported) | Add "To Send" and "To Validate" states in Invoices
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 (unported) | Account Invoice Zero Autopay
-[account_payment_term_extension](account_payment_term_extension/) | 8.0.1.0.0 (unported) | Adds rounding, months and weeks properties on payment term lines
 [invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 (unported) | Changing the fiscal position of an invoice will auto-update invoice lines
 [product_customer_code_invoice](product_customer_code_invoice/) | 1.0 (unported) | Product Customer code for account invoice
 [sale_order_partial_invoice](sale_order_partial_invoice/) | 1.1 (unported) | Sale Partial Invoice
