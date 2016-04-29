@@ -8,13 +8,6 @@
     'version': '9.0.0.1.0',
     'category': 'Accounting & Finance',
     'summary': "Allows to force invoice numbering on specific invoices",
-    'description': """
-This module allows to force the invoice numbering.
-It displays the internal_number field. If user fills that field, the typed
-value will be used as invoice (and move) number.
-Otherwise, the next sequence number will be retrieved and saved.
-So, the new field has to be used when user doesn't want to use the default
-invoice numbering for a specific invoice.""",
     'author': "Agile Business Group,Odoo Community Association (OCA)",
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
