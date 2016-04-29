@@ -25,7 +25,7 @@
         "active_id": ref("account_invoice_number"),
       })
 -
-  I check the journal associated and put this journal as not
+  I check that the invoice number is the one we expect 
 -
   !assert {model: account.invoice, id: account_invoice_number}:
     - number == '0001'
