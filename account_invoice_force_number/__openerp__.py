@@ -12,7 +12,10 @@
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
     'depends': ['base', 'account', 'product'],
-    'data': ['views/invoice_view.xml'],
+    'data': [
+        'security/security.xml',
+        'views/invoice_view.xml'
+    ],
     'test': ['test/invoice_force_number.yml'],
     "active": False,
     'installable': True,
