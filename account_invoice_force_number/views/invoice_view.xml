@@ -9,7 +9,8 @@
         <field name="arch" type="xml">
             <field name="journal_id" position="after">
                 <field name="internal_number"
-                    attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    attrs="{'invisible': [('state', '!=', 'draft')]}"
+                    groups="account_invoice_force_number.group_allow_invoice_force_number"/>
             </field>
         </field>
     </record>
@@ -21,7 +22,8 @@
         <field name="arch" type="xml">
             <field name="journal_id" position="after">
                 <field name="internal_number"
-                    attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    attrs="{'invisible': [('state', '!=', 'draft')]}"
+                    groups="account_invoice_force_number.group_allow_invoice_force_number"/>/>
             </field>
         </field>
     </record>
