@@ -10,7 +10,7 @@ class AccountInvoice(models.Model):
 
     _inherit = 'account.invoice'
 
-    @api.model
+    @api.multi
     def action_number(self):
         res = super(AccountInvoice, self).action_number()
         for invoice in self:
