@@ -14,8 +14,10 @@ class AccountInvoice(models.Model):
         res = super(AccountInvoice, self).action_number(
             cr, uid, ids, context=context)
         for invoice in self.browse(cr, uid, ids, context=context):
+            # ----- Ignore supplier invoice and supplier refund
             if invoice.type in ('in_invoice', 'in_refund'):
                 return res
+            # ----- Search if exists an invoice, yet
             if self.search(cr, uid, [
                     ('type', '=', invoice.type),
                     ('date_invoice', '>', invoice.date_invoice),
