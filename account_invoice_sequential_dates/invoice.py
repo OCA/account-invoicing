@@ -5,28 +5,24 @@
 from openerp import models, _
 from openerp.exceptions import Warning as UserError
 
+
 class AccountInvoice(models.Model):
 
     _inherit = 'account.invoice'
 
     def action_number(self, cr, uid, ids, context=None):
-        res = super(account_invoice, self).action_number(cr, uid, ids, context=context)
-        for obj_inv in self.browse(cr, uid, ids, context=context):
-            inv_type = obj_inv.type
-            if inv_type == 'in_invoice' or inv_type == 'in_refund':
-                return True
-            number = obj_inv.number
-            date_invoice = obj_inv.date_invoice
-            journal = obj_inv.journal_id.id
-            res = self.search(
-                cr, uid, [
-                    ('type','=',inv_type),
-                    ('date_invoice','>',date_invoice),
-                    ('number', '<', number),
-                    ('journal_id','=',journal)],
-                context=context)
-            if res:
+        res = super(AccountInvoice, self).action_number(
+            cr, uid, ids, context=context)
+        for invoice in self.browse(cr, uid, ids, context=context):
+            if invoice.type in ('in_invoice', 'in_refund'):
+                return res
+            if self.search(cr, uid, [
+                    ('type', '=', invoice.type),
+                    ('date_invoice', '>', invoice.date_invoice),
+                    ('number', '<', invoice.number),
+                    ('journal_id', '=', invoice.journal_id.id)],
+                    context=context):
                 raise UserError(
-                    _('Cannot create invoice! Post the invoice with a greater date'))
+                    _('Cannot create invoice!'
+                      ' Post the invoice with a greater date'))
         return res
-

@@ -9,9 +9,11 @@
     'author': "OpenERP Italian Community,Odoo Community Association (OCA)",
     'website': 'http://www.openerp-italia.org',
     'license': 'AGPL-3',
-    "depends" : ['account',],
-    "data" : [],
-    "demo_xml" : [],
+    "depends": [
+        'account',
+        ],
+    "data": [],
+    "demo_xml": [],
     'installable': True
 }
 
