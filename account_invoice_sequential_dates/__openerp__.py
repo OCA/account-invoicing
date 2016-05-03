@@ -12,7 +12,5 @@
     "depends": [
         'account',
         ],
-    "data": [],
-    "demo_xml": [],
     'installable': True
 }
