@@ -13,8 +13,6 @@ Usage
 
 When an user validate an invoice, Odoo reads data and number and checks if exist an invoice with bigger data, yet
 
-#. Go to ...
-
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/122/8.0
