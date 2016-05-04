@@ -4,7 +4,7 @@
 
 {
     'name': 'Check invoice date consistency',
-    'version': '8.0.0.1.0',
+    'version': '8.0.1.0.0',
     'category': 'Tools',
     'author': "OpenERP Italian Community,Odoo Community Association (OCA)",
     'website': 'http://www.openerp-italia.org',
