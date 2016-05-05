@@ -57,28 +57,11 @@ class AccountInvoice(models.Model):
         return {'amount_total': rounded_total,
                 'amount_untaxed': amount_untaxed}
 
-    @staticmethod
-    def _all_invoice_tax_line_computed(invoice):
-        """ Check if all taxes have been computed on invoice lines
-        :return boolean True if all tax were computed
-        """
-        tax_ids = set()
-        for line in invoice.invoice_line:
-            # invoice_line_tax_id is a many2many if you wonder about it
-            for tax in line.invoice_line_tax_id:
-                if not tax.price_include:
-                    tax_ids.add(tax.id)
-        computed_tax_ids = [tax.id for tax in invoice.tax_line]
-        return len(tax_ids) == len(computed_tax_ids)
-
     def _swedish_round_globally(self, cr, uid, invoice,
                                 rounded_total, delta, context=None):
         """ Add the diff to the biggest tax line
         This ajustment must be done only after all tax are computed
         """
-        # Here we identify that all taxe lines have been computed
-        if not self._all_invoice_tax_line_computed(invoice):
-            return {}
 
         obj_precision = self.pool.get('decimal.precision')
         prec = obj_precision.precision_get(cr, uid, 'Account')
