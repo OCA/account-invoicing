@@ -45,6 +45,7 @@ Contributors
 * Lorenzo Battistini <lorenzo.battistini@albatos.com>
 * Roberto Onnis <onnis.roberto@gmail.com>
 * Francesco Apruzzese <f.apruzzese@apuliasoftware.it>
+* Alex Comba <alex.comba@agilebg.com>
 
 Maintainer
 ----------
