@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-24 01:41+0000\n"
-"PO-Revision-Date: 2016-03-24 05:12+0000\n"
+"POT-Creation-Date: 2016-04-30 04:26+0000\n"
+"PO-Revision-Date: 2016-04-30 05:00+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -22,3 +22,8 @@ msgstr ""
 #: model:ir.model,name:sale_order_line_price_subtotal_gross.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Postavka prodajnega naloga"
+
+#. module: sale_order_line_price_subtotal_gross
+#: field:sale.order.line,price_subtotal_gross:0
+msgid "Subtotal gross"
+msgstr "Bruto vmesni seštevek"
