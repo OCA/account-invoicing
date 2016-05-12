@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<record id="account_invoice_6" model="account.invoice">
+    <field name="date_due" eval="time.strftime('%Y')+'-01-30'"/>
+    <field name="payment_term" ref="account.account_payment_term"/>
+    <field name="journal_id" ref="account.expenses_journal"/>
+    <field name="currency_id" ref="base.EUR"/>
+    <field name="user_id" ref="base.user_demo"/>
+    <field name="reference_type">none</field>
+    <field name="company_id" ref="base.main_company"/>
+    <field name="state">draft</field>
+    <field name="type">in_invoice</field>
+    <field name="account_id" ref="account.a_pay"/>
+    <field eval="0" name="reconciled"/>
+    <field name="date_invoice" eval="time.strftime('%Y')+'-01-01'"/>
+    <field eval="4000.0" name="amount_untaxed"/>
+    <field eval="4000.0" name="amount_total"/>
+    <field name="partner_id" ref="base.res_partner_22"/>
+</record>
+<record id="account_invoice_line_6" model="account.invoice.line">
+    <field name="invoice_id" ref="account_invoice_product_supplier_price_update.account_invoice_6"/>
+    <field name="account_id" ref="account.a_expense"/>
+    <field name="uos_id" ref="product.product_uom_unit"/>
+    <field name="price_unit" eval="400.0" />
+    <field name="price_subtotal" eval="4000.0" />
+    <field name="company_id" ref="base.main_company"/>
+    <field name="invoice_line_tax_id" eval="[(6,0,[])]"/>
+    <field name="product_id" ref="product.product_product_4b"/>
+    <field name="quantity" eval="10.0" />
+    <field name="partner_id" ref="base.res_partner_22"/>
+    <field name="name">iPad Retina Display</field>
+</record>
+
+<record id="account_invoice_7" model="account.invoice">
+    <field name="date_due" eval="time.strftime('%Y')+'-01-30'"/>
+    <field name="payment_term" ref="account.account_payment_term"/>
+    <field name="journal_id" ref="account.expenses_journal"/>
+    <field name="currency_id" ref="base.EUR"/>
+    <field name="user_id" ref="base.user_demo"/>
+    <field name="reference_type">none</field>
+    <field name="company_id" ref="base.main_company"/>
+    <field name="state">draft</field>
+    <field name="type">in_invoice</field>
+    <field name="account_id" ref="account.a_pay"/>
+    <field eval="0" name="reconciled"/>
+    <field name="date_invoice" eval="time.strftime('%Y')+'-01-01'"/>
+    <field eval="5000.0" name="amount_untaxed"/>
+    <field eval="5000.0" name="amount_total"/>
+    <field name="partner_id" ref="base.res_partner_19"/>
+</record>
+<record id="account_invoice_line_7" model="account.invoice.line">
+    <field name="invoice_id" ref="account_invoice_product_supplier_price_update.account_invoice_7"/>
+    <field name="account_id" ref="account.a_expense"/>
+    <field name="uos_id" ref="product.product_uom_unit"/>
+    <field name="price_unit" eval="1000.0" />
+    <field name="price_subtotal" eval="5000.0" />
+    <field name="company_id" ref="base.main_company"/>
+    <field name="invoice_line_tax_id" eval="[(6,0,[])]"/>
+    <field name="product_id" ref="product.product_product_8"/>
+    <field name="quantity" eval="5.0" />
+    <field name="partner_id" ref="base.res_partner_19"/>
+    <field name="name">iMac</field>
+</record>
+
+<record id="account_invoice_8" model="account.invoice">
+    <field name="date_due" eval="time.strftime('%Y')+'-01-30'"/>
+    <field name="payment_term" ref="account.account_payment_term"/>
+    <field name="journal_id" ref="account.expenses_journal"/>
+    <field name="currency_id" ref="base.EUR"/>
+    <field name="user_id" ref="base.user_demo"/>
+    <field name="reference_type">none</field>
+    <field name="company_id" ref="base.main_company"/>
+    <field name="state">draft</field>
+    <field name="type">in_invoice</field>
+    <field name="account_id" ref="account.a_pay"/>
+    <field eval="0" name="reconciled"/>
+    <field name="date_invoice" eval="time.strftime('%Y')+'-01-01'"/>
+    <field eval="1299.0" name="amount_untaxed"/>
+    <field eval="1299.0" name="amount_total"/>
+    <field name="partner_id" ref="base.res_partner_2"/>
+</record>
+<record id="account_invoice_line_8" model="account.invoice.line">
+    <field name="invoice_id" ref="account_invoice_product_supplier_price_update.account_invoice_8"/>
+    <field name="account_id" ref="account.a_expense"/>
+    <field name="uos_id" ref="product.product_uom_unit"/>
+    <field name="price_unit" eval="1299.0"/>
+    <field name="price_subtotal" eval="1299.0"/>
+    <field name="company_id" ref="base.main_company"/>
+    <field name="invoice_line_tax_id" eval="[(6,0,[])]"/>
+    <field name="product_id" ref="product.product_product_8"/>
+    <field name="quantity" eval="1.0"/>
+    <field name="partner_id" ref="base.res_partner_2"/>
+    <field name="name">iMac</field>
+</record>
+
+    </data>
+</openerp>

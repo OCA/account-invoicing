@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+    <record id="view_update_supplierprice_form" model="ir.ui.view">
+        <field name="model">update.supplierprice</field>
+        <field name="arch" type="xml">
+            <form string="Update supplier price of products">
+                <separator string="List of products to update"/>
+                <field name="wizard_line_ids">
+                    <tree create="false" editable="0">
+                        <field name="suppinfo_id" invisible="1"/>
+                        <field name="name" readonly="1"/>
+                        <field name="current_price_unit"
+                               attrs="{'readonly': True, 'invisible': [('suppinfo_id', '=', False)]}"/>
+                        <field name="new_price_unit"/>
+                        <field name="to_variant"
+                               attrs="{'invisible': [('suppinfo_id', '!=', False)]}"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="update_product_supplierprice"
+                            string="Update and Validate"
+                            type="object"
+                            class="oe_highlight"/>
+                    or
+                    <button name="invoice_validate"
+                            string="Validate without updating"
+                            type="object"
+                            class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    </data>
+</openerp>

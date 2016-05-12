@@ -1,0 +1,160 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_product_supplier_price_update
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-28 14:04+0000\n"
+"PO-Revision-Date: 2016-10-28 14:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice.line,to_variant:0
+msgid "Added to the variant"
+msgstr "Ajouté sur la variante"
+
+#. module: account_invoice_product_supplier_price_update
+#: view:update.supplierprice:account_invoice_product_supplier_price_update.view_update_supplierprice_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice,create_uid:0
+#: field:update.supplierprice.line,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice,create_date:0
+#: field:update.supplierprice.line,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice.line,current_price_unit:0
+msgid "Current Unit Price"
+msgstr "Prix unitaire actuel"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice.line,name:0
+msgid "Description"
+msgstr "Description"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice,display_name:0
+#: field:update.supplierprice.line,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice,id:0
+#: field:update.supplierprice.line,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_product_supplier_price_update
+#: model:ir.model,name:account_invoice_product_supplier_price_update.model_account_invoice
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice,__last_update:0
+#: field:update.supplierprice.line,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice,write_uid:0
+#: field:update.supplierprice.line,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice,write_date:0
+#: field:update.supplierprice.line,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: account_invoice_product_supplier_price_update
+#: view:update.supplierprice:account_invoice_product_supplier_price_update.view_update_supplierprice_form
+msgid "List of products to update"
+msgstr "Liste des produits à mettre à jour"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice.line,new_price_unit:0
+msgid "New Unit Price"
+msgstr "Nouveau prix unitaire"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice.line,suppinfo_id:0
+msgid "Partner Information"
+msgstr "Information concernant le partenaire"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice.line,product_id:0
+msgid "Product"
+msgstr "Produit"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice.line,product_tmpl_id:0
+msgid "Product template"
+msgstr "Modèle de Produit"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice.line,supplier_id:0
+msgid "Supplier"
+msgstr "Fournisseur"
+
+#. module: account_invoice_product_supplier_price_update
+#: view:update.supplierprice:account_invoice_product_supplier_price_update.view_update_supplierprice_form
+msgid "Update and Validate"
+msgstr "Mettre à jour et Valider"
+
+#. module: account_invoice_product_supplier_price_update
+#: code:addons/account_invoice_product_supplier_price_update/account_invoice.py:51
+#, python-format
+msgid "Update product supplier price with unit price of this supplier invoice."
+msgstr "Mise à jour du prix fournisseur sur le produit, avec le prix unitaire de la ligne de facture."
+
+#. module: account_invoice_product_supplier_price_update
+#: view:update.supplierprice:account_invoice_product_supplier_price_update.view_update_supplierprice_form
+msgid "Update supplier price of products"
+msgstr "Mise à jour du prix fournisseur des produits"
+
+#. module: account_invoice_product_supplier_price_update
+#: view:update.supplierprice:account_invoice_product_supplier_price_update.view_update_supplierprice_form
+msgid "Validate without updating"
+msgstr "Valider sans mettre à jour"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice.line,wizard_id:0
+msgid "Wizard Reference"
+msgstr "Référence du Wizard"
+
+#. module: account_invoice_product_supplier_price_update
+#: field:update.supplierprice,wizard_line_ids:0
+msgid "Wizard lines"
+msgstr "Lignes de Wizard"
+
+#. module: account_invoice_product_supplier_price_update
+#: help:update.supplierprice.line,to_variant:0
+msgid "if option is checked then supplier is added to the product variant else supplier is added to the product template"
+msgstr "si l'option est cochée alors le fournisseur est ajoutée sur la variante du produit sinon il est ajoutée sur le modèle du produit"
+
+#. module: account_invoice_product_supplier_price_update
+#: view:account.invoice:account_invoice_product_supplier_price_update.invoice_supplier_form
+msgid "object"
+msgstr "objet"
+
+#. module: account_invoice_product_supplier_price_update
+#: view:update.supplierprice:account_invoice_product_supplier_price_update.view_update_supplierprice_form
+msgid "or"
+msgstr "ou"
+
