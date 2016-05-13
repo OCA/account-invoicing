@@ -18,7 +18,7 @@ class TestPickingInvoicing(test_common.SingleTransactionCase):
     def test_0_picking_invoicing(self):
         agrolait = self.partner_model.browse(self.ref('base.res_partner_2'))
         # setting Agrolait type to default, because it's 'contact' in demo data
-        agrolait.write({'type': 'default'})
+        agrolait.write({'type': 'invoice'})
         picking = self.picking_model.create({
             # using Agrolait, Michel Fletcher
             'partner_id': self.ref('base.res_partner_address_4'),
