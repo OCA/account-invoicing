@@ -23,12 +23,14 @@
 
 {
     'name': 'Payment Term Extension',
-    'version': '8.0.1.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Accounting & Finance',
-    'summary': 'Adds rounding, months and weeks properties on '
-               'payment term lines',
+    'summary': 'Adds rounding, months, weeks and multiple payment days '
+               'properties on payment term lines',
     'description': "",
-    'author': 'Camptocamp,Odoo Community Association (OCA)',
+    'author': 'Camptocamp,'
+              'Tecnativa,'
+              'Odoo Community Association (OCA)',
     'maintainer': 'OCA',
     'website': 'http://www.camptocamp.com/',
     'license': 'AGPL-3',
@@ -36,5 +38,5 @@
     'data': ['account_view.xml'],
     'demo': ['account_demo.xml'],
     'test': [],
-    'installable': False,
+    'installable': True,
 }
