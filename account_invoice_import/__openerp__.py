@@ -29,7 +29,7 @@
     'summary': 'Import supplier invoices/refunds as PDF or XML files',
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
-    'depends': ['account', 'base_iban'],
+    'depends': ['account', 'base_iban', 'base_vat_sanitized'],
     'external_dependencies': {'python': ['invoice2data', 'lxml']},
     'data': [
         'security/ir.model.access.csv',
@@ -37,10 +37,6 @@
         'wizard/account_invoice_import_view.xml',
         'partner_view.xml',
     ],
-    # The test below works well, but the full installation of invoice2data
-    # with the special version of the pdftotext binary is difficult
-    # and I don't know how to put it in the configuration of Travis
-    # 'test': ['test/free.yml'],
     'demo': ['demo/demo_data.xml'],
     'images': ['images/sshot-wizard1.png'],
     'installable': True,

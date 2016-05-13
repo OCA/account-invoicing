@@ -135,18 +135,14 @@ class AccountInvoiceImport(models.TransientModel):
     @api.model
     def _select_partner(self, parsed_inv):
         if parsed_inv.get('vat'):
-            vat = parsed_inv['vat'].replace(' ', '')
-            # Match even if the VAT number has spaces in Odoo
-            self._cr.execute(
-                """SELECT id FROM res_partner
-                WHERE supplier=true
-                AND is_company=true
-                AND replace(vat, ' ', '') = %s""",
-                (vat, ))
-            res = self._cr.fetchall()
-            if res:
-                partner_id = res[0][0]
-                return self.env['res.partner'].browse(partner_id)
+            vat = parsed_inv['vat'].replace(' ', '').upper()
+            # use base_vat_sanitized
+            partners = self.env['res.partner'].search([
+                ('supplier', '=', True),
+                ('parent_id', '=', False),
+                ('sanitized_vat', '=', vat)])
+            if partners:
+                return partners[0]
             else:
                 raise UserError(_(
                     "The analysis of the invoice returned '%s' as "
