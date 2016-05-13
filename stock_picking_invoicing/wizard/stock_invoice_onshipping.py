@@ -219,38 +219,39 @@ class StockInvoiceOnshipping(models.TransientModel):
               type = inv_type)
         return res
 
-        if (config['test_enable'] and
-                not self.env.context.get('test_picking_invoicing_unified')):
-            return res
-        self.ensure_one()
-        res = []
-        (sale_pickings, sale_refund_pickings, purchase_pickings,
-            purchase_refund_pickings) = self.get_split_pickings()
-        if sale_pickings:
-            pickings = sale_pickings.with_context(
-                date_inv=self.invoice_date, inv_type='out_invoice')
-            res += pickings.action_invoice_create(
-                journal_id=self.sale_journal.id,
-                group=self.group, type='out_invoice')
-        if sale_refund_pickings:
-            pickings = sale_refund_pickings.with_context(
-                date_inv=self.invoice_date, inv_type='out_refund')
-            res += pickings.action_invoice_create(
-                journal_id=self.sale_refund_journal.id,
-                group=self.group, type='out_refund')
-        if purchase_pickings:
-            pickings = purchase_pickings.with_context(
-                date_inv=self.invoice_date, inv_type='in_invoice')
-            res += pickings.action_invoice_create(
-                journal_id=self.purchase_journal.id,
-                group=self.group, type='in_invoice')
-        if purchase_refund_pickings:
-            pickings = purchase_refund_pickings.with_context(
-                date_inv=self.invoice_date, inv_type='in_refund')
-            res += pickings.action_invoice_create(
-                journal_id=self.purchase_refund_journal.id, group=self.group,
-                type='in_refund')
-        return res
+#TODO : Check the process        
+#if (config['test_enable'] and
+#                not self.env.context.get('test_picking_invoicing_unified')):
+#            return res
+#        self.ensure_one()
+#        res = []
+#        (sale_pickings, sale_refund_pickings, purchase_pickings,
+#            purchase_refund_pickings) = self.get_split_pickings()
+#        if sale_pickings:
+#            pickings = sale_pickings.with_context(
+#                date_inv=self.invoice_date, inv_type='out_invoice')
+#            res += pickings.action_invoice_create(
+#                journal_id=self.sale_journal.id,
+#                group=self.group, type='out_invoice')
+#        if sale_refund_pickings:
+#            pickings = sale_refund_pickings.with_context(
+#                date_inv=self.invoice_date, inv_type='out_refund')
+#            res += pickings.action_invoice_create(
+#                journal_id=self.sale_refund_journal.id,
+#                group=self.group, type='out_refund')
+#        if purchase_pickings:
+#            pickings = purchase_pickings.with_context(
+#                date_inv=self.invoice_date, inv_type='in_invoice')
+#            res += pickings.action_invoice_create(
+#                journal_id=self.purchase_journal.id,
+#                group=self.group, type='in_invoice')
+#        if purchase_refund_pickings:
+#            pickings = purchase_refund_pickings.with_context(
+#                date_inv=self.invoice_date, inv_type='in_refund')
+#            res += pickings.action_invoice_create(
+#                journal_id=self.purchase_refund_journal.id, group=self.group,
+#                type='in_refund')
+#        return res
 
 
     @api.multi
