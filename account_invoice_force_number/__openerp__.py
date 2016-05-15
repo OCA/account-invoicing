@@ -16,7 +16,5 @@
         'security/security.xml',
         'views/invoice_view.xml'
     ],
-    'test': ['test/invoice_force_number.yml'],
-    "active": False,
     'installable': True,
 }
