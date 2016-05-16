@@ -38,4 +38,5 @@ class AccountInvoiceForceNumberTestCase(HttpCase):
         self.account_invoice_customer0.signal_workflow('invoice_open')
 
         # I check that the invoice number is the one we expect
-        assert (self.account_invoice_customer0.number == '0001'), "Wrong number"
+        assert (
+            self.account_invoice_customer0.number == '0001'), "Wrong number"
