@@ -123,6 +123,7 @@ class AccountInvoiceImport(models.TransientModel):
         #          partner_name is not needed if we have VAT or partner_email
         # 'invoice_number': 'I1501243',
         # 'description': 'TGV Paris-Lyon',
+        # 'attachments': {'file1.pdf': base64data1, 'file2.pdf': base64data2},
         # 'lines': [{
         #       'ean13': '4123456000021',
         #       'price_unit': 1.45,  # price_unit always positive
@@ -518,7 +519,18 @@ class AccountInvoiceImport(models.TransientModel):
             'res_id': invoice.id,
             'res_model': 'account.invoice',
             'datas': self.invoice_file,
+            'datas_fname': self.invoice_filename,
             })
+        # Attach related documents
+        if parsed_inv.get('attachments'):
+            for filename, data_base64 in parsed_inv['attachments'].iteritems():
+                self.env['ir.attachment'].create({
+                    'name': filename,
+                    'res_id': invoice.id,
+                    'res_model': 'account.invoice',
+                    'datas': data_base64,
+                    'datas_fname': filename,
+                    })
         invoice.message_post(_(
             "This invoice has been created automatically via file import"))
         if parsed_inv.get('chatter_msg'):

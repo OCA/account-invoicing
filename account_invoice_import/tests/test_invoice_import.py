@@ -24,7 +24,8 @@ class TestInvoiceImport(TransactionCase):
             'type_tax_use': 'purchase',
             })
         # Set this tax on Internet access product
-        internet_product = self.env.ref('account_invoice_import.internet_access')
+        internet_product = self.env.ref(
+            'account_invoice_import.internet_access')
         internet_product.supplier_taxes_id = [(6, 0, [frtax.id])]
 
     def test_import_free_invoice(self):

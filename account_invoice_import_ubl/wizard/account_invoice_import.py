@@ -62,8 +62,14 @@ class AccountInvoiceImport(models.TransientModel):
                 categ_code = 'S'
             percent_xpath = tax.xpath(
                 "cbc:Percent", namespaces=namespaces)
-            percent = percent_xpath[0].text and float(percent_xpath[0].text)\
-                or 0.0
+            if not percent_xpath:
+                percent_xpath = tax.xpath(
+                    "../cbc:Percent", namespaces=namespaces)
+            if percent_xpath:
+                percent = percent_xpath[0].text and\
+                    float(percent_xpath[0].text)
+            else:
+                percent = 0.0
             odoo_tax_found = False
             for otax in unece2odoo_tax:
                 if (
@@ -85,6 +91,28 @@ class AccountInvoiceImport(models.TransientModel):
                         type_code, categ_code, percent,
                         line_name))
         return tax_ids
+
+    def get_attachments(self, xml_root, namespaces):
+        attach_xpaths = xml_root.xpath(
+            "//cac:AdditionalDocumentReference", namespaces=namespaces)
+        attachments = {}
+        for attach_xpath in attach_xpaths:
+            filename_xpath = attach_xpath.xpath(
+                "cbc:ID", namespaces=namespaces)
+            filename = filename_xpath and filename_xpath[0].text or False
+            data_xpath = attach_xpath.xpath(
+                "cac:Attachment/cbc:EmbeddedDocumentBinaryObject",
+                namespaces=namespaces)
+            data_base64 = data_xpath and data_xpath[0].text or False
+            if filename and data_base64:
+                if (
+                        data_xpath[0].attrib and
+                        data_xpath[0].attrib.get('mimeCode')):
+                    mimetype = data_xpath[0].attrib['mimeCode'].split('/')
+                    if len(mimetype) == 2:
+                        filename = '%s.%s' % (filename, mimetype[1])
+                attachments[filename] = data_base64
+        return attachments
 
     @api.model
     def parse_ubl_xml(self, xml_root):
@@ -162,6 +190,7 @@ class AccountInvoiceImport(models.TransientModel):
                 "/cac:FinancialInstitution"
                 "/cbc:ID[@schemeID='BIC']",
                 namespaces=namespaces)
+        attachments = self.get_attachments(xml_root, namespaces)
         uoms = self.env['product.uom'].search([('unece_code', '!=', False)])
         unece2odoo_uom = {}
         for uom in uoms:
@@ -265,9 +294,10 @@ class AccountInvoiceImport(models.TransientModel):
             'iban': iban_xpath and iban_xpath[0].text or False,
             'bic': bic_xpath and bic_xpath[0].text or False,
             'lines': res_lines,
+            'attachments': attachments,
             }
         # Hack for the sample UBL invoices that use an invalid VAT number
-        if res['vat'] == 'NL123456789B01':
+        if res['vat'] == 'NL123456789B01' or res['vat'] == 'DK16356706':
             res.pop('vat')
         # and invalid IBAN
         if res['iban'] == 'NL23ABNA0123456789':
