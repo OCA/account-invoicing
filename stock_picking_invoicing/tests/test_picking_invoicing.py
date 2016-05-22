@@ -23,6 +23,8 @@ class TestPickingInvoicing(test_common.SingleTransactionCase):
             # using Agrolait, Michel Fletcher
             'partner_id': self.ref('base.res_partner_address_4'),
             'picking_type_id': self.ref('stock.picking_type_in'),
+            'location_id':self.ref('stock.stock_location_stock'),
+            'location_dest_id': self.ref('stock.stock_location_customers')
             })
         prod_id = self.ref('product.product_product_10')
         move_vals = self.move_model.onchange_product_id(
