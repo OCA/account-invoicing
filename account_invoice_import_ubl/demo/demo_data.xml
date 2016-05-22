@@ -51,5 +51,25 @@
     <field name="tax_sign">-1</field>
 </record>
 
+<record id="exact_belgium_import_config" model="account.invoice.import.config">
+    <field name="name">Exact Belgium</field>
+    <field name="invoice_line_method">nline_no_product</field>
+    <field name="account_id" ref="account.a_expense"/>
+</record>
+
+<record id="exact_belgium" model="res.partner">
+    <field name="name">Exact Belgium II BVBA</field>
+    <field name="is_company" eval="True"/>
+    <field name="supplier" eval="True"/>
+    <field name="customer" eval="False"/>
+    <field name="street">Koningin Astridlaan 166</field>
+    <field name="zip">1780</field>
+    <field name="city">Wemmel</field>
+    <field name="country_id" ref="base.be"/>
+    <field name="vat">BE0505890632</field>
+    <field name="invoice_import_id" ref="exact_belgium_import_config"/>
+</record>
+
+
 </data>
 </openerp>

@@ -37,6 +37,5 @@
         ],
     'data': [],
     'demo': ['demo/demo_data.xml'],
-    'test': ['test/ubl.yml'],
     'installable': True,
 }
