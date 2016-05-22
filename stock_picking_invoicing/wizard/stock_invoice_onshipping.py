@@ -110,12 +110,14 @@ class StockInvoiceOnshipping(models.TransientModel):
         context = self.env.context or {}                        
         res_ids = context and context.get('active_ids', [])
         pick_obj = self.env['stock.picking']
-        pickings = pick_obj.search([('id', 'in', res_ids)])
-        pick = pickings and pickings[0]
-        if not pick or not pick.move_lines:
+        pickings = pick_obj.sudo().search([('id', 'in', res_ids)])
+        pick = pickings and pickings[0]        
+        if not pick or not pick.sudo().move_lines:
             return 'sale'
-        type = pick.picking_type_id.code
-        usage = pick.move_lines[0].location_id.usage if type == 'incoming' else pick.move_lines[0].location_dest_id.usage
+        type = pick.sudo().picking_type_id.code
+        usage = pick.sudo().move_lines[0].location_id.usage \
+                        if type == 'incoming'  \
+                        else pick.sudo().move_lines[0].location_dest_id.usage
 
         return JOURNAL_TYPE_MAP.get((type, usage), ['sale'])[0]
     
@@ -156,7 +158,10 @@ class StockInvoiceOnshipping(models.TransientModel):
     show_purchase_journal = fields.Boolean(string="Show Purchase Journal")
     show_purchase_refund_journal = fields.Boolean(
         string="Show Refund Purchase Journal")
-        
+    
+    company_id = fields.Many2one(comodel_name="res.company", 
+                                string='Company to invoice',
+                                default=lambda self:self.env.user.company_id.id)
         
     #=================
     # Business part
@@ -207,10 +212,11 @@ class StockInvoiceOnshipping(models.TransientModel):
             pickings  =   self.env['stock.picking'].search([('id', 'in', active_ids)])
             pickings.set_invoiced()
             
-        
-        self = self.with_context(
+        force_company_id = self.company_id.id or self.env['res.users']._get_company()
+        picking_pool = picking_pool.with_context(
                 date_inv = self.invoice_date,
-                inv_type = inv_type
+                inv_type = inv_type,
+                force_company=force_company_id
                )
 
         res = picking_pool.action_invoice_create(active_ids,
@@ -258,14 +264,14 @@ class StockInvoiceOnshipping(models.TransientModel):
     def get_partner_sum(self, pickings, partner, inv_type, picking_type,
                         usage):
         move_obj = self.env['stock.move']
-        pickings = pickings.filtered(lambda x: x.picking_type_id.code ==
+        pickings = pickings.filtered(lambda x: x.sudo().picking_type_id.code ==
                                      picking_type and x.partner_id == partner)
         if picking_type == 'outgoing':
-            moves = pickings.mapped('move_lines').filtered(
-                lambda x: x.location_dest_id.usage == usage)
+            moves = pickings.sudo().mapped('move_lines').filtered(
+                lambda x: x.sudo().location_dest_id.usage == usage)
         else:
-            moves = pickings.mapped('move_lines').filtered(
-                lambda x: x.location_id.usage == usage)
+            moves = pickings.sudo().mapped('move_lines').filtered(
+                lambda x: x.sudo().location_id.usage == usage)
         return (sum([(m._get_price_unit_invoice( inv_type) *
                       m.product_uom_qty) for m in moves]),
                 moves.mapped('picking_id'))
@@ -300,18 +306,19 @@ class StockInvoiceOnshipping(models.TransientModel):
     @api.multi
     def get_split_pickings_nogrouped(self, pickings):
         sale_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == 'outgoing' and
-            x.move_lines[:1].location_dest_id.usage == 'customer')
+            lambda x: x.sudo().picking_type_id.code == 'outgoing' and
+            x.sudo().move_lines[:1].location_dest_id.usage == 'customer')
         # use [:1] instead of [0] to avoid a errors on empty pickings
         sale_refund_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == 'incoming' and
-            x.move_lines[:1].location_id.usage == 'customer')
+            lambda x: x.sudo().picking_type_id.code == 'incoming' and
+            x.sudo().move_lines[:1].location_id.usage == 'customer')
         purchase_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == 'incoming' and
-            x.move_lines[:1].location_id.usage == 'supplier')
+            lambda x: x.sudo().picking_type_id.code == 'incoming' and
+            x.sudo().move_lines[:1].location_id.usage == 'supplier')
         purchase_refund_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == 'outgoing' and
-            x.move_lines[:1].location_dest_id.usage == 'supplier')
+            lambda x: x.sudo().picking_type_id.code == 'outgoing' and
+            x.sudo().move_lines[:1].location_dest_id.usage == 'supplier')
+        
         return (sale_pickings, sale_refund_pickings, purchase_pickings,
                 purchase_refund_pickings)
 
