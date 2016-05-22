@@ -100,7 +100,7 @@ class StockMove(models.Model):
     def _get_taxes(self, fiscal_position):
         self.ensure_one()
         taxes_ids = self.product_id.taxes_id        
-        my_taxes = taxes_ids.filtered(lambda r: r.company_id.id == self.company_id.id)    
+        my_taxes = taxes_ids.filtered(lambda r: r.company_id.id == self.env.context['force_company'])    
         my_taxes = fiscal_position.map_tax(my_taxes)
         my_taxes = [t.id for t in my_taxes]
         
@@ -274,6 +274,7 @@ class StockPicking(models.Model):
         ''' This function simply creates the invoice from the given values. It is overriden in delivery module to add the delivery costs.
         '''
         invoice_obj = self.env['account.invoice']
+        _logger.debug("Create invoice with %s" % vals)
         return invoice_obj.create(vals)
     
     @api.model
@@ -319,21 +320,24 @@ class StockPicking(models.Model):
         
         is_extra_move, extra_move_tax = move_obj._get_moves_taxes(moves, inv_type)
         product_price_unit = {}
-        
+        _logger.debug("COntexte %s" % self.env.context)
         invoice_id = None
+        company_id  =  self.env.context['force_company'] or self.env['res.users']._get_company() 
         for move in moves:
-            company = move.company_id
-            origin = move.picking_id.name
+            company = self.env['res.company'].search([('id', '=', company_id)])
+            origin = move.sudo().picking_id.name
             partner, user_id, currency_id = move_obj._get_master_data(move, company)
             key = (partner, currency_id, company.id, user_id)
-            
+            _logger.debug("contexte %s" % self.env.context)
             invoice_vals = self._get_invoice_vals(key, inv_type, journal_id, move)
             if key not in invoices:
                 # Get account and payment terms
+                _logger.debug("Add invoice to list")
                 invoice_id = self._create_invoice_from_picking(move.picking_id, invoice_vals)
                 invoices[key] = invoice_id.id
-                
+                _logger.debug("Add invoice to list after key")
             else:
+                _logger.debug("Add found invoice to list")
                 invoice = invoice_obj.search([('id', '=', invoices[key])])
                 merge_vals = {}
                 if not invoice.origin or invoice_vals['origin'] not in invoice.origin.split(', '):
@@ -344,10 +348,11 @@ class StockPicking(models.Model):
                     invoice_name = filter(None, [invoice.name, invoice_vals['name']])
                     merge_vals['name'] = ', '.join(invoice_name)
                 if merge_vals:
+                    _logger.debug("Merge vues %s" % merge_vals)
                     invoice.write(merge_vals)
 
             move.with_context(
-                              fp_id=invoice_vals.get('fiscal_position_id', False)
+                              fp_id=invoice_vals.get('fiscal_position_id', False),
                               )
             
             invoice_line_vals = move._get_invoice_line_vals(partner, inv_type)
@@ -368,6 +373,7 @@ class StockPicking(models.Model):
                     invoice_line_vals['invoice_line_tax_id'] = extra_move_tax[0, move.product_id]
 
             invoice_line = move._create_invoice_line_from_vals(invoice_line_vals)
+            _logger.debug("Before invoicing write")
             if invoice_line :
                 move.write({'invoice_line_id': invoice_line.id,
                             'invoice_state': 'invoiced'
