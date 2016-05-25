@@ -50,6 +50,8 @@ Contributors
 ------------
 
 * Carlos Dauden <carlos.dauden@tecnativa.com>
+* Pedro M. Baeza <pedro.baeza@tecnativa.com>
+
 
 Maintainer
 ----------
