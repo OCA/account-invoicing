@@ -11,6 +11,8 @@
     'author': 'Tecnativa, Odoo Community Association (OCA)',
     'website': 'https://www.tecnativa.com',
     'depends': ['sale_timesheet'],
+    'data': [
+        'views/sale_view.xml',
+    ],
     'installable': True,
-    'images': [],
 }

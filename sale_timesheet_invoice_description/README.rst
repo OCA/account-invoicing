@@ -14,7 +14,7 @@ Usage
 
 To use this module, you need to:
 
-#. Go to *Sales -> Sale Orders* and create a new Sale Order.
+#. Go to *Sales -> Sales Orders* and create a new Sales Orders.
 #. Add line selecting a product with
 
    - *Invoicing Policy* -> **Delivered quantities**
@@ -24,7 +24,9 @@ To use this module, you need to:
    e.g. *Support Contract (on timesheet)*
 #. Confirm Sale
 #. Go to *Timesheets -> Activities* and create line with same project of SO
-#. Go to Sale Order and *Create Invoice*
+#. Go to Sales Orders and select *Other Information* -> **Timesheet invoice
+   description**
+#. *Create Invoice*
 
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
