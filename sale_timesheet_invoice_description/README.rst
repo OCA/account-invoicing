@@ -33,10 +33,6 @@ To use this module, you need to:
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/95/9.0
 
-Known issues / Roadmap
-======================
-
-* Recovery states and others functional fields in Contracts.
 
 Bug Tracker
 ===========
