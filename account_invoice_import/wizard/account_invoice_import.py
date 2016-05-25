@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api, _
+from openerp import models, fields, api, tools, _
 import openerp.addons.decimal_precision as dp
 from openerp.tools import float_compare, float_round
 from openerp.exceptions import Warning as UserError
@@ -31,6 +31,7 @@ import os
 import base64
 from tempfile import mkstemp
 from invoice2data.main import extract_data
+from invoice2data.template import read_templates
 import mimetypes
 
 logger = logging.getLogger(__name__)
@@ -82,7 +83,15 @@ class AccountInvoiceImport(models.TransientModel):
         finally:
             os.close(fd)
         try:
-            res = extract_data(file_name)
+            local_templates_dir = tools.config.get(
+                'invoice2data_templates_dir', False)
+            templates = None
+            if local_templates_dir:
+                templates = read_templates(local_templates_dir)
+            logger.debug(
+                'Calling invoice2data.extract_data with templates=%s',
+                templates)
+            res = extract_data(file_name, templates=templates)
         except:
             raise UserError(_(
                 "PDF Invoice parsing failed."))

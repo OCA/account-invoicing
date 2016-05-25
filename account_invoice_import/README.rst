@@ -47,6 +47,14 @@ If you want the invoice2data library to fallback on OCR if the PDF doesn't conta
 
   sudo apt-get install imagemagick tesseract-ocr
 
+If you want to use custom invoice templates for the invoice2data lib (instead of the templates provided by the invoice2data lib), you should add a line in your Odoo server configuration file such as:
+
+.. code::
+
+  invoice2data_templates_dir = /opt/invoice2data_local_templates
+
+and store your invoice templates in YAML format (*.yml* extension) in the directory that you have configured above. If you add invoice tempates in this directory, you don't have to restart Odoo, they will be used automatically on the next invoice import.
+
 French users should also install the module *l10n_fr_invoice_pdf_import* available in the `French localization <https://github.com/OCA/l10n-france/>`_, cf `this PR <https://github.com/OCA/l10n-france/pull/55>`_.
 
 Configuration
