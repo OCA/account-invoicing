@@ -13,6 +13,7 @@
     'depends': ['sale_timesheet'],
     'data': [
         'views/sale_view.xml',
+        'views/res_config_view.xml',
     ],
     'installable': True,
 }

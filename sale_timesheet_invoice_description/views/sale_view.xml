@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- © 2016 Carlos Dauden <carlos.dauden@tecnativa.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3). -->
-<openerp>
-<data>
-
+<odoo>
     <record id="view_order_form_description" model="ir.ui.view">
         <field name="name">sale.order.form.invoice.description</field>
         <field name="model">sale.order</field>
@@ -14,6 +12,4 @@
                 </field>
         </field>
     </record>
-
-</data>
-</openerp>
+</odoo>
