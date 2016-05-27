@@ -8,14 +8,20 @@ Timesheet details invoice
 
 Add timesheet details in invoice line to invoices related with timesheets.
 
+Configuration
+=============
+
+To configure this module, you need to:
+
+#. Go to *Sales -> Configuration -> Settings -> Quotations & Sales* and set
+   Default Timesheet Invoice Description.
+
 
 Usage
 =====
 
 To use this module, you need to:
 
-#. Go to *Sales -> Configuration -> Settings -> Quotations & Sales* and set
-   Timesheet Invoice Description.
 #. Go to *Sales -> Sales Orders* and create a new Sales Orders.
 #. Add line selecting a product with
 

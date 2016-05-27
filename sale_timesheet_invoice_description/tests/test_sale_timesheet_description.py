@@ -10,9 +10,9 @@ class TestSaleTimesheetDescription(TestSale):
         """ Test invoice description """
         self.SaleConfigSetting = self.env['sale.config.settings']
         inv_obj = self.env['account.invoice']
-        # intial so
+        # intial sale order
         prod_ts = self.env.ref('product.product_product_2')
-        so_vals = {
+        sale_order_vals = {
             'partner_id': self.partner.id,
             'partner_invoice_id': self.partner.id,
             'partner_shipping_id': self.partner.id,
@@ -24,19 +24,20 @@ class TestSaleTimesheetDescription(TestSale):
                 'price_unit': prod_ts.list_price})],
             'pricelist_id': self.env.ref('product.list0').id,
         }
-        so = self.env['sale.order'].create(so_vals)
-        so.action_confirm()
+        sale_order = self.env['sale.order'].create(sale_order_vals)
+        sale_order.action_confirm()
         # let's log some timesheets
         self.env['account.analytic.line'].create({
             'name': 'Test description 1234567890',
-            'account_id': so.project_id.id,
+            'account_id': sale_order.project_id.id,
             'unit_amount': 10.5,
             'user_id': self.manager.id,
             'is_timesheet': True,
         })
-        inv_id = so.action_invoice_create()
-        inv = inv_obj.browse(inv_id)
-        description = inv.invoice_line_ids[0].name
+        invoice_id = sale_order.with_context(
+            timesheet_description=True).action_invoice_create()
+        invoice = inv_obj.browse(invoice_id)
+        description = invoice.invoice_line_ids[0].name
         self.assertIn('Test description 1234567890', description)
 
         self.default_timesheet_invoice_description = (

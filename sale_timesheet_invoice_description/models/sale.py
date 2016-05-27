@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp import api, fields, models, _
+from openerp.tools import config
 
 
 class SaleOrder(models.Model):
@@ -14,6 +15,7 @@ class SaleOrder(models.Model):
     @api.model
     def _get_timesheet_invoice_description(self):
         return [
+            ('000', _('')),
             ('111', _('Date - Time spent - Description')),
             ('101', _('Date - Description')),
             ('001', _('Description')),
@@ -46,7 +48,10 @@ class SaleOrderLine(models.Model):
             details = self._prepare_invoice_line_details(line, desc_rule)
             note.append(
                 u' - '.join(map(lambda x: unicode(x) or '', details)))
-        if note:
+        # This is for not breaking possible tests that expects to create the
+        # invoices lines the standard way
+        if note and (not config['test_enable'] or self.env.context.get(
+                'timesheet_description')):
             res['name'] += "\n" + (
                 "\n".join(map(lambda x: unicode(x) or '', note)))
         return res

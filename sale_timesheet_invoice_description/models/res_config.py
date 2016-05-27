@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from openerp import api, fields, models, _
-from openerp.exceptions import AccessError
+from openerp import api, fields, models
 
 
 class SaleConfiguration(models.TransientModel):
@@ -28,9 +27,6 @@ class SaleConfiguration(models.TransientModel):
     @api.multi
     def set_sale_defaults(self):
         self.ensure_one()
-        if not self.env.user._is_admin():
-            raise AccessError(_("Only administrators can change the settings"))
-
         self.env['ir.values'].sudo().set_default(
             'sale.order', 'timesheet_invoice_description',
             self.default_timesheet_invoice_description)
