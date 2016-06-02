@@ -10,12 +10,12 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     timesheet_invoice_description = fields.Selection(
-        '_get_timesheet_invoice_description', default='111')
+        '_get_timesheet_invoice_description', default='000')
 
     @api.model
     def _get_timesheet_invoice_description(self):
         return [
-            ('000', _('')),
+            ('000', _('None')),
             ('111', _('Date - Time spent - Description')),
             ('101', _('Date - Description')),
             ('001', _('Description')),
@@ -42,9 +42,14 @@ class SaleOrderLine(models.Model):
     def _prepare_invoice_line(self, qty):
         res = super(SaleOrderLine, self)._prepare_invoice_line(qty)
         desc_rule = self.order_id.timesheet_invoice_description
+        if not desc_rule or desc_rule == '000':
+            return res
         note = []
-        for line in self.env['account.analytic.line'].search(
-                [('so_line', '=', self.id)]):
+        domain = [('so_line', '=', self.id)]
+        last_invoice = self.invoice_lines.sorted(lambda x: x.create_date)[-1:]
+        if last_invoice:
+            domain.append(('create_date', '>', last_invoice.create_date))
+        for line in self.env['account.analytic.line'].search(domain):
             details = self._prepare_invoice_line_details(line, desc_rule)
             note.append(
                 u' - '.join(map(lambda x: unicode(x) or '', details)))
