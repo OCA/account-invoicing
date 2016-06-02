@@ -66,7 +66,10 @@ class AccountPaymentTermLine(models.Model):
         self.ensure_one()
         prec = self.env['decimal.precision'].precision_get('Account')
         if self.value == 'fixed':
-            return float_round(self.value_amount, precision_digits=prec)
+            if total_amount >= 0:
+                return float_round(self.value_amount, precision_digits=prec)
+            else:
+                return float_round(-self.value_amount, precision_digits=prec)
         elif self.value == 'procent':
             amt = total_amount * self.value_amount
             if self.amount_round:
