@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#    
+#
+#
 #    Copyright (C) 2011 Associazione OpenERP Italia
-#    (<http://www.openerp-italia.org>). 
+#    (<http://www.openerp-italia.org>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -17,23 +17,24 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+#
 {
     'name': 'Italian Localisation - Corrispettivi',
     'version': '0.1',
     'category': 'Localisation/Italy',
     'description': """This module helps to easily input Corrispettivi within OpenERP.
-    
-    Per maggiori informazioni: http://planet.domsense.com/2011/11/openerp-registrare-i-corrispettivi/""",
+
+Per maggiori informazioni:
+http://planet.domsense.com/2011/11/openerp-registrare-i-corrispettivi/""",
     'author': "OpenERP Italian Community,Odoo Community Association (OCA)",
     'website': 'http://www.openerp-italia.org',
     'license': 'AGPL-3',
-    "depends" : ['account_voucher'],
-    "data" : [
-  	    'partner_data.xml',	
+    "depends": ['account_voucher'],
+    "data": [
+            'partner_data.xml',
         'account_view.xml',
         'installer_view.xml',
-        ],
+    ],
     "active": False,
-    'installable': False
+    "installable": True
 }
