@@ -1,25 +1,11 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
+# -*- coding: utf-8 -*-
 #    Copyright (C) 2011 Associazione OpenERP Italia
 #    (<http://www.openerp-italia.org>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2016 Lorenzo Battistini - Agile Business Group
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, exceptions, api, _
+from openerp import models, fields, api, _
+from openerp.exceptions import Warning as UserError
 
 
 class AccountInvoice(models.Model):
@@ -32,8 +18,8 @@ class AccountInvoice(models.Model):
             partner_ids = self.env['res.partner'].search(
                 [('corrispettivi', '=', True)])
             if not partner_ids:
-                raise exceptions.except_orm(
-                    _('Error!'), _('No partner "corrispettivi" found'))
+                raise UserError(
+                    _('No partner "corrispettivi" found'))
             partner = self.env['res.partner'].browse(
                 self._cr, self._uid, partner_ids[0])
             res = partner.property_account_receivable.id
@@ -46,8 +32,8 @@ class AccountInvoice(models.Model):
             partner_ids = self.env['res.partner'].search(
                 [('corrispettivi', '=', True)])
             if not partner_ids:
-                raise exceptions.except_orm(
-                    _('Error!'), _('No partner "corrispettivi" found'))
+                raise UserError(
+                    _('No partner "corrispettivi" found'))
             res = partner_ids[0]
         return res
 

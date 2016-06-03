@@ -1,23 +1,8 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
+# -*- coding: utf-8 -*-
 #    Copyright (C) 2011 Associazione OpenERP Italia
 #    (<http://www.openerp-italia.org>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2016 Lorenzo Battistini - Agile Business Group
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp.osv import osv
 from openerp import fields
@@ -38,12 +23,12 @@ class CorrispettiviConfigData(osv.osv_memory):
 
     def execute(self, cr, uid, ids, context=None):
         for o in self.browse(cr, uid, ids, context=context):
-            seq_id = self.env['ir.sequence'].create(cr, uid, {
+            seq_id = self.pool['ir.sequence'].create(cr, uid, {
                 'name': 'Sezionale Corrispettivi',
                 'padding': 3,
                 'prefix': 'COJ/%(year)s/',
             })
-            journal_id = self.env['account.journal'].create(cr, uid, {
+            self.pool['account.journal'].create(cr, uid, {
                 'code': 'COJ',
                 'name': 'Sezionale Corrispettivi',
                 'type': 'sale',
@@ -52,7 +37,7 @@ class CorrispettiviConfigData(osv.osv_memory):
                 'default_credit_account_id': o.default_credit_account_id.id,
                 'default_debit_account_id': o.default_debit_account_id.id,
             })
-            partner_id = self.env['res.partner'].create(cr, uid, {
+            self.pool['res.partner'].create(cr, uid, {
                 'name': 'Corrispettivi',
                 'ref': 'COJ',
                 'customer': False,

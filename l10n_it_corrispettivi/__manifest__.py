@@ -1,34 +1,18 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
 #    Copyright (C) 2011 Associazione OpenERP Italia
 #    (<http://www.openerp-italia.org>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2016 Lorenzo Battistini - Agile Business Group
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 {
-    'name': 'Italian Localisation - Corrispettivi',
-    'version': '0.1',
-    'category': 'Localisation/Italy',
-    'description': """This module helps to easily input Corrispettivi within OpenERP.
-    Per maggiori informazioni:
-    http://planet.domsense.com/2011/11/openerp-registrare-i-corrispettivi/""",
-    'author': 'OpenERP Italian Community',
-    'website': 'http://www.openerp-italia.org',
+    'name': 'Italian Localization - Corrispettivi',
+    'version': '8.0.1.0.0',
+    'category': 'Accounting & Finance',
+    'author': 'Odoo Italian Community, Agile Business Group, '
+              'Odoo Community Association (OCA)',
+    'website': 'http://www.odoo-italia.org',
     'license': 'AGPL-3',
-    "depends": ['account_voucher'],
+    "depends": ['account'],
     "data": [
         'partner_data.xml',
         'account_view.xml',
