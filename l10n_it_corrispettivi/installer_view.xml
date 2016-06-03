@@ -19,7 +19,7 @@
 			Select data to configure Corrispettivi module.
                     </p>
                     <group string="Configure corrispettivi" groups="account.group_account_user">
-			<group colspan="4" >
+			             <group colspan="4" >
                             <field name="default_credit_account_id"/>
                             <field name="default_debit_account_id"/>
                     	</group>
@@ -49,6 +49,8 @@
         <!-- register configuration wizard -->
         <record id="config_wizard_step_corrispettivi_config_data" model="ir.actions.todo">
             <field name="action_id" ref="action_corrispettivi_config_data"/>
+            <field name="sequence">3</field>
+            <field name="type">automatic</field>
             <field name="restart">onskip</field>
             <field name="groups_id" eval="[(6,0,[ref('base.group_no_one')])]"/>
         </record>

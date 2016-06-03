@@ -35,7 +35,7 @@
             <field name="priority" eval="17"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Corrispettivo" version="7.0">
+                <form string="Corrispettivo" version="8.0">
                 <header>
                     <button name="invoice_open" states="draft" string="Validate" class="oe_highlight" groups="base.group_user"/>
                     <button name="invoice_cancel" states="draft,open" string="Cancel" groups="base.group_no_one"/>
@@ -64,7 +64,7 @@
                         <group>
                             <field name="date_invoice"/>
                             <field name="journal_id" groups="account.group_account_user"
-                                on_change="onchange_journal_id(journal_id, context)" widget="selection"/>
+                                on_change="onchange_journal_id(journal_id)" widget="selection"/>
                             <field domain="[('company_id', '=', company_id),('type','=', 'receivable')]"
                                 name="account_id" groups="account.group_account_user"/>
 
@@ -80,7 +80,7 @@
                             <field name="invoice_line" nolabel="1" widget="one2many_list" context="{'type': type}">
                                 <tree string="Invoice Lines" editable="bottom">
                                     <field name="product_id"
-                                        on_change="product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, context, parent.company_id)"/>
+                                        on_change="product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, parent.company_id)"/>
                                     <field name="name"/>
                                     <field name="company_id" invisible="1"/>
                                     <field name="account_id" groups="account.group_account_user"
@@ -90,10 +90,10 @@
                                         domain="[('type','!=','view'), ('company_id', '=', parent.company_id)]"/>
                                     <field name="quantity"/>
                                     <field name="uos_id" groups="product.group_uom"
-                                        on_change="uos_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, context, parent.company_id)"/>
+                                        on_change="uos_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id,  parent.company_id)"/>
                                     <field name="price_unit"/>
                                     <field name="discount" groups="sale.group_discount_per_so_line"/>
-                                    <field name="invoice_line_tax_id" widget="many2many_tags" context="{'type':parent.type}"
+                                    <field name="invoice_line_tax_id" widget="many2many_tags" context="{'type': parent.type}"
                                         domain="[('parent_id','=',False),('company_id', '=', parent.company_id)]"/>
                                     <field name="price_subtotal"/>
                                 </tree>
@@ -178,7 +178,7 @@
             <field name="inherit_id" ref="account.invoice_form"></field>
             <field name="arch" type="xml">
                 <field name="company_id" position="replace">
-                    <field name="company_id" on_change="onchange_company_id(company_id,partner_id,type,invoice_line,currency_id,context)" widget="selection" groups="base.group_multi_company"/>
+                    <field name="company_id" on_change="onchange_company_id(company_id,partner_id,type,invoice_line,currency_id)" widget="selection" groups="base.group_multi_company"/>
                 </field>
             </field>
         </record>
@@ -226,7 +226,7 @@
             <field name="view_mode">tree,form,calendar,graph</field>
             <field eval="False" name="view_id"/>
             <field name="domain">[('type','=','out_invoice'),('corrispettivo','=',True)]</field>
-            <field name="context" eval="{'default_type':'out_invoice', 'dafault_journal_type': 'sale', 'default_corrispettivo': True, 'default_partner_id':ref('partner_corrispettivi')}"/>
+            <field name="context" eval="{'default_type':'out_invoice', 'default_journal_type': 'sale', 'default_corrispettivo': True, 'default_partner_id':ref('partner_corrispettivi')}"/>
             <field name="search_view_id" ref="view_account_corrispettivi_filter"/>
         </record>
 
@@ -257,9 +257,10 @@
             <field name="name">res.partner.form</field>
             <field name="model">res.partner</field>
             <field name="type">form</field>
+            <!-- i've set the field in the "Accounting" page of the partner form -->
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-                <field name="supplier" position="after">    
+                <field name="last_reconciliation_date" position="after">    
                     <field name="corrispettivi" groups="account.group_account_manager"/>
                 </field>
             </field>
