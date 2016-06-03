@@ -49,7 +49,8 @@ class SaleOrderLine(models.Model):
         last_invoice = self.invoice_lines.sorted(lambda x: x.create_date)[-1:]
         if last_invoice:
             domain.append(('create_date', '>', last_invoice.create_date))
-        for line in self.env['account.analytic.line'].search(domain):
+        for line in self.env['account.analytic.line'].search(
+                domain, order='date, id'):
             details = self._prepare_invoice_line_details(line, desc_rule)
             note.append(
                 u' - '.join(map(lambda x: unicode(x) or '', details)))
