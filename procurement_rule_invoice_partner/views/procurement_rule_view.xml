@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+        <record id="invoice_partner_view_procurement_rule_form" model="ir.ui.view">
+            <field name="name">procurement.rule.form</field>
+            <field name="model">procurement.rule</field>
+            <field name="inherit_id" ref="procurement.view_procurement_rule_form"/>
+            <field name="arch" type="xml">
+                <field name="group_propagation_option" position="after">
+                    <field name="invoice_partner_id" attrs="{'invisible': [('group_propagation_option', '!=', 'propagate')]}"/>
+                </field>
+            </field>
+        </record>
+</data>
+</openerp>
