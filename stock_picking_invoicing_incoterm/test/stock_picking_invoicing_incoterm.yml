@@ -9,7 +9,7 @@
     move_lines:
       - company_id: base.main_company
         location_id: stock.stock_location_stock
-        product_id: product.product_product_3
+        product_id: product.product_product_6
         product_uom_qty: 3.0
         location_dest_id: stock.stock_location_customers
     move_type: direct
@@ -22,10 +22,16 @@
   I process the delivery
 -
   !python {model: stock.transfer_details}: |
-    partial_id = self.create(cr, uid, {}, context={'active_model':'stock.picking',
-                                                   'active_ids':[ref('stock_picking_out0')]})
+    picking_pool = self.pool['stock.picking']
+    picking_pool.action_assign(cr, uid, [ref('stock_picking_out0')])
+    partial_id = self.create(cr, uid, {
+        'picking_id': ref('stock_picking_out0')
+    }, context={
+        'active_model':'stock.picking',
+        'active_ids':[ref('stock_picking_out0')],
+        'active_id': ref('stock_picking_out0')
+    })
     self.do_detailed_transfer(cr, uid, [partial_id])
-
 -
   As the invoice state of the picking order is to be invoiced. I create invoice for my outgoing picking order.
 -

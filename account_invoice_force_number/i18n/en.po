@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-06-03 04:59+0000\n"
+"POT-Creation-Date: 2016-04-08 09:09+0000\n"
+"PO-Revision-Date: 2016-04-08 09:09+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: English (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_invoice_force_number
+#: model:res.groups,name:account_invoice_force_number.group_allow_invoice_force_number
+msgid "Allow \"Invoice Force Number\""
+msgstr "Allow \"Invoice Force Number\""
 
 #. module: account_invoice_force_number
 #: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
@@ -35,6 +40,12 @@ msgstr "Force invoice number. Use this field if you don't want to use the defaul
 #: model:ir.model,name:account_invoice_force_number.model_account_invoice
 msgid "Invoice"
 msgstr "Invoice"
+
+#. module: account_invoice_force_number
+#: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
+#: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
+msgid "account_invoice_force_number.group_allow_invoice_force_number"
+msgstr "account_invoice_force_number.group_allow_invoice_force_number"
 
 #. module: account_invoice_force_number
 #: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number

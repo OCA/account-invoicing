@@ -3,13 +3,13 @@
 # * account_invoice_merge
 # 
 # Translators:
-# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-08-16 11:39+0000\n"
+"POT-Creation-Date: 2016-04-30 04:25+0000\n"
+"PO-Revision-Date: 2016-04-30 04:58+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -69,6 +69,11 @@ msgid "Created on"
 msgstr "Ustvarjeno"
 
 #. module: account_invoice_merge
+#: field:invoice.merge,display_name:0
+msgid "Display Name"
+msgstr "Prikazni naziv"
+
+#. module: account_invoice_merge
 #: field:invoice.merge,id:0
 msgid "ID"
 msgstr "ID"
@@ -92,6 +97,11 @@ msgstr "Računi bodo spojeni le, če:"
 #: field:invoice.merge,keep_references:0
 msgid "Keep references from original invoices"
 msgstr "Obdrži sklice originalnih računov"
+
+#. module: account_invoice_merge
+#: field:invoice.merge,__last_update:0
+msgid "Last Modified on"
+msgstr "Zadnjič spremenjeno"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,write_uid:0

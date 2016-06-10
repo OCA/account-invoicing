@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-06-03 04:58+0000\n"
+"POT-Creation-Date: 2016-03-24 01:41+0000\n"
+"PO-Revision-Date: 2016-03-23 16:23+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: English (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,14 @@ msgstr "60 Days End of Month"
 #: field:account.payment.term.line,amount_round:0
 msgid "Amount Rounding"
 msgstr "Amount Rounding"
+
+#. module: account_payment_term_extension
+#: help:account.payment.term.line,start_with_end_month:0
+msgid ""
+"If you have a payment term 'End of month 45 days' (which is not the same as "
+"'45 days end of month' !), you should activate this option and then set "
+"'Number of days' = 45 and 'Day of the month' = 0."
+msgstr "If you have a payment term 'End of month 45 days' (which is not the same as '45 days end of month' !), you should activate this option and then set 'Number of days' = 45 and 'Day of the month' = 0."
 
 #. module: account_payment_term_extension
 #: field:account.payment.term.line,months:0
@@ -54,3 +62,8 @@ msgid ""
 "Sets the amount so that it is a multiple of this value.\n"
 "To have amounts that end in 0.99, set rounding 1, surcharge -0.01"
 msgstr "Sets the amount so that it is a multiple of this value.\nTo have amounts that end in 0.99, set rounding 1, surcharge -0.01"
+
+#. module: account_payment_term_extension
+#: field:account.payment.term.line,start_with_end_month:0
+msgid "Start by End of Month"
+msgstr "Start by End of Month"

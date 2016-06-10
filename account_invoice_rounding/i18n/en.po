@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-06-03 04:58+0000\n"
+"POT-Creation-Date: 2016-04-30 04:26+0000\n"
+"PO-Revision-Date: 2016-04-30 04:27+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: English (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,11 @@ msgid "Invoice Line"
 msgstr "Invoice Line"
 
 #. module: account_invoice_rounding
+#: field:account.invoice,global_round_line_id:0
+msgid "Invoice Line for total rounding"
+msgstr "Invoice Line for total rounding"
+
+#. module: account_invoice_rounding
 #: code:addons/account_invoice_rounding/account.py:42
 #, python-format
 msgid "Rounding"
@@ -54,6 +59,12 @@ msgid "Tax Rounding Account"
 msgstr "Tax Rounding Account"
 
 #. module: account_invoice_rounding
+#: field:account.config.settings,tax_calculation_rounding_account_id:0
+msgid "Tax Rounding account"
+msgstr "Tax Rounding account"
+
+#. module: account_invoice_rounding
+#: field:account.config.settings,tax_calculation_rounding:0
 #: field:res.company,tax_calculation_rounding:0
 msgid "Tax Rounding unit"
 msgstr "Tax Rounding unit"
