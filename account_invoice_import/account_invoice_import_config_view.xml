@@ -34,7 +34,7 @@
             </group>
             <group name="partner" string="Partners"
                 invisible="not context.get('invoice_import_config_main_view')">
-                <field name="partner_ids" nolabel="1"/>
+                <field name="partner_ids" nolabel="1" readonly="1"/> <!-- set this field readonly to avoid the frustration of being unable to select an existing partner from this view -->
             </group>
         </form>
     </field>
