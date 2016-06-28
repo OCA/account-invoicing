@@ -14,6 +14,26 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     @api.model
+    def make_merge_key(self, record, fields):
+        list_key = []
+        for field in fields:
+            field_val = getattr(record, field)
+            if field in ('product_id', 'account_id'):
+                if not field_val:
+                    field_val = False
+            if (isinstance(field_val, browse_record) and
+               field != 'invoice_line_tax_id'):
+                field_val = field_val.id
+            elif isinstance(field_val, browse_null):
+                field_val = False
+            elif (isinstance(field_val, list) or
+                  field == 'invoice_line_tax_id'):
+                field_val = ((6, 0, tuple([v.id for v in field_val])),)
+            list_key.append((field, field_val))
+        list_key.sort()
+        return tuple(list_key)
+
+    @api.model
     def _get_invoice_key_cols(self):
         return [
             'partner_id', 'user_id', 'type', 'account_id', 'currency_id',
@@ -56,6 +76,7 @@ class AccountInvoice(models.Model):
     def _merge_invoice_line_values(self, vals, new_invoice_line):
         """This method merges an invoice line with the existing values from
         previous line(s) that matches the merging key.
+
         :param vals: Dictionary of values of the previous invoice line(s)
         :param new_invoice_line: Recordset of the new line to merge.
         :return: None
@@ -67,45 +88,33 @@ class AccountInvoice(models.Model):
         vals['quantity'] += (new_invoice_line.quantity *
                              uos_factor / uom_factor)
 
+    @api.model
+    def _first_invoice_line_values(self, vals, new_invoice_line):
+        # append a new "standalone" line
+        vals.update(
+            new_invoice_line._convert_to_write(new_invoice_line._cache))
+        if 'invoice_id' in vals:
+            del vals['invoice_id']
+
     @api.multi
     def do_merge(self, keep_references=True, date_invoice=False):
-        """
-        To merge similar type of account invoices.
+        """Merge similar type of account invoices.
+
         Invoices will only be merged if:
         * Account invoices are in draft
         * Account invoices belong to the same partner
         * Account invoices are have same company, partner, address, currency,
           journal, currency, salesman, account, type
+
         Lines will only be merged if:
         * Invoice lines are exactly the same except for the quantity and unit
 
-         @param self: The object pointer.
-         @param keep_references: If True, keep reference of original invoices
+        @param self: The object pointer.
+        @param keep_references: If True, keep reference of original invoices
 
-         @return: new account invoice id
-
+        @return: new account invoice id
         """
-        def make_key(br, fields):
-            list_key = []
-            for field in fields:
-                field_val = getattr(br, field)
-                if field in ('product_id', 'account_id'):
-                    if not field_val:
-                        field_val = False
-                if (isinstance(field_val, browse_record) and
-                   field != 'invoice_line_tax_id'):
-                    field_val = field_val.id
-                elif isinstance(field_val, browse_null):
-                    field_val = False
-                elif (isinstance(field_val, list) or
-                      field == 'invoice_line_tax_id'):
-                    field_val = ((6, 0, tuple([v.id for v in field_val])),)
-                list_key.append((field, field_val))
-            list_key.sort()
-            return tuple(list_key)
-
         # compute what the new invoices should contain
-
         new_invoices = {}
         draft_invoices = [invoice
                           for invoice in self
@@ -115,7 +124,7 @@ class AccountInvoice(models.Model):
         line_sequence = 1
 
         for account_invoice in draft_invoices:
-            invoice_key = make_key(
+            invoice_key = self.make_merge_key(
                 account_invoice, self._get_invoice_key_cols())
             new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
             origins = seen_origins.setdefault(invoice_key, set())
@@ -147,18 +156,14 @@ class AccountInvoice(models.Model):
                         (' %s' % (account_invoice.reference,))
                     client_refs.add(account_invoice.reference)
             for invoice_line in account_invoice.invoice_line:
-                line_key = make_key(
+                line_key = self.make_merge_key(
                     invoice_line, self._get_invoice_line_key_cols())
                 o_line = invoice_infos['invoice_line'].setdefault(line_key, {})
                 if o_line:
                     self._merge_invoice_line_values(o_line, invoice_line)
                     o_line['o_line_ids'].append(invoice_line.id)
                 else:
-                    # append a new "standalone" line
-                    o_line.update(
-                        invoice_line._convert_to_write(invoice_line._cache))
-                    if 'invoice_id' in o_line:
-                        del o_line['invoice_id']
+                    self._first_invoice_line_values(o_line, invoice_line)
                     o_line['o_line_ids'] = [invoice_line.id]
                     o_line['sequence'] = line_sequence
                     line_sequence += 1
