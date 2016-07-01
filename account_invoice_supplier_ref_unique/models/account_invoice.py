@@ -1,11 +1,10 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ###############################################################################
 #
-#    Odoo, Open Source Management Solution
+#    Copyright (c) 2015 Akretion (http://www.akretion.com)
 #    This module copyright (C) 2010 - 2014 Savoir-faire Linux
 #    (<http://www.savoirfairelinux.com>).
-#    Copyright (C) 2015 Akretion (http://www.akretion.com)
-#    @author Alexis de Lattre <alexis.delattre@akretion.com>
+#    Authors: Alexis de Lattre <alexis.delattre@akretion.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -43,8 +42,7 @@ class AccountInvoice(models.Model):
                 ('supplier_invoice_number',
                  '=ilike',
                  self.supplier_invoice_number),
-                ('id', '!=', self.id),
-                ])
+                ('id', '!=', self.id), ])
             if same_supplier_inv_num:
                 raise ValidationError(
                     _("The invoice/refund with supplier invoice number '%s' "

@@ -21,15 +21,4 @@
 #
 ###############################################################################
 
-{
-    'name': 'Unique Supplier Invoice Number in Invoice',
-    'version': '9.0.1.1.0',
-    'summary': 'Checks that supplier invoices are not entered twice',
-    'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
-    'maintainer': 'Savoir-faire Linux',
-    'website': 'http://www.savoirfairelinux.com',
-    'license': 'AGPL-3',
-    'category': 'Accounting & Finance',
-    'depends': ['account'],
-    'installable': True,
-}
+from . import account_invoice
