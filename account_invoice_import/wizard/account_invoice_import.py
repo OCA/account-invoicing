@@ -85,6 +85,8 @@ class AccountInvoiceImport(models.TransientModel):
         try:
             local_templates_dir = tools.config.get(
                 'invoice2data_templates_dir', False)
+            logger.debug(
+                'invoice2data local_templates_dir=%s', local_templates_dir)
             templates = None
             if local_templates_dir:
                 templates = read_templates(local_templates_dir)
