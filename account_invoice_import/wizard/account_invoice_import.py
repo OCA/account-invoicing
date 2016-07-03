@@ -95,6 +95,10 @@ class AccountInvoiceImport(models.TransientModel):
                 templates)
             res = extract_data(file_name, templates=templates)
             logger.info('Success of invoice2data.extract_data')
+        except IOError as ioex:
+            raise UserError(_(
+                "PDF Invoice parsing failed. [Error %s] %s: %s'") % (
+                    ioex.errno, ioex.strerror, ioex.filename))
         except Exception, e:
             raise UserError(_(
                 "PDF Invoice parsing failed. Error message: %s") % e)
