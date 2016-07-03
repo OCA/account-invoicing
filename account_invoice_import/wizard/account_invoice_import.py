@@ -82,17 +82,18 @@ class AccountInvoiceImport(models.TransientModel):
             os.write(fd, file_data)
         finally:
             os.close(fd)
+        logger.info('PDF temporary filename: %s', file_name)
+        local_templates_dir = tools.config.get(
+            'invoice2data_templates_dir', False)
+        logger.info(
+            'invoice2data local_templates_dir=%s', local_templates_dir)
+        templates = None
+        if local_templates_dir and os.path.isdir(local_templates_dir):
+            templates = read_templates(local_templates_dir)
+        logger.info(
+            'Calling invoice2data.extract_data with templates=%s',
+            templates)
         try:
-            local_templates_dir = tools.config.get(
-                'invoice2data_templates_dir', False)
-            logger.info(
-                'invoice2data local_templates_dir=%s', local_templates_dir)
-            templates = None
-            if local_templates_dir and os.path.isdir(local_templates_dir):
-                templates = read_templates(local_templates_dir)
-            logger.info(
-                'Calling invoice2data.extract_data with templates=%s',
-                templates)
             res = extract_data(file_name, templates=templates)
             logger.info('Success of invoice2data.extract_data')
         except IOError as ioex:
