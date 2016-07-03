@@ -46,7 +46,9 @@ install:
   - travis_install_nightly
   - pip install anybox.testing.openerp # needed to test account_invoice_line_sort
   - pip install invoice2data # needed to test account_invoice_import
-  - wget -P /tmp ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-linux-3.04.tar.gz; tar xvf /tmp/xpdfbin-linux-3.04.tar.gz -C /tmp; sudo cp /tmp/xpdfbin-linux-3.04/bin64/pdftotext /usr/local/bin/pdftotext;rm -rf /tmp/xpdfbin-linux-3.04*  # needed for invoice2data
+  - wget -P /tmp ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-linux-3.04.tar.gz
+  - tar xvf /tmp/xpdfbin-linux-3.04.tar.gz -C /tmp
+  - sudo cp /tmp/xpdfbin-linux-3.04/bin64/pdftotext /usr/local/bin/pdftotext
   - pip install PyPDF2  # needed for account_invoice*zugferd
 
 script:
