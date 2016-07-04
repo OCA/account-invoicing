@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015 Akretion
-# Copyright 2010 - 2014 Savoir-Faire-Linux
+# Copyright 2016 Acsone
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.addons.account.tests.account_test_classes\
-    import AccountingTestCase
 from openerp.exceptions import ValidationError
+from openerp.tests import common
 
 
-class TestAccountInvoiceSupplierRefUnique(AccountingTestCase):
+class TestAccountInvoiceSupplierRefUnique(common.TransactionCase):
 
     def test_check_unique_supplier_invoice_number_insensitive(self):
         invoice_account = self.env['account.account'].search(
@@ -25,7 +23,7 @@ class TestAccountInvoiceSupplierRefUnique(AccountingTestCase):
             'supplier_invoice_number': 'ABC123'})
 
         # A new invoice instance with an existing supplier_invoice_number
-        with self.assertRaises(ValidationError), self.cr.savepoint():
+        with self.assertRaises(ValidationError):
             self.env['account.invoice'].create({
                 'partner_id': self.env.ref('base.res_partner_2').id,
                 'account_id': invoice_account,
