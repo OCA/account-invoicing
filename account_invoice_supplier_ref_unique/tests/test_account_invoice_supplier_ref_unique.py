@@ -9,7 +9,7 @@ from openerp.tests import common
 class TestAccountInvoiceSupplierRefUnique(common.TransactionCase):
 
     def test_check_unique_supplier_invoice_number_insensitive(self):
-        invoice_account = self.env['account.account'].search(
+        invoice_account_id = self.env['account.account'].search(
             [('user_type_id',
               '=',
               self.env.ref('account.data_account_type_receivable').id
