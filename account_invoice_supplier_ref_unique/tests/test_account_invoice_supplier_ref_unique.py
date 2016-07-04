@@ -18,7 +18,7 @@ class TestAccountInvoiceSupplierRefUnique(common.TransactionCase):
         # Creation of an invoice instance
         self.env['account.invoice'].create({
             'partner_id': self.env.ref('base.res_partner_2').id,
-            'account_id': invoice_account,
+            'account_id': invoice_account_id,
             'type': 'in_invoice',
             'supplier_invoice_number': 'ABC123'})
 
@@ -26,6 +26,6 @@ class TestAccountInvoiceSupplierRefUnique(common.TransactionCase):
         with self.assertRaises(ValidationError):
             self.env['account.invoice'].create({
                 'partner_id': self.env.ref('base.res_partner_2').id,
-                'account_id': invoice_account,
+                'account_id': invoice_account_id,
                 'type': 'in_invoice',
                 'supplier_invoice_number': 'ABC123'})
