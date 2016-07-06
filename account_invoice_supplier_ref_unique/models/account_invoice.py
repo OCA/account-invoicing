@@ -9,7 +9,9 @@ from openerp.exceptions import ValidationError
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    supplier_invoice_number = fields.Char(copy=False)
+    supplier_invoice_number = fields.Char(
+        string='Supplier invoice number',
+        copy=False)
 
     @api.one
     @api.constrains('supplier_invoice_number')
@@ -32,3 +34,8 @@ class AccountInvoice(models.Model):
                         same_supplier_inv_num[0].supplier_invoice_number,
                         same_supplier_inv_num[0].number or '-',
                         same_supplier_inv_num[0].partner_id.display_name))
+
+    @api.onchange('supplier_invoice_number')
+    def _onchange_supplier_invoice_number(self):
+        if not self.reference:
+            self.reference = self.supplier_invoice_number

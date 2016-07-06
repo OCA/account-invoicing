@@ -12,5 +12,6 @@
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'depends': ['account'],
+    'data': ['views/account_invoice.xml'],
     'installable': True,
 }
