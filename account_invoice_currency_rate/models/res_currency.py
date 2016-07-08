@@ -32,5 +32,5 @@ class ResCurrency(models.Model):
             context = {}
         if context.get('force_currency_rate', False):
             return context['force_currency_rate']
-        return super(res_currency, self)._get_conversion_rate(
+        return super(ResCurrency, self)._get_conversion_rate(
             cr, uid, from_currency, to_currency, context=context)

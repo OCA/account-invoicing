@@ -23,7 +23,7 @@
 from openerp import models, fields, api
 
 
-class account_invoice(models.Model):
+class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     currency_rate = fields.Float(
@@ -74,6 +74,6 @@ class account_invoice(models.Model):
             ctx = context.copy()
             if invoice.currency_rate != 1.00:
                 ctx['force_currency_rate'] = invoice.currency_rate
-            super(account_invoice, self).action_move_create(
+            super(AccountInvoice, self).action_move_create(
                 cr, uid, [invoice.id], context=ctx)
         return True

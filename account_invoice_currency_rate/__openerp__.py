@@ -22,7 +22,7 @@
 
 {
     'name': 'account_invoice_currency_rate',
-    'version': '8.0.1.0',
+    'version': '8.0.1.0.0',
     'category': 'Accounting & Finance',
     'license': 'AGPL-3',
     'author': 'Akretion,OpenPyme,Odoo Community Association (OCA)',
