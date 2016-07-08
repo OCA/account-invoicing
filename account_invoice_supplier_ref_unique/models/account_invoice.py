@@ -10,7 +10,7 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     supplier_invoice_number = fields.Char(
-        string='Supplier invoice number',
+        string='Vendor invoice number',
         readonly=True,
         states={'draft': [('readonly', False)]},
         copy=False)
