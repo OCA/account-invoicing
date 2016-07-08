@@ -8,11 +8,11 @@
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='currency_id']/.." position="after">
-                    <field name="label_rate" nolabel="1" readonly="1" />
-                    <field name="currency_rate" 
-                        attrs="{'readonly':[('state','!=','draft')]}"
-                        nolabel="1" 
-                        groups="base.group_multi_currency" />
+                    <field name="is_multi_currency" invisible="1"/>
+                    <field name="label_rate" nolabel="1" readonly="1" attrs="{'invisible':[('is_multi_currency','=',False)]}"/>
+                    <field name="currency_rate"
+                        class="oe_inline" attrs="{'readonly':[('state','!=','draft')], 'invisible':[('is_multi_currency','=',False)]}"
+                        nolabel="1" />
                 </xpath>
             </field>
         </record>
@@ -23,10 +23,11 @@
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='currency_id']" position="after">
-                    <field name="label_rate" nolabel="1" readonly="1" />
+                    <field name="is_multi_currency" invisible="1"/>
+                    <field name="label_rate" nolabel="1" readonly="1" attrs="{'invisible':[('is_multi_currency','=',False)]}"/>
                     <field name="currency_rate"
-                           attrs="{'readonly':[('state','!=','draft')],}"
-                           groups="base.group_multi_currency" />
+                        class="oe_inline" attrs="{'readonly':[('state','!=','draft')], 'invisible':[('is_multi_currency','=',False)]}"
+                        nolabel="1" />
                 </xpath>
             </field>
         </record>

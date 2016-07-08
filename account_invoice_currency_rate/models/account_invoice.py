@@ -21,58 +21,61 @@
 ###############################################################################
 
 from openerp import models, fields, api
-from openerp.tools.translate import _
 
 
 class account_invoice(models.Model):
     _inherit = "account.invoice"
 
-
     currency_rate = fields.Float(
-        'Forced currency rate',
+        'Forced currency rate', compute='_get_currency_rate', store=True,
         help="You can force the currency rate on the invoice with this field.",
         copy=False,
     )
-    label_rate = fields.Char(copy=False)
-    show_force_currency = fields.Boolean(default=False, copy=False,
-        compute='_show_force_currency', store=True,
+
+    label_rate = fields.Char(compute='_get_currency_rate_label')
+
+    is_multi_currency = fields.Boolean(
+        string = 'Multi Currency Invoice',
+        compute = '_get_currency_rate',
+        store = True,
+        help='Fields with internal purpose only that depicts if the '
+        'invoice is a multi currency one or not'
     )
-    
-    def _show_force_currency(self):
-        currency_company = self.company_id.currency_id
-        return currency_company.id.id != self.currency_id.id
-    
-    @api.model
-    def _get_currency_rate(self, currency_id=None):
-        rate = 1
-        currency_company = self.company_id.currency_id
 
-        if not currency_id:
-            currency_id = currency_company
-
-        rate = self.pool.get('res.currency').compute(
-            self._cr, self._uid, currency_id.id, currency_company.id, 1,
-        )
-        return rate
-    
     _defaults = {
-        'currency_rate': 1,
+        'is_multi_currency': False,
     }
-    
-    @api.onchange('currency_id')
-    def onchange_currency_id(self):
-        self.currency_rate = self._get_currency_rate(self.currency_id)
-        self.label_rate = ' '.join([
-            _('Currency rate:'), self.currency_id.name, '1.00 =',
+
+    @api.depends('currency_id', 'date_invoice')
+    @api.onchange('date_invoice')
+    def _get_currency_rate(self):
+        user = self.env.user
+        company_id = self.env.context.get('company_id', user.company_id.id)
+        company = self.env['res.company'].browse(company_id)
+
+        rate = self.currency_id.with_context(
+            date= self.date_invoice
+        ).compute(1, company.currency_id)
+
+        self.is_multi_currency = self.currency_id != company.currency_id
+        self.currency_rate = rate
+
+    @api.one
+    @api.depends('currency_rate')
+    @api.onchange('currency_rate')
+    def _get_currency_rate_label(self):
+        label_rate = ' '.join([
+            '1.00', self.currency_id.name, '=', str(self.currency_rate),
             self.company_id.currency_id.name,
         ])
+        self.label_rate = label_rate
 
     def action_move_create(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
         for invoice in self.browse(cr, uid, ids, context=context):
             ctx = context.copy()
-            if invoice.currency_rate:
+            if invoice.currency_rate != 1.00:
                 ctx['force_currency_rate'] = invoice.currency_rate
             super(account_invoice, self).action_move_create(
                 cr, uid, [invoice.id], context=ctx)

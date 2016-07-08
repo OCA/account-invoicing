@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==============
+=============================
 Account invoice currency rate
-==============
+=============================
 
 This module adds the field currency_rate on account invoice in order to
 force the currency rate on an invoice.
@@ -12,10 +12,6 @@ force the currency rate on an invoice.
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/95/8.0
 
-Known issues / Roadmap
-======================
-
-* ...
 
 Bug Tracker
 ===========

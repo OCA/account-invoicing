@@ -29,11 +29,10 @@
     This module adds the field currency_rate on account invoice in order to
     force the currency rate on an invoice.
     """,
-    'author': 'Akretion',
+    'author': 'Akretion,OpenPyme,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com/',
     'depends': ['account'],
     'data': [
-        'wizard/force_currency_rate_view.xml',
         'views/invoice_view.xml',
     ],
     'demo': [],

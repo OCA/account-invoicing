@@ -20,10 +20,10 @@
 #
 ###############################################################################
 
-from openerp.osv import orm
+from openerp import models
 
 
-class res_currency(orm.Model):
+class res_currency(models.Model):
     _inherit = "res.currency"
 
     def _get_conversion_rate(
