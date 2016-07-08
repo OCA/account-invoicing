@@ -23,7 +23,7 @@
 from openerp import models
 
 
-class res_currency(models.Model):
+class ResCurrency(models.Model):
     _inherit = "res.currency"
 
     def _get_conversion_rate(

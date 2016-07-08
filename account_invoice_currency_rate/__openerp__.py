@@ -22,13 +22,9 @@
 
 {
     'name': 'account_invoice_currency_rate',
-    'version': '0.1',
+    'version': '8.0.1.0',
     'category': 'Accounting & Finance',
     'license': 'AGPL-3',
-    'description': """
-    This module adds the field currency_rate on account invoice in order to
-    force the currency rate on an invoice.
-    """,
     'author': 'Akretion,OpenPyme,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com/',
     'depends': ['account'],

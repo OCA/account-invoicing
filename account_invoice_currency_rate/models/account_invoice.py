@@ -27,34 +27,31 @@ class account_invoice(models.Model):
     _inherit = "account.invoice"
 
     currency_rate = fields.Float(
-        'Forced currency rate', compute='_get_currency_rate', store=True,
+        'Forced currency rate', compute='_compute_currency_rate', store=True,
         help="You can force the currency rate on the invoice with this field.",
         copy=False,
     )
 
-    label_rate = fields.Char(compute='_get_currency_rate_label')
+    label_rate = fields.Char(compute='_compute_currency_rate_label')
 
     is_multi_currency = fields.Boolean(
-        string = 'Multi Currency Invoice',
-        compute = '_get_currency_rate',
-        store = True,
+        string='Multi Currency Invoice',
+        compute='_compute_currency_rate',
+        store=True, default=False,
         help='Fields with internal purpose only that depicts if the '
         'invoice is a multi currency one or not'
     )
 
-    _defaults = {
-        'is_multi_currency': False,
-    }
-
+    @api.one
     @api.depends('currency_id', 'date_invoice')
     @api.onchange('date_invoice')
-    def _get_currency_rate(self):
+    def _compute_currency_rate(self):
         user = self.env.user
         company_id = self.env.context.get('company_id', user.company_id.id)
         company = self.env['res.company'].browse(company_id)
 
         rate = self.currency_id.with_context(
-            date= self.date_invoice
+            date=self.date_invoice
         ).compute(1, company.currency_id)
 
         self.is_multi_currency = self.currency_id != company.currency_id
@@ -63,7 +60,7 @@ class account_invoice(models.Model):
     @api.one
     @api.depends('currency_rate')
     @api.onchange('currency_rate')
-    def _get_currency_rate_label(self):
+    def _compute_currency_rate_label(self):
         label_rate = ' '.join([
             '1.00', self.currency_id.name, '=', str(self.currency_rate),
             self.company_id.currency_id.name,
