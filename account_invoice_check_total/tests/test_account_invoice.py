@@ -1,9 +1,9 @@
+# -*- coding: utf-8 -*-
 # Copyright 2016 Acsone SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import TransactionCase
-from odoo.exceptions import ValidationError
-from ..models.account_invoice import GROUP_AICT
+from openerp.tests.common import TransactionCase
+from openerp.exceptions import UserError
 
 
 class TestAccountInvoice(TransactionCase):
@@ -18,16 +18,17 @@ class TestAccountInvoice(TransactionCase):
         self.account_invoice_line = self.env['account.invoice.line']
         self.current_user = self.env.user
         # Add current user to group: group_supplier_inv_check_total
-        self.env.ref(GROUP_AICT).write({'users': [(4, self.current_user.id)]})
+        group_id = 'account_invoice_check_total.group_supplier_inv_check_total'
+        self.env.ref(group_id).write({'users': [(4, self.current_user.id)]})
 
         # INSTANCES
 
         # Instance: Account
-        self.invoice_account = self.account_model.search([
-            ('user_type_id',
-             '=',
-             self.env.ref('account.data_account_type_receivable').id)
-        ], limit=1)
+        self.invoice_account = self.account_model.search(
+            [('user_type_id',
+              '=',
+              self.env.ref('account.data_account_type_receivable').id
+              )], limit=1)
         # Instance: Invoice Line
         self.invoice_line = self.account_invoice_line.create(
             {'name': 'Test invoice line',
@@ -38,29 +39,11 @@ class TestAccountInvoice(TransactionCase):
     def test_action_move_create(self):
         # Creation of an invoice instance, wrong check_total
         # Result: UserError
-        invoice = self.account_invoice.create({
-            'partner_id': self.env.ref('base.res_partner_2').id,
-            'account_id': self.invoice_account.id,
-            'type': 'in_invoice',
-            'check_total': 1.19,
-            'invoice_line_ids': [(6, 0, [self.invoice_line.id])]
-        })
-        self.assertEqual(invoice.check_total, 1.19)
-        self.assertEqual(invoice.check_total_display_difference, -1.80)
-        with self.assertRaises(ValidationError):
-            invoice.action_move_create()
-
-    def test_onchange_check_total(self):
-        invoice = self.account_invoice.create({
-            'partner_id': self.env.ref('base.res_partner_2').id,
-            'account_id': self.invoice_account.id,
-            'type': 'in_invoice',
-            'check_total': 1.19,
-            'invoice_line_ids': [(6, 0, [self.invoice_line.id])]
-        })
-
-        invoice.invoice_line_ids.ensure_one()
-        invoice.invoice_line_ids.price_unit = 5.99
-        invoice.onchange_check_total()
-        self.assertEqual(invoice.check_total, 1.19)
-        self.assertEqual(invoice.check_total_display_difference, -4.80)
+        with self.assertRaises(UserError):
+            self.account_invoice.create({
+                'partner_id': self.env.ref('base.res_partner_2').id,
+                'account_id': self.invoice_account.id,
+                'type': 'in_invoice',
+                'check_total': 1.19,
+                'invoice_line_ids': [(6, 0, [self.invoice_line.id])]
+            }).action_move_create()

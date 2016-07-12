@@ -2,7 +2,8 @@
 <!-- Copyright 2016 Acsone SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 
-<odoo>
+<openerp>
+<data>
 
     <record model="ir.ui.view" id="account_invoice_form_view">
         <field name="name">account.invoice.form (in account_invoice_check_total)</field>
@@ -12,10 +13,11 @@
             <field name="company_currency_id" position="after">
                 <field name="check_total" groups="account_invoice_check_total.group_supplier_inv_check_total"/>
             </field>
-            <xpath expr="//field[@name='residual']" position="after">
-                <field name="check_total_display_difference" groups="account_invoice_check_total.group_supplier_inv_check_total" attrs="{'invisible': [('check_total_display_difference', '=', 0)]}"/>
-            </xpath>
         </field>
     </record>
 
-</odoo>
+
+
+
+</data>
+</openerp>
