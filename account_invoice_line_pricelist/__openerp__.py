@@ -10,6 +10,7 @@
     'category': 'Accounting & Finance',
     'author': 'ONESTEiN BV, Odoo Community Association (OCA)',
     'website': 'http://www.onestein.eu',
+    'license': 'AGPL-3',
     'depends': [
         'account',
         'product',

@@ -23,12 +23,12 @@ class TestOnchangeProductId(TransactionCase):
             {'name': 'Test pricelist',
              'type': 'sale',
              'currency_id': self.usd,
-             'version_id': [(0,0, {'name': 'Test version',
-                                   'items_id': [
-                                       (0,0, {'name': 'Test item default',
-                                              'base': 1,
-                                              'price_discount': 0.1, })]
-                                   })]})
+             'version_id': [(0, 0, {'name': 'Test version',
+                                    'items_id': [
+                                       (0, 0, {'name': 'Test item default',
+                                               'base': 1,
+                                               'price_discount': 0.1, })]
+                                    })]})
         self.partner = self.env['res.partner'].create(
             {'name': 'Test partner',
              'property_product_pricelist': self.pricelist.id})
@@ -39,22 +39,30 @@ class TestOnchangeProductId(TransactionCase):
 
     def test_onchange_product_id_pricelist(self):
 
+        currency = self.env['res.currency'].browse(self.eur)
+        rate = currency.rate_silent
+        price_unit = currency.round(10.00 * rate)
+        exp_value = currency.round((11.00 * rate))
         res = self.invoice_line.product_id_change(
             self.product.id, self.product.uom_id.id, qty=1.0,
             partner_id=self.partner.id, currency_id=self.eur,
-            price_unit=10.00, company_id=self.env.user.company_id.id)
+            price_unit=price_unit, company_id=self.env.user.company_id.id)
 
         self.assertLessEqual(
-            abs(11.0 - res['value']['price_unit']), 0.0001,
+            abs(exp_value - res['value']['price_unit']), 0.0001,
             "ERROR in getting price from pricelist")
 
     def test_onchange_product_id_different_currency(self):
 
+        currency = self.env['res.currency'].browse(self.usd)
+        rate = currency.rate_silent
+        price_unit = currency.round(10.00 * rate)
+        exp_value = currency.round((11.00 * rate))
         res = self.invoice_line.product_id_change(
             self.product.id, self.product.uom_id.id, qty=1.0,
             partner_id=self.partner.id, currency_id=self.usd,
-            price_unit=12.83, company_id=self.env.user.company_id.id)
+            price_unit=price_unit, company_id=self.env.user.company_id.id)
 
         self.assertLessEqual(
-            abs(14.12 - res['value']['price_unit']), 0.0001,
+            abs(exp_value - res['value']['price_unit']), 0.0001,
             "ERROR in getting price from pricelist")
