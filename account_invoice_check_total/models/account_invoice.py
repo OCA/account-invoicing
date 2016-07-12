@@ -14,20 +14,19 @@ class AccountInvoice(models.Model):
     check_total = fields.Monetary(
         string='Verification Total',
         readonly=True,
-        states={'draft': [('readonly', False)]},
-        required=True,
-        default=0.0)
+        states={'draft': [('readonly', False)]})
 
     @api.multi
     def action_move_create(self):
         for inv in self:
-            if inv.type in ('in_invoice', 'in_refund') and\
-                inv.check_total and\
-                float_compare(
-                    inv.check_total,
-                    inv.amount_total,
-                    precision_rounding=inv.currency_id.rounding) != 0:
-                raise UserError(_(
-                    'Please verify the price of the invoice!\n\
-                    The encoded total does not match the computed total.'))
+            if self.env.user.has_group(
+                    'account.group_supplier_inv_check_total'):
+                if inv.type in ('in_invoice', 'in_refund') and\
+                    float_compare(
+                        inv.check_total,
+                        inv.amount_total,
+                        precision_rounding=inv.currency_id.rounding) != 0:
+                    raise UserError(_(
+                        'Please verify the price of the invoice!\n\
+                        The encoded total does not match the computed total.'))
         return super(AccountInvoice, self).action_move_create()
