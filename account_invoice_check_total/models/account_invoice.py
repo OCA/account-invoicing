@@ -14,12 +14,14 @@ class AccountInvoice(models.Model):
     check_total = fields.Monetary(
         string='Verification Total',
         readonly=True,
-        states={'draft': [('readonly', False)]})
+        states={'draft': [('readonly', False)]},
+        required=True)
 
     @api.multi
     def action_move_create(self):
         for inv in self:
             if inv.type in ('in_invoice', 'in_refund') and\
+                inv.check_total and\
                 float_compare(
                     inv.check_total,
                     inv.amount_total,
