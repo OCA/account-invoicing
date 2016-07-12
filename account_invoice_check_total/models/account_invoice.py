@@ -15,7 +15,8 @@ class AccountInvoice(models.Model):
         string='Verification Total',
         readonly=True,
         states={'draft': [('readonly', False)]},
-        required=True)
+        required=True,
+        default=0.0)
 
     @api.multi
     def action_move_create(self):
