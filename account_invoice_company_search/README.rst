@@ -6,8 +6,8 @@
 Account Invioce Company Search
 ==============================
 
-This module extends the functionality of account to search
-and group by to company. The user has to be Multi company.
+This module adds possibility of filtering and grouping by company on invoices.
+The user has to be Multi company
 
 Installation
 ============
