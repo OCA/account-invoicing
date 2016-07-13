@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=============================
+==============
 Account Invoice Move Currency
-=============================
+==============
 
 This module extends the functionality of account invoice to
 allows force the seat on an invoice generated save the data in another currency.
