@@ -34,7 +34,7 @@ Adds company search filter in account invoice view
         'account'
         ],
     'data': [
-    'views/invoice_view.xml'
+        'views/invoice_view.xml'
         ],
     'demo': [],
     'test': [],
