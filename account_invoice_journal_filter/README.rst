@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==============================
-Account Invioce Journal Filter
-==============================
+==============
+Account Invioce Company Search
+==============
 
 This module extends the functionality of account invoice to filter by to journal.
 
