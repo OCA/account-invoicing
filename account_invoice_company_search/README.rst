@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==============
+==============================
 Account Invioce Company Search
-==============
+==============================
 
 This module extends the functionality of account to search
 and group by to company. The user has to be Multi company.
