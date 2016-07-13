@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- SEARCH VIEW -->
+        <record id="view_invioce_filter" model="ir.ui.view">
+            <field name="name">invoice.view.select</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    </field>
+                <xpath expr="//group/filter[@name='group_by_partner_id']" position="before">
+                    <filter name="company_id" string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                </xpath>
+
+            </field>
+        </record>
+</data>
+</openerp>
