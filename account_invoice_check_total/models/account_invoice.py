@@ -19,8 +19,8 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_move_create(self):
         for inv in self:
-            if self.env.user.has_group(
-                    'account.group_supplier_inv_check_total'):
+            gr = 'account_invoice_check_total.group_supplier_inv_check_total'
+            if self.env.user.has_group(gr):
                 if inv.type in ('in_invoice', 'in_refund') and\
                     float_compare(
                         inv.check_total,
