@@ -15,4 +15,7 @@
         'account',
         'product',
     ],
+    'data': [
+        'views/account_invoice.xml',
+    ],
 }

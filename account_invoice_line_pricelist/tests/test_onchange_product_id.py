@@ -19,16 +19,19 @@ class TestOnchangeProductId(TransactionCase):
             'name': 'Test Product',
             'lst_price': 10.00,
         })
+        version_dict = {
+            'name': 'Test version',
+            'items_id': [
+                (0, 0, {
+                    'name': 'Test item default',
+                    'base': 1,
+                    'price_discount': 0.1, })]
+        }
         self.pricelist = self.env['product.pricelist'].create(
             {'name': 'Test pricelist',
              'type': 'sale',
              'currency_id': self.usd,
-             'version_id': [(0, 0, {'name': 'Test version',
-                                    'items_id': [
-                                       (0, 0, {'name': 'Test item default',
-                                               'base': 1,
-                                               'price_discount': 0.1, })]
-                                    })]})
+             'version_id': [(0, 0, version_dict)]})
         self.partner = self.env['res.partner'].create(
             {'name': 'Test partner',
              'property_product_pricelist': self.pricelist.id})
