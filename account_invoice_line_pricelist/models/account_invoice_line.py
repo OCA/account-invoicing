@@ -4,10 +4,13 @@
 
 from openerp import models, fields, api
 
+
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    pricelist_id = fields.Many2one('product.pricelist', 'Pricelist', help="Pricelist for current invoice.")
+    pricelist_id = fields.Many2one('product.pricelist', 'Pricelist',
+                                   help="Pricelist for current invoice.")
+
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
@@ -35,7 +38,10 @@ class AccountInvoiceLine(models.Model):
                 product_data = self.env['product.product'].browse(product)
                 price_unit = product_data.lst_price
                 partner = self.env['res.partner'].browse(partner_id)
-                pricelist = self._context.get('pricelist_id', False) or (partner.property_product_pricelist and partner.property_product_pricelist.id) or None
+                pricelist = self._context.get('pricelist_id', False) or \
+                    (partner.property_product_pricelist and
+                     partner.property_product_pricelist.id) \
+                    or None
                 if pricelist:
                     pricelist = self.env['product.pricelist'].browse(pricelist)
                     pricedict = pricelist.price_get(product, qty, partner_id)
