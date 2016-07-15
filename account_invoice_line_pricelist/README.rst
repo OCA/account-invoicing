@@ -8,11 +8,15 @@ Account Invoice Line Pricelist
 ==============================
 
 By installing this module, on customer/sale invoice lines the unit price will
-be calculated based on the Price List set for the Customer.
+be calculated based on the Price List set for the Invoice. If no Price List is
+set on the invoice, then it will be calculated based on the Price List set for
+the Customer.
 
 By default, in the standard Odoo, the method 'product_id_change' of model
 'account.invoice.line' doesn't take in consideration the pricelist assigned
 to a customer when calculating the unit price of customer/sale invoice.
+Moreover, in the standard Odoo, the model 'account.invoice' hasn't a
+pricelist related field.
 
 For invoices created from sale orders, product prices are already based on
 price lists. This is the standard behavior on Odoo. Only for the invoices
