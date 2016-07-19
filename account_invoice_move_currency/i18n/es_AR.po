@@ -1,0 +1,66 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_move_currency
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: account-invoicing (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-24 22:59+0000\n"
+"PO-Revision-Date: 2016-03-17 15:51+0000\n"
+"Last-Translator: Juan José Scarafía <scarafia.juanjose@gmail.com>\n"
+"Language-Team: Spanish (Argentina) (http://www.transifex.com/adhoc/ingadhoc-account-invoicing-8-0/language/es_AR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es_AR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_invoice_move_currency
+#: field:account.invoice,move_inverse_currency_rate:0
+msgid "Account Move Secondary Currency Rate"
+msgstr ""
+
+#. module: account_invoice_move_currency
+#: code:addons/account_invoice_move_currency/models/account_invoice.py:50
+#, python-format
+msgid ""
+"Can not use Secondary currency if invoice is in a Currency different from "
+"Company Currency"
+msgstr ""
+
+#. module: account_invoice_move_currency
+#: code:addons/account_invoice_move_currency/models/account_invoice.py:71
+#, python-format
+msgid "If Secondary currency select you must set rate"
+msgstr ""
+
+#. module: account_invoice_move_currency
+#: help:account.invoice,move_currency_id:0
+msgid ""
+"If you set a currency here, then this invoice values will be also stored in "
+"the related Account Move Secondary Currency"
+msgstr ""
+
+#. module: account_invoice_move_currency
+#: model:ir.model,name:account_invoice_move_currency.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_invoice_move_currency
+#: view:account.invoice:account_invoice_move_currency.invoice_supplier_form
+#: view:account.invoice:account_invoice_move_currency.view_sale_order_form
+msgid "Rate..."
+msgstr ""
+
+#. module: account_invoice_move_currency
+#: field:account.invoice,move_currency_id:0
+msgid "Secondary Currency"
+msgstr ""
+
+#. module: account_invoice_move_currency
+#: code:addons/account_invoice_move_currency/models/account_invoice.py:46
+#, python-format
+msgid "Secondary currency can not be the same as Invoice Currency"
+msgstr ""
