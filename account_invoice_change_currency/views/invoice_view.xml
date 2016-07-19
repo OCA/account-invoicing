@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="invoice_supplier_form">
+            <field name="name">account.invoice_supplier.view</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <field name="currency_id" position="after">
+                    <label attrs="{'invisible':[('state','!=','draft')]}" groups="account.group_account_user" string=""/>
+                    <button name="%(action_account_change_currency)d" type="action" class="oe_inline oe_link oe_edit_only" string="(change)" attrs="{'invisible':[('state','!=','draft')]}" groups="account.group_account_user"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="invoice_form">
+            <field name="name">account.invoice_supplier.view</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <field name="currency_id" position="after">
+                    <label attrs="{'invisible':[('state','!=','draft')]}" groups="account.group_account_user" string=""/>
+                    <button name="%(action_account_change_currency)d" type="action" class="oe_inline oe_link oe_edit_only" string="(change)" attrs="{'invisible':[('state','!=','draft')]}" groups="account.group_account_user"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
