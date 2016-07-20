@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Acsone SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+<data>
+
+    <record model="ir.ui.view" id="account_invoice_form_view">
+        <field name="name">account.invoice.form (in account_invoice_blocking)</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="move_id" position="after">
+                <field name="blocked" attrs="{'invisible': [('move_id', '=', False)]}"/>
+                <field name="draft_blocked" attrs="{'invisible': [('move_id', '!=', False)]}"/>
+            </field>
+        </field>
+    </record>
+
+</data>
+</openerp>
