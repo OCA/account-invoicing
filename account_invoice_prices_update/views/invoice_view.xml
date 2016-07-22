@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_sale_order_form">
+            <field name="name">account.invoice_price.view</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <button name="action_cancel_draft" position="after">
+                    <button name="%(account_invoice_prices_update.action_update_prices_list)d" states="cancel" string="Update Pricelist and Prices" type="action" groups="base.group_user" attrs="{'invisible':[('state', '!=', 'draft')]}" context="{'default_type': 'sale'}"/>
+                </button>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="invoice_supplier_form">
+            <field name="name">account.invoice_supplier.view</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <button name="invoice_cancel" position="after">
+                    <button name="%(account_invoice_prices_update.action_update_prices_list)d" states="cancel" string="Update Pricelist and Prices" type="action" groups="base.group_user" attrs="{'invisible':[('state', '!=', 'draft')]}" context="{'default_type': 'purchase'}"/>
+                </button>
+            </field>
+        </record>
+
+    </data>
+</openerp>
