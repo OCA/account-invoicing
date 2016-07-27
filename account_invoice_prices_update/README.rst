@@ -6,7 +6,7 @@
 Account Invoice Prices Update
 =============================
 
-This module adds a wizard to update prices of the products of an invoice according to the price list is chosen in the wizard.
+This module adds a wizard to update prices of the products of an invoice.
 
 
 Installation
