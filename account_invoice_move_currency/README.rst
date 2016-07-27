@@ -6,8 +6,9 @@
 Account Invoice Move Currency
 =============================
 
-This module extends the functionality of account invoice to
-allows force the seat on an invoice generated save the data in another currency.
+This module allows to set a secondary currency on invoices, 
+this currency will be used as secondary currency on the related move generated for this invoice.
+This is used, for eg. when you have the invoice on same company currency but you want to also store the debt in another currency.
 
 
 Installation
