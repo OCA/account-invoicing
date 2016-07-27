@@ -24,11 +24,6 @@
     'category': 'Accounting',
     'sequence': 14,
     'summary': 'Quotations, Sales Orders, Invoicing',
-    'description': """
-Account Invoice Journal Filter
-====================
-Agrupar facturas por diarios
-    """,
     'author':  'Odoo Community Association (OCA)',
     'website': 'https://odoo-community.org/',
     'license': 'AGPL-3',
