@@ -6,7 +6,7 @@
 Account Invioce Journal Filter
 ==============================
 
-This module extends the functionality of account invoice to filter by to journal.
+This module extends the functionality of account invoice to filter by journal.
 
 
 Installation
