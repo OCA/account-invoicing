@@ -306,9 +306,10 @@ class AccountInvoice(models.Model):
             trade_payment_term_desc.text =\
                 _('No specific payment term selected')
 
-        date_due_dt = fields.Date.from_string(self.date_due)
-        self._add_date(
-            'DueDateDateTime', date_due_dt, trade_payment_term, ns)
+        if self.date_due:
+            date_due_dt = fields.Date.from_string(self.date_due)
+            self._add_date(
+                'DueDateDateTime', date_due_dt, trade_payment_term, ns)
 
         sums = etree.SubElement(
             trade_settlement,
