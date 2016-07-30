@@ -2,58 +2,61 @@
 # This file contains the translation of the following modules:
 # * l10n_it_corrispettivi
 # 
+# Translators:
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-29 02:42+0000\n"
 "PO-Revision-Date: 2016-07-29 02:42+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>, 2016\n"
+"Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "(update)"
-msgstr "(update)"
+msgstr "(posodobi)"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Accounting Period"
-msgstr "Accounting Period"
+msgstr "Kontno obdobje"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Additional notes..."
-msgstr "Additional notes..."
+msgstr "Dodatne opombe..."
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_tree
 msgid "Approve"
-msgstr "Approve"
+msgstr "Odobri"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Preklic"
 
 #. module: l10n_it_corrispettivi
 #: model:ir.actions.act_window,name:l10n_it_corrispettivi.action_corrispettivi_config_data
 msgid "Configure Corrispettivi"
-msgstr "Configure Corrispettivi"
+msgstr "Nastavitev kompenzacij"
 
 #. module: l10n_it_corrispettivi
 #: view:corrispettivi.config.data:l10n_it_corrispettivi.view_corrispettivi_config_data
 msgid "Configure corrispettivi"
-msgstr "Configure corrispettivi"
+msgstr "Nastavitev kompenzacij"
 
 #. module: l10n_it_corrispettivi
 #: view:corrispettivi.config.data:l10n_it_corrispettivi.view_corrispettivi_config_data
 msgid "Continue"
-msgstr "Continue"
+msgstr "Nadaljuj"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_tree
@@ -63,84 +66,84 @@ msgstr "Continue"
 #: model:ir.ui.menu,name:l10n_it_corrispettivi.menu_action_corrispettivi_tree
 #: field:res.partner,corrispettivi:0
 msgid "Corrispettivi"
-msgstr "Corrispettivi"
+msgstr "Kompenzacije"
 
 #. module: l10n_it_corrispettivi
 #: view:corrispettivi.config.data:l10n_it_corrispettivi.view_corrispettivi_config_data
 msgid "Corrispettivi Configuration"
-msgstr "Corrispettivi Configuration"
+msgstr "Nastavitve kompenzacij"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 #: field:account.invoice,corrispettivo:0
 msgid "Corrispettivo"
-msgstr "Corrispettivo"
+msgstr "Kompenzacija"
 
 #. module: l10n_it_corrispettivi
 #: field:corrispettivi.config.data,create_uid:0
 msgid "Created by"
-msgstr "Created by"
+msgstr "Ustvaril"
 
 #. module: l10n_it_corrispettivi
 #: field:corrispettivi.config.data,create_date:0
 msgid "Created on"
-msgstr "Created on"
+msgstr "Ustvarjeno"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Customer"
-msgstr "Customer"
+msgstr "Kupec"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Customer Reference"
-msgstr "Customer Reference"
+msgstr "Sklic kupca"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_tree
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "Date"
-msgstr "Date"
+msgstr "Datum"
 
 #. module: l10n_it_corrispettivi
 #: field:corrispettivi.config.data,default_credit_account_id:0
 msgid "Default credit account"
-msgstr "Default credit account"
+msgstr "Privzeti konto terjatev"
 
 #. module: l10n_it_corrispettivi
 #: field:corrispettivi.config.data,default_debit_account_id:0
 msgid "Default debit account"
-msgstr "Default debit account"
+msgstr "Privzeti konto obveznosti"
 
 #. module: l10n_it_corrispettivi
 #: field:corrispettivi.config.data,display_name:0
 msgid "Display Name"
-msgstr "Display Name"
+msgstr "Prikazni naziv"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "Draft"
-msgstr "Draft"
+msgstr "Osnutek"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Draft Invoice"
-msgstr "Draft Invoice"
+msgstr "Osnutek računa"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "Draft Invoices"
-msgstr "Draft Invoices"
+msgstr "Osnutki računov"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Draft Refund"
-msgstr "Draft Refund"
+msgstr "Osnutek dobropisa"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "Group By..."
-msgstr "Group By..."
+msgstr "Združi po..."
 
 #. module: l10n_it_corrispettivi
 #: field:corrispettivi.config.data,id:0
@@ -151,60 +154,60 @@ msgstr "ID"
 #: help:corrispettivi.config.data,default_credit_account_id:0
 #: help:corrispettivi.config.data,default_debit_account_id:0
 msgid "If doubtful, use income account"
-msgstr "If doubtful, use income account"
+msgstr "V primeru dvoma uporabite konto prihodkov"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 #: model:ir.model,name:l10n_it_corrispettivi.model_account_invoice
 msgid "Invoice"
-msgstr "Invoice"
+msgstr "Račun"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Invoice Lines"
-msgstr "Invoice Lines"
+msgstr "Postavke računa"
 
 #. module: l10n_it_corrispettivi
 #: model:ir.model,name:l10n_it_corrispettivi.model_account_journal
 msgid "Journal"
-msgstr "Journal"
+msgstr "Dnevnik"
 
 #. module: l10n_it_corrispettivi
 #: field:corrispettivi.config.data,__last_update:0
 msgid "Last Modified on"
-msgstr "Last Modified on"
+msgstr "Zadnjič spremenjeno"
 
 #. module: l10n_it_corrispettivi
 #: field:corrispettivi.config.data,write_uid:0
 msgid "Last Updated by"
-msgstr "Last Updated by"
+msgstr "Zadnji posodobil"
 
 #. module: l10n_it_corrispettivi
 #: field:corrispettivi.config.data,write_date:0
 msgid "Last Updated on"
-msgstr "Last Updated on"
+msgstr "Zadnjič posodobljeno"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "My invoices"
-msgstr "My invoices"
+msgstr "Moji računi"
 
 #. module: l10n_it_corrispettivi
 #: code:addons/l10n_it_corrispettivi/account.py:22
 #: code:addons/l10n_it_corrispettivi/account.py:36
 #, python-format
 msgid "No partner \"corrispettivi\" found"
-msgstr "No partner \"corrispettivi\" found"
+msgstr "Ni najdenih partnerjev ta \"kompenzacije\""
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "Open/Paid"
-msgstr "Open/Paid"
+msgstr "Odprto/plačano"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Other Info"
-msgstr "Other Info"
+msgstr "Druge informacije"
 
 #. module: l10n_it_corrispettivi
 #: model:ir.model,name:l10n_it_corrispettivi.model_res_partner
@@ -214,72 +217,72 @@ msgstr "Partner"
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Payments"
-msgstr "Payments"
+msgstr "Plačila"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "Period"
-msgstr "Period"
+msgstr "Obdobje"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Re-Open"
-msgstr "Re-Open"
+msgstr "Ponovno odpri"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Recompute taxes and total"
-msgstr "Recompute taxes and total"
+msgstr "Preračunaj davke in total"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Refund"
-msgstr "Refund"
+msgstr "Dobropis"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Reset to Draft"
-msgstr "Reset to Draft"
+msgstr "Ponastavi v osnutek"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_tree
 msgid "Residual Amount"
-msgstr "Residual Amount"
+msgstr "Preostali znesek"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "Responsible"
-msgstr "Responsible"
+msgstr "Odgovorni"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "Salesman"
-msgstr "Salesman"
+msgstr "Prodajalec"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "Search Corrispettivi"
-msgstr "Search Corrispettivi"
+msgstr "Iskanje kompenzacij"
 
 #. module: l10n_it_corrispettivi
 #: view:corrispettivi.config.data:l10n_it_corrispettivi.view_corrispettivi_config_data
 msgid "Select data to configure Corrispettivi module."
-msgstr "Select data to configure Corrispettivi module."
+msgstr "Izbira podatkov za nastavitev modula za kompenzacije."
 
 #. module: l10n_it_corrispettivi
 #: view:corrispettivi.config.data:l10n_it_corrispettivi.view_corrispettivi_config_data
 msgid "Skip"
-msgstr "Skip"
+msgstr "Preskoči"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "State"
-msgstr "State"
+msgstr "Stanje"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Taxes"
-msgstr "Taxes"
+msgstr "Davki"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
@@ -291,44 +294,44 @@ msgid ""
 "You should press this button to re-open it and let it continue its normal "
 "process after having resolved the eventual exceptions it may have created."
 msgstr ""
-"This button only appears when the state of the invoice is 'paid' (showing "
-"that it has been fully reconciled) and auto-computed boolean 'reconciled' is"
-" False (depicting that it's not the case anymore). In other words, the "
-"invoice has been dereconciled and it does not fit anymore the 'paid' state. "
-"You should press this button to re-open it and let it continue its normal "
-"process after having resolved the eventual exceptions it may have created."
+"Ta gumb se pojavi le, ko je stanje računa 'plačano' (prikazuje, da še ni "
+"popolnoma usklajeno) in ko je samodejno obdelan Bool izraz 'usklajeno' enak "
+"'False' (nakazuje, da ni več tako). Z drugimi besedami, račun je bil od-"
+"usklajen in ne ustreza več stanju 'plačano'. Da bi ga ponovno odprli, morate"
+" pritisniti ta gumb in tako po odpravi morebitnih izjem, ki bi lahko "
+"nastale, nadaljevati z običajnim procesom."
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_tree
 msgid "Total Amount"
-msgstr "Total Amount"
+msgstr "Skupni znesek"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.view_account_corrispettivi_filter
 msgid "Unpaid"
-msgstr "Unpaid"
+msgstr "Neplačano"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_tree
 msgid "Untaxed Amount"
-msgstr "Untaxed Amount"
+msgstr "Neobdavčeni znesek"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "Validate"
-msgstr "Validate"
+msgstr "Overi"
 
 #. module: l10n_it_corrispettivi
 #: view:account.invoice:l10n_it_corrispettivi.corrispettivi_form
 msgid "force period"
-msgstr "force period"
+msgstr "vsili obdobje"
 
 #. module: l10n_it_corrispettivi
 #: view:corrispettivi.config.data:l10n_it_corrispettivi.view_corrispettivi_config_data
 msgid "or"
-msgstr "or"
+msgstr "ali"
 
 #. module: l10n_it_corrispettivi
 #: view:corrispettivi.config.data:l10n_it_corrispettivi.view_corrispettivi_config_data
 msgid "title"
-msgstr "title"
+msgstr "naziv"
