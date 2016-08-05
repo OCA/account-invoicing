@@ -25,12 +25,13 @@ class TestInvoiceImport(TransactionCase):
             })
         # Set this tax on Internet access product
         internet_product = self.env.ref(
-            'account_invoice_import.internet_access')
+            'account_invoice_import_invoice2data.internet_access')
         internet_product.supplier_taxes_id = [(6, 0, [frtax.id])]
 
     def test_import_free_invoice(self):
         f = file_open(
-            'account_invoice_import/tests/pdf/invoice_free_fiber_201507.pdf',
+            'account_invoice_import_invoice2data/tests/pdf/'
+            'invoice_free_fiber_201507.pdf',
             'rb')
         pdf_file = f.read()
         wiz = self.env['account.invoice.import'].create({
@@ -50,7 +51,8 @@ class TestInvoiceImport(TransactionCase):
         self.assertEquals(inv.type, 'in_invoice')
         self.assertEquals(inv.date_invoice, '2015-07-02')
         self.assertEquals(
-            inv.partner_id, self.env.ref('account_invoice_import.free'))
+            inv.partner_id,
+            self.env.ref('account_invoice_import_invoice2data.free'))
         self.assertEquals(inv.journal_id.type, 'purchase')
         self.assertEquals(
             float_compare(inv.check_total, 29.99, precision_digits=2), 0)
@@ -64,7 +66,7 @@ class TestInvoiceImport(TransactionCase):
         self.assertEquals(iline.name, 'Fiber optic access at the main office')
         self.assertEquals(
             iline.product_id,
-            self.env.ref('account_invoice_import.internet_access'))
+            self.env.ref('account_invoice_import_invoice2data.internet_access'))
         self.assertEquals(
             float_compare(iline.quantity, 1.0, precision_digits=0), 0)
         self.assertEquals(
@@ -80,7 +82,8 @@ class TestInvoiceImport(TransactionCase):
 
         # New import with update of an existing draft invoice
         f = file_open(
-            'account_invoice_import/tests/pdf/invoice_free_fiber_201507.pdf',
+            'account_invoice_import_invoice2data/tests/pdf/'
+            'invoice_free_fiber_201507.pdf',
             'rb')
         pdf_file = f.read()
         wiz2 = self.env['account.invoice.import'].create({
