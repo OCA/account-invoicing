@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="account_invoice_exception_confirm_wizard" model="ir.ui.view">
+            <field name="name">Account Invoice Exceptions</field>
+            <field name="model">account.invoice.exception.confirm</field>
+            <field name="arch" type="xml">
+                <form string="Blocked in draft due to exceptions">
+                    <group>
+                        <field name="exception_ids" nolabel="1" colspan="4">
+                            <tree string="Invoice Exceptions">
+                                <field name="name"/>
+                                <field name="description"/>
+                            </tree>
+                        </field>
+                        <newline/>
+                        <field name="ignore" groups="account.group_account_manager"/>
+                    </group>
+                    <footer>
+                        <button name="action_confirm" string="_Close"
+                            colspan="1" type="object" icon="gtk-ok" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_invoice_exception_confirm" model="ir.actions.act_window">
+            <field name="name">Blocked in draft due to exceptions</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice.exception.confirm</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_invoice_exception_confirm_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

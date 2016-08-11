@@ -1,0 +1,102 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record id="view_account_invoice_exception_tree" model="ir.ui.view">
+            <field name="name">account.invoice.exception.tree</field>
+            <field name="model">account.invoice.exception</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice Exception">
+                    <field name="active"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="model"/>
+                    <field name="sequence"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_exception_form" model="ir.ui.view">
+            <field name="name">account.invoice.exception.form</field>
+            <field name="model">account.invoice.exception</field>
+            <field name="arch" type="xml">
+                <form string="Invoice Exception Setup">
+                    <group colspan="4" col="2">
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                    <group col="4" colspan="4" groups="account.group_account_manager">
+                        <field name="active"/>
+                        <field name="sequence"/>
+                        <group colspan="4" col="2" groups="base.group_system">
+                            <field name="model"/>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                    <group colspan="4" col="2">
+                        <separator string="Affected Invoices"/>
+                        <newline/>
+                        <field name="invoice_ids" nolabel="1" domain="[('state', '=', 'draft')]"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_invoice_test_tree" model="ir.actions.act_window">
+                  <field name="name">Invoice Exception Rules</field>
+                  <field name="res_model">account.invoice.exception</field>
+                  <field name="view_type">form</field>
+                  <field name="view_mode">tree,form</field>
+                  <field name="view_id" ref="view_account_invoice_exception_tree"/>
+                  <field name="context">{'active_test': False}</field>
+              </record>
+
+        <menuitem action="action_account_invoice_test_tree" id="menu_sale_test" parent="account.menu_finance_configuration"/>
+
+
+        <record id="view_account_invoice_form" model="ir.ui.view">
+            <field name="name">account.invoice.exception.invoice_form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <group>
+                    <field name="main_exception_id" options='{"no_open": True}'
+                           class="oe_inline" string="Error:"
+                           attrs="{'invisible':[('main_exception_id','=', False)]}"/>
+                    </group>
+                </field>
+                <xpath expr="//page[@string='Other Information']/group"
+                        position="inside">
+                    <group name="exception" colspan="2" col="2">
+                        <separator string="Exception" colspan="2"/>
+                        <field name="exception_ids" colspan="2" nolabel="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_tree" model="ir.ui.view">
+            <field name="name">account.invoice.exception.invoice_tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="main_exception_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_filter" model="ir.ui.view">
+            <field name="name">account.invoice.exception.invoice_filter</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <filter name="Invoices" position="after">
+                    <separator orientation="vertical"/>
+                    <filter icon="terp-emblem-important" name="tofix" string="Blocked in draft" domain="[('main_exception_id','!=',False)]"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</openerp>

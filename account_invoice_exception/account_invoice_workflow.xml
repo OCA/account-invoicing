@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="account.t4" model="workflow.transition">
+            <field name="signal">invoice_open</field>
+            <field name="condition">test_exceptions()</field>
+        </record>
+        <record id="account.draft_to_pro2" model="workflow.transition">
+            <field name="signal">invoice_open</field>
+            <field name="condition">test_exceptions()</field>
+        </record>
+    </data>
+</openerp>

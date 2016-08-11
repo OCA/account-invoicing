@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record forcecreate="True" id="ir_cron_test_invoices" model="ir.cron">
+            <field name="name">Test Draft Invoices</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">20</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'account.invoice'" name="model"/>
+            <field eval="'test_all_draft_invoices'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+    
+    </data>
+</openerp>
