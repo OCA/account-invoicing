@@ -53,6 +53,8 @@ class AccountInvoiceImport(models.TransientModel):
         # If you crash here, you should just update invoice2data to the
         # latest version from github
         res['currency_iso'] = res.pop('currency')
+        if 'vat' in res:
+            res['partner_vat'] = res.pop('vat')
         if 'amount_tax' in res and 'amount_untaxed' not in res:
             res['amount_untaxed'] = res['amount_total'] - res['amount_tax']
         elif 'amount_untaxed' not in res and 'amount_tax' not in res:

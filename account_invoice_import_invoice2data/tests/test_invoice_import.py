@@ -66,7 +66,8 @@ class TestInvoiceImport(TransactionCase):
         self.assertEquals(iline.name, 'Fiber optic access at the main office')
         self.assertEquals(
             iline.product_id,
-            self.env.ref('account_invoice_import_invoice2data.internet_access'))
+            self.env.ref(
+                'account_invoice_import_invoice2data.internet_access'))
         self.assertEquals(
             float_compare(iline.quantity, 1.0, precision_digits=0), 0)
         self.assertEquals(

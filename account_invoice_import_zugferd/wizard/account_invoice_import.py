@@ -301,7 +301,7 @@ class AccountInvoiceImport(models.TransientModel):
             tax_ids = self.select_taxes_of_invoice_line(
                 taxes_xpath, namespaces, unece2odoo_tax, name)
             vals = {
-                'ean13': ean13_xpath and ean13_xpath[0].text or False,
+                'product_ean13': ean13_xpath and ean13_xpath[0].text or False,
                 'product_code':
                 product_code_xpath and product_code_xpath[0].text or False,
                 'quantity': qty,
@@ -409,7 +409,7 @@ class AccountInvoiceImport(models.TransientModel):
                     % (abs(total_tradeallowance), total_tradeallowance_lines))
 
         res = {
-            'vat': vat_xpath and vat_xpath[0].text or False,
+            'partner_vat': vat_xpath and vat_xpath[0].text or False,
             'partner_name': supplier_xpath[0].text,
             'partner_email': email_xpath and email_xpath[0].text or False,
             'invoice_number': inv_number_xpath[0].text,
@@ -423,8 +423,8 @@ class AccountInvoiceImport(models.TransientModel):
             'lines': res_lines,
             }
         # Hack for the sample ZUGFeRD invoices that use an invalid VAT number !
-        if res['vat'] == 'DE123456789':
-            res.pop('vat')
+        if res['partner_vat'] == 'DE123456789':
+            res.pop('partner_vat')
             if not res.get('partner_email'):
                 res['partner_name'] = 'Lieferant GmbH'
         logger.info('Result of ZUGFeRD XML parsing: %s', res)
