@@ -23,7 +23,7 @@
     type: 'out_invoice'
     move_currency_id: base.EUR
     move_inverse_currency_rate: 25.40
-    account_id: analytic.analytic_agrolait
+    account_id: my_account
     journal_id: my_sales_journal
     date_invoice: !eval time.strftime('%Y-%m')+'-01'
     invoice_line_ids:
@@ -61,7 +61,7 @@
     type: 'out_invoice'
     move_currency_id: base.EUR
     move_inverse_currency_rate: 28.40
-    account_id: analytic.analytic_agrolait
+    account_id: my_account2
     journal_id: my_sales_journal2
     date_invoice: !eval time.strftime('%Y-%m')+'-01'
     invoice_line_ids:
