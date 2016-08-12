@@ -1,0 +1,77 @@
+-
+  !record {model: account.account, id: my_account}:
+        code: X1021
+        name: Product Sales Demo
+        user_type_id: account.data_account_type_revenue
+
+-
+  !record {model: account.journal, id: my_sales_journal}:
+        name: Sales Journal Demo
+        code: TSAJ
+        type: sale
+        refund_sequence: !eval True
+        default_debit_account_id: my_account
+        default_credit_account_id: my_account
+
+-
+  !record {model: account.invoice, id: my_demo_invoice_1}:
+    company_id: base.main_company
+    partner_id: base.res_partner_12
+    user_id: base.user_demo
+    reference_type: none
+    payment_term_id: account.account_payment_term
+    type: 'out_invoice'
+    move_currency_id: base.EUR
+    move_inverse_currency_rate: 25.40
+    account_id: analytic.analytic_agrolait
+    journal_id: my_sales_journal
+    date_invoice: !eval time.strftime('%Y-%m')+'-01'
+    invoice_line_ids:
+      - name: 'Dell Inspiron Laptop without OS'
+        product_id: product.product_product_49
+        price_unit: 642.0
+        quantity: 5
+      - name: 'Linutop'
+        product_id: product.product_product_50
+        price_unit: 280.0
+        quantity: 5.0
+
+-
+  !record {model: account.account, id: my_account2}:
+        code: X1022
+        name: Product Sales Demo2
+        user_type_id: account.data_account_type_revenue
+
+-
+  !record {model: account.journal, id: my_sales_journal2}:
+        name: Sales Journal Demo 2
+        code: TSAJ
+        type: sale
+        refund_sequence: !eval True
+        default_debit_account_id: my_account2
+        default_credit_account_id: my_account2
+
+-
+  !record {model: account.invoice, id: my_demo_invoice_2}:
+    company_id: base.main_company
+    partner_id: base.res_partner_12
+    user_id: base.user_demo
+    reference_type: none
+    payment_term_id: account.account_payment_term
+    type: 'out_invoice'
+    move_currency_id: base.EUR
+    move_inverse_currency_rate: 28.40
+    account_id: analytic.analytic_agrolait
+    journal_id: my_sales_journal2
+    date_invoice: !eval time.strftime('%Y-%m')+'-01'
+    invoice_line_ids:
+      - name: 'TypeMatrix Dvorak Keyboard'
+        product_id: product.product_product_49
+        price_unit: 300.0
+        quantity: 5
+      - name: 'Ergonomic Mouse '
+        product_id: product.product_product_50
+        price_unit: 200.0
+        quantity: 5.0
+
+

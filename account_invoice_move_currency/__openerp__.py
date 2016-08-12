@@ -29,6 +29,9 @@
     'data': [
         'views/invoice_view.xml',
     ],
+    'demo': [
+        'demo/account_invoice_demo.yml',
+    ],
     'website': 'https://odoo-community.org/',
     'license': 'AGPL-3',
     'installable': True,
