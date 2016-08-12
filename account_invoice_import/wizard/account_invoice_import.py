@@ -78,7 +78,8 @@ class AccountInvoiceImport(models.TransientModel):
         # 'date_start': '2015-10-01',  # for services over a period of time
         # 'date_end': '2015-10-31',
         # 'amount_untaxed': 10.0,  # < 0 for refunds
-        # 'amount_total': 12.0,  # Total with taxes
+        # 'amount_tax': 2.0,  # provide amount_untaxed OR amount_tax
+        # 'amount_total': 12.0,  # Total with taxes, must always be provided
         # 'partner_vat': 'FR25499247138',
         # 'partner_email': 'support@browserstack.com'
         #          partner_email is not needed if we have VAT
@@ -91,9 +92,10 @@ class AccountInvoiceImport(models.TransientModel):
         # 'chatter_msg': 'Note added in chatter of the invoice',
         # 'lines': [{
         #       'product_ean13': '4123456000021',
-        #       'price_unit': 1.45,  # price_unit always positive
         #       'product_code': 'GZ250',
+        #       'product': Odoo product.product recordset,
         #       'name': 'Gelierzucker Extra 250g',
+        #       'price_unit': 1.45,  # price_unit always positive
         #       'quantity': -2.0,  # < 0 when it's a refund
         #       'uos_id': ID product.uom,
         #       'tax_ids': [ID account.tax],
@@ -276,6 +278,8 @@ class AccountInvoiceImport(models.TransientModel):
     def _match_product(self, parsed_line, partner):
         """This method is designed to be inherited"""
         ppo = self.env['product.product']
+        if parsed_line.get('product'):
+            return parsed_line['product']
         if parsed_line.get('product_ean13'):
             # Don't filter on purchase_ok = 1 because we don't depend
             # on the purchase module
@@ -283,31 +287,34 @@ class AccountInvoiceImport(models.TransientModel):
                 ('ean13', '=', parsed_line['product_ean13'])])
             if products:
                 return products[0]
-            elif parsed_line.get('product_code'):
-                # Should probably be modified to match via the supplier code
-                products = ppo.search(
-                    [('default_code', '=', parsed_line['product_code'])])
-                if products:
-                    return products[0]
-                # WARNING: Won't work for multi-variant products
-                # because product.supplierinfo is attached to product template
-                if partner:
-                    sinfo = self.env['product.supplierinfo'].search([
-                        ('name', '=', partner.id),
-                        ('product_code', '=', parsed_line['product_code']),
-                        ])
-                    if (
-                            sinfo and
-                            sinfo[0].product_tmpl_id.product_variant_ids and
-                            len(
-                            sinfo[0].product_tmpl_id.product_variant_ids) == 1
-                            ):
-                        return sinfo[0].product_tmpl_id.product_variant_ids[0]
+        if parsed_line.get('product_code'):
+            # Should probably be modified to match via the supplier code
+            products = ppo.search(
+                [('default_code', '=', parsed_line['product_code'])])
+            if products:
+                return products[0]
+            # WARNING: Won't work for multi-variant products
+            # because product.supplierinfo is attached to product template
+            if partner:
+                sinfo = self.env['product.supplierinfo'].search([
+                    ('name', '=', partner.id),
+                    ('product_code', '=', parsed_line['product_code']),
+                    ])
+                if (
+                        sinfo and
+                        sinfo[0].product_tmpl_id.product_variant_ids and
+                        len(
+                        sinfo[0].product_tmpl_id.product_variant_ids) == 1
+                        ):
+                    return sinfo[0].product_tmpl_id.product_variant_ids[0]
         raise UserError(_(
             "Could not find any corresponding product in the Odoo database "
-            "with EAN13 '%s' or Default Code '%s'.") % (
+            "with EAN13 '%s' or Default Code '%s' or "
+            "Supplier Product Code '%s' with supplier '%s'.") % (
                 parsed_line.get('product_ean13'),
-                parsed_line.get('product_code')))
+                parsed_line.get('product_code'),
+                parsed_line.get('product_code'),
+                partner and partner.name or 'None'))
 
     @api.model
     def set_1line_price_unit_and_quantity(self, il_vals, parsed_inv):
@@ -397,6 +404,14 @@ class AccountInvoiceImport(models.TransientModel):
         prec_pp = self.env['decimal.precision'].precision_get('Product Price')
         prec_uom = self.env['decimal.precision'].precision_get(
             'Product Unit of Measure')
+        if 'amount_tax' in parsed_inv and 'amount_untaxed' not in parsed_inv:
+            parsed_inv['amount_untaxed'] =\
+                parsed_inv['amount_total'] - parsed_inv['amount_tax']
+        elif (
+                'amount_untaxed' not in parsed_inv and
+                'amount_tax' not in parsed_inv):
+            # For invoices that never have taxes
+            parsed_inv['amount_untaxed'] = parsed_inv['amount_total']
         if float_compare(
                 parsed_inv['amount_total'], 0, precision_digits=prec_ac) == -1:
             parsed_inv['type'] = 'in_refund'

@@ -55,13 +55,4 @@ class AccountInvoiceImport(models.TransientModel):
         res['currency_iso'] = res.pop('currency')
         if 'vat' in res:
             res['partner_vat'] = res.pop('vat')
-        if 'amount_tax' in res and 'amount_untaxed' not in res:
-            res['amount_untaxed'] = res['amount_total'] - res['amount_tax']
-        elif 'amount_untaxed' not in res and 'amount_tax' not in res:
-            # For invoices that never have taxes
-            res['amount_untaxed'] = res['amount_total']
-        # convert datetime to string, to make it json serializable
-        for key, value in res.iteritems():
-            if value and isinstance(value, datetime):
-                res[key] = fields.Date.to_string(value)
         return res
