@@ -92,6 +92,8 @@ class TestInvoiceImport(TransactionCase):
             })
         f.close()
         action = wiz2.import_invoice()
+        self.assertEquals(
+            action['res_model'], 'account.invoice.import')
         # Choose to update the existing invoice
         wiz2.update_invoice()
         invoices = self.env['account.invoice'].search([
