@@ -8,7 +8,6 @@ from openerp.tools import float_compare, float_round
 from openerp.exceptions import Warning as UserError
 from lxml import etree
 import logging
-import base64
 import mimetypes
 
 logger = logging.getLogger(__name__)
@@ -103,34 +102,35 @@ class AccountInvoiceImport(models.TransientModel):
         # }
 
     @api.model
-    def _select_partner(self, parsed_inv):
+    def _select_partner(self, parsed_inv, partner_type='supplier'):
         if parsed_inv.get('partner'):
             return parsed_inv['partner']
         if parsed_inv.get('partner_vat'):
             vat = parsed_inv['partner_vat'].replace(' ', '').upper()
             # use base_vat_sanitized
             partners = self.env['res.partner'].search([
-                ('supplier', '=', True),
+                (partner_type, '=', True),
                 ('parent_id', '=', False),
                 ('sanitized_vat', '=', vat)])
             if partners:
                 return partners[0]
             else:
+                # TODO: update error msg
                 raise UserError(_(
                     "The analysis of the invoice returned '%s' as "
-                    "supplier VAT number. But there are no supplier "
+                    "partner VAT number. But there are no supplier "
                     "with this VAT number in Odoo.") % vat)
         if parsed_inv.get('partner_email'):
             partners = self.env['res.partner'].search([
                 ('email', '=ilike', parsed_inv['partner_email']),
-                ('supplier', '=', True)])
+                (partner_type, '=', True)])
             if partners:
                 return partners[0].commercial_partner_id
         if parsed_inv.get('partner_name'):
             partners = self.env['res.partner'].search([
                 ('name', '=ilike', parsed_inv['partner_name']),
                 ('is_company', '=', True),
-                ('supplier', '=', True)])
+                (partner_type, '=', True)])
             if partners:
                 return partners[0]
         raise UserError(_(
@@ -275,7 +275,7 @@ class AccountInvoiceImport(models.TransientModel):
         return vals
 
     @api.model
-    def _match_product(self, parsed_line, partner):
+    def _match_product(self, parsed_line, partner=False):
         """This method is designed to be inherited"""
         ppo = self.env['product.product']
         if parsed_line.get('product'):
@@ -372,8 +372,9 @@ class AccountInvoiceImport(models.TransientModel):
     @api.multi
     def parse_invoice(self):
         self.ensure_one()
+        assert self.invoice_file, 'No invoice file'
         logger.info('Starting to import invoice %s', self.invoice_filename)
-        file_data = base64.b64decode(self.invoice_file)
+        file_data = self.invoice_file.decode('base64')
         parsed_inv = {}
         filetype = mimetypes.guess_type(self.invoice_filename)
         logger.debug('Invoice mimetype: %s', filetype)
@@ -435,6 +436,7 @@ class AccountInvoiceImport(models.TransientModel):
 
     @api.multi
     def import_invoice(self):
+        """Method called by the button of the wizard (1st step)"""
         self.ensure_one()
         aio = self.env['account.invoice']
         iaao = self.env['ir.actions.act_window']

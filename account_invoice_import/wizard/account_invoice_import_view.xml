@@ -19,13 +19,13 @@
             </group>
             <group name="help-import" states="import">
               <div>
-                <p>Upload below the supplier invoice or refund as PDF or XML file. When you click on the Import button:</p>
+                <p>Upload below the supplier invoice or refund as PDF or XML file:</p>
                 <ol>
-                  <li>If it is an XML file, Odoo will parse it if the module that adds support for this XML format is installed. For the <a href="http://ubl.xml.org/" target="_blank">Universal Business Language</a> format (UBL), you should install the module <em>account_invoice_import_ubl</em>.</li>
-                  <li>If it is a PDF file and the module <em>account_invoice_import_zugferd</em> is installed, Odoo will try to extract an XML file embedded inside the PDF file. It will work only if the invoice complies with the <a href="//www.pdflib.com/knowledge-base/pdfa/zugferd-invoices/" target="_blank">ZUGFeRD</a> standard (based on the <a href="http://tfig.unece.org/contents/cross-industry-invoice-cii.htm" target="_blank">Cross Industry Invoice</a> specifications).</li>
-                  <li>Otherwise, Odoo will use the <a href="https://github.com/m3nu/invoice2data/" target="_blank">invoice2data</a> library to read the text of the PDF and get the information. It will work only if the invoice2data library has a template for the invoices of that supplier.</li>
-                  <li>Odoo will use this information to create a draft supplier invoice. If there is already a draft invoice for that supplier in Odoo, you will have the option to update that invoice.</li>
+                  <li>If it is an XML file, Odoo will parse it if the module that adds support for this XML format is installed. For the <a href="http://ubl.xml.org/" target="_blank">Universal Business Language</a> format (UBL, also known as <a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=66370">ISO/IEC 19845</a>), you should install the module <em>account_invoice_import_ubl</em>.</li>
+                  <li>If it is a PDF/A-3 file with an embedded XML file and the module <em>account_invoice_import_zugferd</em> is installed, Odoo will extract and parse the embedded XML file. It will work only if the invoice complies with the <a href="//www.pdflib.com/knowledge-base/pdfa/zugferd-invoices/" target="_blank">ZUGFeRD</a> standard (based on the <a href="http://tfig.unece.org/contents/cross-industry-invoice-cii.htm" target="_blank">Cross Industry Invoice</a> specifications).</li>
+                  <li>If it is a regular PDF file without any embedded XML file and the module <em>account_invoice_import_invoice2data</em> is installed, Odoo will use the <a href="https://github.com/m3nu/invoice2data/" target="_blank">invoice2data</a> library to read the text of the PDF and get the information. It will work only if the invoice2data library has a template for the invoices of that supplier.</li>
                 </ol>
+                <p>Odoo will create a draft supplier invoice or refund. If there is an existing draft invoice for that supplier, Odoo will propose you to update that draft invoice or create a new invoice.</p>
               </div>
             </group>
             <group name="help-update" states="update">

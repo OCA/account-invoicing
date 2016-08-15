@@ -29,14 +29,13 @@ class TestInvoiceImport(TransactionCase):
         internet_product.supplier_taxes_id = [(6, 0, [frtax.id])]
 
     def test_import_free_invoice(self):
+        filename = 'invoice_free_fiber_201507.pdf'
         f = file_open(
-            'account_invoice_import_invoice2data/tests/pdf/'
-            'invoice_free_fiber_201507.pdf',
-            'rb')
+            'account_invoice_import_invoice2data/tests/pdf/' + filename, 'rb')
         pdf_file = f.read()
         wiz = self.env['account.invoice.import'].create({
             'invoice_file': base64.b64encode(pdf_file),
-            'invoice_filename': 'invoice_free_fiber_201507.pdf',
+            'invoice_filename': filename,
         })
         f.close()
         wiz.import_invoice()
@@ -94,7 +93,7 @@ class TestInvoiceImport(TransactionCase):
         f.close()
         action = wiz2.import_invoice()
         # Choose to update the existing invoice
-        wiz2.with_context(action['context']).update_invoice()
+        wiz2.update_invoice()
         invoices = self.env['account.invoice'].search([
             ('state', '=', 'draft'),
             ('type', '=', 'in_invoice'),
