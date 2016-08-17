@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-<data>
+<data >
+		<record id="group_force_invoice_number" model="res.groups">
+	        <field name="name">Force Invoice Number</field>
+	        <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+	        <!-- Need to add user under the security setting to enable edit of invoice number -->
+	    </record>
 
         <record model="ir.ui.view" id="account_invoice_form_int_number">
             <field name="name">account.invoice.form.int_number</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
+            	<xpath expr="//sheet/group/group/field[@name='internal_number']" position="replace"/>
                 <xpath expr="//sheet/group/group/field[@name='fiscal_position']" position="after">
-                    <field name="internal_number" attrs="{'invisible':[('state','!=','draft')]}" string="Force Number" help="Force invoice number. Use this field if you don't want to use the default numbering"/>
+                    <field name="internal_number"  attrs="{'invisible':[('state','!=','draft')]}" string="Force Number"                    	 
+                    	help="Force invoice number. Use this field if you don't want to use the default numbering"
+                    	groups="account_invoice_force_number.group_force_invoice_number"                    	
+                    	/>
                 </xpath>
             </field>
         </record>
@@ -18,8 +27,12 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
+            	<xpath expr="//sheet/group/group/field[@name='internal_number']" position="replace"/>            	
                 <xpath expr="//sheet/group/group/field[@name='fiscal_position']" position="after">
-                    <field name="internal_number" attrs="{'invisible':[('state','!=','draft')]}" string="Force Number" help="Force invoice number. Use this field if you don't want to use the default numbering"/>
+                    <field name="internal_number" attrs="{'invisible':[('state','!=','draft')]}" string="Force Number" 
+	                    help="Force invoice number. Use this field if you don't want to use the default numbering"
+						groups="account_invoice_force_number.group_force_invoice_number"
+                    	/>
                 </xpath>
             </field>
         </record>

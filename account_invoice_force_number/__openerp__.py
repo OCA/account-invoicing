@@ -35,7 +35,7 @@ invoice numbering for a specific invoice.
     'website': 'http://www.agilebg.com',
     'license': 'AGPL-3',
     "depends": [
-        'account'
+        'base','account'
     ],
     "data": [
         'invoice_view.xml'
