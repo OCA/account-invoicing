@@ -53,12 +53,20 @@ class AccountInvoiceImport(models.TransientModel):
         '''This method must be inherited by additionnal modules with
         the same kind of logic as the account_bank_statement_import_*
         modules'''
-        res = self.fallback_parse_pdf_invoice(file_data)
-        if not res:
+        xml_files_dict = self.get_xml_files_from_pdf(file_data)
+        for xml_filename, xml_root in xml_files_dict.iteritems():
+            logger.info('Trying to parse XML file %s', xml_filename)
+            try:
+                parsed_inv = self.parse_xml_invoice(xml_root)
+                return parsed_inv
+            except:
+                continue
+        parsed_inv = self.fallback_parse_pdf_invoice(file_data)
+        if not parsed_inv:
             raise UserError(_(
                 "This type of PDF invoice is not supported. Did you install "
                 "the module to support this type of file?"))
-        return res
+        return parsed_inv
 
     def fallback_parse_pdf_invoice(self, file_data):
         '''Designed to be inherited by the module
@@ -70,9 +78,10 @@ class AccountInvoiceImport(models.TransientModel):
 
         # Dict to return:
         # {
-        # 'currency_iso': 'EUR',
-        # 'currency_symbol': u'€',  # The one or the other
-        # 'currency': res.currency recordset,
+        # 'currency': {
+        #    'iso': 'EUR',
+        #    'currency_symbol': u'€',  # The one or the other
+        #    },
         # 'date': '2015-10-08',  # Must be a string
         # 'date_due': '2015-11-07',
         # 'date_start': '2015-10-01',  # for services over a period of time
@@ -80,25 +89,26 @@ class AccountInvoiceImport(models.TransientModel):
         # 'amount_untaxed': 10.0,  # < 0 for refunds
         # 'amount_tax': 2.0,  # provide amount_untaxed OR amount_tax
         # 'amount_total': 12.0,  # Total with taxes, must always be provided
-        # 'partner_vat': 'FR25499247138',
-        # 'partner_email': 'support@browserstack.com'
-        #          partner_email is not needed if we have VAT
-        # 'partner_name': 'Capitaine Train'
-        #          partner_name is not needed if we have VAT or partner_email
+        # 'partner': {
+        #       'vat': 'FR25499247138',
+        #       'email': 'support@browserstack.com',
+        #       'name': 'Capitaine Train',
+        #       },
         # 'partner': res.partner recordset,
         # 'invoice_number': 'I1501243',
         # 'description': 'TGV Paris-Lyon',
         # 'attachments': {'file1.pdf': base64data1, 'file2.pdf': base64data2},
         # 'chatter_msg': 'Note added in chatter of the invoice',
         # 'lines': [{
-        #       'product_ean13': '4123456000021',
-        #       'product_code': 'GZ250',
-        #       'product': Odoo product.product recordset,
+        #       'product': {
+        #           'ean13': '4123456000021',
+        #           'code': 'GZ250',
+        #           },
         #       'name': 'Gelierzucker Extra 250g',
         #       'price_unit': 1.45,  # price_unit always positive
         #       'quantity': -2.0,  # < 0 when it's a refund
-        #       'uos_id': ID product.uom,
-        #       'tax_ids': [ID account.tax],
+        #       'uom': {'unece_code': 'C62'},
+        #       'taxes': [list of tax_dict],
         #       }],
         # }
 
@@ -108,8 +118,10 @@ class AccountInvoiceImport(models.TransientModel):
         ailo = self.env['account.invoice.line']
         company = self.env.user.company_id
         assert parsed_inv.get('amount_total'), 'Missing amount_total'
-        partner = self._match_partner(parsed_inv)
-        currency = self._match_currency(parsed_inv)
+        partner = self._match_partner(
+            parsed_inv['partner'], parsed_inv['chatter_msg'])
+        currency = self._match_currency(
+            parsed_inv.get('currency'), parsed_inv['chatter_msg'])
         vals = {
             'partner_id': partner.id,
             'currency_id': currency.id,
@@ -148,10 +160,10 @@ class AccountInvoiceImport(models.TransientModel):
                     'bank_bic': parsed_inv.get('bic'),
                     })
                 vals['partner_bank_id'] = partner_bank.id
-                parsed_inv['chatter_msg'] = _(
+                parsed_inv['chatter_msg'].append(_(
                     "The bank account <b>IBAN %s</b> has been automatically "
                     "added on the supplier <b>%s</b>") % (
-                    parsed_inv['iban'], partner.name)
+                    parsed_inv['iban'], partner.name))
         config = partner.invoice_import_id
         if config.invoice_line_method.startswith('1line'):
             if config.invoice_line_method == '1line_no_product':
@@ -203,7 +215,8 @@ class AccountInvoiceImport(models.TransientModel):
             for line in parsed_inv['lines']:
                 il_vals = static_vals.copy()
                 if config.invoice_line_method == 'nline_auto_product':
-                    product = self._match_product(line, partner)
+                    product = self._match_product(
+                        line['product'], parsed_inv['chatter_msg'], partner)
                     fposition_id = partner.property_account_position.id
                     il_vals.update(
                         ailo.product_id_change(
@@ -213,13 +226,15 @@ class AccountInvoiceImport(models.TransientModel):
                             company_id=company.id)['value'])
                     il_vals['product_id'] = product.id
                 elif config.invoice_line_method == 'nline_no_product':
-                    il_vals['invoice_line_tax_id'] = line['tax_ids']
+                    taxes = self._match_taxes(
+                        line.get('taxes'), parsed_inv['chatter_msg'])
+                    il_vals['invoice_line_tax_id'] = taxes.ids
                 if line.get('name'):
                     il_vals['name'] = line['name']
                 elif not il_vals.get('name'):
                     il_vals['name'] = _('MISSING DESCRIPTION')
-                if line.get('uos_id'):
-                    il_vals['uos_id'] = line['uos_id']
+                uom = self._match_uom(line.get('uom'), parsed_inv['chatter_msg'])
+                il_vals['uos_id'] = uom.id
                 il_vals.update({
                     'quantity': line['quantity'],
                     'price_unit': line['price_unit'],
@@ -323,6 +338,8 @@ class AccountInvoiceImport(models.TransientModel):
                     line['price_unit'], precision_digits=prec_pp)
                 if parsed_inv['type'] == 'in_refund':
                     line['quantity'] *= -1
+        if 'chatter_msg' not in parsed_inv:
+            parsed_inv['chatter_msg'] = []
         logger.debug('Resulf of invoice parsing parsed_inv=%s', parsed_inv)
         return parsed_inv
 
@@ -333,10 +350,12 @@ class AccountInvoiceImport(models.TransientModel):
         aio = self.env['account.invoice']
         iaao = self.env['ir.actions.act_window']
         parsed_inv = self.parse_invoice()
-        partner = self._match_partner(parsed_inv)
-        currency = self._match_currency(parsed_inv)
-        parsed_inv['partner'] = partner
-        parsed_inv['currency'] = currency
+        partner = self._match_partner(
+            parsed_inv['partner'], parsed_inv['chatter_msg'])
+        currency = self._match_currency(
+            parsed_inv.get('currency'), parsed_inv['chatter_msg'])
+        parsed_inv['partner']['recordset'] = partner
+        parsed_inv['currency']['recordset'] = currency
         self.write({
             'partner_id': partner.id,
             'invoice_type': parsed_inv['type'],
@@ -440,8 +459,8 @@ class AccountInvoiceImport(models.TransientModel):
                     'datas': data_base64,
                     'datas_fname': filename,
                     })
-        if parsed_inv.get('chatter_msg'):
-            invoice.message_post(parsed_inv['chatter_msg'])
+        for chatter_msg in parsed_inv['chatter_msg']:
+            invoice.message_post(chatter_msg)
         return invoice
 
     @api.model

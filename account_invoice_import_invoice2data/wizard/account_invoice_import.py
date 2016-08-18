@@ -21,6 +21,10 @@ class AccountInvoiceImport(models.TransientModel):
         '''This method must be inherited by additionnal modules with
         the same kind of logic as the account_bank_statement_import_*
         modules'''
+        return self.invoice2data_parse_invoice(file_data)
+
+    @api.model
+    def invoice2data_parse_invoice(self, file_data):
         logger.info('Trying to analyze PDF invoice with invoice2data lib')
         fd, file_name = mkstemp()
         try:
@@ -38,20 +42,40 @@ class AccountInvoiceImport(models.TransientModel):
             'Calling invoice2data.extract_data with templates=%s',
             templates)
         try:
-            res = extract_data(file_name, templates=templates)
+            invoice2data_res = extract_data(file_name, templates=templates)
         except Exception, e:
             raise UserError(_(
                 "PDF Invoice parsing failed. Error message: %s") % e)
-        if not res:
+        if not invoice2data_res:
             raise UserError(_(
                 "This PDF invoice doesn't match a known template of "
                 "the invoice2data lib."))
-        logger.info('Result of invoice2data PDF extraction: %s', res)
-        # rewrite a few keys
-        res['amount_total'] = res.pop('amount')
-        # If you crash here, you should just update invoice2data to the
-        # latest version from github
-        res['currency_iso'] = res.pop('currency')
-        if 'vat' in res:
-            res['partner_vat'] = res.pop('vat')
-        return res
+        logger.info(
+            'Result of invoice2data PDF extraction: %s', invoice2data_res)
+        return self.invoice2data_to_parsed_inv(invoice2data_res)
+
+    @api.model
+    def invoice2data_to_parsed_inv(self, invoice2data_res):
+        parsed_inv = {
+            'partner': {
+                'vat': invoice2data_res.get('vat'),
+                'name': invoice2data_res.get('partner_name'),
+                'email': invoice2data_res.get('partner_email'),
+                'siren': invoice2data_res.get('siren'),
+                },
+            'currency': {
+                'iso': invoice2data_res.get('currency'),
+                },
+            'amount_total': invoice2data_res.get('amount'),
+            'invoice_number': invoice2data_res.get('invoice_number'),
+            'date': invoice2data_res.get('date'),
+            'date_due': invoice2data_res.get('date_due'),
+            'date_start': invoice2data_res.get('date_start'),
+            'date_end': invoice2data_res.get('date_end'),
+            'description': invoice2data_res.get('description'),
+            }
+        if 'amount_untaxed' in invoice2data_res:
+            parsed_inv['amount_untaxed'] = invoice2data_res['amount_untaxed']
+        if 'amount_tax' in invoice2data_res:
+            parsed_inv['amount_tax'] = invoice2data_res['amount_tax']
+        return parsed_inv

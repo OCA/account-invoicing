@@ -11,7 +11,11 @@
     'invoices',
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
-    'depends': ['product', 'base_vat_sanitized'],
+    'depends': [
+        'base_vat_sanitized',
+        'account_tax_unece',
+        'product_uom_unece',
+        ],
     'external_dependencies': {'python': ['PyPDF2']},
     'installable': True,
 }

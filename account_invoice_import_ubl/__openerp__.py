@@ -10,12 +10,7 @@
     'summary': 'Import UBL XML supplier invoices/refunds',
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
-    'depends': [
-        'account_invoice_import',
-        'base_vat',
-        'account_tax_unece',
-        'product_uom_unece',
-        ],
+    'depends': ['account_invoice_import'],
     'data': [],
     'demo': ['demo/demo_data.xml'],
     'installable': True,
