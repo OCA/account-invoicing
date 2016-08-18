@@ -233,7 +233,8 @@ class AccountInvoiceImport(models.TransientModel):
                     il_vals['name'] = line['name']
                 elif not il_vals.get('name'):
                     il_vals['name'] = _('MISSING DESCRIPTION')
-                uom = self._match_uom(line.get('uom'), parsed_inv['chatter_msg'])
+                uom = self._match_uom(
+                    line.get('uom'), parsed_inv['chatter_msg'])
                 il_vals['uos_id'] = uom.id
                 il_vals.update({
                     'quantity': line['quantity'],
