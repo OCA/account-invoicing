@@ -49,7 +49,7 @@ class BusinessDocumentImport(models.AbstractModel):
                     "The analysis of the business document returned '%s' as "
                     "%s VAT number. But there are no %s "
                     "with this VAT number in Odoo.")
-                    % (partner_type_label, partner_type_label, vat))
+                    % (vat, partner_type_label, partner_type_label))
         if partner_dict.get('email') and '@' in partner_dict['email']:
             partners = rpo.search(
                 domain + [('email', '=ilike', partner_dict['email'])])

@@ -3,14 +3,17 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Account Invoice Import UBL',
+    'name': 'Base UBL',
     'version': '8.0.1.0.0',
-    'category': 'Accounting & Finance',
+    'category': 'Hidden',
     'license': 'AGPL-3',
-    'summary': 'Import UBL XML supplier invoices/refunds',
+    'summary': 'Base module for Universal Business Language (UBL)',
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
-    'depends': ['account_invoice_import', 'base_ubl'],
-    'demo': ['demo/demo_data.xml'],
+    'depends': [
+        'product_uom_unece',
+        'account_tax_unece',
+        ],
+    'external_dependencies': {'python': ['PyPDF2']},
     'installable': True,
 }

@@ -120,6 +120,7 @@ class AccountInvoiceImport(models.TransientModel):
         assert parsed_inv.get('amount_total'), 'Missing amount_total'
         partner = self._match_partner(
             parsed_inv['partner'], parsed_inv['chatter_msg'])
+        partner = partner.commercial_partner_id
         currency = self._match_currency(
             parsed_inv.get('currency'), parsed_inv['chatter_msg'])
         vals = {
@@ -353,6 +354,7 @@ class AccountInvoiceImport(models.TransientModel):
         parsed_inv = self.parse_invoice()
         partner = self._match_partner(
             parsed_inv['partner'], parsed_inv['chatter_msg'])
+        partner = partner.commercial_partner_id
         currency = self._match_currency(
             parsed_inv.get('currency'), parsed_inv['chatter_msg'])
         parsed_inv['partner']['recordset'] = partner

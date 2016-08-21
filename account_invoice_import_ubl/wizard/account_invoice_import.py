@@ -12,7 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 class AccountInvoiceImport(models.TransientModel):
-    _inherit = 'account.invoice.import'
+    _name = 'account.invoice.import'
+    _inherit = ['account.invoice.import', 'base.ubl']
 
     @api.model
     def parse_xml_invoice(self, xml_root):
@@ -64,14 +65,7 @@ class AccountInvoiceImport(models.TransientModel):
             if unece_uom == 'ZZ':
                 unece_uom = 'C62'
             uom = {'unece_code': unece_uom}
-        ean13_xpath = iline.xpath(
-            "cac:Item"
-            "/cac:StandardItemIdentification"
-            "/cbc:ID[@schemeID='GTIN']",
-            namespaces=namespaces)
-        product_code_xpath = iline.xpath(
-            "cac:Item/cac:SellersItemIdentification/cbc:ID",
-            namespaces=namespaces)
+        product_dict = self.ubl_parse_product(iline, namespaces)
         name_xpath = iline.xpath(
             "cac:Item/cbc:Description", namespaces=namespaces)
         name = name_xpath and name_xpath[0].text or '-'
@@ -122,11 +116,7 @@ class AccountInvoiceImport(models.TransientModel):
             taxes.append(tax_dict)
 
         vals = {
-            'product': {
-                'ean13': ean13_xpath and ean13_xpath[0].text or False,
-                'code':
-                product_code_xpath and product_code_xpath[0].text or False,
-                },
+            'product': product_dict,
             'quantity': qty * sign,
             'uom': uom,
             'price_unit': price_unit,
@@ -157,17 +147,9 @@ class AccountInvoiceImport(models.TransientModel):
                 sign = -1
         inv_number_xpath = xml_root.xpath('//cbc:ID', namespaces=namespaces)
         supplier_xpath = xml_root.xpath(
-            '/inv:Invoice/cac:AccountingSupplierParty/cac:Party/'
-            'cac:PartyName/cbc:Name',
+            '/inv:Invoice/cac:AccountingSupplierParty/cac:Party',
             namespaces=namespaces)
-        vat_xpath = xml_root.xpath(
-            '/inv:Invoice/cac:AccountingSupplierParty/cac:Party'
-            '/cac:PartyTaxScheme/cbc:CompanyID',
-            namespaces=namespaces)
-        email_xpath = xml_root.xpath(
-            "/inv:Invoice/cac:AccountingSupplierParty/cac:Party"
-            "/cac:Contact/cbc:ElectronicMail",
-            namespaces=namespaces)
+        supplier_dict = self.ubl_parse_party(supplier_xpath[0], namespaces)
         date_xpath = xml_root.xpath(
             '/inv:Invoice/cbc:IssueDate', namespaces=namespaces)
         date_dt = datetime.strptime(date_xpath[0].text, '%Y-%m-%d')
@@ -236,11 +218,7 @@ class AccountInvoiceImport(models.TransientModel):
                 "rounded sum policies.", total_line, total_line_lines)
 
         res = {
-            'partner': {
-                'vat': vat_xpath and vat_xpath[0].text or False,
-                'name': supplier_xpath[0].text,
-                'email': email_xpath and email_xpath[0].text or False,
-                },
+            'partner': supplier_dict,
             'invoice_number': inv_number_xpath[0].text,
             'date': fields.Date.to_string(date_dt),
             'date_due': date_due_str,
