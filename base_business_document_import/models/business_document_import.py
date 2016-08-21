@@ -72,6 +72,13 @@ class BusinessDocumentImport(models.AbstractModel):
                             partner_dict['email'],
                             partner_type_label))
                     return partners[0]
+        if partner_dict.get('ref'):
+            partners = rpo.search(
+                domain + [
+                    ('ref', '=', partner_dict['ref']),
+                    ('is_company', '=', True)])
+            if partners:
+                return partners[0]
         if partner_dict.get('name'):
             partners = rpo.search(
                 domain + [
@@ -85,11 +92,13 @@ class BusinessDocumentImport(models.AbstractModel):
             "information extracted from the business document:\n"
             "VAT number: %s\n"
             "E-mail: %s\n"
+            "Reference: %s\n"
             "Name: %s\n")
             % (
                 partner_type_label,
                 partner_dict.get('vat'),
                 partner_dict.get('email'),
+                partner_dict.get('ref'),
                 partner_dict.get('name')))
 
     @api.model

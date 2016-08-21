@@ -20,21 +20,24 @@ class BaseUbl(models.AbstractModel):
     # ==================== METHODS TO GENERATE UBL files
 
     @api.model
-    def _ubl_add_address(self, partner, node_label, parent_node, ns):
-        address = etree.SubElement(parent_node, ns['cac'] + node_label)
-        if partner.street:
-            street1 = etree.SubElement(address, ns['cbc'] + 'StreetName')
-            street1.text = partner.street
-            if partner.street2:
-                street2 = etree.SubElement(
-                    address, ns['cbc'] + 'AdditionalStreetName')
-                street2.text = partner.street2
-            if hasattr(partner, 'street3') and partner.street3:
-                # TODO: see if we have a better tag for street3
-                # Check AddressLine/Line
-                street3 = etree.SubElement(
-                    address, ns['cbc'] + 'BuildingName')
-                street3.text = partner.street3
+    def _ubl_add_address_line(self, street, parent_node, ns):
+        address_line = etree.SubElement(parent_node, ns['cac'] + 'AddressLine')
+        line = etree.SubElement(address_line, ns['cbc'] + 'Line')
+        line.text = street
+
+    @api.model
+    def _ubl_add_country(self, country, parent_node, ns):
+        country_root = etree.SubElement(parent_node, ns['cac'] + 'Country')
+        country_code = etree.SubElement(
+            country_root, ns['cbc'] + 'IdentificationCode')
+        country_code.text = country.code
+        country_name = etree.SubElement(
+            country_root, ns['cbc'] + 'Name')
+        country_name.text = country.name
+
+    @api.model
+    def _ubl_add_address(self, partner, node_name, parent_node, ns):
+        address = etree.SubElement(parent_node, ns['cac'] + node_name)
         if partner.city:
             city = etree.SubElement(address, ns['cbc'] + 'CityName')
             city.text = partner.city
@@ -45,11 +48,17 @@ class BaseUbl(models.AbstractModel):
             state = etree.SubElement(
                 address, ns['cbc'] + 'CountrySubentity')
             state.text = partner.state_id.name
+            state_code = etree.SubElement(
+                address, ns['cbc'] + 'CountrySubentityCode')
+            state_code.text = partner.state_id.code
+        if partner.street:
+            self._ubl_add_address_line(partner.street, address, ns)
+        if partner.street2:
+            self._ubl_add_address_line(partner.street2, address, ns)
+        if hasattr(partner, 'street3') and partner.street3:
+            self._ubl_add_address_line(partner.street3, address, ns)
         if partner.country_id:
-            country = etree.SubElement(address, ns['cac'] + 'Country')
-            country_code = etree.SubElement(
-                country, ns['cbc'] + 'IdentificationCode')
-            country_code.text = partner.country_id.code
+            self._ubl_add_country(partner.country_id, address, ns)
         else:
             logger.warning('UBL: missing country on partner %s', partner.name)
 
@@ -74,12 +83,29 @@ class BaseUbl(models.AbstractModel):
             electronicmail.text = email
 
     @api.model
-    def _ubl_add_party(self, partner, parent_node, ns):
-        party = etree.SubElement(parent_node, ns['cac'] + 'Party')
+    def _ubl_add_language(self, lang_code, parent_node, ns):
+        langs = self.env['res.lang'].search([('code', '=', lang_code)])
+        if not langs:
+            return
+        lang = langs[0]
+        lang_root = etree.SubElement(parent_node, ns['cac'] + 'Language')
+        lang_name = etree.SubElement(lang_root, ns['cbc'] + 'Name')
+        lang_name.text = lang.name
+        lang_code = etree.SubElement(lang_root, ns['cbc'] + 'LocaleCode')
+        lang_code.text = lang.code
+
+    @api.model
+    def _ubl_add_party(self, partner, node_name, parent_node, ns):
+        commercial_partner = partner.commercial_partner_id
+        party = etree.SubElement(parent_node, ns['cac'] + node_name)
+        if commercial_partner.website:
+            website = etree.SubElement(party, ns['cbc'] + 'WebsiteURI')
+            website.text = commercial_partner.website
         party_name = etree.SubElement(party, ns['cac'] + 'PartyName')
         name = etree.SubElement(party_name, ns['cbc'] + 'Name')
-        commercial_partner = partner.commercial_partner_id
         name.text = commercial_partner.name
+        if partner.lang:
+            self._ubl_add_language(partner.lang, party, ns)
         self._ubl_add_address(commercial_partner, 'PostalAddress', party, ns)
         if commercial_partner.vat:
             party_tax_scheme = etree.SubElement(
@@ -97,6 +123,74 @@ class BaseUbl(models.AbstractModel):
                 schemeAgencyID='6')
             tax_scheme_id.text = 'VAT'
         self._ubl_add_contact(partner, party, ns)
+
+    @api.model
+    def _ubl_add_customer_party(
+            self, partner, company, node_name, parent_node, ns):
+        """Please read the docstring of the method _ubl_add_supplier_party"""
+        if company:
+            if partner:
+                assert partner.commercial_partner_id == company.partner_id,\
+                    'partner is wrong'
+            else:
+                partner = company.partner_id
+        customer_party_root = etree.SubElement(
+            parent_node, ns['cac'] + node_name)
+        if not company and partner.commercial_partner_id.ref:
+            customer_ref = etree.SubElement(
+                customer_party_root, ns['cbc'] + 'SupplierAssignedAccountID')
+            customer_ref.text = partner.commercial_partner_id.ref
+        self._ubl_add_party(partner, 'Party', customer_party_root, ns)
+
+    @api.model
+    def _ubl_add_supplier_party(
+            self, partner, company, node_name, parent_node, ns):
+        """The company argument has been added to property  handle the
+        'ref' field.
+        In Odoo, we only have one ref field, in which we are supposed
+        to enter the reference that our company gives to its
+        customers/suppliers. We unfortunately don't have a native field to
+        enter the reference that our suppliers/customers give to us.
+        So, to set the fields CustomerAssignedAccountID and
+        SupplierAssignedAccountID, I need to know if the partner for
+        which we want to build the party block is our company or a
+        regular partner:
+        1) if it is a regular partner, call the method that way:
+            self._ubl_add_supplier_party(partner, False, ...)
+        2) if it is our company, call the method that way:
+            self._ubl_add_supplier_party(False, company, ...)
+        """
+        if company:
+            if partner:
+                assert partner.commercial_partner_id == company.partner_id,\
+                    'partner is wrong'
+            else:
+                partner = company.partner_id
+        supplier_party_root = etree.SubElement(
+            parent_node, ns['cac'] + node_name)
+        if not company and partner.commercial_partner_id.ref:
+            supplier_ref = etree.SubElement(
+                supplier_party_root, ns['cbc'] + 'CustomerAssignedAccountID')
+            supplier_ref.text = partner.commercial_partner_id.ref
+        self._ubl_add_party(partner, 'Party', supplier_party_root, ns)
+
+    @api.model
+    def _ubl_add_delivery(self, delivery_partner, parent_node, ns):
+        delivery = etree.SubElement(parent_node, ns['cac'] + 'Delivery')
+        delivery_location = etree.SubElement(
+            delivery, ns['cac'] + 'DeliveryLocation')
+        self._ubl_add_address(
+            delivery_partner, 'Address', delivery_location, ns)
+        self._ubl_add_party(
+            delivery_partner, 'DeliveryParty', delivery, ns)
+
+    @api.model
+    def _ubl_add_payment_terms(self, payment_term, parent_node, ns):
+        pay_term_root = etree.SubElement(
+            parent_node, ns['cac'] + 'PaymentTerms')
+        pay_term_note = etree.SubElement(
+            pay_term_root, ns['cbc'] + 'Note')
+        pay_term_note.text = payment_term.name
 
     @api.model
     def _ubl_add_product_item(
@@ -193,6 +287,24 @@ class BaseUbl(models.AbstractModel):
     # ==================== METHODS TO PARSE UBL files
 
     @api.model
+    def ubl_parse_customer_party(self, customer_party_node, ns):
+        ref_xpath = customer_party_node.xpath(
+            'cac:SupplierAssignedAccountID', namespaces=ns)
+        party_node = customer_party_node.xpath('cac:Party', namespaces=ns)[0]
+        partner_dict = self.ubl_parse_party(party_node, ns)
+        partner_dict['ref'] = ref_xpath and ref_xpath[0].text or False
+        return partner_dict
+
+    @api.model
+    def ubl_parse_supplier_party(self, customer_party_node, ns):
+        ref_xpath = customer_party_node.xpath(
+            'cac:CustomerAssignedAccountID', namespaces=ns)
+        party_node = customer_party_node.xpath('cac:Party', namespaces=ns)[0]
+        partner_dict = self.ubl_parse_party(party_node, ns)
+        partner_dict['ref'] = ref_xpath and ref_xpath[0].text or False
+        return partner_dict
+
+    @api.model
     def ubl_parse_party(self, party_node, ns):
         partner_name_xpath = party_node.xpath(
             'cac:PartyName/cbc:Name', namespaces=ns)
@@ -205,11 +317,16 @@ class BaseUbl(models.AbstractModel):
             namespaces=ns)
         country_code = country_code_xpath and country_code_xpath[0].text and\
             country_code_xpath[0].text.upper() or False
+        zip_xpath = party_node.xpath(
+            'cac:PostalAddress/cac:PostalZone', namespaces=ns)
+        zip = zip_xpath and zip_xpath[0].text and\
+            zip_xpath[0].text.replace(' ', '') or False
         partner_dict = {
             'vat': vat_xpath and vat_xpath[0].text or False,
             'name': partner_name_xpath[0].text,
             'email': email_xpath and email_xpath[0].text or False,
             'country_code': country_code,
+            'zip': zip,
             }
         return partner_dict
 

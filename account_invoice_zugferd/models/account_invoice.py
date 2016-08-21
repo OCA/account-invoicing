@@ -360,6 +360,7 @@ class AccountInvoice(models.Model):
         line_trade_agreement = etree.SubElement(
             line_item,
             ns['ram'] + 'SpecifiedSupplyChainTradeAgreement')
+        # TODO: wrong on price_include taxes
         gross_price_val = iline.price_unit
         net_price_val = iline.price_unit * (
             1 - (iline.discount or 0.0) / 100.0)

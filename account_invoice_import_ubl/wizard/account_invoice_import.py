@@ -147,9 +147,9 @@ class AccountInvoiceImport(models.TransientModel):
                 sign = -1
         inv_number_xpath = xml_root.xpath('//cbc:ID', namespaces=namespaces)
         supplier_xpath = xml_root.xpath(
-            '/inv:Invoice/cac:AccountingSupplierParty/cac:Party',
+            '/inv:Invoice/cac:AccountingSupplierParty',
             namespaces=namespaces)
-        supplier_dict = self.ubl_parse_party(supplier_xpath[0], namespaces)
+        supplier_dict = self.ubl_parse_supplier_party(supplier_xpath[0], namespaces)
         date_xpath = xml_root.xpath(
             '/inv:Invoice/cbc:IssueDate', namespaces=namespaces)
         date_dt = datetime.strptime(date_xpath[0].text, '%Y-%m-%d')
