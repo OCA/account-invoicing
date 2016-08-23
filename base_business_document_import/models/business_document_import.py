@@ -21,6 +21,16 @@ class BusinessDocumentImport(models.AbstractModel):
     @api.model
     def _match_partner(
             self, partner_dict, chatter_msg, partner_type='supplier'):
+        """Example:
+        partner_dict = {
+            'country_code': 'FR',
+            'state_code': False,
+            'vat': 'FR12448890432',
+            'email': 'roger.lemaire@akretion.com',
+            'name': 'Akretion France',
+            'ref': 'C1242',
+            }
+        """
         rpo = self.env['res.partner']
         if partner_dict.get('recordset'):
             return partner_dict['recordset']
@@ -35,6 +45,30 @@ class BusinessDocumentImport(models.AbstractModel):
         else:
             domain = []
             partner_type_label = _('partner')
+        country = False
+        if partner_dict.get('country_code'):
+            countries = self.env['res.country'].search([
+                ('code', '=', partner_dict['country_code'])])
+            if countries:
+                country = countries[0]
+                domain += [
+                    '|',
+                    ('country_id', '=', False),
+                    ('country_id', '=', country.id)]
+            else:
+                chatter_msg.append(_(
+                    "The analysis of the business document returned '%s' as "
+                    "country code. But there are no country with that code "
+                    "in Odoo.") % partner_dict['country_code'])
+        if country and partner_dict.get('state_code'):
+            states = self.env['res.country.state'].search([
+                ('code', '=', partner_dict['state_code']),
+                ('country_id', '=', country.id)])
+            if states:
+                domain += [
+                    '|',
+                    ('state_id', '=', False),
+                    ('state_id', '=', states[0].id)]
         if partner_dict.get('vat'):
             vat = partner_dict['vat'].replace(' ', '').upper()
             # use base_vat_sanitized
@@ -90,20 +124,73 @@ class BusinessDocumentImport(models.AbstractModel):
         raise UserError(_(
             "Odoo couldn't find any %s corresponding to the following "
             "information extracted from the business document:\n"
+            "Country code: %s\n"
+            "State code: %s\n"
             "VAT number: %s\n"
             "E-mail: %s\n"
             "Reference: %s\n"
             "Name: %s\n")
             % (
                 partner_type_label,
+                partner_dict.get('country_code'),
+                partner_dict.get('state_code'),
                 partner_dict.get('vat'),
                 partner_dict.get('email'),
                 partner_dict.get('ref'),
                 partner_dict.get('name')))
 
     @api.model
+    def _match_shipping_partner(self, shipping_dict, partner, chatter_msg):
+        rpo = self.env['res.partner']
+        if shipping_dict.get('partner'):
+            partner = self._match_partner(
+                shipping_dict['partner'], chatter_msg, partner_type=False)
+        domain = [('parent_id', '=', partner.id)]
+        address_dict = shipping_dict['address']
+        country = False
+        if address_dict.get('country_code'):
+            countries = self.env['res.country'].search([
+                ('code', '=', address_dict['country_code'])])
+            if countries:
+                country = countries[0]
+                domain += [
+                    '|',
+                    ('country_id', '=', False),
+                    ('country_id', '=', country.id)]
+            else:
+                chatter_msg.append(_(
+                    "The analysis of the business document returned '%s' as "
+                    "country code. But there are no country with that code "
+                    "in Odoo.") % address_dict['country_code'])
+        if country and address_dict.get('state_code'):
+            states = self.env['res.country.state'].search([
+                ('code', '=', address_dict['state_code']),
+                ('country_id', '=', country.id)])
+            if states:
+                domain += [
+                    '|',
+                    ('state_id', '=', False),
+                    ('state_id', '=', states[0].id)]
+        if address_dict.get('zip'):
+            domain.append(('zip', '=', address_dict['zip']))
+            # TODO: sanitize ZIP ?
+        partners = rpo.search(domain + [('type', '=', 'delivery')])
+        if partners:
+            partner = partners[0]
+        else:
+            partners = rpo.search(domain)
+            if partners:
+                partner = partners[0]
+        return partner
+
+    @api.model
     def _match_product(self, product_dict, chatter_msg, partner=False):
-        """This method is designed to be inherited"""
+        """Example:
+        product_dict = {
+            'ean13': '5449000054227',
+            'code': 'COCA1L',
+            }
+        """
         ppo = self.env['product.product']
         if product_dict.get('recordset'):
             return product_dict['recordset']
@@ -147,6 +234,13 @@ class BusinessDocumentImport(models.AbstractModel):
 
     @api.model
     def _match_currency(self, currency_dict, chatter_msg):
+        """Example:
+        currency_dict = {
+            'iso': 'USD',  # If we have ISO, no need to have more keys
+            'symbol': '$',
+            'country_code': 'US',
+            }
+        """
         if not currency_dict:
             currency_dict = {}
         rco = self.env['res.currency']
@@ -217,6 +311,12 @@ class BusinessDocumentImport(models.AbstractModel):
 
     @api.model
     def _match_uom(self, uom_dict, chatter_msg, product=False):
+        """Example:
+        uom_dict = {
+            'unece_code': 'LTR',
+            'name': 'Liter',
+            }
+        """
         puo = self.env['product.uom']
         if not uom_dict:
             uom_dict = {}
@@ -225,6 +325,9 @@ class BusinessDocumentImport(models.AbstractModel):
         if uom_dict.get('id'):
             return puo.browse(uom_dict['id'])
         if uom_dict.get('unece_code'):
+            # Map NIU to Unit
+            if uom_dict['unece_code'] == 'NIU':
+                uom_dict['unece_code'] = 'C62'
             uoms = puo.search([
                 ('unece_code', '=', uom_dict['unece_code'])])
             if uoms:

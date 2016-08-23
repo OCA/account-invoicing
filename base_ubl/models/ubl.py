@@ -7,7 +7,8 @@ from openerp.exceptions import Warning as UserError
 from lxml import etree
 from StringIO import StringIO
 from tempfile import NamedTemporaryFile
-from PyPDF2 import PdfFileWriter, PdfFileReader
+import PyPDF2
+import mimetypes
 import logging
 
 logger = logging.getLogger(__name__)
@@ -185,12 +186,57 @@ class BaseUbl(models.AbstractModel):
             delivery_partner, 'DeliveryParty', delivery, ns)
 
     @api.model
+    def _ubl_add_delivery_terms(self, incoterm, parent_node, ns):
+        delivery_term = etree.SubElement(
+            parent_node, ns['cac'] + 'DeliveryTerms')
+        delivery_term_id = etree.SubElement(
+            delivery_term, ns['cbc'] + 'ID',
+            schemeAgencyID='6', schemeID='INCOTERM')
+        delivery_term_id.text = incoterm.code
+
+    @api.model
     def _ubl_add_payment_terms(self, payment_term, parent_node, ns):
         pay_term_root = etree.SubElement(
             parent_node, ns['cac'] + 'PaymentTerms')
         pay_term_note = etree.SubElement(
             pay_term_root, ns['cbc'] + 'Note')
         pay_term_note.text = payment_term.name
+
+    @api.model
+    def _ubl_add_line_item(
+            self, line_number, product, type, quantity, uom, parent_node, ns,
+            seller=False, currency=False, price_unit=False,
+            price_subtotal=False):
+        line_item = etree.SubElement(
+            parent_node, ns['cac'] + 'LineItem')
+        line_item_id = etree.SubElement(line_item, ns['cbc'] + 'ID')
+        line_item_id.text = unicode(line_number)
+        if not uom.unece_code:
+            raise UserError(_(
+                "Missing UNECE code on unit of measure '%s'")
+                % uom.name)
+        quantity_node = etree.SubElement(
+            line_item, ns['cbc'] + 'Quantity',
+            unitCode=uom.unece_code)
+        quantity_node.text = unicode(quantity)
+        if currency and price_subtotal:
+            line_amount = etree.SubElement(
+                line_item, ns['cbc'] + 'LineExtensionAmount',
+                currencyID=currency.name)
+            line_amount.text = unicode(price_subtotal)
+        if currency and price_unit:
+            price = etree.SubElement(
+                line_item, ns['cac'] + 'Price')
+            price_amount = etree.SubElement(
+                price, ns['cbc'] + 'PriceAmount',
+                currencyID=currency.name)
+            price_amount.text = unicode(price_unit)
+            base_qty = etree.SubElement(
+                price, ns['cbc'] + 'BaseQuantity',
+                unitCode=uom.unece_code)
+            base_qty.text = '1'  # What else could it be ?
+        self._ubl_add_product_item(
+            product, line_item, ns, type=type, seller=seller)
 
     @api.model
     def _ubl_add_product_item(
@@ -209,7 +255,7 @@ class BaseUbl(models.AbstractModel):
                     product_name = sellers[0].product_name
                     seller_code = sellers[0].product_code
         elif type == 'sale':
-            descr = product.sale_purchase
+            descr = product.description_sale
         if not seller_code:
             seller_code = product.default_code
         if not product_name:
@@ -245,6 +291,23 @@ class BaseUbl(models.AbstractModel):
             property_value.text = attribute_value.name
 
     @api.model
+    def _ubl_get_nsmap_namespace(self, doc_name):
+        nsmap = {
+            None: 'urn:oasis:names:specification:ubl:schema:xsd:' + doc_name,
+            'cac': 'urn:oasis:names:specification:ubl:'
+                   'schema:xsd:CommonAggregateComponents-2',
+            'cbc': 'urn:oasis:names:specification:ubl:schema:xsd:'
+                   'CommonBasicComponents-2',
+            }
+        ns = {
+            'cac': '{urn:oasis:names:specification:ubl:schema:xsd:'
+                   'CommonAggregateComponents-2}',
+            'cbc': '{urn:oasis:names:specification:ubl:schema:xsd:'
+                   'CommonBasicComponents-2}',
+            }
+        return nsmap, ns
+
+    @api.model
     def _check_xml_schema(self, xml_string, xsd_file):
         '''Validate the XML file against the XSD'''
         xsd_etree_obj = etree.parse(tools.file_open(xsd_file))
@@ -272,8 +335,8 @@ class BaseUbl(models.AbstractModel):
     def embed_xml_in_pdf(self, xml_string, xml_filename, pdf_content):
         logger.debug('Starting to embed %s in PDF file', xml_filename)
         original_pdf_file = StringIO(pdf_content)
-        original_pdf = PdfFileReader(original_pdf_file)
-        new_pdf_filestream = PdfFileWriter()
+        original_pdf = PyPDF2.PdfFileReader(original_pdf_file)
+        new_pdf_filestream = PyPDF2.PdfFileWriter()
         new_pdf_filestream.appendPagesFromReader(original_pdf)
         new_pdf_filestream.addAttachment(xml_filename, xml_string)
         with NamedTemporaryFile(prefix='odoo-ubl-', suffix='.pdf') as f:
@@ -312,23 +375,61 @@ class BaseUbl(models.AbstractModel):
             'cac:PartyTaxScheme/cbc:CompanyID', namespaces=ns)
         email_xpath = party_node.xpath(
             'cac:Contact/cbc:ElectronicMail', namespaces=ns)
-        country_code_xpath = party_node.xpath(
-            'cac:PostalAddress/cac:Country/cbc:IdentificationCode',
-            namespaces=ns)
-        country_code = country_code_xpath and country_code_xpath[0].text and\
-            country_code_xpath[0].text.upper() or False
-        zip_xpath = party_node.xpath(
-            'cac:PostalAddress/cac:PostalZone', namespaces=ns)
-        zip = zip_xpath and zip_xpath[0].text and\
-            zip_xpath[0].text.replace(' ', '') or False
         partner_dict = {
             'vat': vat_xpath and vat_xpath[0].text or False,
             'name': partner_name_xpath[0].text,
             'email': email_xpath and email_xpath[0].text or False,
-            'country_code': country_code,
-            'zip': zip,
             }
+        address_xpath = party_node.xpath('cac:PostalAddress', namespaces=ns)
+        if address_xpath:
+            address_dict = self.ubl_parse_address(address_xpath[0], ns)
+            partner_dict.update(address_dict)
         return partner_dict
+
+    @api.model
+    def ubl_parse_address(self, address_node, ns):
+        country_code_xpath = address_node.xpath(
+            'cac:Country/cbc:IdentificationCode',
+            namespaces=ns)
+        country_code = country_code_xpath and country_code_xpath[0].text and\
+            country_code_xpath[0].text.upper() or False
+        state_code_xpath = address_node.xpath(
+            'cbc:CountrySubentityCode', namespaces=ns)
+        state_code = state_code_xpath and state_code_xpath[0].text and \
+            state_code_xpath[0].text.upper() or False
+        zip_xpath = address_node.xpath(
+            'cbc:PostalZone', namespaces=ns)
+        zip = zip_xpath and zip_xpath[0].text and\
+            zip_xpath[0].text.replace(' ', '') or False
+        address_dict = {
+            'zip': zip,
+            'state_code': state_code,
+            'country_code': country_code,
+            }
+        return address_dict
+
+    @api.model
+    def ubl_parse_delivery(self, delivery_node, ns):
+        party_xpath = delivery_node.xpath('cac:DeliveryParty', namespaces=ns)
+        if party_xpath:
+            partner_dict = self.ubl_parse_party(party_xpath[0], ns)
+        else:
+            partner_dict = {}
+        delivery_address_xpath = delivery_node.xpath(
+            'cac:DeliveryLocation/cac:Address', namespaces=ns)
+        if not delivery_address_xpath:
+            delivery_address_xpath = delivery_node.xpath(
+                'cac:DeliveryAddress', namespaces=ns)
+        if delivery_address_xpath:
+            address_dict = self.ubl_parse_address(
+                delivery_address_xpath[0], ns)
+        else:
+            address_dict = {}
+        delivery_dict = {
+            'partner': partner_dict,
+            'address': address_dict,
+            }
+        return delivery_dict
 
     def ubl_parse_product(self, line_node, ns):
         ean13_xpath = line_node.xpath(
@@ -341,3 +442,44 @@ class BaseUbl(models.AbstractModel):
             'code': code_xpath and code_xpath[0].text or False,
             }
         return product_dict
+
+    # ======================= METHODS only needed for testing
+
+    # Method copy-pasted from account-invoicing/base_business_document_import/
+    # models/business_document_import.py
+    # Because we don't depend on this module
+    def get_xml_files_from_pdf(self, pdf_file):
+        """Returns a dict with key = filename, value = XML file obj"""
+        logger.info('Trying to find an embedded XML file inside PDF')
+        res = {}
+        try:
+            fd = StringIO(pdf_file)
+            pdf = PyPDF2.PdfFileReader(fd)
+            logger.debug('pdf.trailer=%s', pdf.trailer)
+            pdf_root = pdf.trailer['/Root']
+            logger.debug('pdf_root=%s', pdf_root)
+            embeddedfiles = pdf_root['/Names']['/EmbeddedFiles']['/Names']
+            i = 0
+            xmlfiles = {}  # key = filename, value = PDF obj
+            for embeddedfile in embeddedfiles[:-1]:
+                mime_res = mimetypes.guess_type(embeddedfile)
+                if mime_res and mime_res[0] == 'application/xml':
+                    xmlfiles[embeddedfile] = embeddedfiles[i+1]
+                i += 1
+            logger.debug('xmlfiles=%s', xmlfiles)
+            for filename, xml_file_dict_obj in xmlfiles.iteritems():
+                try:
+                    xml_file_dict = xml_file_dict_obj.getObject()
+                    logger.debug('xml_file_dict=%s', xml_file_dict)
+                    xml_string = xml_file_dict['/EF']['/F'].getData()
+                    xml_root = etree.fromstring(xml_string)
+                    logger.debug(
+                        'A valid XML file %s has been found in the PDF file',
+                        filename)
+                    res[filename] = xml_root
+                except:
+                    continue
+        except:
+            pass
+        logger.info('Valid XML files found in PDF: %s', res.keys())
+        return res
