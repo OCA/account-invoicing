@@ -217,7 +217,8 @@ class AccountInvoiceImport(models.TransientModel):
                 il_vals = static_vals.copy()
                 if config.invoice_line_method == 'nline_auto_product':
                     product = self._match_product(
-                        line['product'], parsed_inv['chatter_msg'], partner)
+                        line['product'], parsed_inv['chatter_msg'],
+                        seller=partner)
                     fposition_id = partner.property_account_position.id
                     il_vals.update(
                         ailo.product_id_change(
@@ -359,6 +360,7 @@ class AccountInvoiceImport(models.TransientModel):
             parsed_inv.get('currency'), parsed_inv['chatter_msg'])
         parsed_inv['partner']['recordset'] = partner
         parsed_inv['currency']['recordset'] = currency
+        # TODO Move to IF below : make sure we don't access self.partner_id
         self.write({
             'partner_id': partner.id,
             'invoice_type': parsed_inv['type'],
@@ -482,28 +484,43 @@ class AccountInvoiceImport(models.TransientModel):
     def update_invoice(self):
         self.ensure_one()
         iaao = self.env['ir.actions.act_window']
-        if not self.invoice_id:
+        invoice = self.invoice_id
+        if not invoice:
             raise UserError(_(
                 'You must select a supplier invoice or refund to update'))
         parsed_inv = self.parse_invoice()
+        currency = self._match_currency(
+            parsed_inv.get('currency'), parsed_inv['chatter_msg'])
+        if currency != invoice.currency_id:
+            raise UserError(_(
+                "The currency of the imported invoice (%s) is different from "
+                "the currency of the existing invoice (%s)") % (
+                currency.name, invoice.currency_id.name))
         # When invoice with embedded XML files will be more widely used,
         # we should also update invoice lines
         vals = self._prepare_update_invoice_vals(parsed_inv)
         logger.debug('Updating supplier invoice with vals=%s', vals)
         self.invoice_id.write(vals)
-        self.env['ir.attachment'].create({
-            'name': self.invoice_filename,
-            'res_id': self.invoice_id.id,
-            'res_model': 'account.invoice',
-            'datas': self.invoice_file,
-            })
-        logger.info('Supplier invoice ID %d updated', self.invoice_id.id)
-        self.invoice_id.message_post(_(
-            "This invoice has been updated automatically via file import"))
+        # Attach invoice and related documents
+        if parsed_inv.get('attachments'):
+            for filename, data_base64 in parsed_inv['attachments'].iteritems():
+                self.env['ir.attachment'].create({
+                    'name': filename,
+                    'res_id': invoice.id,
+                    'res_model': 'account.invoice',
+                    'datas': data_base64,
+                    'datas_fname': filename,
+                    })
+        logger.info(
+            'Supplier invoice ID %d updated via import of file %s',
+            invoice.id, self.invoice_filename)
+        invoice.message_post(_(
+            "This invoice has been updated automatically via the import "
+            "of file %s") % self.invoice_filename)
         action = iaao.for_xml_id('account', 'action_invoice_tree2')
         action.update({
             'view_mode': 'form,tree,calendar,graph',
             'views': False,
-            'res_id': self.invoice_id.id,
+            'res_id': invoice.id,
             })
         return action

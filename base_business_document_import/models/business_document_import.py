@@ -19,6 +19,17 @@ class BusinessDocumentImport(models.AbstractModel):
     _description = 'Common methods to import business documents'
 
     @api.model
+    def _strip_cleanup_dict(self, match_dict):
+        if match_dict:
+            for key, value in match_dict.iteritems():
+                if value and isinstance(value, (str, unicode)):
+                    match_dict[key] = value.strip()
+            if match_dict.get('country_code'):
+                match_dict['country_code'] = match_dict['country_code'].upper()
+            if match_dict.get('state_code'):
+                match_dict['state_code'] = match_dict['state_code'].upper()
+
+    @api.model
     def _match_partner(
             self, partner_dict, chatter_msg, partner_type='supplier'):
         """Example:
@@ -29,9 +40,14 @@ class BusinessDocumentImport(models.AbstractModel):
             'email': 'roger.lemaire@akretion.com',
             'name': 'Akretion France',
             'ref': 'C1242',
+            'phone': '01.41.98.12.42',
+            'fax': '01.41.98.12.43',
             }
+        The keys 'phone' and 'fax' are used by the module
+        base_phone_business_document_import
         """
         rpo = self.env['res.partner']
+        self._strip_cleanup_dict(partner_dict)
         if partner_dict.get('recordset'):
             return partner_dict['recordset']
         if partner_dict.get('id'):
@@ -69,6 +85,11 @@ class BusinessDocumentImport(models.AbstractModel):
                     '|',
                     ('state_id', '=', False),
                     ('state_id', '=', states[0].id)]
+        # Hook to plug alternative matching methods
+        partner = self._hook_match_partner(
+            partner_dict, chatter_msg, domain, partner_type_label)
+        if partner:
+            return partner
         if partner_dict.get('vat'):
             vat = partner_dict['vat'].replace(' ', '').upper()
             # use base_vat_sanitized
@@ -79,7 +100,7 @@ class BusinessDocumentImport(models.AbstractModel):
             if partners:
                 return partners[0]
             else:
-                raise UserError(_(
+                chatter_msg.append(_(
                     "The analysis of the business document returned '%s' as "
                     "%s VAT number. But there are no %s "
                     "with this VAT number in Odoo.")
@@ -140,13 +161,33 @@ class BusinessDocumentImport(models.AbstractModel):
                 partner_dict.get('name')))
 
     @api.model
+    def _hook_match_partner(
+            self, partner_dict, chatter_msg, domain, partner_type_label):
+        return False
+
+    @api.model
     def _match_shipping_partner(self, shipping_dict, partner, chatter_msg):
+        """Example:
+        shipping_dict = {
+            'partner': {
+                'email': 'contact@akretion.com',
+                'name': 'Akretion France',
+                },
+            'address': {
+                'zip': '69100',
+                'country_code': 'FR',
+                },
+            }
+        The partner argument is a bit special: it is a fallback in case
+        shipping_dict['partner'] = {}
+        """
         rpo = self.env['res.partner']
         if shipping_dict.get('partner'):
             partner = self._match_partner(
                 shipping_dict['partner'], chatter_msg, partner_type=False)
         domain = [('parent_id', '=', partner.id)]
         address_dict = shipping_dict['address']
+        self._strip_cleanup_dict(address_dict)
         country = False
         if address_dict.get('country_code'):
             countries = self.env['res.country'].search([
@@ -173,7 +214,7 @@ class BusinessDocumentImport(models.AbstractModel):
                     ('state_id', '=', states[0].id)]
         if address_dict.get('zip'):
             domain.append(('zip', '=', address_dict['zip']))
-            # TODO: sanitize ZIP ?
+            # sanitize ZIP ?
         partners = rpo.search(domain + [('type', '=', 'delivery')])
         if partners:
             partner = partners[0]
@@ -184,7 +225,7 @@ class BusinessDocumentImport(models.AbstractModel):
         return partner
 
     @api.model
-    def _match_product(self, product_dict, chatter_msg, partner=False):
+    def _match_product(self, product_dict, chatter_msg, seller=False):
         """Example:
         product_dict = {
             'ean13': '5449000054227',
@@ -192,6 +233,7 @@ class BusinessDocumentImport(models.AbstractModel):
             }
         """
         ppo = self.env['product.product']
+        self._strip_cleanup_dict(product_dict)
         if product_dict.get('recordset'):
             return product_dict['recordset']
         if product_dict.get('id'):
@@ -210,9 +252,9 @@ class BusinessDocumentImport(models.AbstractModel):
                 return products[0]
             # WARNING: Won't work for multi-variant products
             # because product.supplierinfo is attached to product template
-            if partner:
+            if seller:
                 sinfo = self.env['product.supplierinfo'].search([
-                    ('name', '=', partner.id),
+                    ('name', '=', seller.id),
                     ('product_code', '=', product_dict['code']),
                     ])
                 if (
@@ -230,7 +272,7 @@ class BusinessDocumentImport(models.AbstractModel):
             "Supplier: %s\n") % (
                 product_dict.get('ean13'),
                 product_dict.get('code'),
-                partner and partner.name or 'None'))
+                seller and seller.name or 'None'))
 
     @api.model
     def _match_currency(self, currency_dict, chatter_msg):
@@ -244,6 +286,7 @@ class BusinessDocumentImport(models.AbstractModel):
         if not currency_dict:
             currency_dict = {}
         rco = self.env['res.currency']
+        self._strip_cleanup_dict(currency_dict)
         if currency_dict.get('recordset'):
             return currency_dict['recordset']
         if currency_dict.get('id'):
@@ -262,13 +305,14 @@ class BusinessDocumentImport(models.AbstractModel):
         if currency_dict.get('symbol'):
             currencies = rco.search(
                 [('symbol', '=', currency_dict['symbol'])])
-            if currencies:
+            if len(currencies) == 1:
                 return currencies[0]
             else:
-                raise UserError(_(
+                chatter_msg.append(_(
                     "The analysis of the business document returned '%s' as "
-                    "the currency symbol. But there are no currency "
-                    "with that symbol in Odoo.") % currency_dict['symbol'])
+                    "the currency symbol. But there are none or several "
+                    "currencies with that symbol in Odoo.")
+                    % currency_dict['symbol'])
         if currency_dict.get('iso_or_symbol'):
             currencies = rco.search([
                 '|',
@@ -283,7 +327,7 @@ class BusinessDocumentImport(models.AbstractModel):
                     "currency with the symbol nor ISO code in Odoo.")
                     % currency_dict['iso_or_symbol'])
         if currency_dict.get('country_code'):
-            country_code = currency_dict['country_code'].upper()
+            country_code = currency_dict['country_code']
             countries = self.env['res.country'].search([
                 ('code', '=', country_code)])
             if countries:
@@ -320,6 +364,7 @@ class BusinessDocumentImport(models.AbstractModel):
         puo = self.env['product.uom']
         if not uom_dict:
             uom_dict = {}
+        self._strip_cleanup_dict(uom_dict)
         if uom_dict.get('recordset'):
             return uom_dict['recordset']
         if uom_dict.get('id'):
@@ -382,6 +427,7 @@ class BusinessDocumentImport(models.AbstractModel):
         With l10n_fr, it will return 20% VAT tax.
         """
         ato = self.env['account.tax']
+        self._strip_cleanup_dict(tax_dict)
         if tax_dict.get('recordset'):
             return tax_dict['recordset']
         if tax_dict.get('id'):

@@ -375,10 +375,16 @@ class BaseUbl(models.AbstractModel):
             'cac:PartyTaxScheme/cbc:CompanyID', namespaces=ns)
         email_xpath = party_node.xpath(
             'cac:Contact/cbc:ElectronicMail', namespaces=ns)
+        phone_xpath = party_node.xpath(
+            'cac:Contact/cbc:Telephone', namespaces=ns)
+        fax_xpath = party_node.xpath(
+            'cac:Contact/cbc:Telefax', namespaces=ns)
         partner_dict = {
             'vat': vat_xpath and vat_xpath[0].text or False,
             'name': partner_name_xpath[0].text,
             'email': email_xpath and email_xpath[0].text or False,
+            'phone': phone_xpath and phone_xpath[0].text or False,
+            'fax': fax_xpath and fax_xpath[0].text or False,
             }
         address_xpath = party_node.xpath('cac:PostalAddress', namespaces=ns)
         if address_xpath:
@@ -391,14 +397,12 @@ class BaseUbl(models.AbstractModel):
         country_code_xpath = address_node.xpath(
             'cac:Country/cbc:IdentificationCode',
             namespaces=ns)
-        country_code = country_code_xpath and country_code_xpath[0].text and\
-            country_code_xpath[0].text.upper() or False
+        country_code = country_code_xpath and country_code_xpath[0].text\
+            or False
         state_code_xpath = address_node.xpath(
             'cbc:CountrySubentityCode', namespaces=ns)
-        state_code = state_code_xpath and state_code_xpath[0].text and \
-            state_code_xpath[0].text.upper() or False
-        zip_xpath = address_node.xpath(
-            'cbc:PostalZone', namespaces=ns)
+        state_code = state_code_xpath and state_code_xpath[0].text or False
+        zip_xpath = address_node.xpath('cbc:PostalZone', namespaces=ns)
         zip = zip_xpath and zip_xpath[0].text and\
             zip_xpath[0].text.replace(' ', '') or False
         address_dict = {

@@ -3,19 +3,18 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Base Business Document Import',
+    'name': 'Base Phone Business Document Import',
     'version': '8.0.1.0.0',
-    'category': 'Tools',
+    'category': 'Hidden',
     'license': 'AGPL-3',
-    'summary': 'Provides technical tools to import sale orders or supplier '
-    'invoices',
+    'summary': 'Use phone numbers to match partners upon import of '
+               'business documents',
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
     'depends': [
-        'base_vat_sanitized',
-        'account_tax_unece',
-        'product_uom_unece',
+        'base_phone',
+        'base_business_document_import',
         ],
-    'external_dependencies': {'python': ['PyPDF2']},
     'installable': True,
+    'auto_install': True,
 }

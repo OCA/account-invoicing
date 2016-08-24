@@ -11,7 +11,6 @@
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
     'depends': ['account', 'base_iban', 'base_business_document_import'],
-    'external_dependencies': {'python': ['lxml']},
     'data': [
         'security/ir.model.access.csv',
         'account_invoice_import_config_view.xml',

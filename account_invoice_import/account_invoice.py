@@ -16,6 +16,9 @@ class AccountInvoice(models.Model):
             new_res = []
             for (inv_id, name) in res:
                 inv = self.browse(inv_id)
+                # I didn't find a python method to easily display
+                # a float + currency symbol (before or after)
+                # depending on lang of context and currency
                 name += _(' Amount w/o tax: %s %s') % (
                     inv.amount_untaxed, inv.currency_id.name)
                 new_res.append((inv_id, name))
