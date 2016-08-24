@@ -112,34 +112,30 @@ class BusinessDocumentImport(models.AbstractModel):
                 return partners[0]
             else:
                 partner_domain_name = partner_dict['email'].split('@')[1]
-                partners = rpo.search(
-                    domain +
-                    [('website', '=ilike', '%' + partner_domain_name)])
-                # I can't search on email addresses with partner_domain_name
-                # because of the emails such as @gmail.com, @yahoo.com that may
-                # match random partners
-                if partners:
-                    chatter_msg.append(_(
-                        "The %s has been identified by the domain name of "
-                        "the email address '%s', so please check carefully "
-                        "that the %s is correct.") % (
-                            partner_type_label,
-                            partner_dict['email'],
-                            partner_type_label))
-                    return partners[0]
+                if partner_domain_name:
+                    partners = rpo.search(
+                        domain +
+                        [('website', '=ilike', '%' + partner_domain_name)])
+                    # I can't search on email addresses with
+                    # partner_domain_name because of the emails such as
+                    # @gmail.com, @yahoo.com that may match random partners
+                    if partners:
+                        chatter_msg.append(_(
+                            "The %s has been identified by the domain name of "
+                            "the email address '%s', so please check "
+                            "carefully that the %s is correct.") % (
+                                partner_type_label,
+                                partner_dict['email'],
+                                partner_type_label))
+                        return partners[0]
         if partner_dict.get('ref'):
             partners = rpo.search(
-                domain + [
-                    ('ref', '=', partner_dict['ref']),
-                    ('is_company', '=', True)])
+                domain + [('ref', '=', partner_dict['ref'])])
             if partners:
                 return partners[0]
         if partner_dict.get('name'):
             partners = rpo.search(
-                domain + [
-                    ('name', '=ilike', partner_dict['name']),
-                    ('is_company', '=', True),
-                    ])
+                domain + [('name', '=ilike', partner_dict['name'])])
             if partners:
                 return partners[0]
         raise UserError(_(

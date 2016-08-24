@@ -8,16 +8,31 @@ from openerp.tests.common import TransactionCase
 class TestFrIntrastatService(TransactionCase):
 
     def test_match_partner(self):
+        partner1 = self.env['res.partner'].create({
+            'name': 'Total SA',
+            'supplier': False,
+            'customer': False,
+            'ref': 'TOTAL',
+            'website': 'www.total.com',
+            })
         bdio = self.env['business.document.import']
         partner_dict = {'email': u' Agrolait@yourcompany.example.com'}
         res = bdio._match_partner(
             partner_dict, [], partner_type='customer')
-
         self.assertEquals(res, self.env.ref('base.res_partner_2'))
+        # match on domain extracted from email with warning
+        partner_dict = {'email': u'alexis.delattre@total.com'}
+        warn = []
+        res = bdio._match_partner(partner_dict, warn, partner_type=False)
+        self.assertEquals(res, partner1)
+        self.assertTrue(warn)
         partner_dict = {'name': u'delta pc '}
         res = bdio._match_partner(
             partner_dict, [], partner_type='supplier')
         self.assertEquals(res, self.env.ref('base.res_partner_4'))
+        partner_dict = {'ref': u'TOTAL'}
+        res = bdio._match_partner(partner_dict, [], partner_type=False)
+        self.assertEquals(res, partner1)
 
     def test_match_shipping_partner(self):
         rpo = self.env['res.partner']
