@@ -349,6 +349,8 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         pp_prec = self.env['decimal.precision'].precision_get('Product Price')
         disc_prec = self.env['decimal.precision'].precision_get('Discount')
+        qty_prec = self.env['decimal.precision'].precision_get(
+            'Product Unit of Measure')
         inv_currency_name = self.currency_id.name
         line_item = etree.SubElement(
             trade_transaction,
@@ -360,10 +362,16 @@ class AccountInvoice(models.Model):
         line_trade_agreement = etree.SubElement(
             line_item,
             ns['ram'] + 'SpecifiedSupplyChainTradeAgreement')
-        # TODO: wrong on price_include taxes
-        gross_price_val = iline.price_unit
-        net_price_val = iline.price_unit * (
-            1 - (iline.discount or 0.0) / 100.0)
+        # convert gross price_unit to tax_excluded value
+        taxres = iline.invoice_line_tax_id.compute_all(iline.price_unit, 1)
+        gross_price_val = taxres['total']
+        # Use oline.price_subtotal/qty to compute net unit price to be sure
+        # to get a *tax_excluded* net unit price
+        if float_is_zero(iline.quantity, precision_digits=qty_prec):
+            net_price_val = 0.0
+        else:
+            net_price_val = round(
+                iline.price_subtotal / float(iline.quantity), pp_prec)
         gross_price = etree.SubElement(
             line_trade_agreement,
             ns['ram'] + 'GrossPriceProductTradePrice')
