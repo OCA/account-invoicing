@@ -105,7 +105,7 @@ class AccountInvoiceImport(models.TransientModel):
         #           'code': 'GZ250',
         #           },
         #       'name': 'Gelierzucker Extra 250g',
-        #       'price_unit': 1.45,  # price_unit always positive
+        #       'price_unit': 1.45, # price_unit without taxes always positive
         #       'quantity': -2.0,  # < 0 when it's a refund
         #       'uom': {'unece_code': 'C62'},
         #       'taxes': [list of tax_dict],

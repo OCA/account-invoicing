@@ -347,10 +347,10 @@ class AccountInvoice(models.Model):
     def _add_invoice_line_block(
             self, trade_transaction, iline, line_number, sign, ns):
         self.ensure_one()
-        pp_prec = self.env['decimal.precision'].precision_get('Product Price')
-        disc_prec = self.env['decimal.precision'].precision_get('Discount')
-        qty_prec = self.env['decimal.precision'].precision_get(
-            'Product Unit of Measure')
+        dpo = self.env['decimal.precision']
+        pp_prec = dpo.precision_get('Product Price')
+        disc_prec = dpo.precision_get('Discount')
+        qty_prec = dpo.precision_get('Product Unit of Measure')
         inv_currency_name = self.currency_id.name
         line_item = etree.SubElement(
             trade_transaction,
@@ -364,7 +364,7 @@ class AccountInvoice(models.Model):
             ns['ram'] + 'SpecifiedSupplyChainTradeAgreement')
         # convert gross price_unit to tax_excluded value
         taxres = iline.invoice_line_tax_id.compute_all(iline.price_unit, 1)
-        gross_price_val = taxres['total']
+        gross_price_val = round(taxres['total'], pp_prec)
         # Use oline.price_subtotal/qty to compute net unit price to be sure
         # to get a *tax_excluded* net unit price
         if float_is_zero(iline.quantity, precision_digits=qty_prec):

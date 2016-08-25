@@ -155,6 +155,10 @@ class TestFrIntrastatService(TransactionCase):
         uom_dict = {'name': ' Liter '}
         res = bdio._match_uom(uom_dict, [])
         self.assertEquals(res, self.env.ref('product.product_uom_litre'))
+        uom_dict = {}
+        product = self.env.ref('product.product_product_1')
+        res = bdio._match_uom(uom_dict, [], product=product)
+        self.assertEquals(res, product.uom_id)
 
     def test_match_tax(self):
         # on purpose, I use a rate that doesn't exist
