@@ -46,7 +46,7 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.view_account_invoice_filter"/>
             <field name="arch" type="xml">
-                <xpath expr="//filter[@string='Partner']" position="after">
+                <xpath expr="//filter[@name='group_by_partner_id']" position="after">
                     <filter string="Pricelist" context="{'group_by':'pricelist_id'}"/>
                 </xpath>
             </field>
