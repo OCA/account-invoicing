@@ -4,6 +4,7 @@
 
 from openerp import models, api, tools, _
 from openerp.exceptions import Warning as UserError
+from openerp.tools import float_is_zero
 from lxml import etree
 from StringIO import StringIO
 from tempfile import NamedTemporaryFile
@@ -205,8 +206,8 @@ class BaseUbl(models.AbstractModel):
     @api.model
     def _ubl_add_line_item(
             self, line_number, product, type, quantity, uom, parent_node, ns,
-            seller=False, currency=False, price_unit=False,
-            price_subtotal=False):
+            seller=False, currency=False, price_subtotal=False,
+            qty_precision=3, price_precision=2):
         line_item = etree.SubElement(
             parent_node, ns['cac'] + 'LineItem')
         line_item_id = etree.SubElement(line_item, ns['cbc'] + 'ID')
@@ -224,7 +225,12 @@ class BaseUbl(models.AbstractModel):
                 line_item, ns['cbc'] + 'LineExtensionAmount',
                 currencyID=currency.name)
             line_amount.text = unicode(price_subtotal)
-        if currency and price_unit:
+            price_unit = 0.0
+            # Use price_subtotal/qty to compute price_unit to be sure
+            # to get a *tax_excluded* price unit
+            if not float_is_zero(quantity, precision_digits=qty_precision):
+                price_unit = round(
+                    price_subtotal / float(quantity), price_precision)
             price = etree.SubElement(
                 line_item, ns['cac'] + 'Price')
             price_amount = etree.SubElement(
@@ -434,6 +440,13 @@ class BaseUbl(models.AbstractModel):
             'address': address_dict,
             }
         return delivery_dict
+
+    def ubl_parse_incoterm(self, delivery_term_node, ns):
+        incoterm_xpath = delivery_term_node.xpath("cbc:ID", namespaces=ns)
+        if incoterm_xpath:
+            incoterm_dict = {'code': incoterm_xpath[0].text}
+            return incoterm_dict
+        return {}
 
     def ubl_parse_product(self, line_node, ns):
         ean13_xpath = line_node.xpath(

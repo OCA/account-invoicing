@@ -472,6 +472,134 @@ class BusinessDocumentImport(models.AbstractModel):
                 tax_dict['amount'],
                 tax_dict['type'] == 'percent' and '%' or _('(fixed)')))
 
+    def compare_lines(
+            self, existing_lines, import_lines, chatter_msg,
+            qty_precision=None, price_precision=None, seller=False):
+        """ Example:
+        existing_lines = [{
+            'product': odoo_recordset,
+            'name': 'USB Adapter',
+            'qty': 1.5,
+            'price_unit': 23.43,  # without taxes
+            'uom': uom,
+            'line': recordset,
+            # Add taxes
+            }]
+        import_lines = [{
+            'product': {
+                'ean13': '2100002000003',
+                'code': 'EAZY1',
+                },
+            'quantity': 2,
+            'price_unit': 12.42,  # without taxes
+            'uom': {'unece_code': 'C62'},
+            }]
+
+        Result of the method:
+        {
+            'to_remove': line_multirecordset,
+            'to_add': [
+                {'product': recordset1, 'uom', recordset, 'import_line': {import dict},
+                # We provide product and uom as recordset to avoid the
+                # need to compute a second match
+                ]
+            'to_update': {
+                'line1_recordset': {'qty': [1, 2], 'price_unit': [4.5, 4.6]},
+                # qty must be updated from 1 to 2 ; price must be updated from 4.5 to 4.6
+                'line2_recordset': {'qty': [12, 13]},  # only qty must be updated
+                }
+        }
+
+        The check existing_currency == import_currency must be done before
+        the call to compare_lines()
+        """
+        dpo = self.env['decimal.precision']
+        if qty_precision is None:
+            qty_precision = dpo.precision_get('Product Unit of Measure')
+        if price_precision is None:
+            price_precision = dpo.precision_get('Product Price')
+        existing_lines_dict = {}
+        for eline in existing_lines:
+            if not eline.get('product'):
+                chatter.append(_(
+                    "The existing line '%s' doesn't have any product, "
+                    "so <b>the lines haven't been updated</b>.")
+                    % eline.get('name'))
+                return False
+            if eline['product'] in existing_lines_dict:
+                chatter.append(_(
+                    "The product '%s' is used on several existing "
+                    "lines, so <b>the lines haven't been updated</b>.")
+                    % eline['product'].name_get()[0][1])
+                return False
+            existing_lines_dict[eline['product']] = eline
+        unique_import_products = []
+        res = {
+            'to_remove': False,
+            'to_add': [],
+            'to_update': {},
+            }
+        for iline in import_lines:
+            if not iline.get('product'):
+                chatter.append(_(
+                    "One of the imported lines doesn't have any product, "
+                    "so <b>the lines haven't been updated</b>."))
+                return False
+            product = self._match_product(
+                iline['product'], chatter_msg, seller=seller)
+            uom = self._match_uom(iline.get('uom'), chatter_msg, product)
+            if product in unique_import_products:
+                chatter.append(_(
+                    "The product '%s' is used on several imported lines, "
+                    "so <b>the lines haven't been updated</b>.")
+                    % product.name_get()[0][1])
+                return False
+            unique_import_products.append(product)
+            if product in existing_lines_dict:
+                if uom != existing_lines_dict[product]['uom']:
+                    chatter.append(_(
+                        "For product '%s', the unit of measure is %s on the "
+                        "existing line, but it is %s on the imported line. "
+                        "We don't support this scenario for the moment, so "
+                        "<b>the lines haven't been updated</b>.") % (
+                            product.name_get()[0][1],
+                            existing_lines_dict[product]['uom'].name,
+                            uom.name,
+                            ))
+                    return False
+                existing_lines_dict[product]['import'] = True  # used for to_remove
+                oline = existing_lines_dict[product]['line']
+                res['to_update'][oline] = {}
+                if float_compare(
+                        iline['qty'],
+                        existing_lines_dict[product]['qty'],
+                        precision_digits=qty_precision):
+                    res['to_update'][oline]['qty'] = [
+                        existing_lines_dict[product]['qty'],
+                        iline['qty']]
+                if (
+                        'price_unit' in iline and
+                        float_compare(
+                            iline['price_unit'],
+                            existing_lines_dict[product]['price_unit'],
+                            precision_digits=price_precision)):
+                    res['to_update'][oline]['price_unit'] = [
+                        existing_lines_dict[product]['price_unit'],
+                        iline['price_unit']]
+            else:
+                res['to_add'].append({
+                    'product': product,
+                    'uom': uom,
+                    'import_line': iline,
+                    })
+        for exiting_dict in existing_lines_dict.itervalues():
+            if not exiting_dict.get('import'):
+                if res['to_remove']:
+                    res['to_remove'] += exiting_dict['line']
+                else:
+                    res['to_remove'] = exiting_dict['line']
+        return res
+
     def get_xml_files_from_pdf(self, pdf_file):
         """Returns a dict with key = filename, value = XML file obj"""
         logger.info('Trying to find an embedded XML file inside PDF')
@@ -507,3 +635,22 @@ class BusinessDocumentImport(models.AbstractModel):
             pass
         logger.info('Valid XML files found in PDF: %s', res.keys())
         return res
+
+    @api.model
+    def post_create_or_update(self, parsed_dict, record):
+        if parsed_dict.get('attachments'):
+            for filename, data_base64 in\
+                    parsed_dict['attachments'].iteritems():
+                self.env['ir.attachment'].create({
+                    'name': filename,
+                    'res_id': record.id,
+                    'res_model': unicode(record._model),
+                    'datas': data_base64,
+                    'datas_fname': filename,
+                    })
+        for msg in parsed_dict['chatter_msg']:
+            record.message_post(msg)
+        if parsed_dict.get('note'):
+            record.message_post(_(
+                '<b>Notes in file %s:</b> %s')
+                % (filename, parsed_dict['note']))

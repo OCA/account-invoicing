@@ -117,7 +117,7 @@ class AccountInvoiceImport(models.TransientModel):
 
         vals = {
             'product': product_dict,
-            'quantity': qty * sign,
+            'qty': qty * sign,
             'uom': uom,
             'price_unit': price_unit,
             'name': name,

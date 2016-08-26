@@ -106,7 +106,7 @@ class AccountInvoiceImport(models.TransientModel):
         #           },
         #       'name': 'Gelierzucker Extra 250g',
         #       'price_unit': 1.45, # price_unit without taxes always positive
-        #       'quantity': -2.0,  # < 0 when it's a refund
+        #       'qty': -2.0,  # < 0 when it's a refund
         #       'uom': {'unece_code': 'C62'},
         #       'taxes': [list of tax_dict],
         #       }],
@@ -239,7 +239,7 @@ class AccountInvoiceImport(models.TransientModel):
                     line.get('uom'), parsed_inv['chatter_msg'])
                 il_vals['uos_id'] = uom.id
                 il_vals.update({
-                    'quantity': line['quantity'],
+                    'quantity': line['qty'],
                     'price_unit': line['price_unit'],
                     })
                 vals['invoice_line'].append((0, 0, il_vals))
@@ -335,12 +335,12 @@ class AccountInvoiceImport(models.TransientModel):
                 parsed_inv[entry] *= -1
         if parsed_inv.get('lines'):
             for line in parsed_inv['lines']:
-                line['quantity'] = float_round(
-                    line['quantity'], precision_digits=prec_uom)
+                line['qty'] = float_round(
+                    line['qty'], precision_digits=prec_uom)
                 line['price_unit'] = float_round(
                     line['price_unit'], precision_digits=prec_pp)
                 if parsed_inv['type'] == 'in_refund':
-                    line['quantity'] *= -1
+                    line['qty'] *= -1
         if 'chatter_msg' not in parsed_inv:
             parsed_inv['chatter_msg'] = []
         logger.debug('Resulf of invoice parsing parsed_inv=%s', parsed_inv)

@@ -17,17 +17,15 @@ class TestPhonePartnerMatch(TransactionCase):
             'phone': '+33141981242',
             'fax': '+33141981243',
             })
-        partner_dict_phone = {
+        partner_dict = {
             'country_code': 'FR',
             'phone': '01.41.98.12.42',
             }
-        res1 = bdoo._match_partner(
-            partner_dict_phone, [], partner_type='supplier')
-        self.assertEquals(res1, partner)
-        partner_dict_fax = {
+        res = bdoo._match_partner(partner_dict, [], partner_type='supplier')
+        self.assertEquals(res, partner)
+        partner_dict = {
             'country_code': 'FR',
             'fax': '(0)1-41-98-12-43',
             }
-        res2 = bdoo._match_partner(
-            partner_dict_fax, [], partner_type='supplier')
-        self.assertEquals(res2, partner)
+        res = bdoo._match_partner(partner_dict, [], partner_type='supplier')
+        self.assertEquals(res, partner)

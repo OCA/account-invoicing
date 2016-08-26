@@ -97,7 +97,7 @@ class AccountInvoiceImport(models.TransientModel):
                 'code':
                 product_code_xpath and product_code_xpath[0].text or False,
                 },
-            'quantity': qty,
+            'qty': qty,
             'uom': uom,
             'price_unit': price_unit,
             'name': name,
@@ -260,7 +260,7 @@ class AccountInvoiceImport(models.TransientModel):
             taxes = self.parse_zugferd_taxes(taxes_xpath, namespaces)
             vals = {
                 'name': name,
-                'quantity': 1,
+                'qty': 1,
                 'price_unit': price_unit,
                 'taxes': taxes or global_taxes,
                 }
@@ -271,7 +271,7 @@ class AccountInvoiceImport(models.TransientModel):
             if len(global_taxes) <= 1 and not total_charge_lines:
                 res_lines.append({
                     'name': _("Logistics Service"),
-                    'quantity': 1,
+                    'qty': 1,
                     'price_unit': total_charge,
                     'taxes': global_taxes,
                     })
@@ -305,7 +305,7 @@ class AccountInvoiceImport(models.TransientModel):
             taxes = self.parse_zugferd_taxes(taxes_xpath, namespaces)
             vals = {
                 'name': name,
-                'quantity': tradeallowance_qty,
+                'qty': tradeallowance_qty,
                 'price_unit': price_unit,
                 'taxes': taxes or global_taxes,
                 }
@@ -316,7 +316,7 @@ class AccountInvoiceImport(models.TransientModel):
             if len(global_taxes) <= 1 and not total_tradeallowance_lines:
                 res_lines.append({
                     'name': _("Trade Allowance"),
-                    'quantity': tradeallowance_qty,
+                    'qty': tradeallowance_qty,
                     'price_unit': total_tradeallowance,
                     'taxes': global_taxes,
                     })
