@@ -53,14 +53,13 @@ class AccountInvoice(models.Model):
 
     @api.model
     def _merge_invoice_line_values(self, vals, new_invoice_line):
-        """This method merge an invoice line with the existing values from
+        """This method merges an invoice line with the existing values from
         previous line(s) that matches the merging key.
         :param vals: Dictionary of values of the previous invoice line(s)
         :param new_invoice_line: Recordset of the new line to merge.
         :return: None
         """
-        uos_factor = (new_invoice_line.uos_id and
-                      new_invoice_line.uos_id.factor or 1.0)
+        uos_factor = new_invoice_line.uos_id.factor or 1.0
         # merge the line with an existing line
         vals['quantity'] += (new_invoice_line.quantity *
                              uos_factor / vals['uom_factor'])

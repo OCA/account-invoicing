@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # © 2010-2011 Ian Li <ian.li@elico-corp.com>
 # © 2015 Cédric Pigeon <cedric.pigeon@acsone.eu>
-# © 2016 Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
+# © 2016 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
@@ -10,7 +10,7 @@
     'category': 'Finance',
     'author': "Elico Corp, "
               "ACSONE A/V, "
-              "Serv. Tecnol. Avanzados - Pedro M. Baeza, "
+              "Tecnativa, "
               "Odoo Community Association (OCA)",
     'website': 'http://www.openerp.net.cn',
     'license': 'AGPL-3',
