@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  © 2016 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<openerp>
+<data>
+
+
+<record id="invoice_supplier_form" model="ir.ui.view">
+    <field name="name">account_invoice_import.invoice.supplier.form</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form"/>
+    <field name="arch" type="xml">
+        <button name="invoice_cancel" position="before">
+            <button type="action" name="%(account_invoice_import_action)d"
+                string="Import Invoice File" states="draft"
+                context="{'default_state': 'update-from-invoice', 'default_invoice_id': id}"/>
+        </button>
+    </field>
+</record>
+
+
+</data>
+</openerp>

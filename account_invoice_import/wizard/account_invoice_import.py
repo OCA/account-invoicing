@@ -4,7 +4,7 @@
 
 from openerp import models, fields, api, _
 import openerp.addons.decimal_precision as dp
-from openerp.tools import float_compare, float_round
+from openerp.tools import float_compare, float_round, float_is_zero
 from openerp.exceptions import Warning as UserError
 from lxml import etree
 import logging
@@ -24,6 +24,7 @@ class AccountInvoiceImport(models.TransientModel):
     state = fields.Selection([
         ('import', 'Import'),
         ('update', 'Update'),
+        ('update-from-invoice', 'Update From Invoice'),
         ], string='State', default="import")
     partner_id = fields.Many2one(
         'res.partner', string="Supplier", readonly=True)
@@ -98,7 +99,8 @@ class AccountInvoiceImport(models.TransientModel):
         # 'invoice_number': 'I1501243',
         # 'description': 'TGV Paris-Lyon',
         # 'attachments': {'file1.pdf': base64data1, 'file2.pdf': base64data2},
-        # 'chatter_msg': 'Note added in chatter of the invoice',
+        # 'chatter_msg': ['Notes added in chatter of the invoice'],
+        # 'note': 'Note embedded in the document',
         # 'lines': [{
         #       'product': {
         #           'ean13': '4123456000021',
@@ -240,7 +242,7 @@ class AccountInvoiceImport(models.TransientModel):
                 il_vals['uos_id'] = uom.id
                 il_vals.update({
                     'quantity': line['qty'],
-                    'price_unit': line['price_unit'],
+                    'price_unit': line['price_unit'],  # TODO fix for tax incl
                     })
                 vals['invoice_line'].append((0, 0, il_vals))
         # Write analytic account + fix syntax for taxes
@@ -370,7 +372,7 @@ class AccountInvoiceImport(models.TransientModel):
             })
         if not partner.invoice_import_id:
             raise UserError(_(
-                "Missing Invoice Import Configuration on partner %s")
+                "Missing Invoice Import Configuration on partner '%s'.")
                 % partner.name)
         domain = [
             ('commercial_partner_id', '=', partner.id),
@@ -429,9 +431,16 @@ class AccountInvoiceImport(models.TransientModel):
         vals = self._prepare_create_invoice_vals(parsed_inv)
         logger.debug('Invoice vals for creation: %s', vals)
         invoice = aio.create(vals)
+        self.post_process_invoice(parsed_inv, invoice)
         logger.info('Invoice ID %d created', invoice.id)
-        invoice.button_reset_taxes()
+        self.post_create_or_update(parsed_inv, invoice)
+        return invoice
 
+    @api.model
+    def post_process_invoice(self, parsed_inv, invoice):
+        self.ensure_one()
+        invoice = self[0]
+        invoice.button_reset_taxes()
         # Force tax amount if necessary
         prec = self.env['decimal.precision'].precision_get('Account')
         if (
@@ -454,19 +463,89 @@ class AccountInvoiceImport(models.TransientModel):
                 'The total tax amount has been forced to %s %s '
                 '(amount computed by Odoo was: %s %s).'
                 % (tax_amount, cur_symbol, initial_tax_amount, cur_symbol))
-        # Attach invoice and related documents
-        if parsed_inv.get('attachments'):
-            for filename, data_base64 in parsed_inv['attachments'].iteritems():
-                self.env['ir.attachment'].create({
-                    'name': filename,
-                    'res_id': invoice.id,
-                    'res_model': 'account.invoice',
-                    'datas': data_base64,
-                    'datas_fname': filename,
-                    })
-        for chatter_msg in parsed_inv['chatter_msg']:
-            invoice.message_post(chatter_msg)
-        return invoice
+
+    @api.multi
+    def update_invoice_lines(self, parsed_inv, invoice, seller):
+        chatter = parsed_inv['chatter_msg']
+        ailo = self.env['account.invoice.line']
+        dpo = self.env['decimal.precision']
+        qty_prec = dpo.precision_get('Product Unit of Measure')
+        existing_lines = []
+        for eline in invoice.invoice_line:
+            price_unit = 0.0
+            if not float_is_zero(
+                    eline.quantity, precision_digits=qty_prec):
+                price_unit = eline.price_subtotal / float(eline.quantity)
+            existing_lines.append({
+                'product': eline.product_id or False,
+                'name': eline.name,
+                'qty': eline.quantity,
+                'uom': eline.uos_id,
+                'line': eline,
+                'price_unit': price_unit,
+                })
+        compare_res = self.compare_lines(
+            existing_lines, parsed_inv['lines'], chatter, seller=seller)
+        for eline, cdict in compare_res['to_update'].iteritems():
+            write_vals = {}
+            if cdict.get('qty'):
+                chatter.append(_(
+                    "The quantity has been updated on the invoice line "
+                    "with product '%s' from %s to %s %s") % (
+                        eline.product_id.name_get()[0][1],
+                        cdict['qty'][0], cdict['qty'][1],
+                        eline.uos_id.name))
+                write_vals['quantity'] = cdict['qty'][1]
+            if cdict.get('price_unit'):
+                chatter.append(_(
+                    "The unit price has been updated on the invoice "
+                    "line with product '%s' from %s to %s %s") % (
+                        eline.product_id.name_get()[0][1],
+                        eline.price_unit, cdict['price_unit'][1],  # TODO fix
+                        invoice.currency_id.name))
+                write_vals['price_unit'] = cdict['price_unit'][1]
+            if write_vals:
+                eline.write(write_vals)
+        if compare_res['to_remove']:
+            to_remove_label = [
+                '%s %s x %s' % (
+                    l.quantity, l.uos_id.name, l.product_id.name)
+                for l in compare_res['to_remove']]
+            chatter.append(_(
+                "%d invoice line(s) deleted: %s") % (
+                    len(compare_res['to_remove']),
+                    ', '.join(to_remove_label)))
+            compare_res['to_remove'].unlink()
+        if compare_res['to_add']:
+            to_create_label = []
+            for add in compare_res['to_add']:
+                line_vals = self._prepare_create_invoice_line(
+                    add['product'], add['uom'], add['import_line'])
+                line_vals['invoice_id'] = invoice.id
+                new_line = ailo.create(line_vals)
+                to_create_label.append('%s %s x %s' % (
+                    new_line.quantity,
+                    new_line.uos_id.name,
+                    new_line.name))
+            chatter.append(_("%d new invoice line(s) created: %s") % (
+                len(compare_res['to_add']), ', '.join(to_create_label)))
+        return True
+
+    @api.model
+    def _prepare_create_order_line(self, product, uom, import_line, invoice):
+        ailo = self.env['account.invoice.line']
+        vals = ailo.product_id_change(
+            product.id, uom.id, qty=import_line['qty'], type='in_invoice',
+            partner_id=invoice.partner_id.id,
+            fposition_id=invoice.fiscal_position.id or False,
+            currency_id=invoice.currency_id.id,
+            company_id=invoice.company_id.id)['value']
+        vals.update({
+            'product_id': product.id,
+            'price_unit': import_line.get('price_unit'),
+            'quantity': import_line['qty'],
+            })
+        return vals
 
     @api.model
     def _prepare_update_invoice_vals(self, parsed_inv):
@@ -489,6 +568,23 @@ class AccountInvoiceImport(models.TransientModel):
             raise UserError(_(
                 'You must select a supplier invoice or refund to update'))
         parsed_inv = self.parse_invoice()
+        if self.partner_id:
+            # True if state='update' ; False when state='update-from-invoice'
+            parsed_inv['partner']['recordset'] = self.partner_id
+        partner = self._match_partner(
+            parsed_inv['partner'], parsed_inv['chatter_msg'],
+            partner_type='supplier')
+        partner = partner.commercial_partner_id
+        if partner != invoice.commercial_partner_id:
+            raise UserError(_(
+                "The supplier of the imported invoice (%s) is different from "
+                "the supplier of the invoice to update (%s).") % (
+                    partner.name,
+                    invoice.commercial_partner_id.name))
+        if not partner.invoice_import_id:
+            raise UserError(_(
+                "Missing Invoice Import Configuration on partner '%s'.")
+                % partner.name)
         currency = self._match_currency(
             parsed_inv.get('currency'), parsed_inv['chatter_msg'])
         if currency != invoice.currency_id:
@@ -501,16 +597,17 @@ class AccountInvoiceImport(models.TransientModel):
         vals = self._prepare_update_invoice_vals(parsed_inv)
         logger.debug('Updating supplier invoice with vals=%s', vals)
         self.invoice_id.write(vals)
-        # Attach invoice and related documents
-        if parsed_inv.get('attachments'):
-            for filename, data_base64 in parsed_inv['attachments'].iteritems():
-                self.env['ir.attachment'].create({
-                    'name': filename,
-                    'res_id': invoice.id,
-                    'res_model': 'account.invoice',
-                    'datas': data_base64,
-                    'datas_fname': filename,
-                    })
+        if (
+                parsed_inv.get('lines') and
+                partner.invoice_import_id.invoice_line_method ==
+                'nline_auto_product'):
+            self.update_invoice_lines(parsed_inv, invoice, partner)
+        self.post_process_invoice(parsed_inv, invoice)
+        if partner.invoice_import_id.account_analytic_id:
+            invoice.invoice_line.write({
+                'account_analytic_id':
+                partner.invoice_import_id.account_analytic_id.id})
+        self.post_create_or_update(parsed_inv, invoice)
         logger.info(
             'Supplier invoice ID %d updated via import of file %s',
             invoice.id, self.invoice_filename)

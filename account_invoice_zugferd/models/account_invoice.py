@@ -5,7 +5,7 @@
 
 from openerp import models, fields, api, tools, _
 from openerp.exceptions import Warning as UserError
-from openerp.tools import float_compare, float_is_zero
+from openerp.tools import float_compare, float_is_zero, float_round
 from StringIO import StringIO
 from lxml import etree
 from PyPDF2 import PdfFileWriter, PdfFileReader
@@ -364,14 +364,16 @@ class AccountInvoice(models.Model):
             ns['ram'] + 'SpecifiedSupplyChainTradeAgreement')
         # convert gross price_unit to tax_excluded value
         taxres = iline.invoice_line_tax_id.compute_all(iline.price_unit, 1)
-        gross_price_val = round(taxres['total'], pp_prec)
+        gross_price_val = float_round(
+            taxres['total'], precision_digits=pp_prec)
         # Use oline.price_subtotal/qty to compute net unit price to be sure
         # to get a *tax_excluded* net unit price
         if float_is_zero(iline.quantity, precision_digits=qty_prec):
             net_price_val = 0.0
         else:
-            net_price_val = round(
-                iline.price_subtotal / float(iline.quantity), pp_prec)
+            net_price_val = float_round(
+                iline.price_subtotal / float(iline.quantity),
+                precision_digits=pp_prec)
         gross_price = etree.SubElement(
             line_trade_agreement,
             ns['ram'] + 'GrossPriceProductTradePrice')
@@ -395,7 +397,8 @@ class AccountInvoice(models.Model):
             actual_amount = etree.SubElement(
                 trade_allowance, ns['ram'] + 'ActualAmount',
                 currencyID=inv_currency_name)
-            actual_amount_val = round(gross_price_val - net_price_val, pp_prec)
+            actual_amount_val = float_round(
+                gross_price_val - net_price_val, precision_digits=pp_prec)
             actual_amount.text = unicode(abs(actual_amount_val))
 
         net_price = etree.SubElement(

@@ -33,20 +33,20 @@
                     <p>Some draft supplier invoices/refunds have been found for the supplier of the PDF invoice you are importing ; one of them may correspond to the PDF invoice. You can either select an existing draft supplier invoice to update with the information of the PDF (information that will be updated include invoice date, supplier invoice number and attachment) or create a new draft invoice.</p>
                 </div>
             </group>
-            <group name="import" states="import">
-                <field name="invoice_file" filename="invoice_filename"/>
+            <group name="main">
+                <field name="invoice_file" filename="invoice_filename"
+                    states="import,update-from-invoice"/>
                 <field name="invoice_filename" invisible="1"/>
-            </group>
-            <group name="update" states="update">
-                <field name="partner_id"/>
-                <field name="invoice_type"/>
-                <field name="amount_untaxed"
+                <field name="partner_id" states="update"/>
+                <field name="invoice_type" states="update"/>
+                <field name="amount_untaxed" states="update"
                     widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                <field name="amount_total"
+                <field name="amount_total" states="update"
                     widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                <field name="invoice_id"
+                <field name="invoice_id" states="update,update-from-invoice"
                     domain="[('state', '=', 'draft'), ('type', 'in', ('in_invoice', 'in_refund')), ('commercial_partner_id', '=', partner_id), ('type', '=', invoice_type)]"
-                    context="{'invoice_show_amount': True}"/>
+                    context="{'invoice_show_amount': True}"
+                    attrs="{'readonly': [('state', '=', 'update-from-invoice')]}"/>
             </group>
             <footer>
                 <button name="import_invoice" type="object"
@@ -55,6 +55,9 @@
                     class="oe_highlight" string="Update Existing" states="update"/>
                 <button name="create_invoice" type="object"
                     class="oe_highlight" string="Create New" states="update"/>
+                <button name="update_invoice" type="object"
+                    class="oe_highlight" string="Update Invoice"
+                    states="update-from-invoice"/>
                 <button special="cancel" string="Cancel" class="oe_link"/>
             </footer>
         </form>

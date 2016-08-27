@@ -4,7 +4,7 @@
 
 from openerp import models, api, tools, _
 from openerp.exceptions import Warning as UserError
-from openerp.tools import float_is_zero
+from openerp.tools import float_is_zero, float_round
 from lxml import etree
 from StringIO import StringIO
 from tempfile import NamedTemporaryFile
@@ -229,8 +229,9 @@ class BaseUbl(models.AbstractModel):
             # Use price_subtotal/qty to compute price_unit to be sure
             # to get a *tax_excluded* price unit
             if not float_is_zero(quantity, precision_digits=qty_precision):
-                price_unit = round(
-                    price_subtotal / float(quantity), price_precision)
+                price_unit = float_round(
+                    price_subtotal / float(quantity),
+                    precision_digits=price_precision)
             price = etree.SubElement(
                 line_item, ns['cac'] + 'Price')
             price_amount = etree.SubElement(

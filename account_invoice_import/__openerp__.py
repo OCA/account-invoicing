@@ -15,6 +15,7 @@
         'security/ir.model.access.csv',
         'account_invoice_import_config_view.xml',
         'wizard/account_invoice_import_view.xml',
+        'views/account_invoice.xml',
         'partner_view.xml',
     ],
     'images': ['images/sshot-wizard1.png'],
