@@ -107,7 +107,7 @@ class AccountInvoiceImport(models.TransientModel):
 
     @api.model
     def parse_zugferd_invoice(self, xml_root):
-        """Parse Core Industry Invoice XML file"""
+        """Parse Cross Industry Invoice XML file"""
         namespaces = xml_root.nsmap
         prec = self.env['decimal.precision'].precision_get('Account')
         logger.debug('XML file namespaces=%s', namespaces)

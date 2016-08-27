@@ -11,8 +11,6 @@
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'http://www.akretion.com',
     'depends': ['account_invoice_import', 'base_zugferd'],
-    'data': [],
     'demo': ['demo/demo_data.xml'],
-    'test': ['test/zugferd.yml'],
     'installable': True,
 }

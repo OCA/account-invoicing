@@ -33,7 +33,7 @@ class TestUbl(TransactionCase):
         precision = self.env['decimal.precision'].precision_get('Account')
         for (sample_file, res_dict) in sample_files.iteritems():
             f = file_open(
-                'account_invoice_import_ubl/tests/invoices/' + sample_file,
+                'account_invoice_import_ubl/tests/files/' + sample_file,
                 'rb')
             pdf_file = f.read()
             f.close()
