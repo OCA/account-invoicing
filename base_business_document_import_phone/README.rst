@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 ===================================
-Base Phone Business Document Import
+Base Business Document Import Phone
 ===================================
 
 With this module, Odoo will be able to use phone or fax numbers to find the appropriate partner when importing business documents. When the *base_phone* module available on the `OCA connector-telephony project <https://github.com/OCA/connector-telephony>`_ is installed, the phone numbers are stored in E.164 format (for example: +33141983242) in Odoo. This allows reliable search on phone numbers when importing business documents.
