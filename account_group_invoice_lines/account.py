@@ -46,8 +46,8 @@ class AccountInvoice(models.Model):
         return res
 
     @api.model
-    def line_get_convert(self, line, part, date):
-        res = super(AccountInvoice, self).line_get_convert(line, part, date)
+    def line_get_convert(self, line, part):
+        res = super(AccountInvoice, self).line_get_convert(line, part)
         if (
                 self.journal_id.group_invoice_lines and
                 self.journal_id.group_method == 'account'):

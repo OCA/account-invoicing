@@ -32,5 +32,5 @@
     'website': 'http://www.syleam.fr/',
     'depends': ['account'],
     'data': ['account_view.xml'],
-    'installable': False,
+    'installable': True,
 }
