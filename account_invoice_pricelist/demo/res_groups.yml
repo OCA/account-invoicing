@@ -27,10 +27,5 @@
 - !record {model: res.groups, id: product.group_sale_pricelist}:
     users:
         - base.user_root
-
-- !record {model: res.groups, id: product.group_purchase_pricelist}:
-    users:
-        - base.user_root
-        
         
         
