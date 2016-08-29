@@ -14,7 +14,8 @@ class AccountInvoice(models.Model):
     check_total = fields.Monetary(
         string='Verification Total',
         readonly=True,
-        states={'draft': [('readonly', False)]})
+        states={'draft': [('readonly', False)]},
+        copy=False)
 
     @api.multi
     def action_move_create(self):
