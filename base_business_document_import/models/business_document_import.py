@@ -499,14 +499,19 @@ class BusinessDocumentImport(models.AbstractModel):
         {
             'to_remove': line_multirecordset,
             'to_add': [
-                {'product': recordset1, 'uom', recordset, 'import_line': {import dict},
-                # We provide product and uom as recordset to avoid the
-                # need to compute a second match
+                {
+                    'product': recordset1,
+                    'uom', recordset,
+                    'import_line': {import dict},
+                    # We provide product and uom as recordset to avoid the
+                    # need to compute a second match
                 ]
             'to_update': {
                 'line1_recordset': {'qty': [1, 2], 'price_unit': [4.5, 4.6]},
-                # qty must be updated from 1 to 2 ; price must be updated from 4.5 to 4.6
-                'line2_recordset': {'qty': [12, 13]},  # only qty must be updated
+                # qty must be updated from 1 to 2
+                # price must be updated from 4.5 to 4.6
+                'line2_recordset': {'qty': [12, 13]},
+                # only qty must be updated
                 }
         }
 
@@ -521,13 +526,13 @@ class BusinessDocumentImport(models.AbstractModel):
         existing_lines_dict = {}
         for eline in existing_lines:
             if not eline.get('product'):
-                chatter.append(_(
+                chatter_msg.append(_(
                     "The existing line '%s' doesn't have any product, "
                     "so <b>the lines haven't been updated</b>.")
                     % eline.get('name'))
                 return False
             if eline['product'] in existing_lines_dict:
-                chatter.append(_(
+                chatter_msg.append(_(
                     "The product '%s' is used on several existing "
                     "lines, so <b>the lines haven't been updated</b>.")
                     % eline['product'].name_get()[0][1])
@@ -541,7 +546,7 @@ class BusinessDocumentImport(models.AbstractModel):
             }
         for iline in import_lines:
             if not iline.get('product'):
-                chatter.append(_(
+                chatter_msg.append(_(
                     "One of the imported lines doesn't have any product, "
                     "so <b>the lines haven't been updated</b>."))
                 return False
@@ -549,7 +554,7 @@ class BusinessDocumentImport(models.AbstractModel):
                 iline['product'], chatter_msg, seller=seller)
             uom = self._match_uom(iline.get('uom'), chatter_msg, product)
             if product in unique_import_products:
-                chatter.append(_(
+                chatter_msg.append(_(
                     "The product '%s' is used on several imported lines, "
                     "so <b>the lines haven't been updated</b>.")
                     % product.name_get()[0][1])
@@ -557,7 +562,7 @@ class BusinessDocumentImport(models.AbstractModel):
             unique_import_products.append(product)
             if product in existing_lines_dict:
                 if uom != existing_lines_dict[product]['uom']:
-                    chatter.append(_(
+                    chatter_msg.append(_(
                         "For product '%s', the unit of measure is %s on the "
                         "existing line, but it is %s on the imported line. "
                         "We don't support this scenario for the moment, so "
@@ -567,7 +572,8 @@ class BusinessDocumentImport(models.AbstractModel):
                             uom.name,
                             ))
                     return False
-                existing_lines_dict[product]['import'] = True  # used for to_remove
+                # used for to_remove
+                existing_lines_dict[product]['import'] = True
                 oline = existing_lines_dict[product]['line']
                 res['to_update'][oline] = {}
                 if float_compare(
