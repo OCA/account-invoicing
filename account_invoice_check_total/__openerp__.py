@@ -14,6 +14,7 @@
         'account',
     ],
     'data': [
+        'views/account_config_settings.xml',
         'security/account_invoice_security.xml',
         'views/account_invoice.xml',
     ],
