@@ -12,7 +12,8 @@ class AccountInvoice(models.Model):
     supplier_invoice_number = fields.Char(
         string='Vendor invoice number',
         readonly=True,
-        states={'draft': [('readonly', False)]})
+        states={'draft': [('readonly', False)]},
+        copy=False)
 
     @api.one
     @api.constrains('supplier_invoice_number')
@@ -58,8 +59,8 @@ class AccountInvoice(models.Model):
                                                            journal_id)
 
         if invoice and invoice.type in ['in_invoice', 'in_refund'] and\
-                'supplier_invoice_number' in vals:
-            vals['supplier_invoice_number'] = ''
+                'reference' in vals:
+            vals['reference'] = ''
 
         return vals
 
@@ -69,5 +70,5 @@ class AccountInvoice(models.Model):
         The unique vendor invoice number is not copied in vendor bills
         '''
         if self.type in ['in_invoice', 'in_refund']:
-            default = dict(default or {}, supplier_invoice_number='')
+            default = dict(default or {}, reference='')
         return super(AccountInvoice, self).copy(default)
