@@ -7,7 +7,7 @@ from openerp import api, fields, models, _
 GROUP_XML_ID = 'account_invoice_check_total.group_supplier_inv_check_total'
 
 
-class AccountConfigSettings(models.Model):
+class AccountConfigSettings(models.TransientModel):
 
     _inherit = 'account.config.settings'
 
