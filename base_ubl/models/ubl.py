@@ -22,12 +22,6 @@ class BaseUbl(models.AbstractModel):
     # ==================== METHODS TO GENERATE UBL files
 
     @api.model
-    def _ubl_add_address_line(self, street, parent_node, ns):
-        address_line = etree.SubElement(parent_node, ns['cac'] + 'AddressLine')
-        line = etree.SubElement(address_line, ns['cbc'] + 'Line')
-        line.text = street
-
-    @api.model
     def _ubl_add_country(self, country, parent_node, ns):
         country_root = etree.SubElement(parent_node, ns['cac'] + 'Country')
         country_code = etree.SubElement(
@@ -40,6 +34,18 @@ class BaseUbl(models.AbstractModel):
     @api.model
     def _ubl_add_address(self, partner, node_name, parent_node, ns):
         address = etree.SubElement(parent_node, ns['cac'] + node_name)
+        if partner.street:
+            streetname = etree.SubElement(
+                address, ns['cbc'] + 'StreetName')
+            streetname.text = partner.street
+        if partner.street2:
+            addstreetname = etree.SubElement(
+                address, ns['cbc'] + 'AdditionalStreetName')
+            addstreetname.text = partner.street2
+        if hasattr(partner, 'street3') and partner.street3:
+            blockname = etree.SubElement(
+                address, ns['cbc'] + 'BlockName')
+            blockname.text = partner.street3
         if partner.city:
             city = etree.SubElement(address, ns['cbc'] + 'CityName')
             city.text = partner.city
@@ -53,12 +59,6 @@ class BaseUbl(models.AbstractModel):
             state_code = etree.SubElement(
                 address, ns['cbc'] + 'CountrySubentityCode')
             state_code.text = partner.state_id.code
-        if partner.street:
-            self._ubl_add_address_line(partner.street, address, ns)
-        if partner.street2:
-            self._ubl_add_address_line(partner.street2, address, ns)
-        if hasattr(partner, 'street3') and partner.street3:
-            self._ubl_add_address_line(partner.street3, address, ns)
         if partner.country_id:
             self._ubl_add_country(partner.country_id, address, ns)
         else:
