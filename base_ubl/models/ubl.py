@@ -205,8 +205,8 @@ class BaseUbl(models.AbstractModel):
 
     @api.model
     def _ubl_add_line_item(
-            self, line_number, product, type, quantity, uom, parent_node, ns,
-            seller=False, currency=False, price_subtotal=False,
+            self, line_number, name, product, type, quantity, uom, parent_node,
+            ns, seller=False, currency=False, price_subtotal=False,
             qty_precision=3, price_precision=2):
         line_item = etree.SubElement(
             parent_node, ns['cac'] + 'LineItem')
@@ -242,60 +242,112 @@ class BaseUbl(models.AbstractModel):
                 price, ns['cbc'] + 'BaseQuantity',
                 unitCode=uom.unece_code)
             base_qty.text = '1'  # What else could it be ?
-        self._ubl_add_product_item(
-            product, line_item, ns, type=type, seller=seller)
+        self._ubl_add_item(
+            name, product, line_item, ns, type=type, seller=seller)
 
     @api.model
-    def _ubl_add_product_item(
-            self, product, parent_node, ns, type='purchase', seller=False):
+    def _ubl_add_item(
+            self, name, product, parent_node, ns, type='purchase',
+            seller=False):
+        '''Beware that product may be False (in particular on invoices)'''
         assert type in ('sale', 'purchase'), 'Wrong type param'
+        assert name, 'name is a required arg'
         item = etree.SubElement(parent_node, ns['cac'] + 'Item')
         product_name = False
         seller_code = False
-        if type == 'purchase':
-            descr = product.description_purchase
-            if seller:
-                sellers = self.env['product.supplierinfo'].search([
-                    ('name', '=', seller.id),
-                    ('product_tmpl_id', '=', product.product_tmpl_id.id)])
-                if sellers:
-                    product_name = sellers[0].product_name
-                    seller_code = sellers[0].product_code
-        elif type == 'sale':
-            descr = product.description_sale
-        if not seller_code:
-            seller_code = product.default_code
-        if not product_name:
-            variant = ", ".join([v.name for v in product.attribute_value_ids])
-            product_name = variant and "%s (%s)" % (product.name, variant)\
-                or product.name
-        if descr:
-            description = etree.SubElement(item, ns['cbc'] + 'Description')
-            description.text = descr
-        name = etree.SubElement(item, ns['cbc'] + 'Name')
-        name.text = product_name
+        if product:
+            if type == 'purchase':
+                if seller:
+                    sellers = self.env['product.supplierinfo'].search([
+                        ('name', '=', seller.id),
+                        ('product_tmpl_id', '=', product.product_tmpl_id.id)])
+                    if sellers:
+                        product_name = sellers[0].product_name
+                        seller_code = sellers[0].product_code
+            if not seller_code:
+                seller_code = product.default_code
+            if not product_name:
+                variant = ", ".join(
+                    [v.name for v in product.attribute_value_ids])
+                product_name = variant and "%s (%s)" % (product.name, variant)\
+                    or product.name
+        description = etree.SubElement(item, ns['cbc'] + 'Description')
+        description.text = name
+        name_node = etree.SubElement(item, ns['cbc'] + 'Name')
+        name_node.text = product_name or name.split('\n')[0]
         if seller_code:
             seller_identification = etree.SubElement(
                 item, ns['cac'] + 'SellersItemIdentification')
             seller_identification_id = etree.SubElement(
                 seller_identification, ns['cbc'] + 'ID')
             seller_identification_id.text = seller_code
-        if product.ean13:
-            std_identification = etree.SubElement(
-                item, ns['cac'] + 'StandardItemIdentification')
-            std_identification_id = etree.SubElement(
-                std_identification, ns['cbc'] + 'ID',
-                schemeAgencyID='6', schemeID='GTIN')
-            std_identification_id.text = product.ean13
-        for attribute_value in product.attribute_value_ids:
-            item_property = etree.SubElement(
-                item, ns['cac'] + 'AdditionalItemProperty')
-            property_name = etree.SubElement(
-                item_property, ns['cbc'] + 'Name')
-            property_name.text = attribute_value.attribute_id.name
-            property_value = etree.SubElement(
-                item_property, ns['cbc'] + 'Value')
-            property_value.text = attribute_value.name
+        if product:
+            if product.ean13:
+                std_identification = etree.SubElement(
+                    item, ns['cac'] + 'StandardItemIdentification')
+                std_identification_id = etree.SubElement(
+                    std_identification, ns['cbc'] + 'ID',
+                    schemeAgencyID='6', schemeID='GTIN')
+                std_identification_id.text = product.ean13
+            for attribute_value in product.attribute_value_ids:
+                item_property = etree.SubElement(
+                    item, ns['cac'] + 'AdditionalItemProperty')
+                property_name = etree.SubElement(
+                    item_property, ns['cbc'] + 'Name')
+                property_name.text = attribute_value.attribute_id.name
+                property_value = etree.SubElement(
+                    item_property, ns['cbc'] + 'Value')
+                property_value.text = attribute_value.name
+
+    @api.model
+    def _ubl_add_tax_subtotal(
+            self, taxable_amount, tax_amount, tax, currency_code,
+            parent_node, ns):
+        prec = self.env['decimal.precision'].precision_get('Account')
+        tax_subtotal = etree.SubElement(parent_node, ns['cac'] + 'TaxSubtotal')
+        if not float_is_zero(taxable_amount, precision_digits=prec):
+            taxable_amount_node = etree.SubElement(
+                tax_subtotal, ns['cbc'] + 'TaxableAmount',
+                currencyID=currency_code)
+            taxable_amount_node.text = unicode(taxable_amount)
+        tax_amount_node = etree.SubElement(
+            tax_subtotal, ns['cbc'] + 'TaxAmount', currencyID=currency_code)
+        tax_amount_node.text = unicode(tax_amount)
+        if (
+                tax.type == 'percent' and
+                not float_is_zero(tax.amount, precision_digits=prec+3)):
+            percent = etree.SubElement(
+                tax_subtotal, ns['cbc'] + 'Percent')
+            percent.text = unicode(
+                float_round(tax.amount * 100, precision_digits=2))
+        self._ubl_add_tax_category(tax, tax_subtotal, ns)
+
+    @api.model
+    def _ubl_add_tax_category(self, tax, parent_node, ns):
+        tax_category = etree.SubElement(
+            parent_node, ns['cac'] + 'TaxCategory')
+        if not tax.unece_categ_id:
+            raise UserError(_(
+                "Missing UNECE Tax Category on tax '%s'" % tax.name))
+        tax_category_id = etree.SubElement(
+            tax_category, ns['cbc'] + 'ID', schemeID='UN/ECE 5305',
+            schemeAgencyID='6')
+        tax_category_id.text = tax.unece_categ_code
+        tax_name = etree.SubElement(
+            tax_category, ns['cbc'] + 'Name')
+        tax_name.text = tax.name
+        self._ubl_add_tax_scheme(tax, tax_category, ns)
+
+    @api.model
+    def _ubl_add_tax_scheme(self, tax, parent_node, ns):
+        tax_scheme = etree.SubElement(parent_node, ns['cac'] + 'TaxScheme')
+        if not tax.unece_type_id:
+            raise UserError(_(
+                "Missing UNECE Tax Type on tax '%s'" % tax.name))
+        tax_scheme_id = etree.SubElement(
+            tax_scheme, ns['cbc'] + 'ID', schemeID='UN/ECE 5153',
+            schemeAgencyID='6')
+        tax_scheme_id.text = tax.unece_type_code
 
     @api.model
     def _ubl_get_nsmap_namespace(self, doc_name):
