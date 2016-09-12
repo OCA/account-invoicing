@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="account_invoice_form_view">
+        <field name="name">account.invoice.form (in account_invoice_blocking_payment)</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account_payment_order.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <button name="create_account_payment_line" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('blocked', '=', True), ('draft_blocked', '=', True)]}</attribute>
+            </button>
+        </field>
+    </record>
+
+</odoo>
