@@ -3,17 +3,6 @@
 <data noupdate="0">
 
 
-<!-- ZUGFeRD has some slight variations/additions to UNECE code lists -->
-<!-- payment means 49 was part of older versions of UNCL 4461
-such as http://www.unece.org/trade/untdid/d04a/tred/tred4461.htm
-but it was later removed, I don't know why -->
-<record id="payment_means_49" model="unece.code.list">
-    <field name="type">payment_means</field>
-    <field name="code">49</field>
-    <field name="name">Direct debit</field>
-    <field name="description">The amount is to be, or has been, directly debited to the customer's bank account.</field>
-</record>
-
 <record id="tax_type_zf_insurance_tax" model="unece.code.list">
     <field name="type">tax_type</field>
     <field name="code">ZF_INSURANCE_TAX</field>
