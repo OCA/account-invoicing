@@ -59,7 +59,7 @@
                                 groups="base.group_user" context="{'search_default_corrispettivi':1, 'show_address': 1}"
                                 options='{"always_reload": True}'/>
                             <field name="fiscal_position" widget="selection" />
-                            <field name="corrispettivo" on_change="onchange_corrispettivo(corrispettivo)"/>
+                            <field name="corrispettivo"/>
                         </group>
                         <group>
                             <field name="date_invoice"/>
