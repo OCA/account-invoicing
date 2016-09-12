@@ -97,12 +97,19 @@ class BaseUbl(models.AbstractModel):
         lang_code.text = lang.code
 
     @api.model
+    def _ubl_add_party_identification(
+            self, commercial_partner, parent_node, ns):
+        '''This method is designed to be inherited in localisation modules'''
+        return
+
+    @api.model
     def _ubl_add_party(self, partner, node_name, parent_node, ns):
         commercial_partner = partner.commercial_partner_id
         party = etree.SubElement(parent_node, ns['cac'] + node_name)
         if commercial_partner.website:
             website = etree.SubElement(party, ns['cbc'] + 'WebsiteURI')
             website.text = commercial_partner.website
+        self._ubl_add_party_identification(commercial_partner, party, ns)
         party_name = etree.SubElement(party, ns['cac'] + 'PartyName')
         name = etree.SubElement(party_name, ns['cbc'] + 'Name')
         name.text = commercial_partner.name

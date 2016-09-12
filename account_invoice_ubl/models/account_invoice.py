@@ -64,26 +64,28 @@ class AccountInvoice(models.Model):
         monetary_total = etree.SubElement(
             parent_node, ns['cac'] + 'LegalMonetaryTotal')
         cur_name = self.currency_id.name
+        prec = self.env['decimal.precision'].precision_get('Account')
         line_total = etree.SubElement(
             monetary_total, ns['cbc'] + 'LineExtensionAmount',
             currencyID=cur_name)
-        line_total.text = unicode(self.amount_untaxed)
+        line_total.text = '%0.*f' % (prec, self.amount_untaxed)
         tax_excl_total = etree.SubElement(
             monetary_total, ns['cbc'] + 'TaxExclusiveAmount',
             currencyID=cur_name)
-        tax_excl_total.text = unicode(self.amount_untaxed)
+        tax_excl_total.text = '%0.*f' % (prec, self.amount_untaxed)
         tax_incl_total = etree.SubElement(
             monetary_total, ns['cbc'] + 'TaxInclusiveAmount',
             currencyID=cur_name)
-        tax_incl_total.text = unicode(self.amount_total)
+        tax_incl_total.text = '%0.*f' % (prec, self.amount_total)
         prepaid_amount = etree.SubElement(
             monetary_total, ns['cbc'] + 'PrepaidAmount',
             currencyID=cur_name)
-        prepaid_amount.text = unicode(self.amount_total - self.residual)
+        prepaid_value = self.amount_total - self.residual
+        prepaid_amount.text = '%0.*f' % (prec, prepaid_value)
         payable_amount = etree.SubElement(
             monetary_total, ns['cbc'] + 'PayableAmount',
             currencyID=cur_name)
-        payable_amount.text = unicode(self.residual)
+        payable_amount.text = '%0.*f' % (prec, self.residual)
 
     @api.multi
     def _ubl_add_invoice_line(self, parent_node, iline, line_number, ns):
@@ -93,6 +95,7 @@ class AccountInvoice(models.Model):
         dpo = self.env['decimal.precision']
         qty_precision = dpo.precision_get('Product Unit of Measure')
         price_precision = dpo.precision_get('Product Price')
+        account_precision = dpo.precision_get('Account')
         line_id = etree.SubElement(line_root, ns['cbc'] + 'ID')
         line_id.text = unicode(line_number)
         uom_unece_code = False
@@ -111,7 +114,7 @@ class AccountInvoice(models.Model):
         line_amount = etree.SubElement(
             line_root, ns['cbc'] + 'LineExtensionAmount',
             currencyID=cur_name)
-        line_amount.text = unicode(iline.price_subtotal)
+        line_amount.text = '%0.*f' % (account_precision, iline.price_subtotal)
         self._ubl_add_invoice_line_tax_total(iline, line_root, ns)
         self._ubl_add_item(
             iline.name, iline.product_id, line_root, ns, type='sale')
