@@ -6,9 +6,7 @@
 Account Invoice Blocking Payment
 ================================
 
-This module disallow the payment of a blocked invoice.
-
-A blocked invoice cannot be paid and it is impossible to pay a payment order with blocked move lines.
+This module deactivates the payment button of a blocked invoice.
 
 
 Installation

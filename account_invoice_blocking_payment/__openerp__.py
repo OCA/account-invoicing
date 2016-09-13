@@ -5,7 +5,7 @@
 {
     'name': 'Account Invoice Blocking Payment',
     'summary': """
-        This module disallow the payment of a blocked invoice.""",
+        This module deactivates the payment button of a blocked invoice.""",
     'version': '9.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'ACSONE SA/NV,Odoo Community Association (OCA)',
@@ -15,7 +15,6 @@
         'account_invoice_blocking',
     ],
     'data': [
-        'views/account_payment_line.xml',
         'views/account_invoice.xml',
     ],
     'auto_install': True,
