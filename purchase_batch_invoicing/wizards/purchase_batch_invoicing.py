@@ -37,10 +37,10 @@ class WizardModel(models.TransientModel):
             return False
 
     @api.model
-    def _purchase_order_domain(self, ids):
+    def _purchase_order_domain(self, ids=None):
         """Helper to filter current ids by those that are to invoice."""
-        return [
-            ("id", "in", ids),
+        domain = [("id", "in", ids)] if ids else list()
+        return domain + [
             ("invoice_status", "=", "to invoice"),
         ]
 
@@ -97,3 +97,13 @@ class WizardModel(models.TransientModel):
             "views": [[False, "tree"], [False, "form"]],
             "domain": [["id", "in", invoices.ids]],
         }
+
+    @api.model
+    def invoice_all(self, grouping="partner_id"):
+        """Invoice all pending purchase orders."""
+        wizard = self.create({
+            "purchase_order_ids": self.env["purchase.order"].search(
+                self._purchase_order_domain()).ids,
+            "grouping": grouping,
+        })
+        return wizard.action_batch_invoice()

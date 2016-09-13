@@ -10,6 +10,18 @@ This module extends the functionality of purchases to support batch invoicing
 purchase orders and to allow you to choose if you want them grouped by purchase
 order or by vendor.
 
+Configuration
+=============
+
+An automated task is included to invoice all pending purchase orders every
+week, but it is disabled by default. To enable it:
+
+#. Have *Administration / Settings* permissions.
+#. Go to *Settings > Technical > Automation > Scheduled Actions > Invoice all
+   pending purchase orders > Edit*.
+#. Enable *Active*.
+#. Save.
+
 Usage
 =====
 
