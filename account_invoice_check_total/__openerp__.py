@@ -18,6 +18,4 @@
         'security/account_invoice_security.xml',
         'views/account_invoice.xml',
     ],
-    'demo': [
-    ],
 }
