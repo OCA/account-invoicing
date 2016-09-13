@@ -6,6 +6,8 @@ from openerp import api, fields, models, _
 from openerp.exceptions import UserError
 from openerp.tools.float_utils import float_compare
 
+GROUP_AICT = 'account_invoice_check_total.group_supplier_inv_check_total'
+
 
 class AccountInvoice(models.Model):
 
@@ -20,8 +22,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_move_create(self):
         for inv in self:
-            gr = 'account_invoice_check_total.group_supplier_inv_check_total'
-            if self.env.user.has_group(gr):
+            if self.env.user.has_group(GROUP_AICT):
                 if inv.type in ('in_invoice', 'in_refund') and\
                     float_compare(
                         inv.check_total,
@@ -31,3 +32,13 @@ class AccountInvoice(models.Model):
                         'Please verify the price of the invoice!\n\
                         The encoded total does not match the computed total.'))
         return super(AccountInvoice, self).action_move_create()
+
+    @api.model
+    def _prepare_refund(self, invoice, date_invoice=None,
+                        date=None, description=None, journal_id=None):
+        vals = super(AccountInvoice, self)._prepare_refund(
+            invoice, date_invoice, date, description, journal_id)
+
+        if invoice.type in ['in_invoice', 'in_refund']:
+            vals['check_total'] = invoice.check_total
+        return vals
