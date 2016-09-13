@@ -2,9 +2,8 @@
 # Copyright 2016 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models, _
-
-GROUP_XML_ID = 'account_invoice_check_total.group_supplier_inv_check_total'
+from openerp import fields, models
+from ..models.account_invoice import GROUP_AICT
 
 
 class AccountConfigSettings(models.TransientModel):
@@ -13,4 +12,4 @@ class AccountConfigSettings(models.TransientModel):
 
     group_supplier_inv_check_total = fields.Boolean(
         string="Check Total on Vendor Bills",
-        implied_group=GROUP_XML_ID)
+        implied_group=GROUP_AICT)
