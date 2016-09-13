@@ -9,6 +9,13 @@ Account Invoice Check Total
 Add a Verification Total field on vendor bills.
 The user enters the taxes included invoice total as printed on the vendor bill, then enters the invoice lines and taxes. The system then checks the total computed by Odoo is the same as the verification total.
 
+Usage
+=====
+
+.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+   :alt: Try me on Runbot
+   :target: https://runbot.odoo-community.org/runbot/95/9.0
+
 Bug Tracker
 ===========
 

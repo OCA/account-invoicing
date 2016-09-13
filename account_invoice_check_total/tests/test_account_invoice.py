@@ -4,6 +4,7 @@
 
 from openerp.tests.common import TransactionCase
 from openerp.exceptions import UserError
+from ..models.account_invoice import GROUP_AICT
 
 
 class TestAccountInvoice(TransactionCase):
@@ -18,8 +19,7 @@ class TestAccountInvoice(TransactionCase):
         self.account_invoice_line = self.env['account.invoice.line']
         self.current_user = self.env.user
         # Add current user to group: group_supplier_inv_check_total
-        group_id = 'account_invoice_check_total.group_supplier_inv_check_total'
-        self.env.ref(group_id).write({'users': [(4, self.current_user.id)]})
+        self.env.ref(GROUP_AICT).write({'users': [(4, self.current_user.id)]})
 
         # INSTANCES
 
