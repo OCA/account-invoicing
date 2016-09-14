@@ -113,7 +113,6 @@ class WizardModel(models.TransientModel):
         })
         try:
             wizard.action_batch_invoice()
-        except UserError as error:
-            _logger.warn(error.name)
-        finally:
             _logger.info("Finished invoicing all pending purchase orders.")
+        except UserError as error:
+            _logger.info(error.name)
