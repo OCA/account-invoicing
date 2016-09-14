@@ -13,6 +13,7 @@
     'depends': ['account', 'base_iban', 'base_business_document_import'],
     'data': [
         'security/ir.model.access.csv',
+        'security/rule.xml',
         'account_invoice_import_config_view.xml',
         'wizard/account_invoice_import_view.xml',
         'views/account_invoice.xml',
