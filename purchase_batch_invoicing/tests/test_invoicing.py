@@ -77,16 +77,18 @@ class PurchaseBatchInvoicingCase(SavepointCase):
             active_ids=cls.pos.ids).create(dict())
 
     def tearDown(self):
-        result = self.wizard.action_batch_invoice()
-        self.assertEqual(result["res_model"], "account.invoice")
-        invoices = self.env[result["res_model"]].search(result["domain"])
-        self.assertEqual(len(invoices), self.expected_invoices)
-        self.assertEqual(invoices.mapped("invoice_line_ids.purchase_id"),
-                         self.pos)
-        self.assertEqual(
-            self.expected_untaxed,
-            invoices.mapped("amount_untaxed"))
-        super(PurchaseBatchInvoicingCase, self).tearDown()
+        try:
+            result = self.wizard.action_batch_invoice()
+            self.assertEqual(result["res_model"], "account.invoice")
+            invoices = self.env[result["res_model"]].search(result["domain"])
+            self.assertEqual(len(invoices), self.expected_invoices)
+            self.assertEqual(invoices.mapped("invoice_line_ids.purchase_id"),
+                             self.pos)
+            self.assertEqual(
+                self.expected_untaxed,
+                invoices.mapped("amount_untaxed"))
+        finally:
+            super(PurchaseBatchInvoicingCase, self).tearDown()
 
     def test_group_po(self):
         """One invoice per purchase order."""
