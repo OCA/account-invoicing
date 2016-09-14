@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from logging import getLogger
+
 from openerp import _, api, fields, models
 from openerp.exceptions import UserError
+
+_logger = getLogger(__name__)
 
 
 class WizardModel(models.TransientModel):
@@ -101,9 +105,15 @@ class WizardModel(models.TransientModel):
     @api.model
     def cron_invoice_all_pending(self, grouping="partner_id"):
         """Invoice all pending purchase orders."""
+        _logger.info("Starting to invoice all pending purchase orders.")
         wizard = self.create({
             "purchase_order_ids": self.env["purchase.order"].search(
                 self._purchase_order_domain()).ids,
             "grouping": grouping,
         })
-        return wizard.action_batch_invoice()
+        try:
+            wizard.action_batch_invoice()
+        except UserError as error:
+            _logger.warn(error.name)
+        finally:
+            _logger.info("Finished invoicing all pending purchase orders.")
