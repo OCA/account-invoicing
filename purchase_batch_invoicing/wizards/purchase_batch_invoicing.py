@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from openerp import _, api, fields, models
 from openerp.exceptions import UserError
 
@@ -89,7 +89,7 @@ class WizardModel(models.TransientModel):
                 vals = invoice._convert_to_write(invoice._cache)
             invoices |= invoices.create(vals)
         if not invoices:
-            raise UserError(_("No ready to invoice purchase orders selected."))
+            raise UserError(_("No ready-to-invoice purchase orders selected."))
         return {
             "type": "ir.actions.act_window",
             "res_model": "account.invoice",
@@ -99,7 +99,7 @@ class WizardModel(models.TransientModel):
         }
 
     @api.model
-    def invoice_all(self, grouping="partner_id"):
+    def cron_invoice_all_pending(self, grouping="partner_id"):
         """Invoice all pending purchase orders."""
         wizard = self.create({
             "purchase_order_ids": self.env["purchase.order"].search(

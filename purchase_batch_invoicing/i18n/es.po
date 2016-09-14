@@ -87,7 +87,7 @@ msgstr "Hacer una factura por cada..."
 #: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:92
 #: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
 #, python-format
-msgid "No ready to invoice purchase orders selected."
+msgid "No ready-to-invoice purchase orders selected."
 msgstr "No se ha seleccionado ningún pedido de compra listo para facturar."
 
 #. module: purchase_batch_invoicing

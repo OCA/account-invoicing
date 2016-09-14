@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
-     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 
 <odoo>
 
@@ -10,7 +10,7 @@
     <field name="interval_type">weeks</field>
     <field name="numbercall">-1</field>
     <field name="model">purchase.batch_invoicing</field>
-    <field name="function">invoice_all</field>
+    <field name="function">cron_invoice_all_pending</field>
     <field name="args">("partner_id",)</field>
 </record>
 

@@ -1,6 +1,6 @@
-.. image:: https://img.shields.io/badge/licence-LGPL--3-blue.svg
-   :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
-   :alt: License: LGPL-3
+.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+   :alt: License: AGPL-3
 
 ========================
 Purchase Batch Invoicing
@@ -17,9 +17,10 @@ An automated task is included to invoice all pending purchase orders every
 week, but it is disabled by default. To enable it:
 
 #. Have *Administration / Settings* permissions.
+#. Go to *[Your user menu] > About > Activate the developer mode*.
 #. Go to *Settings > Technical > Automation > Scheduled Actions > Invoice all
    pending purchase orders > Edit*.
-#. Enable *Active*.
+#. Enable it by clicking on *Active* and set the date accordingly.
 #. Save.
 
 Usage
@@ -35,7 +36,12 @@ To use this module, you need to:
 #. Repeat above steps a couple of times.
 #. Go back to *Purchase Orders* and select those you just created.
 #. Press *Action > Batch Invoice*.
-#. Choose the *Grouping* method.
+#. You get a wizard with a list of ready-to-invoice purchase orders. Choose the
+   *Grouping* method.
+
+   .. figure:: /purchase_batch_invoicing/static/description/wizard.png
+      :alt: Purchase order batch invoicing wizard
+
 #. Press *Accept*.
 #. You will get to a screen where you can see all the vendor bills you just
    generated.
@@ -43,6 +49,11 @@ To use this module, you need to:
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/95/9.0
+
+Known Issues / Roadmap
+======================
+
+It would be nice to be able to group invoices by PO line.
 
 Bug Tracker
 ===========
@@ -59,7 +70,7 @@ Contributors
 ------------
 
 * Jairo Llopis <jairo.llopis@tecnativa.com>
-* Pedro Baeza <pedro.baeza@tecnativa.com>
+* Pedro M. Baeza <pedro.baeza@tecnativa.com>
 
 Maintainer
 ----------

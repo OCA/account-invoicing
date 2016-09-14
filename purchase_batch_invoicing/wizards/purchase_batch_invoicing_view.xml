@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
-     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
 <record id="wizard_purchase_batch_invoicing_view" model="ir.ui.view">
@@ -14,7 +14,7 @@
                     <field name="grouping"/>
                 </group>
                 <div attrs="{'invisible': [('purchase_order_ids', '!=', False)]}">
-                    <p>No ready to invoice purchase orders selected.</p>
+                    <p>No ready-to-invoice purchase orders selected.</p>
                 </div>
             </sheet>
             <footer>
