@@ -13,6 +13,7 @@
         "purchase",
     ],
     "data": [
+        "data/ir_cron_data.xml",
         "security/ir.model.access.csv",
         "wizards/purchase_batch_invoicing_view.xml",
     ],
