@@ -13,6 +13,7 @@
     'depends': [
         'product_uom_unece',
         'account_tax_unece',
+        'base_vat_sanitized',
         ],
     'external_dependencies': {'python': ['PyPDF2']},
     'installable': True,

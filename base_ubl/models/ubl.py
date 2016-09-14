@@ -124,7 +124,7 @@ class BaseUbl(models.AbstractModel):
             registration_name.text = commercial_partner.name
             company_id = etree.SubElement(
                 party_tax_scheme, ns['cbc'] + 'CompanyID')
-            company_id.text = commercial_partner.vat
+            company_id.text = commercial_partner.sanitized_vat
             tax_scheme = etree.SubElement(
                 party_tax_scheme, ns['cac'] + 'TaxScheme')
             tax_scheme_id = etree.SubElement(
