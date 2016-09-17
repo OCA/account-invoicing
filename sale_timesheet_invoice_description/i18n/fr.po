@@ -11,12 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2016-08-20 03:20+0000\n"
 "PO-Revision-Date: 2016-08-20 03:20+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
-"Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
+"Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: sale_timesheet_invoice_description
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:20
@@ -34,7 +34,7 @@ msgstr ""
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:21
 #, python-format
 msgid "Description"
-msgstr "Opis"
+msgstr ""
 
 #. module: sale_timesheet_invoice_description
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:18
@@ -50,7 +50,7 @@ msgstr ""
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Postavka prodajnega naloga"
+msgstr "Ligne de commandes de vente"
 
 #. module: sale_timesheet_invoice_description
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:22
