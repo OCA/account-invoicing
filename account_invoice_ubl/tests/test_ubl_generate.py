@@ -14,16 +14,17 @@ class TestUblInvoice(TransactionCase):
         for i in range(5):
             i += 1
             invoice = self.env.ref('account.invoice_%d' % i)
-            invoice_filename = invoice.get_ubl_filename()
             # validate invoice
             workflow.trg_validate(
                 self.uid, 'account.invoice', invoice.id, 'invoice_open',
                 self.cr)
             if invoice.type not in ('out_invoice', 'out_refund'):
                 continue
-            # I didn't manage to make it work with new api :-(
-            pdf_file = ro.get_pdf(
-                self.cr, self.uid, invoice.ids,
-                'account.report_invoice')
-            res = buo.get_xml_files_from_pdf(pdf_file)
-            self.assertTrue(invoice_filename in res)
+            for version in ['2.0', '2.1']:
+                # I didn't manage to make it work with new api :-(
+                pdf_file = ro.get_pdf(
+                    self.cr, self.uid, invoice.ids,
+                    'account.report_invoice', context={'ubl_version': version})
+                res = buo.get_xml_files_from_pdf(pdf_file)
+                invoice_filename = invoice.get_ubl_filename(version=version)
+                self.assertTrue(invoice_filename in res)

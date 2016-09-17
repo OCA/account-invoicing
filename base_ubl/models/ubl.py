@@ -22,7 +22,7 @@ class BaseUbl(models.AbstractModel):
     # ==================== METHODS TO GENERATE UBL files
 
     @api.model
-    def _ubl_add_country(self, country, parent_node, ns):
+    def _ubl_add_country(self, country, parent_node, ns, version='2.1'):
         country_root = etree.SubElement(parent_node, ns['cac'] + 'Country')
         country_code = etree.SubElement(
             country_root, ns['cbc'] + 'IdentificationCode')
@@ -32,7 +32,8 @@ class BaseUbl(models.AbstractModel):
         country_name.text = country.name
 
     @api.model
-    def _ubl_add_address(self, partner, node_name, parent_node, ns):
+    def _ubl_add_address(
+            self, partner, node_name, parent_node, ns, version='2.1'):
         address = etree.SubElement(parent_node, ns['cac'] + node_name)
         if partner.street:
             streetname = etree.SubElement(
@@ -60,12 +61,13 @@ class BaseUbl(models.AbstractModel):
                 address, ns['cbc'] + 'CountrySubentityCode')
             state_code.text = partner.state_id.code
         if partner.country_id:
-            self._ubl_add_country(partner.country_id, address, ns)
+            self._ubl_add_country(
+                partner.country_id, address, ns, version=version)
         else:
             logger.warning('UBL: missing country on partner %s', partner.name)
 
     @api.model
-    def _ubl_add_contact(self, partner, parent_node, ns):
+    def _ubl_add_contact(self, partner, parent_node, ns, version='2.1'):
         contact = etree.SubElement(parent_node, ns['cac'] + 'Contact')
         if partner.parent_id:
             contact_name = etree.SubElement(contact, ns['cbc'] + 'Name')
@@ -85,7 +87,7 @@ class BaseUbl(models.AbstractModel):
             electronicmail.text = email
 
     @api.model
-    def _ubl_add_language(self, lang_code, parent_node, ns):
+    def _ubl_add_language(self, lang_code, parent_node, ns, version='2.1'):
         langs = self.env['res.lang'].search([('code', '=', lang_code)])
         if not langs:
             return
@@ -98,24 +100,27 @@ class BaseUbl(models.AbstractModel):
 
     @api.model
     def _ubl_add_party_identification(
-            self, commercial_partner, parent_node, ns):
+            self, commercial_partner, parent_node, ns, version='2.1'):
         '''This method is designed to be inherited in localisation modules'''
         return
 
     @api.model
-    def _ubl_add_party(self, partner, node_name, parent_node, ns):
+    def _ubl_add_party(
+            self, partner, node_name, parent_node, ns, version='2.1'):
         commercial_partner = partner.commercial_partner_id
         party = etree.SubElement(parent_node, ns['cac'] + node_name)
         if commercial_partner.website:
             website = etree.SubElement(party, ns['cbc'] + 'WebsiteURI')
             website.text = commercial_partner.website
-        self._ubl_add_party_identification(commercial_partner, party, ns)
+        self._ubl_add_party_identification(
+            commercial_partner, party, ns, version=version)
         party_name = etree.SubElement(party, ns['cac'] + 'PartyName')
         name = etree.SubElement(party_name, ns['cbc'] + 'Name')
         name.text = commercial_partner.name
         if partner.lang:
-            self._ubl_add_language(partner.lang, party, ns)
-        self._ubl_add_address(commercial_partner, 'PostalAddress', party, ns)
+            self._ubl_add_language(partner.lang, party, ns, version=version)
+        self._ubl_add_address(
+            commercial_partner, 'PostalAddress', party, ns, version=version)
         if commercial_partner.vat:
             party_tax_scheme = etree.SubElement(
                 party, ns['cac'] + 'PartyTaxScheme')
@@ -131,11 +136,11 @@ class BaseUbl(models.AbstractModel):
                 tax_scheme, ns['cbc'] + 'ID', schemeID='UN/ECE 5153',
                 schemeAgencyID='6')
             tax_scheme_id.text = 'VAT'
-        self._ubl_add_contact(partner, party, ns)
+        self._ubl_add_contact(partner, party, ns, version=version)
 
     @api.model
     def _ubl_add_customer_party(
-            self, partner, company, node_name, parent_node, ns):
+            self, partner, company, node_name, parent_node, ns, version='2.1'):
         """Please read the docstring of the method _ubl_add_supplier_party"""
         if company:
             if partner:
@@ -149,11 +154,12 @@ class BaseUbl(models.AbstractModel):
             customer_ref = etree.SubElement(
                 customer_party_root, ns['cbc'] + 'SupplierAssignedAccountID')
             customer_ref.text = partner.commercial_partner_id.ref
-        self._ubl_add_party(partner, 'Party', customer_party_root, ns)
+        self._ubl_add_party(
+            partner, 'Party', customer_party_root, ns, version=version)
 
     @api.model
     def _ubl_add_supplier_party(
-            self, partner, company, node_name, parent_node, ns):
+            self, partner, company, node_name, parent_node, ns, version='2.1'):
         """The company argument has been added to property  handle the
         'ref' field.
         In Odoo, we only have one ref field, in which we are supposed
@@ -181,20 +187,24 @@ class BaseUbl(models.AbstractModel):
             supplier_ref = etree.SubElement(
                 supplier_party_root, ns['cbc'] + 'CustomerAssignedAccountID')
             supplier_ref.text = partner.commercial_partner_id.ref
-        self._ubl_add_party(partner, 'Party', supplier_party_root, ns)
+        self._ubl_add_party(
+            partner, 'Party', supplier_party_root, ns, version=version)
 
     @api.model
-    def _ubl_add_delivery(self, delivery_partner, parent_node, ns):
+    def _ubl_add_delivery(
+            self, delivery_partner, parent_node, ns, version='2.1'):
         delivery = etree.SubElement(parent_node, ns['cac'] + 'Delivery')
         delivery_location = etree.SubElement(
             delivery, ns['cac'] + 'DeliveryLocation')
         self._ubl_add_address(
-            delivery_partner, 'Address', delivery_location, ns)
+            delivery_partner, 'Address', delivery_location, ns,
+            version=version)
         self._ubl_add_party(
-            delivery_partner, 'DeliveryParty', delivery, ns)
+            delivery_partner, 'DeliveryParty', delivery, ns, version=version)
 
     @api.model
-    def _ubl_add_delivery_terms(self, incoterm, parent_node, ns):
+    def _ubl_add_delivery_terms(
+            self, incoterm, parent_node, ns, version='2.1'):
         delivery_term = etree.SubElement(
             parent_node, ns['cac'] + 'DeliveryTerms')
         delivery_term_id = etree.SubElement(
@@ -203,7 +213,8 @@ class BaseUbl(models.AbstractModel):
         delivery_term_id.text = incoterm.code
 
     @api.model
-    def _ubl_add_payment_terms(self, payment_term, parent_node, ns):
+    def _ubl_add_payment_terms(
+            self, payment_term, parent_node, ns, version='2.1'):
         pay_term_root = etree.SubElement(
             parent_node, ns['cac'] + 'PaymentTerms')
         pay_term_note = etree.SubElement(
@@ -214,7 +225,7 @@ class BaseUbl(models.AbstractModel):
     def _ubl_add_line_item(
             self, line_number, name, product, type, quantity, uom, parent_node,
             ns, seller=False, currency=False, price_subtotal=False,
-            qty_precision=3, price_precision=2):
+            qty_precision=3, price_precision=2, version='2.1'):
         line_item = etree.SubElement(
             parent_node, ns['cac'] + 'LineItem')
         line_item_id = etree.SubElement(line_item, ns['cbc'] + 'ID')
@@ -250,12 +261,13 @@ class BaseUbl(models.AbstractModel):
                 unitCode=uom.unece_code)
             base_qty.text = '1'  # What else could it be ?
         self._ubl_add_item(
-            name, product, line_item, ns, type=type, seller=seller)
+            name, product, line_item, ns, type=type, seller=seller,
+            version=version)
 
     @api.model
     def _ubl_add_item(
             self, name, product, parent_node, ns, type='purchase',
-            seller=False):
+            seller=False, version='2.1'):
         '''Beware that product may be False (in particular on invoices)'''
         assert type in ('sale', 'purchase'), 'Wrong type param'
         assert name, 'name is a required arg'
@@ -309,7 +321,7 @@ class BaseUbl(models.AbstractModel):
     @api.model
     def _ubl_add_tax_subtotal(
             self, taxable_amount, tax_amount, tax, currency_code,
-            parent_node, ns):
+            parent_node, ns, version='2.1'):
         prec = self.env['decimal.precision'].precision_get('Account')
         tax_subtotal = etree.SubElement(parent_node, ns['cac'] + 'TaxSubtotal')
         if not float_is_zero(taxable_amount, precision_digits=prec):
@@ -327,10 +339,10 @@ class BaseUbl(models.AbstractModel):
                 tax_subtotal, ns['cbc'] + 'Percent')
             percent.text = unicode(
                 float_round(tax.amount * 100, precision_digits=2))
-        self._ubl_add_tax_category(tax, tax_subtotal, ns)
+        self._ubl_add_tax_category(tax, tax_subtotal, ns, version=version)
 
     @api.model
-    def _ubl_add_tax_category(self, tax, parent_node, ns):
+    def _ubl_add_tax_category(self, tax, parent_node, ns, version='2.1'):
         tax_category = etree.SubElement(
             parent_node, ns['cac'] + 'TaxCategory')
         if not tax.unece_categ_id:
@@ -343,10 +355,10 @@ class BaseUbl(models.AbstractModel):
         tax_name = etree.SubElement(
             tax_category, ns['cbc'] + 'Name')
         tax_name.text = tax.name
-        self._ubl_add_tax_scheme(tax, tax_category, ns)
+        self._ubl_add_tax_scheme(tax, tax_category, ns, version=version)
 
     @api.model
-    def _ubl_add_tax_scheme(self, tax, parent_node, ns):
+    def _ubl_add_tax_scheme(self, tax, parent_node, ns, version='2.1'):
         tax_scheme = etree.SubElement(parent_node, ns['cac'] + 'TaxScheme')
         if not tax.unece_type_id:
             raise UserError(_(
@@ -357,7 +369,7 @@ class BaseUbl(models.AbstractModel):
         tax_scheme_id.text = tax.unece_type_code
 
     @api.model
-    def _ubl_get_nsmap_namespace(self, doc_name):
+    def _ubl_get_nsmap_namespace(self, doc_name, version='2.1'):
         nsmap = {
             None: 'urn:oasis:names:specification:ubl:schema:xsd:' + doc_name,
             'cac': 'urn:oasis:names:specification:ubl:'
@@ -374,8 +386,10 @@ class BaseUbl(models.AbstractModel):
         return nsmap, ns
 
     @api.model
-    def _check_xml_schema(self, xml_string, xsd_file):
+    def _ubl_check_xml_schema(self, xml_string, document, version='2.1'):
         '''Validate the XML file against the XSD'''
+        xsd_file = 'base_ubl/data/xsd-%s/maindoc/UBL-%s-%s.xsd' % (
+            version, document, version)
         xsd_etree_obj = etree.parse(tools.file_open(xsd_file))
         official_schema = etree.XMLSchema(xsd_etree_obj)
         try:

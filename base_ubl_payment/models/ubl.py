@@ -15,7 +15,8 @@ class BaseUbl(models.AbstractModel):
 
     @api.model
     def _ubl_add_payment_means(
-            self, partner_bank, payment_mode, date_due, parent_node, ns):
+            self, partner_bank, payment_mode, date_due, parent_node, ns,
+            version='2.1'):
         pay_means = etree.SubElement(parent_node, ns['cac'] + 'PaymentMeans')
         pay_means_code = etree.SubElement(
             pay_means, ns['cbc'] + 'PaymentMeansCode', listID="UN/ECE 4461")

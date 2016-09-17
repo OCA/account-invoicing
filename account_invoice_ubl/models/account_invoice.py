@@ -16,10 +16,10 @@ class AccountInvoice(models.Model):
     _inherit = ['account.invoice', 'base.ubl']
 
     @api.multi
-    def _ubl_add_header(self, parent_node, ns):
+    def _ubl_add_header(self, parent_node, ns, version='2.1'):
         ubl_version = etree.SubElement(
             parent_node, ns['cbc'] + 'UBLVersionID')
-        ubl_version.text = '2.1'
+        ubl_version.text = version
         doc_id = etree.SubElement(parent_node, ns['cbc'] + 'ID')
         doc_id.text = self.number
         issue_date = etree.SubElement(parent_node, ns['cbc'] + 'IssueDate')
@@ -38,7 +38,7 @@ class AccountInvoice(models.Model):
         doc_currency.text = self.currency_id.name
 
     @api.multi
-    def _ubl_add_attachments(self, parent_node, ns):
+    def _ubl_add_attachments(self, parent_node, ns, version='2.1'):
         if (
                 self.company_id.embed_pdf_in_ubl_xml_invoice and
                 not self._context.get('no_embedded_pdf')):
@@ -60,7 +60,7 @@ class AccountInvoice(models.Model):
             binary_node.text = pdf_inv.encode('base64')
 
     @api.multi
-    def _ubl_add_legal_monetary_total(self, parent_node, ns):
+    def _ubl_add_legal_monetary_total(self, parent_node, ns, version='2.1'):
         monetary_total = etree.SubElement(
             parent_node, ns['cac'] + 'LegalMonetaryTotal')
         cur_name = self.currency_id.name
@@ -88,7 +88,8 @@ class AccountInvoice(models.Model):
         payable_amount.text = '%0.*f' % (prec, self.residual)
 
     @api.multi
-    def _ubl_add_invoice_line(self, parent_node, iline, line_number, ns):
+    def _ubl_add_invoice_line(
+            self, parent_node, iline, line_number, ns, version='2.1'):
         cur_name = self.currency_id.name
         line_root = etree.SubElement(
             parent_node, ns['cac'] + 'InvoiceLine')
@@ -115,9 +116,11 @@ class AccountInvoice(models.Model):
             line_root, ns['cbc'] + 'LineExtensionAmount',
             currencyID=cur_name)
         line_amount.text = '%0.*f' % (account_precision, iline.price_subtotal)
-        self._ubl_add_invoice_line_tax_total(iline, line_root, ns)
+        self._ubl_add_invoice_line_tax_total(
+            iline, line_root, ns, version=version)
         self._ubl_add_item(
-            iline.name, iline.product_id, line_root, ns, type='sale')
+            iline.name, iline.product_id, line_root, ns, type='sale',
+            version=version)
         price_node = etree.SubElement(line_root, ns['cac'] + 'Price')
         price_amount = etree.SubElement(
             price_node, ns['cbc'] + 'PriceAmount', currencyID=cur_name)
@@ -137,7 +140,8 @@ class AccountInvoice(models.Model):
             base_qty = etree.SubElement(price_node, ns['cbc'] + 'BaseQuantity')
         base_qty.text = unicode(qty)
 
-    def _ubl_add_invoice_line_tax_total(self, iline, parent_node, ns):
+    def _ubl_add_invoice_line_tax_total(
+            self, iline, parent_node, ns, version='2.1'):
         cur_name = self.currency_id.name
         prec = self.env['decimal.precision'].precision_get('Account')
         tax_total_node = etree.SubElement(parent_node, ns['cac'] + 'TaxTotal')
@@ -155,7 +159,8 @@ class AccountInvoice(models.Model):
             tax = self.env['account.tax'].browse(res_tax['id'])
             # we don't have the base amount in res_tax :-(
             self._ubl_add_tax_subtotal(
-                False, res_tax['amount'], tax, cur_name, tax_total_node, ns)
+                False, res_tax['amount'], tax, cur_name, tax_total_node, ns,
+                version=version)
 
     @api.multi
     def get_delivery_partner(self):
@@ -163,7 +168,7 @@ class AccountInvoice(models.Model):
         # NON, car nécessite un lien vers sale
 
     @api.multi
-    def _ubl_add_tax_total(self, xml_root, ns):
+    def _ubl_add_tax_total(self, xml_root, ns, version='2.1'):
         self.ensure_one()
         cur_name = self.currency_id.name
         tax_total_node = etree.SubElement(xml_root, ns['cac'] + 'TaxTotal')
@@ -182,48 +187,51 @@ class AccountInvoice(models.Model):
                     % tline.base_code_id.name)
             tax = taxes[0]
             self._ubl_add_tax_subtotal(
-                tline.base, tline.amount, tax, cur_name, tax_total_node, ns)
+                tline.base, tline.amount, tax, cur_name, tax_total_node, ns,
+                version=version)
 
     @api.multi
-    def generate_invoice_ubl_xml_etree(self):
-        nsmap, ns = self._ubl_get_nsmap_namespace('Invoice-2')
+    def generate_invoice_ubl_xml_etree(self, version='2.1'):
+        nsmap, ns = self._ubl_get_nsmap_namespace('Invoice-2', version=version)
         xml_root = etree.Element('Invoice', nsmap=nsmap)
-        self._ubl_add_header(xml_root, ns)
-        self._ubl_add_attachments(xml_root, ns)
+        self._ubl_add_header(xml_root, ns, version=version)
+        self._ubl_add_attachments(xml_root, ns, version=version)
         self._ubl_add_supplier_party(
-            False, self.company_id, 'AccountingSupplierParty', xml_root, ns)
+            False, self.company_id, 'AccountingSupplierParty', xml_root, ns,
+            version=version)
         self._ubl_add_customer_party(
-            self.partner_id, False, 'AccountingCustomerParty', xml_root, ns)
+            self.partner_id, False, 'AccountingCustomerParty', xml_root, ns,
+            version=version)
         # delivery_partner = self.get_delivery_partner()
         # self._ubl_add_delivery(delivery_partner, xml_root, ns)
         # Put paymentmeans block even when invoice is paid ?
         self._ubl_add_payment_means(
             self.partner_bank_id, self.payment_mode_id, self.date_due,
-            xml_root, ns)
+            xml_root, ns, version=version)
         if self.payment_term:
-            self._ubl_add_payment_terms(self.payment_term, xml_root, ns)
-        self._ubl_add_tax_total(xml_root, ns)
-        self._ubl_add_legal_monetary_total(xml_root, ns)
+            self._ubl_add_payment_terms(
+                self.payment_term, xml_root, ns, version=version)
+        self._ubl_add_tax_total(xml_root, ns, version=version)
+        self._ubl_add_legal_monetary_total(xml_root, ns, version=version)
 
         line_number = 0
         for iline in self.invoice_line:
             line_number += 1
-            self._ubl_add_invoice_line(xml_root, iline, line_number, ns)
+            self._ubl_add_invoice_line(
+                xml_root, iline, line_number, ns, version=version)
         return xml_root
 
     @api.multi
-    def generate_ubl_xml_string(self):
+    def generate_ubl_xml_string(self, version='2.1'):
         self.ensure_one()
         assert self.state in ('open', 'paid')
         assert self.type in ('out_invoice', 'out_refund')
         logger.debug('Starting to generate UBL XML Invoice file')
-        xml_root = self.generate_invoice_ubl_xml_etree()
-        xsd_filename = 'UBL-Invoice-2.1.xsd'
+        xml_root = self.generate_invoice_ubl_xml_etree(version=version)
         xml_string = etree.tostring(
             xml_root, pretty_print=True, encoding='UTF-8',
             xml_declaration=True)
-        self._check_xml_schema(
-            xml_string, 'base_ubl/data/xsd-2.1/maindoc/' + xsd_filename)
+        self._ubl_check_xml_schema(xml_string, 'Invoice', version=version)
         logger.debug(
             'Invoice UBL XML file generated for account invoice ID %d '
             '(state %s)', self.id, self.state)
@@ -231,9 +239,14 @@ class AccountInvoice(models.Model):
         return xml_string
 
     @api.multi
-    def get_ubl_filename(self):
+    def get_ubl_filename(self, version='2.1'):
         """This method is designed to be inherited"""
-        return 'UBL-Invoice-2.1.xml'
+        return 'UBL-Invoice-%s.xml' % version
+
+    @api.multi
+    def get_ubl_version(self):
+        version = self._context.get('ubl_version') or '2.1'
+        return version
 
     @api.multi
     def embed_ubl_xml_in_pdf(self, pdf_content):
@@ -241,8 +254,9 @@ class AccountInvoice(models.Model):
         if (
                 self.type in ('out_invoice', 'out_refund') and
                 self.state in ('open', 'paid')):
-            ubl_filename = self.get_ubl_filename()
-            xml_string = self.generate_ubl_xml_string()
+            version = self.get_ubl_version()
+            ubl_filename = self.get_ubl_filename(version=version)
+            xml_string = self.generate_ubl_xml_string(version=version)
             pdf_content = self.embed_xml_in_pdf(
                 xml_string, ubl_filename, pdf_content)
         return pdf_content
@@ -252,8 +266,9 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         assert self.type in ('out_invoice', 'out_refund')
         assert self.state in ('open', 'paid')
-        xml_string = self.generate_ubl_xml_string()
-        filename = self.get_ubl_filename()
+        version = self.get_ubl_version()
+        xml_string = self.generate_ubl_xml_string(version=version)
+        filename = self.get_ubl_filename(version=version)
         attach = self.env['ir.attachment'].create({
             'name': filename,
             'res_id': self.id,
