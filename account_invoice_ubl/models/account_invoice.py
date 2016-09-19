@@ -227,7 +227,15 @@ class AccountInvoice(models.Model):
         assert self.state in ('open', 'paid')
         assert self.type in ('out_invoice', 'out_refund')
         logger.debug('Starting to generate UBL XML Invoice file')
-        xml_root = self.generate_invoice_ubl_xml_etree(version=version)
+        lang = self.get_ubl_lang()
+        # The aim of injecting lang in context
+        # is to have the content of the XML in the partner's lang
+        # but the problem is that the error messages will also be in
+        # that lang. But the error messages should almost never
+        # happen except the first days of use, so it's probably
+        # not worth the additionnal code to handle the 2 langs
+        xml_root = self.with_context(lang=lang).\
+            generate_invoice_ubl_xml_etree(version=version)
         xml_string = etree.tostring(
             xml_root, pretty_print=True, encoding='UTF-8',
             xml_declaration=True)
@@ -247,6 +255,10 @@ class AccountInvoice(models.Model):
     def get_ubl_version(self):
         version = self._context.get('ubl_version') or '2.1'
         return version
+
+    @api.multi
+    def get_ubl_lang(self):
+        return self.partner_id.lang or 'en_US'
 
     @api.multi
     def embed_ubl_xml_in_pdf(self, pdf_content):
