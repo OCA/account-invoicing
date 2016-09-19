@@ -16,7 +16,6 @@
                 <field name="name"/>
                 <field name="order_qty"/>
                 <field name="qty_invoiced"/>
-                <field name="qty_delivered"/>
                 <field name="quantity"/>
               </tree>
             </field>
