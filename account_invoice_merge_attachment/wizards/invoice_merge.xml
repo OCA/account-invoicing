@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+<data>
+
+    <record model="ir.ui.view" id="invoice_merge_form_view">
+        <field name="name">invoice.merge.form (in account_invoice_merge_attachment)</field>
+        <field name="model">invoice.merge</field>
+        <field name="inherit_id" ref="account_invoice_merge.view_invoice_merge"/>
+        <field name="arch" type="xml">
+            <field name="keep_references" position="after">
+                <field name="link_attachment" />
+            </field>
+        </field>
+    </record>
+
+
+
+
+</data>
+</openerp>
