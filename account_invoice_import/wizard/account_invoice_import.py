@@ -15,7 +15,6 @@ logger = logging.getLogger(__name__)
 
 class AccountInvoiceImport(models.TransientModel):
     _name = 'account.invoice.import'
-    _inherit = ['business.document.import']
     _description = 'Wizard to import supplier invoices/refunds'
 
     invoice_file = fields.Binary(
@@ -54,7 +53,8 @@ class AccountInvoiceImport(models.TransientModel):
         '''This method must be inherited by additionnal modules with
         the same kind of logic as the account_bank_statement_import_*
         modules'''
-        xml_files_dict = self.get_xml_files_from_pdf(file_data)
+        bdio = self.env['business.document.import']
+        xml_files_dict = bdio.get_xml_files_from_pdf(file_data)
         for xml_filename, xml_root in xml_files_dict.iteritems():
             logger.info('Trying to parse XML file %s', xml_filename)
             try:
@@ -118,12 +118,13 @@ class AccountInvoiceImport(models.TransientModel):
     def _prepare_create_invoice_vals(self, parsed_inv):
         aio = self.env['account.invoice']
         ailo = self.env['account.invoice.line']
+        bdio = self.env['business.document.import']
         company = self.env.user.company_id
         assert parsed_inv.get('amount_total'), 'Missing amount_total'
-        partner = self._match_partner(
+        partner = bdio._match_partner(
             parsed_inv['partner'], parsed_inv['chatter_msg'])
         partner = partner.commercial_partner_id
-        currency = self._match_currency(
+        currency = bdio._match_currency(
             parsed_inv.get('currency'), parsed_inv['chatter_msg'])
         vals = {
             'partner_id': partner.id,
@@ -218,7 +219,7 @@ class AccountInvoiceImport(models.TransientModel):
             for line in parsed_inv['lines']:
                 il_vals = static_vals.copy()
                 if config.invoice_line_method == 'nline_auto_product':
-                    product = self._match_product(
+                    product = bdio._match_product(
                         line['product'], parsed_inv['chatter_msg'],
                         seller=partner)
                     fposition_id = partner.property_account_position.id
@@ -230,14 +231,14 @@ class AccountInvoiceImport(models.TransientModel):
                             company_id=company.id)['value'])
                     il_vals['product_id'] = product.id
                 elif config.invoice_line_method == 'nline_no_product':
-                    taxes = self._match_taxes(
+                    taxes = bdio._match_taxes(
                         line.get('taxes'), parsed_inv['chatter_msg'])
                     il_vals['invoice_line_tax_id'] = taxes.ids
                 if line.get('name'):
                     il_vals['name'] = line['name']
                 elif not il_vals.get('name'):
                     il_vals['name'] = _('MISSING DESCRIPTION')
-                uom = self._match_uom(
+                uom = bdio._match_uom(
                     line.get('uom'), parsed_inv['chatter_msg'])
                 il_vals['uos_id'] = uom.id
                 il_vals.update({
@@ -353,12 +354,13 @@ class AccountInvoiceImport(models.TransientModel):
         """Method called by the button of the wizard (1st step)"""
         self.ensure_one()
         aio = self.env['account.invoice']
+        bdio = self.env['business.document.import']
         iaao = self.env['ir.actions.act_window']
         parsed_inv = self.parse_invoice()
-        partner = self._match_partner(
+        partner = bdio._match_partner(
             parsed_inv['partner'], parsed_inv['chatter_msg'])
         partner = partner.commercial_partner_id
-        currency = self._match_currency(
+        currency = bdio._match_currency(
             parsed_inv.get('currency'), parsed_inv['chatter_msg'])
         parsed_inv['partner']['recordset'] = partner
         parsed_inv['currency']['recordset'] = currency
@@ -428,12 +430,13 @@ class AccountInvoiceImport(models.TransientModel):
     @api.model
     def _create_invoice(self, parsed_inv):
         aio = self.env['account.invoice']
+        bdio = self.env['business.document.import']
         vals = self._prepare_create_invoice_vals(parsed_inv)
         logger.debug('Invoice vals for creation: %s', vals)
         invoice = aio.create(vals)
         self.post_process_invoice(parsed_inv, invoice)
         logger.info('Invoice ID %d created', invoice.id)
-        self.post_create_or_update(parsed_inv, invoice)
+        bdio.post_create_or_update(parsed_inv, invoice)
         return invoice
 
     @api.model
@@ -562,6 +565,7 @@ class AccountInvoiceImport(models.TransientModel):
     def update_invoice(self):
         self.ensure_one()
         iaao = self.env['ir.actions.act_window']
+        bdio = self.env['business.document.import']
         invoice = self.invoice_id
         if not invoice:
             raise UserError(_(
@@ -570,7 +574,7 @@ class AccountInvoiceImport(models.TransientModel):
         if self.partner_id:
             # True if state='update' ; False when state='update-from-invoice'
             parsed_inv['partner']['recordset'] = self.partner_id
-        partner = self._match_partner(
+        partner = bdio._match_partner(
             parsed_inv['partner'], parsed_inv['chatter_msg'],
             partner_type='supplier')
         partner = partner.commercial_partner_id
@@ -584,7 +588,7 @@ class AccountInvoiceImport(models.TransientModel):
             raise UserError(_(
                 "Missing Invoice Import Configuration on partner '%s'.")
                 % partner.name)
-        currency = self._match_currency(
+        currency = bdio._match_currency(
             parsed_inv.get('currency'), parsed_inv['chatter_msg'])
         if currency != invoice.currency_id:
             raise UserError(_(
