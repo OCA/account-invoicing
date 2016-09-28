@@ -9,6 +9,7 @@ from tempfile import mkstemp
 import logging
 from invoice2data.main import extract_data
 from invoice2data.template import read_templates
+import pkg_resources
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +39,11 @@ class AccountInvoiceImport(models.TransientModel):
         templates = None
         if local_templates_dir and os.path.isdir(local_templates_dir):
             templates = read_templates(local_templates_dir)
+        exclude_built_in_templates = tools.config.get(
+            'invoice2data_exclude_built_in_templates', False)
+        if not exclude_built_in_templates:
+            templates += read_templates(
+                pkg_resources.resource_filename('invoice2data', 'templates'))
         logger.debug(
             'Calling invoice2data.extract_data with templates=%s',
             templates)
