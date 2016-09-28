@@ -9,6 +9,7 @@ from tempfile import mkstemp
 import logging
 from invoice2data.main import extract_data
 from invoice2data.template import read_templates
+from invoice2data.main import logger as loggeri2data
 import pkg_resources
 
 logger = logging.getLogger(__name__)
@@ -32,6 +33,8 @@ class AccountInvoiceImport(models.TransientModel):
             os.write(fd, file_data)
         finally:
             os.close(fd)
+        # Transfer log level of Odoo to invoice2data
+        loggeri2data.setLevel(logger.getEffectiveLevel())
         local_templates_dir = tools.config.get(
             'invoice2data_templates_dir', False)
         logger.debug(
