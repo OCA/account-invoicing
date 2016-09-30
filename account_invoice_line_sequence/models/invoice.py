@@ -35,8 +35,8 @@ class AccountInvoice(models.Model):
         in the view. So when we create new invoice lines,
         the sequence is automatically max_sequence + 1
         """
-        self.max_line_sequence = (
-            max(self.mapped('invoice_line_ids.sequence') or [0]) + 1)
+        self.max_line_sequence =\
+            (max(self.mapped('invoice_line_ids.sequence') or [0]) + 1)
 
     max_line_sequence = fields.Integer(string='Max sequence in lines',
                                        compute='compute_max_line_sequence')
