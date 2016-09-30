@@ -17,7 +17,8 @@
               "Serpent CS, "
               "Odoo Community Association (OCA)",
     'website': 'http://www.camptocamp.com',
-    'data': ['views/account_invoice_view.xml'],
+    'data': ['views/account_invoice_view.xml',
+             'views/report_invoice.xml'],
     'depends': ['purchase'],
     'installable': True,
     'auto_install': False,
