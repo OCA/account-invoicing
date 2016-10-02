@@ -610,7 +610,7 @@ class AccountInvoiceImport(models.TransientModel):
             invoice.invoice_line.write({
                 'account_analytic_id':
                 partner.invoice_import_id.account_analytic_id.id})
-        self.post_create_or_update(parsed_inv, invoice)
+        bdio.post_create_or_update(parsed_inv, invoice)
         logger.info(
             'Supplier invoice ID %d updated via import of file %s',
             invoice.id, self.invoice_filename)
