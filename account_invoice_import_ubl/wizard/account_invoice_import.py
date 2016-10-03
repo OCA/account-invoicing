@@ -54,17 +54,18 @@ class AccountInvoiceImport(models.TransientModel):
             "cac:Price/cbc:PriceAmount", namespaces=namespaces)
         qty_xpath = iline.xpath(
             "cbc:InvoicedQuantity", namespaces=namespaces)
-        if not qty_xpath:
-            return False
-        qty = float(qty_xpath[0].text)
-        if not qty:
-            qty = 1
+        # Some UBL invoices don't have any InvoicedQuantity tag
+        # So we have a fallback on quantity = 1
+        qty = 1
         uom = {}
-        if qty_xpath[0].attrib and qty_xpath[0].attrib.get('unitCode'):
-            unece_uom = qty_xpath[0].attrib['unitCode']
-            if unece_uom == 'ZZ':
-                unece_uom = 'C62'
-            uom = {'unece_code': unece_uom}
+        if qty_xpath:
+            if float(qty_xpath[0].text):
+                qty = float(qty_xpath[0].text)
+            if qty_xpath[0].attrib and qty_xpath[0].attrib.get('unitCode'):
+                unece_uom = qty_xpath[0].attrib['unitCode']
+                if unece_uom == 'ZZ':
+                    unece_uom = 'C62'
+                uom = {'unece_code': unece_uom}
         product_dict = self.ubl_parse_product(iline, namespaces)
         name_xpath = iline.xpath(
             "cac:Item/cbc:Description", namespaces=namespaces)
