@@ -66,14 +66,12 @@ class StockInvoiceOnshipping(models.TransientModel):
         else:
             return super(StockInvoiceOnshipping, self).create_invoice()
 
-    @api.multi
     @api.onchange('group')
     def onchange_group(self):
         self.ensure_one()
         if self.group:
             self.group_type = None
 
-    @api.multi
     @api.onchange('group_type')
     def onchange_group_type(self):
         self.ensure_one()
