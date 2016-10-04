@@ -3,6 +3,8 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 from openerp import models, api, fields
+from openerp.exceptions import ValidationError
+from openerp.tools.translate import _
 
 
 class StockInvoiceOnshipping(models.TransientModel):
@@ -25,8 +27,11 @@ class StockInvoiceOnshipping(models.TransientModel):
             categ = product.categ_id
             if group_type == 'group_by_product':
                 key = (partner.id, product.id)
-            else:
+            elif group_type == 'group_by_product_category':
                 key = (partner.id, categ.id)
+            else:
+                raise ValidationError(_(
+                    'The selected group type is not accepted.'))
             if key not in grouped_moves:
                 grouped_moves[key] = []
             grouped_moves[key].append(move)
@@ -36,6 +41,9 @@ class StockInvoiceOnshipping(models.TransientModel):
     def create_invoice(self):
         self.ensure_one()
         if self.group_type:
+            if self.group:
+                raise ValidationError(_(
+                    'It is not allowed to select multiple grouping options.'))
             journal2type = {
                 'sale': 'out_invoice',
                 'purchase': 'in_invoice',
@@ -57,3 +65,17 @@ class StockInvoiceOnshipping(models.TransientModel):
             return invoices
         else:
             return super(StockInvoiceOnshipping, self).create_invoice()
+
+    @api.multi
+    @api.onchange('group')
+    def onchange_group(self):
+        self.ensure_one()
+        if self.group:
+            self.group_type = None
+
+    @api.multi
+    @api.onchange('group_type')
+    def onchange_group_type(self):
+        self.ensure_one()
+        if self.group_type:
+            self.group = False
