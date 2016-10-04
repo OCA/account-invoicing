@@ -18,7 +18,7 @@ class SaleConfiguration(models.TransientModel):
     @api.model
     def get_default_sale_config(self, fields):
         default_timesheet_inv_desc = self.env['ir.values'].get_default(
-            'sale.order', 'timesheet_invoice_description') or '111'
+            'sale.order', 'timesheet_invoice_description') or '1111'
         return {
             'default_timesheet_invoice_description':
                 default_timesheet_inv_desc,

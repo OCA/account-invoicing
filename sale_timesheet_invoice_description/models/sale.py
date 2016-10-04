@@ -10,16 +10,19 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     timesheet_invoice_description = fields.Selection(
-        '_get_timesheet_invoice_description', default='000')
+        '_get_timesheet_invoice_description', default='0000')
 
     @api.model
     def _get_timesheet_invoice_description(self):
         return [
-            ('000', _('None')),
-            ('111', _('Date - Time spent - Description')),
-            ('101', _('Date - Description')),
-            ('001', _('Description')),
-            ('011', _('Time spent - Description')),
+            ('0000', _('None')),
+            ('1111', _('Date - Time spent - Description - User Name')),
+            ('1011', _('Time spent - Descriptioni - User Name')),
+            ('0111', _('Date - Time spent - Description')),
+            ('1101', _('Date - Description - User Name')),
+            ('0101', _('Date - Description')),
+            ('0001', _('Description')),
+            ('0011', _('Time spent - Description')),
         ]
 
 
@@ -36,13 +39,15 @@ class SaleOrderLine(models.Model):
                 "%s %s" % (line.unit_amount, line.product_uom_id.name))
         if desc_rule[2] == '1':
             details.append(line.name)
+        if desc_rule[3] == '1':
+            details.append(line.user_id.name)
         return details
 
     @api.multi
     def _prepare_invoice_line(self, qty):
         res = super(SaleOrderLine, self)._prepare_invoice_line(qty)
         desc_rule = self.order_id.timesheet_invoice_description
-        if not desc_rule or desc_rule == '000':
+        if not desc_rule or desc_rule == '0000':
             return res
         note = []
         domain = [('so_line', '=', self.id)]

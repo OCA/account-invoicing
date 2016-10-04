@@ -17,7 +17,7 @@ class TestSaleTimesheetDescription(TestSale):
             'partner_invoice_id': self.partner.id,
             'partner_shipping_id': self.partner.id,
             'pricelist_id': self.env.ref('product.list0').id,
-            'timesheet_invoice_description': '111',
+            'timesheet_invoice_description': '1111',
             'order_line': [(0, 0, {
                 'name': prod_ts.name,
                 'product_id': prod_ts.id,
