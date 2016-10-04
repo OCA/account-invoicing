@@ -20,7 +20,7 @@
 ##############################################################################
 from openerp import models, api
 from openerp import workflow
-from openerp.osv.orm import browse_record, browse_null
+from openerp.osv.orm import browse_record
 
 
 class account_invoice(models.Model):
@@ -84,21 +84,24 @@ class account_invoice(models.Model):
 
         """
         def make_key(br, fields):
+
+            def to_tuple(L):
+                if not isinstance(L, (list, tuple)):
+                    return L
+                tmp_l = []
+                for item in L:
+                    if isinstance(item, (list, tuple)):
+                        tmp_l.append(to_tuple(item))
+                    else:
+                        tmp_l.append(item)
+                return tuple(tmp_l)
+
             list_key = []
             for field in fields:
                 field_val = getattr(br, field)
-                if field in ('product_id', 'account_id'):
-                    if not field_val:
-                        field_val = False
-                if (isinstance(field_val, browse_record) and
-                   field != 'invoice_line_tax_id'):
-                    field_val = field_val.id
-                elif isinstance(field_val, browse_null):
-                    field_val = False
-                elif (isinstance(field_val, list) or
-                      field == 'invoice_line_tax_id'):
-                    field_val = ((6, 0, tuple([v.id for v in field_val])),)
-                list_key.append((field, field_val))
+                field_obj = br._fields[field]
+                field_val_converted = field_obj.convert_to_write(field_val)
+                list_key.append((field, to_tuple(field_val_converted)))
             list_key.sort()
             return tuple(list_key)
 
