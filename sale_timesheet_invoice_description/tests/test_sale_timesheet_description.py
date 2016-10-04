@@ -7,7 +7,7 @@ from openerp.addons.sale.tests.test_sale_common import TestSale
 
 class TestSaleTimesheetDescription(TestSale):
     def test_sale_timesheet_description(self):
-        """ Test invoice description """
+        """ Test invoice description  """
         self.SaleConfigSetting = self.env['sale.config.settings']
         inv_obj = self.env['account.invoice']
         # intial sale order
@@ -39,7 +39,7 @@ class TestSaleTimesheetDescription(TestSale):
             timesheet_description=True).action_invoice_create()
         invoice = inv_obj.browse(invoice_id)
         description = invoice.invoice_line_ids[0].name
-        self.assertIn('Test description 1234567890', description)
+        self.assertIn('Test description 1234567890 Administrator', description)
 
         self.default_timesheet_invoice_description = (
             self.SaleConfigSetting.create({}))
