@@ -17,7 +17,7 @@ class SaleOrder(models.Model):
         return [
             ('0000', _('None')),
             ('1111', _('Date - Time spent - Description - User Name')),
-            ('1011', _('Time spent - Descriptioni - User Name')),
+            ('1011', _('Time spent - Description - User Name')),
             ('0111', _('Date - Time spent - Description')),
             ('1101', _('Date - Description - User Name')),
             ('0101', _('Date - Description')),
