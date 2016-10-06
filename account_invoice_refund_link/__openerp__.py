@@ -23,6 +23,6 @@
     "data": [
         'views/account_invoice_view.xml',
     ],
-    "installable": True,
+    'installable': False,
     "post_init_hook": "post_init_hook",
 }
