@@ -38,5 +38,5 @@
     'data': ['account_view.xml'],
     'demo': ['account_demo.xml'],
     'test': [],
-    'installable': True,
+    'installable': False,
 }
