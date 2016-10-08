@@ -1,6 +1,5 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-# * account_invoice_default_salesteam
 # 
 # Translators:
 msgid ""
@@ -17,17 +16,7 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. module: account_invoice_default_salesteam
-#: model:ir.model,name:account_invoice_default_salesteam.model_sale_order
+#. module: account_invoice_sale_origin
+#: model:ir.model,name:account_invoice_sale_origin.model_sale_order
 msgid "Sales Order"
 msgstr "Ordini di Vendita"
-
-#. module: account_invoice_default_salesteam
-#: model:ir.model,name:account_invoice_default_salesteam.model_account_invoice
-msgid "Invoice"
-msgstr "Fattura"
-
-#. module: account_invoice_default_salesteam
-#: model:ir.model,name:account_invoice_default_salesteam.model_stock_picking
-msgid "Picking List"
-msgstr "Picking List"
