@@ -8,15 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-04 11:09+0000\n"
-"PO-Revision-Date: 2017-01-04 11:09+0000\n"
+"POT-Creation-Date: 2016-11-13 10:33+0000\n"
+"PO-Revision-Date: 2016-11-13 10:33+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
-"Language-Team: Greek (Greece) (https://www.transifex.com/oca/teams/23907/el_GR/)\n"
+"Language-Team: Serbian (Latin) (https://www.transifex.com/oca/teams/23907/sr@latin/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: el_GR\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: sr@latin\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. module: account_invoice_refund_link
 #: code:addons/account_invoice_refund_link/hooks.py:34
@@ -33,13 +33,13 @@ msgstr ""
 #. module: account_invoice_refund_link
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 msgid "Customer"
-msgstr "Πελάτης"
+msgstr ""
 
 #. module: account_invoice_refund_link
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Description"
-msgstr "Περιγραφή"
+msgstr "Opis"
 
 #. module: account_invoice_refund_link
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
@@ -56,7 +56,7 @@ msgstr ""
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_invoice
 msgid "Invoice"
-msgstr "Τιμολόγιο"
+msgstr ""
 
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_invoice_line
@@ -158,4 +158,4 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Total"
-msgstr "Σύνολο"
+msgstr "Ukupno"
