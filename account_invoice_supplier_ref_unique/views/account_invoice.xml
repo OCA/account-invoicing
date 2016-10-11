@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="account_invoice_form_view">
+        <field name="name">account.invoice.supplier.form (in account_invoice_supplier_ref_unique)</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="reference" position="before">
+                <field name="supplier_invoice_number"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
