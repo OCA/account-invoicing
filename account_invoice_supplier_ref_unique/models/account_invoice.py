@@ -18,10 +18,10 @@ class AccountInvoice(models.Model):
     @api.one
     @api.constrains('supplier_invoice_number')
     def _check_unique_supplier_invoice_number_insensitive(self):
-        '''
+        """
         Check if an other vendor bill has the same supplier_invoice_number
         and the same commercial_partner_id than the current instance
-        '''
+        """
         if self.supplier_invoice_number and\
                 self.type in ('in_invoice', 'in_refund'):
             same_supplier_inv_num = self.search([
@@ -48,15 +48,12 @@ class AccountInvoice(models.Model):
     @api.model
     def _prepare_refund(self, invoice, date_invoice=None,
                         date=None, description=None, journal_id=None):
-        '''
+        """
         The unique vendor invoice number cannot be passed to the credit note
         in vendor bills
-        '''
-        vals = super(AccountInvoice, self)._prepare_refund(invoice,
-                                                           date_invoice,
-                                                           date,
-                                                           description,
-                                                           journal_id)
+        """
+        vals = super(AccountInvoice, self)._prepare_refund(
+            invoice, date_invoice, date, description, journal_id)
 
         if invoice and invoice.type in ['in_invoice', 'in_refund'] and\
                 'reference' in vals:
@@ -66,9 +63,9 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def copy(self, default=None):
-        '''
+        """
         The unique vendor invoice number is not copied in vendor bills
-        '''
+        """
         if self.type in ['in_invoice', 'in_refund']:
             default = dict(default or {}, reference='')
         return super(AccountInvoice, self).copy(default)
