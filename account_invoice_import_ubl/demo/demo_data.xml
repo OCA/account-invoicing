@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+<data noupdate="1">
+
+<record id="ketentest_import_config" model="account.invoice.import.config">
+    <field name="name">UBL Ketentest BV</field>
+    <field name="invoice_line_method">nline_no_product</field>
+    <field name="account_id" ref="account.a_expense"/>
+</record>
+
+<record id="ketentest" model="res.partner">
+    <field name="name">UBL Ketentest BV</field>
+    <field name="is_company" eval="True"/>
+    <field name="supplier" eval="True"/>
+    <field name="customer" eval="False"/>
+    <field name="email">ublketentest@gbned.nl</field>
+    <field name="street">Berend Slingenbergstraat</field>
+    <field name="street2">9A</field>
+    <field name="zip">7742KD</field>
+    <field name="city">Coevorden</field>
+    <field name="country_id" ref="base.nl"/>
+    <field name="invoice_import_id" ref="ketentest_import_config"/>
+</record>
+
+<record id="nl_vat_purchase_21" model="account.tax">
+    <field name="name">Deutch VAT purchase 21.0%</field>
+    <field name="description">NL-VAT-buy-21.0</field>
+    <field name="type_tax_use">purchase</field>
+    <field name="amount">0.21</field>
+    <field name="type">percent</field>
+    <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+    <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+    <field name="account_collected_id" ref="account.a_expense"/>
+    <field name="account_paid_id" ref="account.a_expense"/>
+    <field name="base_sign">-1</field>
+    <field name="tax_sign">-1</field>
+</record>
+
+<record id="nl_vat_purchase_6" model="account.tax">
+    <field name="name">Deutch VAT purchase 6.0%</field>
+    <field name="description">NL-VAT-buy-6.0</field>
+    <field name="type_tax_use">purchase</field>
+    <field name="amount">0.06</field>
+    <field name="type">percent</field>
+    <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+    <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+    <field name="account_collected_id" ref="account.a_expense"/>
+    <field name="account_paid_id" ref="account.a_expense"/>
+    <field name="base_sign">-1</field>
+    <field name="tax_sign">-1</field>
+</record>
+
+<record id="exact_belgium_import_config" model="account.invoice.import.config">
+    <field name="name">Exact Belgium</field>
+    <field name="invoice_line_method">nline_no_product</field>
+    <field name="account_id" ref="account.a_expense"/>
+</record>
+
+<record id="exact_belgium" model="res.partner">
+    <field name="name">Exact Belgium II BVBA</field>
+    <field name="is_company" eval="True"/>
+    <field name="supplier" eval="True"/>
+    <field name="customer" eval="False"/>
+    <field name="street">Koningin Astridlaan 166</field>
+    <field name="zip">1780</field>
+    <field name="city">Wemmel</field>
+    <field name="country_id" ref="base.be"/>
+    <field name="vat">BE0505890632</field>
+    <field name="invoice_import_id" ref="exact_belgium_import_config"/>
+</record>
+
+
+</data>
+</openerp>

@@ -2,3 +2,6 @@ account-financial-tools
 stock-logistics-workflow
 product-attribute
 bank-payment
+community-data-files
+partner-contact
+connector-telephony

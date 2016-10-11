@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 Akretion (http://www.akretion.com/)
+    @author: Alexis de Lattre <alexis.delattre@akretion.com>
+    The licence is in the file __openerp__.py
+-->
+
+<openerp>
+<data>
+
+<record id="account_invoice_import_form" model="ir.ui.view">
+    <field name="name">account.invoice.import.form</field>
+    <field name="model">account.invoice.import</field>
+    <field name="arch"  type="xml">
+        <form string="Import Supplier Invoice or Refund">
+            <group name="technical" invisible="1">
+                <field name="state"/>
+                <field name="currency_id"/>
+            </group>
+            <group name="help-import" states="import">
+              <div>
+                <p>Upload below the supplier invoice or refund as PDF or XML file:</p>
+                <ol>
+                  <li>If it is an XML file, Odoo will parse it if the module that adds support for this XML format is installed. For the <a href="http://ubl.xml.org/" target="_blank">Universal Business Language</a> format (UBL, also known as <a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=66370">ISO/IEC 19845</a>), you should install the module <em>account_invoice_import_ubl</em>.</li>
+                  <li>If it is a PDF/A-3 file with an embedded XML file and the module <em>account_invoice_import_zugferd</em> is installed, Odoo will extract and parse the embedded XML file. It will work only if the invoice complies with the <a href="//www.pdflib.com/knowledge-base/pdfa/zugferd-invoices/" target="_blank">ZUGFeRD</a> standard (based on the <a href="http://tfig.unece.org/contents/cross-industry-invoice-cii.htm" target="_blank">Cross Industry Invoice</a> specifications).</li>
+                  <li>If it is a regular PDF file without any embedded XML file and the module <em>account_invoice_import_invoice2data</em> is installed, Odoo will use the <a href="https://github.com/m3nu/invoice2data/" target="_blank">invoice2data</a> library to read the text of the PDF and get the information. It will work only if the invoice2data library has a template for the invoices of that supplier.</li>
+                </ol>
+                <p>Odoo will create a draft supplier invoice or refund. If there is an existing draft invoice for that supplier, Odoo will propose you to update that draft invoice or create a new invoice.</p>
+              </div>
+            </group>
+            <group name="help-update" states="update">
+                <div>
+                    <p>Some draft supplier invoices/refunds have been found for the supplier of the PDF invoice you are importing ; one of them may correspond to the PDF invoice. You can either select an existing draft supplier invoice to update with the information of the PDF (information that will be updated include invoice date, supplier invoice number and attachment) or create a new draft invoice.</p>
+                </div>
+            </group>
+            <group name="main">
+                <field name="invoice_file" filename="invoice_filename"
+                    states="import,update-from-invoice"/>
+                <field name="invoice_filename" invisible="1"/>
+                <field name="partner_id" states="update"/>
+                <field name="invoice_type" states="update"/>
+                <field name="amount_untaxed" states="update"
+                    widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="amount_total" states="update"
+                    widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="invoice_id" states="update,update-from-invoice"
+                    domain="[('state', '=', 'draft'), ('type', 'in', ('in_invoice', 'in_refund')), ('commercial_partner_id', '=', partner_id), ('type', '=', invoice_type)]"
+                    context="{'invoice_show_amount': True}"
+                    attrs="{'readonly': [('state', '=', 'update-from-invoice')]}"/>
+            </group>
+            <footer>
+                <button name="import_invoice" type="object"
+                    class="oe_highlight" string="Import" states="import"/>
+                <button name="update_invoice" type="object"
+                    class="oe_highlight" string="Update Existing" states="update"/>
+                <button name="create_invoice" type="object"
+                    class="oe_highlight" string="Create New" states="update"/>
+                <button name="update_invoice" type="object"
+                    class="oe_highlight" string="Update Invoice"
+                    states="update-from-invoice"/>
+                <button special="cancel" string="Cancel" class="oe_link"/>
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="account_invoice_import_action" model="ir.actions.act_window">
+    <field name="name">Import Invoice</field>
+    <field name="res_model">account.invoice.import</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="context">{'invoice_show_amount': True}</field>
+</record>
+
+<menuitem id="account_invoice_import_menu"
+    parent="account.menu_finance_payables"
+    action="account_invoice_import_action" sequence="15"/>
+
+</data>
+</openerp>

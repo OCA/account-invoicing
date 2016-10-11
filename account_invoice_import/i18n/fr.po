@@ -1,0 +1,448 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_import
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-07 21:55+0000\n"
+"PO-Revision-Date: 2016-01-07 21:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/account_invoice.py:36
+#, python-format
+msgid " Amount w/o tax: %s %s"
+msgstr " Montant HT: %s %s"
+
+#. module: account_invoice_import
+#: view:account.invoice.import.config:account_invoice_import.account_invoice_import_config_form
+msgid "Account Invoice Import Configuration"
+msgstr "Configuration pour l'import des factures"
+
+#. module: account_invoice_import
+#: view:account.invoice.import.config:account_invoice_import.account_invoice_import_config_tree
+msgid "Account Invoice Import Configurations"
+msgstr "Configurations pour l'import des factures"
+
+#. module: account_invoice_import
+#: view:account.invoice.import.config:account_invoice_import.account_invoice_import_config_form
+msgid "Accounting Parameters"
+msgstr "Paramètres comptables"
+
+#. module: account_invoice_import
+#: field:account.invoice.import.config,active:0
+msgid "Active"
+msgstr "Actif"
+
+#. module: account_invoice_import
+#: field:account.invoice.import.config,account_analytic_id:0
+msgid "Analytic Account"
+msgstr "Compte analytique"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: account_invoice_import
+#: field:account.invoice.import.config,company_id:0
+msgid "Company"
+msgstr "Société"
+
+#. module: account_invoice_import
+#: model:ir.model,name:account_invoice_import.model_account_invoice_import_config
+msgid "Configuration for the import of Supplier Invoices"
+msgstr "Configuration pour l'import des factures fournisseurs"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "Core Industry Invoice"
+msgstr "Core Industry Invoice"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:434
+#, python-format
+msgid "Could not find any corresponding product in the Odoo database with EAN13 '%s' or Default Code '%s'."
+msgstr "Impossible de trouver un article dans la base d'Odoo avec le code-barre EAN13 '%s' ni avec la référence interne '%s'."
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "Create New"
+msgstr "Créer une nouvelle"
+
+#. module: account_invoice_import
+#: field:account.invoice.import,create_uid:0
+#: field:account.invoice.import.config,create_uid:0
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: account_invoice_import
+#: field:account.invoice.import,create_date:0
+#: field:account.invoice.import.config,create_date:0
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: account_invoice_import
+#: field:account.invoice.import,currency_id:0
+msgid "Currency"
+msgstr "Devise"
+
+#. module: account_invoice_import
+#: field:account.invoice.import,invoice_id:0
+msgid "Draft Supplier Invoice to Update"
+msgstr "Facture fournisseur brouillon à mettre-à-jour"
+
+#. module: account_invoice_import
+#: field:account.invoice.import.config,account_id:0
+msgid "Expense Account"
+msgstr "Compte de charge"
+
+#. module: account_invoice_import
+#: field:account.invoice.import,invoice_filename:0
+msgid "Filename"
+msgstr "Nom du fichier"
+
+#. module: account_invoice_import
+#: field:account.invoice.import.config,label:0
+msgid "Force Description"
+msgstr "Forcer la description"
+
+#. module: account_invoice_import
+#: help:account.invoice.import.config,label:0
+msgid "Force supplier invoice line description"
+msgstr "Forcer la description de la ligne de facture fournisseur"
+
+#. module: account_invoice_import
+#: field:account.invoice.import,id:0
+#: field:account.invoice.import.config,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+#: selection:account.invoice.import,state:0
+msgid "Import"
+msgstr "Importer"
+
+#. module: account_invoice_import
+#: model:ir.actions.act_window,name:account_invoice_import.account_invoice_import_action
+#: model:ir.ui.menu,name:account_invoice_import.account_invoice_import_menu
+msgid "Import Invoice"
+msgstr "Import facture"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "Import Supplier Invoice or Refund"
+msgstr "Importer une facture ou un avoir fournisseur"
+
+#. module: account_invoice_import
+#: model:ir.actions.act_window,name:account_invoice_import.account_invoice_import_config_action
+#: model:ir.ui.menu,name:account_invoice_import.account_invoice_import_config_menu
+msgid "Import Supplier Invoices"
+msgstr "Import des factures fournisseur"
+
+#. module: account_invoice_import
+#: model:product.template,name:account_invoice_import.internet_access_product_template
+msgid "Internet Access"
+msgstr "Accès Internet"
+
+#. module: account_invoice_import
+#: selection:account.invoice.import,invoice_type:0
+#: model:ir.model,name:account_invoice_import.model_account_invoice
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: account_invoice_import
+#: field:res.partner,invoice_import_id:0
+msgid "Invoice Import Configuration"
+msgstr "Configuration de l'import de facture"
+
+#. module: account_invoice_import
+#: field:account.invoice.import,invoice_type:0
+msgid "Invoice or Refund"
+msgstr "Facture ou avoir"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:280
+#, python-format
+msgid "Invoice parsing didn't return the VAT number of the supplier and the returned supplier name (%s) is not a supplier company in Odoo."
+msgstr "L'analyse automatique de la facture n'a pas renvoyé le numéro de TVA du fournisseur et le nom du fournisseur renvoyé (%s) n'est pas un fournisseur présent dans Odoo."
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:286
+#, python-format
+msgid "Invoice parsing didn't return the VAT number of the supplier nor the supplier name."
+msgstr "L'analyse automatique de la facture n'a renvoyé ni le numéro de TVA du fournisseur ni son nom."
+
+#. module: account_invoice_import
+#: field:account.invoice.import,write_uid:0
+#: field:account.invoice.import.config,write_uid:0
+msgid "Last Updated by"
+msgstr "Dernière mise-à-jour par"
+
+#. module: account_invoice_import
+#: field:account.invoice.import,write_date:0
+#: field:account.invoice.import.config,write_date:0
+msgid "Last Updated on"
+msgstr "Dernière mise-à-jour le"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:362
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:401
+#, python-format
+msgid "MISSING DESCRIPTION"
+msgstr "DESCRIPTION MANQUANTE"
+
+#. module: account_invoice_import
+#: field:account.invoice.import.config,invoice_line_method:0
+msgid "Method for Invoice Line"
+msgstr "Méthode pour les lignes de facture"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:532
+#, python-format
+msgid "Missing Invoice Import Configuration on partner %s"
+msgstr "Configuration de l'import de facture manquante pour le fournisseur %s"
+
+#. module: account_invoice_import
+#: selection:account.invoice.import.config,invoice_line_method:0
+msgid "Multi Line, Auto-selected Product"
+msgstr "Multi-ligne, Article auto-sélectionné"
+
+#. module: account_invoice_import
+#: selection:account.invoice.import.config,invoice_line_method:0
+msgid "Multi Line, No Product"
+msgstr "Multi-ligne, aucun article"
+
+#. module: account_invoice_import
+#: selection:account.invoice.import.config,invoice_line_method:0
+msgid "Multi Line, Static Product"
+msgstr "Multi-ligne, article statique"
+
+#. module: account_invoice_import
+#: field:account.invoice.import.config,name:0
+msgid "Name"
+msgstr "Nom"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "Odoo will try to extract an XML file embedded inside the PDF file. It will work only if the invoice complies with the"
+msgstr "Odoo essayera d'extraire un fichier XML embarqué dans le fichier PDF. Cela fonctionnera uniquement si la facture est conforme au standard"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "Odoo will use this information to create a draft supplier invoice. If there is already a draft invoice for that supplier in Odoo, you will have the option to update that invoice."
+msgstr "Odoo utilisera cette donnée pour créer une facture fournisseur brouillon. Si il y a déjà une facture brouillon pour ce fournisseur dans Odoo, il vous proposera la possibilité de mettre à jour cette facture."
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "Otherwise, Odoo will use the"
+msgstr "Sinon, Odoo utilisera la librairie"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:216
+#, python-format
+msgid "PDF Invoice parsing failed."
+msgstr "Echec de l'analyse automatique de la facture PDF."
+
+#. module: account_invoice_import
+#: field:account.invoice.import,invoice_file:0
+msgid "PDF or XML Invoice"
+msgstr "Facture PDF ou XML"
+
+#. module: account_invoice_import
+#: model:ir.model,name:account_invoice_import.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: account_invoice_import
+#: view:account.invoice.import.config:account_invoice_import.account_invoice_import_config_form
+#: field:account.invoice.import.config,partner_ids:0
+msgid "Partners"
+msgstr "Partenaires"
+
+#. module: account_invoice_import
+#: selection:account.invoice.import,invoice_type:0
+msgid "Refund"
+msgstr "Avoir"
+
+#. module: account_invoice_import
+#: selection:account.invoice.import.config,invoice_line_method:0
+msgid "Single Line, No Product"
+msgstr "Mono-ligne, aucun article"
+
+#. module: account_invoice_import
+#: selection:account.invoice.import.config,invoice_line_method:0
+msgid "Single Line, Static Product"
+msgstr "Mono-ligne, article statique"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "Some draft supplier invoices/refunds have been found for the supplier of the PDF invoice you are importing ; one of them may correspond to the PDF invoice. You can either select an existing draft supplier invoice to update with the information of the PDF (information that will be updated include invoice date, supplier invoice number and attachment) or create a new draft invoice."
+msgstr "Une ou plusieurs factures/avoirs fournisseur brouillons ont été trouvées pour le même fournisseur que la facture PDF que vous importez ; l'une d'entre-elles pourrait correspondre à la facture PDF. Vous pouvez soit sélectionner une facture fournisseur brouillon à mettre à jour avec les données du PDF (les informations mises-à-jour sont la date et le numéro de facture ainsi que la pièce jointe) ou créer une nouvelle facture brouillon."
+
+#. module: account_invoice_import
+#: field:account.invoice.import,state:0
+msgid "State"
+msgstr "Etat"
+
+#. module: account_invoice_import
+#: field:account.invoice.import.config,static_product_id:0
+msgid "Static Product"
+msgstr "Article statique"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/account_invoice_import_config.py:74
+#, python-format
+msgid "Static Product must be set on the invoice import configuration of supplier '%s' that has a Method for Invoice Line set to 'Static Product'."
+msgstr "L'article statique doit être configuré sur la configuration de l'import de facture du fournisseur '%s' qui a une méthode pour les lignes de facture configuré sur 'Article statique'."
+
+#. module: account_invoice_import
+#: field:account.invoice.import,partner_id:0
+msgid "Supplier"
+msgstr "Supplier"
+
+#. module: account_invoice_import
+#: field:account.invoice.import.config,tax_ids:0
+msgid "Taxes"
+msgstr "Taxes"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/account_invoice_import_config.py:82
+#, python-format
+msgid "The Expense Account must be set on the invoice import configuration of supplier '%s' that has a Method for Invoice Line set to 'Without product'."
+msgstr "Le compte de charge doit être renseigné sur la configuration de l'import de facture du fournisseur '%s' qui a une méthode pour les lignes de facture réglé sur 'aucun article'."
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:268
+#, python-format
+msgid "The analysis of the invoice returned '%s' as supplier VAT number. But there are no supplier with this VAT number in Odoo."
+msgstr "L'analyse automatique de la facture PDF a retourné '%s' comme numéro de TVA du fournisseur. Mais il n'y a aucun fournisseur avec ce numéro de TVA dans Odoo."
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:461
+#, python-format
+msgid "The analysis of the invoice returned '%s' as the currency ISO code. But there are no currency with that name in Odoo."
+msgstr "L'analyse de la facture PDF a retourné '%s' comme code ISO pour la devise. Mais il n'y a aucune devise avec ce code ISO dans Odoo."
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:472
+#, python-format
+msgid "The analysis of the invoice returned '%s' as the currency symbol. But there are no currency with that symbol in Odoo."
+msgstr "L'analyse de la facture PDF a retourné '%s' comme symbole pour la devise. Mais il n'y a aucune devise avec ce symbole dans Odoo."
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:334
+#, python-format
+msgid "The bank account <b>IBAN %s</b> has been automatically added on the supplier <b>%s</b>"
+msgstr "Le compte bancaire <b>IBAN %s</b> a été automatiquement ajouté sur le fournisseur  <b>%s</b>"
+
+#. module: account_invoice_import
+#: help:account.invoice.import.config,invoice_line_method:0
+msgid "The multi-line methods will not work for PDF invoices that don't have an embedded XML file. The 'Multi Line, Auto-selected Product' method will only work with ZUGFeRD invoices at Comfort or Extended level, not at Basic level."
+msgstr "Les méthodes multi-ligne ne fonctionneront que sur les factures PDF qui ont un fichier XML embarqué (ce qui n'est pas encore très répandu). La méthode 'Multi-ligne, article auto-sélectionné' ne fonctionnera qu'avec les factures ZUGFeRD au niveau Comfort ou Extended, mais pas au niveau Basic."
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:594
+#, python-format
+msgid "The total amount is different from the untaxed amount, but no tax has been configured !"
+msgstr "Le montant TTC est différent du montant HT, mais aucune taxe n'a été configurée !"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:219
+#, python-format
+msgid "This PDF invoice doesn't match a known template of the invoice2data lib."
+msgstr "Cette facture PDF ne correspond à aucun modèle existant de la librairie invoice2data."
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:545
+#, python-format
+msgid "This invoice already exists in Odoo. It's Supplier Invoice Number is '%s' and it's Odoo number is '%s'"
+msgstr "Cette facture existe déjà dans Odoo. Son numéro de facture fournisseur est '%s' et son numéro Odoo est '%s'"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:613
+#, python-format
+msgid "This invoice has been created automatically via file import"
+msgstr "Cette facture a été créé automatiquement par import de fichier"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:658
+#, python-format
+msgid "This invoice has been updated automatically via file import"
+msgstr "Cette facture a été mise-à-jour automatiquement par import de fichier"
+
+#. module: account_invoice_import
+#: field:account.invoice.import,amount_total:0
+msgid "Total"
+msgstr "Total TTC"
+
+#. module: account_invoice_import
+#: field:account.invoice.import,amount_untaxed:0
+msgid "Total Untaxed"
+msgstr "Total HT"
+
+#. module: account_invoice_import
+#: selection:account.invoice.import,state:0
+msgid "Update"
+msgstr "Mettre à jour"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "Update Existing"
+msgstr "Mettre à jour une existante"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "Upload below the supplier invoice or refund as PDF or XML file. When you click on the Import button:"
+msgstr "Chargez ci-dessous le fichier PDF ou XML de la facture ou avoir fournisseur. Quand vous cliquerez sur le bouton Importer :"
+
+#. module: account_invoice_import
+#: model:ir.model,name:account_invoice_import.model_account_invoice_import
+msgid "Wizard to import supplier invoices/refunds"
+msgstr "Assistant pour importer les PDF de facture fournisseur"
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:367
+#, python-format
+msgid "You have selected a Multi Line method for this import but Odoo could not extract/read any XML file inside the PDF invoice."
+msgstr "Vous avez sélectionné une méthode multi-ligne mais Odoo n'a pas pu extraire/lire de fichier XML embarqué dans la facture PDF."
+
+#. module: account_invoice_import
+#: code:addons/account_invoice_import/wizard/account_invoice_import.py:642
+#, python-format
+msgid "You must select a supplier invoice or refund to update"
+msgstr "Vous devez sélectionner une facture ou un avoir fournisseur à mettre à jour"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "ZUGFeRD"
+msgstr "ZUGFeRD"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "invoice2data"
+msgstr "invoice2data"
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "library to read the text of the PDF and get the information. It will work only if the invoice2data library has a template for the invoices of that supplier."
+msgstr "pour lire le texte contenu dans le PDF et extraire les informations. Cela ne fonctionnera que si la librairie invoice2data a un modèle pour ce fournisseur."
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "specifications)."
+msgstr ")."
+
+#. module: account_invoice_import
+#: view:account.invoice.import:account_invoice_import.account_invoice_import_form
+msgid "standard (an implementation of the"
+msgstr " (une implémentation des spécifications"
+

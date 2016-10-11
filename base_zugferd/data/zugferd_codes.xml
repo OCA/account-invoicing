@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+
+<record id="tax_type_zf_insurance_tax" model="unece.code.list">
+    <field name="type">tax_type</field>
+    <field name="code">ZF_INSURANCE_TAX</field>
+    <field name="name">Insurance tax</field>
+    <field name="description">ZUGFeRD Code (temporary)</field>
+</record>
+
+<record id="tax_type_aaj" model="unece.code.list">
+    <field name="type">tax_type</field>
+    <field name="code">AAJ</field>
+    <field name="name">Tax on replacement part</field>
+</record>
+
+<record id="tax_categ_ae" model="unece.code.list">
+    <field name="type">tax_categ</field>
+    <field name="code">AE</field>
+    <field name="name">VAT Reverse Charge</field>
+    <field name="description">Code specifying that the VAT rate is levied from the invoicee.</field>
+</record>
+
+<record id="tax_categ_ic" model="unece.code.list">
+    <field name="type">tax_categ</field>
+    <field name="code">IC</field>
+    <field name="name">Intra-Community Supply</field>
+    <field name="description">Code specifying that the VAT rate is levied from the invoicee for Intra-Community supplies.</field>
+</record>
+
+
+</data>
+</openerp>

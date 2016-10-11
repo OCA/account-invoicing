@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Invoice xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 UBL-Invoice-2.0.xsd" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionBasicComponents-2">
+
+<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+
+<cbc:CustomizationID>urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0#urn:www.simplerinvoicing.org:si-ubl:invoice:ver1.0.x</cbc:CustomizationID>
+
+<cbc:ProfileID>urn:www.cenbii.eu:profile:bii04:ver1.0</cbc:ProfileID>
+<cbc:ID>20150101</cbc:ID>
+<cbc:IssueDate>2015-02-16</cbc:IssueDate>
+<cbc:InvoiceTypeCode listID="UN/ECE 1001 Subset" listAgencyID="6">380</cbc:InvoiceTypeCode>
+<cbc:Note>10001/20150101</cbc:Note>
+<cbc:TaxPointDate>2015-02-16</cbc:TaxPointDate>
+<cbc:DocumentCurrencyCode listID="ISO 4217 Alpha" listAgencyID="6">EUR</cbc:DocumentCurrencyCode>
+
+<cac:AccountingSupplierParty>
+    <cac:Party>
+        <cac:PartyName>
+            <cbc:Name>UBL Ketentest BV</cbc:Name>
+        </cac:PartyName>
+        <cac:PostalAddress>
+           <cbc:StreetName>Berend Slingenbergstraat</cbc:StreetName>
+           <cbc:BuildingNumber>9a</cbc:BuildingNumber>
+           <cbc:CityName>Coevorden</cbc:CityName>
+           <cbc:PostalZone>7742KD</cbc:PostalZone>
+             <cac:Country>
+                <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+             </cac:Country>
+       </cac:PostalAddress>
+       <cac:PartyTaxScheme>
+          <cbc:CompanyID schemeID="NL:VAT" schemeAgencyID="ZZZ">NL123456789B01</cbc:CompanyID>
+             <cac:TaxScheme>
+                <cbc:ID schemeID="UN/ECE 5153" schemeAgencyID="6">VAT</cbc:ID>
+             </cac:TaxScheme>
+       </cac:PartyTaxScheme>
+       <cac:PartyLegalEntity>
+          <cbc:CompanyID schemeID="NL:KVK" schemeAgencyID="ZZZ">12345678</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+      <cac:Contact>
+          <cbc:Telephone>0524-560034</cbc:Telephone>
+          <cbc:ElectronicMail>ublketentest@gbned.nl</cbc:ElectronicMail>
+      </cac:Contact>
+   </cac:Party>
+</cac:AccountingSupplierParty>
+
+<cac:AccountingCustomerParty>
+     <cac:Party>
+        <cac:PartyName>
+           <cbc:Name>Efficient Den Haag BV</cbc:Name>
+       </cac:PartyName>
+       <cac:PostalAddress>
+          <cbc:StreetName>Spui</cbc:StreetName>
+          <cbc:BuildingNumber>23</cbc:BuildingNumber>
+		  <cbc:Department>1a</cbc:Department>
+          <cbc:CityName>Den Haag</cbc:CityName>
+          <cbc:PostalZone>2500 AA</cbc:PostalZone> 
+             <cac:Country>
+                 <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+             </cac:Country>
+        </cac:PostalAddress>
+        </cac:Party>
+</cac:AccountingCustomerParty>
+
+<cac:PaymentMeans>
+<cbc:PaymentMeansCode listID="UN/ECE 4461 Subset" listAgencyID="6">31</cbc:PaymentMeansCode>
+<cbc:PaymentDueDate>2015-02-16</cbc:PaymentDueDate>
+      <cac:PayeeFinancialAccount>
+        <cbc:ID schemeID='IBAN'>NL23ABNA0123456789</cbc:ID>
+<cac:FinancialInstitutionBranch>
+<cac:FinancialInstitution>
+<cbc:ID schemeID='BIC'>ABNANL2A</cbc:ID>
+</cac:FinancialInstitution>
+</cac:FinancialInstitutionBranch>
+</cac:PayeeFinancialAccount>
+</cac:PaymentMeans>
+
+<cac:PaymentTerms>
+          <cbc:Note>Graag betalen binnen 30 dagen netto.</cbc:Note>
+</cac:PaymentTerms>
+
+<cac:TaxTotal>
+      <cbc:TaxAmount currencyID="EUR">55.20</cbc:TaxAmount>
+          <cac:TaxSubtotal>
+                 <cbc:TaxableAmount currencyID="EUR">220.00</cbc:TaxableAmount>
+                 <cbc:TaxAmount currencyID="EUR">13.20</cbc:TaxAmount>
+                      <cac:TaxCategory>
+                         <cbc:ID schemeID="UN/ECE 5305" schemeAgencyID="6">S</cbc:ID>
+                       <cbc:Percent>6.00</cbc:Percent>
+                            <cac:TaxScheme>
+                              <cbc:ID schemeID="UN/ECE 5153" schemeAgencyID="6">VAT</cbc:ID>
+                        </cac:TaxScheme>
+               </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        <cac:TaxSubtotal>
+                 <cbc:TaxableAmount currencyID="EUR">200.00</cbc:TaxableAmount>
+                 <cbc:TaxAmount currencyID="EUR">42.00</cbc:TaxAmount>
+                      <cac:TaxCategory>
+                         <cbc:ID schemeID="UN/ECE 5305" schemeAgencyID="6">S</cbc:ID>
+                       <cbc:Percent>21.00</cbc:Percent>
+                            <cac:TaxScheme>
+                              <cbc:ID schemeID="UN/ECE 5153" schemeAgencyID="6">VAT</cbc:ID>
+                        </cac:TaxScheme>
+               </cac:TaxCategory>
+        </cac:TaxSubtotal>		
+ </cac:TaxTotal>
+ 
+<cac:LegalMonetaryTotal>
+    <cbc:LineExtensionAmount currencyID="EUR">420.00</cbc:LineExtensionAmount>
+    <cbc:TaxExclusiveAmount currencyID="EUR">420.00</cbc:TaxExclusiveAmount>
+    <cbc:TaxInclusiveAmount currencyID="EUR">475.20</cbc:TaxInclusiveAmount>
+    <cbc:PayableAmount currencyID="EUR">475.20</cbc:PayableAmount>
+</cac:LegalMonetaryTotal>
+
+<cac:InvoiceLine>
+    <cbc:ID>5</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="ZZ">1.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">50.00</cbc:LineExtensionAmount>
+       <cac:OrderLineReference>
+            <cbc:LineID>1</cbc:LineID>
+       </cac:OrderLineReference>
+       <cac:TaxTotal>
+           <cbc:TaxAmount currencyID="EUR">3.00</cbc:TaxAmount>
+       </cac:TaxTotal>
+       <cac:Item>
+            <cbc:Description>Boek De digitale snelweg</cbc:Description>
+            <cbc:Name>Digitale snelweg</cbc:Name>
+                <cac:SellersItemIdentification>
+                     <cbc:ID>BK0232</cbc:ID>
+                </cac:SellersItemIdentification>
+                <cac:ClassifiedTaxCategory>
+                     <cbc:ID schemeID="UN/ECE 5305" schemeAgencyID="6">S</cbc:ID>
+                     <cbc:Percent>6.00</cbc:Percent>
+                           <cac:TaxScheme>
+                                <cbc:ID schemeID="UN/ECE 5153" schemeAgencyID="6">VAT</cbc:ID>
+                           </cac:TaxScheme>
+               </cac:ClassifiedTaxCategory>
+       </cac:Item>
+       <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">50.00</cbc:PriceAmount>
+            <cbc:BaseQuantity unitCode="ZZ">1.00</cbc:BaseQuantity>
+       </cac:Price>
+</cac:InvoiceLine>
+
+<cac:InvoiceLine>
+    <cbc:ID>10</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="ZZ">2.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">170.00</cbc:LineExtensionAmount>
+        <cac:OrderLineReference>
+            <cbc:LineID>2</cbc:LineID>
+        </cac:OrderLineReference>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="EUR">10.20</cbc:TaxAmount>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Description>Boek Programmeren in UBL voor zowel de beginnende als gevorderde
+                programmeur.</cbc:Description>
+            <cbc:Name>Programmeren in UBL</cbc:Name>
+                <cac:SellersItemIdentification>
+                    <cbc:ID>BK3025</cbc:ID>
+                </cac:SellersItemIdentification>
+                <cac:ClassifiedTaxCategory>
+                    <cbc:ID schemeID="UN/ECE 5305" schemeAgencyID="6">S</cbc:ID>
+                    <cbc:Percent>6.00</cbc:Percent>
+                        <cac:TaxScheme>
+                            <cbc:ID schemeID="UN/ECE 5153" schemeAgencyID="6">VAT</cbc:ID>
+                        </cac:TaxScheme>
+                 </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+              <cbc:PriceAmount currencyID="EUR">85.00</cbc:PriceAmount>
+              <cbc:BaseQuantity unitCode="ZZ">2.00</cbc:BaseQuantity>
+        </cac:Price>
+</cac:InvoiceLine>
+
+<cac:InvoiceLine>
+    <cbc:ID>15</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="ZZ">1.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">200.00</cbc:LineExtensionAmount>
+        <cac:OrderLineReference>
+            <cbc:LineID>3</cbc:LineID>
+        </cac:OrderLineReference>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="EUR">42.00</cbc:TaxAmount>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Description>Factuurprogramma voor digitaal factureren.</cbc:Description>
+            <cbc:Name>Factureren in UBL</cbc:Name>
+                <cac:SellersItemIdentification>
+                    <cbc:ID>SW4026</cbc:ID>
+                </cac:SellersItemIdentification>
+                <cac:ClassifiedTaxCategory>
+                    <cbc:ID schemeID="UN/ECE 5305" schemeAgencyID="6">S</cbc:ID>
+                    <cbc:Percent>21.00</cbc:Percent>
+                        <cac:TaxScheme>
+                            <cbc:ID schemeID="UN/ECE 5153" schemeAgencyID="6">VAT</cbc:ID>
+                        </cac:TaxScheme>
+                 </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+              <cbc:PriceAmount currencyID="EUR">200.00</cbc:PriceAmount>
+              <cbc:BaseQuantity unitCode="ZZ">1.00</cbc:BaseQuantity>
+        </cac:Price>
+</cac:InvoiceLine>
+
+</Invoice>

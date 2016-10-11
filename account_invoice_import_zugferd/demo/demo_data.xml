@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+<data noupdate="1">
+
+<record id="lieferant_import_config" model="account.invoice.import.config">
+    <field name="name">Lieferant</field>
+    <field name="invoice_line_method">nline_no_product</field>
+    <field name="account_id" ref="account.a_expense"/>
+</record>
+
+<record id="lieferant" model="res.partner">
+    <field name="name">Lieferant GmbH</field>
+    <field name="is_company" eval="True"/>
+    <field name="supplier" eval="True"/>
+    <field name="customer" eval="False"/>
+    <field name="street">Lieferantenstraße 20</field>
+    <field name="zip">80333</field>
+    <field name="city">München</field>
+    <field name="country_id" ref="base.de"/>
+    <field name="invoice_import_id" ref="lieferant_import_config"/>
+</record>
+
+<record id="mvm_musterhafter_import_config" model="account.invoice.import.config">
+    <field name="name">MVM Musterhafter</field>
+    <field name="invoice_line_method">nline_no_product</field>
+    <field name="account_id" ref="account.a_expense"/>
+</record>
+
+<record id="mvm_musterhafter" model="res.partner">
+    <field name="name">MVM Musterhafter
+Versicherungsverein Musterstadt a.G.</field>
+    <field name="is_company" eval="True"/>
+    <field name="supplier" eval="True"/>
+    <field name="customer" eval="False"/>
+    <field name="street">Musterstr. 12</field>
+    <field name="zip">12345</field>
+    <field name="city">Musterstadt</field>
+    <field name="country_id" ref="base.de"/>
+    <field name="invoice_import_id" ref="mvm_musterhafter_import_config"/>
+</record>
+
+<record id="musterlieferant_import_config" model="account.invoice.import.config">
+    <field name="name">MUSTERLIEFERANT</field>
+    <field name="invoice_line_method">nline_no_product</field>
+    <field name="account_id" ref="account.a_expense"/>
+</record>
+
+<record id="musterlieferant" model="res.partner">
+    <field name="name">MUSTERLIEFERANT GMBH</field>
+    <field name="is_company" eval="True"/>
+    <field name="supplier" eval="True"/>
+    <field name="customer" eval="False"/>
+    <field name="email">max.mustermann@musterlieferant.de</field>
+    <field name="street">BAHNHOFSTRASSE 99</field>
+    <field name="zip">99199</field>
+    <field name="city">MUSTERHAUSEN</field>
+    <field name="country_id" ref="base.de"/>
+    <field name="invoice_import_id" ref="musterlieferant_import_config"/>
+</record>
+
+<record id="de_vat_purchase_19" model="account.tax">
+    <field name="name">German VAT purchase 19.0%</field>
+    <field name="description">DE-VAT-buy-19.0</field>
+    <field name="type_tax_use">purchase</field>
+    <field name="amount">0.19</field>
+    <field name="type">percent</field>
+    <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+    <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+    <field name="account_collected_id" ref="account.a_expense"/>
+    <field name="account_paid_id" ref="account.a_expense"/>
+    <field name="base_sign">-1</field>
+    <field name="tax_sign">-1</field>
+</record>
+
+<record id="de_vat_purchase_7" model="account.tax">
+    <field name="name">German VAT purchase 7.0%</field>
+    <field name="description">DE-VAT-buy-7.0</field>
+    <field name="type_tax_use">purchase</field>
+    <field name="amount">0.07</field>
+    <field name="type">percent</field>
+    <field name="unece_type_id" ref="account_tax_unece.tax_type_vat"/>
+    <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+    <field name="account_collected_id" ref="account.a_expense"/>
+    <field name="account_paid_id" ref="account.a_expense"/>
+    <field name="base_sign">-1</field>
+    <field name="tax_sign">-1</field>
+</record>
+
+<record id="de_insurance_purchase_19" model="account.tax">
+    <field name="name">German Insurance purchase 19.0%</field>
+    <field name="description">DE-INSURANCE-buy-19.0</field>
+    <field name="type_tax_use">purchase</field>
+    <field name="amount">0.19</field>
+    <field name="type">percent</field>
+    <field name="unece_type_id" ref="base_zugferd.tax_type_zf_insurance_tax"/>
+    <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+    <field name="account_collected_id" ref="account.a_expense"/>
+    <field name="account_paid_id" ref="account.a_expense"/>
+    <field name="base_sign">-1</field>
+    <field name="tax_sign">-1</field>
+</record>
+
+<record id="de_insurance_purchase_16_34" model="account.tax">
+    <field name="name">German Insurance purchase 16.34%</field>
+    <field name="description">DE-INSURANCE-buy-16.34</field>
+    <field name="type_tax_use">purchase</field>
+    <field name="amount">0.1634</field>
+    <field name="type">percent</field>
+    <field name="unece_type_id" ref="base_zugferd.tax_type_zf_insurance_tax"/>
+    <field name="unece_categ_id" ref="account_tax_unece.tax_categ_s"/>
+    <field name="account_collected_id" ref="account.a_expense"/>
+    <field name="account_paid_id" ref="account.a_expense"/>
+    <field name="base_sign">-1</field>
+    <field name="tax_sign">-1</field>
+</record>
+
+</data>
+</openerp>
