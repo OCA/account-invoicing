@@ -6,7 +6,8 @@
     'name': 'Unique Supplier Invoice Number in Invoice',
     'version': '9.0.1.0.0',
     'summary': 'Checks that supplier invoices are not entered twice',
-    'author': "Savoir-faire Linux, Acsone SA/NV, Odoo Community Association (OCA)",
+    'author':
+        "Savoir-faire Linux, Acsone SA/NV, Odoo Community Association (OCA)",
     'maintainer': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
     'license': 'AGPL-3',
