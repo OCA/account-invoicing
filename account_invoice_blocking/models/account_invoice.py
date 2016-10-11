@@ -53,9 +53,10 @@ class AccountInvoice(models.Model):
         This method calls the update of the invoice's move lines based on
         the value of the field 'draft_blocked'
         '''
-        super(AccountInvoice, self).action_move_create()
+        res = super(AccountInvoice, self).action_move_create()
         for invoice in self:
             invoice._update_blocked(invoice, invoice.draft_blocked)
+        return res
 
     @api.depends('move_id')
     def _get_move_blocked(self):
