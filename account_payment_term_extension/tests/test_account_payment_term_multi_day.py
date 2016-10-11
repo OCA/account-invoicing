@@ -1,21 +1,8 @@
-##############################################################################
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published
-#    by the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# -*- coding: utf-8 -*-
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from datetime import datetime
-import openerp.tests.common as common
+import odoo.tests.common as common
 
 
 class TestAccountPaymentTermMultiDay(common.TransactionCase):
@@ -25,7 +12,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
         self.payment_term_model = self.env['account.payment.term']
         self.invoice_model = self.env['account.invoice']
         journal_model = self.env['account.journal']
-        self.journal = journal_model.search([('code', '=', 'BILL')])
+        self.journal = journal_model.search([('type', '=', 'purchase')])
         self.partner = self.env.ref('base.res_partner_3')
         self.product = self.env.ref('product.product_product_5')
         self.prod_account = self.env.ref('account.demo_coffee_machine_account')
@@ -151,7 +138,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                                           'account_id': self.prod_account.id,
                                           })],
              })
-        invoice.signal_workflow('invoice_open')
+        invoice.action_invoice_open()
         dates_maturity = []
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
@@ -183,7 +170,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                                           'account_id': self.prod_account.id,
                                           })],
              })
-        invoice.signal_workflow('invoice_open')
+        invoice.action_invoice_open()
         dates_maturity = []
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
@@ -215,7 +202,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                                           'account_id': self.prod_account.id,
                                           })],
              })
-        invoice.signal_workflow('invoice_open')
+        invoice.action_invoice_open()
         dates_maturity = []
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
