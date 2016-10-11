@@ -2,9 +2,9 @@
 # Copyright 2016 Acsone SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models, _
-from openerp.exceptions import UserError
-from openerp.tools.float_utils import float_compare
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+from odoo.tools.float_utils import float_compare
 
 GROUP_AICT = 'account_invoice_check_total.group_supplier_inv_check_total'
 
