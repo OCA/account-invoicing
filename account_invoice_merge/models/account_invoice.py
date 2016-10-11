@@ -1,29 +1,15 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2010-2011 Ian Li <ian.li@elico-corp.com>
+# © 2015 Cédric Pigeon <cedric.pigeon@acsone.eu>
+# © 2016 Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
 from openerp import models, api
 from openerp import workflow
 from openerp.osv.orm import browse_record, browse_null
 
 
-class account_invoice(models.Model):
+class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     @api.model
@@ -64,6 +50,19 @@ class account_invoice(models.Model):
             'invoice_line': {},
             'partner_bank_id': invoice.partner_bank_id.id,
         }
+
+    @api.model
+    def _merge_invoice_line_values(self, vals, new_invoice_line):
+        """This method merges an invoice line with the existing values from
+        previous line(s) that matches the merging key.
+        :param vals: Dictionary of values of the previous invoice line(s)
+        :param new_invoice_line: Recordset of the new line to merge.
+        :return: None
+        """
+        uos_factor = new_invoice_line.uos_id.factor or 1.0
+        # merge the line with an existing line
+        vals['quantity'] += (new_invoice_line.quantity *
+                             uos_factor / vals['uom_factor'])
 
     @api.multi
     def do_merge(self, keep_references=True, date_invoice=False):
@@ -147,20 +146,13 @@ class account_invoice(models.Model):
                 line_key = make_key(
                     invoice_line, self._get_invoice_line_key_cols())
                 o_line = invoice_infos['invoice_line'].setdefault(line_key, {})
-                uos_factor = (invoice_line.uos_id and
-                              invoice_line.uos_id.factor or 1.0)
                 if o_line:
-                    # merge the line with an existing line
-                    o_line['quantity'] += invoice_line.quantity * \
-                        uos_factor / o_line['uom_factor']
+                    self._merge_invoice_line_values(o_line, invoice_line)
                 else:
                     # append a new "standalone" line
-                    for field in ('quantity', 'uos_id'):
-                        field_val = getattr(invoice_line, field)
-                        if isinstance(field_val, browse_record):
-                            field_val = field_val.id
-                        o_line[field] = field_val
-                    o_line['uom_factor'] = uos_factor
+                    o_line.update(
+                        invoice_line._convert_to_write(invoice_line._cache))
+                    del o_line['invoice_id']
         allinvoices = []
         invoices_info = {}
         for invoice_key, (invoice_data, old_ids) in new_invoices.iteritems():
@@ -168,10 +160,6 @@ class account_invoice(models.Model):
             if len(old_ids) < 2:
                 allinvoices += (old_ids or [])
                 continue
-            # cleanup invoice line data
-            for key, value in invoice_data['invoice_line'].iteritems():
-                del value['uom_factor']
-                value.update(dict(key))
             invoice_data['invoice_line'] = [
                 (0, 0, value) for value in
                 invoice_data['invoice_line'].itervalues()]
@@ -190,14 +178,12 @@ class account_invoice(models.Model):
                 workflow.trg_validate(
                     self.env.uid, 'account.invoice', old_id, 'invoice_cancel',
                     self.env.cr)
-        # make link between original sale order or purchase order
-        # None if sale is not installed
-        so_obj = self.env['sale.order']\
-            if 'sale.order' in self.env.registry else False
-        invoice_line_obj = self.env['account.invoice.line']
+        # make link between original sale order if sale is not installed
         # None if purchase is not installed
-        for new_invoice_id in invoices_info:
-            if so_obj:
+        if 'sale.order' in self.env.registry:
+            so_obj = self.env['sale.order']
+            invoice_line_obj = self.env['account.invoice.line']
+            for new_invoice_id in invoices_info:
                 todos = so_obj.search(
                     [('invoice_ids', 'in', invoices_info[new_invoice_id])])
                 todos.write({'invoice_ids': [(4, new_invoice_id)]})
