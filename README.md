@@ -17,7 +17,9 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[account_invoice_check_total](account_invoice_check_total/) | 9.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_refund_link](account_invoice_refund_link/) | 9.0.1.0.0 | Link refund invoice with its original invoice
+[account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 9.0.1.0.0 | Checks that supplier invoices are not entered twice
 [account_payment_term_extension](account_payment_term_extension/) | 9.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 9.0.1.0.0 | Add timesheet details in invoice line
 
@@ -38,7 +40,6 @@ addon | version | summary
 [account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.0.0 (unported) | Add partner pricelist on invoices
 [account_invoice_rounding](account_invoice_rounding/) | 8.0.1.0.0 (unported) | Unit rounded invoice
 [account_invoice_shipping_address](account_invoice_shipping_address/) | 8.0.0.1.1 (unported) | Adds a shipping address field to the invoice.
-[account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 8.0.1.1.0 (unported) | Checks that supplier invoices are not entered twice
 [account_invoice_template](account_invoice_template/) | 0.1 (unported) | Account Invoice Template
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 (unported) | Unit of measure for invoices
 [account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.1 (unported) | Add "To Send" and "To Validate" states in Invoices
