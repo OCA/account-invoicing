@@ -20,7 +20,6 @@ class AccountInvoice(models.Model):
         A blocked invoice cannot be paid
         """
         for rec in self:
-            if rec.draft_blocked or rec.blocked:
-                raise UserError(_(
-                    "A blocked invoice cannot be paid."))
-            super(AccountInvoice, self).create_account_payment_line()
+            if rec.filtered(lambda inv: inv.draft_blocked or inv.blocked):
+                raise UserError(_("A blocked invoice cannot be paid."))
+        return super(AccountInvoice, self).create_account_payment_line()
