@@ -8,6 +8,11 @@ Account Invoice Blocking
 
 This module allows the user to set a blocking (No Follow-up) flag directly on the invoice. This facilitates the blocking of the invoice's move lines.
 
+Known issues / Roadmap
+======================
+
+Future possible improvement :
+Blocking invoice can also mean "do not send overdue reminders", so the blocking flag could be displayed on both supplier and customer invoices.
 
 Bug Tracker
 ===========
