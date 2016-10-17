@@ -5,9 +5,8 @@
 {
     'name': 'Account Invoice Blocking',
     'summary': """
-        This module allows the user to set a blocking (No Follow-up)
-        flag directly on the invoice. This facilitates the blocking of
-        the invoice's move lines.""",
+        This module allows the user to set a blocking (No Follow-up) flag on
+        invoices.""",
     'version': '9.0.1.0.0',
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
