@@ -10,7 +10,7 @@
         <field name="inherit_id" ref="account_payment_order.invoice_supplier_form"/>
         <field name="arch" type="xml">
             <button name="create_account_payment_line" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('blocked', '=', True), ('draft_blocked', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', '|', '|', ('payment_order_ok', '=', False), ('state', '!=', 'open'), ('blocked', '=', True), ('draft_blocked', '=', True)]}</attribute>
             </button>
         </field>
     </record>
