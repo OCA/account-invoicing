@@ -8,6 +8,16 @@ Account Invoice Blocking
 
 This module allows the user to set a blocking (No Follow-up) flag directly on the invoice. This facilitates the blocking of the invoice's move lines.
 
+Usage
+=====
+
+You can set the No Follow-up flag on invoices
+
+.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+   :alt: Try me on Runbot
+   :target: https://runbot.odoo-community.org/runbot/95/10.0
+
+
 Known issues / Roadmap
 ======================
 
