@@ -2,38 +2,38 @@
 # Copyright 2016 Acsone SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
 
     _inherit = 'account.invoice'
 
-    @api.model
-    def _get_move_line(self, invoice):
+    @api.multi
+    def _get_move_line(self):
         """
         This method searches for payable or receivable move line
         of the invoice
-        :param invoice: invoice of searched move line
         :returns payable or receivable move line of the invoice
         """
+        self.ensure_one()
         type_receivable = self.env.ref('account.data_account_type_receivable')
         type_payable = self.env.ref('account.data_account_type_payable')
         return self.env['account.move.line'].search(
             [('account_id.user_type_id', 'in', [type_receivable.id,
                                                 type_payable.id]),
-             ('invoice_id', '=', invoice.id)])
+             ('invoice_id', '=', self.id)])
 
-    @api.model
-    def _update_blocked(self, invoice, value):
+    @api.multi
+    def _update_blocked(self, value):
         """
         This method updates the boolean field 'blocked' of the move line
         of the passed invoice with the passed value
-        :param invoice: invoice of the move line to update
         :param value: value to set to the 'blocked' field of the move line
         """
-        if invoice.move_id:
-            move_line_ids = self._get_move_line(invoice)
+        self.ensure_one()
+        if self.move_id:
+            move_line_ids = self._get_move_line()
             move_line_ids.write({'blocked': value})
 
     @api.multi
@@ -44,7 +44,7 @@ class AccountInvoice(models.Model):
         the value of the field 'blocked'
         """
         for invoice in self:
-            invoice._update_blocked(invoice, invoice.blocked)
+            invoice._update_blocked(invoice.blocked)
 
     @api.multi
     def action_move_create(self):
@@ -55,7 +55,7 @@ class AccountInvoice(models.Model):
         """
         res = super(AccountInvoice, self).action_move_create()
         for invoice in self:
-            invoice._update_blocked(invoice, invoice.draft_blocked)
+            invoice._update_blocked(invoice.draft_blocked)
         return res
 
     @api.depends('move_id')
@@ -69,7 +69,7 @@ class AccountInvoice(models.Model):
                 invoice.blocked = False
                 continue
 
-            move_lines = invoice._get_move_line(invoice)
+            move_lines = invoice._get_move_line()
             invoice.blocked = move_lines and\
                 all(line.blocked for line in move_lines) or False
 
