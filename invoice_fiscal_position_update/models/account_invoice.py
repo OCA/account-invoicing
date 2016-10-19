@@ -11,7 +11,7 @@ class account_invoice(models.Model):
     _inherit = "account.invoice"
 
     @api.onchange('fiscal_position_id')
-    def fiscal_position_id_change(self):
+    def onchange_fiscal_position_id(self):
         """Updates taxes and accounts on all invoice lines"""
         self.ensure_one()
         res = {}
