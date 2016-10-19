@@ -18,6 +18,7 @@ class account_invoice(models.Model):
         lines_without_product = []
         fp = self.fiscal_position_id
         inv_type = self.type
+        company_id = self.company_id or self.env.user.company_id
         for line in self.invoice_line_ids:
             if line.product_id:
                 product = line.product_id
@@ -25,16 +26,20 @@ class account_invoice(models.Model):
                     account = (
                         product.property_account_income_id or
                         product.categ_id.property_account_income_categ_id)
-                    taxes = product.taxes_id
+                    taxes = product.taxes_id.filtered(
+                        lambda r: r.company_id == company_id)
+
                 else:
                     account = (
                         product.property_account_expense_id or
                         product.categ_id.property_account_expense_categ_id)
-                    taxes = product.supplier_taxes_id
+                    taxes = product.supplier_taxes_id.filtered(
+                        lambda r: r.company_id == company_id)
                 taxes = taxes or account.tax_ids
                 if fp:
                     account = fp.map_account(account)
-                    taxes = fp.map_tax(taxes)
+                    taxes = fp.map_tax(taxes).filtered(
+                        lambda r: r.company_id == company_id)
 
                 line.invoice_line_tax_ids = [(6, 0, taxes.ids)]
                 line.account_id = account.id
