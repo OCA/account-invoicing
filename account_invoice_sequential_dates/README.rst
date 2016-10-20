@@ -14,6 +14,14 @@ The check is made against date and sequence number.
 Users won't be able to procede with the validation if a confirmed invoice with
 greater date already exists.
 
+Usage
+=====
+
+When an user validate an invoice, Odoo reads data and number and checks if exist an invoice with bigger data, yet
+
+.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+   :alt: Try me on Runbot
+   :target: https://runbot.odoo-community.org/runbot/122/8.0
 
 Bug Tracker
 ===========
@@ -29,6 +37,7 @@ Credits
 Contributors
 ------------
 
+* `Odoo Italia Network <http://www.odoo-italia.net/>`_
 * Davide Corio <davide.corio@abstract.it>
 * Luca Subiaco <subluca@gmail.com>
 * Simone Orsi <simone.orsi@domsense.com>
@@ -37,6 +46,8 @@ Contributors
 * Giovanni Barzan <giovanni.barzan@gmail.com>
 * Lorenzo Battistini <lorenzo.battistini@agilebg.com>
 * Roberto Onnis <onnis.roberto@gmail.com>
+* Francesco Apruzzese <f.apruzzese@apuliasoftware.it>
+* Alex Comba <alex.comba@agilebg.com>
 
 Maintainer
 ----------
