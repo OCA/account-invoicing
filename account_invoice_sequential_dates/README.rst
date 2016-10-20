@@ -2,50 +2,41 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-================================
-Account Invoice Sequential Dates
-================================
+==============================
+Check invoice date consistency
+==============================
 
-This module customizes Odoo in order to make invoices with consistent dates
+This module prohibits the validation of an invoice if there's a date
+inconsistency.
 
-Usage
-=====
+The check is made against date and sequence number.
 
-When an user validate an invoice, Odoo reads data and number and checks if exist an invoice with bigger data, yet
+Users won't be able to procede with the validation if a confirmed invoice with
+greater date already exists.
 
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/122/8.0
 
 Bug Tracker
 ===========
 
 Bugs are tracked on `GitHub Issues
-<https://github.com/OCA/l10n-italy/issues>`_. In case of trouble, please
+<https://github.com/OCA/account-invoicing/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
 help us smashing it by providing a detailed and welcomed feedback.
 
 Credits
 =======
 
-Images
-------
-
-* Odoo Community Association: `Icon <https://github.com/OCA/maintainer-tools/blob/master/template/module/static/description/icon.svg>`_.
-
 Contributors
 ------------
 
-* Davide Corio <davide.corio@domsense.com>
+* Davide Corio <davide.corio@abstract.it>
 * Luca Subiaco <subluca@gmail.com>
 * Simone Orsi <simone.orsi@domsense.com>
 * Mario Riva <mario.riva@domsense.com>
 * Mauro Soligo <mauro.soligo@katodo.com>
 * Giovanni Barzan <giovanni.barzan@gmail.com>
-* Lorenzo Battistini <lorenzo.battistini@albatos.com>
+* Lorenzo Battistini <lorenzo.battistini@agilebg.com>
 * Roberto Onnis <onnis.roberto@gmail.com>
-* Francesco Apruzzese <f.apruzzese@apuliasoftware.it>
-* Alex Comba <alex.comba@agilebg.com>
 
 Maintainer
 ----------
