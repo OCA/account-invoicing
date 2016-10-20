@@ -24,7 +24,7 @@
     'name': 'Account Invoice Merge Wizard',
     'version': '9.0.1.1.1',
     'category': 'Finance',
-    'author': "Falinwa, Elico Corp,Odoo Community Association (OCA)",
+    'author': "Eezee-It, Elico Corp,Odoo Community Association (OCA)",
     'website': 'http://www.openerp.net.cn',
     'license': 'AGPL-3',
     'depends': ['account'],
