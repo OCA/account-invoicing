@@ -22,9 +22,9 @@
 
 {
     'name': 'Account Invoice Merge Wizard',
-    'version': '8.0.1.1.1',
+    'version': '9.0.1.1.1',
     'category': 'Finance',
-    'author': "Elico Corp,Odoo Community Association (OCA)",
+    'author': "Falinwa, Elico Corp,Odoo Community Association (OCA)",
     'website': 'http://www.openerp.net.cn',
     'license': 'AGPL-3',
     'depends': ['account'],
@@ -34,7 +34,7 @@
     'test': [
     ],
     'demo': [],
-    'installable': False,
-    'active': False,
+    'installable': True,
+    'active': True,
     'certificate': False,
 }
