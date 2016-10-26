@@ -79,19 +79,16 @@ class WizardModel(models.TransientModel):
         """
         invoices = self.env["account.invoice"]
         for pogroup in self.grouped_purchase_orders():
-            # HACK https://github.com/odoo/odoo/pull/13082
-            with invoices.env.do_in_onchange():
-                invoice = invoices.new({
-                    "partner_id": pogroup.mapped("partner_id").id,
-                    "type": "in_invoice",
-                })
-                invoice._onchange_partner_id()
-                for po in pogroup:
-                    invoice.currency_id = po.currency_id
-                    invoice.purchase_id = po
-                    invoice.purchase_order_change()
-                vals = invoice._convert_to_write(invoice._cache)
-            invoices |= invoices.create(vals)
+            invoice = invoices.create({
+                "partner_id": pogroup.mapped("partner_id").id,
+                "type": "in_invoice",
+            })
+            invoice._onchange_partner_id()
+            for po in pogroup:
+                invoice.currency_id = po.currency_id
+                invoice.purchase_id = po
+                invoice.purchase_order_change()
+            invoices |= invoice
         if not invoices:
             raise UserError(_("No ready-to-invoice purchase orders selected."))
         return {
