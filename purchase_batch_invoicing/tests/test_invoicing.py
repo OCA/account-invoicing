@@ -148,3 +148,7 @@ class PurchaseBatchInvoicingCase(SavepointCase):
         self.expected_invoices = 1
         self.expected_untaxed = [200]
         self.check_cron("partner_id")
+
+    def test_wizard_creation_without_context(self):
+        """Ensure default value for ``purchase_order_ids`` works."""
+        self.env["purchase.batch_invoicing"].create({})
