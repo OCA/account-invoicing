@@ -12,9 +12,13 @@
     "depends": [
         "purchase",
     ],
+    "external_dependencies": {
+        "python": [
+            "mock",  # FIXME Remove in Python >= 3.3
+        ],
+    },
     "data": [
         "data/ir_cron_data.xml",
-        "security/ir.model.access.csv",
         "wizards/purchase_batch_invoicing_view.xml",
     ],
     "images": [

@@ -9,7 +9,7 @@ from openerp.exceptions import UserError
 _logger = getLogger(__name__)
 
 
-class WizardModel(models.TransientModel):
+class PurchaseBatchInvoicing(models.TransientModel):
     _name = "purchase.batch_invoicing"
 
     purchase_order_ids = fields.Many2many(
@@ -104,12 +104,15 @@ class WizardModel(models.TransientModel):
         """Invoice all pending purchase orders."""
         _logger.info("Starting to invoice all pending purchase orders.")
         wizard = self.create({
-            "purchase_order_ids": self.env["purchase.order"].search(
-                self._purchase_order_domain()).ids,
+            "purchase_order_ids": [
+                (6, False, self.env["purchase.order"].search(
+                    self._purchase_order_domain()).ids)],
             "grouping": grouping,
         })
         try:
-            wizard.action_batch_invoice()
+            result = wizard.action_batch_invoice()
             _logger.info("Finished invoicing all pending purchase orders.")
+            _logger.debug("Result: %r", result)
         except UserError as error:
             _logger.info(error.name)
+            _logger.debug("Traceback:", exc_info=True)
