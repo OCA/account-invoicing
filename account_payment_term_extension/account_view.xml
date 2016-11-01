@@ -15,6 +15,9 @@
                     <field name="weeks"/>
                     <field name="months"/>
                 </field>
+                <field name="days" position="before">
+                    <field name="start_with_end_month"/>
+                </field>
             </field>
         </record>
 
@@ -29,6 +32,9 @@
                 <field name="days" position="after">
                     <field name="weeks"/>
                     <field name="months"/>
+                </field>
+                <field name="days" position="before">
+                    <field name="start_with_end_month"/>
                 </field>
             </field>
         </record>

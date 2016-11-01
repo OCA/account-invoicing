@@ -19,9 +19,10 @@ addon | version | summary
 --- | --- | ---
 [account_group_invoice_lines](account_group_invoice_lines/) | 8.0.1.1.0 | Add option to group invoice line per account
 [account_invoice_force_number](account_invoice_force_number/) | 8.0.0.1.0 | Allows to force invoice numbering on specific invoices
-[account_invoice_line_description](account_invoice_line_description/) | 8.0.1.0.0 | Account invoice line description
+[account_invoice_line_description](account_invoice_line_description/) | 8.0.1.0.1 | Account invoice line description
+[account_invoice_line_price_subtotal_gross](account_invoice_line_price_subtotal_gross/) | 8.0.1.0.0 | Show gross price in subtotal for for account.invoice.line
 [account_invoice_line_sort](account_invoice_line_sort/) | 8.0.0.1.0 | Manage sort of customer invoice lines by customers
-[account_invoice_merge](account_invoice_merge/) | 8.0.1.1.1 | Account Invoice Merge Wizard
+[account_invoice_merge](account_invoice_merge/) | 8.0.2.0.0 | Account Invoice Merge Wizard
 [account_invoice_merge_payment](account_invoice_merge_payment/) | 8.0.0.1.0 | Use invoice merge regarding fields on Account Payment Partner
 [account_invoice_merge_purchase](account_invoice_merge_purchase/) | 8.0.1.0.0 | Compatibility between purchase and account invoice merge
 [account_invoice_partner](account_invoice_partner/) | 8.0.0.2.0 | Automatically select invoicing partner on invoice
@@ -32,13 +33,15 @@ addon | version | summary
 [account_invoice_supplier_number_info](account_invoice_supplier_number_info/) | 8.0.1.0.0 | Allows to force invoice numbering on specific invoices
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 8.0.1.1.0 | Checks that supplier invoices are not entered twice
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 | Unit of measure for invoices
-[account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.0 | Add "To Send" and "To Validate" states in Invoices
+[account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.1 | Add "To Send" and "To Validate" states in Invoices
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 | Account Invoice Zero Autopay
 [account_payment_term_extension](account_payment_term_extension/) | 8.0.1.0.0 | Adds rounding, months and weeks properties on payment term lines
 [invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
+[sale_order_line_price_subtotal_gross](sale_order_line_price_subtotal_gross/) | 8.0.1.0.0 | Show gross price in subtotal for for sale.order.line
 [stock_picking_invoicing](stock_picking_invoicing/) | 8.0.1.0.0 | Stock Picking Invoicing
 [stock_picking_invoicing_incoterm](stock_picking_invoicing_incoterm/) | 8.0.1.0.0 | Stock Picking Invoicing Incoterm
 [stock_picking_invoicing_incoterm_sale](stock_picking_invoicing_incoterm_sale/) | 8.0.1.0.0 | Copy incoterm from sale to invoice and to picking
+[stock_picking_invoicing_unified](stock_picking_invoicing_unified/) | 8.0.1.0.0 | Create invoices/refunds from pickings of different types
 
 Unported addons
 ---------------
