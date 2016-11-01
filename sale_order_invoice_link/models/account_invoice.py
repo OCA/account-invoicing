@@ -9,7 +9,7 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     sale_ids = fields.Many2many(
-        string='Sale Orders2',
+        string=u'Sale Orders',
         comodel_name='sale.order',
         compute="_compute_sale_ids"
     )
