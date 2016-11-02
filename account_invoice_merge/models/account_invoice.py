@@ -60,9 +60,11 @@ class AccountInvoice(models.Model):
         :return: None
         """
         uos_factor = new_invoice_line.uos_id.factor or 1.0
+        vals_factor = self.env['product.uom'].browse(
+            vals['uos_id']).factor or 1.0
         # merge the line with an existing line
         vals['quantity'] += (new_invoice_line.quantity *
-                             uos_factor / vals['uom_factor'])
+                             uos_factor / vals_factor)
 
     @api.multi
     def do_merge(self, keep_references=True, date_invoice=False):
