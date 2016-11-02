@@ -196,7 +196,8 @@ class AccountInvoice(models.Model):
                              ('invoice_id', '=', new_invoice_id)])
                         if invoice_line_ids:
                             so_line.write(
-                                {'invoice_lines': [(6, 0, invoice_line_ids)]})
+                                {'invoice_lines': [(
+                                    6, 0, invoice_line_ids.ids)]})
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
         anal_line_obj = self.env['account.analytic.line']
