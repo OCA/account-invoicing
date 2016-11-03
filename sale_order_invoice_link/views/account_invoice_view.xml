@@ -7,11 +7,16 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
-                <notebook position="inside">
-                    <page name="sale_ids" string="Sale Orders">
-                        <field name="sale_ids"/>
-                    </page>
-                </notebook>
+                 <xpath expr="//sheet/h1" position="before">
+                   <div class="oe_right oe_button_box">
+                        <button name="action_view_sales"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-usd" >
+                            <field name="sale_order_count" widget="statinfo" string="Sales"/>
+                        </button>
+                    </div>
+                </xpath>
             </field>
         </record>
 

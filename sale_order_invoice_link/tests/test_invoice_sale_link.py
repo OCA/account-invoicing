@@ -20,3 +20,5 @@ class TestInvoiceSaleLink(TestSale):
         self.so.action_invoice_create()
         self.assertEqual(len(self.so.invoice_ids), 1)
         self.assertEqual(self.so.ids, self.so.invoice_ids[0].sale_ids.ids)
+        view_result = self.so.invoice_ids[0].action_view_sales()
+        self.assertEqual(self.so.id, view_result['res_id'])
