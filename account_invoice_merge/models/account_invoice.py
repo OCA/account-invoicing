@@ -21,6 +21,7 @@
 from openerp import models, api
 from openerp import workflow
 from openerp.osv.orm import browse_record, browse_null
+from openerp.tools import float_is_zero
 
 
 class AccountInvoice(models.Model):
@@ -67,7 +68,9 @@ class AccountInvoice(models.Model):
         }
 
     @api.multi
-    def do_merge(self, keep_references=True, date_invoice=False):
+    def do_merge(
+            self, keep_references=True, date_invoice=False,
+            remove_empty_invoice_lines=True):
         """
         To merge similar type of account invoices.
         Invoices will only be merged if:
@@ -104,7 +107,6 @@ class AccountInvoice(models.Model):
             list_key.sort()
             return tuple(list_key)
 
-        remove_empty_invoice_lines = True
         # compute what the new invoices should contain
 
         new_invoices = {}
@@ -165,6 +167,8 @@ class AccountInvoice(models.Model):
         allinvoices = []
         allnewinvoices = []
         invoices_info = {}
+        qty_prec = self.env['decimal.precision'].precision_get(
+            'Product Unit of Measure')
         for invoice_key, (invoice_data, old_ids) in new_invoices.iteritems():
             # skip merges with only one invoice
             if len(old_ids) < 2:
@@ -178,7 +182,8 @@ class AccountInvoice(models.Model):
                 invoice_data['invoice_line_ids'] = [
                     (0, 0, value) for value in
                     invoice_data['invoice_line_ids'].itervalues() if
-                    value['quantity'] != 0.0]
+                    not float_is_zero(
+                        value['quantity'], precision_digits=qty_prec)]
             else:
                 invoice_data['invoice_line_ids'] = [
                     (0, 0, value) for value in
