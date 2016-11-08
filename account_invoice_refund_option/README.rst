@@ -7,8 +7,8 @@ Create Refund Invoice
 =====================
 
 This module extends the functionality of accounting invoices to support setting
-an invoice to be a refund and to allow you to create refunds directly, linked
-to nothing.
+an invoice to be a refund and to allow you to create refunds directly, without
+the need of refunding an existing normal invoice.
 
 Usage
 =====

@@ -3,7 +3,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Create Refund Invoice",
-    "summary": "Allows you to create a refund linked to nothing",
+    "summary": "Allows you to create directly a refund without starting from "
+               "an invoice",
     "version": "9.0.1.0.0",
     "category": "Accounting",
     "website": "https://www.tecnativa.com/",
