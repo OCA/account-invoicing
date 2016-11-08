@@ -37,6 +37,7 @@
     src_model="purchase.order"
     res_model="purchase.batch_invoicing"
     target="new"
+    multi="True"
     view_mode="form"
     view_type="form"/>
 

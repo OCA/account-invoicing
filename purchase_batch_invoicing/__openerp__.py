@@ -20,6 +20,7 @@
     "data": [
         "data/ir_cron_data.xml",
         "wizards/purchase_batch_invoicing_view.xml",
+        "views/purchase_order_view.xml",
     ],
     "images": [
         "static/description/wizard.png",
