@@ -59,10 +59,12 @@ class AccountInvoice(models.Model):
         :param new_invoice_line: Recordset of the new line to merge.
         :return: None
         """
+        uom = self.env['product.uom'].browse(vals.get('uos_id', False))
+        uom_factor = uom.factor if uom.exists() else 1.0
         uos_factor = new_invoice_line.uos_id.factor or 1.0
         # merge the line with an existing line
         vals['quantity'] += (new_invoice_line.quantity *
-                             uos_factor / vals['uom_factor'])
+                             uos_factor / uom_factor)
 
     @api.multi
     def do_merge(self, keep_references=True, date_invoice=False):
@@ -189,12 +191,12 @@ class AccountInvoice(models.Model):
                 todos.write({'invoice_ids': [(4, new_invoice_id)]})
                 for org_so in todos:
                     for so_line in org_so.order_line:
-                        invoice_line_ids = invoice_line_obj.search(
+                        invoice_lines = invoice_line_obj.search(
                             [('product_id', '=', so_line.product_id.id),
                              ('invoice_id', '=', new_invoice_id)])
-                        if invoice_line_ids:
+                        if invoice_lines:
                             so_line.write(
-                                {'invoice_lines': [(6, 0, invoice_line_ids)]})
+                                {'invoice_lines': [(6, 0, invoice_lines.ids)]})
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
         anal_line_obj = self.env['account.analytic.line']
