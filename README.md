@@ -23,6 +23,7 @@ addon | version | summary
 [account_invoice_refund_option](account_invoice_refund_option/) | 9.0.1.0.0 | Allows you to create directly a refund without starting from an invoice
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 9.0.1.0.0 | Checks that supplier invoices are not entered twice
 [account_payment_term_extension](account_payment_term_extension/) | 9.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
+[sale_stock_picking_return_invoicing](sale_stock_picking_return_invoicing/) | 9.0.1.0.0 | Add an option to refund return pickings
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 9.0.1.0.0 | Add timesheet details in invoice line
 
 Unported addons
