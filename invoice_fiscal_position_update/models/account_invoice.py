@@ -7,7 +7,7 @@
 from openerp import models, api, _
 
 
-class account_invoice(models.Model):
+class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     @api.onchange('fiscal_position_id')
