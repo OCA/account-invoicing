@@ -38,6 +38,7 @@ addon | version | summary
 [account_payment_term_extension](account_payment_term_extension/) | 8.0.1.0.0 | Adds rounding, months and weeks properties on payment term lines
 [invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
 [sale_order_line_price_subtotal_gross](sale_order_line_price_subtotal_gross/) | 8.0.1.0.0 | Show gross price in subtotal for for sale.order.line
+[stock_picking_invoice_product_group](stock_picking_invoice_product_group/) | 8.0.1.0.0 | Invoices created from picking grouped by product or by product category
 [stock_picking_invoicing](stock_picking_invoicing/) | 8.0.1.0.0 | Stock Picking Invoicing
 [stock_picking_invoicing_incoterm](stock_picking_invoicing_incoterm/) | 8.0.1.0.0 | Stock Picking Invoicing Incoterm
 [stock_picking_invoicing_incoterm_sale](stock_picking_invoicing_incoterm_sale/) | 8.0.1.0.0 | Copy incoterm from sale to invoice and to picking
