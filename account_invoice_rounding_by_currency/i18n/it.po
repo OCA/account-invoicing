@@ -103,5 +103,4 @@ msgstr "Conto per arrotondamento imposte"
 #. module: account_invoice_rounding_by_currency
 #: field:company.rounding,tax_calculation_rounding:0
 msgid "Tax Rounding unit"
-msgstr "Percentuale di arrotondamento"
-
+msgstr "Precisione di arrotondamento"
