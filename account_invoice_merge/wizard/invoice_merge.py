@@ -33,6 +33,7 @@ class invoice_merge(models.TransientModel):
 
     @api.model
     def _dirty_check(self):
+        print self.env.context
         if self.env.context.get('active_model', '') == 'account.invoice':
             ids = self.env.context['active_ids']
             if len(ids) < 2:
@@ -40,30 +41,28 @@ class invoice_merge(models.TransientModel):
                     _('Please select multiple invoice to merge in the list '
                       'view.'))
             inv_obj = self.env['account.invoice']
-            invs = inv_obj.read(ids,
-                                ['account_id', 'state', 'type', 'company_id',
-                                 'partner_id', 'currency_id', 'journal_id'])
+            invs = inv_obj.browse(ids)
             for d in invs:
-                if d['state'] != 'draft':
+                if d.state != 'draft':
                     raise exceptions.Warning(
                         _('At least one of the selected invoices is %s!') %
                         d['state'])
-                if d['account_id'] != invs[0]['account_id']:
+                if d.account_id.id != invs[0].account_id.id:
                     raise exceptions.Warning(
                         _('Not all invoices use the same account!'))
-                if d['company_id'] != invs[0]['company_id']:
+                if d.company_id.id != invs[0].company_id.id:
                     raise exceptions.Warning(
                         _('Not all invoices are at the same company!'))
-                if d['partner_id'] != invs[0]['partner_id']:
+                if d.partner_id.id != invs[0].partner_id.id:
                     raise exceptions.Warning(
                         _('Not all invoices are for the same partner!'))
-                if d['type'] != invs[0]['type']:
+                if d.type != invs[0].type:
                     raise exceptions.Warning(
                         _('Not all invoices are of the same type!'))
-                if d['currency_id'] != invs[0]['currency_id']:
+                if d.currency_id.id != invs[0].currency_id.id:
                     raise exceptions.Warning(
                         _('Not all invoices are at the same currency!'))
-                if d['journal_id'] != invs[0]['journal_id']:
+                if d.journal_id.id != invs[0].journal_id.id:
                     raise exceptions.Warning(
                         _('Not all invoices are at the same journal!'))
         return {}
@@ -104,12 +103,12 @@ class invoice_merge(models.TransientModel):
                                         date_invoice=self.date_invoice)
         xid = {
             'out_invoice': 'action_invoice_tree1',
-            'out_refund': 'action_invoice_tree3',
+            'out_refund': 'action_invoice_tree1',
             'in_invoice': 'action_invoice_tree2',
-            'in_refund': 'action_invoice_tree4',
+            'in_refund': 'action_invoice_tree2',
         }[invoices[0].type]
         action = aw_obj.for_xml_id('account', xid)
         action.update({
-            'domain': [('id', 'in', ids + allinvoices.keys())],
+            'domain': [('id', 'in', ids)],
         })
         return action

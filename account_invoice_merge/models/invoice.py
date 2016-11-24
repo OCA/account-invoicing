@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, api
+from openerp import models, api, exceptions
 from openerp import workflow
 from openerp.osv.orm import browse_record, browse_null
 
@@ -26,6 +26,7 @@ from openerp.osv.orm import browse_record, browse_null
 class account_invoice(models.Model):
     _inherit = "account.invoice"
 
+    """
     @api.model
     def _get_invoice_key_cols(self):
         return [
@@ -64,7 +65,8 @@ class account_invoice(models.Model):
             'invoice_line': {},
             'partner_bank_id': invoice.partner_bank_id.id,
         }
-
+    """
+    
     @api.multi
     def do_merge(self, keep_references=True, date_invoice=False):
         """
@@ -74,43 +76,59 @@ class account_invoice(models.Model):
         * Account invoices belong to the same partner
         * Account invoices are have same company, partner, address, currency,
           journal, currency, salesman, account, type
-        Lines will only be merged if:
-        * Invoice lines are exactly the same except for the quantity and unit
 
          @param self: The object pointer.
          @param keep_references: If True, keep reference of original invoices
 
-         @return: new account invoice id
+         @return: the input modify invoices
 
         """
-        def make_key(br, fields):
-            list_key = []
-            for field in fields:
-                field_val = getattr(br, field)
-                if field in ('product_id', 'account_id'):
-                    if not field_val:
-                        field_val = False
-                if (isinstance(field_val, browse_record) and
-                   field != 'invoice_line_tax_id'):
-                    field_val = field_val.id
-                elif isinstance(field_val, browse_null):
-                    field_val = False
-                elif (isinstance(field_val, list) or
-                      field == 'invoice_line_tax_id'):
-                    field_val = ((6, 0, tuple([v.id for v in field_val])),)
-                list_key.append((field, field_val))
-            list_key.sort()
-            return tuple(list_key)
-
         # compute what the new invoices should contain
 
-        new_invoices = {}
-        draft_invoices = [invoice
-                          for invoice in self
-                          if invoice.state == 'draft']
+        #new_invoices = {}
+        draft_invoices =  self.filtered(lambda l: l.state == 'draft')
+
+        """
         seen_origins = {}
         seen_client_refs = {}
-
+        """
+        
+        if len(draft_invoices) < 2:
+            raise exceptions.Warning(
+                    _('Please select multiple draft invoice to merge in the list '
+                      'view.'))
+        #invoice_line_temp = self.env['account.invoice.line']
+        print draft_invoices[1:]
+        invoice_line_need_to_change = draft_invoices[1:].mapped('invoice_line_ids')
+        invoice_line_need_to_change.write({
+            'invoice_id': draft_invoices[0].id,
+        })
+        draft_invoices[1:].action_cancel()
+        if keep_references:
+            need_to_add_origin = '; '.join([x for x in draft_invoices[1:].mapped('origin') if str(x) != str(draft_invoices[0].origin)])
+            temp_origin = draft_invoices[0].origin or ''
+            if need_to_add_origin:
+                temp_origin += '; ' + need_to_add_origin
+            need_to_add_name = '; '.join([ x for x in draft_invoices[1:].mapped('name') if str(x) != str(draft_invoices[0].name)])
+            temp_name = draft_invoices[0].name or ''
+            if need_to_add_name:
+                temp_name += '; ' + need_to_add_name
+            draft_invoices[0].write({
+                'origin' : temp_origin,
+                'name' : temp_name,
+            })
+        if date_invoice:
+            draft_invoices[0].write({
+                'date_invoice' : date_invoice,
+            })
+        draft_invoices.compute_taxes()
+        return draft_invoices
+        
+        """
+        #for account_invoice in draft_invoices[1:]:
+        #    account_invoice.mapped()
+            #for account_invoice_line in account_invoice.invoice_line:
+            #    invoice_line_temp += account_invoice_line
         for account_invoice in draft_invoices:
             invoice_key = make_key(
                 account_invoice, self._get_invoice_key_cols())
@@ -218,3 +236,4 @@ class account_invoice(models.Model):
                     [('invoice_id', 'in', invoices_info[new_invoice_id])])
                 todos.write({'invoice_id': new_invoice_id})
         return invoices_info
+        """
