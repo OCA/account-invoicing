@@ -88,7 +88,7 @@ msgstr ""
 #. module: sale_order_partial_invoice
 #: field:sale.order.line.invoice.partially,name:0
 msgid "Name"
-msgstr ""
+msgstr "Naziv"
 
 #. module: sale_order_partial_invoice
 #: model:ir.model,name:sale_order_partial_invoice.model_sale_order_line_invoice_partially

@@ -62,7 +62,7 @@ msgstr "Estado"
 #: field:account.invoice.template.line,template_id:0
 #: field:wizard.select.invoice.template.line,template_id:0
 msgid "Template"
-msgstr ""
+msgstr "Plantilla"
 
 #. module: account_invoice_template
 #: field:account.invoice.template,type:0
@@ -95,7 +95,7 @@ msgstr ""
 #. module: account_invoice_template
 #: field:wizard.select.invoice.template.line,sequence:0
 msgid "Number"
-msgstr ""
+msgstr "Número"
 
 #. module: account_invoice_template
 #: selection:account.invoice.template.line,type:0
@@ -113,7 +113,7 @@ msgstr ""
 #: field:account.invoice.template.line,account_id:0
 #: field:wizard.select.invoice.template.line,account_id:0
 msgid "Account"
-msgstr ""
+msgstr "Cuenta"
 
 #. module: account_invoice_template
 #: field:account.invoice.template,name:0

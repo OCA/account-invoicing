@@ -47,7 +47,7 @@ msgstr ""
 #. module: account_invoice_currency_rate
 #: model:ir.model,name:account_invoice_currency_rate.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Račun"
 
 #. module: account_invoice_currency_rate
 #: view:invoice.force.currency.rate:0

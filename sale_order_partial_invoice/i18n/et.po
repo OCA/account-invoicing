@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-15 17:47+0000\n"
+"POT-Creation-Date: 2016-09-17 02:37+0000\n"
 "PO-Revision-Date: 2015-06-03 04:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Estonian (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/et/)\n"
@@ -88,7 +88,7 @@ msgstr ""
 #. module: sale_order_partial_invoice
 #: field:sale.order.line.invoice.partially,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #. module: sale_order_partial_invoice
 #: model:ir.model,name:sale_order_partial_invoice.model_sale_order_line_invoice_partially
@@ -134,7 +134,7 @@ msgstr ""
 #. module: sale_order_partial_invoice
 #: view:sale.order.line.invoice.partially:0
 msgid "or"
-msgstr ""
+msgstr "või"
 
 #. module: sale_order_partial_invoice
 #: model:ir.model,name:sale_order_partial_invoice.model_sale_order_line

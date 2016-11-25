@@ -142,7 +142,7 @@ msgstr ""
 #. module: account_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Račun"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0

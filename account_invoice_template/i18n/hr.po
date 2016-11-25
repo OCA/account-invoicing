@@ -56,7 +56,7 @@ msgstr ""
 #. module: account_invoice_template
 #: field:wizard.select.invoice.template,state:0
 msgid "State"
-msgstr ""
+msgstr "Status"
 
 #. module: account_invoice_template
 #: field:account.invoice.template.line,template_id:0
@@ -68,7 +68,7 @@ msgstr ""
 #: field:account.invoice.template,type:0
 #: field:account.invoice.template.line,type:0
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #. module: account_invoice_template
 #: model:ir.model,name:account_invoice_template.model_account_invoice_template
@@ -95,7 +95,7 @@ msgstr ""
 #. module: account_invoice_template
 #: field:wizard.select.invoice.template.line,sequence:0
 msgid "Number"
-msgstr ""
+msgstr "Broj"
 
 #. module: account_invoice_template
 #: selection:account.invoice.template.line,type:0
@@ -120,7 +120,7 @@ msgstr ""
 #: field:account.invoice.template.line,name:0
 #: field:wizard.select.invoice.template.line,name:0
 msgid "Name"
-msgstr ""
+msgstr "Naziv"
 
 #. module: account_invoice_template
 #: field:wizard.select.invoice.template,line_ids:0
@@ -185,7 +185,7 @@ msgstr ""
 #. module: account_invoice_template
 #: field:account.invoice.template.line,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "Sekvenca"
 
 #. module: account_invoice_template
 #: view:account.invoice.template.line:0

@@ -1,0 +1,161 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * account_invoice_merge
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: account-invoicing (7.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-17 02:37+0000\n"
+"PO-Revision-Date: 2015-06-03 04:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Persian (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: fa\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:67
+#, python-format
+msgid "Not all invoices are at the same currency!"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+msgid "Please note that:"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:55
+#, python-format
+msgid "Not all invoices are at the same company!"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+msgid "Invoices will only be merged if:"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+msgid ""
+"* Invoice lines are exactly the same except for the product,quantity and "
+"unit"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+msgid "Merge Invoices"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:46
+#, python-format
+msgid "At least one of the selected invoices is %s!"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+msgid "Lines will only be merged if:"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+msgid "* Invoices are in draft"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:113
+#, python-format
+msgid "Partner Invoice"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+msgid ""
+"* Invoices are have same company, partner, address, currency, journal, "
+"salesman, account, type"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:51
+#, python-format
+msgid "Not all invoices use the same account!"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+msgid "* Invoices belong to the same partner"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+#: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_invoice_merge
+msgid "Merge Partner Invoice"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+msgid "Are you sure you want to merge these invoices ?"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:59
+#, python-format
+msgid "Not all invoices are for the same partner!"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:63
+#, python-format
+msgid "Not all invoices are of the same type!"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:36
+#, python-format
+msgid "Please select multiple invoice to merge in the list view."
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:45
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:50
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:54
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:58
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:62
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:66
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:70
+#, python-format
+msgid "Warning"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:35
+#, python-format
+msgid "Warning!"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+msgid "Cancel"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:71
+#, python-format
+msgid "Not all invoices are at the same journal!"
+msgstr ""
+
+#. module: account_invoice_merge
+#: view:invoice.merge:0
+msgid "or"
+msgstr "یا"

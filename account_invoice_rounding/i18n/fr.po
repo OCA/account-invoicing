@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-14 14:58+0000\n"
-"PO-Revision-Date: 2015-07-28 00:26+0000\n"
+"POT-Creation-Date: 2016-09-17 02:37+0000\n"
+"PO-Revision-Date: 2016-11-18 11:00+0000\n"
 "Last-Translator: Loic <loic.richard2@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr ""
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_config_settings
 msgid "account.config.settings"
-msgstr ""
+msgstr "account.config.settings"
 
 #. module: account_invoice_rounding
 #: code:addons/account_invoice_rounding/account.py:41

@@ -51,12 +51,12 @@ msgstr ""
 #. module: account_invoice_template
 #: view:account.invoice.template:0
 msgid "Group By..."
-msgstr ""
+msgstr "Agrupado por"
 
 #. module: account_invoice_template
 #: field:wizard.select.invoice.template,state:0
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 #. module: account_invoice_template
 #: field:account.invoice.template.line,template_id:0
@@ -84,7 +84,7 @@ msgstr ""
 #: field:account.invoice.template.line,product_id:0
 #: field:wizard.select.invoice.template.line,product_id:0
 msgid "Product"
-msgstr ""
+msgstr "Produto"
 
 #. module: account_invoice_template
 #: code:addons/account_invoice_template/wizard/select_template.py:92
@@ -120,7 +120,7 @@ msgstr ""
 #: field:account.invoice.template.line,name:0
 #: field:wizard.select.invoice.template.line,name:0
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: account_invoice_template
 #: field:wizard.select.invoice.template,line_ids:0
@@ -218,9 +218,9 @@ msgstr ""
 #. module: account_invoice_template
 #: view:wizard.select.invoice.template:0
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: account_invoice_template
 #: view:account.invoice.template:0 field:account.invoice.template,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Parceiro"

@@ -99,7 +99,7 @@ msgstr ""
 #. module: invoice_validation_wkfl
 #: model:ir.model,name:invoice_validation_wkfl.model_account_invoice_refund
 msgid "Invoice Refund"
-msgstr ""
+msgstr "Storno računa"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
@@ -148,7 +148,7 @@ msgstr ""
 #. module: invoice_validation_wkfl
 #: model:ir.model,name:invoice_validation_wkfl.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Račun"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0

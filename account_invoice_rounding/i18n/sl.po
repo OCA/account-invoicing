@@ -67,7 +67,7 @@ msgstr ""
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Račun"
 
 #. module: account_invoice_rounding
 #: field:account.config.settings,tax_calculation_rounding_account_id:0

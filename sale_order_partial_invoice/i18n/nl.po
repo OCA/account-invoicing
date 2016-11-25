@@ -134,7 +134,7 @@ msgstr ""
 #. module: sale_order_partial_invoice
 #: view:sale.order.line.invoice.partially:0
 msgid "or"
-msgstr ""
+msgstr "of"
 
 #. module: sale_order_partial_invoice
 #: model:ir.model,name:sale_order_partial_invoice.model_sale_order_line
