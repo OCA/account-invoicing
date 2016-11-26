@@ -1,0 +1,86 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * stock_picking_invoice_product_group
+# 
+# Translators:
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-17 03:48+0000\n"
+"PO-Revision-Date: 2016-11-17 03:48+0000\n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>, 2016\n"
+"Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.category,name:stock_picking_invoice_product_group.category_1
+msgid "Category 1"
+msgstr "Kategorija 1"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.category,name:stock_picking_invoice_product_group.category_2
+msgid "Category 2"
+msgstr "Kategorija 2"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.category,name:stock_picking_invoice_product_group.category_3
+msgid "Category 3"
+msgstr "Kategorija 3"
+
+#. module: stock_picking_invoice_product_group
+#: field:stock.invoice.onshipping,group_type:0
+msgid "Group Type"
+msgstr "Tip združevanja"
+
+#. module: stock_picking_invoice_product_group
+#: selection:stock.invoice.onshipping,group_type:0
+msgid "Group by product"
+msgstr "Po proizvodih"
+
+#. module: stock_picking_invoice_product_group
+#: selection:stock.invoice.onshipping,group_type:0
+msgid "Group by product category"
+msgstr "Po kategoriji proizvoda"
+
+#. module: stock_picking_invoice_product_group
+#: code:addons/stock_picking_invoice_product_group/wizards/stock_invoice_onshipping.py:45
+#, python-format
+msgid "It is not allowed to select multiple grouping options."
+msgstr "Izbira večih istočasnih opcij združevanja ni dovoljena."
+
+#. module: stock_picking_invoice_product_group
+#: model:product.template,name:stock_picking_invoice_product_group.product_A_product_template
+msgid "Product A"
+msgstr "Proizvod A"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.template,name:stock_picking_invoice_product_group.product_B_product_template
+msgid "Product B"
+msgstr "Proizvod B"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.template,name:stock_picking_invoice_product_group.product_C_product_template
+msgid "Product C"
+msgstr "Proizvod C"
+
+#. module: stock_picking_invoice_product_group
+#: model:product.template,name:stock_picking_invoice_product_group.product_D_product_template
+msgid "Product D"
+msgstr "Proizvod D"
+
+#. module: stock_picking_invoice_product_group
+#: model:ir.model,name:stock_picking_invoice_product_group.model_stock_invoice_onshipping
+msgid "Stock Invoice Onshipping"
+msgstr "Obračun zaloge ob odpremi"
+
+#. module: stock_picking_invoice_product_group
+#: code:addons/stock_picking_invoice_product_group/wizards/stock_invoice_onshipping.py:33
+#, python-format
+msgid "The selected group type is not accepted."
+msgstr "Izbrani tip združevanja ni sprejet."

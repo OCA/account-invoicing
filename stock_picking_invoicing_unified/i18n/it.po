@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-11 01:40+0000\n"
+"POT-Creation-Date: 2016-11-17 03:48+0000\n"
 "PO-Revision-Date: 2016-03-10 17:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/it/)\n"
@@ -60,7 +60,7 @@ msgstr ""
 #. module: stock_picking_invoicing_unified
 #: model:ir.model,name:stock_picking_invoicing_unified.model_stock_invoice_onshipping
 msgid "Stock Invoice Onshipping"
-msgstr ""
+msgstr "Fattura su spedizioni"
 
 #. module: stock_picking_invoicing_unified
 #: model:ir.model,name:stock_picking_invoicing_unified.model_stock_move

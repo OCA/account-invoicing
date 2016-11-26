@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
+"POT-Creation-Date: 2016-11-17 03:48+0000\n"
 "PO-Revision-Date: 2015-06-03 04:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/zh_CN/)\n"
@@ -35,7 +35,7 @@ msgstr ""
 #. module: account_invoice_shipping_address
 #: model:ir.model,name:account_invoice_shipping_address.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "销售订单"
 
 #. module: account_invoice_shipping_address
 #: field:account.invoice,address_shipping_id:0
