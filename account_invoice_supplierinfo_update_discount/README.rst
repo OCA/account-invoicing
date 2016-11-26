@@ -2,13 +2,16 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-======================================================
-Update Supplier Price of product from Supplier Invoice
-======================================================
-This module allows in the supplier invoice, to automatically update all
-products whose unit price on the line is different from the supplier price.
-It creates a new supplier price if there is not or it updates the first.
+==============================================================
+Update Discount Supplier Info of product from Supplier Invoice
+==============================================================
 
+This module is a glue module installed if the following module are installed:
+* account_invoice_supplierinfo_update (same repository)
+* product_supplierinfo_discount (purchase-workflow repository)
+
+It allows to update discount on supplierinfo, if the invoice line has a
+different discount value.
 
 Usage
 =====
@@ -23,16 +26,24 @@ Bug Tracker
 Bugs are tracked on GitHub Issues. In case of trouble, please check there
 if your issue has already been reported. If you spotted it first,
 help us smashing it by providing a detailed and welcomed feedback.
- 
+
+Known Issues / Roadmap
+======================
+
+* Odoo account module displays discounts on invoice lines only if sale module
+  is installed, that is bad design. To avoid useless dependencies, this
+  module does not depend on sale module, and so, displays allways discount
+  features, even if the user doesn't belong to the group 
+  'sale.group_discount_per_so_line'.
+
 Credits
 =======
- 
+
 Contributors
 ------------
- 
-* Chafique Delli <chafique.delli@akretion.com>
 
- 
+* Sylvain LE GAL (https://twitter.com/legalsylvain)
+
 Maintainer
 ----------
  

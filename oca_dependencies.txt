@@ -2,4 +2,4 @@ account-financial-tools
 stock-logistics-workflow
 product-attribute
 bank-payment
-product-variant
+purchase-workflow
