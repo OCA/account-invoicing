@@ -21,17 +21,19 @@ class mrp_repair(osv.osv):
         repair_line_obj = self.pool.get('mrp.repair.line')
         repair_fee_obj = self.pool.get('mrp.repair.fee')
         for repair in self.browse(cr, uid, ids, context=context):
+            rp = repair.partner_id
+            rpi = repair.partner_invoice_id
             res[repair.id] = False
             if repair.state in ('draft', 'cancel') or repair.invoice_id:
                 continue
-            if not (repair.partner_id.id and repair.partner_invoice_id.id):
+            if not (rp.id and rpi.id):
                 raise osv.except_osv(_('No partner!'), _(
                     'You have to select a Partner Invoice Address \
                     in the repair form!'))
             comment = repair.quotation_notes
             if (repair.invoice_method != 'none'):
-                if group and repair.partner_invoice_id.id in invoices_group:
-                    inv_id = invoices_group[repair.partner_invoice_id.id]
+                if group and rpi.id in invoices_group:
+                    inv_id = invoices_group[rpi.id]
                     invoice = inv_obj.browse(cr, uid, inv_id)
                     invoice_vals = {
                         'name': invoice.name + ', ' + repair.name,
@@ -44,22 +46,22 @@ class mrp_repair(osv.osv):
                     inv_obj.write(cr, uid, [inv_id],
                                   invoice_vals, context=context)
                 else:
-                    if not repair.partner_id.property_account_receivable:
+                    if not rp.property_account_receivable:
                         raise osv.except_osv(_('Error!'), _(
                             'No account defined for /'
-                            'partner "%s".') % repair.partner_id.name)
-                    account_id = repair.partner_id.property_account_receivable.id
+                            'partner "%s".') % rp.name)
+                    account_id = rp.property_account_receivable.id
                     inv = {
                         'name': repair.name,
                         'origin': repair.name,
                         'type': 'out_invoice',
                         'account_id': account_id,
-                        'partner_id': repair.partner_invoice_id.id or repair.partner_id.id,
-                        'partner_bank_id': repair.partner_invoice_id.default_company_bank_id.id or
-                                           repair.partner_id.default_company_bank_id.id,
+                        'partner_id': rpi.id or rp.id,
+                        'partner_bank_id': rpi.default_company_bank_id.id or
+                                           rp.default_company_bank_id.id,
                         'currency_id': repair.pricelist_id.currency_id.id,
                         'comment': repair.quotation_notes,
-                        'fiscal_position': repair.partner_id.property_account_position.id
+                        'fiscal_position': rp.property_account_position.id
                     }
                     inv_id = inv_obj.create(cr, uid, inv)
                     invoices_group[repair.partner_invoice_id.id] = inv_id
@@ -72,11 +74,11 @@ class mrp_repair(osv.osv):
                             name = repair.name + '-' + operation.name
                         else:
                             name = operation.name
-
-                        if operation.product_id.property_account_income:
-                            account_id = operation.product_id.property_account_income.id
-                        elif operation.product_id.categ_id.property_account_income_categ:
-                            account_id = operation.product_id.categ_id.property_account_income_categ.id
+                        OP = operation.product_id
+                        if OP.property_account_income:
+                            account_id = OP.property_account_income.id
+                        elif OP.categ_id.property_account_income_categ:
+                            account_id = OP.categ_id.property_account_income_categ.id
                         else:
                             raise osv.except_osv(_('Error!'), _(
                                 'No account defined for product "%s".') % operation.product_id.name)
