@@ -2,6 +2,4 @@
 # © 2016 Serpent Consulting Services Pvt. Ltd
 # License LGPLv3 (http://www.gnu.org/licenses/lgpl-3.0-standalone.html)
 
-from . import res_partner
-from . import sale_order
-from . import stock_picking
+from . import sale_advance_payment_inv
