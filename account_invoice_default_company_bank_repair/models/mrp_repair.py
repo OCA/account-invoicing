@@ -39,10 +39,9 @@ class mrp_repair(osv.osv):
                         'name': invoice.name + ', ' + repair.name,
                         'origin': invoice.origin + ', ' + repair.name,
                         'comment': (comment and (invoice.comment and
-                                                 invoice.comment + "\n" +
-                                                 comment or comment)) or (
-                                       invoice.comment and
-                                       invoice.comment or ''),
+                                    invoice.comment + "\n" +
+                                    comment or comment)) or (
+                                    invoice.comment and invoice.comment or ''),
                     }
                     inv_obj.write(cr, uid, [inv_id],
                                   invoice_vals, context=context)
@@ -84,7 +83,7 @@ class mrp_repair(osv.osv):
                         else:
                             raise osv.except_osv(_('Error!'), _(
                                 'No account defined for product "%s".')
-                                                 % operation.product_id.name)
+                                % operation.product_id.name)
 
                         invoice_line_id = inv_line_obj.create(cr, uid, {
                             'invoice_id': inv_id,
@@ -124,7 +123,7 @@ class mrp_repair(osv.osv):
                         else:
                             raise osv.except_osv(_('Error!'), _(
                                 'No account defined for product "%s".')
-                                                 % fee.product_id.name)
+                                % fee.product_id.name)
 
                         invoice_fee_id = inv_line_obj.create(cr, uid, {
                             'invoice_id': inv_id,
