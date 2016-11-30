@@ -38,11 +38,11 @@ class mrp_repair(osv.osv):
                     invoice_vals = {
                         'name': invoice.name + ', ' + repair.name,
                         'origin': invoice.origin + ', ' + repair.name,
-                        'comment': (comment and (invoice.comment and
+                        'comment': ((comment and (invoice.comment and
                                     invoice.comment + "\n" +
-                                    comment or comment)) or (
-                                    invoice.comment and invoice.comment or ''),
-                    }
+                                    comment or comment)) or
+                                    (invoice.comment or '')),
+                        }
                     inv_obj.write(cr, uid, [inv_id],
                                   invoice_vals, context=context)
                 else:
