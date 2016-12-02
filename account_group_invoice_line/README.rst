@@ -2,20 +2,20 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==========================
-Account Group Invoice Line
-==========================
+===========================
+Account Group Invoice Lines
+===========================
 
-This module was written to extend the option *Group Invoice Line* of the journal. With this module, you can choose to group the account move lines generated when you validate an invoice per account, instead of grouping per product.
+This module was written to extend the option *Group Invoice Lines* of the journal. With this module, you can choose to group the account move lines generated when you validate an invoice per account, instead of grouping per product.
 
 Configuration
 =============
 
-To configure this module, go to the menu *Accounting > Configuration > Journals > Journals* and select a sale or purchase journal. On the form view of the journal, you have an option *Group Invoice Line*. If you activate this option, you will see a new option **Group by** with two possible values:
+To configure this module, go to the menu *Accounting > Configuration > Journals > Journals* and select a sale or purchase journal. On the form view of the journal, you have an option *Group Invoice Lines*. If you activate this option, you will see a new option **Group by** with two possible values:
 
- * **by Product**: the account move lines generated when you validate an invoice will be grouped by product, account, analytic account and tax code (this is the behavior when this module is not installed)
+ * **by Product**: the account move lines generated when you validate an invoice will be grouped by product, account, analytic account, analytic tags and tax (this is the behavior when this module is not installed)
 
- * **by Account**: the account move lines will be grouped by account, analytic account and tax code, without taking into account the product.
+ * **by Account**: the account move lines will be grouped by account, analytic account, analytic tags and tax, without taking into account the product.
 
 Usage
 =====
