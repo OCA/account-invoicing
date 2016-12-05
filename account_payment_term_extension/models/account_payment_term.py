@@ -1,34 +1,14 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Author: Yannick Vaucher
-#    Copyright 2013 Camptocamp SA
-#    Copyright (C) 2004-2010 OpenERP S.A. (www.odoo.com)
-#    Copyright (C) 2015 Akretion (http://www.akretion.com)
-#    @author Alexis de Lattre <alexis.delattre@akretion.com>
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2013-2016 Camptocamp SA (Yannick Vaucher)
+# © 2004-2016 Odoo S.A. (www.odoo.com)
+# © 2015-2016 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 
 from dateutil.relativedelta import relativedelta
-
-from openerp import models, fields, api, exceptions, _
-from openerp.tools.float_utils import float_is_zero, float_round
-
-import openerp.addons.decimal_precision as dp
-
+from odoo import models, fields, api, exceptions, _
+from odoo.tools.float_utils import float_is_zero, float_round
+import odoo.addons.decimal_precision as dp
 import calendar
 
 
@@ -46,7 +26,8 @@ class AccountPaymentTermLine(models.Model):
     weeks = fields.Integer(string='Number of Weeks')
 
     @api.multi
-    def compute_line_amount(self, total_amount, remaining_amount):
+    def compute_line_amount(
+            self, total_amount, remaining_amount, precision_digits):
         """Compute the amount for a payment term line.
         In case of procent computation, use the payment
         term line rounding if defined
@@ -57,21 +38,17 @@ class AccountPaymentTermLine(models.Model):
             :returns: computed amount for this line
         """
         self.ensure_one()
-        if self.env.context.get('currency_id'):
-            currency = self.env['res.currency'].browse(
-                self.env.context['currency_id'])
-        else:
-            currency = self.env.user.company_id.currency_id
-        prec = currency.decimal_places
         if self.value == 'fixed':
-            return float_round(self.value_amount, precision_digits=prec)
+            return float_round(
+                self.value_amount, precision_digits=precision_digits)
         elif self.value == 'percent':
             amt = total_amount * (self.value_amount / 100.0)
             if self.amount_round:
                 amt = float_round(amt, precision_rounding=self.amount_round)
-            return float_round(amt, precision_digits=prec)
+            return float_round(amt, precision_digits=precision_digits)
         elif self.value == 'balance':
-            return float_round(remaining_amount,  precision_digits=prec)
+            return float_round(
+                remaining_amount,  precision_digits=precision_digits)
         return None
 
     def _decode_payment_days(self, days_char):
@@ -149,7 +126,7 @@ class AccountPaymentTerm(models.Model):
         prec = currency.decimal_places
         next_date = fields.Date.from_string(date_ref)
         for line in self.line_ids:
-            amt = line.compute_line_amount(value, amount)
+            amt = line.compute_line_amount(value, amount, prec)
             if not self.sequential_lines:
                 # For all lines, the beginning date is `date_ref`
                 next_date = fields.Date.from_string(date_ref)
