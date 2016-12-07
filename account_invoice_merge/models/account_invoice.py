@@ -218,4 +218,4 @@ class AccountInvoice(models.Model):
                 todos = anal_line_obj.search(
                     [('invoice_id', 'in', invoices_info[new_invoice_id])])
                 todos.write({'invoice_id': new_invoice_id})
-        return invoices_info
+        return invoices_info, invoice_lines_info
