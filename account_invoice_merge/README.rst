@@ -40,6 +40,7 @@ Contributors
 * Ian Li <ian.li@elico-corp.com>
 * Cédric Pigeon <cedric.pigeon@acsone.eu>
 * Pedro M. Baeza <pedro.baeza@tecnativa.com>
+* Luc De Meyer <luc.demeyer@noviat.com>
 
 Maintainer
 ----------

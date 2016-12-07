@@ -2,6 +2,7 @@
 # © 2010-2011 Ian Li <ian.li@elico-corp.com>
 # © 2015 Cédric Pigeon <cedric.pigeon@acsone.eu>
 # © 2016 Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
+# © 2016 Luc De Meyer <luc.demeyer@noviat.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, api
@@ -150,25 +151,36 @@ class AccountInvoice(models.Model):
                 o_line = invoice_infos['invoice_line'].setdefault(line_key, {})
                 if o_line:
                     self._merge_invoice_line_values(o_line, invoice_line)
+                    o_line['o_line_ids'].append(invoice_line.id)
                 else:
                     # append a new "standalone" line
                     o_line.update(
                         invoice_line._convert_to_write(invoice_line._cache))
                     del o_line['invoice_id']
+                    o_line['o_line_ids'] = [invoice_line.id]
         allinvoices = []
         invoices_info = {}
+        invoice_lines_info = {}
         for invoice_key, (invoice_data, old_ids) in new_invoices.iteritems():
             # skip merges with only one invoice
             if len(old_ids) < 2:
                 allinvoices += (old_ids or [])
                 continue
-            invoice_data['invoice_line'] = [
-                (0, 0, value) for value in
-                invoice_data['invoice_line'].itervalues()]
             if date_invoice:
                 invoice_data['date_invoice'] = date_invoice
             # create the new invoice
+            invoice_line_data = invoice_data['invoice_line']
+            del invoice_data['invoice_line']
             newinvoice = self.with_context(is_merge=True).create(invoice_data)
+            invoice_lines_info[newinvoice.id] = {}
+            for entry in invoice_line_data.values():
+                o_line_ids = entry['o_line_ids']
+                del entry['o_line_ids']
+                entry['invoice_id'] = newinvoice.id
+                inv_line = self.env['account.invoice.line'].create(entry)
+                for o_line_id in o_line_ids:
+                    invoice_lines_info[newinvoice.id][o_line_id] = inv_line.id
+            newinvoice.button_reset_taxes()
             invoices_info.update({newinvoice.id: old_ids})
             allinvoices.append(newinvoice.id)
             # make triggers pointing to the old invoices point to the new
@@ -184,19 +196,20 @@ class AccountInvoice(models.Model):
         # None if purchase is not installed
         if 'sale.order' in self.env.registry:
             so_obj = self.env['sale.order']
-            invoice_line_obj = self.env['account.invoice.line']
             for new_invoice_id in invoices_info:
                 todos = so_obj.search(
                     [('invoice_ids', 'in', invoices_info[new_invoice_id])])
                 todos.write({'invoice_ids': [(4, new_invoice_id)]})
                 for org_so in todos:
                     for so_line in org_so.order_line:
-                        invoice_lines = invoice_line_obj.search(
-                            [('product_id', '=', so_line.product_id.id),
-                             ('invoice_id', '=', new_invoice_id)])
-                        if invoice_lines:
-                            so_line.write(
-                                {'invoice_lines': [(6, 0, invoice_lines.ids)]})
+                        org_ilines = so_line.mapped('invoice_lines')
+                        invoice_line_ids = []
+                        for org_iline in org_ilines:
+                            invoice_line_ids.append(
+                                invoice_lines_info[
+                                    new_invoice_id][org_iline.id])
+                        so_line.write(
+                            {'invoice_lines': [(6, 0, invoice_line_ids)]})
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
         anal_line_obj = self.env['account.analytic.line']
