@@ -4,6 +4,7 @@
 
 from openerp import models, api
 
+
 class MrpRepair(models.Model):
     _inherit = 'mrp.repair'
 
