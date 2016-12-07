@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='credit_limit']" position="after">
-                    <field name="default_company_bank_id" />
+                    <field name="default_company_bank_id" domain="[('partner_id.ref_companies', 'in', [company_id])]" />
                 </xpath>
             </field>
         </record>
