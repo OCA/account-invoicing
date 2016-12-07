@@ -7,25 +7,21 @@
 Account Invoice Default Company Bank Partner
 ============================================
 
-This module adds default_company_bank_id to res.partner defined as many2one field with comodel_name=res.partner.bank.
-The new field will be used to fill partner_bank_id on account.invoice by modifying onchange_partner_id method. It will be also add to res.partner form inside of tab 'Accounting'.
+This module allows the user to set a default bank account to each partner.
+This will be used to fill in the **Bank Account** field in the invoices.
 
-Installation
-============
+A new field is created in the partner form view, in the **Accounting** tab. The user can select one of the bank accounts of the user company.
 
-This module depends on:
+Usage
+=====
 
-* account
+To use this module, you need to:
 
-Configuration
-=============
+#. enter the tab **Accounting** in the partner form view and select the bank account among those available.
 
-There is nothing to configure.
-
-Known issues / Roadmap
-======================
-
- * No known issues.
+.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+   :alt: Try me on Runbot
+   :target: https://runbot.odoo-community.org/runbot/95/8.0
 
 Bug Tracker
 ===========
@@ -39,8 +35,8 @@ Credits
 
 Contributors
 ------------
-- Serpent Consulting Services Pvt. Ltd.
-- Agile Business Group
+* Serpent Consulting Services Pvt. Ltd.
+* Agile Business Group
 
 Maintainer
 ----------
