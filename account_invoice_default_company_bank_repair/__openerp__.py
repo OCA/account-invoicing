@@ -7,10 +7,6 @@
     "summary": "Account Invoice Default Company Bank Repair",
     "version": "8.0.1.0.0",
     "category": "Accounting",
-    "description": """This module allows to set Bank Account
-                     from Invoices as Default Company Bank
-                     from Partner when the invoice will
-                     be created starting from Repair.""",
     'website': 'http://www.serpentcs.com',
     "author": """Serpent Consulting Services Pvt. Ltd.,
                 Agile Business Group,
