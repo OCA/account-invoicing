@@ -19,6 +19,7 @@ addon | version | summary
 --- | --- | ---
 [account_invoice_blocking](account_invoice_blocking/) | 9.0.1.0.0 | This module allows the user to set a blocking (No Follow-up) flag on invoices.
 [account_invoice_check_total](account_invoice_check_total/) | 9.0.1.0.0 | Check if the verification total is equal to the bill's total
+[account_invoice_merge](account_invoice_merge/) | 9.0.1.0.0 | Account Invoice Merge Wizard
 [account_invoice_refund_link](account_invoice_refund_link/) | 9.0.1.0.0 | Link refund invoice with its original invoice
 [account_invoice_refund_option](account_invoice_refund_option/) | 9.0.1.0.0 | Allows you to create directly a refund without starting from an invoice
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 9.0.1.0.0 | Checks that supplier invoices are not entered twice
@@ -35,7 +36,6 @@ addon | version | summary
 [account_invoice_force_number](account_invoice_force_number/) | 8.0.0.1.0 (unported) | Allows to force invoice numbering on specific invoices
 [account_invoice_line_description](account_invoice_line_description/) | 8.0.1.0.0 (unported) | Account invoice line description
 [account_invoice_line_sort](account_invoice_line_sort/) | 8.0.0.1.0 (unported) | Manage sort of customer invoice lines by customers
-[account_invoice_merge](account_invoice_merge/) | 8.0.1.1.1 (unported) | Account Invoice Merge Wizard
 [account_invoice_merge_payment](account_invoice_merge_payment/) | 8.0.0.1.0 (unported) | Use invoice merge regarding fields on Account Payment Partner
 [account_invoice_merge_purchase](account_invoice_merge_purchase/) | 8.0.1.0.0 (unported) | Compatibility between purchase and account invoice merge
 [account_invoice_partner](account_invoice_partner/) | 8.0.0.2.0 (unported) | Automatically select invoicing partner on invoice
