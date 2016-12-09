@@ -1,6 +1,6 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-# * account_invoice_default_salesteam
+# * account_invoice_force_number
 # 
 # Translators:
 msgid ""
@@ -17,17 +17,19 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. module: account_invoice_default_salesteam
-#: model:ir.model,name:account_invoice_default_salesteam.model_sale_order
-msgid "Sales Order"
-msgstr "Verkooporder"
+#. module: account_invoice_force_number
+#: view:account.invoice:0
+msgid "Force Number"
+msgstr ""
 
-#. module: account_invoice_default_salesteam
-#: model:ir.model,name:account_invoice_default_salesteam.model_account_invoice
+#. module: account_invoice_force_number
+#: view:account.invoice:0
+msgid ""
+"Force invoice number. Use this field if you don't want to use the default "
+"numbering"
+msgstr ""
+
+#. module: account_invoice_force_number
+#: model:ir.model,name:account_invoice_force_number.model_account_invoice
 msgid "Invoice"
 msgstr "Factuur"
-
-#. module: account_invoice_default_salesteam
-#: model:ir.model,name:account_invoice_default_salesteam.model_stock_picking
-msgid "Picking List"
-msgstr ""

@@ -1,6 +1,6 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-# * account_invoice_default_salesteam
+# * account_invoice_supplier_ref_unique
 # 
 # Translators:
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-28 21:46+0000\n"
-"PO-Revision-Date: 2015-06-03 04:47+0000\n"
+"PO-Revision-Date: 2015-06-03 04:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Dutch (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -17,17 +17,15 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. module: account_invoice_default_salesteam
-#: model:ir.model,name:account_invoice_default_salesteam.model_sale_order
-msgid "Sales Order"
-msgstr "Verkooporder"
+#. module: account_invoice_supplier_ref_unique
+#: code:addons/account_invoice_supplier_ref_unique/account_invoice.py:57
+#, python-format
+msgid ""
+"The supplier invoice number must be unique                  for each "
+"supplier !"
+msgstr ""
 
-#. module: account_invoice_default_salesteam
-#: model:ir.model,name:account_invoice_default_salesteam.model_account_invoice
+#. module: account_invoice_supplier_ref_unique
+#: model:ir.model,name:account_invoice_supplier_ref_unique.model_account_invoice
 msgid "Invoice"
 msgstr "Factuur"
-
-#. module: account_invoice_default_salesteam
-#: model:ir.model,name:account_invoice_default_salesteam.model_stock_picking
-msgid "Picking List"
-msgstr ""
