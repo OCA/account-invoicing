@@ -1,70 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ********************************************************************** -->
-<!-- Account - Price List on Invoice for Odoo                               -->
-<!-- Copyright (C) 2015- Today GRAP (http://www.grap.coop)                  -->
-<!-- @author Sylvain LE GAL (https://twitter.com/legalsylvain)              -->
+<odoo>
 
-<!--This program is free software: you can redistribute it and/or modify    -->
-<!--it under the terms of the GNU Affero General Public License as          -->
-<!--published by the Free Software Foundation, either version 3 of the      -->
-<!--License, or (at your option) any later version.                         -->
-
-<!--This program is distributed in the hope that it will be useful,         -->
-<!--but WITHOUT ANY WARRANTY; without even the implied warranty of          -->
-<!--MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           -->
-<!--GNU Affero General Public License for more details.                     -->
-
-<!--You should have received a copy of the GNU Affero General Public License-->
-<!--along with this program.  If not, see <http://www.gnu.org/licenses/>.   -->
-<!-- ********************************************************************** -->
-
-<openerp>
-    <data>
-
-<!-- Model: account.invoice -->
-        <record id="view_account_invoice_customer_form" model="ir.ui.view">
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_form"/>
-            <field name="arch" type="xml">
-                <field name="state" position="before">
-                    <button type="object" name="button_update_prices_from_pricelist" string="Update prices from pricelist" attrs="{'invisible': ['|', ('pricelist_id', '=', False), ('state', 'not in', ['draft'])]}" />
-                </field>
-                <field name="user_id" position="after">
+    <record id="view_account_invoice_customer_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <group col="4" colspan="4">
                     <field name="pricelist_id"/>
-                </field>
-                <field name="invoice_line" position="attributes">
-                    <attribute name="context">{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type, 'pricelist_id': pricelist_id}</attribute>
-                </field>
+                    <button type="object"
+                            name="button_update_prices_from_pricelist"
+                            string="Update prices"
+                            attrs="{'invisible': ['|', ('pricelist_id', '=', False), ('state', 'not in', ['draft'])]}"
+                            help="Update price in lines from the pricelist"
+                    />
+                </group>
             </field>
-        </record>
-
-        <record id="view_account_invoice_supplier_form" model="ir.ui.view">
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_supplier_form"/>
-            <field name="arch" type="xml">
-                <field name="state" position="before">
-                    <button type="object" name="button_update_prices_from_pricelist" string="Update prices from pricelist" attrs="{'invisible': ['|', ('pricelist_id', '=', False), ('state', 'not in', ['draft'])]}" />
-                </field>
-                <field name="user_id" position="after">
-                    <field name="pricelist_id"/>
-                </field>
-                <field name="invoice_line" position="attributes">
-                    <attribute name="context">{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type, 'pricelist_id': pricelist_id}</attribute>
-                </field>
+            <field name="invoice_line_ids" position="attributes">
+                <attribute name="context">{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type, 'pricelist_id': pricelist_id}</attribute>
             </field>
-        </record>
+        </field>
+    </record>
 
-        <record id="view_account_invoice_search" model="ir.ui.view">
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
-            <field name="arch" type="xml">
-                <xpath expr="//filter[@string='Partner']" position="after">
-                    <filter string="Pricelist" context="{'group_by':'pricelist_id'}"/>
-                </xpath>
-            </field>
-        </record>
+    <record id="view_account_invoice_search" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='group_by_partner_id']" position="after">
+                <filter string="Pricelist"
+                        context="{'group_by':'pricelist_id'}"
+                        invisible="context.get('type', '') not in ['out_invoice', 'out_refund']"/>
+            </xpath>
+        </field>
+    </record>
 
-    </data>
-</openerp>
-
-
+</odoo>
