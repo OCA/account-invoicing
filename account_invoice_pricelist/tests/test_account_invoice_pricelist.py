@@ -1,34 +1,75 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    This module copyright (C) 2015 Therp BV <http://therp.nl>.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp.tests.common import TransactionCase
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+from openerp.tests.common import SavepointCase
 
 
-class TestAccountInvoicePricelist(TransactionCase):
+class TestAccountInvoicePricelist(SavepointCase):
+    @classmethod
+    def setUpClass(self):
+        super(TestAccountInvoicePricelist, self).setUpClass()
+        self.AccountInvoice = self.env["account.invoice"]
+        self.ProductPricelist = self.env['product.pricelist']
+        self.FiscalPosition = self.env['account.fiscal.position']
+        self.fiscal_position = self.FiscalPosition.create({
+            "name": "Test Fiscal Position",
+            "active": True,
+        })
+        self.journal_sale = self.env["account.journal"].create({
+            "name": "Test sale journal",
+            "type": "sale",
+            "code": "TEST_SJ",
+        })
+        self.at_receivable = self.env["account.account.type"].create({
+            "name": "Test receivable account",
+            "type": "receivable",
+        })
+        self.a_receivable = self.env["account.account"].create({
+            "name": "Test receivable account",
+            "code": "TEST_RA",
+            "user_type_id": self.at_receivable.id,
+            "reconcile": True,
+        })
+        self.partner = self.env['res.partner'].create({
+            'name': 'Test Partner',
+            'property_product_pricelist': 1,
+            'property_account_receivable_id': self.a_receivable.id,
+            'property_account_position_id': self.fiscal_position.id,
+        })
+        self.product = self.env['product.template'].create({
+            'name': 'Product Test',
+            'list_price': 100.00,
+        })
+        self.sale_pricelist_id = self.ProductPricelist.create({
+            'name': 'Test Sale pricelist',
+            'item_ids': [(0, 0, {
+                    'applied_on': '1_product',
+                    'compute_price': 'fixed',
+                    'fixed_price': 300.00,
+                    'product_tmpl_id': self.product.id,
+                })],
+        })
+        self.invoice = self.AccountInvoice.create({
+            'partner_id': self.partner.id,
+            'account_id': self.a_receivable.id,
+            'type': 'out_invoice',
+            'invoice_line_ids': [(0, 0, {
+                'account_id': self.a_receivable.id,
+                'product_id': self.product.product_variant_ids[:1].id,
+                'name': 'Test line',
+                'quantity': 1.0,
+                'price_unit': 100.00,
+            })],
+        })
+
     def test_account_invoice_pricelist(self):
-        invoice = self.env['account.invoice'].search([
-            ('type', '=', 'out_invoice'),
-            ('partner_id.property_product_pricelist', '!=', False)
-        ], limit=1)
-        on_change_partner_id = invoice.onchange_partner_id(
-            invoice.type, invoice.partner_id.id)
+        self.invoice._onchange_partner_id_account_invoice_pricelist()
         self.assertEqual(
-            on_change_partner_id['value']['pricelist_id'],
-            invoice.partner_id.property_product_pricelist.id)
-        invoice.button_update_prices_from_pricelist()
+            self.invoice.pricelist_id,
+            self.invoice.partner_id.property_product_pricelist)
+
+    def test_account_invoice_change_pricelist(self):
+        self.invoice.pricelist_id = self.sale_pricelist_id.id
+        self.invoice.button_update_prices_from_pricelist()
+        invoice_line = self.invoice.invoice_line_ids[:1]
+        self.assertEqual(invoice_line.price_unit, 300.00)
