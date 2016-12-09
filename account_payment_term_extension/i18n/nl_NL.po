@@ -3,72 +3,72 @@
 # * account_payment_term_extension
 # 
 # Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2016
+# Peter Hageman <hageman.p@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 03:35+0000\n"
-"PO-Revision-Date: 2016-12-06 03:35+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
-"Language-Team: Croatian (Croatia) (https://www.transifex.com/oca/teams/23907/hr_HR/)\n"
+"POT-Creation-Date: 2017-06-23 02:38+0000\n"
+"PO-Revision-Date: 2017-06-23 02:38+0000\n"
+"Last-Translator: Peter Hageman <hageman.p@gmail.com>, 2017\n"
+"Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/23907/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: hr_HR\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_payment_term_extension
 #: model:account.payment.term,name:account_payment_term_extension.sixty_days_end_of_month
 #: model:account.payment.term,note:account_payment_term_extension.sixty_days_end_of_month
 msgid "60 Days End of Month"
-msgstr "60 dana krajem mjeseca"
+msgstr "60 Dagen Eind van de Maand"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_sequential_lines
 msgid "Allows to apply a chronological order on lines."
-msgstr "Dozvoljava primjenu kronološkog poretka na stavkama."
+msgstr ""
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_amount_round
 msgid "Amount Rounding"
-msgstr "Zaokruživanje iznosa"
+msgstr ""
 
 #. module: account_payment_term_extension
 #: model:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_line_form
 msgid "Due Date Computation"
-msgstr "Izračun datuma dospijeća"
+msgstr ""
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_months
 msgid "Number of Months"
-msgstr "Broj mjeseci"
+msgstr "Aantal Maanden"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_weeks
 msgid "Number of Weeks"
-msgstr "Broj tjedana"
+msgstr "Aantal Weken"
 
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term
 msgid "Payment Term"
-msgstr "Uvijet plaćanja"
+msgstr "Betalingstermijn"
 
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term_line
 msgid "Payment Term Line"
-msgstr "Stavka uvijeta plaćanja"
+msgstr "Betalingstermijnregel"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_payment_days
 msgid "Payment day(s)"
-msgstr "Plaćanje dan(a)"
+msgstr ""
 
 #. module: account_payment_term_extension
 #: code:addons/account_payment_term_extension/models/account_payment_term.py:74
 #, python-format
 msgid "Payment days field format is not valid."
-msgstr "Format polja dani plaćanja nije ispravan."
+msgstr ""
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_line_payment_days
@@ -76,13 +76,11 @@ msgid ""
 "Put here the day or days when the partner makes the payment. Separate each "
 "possible payment day with dashes (-), commas (,) or spaces ( )."
 msgstr ""
-"Ovjde upišite dane kada partner vrši uplatu. Odvojite svaki mogući dan "
-"plaćanja sa crticama (-), zarezima(,), ili razmacima( ). "
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_sequential_lines
 msgid "Sequential lines"
-msgstr "Sljedne stavke"
+msgstr ""
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_line_amount_round
@@ -90,5 +88,3 @@ msgid ""
 "Sets the amount so that it is a multiple of this value.\n"
 "To have amounts that end in 0.99, set rounding 1, surcharge -0.01"
 msgstr ""
-"Postavi iznost tako da je višekratnik ove vrijednosti.\n"
-"Za iznose koji trebaju završavati na 0.99, postavite zaokruživanje na 1, umanjenje -0.01"
