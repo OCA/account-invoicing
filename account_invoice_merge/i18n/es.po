@@ -1,68 +1,57 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * account_invoice_merge
-#
+# * account_invoice_merge
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2016
+# Fernando Lara <gennesis45@gmail.com>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-09 13:57+0000\n"
-"PO-Revision-Date: 2015-06-09 13:57+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2017-02-17 15:34+0000\n"
+"PO-Revision-Date: 2017-02-17 15:34+0000\n"
+"Last-Translator: Fernando Lara <gennesis45@gmail.com>, 2017\n"
+"Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
-msgid "* Invoice lines are exactly the same except for the product,quantity and unit"
-msgstr "* Son exactamente iguales a excepción de la cantidad del producto y/o la unidad"
-
-#. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
-msgid "* Invoices are have same company, partner, address, currency, journal, salesman, account, type"
-msgstr "* Tienen la misma compañía, empresa, dirección, moneda, diario, comercial, cuenta y tipo"
-
-#. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
-msgid "* Invoices are in draft"
-msgstr "* Están en borrador."
-
-#. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
-msgid "* Invoices belong to the same partner"
-msgstr "* Pertenecen al mismo cliente/proveedor."
-
-#. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
+#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Are you sure you want to merge these invoices ?"
 msgstr "¿Está seguro de que quiere fusionar las facturas?"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:49
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:31
 #, python-format
 msgid "At least one of the selected invoices is %s!"
 msgstr "¡Al menos una de las facturas seleccionadas está %s!"
 
 #. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
+#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: account_invoice_merge
-#: field:invoice.merge,create_uid:0
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: account_invoice_merge
-#: field:invoice.merge,create_date:0
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_create_date
 msgid "Created on"
 msgstr "Creado en"
 
 #. module: account_invoice_merge
-#: field:invoice.merge,id:0
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_id
 msgid "ID"
 msgstr "ID"
 
@@ -72,95 +61,106 @@ msgid "Invoice"
 msgstr "Factura"
 
 #. module: account_invoice_merge
-#: field:invoice.merge,date_invoice:0
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_date_invoice
 msgid "Invoice Date"
 msgstr "Fecha de la factura"
 
 #. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
-msgid "Invoices will only be merged if:"
-msgstr "Las facturas sólo se fusionarán si:"
-
-#. module: account_invoice_merge
-#: field:invoice.merge,keep_references:0
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_keep_references
 msgid "Keep references from original invoices"
 msgstr "Guardar referencias a las facturas originales"
 
 #. module: account_invoice_merge
-#: field:invoice.merge,write_uid:0
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge___last_update
+msgid "Last Modified on"
+msgstr "Úlima modificación en"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: account_invoice_merge
-#: field:invoice.merge,write_date:0
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_date
 msgid "Last Updated on"
 msgstr "Última actualización en"
 
 #. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
-msgid "Lines will only be merged if:"
-msgstr "Las líneas se fusionarán si:"
-
-#. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
+#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
 msgstr "Fusionar facturas"
 
 #. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
 #: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_invoice_merge
+#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Partner Invoice"
 msgstr "Fusionar factura de empresa"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:56
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:38
 #, python-format
 msgid "Not all invoices are at the same company!"
 msgstr "¡No todas las facturas son de la misma compañía!"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:65
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:47
 #, python-format
 msgid "Not all invoices are at the same currency!"
 msgstr "¡No todas las facturas son de la misma moneda!"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:68
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:50
 #, python-format
 msgid "Not all invoices are at the same journal!"
 msgstr "¡No todas las facturas tienen el mismo diario!"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:59
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:41
 #, python-format
 msgid "Not all invoices are for the same partner!"
 msgstr "¡No todas las facturas tienen la misma empresa!"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:62
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:44
 #, python-format
 msgid "Not all invoices are of the same type!"
 msgstr "¡No todas las facturas son del mismo tipo!"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:53
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:35
 #, python-format
 msgid "Not all invoices use the same account!"
 msgstr "¡No todas las facturas usan la misma cuenta!"
 
 #. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
-msgid "Please note that:"
-msgstr "Tenga en cuenta que:"
+#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid ""
+"Please note that:<br/><br/>\n"
+"Invoices will only be merged if:<br/>\n"
+"* Invoices are in draft<br/>\n"
+"* Invoices belong to the same partner<br/>\n"
+"* Invoices are have same company, partner, address, currency, journal, salesman, account, type<br/><br/>\n"
+"Lines will only be merged if:<br/>\n"
+"* Invoice lines are exactly the same except for the product,quantity and unit<br/>"
+msgstr ""
+"Tenga en cuenta que: <br/> <br/> 'U+23CE'\n"
+"Las facturas sólo se fusionarán si: <br/> 'U+23CE'\n"
+"* Las facturas están en proyecto. <br/>\n"
+"* Las facturas pertenecen al mismo socio <br/> 'U+23CE'\n"
+"* Las facturas tienen la misma empresa, socio, dirección, moneda, diario, vendedor, cuenta, tipo <br/> <br/>\n"
+"Las líneas sólo se fusionarán si: <br/> 'U+23CE'\n"
+"* Las líneas de factura son exactamente iguales, excepto el producto, la cantidad y la unidad. <br/>"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:40
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:24
 #, python-format
 msgid "Please select multiple invoice to merge in the list view."
-msgstr "Seleccione por favor múltiples facturas a ser fusionadas en la vista de listado"
+msgstr ""
+"Seleccione por favor múltiples facturas a ser fusionadas en la vista de "
+"listado"
 
 #. module: account_invoice_merge
-#: view:invoice.merge:account_invoice_merge.view_invoice_merge
+#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "or"
 msgstr "o"
