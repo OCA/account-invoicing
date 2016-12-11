@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 # Copyright 2004-2011 Pexego Sistemas Informáticos. (http://pexego.es)
-# Copyright 2014 Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
 # Copyright 2016 Antonio Espinosa <antonio.espinosa@tecnativa.com>
+# Copyright 2014-2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 {
     "name": "Link refund invoice with original",
     "summary": "Link refund invoice with its original invoice",
-    "version": "9.0.1.0.0",
+    "version": "9.0.2.0.0",
     "author": "Pexego, "
               "Tecnativa, "
               "Odoo Community Association (OCA)",
