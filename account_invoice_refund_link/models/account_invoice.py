@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2004-2011 Pexego Sistemas Informáticos. (http://pexego.es)
-# Copyright 2014 Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
 # Copyright 2016 Antonio Espinosa <antonio.espinosa@tecnativa.com>
+# Copyright 2014-2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp import models, fields, api
@@ -22,15 +22,36 @@ class AccountInvoice(models.Model):
         string="Refund invoices",  readonly=True,
         help="Refund invoices created from this invoice")
 
-    @api.multi
-    def match_origin_lines(self, origin_inv):
-        for idx, line in enumerate(origin_inv.invoice_line_ids):
-            try:
-                # Protect this write, maybe refund invoice doesn't
-                # have the same lines than original one
-                self.invoice_line_ids[idx].write({
-                    'origin_line_ids': [(6, 0, line.ids)],
-                })
-            except:  # pragma: no cover
-                pass
-        return True
+    @api.model
+    def _prepare_refund(self, invoice, date_invoice=None, date=None,
+                        description=None, journal_id=None):
+        """Add link in the refund to the origin invoice and origin lines."""
+        res = super(AccountInvoice, self)._prepare_refund(
+            invoice, date_invoice=date_invoice, date=date,
+            description=description, journal_id=journal_id,
+        )
+        res['origin_invoice_ids'] = [(6, 0, invoice.ids)]
+        res['refund_reason'] = description
+        refund_lines_vals = res['invoice_line_ids']
+        for i, line in enumerate(invoice.invoice_line_ids):
+            if i + 1 > len(refund_lines_vals):  # pragma: no cover
+                # Avoid error if someone manipulate the original method
+                break
+            refund_lines_vals[i][2]['origin_line_ids'] = [(6, 0, line.ids)]
+        return res
+
+
+class AccountInvoiceLine(models.Model):
+    _inherit = 'account.invoice.line'
+
+    origin_line_ids = fields.Many2many(
+        comodel_name='account.invoice.line', column1='refund_line_id',
+        column2='original_line_id', string="Original invoice line",
+        relation='account_invoice_line_refunds_rel',
+        help="Original invoice line to which this refund invoice line "
+             "is referred to")
+    refund_line_ids = fields.Many2many(
+        comodel_name='account.invoice.line', column1='original_line_id',
+        column2='refund_line_id', string="Refund invoice line",
+        relation='account_invoice_line_refunds_rel',
+        help="Refund invoice lines created from this invoice line")
