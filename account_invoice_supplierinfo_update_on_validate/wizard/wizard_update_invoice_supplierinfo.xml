@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+    <record id="view_wizard_update_invoice_supplierinfo_form" model="ir.ui.view">
+        <field name="model">wizard.update.invoice.supplierinfo</field>
+        <field name="inherit_id" ref="account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//footer/button[@name='update_supplierinfo']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//footer/button[@name='set_supplierinfo_ok']" position="attributes">
+                <attribute name="string">Validate without updating</attribute>
+                <attribute name="class">oe_highlight</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    </data>
+</openerp>
