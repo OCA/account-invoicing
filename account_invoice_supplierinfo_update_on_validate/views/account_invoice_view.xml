@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp><data>
+
+    <record id="view_account_invoice_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account_invoice_supplierinfo_update.view_account_invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='invoice_open']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='check_supplierinfo']" position="attributes">
+                <attribute name="string">Validate</attribute>
+                <attribute name="attrs">{'invisible':[('state', 'not in', ['draft', 'proforma2'])]}</attribute>
+                <attribute name="help"></attribute>
+            </xpath>
+        </field>
+    </record>
+
+</data></openerp>
