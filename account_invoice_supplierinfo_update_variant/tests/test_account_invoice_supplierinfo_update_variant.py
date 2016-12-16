@@ -13,18 +13,18 @@ class Tests(TransactionCase):
         self.supplierinfo_obj = self.env['product.supplierinfo']
         self.partnerinfo_obj = self.env['pricelist.partnerinfo']
         self.invoice = self.env.ref(
-            'account_invoice_supplierinfo_update_variant.account_invoice_7')
+            'account_invoice_supplierinfo_update_variant.account_invoice_6')
 
     def test_with_update_pricelist_supplierinfo_on_product_variant(self):
         # supplier invoice with pricelist supplierinfo to update and
-        # product supplierinfo is on product_template
+        # product supplierinfo is on product_variant
         vals_wizard = self.invoice.check_supplierinfo().get('context', {})
-        
+
         line_ids = vals_wizard.get('default_line_ids', {})
         invoice_id = vals_wizard.get('default_invoice_id', {})
         self.assertEquals(len(line_ids), 1)
         self.assertEquals(line_ids[0][2]['current_price'], False)
-        self.assertEquals(line_ids[0][2]['new_price'], 1000.0)
+        self.assertEquals(line_ids[0][2]['new_price'], 400.0)
 
         # Create and launch update process
         wizard = self.wizard_obj.create({
@@ -44,6 +44,6 @@ class Tests(TransactionCase):
         partnerinfos = self.partnerinfo_obj.search([
             ('suppinfo_id', '=', supplierinfos[0].id),
             ('min_quantity', '=', 0.0),
-            ('price', '=', 1000.0)
+            ('price', '=', 400.0)
         ])
         self.assertEquals(len(partnerinfos), 1)

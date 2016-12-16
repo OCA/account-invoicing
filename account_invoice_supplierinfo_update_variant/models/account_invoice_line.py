@@ -12,5 +12,6 @@ class AccountInvoiceLine(models.Model):
     def _prepare_supplier_wizard_line(self, supplierinfo, partnerinfo):
         res = super(AccountInvoiceLine, self)._prepare_supplier_wizard_line(
             supplierinfo, partnerinfo)
-        res['to_variant'] = True
+        if self.product_id.product_variant_count > 1:
+            res['to_variant'] = True
         return res
