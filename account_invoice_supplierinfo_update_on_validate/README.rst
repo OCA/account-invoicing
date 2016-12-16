@@ -6,9 +6,6 @@
 Update Supplier Info of product from Supplier Invoice Validation
 ================================================================
 
-This module is a glue module installed if the following module are installed:
-* account_invoice_supplierinfo_update (account-invoicing repository)
-
 At the supplier invoice validation, it allows to update supplierinfo,
 if the invoice line has a different price value.
 
