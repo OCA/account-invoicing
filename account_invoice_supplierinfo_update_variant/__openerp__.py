@@ -13,6 +13,7 @@
     'author': 'Akretion, Odoo Community Association (OCA)',
     'license': 'AGPL-3',
     'installable': True,
+    'auto_install': True,
     'depends': [
         'account_invoice_supplierinfo_update',
         'product_variant_supplierinfo'
