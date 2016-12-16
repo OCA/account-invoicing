@@ -1,0 +1,34 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_supplierinfo_update_variant
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-16 11:46+0000\n"
+"PO-Revision-Date: 2016-12-16 11:46+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_supplierinfo_update_variant
+#: help:wizard.update.invoice.supplierinfo.line,to_variant:0
+msgid "- Check the option for an update on the product variant.\n"
+"- Uncheck the option for an update on the product model."
+msgstr "- Cochez l'option pour une mise à jour sur la variante du produit.\n"
+"- Décochez l'option pour une mise à jour sur le modèle du produit."
+
+#. module: account_invoice_supplierinfo_update_variant
+#: model:ir.model,name:account_invoice_supplierinfo_update_variant.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Lignes de facture"
+
+#. module: account_invoice_supplierinfo_update_variant
+#: field:wizard.update.invoice.supplierinfo.line,to_variant:0
+msgid "Update to the variant"
+msgstr "Mettre à jour sur la variante"
+
