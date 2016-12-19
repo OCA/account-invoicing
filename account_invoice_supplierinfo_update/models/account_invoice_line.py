@@ -13,8 +13,8 @@ class AccountInvoiceLine(models.Model):
         """Given an invoice line, return the supplierinfo that matches
         with product and supplier, if exist"""
         self.ensure_one()
-        supplierinfos = (self.product_id.seller_ids.filtered(
-            lambda seller: seller.name == self.invoice_id.supplier_partner_id))
+        supplierinfos = self.product_id.seller_ids.filtered(
+            lambda seller: seller.name == self.invoice_id.supplier_partner_id)
         return supplierinfos and supplierinfos[0] or False
 
     @api.multi
@@ -24,13 +24,12 @@ class AccountInvoiceLine(models.Model):
         self.ensure_one()
         if not len(supplierinfo.pricelist_ids):
             return False
-        else:
-            # Select partnerinfo, depending of the quantity
-            for partnerinfo in supplierinfo.pricelist_ids.sorted(
-                    key=lambda r: r.min_quantity):
-                if partnerinfo.min_quantity <= self.quantity:
-                    return partnerinfo
-            return False
+        # Select partnerinfo, depending of the quantity
+        for partnerinfo in supplierinfo.pricelist_ids.sorted(
+                key=lambda r: r.min_quantity):
+            if partnerinfo.min_quantity <= self.quantity:
+                return partnerinfo
+        return False
 
     @api.multi
     def _is_correct_partner_info(self, partnerinfo):

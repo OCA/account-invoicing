@@ -26,6 +26,7 @@
         'wizard/wizard_update_invoice_supplierinfo.xml'
     ],
     'demo': [
+        'demo/res_groups.xml',
         'demo/account_invoice.xml',
     ],
     'images': ['static/description/main_screenshot.png'],
