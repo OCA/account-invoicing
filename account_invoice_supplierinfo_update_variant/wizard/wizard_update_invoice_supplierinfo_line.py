@@ -15,12 +15,9 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
 
     @api.multi
     def _prepare_supplierinfo(self):
+        res = super(WizardUpdateInvoiceSupplierinfoLine,
+                    self)._prepare_supplierinfo()
         if self.to_variant:
-            return {
-                'product_id': self.product_id.id,
-                'name': self.wizard_id.invoice_id.supplier_partner_id.id,
-                'min_qty': 0.0,
-                'delay': 1,
-            }
-        return super(WizardUpdateInvoiceSupplierinfoLine,
-                     self)._prepare_supplierinfo()
+            res.update({'product_id': self.product_id.id})
+            res.pop('product_tmpl_id')
+        return res
