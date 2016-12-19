@@ -16,8 +16,8 @@ class AccountInvoice(models.Model):
         compute='_compute_supplier_partner_id')
 
     supplierinfo_ok = fields.Boolean(
-        string='Supplier Informations Checked', help="Checked if the check of"
-        " supplierinfo has been done.\n"
+        string='Supplier Informations Checked', copy=False,
+        help="Checked if the check of supplierinfo has been done.\n"
         " - Uncheck this box, if you want to check again this invoice\n"
         " - Check this box, if you want to mark this invoice as checked")
 
