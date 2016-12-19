@@ -19,6 +19,6 @@ class AccountInvoiceLine(models.Model):
     def _prepare_supplier_wizard_line(self, supplierinfo, partnerinfo):
         res = super(AccountInvoiceLine, self)._prepare_supplier_wizard_line(
             supplierinfo, partnerinfo)
-        res['current_discount'] = partnerinfo and partnerinfo.discount or False
+        res['current_discount'] = partnerinfo and partnerinfo.discount
         res['new_discount'] = self.discount
         return res
