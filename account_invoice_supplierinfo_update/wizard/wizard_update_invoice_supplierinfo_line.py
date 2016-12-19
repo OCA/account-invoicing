@@ -50,12 +50,10 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
     @api.depends('current_price', 'new_price')
     @api.multi
     def _compute_price_variation(self):
-        for line in self:
-            if line.current_price:
-                line.price_variation = 100 *\
-                    (line.new_price - line.current_price) / line.current_price
-            else:
-                line.price_variation = False
+        self.write({'price_variation': False})
+        for line in self.filtered('current_price'):
+            line.price_variation = 100 *\
+                (line.new_price - line.current_price) / line.current_price
 
     # Custom Section
     @api.multi
