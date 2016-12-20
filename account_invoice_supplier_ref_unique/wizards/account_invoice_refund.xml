@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="account_invoice_refund_form_view">
+        <field name="name">account.invoice.refund.form (in account_invoice_supplier_ref_unique)</field>
+        <field name="model">account.invoice.refund</field>
+        <field name="inherit_id" ref="account.view_account_invoice_refund"/>
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="supplier_invoice_number"/>
+            </field>
+        </field>
+    </record>
+
+
+</odoo>

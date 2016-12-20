@@ -15,5 +15,8 @@
     'depends': [
         'account'
     ],
-    'data': ['views/account_invoice.xml'],
+    'data': [
+        'wizards/account_invoice_refund.xml',
+        'views/account_invoice.xml',
+    ],
 }
