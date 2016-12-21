@@ -1,24 +1,7 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Author: Yannick Vaucher
-#    Copyright 2013 Camptocamp SA
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp import models, fields
+# Copyright 2016 Camptocamp SA
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
+from odoo import models, fields
 
 
 class ResCompany(models.Model):
@@ -28,7 +11,8 @@ class ResCompany(models.Model):
     tax_calculation_rounding_account_id = fields.Many2one(
         'account.account',
         'Tax Rounding Account',
-        domain=[('type', '<>', 'view')])
+        domain=[('internal_type', '<>', 'view')]
+    )
     tax_calculation_rounding_method = fields.Selection(
         [('round_per_line', 'Round per Line'),
          ('round_globally', 'Round Globally'),
