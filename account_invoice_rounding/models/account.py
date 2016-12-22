@@ -160,8 +160,8 @@ class AccountInvoice(models.Model):
                     line = invoice.global_round_line_id
                     if line:
                         invoice.amount_untaxed -= line.price_subtotal
-                invoice.amount_total = invoice.amount_tax + \
-                                       invoice.amount_untaxed
+                invoice.amount_total = invoice.amount_tax + invoice.\
+                    amount_untaxed
                 swedish_rounding = self._compute_swedish_rounding(invoice)
                 if swedish_rounding:
                     invoice.amount_total = swedish_rounding['amount_total']
