@@ -43,10 +43,16 @@ class PurchaseBatchInvoicing(models.TransientModel):
     @api.model
     def _purchase_order_domain(self, ids=None):
         """Helper to filter current ids by those that are to invoice."""
-        domain = [("id", "in", ids)] if ids else list()
-        return domain + [
-            ("invoice_status", "=", "to invoice"),
-        ]
+        domain = [("invoice_status", "=", "to invoice")]
+        if ids:
+            domain += [("id", "in", ids)]
+        pos = self.env["purchase.order"].search(domain)
+        # Use only POs with less qty invoiced than received
+        pos = pos.filtered(lambda order: (
+            sum(order.mapped("order_line.qty_invoiced")) <
+            sum(order.mapped("order_line.qty_received"))))
+        domain[1] = ("id", "in", pos.ids)
+        return domain
 
     @api.multi
     def grouped_purchase_orders(self):
@@ -64,9 +70,6 @@ class PurchaseBatchInvoicing(models.TransientModel):
         for group in self.mapped("purchase_order_ids.%s" % self.grouping):
             pos = PurchaseOrder.search(
                 domain + [(self.grouping, "=", int(group))])
-            pos = pos.filtered(lambda order: (
-                sum(order.mapped("order_line.qty_invoiced")) <
-                sum(order.mapped("order_line.qty_received"))))
             if pos:
                 yield pos
 
