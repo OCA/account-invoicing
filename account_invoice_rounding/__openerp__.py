@@ -51,7 +51,6 @@ You can choose the account on which the invoice line will be written
  'license': 'AGPL-3',
  'depends': ['account'],
  'data': ['views/res_company_view.xml'],
- 'test': ['test/test_invoice_rounding.yml'],
  'installable': True,
  'auto_install': False,
  'application': True,
