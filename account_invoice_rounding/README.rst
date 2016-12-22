@@ -41,6 +41,8 @@ Yannick Vaucher
 
 Nicola Malcontenti <nicola.malcontenti@agilebg.com>
 
+Akim Juillerat <akim.juillerat@camptocamp.com>
+
 Maintainer
 ----------
 
