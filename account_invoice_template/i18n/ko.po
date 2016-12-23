@@ -10,12 +10,12 @@ msgstr ""
 "POT-Creation-Date: 2016-12-16 23:50+0000\n"
 "PO-Revision-Date: 2015-06-03 04:46+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Slovak (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/sk/)\n"
+"Language-Team: Korean (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: sk\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: account_invoice_template
 #: selection:account.invoice.template,type:0
@@ -68,7 +68,7 @@ msgstr ""
 #: field:account.invoice.template,type:0
 #: field:account.invoice.template.line,type:0
 msgid "Type"
-msgstr "Typ"
+msgstr "유형"
 
 #. module: account_invoice_template
 #: model:ir.model,name:account_invoice_template.model_account_invoice_template
@@ -120,7 +120,7 @@ msgstr ""
 #: field:account.invoice.template.line,name:0
 #: field:wizard.select.invoice.template.line,name:0
 msgid "Name"
-msgstr "Meno"
+msgstr "이름"
 
 #. module: account_invoice_template
 #: field:wizard.select.invoice.template,line_ids:0
@@ -185,7 +185,7 @@ msgstr ""
 #. module: account_invoice_template
 #: field:account.invoice.template.line,sequence:0
 msgid "Sequence"
-msgstr "Postupnosť"
+msgstr "순서"
 
 #. module: account_invoice_template
 #: view:account.invoice.template.line:0
@@ -223,4 +223,4 @@ msgstr ""
 #. module: account_invoice_template
 #: view:account.invoice.template:0 field:account.invoice.template,partner_id:0
 msgid "Partner"
-msgstr "Partner"
+msgstr ""

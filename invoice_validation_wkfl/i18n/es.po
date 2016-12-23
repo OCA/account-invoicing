@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-14 14:58+0000\n"
+"POT-Creation-Date: 2016-12-16 23:50+0000\n"
 "PO-Revision-Date: 2015-06-03 04:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/es/)\n"
@@ -18,13 +18,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: invoice_validation_wkfl
-#: code:addons/invoice_validation_wkfl/invoice.py:98
+#: code:addons/invoice_validation_wkfl/invoice.py:99
 #, python-format
 msgid "Can not %s draft/proforma/cancel invoice."
 msgstr ""
 
 #. module: invoice_validation_wkfl
-#: code:addons/invoice_validation_wkfl/invoice.py:44
+#: code:addons/invoice_validation_wkfl/invoice.py:45
 #, python-format
 msgid ""
 "You are trying to validate invoice lines linked to a closed or cancelled Analytic Account.\n"
@@ -43,11 +43,11 @@ msgid "PRO-FORMA"
 msgstr ""
 
 #. module: invoice_validation_wkfl
-#: code:addons/invoice_validation_wkfl/invoice.py:97
-#: code:addons/invoice_validation_wkfl/invoice.py:101
+#: code:addons/invoice_validation_wkfl/invoice.py:98
+#: code:addons/invoice_validation_wkfl/invoice.py:102
 #, python-format
 msgid "Error !"
-msgstr ""
+msgstr "Error"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
@@ -85,13 +85,13 @@ msgid "To Validate"
 msgstr ""
 
 #. module: invoice_validation_wkfl
-#: code:addons/invoice_validation_wkfl/invoice.py:144
+#: code:addons/invoice_validation_wkfl/invoice.py:145
 #, python-format
 msgid "No Period found on Invoice!"
 msgstr ""
 
 #. module: invoice_validation_wkfl
-#: code:addons/invoice_validation_wkfl/invoice.py:43
+#: code:addons/invoice_validation_wkfl/invoice.py:44
 #, python-format
 msgid "UserError"
 msgstr ""
@@ -109,7 +109,7 @@ msgstr ""
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Approve"
-msgstr ""
+msgstr "Aprobar"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
@@ -122,13 +122,13 @@ msgid "Refund"
 msgstr ""
 
 #. module: invoice_validation_wkfl
-#: code:addons/invoice_validation_wkfl/invoice.py:143
+#: code:addons/invoice_validation_wkfl/invoice.py:144
 #, python-format
 msgid "Data Insufficient !"
 msgstr ""
 
 #. module: invoice_validation_wkfl
-#: code:addons/invoice_validation_wkfl/invoice.py:102
+#: code:addons/invoice_validation_wkfl/invoice.py:103
 #, python-format
 msgid ""
 "Can not %s invoice which is already reconciled, invoice should be "
