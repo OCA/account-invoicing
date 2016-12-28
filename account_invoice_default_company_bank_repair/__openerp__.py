@@ -15,6 +15,5 @@
     "depends": [
         "mrp_repair", "account_invoice_default_company_bank_partner"
     ],
-    'data': [],
     "installable": True,
 }
