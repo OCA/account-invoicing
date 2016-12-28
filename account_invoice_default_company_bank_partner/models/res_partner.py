@@ -9,4 +9,4 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     default_company_bank_id = fields.Many2one(
-        'res.partner.bank', string='Default Company Bank')
+        'res.partner.bank', string='Default Company Bank Account')
