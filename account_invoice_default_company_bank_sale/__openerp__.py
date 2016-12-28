@@ -13,10 +13,8 @@
                 Odoo Community Association (OCA)""",
     "license": "LGPL-3",
     "depends": [
-        "sale_stock",
+        "sale_stock", "account_invoice_default_company_bank_partner"
     ],
-    'data': [
-        'views/res_partner_view.xml',
-    ],
+    'data': [],
     "installable": True,
 }
