@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-28 21:51+0000\n"
+"POT-Creation-Date: 2016-12-28 09:48+0000\n"
 "PO-Revision-Date: 2015-06-03 04:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/hr_HR/)\n"
@@ -40,7 +40,7 @@ msgstr ""
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 #: view:account.invoice:account_invoice_validation_workflow.invoice_supplier_form_validation_wkfl
 msgid "Cancel"
-msgstr ""
+msgstr "Otkaži"
 
 #. module: account_invoice_validation_workflow
 #: code:addons/account_invoice_validation_workflow/invoice.py:143
@@ -58,7 +58,7 @@ msgstr "Greška !"
 #. module: account_invoice_validation_workflow
 #: model:ir.model,name:account_invoice_validation_workflow.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Račun"
 
 #. module: account_invoice_validation_workflow
 #: model:ir.model,name:account_invoice_validation_workflow.model_account_invoice_refund

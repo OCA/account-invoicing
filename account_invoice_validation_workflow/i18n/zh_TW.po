@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-17 03:48+0000\n"
+"POT-Creation-Date: 2016-12-28 09:48+0000\n"
 "PO-Revision-Date: 2015-06-03 04:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/zh_TW/)\n"
@@ -58,7 +58,7 @@ msgstr ""
 #. module: account_invoice_validation_workflow
 #: model:ir.model,name:account_invoice_validation_workflow.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "發票"
 
 #. module: account_invoice_validation_workflow
 #: model:ir.model,name:account_invoice_validation_workflow.model_account_invoice_refund
