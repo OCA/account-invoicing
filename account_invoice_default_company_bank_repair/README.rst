@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
    :alt: License: LGPL-3
 
-============================================
+===========================================
 Account Invoice Default Company Bank Repair
-============================================
+===========================================
 
 This module allows the user to auto fill in the Bank Account field
 in the invoices by copying it from Default Company Bank Account when
