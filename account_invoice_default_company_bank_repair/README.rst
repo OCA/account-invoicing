@@ -6,8 +6,9 @@
 Account Invoice Default Company Bank Repair
 ============================================
 
-This module depends from mrp_repair and allows to set partner_bank_id as default_company_bank_id when the 
-invoice will be created starting from a mrp.repair.
+This module allows the user to auto fill in the Bank Account field
+in the invoices by copying it from Default Company Bank Account when
+they are creating starting from repair orders.
 
 Installation
 ============
@@ -37,8 +38,8 @@ Credits
 
 Contributors
 ------------
-- Serpent Consulting Services Pvt. Ltd.
-- Agile Business Group
+* Serpent Consulting Services Pvt. Ltd.
+* Agile Business Group
 
 Maintainer
 ----------
@@ -53,4 +54,4 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-To contribute to this module, please visit http://odoo-community.org.
+To contribute to this module, please visit https://odoo-community.org.
