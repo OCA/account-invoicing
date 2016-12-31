@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-17 02:37+0000\n"
+"POT-Creation-Date: 2016-12-23 23:38+0000\n"
 "PO-Revision-Date: 2015-06-03 04:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Croatian (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/hr/)\n"
@@ -46,7 +46,7 @@ msgstr ""
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Poduzeća"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice_line

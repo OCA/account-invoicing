@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-16 23:50+0000\n"
+"POT-Creation-Date: 2016-12-23 23:39+0000\n"
 "PO-Revision-Date: 2015-06-03 04:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Turkish (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/tr/)\n"
@@ -68,7 +68,7 @@ msgstr ""
 #: field:account.invoice.template,type:0
 #: field:account.invoice.template.line,type:0
 msgid "Type"
-msgstr ""
+msgstr "Tipi"
 
 #. module: account_invoice_template
 #: model:ir.model,name:account_invoice_template.model_account_invoice_template
@@ -125,7 +125,7 @@ msgstr "Adı"
 #. module: account_invoice_template
 #: field:wizard.select.invoice.template,line_ids:0
 msgid "Lines"
-msgstr ""
+msgstr "Satırlar"
 
 #. module: account_invoice_template
 #: field:account.invoice.template.line,invoice_line_tax_id:0
@@ -223,4 +223,4 @@ msgstr "Vazgeç"
 #. module: account_invoice_template
 #: view:account.invoice.template:0 field:account.invoice.template,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "İş Ortağı"

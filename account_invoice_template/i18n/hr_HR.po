@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-28 21:46+0000\n"
+"POT-Creation-Date: 2016-12-23 23:39+0000\n"
 "PO-Revision-Date: 2015-06-03 04:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/hr_HR/)\n"
@@ -218,9 +218,9 @@ msgstr ""
 #. module: account_invoice_template
 #: view:wizard.select.invoice.template:0
 msgid "Cancel"
-msgstr ""
+msgstr "Otkaži"
 
 #. module: account_invoice_template
 #: view:account.invoice.template:0 field:account.invoice.template,partner_id:0
 msgid "Partner"
-msgstr ""
+msgstr "Partner"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-17 02:37+0000\n"
+"POT-Creation-Date: 2016-12-23 23:38+0000\n"
 "PO-Revision-Date: 2016-05-07 03:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Portuguese (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/pt/)\n"
@@ -47,7 +47,7 @@ msgstr ""
 #. module: account_invoice_currency_rate
 #: model:ir.model,name:account_invoice_currency_rate.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Fatura"
 
 #. module: account_invoice_currency_rate
 #: view:invoice.force.currency.rate:0
