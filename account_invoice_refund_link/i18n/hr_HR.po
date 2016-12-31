@@ -11,12 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2016-12-24 00:13+0000\n"
 "PO-Revision-Date: 2016-12-24 00:13+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
-"Language-Team: Lithuanian (https://www.transifex.com/oca/teams/23907/lt/)\n"
+"Language-Team: Croatian (Croatia) (https://www.transifex.com/oca/teams/23907/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: account_invoice_refund_link
 #: code:addons/account_invoice_refund_link/hooks.py:34
@@ -39,7 +39,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Description"
-msgstr "Aprašymas"
+msgstr ""
 
 #. module: account_invoice_refund_link
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
@@ -56,7 +56,7 @@ msgstr ""
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_invoice
 msgid "Invoice"
-msgstr "Sąskaita faktūra"
+msgstr "Račun"
 
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_invoice_line
@@ -158,4 +158,4 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Total"
-msgstr "Viso"
+msgstr ""
