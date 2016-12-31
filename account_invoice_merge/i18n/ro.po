@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-17 03:48+0000\n"
-"PO-Revision-Date: 2016-11-25 14:55+0000\n"
+"POT-Creation-Date: 2016-12-28 09:48+0000\n"
+"PO-Revision-Date: 2016-12-27 08:24+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Romanian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/ro/)\n"
 "MIME-Version: 1.0\n"
@@ -60,27 +60,27 @@ msgstr "Anuleaza"
 #. module: account_invoice_merge
 #: field:invoice.merge,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Creat de"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Creat la"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,display_name:0
 msgid "Display Name"
-msgstr ""
+msgstr "Nume Afişat"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Factura"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,date_invoice:0
@@ -100,17 +100,17 @@ msgstr ""
 #. module: account_invoice_merge
 #: field:invoice.merge,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima actualizare în"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultima actualizare făcută de"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultima actualizare la"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge

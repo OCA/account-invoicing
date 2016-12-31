@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-28 21:51+0000\n"
-"PO-Revision-Date: 2016-12-01 10:10+0000\n"
+"POT-Creation-Date: 2016-12-28 09:48+0000\n"
+"PO-Revision-Date: 2016-12-27 08:24+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: French (Switzerland) (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/fr_CH/)\n"
 "MIME-Version: 1.0\n"
@@ -80,7 +80,7 @@ msgstr "ID"
 #. module: account_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Facture"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,date_invoice:0
