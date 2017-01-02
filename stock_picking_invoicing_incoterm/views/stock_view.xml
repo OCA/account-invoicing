@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-	<data>
-	
+    <data>
+
         <record id="view_picking_form_inherit" model="ir.ui.view">
             <field name="name">stock.picking.invoice.form</field>
             <field name="model">stock.picking</field>
@@ -12,6 +12,6 @@
                 </field>
             </field>
         </record>
-        
-	</data>
+
+    </data>
 </openerp>
