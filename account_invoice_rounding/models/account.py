@@ -81,20 +81,14 @@ class AccountInvoice(models.Model):
 
         obj_precision = self.env['decimal.precision']
         prec = obj_precision.precision_get('Account')
-        inv_tax_obj = self.env['account.invoice.tax']
 
         ajust_line = None
-        for tax_line in invoice.tax_line:
+        for tax_line in invoice.invoice_line_ids.invoice_line_tax_ids:
             if not ajust_line or tax_line.amount > ajust_line.amount:
                 ajust_line = tax_line
         if ajust_line:
             amount = ajust_line.amount - delta
-            vals = inv_tax_obj.amount_change(
-                [ajust_line.id], amount, currency_id=invoice.currency_id.id,
-                company_id=invoice.company_id.id,
-                date_invoice=invoice.date_invoice)['value']
-            ajust_line.write({'amount': amount,
-                              'tax_amount': vals['tax_amount']})
+            ajust_line.write({'amount': amount})
 
             amount_tax = float_round(invoice.amount_tax - delta,
                                      precision_digits=prec)
