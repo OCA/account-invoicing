@@ -15,7 +15,7 @@ class SaleOrderLine(models.Model):
         for move in self.procurement_ids.mapped('move_ids').filtered(
                 lambda r: (r.state == 'done' and
                            not r.scrapped and
-                           r.location_dest_id.usage == "internal" and
+                           r.location_dest_id.usage != "customer" and
                            r.to_refund_so)):
             qty -= move.product_uom._compute_qty_obj(
                 move.product_uom, move.product_uom_qty, self.product_uom)
