@@ -4,6 +4,8 @@
 
 from openerp import api, fields, models
 
+import logging
+_logger = logging.getLogger(__name__)
 
 class StockReturnPicking(models.TransientModel):
     _inherit = "stock.return.picking"
@@ -17,6 +19,8 @@ class StockReturnPicking(models.TransientModel):
                 assert line[0] == 0
                 move = self.env["stock.move"].browse(line[2]["move_id"])
                 line[2]["sale_order_id"] = (move.procurement_id.sale_line_id
+                                            .order_id.id)
+                line[2]["purchase_line_id"] = (move.purchase_line_id
                                             .order_id.id)
         except KeyError:
             pass
@@ -51,6 +55,12 @@ class StockReturnPickingLine(models.TransientModel):
     sale_order_id = fields.Many2one(
         comodel_name="sale.order",
         string="Sale order",
+        ondelete="cascade",
+        readonly=True,
+    )
+    purchase_line_id = fields.Many2one(
+        comodel_name="purchase.order",
+        string="Purchase order",
         ondelete="cascade",
         readonly=True,
     )
