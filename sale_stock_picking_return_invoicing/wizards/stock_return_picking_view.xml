@@ -11,9 +11,9 @@
     <field name="arch" type="xml">
         <xpath expr="//field[@name='product_return_moves']/tree">
             <field name="sale_order_id" invisible="True"/>
-            <field name="purchase_line_id" invisible="True"/>
+            <field name="purchase_order_id" invisible="True"/>
             <field name="to_refund_so"
-                   attrs="{'invisible': ['|', ('sale_order_id', '=', False), ('purchase_line_id', '=', False)]}"/>
+                   attrs="{'invisible': [('sale_order_id', '=', False), ('purchase_order_id', '=', False)]}"/>
         </xpath>
     </field>
 </record>
