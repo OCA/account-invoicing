@@ -32,6 +32,10 @@ addon | version | summary
 [account_invoice_shipping_address](account_invoice_shipping_address/) | 8.0.0.1.1 | Adds a shipping address field to the invoice.
 [account_invoice_supplier_number_info](account_invoice_supplier_number_info/) | 8.0.1.0.0 | Allows to force invoice numbering on specific invoices
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 8.0.1.1.0 | Checks that supplier invoices are not entered twice
+[account_invoice_supplierinfo_update](account_invoice_supplierinfo_update/) | 8.0.1.0.0 | In the supplier invoice, automatically update all products whose unit price on the line is different from the supplier price
+[account_invoice_supplierinfo_update_discount](account_invoice_supplierinfo_update_discount/) | 8.0.1.0.0 | In the supplier invoice, automatically update all products whose discount on the line is different from the supplier discount
+[account_invoice_supplierinfo_update_on_validate](account_invoice_supplierinfo_update_on_validate/) | 8.0.1.0.0 | In the supplier invoice, to validation proposes to update all products whose unit price on the line is different from the supplier price
+[account_invoice_supplierinfo_update_variant](account_invoice_supplierinfo_update_variant/) | 8.0.1.0.0 | In the supplier invoice, automatically update all products variants whose unit price on the line is different from the supplier price
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 | Unit of measure for invoices
 [account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.1 | Add "To Send" and "To Validate" states in Invoices
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 | Account Invoice Zero Autopay
