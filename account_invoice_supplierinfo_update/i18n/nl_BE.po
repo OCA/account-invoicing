@@ -11,12 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2017-01-13 03:43+0000\n"
 "PO-Revision-Date: 2017-01-13 03:43+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
-"Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
+"Language-Team: Dutch (Belgium) (https://www.transifex.com/oca/teams/23907/nl_BE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: nl_BE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_supplierinfo_update
 #: help:wizard.update.invoice.supplierinfo,state:0
@@ -27,29 +27,22 @@ msgid ""
 " * The 'Paid' status is set automatically when the invoice is paid. Its related journal entries may or may not be reconciled.\n"
 " * The 'Cancelled' status is used when user cancel invoice."
 msgstr ""
-" * The 'Draft' status is used when a user is encoding a new and unconfirmed Invoice.\n"
-" * The 'Pro-forma' when invoice is in Pro-forma status,invoice does not have an invoice number.\n"
-" * The 'Open' status is used when user create invoice,a invoice number is generated.Its in open status till user does not pay invoice.\n"
-" * The 'Paid' status is set automatically when the invoice is paid. Its related journal entries may or may not be reconciled.\n"
-" * The 'Cancelled' status is used when user cancel invoice."
 
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Annuleren"
 
 #. module: account_invoice_supplierinfo_update
 #: view:account.invoice:account_invoice_supplierinfo_update.view_account_invoice_form
 msgid "Check Supplier Informations"
-msgstr "Vérifier les informations fournisseurs"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: view:account.invoice:account_invoice_supplierinfo_update.view_account_invoice_form
 msgid ""
 "Check if the invoice informations are similar from the supplier informations"
 msgstr ""
-"Vérifier que les informations présentes sur la factures sont identiques aux "
-"informations fournisseurs sur la fiche produit"
 
 #. module: account_invoice_supplierinfo_update
 #: help:account.invoice,supplierinfo_ok:0
@@ -58,37 +51,34 @@ msgid ""
 " - Uncheck this box, if you want to check again this invoice\n"
 " - Check this box, if you want to mark this invoice as checked"
 msgstr ""
-"Coché si la vérification des informations du fournisseur a été réalisée.\n"
-" - Décochez cette case si vous souhaitez revérifier cette facture\n"
-" - Cochez cette case si vous souhaitez marquer cette facture comme vérifiée"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,create_uid:0
 #: field:wizard.update.invoice.supplierinfo.line,create_uid:0
 msgid "Created by"
-msgstr "Created by"
+msgstr "Gemaakt door"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,create_date:0
 #: field:wizard.update.invoice.supplierinfo.line,create_date:0
 msgid "Created on"
-msgstr "Created on"
+msgstr "Gemaakt op"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,current_min_quantity:0
 msgid "Current Min Quantity"
-msgstr "Quantité minimum actuelle"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,current_price:0
 msgid "Current Unit Price"
-msgstr "Prix unitaire actuel"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,display_name:0
 #: field:wizard.update.invoice.supplierinfo.line,display_name:0
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr "Schermnaam"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,id:0
@@ -99,111 +89,111 @@ msgstr "ID"
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Ignore (Set the invoice as Checked)"
-msgstr "Ignorer (Marquer la facture comme vérifiée)"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_account_invoice
 msgid "Invoice"
-msgstr "Facture"
+msgstr "Factuur"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Lignes de facture"
+msgstr "Factuurlijn"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,invoice_id:0
 msgid "Invoice id"
-msgstr "Invoice id"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,__last_update:0
 #: field:wizard.update.invoice.supplierinfo.line,__last_update:0
 msgid "Last Modified on"
-msgstr "Last Modified on"
+msgstr "Laatst Aangepast op"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,write_uid:0
 #: field:wizard.update.invoice.supplierinfo.line,write_uid:0
 msgid "Last Updated by"
-msgstr "Last Updated by"
+msgstr "Laatst bijgewerkt door"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,write_date:0
 #: field:wizard.update.invoice.supplierinfo.line,write_date:0
 msgid "Last Updated on"
-msgstr "Last Updated on"
+msgstr "Laatst bijgewerkt op"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,line_ids:0
 msgid "Lines"
-msgstr "Lignes"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "List of products to update"
-msgstr "Liste des produits à mettre à jour"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,new_min_quantity:0
 msgid "New Min Quantity"
-msgstr "Nouvelle quantité minimum"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: selection:wizard.update.invoice.supplierinfo.line,state:0
 msgid "New Partner Info"
-msgstr "Nouveau fournisseur"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: selection:wizard.update.invoice.supplierinfo.line,state:0
 msgid "New Supplier Info"
-msgstr "Nouvelle information fournisseur"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,new_price:0
 msgid "New Unit Price"
-msgstr "Nouveau prix unitaire"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,partnerinfo_id:0
 msgid "Partnerinfo id"
-msgstr "Partnerinfo id"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,price_variation:0
 msgid "Price Variation (%)"
-msgstr "Variation du prix (%)"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,product_id:0
 msgid "Product"
-msgstr "Article"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,state:0
 #: field:wizard.update.invoice.supplierinfo.line,state:0
 msgid "State"
-msgstr "Etat"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,supplier_partner_id:0
 msgid "Supplier"
-msgstr "Fournisseur"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:account.invoice,supplierinfo_ok:0
 msgid "Supplier Informations Checked"
-msgstr "Informations fournisseur vérifiées"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:account.invoice,supplier_partner_id:0
 msgid "Supplier Partner"
-msgstr "Partenaire fournisseur"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,supplierinfo_id:0
 msgid "Supplierinfo id"
-msgstr "Supplierinfo id"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
@@ -211,37 +201,34 @@ msgid ""
 "This will mark the invoice as checked. Are you sure? It will be possible to "
 "uncheck manually in the 'Other Info' tab."
 msgstr ""
-"Cela va marquer la facture comme vérifiée. Etes vous sûr(e) ? Il sera "
-"possible par la suite de le décocher manuellement, dans l'onglet 'autre "
-"information'."
 
 #. module: account_invoice_supplierinfo_update
 #: selection:wizard.update.invoice.supplierinfo.line,state:0
 msgid "Update Partner Info"
-msgstr "Mettre à jour les informations"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Update and Validate"
-msgstr "Mettre à jour et valider"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: code:addons/account_invoice_supplierinfo_update/models/account_invoice.py:72
 #, python-format
 msgid "Update supplier informations of products"
-msgstr "Mettre à jour les informations fournisseurs des produits"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Update without Validating"
-msgstr "Mettre à jour sans valider"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,wizard_id:0
 msgid "Wizard id"
-msgstr "Wizard id"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "or"
-msgstr "ou"
+msgstr "of"
