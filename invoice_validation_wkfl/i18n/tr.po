@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-23 23:39+0000\n"
+"POT-Creation-Date: 2017-01-07 00:13+0000\n"
 "PO-Revision-Date: 2015-06-03 04:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Turkish (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/tr/)\n"
@@ -35,60 +35,60 @@ msgstr ""
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Print"
-msgstr ""
+msgstr "Yazdır"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "PRO-FORMA"
-msgstr ""
+msgstr "PRO-FORMA"
 
 #. module: invoice_validation_wkfl
 #: code:addons/invoice_validation_wkfl/invoice.py:98
 #: code:addons/invoice_validation_wkfl/invoice.py:102
 #, python-format
 msgid "Error !"
-msgstr ""
+msgstr "Hata !"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "To Send Invoices"
-msgstr ""
+msgstr "Faturaları Göndermek İçin"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "To Validate Invoices"
-msgstr ""
+msgstr "Faturaları Doğrulamak İçin"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Invoice To Send"
-msgstr ""
+msgstr "Gönderilecek Fatura"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Re-Open"
-msgstr ""
+msgstr "Yeniden Aç"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "To Validation"
-msgstr ""
+msgstr "Doğrulama İçin"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Validate"
-msgstr ""
+msgstr "Doğrula"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "To Validate"
-msgstr ""
+msgstr "Doğrulamak İçin"
 
 #. module: invoice_validation_wkfl
 #: code:addons/invoice_validation_wkfl/invoice.py:145
 #, python-format
 msgid "No Period found on Invoice!"
-msgstr ""
+msgstr "Fatura üzerinde dönem bulunamadı!"
 
 #. module: invoice_validation_wkfl
 #: code:addons/invoice_validation_wkfl/invoice.py:44
@@ -99,33 +99,33 @@ msgstr ""
 #. module: invoice_validation_wkfl
 #: model:ir.model,name:invoice_validation_wkfl.model_account_invoice_refund
 msgid "Invoice Refund"
-msgstr ""
+msgstr "Fatura İadesi"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "To Send"
-msgstr ""
+msgstr "Göndermek"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Approve"
-msgstr ""
+msgstr "Onayla"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Invoice to send"
-msgstr ""
+msgstr "gönderilecek Fatura"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Refund"
-msgstr ""
+msgstr "Geri Ödeme"
 
 #. module: invoice_validation_wkfl
 #: code:addons/invoice_validation_wkfl/invoice.py:144
 #, python-format
 msgid "Data Insufficient !"
-msgstr ""
+msgstr "Veriler Yetersiz!"
 
 #. module: invoice_validation_wkfl
 #: code:addons/invoice_validation_wkfl/invoice.py:103
@@ -143,7 +143,7 @@ msgstr ""
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Reset to Draft"
-msgstr ""
+msgstr "Taslakta Sıfırla"
 
 #. module: invoice_validation_wkfl
 #: model:ir.model,name:invoice_validation_wkfl.model_account_invoice
@@ -158,4 +158,4 @@ msgstr "Vazgeç"
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Print Invoice"
-msgstr ""
+msgstr "Faturayı Yazdır"

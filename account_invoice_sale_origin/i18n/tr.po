@@ -1,6 +1,5 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-# * account_invoice_uom
 # 
 # Translators:
 msgid ""
@@ -8,7 +7,7 @@ msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-07 00:13+0000\n"
-"PO-Revision-Date: 2015-08-14 14:59+0000\n"
+"PO-Revision-Date: 2015-06-03 04:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Turkish (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -17,17 +16,7 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. module: account_invoice_uom
-#: model:ir.model,name:account_invoice_uom.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Fatura kalemi"
-
-#. module: account_invoice_uom
-#: field:account.invoice.line,uom_id:0
-msgid "Internal UoM"
-msgstr "Dahili UO"
-
-#. module: account_invoice_uom
-#: field:account.invoice.line,uom_qty:0
-msgid "Internal quantity"
-msgstr "İç miktar"
+#. module: account_invoice_sale_origin
+#: model:ir.model,name:account_invoice_sale_origin.model_sale_order
+msgid "Sales Order"
+msgstr "Satış Siparişi"

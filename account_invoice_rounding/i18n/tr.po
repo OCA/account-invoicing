@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-31 00:22+0000\n"
+"POT-Creation-Date: 2017-01-07 00:13+0000\n"
 "PO-Revision-Date: 2015-06-03 04:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Turkish (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/tr/)\n"
@@ -20,12 +20,12 @@ msgstr ""
 #. module: account_invoice_rounding
 #: field:res.company,tax_calculation_rounding_account_id:0
 msgid "Tax Rounding Account"
-msgstr ""
+msgstr "Vergi Yuvarlama Hesabı"
 
 #. module: account_invoice_rounding
 #: field:account.invoice,global_round_line_id:0
 msgid "Invoice Line for total rounding"
-msgstr ""
+msgstr "Toplam yuvarlama için fatura satırı"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_config_settings
@@ -36,12 +36,12 @@ msgstr ""
 #: code:addons/account_invoice_rounding/account.py:41
 #, python-format
 msgid "Rounding"
-msgstr ""
+msgstr "Yuvarlama"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_tax
 msgid "Tax"
-msgstr ""
+msgstr "Vergi"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_res_company
@@ -57,12 +57,12 @@ msgstr "Fatura kalemi"
 #: field:account.config.settings,tax_calculation_rounding:0
 #: field:res.company,tax_calculation_rounding:0
 msgid "Tax Rounding unit"
-msgstr ""
+msgstr "Vergi Yuvarlama birimi"
 
 #. module: account_invoice_rounding
 #: field:account.invoice.line,is_rounding:0
 msgid "Rounding Line"
-msgstr ""
+msgstr "Yuvarlama Satırı"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice
@@ -72,4 +72,4 @@ msgstr "Fatura"
 #. module: account_invoice_rounding
 #: field:account.config.settings,tax_calculation_rounding_account_id:0
 msgid "Tax Rounding account"
-msgstr ""
+msgstr "Vergi Yuvarlama hesabı"

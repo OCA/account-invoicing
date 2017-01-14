@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-23 23:38+0000\n"
+"POT-Creation-Date: 2017-01-07 00:13+0000\n"
 "PO-Revision-Date: 2015-06-03 04:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Turkish (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/tr/)\n"
@@ -21,51 +21,51 @@ msgstr ""
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:67
 #, python-format
 msgid "Not all invoices are at the same currency!"
-msgstr ""
+msgstr "Tüm faturalar aynı para biriminde değil!"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "Please note that:"
-msgstr ""
+msgstr "Lütfen bunu not alın:"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:55
 #, python-format
 msgid "Not all invoices are at the same company!"
-msgstr ""
+msgstr "Tüm faturalar aynı şirkette değil!"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "Invoices will only be merged if:"
-msgstr ""
+msgstr "Faturalar yalnızca şu durumlarda birleşecektir:"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid ""
 "* Invoice lines are exactly the same except for the product,quantity and "
 "unit"
-msgstr ""
+msgstr "* Fatura hatları, ürün, miktar ve birim haricinde tamamen aynıdır."
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "Merge Invoices"
-msgstr ""
+msgstr "Faturaları Birleştir"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:46
 #, python-format
 msgid "At least one of the selected invoices is %s!"
-msgstr ""
+msgstr "Seçilen faturalardan en az bir tanesi %s!"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "Lines will only be merged if:"
-msgstr ""
+msgstr "Hatlar yalnızca şu durumlarda birleşecektir:"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "* Invoices are in draft"
-msgstr ""
+msgstr "* Faturalar taslak halinde"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:113
@@ -78,48 +78,48 @@ msgstr ""
 msgid ""
 "* Invoices are have same company, partner, address, currency, journal, "
 "salesman, account, type"
-msgstr ""
+msgstr "* Faturaların aynı şirketi, ortağı, adresini, para birimini, günlüğü, satış elemanı, hesabı, türü var"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:51
 #, python-format
 msgid "Not all invoices use the same account!"
-msgstr ""
+msgstr "Tüm faturalar aynı hesabı kullanmaz!"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "* Invoices belong to the same partner"
-msgstr ""
+msgstr "* Faturalar aynı ortağa aittir"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 #: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_invoice_merge
 msgid "Merge Partner Invoice"
-msgstr ""
+msgstr "İş Ortağı Fatura Birleştirme"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0
 msgid "Are you sure you want to merge these invoices ?"
-msgstr ""
+msgstr "Bu faturaları birleştirmek istediğinizden emin misiniz?"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:59
 #, python-format
 msgid "Not all invoices are for the same partner!"
-msgstr ""
+msgstr "Tüm faturalar aynı ortağa ait değil!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:63
 #, python-format
 msgid "Not all invoices are of the same type!"
-msgstr ""
+msgstr "Tüm faturalar aynı türde değil!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:36
 #, python-format
 msgid "Please select multiple invoice to merge in the list view."
-msgstr ""
+msgstr "Lütfen liste görünümünde birleştirilecek birden fazla fatura seçin."
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:45
@@ -153,7 +153,7 @@ msgstr "Vazgeç"
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:71
 #, python-format
 msgid "Not all invoices are at the same journal!"
-msgstr ""
+msgstr "Tüm faturalar aynı yevmiye defterinde değil!"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:0

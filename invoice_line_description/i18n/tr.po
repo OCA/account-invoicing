@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-31 00:22+0000\n"
+"POT-Creation-Date: 2017-01-07 00:13+0000\n"
 "PO-Revision-Date: 2015-06-03 04:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Turkish (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/tr/)\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. module: invoice_line_description
 #: model:res.groups,name:invoice_line_description.group_use_product_description_per_inv_line
 msgid "Use only product description on invoice lines"
-msgstr ""
+msgstr "Fatura satırlarında yalnızca ürün açıklamasını kullanın"
 
 #. module: invoice_line_description
 #: help:account.config.settings,group_use_product_description_per_inv_line:0

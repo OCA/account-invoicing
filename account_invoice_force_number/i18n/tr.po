@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-23 23:38+0000\n"
+"POT-Creation-Date: 2017-01-07 00:13+0000\n"
 "PO-Revision-Date: 2015-06-03 04:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Turkish (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/tr/)\n"
@@ -20,14 +20,14 @@ msgstr ""
 #. module: account_invoice_force_number
 #: view:account.invoice:0
 msgid "Force Number"
-msgstr ""
+msgstr "Zorunlu Numara"
 
 #. module: account_invoice_force_number
 #: view:account.invoice:0
 msgid ""
 "Force invoice number. Use this field if you don't want to use the default "
 "numbering"
-msgstr ""
+msgstr "Fatura numarasını zorla. Varsayılan numaralandırmayı kullanmak istemiyorsanız bu alanı kullanın"
 
 #. module: account_invoice_force_number
 #: model:ir.model,name:account_invoice_force_number.model_account_invoice

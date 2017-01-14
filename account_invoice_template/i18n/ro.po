@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-23 23:39+0000\n"
+"POT-Creation-Date: 2017-01-07 00:13+0000\n"
 "PO-Revision-Date: 2015-06-03 04:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Romanian (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/ro/)\n"
@@ -185,7 +185,7 @@ msgstr ""
 #. module: account_invoice_template
 #: field:account.invoice.template.line,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "Secventa"
 
 #. module: account_invoice_template
 #: view:account.invoice.template.line:0
