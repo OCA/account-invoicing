@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 09:48+0000\n"
-"PO-Revision-Date: 2016-12-27 08:20+0000\n"
+"POT-Creation-Date: 2017-01-13 03:43+0000\n"
+"PO-Revision-Date: 2017-01-13 09:22+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgstr "Creat el"
 #. module: account_invoice_merge
 #: field:invoice.merge,display_name:0
 msgid "Display Name"
-msgstr ""
+msgstr "Veure el nom"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,id:0
@@ -100,7 +100,7 @@ msgstr ""
 #. module: account_invoice_merge
 #: field:invoice.merge,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "Darrera modificació el"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,write_uid:0

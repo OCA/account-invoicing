@@ -27,7 +27,7 @@ msgstr "Zbirnik"
 #. module: account_invoice_default_company_bank_sale
 #: model:ir.model,name:account_invoice_default_company_bank_sale.model_sale_advance_payment_inv
 msgid "Sales Advance Payment Invoice"
-msgstr ""
+msgstr "Prodajni avansni račun"
 
 #. module: account_invoice_default_company_bank_sale
 #: model:ir.model,name:account_invoice_default_company_bank_sale.model_sale_order

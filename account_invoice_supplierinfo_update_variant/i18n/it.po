@@ -1,0 +1,36 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_supplierinfo_update_variant
+# 
+# Translators:
+# Andrea Cometa <a.cometa@apuliasoftware.it>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-13 03:43+0000\n"
+"PO-Revision-Date: 2017-01-13 03:43+0000\n"
+"Last-Translator: Andrea Cometa <a.cometa@apuliasoftware.it>, 2017\n"
+"Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_invoice_supplierinfo_update_variant
+#: help:wizard.update.invoice.supplierinfo.line,to_variant:0
+msgid ""
+"- Check the option for an update on the product variant.\n"
+"- Uncheck the option for an update on the product model."
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update_variant
+#: model:ir.model,name:account_invoice_supplierinfo_update_variant.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Riga fattura"
+
+#. module: account_invoice_supplierinfo_update_variant
+#: field:wizard.update.invoice.supplierinfo.line,to_variant:0
+msgid "Update to the variant"
+msgstr ""
