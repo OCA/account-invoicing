@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ********************************************************************** -->
+<!-- See __openerp__.py file for Copyright and Licence Informations.         -->
+<!-- ********************************************************************** -->
+<odoo>
+  <record id="view_partner_property_form" model="ir.ui.view">
+    <field name="name">res.partner.form.journal</field>
+    <field name="model">res.partner</field>
+    <field name="priority">2</field>
+    <field name="inherit_id" ref="account.view_partner_property_form"/>
+    <field name="groups_id" eval="[(4, ref('account.group_account_manager'))]"/>
+    <field name="arch" type="xml">
+      <field name="property_account_payable_id" position="after">
+        <field name="default_purchase_journal_id" attrs="{'required': [('supplier', '=', True)], 'invisible': [('supplier', '=', False)]}"/>
+      </field>
+    </field>
+  </record>
+</odoo>
