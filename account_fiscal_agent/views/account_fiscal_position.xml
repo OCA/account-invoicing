@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="account_fiscal_position_inherited_view" model="ir.ui.view">
+            <field name="name">account.fiscal.position.inherited.view</field>
+            <field name="model">account.fiscal.position</field>
+            <field name="inherit_id" ref="account.view_account_position_form"/>
+            <field name="arch" type="xml">
+                <field name="sequence" position="after">
+                    <field name="with_fiscal_agent"/>
+                </field>
+                <field name="account_ids" position="after">
+                    <!-- Agent Account Mapping -->
+                    <separator string="Agent Account Mapping"/>
+                     <field name="fiscal_agent_account_ids" widget="one2many_list">
+                        <tree string="Agent Account Mapping" editable="bottom">
+                            <field name="account_src_id"/>
+                            <field name="account_dest_id"/>
+                        </tree>
+                        <form string="Account Mapping">
+                            <field name="account_src_id"/>
+                            <field name="account_dest_id"/>
+                        </form>
+                    </field>
+                    <!-- Agent Taxes Mapping -->
+                    <separator string="Agent Taxes Mapping"/>
+                    <field name="fiscal_agent_tax_ids" widget="one2many_list">
+                        <tree string="Tax Mapping" editable="bottom">
+                            <field name="tax_src_id"
+                                    domain="[('parent_id','=',False)]"/>
+                            <field name="tax_dest_id"
+                                    domain="[('parent_id','=',False), ('price_include', '=', False)]"/>
+                        </tree>
+                        <form string="Tax Mapping">
+                            <field name="tax_src_id" domain="[('parent_id','=',False)]"/>
+                            <field name="tax_dest_id" domain="[('parent_id','=',False), ('price_include', '=', False)]"/>
+                        </form>
+                    </field>
+                    <!-- Agent Journal Mapping -->
+                    <separator string="Agent Journal Mapping"/>
+                    <field name="fiscal_agent_journal_ids" widget="one2many_list">
+                        <tree string="Journal Mapping" editable="bottom">
+                            <field name="journal_src_id"/>
+                            <field name="journal_dest_id"/>
+                        </tree>
+                        <form string="Journal Mapping">
+                            <field name="journal_src_id"/>
+                            <field name="journal_dest_id"/>
+                        </form>
+                    </field>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
