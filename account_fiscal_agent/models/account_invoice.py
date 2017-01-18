@@ -108,5 +108,5 @@ class account_invoice(models.Model):
         super(account_invoice, self).action_cancel()
         for rec in self:
             if rec.agent_invoice_id:
-                rec.agent_invoice_id.action_cancel()
+                rec.agent_invoice_id.signal_workflow('invoice_cancel')
         return True
