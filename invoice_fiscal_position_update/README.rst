@@ -2,26 +2,22 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=======================
-Stock picking invoicing
-=======================
+==============================
+invoice_fiscal_position_update
+==============================
 
-This module allows to create invoices directly from picking, without having to
-use sale or purchase orders.
+This module extends allow you to update invoice lines 
+and apply the fiscal position on lines that haven't been matched.'
 
 Installation
 ============
 
-To install this module, you need to:
-
-#. Do this ...
+To install this module, you need to click on install
 
 Configuration
 =============
 
-To configure this module, you need to:
-
-#. Go to ...
+To configure this module, you need nothing special
 
 Usage
 =====
@@ -40,6 +36,7 @@ To use this module, you need to:
 Known issues / Roadmap
 ======================
 
+* ...
 
 Bug Tracker
 ===========
@@ -47,11 +44,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues
 <https://github.com/OCA/account-invoicing/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
-help us smashing it by providing a detailed and welcomed `feedback
-<https://github.com/OCA/
-account-invoicing/issues/new?body=module:%20
-stock_picking_invoicing%0Aversion:%20
-{branch}%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+help us smashing it by providing a detailed and welcomed feedback.
 
 Credits
 =======
@@ -64,12 +57,9 @@ Images
 Contributors
 ------------
 
-* Lorenzo Battistini <lorenzo.battistini@agilebg.com>
-* Leonardo Pistone <leonardo.pistone@agilebg.com>
-* Daniel Sadamo <daniel.sadamo@kmee.com.br>
-* Alex Comba <alex.comba@agilebg.com>
-* Florent THOMAS <florent.thomas@mind-and-go.com>
-
+* Julius Network Solutions
+* Akretion
+* Odoo Community Association (OCA)
 
 Maintainer
 ----------
