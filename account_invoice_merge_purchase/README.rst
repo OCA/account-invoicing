@@ -29,6 +29,7 @@ Contributors
 ------------
 
 * Adrien Peiffer <adrien.peiffer@acsone.eu>
+* Luc De Meyer <luc.demeyer@noviat.com>
 
 Maintainer
 ----------
