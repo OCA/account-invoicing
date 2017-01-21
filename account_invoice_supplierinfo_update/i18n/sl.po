@@ -3,15 +3,15 @@
 # * account_invoice_supplierinfo_update
 # 
 # Translators:
-# Matjaž Mozetič <m.mozetic@matmoz.si>, 2017
 # OCA Transbot <transbot@odoo-community.org>, 2017
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 03:43+0000\n"
-"PO-Revision-Date: 2017-01-13 03:43+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"POT-Creation-Date: 2017-01-14 00:24+0000\n"
+"PO-Revision-Date: 2017-01-14 00:24+0000\n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>, 2017\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,13 +42,13 @@ msgstr "Preklic"
 #. module: account_invoice_supplierinfo_update
 #: view:account.invoice:account_invoice_supplierinfo_update.view_account_invoice_form
 msgid "Check Supplier Informations"
-msgstr ""
+msgstr "Preveri podatke o dobavitelju"
 
 #. module: account_invoice_supplierinfo_update
 #: view:account.invoice:account_invoice_supplierinfo_update.view_account_invoice_form
 msgid ""
 "Check if the invoice informations are similar from the supplier informations"
-msgstr ""
+msgstr "Preveri, če so podatki o računu podobni podatkom o dobavitelju"
 
 #. module: account_invoice_supplierinfo_update
 #: help:account.invoice,supplierinfo_ok:0
@@ -57,6 +57,9 @@ msgid ""
 " - Uncheck this box, if you want to check again this invoice\n"
 " - Check this box, if you want to mark this invoice as checked"
 msgstr ""
+"Označeno, če so bili podatki o dobavitelju preverjeni.\n"
+" - Odstranite označbo, če želite ponovno preveriti ta račun\n"
+" - Označite, če želite ta račun označiti kot potrjen"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,create_uid:0
@@ -73,12 +76,12 @@ msgstr "Ustvarjeno"
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,current_min_quantity:0
 msgid "Current Min Quantity"
-msgstr ""
+msgstr "Trenutna min. količina"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,current_price:0
 msgid "Current Unit Price"
-msgstr ""
+msgstr "Trenutna cena enote"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,display_name:0
@@ -95,7 +98,7 @@ msgstr "ID"
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Ignore (Set the invoice as Checked)"
-msgstr ""
+msgstr "Prezri (nastavi račun kot preverjen)"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_account_invoice
@@ -110,7 +113,7 @@ msgstr "Postavka računa"
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,invoice_id:0
 msgid "Invoice id"
-msgstr ""
+msgstr "ID računa"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,__last_update:0
@@ -143,32 +146,32 @@ msgstr "Seznam proizvodov za posodobitev"
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,new_min_quantity:0
 msgid "New Min Quantity"
-msgstr ""
+msgstr "Nova min. količina"
 
 #. module: account_invoice_supplierinfo_update
 #: selection:wizard.update.invoice.supplierinfo.line,state:0
 msgid "New Partner Info"
-msgstr ""
+msgstr "Novi podatki o partnerju"
 
 #. module: account_invoice_supplierinfo_update
 #: selection:wizard.update.invoice.supplierinfo.line,state:0
 msgid "New Supplier Info"
-msgstr ""
+msgstr "Novi podatki o dobavitelju"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,new_price:0
 msgid "New Unit Price"
-msgstr ""
+msgstr "Nova cena enote"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,partnerinfo_id:0
 msgid "Partnerinfo id"
-msgstr ""
+msgstr "ID podatkov o partnerju"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,price_variation:0
 msgid "Price Variation (%)"
-msgstr ""
+msgstr "Variacija cene (%)"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,product_id:0
@@ -189,17 +192,17 @@ msgstr "Dobavitelj"
 #. module: account_invoice_supplierinfo_update
 #: field:account.invoice,supplierinfo_ok:0
 msgid "Supplier Informations Checked"
-msgstr ""
+msgstr "Podatki o dobavitelju preverjeni"
 
 #. module: account_invoice_supplierinfo_update
 #: field:account.invoice,supplier_partner_id:0
 msgid "Supplier Partner"
-msgstr ""
+msgstr "Partner dobavitelj"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,supplierinfo_id:0
 msgid "Supplierinfo id"
-msgstr ""
+msgstr "ID podatkov o dobavitelju"
 
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
@@ -207,27 +210,29 @@ msgid ""
 "This will mark the invoice as checked. Are you sure? It will be possible to "
 "uncheck manually in the 'Other Info' tab."
 msgstr ""
+"To označi račun kot preverjen. Ste prepričani? Odstranitev oznake v zavihku "
+"'Drugi podatki' ne bo mogoča."
 
 #. module: account_invoice_supplierinfo_update
 #: selection:wizard.update.invoice.supplierinfo.line,state:0
 msgid "Update Partner Info"
-msgstr ""
+msgstr "Posodobi podatke o partnerju"
 
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Update and Validate"
-msgstr ""
+msgstr "Posodobi in potrdi"
 
 #. module: account_invoice_supplierinfo_update
 #: code:addons/account_invoice_supplierinfo_update/models/account_invoice.py:72
 #, python-format
 msgid "Update supplier informations of products"
-msgstr ""
+msgstr "Posodobi podatke o dobaviteljih proizvodov"
 
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Update without Validating"
-msgstr ""
+msgstr "Posodobi brez potrditve"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo.line,wizard_id:0

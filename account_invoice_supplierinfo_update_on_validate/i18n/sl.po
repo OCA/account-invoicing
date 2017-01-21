@@ -27,7 +27,7 @@ msgstr "Overi"
 #. module: account_invoice_supplierinfo_update_on_validate
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update_on_validate.view_wizard_update_invoice_supplierinfo_form
 msgid "Validate without updating"
-msgstr ""
+msgstr "Overi brez posodobitve"
 
 #. module: account_invoice_supplierinfo_update_on_validate
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update_on_validate.view_wizard_update_invoice_supplierinfo_form
@@ -37,4 +37,4 @@ msgstr "oe_highlight"
 #. module: account_invoice_supplierinfo_update_on_validate
 #: view:account.invoice:account_invoice_supplierinfo_update_on_validate.view_account_invoice_form
 msgid "{'invisible':[('state', 'not in', ['draft', 'proforma2'])]}"
-msgstr ""
+msgstr "{'invisible':[('state', 'not in', ['draft', 'proforma2'])]}"
