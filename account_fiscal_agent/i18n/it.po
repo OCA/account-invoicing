@@ -1,0 +1,233 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_fiscal_agent
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-21 16:47+0000\n"
+"PO-Revision-Date: 2017-02-21 16:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_fiscal_agent
+#: sql_constraint:account.fiscal.agent.tax:0
+#: code:addons/account_fiscal_agent/models/account_fiscal_agent.py:24
+#, python-format
+msgid "Duplicated tax mapping for fiscal agent position."
+msgstr "Mappatura imposte duplicata per la posizione dell'agente fiscale."
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.account,account_dest_id:0
+msgid "Account Destination"
+msgstr "Conto di destinazione"
+
+#. module: account_fiscal_agent
+#: model:ir.model,name:account_fiscal_agent.model_account_fiscal_agent_account
+msgid "Fiscal Agent Account"
+msgstr "Conto Agente Fiscale"
+
+#. module: account_fiscal_agent
+#: model:ir.model,name:account_fiscal_agent.model_account_fiscal_agent_journal
+msgid "Fiscal Agent Journal"
+msgstr "Fiscal Agent Journal"
+
+#. module: account_fiscal_agent
+#: model:ir.model,name:account_fiscal_agent.model_account_fiscal_agent_tax
+msgid "Fiscal Agent Tax"
+msgstr "Fiscal Agent Tax"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.account,account_src_id:0
+msgid "Account Source"
+msgstr "Conto origine"
+
+#. module: account_fiscal_agent
+#: view:account.fiscal.position:account_fiscal_agent.account_fiscal_position_inherited_view
+msgid "Fiscal Agent Account Mapping"
+msgstr "Mappatura conti rappresentante fiscale"
+
+#. module: account_fiscal_agent
+#: field:account.invoice,agent_invoice_id:0
+msgid "Agent Invoice"
+msgstr "Fattura rappresentante fiscale"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.position,fiscal_agent_position_id:0
+msgid "Agent fiscal position"
+msgstr "Posizione fiscale del rappresentante"
+
+#. module: account_fiscal_agent
+#: sql_constraint:account.fiscal.agent.account:0
+#: code:addons/account_fiscal_agent/models/account_fiscal_agent.py:49
+#, python-format
+msgid "Duplicated mapping of accounts for fiscal agent."
+msgstr "Mappatura di conti duplicata per il rappresentante fiscale."
+
+#. module: account_fiscal_agent
+#: sql_constraint:account.fiscal.agent.journal:0
+#: code:addons/account_fiscal_agent/models/account_fiscal_agent.py:72
+#, python-format
+msgid "Duplicated mapping of journals for fiscal agent."
+msgstr "Mappatura dei sezionali duplicate per il rappresentante fiscale."
+
+#. module: account_fiscal_agent
+#: code:addons/account_fiscal_agent/models/account_fiscal_position.py:18
+#, python-format
+msgid "Can't find fiscal agent mapping for account %s"
+msgstr "Impossibile trovare una mappatura (agente fiscale) per il conto %s"
+
+#. module: account_fiscal_agent
+#: code:addons/account_fiscal_agent/models/account_fiscal_position.py:40
+#, python-format
+msgid "Can't find fiscal agent mapping for journal %s"
+msgstr "Impossibile trovare una mappatura (agente fiscale) per il sezionale %s"
+
+#. module: account_fiscal_agent
+#: code:addons/account_fiscal_agent/models/account_fiscal_position.py:31
+#, python-format
+msgid "Can't find fiscal agent mapping for tax %s"
+msgstr "Impossibile trovare una mappatura (agente fiscale) per l'imposta %s"
+
+#. module: account_fiscal_agent
+#: help:account.fiscal.position,fiscal_agent_company_id:0
+msgid "Company of the fiscal agent: new invoices will be created for this company"
+msgstr "L'azienda del rappresentante fiscale: le nuove fatture verranno create in questa azienda"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.account,create_uid:0
+#: field:account.fiscal.agent.journal,create_uid:0
+#: field:account.fiscal.agent.tax,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.account,create_date:0
+#: field:account.fiscal.agent.journal,create_date:0
+#: field:account.fiscal.agent.tax,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.account,display_name:0
+#: field:account.fiscal.agent.journal,display_name:0
+#: field:account.fiscal.agent.tax,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.position,fiscal_agent_account_ids:0
+msgid "Fiscal Agent Account"
+msgstr "Conto rappresentante fiscale"
+
+#. module: account_fiscal_agent
+#: view:account.fiscal.position:account_fiscal_agent.account_fiscal_position_inherited_view
+msgid "Fiscal Agent Account Mapping"
+msgstr "Mappatura conti rappresentante fiscale"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.position,fiscal_agent_journal_ids:0
+msgid "Fiscal Agent Journal"
+msgstr "Sezionale rappresentante fiscale"
+
+#. module: account_fiscal_agent
+#: view:account.fiscal.position:account_fiscal_agent.account_fiscal_position_inherited_view
+msgid "Fiscal Agent Journal Mapping"
+msgstr "Mappatura sezionali rappresentante fiscale"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.position,fiscal_agent_tax_ids:0
+msgid "Fiscal Agent Tax"
+msgstr "Imposta rappresentante fiscale"
+
+#. module: account_fiscal_agent
+#: view:account.fiscal.position:account_fiscal_agent.account_fiscal_position_inherited_view
+msgid "Fiscal Agent Taxes Mapping"
+msgstr "Mappatura imposte rappresentante fiscale"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.account,position_id:0
+#: field:account.fiscal.agent.journal,position_id:0
+#: field:account.fiscal.agent.tax,position_id:0
+#: model:ir.model,name:account_fiscal_agent.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Posizione fiscale"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.position,fiscal_agent_company_id:0
+msgid "Fiscal agent company"
+msgstr "Azienda rappresentante fiscale"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.account,id:0
+#: field:account.fiscal.agent.journal,id:0
+#: field:account.fiscal.agent.tax,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: account_fiscal_agent
+#: model:ir.model,name:account_fiscal_agent.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.journal,journal_dest_id:0
+msgid "Journal Destination"
+msgstr "Sezionale di destinazione"
+
+#. module: account_fiscal_agent
+#: view:account.fiscal.position:account_fiscal_agent.account_fiscal_position_inherited_view
+msgid "Journal Mapping"
+msgstr "Mappatura sezionali"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.journal,journal_src_id:0
+msgid "Journal Source"
+msgstr "Sezionale di origine"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.account,__last_update:0
+#: field:account.fiscal.agent.journal,__last_update:0
+#: field:account.fiscal.agent.tax,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.account,write_uid:0
+#: field:account.fiscal.agent.journal,write_uid:0
+#: field:account.fiscal.agent.tax,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.account,write_date:0
+#: field:account.fiscal.agent.journal,write_date:0
+#: field:account.fiscal.agent.tax,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.tax,tax_dest_id:0
+msgid "Replacement Tax"
+msgstr "Imposta di destinazione"
+
+#. module: account_fiscal_agent
+#: view:account.fiscal.position:account_fiscal_agent.account_fiscal_position_inherited_view
+msgid "Tax Mapping"
+msgstr "Corrispondenza imposte"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.agent.tax,tax_src_id:0
+msgid "Tax Source"
+msgstr "Imposta di origine"
+
+#. module: account_fiscal_agent
+#: field:account.fiscal.position,with_fiscal_agent:0
+msgid "With Fiscal Agent?"
+msgstr "Con rappresentante fiscale?"
+

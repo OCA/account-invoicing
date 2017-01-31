@@ -3,6 +3,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import fields, models
+from openerp.exceptions import Warning as UserError
+from openerp.tools.translate import _
 
 
 class account_fiscal_position(models.Model):
@@ -12,7 +14,8 @@ class account_fiscal_position(models.Model):
         for account_conf in self.fiscal_agent_account_ids:
             if account_conf.account_src_id == account:
                 return account_conf.account_dest_id
-        return account
+        raise UserError(
+            _("Can't find fiscal agent mapping for account %s") % account.name)
 
     def map_agent_taxes(self, taxes):
         result = self.env['account.tax'].browse()
@@ -24,16 +27,26 @@ class account_fiscal_position(models.Model):
                     if t.tax_dest_id:
                         result |= t.tax_dest_id
             if not tax_count:
-                result |= tax
+                raise UserError(
+                    _("Can't find fiscal agent mapping for tax %s")
+                    % tax.name)
         return result
 
     def map_agent_journal(self, journal):
         for journal_conf in self.fiscal_agent_journal_ids:
             if journal_conf.journal_src_id == journal:
                 return journal_conf.journal_dest_id
-        return journal
+        raise UserError(
+            _("Can't find fiscal agent mapping for journal %s")
+            % journal.name)
 
     with_fiscal_agent = fields.Boolean('With Fiscal Agent?')
+    fiscal_agent_company_id = fields.Many2one(
+        'res.company', "Fiscal agent company",
+        help="Company of the fiscal agent: new invoices will be created for "
+             "this company")
+    fiscal_agent_position_id = fields.Many2one(
+        'account.fiscal.position', "Agent fiscal position")
     fiscal_agent_account_ids = fields.One2many('account.fiscal.agent.account',
                                                'position_id',
                                                'Fiscal Agent Account')
