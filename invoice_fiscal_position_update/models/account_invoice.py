@@ -5,6 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp import models, api, _
+from openerp.exceptions import ValidationError
 
 
 class AccountInvoice(models.Model):
@@ -14,7 +15,6 @@ class AccountInvoice(models.Model):
     def onchange_fiscal_position_id(self):
         """Updates taxes and accounts on all invoice lines"""
         self.ensure_one()
-        res = {}
         lines_without_product = []
         fp = self.fiscal_position_id
         inv_type = self.type
@@ -47,18 +47,16 @@ class AccountInvoice(models.Model):
                 lines_without_product.append(line.name)
 
         if lines_without_product:
-            res['warning'] = {'title': _('Warning')}
-            if len(lines_without_product) == len(self.invoice_line):
-                res['warning']['message'] = _(
+            if len(lines_without_product) == len(self.invoice_line_ids):
+                raise ValidationError(_(
                     "The invoice lines were not updated to the new "
                     "Fiscal Position because they don't have products.\n"
                     "You should update the Account and the Taxes of each "
-                    "invoice line manually.")
+                    "invoice line manually."))
             else:
-                res['warning']['message'] = _(
+                raise ValidationError(_(
                     "The following invoice lines were not updated "
                     "to the new Fiscal Position because they don't have a "
                     "Product:\n- %s\nYou should update the Account and the "
                     "Taxes of these invoice lines manually."
-                ) % ('\n- '.join(lines_without_product))
-        return res
+                ) % ('\n- '.join(lines_without_product)))
