@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * invoice_fiscal_position_update
+# * account_invoice_fiscal_position_update
 # 
 # Translators:
 # Bruno JOLIVEAU, 2015
@@ -20,13 +20,13 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. module: invoice_fiscal_position_update
-#: model:ir.model,name:invoice_fiscal_position_update.model_account_invoice
+#. module: account_invoice_fiscal_position_update
+#: model:ir.model,name:account_invoice_fiscal_position_update.model_account_invoice
 msgid "Invoice"
 msgstr "Facture"
 
-#. module: invoice_fiscal_position_update
-#: code:addons/invoice_fiscal_position_update/account_invoice.py:71
+#. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/account_invoice.py:71
 #, python-format
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position because they don't have a Product:\n"
@@ -34,16 +34,16 @@ msgid ""
 "You should update the Account and the Taxes of these invoice lines manually."
 msgstr "En l'absence d'article, le changement de la position fiscale n'a pas actualisé les lignes suivantes de la facture :\n- %s\nVous devez mettre à jour manuellement le compte comptable et les taxes sur chaque ligne de facture."
 
-#. module: invoice_fiscal_position_update
-#: code:addons/invoice_fiscal_position_update/account_invoice.py:65
+#. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/account_invoice.py:65
 #, python-format
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they don't have products.\n"
 "You should update the Account and the Taxes of each invoice line manually."
 msgstr "Les lignes de facture n'ont pas été mise-à-jour suite au changement de la position fiscale car elles ne contiennent pas d'article.\nVous devez mettre à jour manuellement le compte comptable et les taxes sur chaque ligne de facture."
 
-#. module: invoice_fiscal_position_update
-#: code:addons/invoice_fiscal_position_update/account_invoice.py:63
+#. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/account_invoice.py:63
 #, python-format
 msgid "Warning"
 msgstr "Avertissement"
