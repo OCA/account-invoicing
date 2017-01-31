@@ -8,7 +8,8 @@ from openerp import api, fields, models
 class account_invoice(models.Model):
     _inherit = 'account.invoice'
 
-    agent_invoice_id = fields.Many2one('account.invoice', 'Agent Invoice')
+    agent_invoice_id = fields.Many2one(
+        'account.invoice', 'Agent Invoice', readonly=True)
 
     @api.multi
     def invoice_validate(self):
@@ -30,13 +31,11 @@ class account_invoice(models.Model):
             agent_invoice_vals.update(partner_onchange_vals.get('value'))
 
             # Company ID
-            if self.company_id:
-                agent_invoice_vals.update({
-                    'company_id': self.company_id.id
-                })
+            agent_invoice_vals.update({
+                'company_id': self.fiscal_position.fiscal_agent_company_id.id
+            })
 
             # Mapping Journal
-            agent_journal = False
             agent_journal = \
                 self.fiscal_position.map_agent_journal(self.journal_id)
             agent_invoice_vals.update({
@@ -44,7 +43,6 @@ class account_invoice(models.Model):
             })
 
             # Mapping Account
-            agent_account = False
             agent_account = \
                 self.fiscal_position.map_agent_account(self.account_id)
             agent_invoice_vals.update({
@@ -55,26 +53,13 @@ class account_invoice(models.Model):
             invoice_line_list = []
             for invoice_line in self.invoice_line:
                 # Calling Product onchange Method
-                invoice_line_vals = {}
-                product_onchange_vals = \
-                    invoice_line.product_id_change(
-                        invoice_line.product_id.id,
-                        invoice_line.uos_id.id,
-                        invoice_line.quantity,
-                        invoice_line.name,
-                        invoice_line.invoice_id.type,
-                        invoice_line.partner_id.id,
-                        invoice_line.invoice_id.fiscal_position and
-                        invoice_line.invoice_id.fiscal_position.id or False,
-                        invoice_line.price_unit,
-                        invoice_line.invoice_id.currency_id and
-                        invoice_line.invoice_id.currency_id.id or False,
-                        invoice_line.company_id.id)
-                invoice_line_vals.update(product_onchange_vals.get('value'))
-                invoice_line_vals.update({
+                invoice_line_vals = {
                     'product_id': invoice_line.product_id.id,
+                    'name': invoice_line.name,
                     'quantity': invoice_line.quantity,
-                })
+                    'price_unit': invoice_line.price_unit,
+                    'uos_id': invoice_line.uos_id.id,
+                }
 
                 # Mapping line Taxes
                 agent_taxes = self.fiscal_position.map_agent_taxes(
@@ -100,13 +85,17 @@ class account_invoice(models.Model):
 
             # Creating new Invoice
             new_invoice_rec = self.sudo().create(agent_invoice_vals)
+            new_invoice_rec.invoice_validate()
             self.write({'agent_invoice_id': new_invoice_rec.id})
         return super(account_invoice, self).invoice_validate()
 
     @api.multi
     def action_cancel(self):
         super(account_invoice, self).action_cancel()
+        invoice_model = self.env['account.invoice']
         for rec in self:
             if rec.agent_invoice_id:
-                rec.agent_invoice_id.signal_workflow('invoice_cancel')
+                other_invoice = invoice_model.sudo().browse(
+                    rec.agent_invoice_id.id)
+                other_invoice.signal_workflow('invoice_cancel')
         return True

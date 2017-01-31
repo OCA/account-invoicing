@@ -6,37 +6,28 @@
 Account Fiscal Agent
 ====================
 
-* This module allows you to configure agent accounts, journals, and taxes in fiscal positions.
-* Upon validating the invoice a new draft Invoice is created in the name of same partner with the above pre-configured details.
+This module automates accounting entries of fiscal agent companies.
 
-Installation
-============
+Use case
+--------
 
-This module depends on:
+Company A is located in country A.
+Company B is located in country B and is the fiscal agent of company A, for country B.
+When company A issues an invoice to customer C (of country B), company B has to manage fiscal matters on behalf of Company A.
 
-* account
-
-Configuration
-=============
-
-There is nothing to configure.
+This module allows you to configure fiscal agent accounts, journals, and taxes in fiscal positions of company A. So that, upon validating the invoice of company A, a new invoice (for company B) is created in the name of same partner with the above pre-configured details.
 
 Usage
 =====
 
 To use this module, you need to:
 
-* Add agent accounts, journals and taxes in the Fiscal Position.
-* A new draft invoice will be created in the name of same partner upon validating the invoice.
+* Map fiscal agent accounts, journals and taxes in the Fiscal Position. This must be done by a user who can see data from both the companies
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/95/8.0
 
-Known issues / Roadmap
-======================
-
-* No known issues.
 
 Bug Tracker
 ===========
