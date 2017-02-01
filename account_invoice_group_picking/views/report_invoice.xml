@@ -1,55 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<template id="report_invoice_document" inherit_id="account.report_invoice_document">
-    <xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="replace">
-        <t t-foreach="o.lines_grouped_by_picking()" t-as="pick_group">
+<template id="report_invoice_document" inherit_id="account.report_invoice_document" priority="99">
+
+    <xpath expr="//tbody[@class='invoice_tbody']" position="before">
+        <t t-set="subtotal" t-value="0.0"/>
+        <t t-set="date_format" t-value="o.env"/>
+    </xpath>
+    <xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="attributes">
+        <attribute name="t-foreach">o.lines_grouped_by_picking()</attribute>
+        <attribute name="t-as">lines_tuple</attribute>
+    </xpath>
+    <xpath expr="//td/span[@t-field='l.name']/.." position="before">
+        <t t-set="l" t-value="lines_tuple[0]"/>
+        <t t-set="picking" t-value="lines_tuple[1]"/>
+        <t t-if="picking != last_picking">
+            <tr t-if="last_picking">
+                <td colspan="10" class="text-right">
+                    <strong>Subtotal: </strong>
+                    <strong t-esc="subtotal"
+                            t-esc-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                </td>
+                <t t-set="subtotal" t-value="0.0"/>
+            </tr>
             <tr>
-                <span t-field="pick_group['picking'].name"/>
-                <span t-field="pick_group['picking'].write_date"/>
-            <tr t-foreach="pick_group['lines']" t-as="l">
-                <td><span t-field="l.name"/></td>
-                <td class="text-right">
-                    <span t-field="l.quantity"/>
-                    <span t-field="l.uom_id"  groups="product.group_uom"/>
-                </td>
-                <td class="text-right">
-                    <span t-field="l.price_unit"/>
-                </td>
-                <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
-                    <span t-field="l.discount"/>
-                </td>
-                <td class="text-right">
-                    <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.invoice_line_tax_ids))"/>
-                </td>
-                <td class="text-right">
-                    <span t-field="l.price_subtotal"
-                        t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                <td colspan="10">
+                    <strong t-field="picking.name"/>
+                    <strong t-field="picking.write_date" t-field-type="date" t-field-options='{"format": "dd/MM/y"}'/>
                 </td>
             </tr>
-            </tr>
+            <t t-set="last_picking" t-value="picking"/>
         </t>
+        <t t-set="subtotal" t-value="(subtotal or 0.0) + l.price_subtotal"/>
+    </xpath>
+    <xpath expr="//tbody[@class='invoice_tbody']" position="inside">
+        <tr>
+            <td colspan="10" class="text-right">
+                <strong>Subtotal: </strong>
+                <strong t-esc="subtotal"
+                        t-esc-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+            </td>
+            <t t-set="subtotal" t-value="0.0"/>
+        </tr>
     </xpath>
 
-    <!--<xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="attributes">-->
-        <!--<attribute name="t-foreach">o.lines_grouped_by_picking</attribute>-->
-    <!--</xpath>-->
-
-
-
-
-
-
-    <!--<xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="attributes">-->
-        <!--<attribute name="t-foreach">o.lines_sorted_by_picking_ids</attribute>-->
-    <!--</xpath>-->
-    <!--<xpath expr="//td/span[@t-field='l.name']/.." position="before">-->
-        <!--<t t-set="picking" t-value="l.sale_line_id.procurement_id.move_id.picking_id"/>-->
-        <!--<tr t-if="last_picking != picking">-->
-            <!--<span t-field="picking.write_date"/>-->
-            <!--<span t-field="picking.name"/>-->
-        <!--</tr>-->
-    <!--</xpath>-->
 </template>
 
 </odoo>

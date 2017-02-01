@@ -29,9 +29,6 @@ class SaleOrderLine(models.Model):
         for line in self:
             moves_links = line.move_invoice_link_ids.filtered(
                     lambda x: not x.invoice_line_id)
-            if len(moves_links) <= 1:
-                super(SaleOrderLine, self).invoice_line_create(invoice_id, qty)
-                continue
             for move_link in moves_links:
                 move_qty = move_link.move_id.product_uom_qty
                 vals = line._prepare_invoice_line(qty=move_qty)
@@ -41,7 +38,10 @@ class SaleOrderLine(models.Model):
                 inv_line = self.env['account.invoice.line'].create(vals)
                 move_link.invoice_line_id = inv_line
             if not float_is_zero(qty, precision_digits=precision):
-                super(SaleOrderLine, self).invoice_line_create(invoice_id, qty)
+                vals = line._prepare_invoice_line(qty=qty)
+                vals.update({'invoice_id': invoice_id,
+                             'sale_line_ids': [(6, 0, [line.id])]})
+                self.env['account.invoice.line'].create(vals)
 
 
 class SaleOrderLineStockMove(models.Model):
