@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_invoice_document" inherit_id="account.report_invoice_document">
+    <xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="attributes">
+        <attribute name="t-foreach">o.lines_sorted_by_picking_ids</attribute>
+    </xpath>
+    <xpath expr="//td/span[@t-field='l.name']/.." position="before">
+        <t t-set="picking" t-value="l.sale_line_id.procurement_id.move_id.picking_id"/>
+        <tr t-if="last_picking != picking">
+            <span t-field="picking.write_date"/>
+            <span t-field="picking.name"/>
+        </tr>
+    </xpath>
+</template>
+
+</odoo>
