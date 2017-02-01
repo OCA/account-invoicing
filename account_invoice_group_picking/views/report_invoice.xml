@@ -2,16 +2,54 @@
 <odoo>
 
 <template id="report_invoice_document" inherit_id="account.report_invoice_document">
-    <xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="attributes">
-        <attribute name="t-foreach">o.lines_sorted_by_picking_ids</attribute>
+    <xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="replace">
+        <t t-foreach="o.lines_grouped_by_picking()" t-as="pick_group">
+            <tr>
+                <span t-field="pick_group['picking'].name"/>
+                <span t-field="pick_group['picking'].write_date"/>
+            <tr t-foreach="pick_group['lines']" t-as="l">
+                <td><span t-field="l.name"/></td>
+                <td class="text-right">
+                    <span t-field="l.quantity"/>
+                    <span t-field="l.uom_id"  groups="product.group_uom"/>
+                </td>
+                <td class="text-right">
+                    <span t-field="l.price_unit"/>
+                </td>
+                <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
+                    <span t-field="l.discount"/>
+                </td>
+                <td class="text-right">
+                    <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.invoice_line_tax_ids))"/>
+                </td>
+                <td class="text-right">
+                    <span t-field="l.price_subtotal"
+                        t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                </td>
+            </tr>
+            </tr>
+        </t>
     </xpath>
-    <xpath expr="//td/span[@t-field='l.name']/.." position="before">
-        <t t-set="picking" t-value="l.sale_line_id.procurement_id.move_id.picking_id"/>
-        <tr t-if="last_picking != picking">
-            <span t-field="picking.write_date"/>
-            <span t-field="picking.name"/>
-        </tr>
-    </xpath>
+
+    <!--<xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="attributes">-->
+        <!--<attribute name="t-foreach">o.lines_grouped_by_picking</attribute>-->
+    <!--</xpath>-->
+
+
+
+
+
+
+    <!--<xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="attributes">-->
+        <!--<attribute name="t-foreach">o.lines_sorted_by_picking_ids</attribute>-->
+    <!--</xpath>-->
+    <!--<xpath expr="//td/span[@t-field='l.name']/.." position="before">-->
+        <!--<t t-set="picking" t-value="l.sale_line_id.procurement_id.move_id.picking_id"/>-->
+        <!--<tr t-if="last_picking != picking">-->
+            <!--<span t-field="picking.write_date"/>-->
+            <!--<span t-field="picking.name"/>-->
+        <!--</tr>-->
+    <!--</xpath>-->
 </template>
 
 </odoo>

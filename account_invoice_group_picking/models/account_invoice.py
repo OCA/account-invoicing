@@ -19,14 +19,14 @@ class AccountInvoice(models.Model):
         for invoice in self:
             invoice.lines_sorted_by_picking_ids = (
                 invoice.invoice_line_ids.sorted(key=lambda x: (
-                    x.sale_line_id.procurement_id.move_id.picking_id.write_date)))
+                    x.sale_line_ids.procurement_ids.move_ids.picking_id.write_date)))
 
     @api.multi
     def lines_grouped_by_picking(self):
         self.ensure_one()
         group = {}
         for line in self.invoice_line_ids:
-            pick = line.sale_line_id.procurement_id.move_id.picking_id
+            pick = line.sale_line_ids.procurement_ids.move_ids[:1].picking_id
             if pick not in group:
                 group[pick] = []
             group[pick].append(line)

@@ -15,6 +15,7 @@
         "sale_stock",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/report_invoice.xml",
     ],
 }

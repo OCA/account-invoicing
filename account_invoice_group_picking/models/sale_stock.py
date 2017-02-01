@@ -17,28 +17,31 @@ class SaleOrderLine(models.Model):
     @api.multi
     def invoice_line_create(self, invoice_id, qty):
         """
-        Create an invoice line. The quantity to invoice can be positive (invoice) or negative
-        (refund).
+        Overwrite original function to create one invoice line for each move.
 
         :param invoice_id: integer
         :param qty: float quantity to invoice
         """
-        precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
+        precision = self.env['decimal.precision'].precision_get(
+            'Product Unit of Measure')
+        if float_is_zero(qty, precision_digits=precision):
+            return
         for line in self:
-            if float_is_zero(qty, precision_digits=precision):
+            moves_links = line.move_invoice_link_ids.filtered(
+                    lambda x: not x.invoice_line_id)
+            if len(moves_links) <= 1:
+                super(SaleOrderLine, self).invoice_line_create(invoice_id, qty)
                 continue
-            for move_link in line.move_invoice_link_ids.filtered(
-                    lambda x: not x.invoice_line_id):
+            for move_link in moves_links:
                 move_qty = move_link.move_id.product_uom_qty
                 vals = line._prepare_invoice_line(qty=move_qty)
                 qty -= move_qty
-                vals.update({'invoice_id': invoice_id, 'sale_line_ids': [(6, 0, [line.id])]})
+                vals.update({'invoice_id': invoice_id,
+                             'sale_line_ids': [(6, 0, [line.id])]})
                 inv_line = self.env['account.invoice.line'].create(vals)
                 move_link.invoice_line_id = inv_line
             if not float_is_zero(qty, precision_digits=precision):
-                vals = line._prepare_invoice_line(qty=qty)
-                vals.update({'invoice_id': invoice_id, 'sale_line_ids': [(6, 0, [line.id])]})
-                self.env['account.invoice.line'].create(vals)
+                super(SaleOrderLine, self).invoice_line_create(invoice_id, qty)
 
 
 class SaleOrderLineStockMove(models.Model):
@@ -62,10 +65,10 @@ class StockMove(models.Model):
     def action_done(self):
         result = super(StockMove, self).action_done()
         SaleOrderLineStockMove = self.env['sale.order.line.stock.move']
-        for move in self:
-            if (move.procurement_id.sale_line_id) and (move.product_id.invoice_policy in ('order', 'delivery')):
-                SaleOrderLineStockMove.create({
-                    'move_id': move.id,
-                    'sale_line_id': move.procurement_id.sale_line_id.id
-                })
+        for move in self.filtered(lambda x: x.procurement_id.sale_line_id and (
+                x.product_id.invoice_policy == 'delivery')):
+            SaleOrderLineStockMove.create({
+                'move_id': move.id,
+                'sale_line_id': move.procurement_id.sale_line_id.id
+            })
         return result
