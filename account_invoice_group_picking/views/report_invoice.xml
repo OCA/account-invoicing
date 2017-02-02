@@ -5,15 +5,17 @@
 
     <xpath expr="//tbody[@class='invoice_tbody']" position="before">
         <t t-set="subtotal" t-value="0.0"/>
-        <t t-set="date_format" t-value="o.env"/>
+        <!--<t t-set="date_format"-->
+           <!--t-value="env['res.lang'].search([('code', '=', o.partner_id.lang)]).date_format"/>-->
     </xpath>
     <xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="attributes">
         <attribute name="t-foreach">o.lines_grouped_by_picking()</attribute>
-        <attribute name="t-as">lines_tuple</attribute>
+        <attribute name="t-as">lines_group</attribute>
     </xpath>
     <xpath expr="//td/span[@t-field='l.name']/.." position="before">
-        <t t-set="l" t-value="lines_tuple[0]"/>
-        <t t-set="picking" t-value="lines_tuple[1]"/>
+        <t t-set="l" t-value="lines_group['line']"/>
+        <t t-set="picking" t-value="lines_group['picking']"/>
+        <t t-set="picking_info" t-value="lines_group['picking_info']"/>
         <t t-if="picking != last_picking">
             <tr t-if="last_picking">
                 <td colspan="10" class="text-right">
@@ -25,8 +27,7 @@
             </tr>
             <tr>
                 <td colspan="10">
-                    <strong t-field="picking.name"/>
-                    <strong t-field="picking.write_date" t-field-type="date" t-field-options='{"format": "dd/MM/y"}'/>
+                    <strong t-esc="picking_info"/>
                 </td>
             </tr>
             <t t-set="last_picking" t-value="picking"/>
