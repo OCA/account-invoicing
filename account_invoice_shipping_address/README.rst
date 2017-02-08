@@ -22,6 +22,7 @@ Contributors
 * Leonardo Pistone <leonardo.pistone@camptocamp.com>
 * Andrea Cometa <info@andreacometa.it>
 * Anthony Muschang <anthony.muschang@acsone.eu>
+* Torvald Bringsvor <bringsvor@bringsvor.com>
 
 Maintainer
 ----------

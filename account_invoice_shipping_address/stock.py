@@ -19,16 +19,16 @@
 #
 ##############################################################################
 
-from openerp.osv import orm
+from openerp import models, fields, _
 
-
-class StockPicking(orm.Model):
+class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    def _get_invoice_vals(self, cr, uid, key, inv_type,
-                          journal_id, picking, context=None):
+    def _get_invoice_vals(self, key, inv_type,
+                          journal_id, picking):
+        assert False, 'This function mus be replaced'
         invoice_vals = super(StockPicking, self)._get_invoice_vals(
-            cr, uid, key, inv_type, journal_id, picking, context=context)
+            key, inv_type, journal_id, picking)
         if picking and picking.partner_id:
             invoice_vals['address_shipping_id'] = picking.partner_id.id
         return invoice_vals
