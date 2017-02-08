@@ -19,7 +19,8 @@
 #
 ##############################################################################
 
-from openerp import models, fields, _
+from openerp import models
+
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"

@@ -20,17 +20,18 @@
 #
 ##############################################################################
 
-from openerp import models, fields, _
+from openerp import models, fields
+
 
 class account_invoice(models.Model):
     _inherit = "account.invoice"
 
     address_shipping_id = fields.Many2one(
-            'res.partner',
-            'Shipping Address',
-            readonly=True,
-            states={
-                'draft': [('readonly', False)],
-                'sent': [('readonly', False)]
-            },
-            help="Delivery address for current invoice.")
+        'res.partner',
+        'Shipping Address',
+        readonly=True,
+        states={
+            'draft': [('readonly', False)],
+            'sent': [('readonly', False)]
+        },
+        help="Delivery address for current invoice.")
