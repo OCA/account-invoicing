@@ -23,33 +23,30 @@ class InvoiceMerge(models.TransientModel):
                     _('Please select multiple invoice to merge in the list '
                       'view.'))
             inv_obj = self.env['account.invoice']
-            invs = inv_obj.read(ids,
-                                ['account_id', 'state', 'type', 'company_id',
-                                 'partner_id', 'currency_id', 'journal_id'])
+            invs = inv_obj.browse(ids)
             for d in invs:
-                if d['state'] != 'draft':
+                if d.state != 'draft':
                     raise exceptions.Warning(
                         _('At least one of the selected invoices is %s!') %
-                        d['state'])
-                if d['account_id'] != invs[0]['account_id']:
+                        d.state)
+                if d.account_id != invs[0].account_id:
                     raise exceptions.Warning(
                         _('Not all invoices use the same account!'))
-                if d['company_id'] != invs[0]['company_id']:
+                if d.company_id != invs[0].company_id:
                     raise exceptions.Warning(
                         _('Not all invoices are at the same company!'))
-                if d['partner_id'] != invs[0]['partner_id']:
+                if d.partner_id != invs[0].partner_id:
                     raise exceptions.Warning(
                         _('Not all invoices are for the same partner!'))
-                if d['type'] != invs[0]['type']:
+                if d.type != invs[0].type:
                     raise exceptions.Warning(
                         _('Not all invoices are of the same type!'))
-                if d['currency_id'] != invs[0]['currency_id']:
+                if d.currency_id != invs[0].currency_id:
                     raise exceptions.Warning(
                         _('Not all invoices are at the same currency!'))
-                if d['journal_id'] != invs[0]['journal_id']:
+                if d.journal_id != invs[0].journal_id:
                     raise exceptions.Warning(
                         _('Not all invoices are at the same journal!'))
-        return {}
 
     @api.model
     def fields_view_get(self, view_id=None, view_type='form', toolbar=False,
