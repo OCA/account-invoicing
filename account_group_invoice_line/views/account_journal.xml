@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
-<data>
-
 <!--
-    Copyright (C) 2012-2015 SYLEAM Info Services ([http://www.syleam.fr/])
-    @author: Sébastien LANGE [sebastien.lange@syleam.fr]
-    The licence is in the file __openerp__.py
+  Copyright (C) 2012-2016 SYLEAM Info Services ([http://www.syleam.fr/])
+  @author: Sébastien LANGE [sebastien.lange@syleam.fr]
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
+
+<odoo>
 
 <record id="view_account_journal_form" model="ir.ui.view">
     <field name="name">group.invoice.lines.account.journal.form</field>
@@ -20,5 +19,4 @@
     </field>
 </record>
 
-</data>
-</openerp>
+</odoo>
