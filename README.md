@@ -18,6 +18,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[account_group_invoice_line](account_group_invoice_line/) | 10.0.1.0.0 | Add option to group invoice lines per account
 [account_invoice_check_total](account_invoice_check_total/) | 10.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 10.0.1.0.0 | Checks that supplier invoices are not entered twice
 [account_payment_term_extension](account_payment_term_extension/) | 10.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
@@ -26,7 +27,6 @@ Unported addons
 ---------------
 addon | version | summary
 --- | --- | ---
-[account_group_invoice_lines](account_group_invoice_lines/) | 8.0.1.1.0 (unported) | Add option to group invoice line per account
 [account_invoice_customer_ref_unique](account_invoice_customer_ref_unique/) | 1.0 (unported) | Unique Customer Reference in Invoice
 [account_invoice_force_number](account_invoice_force_number/) | 8.0.0.1.0 (unported) | Allows to force invoice numbering on specific invoices
 [account_invoice_line_description](account_invoice_line_description/) | 8.0.1.0.0 (unported) | Account invoice line description
