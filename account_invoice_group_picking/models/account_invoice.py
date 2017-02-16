@@ -19,9 +19,9 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         res = []
         for line in self.invoice_line_ids:
-            pick = (line.sale_move_link_ids[:1].move_id.picking_id or
-                    line.sale_line_ids.procurement_ids.filtered(
-                        lambda x: x.state == 'done').move_ids[:1].picking_id)
+            pick = (line.sale_move_link_ids.mapped('move_id.picking_id') or
+                    line.sale_line_ids.mapped(
+                        'procurement_ids.move_ids.picking_id'))[:1]
             res.append({'line': line, 'picking': pick,
                         'picking_info': self._prepare_picking_info(pick)})
         return sorted(res, key=lambda x: x['picking'].write_date)
