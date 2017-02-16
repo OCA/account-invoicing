@@ -30,6 +30,10 @@ class account_invoice(models.Model):
                 self.company_id and self.company_id.id or False)
             agent_invoice_vals.update(partner_onchange_vals.get('value'))
 
+            if 'fiscal_position' in agent_invoice_vals:
+                # because it would typically be the same, with_fiscal_agent
+                del agent_invoice_vals['fiscal_position']
+
             # Company ID
             agent_invoice_vals.update({
                 'company_id': self.fiscal_position.fiscal_agent_company_id.id
