@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <record id="view_company_inherit_form" model="ir.ui.view">
+        <field name="name">company settings.add.rounding</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="account.view_company_inherit_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tax_calculation_rounding_method']" position="after">
+                <div attrs="{'invisible': [('tax_calculation_rounding_method', 'not in', ['swedish_round_globally', 'swedish_add_invoice_line'])]}">
+                    <label for="tax_calculation_rounding"/>
+                    <field name="tax_calculation_rounding" class="oe_inline"/>
+                </div>
+                <div attrs="{'invisible': [('tax_calculation_rounding_method', '&lt;&gt;', 'swedish_add_invoice_line')]}">
+                    <label for="tax_calculation_rounding_account_id"/>
+                    <field name="tax_calculation_rounding_account_id"
+                        domain="[('internal_type', '&lt;&gt;', 'view')]"
+                        attrs="{'required': [('tax_calculation_rounding_method', '=', 'swedish_add_invoice_line')]}" class="oe_inline"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</openerp>

@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields
+from openerp import models, fields, api
 
 
 class AccountConfigSettings(models.TransientModel):
@@ -53,14 +53,13 @@ class AccountConfigSettings(models.TransientModel):
         related='company_id.tax_calculation_rounding_account_id',
         comodel='account.account',
         string='Tax Rounding account',
-        domain=[('type', '<>', 'view')])
+        domain=[('internal_type', '<>', 'view')])
 
-    def onchange_company_id(self, cr, uid, ids, company_id, context=None):
+    @api.multi
+    def onchange_company_id(self, company_id):
         res = super(AccountConfigSettings, self
-                    ).onchange_company_id(cr, uid, ids,
-                                          company_id, context=context)
-        company = self.pool.get('res.company').browse(cr, uid, company_id,
-                                                      context=context)
+                    ).onchange_company_id(company_id)
+        company = self.env['res.company'].browse(company_id)
         res['value'][
             'tax_calculation_rounding'] = company.tax_calculation_rounding
         res['value']['tax_calculation_rounding_account_id'] = \

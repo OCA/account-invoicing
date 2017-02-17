@@ -28,7 +28,8 @@ class ResCompany(models.Model):
     tax_calculation_rounding_account_id = fields.Many2one(
         'account.account',
         'Tax Rounding Account',
-        domain=[('type', '<>', 'view')])
+        domain=[('internal_type', '<>', 'view')]
+    )
     tax_calculation_rounding_method = fields.Selection(
         [('round_per_line', 'Round per Line'),
          ('round_globally', 'Round Globally'),
