@@ -9,45 +9,34 @@
             <field name="arch" type="xml">
                 <field name="sequence" position="after">
                     <field name="with_fiscal_agent"/>
+                    <field name="fiscal_agent_company_id" attrs="{'invisible': [('with_fiscal_agent', '=', False)], 'required': [('with_fiscal_agent', '!=', False)]}"/>
                 </field>
                 <field name="account_ids" position="after">
                     <!-- Agent Account Mapping -->
-                    <separator string="Agent Account Mapping"/>
-                     <field name="fiscal_agent_account_ids" widget="one2many_list">
-                        <tree string="Agent Account Mapping" editable="bottom">
-                            <field name="account_src_id"/>
-                            <field name="account_dest_id"/>
+                    <separator string="Agent Account Mapping" attrs="{'invisible': [('with_fiscal_agent', '=', False)], 'required': [('with_fiscal_agent', '!=', False)]}"/>
+                     <field name="fiscal_agent_account_ids" widget="one2many_list" attrs="{'invisible': [('with_fiscal_agent', '=', False)], 'required': [('with_fiscal_agent', '!=', False)]}">
+                        <tree string="Fiscal Agent Account Mapping" editable="bottom">
+                            <field name="account_src_id" domain="[('company_id', '=', parent.company_id)]"/>
+                            <field name="account_dest_id" domain="[('company_id', '=', parent.fiscal_agent_company_id)]"/>
                         </tree>
-                        <form string="Account Mapping">
-                            <field name="account_src_id"/>
-                            <field name="account_dest_id"/>
-                        </form>
                     </field>
                     <!-- Agent Taxes Mapping -->
-                    <separator string="Agent Taxes Mapping"/>
-                    <field name="fiscal_agent_tax_ids" widget="one2many_list">
+                    <separator string="Fiscal Agent Taxes Mapping" attrs="{'invisible': [('with_fiscal_agent', '=', False)], 'required': [('with_fiscal_agent', '!=', False)]}"/>
+                    <field name="fiscal_agent_tax_ids" widget="one2many_list" attrs="{'invisible': [('with_fiscal_agent', '=', False)], 'required': [('with_fiscal_agent', '!=', False)]}">
                         <tree string="Tax Mapping" editable="bottom">
                             <field name="tax_src_id"
-                                    domain="[('parent_id','=',False)]"/>
+                                    domain="[('parent_id','=',False), ('company_id', '=', parent.company_id)]"/>
                             <field name="tax_dest_id"
-                                    domain="[('parent_id','=',False), ('price_include', '=', False)]"/>
+                                    domain="[('parent_id','=',False), ('company_id', '=', parent.fiscal_agent_company_id)]"/>
                         </tree>
-                        <form string="Tax Mapping">
-                            <field name="tax_src_id" domain="[('parent_id','=',False)]"/>
-                            <field name="tax_dest_id" domain="[('parent_id','=',False), ('price_include', '=', False)]"/>
-                        </form>
                     </field>
                     <!-- Agent Journal Mapping -->
-                    <separator string="Agent Journal Mapping"/>
-                    <field name="fiscal_agent_journal_ids" widget="one2many_list">
+                    <separator string="Fiscal Agent Journal Mapping" attrs="{'invisible': [('with_fiscal_agent', '=', False)], 'required': [('with_fiscal_agent', '!=', False)]}"/>
+                    <field name="fiscal_agent_journal_ids" widget="one2many_list" attrs="{'invisible': [('with_fiscal_agent', '=', False)], 'required': [('with_fiscal_agent', '!=', False)]}">
                         <tree string="Journal Mapping" editable="bottom">
-                            <field name="journal_src_id"/>
-                            <field name="journal_dest_id"/>
+                            <field name="journal_src_id" domain="[('company_id', '=', parent.company_id)]"/>
+                            <field name="journal_dest_id" domain="[('company_id', '=', parent.fiscal_agent_company_id)]"/>
                         </tree>
-                        <form string="Journal Mapping">
-                            <field name="journal_src_id"/>
-                            <field name="journal_dest_id"/>
-                        </form>
                     </field>
                 </field>
             </field>
