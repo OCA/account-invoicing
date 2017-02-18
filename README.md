@@ -23,6 +23,7 @@ addon | version | summary
 [account_invoice_merge](account_invoice_merge/) | 9.0.1.0.0 | Account Invoice Merge Wizard
 [account_invoice_refund_link](account_invoice_refund_link/) | 9.0.1.0.0 | Link refund invoice with its original invoice
 [account_invoice_refund_option](account_invoice_refund_option/) | 9.0.1.0.0 | Allows you to create directly a refund without starting from an invoice
+[account_invoice_rounding](account_invoice_rounding/) | 9.0.1.0.0 | Unit rounded invoice
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 9.0.1.0.0 | Checks that supplier invoices are not entered twice
 [account_payment_term_extension](account_payment_term_extension/) | 9.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
 [sale_stock_picking_return_invoicing](sale_stock_picking_return_invoicing/) | 9.0.1.0.0 | Add an option to refund return pickings
@@ -42,7 +43,6 @@ addon | version | summary
 [account_invoice_partner](account_invoice_partner/) | 8.0.0.2.0 (unported) | Automatically select invoicing partner on invoice
 [account_invoice_period_usability](account_invoice_period_usability/) | 8.0.1.0.0 (unported) | Display in the supplier invoice form the fiscal period next to the invoice date
 [account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.0.0 (unported) | Add partner pricelist on invoices
-[account_invoice_rounding](account_invoice_rounding/) | 8.0.1.0.0 (unported) | Unit rounded invoice
 [account_invoice_shipping_address](account_invoice_shipping_address/) | 8.0.0.1.1 (unported) | Adds a shipping address field to the invoice.
 [account_invoice_template](account_invoice_template/) | 0.1 (unported) | Account Invoice Template
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 (unported) | Unit of measure for invoices
