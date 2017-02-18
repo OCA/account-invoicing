@@ -4,35 +4,34 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-17 15:34+0000\n"
 "PO-Revision-Date: 2017-02-17 15:34+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2017\n"
-"Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Language-Team: Macedonian (https://www.transifex.com/oca/teams/23907/mk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: nl\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: mk\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_res_company
 msgid "Companies"
-msgstr "Bedrijven"
+msgstr ""
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice
 msgid "Invoice"
-msgstr "Factuur"
+msgstr "Фактура"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Factuurregel"
+msgstr "Ставка од фактура"
 
 #. module: account_invoice_rounding
 #: model:ir.model.fields,field_description:account_invoice_rounding.field_account_invoice_global_round_line_id
@@ -53,7 +52,7 @@ msgstr ""
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_tax
 msgid "Tax"
-msgstr "Belasting"
+msgstr ""
 
 #. module: account_invoice_rounding
 #: model:ir.model.fields,field_description:account_invoice_rounding.field_res_company_tax_calculation_rounding_account_id
@@ -74,4 +73,4 @@ msgstr ""
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_config_settings
 msgid "account.config.settings"
-msgstr "account.config.settings"
+msgstr ""

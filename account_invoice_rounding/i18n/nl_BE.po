@@ -4,19 +4,19 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2017
+# Sarah Druyts <sarah.druyts@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-17 15:34+0000\n"
 "PO-Revision-Date: 2017-02-17 15:34+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2017\n"
-"Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
+"Last-Translator: Sarah Druyts <sarah.druyts@gmail.com>, 2017\n"
+"Language-Team: Dutch (Belgium) (https://www.transifex.com/oca/teams/23907/nl_BE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: nl\n"
+"Language: nl_BE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_rounding
@@ -32,7 +32,7 @@ msgstr "Factuur"
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Factuurregel"
+msgstr "Factuurlijn"
 
 #. module: account_invoice_rounding
 #: model:ir.model.fields,field_description:account_invoice_rounding.field_account_invoice_global_round_line_id
@@ -74,4 +74,4 @@ msgstr ""
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_config_settings
 msgid "account.config.settings"
-msgstr "account.config.settings"
+msgstr ""

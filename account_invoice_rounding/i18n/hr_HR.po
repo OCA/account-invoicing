@@ -3,14 +3,16 @@
 # * account_invoice_rounding
 # 
 # Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+# Bole <bole@dajmi5.com>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: account-invoicing (8.0)\n"
+"Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-26 00:09+0000\n"
-"PO-Revision-Date: 2016-11-28 14:55+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Croatian (Croatia) (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/hr_HR/)\n"
+"POT-Creation-Date: 2017-02-17 15:34+0000\n"
+"PO-Revision-Date: 2017-02-17 15:34+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>, 2017\n"
+"Language-Team: Croatian (Croatia) (https://www.transifex.com/oca/teams/23907/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -20,12 +22,12 @@ msgstr ""
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Poduzeća"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Račun"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice_line
@@ -33,18 +35,18 @@ msgid "Invoice Line"
 msgstr ""
 
 #. module: account_invoice_rounding
-#: field:account.invoice,global_round_line_id:0
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_account_invoice_global_round_line_id
 msgid "Invoice Line for total rounding"
 msgstr ""
 
 #. module: account_invoice_rounding
-#: code:addons/account_invoice_rounding/account.py:42
+#: code:addons/account_invoice_rounding/models/account.py:42
 #, python-format
 msgid "Rounding"
 msgstr ""
 
 #. module: account_invoice_rounding
-#: field:account.invoice.line,is_rounding:0
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_account_invoice_line_is_rounding
 msgid "Rounding Line"
 msgstr ""
 
@@ -54,17 +56,22 @@ msgid "Tax"
 msgstr "Porez"
 
 #. module: account_invoice_rounding
-#: field:res.company,tax_calculation_rounding_account_id:0
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_res_company_tax_calculation_rounding_account_id
 msgid "Tax Rounding Account"
 msgstr ""
 
 #. module: account_invoice_rounding
-#: field:account.config.settings,tax_calculation_rounding_account_id:0
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_account_config_settings_tax_calculation_rounding_account_id
 msgid "Tax Rounding account"
 msgstr ""
 
 #. module: account_invoice_rounding
-#: field:account.config.settings,tax_calculation_rounding:0
-#: field:res.company,tax_calculation_rounding:0
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_account_config_settings_tax_calculation_rounding
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_res_company_tax_calculation_rounding
 msgid "Tax Rounding unit"
 msgstr ""
+
+#. module: account_invoice_rounding
+#: model:ir.model,name:account_invoice_rounding.model_account_config_settings
+msgid "account.config.settings"
+msgstr "account.config.settings"
