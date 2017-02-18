@@ -1,52 +1,59 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * account_group_invoice_lines
+# * account_group_invoice_line
 # 
 # Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+# TonySpain <acl.disval@gmail.com>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: account-invoicing (8.0)\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-09 08:57+0000\n"
-"PO-Revision-Date: 2015-10-07 16:09+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/es/)\n"
+"POT-Creation-Date: 2017-02-15 03:39+0000\n"
+"PO-Revision-Date: 2017-02-15 03:39+0000\n"
+"Last-Translator: TonySpain <acl.disval@gmail.com>, 2017\n"
+"Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. module: account_group_invoice_lines
+#. module: account_group_invoice_line
 #: selection:account.journal,group_method:0
 msgid "By Account"
-msgstr ""
+msgstr "Por Cuenta"
 
-#. module: account_group_invoice_lines
+#. module: account_group_invoice_line
 #: selection:account.journal,group_method:0
 msgid "By Product"
-msgstr ""
+msgstr "Por Producto"
 
-#. module: account_group_invoice_lines
-#: field:account.journal,group_method:0
+#. module: account_group_invoice_line
+#: model:ir.model.fields,field_description:account_group_invoice_line.field_account_journal_group_method
 msgid "Group by"
-msgstr ""
+msgstr "Grupo por"
 
-#. module: account_group_invoice_lines
-#: help:account.journal,group_method:0
+#. module: account_group_invoice_line
+#: model:ir.model.fields,help:account_group_invoice_line.field_account_journal_group_method
 msgid ""
 "If you select 'By Product', the account move lines generated when you "
 "validate an invoice will be grouped by product, account, analytic account "
 "and tax code. If you select 'By Account', they will be grouped by account, "
 "analytic account and tax code, without taking into account the product."
 msgstr ""
+"Si selecciona \"Por Producto\", las líneas de movimiento de cuenta generadas"
+" al validar una factura se agruparán por producto, cuenta, cuenta analítica "
+"y código de impuesto. Si selecciona \"Por Cuenta\" , se agruparán por "
+"cuenta, cuenta analítica y código de impuesto, sin tener en cuenta el "
+"producto."
 
-#. module: account_group_invoice_lines
-#: model:ir.model,name:account_group_invoice_lines.model_account_invoice
+#. module: account_group_invoice_line
+#: model:ir.model,name:account_group_invoice_line.model_account_invoice
 msgid "Invoice"
 msgstr "Factura"
 
-#. module: account_group_invoice_lines
-#: model:ir.model,name:account_group_invoice_lines.model_account_journal
+#. module: account_group_invoice_line
+#: model:ir.model,name:account_group_invoice_line.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Diario"
