@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-28 21:46+0000\n"
+"POT-Creation-Date: 2017-01-28 00:11+0000\n"
 "PO-Revision-Date: 2015-06-03 04:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/it/)\n"
@@ -131,7 +131,7 @@ msgstr "Selezionare  più  fatture  da unire in una vista a lista."
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:70
 #, python-format
 msgid "Warning"
-msgstr ""
+msgstr "Warning"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:35

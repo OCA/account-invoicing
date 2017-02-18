@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-23 23:38+0000\n"
+"POT-Creation-Date: 2017-01-28 00:11+0000\n"
 "PO-Revision-Date: 2015-06-03 04:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/sl/)\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. module: account_invoice_rounding
 #: field:res.company,tax_calculation_rounding_account_id:0
 msgid "Tax Rounding Account"
-msgstr ""
+msgstr "Konto zaokroževanja davka"
 
 #. module: account_invoice_rounding
 #: field:account.invoice,global_round_line_id:0
@@ -36,12 +36,12 @@ msgstr "account.config.settings"
 #: code:addons/account_invoice_rounding/account.py:41
 #, python-format
 msgid "Rounding"
-msgstr ""
+msgstr "Zaokroževanje"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_tax
 msgid "Tax"
-msgstr ""
+msgstr "Davek"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_res_company
@@ -51,18 +51,18 @@ msgstr "Družbe"
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice_line
 msgid "Invoice Line"
-msgstr ""
+msgstr "Postavka računa"
 
 #. module: account_invoice_rounding
 #: field:account.config.settings,tax_calculation_rounding:0
 #: field:res.company,tax_calculation_rounding:0
 msgid "Tax Rounding unit"
-msgstr ""
+msgstr "Enota zaokroževanja davka"
 
 #. module: account_invoice_rounding
 #: field:account.invoice.line,is_rounding:0
 msgid "Rounding Line"
-msgstr ""
+msgstr "Postavka zaokroževanja"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice

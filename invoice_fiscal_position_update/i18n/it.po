@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-14 14:58+0000\n"
+"POT-Creation-Date: 2017-01-28 00:11+0000\n"
 "PO-Revision-Date: 2015-06-03 04:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/it/)\n"
@@ -26,7 +26,7 @@ msgstr ""
 #: code:addons/invoice_fiscal_position_update/account_invoice.py:87
 #, python-format
 msgid "Warning"
-msgstr ""
+msgstr "Warning"
 
 #. module: invoice_fiscal_position_update
 #: code:addons/invoice_fiscal_position_update/account_invoice.py:98
