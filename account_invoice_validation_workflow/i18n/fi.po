@@ -3,13 +3,14 @@
 # * account_invoice_validation_workflow
 # 
 # Translators:
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 09:48+0000\n"
-"PO-Revision-Date: 2015-06-03 04:58+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2017-02-04 00:18+0000\n"
+"PO-Revision-Date: 2017-02-14 09:18+0000\n"
+"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,13 +21,13 @@ msgstr ""
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_supplier_form_validation_wkfl
 msgid "Approve"
-msgstr ""
+msgstr "Hyväksy"
 
 #. module: account_invoice_validation_workflow
 #: code:addons/account_invoice_validation_workflow/invoice.py:98
 #, python-format
 msgid "Can not %s draft/proforma/cancel invoice."
-msgstr ""
+msgstr "Ei voida %s luonnos/proforma/peruttua laskua."
 
 #. module: account_invoice_validation_workflow
 #: code:addons/account_invoice_validation_workflow/invoice.py:102
@@ -34,7 +35,7 @@ msgstr ""
 msgid ""
 "Can not %s invoice which is already reconciled, invoice should be "
 "unreconciled first. You can only Refund this invoice"
-msgstr ""
+msgstr "Ei voida %s laskua, joka on jo täsmäytetty. Laskun täsmäytys täytyy perua ensin. Tässä tilassa laskun voi ainoastaan hyvittää."
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
@@ -46,14 +47,14 @@ msgstr "Peruuta"
 #: code:addons/account_invoice_validation_workflow/invoice.py:143
 #, python-format
 msgid "Data Insufficient !"
-msgstr ""
+msgstr "Puuttuvia tietoja!"
 
 #. module: account_invoice_validation_workflow
 #: code:addons/account_invoice_validation_workflow/invoice.py:97
 #: code:addons/account_invoice_validation_workflow/invoice.py:101
 #, python-format
 msgid "Error !"
-msgstr ""
+msgstr "Virhe!"
 
 #. module: account_invoice_validation_workflow
 #: model:ir.model,name:account_invoice_validation_workflow.model_account_invoice
@@ -63,91 +64,91 @@ msgstr "Lasku"
 #. module: account_invoice_validation_workflow
 #: model:ir.model,name:account_invoice_validation_workflow.model_account_invoice_refund
 msgid "Invoice Refund"
-msgstr ""
+msgstr "Laskun hyvittäminen"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 msgid "Invoice To Send"
-msgstr ""
+msgstr "Lasku lähetettäväksi"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_supplier_form_validation_wkfl
 msgid "Invoice to send"
-msgstr ""
+msgstr "Lasku lähetettäväksi"
 
 #. module: account_invoice_validation_workflow
 #: code:addons/account_invoice_validation_workflow/invoice.py:144
 #, python-format
 msgid "No Period found on Invoice!"
-msgstr ""
+msgstr "Laskulta ei löydy jaksoa!"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 msgid "PRO-FORMA"
-msgstr ""
+msgstr "PRO-FORMA"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 msgid "Print"
-msgstr ""
+msgstr "Tulosta"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 msgid "Print Invoice"
-msgstr ""
+msgstr "Tulosta lasku"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 #: view:account.invoice:account_invoice_validation_workflow.invoice_supplier_form_validation_wkfl
 msgid "Re-Open"
-msgstr ""
+msgstr "Uudelleenavaa"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 #: view:account.invoice:account_invoice_validation_workflow.invoice_supplier_form_validation_wkfl
 msgid "Refund"
-msgstr ""
+msgstr "Hyvitä"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 msgid "Reset to Draft"
-msgstr ""
+msgstr "Palauta luonnokseksi"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_supplier_form_validation_wkfl
 msgid "Set to Draft"
-msgstr ""
+msgstr "Aseta luonnokseksi"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.view_account_invoice_filter
 msgid "To Send"
-msgstr ""
+msgstr "Lähetettäväks"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.view_account_invoice_filter
 msgid "To Send Invoices"
-msgstr ""
+msgstr "Lähetettävät laskut"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.view_account_invoice_filter
 msgid "To Validate"
-msgstr ""
+msgstr "Hyväksyttäväksi"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.view_account_invoice_filter
 msgid "To Validate Invoices"
-msgstr ""
+msgstr "Hyväksyttävät laskut"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 #: view:account.invoice:account_invoice_validation_workflow.invoice_supplier_form_validation_wkfl
 msgid "To Validation"
-msgstr ""
+msgstr "Hyväksyttäväksi"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 msgid "Validate"
-msgstr ""
+msgstr "Hyväksy"
 
 #. module: account_invoice_validation_workflow
 #: code:addons/account_invoice_validation_workflow/invoice.py:45
@@ -156,4 +157,4 @@ msgid ""
 "You are trying to validate invoice lines linked to a closed or cancelled Analytic Account.\n"
 "\n"
 "Check the following lines:"
-msgstr ""
+msgstr "Yrität hyväksyä laskurivejä, jotka liittyy suljettuun tai peruttuun kustannuspaikkaan.\n\nTarkasta seuraavat rivit:"
