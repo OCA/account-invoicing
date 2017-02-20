@@ -30,7 +30,10 @@ class SaleOrderLine(models.Model):
             moves_links = line.move_invoice_link_ids.filtered(
                     lambda x: not x.invoice_line_id)
             for move_link in moves_links:
-                move_qty = move_link.move_id.product_uom_qty
+                # If return move inverse sign
+                move_qty = move_link.move_id.product_uom_qty * (
+                    move_link.move_id.location_id.usage == 'customer' and
+                    -1.0 or 1.0)
                 vals = line._prepare_invoice_line(qty=move_qty)
                 qty -= move_qty
                 vals.update({'invoice_id': invoice_id,
