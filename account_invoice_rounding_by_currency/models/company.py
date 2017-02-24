@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2015 Alessio Gerace <alessio.gerace@agilebg.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from openerp import models, fields
 
 
@@ -24,10 +25,10 @@ class RoundingByCurrency(models.Model):
         help="If you select 'Round per line' : for each tax, the tax "
         "amount will first be computed and rounded for each "
         "PO/SO/invoice line and then these rounded amounts will be "
-        "summed, leading to the total amount for that tax. If you "
+        "summed up, leading to the total amount for that tax. If you "
         "select 'Round globally': for each tax, the tax amount will "
         "be computed for each PO/SO/invoice line, then these amounts"
-        " will be summed and eventually this total tax amount will "
+        " will be summed up and eventually this total tax amount will "
         "be rounded. If you sell with tax included, you should "
         "choose 'Round per line' because you certainly want the sum "
         "of your tax-included line subtotals to be equal to the "
@@ -36,7 +37,7 @@ class RoundingByCurrency(models.Model):
 
     _sql_constraints = [
         ('currency_id_uniq_per_company', 'unique (currency_id, company_id)',
-            'Currency must be unique per Company!'),
+            'Currency must be unique per Company'),
     ]
 
 

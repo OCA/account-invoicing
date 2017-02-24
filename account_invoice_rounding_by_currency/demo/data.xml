@@ -3,11 +3,11 @@
     <data noupdate="1">
 
         <record id="tax_code_10" model="account.tax.code">
-            <field name="name">IVA a credito 10%</field>
+            <field name="name">Credit VAT 10%</field>
         </record>
 
         <record id="tax_base_code_10" model="account.tax.code">
-            <field name="name">IVA a credito 10% (imponibile)</field>
+            <field name="name">Credit VAT 10% (base)</field>
         </record>
 
         <record id="tax_10" model="account.tax">
@@ -39,7 +39,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="type">out_invoice</field>
             <field name="account_id" ref="account.a_pay"/>
-            <field name="date_invoice" eval="'2015-10-07'"/>
+            <field name="date_invoice" eval="time.strftime('%Y')+'-10-07'"/>
             <field name="partner_id" ref="base.res_partner_12"/>
         </record>
 
@@ -64,7 +64,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="type">out_invoice</field>
             <field name="account_id" ref="account.a_pay"/>
-            <field name="date_invoice" eval="'2015-10-07'"/>
+            <field name="date_invoice" eval="time.strftime('%Y')+'-10-07'"/>
             <field name="partner_id" ref="base.res_partner_12"/>
         </record>
 
@@ -88,7 +88,7 @@
             <field name="company_id" ref="base.main_company"/>
             <field name="type">out_invoice</field>
             <field name="account_id" ref="account.a_pay"/>
-            <field name="date_invoice" eval="'2015-10-07'"/>
+            <field name="date_invoice" eval="time.strftime('%Y')+'-10-07'"/>
             <field name="partner_id" ref="base.res_partner_12"/>
         </record>
 

@@ -2,21 +2,21 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-===================================================
-Unit rounded invoice (Swedish rounding) by currency
-===================================================
+================================================
+Unit rounded invoice (Cash Rounding) by currency
+================================================
 
 This module extends functionality of module `Unit rounded invoice <https://github.com/OCA/account-invoicing/tree/8.0/account_invoice_rounding>`_.
 
 It allows to set, in accounting settings, a rounding precision for each currency,
-such as 0.05 CHF for Swiss invoices
+such as 0.05 CHF for Swiss invoices.
+
 
 Configuration
 =============
 
-In Settings -> Configuration -> Accounting you will find
-Currencies Rounding Rules
-Set currency rule for each currency you need to handle.
+#. in Settings > Configuration > Accounting, check Currencies Rounding Rules
+#. Set currency rule for each currency you need to handle:
 
 - `Swedish Round globally`
 
@@ -25,9 +25,9 @@ Set currency rule for each currency you need to handle.
 
 - `Swedish Round by adding an invoice line`
 
-  To round your invoice total amount, this option create a invoice line without
-  taxes on it. This invoice line is tagged as `is_rounding`
-
+  To round your invoice total amount, this option will create a invoice line without
+  taxes on it.
+  This invoice line is tagged as `is_rounding`
 
 
 Usage

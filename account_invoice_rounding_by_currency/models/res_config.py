@@ -14,8 +14,7 @@ class AccountConfigSettings(models.TransientModel):
         'res.company', 'Company', required=True, default=_default_company)
     currency_rounding_rules = fields.One2many(
         related='company_id.currency_rounding_rules',
-        string='Rounding Rule',
-        domain=[('type', '<>', 'view')])
+        string='Rounding Rule')
 
     def onchange_company_id(self, cr, uid, ids, company_id, context=None):
         res = super(AccountConfigSettings, self
