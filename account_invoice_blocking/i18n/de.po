@@ -4,13 +4,14 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2016
+# Rudolf Schnapka <rs@techno-flex.de>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-13 10:33+0000\n"
-"PO-Revision-Date: 2016-11-13 10:33+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
+"POT-Creation-Date: 2017-02-18 04:00+0000\n"
+"PO-Revision-Date: 2017-02-18 04:00+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>, 2017\n"
 "Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,9 +28,10 @@ msgstr "Rechnung"
 #: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice_blocked
 #: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice_draft_blocked
 msgid "No Follow-up"
-msgstr ""
+msgstr "Nicht Mahnen"
 
 #. module: account_invoice_blocking
 #: model:ir.model.fields,help:account_invoice_blocking.field_account_invoice_draft_blocked
 msgid "This flag facilitates the blocking of the invoice's move lines."
 msgstr ""
+"Dieses Kennzeichen ermöglicht die Sperre von Buchungsposten der Rechnung."
