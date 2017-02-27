@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-from openerp import models, fields
+from openerp import models, fields, api
 
 
 class account_invoice(models.Model):
@@ -35,3 +35,19 @@ class account_invoice(models.Model):
             'sent': [('readonly', False)]
         },
         help="Delivery address for current invoice.")
+
+    @api.onchange('partner_id')
+    def onchange_partner(self):
+	self.ensure_one()
+	if self.address_shipping_id:
+		return
+
+	delivery = None
+	for contact in self.partner_id.child_ids:
+		if contact.type == 'delivery':
+			delivery = contact
+
+	if not delivery:
+		return
+
+	self.address_shipping_id = delivery
