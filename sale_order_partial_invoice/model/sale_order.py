@@ -114,9 +114,9 @@ class SaleOrderLine(orm.Model):
             digits_compute=dp.get_precision('Product UoS'),
             help="the quantity of product from this line already invoiced"),
         'qty_delivered': fields.function(
-            field_qty_delivered, string='Invoiced Quantity', type='float',
+            field_qty_delivered, string='Delivered Quantity', type='float',
             digits_compute=dp.get_precision('Product UoS'),
-            help="the quantity of product from this line already invoiced"),
+            help="the quantity of product from this line already delivered"),
         'invoiced': fields.function(
             _fnct_line_invoiced, string='Invoiced', type='boolean',
             store={
