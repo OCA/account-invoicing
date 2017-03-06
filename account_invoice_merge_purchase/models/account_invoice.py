@@ -16,24 +16,23 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def do_merge(self, keep_references=True, date_invoice=False):
-        invoices_info, invoice_lines_info = super(
-            AccountInvoice, self).do_merge(keep_references=keep_references,
-                                           date_invoice=date_invoice)
-        po_obj = self.env['purchase.order']
+        invoices_info = super(AccountInvoice, self).do_merge(
+            keep_references=keep_references,
+            date_invoice=date_invoice,
+        )
+        invoice_line_obj = self.env['account.invoice.line']
+        todos = self.env['purchase.order']
         for new_invoice_id in invoices_info:
-            todos = po_obj.search(
-                [('invoice_ids', 'in', invoices_info[new_invoice_id])])
-            todos.write({'invoice_ids': [(4, new_invoice_id)]})
-            for org_po in todos:
-                for po_line in org_po.order_line:
-                    org_ilines = po_line.mapped('invoice_lines')
-                    invoice_line_ids = []
-                    for org_iline in org_ilines:
-                        invoice_line_ids.append(
-                            invoice_lines_info[
-                                new_invoice_id][org_iline.id])
-                    po_line.write(
-                        {'invoice_lines': [(6, 0, invoice_line_ids)]})
-                    for stock_move in po_line.move_ids:
-                        stock_move.invoice_state = 'invoiced'
+            for invoice in self:
+                todos |= invoice.invoice_line_ids.mapped('purchase_id')
+                todos.write({'invoice_ids': [(4, new_invoice_id)]})
+                for org_po in todos:
+                    for po_line in org_po.order_line:
+                        invoice_line_ids = invoice_line_obj.search(
+                            [('product_id', '=', po_line.product_id.id),
+                             ('invoice_id', '=', new_invoice_id)])
+                        if invoice_line_ids:
+                            po_line.write(
+                                {'invoice_lines': [
+                                    (6, 0, invoice_line_ids.ids)]})
         return invoices_info

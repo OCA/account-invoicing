@@ -1,168 +1,112 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of account_invoice_merge_purchase,
-#     an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     account_invoice_merge_purchase is free software:
-#     you can redistribute it and/or modify it under the terms of the GNU
-#     Affero General Public License as published by the Free Software
-#     Foundation,either version 3 of the License, or (at your option) any
-#     later version.
-#
-#     account_invoice_merge_purchase is distributed
-#     in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
-#     even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-#     PURPOSE.  See the GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the GNU Affero General Public License
-#     along with account_invoice_merge_purchase.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
+# Copyright 2009-2016 Noviat
+# Copyright 2017 Tecnativa - Vicent Cubells
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.tests import common
-from openerp import workflow
 from datetime import datetime
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp.tests.common import SavepointCase
 
 
-def create_simple_po(self, partner, invoice_method):
-    vals = {'partner_id': partner.id,
-            'invoice_method': invoice_method,
-            'location_id': self.ref('stock.stock_location_stock'),
-            'pricelist_id': self.ref('purchase.list0'),
-            'order_line': [(0, 0, {'name': 'test',
-                                   'date_planned': datetime.today(),
-                                   'price_unit': 10,
-                                   })]
+class TestAccountInvoiceMergePurchase(SavepointCase):
+    @classmethod
+    def setUpClass(cls):
+        super(TestAccountInvoiceMergePurchase, cls).setUpClass()
+        cls.invoice_model = cls.env['account.invoice']
+        cls.purchase_model = cls.env['purchase.order']
+        cls.partner = cls.env['res.partner'].create({
+            'name': 'Test Partner',
+        })
+        cls.product = cls.env['product.product'].create(
+            {
+                'name': 'Product test',
+                'type': 'product',
+                'default_code': 'PROD1',
+                'uom_po_id': 1,
             }
-    return self.po_obj.create(vals)
-
-
-def pay_invoice(self, invoice):
-    aml = self.aml_obj.search(
-        [('account_id.type', 'in', ['payable', 'receivable']),
-         ('invoice.id', '=', invoice.id)])
-    ctx = self.context.copy()
-    ctx.update({'active_ids': [aml.id]})
-    writeoff = self.writeoff_obj.with_context(active_ids=[aml.id]).create(
-        {'journal_id': self.journal01.id,
-         'writeoff_acc_id': self.account01.id})
-    writeoff.trans_rec_reconcile()
-
-
-def invoice_picking(self, picking):
-    wizard = self.invoice_picking_wiz.with_context(active_ids=[picking.id])\
-        .create({})
-    return wizard.with_context(active_ids=[picking.id]).create_invoice()
-
-
-class TestAccountInvoiceMergePurchase(common.TransactionCase):
-
-    def setUp(self):
-        super(TestAccountInvoiceMergePurchase, self).setUp()
-        self.partner01 = self.env.ref('base.res_partner_1')
-        self.context = self.env['res.users'].context_get()
-        self.po_obj = self.env['purchase.order']
-        self.inv_obj = self.env['account.invoice']
-        self.aml_obj = self.env['account.move.line']
-        self.journal01 = self.env.ref('account.miscellaneous_journal')
-        self.account01 = self.env.ref('account.a_pay')
-        self.writeoff_obj = self.env['account.move.line.reconcile.writeoff']
-        self.picking_obj = self.env['stock.picking']
-        self.invoice_picking_wiz = self.env['stock.invoice.onshipping']
-
-    def test_order_multi_purchase_order(self):
-        purchase_order01 = create_simple_po(self, self.partner01, 'order')
-        # I confirm the purchase order
-        workflow.trg_validate(self.uid, 'purchase.order',
-                              purchase_order01.id, 'purchase_confirm',
-                              self.cr)
-        # I check if the purchase order is confirmed
-        purchase_order01.invalidate_cache()
-        self.assertEqual(purchase_order01.state, 'approved',
-                         "Purchase order's state isn't correct")
-        invoice_ids = purchase_order01.invoice_ids.ids
-        purchase_order02 = purchase_order01.copy()
-        # I confirm the second purchase order
-        workflow.trg_validate(self.uid, 'purchase.order',
-                              purchase_order02.id, 'purchase_confirm',
-                              self.cr)
-        # I check if the purchase order is confirmed
-        purchase_order02.invalidate_cache()
-        self.assertEqual(purchase_order02.state, 'approved',
-                         "Purchase order's state isn't correct")
-        invoice_ids.extend(purchase_order02.invoice_ids.ids)
-        invoices = self.inv_obj.browse(invoice_ids)
-        invoices_info = invoices.do_merge()
-        new_invoice_ids = invoices_info.keys()
-        # Ensure there is only one new invoice
-        self.assertEqual(len(new_invoice_ids), 1)
-        # I post the created invoice
-        workflow.trg_validate(self.uid, 'account.invoice', new_invoice_ids[0],
-                              'invoice_open', self.cr)
-        # I pay the merged invoice
-        invoice = self.inv_obj.browse(new_invoice_ids)[0]
-        pay_invoice(self, invoice)
-        # I check if merge invoice is paid
-        self.assertEqual(invoice.state, 'paid')
-        purchase_order01.invalidate_cache()
-        # I check if purchase order are done
-        self.assertEqual(purchase_order01.state, 'done')
-        self.assertEqual(purchase_order02.state, 'done')
+        )
 
     def test_picking_multi_purchase_order(self):
-        purchase_order01 = self.env.ref('purchase.purchase_order_1')
-        # I set the invoice method to picking
-        purchase_order01.invoice_method = 'picking'
+        po_vals = {
+            'partner_id': self.partner.id,
+            'order_line': [
+                (0, 0, {
+                    'name': self.product.name,
+                    'product_id': self.product.id,
+                    'product_qty': 7.0,
+                    'product_uom': self.product.uom_po_id.id,
+                    'price_unit': 500.0,
+                    'date_planned': datetime.today().strftime(
+                        DEFAULT_SERVER_DATETIME_FORMAT),
+                })],
+        }
+        self.purchase_order = self.purchase_model.create(po_vals)
         # I confirm the purchase order
-        workflow.trg_validate(self.uid, 'purchase.order',
-                              purchase_order01.id, 'purchase_confirm',
-                              self.cr)
-        # I check if the purchase order is confirmed
-        purchase_order01.invalidate_cache()
-        self.assertEqual(purchase_order01.state, 'approved',
-                         "Purchase order's state isn't correct")
+        self.purchase_order.button_confirm()
+        self.assertEqual(self.purchase_order.state, 'purchase',
+                         'Purchase: PO state should be "Purchase"')
+        self.assertEqual(
+            self.purchase_order.invoice_status, 'to invoice',
+            'Purchase: PO invoice_status should be "Waiting Invoices"')
         # I check if there is a picking
-        self.assertEqual(len(purchase_order01.picking_ids.ids), 1)
-        picking01 = purchase_order01.picking_ids[0]
-        # I transfer the picking
-        picking01.do_transfer()
-        invoice_ids = invoice_picking(self, picking01)
+        self.assertEqual(self.purchase_order.picking_count, 1,
+                         'Purchase: one picking should be created"')
+        # I receive picking order
+        self.picking01 = self.purchase_order.picking_ids[0]
+        self.picking01.force_assign()
+        self.picking01.pack_operation_product_ids.write({'qty_done': 7.0})
+        self.picking01.do_new_transfer()
+        self.assertEqual(self.purchase_order.order_line.mapped('qty_received'),
+                         [7.0],
+                         'Purchase: all products should be received"')
+        # I create invoice
+        self.invoice01 = self.invoice_model.create({
+            'partner_id': self.partner.id,
+            'purchase_id': self.purchase_order.id,
+            'account_id': self.partner.property_account_payable_id.id,
+        })
+        self.invoice01.purchase_order_change()
 
-        purchase_order02 = purchase_order01.copy()
-        # I set the invoice method to picking
-        purchase_order02.invoice_method = 'picking'
+        # I create the second purchase order
+        self.purchase_order02 = self.purchase_order.copy()
         # I confirm the second purchase order
-        workflow.trg_validate(self.uid, 'purchase.order',
-                              purchase_order02.id, 'purchase_confirm',
-                              self.cr)
-        # I check if the purchase order is confirmed
-        purchase_order02.invalidate_cache()
-        self.assertEqual(purchase_order02.state, 'approved',
-                         "Purchase order's state isn't correct")
+        self.purchase_order02.button_confirm()
+        self.assertEqual(self.purchase_order02.state, 'purchase',
+                         'Purchase: PO state should be "Purchase"')
+        self.assertEqual(
+            self.purchase_order02.invoice_status, 'to invoice',
+            'Purchase: PO invoice_status should be "Waiting Invoices"')
         # I check if there is a picking
-        self.assertEqual(len(purchase_order02.picking_ids.ids), 1)
-        picking02 = purchase_order02.picking_ids[0]
-        # I transfer the picking
-        picking02.do_transfer()
-        invoice_ids.extend(invoice_picking(self, picking02))
-        invoices = self.inv_obj.browse(invoice_ids)
+        self.assertEqual(self.purchase_order02.picking_count, 1,
+                         'Purchase: one picking should be created"')
+        # I receive picking order
+        self.picking02 = self.purchase_order02.picking_ids[0]
+        self.picking02.force_assign()
+        self.picking02.pack_operation_product_ids.write({'qty_done': 7.0})
+        self.picking02.do_new_transfer()
+        self.assertEqual(
+            self.purchase_order02.order_line.mapped('qty_received'),
+            [7.0],
+            'Purchase: all products should be received"')
+        # I create the second invoice
+        self.invoice02 = self.invoice_model.create({
+            'partner_id': self.partner.id,
+            'purchase_id': self.purchase_order02.id,
+            'account_id': self.partner.property_account_payable_id.id,
+        })
+        self.invoice02.purchase_order_change()
+        invoices = self.invoice01 + self.invoice02
         invoices_info = invoices.do_merge()
         new_invoice_ids = invoices_info.keys()
         # Ensure there is only one new invoice
         self.assertEqual(len(new_invoice_ids), 1)
-        # I post the created invoice
-        workflow.trg_validate(self.uid, 'account.invoice', new_invoice_ids[0],
-                              'invoice_open', self.cr)
         # I pay the merged invoice
-        invoice = self.inv_obj.browse(new_invoice_ids)[0]
-        pay_invoice(self, invoice)
+        invoice = self.invoice_model.browse(new_invoice_ids)[0]
+        # I validate invoice by creating on
+        invoice.signal_workflow('invoice_open')
+        invoice.pay_and_reconcile(
+            self.env['account.journal'].search([('type', '=', 'bank')],
+                                               limit=1), 7000.0)
         # I check if merge invoice is paid
         self.assertEqual(invoice.state, 'paid')
-        purchase_order01.invalidate_cache()
-        # I check if purchase order are done
-        self.assertEqual(purchase_order01.state, 'done')
-        self.assertEqual(purchase_order02.state, 'done')
