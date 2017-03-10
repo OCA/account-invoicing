@@ -30,6 +30,7 @@ class account_invoice(models.Model):
             'partner_id': self.partner_id.id,
             'date_invoice': self.date_invoice,
             'internal_number': self.number,
+            'type': self.type,
         }
 
         # fiscal position

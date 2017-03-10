@@ -12,7 +12,7 @@
               "Agile Business Group, "
               "Odoo Community Association (OCA)",
     'license': 'AGPL-3',
-    'depends': ['account'],
+    'depends': ['account', 'base_bypass_record_rules_by_context'],
     'data': [
         'security/ir.model.access.csv',
         'views/account_fiscal_position.xml'
