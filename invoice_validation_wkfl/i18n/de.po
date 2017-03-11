@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-18 00:22+0000\n"
+"POT-Creation-Date: 2017-03-04 00:13+0000\n"
 "PO-Revision-Date: 2015-06-03 04:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: German (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/de/)\n"
@@ -35,7 +35,7 @@ msgstr ""
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Print"
-msgstr ""
+msgstr "Drucke"
 
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
@@ -143,7 +143,7 @@ msgstr ""
 #. module: invoice_validation_wkfl
 #: view:account.invoice:0
 msgid "Reset to Draft"
-msgstr ""
+msgstr "Auf Entwurf zurücksetzen"
 
 #. module: invoice_validation_wkfl
 #: model:ir.model,name:invoice_validation_wkfl.model_account_invoice
