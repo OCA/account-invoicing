@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-28 21:51+0000\n"
-"PO-Revision-Date: 2016-12-01 16:34+0000\n"
+"POT-Creation-Date: 2017-02-04 00:18+0000\n"
+"PO-Revision-Date: 2017-03-09 10:22+0000\n"
 "Last-Translator: Bruno JOLIVEAU\n"
 "Language-Team: French (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,7 @@ msgstr "Avoir"
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 msgid "Reset to Draft"
-msgstr ""
+msgstr "Remettre en Brouillon"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_supplier_form_validation_wkfl
