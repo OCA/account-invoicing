@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
-        <record id="view_invoice_merge" model="ir.ui.view">
-            <field name="name">Merger Partner Invoice</field>
-            <field name="model">invoice.merge</field>
-            <field name="arch" type="xml">
-                <form string="Merge Partner Invoice" version="7.0">
-                    <group>
-                        <separator
-                            string="Are you sure you want to merge these invoices ?"
-                            colspan="4" />
-                        <p>
-Please note that:<br/><br/>
-Invoices will only be merged if:<br/>
-* Invoices are in draft<br/>
-* Invoices belong to the same partner<br/>
-* Invoices are have same company, partner, address, currency, journal, salesman, account, type<br/><br/>
-Lines will only be merged if:<br/>
-* Invoice lines are exactly the same except for the product,quantity and unit<br/>
-                            </p>
-                    </group>
-                    <group name="options">
-                        <field name="keep_references"/>
-                        <field name="date_invoice"/>
-                    </group>
-                    <footer>
-                        <button name="merge_invoices" string="Merge Invoices"
-                            type="object" class="oe_highlight" />
-                        or
-                        <button string="Cancel" class="oe_link"
-                            special="cancel" />
-                    </footer>
-                </form>
-            </field>
-        </record>
+<odoo>
 
-        <act_window name="Merge Partner Invoice" res_model="invoice.merge"
-            src_model="account.invoice" view_mode="form" target="new"
-            multi="True" key2="client_action_multi" id="action_view_invoice_merge" />
+    <record id="view_invoice_merge" model="ir.ui.view">
+        <field name="name">Merger Partner Invoice</field>
+        <field name="model">invoice.merge</field>
+        <field name="arch" type="xml">
+            <form string="Merge Partner Invoice">
+                <group>
+                    <separator
+                        string="Are you sure you want to merge these invoices?"
+                        colspan="4" />
+                    <p>
+                        Please note that:<br/><br/>
+                        Invoices will only be merged if:<br/>
+                        * Invoices are in state 'draft'.<br/>
+                        * Invoices belong to the same partner.<br/>
+                        * Invoices have the same company, partner, address,
+                        currency, journal, salesman, account and type.<br/><br/>
+                        Lines will only be merged if:<br/>
+                        * Invoice lines are exactly the same except for the
+                        product, quantity and unit.<br/>
+                    </p>
+                </group>
+                <group name="options">
+                    <field name="keep_references"/>
+                    <field name="date_invoice"/>
+                </group>
+                <footer>
+                    <button name="merge_invoices" string="Merge Invoices"
+                        type="object" class="oe_highlight" />
+                    or
+                    <button string="Cancel" class="oe_link"
+                        special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
 
-    </data>
-</openerp>
+    <act_window name="Merge Partner Invoice" res_model="invoice.merge"
+        src_model="account.invoice" view_mode="form" target="new"
+        multi="True" key2="client_action_multi" id="action_view_invoice_merge" />
+
+</odoo>
 
