@@ -3,14 +3,14 @@
 # * account_invoice_merge
 # 
 # Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2016
+# OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-09 03:38+0000\n"
-"PO-Revision-Date: 2016-12-09 03:38+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
+"POT-Creation-Date: 2017-11-23 13:51+0000\n"
+"PO-Revision-Date: 2017-11-23 13:51+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Ukrainian (https://www.transifex.com/oca/teams/23907/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,11 +20,11 @@ msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
-msgid "Are you sure you want to merge these invoices ?"
+msgid "Are you sure you want to merge these invoices?"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:31
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:34
 #, python-format
 msgid "At least one of the selected invoices is %s!"
 msgstr ""
@@ -42,7 +42,7 @@ msgstr "Створив"
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_create_date
 msgid "Created on"
-msgstr "Дата створення"
+msgstr "Створено"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_display_name
@@ -77,12 +77,12 @@ msgstr "Остання модифікація"
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_uid
 msgid "Last Updated by"
-msgstr "Востаннє оновив"
+msgstr "Востаннє відредаговано"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_date
 msgid "Last Updated on"
-msgstr "Останнє оновлення"
+msgstr "Дата останньої зміни"
 
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -97,37 +97,37 @@ msgid "Merge Partner Invoice"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:38
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:41
 #, python-format
 msgid "Not all invoices are at the same company!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:47
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:50
 #, python-format
 msgid "Not all invoices are at the same currency!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:50
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:53
 #, python-format
 msgid "Not all invoices are at the same journal!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:41
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:44
 #, python-format
 msgid "Not all invoices are for the same partner!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:44
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:47
 #, python-format
 msgid "Not all invoices are of the same type!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:35
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:38
 #, python-format
 msgid "Not all invoices use the same account!"
 msgstr ""
@@ -136,18 +136,20 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid ""
 "Please note that:<br/><br/>\n"
-"Invoices will only be merged if:<br/>\n"
-"* Invoices are in draft<br/>\n"
-"* Invoices belong to the same partner<br/>\n"
-"* Invoices are have same company, partner, address, currency, journal, salesman, account, type<br/><br/>\n"
-"Lines will only be merged if:<br/>\n"
-"* Invoice lines are exactly the same except for the product,quantity and unit<br/>"
+"                        Invoices will only be merged if:<br/>\n"
+"                        * Invoices are in state 'draft'.<br/>\n"
+"                        * Invoices belong to the same partner.<br/>\n"
+"                        * Invoices have the same company, partner, address,\n"
+"                        currency, journal, salesman, account and type.<br/><br/>\n"
+"                        Lines will only be merged if:<br/>\n"
+"                        * Invoice lines are exactly the same except for the\n"
+"                        product, quantity and unit.<br/>"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:24
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:27
 #, python-format
-msgid "Please select multiple invoice to merge in the list view."
+msgid "Please select multiple invoices to merge in the list view."
 msgstr ""
 
 #. module: account_invoice_merge
