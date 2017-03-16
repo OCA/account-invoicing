@@ -41,7 +41,7 @@ class AccountInvoice(models.Model):
             'product_id', 'account_id', 'account_analytic_id',
             'uom_id'
         ]
-        for field in ['analytics_id']:
+        for field in ['analytics_id', 'sale_line_ids']:
             if field in self.env['account.invoice.line']._fields:
                 fields.append(field)
         return fields
@@ -96,12 +96,11 @@ class AccountInvoice(models.Model):
                     if not field_val:
                         field_val = False
                 if (isinstance(field_val, browse_record) and
-                        field != 'invoice_line_tax_ids'):
+                        (field not in ('invoice_line_tax_ids', 'sale_line_ids'))):
                     field_val = field_val.id
                 elif isinstance(field_val, browse_null):
                     field_val = False
-                elif (isinstance(field_val, list) or
-                        field == 'invoice_line_tax_ids'):
+                elif isinstance(field_val, list) or field in ('invoice_line_tax_ids', 'sale_line_ids'):
                     field_val = ((6, 0, tuple([v.id for v in field_val])),)
                 list_key.append((field, field_val))
             list_key.sort()
@@ -206,26 +205,6 @@ class AccountInvoice(models.Model):
                 workflow.trg_validate(
                     self.env.uid, 'account.invoice', old_id, 'invoice_cancel',
                     self.env.cr)
-
-        # make link between original sale order or purchase order
-        # None if sale is not installed
-        so_obj = self.env['sale.order'] \
-            if 'sale.order' in self.env.registry else False
-        invoice_line_obj = self.env['account.invoice.line']
-        # None if purchase is not installed
-        for new_invoice_id in invoices_info:
-            if so_obj:
-                todos = so_obj.search(
-                    [('invoice_ids', 'in', invoices_info[new_invoice_id])])
-                todos.write({'invoice_ids': [(4, new_invoice_id)]})
-                for org_so in todos:
-                    for so_line in org_so.order_line:
-                        invoice_line_ids = invoice_line_obj.search(
-                            [('product_id', '=', so_line.product_id.id),
-                             ('invoice_id', '=', new_invoice_id)])
-                        if invoice_line_ids:
-                            so_line.write(
-                                {'invoice_lines': [(6, 0, invoice_line_ids)]})
 
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
