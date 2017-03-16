@@ -5,7 +5,7 @@
 from openerp import fields, models, _
 
 
-class account_fiscal_agent_tax(models.Model):
+class AccountFiscalAgentTax(models.Model):
     '''
         This Model is created to store the Agent Taxes
     '''
@@ -25,7 +25,7 @@ class account_fiscal_agent_tax(models.Model):
     ]
 
 
-class account_fiscal_agent_account(models.Model):
+class AccountFiscalAgentAccount(models.Model):
     '''
         This Model is created to store the Agent Accounts
     '''
@@ -49,7 +49,7 @@ class account_fiscal_agent_account(models.Model):
     ]
 
 
-class account_fiscal_agent_journal(models.Model):
+class AccountFiscalAgentJournal(models.Model):
     '''
         This Model is created to store the Agent Journals
     '''

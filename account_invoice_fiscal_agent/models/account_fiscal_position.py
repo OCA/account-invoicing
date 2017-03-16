@@ -7,7 +7,7 @@ from openerp.exceptions import Warning as UserError
 from openerp.tools.translate import _
 
 
-class account_fiscal_position(models.Model):
+class AccountFiscalPosition(models.Model):
     _inherit = 'account.fiscal.position'
 
     def map_agent_account(self, account):

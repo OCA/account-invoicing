@@ -5,7 +5,7 @@
 from openerp import api, fields, models
 
 
-class account_invoice(models.Model):
+class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     agent_invoice_id = fields.Many2one(
@@ -51,11 +51,22 @@ class account_invoice(models.Model):
             self.fiscal_position.map_agent_journal(self.journal_id)
         agent_journal = self.env['account.journal'].sudo().browse(
             agent_journal.id)
+        currency_id = None
+        currency_model = self.env['res.currency']
+        if self.currency_id:
+            if not self.currency_id.company_id:
+                currency_id = self.currency_id.id
+            else:
+                # When every company has their currencies, assume they have the
+                # same name. (EUR in company A is EUR in company B)
+                currency_model.search([
+                    ('name', '=', self.currency_id.name),
+                    ('company_id', '=', fiscal_agent_company.id)
+                ])
         agent_invoice_vals.update({
             'journal_id': agent_journal.id,
             'currency_id': (
-                agent_journal.currency.id or
-                fiscal_agent_company.currency_id.id
+                currency_id or fiscal_agent_company.currency_id.id
             ),
         })
 
@@ -118,7 +129,7 @@ class account_invoice(models.Model):
 
     @api.multi
     def action_move_create(self):
-        res = super(account_invoice, self).action_move_create()
+        res = super(AccountInvoice, self).action_move_create()
         for inv in self:
             if (
                     inv.fiscal_position and
@@ -132,7 +143,7 @@ class account_invoice(models.Model):
 
     @api.multi
     def action_cancel(self):
-        super(account_invoice, self).action_cancel()
+        super(AccountInvoice, self).action_cancel()
         invoice_model = self.env['account.invoice']
         for rec in self:
             if rec.agent_invoice_id:
@@ -143,7 +154,7 @@ class account_invoice(models.Model):
 
     @api.multi
     def action_cancel_draft(self):
-        super(account_invoice, self).action_cancel_draft()
+        super(AccountInvoice, self).action_cancel_draft()
         invoice_model = self.env['account.invoice']
         for rec in self:
             if rec.agent_invoice_id:
