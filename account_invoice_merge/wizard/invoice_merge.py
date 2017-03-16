@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
-# © 2010-2011 Elico Corp. All Rights Reserved.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# Copyright 2004-2010 Tiny SPRL (http://tiny.be).
+# Copyright 2010-2011 Elico Corp.
+# Copyright 2016 Acsone (https://www.acsone.eu/)
+# Copyright 2017 Eficent Business and IT Consulting Services S.L.
+#   (http://www.eficent.com)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api, exceptions
-from openerp.tools.translate import _
+from odoo import api, exceptions, fields, models
+from odoo.tools.translate import _
 
 
 class InvoiceMerge(models.TransientModel):
     _name = "invoice.merge"
     _description = "Merge Partner Invoice"
 
-    keep_references = fields.Boolean('Keep references'
-                                     ' from original invoices',
+    keep_references = fields.Boolean('Keep references from original invoices',
                                      default=True)
     date_invoice = fields.Date('Invoice Date')
 
@@ -21,7 +24,7 @@ class InvoiceMerge(models.TransientModel):
             ids = self.env.context['active_ids']
             if len(ids) < 2:
                 raise exceptions.Warning(
-                    _('Please select multiple invoice to merge in the list '
+                    _('Please select multiple invoices to merge in the list '
                       'view.'))
 
             invs = self.env['account.invoice'].browse(ids)
