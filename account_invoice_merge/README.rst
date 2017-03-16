@@ -2,14 +2,14 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==============
-Merge invoices
-==============
+=====================
+Account Invoice Merge
+=====================
 
 This module adds an action in the invoices list to merge invoices. Here are
 the conditions to allow merging:
 
-* Type should be the same (customer Invoice, supplier invoice, Customer or
+* Type should be the same (Customer Invoice, Supplier Invoice, Customer Refund or
   Supplier Refund)
 * Partner should be the same
 * Currency should be the same
@@ -18,9 +18,12 @@ the conditions to allow merging:
 Usage
 =====
 
+Go to a invoice tree view, select several invoices and click expand the
+action button and click 'Merge Partner Invoice'.
+
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/95/9.0
+   :target: https://runbot.odoo-community.org/runbot/95/10.0
 
 Bug Tracker
 ===========
@@ -38,6 +41,8 @@ Contributors
 
 * Ian Li <ian.li@elico-corp.com>
 * Cédric Pigeon <cedric.pigeon@acsone.eu>
+* Lois Rilo <lois.rilo@eficent.com>
+* Miquel Raïch <miquel.raich@eficent.com>
 
 Maintainer
 ----------
