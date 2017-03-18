@@ -27,8 +27,7 @@
         Adds a shipping address field to the invoice.""",
     "version": "8.0.0.1.1",
     'category': 'Generic Modules/Accounting',
-    "depends": ["account", "sale", "sale_stock",
-                "stock_transport_multi_address"],
+    "depends": ["account", "sale", "sale_stock",],
     "author": "Andrea Cometa, Agile Business Group,"
               "Odoo Community Association (OCA)",
     'website': 'http://www.andreacometa.it',
