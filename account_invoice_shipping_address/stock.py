@@ -30,7 +30,8 @@ class StockPicking(models.Model):
         invoice_vals = super(StockPicking, self)._get_invoice_vals(
             key, inv_type, journal_id, move)
         if move and move.partner_id:
-            if 'delivery_address_id' in self.pool['stock.picking']._fields:
+            # this field is provided by stock_transport_multi_address module
+            if 'delivery_address_id' in self.pool.env['stock.picking']._fields:
                 invoice_vals[
                     'address_shipping_id'] = move.picking_id.delivery_address_id.id
             else:
