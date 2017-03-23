@@ -25,7 +25,7 @@
                 </td>
                 <t t-set="subtotal" t-value="0.0"/>
             </tr>
-            <tr>
+            <tr t-if="picking_info">
                 <td colspan="10">
                     <strong t-esc="picking_info"/>
                 </td>
