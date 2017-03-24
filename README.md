@@ -21,11 +21,13 @@ addon | version | summary
 [account_invoice_check_total](account_invoice_check_total/) | 9.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 9.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_merge](account_invoice_merge/) | 9.0.1.0.0 | Account Invoice Merge Wizard
+[account_invoice_merge_purchase](account_invoice_merge_purchase/) | 9.0.1.0.0 | Compatibility between purchase and account invoice merge
 [account_invoice_refund_link](account_invoice_refund_link/) | 9.0.1.0.0 | Link refund invoice with its original invoice
 [account_invoice_refund_option](account_invoice_refund_option/) | 9.0.1.0.0 | Allows you to create directly a refund without starting from an invoice
 [account_invoice_rounding](account_invoice_rounding/) | 9.0.1.0.0 | Unit rounded invoice
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 9.0.1.0.0 | Checks that supplier invoices are not entered twice
 [account_payment_term_extension](account_payment_term_extension/) | 9.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
+[purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 9.0.1.0.0 | Add an option to refund returned pickings
 [sale_stock_picking_return_invoicing](sale_stock_picking_return_invoicing/) | 9.0.1.0.0 | Add an option to refund return pickings
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 9.0.1.0.0 | Add timesheet details in invoice line
 
@@ -39,7 +41,6 @@ addon | version | summary
 [account_invoice_line_description](account_invoice_line_description/) | 8.0.1.0.0 (unported) | Account invoice line description
 [account_invoice_line_sort](account_invoice_line_sort/) | 8.0.0.1.0 (unported) | Manage sort of customer invoice lines by customers
 [account_invoice_merge_payment](account_invoice_merge_payment/) | 8.0.0.1.0 (unported) | Use invoice merge regarding fields on Account Payment Partner
-[account_invoice_merge_purchase](account_invoice_merge_purchase/) | 8.0.1.0.0 (unported) | Compatibility between purchase and account invoice merge
 [account_invoice_partner](account_invoice_partner/) | 8.0.0.2.0 (unported) | Automatically select invoicing partner on invoice
 [account_invoice_period_usability](account_invoice_period_usability/) | 8.0.1.0.0 (unported) | Display in the supplier invoice form the fiscal period next to the invoice date
 [account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.0.0 (unported) | Add partner pricelist on invoices
