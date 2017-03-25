@@ -13,6 +13,7 @@ This project aim to deal with modules related to manage invoicing in a generic w
  - ...
 
 [//]: # (addons)
+
 Available addons
 ----------------
 addon | version | summary
@@ -22,7 +23,7 @@ addon | version | summary
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 9.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_merge](account_invoice_merge/) | 9.0.1.0.0 | Account Invoice Merge Wizard
 [account_invoice_merge_purchase](account_invoice_merge_purchase/) | 9.0.1.0.0 | Compatibility between purchase and account invoice merge
-[account_invoice_refund_link](account_invoice_refund_link/) | 9.0.1.0.0 | Link refund invoice with its original invoice
+[account_invoice_refund_link](account_invoice_refund_link/) | 9.0.2.0.0 | Link refund invoice with its original invoice
 [account_invoice_refund_option](account_invoice_refund_option/) | 9.0.1.0.0 | Allows you to create directly a refund without starting from an invoice
 [account_invoice_rounding](account_invoice_rounding/) | 9.0.1.0.0 | Unit rounded invoice
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 9.0.1.0.0 | Checks that supplier invoices are not entered twice
