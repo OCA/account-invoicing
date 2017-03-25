@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-17 15:34+0000\n"
-"PO-Revision-Date: 2017-02-17 15:34+0000\n"
+"POT-Creation-Date: 2017-03-24 18:04+0000\n"
+"PO-Revision-Date: 2017-03-24 18:04+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #. module: account_invoice_refund_link
-#: code:addons/account_invoice_refund_link/hooks.py:34
+#: code:addons/account_invoice_refund_link/hooks.py:53
 #, python-format
 msgid "Auto"
 msgstr "Samodejno"
@@ -62,11 +62,6 @@ msgstr "Račun"
 #: model:ir.model,name:account_invoice_refund_link.model_account_invoice_line
 msgid "Invoice Line"
 msgstr "Postavka računa"
-
-#. module: account_invoice_refund_link
-#: model:ir.model,name:account_invoice_refund_link.model_account_invoice_refund
-msgid "Invoice Refund"
-msgstr "Dobropis"
 
 #. module: account_invoice_refund_link
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
