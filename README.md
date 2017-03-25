@@ -13,6 +13,7 @@ This project aim to deal with modules related to manage invoicing in a generic w
  - ...
 
 [//]: # (addons)
+
 Available addons
 ----------------
 addon | version | summary
