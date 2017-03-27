@@ -27,9 +27,13 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         res = []
         for line in self.invoice_line_ids:
-            pick = (line.sale_move_link_ids.mapped('move_id.picking_id') or
-                    line.sale_line_ids.mapped(
-                        'procurement_ids.move_ids.picking_id'))[:1]
+            pick = line.sale_move_link_ids.mapped('move_id.picking_id')[:1]
+            if not pick:
+                picks = line.sale_line_ids.mapped(
+                        'procurement_ids.move_ids.picking_id')
+                pick = picks.filtered(lambda x: (
+                    x.state == 'done' and
+                    line.product_id in x.move_lines.mapped('product_id')))[:1]
             order = line.sale_line_ids.order_id
             res.append({'line': line, 'picking': pick,
                         'order': order,
