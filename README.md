@@ -32,6 +32,7 @@ addon | version | summary
 [sale_stock_picking_return_invoicing](sale_stock_picking_return_invoicing/) | 9.0.1.0.0 | Add an option to refund return pickings
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 9.0.1.0.0 | Add timesheet details in invoice line
 
+
 Unported addons
 ---------------
 addon | version | summary
