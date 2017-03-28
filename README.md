@@ -24,6 +24,7 @@ addon | version | summary
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 10.0.1.0.0 | Checks that supplier invoices are not entered twice
 [account_payment_term_extension](account_payment_term_extension/) | 10.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
 
+
 Unported addons
 ---------------
 addon | version | summary
