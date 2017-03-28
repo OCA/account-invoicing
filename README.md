@@ -48,6 +48,7 @@ addon | version | summary
 [stock_picking_invoicing_incoterm_sale](stock_picking_invoicing_incoterm_sale/) | 8.0.1.0.0 | Copy incoterm from sale to invoice and to picking
 [stock_picking_invoicing_unified](stock_picking_invoicing_unified/) | 8.0.1.0.0 | Create invoices/refunds from pickings of different types
 
+
 Unported addons
 ---------------
 addon | version | summary
