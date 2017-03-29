@@ -5,18 +5,19 @@
 #   (<http://www.serpentcs.com>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-
 {
     'name': 'Invoice Analytic Search',
     'summary': 'Search invoices by analytic account or by project manager',
     'version': '9.0.1.0.0',
-    'author':   'Project Expert Team, '
-                'Eficent',
+    'author': 'Project Expert Team,'
+              'Eficent,'
+              'Odoo Community Association (OCA)',
     'contributors': [
         'Jordi Ballester <jordi.ballester@eficent.com>',
         'Matjaž Mozetič <m.mozetic@matmoz.si>',
     ],
     'website': 'http://project.expert',
+    'license': 'AGPL-3',
     'category': 'Project Management',
     'depends': ['analytic', 'account'],
     'data': [
@@ -25,6 +26,4 @@
     'test': [
     ],
     'installable': True,
-    'active': False,
-    'certificate': '',
 }
