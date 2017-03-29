@@ -14,7 +14,7 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     @api.depends('invoice_line_ids')
-    def _get_analytic_accounts(self):
+    def _compute_analytic_accounts(self):
         res = {}
         for invoice in self:
             for invoice_line in invoice.invoice_line_ids:
@@ -23,7 +23,7 @@ class AccountInvoice(models.Model):
         return res
 
     @api.depends('invoice_line_ids')
-    def _get_analytic_account_user_ids(self):
+    def _compute_analytic_account_user_ids(self):
         res = {}
         for invoice in self:
             res[invoice.id] = []
@@ -39,7 +39,7 @@ class AccountInvoice(models.Model):
     def _search_analytic_accounts(self, operator, value):
         invoice_line_obj = self.env['account.invoice.line']
         invoice_line_ids = invoice_line_obj.search(
-                [('account_analytic_id', operator, value)])
+            [('account_analytic_id', operator, value)])
         res = [('id', 'in', invoice_line_ids.ids)]
         return res or []
 
@@ -47,20 +47,20 @@ class AccountInvoice(models.Model):
     def _search_analytic_account_user_ids(self, operator, value):
         invoice_line_obj = self.env['account.invoice.line']
         invoice_line_ids = invoice_line_obj.search(
-                [('account_analytic_user_id', operator, value)])
+            [('account_analytic_user_id', operator, value)])
         res = [('id', 'in', invoice_line_ids.ids)]
         return res or []
 
     account_analytic_ids = fields.Many2many(
         comodel_name='account.invoice.line',
-        compute='_get_analytic_accounts',
+        compute='_compute_analytic_accounts',
         search='_search_analytic_accounts',
         string='Analytic Account',
         readonly=True
         )
     account_analytic_user_ids = fields.Many2many(
         comodel_name='res.users',
-        compute='_get_analytic_account_user_ids',
+        compute='_compute_analytic_account_user_ids',
         search='_search_analytic_account_user_ids',
         string='Project Manager',
         readonly=True
