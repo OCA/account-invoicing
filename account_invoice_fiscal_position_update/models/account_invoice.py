@@ -11,6 +11,12 @@ from openerp.exceptions import ValidationError
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    @api.onchange('partner_id', 'company_id')
+    def _onchange_partner_id(self):
+        ret = super(AccountInvoice, self)._onchange_partner_id()
+        self.onchange_fiscal_position_id()
+        return ret
+
     @api.onchange('fiscal_position_id')
     def onchange_fiscal_position_id(self):
         """Updates taxes and accounts on all invoice lines"""
