@@ -51,7 +51,8 @@ class PurchaseBatchInvoicing(models.TransientModel):
         pos = pos.filtered(lambda order: (
             sum(order.mapped("order_line.qty_invoiced")) <
             sum(order.mapped("order_line.qty_received"))))
-        domain[1] = ("id", "in", pos.ids)
+        if len(domain) > 1:
+            domain[1] = ("id", "in", pos.ids)
         return domain
 
     @api.multi
