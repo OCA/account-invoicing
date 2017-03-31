@@ -4,7 +4,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 import openerp.addons.decimal_precision as dp
 
 
@@ -13,8 +13,7 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
 
     _SELECTION_STATE = [
         ('new_supplierinfo', 'New Supplier Info'),
-        ('new_partnerinfo', 'New Partner Info'),
-        ('update_partnerinfo', 'Update Partner Info'),
+        ('update_supplierinfo', 'Update Supplier Info'),
     ]
 
     wizard_id = fields.Many2one(
@@ -25,16 +24,15 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
 
     supplierinfo_id = fields.Many2one(comodel_name='product.supplierinfo')
 
-    partnerinfo_id = fields.Many2one(comodel_name='pricelist.partnerinfo')
-
-    current_min_quantity = fields.Integer(
-        string='Current Min Quantity', readonly=True)
+    current_min_quantity = fields.Float(
+        related='supplierinfo_id.min_qty', readonly=True)
 
     new_min_quantity = fields.Float(
         string='New Min Quantity', required=True)
 
     current_price = fields.Float(
-        string='Current Unit Price', digits=dp.get_precision('Product Price'),
+        related='supplierinfo_id.price',
+        digits=dp.get_precision('Product Price'),
         readonly=True)
 
     new_price = fields.Float(
@@ -63,14 +61,6 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
             'product_tmpl_id': self.product_id.product_tmpl_id.id,
             'name': self.wizard_id.invoice_id.supplier_partner_id.id,
             'min_qty': 0.0,
-            'delay': 1,
-        }
-
-    @api.multi
-    def _prepare_partnerinfo(self, supplierinfo):
-        self.ensure_one()
-        return {
-            'suppinfo_id': supplierinfo.id,
-            'min_quantity': self.new_min_quantity,
             'price': self.new_price,
+            'delay': 1,
         }
