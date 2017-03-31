@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp><data>
+<odoo>
 
-    <record id="account_invoice_1" model="account.invoice">
+    <!-- <record id="account_invoice_1" model="account.invoice">
         <field name="type">in_invoice</field>
-        <field name="partner_id" ref="base.res_partner_22"/>
-        <field name="account_id" ref="account.a_pay"/>
+        <field name="partner_id" ref="base.res_partner_12"/>
+        <field name="account_id"
+            search="[('user_type_id.type','=','payable')]"
+            model='account.account'/>
     </record>
 
     <record id="account_invoice_line_1" model="account.invoice.line">
@@ -14,5 +16,5 @@
         <field name="price_unit" eval="400.0" />
         <field name="quantity" eval="10.0" />
     </record>
-
-</data></openerp>
+ -->
+</odoo>

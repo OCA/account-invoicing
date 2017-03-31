@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp><data>
-
+<odoo>
     <record id="view_account_invoice_form" model="ir.ui.view">
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_supplier_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='invoice_open']" position="after">
-                <button name="check_supplierinfo" string="Check Supplier Informations"
+            <xpath expr="//button[@name='action_invoice_open']" position="after">
+                <button name="check_supplierinfo" string="Check Supplier Infos"
                         help="Check if the invoice informations are similar from the supplier informations"
                         class="oe_highlight" type="object"
                         attrs="{'invisible': [('supplierinfo_ok', '=', True)]}"/>
             </xpath>
-            <field name="payment_term" position="after">
+            <field name="payment_term_id" position="after">
                 <field name="supplierinfo_ok" />
             </field>
         </field>
     </record>
-
-</data></openerp>
+</odoo>
