@@ -1,0 +1,111 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_batch_invoicing
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-13 17:41+0200\n"
+"PO-Revision-Date: 2016-09-13 17:43+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.8\n"
+"Last-Translator: Jairo Llopis <jairo.llopis@tecnativa.com>\n"
+"Language: es_ES\n"
+
+#. module: purchase_batch_invoicing
+#: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
+msgid "Accept"
+msgstr "Aceptar"
+
+#. module: purchase_batch_invoicing
+#: model:ir.actions.act_window,name:purchase_batch_invoicing.wizard_purchase_batch_invoicing_action
+msgid "Batch Invoice"
+msgstr "Facturar en lote"
+
+#. module: purchase_batch_invoicing
+#: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: purchase_batch_invoicing
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:96
+#, python-format
+msgid "Generated Invoices"
+msgstr "Facturas generadas"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_grouping
+msgid "Grouping"
+msgstr "Agrupación"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_id
+msgid "ID"
+msgstr "ID"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing___last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,help:purchase_batch_invoicing.field_purchase_batch_invoicing_grouping
+msgid "Make one invoice for each..."
+msgstr "Hacer una factura por cada..."
+
+#. module: purchase_batch_invoicing
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:92
+#: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
+#, python-format
+msgid "No ready-to-invoice purchase orders selected."
+msgstr "No se ha seleccionado ningún pedido de compra listo para facturar."
+
+#. module: purchase_batch_invoicing
+#: selection:purchase.batch_invoicing,grouping:0
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_purchase_order_ids
+msgid "Purchase orders"
+msgstr "Pedidos de compra"
+
+#. module: purchase_batch_invoicing
+#: selection:purchase.batch_invoicing,grouping:0
+msgid "Vendor"
+msgstr "Vendedor"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model,name:purchase_batch_invoicing.model_purchase_batch_invoicing
+msgid "purchase.batch_invoicing"
+msgstr "purchase.batch_invoicing"
