@@ -4,7 +4,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, api, fields, _
+from odoo import api, fields, models, _
 
 
 class AccountInvoice(models.Model):
@@ -34,25 +34,21 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         lines = []
 
-        for line in self.invoice_line:
+        for line in self.invoice_line_ids:
             if not line.product_id:
                 continue
 
             # Get supplierinfo if exist
             supplierinfo = line._get_supplierinfo()
 
-            # Get partnerinfo if exist and if it matches with line info
+            # Test if supplierinfo price  matches with line info
             if supplierinfo:
-                partnerinfo = line._get_partnerinfo(supplierinfo)
-                if partnerinfo and line._is_correct_partner_info(
-                        partnerinfo):
+                if line._is_correct_price(supplierinfo):
                     continue
-            else:
-                partnerinfo = False
 
             # Propose updating, if needed
             lines.append((0, 0, line._prepare_supplier_wizard_line(
-                supplierinfo, partnerinfo)))
+                supplierinfo)))
         return lines
 
     # View Section
@@ -65,6 +61,7 @@ class AccountInvoice(models.Model):
                 'default_line_ids': lines_for_update,
                 'default_invoice_id': self.id,
             }
+
             view_form = self.env.ref(
                 'account_invoice_supplierinfo_update.'
                 'view_wizard_update_invoice_supplierinfo_form')
