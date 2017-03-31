@@ -27,21 +27,38 @@
       <field name="model">account.invoice</field>
       <field name="inherit_id" ref="account.invoice_form"/>
       <field name="arch" type="xml">
-        <xpath expr="/form/header" position="replace">
-          <header>
-            <button name="invoice_cancel" states="to_send,to_valid,draft,proforma2,sale,open" string="Cancel" icon="gtk-cancel"/>
-            <button name="action_cancel_draft" states="cancel" string="Reset to Draft" type="object" icon="terp-stock_effects-object-colorize"/>
-            <button name="invoice_to_send" states="to_valid" string="Invoice To Send" icon="gtk-go-forward"/>
-            <button name="invoice_to_valid" states="draft" string="To Validation" icon="terp-gtk-media-pause"/>
-            <button name="%(account.action_account_invoice_refund)d" type='action' string='Refund' states='open,paid' icon="gtk-execute"/>
-            <button name='%(account.action_account_state_open)d' type='action' string='Re-Open' states='paid' icon="gtk-convert" groups="account.group_account_user"/>
-            <button name="invoice_proforma2" states="to_send" string="PRO-FORMA" icon="terp-gtk-media-pause" />
-            <button name="invoice_open" states="to_send,proforma2" string="Validate" icon="gtk-go-forward"/>
-            <button name="invoice_print" string="Print" type="object" attrs="{'invisible':['|',('sent','=',True), ('state', '!=', 'open')]}" class="oe_highlight" groups="base.group_user"/>
-            <button name="invoice_print" string="Print Invoice" type="object" attrs="{'invisible':['|',('sent','=',False), ('state', '!=', 'open')]}" groups="base.group_user"/>
-            <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,open,paid" statusbar_colors='{"proforma":"blue","proforma2":"blue"}'/>
-          </header>
-        </xpath>
+          <button name="invoice_cancel" position="attributes">
+              <attribute name="string">Cancel</attribute>
+              <attribute name="states">to_send,to_valid,draft,proforma2,sale,open</attribute>
+              <attribute name="icon">gtk-cancel</attribute>
+          </button>
+          <button name="action_cancel_draft" position="attributes">
+              <attribute name="string">Reset to Draft</attribute>
+              <attribute name="icon">terp-stock_effects-object-colorize</attribute>
+          </button>
+          <button name="%(account.action_account_invoice_refund)d" position="attributes">
+              <attribute name="string">Refund</attribute>
+              <attribute name="states">open,paid</attribute>
+              <attribute name="icon">gtk-execute</attribute>
+          </button>
+          <button name="%(account.action_account_state_open)d" position="attributes">
+              <attribute name="groups">account.group_account_user</attribute>
+              <attribute name="icon">gtk-convert</attribute>
+          </button>
+          <button name="invoice_proforma2" position="attributes">
+              <attribute name="states">to_send</attribute>
+              <attribute name="string">PRO-FORMA</attribute>
+              <attribute name="icon">terp-gtk-media-pause</attribute>
+          </button>
+          <button name="invoice_open" position="attributes">
+              <attribute name="string">Validate</attribute>
+              <attribute name="states">to_send,proforma2</attribute>
+              <attribute name="icon">gtk-go-forward</attribute>
+          </button>
+          <xpath expr="//button[@name='action_cancel_draft']" position="after">
+              <button name="invoice_to_send" states="to_valid" string="Invoice to send" icon="terp-camera_test"/>
+              <button name="invoice_to_valid" states="draft" string="To Validation" icon="terp-camera_test"/>
+          </xpath>
       </field>
     </record>
 
