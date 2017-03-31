@@ -9,7 +9,7 @@
     'summary': 'In the supplier invoice, automatically update all products '
                'whose unit price on the line is different from '
                'the supplier price',
-    'version': '8.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Accounting & Finance',
     'website': 'http://akretion.com',
     'author':

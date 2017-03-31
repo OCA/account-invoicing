@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp><data>
+<odoo>
 
 <!--colors="blue:state == 'draft';black:state == 'subscribed'"-->
 
@@ -14,14 +14,13 @@
                 </group>
                 <separator string="List of products to update"/>
                 <field name="line_ids">
-                    <tree create="false" editable="0" colors="blue: state == 'new_supplierinfo'; brown: state == 'new_partnerinfo'">
+                    <tree create="false" editable="0" colors="blue: state == 'new_supplierinfo'; brown: state == 'update_supplierinfo'">
                         <field name="state" invisible="1"/>
                         <field name="product_id"/>
                         <field name="supplierinfo_id" invisible="1"/>
-                        <field name="partnerinfo_id" invisible="1"/>
-                        <field name="current_min_quantity" attrs="{'invisible': [('state', '!=', 'update_partnerinfo')]}"/>
+                        <field name="current_min_quantity" attrs="{'invisible': [('state', '!=', 'update_supplierinfo')]}"/>
                         <field name="new_min_quantity"/>
-                        <field name="current_price" attrs="{'invisible': [('state', '!=', 'update_partnerinfo')]}"/>
+                        <field name="current_price" attrs="{'invisible': [('state', '!=', 'update_supplierinfo')]}"/>
                         <field name="new_price"/>
                         <field name="price_variation" attrs="{'invisible': [('price_variation', '=', 0.0)]}"/>
                     </tree>
@@ -35,8 +34,8 @@
                             string="Update and Validate"
                             type="object" states="draft,proforma2"
                             groups="account.group_account_invoice"/>
-                    <button name="set_supplierinfo_ok" string="Ignore (Set the invoice as Checked)" type="object"
-                        confirm="This will mark the invoice as checked. Are you sure? It will be possible to uncheck manually in the 'Other Info' tab."/>
+                    <button name="set_supplierinfo_ok" string="Ignore" type="object"
+                        confirm="This will mark the invoice as checked. Are you sure? It will be possible to uncheck manually in the 'Other Info' tab." help="This will mark the invoice as checked. It will be possible to uncheck manually in the 'Other Info' tab."/>
                     or
                     <button string="Cancel" class="oe_link" special="cancel"/>
                 </footer>
@@ -44,5 +43,5 @@
         </field>
     </record>
 
-    </data>
-</openerp>
+    
+</odoo>
