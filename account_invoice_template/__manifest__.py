@@ -35,20 +35,20 @@ amounts to fill.
 
 Contributors
 ------------
-
+Jalal ZAHID <j.zahid@auriumtechnologies.com>  ( Mig to v10 )
 Lorenzo Battistini <lorenzo.battistini@agilebg.com>
 Leonardo Pistone <leonardo.pistone@camptocamp.com>
 Franco Tampieri <franco@tampieri.info>
 """,
-    'author': "Agile Business Group,Odoo Community Association (OCA)",
-    'website': 'http://www.agilebg.com',
+    'author': 'Agile Business Group, Aurium Technologies',
+    'website': 'http://www.agilebg.com ; http://www.auriumtechnologies.com',
     'license': 'AGPL-3',
     "depends": ['account_move_template'],
     "data": [
         'invoice_template.xml',
         'wizard/select_template.xml',
         'security/ir.model.access.csv',
-    ],
+        ],
     "active": False,
-    "installable": False
+    "installable": True
 }
