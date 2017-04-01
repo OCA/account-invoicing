@@ -7,35 +7,20 @@ Pricelist on Invoices
 =====================
 
 * Add a stored field pricelist on invoices, related to the partner pricelist;
+* Use this pricelist when manually adding invoice lines
 * Possibility to group by pricelist on account.invoice view;
 
 .. image:: static/src/description/screenshot_group_by.png
-
-
-This module doesn't add real feature by it self for end-users, but is useful
-to do reporting, in a inherited module.
 
 Installation
 ============
 
 Nothing special.
 
-Configuration
-=============
-
-Nothing to do.
-
-
-Usage
-=====
-
-To use this module, you need to:
-
-* go to ...
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/95/8.0
+   :target: https://runbot.odoo-community.org/runbot/95/9.0
 
 For further information, please visit:
 
@@ -44,16 +29,15 @@ For further information, please visit:
 Known issues / Roadmap
 ======================
 
-* When changing the pricelist, give the possibility to recompute prices;
+None currently
 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
-In case of trouble, please check there if your issue has already been reported.
-If you spotted it first, help us smashing it by providing a detailed and welcomed feedback
-`here <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_pricelist%0Aversion:%208.0.1.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
-
+Bugs are tracked on `GitHub Issues
+<https://github.com/OCA/account-invoicing/issues>`_. In case of trouble, please
+check there if your issue has already been reported. If you spotted it first,
+help us smashing it by providing a detailed and welcomed feedback.
 
 Credits
 =======
@@ -62,6 +46,8 @@ Contributors
 ------------
 
 * Sylvain LE GAL (https://twitter.com/legalsylvain)
+* Holger Brunn <hbrunn@therp.nl>
+* Sergio Teruel <sergio.teruel@tecnativa.com>
 
 Maintainer
 ----------
@@ -76,4 +62,4 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-To contribute to this module, please visit http://odoo-community.org.
+To contribute to this module, please visit https://odoo-community.org.
