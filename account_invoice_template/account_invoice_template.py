@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
+#    Copyright (C) 2017 Aurium Technologies (<http://www.auriumtechnologies.com>)
 #    Copyright (C) 2011 Agile Business Group sagl (<http://www.agilebg.com>)
 #    Copyright (C) 2011 Domsense srl (<http://www.domsense.com>)
 #
@@ -19,96 +20,85 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from odoo import fields, models, api
 
 
-class account_invoice_template(orm.Model):
+class account_invoice_template(models.Model):
 
     _inherit = 'account.document.template'
     _name = 'account.invoice.template'
 
-    _columns = {
-        'partner_id': fields.many2one('res.partner', 'Partner', required=True),
-        'account_id': fields.many2one(
-            'account.account', 'Account', required=True),
-        'template_line_ids': fields.one2many(
-            'account.invoice.template.line',
-            'template_id', 'Template Lines'),
-        'type': fields.selection([
-            ('out_invoice', 'Customer Invoice'),
-            ('in_invoice', 'Supplier Invoice'),
-            ('out_refund', 'Customer Refund'),
-            ('in_refund', 'Supplier Refund'),
-        ], 'Type', required=True),
-    }
+    partner_id = fields.Many2one(
+        comodel_name='res.partner', string='Partner', required=True)
+    account_id = fields.Many2one(
+        comodel_name='account.account', string='Account', required=True)
+    template_line_ids = fields.One2many(
+        comodel_name='account.invoice.template.line', inverse_name='template_id', string='Template Lines')
+    invoice_type = fields.Selection(selection=[
+        ('out_invoice', 'Customer Invoice'),
+        ('in_invoice', 'Supplier Invoice'),
+        ('out_refund', 'Customer Refund'),
+        ('in_refund', 'Supplier Refund'),
+    ], string='Type', required=True)
 
 
-class account_invoice_template_line(orm.Model):
+class account_invoice_template_line(models.Model):
 
     _name = 'account.invoice.template.line'
     _inherit = 'account.document.template.line'
 
-    _columns = {
-        'account_id': fields.many2one(
-            'account.account', 'Account',
-            required=True,
-            domain=[('type', '<>', 'view'), ('type', '<>', 'closed')]),
-        'analytic_account_id': fields.many2one(
-            'account.analytic.account',
-            'Analytic Account', ondelete="cascade"),
-        'invoice_line_tax_id': fields.many2many(
-            'account.tax',
-            'account_invoice_template_line_tax', 'invoice_line_id', 'tax_id',
-            'Taxes', domain=[('parent_id', '=', False)]),
-        'template_id': fields.many2one(
-            'account.invoice.template', 'Template',
-            ondelete='cascade'),
-        'product_id': fields.many2one('product.product', 'Product'),
-    }
+    account_id = fields.Many2one(
+        comodel_name='account.account', string='Account', required=True)
+    analytic_account_id = fields.Many2one(
+        comodel_name='account.analytic.account', string='Analytic Account', ondelete="cascade")
+    invoice_line_tax_id = fields.Many2many(
+        'account.tax', 'account_invoice_template_line_tax', 'invoice_line_id', 'tax_id', 'Taxes')
+    template_id = fields.Many2one(
+        comodel_name='account.invoice.template', string='Template', ondelete='cascade')
+    product_id = fields.Many2one(
+        comodel_name='product.product', string='Product')
 
     _sql_constraints = [
         ('sequence_template_uniq', 'unique (template_id,sequence)',
             'The sequence of the line must be unique per template !')
     ]
 
-    def product_id_change(self, cr, uid, ids, product_id, type, context=None):
-        if context is None:
-            context = {}
+    @api.onchange("product_id")
+    def product_id_change(self):
 
         result = {}
-        if not product_id:
-            return {}
+        product_obj = self.env['product.product']
+        account_obj = self.env['account.account']
 
-        product = self.pool.get('product.product').browse(
-            cr, uid, product_id,
-            context=context)
+        for rec in self:
 
-        # name
-        result.update({'name': product.name})
+            if not rec.product_id:
+                return {}
+            product = product_obj.browse(rec.product_id)
+            # name
+            result.update({'name': product.id.name})
+            # account
+            rec.account_id = False
 
-        # account
-        account_id = False
-        if type in ('out_invoice', 'out_refund'):
-            account_id = product.product_tmpl_id.property_account_income.id
-            if not account_id:
-                account_id = product.categ_id.property_account_income_categ.id
-        else:
-            account_id = product.product_tmpl_id.property_account_expense.id
-            if not account_id:
-                account_id = product.categ_id.property_account_expense_categ.id
+            if rec.template_id.invoice_type in ('out_invoice', 'out_refund'):
+                rec.account_id = product.id.product_tmpl_id.property_account_income_id
+                if not rec.account_id:
+                    rec.account_id = product.id.categ_id.property_account_income_categ_id
+            else:
+                rec.account_id = product.id.product_tmpl_id.property_account_expense_id
+                if not rec.account_id:
+                    rec.account_id = product.id.categ_id.property_account_expense_categ_id
+            if rec.account_id:
+                result['account_id'] = rec.account_id
 
-        if account_id:
-            result['account_id'] = account_id
+            # taxes
+            taxes = rec.account_id and account_obj.browse(
+                rec.account_id.id).tax_ids or False
+            if rec.template_id.invoice_type in ('out_invoice', 'out_refund') and product.id.taxes_id:
+                taxes = product.id.taxes_id
+            elif product.id.supplier_taxes_id:
+                taxes = product.id.supplier_taxes_id
+            rec.tax_ids = taxes and [tax.id for tax in taxes] or False
+            result.update({'invoice_line_tax_id': rec.tax_ids})
 
-        # taxes
-        account_obj = self.pool.get('account.account')
-        taxes = account_id and account_obj.browse(
-            cr, uid, account_id, context=context).tax_ids or False
-        if type in ('out_invoice', 'out_refund') and product.taxes_id:
-            taxes = product.taxes_id
-        elif product.supplier_taxes_id:
-            taxes = product.supplier_taxes_id
-        tax_ids = taxes and [tax.id for tax in taxes] or False
-        result.update({'invoice_line_tax_id': tax_ids})
-
-        return {'value': result}
+            return {'value': result}
