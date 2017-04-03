@@ -11,7 +11,7 @@
               "Noviat,Odoo Community Association (OCA)",
     'website': "http://acsone.eu",
     'category': 'Finance',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'license': 'AGPL-3',
     'depends': [
         'account_invoice_merge',
