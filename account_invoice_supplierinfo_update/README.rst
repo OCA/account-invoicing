@@ -6,33 +6,28 @@
 Update Supplier Info of product from Supplier Invoice
 =====================================================
 
-This module allows in the supplier invoice, to automatically update all
-products informations whose purchase informations on the line are different
-from the supplier informations, defined on the product form.
+This module allows to automatically update all products information in vendor bill for which the purchase information on the line are different from the supplier information defined in the product form.
 
-It creates a new supplier information line if there is not or it updates the
-first.
+It creates a new supplier information line if there is not any or it updates the first one in the list.
 
-This module add an extra button 'Check Supplier Informations' on supplier
+This module adds a new button 'Check Supplier Info' in supplier
 invoice form.
 
 .. image:: /account_invoice_supplierinfo_update/static/description/supplier_invoice_form.png
 
 
-When user click on it, he can see supplier informations changes, that will
-be applied. Optionnaly, he can unselect some temporary changes, specially, if
-supplier applied an exceptionnal price change.
+When the user clicks on it, he can see the supplier information changes that will apply. Optionally, he can remove some temporary changes, specially, if,
+for example, a supplier applied an exceptional price change.
 
 .. image:: /account_invoice_supplierinfo_update/static/description/main_screenshot.png
 
-* blue: Create a full new supplier info
-* brown: Adding a partnerinfo line in a existing supplierinfo
-* black: Updating a current setting, displaying price variation (%)
+* blue: Creates a full new supplier info line
+* brown: Updates current settings, displaying price variation (%)
 
-This module add an extra boolean field 'Supplier Informations Checked' in the
-'Other Info' tab in the supplier invoice form, that indicates that the prices
-have been checked, and supplierinfo updated, (or eventually that the 
-changes have been ignored).
+This module adds an extra boolean field 'Supplier Informations Checked' in the
+'Other Info' tab inside the supplier invoice form. 
+This field indicates that the prices have been checked and
+supplierinfo updated (or eventually that the changes have been ignored).
 
 .. image:: /account_invoice_supplierinfo_update/static/description/supplier_invoice_form_other_info_tab.png
 
@@ -46,14 +41,16 @@ Usage
 Bug Tracker
 ===========
 
-Bugs are tracked on GitHub Issues. In case of trouble, please check there
-if your issue has already been reported. If you spotted it first,
-help us smashing it by providing a detailed and welcomed feedback.
+Bugs are tracked on `GitHub Issues
+<https://github.com/OCA/account-invoicing/issues>`_. In case of trouble, please
+check there if your issue has already been reported. If you spotted it first,
+help us smash it by providing detailed and welcomed feedback.
 
 Known Issues / Roadmap
 ======================
 
 * This module does not manage correctly difference if
+
     * invoice line UoM are not the same as Supplierinfo UoM
     * invoice line taxes are not the same as products taxes. (If one is
       marked as tax included in the price and the other is marked as
@@ -67,6 +64,7 @@ Contributors
 
 * Chafique Delli <chafique.delli@akretion.com>
 * Sylvain LE GAL (https://twitter.com/legalsylvain)
+* Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 
 Maintainer
 ----------
@@ -77,6 +75,8 @@ Maintainer
 
 This module is maintained by the OCA.
 
-OCA, or the Odoo Community Association, is a nonprofit organization whose mission is to support the collaborative development of Odoo features and promote its  widespread use.
+OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.
 
 To contribute to this module, please visit https://odoo-community.org.
