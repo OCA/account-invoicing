@@ -6,7 +6,7 @@
 
 {
     'name': 'Account Invoice - Supplier Info Update',
-    'summary': 'In the supplier invoice, automatically update all products '
+    'summary': 'In the supplier invoice, automatically updates all products '
                'whose unit price on the line is different from '
                'the supplier price',
     'version': '10.0.1.0.0',
@@ -24,10 +24,6 @@
     'data': [
         'views/account_invoice_view.xml',
         'wizard/wizard_update_invoice_supplierinfo.xml'
-    ],
-    'demo': [
-        'demo/res_groups.xml',
-        'demo/account_invoice.xml',
     ],
     'images': ['static/description/main_screenshot.png'],
 }
