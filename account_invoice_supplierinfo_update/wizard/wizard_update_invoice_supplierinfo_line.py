@@ -5,7 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import models, api, fields
-import openerp.addons.decimal_precision as dp
+import odoo.addons.decimal_precision as dp
 
 
 class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
@@ -41,7 +41,7 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
 
     price_variation = fields.Float(
         string='Price Variation (%)', compute='_compute_price_variation',
-        digits_compute=dp.get_precision('Discount'))
+        digits=dp.get_precision('Discount'))
 
     state = fields.Selection(selection=_SELECTION_STATE)
 
