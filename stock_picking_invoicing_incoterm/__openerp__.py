@@ -13,8 +13,8 @@
         'sale_stock',
     ],
     'data': [
-        'account_invoice_view.xml',
-        'stock_view.xml',
+        'views/account_invoice_view.xml',
+        'views/stock_view.xml',
     ],
     'test': [
         'test/stock_picking_invoicing_incoterm.yml',
