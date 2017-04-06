@@ -7,7 +7,7 @@
 {
     "name": "Link refund invoice with original",
     "summary": "Link refund invoice with its original invoice",
-    "version": "9.0.2.0.0",
+    "version": "10.0.1.0.0",
     "author": "Pexego, "
               "Tecnativa, "
               "Odoo Community Association (OCA)",
@@ -24,6 +24,6 @@
     "data": [
         'views/account_invoice_view.xml',
     ],
-    'installable': False,
+    'installable': True,
     "post_init_hook": "post_init_hook",
 }
