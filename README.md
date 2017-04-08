@@ -21,6 +21,7 @@ addon | version | summary
 --- | --- | ---
 [account_group_invoice_line](account_group_invoice_line/) | 10.0.1.0.0 | Add option to group invoice lines per account
 [account_invoice_check_total](account_invoice_check_total/) | 10.0.1.0.0 | Check if the verification total is equal to the bill's total
+[account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 10.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 10.0.1.0.0 | Checks that supplier invoices are not entered twice
 [account_payment_term_extension](account_payment_term_extension/) | 10.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
 
@@ -46,7 +47,6 @@ addon | version | summary
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 (unported) | Unit of measure for invoices
 [account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.1 (unported) | Add "To Send" and "To Validate" states in Invoices
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 (unported) | Account Invoice Zero Autopay
-[invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 (unported) | Changing the fiscal position of an invoice will auto-update invoice lines
 [product_customer_code_invoice](product_customer_code_invoice/) | 1.0 (unported) | Product Customer code for account invoice
 [sale_order_partial_invoice](sale_order_partial_invoice/) | 1.1 (unported) | Sale Partial Invoice
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 9.0.1.0.0 (unported) | Add timesheet details in invoice line
