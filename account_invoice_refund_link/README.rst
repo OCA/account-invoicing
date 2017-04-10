@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-===============================================
-Link the refund invoice with its source invoice
-===============================================
+=================================
+Link refund invoice with original
+=================================
 
 This module links customer and supplier refunds with the invoice that originate
 them (and invoice lines).
@@ -12,27 +12,23 @@ them (and invoice lines).
 Usage
 =====
 
-In invoice form there is a new 'Refund' tab:
+This module creates in the invoice form a new 'Refund' page.
 
-For refund invoices:
+In case of refund invoices this new page shows refund reason and original
+invoice information.
 
-- It shows the refund reason
-- It shows the original invoice that originate it
-
-For normal invoices:
-
-- It shows all refund invoices create from it
-
+In case of original invoices this new page shows a line for each refund
+invoice with main information.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/189/9.0
+   :target: https://runbot.odoo-community.org/runbot/95/10.0
 
 Bug Tracker
 ===========
 
 Bugs are tracked on `GitHub Issues
-<https://github.com/OCA/l110n-spain/issues>`_. In case of trouble, please
+<https://github.com/OCA/account_invoicing/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
 help us smashing it by providing a detailed and welcomed feedback.
 
@@ -50,6 +46,7 @@ Contributors
 * Pexego Sistemas Informáticos. (http://pexego.es)
 * Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
 * Antonio Espinosa <antonio.espinosa@tecnativa.com>
+* Luis M. Ontalba <luis.martinez@tecnativa.com>
 
 Maintainer
 ----------
