@@ -7,23 +7,19 @@
 {
     "name": "Link refund invoice with original",
     "summary": "Link refund invoice with its original invoice",
-    "version": "9.0.2.0.0",
+    "version": "10.0.1.0.0",
+    "category": "Accounting & Finance",
+    "website": "https://odoo-community.org/",
     "author": "Pexego, "
               "Tecnativa, "
               "Odoo Community Association (OCA)",
-    "website": "https://odoo-community.org/",
-    "contributors": [
-        'Pexego <www.pexego.es>',
-        'Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>',
-        'Antonio Espinosa <antonio.espinosa@tecnativa.com>',
-    ],
-    "category": "Localisation/Accounting",
+    "License": "AGPL-3",
+    "installable": True,
+    "post_init_hook": "post_init_hook",
     "depends": [
         'account',
     ],
     "data": [
         'views/account_invoice_view.xml',
     ],
-    'installable': False,
-    "post_init_hook": "post_init_hook",
 }
