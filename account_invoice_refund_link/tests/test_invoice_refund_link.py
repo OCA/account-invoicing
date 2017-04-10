@@ -3,7 +3,7 @@
 # Copyright 2014-2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.tests import common
+from odoo.tests import common
 from .. import post_init_hook
 
 
@@ -37,7 +37,7 @@ class TestInvoiceRefundLink(common.SavepointCase):
             'type': 'out_invoice',
             'invoice_line_ids': cls.invoice_lines,
         })
-        cls.invoice.signal_workflow('invoice_open')
+        cls.invoice.action_invoice_open()
         cls.refund_reason = 'The refund reason'
         cls.env['account.invoice.refund'].with_context(
             active_ids=cls.invoice.ids).create({

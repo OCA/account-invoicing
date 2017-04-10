@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
-from openerp import api, SUPERUSER_ID, _
+from openerp import _, api, SUPERUSER_ID
 
 _logger = logging.getLogger(__name__)
 
