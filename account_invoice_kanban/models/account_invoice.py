@@ -7,6 +7,7 @@ from openerp import api, fields, models
 
 class account_invoice(models.Model):
     _inherit = 'account.invoice'
+    _order = 'date_due asc'
 
     stage_id = fields.Many2one('project.task.type', 'Stages',
                                domain=[('used_in_invoice', '=', True)])

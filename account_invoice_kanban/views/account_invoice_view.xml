@@ -71,6 +71,17 @@
             </field>
          </record>
 
+        <record id="view_account_invoice_filter" model="ir.ui.view">
+            <field name="name">account.invoice.select</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <filter string="Status" position="after">
+                    <filter string="Stage" context="{'group_by':'stage_id'}"/>
+                </filter>
+            </field>
+        </record>
+
         <record id="account.action_invoice_tree1" model="ir.actions.act_window">
             <field name="name">Customer Invoices</field>
             <field name="res_model">account.invoice</field>

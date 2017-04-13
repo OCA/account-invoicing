@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': 'Account Invoice Kanban',
-    'summary': 'Improve the Invoice view',
+    'summary': 'Add Kanban view in Invoice to follow administrative tasks',
     'version': '8.0.1.0.0',
     'website': 'https://www.elico-corp.com/',
     'author': 'Elico Corp, Odoo Community Association ()',
