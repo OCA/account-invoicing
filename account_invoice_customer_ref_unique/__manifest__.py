@@ -22,13 +22,14 @@
 
 {
     'name': 'Unique Customer Reference in Invoice',
-    "version": "1.0",
+    "version": "10.0.1.0.0",
     'author': "Savoir-faire Linux,Odoo Community Association (OCA)",
     'maintainer': 'Savoir-faire Linux',
     'website': 'http://www.savoirfairelinux.com',
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'description': """
+
 Unique Supplier Invoice Number
 ==============================
 
@@ -39,9 +40,10 @@ Contributors
 ------------
 * Marc Cassuto (marc.cassutot@savoirfairelinux.com)
 * Mathieu Benoit (mathieu.benoit@savoirfairelinux.com)
+* Marçal Isern (marsal.isern@qubiq.es)
     """,
     'depends': [
         'account',
     ],
-    'installable': False,
+    'installable': True,
 }

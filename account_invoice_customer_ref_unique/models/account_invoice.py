@@ -20,46 +20,43 @@
 #
 ###############################################################################
 
-from openerp.osv import orm
-from openerp.tools.translate import _
 
 
-class AccountInvoice(orm.Model):
+
+
+
+from odoo import api, fields, models, _
+from odoo.exceptions import  ValidationError
+
+import logging
+_logger = logging.getLogger(__name__)
+
+
+class AccountInvoice(models.Model):
     _inherit = "account.invoice"
+    
+   
 
-    def copy(self, cr, uid, ids, default=None, context=None):
-        default = default or {}
-        default.update({
-            'name': '',
-        })
-        return super(AccountInvoice, self).copy(cr, uid, ids, default, context)
-
-    def _check_unique_name_insensitive(self, cr, uid, ids, context=None):
-        for i_id in ids:
-            invoice = self.browse(cr, uid, i_id, context=context)
+    @api.multi
+    @api.constrains('name')
+    def _check_unique_name_insensitive(self):
+        for invoice in self:            
             invoice_type = invoice.type
             invoice_partner = invoice.partner_id
 
             if invoice_type not in ['out_invoice', 'out_refund']:
                 return True
 
-            sr_ids = self.search(cr, uid,
-                                 [("type", "=", invoice_type),
-                                  ("partner_id", "=", invoice_partner.id)],
-                                 context=context)
+            invoice_obj=self.env['account.invoice'].search([("type", "=", invoice_type),
+                                  ("partner_id", "=", invoice_partner.id)])          
+
 
             lst = [
-                x.name.lower() for x in
-                self.browse(cr, uid, sr_ids, context=context)
-                if x.name and x.id != i_id
+                x.name.lower() for x in invoice_obj
+                if x.name and x.id != invoice.id
             ]
-            if invoice.name and invoice.name.lower() in lst:
-                return False
-            return True
+            if invoice.name and invoice.name.lower()  in lst:
+                raise ValidationError(_('The customer reference must be unique for each customer !'))
+            
 
-    def _rec_message(self, cr, uid, ids, context=None):
-        return _('The customer reference must be unique for each customer !')
-
-    _constraints = [
-        (_check_unique_name_insensitive, _rec_message, ['name'])
-    ]
+    
