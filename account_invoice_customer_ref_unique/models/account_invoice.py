@@ -19,8 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from odoo import api, fields, models, _
-from odoo.exceptions import  ValidationError
+from odoo import api, models, _
+from odoo.exceptions import ValidationError
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -32,19 +32,21 @@ class AccountInvoice(models.Model):
     @api.multi
     @api.constrains('name')
     def _check_unique_name_insensitive(self):
-        for invoice in self:            
+        for invoice in self:
             invoice_type = invoice.type
             invoice_partner = invoice.partner_id
 
             if invoice_type not in ['out_invoice', 'out_refund']:
                 return True
 
-            invoice_obj=self.env['account.invoice'].search([("type", "=", invoice_type),
-                                  ("partner_id", "=", invoice_partner.id)])                       
+            invoice_obj = self.env['account.invoice'].search(
+                [("type", "=", invoice_type),
+                 ("partner_id", "=", invoice_partner.id)])
             lst = [
                 x.name.lower() for x in invoice_obj
                 if x.name and x.id != invoice.id
             ]
-            if invoice.name and invoice.name.lower()  in lst:
-                raise ValidationError(_('The customer reference must be unique for each customer !'))
-            
+            if invoice.name and invoice.name.lower() in lst:
+                raise ValidationError(_(
+                    "The customer reference must be unique for "
+                    " each customer !"))
