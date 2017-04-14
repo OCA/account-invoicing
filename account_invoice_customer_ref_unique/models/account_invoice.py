@@ -19,12 +19,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-
-
-
-
-
-
 from odoo import api, fields, models, _
 from odoo.exceptions import  ValidationError
 
@@ -34,8 +28,6 @@ _logger = logging.getLogger(__name__)
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
-    
-   
 
     @api.multi
     @api.constrains('name')
@@ -48,9 +40,7 @@ class AccountInvoice(models.Model):
                 return True
 
             invoice_obj=self.env['account.invoice'].search([("type", "=", invoice_type),
-                                  ("partner_id", "=", invoice_partner.id)])          
-
-
+                                  ("partner_id", "=", invoice_partner.id)])                       
             lst = [
                 x.name.lower() for x in invoice_obj
                 if x.name and x.id != invoice.id
@@ -58,5 +48,3 @@ class AccountInvoice(models.Model):
             if invoice.name and invoice.name.lower()  in lst:
                 raise ValidationError(_('The customer reference must be unique for each customer !'))
             
-
-    
