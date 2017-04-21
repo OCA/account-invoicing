@@ -24,14 +24,15 @@ class StockPicking(models.Model):
 
     @api.multi
     def _update_stock_moves(self):
-        for pick in self:
-            for move in pick.move_lines:
-                if pick.to_refund_lines == 'keep_line_value':
-                    move.to_refund_so = move.origin_to_refund_so
-                elif pick.to_refund_lines == 'to_refund_so':
-                    move.to_refund_so = True
-                elif pick.to_refund_lines == 'no_refund_so':
-                    move.to_refund_so = False
+        for pick in self.filtered(
+                lambda x: x.to_refund_lines != 'keep_line_value'):
+            pick.move_lines.write({
+                'to_refund_so': (True if pick.to_refund_lines == 'to_refund_so'
+                                 else False)})
+        for move in self.filtered(
+                lambda x: x.to_refund_lines == 'keep_line_value'
+                ).mapped('move_lines'):
+            move.to_refund_so = move.origin_to_refund_so
 
     @api.multi
     def set_delivered_qty(self):

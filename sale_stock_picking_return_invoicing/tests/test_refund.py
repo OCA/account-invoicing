@@ -155,7 +155,7 @@ class SaleStockRefundPickingCase(SavepointCase):
         so_lines = return_pick.mapped(
             'move_lines.procurement_id.sale_line_id').filtered(
             lambda x: x.product_id.invoice_policy in ('order', 'delivery'))
-        self.assertEqual(so_lines[:1].qty_returned, 4.0)
+        self.assertEqual(so_lines[:1].qty_returned, 2.0)
 
         # Check return invoice
         self.assertEqual(

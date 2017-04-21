@@ -7,7 +7,6 @@
     <field name="arch" type="xml">
         <xpath expr="//field[@name='state']" position="after">
             <field name="to_refund_so" invisible="1"/>
-            <field name="origin_to_refund_so" invisible="1"/>
         </xpath>
     </field>
 </record>

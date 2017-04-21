@@ -15,13 +15,22 @@ class SaleOrderLine(models.Model):
         """Deduct moves marked to refund."""
         qty = super(SaleOrderLine, self)._get_delivered_qty()
         moves = self.procurement_ids.mapped('move_ids').filtered(
-            lambda r: (
-                r.state == 'done' and
-                not r.scrapped and
-                r.to_refund_so))
-        qty_to_refund = sum(moves.mapped('quant_ids').filtered(
-            lambda x: x.location_id.usage == 'internal').mapped('qty'))
-        return qty - qty_to_refund
+            lambda r: r.state == 'done' and not r.scrapped)
+        # sum quantities in customers from re-returned pickings.
+        # Odoo does not consider them
+        for move in moves.filtered(lambda r: (
+                r.location_dest_id.usage == "customer" and
+                r.origin_returned_move_id)):
+            qty += self.env['product.uom']._compute_qty_obj(
+                move.product_uom, move.product_uom_qty, self.product_uom)
+
+        for move in moves.filtered(
+                lambda r: (r.location_dest_id.usage != "customer" and
+                           r.to_refund_so and
+                           r.origin_returned_move_id)):
+            qty -= move.product_uom._compute_qty_obj(
+                move.product_uom, move.product_uom_qty, self.product_uom)
+        return qty
 
     @api.multi
     def _get_qty_returned(self):
@@ -29,10 +38,15 @@ class SaleOrderLine(models.Model):
          of done stock moves related to its procurements
         """
         for line in self:
-            quants = line.procurement_ids.mapped('move_ids').filtered(
-                lambda r: r.state == 'done').mapped('quant_ids')
-            qty_returned = sum(quants.filtered(
-                lambda x: x.location_id.usage == 'internal').mapped('qty'))
+            qty_returned = 0.0
+            for move in line.procurement_ids.mapped('move_ids').filtered(
+                    lambda r: (r.state == 'done' and not r.scrapped and
+                               r.location_dest_id.usage != "customer" and
+                               r.to_refund_so and
+                               r.origin_returned_move_id)
+            ):
+                qty_returned += move.product_uom._compute_qty_obj(
+                    move.product_uom, move.product_uom_qty, line.product_uom)
             line.qty_returned = qty_returned
 
     qty_returned = fields.Float(
