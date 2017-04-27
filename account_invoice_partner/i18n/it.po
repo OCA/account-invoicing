@@ -5,7 +5,7 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: account-invoicing (8.0)\n"
+"Project-Id-Version: account-invoicing (10.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-08-25 16:48+0000\n"
 "PO-Revision-Date: 2015-06-03 04:58+0000\n"
