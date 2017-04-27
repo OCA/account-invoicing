@@ -214,7 +214,7 @@ class AccountInvoice(models.Model):
         invoice_line_obj = self.env['account.invoice.line']
         # None if purchase is not installed
         for new_invoice_id in invoices_info:
-            if so_obj != False:
+            if so_obj is not False:
                 todos = old_invoices.mapped(
                     'invoice_line_ids.sale_line_ids.order_id')
                 todos.write({'invoice_ids': [(4, new_invoice_id)]})
