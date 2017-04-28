@@ -20,7 +20,7 @@ Usage
 Registering a payment
 ---------------------
 #. Go to an open customer invoice or vendor bill and press 'Register Payment'.
-#. Enter the payment details and press 'Validate & View Payment'
+#. Enter the payment details and press 'Validate & View Payment'.
 
 After payment has been made
 ---------------------------
@@ -48,6 +48,7 @@ Credits
 Contributors
 ------------
 * Jordi Ballester <jordi.ballester@eficent.com>
+* Miquel Raïch <miquel.raich@eficent.com>
 
 
 Maintainer
