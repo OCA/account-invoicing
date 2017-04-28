@@ -1,28 +1,25 @@
 # -*- coding: utf-8 -*-
 # Copyright 2004-2011 Pexego Sistemas Informáticos. (http://pexego.es)
-# Copyright 2014 Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
 # Copyright 2016 Antonio Espinosa <antonio.espinosa@tecnativa.com>
+# Copyright 2014-2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 {
     "name": "Link refund invoice with original",
     "summary": "Link refund invoice with its original invoice",
-    "version": "9.0.1.0.0",
+    "version": "10.0.1.0.0",
+    "category": "Accounting & Finance",
+    "website": "https://odoo-community.org/",
     "author": "Pexego, "
               "Tecnativa, "
               "Odoo Community Association (OCA)",
-    "website": "https://odoo-community.org/",
-    "contributors": [
-        'Pexego <www.pexego.es>',
-        'Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>',
-        'Antonio Espinosa <antonio.espinosa@tecnativa.com>',
-    ],
-    "category": "Localisation/Accounting",
+    "License": "AGPL-3",
+    "installable": True,
+    "post_init_hook": "post_init_hook",
     "depends": [
         'account',
     ],
     "data": [
         'views/account_invoice_view.xml',
     ],
-    'installable': False,
-    "post_init_hook": "post_init_hook",
 }
