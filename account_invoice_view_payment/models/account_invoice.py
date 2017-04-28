@@ -11,11 +11,11 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_view_payments(self):
-        '''
+        """
         This function returns an action that display existing payments of given
         account invoices.
         When only one found, show the payment immediately.
-        '''
+        """
         if self.type in ('in_invoice', 'in_refund'):
             action = self.env.ref('account.action_account_payments_payable')
         else:

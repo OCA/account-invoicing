@@ -17,7 +17,7 @@
     <record id="view_account_payment_from_invoices" model="ir.ui.view">
         <field name="name">account.register.payments.wizard</field>
         <field name="model">account.register.payments</field>
-                <field name="inherit_id"
+        <field name="inherit_id"
                ref="account.view_account_payment_from_invoices"/>
         <field name="arch" type="xml">
             <button name="create_payment" position="after">
