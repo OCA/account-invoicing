@@ -22,6 +22,7 @@ addon | version | summary
 [account_group_invoice_line](account_group_invoice_line/) | 10.0.1.0.0 | Add option to group invoice lines per account
 [account_invoice_check_total](account_invoice_check_total/) | 10.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 10.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
+[account_invoice_refund_link](account_invoice_refund_link/) | 10.0.1.0.0 | Link refund invoice with its original invoice
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 10.0.1.0.0 | Checks that supplier invoices are not entered twice
 [account_payment_term_extension](account_payment_term_extension/) | 10.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
 
@@ -40,7 +41,6 @@ addon | version | summary
 [account_invoice_partner](account_invoice_partner/) | 8.0.0.2.0 (unported) | Automatically select invoicing partner on invoice
 [account_invoice_period_usability](account_invoice_period_usability/) | 8.0.1.0.0 (unported) | Display in the supplier invoice form the fiscal period next to the invoice date
 [account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.0.0 (unported) | Add partner pricelist on invoices
-[account_invoice_refund_link](account_invoice_refund_link/) | 9.0.1.0.0 (unported) | Link refund invoice with its original invoice
 [account_invoice_rounding](account_invoice_rounding/) | 8.0.1.0.0 (unported) | Unit rounded invoice
 [account_invoice_shipping_address](account_invoice_shipping_address/) | 8.0.0.1.1 (unported) | Adds a shipping address field to the invoice.
 [account_invoice_template](account_invoice_template/) | 0.1 (unported) | Account Invoice Template
