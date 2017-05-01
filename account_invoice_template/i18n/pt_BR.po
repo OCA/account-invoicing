@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-16 23:50+0000\n"
+"POT-Creation-Date: 2017-03-25 00:19+0000\n"
 "PO-Revision-Date: 2015-06-03 04:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/pt_BR/)\n"
@@ -207,7 +207,7 @@ msgstr ""
 #. module: account_invoice_template
 #: field:account.invoice.template.line,analytic_account_id:0
 msgid "Analytic Account"
-msgstr ""
+msgstr "Conta analítica"
 
 #. module: account_invoice_template
 #: field:account.invoice.template,template_line_ids:0
