@@ -1,0 +1,117 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * purchase_batch_invoicing
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-02 02:43+0000\n"
+"PO-Revision-Date: 2017-04-02 02:43+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Language-Team: Vietnamese (https://www.transifex.com/oca/teams/23907/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: purchase_batch_invoicing
+#: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
+msgid "Accept"
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: model:ir.actions.act_window,name:purchase_batch_invoicing.wizard_purchase_batch_invoicing_action
+msgid "Batch Invoice"
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
+msgid "Cancel"
+msgstr "Hủy bỏ"
+
+#. module: purchase_batch_invoicing
+#: model:ir.ui.view,arch_db:purchase_batch_invoicing.purchase_order_form
+msgid "Create Invoice"
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_create_uid
+msgid "Created by"
+msgstr "Được tạo bởi"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_create_date
+msgid "Created on"
+msgstr "Được tạo vào"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_display_name
+msgid "Display Name"
+msgstr "Tên hiển thị"
+
+#. module: purchase_batch_invoicing
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:101
+#, python-format
+msgid "Generated Invoices"
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_grouping
+msgid "Grouping"
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_id
+msgid "ID"
+msgstr "ID"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing___last_update
+msgid "Last Modified on"
+msgstr "Sửa lần cuối vào"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_write_date
+msgid "Last Updated on"
+msgstr "Cập nhật lần cuối vào"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,help:purchase_batch_invoicing.field_purchase_batch_invoicing_grouping
+msgid "Make one invoice for each..."
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:97
+#: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
+#, python-format
+msgid "No ready-to-invoice purchase orders selected."
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: selection:purchase.batch_invoicing,grouping:0
+msgid "Purchase Order"
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_purchase_order_ids
+msgid "Purchase orders"
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: selection:purchase.batch_invoicing,grouping:0
+msgid "Vendor"
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: model:ir.model,name:purchase_batch_invoicing.model_purchase_batch_invoicing
+msgid "purchase.batch_invoicing"
+msgstr ""

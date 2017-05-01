@@ -4,14 +4,13 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2016
-# Alan Luo <alanljj@qq.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-18 04:00+0000\n"
-"PO-Revision-Date: 2017-02-18 04:00+0000\n"
-"Last-Translator: Alan Luo <alanljj@qq.com>, 2017\n"
+"POT-Creation-Date: 2017-04-02 02:43+0000\n"
+"PO-Revision-Date: 2017-04-02 02:43+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/oca/teams/23907/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: account_invoice_refund_link
-#: code:addons/account_invoice_refund_link/hooks.py:34
+#: code:addons/account_invoice_refund_link/hooks.py:53
 #, python-format
 msgid "Auto"
 msgstr ""
@@ -65,11 +64,6 @@ msgid "Invoice Line"
 msgstr ""
 
 #. module: account_invoice_refund_link
-#: model:ir.model,name:account_invoice_refund_link.model_account_invoice_refund
-msgid "Invoice Refund"
-msgstr ""
-
-#. module: account_invoice_refund_link
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Number"
@@ -101,7 +95,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Reference"
-msgstr ""
+msgstr "引用"
 
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_line_refund_line_ids
