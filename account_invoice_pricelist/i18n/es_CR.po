@@ -11,28 +11,28 @@ msgstr ""
 "POT-Creation-Date: 2017-04-02 02:43+0000\n"
 "PO-Revision-Date: 2017-04-02 02:43+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
-"Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
+"Language-Team: Spanish (Costa Rica) (https://www.transifex.com/oca/teams/23907/es_CR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: de\n"
+"Language: es_CR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_pricelist
 #: model:ir.model,name:account_invoice_pricelist.model_account_invoice
 msgid "Invoice"
-msgstr "Rechnung"
+msgstr "Factura"
 
 #. module: account_invoice_pricelist
 #: model:ir.model,name:account_invoice_pricelist.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Rechnungsposition"
+msgstr "Línea de factura"
 
 #. module: account_invoice_pricelist
 #: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_invoice_pricelist_id
 #: model:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_search
 msgid "Pricelist"
-msgstr "Preisliste"
+msgstr ""
 
 #. module: account_invoice_pricelist
 #: model:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_customer_form
