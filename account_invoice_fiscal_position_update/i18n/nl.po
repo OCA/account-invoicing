@@ -1,29 +1,30 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * invoice_fiscal_position_update
+# * account_invoice_fiscal_position_update
 # 
 # Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: account-invoicing (8.0)\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-06-03 04:57+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: Dutch (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/nl/)\n"
+"POT-Creation-Date: 2017-04-29 02:39+0000\n"
+"PO-Revision-Date: 2017-04-29 02:39+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Language-Team: Dutch (https://www.transifex.com/oca/teams/23907/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. module: invoice_fiscal_position_update
-#: model:ir.model,name:invoice_fiscal_position_update.model_account_invoice
+#. module: account_invoice_fiscal_position_update
+#: model:ir.model,name:account_invoice_fiscal_position_update.model_account_invoice
 msgid "Invoice"
 msgstr "Factuur"
 
-#. module: invoice_fiscal_position_update
-#: code:addons/invoice_fiscal_position_update/account_invoice.py:71
+#. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:60
 #, python-format
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position because they don't have a Product:\n"
@@ -31,16 +32,16 @@ msgid ""
 "You should update the Account and the Taxes of these invoice lines manually."
 msgstr ""
 
-#. module: invoice_fiscal_position_update
-#: code:addons/invoice_fiscal_position_update/account_invoice.py:65
+#. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:54
 #, python-format
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they don't have products.\n"
 "You should update the Account and the Taxes of each invoice line manually."
 msgstr ""
 
-#. module: invoice_fiscal_position_update
-#: code:addons/invoice_fiscal_position_update/account_invoice.py:63
+#. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:52
 #, python-format
 msgid "Warning"
 msgstr ""
