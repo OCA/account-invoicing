@@ -34,6 +34,7 @@ Contributors
 ------------
 
 * Alex Comba <alex.comba@agilebg.com>
+* Esther Martín <esthermartin@avanzosc.es>
 
 Maintainer
 ----------
