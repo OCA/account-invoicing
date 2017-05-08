@@ -5,18 +5,18 @@
 from openerp import api, fields, models
 
 
-class account_invoice(models.Model):
+class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
     _order = 'date_due asc'
 
-    stage_id = fields.Many2one('project.task.type', 'Stages',
+    stage_id = fields.Many2one('account.invoice.stage', 'Stages',
                                domain=[('used_in_invoice', '=', True)])
     color = fields.Integer('Color Index', default=0)
 
     @api.multi
     def _read_group_stage_ids(self, domain, read_group_order=None,
                               access_rights_uid=None):
-        stage_obj = self.env['project.task.type']
+        stage_obj = self.env['account.invoice.stage']
         order = stage_obj._order
         access_rights_uid = access_rights_uid or self._uid
         if read_group_order == 'stage_id desc':
@@ -37,3 +37,14 @@ class account_invoice(models.Model):
     _group_by_full = {
         'stage_id': _read_group_stage_ids
     }
+
+
+class AccountInvoiceStage(models.Model):
+    _name = 'account.invoice.stage'
+    _description = 'Account Invoice Stage'
+
+    name = fields.Char('Stage Name', required=True)
+    description = fields.Char('Description')
+    sequence = fields.Integer('Sequence', default=1)
+    fold = fields.Boolean('Folded in Kanban View')
+    used_in_invoice = fields.Boolean('Used in Invoicing')

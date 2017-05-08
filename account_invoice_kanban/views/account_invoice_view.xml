@@ -132,5 +132,56 @@
             <field name="act_window_id" ref="account.action_invoice_tree1"/>
         </record>
 
+        <!-- Account Invoice Stage View -->
+        <record id="account_invoice_stage_tree_view" model="ir.ui.view">
+            <field name="name">account.invoice.stage.tree</field>
+            <field name="model">account.invoice.stage</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice Stage">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="used_in_invoice"/>
+                    <field name="fold"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_invoice_stage_form_view" model="ir.ui.view">
+            <field name="name">account.invoice.stage.form</field>
+            <field name="model">account.invoice.stage</field>
+            <field name="arch" type="xml">
+                <form string="Invoice Stage">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="used_in_invoice"/>
+                            <field name="fold"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Add a description..."/>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_invoice_stage_action" model="ir.actions.act_window">
+            <field name="name">Stages</field>
+            <field name="res_model">account.invoice.stage</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="account_invoice_stage_tree_view"/>
+        </record>
+
+        <menuitem id="menu_parent_invoice_types_view"
+                  name="Invoice Stages"
+                  parent="account.account_account_menu"
+                  sequence="1"/>
+
+        <menuitem id="menu_account_invoice_types_view"
+                  action="account_invoice_stage_action"
+                  name="Account Invoice Stages"
+                  parent="account_invoice_kanban.menu_parent_invoice_types_view"/>
+
     </data>
 </openerp>
