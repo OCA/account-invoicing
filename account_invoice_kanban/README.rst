@@ -40,14 +40,10 @@ This module provides administrative stage management similar to the tasks in Odo
 
 Configuration
 =============
-Stage are set up in the Project application (standard tasks stages):
+Stage are set up in the Invoicing application:
 
-#. Project menu --> Configuration --> Stages --> Task Stages
+#. Invoicing menu --> Configuration --> Stages --> Invoice Stages
 #. Create a new stage
-#. Click on "Used in Invoicing"
-
-
-
 
 Usage
 =====

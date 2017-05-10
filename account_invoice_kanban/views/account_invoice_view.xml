@@ -170,13 +170,13 @@
         </record>
 
         <menuitem id="menu_parent_invoice_types_view"
-                  name="Invoice Stages"
-                  parent="account.account_account_menu"
-                  sequence="1"/>
+                  name="Stages"
+                  parent="account.menu_finance_configuration"
+                  sequence="31" />
 
         <menuitem id="menu_account_invoice_types_view"
                   action="account_invoice_stage_action"
-                  name="Account Invoice Stages"
+                  name="Invoice Stages"
                   parent="account_invoice_kanban.menu_parent_invoice_types_view"/>
 
     </data>
