@@ -5,37 +5,30 @@
         <record id="invoice_new" model="account.invoice.stage">
             <field name="sequence">1</field>
             <field name="name">New</field>
-            <field name="used_in_invoice" eval="True"/>
         </record>
         <record id="invoice_created" model="account.invoice.stage">
             <field name="sequence">2</field>
             <field name="name">Invoice Created</field>
-            <field name="used_in_invoice" eval="True"/>
         </record>
         <record id="invoice_validated" model="account.invoice.stage">
             <field name="sequence">3</field>
             <field name="name">Invoice Validated</field>
-            <field name="used_in_invoice" eval="True"/>
         </record>
         <record id="invoice_sent" model="account.invoice.stage">
             <field name="sequence">4</field>
             <field name="name">Documentation Sent</field>
-            <field name="used_in_invoice" eval="True"/>
         </record>
         <record id="invoice_recrived" model="account.invoice.stage">
             <field name="sequence">5</field>
             <field name="name">Documentation Received</field>
-            <field name="used_in_invoice" eval="True"/>
         </record>
         <record id="invoice_signed" model="account.invoice.stage">
             <field name="sequence">6</field>
             <field name="name">Contract Signed</field>
-            <field name="used_in_invoice" eval="False"/>
         </record>
         <record id="invoice_patment_received" model="account.invoice.stage">
             <field name="sequence">7</field>
             <field name="name">Payment Received</field>
-            <field name="used_in_invoice" eval="True"/>
         </record>
 
         <record id="account.demo_invoice_0" model="account.invoice">

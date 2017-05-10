@@ -9,8 +9,7 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
     _order = 'date_due asc'
 
-    stage_id = fields.Many2one('account.invoice.stage', 'Stages',
-                               domain=[('used_in_invoice', '=', True)])
+    stage_id = fields.Many2one('account.invoice.stage', 'Stages')
     color = fields.Integer('Color Index', default=0)
 
     @api.multi
@@ -47,4 +46,3 @@ class AccountInvoiceStage(models.Model):
     description = fields.Char('Description')
     sequence = fields.Integer('Sequence', default=1)
     fold = fields.Boolean('Folded in Kanban View')
-    used_in_invoice = fields.Boolean('Used in Invoicing')

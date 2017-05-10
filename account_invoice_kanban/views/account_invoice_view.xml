@@ -140,7 +140,6 @@
                 <tree string="Invoice Stage">
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
-                    <field name="used_in_invoice"/>
                     <field name="fold"/>
                 </tree>
             </field>
@@ -151,17 +150,14 @@
             <field name="model">account.invoice.stage</field>
             <field name="arch" type="xml">
                 <form string="Invoice Stage">
-                    <group>
+                    <sheet>
                         <group>
                             <field name="name"/>
                             <field name="sequence"/>
-                        </group>
-                        <group>
-                            <field name="used_in_invoice"/>
                             <field name="fold"/>
+                            <field name="description" placeholder="Add a description..."/>
                         </group>
-                    </group>
-                    <field name="description" placeholder="Add a description..."/>
+                    </sheet>
                 </form>
             </field>
         </record>
