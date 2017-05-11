@@ -28,6 +28,32 @@ from openerp import netsvc
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    date_invoice = fields.Date(
+            string='Invoice Date',
+            readonly=False,
+            states={'open': [('readonly', True)],
+                    'paid': [('readonly', True)]},
+            index=True,
+            help="Keep empty to use the current date",
+            copy=False
+    )
+
+    date_due = fields.Date(
+            string='Due Date',
+            readonly=False,
+            states={'open': [('readonly', True)],
+                    'paid': [('readonly', True)]},
+            index=True,
+            copy=False,
+            help="If you use payment terms, the due date will be computed "
+                 "automatically at the generation of accounting entries. The "
+                 "payment term may compute several due dates, for example 50% "
+                 "now and 50% in one month, but if you want to force a due "
+                 "date, make sure that the payment term is not set on the "
+                 "invoice. If you keep the payment term and the due date "
+                 "empty, it means direct payment."
+    )
+
     @api.multi
     def action_to_valid(self):
         """Check if analytic account of each lines is not closed"""
