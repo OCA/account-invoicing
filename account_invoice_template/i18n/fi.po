@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-25 00:19+0000\n"
+"POT-Creation-Date: 2017-05-01 14:03+0000\n"
 "PO-Revision-Date: 2015-06-03 04:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Finnish (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/fi/)\n"
@@ -68,7 +68,7 @@ msgstr ""
 #: field:account.invoice.template,type:0
 #: field:account.invoice.template.line,type:0
 msgid "Type"
-msgstr ""
+msgstr "Tyyppi"
 
 #. module: account_invoice_template
 #: model:ir.model,name:account_invoice_template.model_account_invoice_template
