@@ -28,7 +28,7 @@ class SaleOrderLine(models.Model):
             return
         for line in self:
             moves_links = line.move_invoice_link_ids.filtered(
-                    lambda x: not x.invoice_line_id)
+                lambda x: not x.invoice_line_id)
             for move_link in moves_links:
                 # If return move inverse sign
                 move_qty = move_link.move_id.product_uom_qty * (

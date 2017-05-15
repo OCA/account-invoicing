@@ -30,7 +30,7 @@ class AccountInvoice(models.Model):
             pick = line.sale_move_link_ids.mapped('move_id.picking_id')[:1]
             if not pick:
                 picks = line.sale_line_ids.mapped(
-                        'procurement_ids.move_ids.picking_id')
+                    'procurement_ids.move_ids.picking_id')
                 pick = picks.filtered(lambda x: (
                     x.state == 'done' and
                     line.product_id in x.move_lines.mapped('product_id')))[:1]
