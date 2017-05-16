@@ -59,6 +59,13 @@ class AccountInvoice(models.Model):
                 'reference' in vals:
             vals['reference'] = ''
 
+        # If a supplier invoice number is set on the wizard, pass it to the
+        # credit note
+        supplier_invoice_number = self.env.context.get(
+            'supplier_invoice_number', False)
+        if supplier_invoice_number:
+            vals['supplier_invoice_number'] = supplier_invoice_number
+
         return vals
 
     @api.multi
