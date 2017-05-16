@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="invoice_new" model="account.invoice.stage">
+            <field name="sequence">1</field>
+            <field name="name">New</field>
+        </record>
+        <record id="invoice_created" model="account.invoice.stage">
+            <field name="sequence">2</field>
+            <field name="name">Invoice Created</field>
+        </record>
+        <record id="invoice_validated" model="account.invoice.stage">
+            <field name="sequence">3</field>
+            <field name="name">Invoice Validated</field>
+        </record>
+        <record id="invoice_sent" model="account.invoice.stage">
+            <field name="sequence">4</field>
+            <field name="name">Documentation Sent</field>
+        </record>
+        <record id="invoice_recrived" model="account.invoice.stage">
+            <field name="sequence">5</field>
+            <field name="name">Documentation Received</field>
+        </record>
+        <record id="invoice_signed" model="account.invoice.stage">
+            <field name="sequence">6</field>
+            <field name="name">Contract Signed</field>
+        </record>
+        <record id="invoice_patment_received" model="account.invoice.stage">
+            <field name="sequence">7</field>
+            <field name="name">Payment Received</field>
+        </record>
+
+        <record id="account.demo_invoice_0" model="account.invoice">
+            <field name="stage_id" ref="account_invoice_kanban.invoice_new"/>
+        </record>
+
+        <record id="account.invoice_1" model="account.invoice">
+            <field name="stage_id" ref="account_invoice_kanban.invoice_new"/>
+        </record>
+
+        <record id="account.invoice_4" model="account.invoice">
+            <field name="stage_id" ref="account_invoice_kanban.invoice_validated"/>
+        </record>
+
+        <record id="account.invoice_5" model="account.invoice">
+            <field name="stage_id" ref="account_invoice_kanban.invoice_created"/>
+        </record>
+
+    </data>
+</openerp>
