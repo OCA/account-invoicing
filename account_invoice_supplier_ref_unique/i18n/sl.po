@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-13 10:33+0000\n"
-"PO-Revision-Date: 2016-11-13 10:33+0000\n"
+"POT-Creation-Date: 2017-05-16 15:21+0000\n"
+"PO-Revision-Date: 2017-05-16 15:21+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,11 @@ msgid "Invoice"
 msgstr "Račun"
 
 #. module: account_invoice_supplier_ref_unique
+#: model:ir.model,name:account_invoice_supplier_ref_unique.model_account_invoice_refund
+msgid "Invoice Refund"
+msgstr "Dobropis"
+
+#. module: account_invoice_supplier_ref_unique
 #: code:addons/account_invoice_supplier_ref_unique/models/account_invoice.py:35
 #, python-format
 msgid ""
@@ -34,6 +39,7 @@ msgstr ""
 "dobavitelja '%s'."
 
 #. module: account_invoice_supplier_ref_unique
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_invoice_refund_supplier_invoice_number
 #: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_invoice_supplier_invoice_number
 msgid "Vendor invoice number"
 msgstr ""

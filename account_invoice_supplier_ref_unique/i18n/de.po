@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-18 04:00+0000\n"
-"PO-Revision-Date: 2017-02-18 04:00+0000\n"
+"POT-Creation-Date: 2017-05-16 15:21+0000\n"
+"PO-Revision-Date: 2017-05-16 15:21+0000\n"
 "Last-Translator: Rudolf Schnapka <rs@techno-flex.de>, 2017\n"
 "Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,11 @@ msgid "Invoice"
 msgstr "Rechnung"
 
 #. module: account_invoice_supplier_ref_unique
+#: model:ir.model,name:account_invoice_supplier_ref_unique.model_account_invoice_refund
+msgid "Invoice Refund"
+msgstr "Rechnungsgutschrift"
+
+#. module: account_invoice_supplier_ref_unique
 #: code:addons/account_invoice_supplier_ref_unique/models/account_invoice.py:35
 #, python-format
 msgid ""
@@ -35,6 +40,7 @@ msgstr ""
 "bereits in Odoo unter der Nummer '%s' des Lieferanten '%s'."
 
 #. module: account_invoice_supplier_ref_unique
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_invoice_refund_supplier_invoice_number
 #: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_invoice_supplier_invoice_number
 msgid "Vendor invoice number"
 msgstr "Lieferanten-Rechnungsnummer"
