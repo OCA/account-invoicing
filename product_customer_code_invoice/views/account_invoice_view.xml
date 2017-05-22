@@ -5,8 +5,7 @@
     Authors, Nicola Malcontenti, nicola.malcontenti@agilebg.com
   The licence is in the file __openerp__.py
 -->
-<openerp>
-    <data>
+<odoo>
 
         <record id="invoice_form" model="ir.ui.view">
             <field name="name">account.invoice.product.code.form</field>
@@ -20,5 +19,4 @@
             </field>
         </record>
 
-    </data>
-</openerp>
+</odoo>

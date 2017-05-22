@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Product Customer code for account invoice",
-    "version": "1.0",
+    "version": "10.0.1.0.0",
     "author": "Agile Business Group,Odoo Community Association (OCA)",
     "website": "http://www.agilebg.com",
     "license": "AGPL-3",
@@ -36,10 +36,8 @@
     this module loads in every account invoice
     the customer code defined in the product,
     """,
-    "demo": [],
     "data": [
-        'account_invoice_view.xml',
+        'views/account_invoice_view.xml',
     ],
-    'installable': False,
-    'active': False,
+    'installable': True,
 }
