@@ -1,23 +1,11 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2004-2010 Tiny SPRL (http://tiny.be).
+# Copyright 2010-2011 Elico Corp.
+# Copyright 2016 Acsone (https://www.acsone.eu/)
+# Copyright 2017 Eficent Business and IT Consulting Services S.L.
+#   (http://www.eficent.com)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
 from openerp import models, api
 from openerp import workflow
 from openerp.osv.orm import browse_record, browse_null
@@ -62,15 +50,13 @@ class AccountInvoice(models.Model):
             'name': '%s' % (invoice.name or '',),
             'fiscal_position_id': invoice.fiscal_position_id.id,
             'payment_term_id': invoice.payment_term_id.id,
-            # 'period_id': invoice.period_id.id,
             'invoice_line_ids': {},
             'partner_bank_id': invoice.partner_bank_id.id,
         }
 
     @api.multi
-    def do_merge(
-            self, keep_references=True, date_invoice=False,
-            remove_empty_invoice_lines=True):
+    def do_merge(self, keep_references=True, date_invoice=False,
+                 remove_empty_invoice_lines=True):
         """
         To merge similar type of account invoices.
         Invoices will only be merged if:
@@ -96,12 +82,14 @@ class AccountInvoice(models.Model):
                     if not field_val:
                         field_val = False
                 if (isinstance(field_val, browse_record) and
-                        field != 'invoice_line_tax_ids'):
+                        field != 'invoice_line_tax_ids' and
+                        field != 'sale_line_ids'):
                     field_val = field_val.id
                 elif isinstance(field_val, browse_null):
                     field_val = False
                 elif (isinstance(field_val, list) or
-                        field == 'invoice_line_tax_ids'):
+                        field == 'invoice_line_tax_ids' or
+                        field == 'sale_line_ids'):
                     field_val = ((6, 0, tuple([v.id for v in field_val])),)
                 list_key.append((field, field_val))
             list_key.sort()
@@ -134,8 +122,8 @@ class AccountInvoice(models.Model):
             else:
                 if account_invoice.name and keep_references:
                     invoice_infos['name'] = \
-                        (invoice_infos['name'] or '') + \
-                        (' %s' % (account_invoice.name,))
+                        (invoice_infos['name'] or '') + ' ' + \
+                        account_invoice.name
                 if account_invoice.origin and \
                         account_invoice.origin not in origins:
                     invoice_infos['origin'] = \
@@ -145,17 +133,16 @@ class AccountInvoice(models.Model):
                 if account_invoice.reference \
                         and account_invoice.reference not in client_refs:
                     invoice_infos['reference'] = \
-                        (invoice_infos['reference'] or '') + \
-                        (' %s' % (account_invoice.reference,))
+                        (invoice_infos['reference'] or '') + ' ' + \
+                        account_invoice.reference
                     client_refs.add(account_invoice.reference)
 
             for invoice_line in account_invoice.invoice_line_ids:
-                cols = self._get_invoice_line_key_cols()
                 line_key = make_key(
-                    invoice_line, cols)
+                    invoice_line, self._get_invoice_line_key_cols())
 
-                o_line = invoice_infos['invoice_line_ids'].setdefault(line_key,
-                                                                      {})
+                o_line = invoice_infos['invoice_line_ids'].\
+                    setdefault(line_key, {})
 
                 if o_line:
                     # merge the line with an existing line
@@ -207,16 +194,15 @@ class AccountInvoice(models.Model):
                     self.env.uid, 'account.invoice', old_id, 'invoice_cancel',
                     self.env.cr)
 
-        # make link between original sale order or purchase order
+        # Make link between original sale order
         # None if sale is not installed
         so_obj = self.env['sale.order'] \
             if 'sale.order' in self.env.registry else False
         invoice_line_obj = self.env['account.invoice.line']
-        # None if purchase is not installed
         for new_invoice_id in invoices_info:
             if so_obj is not False:
-                todos = old_invoices.mapped(
-                    'invoice_line_ids.sale_line_ids.order_id')
+                todos = so_obj.search(
+                    [('invoice_ids', 'in', invoices_info[new_invoice_id])])
                 todos.write({'invoice_ids': [(4, new_invoice_id)]})
                 for org_so in todos:
                     for so_line in org_so.order_line:
