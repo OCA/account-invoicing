@@ -96,7 +96,7 @@ class TestAccountInvoiceMergePurchase(common.TransactionCase):
                          "Purchase order's state isn't correct")
         invoice_ids.extend(purchase_order02.invoice_ids.ids)
         invoices = self.inv_obj.browse(invoice_ids)
-        invoices_info = invoices.do_merge()
+        invoices_info, inv_lines_info = invoices.do_merge()
         new_invoice_ids = invoices_info.keys()
         # Ensure there is only one new invoice
         self.assertEqual(len(new_invoice_ids), 1)
@@ -150,7 +150,7 @@ class TestAccountInvoiceMergePurchase(common.TransactionCase):
         picking02.do_transfer()
         invoice_ids.extend(invoice_picking(self, picking02))
         invoices = self.inv_obj.browse(invoice_ids)
-        invoices_info = invoices.do_merge()
+        invoices_info, inv_lines_info = invoices.do_merge()
         new_invoice_ids = invoices_info.keys()
         # Ensure there is only one new invoice
         self.assertEqual(len(new_invoice_ids), 1)
