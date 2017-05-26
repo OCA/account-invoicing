@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-17 02:54+0000\n"
-"PO-Revision-Date: 2017-05-17 02:54+0000\n"
+"POT-Creation-Date: 2017-05-19 23:32+0000\n"
+"PO-Revision-Date: 2017-05-19 23:32+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>, 2017\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -22,17 +22,17 @@ msgstr ""
 #. module: account_invoice_kanban
 #: model:ir.model,name:account_invoice_kanban.model_account_invoice_stage
 msgid "Account Invoice Stage"
-msgstr ""
+msgstr "Stopnja računa"
 
 #. module: account_invoice_kanban
 #: view:account.invoice.stage:account_invoice_kanban.account_invoice_stage_form_view
 msgid "Add a description..."
-msgstr ""
+msgstr "Dodaj opis..."
 
 #. module: account_invoice_kanban
 #: view:account.invoice:account_invoice_kanban.view_account_invoice_kanban
 msgid "Balance -"
-msgstr ""
+msgstr "Stanje -"
 
 #. module: account_invoice_kanban
 #: field:account.invoice,color:0
@@ -62,12 +62,12 @@ msgstr "Prikazni naziv"
 #. module: account_invoice_kanban
 #: view:account.invoice:account_invoice_kanban.view_account_invoice_kanban
 msgid "Due date -"
-msgstr ""
+msgstr "Zapade dne -"
 
 #. module: account_invoice_kanban
 #: field:account.invoice.stage,fold:0
 msgid "Folded in Kanban View"
-msgstr ""
+msgstr "Prepognjeno v kanbanskem prikazu"
 
 #. module: account_invoice_kanban
 #: field:account.invoice.stage,id:0
@@ -83,12 +83,12 @@ msgstr "Račun"
 #: view:account.invoice.stage:account_invoice_kanban.account_invoice_stage_form_view
 #: view:account.invoice.stage:account_invoice_kanban.account_invoice_stage_tree_view
 msgid "Invoice Stage"
-msgstr ""
+msgstr "Stopnja računa"
 
 #. module: account_invoice_kanban
 #: model:ir.ui.menu,name:account_invoice_kanban.menu_account_invoice_types_view
 msgid "Invoice Stages"
-msgstr ""
+msgstr "Stopnje računov"
 
 #. module: account_invoice_kanban
 #: field:account.invoice.stage,__last_update:0
@@ -113,7 +113,7 @@ msgstr "Zaporedje"
 #. module: account_invoice_kanban
 #: view:account.invoice:account_invoice_kanban.view_account_invoice_kanban
 msgid "Source -"
-msgstr ""
+msgstr "Vir -"
 
 #. module: account_invoice_kanban
 #: view:account.invoice:account_invoice_kanban.view_account_invoice_filter
@@ -140,9 +140,9 @@ msgstr "Status"
 #. module: account_invoice_kanban
 #: view:account.invoice:account_invoice_kanban.view_account_invoice_kanban
 msgid "Total Invoice -"
-msgstr ""
+msgstr "Skupaj račun -"
 
 #. module: account_invoice_kanban
 #: view:account.invoice:account_invoice_kanban.view_account_invoice_kanban
 msgid "oe_kanban_text_red"
-msgstr ""
+msgstr "oe_kanban_text_red"
