@@ -1,33 +1,20 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (c) 2010-2011 Elico Corp. All Rights Reserved.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp import models, fields, api, exceptions
-from openerp.tools.translate import _
+# Copyright 2004-2010 Tiny SPRL (http://tiny.be).
+# Copyright 2010-2011 Elico Corp.
+# Copyright 2016 Acsone (https://www.acsone.eu/)
+# Copyright 2017 Eficent Business and IT Consulting Services S.L.
+#   (http://www.eficent.com)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
+from odoo import api, exceptions, fields, models
+from odoo.tools.translate import _
 
 
-class invoice_merge(models.TransientModel):
+class InvoiceMerge(models.TransientModel):
     _name = "invoice.merge"
     _description = "Merge Partner Invoice"
 
-    keep_references = fields.Boolean('Keep references'
-                                     ' from original invoices',
+    keep_references = fields.Boolean('Keep references from original invoices',
                                      default=True)
     date_invoice = fields.Date('Invoice Date')
 
@@ -37,12 +24,10 @@ class invoice_merge(models.TransientModel):
             ids = self.env.context['active_ids']
             if len(ids) < 2:
                 raise exceptions.Warning(
-                    _('Please select multiple invoice to merge in the list '
+                    _('Please select multiple invoices to merge in the list '
                       'view.'))
-            inv_obj = self.env['account.invoice']
-            invs = inv_obj.read(ids,
-                                ['account_id', 'state', 'type', 'company_id',
-                                 'partner_id', 'currency_id', 'journal_id'])
+
+            invs = self.env['account.invoice'].browse(ids)
             for d in invs:
                 if d['state'] != 'draft':
                     raise exceptions.Warning(
@@ -78,7 +63,7 @@ class invoice_merge(models.TransientModel):
          @param context: A standard dictionary
          @return: New arch of view.
         """
-        res = super(invoice_merge, self).fields_view_get(
+        res = super(InvoiceMerge, self).fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar,
             submenu=False)
         self._dirty_check()
