@@ -37,7 +37,7 @@ class AccountInvoice(models.Model):
             picking: picking.invoice_state for
             picking in self.mapped('picking_ids')
         }
-        invoices_info = super(AccountInvoice, self).do_merge(
+        invoices_info, invoice_lines_info = super(AccountInvoice, self).do_merge(
             keep_references=keep_references, date_invoice=date_invoice)
         # Restore invoice states
         for picking in invoice_states:
@@ -47,4 +47,4 @@ class AccountInvoice(models.Model):
             origin_invoices = self.browse(invoices_info[new_invoice_id])
             new_invoice.picking_ids = [
                 (6, 0, origin_invoices.mapped('picking_ids').ids)]
-        return invoices_info
+        return invoices_info, invoice_lines_info
