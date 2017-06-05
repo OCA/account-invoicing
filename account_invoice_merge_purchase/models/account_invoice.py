@@ -29,9 +29,10 @@ class AccountInvoice(models.Model):
                     org_ilines = po_line.mapped('invoice_lines')
                     invoice_line_ids = []
                     for org_iline in org_ilines:
-                        invoice_line_ids.append(
-                            invoice_lines_info[
-                                new_invoice_id][org_iline.id])
+                        if org_iline.id in invoice_lines_info[new_invoice_id]:
+                            invoice_line_ids.append(
+                                invoice_lines_info[
+                                    new_invoice_id][org_iline.id])
                     po_line.write(
                         {'invoice_lines': [(6, 0, invoice_line_ids)]})
                     for stock_move in po_line.move_ids:

@@ -9,7 +9,7 @@
     'author': "ACSONE SA/NV,Noviat,Odoo Community Association (OCA)",
     'website': "http://acsone.eu",
     'category': 'Finance',
-    'version': '8.0.2.0.0',
+    'version': '8.0.2.0.1',
     'license': 'AGPL-3',
     'depends': [
         'account_invoice_merge',
