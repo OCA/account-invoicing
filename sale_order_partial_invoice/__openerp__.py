@@ -21,7 +21,7 @@
 
 {
     'name': 'Sale Partial Invoice',
-    'version': '1.1',
+    'version': '7.0.1.0.0',
     'category': 'Accounting & Finance',
     'description': """
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg

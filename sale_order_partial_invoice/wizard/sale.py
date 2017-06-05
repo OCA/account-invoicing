@@ -78,14 +78,10 @@ class SaleAdvancePaymentInv(orm.TransientModel):
         for so_line in order_line_obj.browse(cr, uid, so_line_ids,
                                              context=context):
             if so_line.state in ('confirmed', 'done') and not so_line.invoiced:
-                val = {'sale_order_line_id': so_line.id, }
-                if so_line.product_id and so_line.product_id.type == 'product':
-                    val['quantity'] = so_line.qty_delivered - \
-                        so_line.qty_invoiced
-                else:
-                    # service or consumable
-                    val['quantity'] = so_line.product_uom_qty - \
-                        so_line.qty_invoiced
+                qty2inv = so_line.product_uom_qty - so_line.qty_invoiced
+                val = {'sale_order_line_id': so_line.id,
+                       'quantity': qty2inv
+                       }
                 line_values.append((0, 0, val))
         val = {'line_ids': line_values, }
         wizard_id = wizard_obj.create(cr, uid, val, context=context)
@@ -115,9 +111,6 @@ class SaleOrderLineInvoicePartiallyLine(orm.TransientModel):
         'qty_invoiced': fields.related('sale_order_line_id', 'qty_invoiced',
                                        type='float', string="Invoiced",
                                        readonly=True),
-        'qty_delivered': fields.related('sale_order_line_id', 'qty_delivered',
-                                        type='float', string="Shipped",
-                                        readonly=True),
         'quantity': fields.float('To invoice'),
     }
 
