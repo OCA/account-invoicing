@@ -27,6 +27,7 @@ addon | version | summary
 [account_invoice_partner](account_invoice_partner/) | 10.0.1.0.0 | Replace the partner by an invoice contact if found
 [account_invoice_refund_link](account_invoice_refund_link/) | 10.0.1.0.0 | Link refund invoice with its original invoice
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 10.0.1.0.0 | Checks that supplier invoices are not entered twice
+[account_invoice_supplierinfo_update](account_invoice_supplierinfo_update/) | 10.0.1.0.0 | In the supplier invoice, automatically updates all products whose unit price on the line is different from the supplier price
 [account_payment_term_extension](account_payment_term_extension/) | 10.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
 
 
