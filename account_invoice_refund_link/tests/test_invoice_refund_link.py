@@ -7,21 +7,22 @@ from odoo.tests import common
 from .. import post_init_hook
 
 
-class TestInvoiceRefundLink(common.SavepointCase):
+# using SavepointCase here seems to cause a deadlock
+# -> forcing TransactionCase
+class TestInvoiceRefundLink(common.TransactionCase):
     filter_refund = 'refund'
 
-    @classmethod
-    def setUpClass(cls):
-        super(TestInvoiceRefundLink, cls).setUpClass()
-        cls.partner = cls.env['res.partner'].create({
+    def setUp(self):
+        super(TestInvoiceRefundLink, self).setUp()
+        self.partner = self.env['res.partner'].create({
             'name': 'Test partner',
         })
-        default_line_account = cls.env['account.account'].search([
+        default_line_account = self.env['account.account'].search([
             ('internal_type', '=', 'other'),
             ('deprecated', '=', False),
-            ('company_id', '=', cls.env.user.company_id.id),
+            ('company_id', '=', self.env.user.company_id.id),
         ], limit=1)
-        cls.invoice_lines = [(0, False, {
+        self.invoice_lines = [(0, False, {
             'name': 'Test description #1',
             'account_id': default_line_account.id,
             'quantity': 1.0,
@@ -32,17 +33,17 @@ class TestInvoiceRefundLink(common.SavepointCase):
             'quantity': 2.0,
             'price_unit': 25.0,
         })]
-        cls.invoice = cls.env['account.invoice'].create({
-            'partner_id': cls.partner.id,
+        self.invoice = self.env['account.invoice'].create({
+            'partner_id': self.partner.id,
             'type': 'out_invoice',
-            'invoice_line_ids': cls.invoice_lines,
+            'invoice_line_ids': self.invoice_lines,
         })
-        cls.invoice.action_invoice_open()
-        cls.refund_reason = 'The refund reason'
-        cls.env['account.invoice.refund'].with_context(
-            active_ids=cls.invoice.ids).create({
-                'filter_refund': cls.filter_refund,
-                'description': cls.refund_reason,
+        self.invoice.action_invoice_open()
+        self.refund_reason = 'The refund reason'
+        self.env['account.invoice.refund'].with_context(
+            active_ids=self.invoice.ids).create({
+                'filter_refund': self.filter_refund,
+                'description': self.refund_reason,
             }).invoice_refund()
 
     def test_refund_link(self):
