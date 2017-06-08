@@ -1,0 +1,65 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_split_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20140602-231022\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-16 15:28+0000\n"
+"PO-Revision-Date: 2015-01-16 16:30+0100\n"
+"Last-Translator: Emanuel Cino <ecino@compassion.ch>\n"
+"Language-Team: \n"
+"Language: fr_CH\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.6.4\n"
+
+#. module: account_invoice_split_invoice
+#: view:account.invoice.split.wizard:0
+msgid "Invoice splitting"
+msgstr "Scission de facture"
+
+#. module: account_invoice_split_invoice
+#: view:account.invoice.split.wizard:0
+#: model:ir.actions.act_window,name:account_invoice_split_invoice.action_split_invoice_wizard
+msgid "Split invoice"
+msgstr "Scindre la facture"
+
+#. module: account_invoice_split_invoice
+#: field:account.invoice.line,split:0
+#: code:addons/account_invoice_split_invoice/model/account_invoice.py:36
+#, python-format
+msgid "Put line into new invoice"
+msgstr "Ligne à déplacer"
+
+#. module: account_invoice_split_invoice
+#: model:ir.model,name:account_invoice_split_invoice.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Ligne de facture"
+
+#. module: account_invoice_split_invoice
+#: view:account.invoice.split.wizard:0
+msgid "Select lines you wish to put in a new invoice."
+msgstr "Sélectionnez les lignes à déplacer vers nouvelle facture"
+
+#. module: account_invoice_split_invoice
+#: field:account.invoice.split.wizard,invoice_id:0
+#: model:ir.model,name:account_invoice_split_invoice.model_account_invoice
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: account_invoice_split_invoice
+#: model:ir.model,name:account_invoice_split_invoice.model_account_invoice_split_wizard
+msgid "account.invoice.split.wizard"
+msgstr "account.invoice.split.wizard"
+
+#. module: account_invoice_split_invoice
+#: field:account.invoice.split.wizard,invoice_line_ids:0
+msgid "Invoice lines"
+msgstr "Lignes de facture"
+
+#~ msgid "Choose how to separate invoice"
+#~ msgstr "Séparation d'une facture"
