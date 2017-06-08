@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Sequences for account.billing -->
+        <record id="seq_type_account_billing" model="ir.sequence.type">
+            <field name="name">Billing</field>
+            <field name="code">account.billing</field>
+        </record>
+
+        <record id="seq_account_billing" model="ir.sequence">
+            <field name="name">Billing</field>
+            <field name="code">account.billing</field>
+            <field name="prefix">BIL/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</openerp>
