@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_account_invoice_tree">
+            <field name="name">view.account_invoice.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_invoice']" position="before">
+                    <field string="Supplier Invoice Number" name="supplier_invoice_number"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_account_invoice_search">
+            <field name="name">view.account.invoice.search</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="/search/field[@name='number']" position="before">
+                    <field name="supplier_invoice_number"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+
+
