@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+       <record id="view_account_invoice_edit_filter" model="ir.ui.view">
+            <field name="name">account.invoice.search</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <field name="number" position="after">
+                    <field name="journal_id"/>
+                </field>
+                <group string="Group By" position="inside">
+                    <filter string="Journal" context="{'group_by':'journal_id'}"/>
+                </group>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
