@@ -1,0 +1,54 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* free_invoice_line
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-04 08:44+0000\n"
+"PO-Revision-Date: 2014-09-04 08:44+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: free_invoice_line
+#: field:account.invoice,amount_untaxed_free:0
+#: code:addons/free_invoice_line/account/account.py:171
+#, python-format
+msgid "\"For Free\" Amount"
+msgstr ""
+
+#. module: free_invoice_line
+#: field:account.invoice,amount_tax_free:0
+msgid "\"For Free\" Tax"
+msgstr ""
+
+#. module: free_invoice_line
+#: code:addons/free_invoice_line/account/account.py:193
+#, python-format
+msgid "\"For Free\" Tax Amount"
+msgstr ""
+
+#. module: free_invoice_line
+#: field:account.invoice.line,free:0
+msgid "For Free"
+msgstr ""
+
+#. module: free_invoice_line
+#: code:_description:0
+#: model:ir.model,name:free_invoice_line.model_account_invoice
+#, python-format
+msgid "Invoice"
+msgstr ""
+
+#. module: free_invoice_line
+#: code:_description:0
+#: model:ir.model,name:free_invoice_line.model_account_invoice_line
+#, python-format
+msgid "Invoice Line"
+msgstr ""
+
