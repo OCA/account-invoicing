@@ -1,9 +1,7 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Account - Pricelist on Invoices for Odoo
-#    Copyright (C) 2015-Today GRAP (http://www.grap.coop)
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
+#    This module copyright (C) 2015 Therp BV <http://therp.nl>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,22 +17,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.tests.common import TransactionCase
 
-{
-    'name': 'Account - Pricelist on Invoices',
-    'version': '8.0.1.0.0',
-    'summary': 'Add partner pricelist on invoices',
-    'category': 'Accounting & Finance',
-    'author': 'GRAP,Therp BV,Odoo Community Association (OCA)',
-    'website': 'http://www.grap.coop',
-    'license': 'AGPL-3',
-    'depends': [
-        'account',
-    ],
-    'data': [
-        'view/view.xml',
-    ],
-    'demo': [
-        'demo/res_groups.yml',
-    ],
-}
+
+class TestAccountInvoicePricelist(TransactionCase):
+    def test_account_invoice_pricelist(self):
+        invoice = self.env['account.invoice'].search([
+            ('type', '=', 'out_invoice'),
+            ('partner_id.property_product_pricelist', '!=', False)
+        ], limit=1)
+        on_change_partner_id = invoice.onchange_partner_id(
+            invoice.type, invoice.partner_id.id)
+        self.assertEqual(
+            on_change_partner_id['value']['pricelist_id'],
+            invoice.partner_id.property_product_pricelist.id)
+        invoice.button_update_prices_from_pricelist()
