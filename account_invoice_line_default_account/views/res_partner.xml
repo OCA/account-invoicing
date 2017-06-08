@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record
+            id="view_partner_expense_property_form"
+            model="ir.ui.view">
+            <field name="name">res.partner.property.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="priority">2</field>
+            <field
+                name="inherit_id"
+                ref="account.view_partner_property_form" />
+            <field
+                name="arch"
+                type="xml">
+                <field
+                    name="property_account_receivable"
+                    position="after">
+                    <label for="property_account_income" />
+                    <div>
+                        <field
+                            name="property_account_income"
+                            groups="account.group_account_invoice" />
+                        <div style=" white-space: nowrap; ">
+                            <field
+                                name="auto_update_account_income"
+                                nolabel="1"
+                                groups="account.group_account_invoice" />
+                            <label for="auto_update_account_income" string="autosave from invoice line"/>
+                        </div>
+                    </div>
+                </field>
+                <field
+                    name="property_account_payable"
+                    position="after">
+                    <label for="property_account_expense" />
+                    <div>
+                        <field
+                            name="property_account_expense"
+                            groups="account.group_account_invoice" />
+                        <div style=" white-space: nowrap; ">
+                            <field
+                                name="auto_update_account_expense"
+                                nolabel="1"
+                                groups="account.group_account_invoice" />
+                            <label for="auto_update_account_expense" string="autosave from invoice line"/>
+                        </div>
+                    </div>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
