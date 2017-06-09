@@ -2,22 +2,28 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=====================
-Pricelist on Invoices
-=====================
+======================================
+Pricelist on Invoices From Sales Order
+======================================
 
-* Add a stored field pricelist on invoices, related to the partner pricelist;
-* Possibility to group by pricelist on account.invoice view;
+* Copies pricelist from sales order to invoice.
 
 .. image:: static/src/description/screenshot_group_by.png
+
+Installation
+============
+
+Module is automatically installed when both account_invoice_pricelist and
+sale modules are installed.
 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
-In case of trouble, please check there if your issue has already been reported.
-If you spotted it first, help us smashing it by providing a detailed and welcomed feedback.
-
+Bugs are tracked on
+`GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
+In case of trouble, please check there if your issue has already been
+reported. If you spotted it first, help us smashing it by providing a
+detailed and welcomed feedback.
 
 Credits
 =======
@@ -25,9 +31,6 @@ Credits
 Contributors
 ------------
 
-* Sylvain LE GAL (https://twitter.com/legalsylvain)
-* Holger Brunn (hbrunn@therp.nl)
-* Sergio Teruel Albert (http://www.tecnativa.com)
 * Ronald Portier, Therp BV (https://therp.nl)
 
 Maintainer
@@ -43,4 +46,4 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-To contribute to this module, please visit https://odoo-community.org.
+To contribute to this module, please visit http://odoo-community.org.
