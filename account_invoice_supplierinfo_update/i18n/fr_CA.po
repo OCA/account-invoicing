@@ -4,14 +4,13 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
-# Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 03:43+0000\n"
-"PO-Revision-Date: 2017-01-13 03:43+0000\n"
-"Last-Translator: Adriana Ierfino <adriana.ierfino@savoirfairelinux.com>, 2017\n"
+"POT-Creation-Date: 2017-06-06 02:39+0000\n"
+"PO-Revision-Date: 2017-06-06 02:39+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: French (Canada) (https://www.transifex.com/oca/teams/23907/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,33 +19,33 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: account_invoice_supplierinfo_update
-#: help:wizard.update.invoice.supplierinfo,state:0
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_state
 msgid ""
 " * The 'Draft' status is used when a user is encoding a new and unconfirmed Invoice.\n"
-" * The 'Pro-forma' when invoice is in Pro-forma status,invoice does not have an invoice number.\n"
-" * The 'Open' status is used when user create invoice,a invoice number is generated.Its in open status till user does not pay invoice.\n"
+" * The 'Pro-forma' status is used when the invoice does not have an invoice number.\n"
+" * The 'Open' status is used when user creates invoice, an invoice number is generated. It stays in the open status till the user pays the invoice.\n"
 " * The 'Paid' status is set automatically when the invoice is paid. Its related journal entries may or may not be reconciled.\n"
 " * The 'Cancelled' status is used when user cancel invoice."
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+#: model:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Cancel"
 msgstr "Annuler"
 
 #. module: account_invoice_supplierinfo_update
-#: view:account.invoice:account_invoice_supplierinfo_update.view_account_invoice_form
-msgid "Check Supplier Informations"
+#: model:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_account_invoice_form
+msgid "Check Supplier Infos"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: view:account.invoice:account_invoice_supplierinfo_update.view_account_invoice_form
+#: model:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_account_invoice_form
 msgid ""
-"Check if the invoice informations are similar from the supplier informations"
+"Check if the invoice information are similar from the supplier information"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: help:account.invoice,supplierinfo_ok:0
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_invoice_supplierinfo_ok
 msgid ""
 "Checked if the check of supplierinfo has been done.\n"
 " - Uncheck this box, if you want to check again this invoice\n"
@@ -54,42 +53,37 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,create_uid:0
-#: field:wizard.update.invoice.supplierinfo.line,create_uid:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_create_uid
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,create_date:0
-#: field:wizard.update.invoice.supplierinfo.line,create_date:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_create_date
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_create_date
 msgid "Created on"
 msgstr "Créé le"
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo.line,current_min_quantity:0
-msgid "Current Min Quantity"
-msgstr ""
-
-#. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo.line,current_price:0
-msgid "Current Unit Price"
-msgstr ""
-
-#. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,display_name:0
-#: field:wizard.update.invoice.supplierinfo.line,display_name:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_display_name
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_display_name
 msgid "Display Name"
 msgstr "Afficher le nom"
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,id:0
-#: field:wizard.update.invoice.supplierinfo.line,id:0
+#: model:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+msgid "Do you want to set invoice as checked ?"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_id
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_id
 msgid "ID"
 msgstr "Identifiant"
 
 #. module: account_invoice_supplierinfo_update
-#: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
-msgid "Ignore (Set the invoice as Checked)"
+#: model:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+msgid "Ignore"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
@@ -103,46 +97,46 @@ msgid "Invoice Line"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,invoice_id:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_invoice_id
 msgid "Invoice id"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,__last_update:0
-#: field:wizard.update.invoice.supplierinfo.line,__last_update:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo___last_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line___last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,write_uid:0
-#: field:wizard.update.invoice.supplierinfo.line,write_uid:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_write_uid
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,write_date:0
-#: field:wizard.update.invoice.supplierinfo.line,write_date:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_write_date
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,line_ids:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_ids
 msgid "Lines"
 msgstr "Lignes"
 
 #. module: account_invoice_supplierinfo_update
-#: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+#: model:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "List of products to update"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo.line,new_min_quantity:0
-msgid "New Min Quantity"
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_current_min_quantity
+msgid "Minimal Quantity"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: selection:wizard.update.invoice.supplierinfo.line,state:0
-msgid "New Partner Info"
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_new_min_quantity
+msgid "New Min Quantity"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
@@ -151,85 +145,112 @@ msgid "New Supplier Info"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo.line,new_price:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_new_price
 msgid "New Unit Price"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo.line,partnerinfo_id:0
-msgid "Partnerinfo id"
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_current_price
+msgid "Price"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo.line,price_variation:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_price_variation
 msgid "Price Variation (%)"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo.line,product_id:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_product_id
 msgid "Product"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,state:0
-#: field:wizard.update.invoice.supplierinfo.line,state:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_state
 msgid "State"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,supplier_partner_id:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_state
+msgid "Status"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_supplier_partner_id
 msgid "Supplier"
 msgstr "Fournisseur"
 
 #. module: account_invoice_supplierinfo_update
-#: field:account.invoice,supplierinfo_ok:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_invoice_supplierinfo_ok
 msgid "Supplier Informations Checked"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:account.invoice,supplier_partner_id:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_invoice_supplier_partner_id
 msgid "Supplier Partner"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo.line,supplierinfo_id:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_supplierinfo_id
 msgid "Supplierinfo id"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_current_min_quantity
 msgid ""
-"This will mark the invoice as checked. Are you sure? It will be possible to "
-"uncheck manually in the 'Other Info' tab."
+"The minimal quantity to purchase from this vendor, expressed in the vendor "
+"Product Unit of Measure if not any, in the default unit of measure of the "
+"product otherwise."
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_current_price
+msgid "The price to purchase a product"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+msgid ""
+"This will mark the invoice as checked. It will be possible to uncheck "
+"manually in the 'Other Info' tab."
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: selection:wizard.update.invoice.supplierinfo.line,state:0
-msgid "Update Partner Info"
+msgid "Update Supplier Info"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+#: model:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Update and Validate"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: code:addons/account_invoice_supplierinfo_update/models/account_invoice.py:72
+#: code:addons/account_invoice_supplierinfo_update/models/account_invoice.py:69
 #, python-format
 msgid "Update supplier informations of products"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+#: model:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Update without Validating"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo.line,wizard_id:0
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line_wizard_id
 msgid "Wizard id"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+#: model:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "or"
 msgstr "ou"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo
+msgid "wizard.update.invoice.supplierinfo"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo_line
+msgid "wizard.update.invoice.supplierinfo.line"
+msgstr ""
