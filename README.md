@@ -29,7 +29,9 @@ addon | version | summary
 [account_invoice_merge_purchase](account_invoice_merge_purchase/) | 8.0.2.0.0 | Compatibility between purchase and account invoice merge
 [account_invoice_partner](account_invoice_partner/) | 8.0.0.2.0 | Automatically select invoicing partner on invoice
 [account_invoice_period_usability](account_invoice_period_usability/) | 8.0.1.0.0 | Display in the supplier invoice form the fiscal period next to the invoice date
-[account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.0.0 | Add partner pricelist on invoices
+[account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.1.0 | Add partner pricelist on invoices
+[account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 8.0.1.0.0 | Module to fill pricelist from sales order in invoice.
+[account_invoice_pricelist_sale_stock](account_invoice_pricelist_sale_stock/) | 8.0.1.0.0 | Set pricelist from SO in invoice created from picking.
 [account_invoice_rounding](account_invoice_rounding/) | 8.0.1.0.0 | Unit rounded invoice
 [account_invoice_shipping_address](account_invoice_shipping_address/) | 8.0.0.1.1 | Adds a shipping address field to the invoice.
 [account_invoice_supplier_number_info](account_invoice_supplier_number_info/) | 8.0.1.0.0 | Allows to force invoice numbering on specific invoices
