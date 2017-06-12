@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
 
-    <data noupdate="0">
-
-        <record id="group_use_product_description_per_inv_line" model="res.groups">
-            <field name="name">Use only product description on invoice lines</field>
-            <field name="category_id" ref="base.module_category_hidden"/>
-        </record>
-
-    </data>
-
-</openerp>
+<odoo>
+    <record id="group_use_product_description_per_inv_line" model="res.groups">
+        <field
+            name="name">Use only product description on invoice lines</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+</odoo>
