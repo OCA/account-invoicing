@@ -25,12 +25,9 @@ class AccountInvoiceLine(models.Model):
     @api.multi
     @api.depends('product_id', 'quantity', 'price_subtotal', 'invoice_id.type')
     def _compute_multi_margin(self):
-        for line in self:
-            if not line.product_id or\
-                    line.invoice_id.type not in ('out_invoice', 'out_refund'):
-                line.purchase_price = 0
-                line.margin = 0
-            else:
-                line.purchase_price = line.product_id.standard_price
-                line.margin = line.price_subtotal - (
-                    line.product_id.standard_price * line.quantity)
+        for line in self.filtered(
+                lambda l: l.product_id and
+                l.invoice_id.type in ('out_invoice', 'out_refund')):
+            line.purchase_price = line.product_id.standard_price
+            line.margin = line.price_subtotal - (
+                line.product_id.standard_price * line.quantity)
