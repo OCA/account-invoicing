@@ -6,34 +6,27 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 
-from openerp import fields, models, api
+from openerp import api, fields, models
 
 
 class AccountInvoice(models.Model):
 
     _inherit = "account.invoice"
 
+    @api.multi
     @api.depends('invoice_line_ids')
     def _compute_analytic_accounts(self):
-        res = {}
         for invoice in self:
-            for invoice_line in invoice.invoice_line_ids:
-                if invoice_line and invoice_line.account_analytic_id:
-                    res[invoice.id].append(invoice_line.account_analytic_id.id)
-        return res
+            invoice.account_analytic_ids =\
+            invoice.mapped('invoice_line_ids.account_analytic_id.id')
 
+    @api.multi
     @api.depends('invoice_line_ids')
-    def _compute_analytic_account_user_ids(self):
-        res = {}
+    def _compute_analytic_account_partner_ids(self):
         for invoice in self:
-            res[invoice.id] = []
-            for invoice_line in invoice.invoice_line_ids:
-                if invoice_line.account_analytic_id and\
-                        invoice_line.account_analytic_id.user_id:
-                    res[invoice.id].append(
-                        invoice_line.account_analytic_id.user_id
-                        )
-        return res
+            invoice.account_analytic_partner_ids =\
+            invoice.\
+                mapped('invoice_line_ids.account_analytic_partner_id.id')
 
     @api.multi
     def _search_analytic_accounts(self, operator, value):
@@ -44,24 +37,24 @@ class AccountInvoice(models.Model):
         return res or []
 
     @api.multi
-    def _search_analytic_account_user_ids(self, operator, value):
+    def _search_analytic_account_partner_ids(self, operator, value):
         invoice_line_obj = self.env['account.invoice.line']
         invoice_line_ids = invoice_line_obj.search(
-            [('account_analytic_user_id', operator, value)])
+            [('account_analytic_partner_id', operator, value)])
         res = [('id', 'in', invoice_line_ids.ids)]
         return res or []
 
     account_analytic_ids = fields.Many2many(
-        comodel_name='account.invoice.line',
+        comodel_name='account.analytic.account',
         compute='_compute_analytic_accounts',
         search='_search_analytic_accounts',
         string='Analytic Account',
         readonly=True
         )
-    account_analytic_user_ids = fields.Many2many(
-        comodel_name='res.users',
-        compute='_compute_analytic_account_user_ids',
-        search='_search_analytic_account_user_ids',
+    account_analytic_partner_ids = fields.Many2many(
+        comodel_name='res.partner',
+        compute='_compute_analytic_account_partner_ids',
+        search='_search_analytic_account_partner_ids',
         string='Project Manager',
         readonly=True
         )
