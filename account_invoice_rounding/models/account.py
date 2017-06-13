@@ -66,7 +66,7 @@ class AccountInvoice(models.Model):
         prec = obj_precision.precision_get('Account')
 
         ajust_line = None
-        for tax_line in invoice.invoice_line_ids.invoice_line_tax_ids:
+        for tax_line in invoice.tax_line_ids:
             if not ajust_line or tax_line.amount > ajust_line.amount:
                 ajust_line = tax_line
         if ajust_line:
