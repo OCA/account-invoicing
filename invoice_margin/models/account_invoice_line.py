@@ -23,7 +23,7 @@ class AccountInvoiceLine(models.Model):
 
     # Compute Section
     @api.multi
-    @api.depends('product_id', 'quantity', 'price_subtotal')
+    @api.depends('product_id', 'quantity', 'price_subtotal', 'invoice_id.type')
     def _compute_multi_margin(self):
         for line in self:
             if not line.product_id or\
