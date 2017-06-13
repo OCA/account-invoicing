@@ -2,8 +2,8 @@
 # © 2010-2011 Ian Li <ian.li@elico-corp.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api, exceptions
-from openerp.tools.translate import _
+from openerp import api, fields, models, _
+from openerp.exceptions import Warning as UserError
 
 
 class InvoiceMerge(models.TransientModel):
@@ -16,39 +16,42 @@ class InvoiceMerge(models.TransientModel):
 
     @api.model
     def _dirty_check(self):
-        if self.env.context.get('active_model', '') == 'account.invoice':
-            ids = self.env.context['active_ids']
+        if self._context.get('active_model') == 'account.invoice':
+            ids = self._context['active_ids']
             if len(ids) < 2:
-                raise exceptions.UserError(
+                raise UserError(
                     _('Please select multiple invoice to merge in the list '
                       'view.'))
-            inv_obj = self.env['account.invoice']
-            invs = inv_obj.read(ids,
-                                ['account_id', 'state', 'type', 'company_id',
-                                 'partner_id', 'currency_id', 'journal_id'])
-            for d in invs:
-                if d['state'] != 'draft':
-                    raise exceptions.UserError(
+            invs = self.env['account.invoice'].browse(ids)
+            for i, inv in enumerate(invs):
+                if inv.state != 'draft':
+                    raise UserError(
                         _('At least one of the selected invoices is %s!') %
-                        d['state'])
-                if d['account_id'] != invs[0]['account_id']:
-                    raise exceptions.UserError(
-                        _('Not all invoices use the same account!'))
-                if d['company_id'] != invs[0]['company_id']:
-                    raise exceptions.UserError(
-                        _('Not all invoices are at the same company!'))
-                if d['partner_id'] != invs[0]['partner_id']:
-                    raise exceptions.UserError(
-                        _('Not all invoices are for the same partner!'))
-                if d['type'] != invs[0]['type']:
-                    raise exceptions.UserError(
-                        _('Not all invoices are of the same type!'))
-                if d['currency_id'] != invs[0]['currency_id']:
-                    raise exceptions.UserError(
-                        _('Not all invoices are at the same currency!'))
-                if d['journal_id'] != invs[0]['journal_id']:
-                    raise exceptions.UserError(
-                        _('Not all invoices are at the same journal!'))
+                        inv.state)
+                if i > 0:
+                    if inv.account_id != invs[0].account_id:
+                        raise UserError(
+                            _('Not all invoices use the same account!'))
+                    if inv.company_id != invs[0].company_id:
+                        raise UserError(
+                            _('Not all invoices are at the same company!'))
+                    if inv.partner_id != invs[0].partner_id:
+                        raise UserError(
+                            _('Not all invoices are for the same partner!'))
+                    if inv.type != invs[0].type:
+                        raise UserError(
+                            _('Not all invoices are of the same type!'))
+                    if inv.currency_id != invs[0].currency_id:
+                        raise UserError(
+                            _('Not all invoices are at the same currency!'))
+                    if inv.journal_id != invs[0].journal_id:
+                        raise UserError(
+                            _('Not all invoices are at the same journal!'))
+                    if inv.partner_bank_id != invs[0].partner_bank_id:
+                        raise UserError(
+                            _('Not all invoices have the same '
+                              'Partner Bank Account!'))
+
         return {}
 
     @api.model
@@ -79,14 +82,11 @@ class InvoiceMerge(models.TransientModel):
 
              @return: account invoice action
         """
-        inv_obj = self.env['account.invoice']
         aw_obj = self.env['ir.actions.act_window']
-        ids = self.env.context.get('active_ids', [])
-        invoices = inv_obj.browse(ids)
-        invoices_info, invoice_lines_info = invoices.do_merge(
-            keep_references=self.keep_references,
-            date_invoice=self.date_invoice
-        )
+        ids = self._context.get('active_ids', [])
+        invoices = self.env['account.invoice'].browse(ids)
+        allinvoices = invoices.do_merge(keep_references=self.keep_references,
+                                        date_invoice=self.date_invoice)[0]
         xid = {
             'out_invoice': 'action_invoice_tree1',
             'out_refund': 'action_invoice_tree3',
@@ -95,6 +95,6 @@ class InvoiceMerge(models.TransientModel):
         }[invoices[0].type]
         action = aw_obj.for_xml_id('account', xid)
         action.update({
-            'domain': [('id', 'in', ids + invoices_info.keys())],
+            'domain': [('id', 'in', list(ids) + allinvoices.keys())],
         })
         return action

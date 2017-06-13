@@ -96,10 +96,16 @@ class TestAccountInvoiceMergePurchase(common.TransactionCase):
                          "Purchase order's state isn't correct")
         invoice_ids.extend(purchase_order02.invoice_ids.ids)
         invoices = self.inv_obj.browse(invoice_ids)
-        invoices_info, inv_lines_info = invoices.do_merge()
+        invoices_info, invoice_lines_info = invoices.do_merge()
         new_invoice_ids = invoices_info.keys()
         # Ensure there is only one new invoice
         self.assertEqual(len(new_invoice_ids), 1)
+        # Check invoice_lines_info
+        invoice_lines = invoices.mapped('invoice_line')
+        for v in invoice_lines_info:
+            for k in invoice_lines_info[v]:
+                self.assertIn(k, invoice_lines._ids,
+                              "Incorrect Invoice Line Mapping")
         # I post the created invoice
         workflow.trg_validate(self.uid, 'account.invoice', new_invoice_ids[0],
                               'invoice_open', self.cr)
@@ -150,7 +156,7 @@ class TestAccountInvoiceMergePurchase(common.TransactionCase):
         picking02.do_transfer()
         invoice_ids.extend(invoice_picking(self, picking02))
         invoices = self.inv_obj.browse(invoice_ids)
-        invoices_info, inv_lines_info = invoices.do_merge()
+        invoices_info = invoices.do_merge()[0]
         new_invoice_ids = invoices_info.keys()
         # Ensure there is only one new invoice
         self.assertEqual(len(new_invoice_ids), 1)

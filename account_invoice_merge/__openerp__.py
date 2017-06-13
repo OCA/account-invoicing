@@ -6,11 +6,12 @@
 
 {
     'name': 'Account Invoice Merge Wizard',
-    'version': '8.0.2.0.0',
+    'version': '8.0.2.0.1',
     'category': 'Finance',
     'author': "Elico Corp, "
               "ACSONE A/V, "
               "Tecnativa, "
+              "Noviat, "
               "Odoo Community Association (OCA)",
     'website': 'http://www.openerp.net.cn',
     'license': 'AGPL-3',
