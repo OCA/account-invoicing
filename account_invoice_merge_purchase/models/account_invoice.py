@@ -31,7 +31,7 @@ class AccountInvoice(models.Model):
                     for org_iline in org_ilines:
                         invoice_line_ids.append(
                             invoice_lines_info[
-                                new_invoice_id][org_iline.id])
+                                new_invoice_id].get(org_iline.id) or org_iline.id)
                     po_line.write(
                         {'invoice_lines': [(6, 0, invoice_line_ids)]})
                     for stock_move in po_line.move_ids:
