@@ -17,7 +17,15 @@ class TestSwedishRounding(test_common.TransactionCase):
                 'account_id': self.account.id,
                 'quantity': 1,
                 'price_unit': 99.99,
-            })]
+            }),
+                (0, 0, {
+                    'name': 'Dummy invoice line',
+                    'product_id': self.product.id,
+                    'invoice_line_tax_ids': [(4, self.tax.id)],
+                    'account_id': self.account.id,
+                    'quantity': 1,
+                    'price_unit': 99.99,
+                })]
         })
         return invoice
 
@@ -54,7 +62,7 @@ class TestSwedishRounding(test_common.TransactionCase):
             'tax_calculation_rounding': 0.05,
         })
         invoice = self.create_dummy_invoice()
-        self.assertEqual(invoice.amount_total, 110)
+        self.assertEqual(invoice.amount_total, 220)
 
     def test_rounding_per_line(self):
         company = self.env.ref('base.main_company')
@@ -64,4 +72,4 @@ class TestSwedishRounding(test_common.TransactionCase):
             'tax_calculation_rounding_account_id': self.account.id
         })
         invoice = self.create_dummy_invoice()
-        self.assertEqual(invoice.amount_total, 110)
+        self.assertEqual(invoice.amount_total, 220)
