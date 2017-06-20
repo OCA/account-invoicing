@@ -20,7 +20,7 @@ class AccountInvoiceLine(models.Model):
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    @api.one
+    @api.multi
     @api.depends('invoice_line_ids')
     def _compute_max_line_sequence(self):
         """Allow to know the highest sequence entered in invoice lines.
@@ -29,8 +29,24 @@ class AccountInvoice(models.Model):
         So when we create new invoice lines, the sequence is automatically
         added as :  max_sequence + 1
         """
-        self.max_line_sequence =\
-            (max(self.mapped('invoice_line_ids.sequence') or [0]) + 1)
+        for rec in self:
+            rec.max_line_sequence =\
+                (max(rec.mapped('invoice_line_ids.sequence') or [0]) + 1)
 
     max_line_sequence = fields.Integer(string='Max sequence in lines',
                                        compute='_compute_max_line_sequence')
+
+    @api.multi
+    def _reset_sequence(self):
+        for rec in self:
+            current_sequence = 1
+            for line in rec.invoice_line_ids:
+                line.write({'sequence': current_sequence})
+                current_sequence += 1
+
+    @api.multi
+    def write(self, values):
+        res = super(AccountInvoice, self).write(values)
+        for rec in self:
+            rec._reset_sequence()
+        return res
