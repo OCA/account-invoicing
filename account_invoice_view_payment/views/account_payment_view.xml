@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
 
     <record id="view_account_payment_invoice_form" model="ir.ui.view">
         <field name="name">account.payment.invoice.form</field>
@@ -9,7 +9,8 @@
         <field name="arch" type="xml">
             <button name="post" position="after">
                 <button name="post_and_open_payment" class="oe_highlight"
-                        string="Validate &amp; View Payment" type="object"/>
+                        string="Validate &amp; View Payment" type="object"
+                        groups="account.group_account_user"/>
             </button>
         </field>
     </record>
@@ -22,9 +23,10 @@
         <field name="arch" type="xml">
             <button name="create_payment" position="after">
                 <button name="create_payment_and_open" class="oe_highlight"
-                        string="Validate &amp; View Payment" type="object"/>
+                        string="Validate &amp; View Payment" type="object"
+                        groups="account.group_account_user"/>
             </button>
         </field>
     </record>
 
-</openerp>
+</odoo>
