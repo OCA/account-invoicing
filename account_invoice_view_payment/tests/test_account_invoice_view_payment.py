@@ -2,7 +2,7 @@
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from openerp.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase
 
 
 class TestAccountInvoiceViewPayment(TransactionCase):
@@ -28,7 +28,7 @@ class TestAccountInvoiceViewPayment(TransactionCase):
         self.invoice_account = self.acc_model.search(
             [('user_type_id',
               '=',
-              self.env.ref('account.data_account_type_receivable').id
+              self.env.ref('account.data_account_type_revenue').id
               )], limit=1)
 
         self.invoice_line1 = self._create_inv_line(self.invoice_account.id)
@@ -63,7 +63,7 @@ class TestAccountInvoiceViewPayment(TransactionCase):
         return invoice
 
     def test_account_invoice_view_payment_wz1(self):
-        self.invoice1.invoice_validate()
+        self.invoice1.action_invoice_open()
         wiz1 = self.pay_model.with_context(
             default_invoice_ids=[self.invoice1.id],
             active_model='account.invoice'
@@ -98,7 +98,7 @@ class TestAccountInvoiceViewPayment(TransactionCase):
         )
 
     def test_account_invoice_view_payment_wiz2(self):
-        self.invoice2.invoice_validate()
+        self.invoice2.action_invoice_open()
         wiz2 = self.reg_pay_model.with_context(
             active_ids=[self.invoice2.id],
             active_model='account.invoice'

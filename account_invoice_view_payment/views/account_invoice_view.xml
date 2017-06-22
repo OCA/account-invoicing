@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
 
     <record id="invoice_form" model="ir.ui.view">
         <field name="name">account.invoice.form</field>
@@ -11,7 +11,8 @@
                 <button type="object"  name="action_view_payments"
                         class="oe_link" string="View Payments"
                         colspan="2"
-                        attrs="{'invisible':[('payment_ids','=',[])]}"/>
+                        attrs="{'invisible':[('payment_ids','=',[])]}"
+                        groups="account.group_account_user"/>
             </field>
         </field>
     </record>
@@ -26,8 +27,9 @@
                 <button type="object"  name="action_view_payments"
                         class="oe_link" string="View Payments"
                         colspan="2"
-                        attrs="{'invisible':[('payment_ids','=',[])]}"/>
+                        attrs="{'invisible':[('payment_ids','=',[])]}"
+                        groups="account.group_account_user"/>
             </field>
         </field>
     </record>
-</openerp>
+</odoo>
