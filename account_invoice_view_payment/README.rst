@@ -13,6 +13,11 @@ The option to open the payment when it's being registered is useful
 when the user needs to do a follow-up step on the payment, such as printing
 the associated check.
 
+Configuration
+=============
+
+Only users assigned to the 'Accounting & Finance' groups 'Accountant' or
+'Adviser' can display the payments from the invoice.
 
 Usage
 =====
@@ -31,7 +36,7 @@ After payment has been made
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/96/9.0
+   :target: https://runbot.odoo-community.org/runbot/96/10.0
 
 Bug Tracker
 ===========
