@@ -10,11 +10,13 @@ from openerp import api, fields, models
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
-    sequence = fields.Integer(help="Gives the sequence of this line when "
-                              "displaying the account invoice.", store=True)
+    sequence = fields.Integer(help="Shows the sequence of this line in the "
+                              " invoice.", default=9999)
 
+    # shows sequence on the invoice line
     sequence2 = fields.Integer(help="Shows the sequence of this line in the "
-                               " invoice.", related='sequence', readonly=True)
+                               " invoice.", related='sequence', readonly=True,
+                               store=True)
 
 
 class AccountInvoice(models.Model):
@@ -29,24 +31,24 @@ class AccountInvoice(models.Model):
         So when we create new invoice lines, the sequence is automatically
         added as :  max_sequence + 1
         """
-        for rec in self:
-            rec.max_line_sequence =\
-                (max(rec.mapped('invoice_line_ids.sequence') or [0]) + 1)
+        for invoice in self:
+            invoice.max_line_sequence = (
+                max(invoice.mapped('invoice_line_ids.sequence') or [0]) + 1)
 
     max_line_sequence = fields.Integer(string='Max sequence in lines',
-                                       compute='_compute_max_line_sequence')
+                                       compute='_compute_max_line_sequence',
+                                       store=True)
 
     @api.multi
     def _reset_sequence(self):
         for rec in self:
             current_sequence = 1
             for line in rec.invoice_line_ids:
-                line.write({'sequence': current_sequence})
+                line.sequence = current_sequence
                 current_sequence += 1
 
     @api.multi
     def write(self, values):
         res = super(AccountInvoice, self).write(values)
-        for rec in self:
-            rec._reset_sequence()
+        self._reset_sequence()
         return res

@@ -16,7 +16,7 @@
     'website': 'http://www.camptocamp.com',
     'data': ['views/account_invoice_view.xml',
              'views/report_invoice.xml'],
-    'depends': ['purchase'],
+    'depends': ['account'],
     'license': 'AGPL-3',
     'installable': True,
     'auto_install': False,
