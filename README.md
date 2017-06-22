@@ -30,6 +30,7 @@ addon | version | summary
 [account_invoice_rounding](account_invoice_rounding/) | 9.0.1.0.1 | Unit rounded invoice
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 9.0.1.0.0 | Account invoice search by reference
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 9.0.1.0.0 | Checks that supplier invoices are not entered twice
+[account_invoice_view_payment](account_invoice_view_payment/) | 9.0.1.0.0 | Access to the payment from an invoice
 [account_payment_term_extension](account_payment_term_extension/) | 9.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
 [purchase_batch_invoicing](purchase_batch_invoicing/) | 9.0.1.0.0 | Make invoices for all ready purchase orders
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 9.0.1.0.0 | Add an option to refund returned pickings
