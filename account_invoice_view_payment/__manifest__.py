@@ -5,7 +5,7 @@
 
 {
     'name': "Account Invoice View Payment",
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Accounting',
     'summary': "Access to the payment from an invoice",
     'author': 'Eficent,'
