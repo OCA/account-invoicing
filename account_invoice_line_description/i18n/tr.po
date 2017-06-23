@@ -3,15 +3,15 @@
 # * account_invoice_line_description
 # 
 # Translators:
-# Ivan BARAYEV <ivanbarayev@hotmail.com>, 2017
+# OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: account-invoicing (8.0)\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 03:43+0000\n"
-"PO-Revision-Date: 2017-01-12 19:16+0000\n"
-"Last-Translator: Ivan BARAYEV <ivanbarayev@hotmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/tr/)\n"
+"POT-Creation-Date: 2017-06-23 02:38+0000\n"
+"PO-Revision-Date: 2017-06-23 02:38+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Language-Team: Turkish (https://www.transifex.com/oca/teams/23907/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -19,18 +19,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: account_invoice_line_description
-#: field:account.config.settings,group_use_product_description_per_inv_line:0
+#: model:ir.model.fields,field_description:account_invoice_line_description.field_account_config_settings_group_use_product_description_per_inv_line
 msgid ""
 "Allow using only the product description on the\n"
-"            invoice lines"
-msgstr "Fatura satırlarındaki sadece ürün açıklamasını\nkullanmaya izin ver"
+"        invoice lines"
+msgstr ""
 
 #. module: account_invoice_line_description
-#: help:account.config.settings,group_use_product_description_per_inv_line:0
+#: model:ir.model.fields,help:account_invoice_line_description.field_account_config_settings_group_use_product_description_per_inv_line
 msgid ""
 "Allows you to use only product description on the\n"
-"            invoice lines."
-msgstr "Fatura satırlarında yalnızca ürün açıklaması\nkullanmanıza izin verir."
+"        invoice lines."
+msgstr ""
 
 #. module: account_invoice_line_description
 #: model:ir.model,name:account_invoice_line_description.model_account_invoice_line
@@ -41,3 +41,8 @@ msgstr "Fatura kalemi"
 #: model:res.groups,name:account_invoice_line_description.group_use_product_description_per_inv_line
 msgid "Use only product description on invoice lines"
 msgstr "Fatura satırlarında yalnızca ürün açıklamasını kullanın"
+
+#. module: account_invoice_line_description
+#: model:ir.model,name:account_invoice_line_description.model_account_config_settings
+msgid "account.config.settings"
+msgstr ""
