@@ -11,6 +11,7 @@
         'account',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'demo/account_invoice_demo.xml',
         'views/account_invoice_view.xml',
     ],
