@@ -183,6 +183,7 @@
                         <separator orientation="vertical"/>
                         <filter name="unpaid" icon="terp-dolar_ok!" string="Unpaid" domain="[('state','=','open')]" help="Unpaid"/>
                         <separator orientation="vertical"/>
+                        <field name="partner_id"/>
                         <field name="number"/>
                         <field name="user_id" select="1" widget="selection" string="Salesman">
                         <filter domain="[('user_id','=',uid)]" help="My invoices" icon="terp-personal" separator="1"/>
