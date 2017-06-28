@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="invoice_supplier_form" model="ir.ui.view">
+            <field name="name">Add applied discount field to invoice line in supplier invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line']/tree/field[@name='discount']"
+                       position="attributes">
+                    <attribute name="string">Discount (%)</attribute>
+                    <attribute name="name">discount_display</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_form" model="ir.ui.view">
+            <field name="name">Add applied discount field to invoice line in customer invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line']/tree/field[@name='discount']"
+                       position="attributes">
+                    <attribute name="string">Discount (%)</attribute>
+                    <attribute name="name">discount_display</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
+

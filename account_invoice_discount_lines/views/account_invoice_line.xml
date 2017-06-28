@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_invoice_line_tree" model="ir.ui.view">
+            <field name="name">Add applied discount field to invoice line view</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_tree"/>
+            <field name="priority" eval="80"/>
+            <field name="arch" type="xml">
+                <field name="discount" position="attributes">
+                    <attribute name="name">discount_display</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_invoice_line_form" model="ir.ui.view">
+            <field name="name">Add applied discount field to invoice line form view</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="priority" eval="80"/>
+            <field name="arch" type="xml">
+                <field name="discount" position="attributes">
+                    <attribute name="name">discount_display</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
