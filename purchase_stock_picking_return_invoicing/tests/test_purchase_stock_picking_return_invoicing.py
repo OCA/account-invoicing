@@ -7,11 +7,11 @@ from openerp.tests.common import SavepointCase
 from openerp import fields
 
 
-class PurchaseStockRefundPickingCase(SavepointCase):
+class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
     @classmethod
     def setUpClass(cls):
         """Add some defaults to let the test run without an accounts chart."""
-        super(PurchaseStockRefundPickingCase, cls).setUpClass()
+        super(TestPurchaseStockPickingReturnInvoicing, cls).setUpClass()
         cls.journal = cls.env["account.journal"].create({
             "name": "Test journal",
             "type": "purchase",
@@ -53,7 +53,7 @@ class PurchaseStockRefundPickingCase(SavepointCase):
         Check that the invoicing status of the purchase, and quantities
         received and billed are correct throughout the process.
         """
-        # intial po
+        # initial po
         po_vals = {
             'partner_id': self.partner.id,
             'order_line': [(0, 0, {
@@ -167,8 +167,7 @@ class PurchaseStockRefundPickingCase(SavepointCase):
             po.invoice_status,
             'invoiced',
             ('Purchase Stock: po invoice_status should be "invoiced" instead '
-             'of '
-             '"%s" after invoicing') % po.invoice_status)
+             'of "%s" after invoicing') % po.invoice_status)
 
         self.assertEqual(
             po.amount_untaxed,
@@ -189,7 +188,7 @@ class PurchaseStockRefundPickingCase(SavepointCase):
 
         # Check quantity returned
         rec_qty = sum(pol.qty_returned for pol in po.order_line)
-        self.assertEqual(rec_qty, 2.0, ('Purchase Stock: quantity returned'
+        self.assertEqual(rec_qty, 2.0, ('Purchase Stock: quantity returned '
                                         'should be 2.0 instead of %s '
                                         'after complete return') % rec_qty)
 
@@ -273,7 +272,7 @@ class PurchaseStockRefundPickingCase(SavepointCase):
         Check that the invoicing status of the purchase, and quantities
         received and billed are correct throughout the process.
         """
-        # intial po
+        # initial po
         po_vals = {
             'partner_id': self.partner.id,
             'order_line': [(0, 0, {
@@ -300,7 +299,7 @@ class PurchaseStockRefundPickingCase(SavepointCase):
 
         # Check quantity returned
         rec_qty = sum(pol.qty_returned for pol in po.order_line)
-        self.assertEqual(rec_qty, 0.0, ('Quantity returned'
+        self.assertEqual(rec_qty, 0.0, ('Quantity returned '
                                         'should be 0.0 instead of %s') %
                          rec_qty)
 
@@ -344,7 +343,7 @@ class PurchaseStockRefundPickingCase(SavepointCase):
 
         # Check quantity returned
         rec_qty = sum(pol.qty_returned for pol in po.order_line)
-        self.assertEqual(rec_qty, 0.0, ('Quantity returned'
+        self.assertEqual(rec_qty, 0.0, ('Quantity returned '
                                         'should be 0.0 instead of %s') %
                          rec_qty)
 
@@ -393,7 +392,7 @@ class PurchaseStockRefundPickingCase(SavepointCase):
 
         # Check quantity returned
         rec_qty = sum(pol.qty_returned for pol in po.order_line)
-        self.assertEqual(rec_qty, 2.0, ('Quantity returned'
+        self.assertEqual(rec_qty, 2.0, ('Quantity returned '
                                         'should be 2.0 instead of %s') %
                          rec_qty)
 
