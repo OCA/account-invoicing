@@ -224,8 +224,8 @@ class PurchaseOrderLine(models.Model):
                         line.qty_received -= qty
 
     qty_to_invoice = fields.Float(compute="_compute_qty_to_invoice",
-                                  string='Qty to Bill',
-                                  copy=False, default=0.0)
+                                  string='Qty to Bill', copy=False,
+                                  default=0.0)
     qty_to_refund = fields.Float(compute="_compute_qty_to_invoice",
                                  string='Qty to Refund', copy=False,
                                  default=0.0)

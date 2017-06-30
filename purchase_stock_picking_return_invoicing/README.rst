@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=============================================
-Refund Returned Pickings from Purchase Orders
-=============================================
+=======================================
+Purchase Stock Picking Return Invoicing
+=======================================
 
 This module extends the functionality of purchase orders to better manage
 supplier returns and refunds.
@@ -20,7 +20,6 @@ In the purchase order you are able to display, for each line:
 * Received Quantity and Returned Quantity, as separate fields.
 
 
-
 Usage
 =====
 
@@ -28,8 +27,8 @@ Case 1: When you return to a supplier some products, and you have not yet
 received the bill from the supplier
 
 #. Go to *Purchases > Purchase > Purchase Orders > Create*.
-#. Choose a supplier and add a product whose *Invoicing Policy* is *On Received
-   quantities*, and input some quantity to purchase.
+#. Choose a supplier and add a product whose *Control Purchase Bills* is *On
+   received quantities*, and input some quantity to purchase.
 #. Confirm the purchase order.
 #. Go to *Shipment > Validate > Apply* so as to receive the quantities ordered.
 #. Press the button *Reverse*.
@@ -47,8 +46,8 @@ Case 2: When you return to a supplier some products, and you have already
 received a bill from the supplier.
 
 #. Go to *Purchases > Purchase > Purchase Orders > Create*.
-#. Choose a supplier and add a product whose *Invoicing Policy* is *On Received
-   quantities*, and input some quantity to purchase.
+#. Choose a supplier and add a product whose *Control Purchase Bills* is *On
+   received quantities*, and input some quantity to purchase.
 #. Confirm the purchase order.
 #. Go to *Shipment > Validate > Apply* so as to receive the quantities ordered.
 #. Press the button *Invoices* to create the vendor bill.
@@ -60,7 +59,7 @@ received a bill from the supplier.
    returned. Press *Return* to complete the wizard.
 #. On the return picking press *Validate > Apply*.
 #. Go back to the purchase order. It will have  *Invoice Status* as 'Waiting
-   Invoces'. You will notice that the field *Returned Qty* is now the quantity
+   Invoices'. You will notice that the field *Returned Qty* is now the quantity
    that was returned. The field *Quantity to Refund* is now the showing the
    quantity returned that was previously billed.
 #. Press the button *Refunds* to create the vendor refund bill (since the
@@ -71,7 +70,7 @@ received a bill from the supplier.
    is now 'Invoiced', even when the quantity ordered does not match with the
    quantity invoiced, because you did return some products.
 
-Remark: As part of the 3-way match proces, if you accept that you will not
+Remark: As part of the 3-way match process, if you accept that you will not
 claim for a refund for the quantity returned to the supplier, just set the
 purchase status as 'Done' at the end of the process, and the quantity to
 invoice for the items will be set to 0 (because you have accepted the
@@ -90,6 +89,10 @@ Known issues / Roadmap
 
 * The computation of the quantity invoiced is hacked to overcome an issue in
   one of the tests of Odoo. See https://github.com/OCA/OCB/pull/598
+
+* The module purchase_stock_picking_return_invoicing_open_qty is a glue module
+  that will be automatically installed in case the purchase_open_qty module is
+  also installed.
 
 Bug Tracker
 ===========
