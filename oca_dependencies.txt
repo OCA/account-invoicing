@@ -1,3 +1,4 @@
 account-financial-tools
-stock-logistics-workflow
 product-attribute
+purchase-workflow
+stock-logistics-workflow

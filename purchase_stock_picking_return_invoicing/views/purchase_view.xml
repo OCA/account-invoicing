@@ -18,16 +18,12 @@
                 <xpath expr="//field[@name='order_line']/tree/field[@name='qty_received']" position="after">
                     <field name="qty_returned"
                            invisible="not context.get('show_purchase', False)"/>
-                </xpath>
-                <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="before">
                     <field name="invoice_status"
                            invisible="1"/>
-                    <field name="qty_to_invoice"
-                           invisible="not context.get('show_purchase', False)"/>
-                    <field name="qty_to_refund"
-                           invisible="not context.get('show_purchase', False)"/>
                 </xpath>
                 <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="after">
+                    <field name="qty_to_refund"
+                           invisible="not context.get('show_purchase', False)"/>
                     <field name="qty_refunded"
                            invisible="not context.get('show_purchase', False)"/>
                 </xpath>
