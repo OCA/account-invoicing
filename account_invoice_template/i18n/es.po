@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-16 23:50+0000\n"
+"POT-Creation-Date: 2017-06-23 23:24+0000\n"
 "PO-Revision-Date: 2015-06-03 04:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/es/)\n"
@@ -130,7 +130,7 @@ msgstr "Líneas"
 #. module: account_invoice_template
 #: field:account.invoice.template.line,invoice_line_tax_id:0
 msgid "Taxes"
-msgstr ""
+msgstr "Impuestos"
 
 #. module: account_invoice_template
 #: code:addons/account_invoice_template/wizard/select_template.py:93
