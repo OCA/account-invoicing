@@ -24,6 +24,7 @@ addon | version | summary
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 10.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_force_number](account_invoice_force_number/) | 10.0.1.0.0 | Allows to force invoice numbering on specific invoices
 [account_invoice_line_description](account_invoice_line_description/) | 10.0.1.0.0 | Account invoice line description
+[account_invoice_line_sequence](account_invoice_line_sequence/) | 10.0.1.0.0 | Adds sequence field on invoice lines to manage its order.
 [account_invoice_merge](account_invoice_merge/) | 10.0.1.0.0 | Merge invoices in draft
 [account_invoice_partner](account_invoice_partner/) | 10.0.1.0.0 | Replace the partner by an invoice contact if found
 [account_invoice_refund_link](account_invoice_refund_link/) | 10.0.1.0.0 | Link refund invoice with its original invoice
