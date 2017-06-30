@@ -153,10 +153,10 @@ class PurchaseOrderLine(models.Model):
                  'product_qty', 'move_ids.state',
                  'invoice_lines.invoice_id.state', 'invoice_lines.quantity')
     def _compute_qty_to_invoice(self):
+        super(PurchaseOrderLine, self)._compute_qty_to_invoice()
         precision = self.env['decimal.precision'].precision_get(
             'Product Unit of Measure')
         for line in self:
-            line.qty_to_invoice = 0.0
             line.qty_to_refund = 0.0
             if line.order_id.state != 'purchase':
                 line.invoice_status = 'no'
@@ -223,9 +223,6 @@ class PurchaseOrderLine(models.Model):
                             line.product_uom)
                         line.qty_received -= qty
 
-    qty_to_invoice = fields.Float(compute="_compute_qty_to_invoice",
-                                  string='Qty to Bill',
-                                  copy=False, default=0.0)
     qty_to_refund = fields.Float(compute="_compute_qty_to_invoice",
                                  string='Qty to Refund', copy=False,
                                  default=0.0)
