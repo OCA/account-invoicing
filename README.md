@@ -45,6 +45,7 @@ addon | version | summary
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 | Account Invoice Zero Autopay
 [account_payment_term_extension](account_payment_term_extension/) | 8.0.1.0.0 | Adds rounding, months and weeks properties on payment term lines
 [invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
+[invoice_margin](invoice_margin/) | 8.0.1.0.0 | Margin on Account Invoices
 [sale_order_line_price_subtotal_gross](sale_order_line_price_subtotal_gross/) | 8.0.1.0.0 | Show gross price in subtotal for for sale.order.line
 [stock_picking_invoice_product_group](stock_picking_invoice_product_group/) | 8.0.1.0.0 | Invoices created from picking grouped by product or by product category
 [stock_picking_invoicing_incoterm](stock_picking_invoicing_incoterm/) | 8.0.1.0.0 | Stock Picking Invoicing Incoterm
