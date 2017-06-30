@@ -3,14 +3,15 @@
 # * account_invoice_supplierinfo_update
 # 
 # Translators:
-# Mario Gielissen <mario@openworx.nl>, 2017
+# OCA Transbot <transbot@odoo-community.org>, 2017
+# Peter Hageman <hageman.p@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 03:43+0000\n"
-"PO-Revision-Date: 2017-01-13 03:43+0000\n"
-"Last-Translator: Mario Gielissen <mario@openworx.nl>, 2017\n"
+"POT-Creation-Date: 2017-06-30 02:59+0000\n"
+"PO-Revision-Date: 2017-06-30 02:59+0000\n"
+"Last-Translator: Peter Hageman <hageman.p@gmail.com>, 2017\n"
 "Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/23907/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,13 +79,13 @@ msgstr ""
 #: field:wizard.update.invoice.supplierinfo,display_name:0
 #: field:wizard.update.invoice.supplierinfo.line,display_name:0
 msgid "Display Name"
-msgstr ""
+msgstr "Weergavenaam"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,id:0
 #: field:wizard.update.invoice.supplierinfo.line,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
@@ -110,7 +111,7 @@ msgstr ""
 #: field:wizard.update.invoice.supplierinfo,__last_update:0
 #: field:wizard.update.invoice.supplierinfo.line,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "Laatst gewijzigd op"
 
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,write_uid:0

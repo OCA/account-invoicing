@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-04 13:40+0000\n"
-"PO-Revision-Date: 2016-02-23 12:45+0000\n"
+"POT-Creation-Date: 2017-06-30 02:59+0000\n"
+"PO-Revision-Date: 2017-06-30 14:08+0000\n"
 "Last-Translator: Antonio Trueba\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Factura"
 #. module: account_invoice_validation_workflow
 #: model:ir.model,name:account_invoice_validation_workflow.model_account_invoice_refund
 msgid "Invoice Refund"
-msgstr ""
+msgstr "Abono factura"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
@@ -102,7 +102,7 @@ msgstr "Imprimir factura"
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 #: view:account.invoice:account_invoice_validation_workflow.invoice_supplier_form_validation_wkfl
 msgid "Re-Open"
-msgstr ""
+msgstr "Reabrir"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
