@@ -12,8 +12,10 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        'demo/account_invoice_demo.xml',
         'views/account_invoice_view.xml',
+    ],
+    'demo': [
+        'demo/account_invoice_demo.xml',
     ],
     'license': 'AGPL-3',
     'installable': True,
