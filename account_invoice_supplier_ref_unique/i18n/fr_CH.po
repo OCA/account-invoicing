@@ -29,9 +29,10 @@ msgstr "Facture"
 msgid ""
 "The invoice/refund with supplier invoice number '%s' already exists in Odoo "
 "under the number '%s' for supplier '%s'."
-msgstr ""
+msgstr "La facture/remboursement avec le numéro de facture fournisseur '%s' existe déjà dans Odoo "
+"sous le numéro '%s' pour le fournisseur '%s'.
 
 #. module: account_invoice_supplier_ref_unique
 #: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_invoice_supplier_invoice_number
 msgid "Vendor invoice number"
-msgstr ""
+msgstr "Numéro de facture fournisseur"
