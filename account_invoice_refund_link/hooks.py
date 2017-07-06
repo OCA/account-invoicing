@@ -14,6 +14,7 @@ def _invoice_match(env, invoice):
     return env['account.invoice'].search([
         ('type', '=', inv_type),
         ('number', '=ilike', invoice.origin),
+        ('company_id', '=', invoice.company_id.id),
     ])
 
 
