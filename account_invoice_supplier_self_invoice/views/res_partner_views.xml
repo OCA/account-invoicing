@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <group name="purchase" position="inside">
+                <field name="self_invoice"
+                       attrs="{'invisible': [('self_invoice_sequence_id', '=', False)]}"/>
+                <field name="self_invoice_sequence_id" readonly="1"
+                    attrs="{'invisible': [('self_invoice', '=', False)]}"/>
+                <button string="Set Self invoice" type="object"
+                        name="set_self_invoice" class="oe_highlight"
+                        attrs="{'readonly': [('supplier', '=', False)], 'invisible': [('self_invoice_sequence_id', '!=', False)]}"
+                />
+            </group>
+        </field>
+    </record>
+</odoo>
