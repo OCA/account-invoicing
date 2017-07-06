@@ -7,7 +7,7 @@
 {
     "name": "Link refund invoice with original",
     "summary": "Link refund invoice with its original invoice",
-    "version": "10.0.1.0.0",
+    "version": "10.0.1.0.1",
     "category": "Accounting & Finance",
     "website": "https://odoo-community.org/",
     "author": "Pexego, "
