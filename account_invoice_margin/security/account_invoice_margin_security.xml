@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Sergio Teruel - Tecnativa <sergio.teruel@tecnativa.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<openerp>
+
+<record id="group_account_invoice_margin_security" model="res.groups">
+    <field name="name">Show Invoice Margin</field>
+    <field name="category_id" ref="base.module_category_hidden"/>
+</record>
+
+</openerp>
