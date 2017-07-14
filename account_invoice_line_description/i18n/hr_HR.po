@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-23 02:38+0000\n"
-"PO-Revision-Date: 2017-06-23 02:38+0000\n"
+"POT-Creation-Date: 2017-06-30 23:47+0000\n"
+"PO-Revision-Date: 2017-06-30 23:47+0000\n"
 "Last-Translator: Bole <bole@dajmi5.com>, 2017\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/oca/teams/23907/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid ""
 "Allow using only the product description on the\n"
 "        invoice lines"
-msgstr ""
+msgstr "Dozvoli korištenje samo opisa proizvoda na stavkama računa"
 
 #. module: account_invoice_line_description
 #: model:ir.model.fields,help:account_invoice_line_description.field_account_config_settings_group_use_product_description_per_inv_line
@@ -31,16 +31,18 @@ msgid ""
 "Allows you to use only product description on the\n"
 "        invoice lines."
 msgstr ""
+"Omogućuje Vam korištenje jedino opisa proizvoda na\n"
+"stavkama računa."
 
 #. module: account_invoice_line_description
 #: model:ir.model,name:account_invoice_line_description.model_account_invoice_line
 msgid "Invoice Line"
-msgstr ""
+msgstr "Stavka računa"
 
 #. module: account_invoice_line_description
 #: model:res.groups,name:account_invoice_line_description.group_use_product_description_per_inv_line
 msgid "Use only product description on invoice lines"
-msgstr ""
+msgstr "Koristi samo opis proizvoda na stavkama računa."
 
 #. module: account_invoice_line_description
 #: model:ir.model,name:account_invoice_line_description.model_account_config_settings
