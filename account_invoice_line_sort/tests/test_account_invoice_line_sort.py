@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-
 #     This file is part of account_invoice_line_sort, an Odoo module.
 #
 #     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
@@ -21,18 +20,17 @@
 #     If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from anybox.testing.openerp import SharedSetupTransactionCase
 import time
 
+import openerp.tests.common as common
 
-class test_account_invoice_line_sort(object):
 
-    _module_ns = 'account_invoice_line_sort'
+class TestAccountInvoiceLineSort(object):
 
     descriptions = ['a description', 'b description', 'c description']
 
     def setUp(self):
-        super(test_account_invoice_line_sort, self).setUp()
+        super(TestAccountInvoiceLineSort, self).setUp()
         self.invoice_model = self.env['account.invoice']
         self.invoice_line_model = self.env['account.invoice.line']
         self.account_rcv_id = self.ref("account.a_recv")
@@ -59,6 +57,14 @@ class test_account_invoice_line_sort(object):
             'date_invoice': time.strftime('%Y') + '-07-01',
             'invoice_line': [(0, 0, value) for value in self.lines_vals]
         }
+        # Default test:
+        self.expected_sequence = {
+            self.descriptions[0]: 10,
+            self.descriptions[1]: 20,
+            self.descriptions[2]: 30,
+        }
+        self.line_order = 'name'
+        self.line_order_direction = 'asc'
 
     def test_invoice_sort_on_create(self):
         self.partner.line_order = self.line_order
@@ -86,23 +92,11 @@ class test_account_invoice_line_sort(object):
                               line.sequence))
 
 
-class test_account_invoice_line_sort_name_asc(test_account_invoice_line_sort,
-                                              SharedSetupTransactionCase):
+class TestAccountInvoiceLineSortNameDesc(
+        TestAccountInvoiceLineSort, common.TransactionCase):
 
         def setUp(self):
-            super(test_account_invoice_line_sort_name_asc, self).setUp()
-            self.expected_sequence = {self.descriptions[0]: 10,
-                                      self.descriptions[1]: 20,
-                                      self.descriptions[2]: 30}
-            self.line_order = 'name'
-            self.line_order_direction = 'asc'
-
-
-class test_account_invoice_line_sort_name_desc(test_account_invoice_line_sort,
-                                               SharedSetupTransactionCase):
-
-        def setUp(self):
-            super(test_account_invoice_line_sort_name_desc, self).setUp()
+            super(TestAccountInvoiceLineSortNameDesc, self).setUp()
             self.expected_sequence = {self.descriptions[0]: 30,
                                       self.descriptions[1]: 20,
                                       self.descriptions[2]: 10}
@@ -110,11 +104,11 @@ class test_account_invoice_line_sort_name_desc(test_account_invoice_line_sort,
             self.line_order_direction = 'desc'
 
 
-class test_account_invoice_line_sort_price_unit_asc(
-        test_account_invoice_line_sort, SharedSetupTransactionCase):
+class TestAccountInvoiceLineSortPriceUnitAsc(
+        TestAccountInvoiceLineSort, common.TransactionCase):
 
         def setUp(self):
-            super(test_account_invoice_line_sort_price_unit_asc, self).setUp()
+            super(TestAccountInvoiceLineSortPriceUnitAsc, self).setUp()
             self.expected_sequence = {self.descriptions[0]: 20,
                                       self.descriptions[1]: 10,
                                       self.descriptions[2]: 30}
@@ -122,11 +116,11 @@ class test_account_invoice_line_sort_price_unit_asc(
             self.line_order_direction = 'asc'
 
 
-class test_account_invoice_line_sort_price_unit_desc(
-        test_account_invoice_line_sort, SharedSetupTransactionCase):
+class TestAccountInvoiceLineSortPriceUnitDesc(
+        TestAccountInvoiceLineSort, common.TransactionCase):
 
         def setUp(self):
-            super(test_account_invoice_line_sort_price_unit_desc, self).setUp()
+            super(TestAccountInvoiceLineSortPriceUnitDesc, self).setUp()
             self.expected_sequence = {self.descriptions[0]: 20,
                                       self.descriptions[1]: 30,
                                       self.descriptions[2]: 10}
@@ -134,11 +128,11 @@ class test_account_invoice_line_sort_price_unit_desc(
             self.line_order_direction = 'desc'
 
 
-class test_account_invoice_line_sort_amount_asc(
-        test_account_invoice_line_sort, SharedSetupTransactionCase):
+class TestAccountInvoiceLineSortAmountAsc(
+        TestAccountInvoiceLineSort, common.TransactionCase):
 
         def setUp(self):
-            super(test_account_invoice_line_sort_amount_asc, self).setUp()
+            super(TestAccountInvoiceLineSortAmountAsc, self).setUp()
             self.expected_sequence = {self.descriptions[0]: 20,
                                       self.descriptions[1]: 30,
                                       self.descriptions[2]: 10}
@@ -146,11 +140,11 @@ class test_account_invoice_line_sort_amount_asc(
             self.line_order_direction = 'asc'
 
 
-class test_account_invoice_line_sort_amount_desc(
-        test_account_invoice_line_sort, SharedSetupTransactionCase):
+class TestAccountInvoiceLineSortAmountDesc(
+        TestAccountInvoiceLineSort, common.TransactionCase):
 
         def setUp(self):
-            super(test_account_invoice_line_sort_amount_desc, self).setUp()
+            super(TestAccountInvoiceLineSortAmountDesc, self).setUp()
             self.expected_sequence = {self.descriptions[0]: 20,
                                       self.descriptions[1]: 10,
                                       self.descriptions[2]: 30}

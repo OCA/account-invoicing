@@ -37,4 +37,4 @@ class AccountInvoice(models.Model):
                         {'invoice_lines': [(6, 0, invoice_line_ids)]})
                     for stock_move in po_line.move_ids:
                         stock_move.invoice_state = 'invoiced'
-        return invoices_info
+        return invoices_info, invoice_lines_info

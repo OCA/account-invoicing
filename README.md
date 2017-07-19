@@ -20,6 +20,7 @@ addon | version | summary
 --- | --- | ---
 [account_group_invoice_lines](account_group_invoice_lines/) | 8.0.1.1.0 | Add option to group invoice line per account
 [account_invoice_force_number](account_invoice_force_number/) | 8.0.0.1.0 | Allows to force invoice numbering on specific invoices
+[account_invoice_kanban](account_invoice_kanban/) | 8.0.1.0.0 | Add Kanban view in Invoice to follow administrative tasks
 [account_invoice_line_description](account_invoice_line_description/) | 8.0.1.0.1 | Account invoice line description
 [account_invoice_line_price_subtotal_gross](account_invoice_line_price_subtotal_gross/) | 8.0.1.0.0 | Show gross price in subtotal for for account.invoice.line
 [account_invoice_line_sort](account_invoice_line_sort/) | 8.0.0.1.0 | Manage sort of customer invoice lines by customers
@@ -28,7 +29,9 @@ addon | version | summary
 [account_invoice_merge_purchase](account_invoice_merge_purchase/) | 8.0.2.0.0 | Compatibility between purchase and account invoice merge
 [account_invoice_partner](account_invoice_partner/) | 8.0.0.2.0 | Automatically select invoicing partner on invoice
 [account_invoice_period_usability](account_invoice_period_usability/) | 8.0.1.0.0 | Display in the supplier invoice form the fiscal period next to the invoice date
-[account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.0.0 | Add partner pricelist on invoices
+[account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.1.0 | Add partner pricelist on invoices
+[account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 8.0.1.0.0 | Module to fill pricelist from sales order in invoice.
+[account_invoice_pricelist_sale_stock](account_invoice_pricelist_sale_stock/) | 8.0.1.0.0 | Set pricelist from SO in invoice created from picking.
 [account_invoice_rounding](account_invoice_rounding/) | 8.0.1.0.0 | Unit rounded invoice
 [account_invoice_shipping_address](account_invoice_shipping_address/) | 8.0.0.1.1 | Adds a shipping address field to the invoice.
 [account_invoice_supplier_number_info](account_invoice_supplier_number_info/) | 8.0.1.0.0 | Allows to force invoice numbering on specific invoices
@@ -42,6 +45,7 @@ addon | version | summary
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 | Account Invoice Zero Autopay
 [account_payment_term_extension](account_payment_term_extension/) | 8.0.1.0.0 | Adds rounding, months and weeks properties on payment term lines
 [invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
+[invoice_margin](invoice_margin/) | 8.0.1.0.0 | Margin on Account Invoices
 [sale_order_line_price_subtotal_gross](sale_order_line_price_subtotal_gross/) | 8.0.1.0.0 | Show gross price in subtotal for for sale.order.line
 [stock_picking_invoice_product_group](stock_picking_invoice_product_group/) | 8.0.1.0.0 | Invoices created from picking grouped by product or by product category
 [stock_picking_invoicing_incoterm](stock_picking_invoicing_incoterm/) | 8.0.1.0.0 | Stock Picking Invoicing Incoterm

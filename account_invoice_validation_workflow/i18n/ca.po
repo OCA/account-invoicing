@@ -147,7 +147,7 @@ msgstr ""
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_form_validation_wkfl
 msgid "Validate"
-msgstr ""
+msgstr "Validar"
 
 #. module: account_invoice_validation_workflow
 #: code:addons/account_invoice_validation_workflow/invoice.py:45

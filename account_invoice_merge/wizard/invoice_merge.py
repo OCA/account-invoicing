@@ -83,8 +83,10 @@ class InvoiceMerge(models.TransientModel):
         aw_obj = self.env['ir.actions.act_window']
         ids = self.env.context.get('active_ids', [])
         invoices = inv_obj.browse(ids)
-        allinvoices = invoices.do_merge(keep_references=self.keep_references,
-                                        date_invoice=self.date_invoice)
+        invoices_info, invoice_lines_info = invoices.do_merge(
+            keep_references=self.keep_references,
+            date_invoice=self.date_invoice
+        )
         xid = {
             'out_invoice': 'action_invoice_tree1',
             'out_refund': 'action_invoice_tree3',
@@ -93,6 +95,6 @@ class InvoiceMerge(models.TransientModel):
         }[invoices[0].type]
         action = aw_obj.for_xml_id('account', xid)
         action.update({
-            'domain': [('id', 'in', ids + allinvoices.keys())],
+            'domain': [('id', 'in', ids + invoices_info.keys())],
         })
         return action

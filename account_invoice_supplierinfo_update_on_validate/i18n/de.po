@@ -4,13 +4,14 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
+# Rudolf Schnapka <rs@techno-flex.de>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 03:43+0000\n"
-"PO-Revision-Date: 2017-01-13 03:43+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"POT-Creation-Date: 2017-02-04 00:17+0000\n"
+"PO-Revision-Date: 2017-02-04 00:17+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>, 2017\n"
 "Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +32,7 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update_on_validate
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update_on_validate.view_wizard_update_invoice_supplierinfo_form
 msgid "oe_highlight"
-msgstr ""
+msgstr "oe_highlight"
 
 #. module: account_invoice_supplierinfo_update_on_validate
 #: view:account.invoice:account_invoice_supplierinfo_update_on_validate.view_account_invoice_form
