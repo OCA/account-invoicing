@@ -182,7 +182,7 @@ class AccountInvoiceRefund(orm.TransientModel):
                     for line in movelines:
                         if line.account_id.id == inv.account_id.id:
                             to_reconcile_ids[line.account_id.id] = [line.id]
-                        if type(line.reconcile_id) != orm.orm.browse_null:
+                        if line.reconcile_id:
                             reconcile_obj.unlink(cr, uid, line.reconcile_id.id)
                     # Specific to c2c need to trigger specific wrkf before
                     # create the refund
@@ -217,11 +217,11 @@ class AccountInvoiceRefund(orm.TransientModel):
                              'journal_id', 'period_id'], context=context)
                         invoice = invoice[0]
                         del invoice['id']
-                        invoice_lines = inv_line_obj.read(
+                        invoice_lines = inv_line_obj.browse(
                             cr, uid, invoice['invoice_line'], context=context)
                         invoice_lines = inv_obj._refund_cleanup_lines(
                             cr, uid, invoice_lines)
-                        tax_lines = inv_tax_obj.read(
+                        tax_lines = inv_tax_obj.browse(
                             cr, uid, invoice['tax_line'], context=context)
                         tax_lines = inv_obj._refund_cleanup_lines(
                             cr, uid, tax_lines)
@@ -235,8 +235,7 @@ class AccountInvoiceRefund(orm.TransientModel):
                             'period_id': period,
                             'name': description
                         })
-                        for field in ('address_contact_id',
-                                      'address_invoice_id', 'partner_id',
+                        for field in ('partner_id',
                                       'account_id', 'currency_id',
                                       'payment_term', 'journal_id'):
                             invoice[field] = invoice[
