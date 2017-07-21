@@ -1,35 +1,17 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#     This file is part of account_invoice_split,
-#     an Odoo module.
-#
-#     Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-#
-#     account_invoice_split is free software:
-#     you can redistribute it and/or modify it under the terms of the GNU
-#     Affero General Public License as published by the Free Software
-#     Foundation,either version 3 of the License, or (at your option) any
-#     later version.
-#
-#     account_invoice_split is distributed
-#     in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
-#     even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-#     PURPOSE.  See the GNU Affero General Public License for more details.
-#
-#     You should have received a copy of the GNU Affero General Public License
-#     along with account_invoice_split.
-#     If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2015-2017 ACSONE SA/NV (<http://acsone.eu>)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api, exceptions, _
-import openerp.addons.decimal_precision as dp
+from odoo import models, fields, api, exceptions, _
+from odoo.exceptions import UserError
 
-FIELD_MAPPING = [('id', 'origin_invoice_line_id'),
-                 ('product_id', 'product_id'),
-                 ('name', 'name'),
-                 ('quantity', 'total_quantity')]
+import odoo.addons.decimal_precision as dp
+
+FIELD_MAPPING = [
+    ('id', 'origin_invoice_line_id'),
+    ('product_id', 'product_id'),
+    ('name', 'name'),
+    ('quantity', 'total_quantity')]
 
 
 class AccountInvoiceSplit(models.TransientModel):
@@ -40,23 +22,32 @@ class AccountInvoiceSplit(models.TransientModel):
         string='Invoice lines to Split')
 
     @api.model
-    def _check_condition(self):
+    def _get_invoice_id_from_context(self):
         active_ids = self.env.context.get('active_ids')
-        assert len(active_ids) == 1
-        invoice = self.env['account.invoice'].browse(active_ids)[0]
+        if len(active_ids) != 1:
+            raise exceptions.UserError(
+                _("You can call this action only for a single invoice."))
+        return active_ids[0]
+
+    @api.model
+    def _get_invoice_from_context(self):
+        invoice_id = self._get_invoice_id_from_context()
+        invoice = self.env['account.invoice'].browse(invoice_id)
+        self._check_invoice(invoice)
+        return invoice
+
+    @api.model
+    def _check_invoice(self, invoice):
         if invoice.state != 'draft':
-            raise exceptions.Warning(_('Invoice must be draft not %s') %
-                                     (invoice.state,))
+            raise UserError(
+                _('Invoice must be draft, not %s') % (invoice.state,))
 
     @api.model
     def default_get(self, fields_list):
-        self._check_condition()
-        res = super(AccountInvoiceSplit, self).default_get(self)
-        active_ids = self.env.context.get('active_ids')
-        assert len(active_ids) == 1
-        invoice = self.env['account.invoice'].browse(active_ids)[0]
+        res = super(AccountInvoiceSplit, self).default_get(fields_list)
+        invoice = self._get_invoice_from_context()
         split_lines = []
-        for line in invoice.invoice_line:
+        for line in invoice.invoice_line_ids:
             current_line_values = {
                 'origin_invoice_line_id': line.id,
                 'product_id': line.product_id.id,
@@ -71,67 +62,63 @@ class AccountInvoiceSplit(models.TransientModel):
     def _get_invoice_values(self, invoice):
         """Return default value for copy method.
         Can be override to add some fields"""
-        return {'invoice_line': []}
+        return {'invoice_line_ids': []}
 
     @api.model
     def _create_invoice(self, invoice_to_split, invoice_lines):
         new_invoice = False
         if invoice_lines:
             default = self._get_invoice_values(invoice_to_split)
+            default['invoice_line_ids'] = invoice_lines
             new_invoice = invoice_to_split.copy(default=default)
-            new_invoice.write({'invoice_line': invoice_lines})
         if not new_invoice:
             raise exceptions.Warning(
-                 _("""There is nothing to split. Please fill
-                      the 'quantities to split' column."""))
+                _("There is nothing to split. Please fill "
+                  "the 'quantities to split' column."))
         return new_invoice
 
     @api.multi
     def _split_invoice(self):
         self.ensure_one()
-        active_ids = self.env.context.get('active_ids')
-        assert len(active_ids) == 1
-        invoice_to_split = self.env['account.invoice'].browse(active_ids)[0]
+
+        invoice_to_split = self._get_invoice_from_context()
         invoice_lines = []
         for line in self.line_ids:
+            invoice_line = line.origin_invoice_line_id
             if line.quantity_to_split != 0.0:
                 # I Check if the quantity to split isn't greater then the
                 # quantity on the origin line
-                if line.quantity_to_split > \
-                        line.origin_invoice_line_id.quantity:
-                    raise exceptions.Warning(
-                        _("""Quantity to split is greater
-                        than available quantity"""))
+                if line.quantity_to_split > invoice_line.quantity:
+                    raise UserError(
+                        _("Quantity to split is greater than "
+                          "available quantity"))
                 new_invoice_line = line._create_invoice_line()
                 # Change the quantity on the origin invoice line
-                line.origin_invoice_line_id.quantity -= line.quantity_to_split
+                invoice_line.quantity -= line.quantity_to_split
                 # Unlink origin invoice line if quantity is equal to zero
-                if line.origin_invoice_line_id.quantity == 0.0:
-                    line.origin_invoice_line_id.sudo().unlink()
+                if invoice_line.quantity == 0.0:
+                    invoice_line.sudo().unlink()
                 invoice_lines.append((4, new_invoice_line.id))
         new_invoice = self._create_invoice(invoice_to_split, invoice_lines)
-        new_invoice.button_reset_taxes()
-        invoice_to_split.button_reset_taxes()
+        new_invoice.compute_taxes()
+        invoice_to_split.compute_taxes()
         return new_invoice.id
 
     @api.multi
     def split_invoice(self):
         """Return an action which open a tree with the created invoice and
         the orignal invoice"""
-        inv_obj = self.env['account.invoice']
-        aw_obj = self.env['ir.actions.act_window']
-        ids = self.env.context.get('active_ids', [])
-        invoices = inv_obj.browse(ids)
+        invoice = self._get_invoice_from_context()
         split_invoice = self._split_invoice()
-        xid = {
+        action_xml_id = {
             'out_invoice': 'action_invoice_tree1',
-            'out_refund': 'action_invoice_tree3',
+            'out_refund': 'action_invoice_tree1',
             'in_invoice': 'action_invoice_tree2',
-            'in_refund': 'action_invoice_tree4',
-        }[invoices[0].type]
-        action = aw_obj.for_xml_id('account', xid)
+            'in_refund': 'action_invoice_tree2',
+        }[invoice.type]
+        action = self.env.ref('account.%s' % action_xml_id).read()[0]
         action.update({
-            'domain': [('id', 'in', ids + [split_invoice])],
+            'domain': [('id', 'in', [invoice.id] + [split_invoice])],
         })
         return action
 
@@ -140,9 +127,11 @@ class AccountInvoiceSplitLine(models.TransientModel):
     _name = 'account.invoice.split.line'
 
     wizard_id = fields.Many2one(
-        comodel_name='account.invoice.split', string='Wizard')
+        comodel_name='account.invoice.split', string='Wizard',
+        required=True, ondelete='cascade')
     origin_invoice_line_id = fields.Many2one(
-        comodel_name='account.invoice.line', string='Origin Invoice Line')
+        comodel_name='account.invoice.line', string='Origin Invoice Line',
+        required=True, ondelete='cascade')
     product_id = fields.Many2one(
         comodel_name='product.product', string='Product')
     name = fields.Text(string='Description')
@@ -165,4 +154,7 @@ class AccountInvoiceSplitLine(models.TransientModel):
         """Return default value for copy method
         Can be override to add some fields"""
         self.ensure_one()
-        return {'quantity': self.quantity_to_split}
+        return {
+            'quantity': self.quantity_to_split,
+            'invoice_id': False,
+        }
