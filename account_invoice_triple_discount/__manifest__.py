@@ -11,7 +11,7 @@
     'license': 'AGPL-3',
     'summary': 'Manage triple discount on invoice lines',
     'depends': [
-        'account'
+        'account',
     ],
     'data': [
         'views/account_invoice_view.xml',
