@@ -6,7 +6,7 @@
 Account Invoice Triple Discount
 ===============================
 
-This module allows to have three successive discounts on every invoice line.
+This module allows to have three successive discounts on each invoice line.
 
 Usage
 =====
@@ -53,6 +53,7 @@ Contributors
 ------------
 
 * David Vidal <david.vidal@tecnativa.com>
+* Pedro M. Baeza <pedro.baeza@tecnativa.com>
 
 Maintainer
 ----------
