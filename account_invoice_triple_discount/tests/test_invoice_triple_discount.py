@@ -41,8 +41,8 @@ class TestInvoiceTripleDiscount(SavepointCase):
             'price_unit': 200.0,
             'account_id': cls.account.id,
             'invoice_line_tax_ids': [(6, 0, [cls.tax.id])],
+            'quantity': 1,
         })
-        cls.invoice._onchange_invoice_line_ids()
 
     def test_01_discounts(self):
         """ Tests multiple discounts in line with taxes """
@@ -74,9 +74,12 @@ class TestInvoiceTripleDiscount(SavepointCase):
             'name': 'Line 1',
             'price_unit': 500.0,
             'account_id': self.account.id,
+            'quantity': 1,
         })
+        self.assertEqual(self.invoice_line2.price_subtotal, 500.0)
         self.invoice_line2.discount3 = 50.0
         self.invoice._onchange_invoice_line_ids()
+        self.assertEqual(self.invoice_line2.price_subtotal, 250.0)
         self.assertEqual(self.invoice.amount_total, 480.0)
         self.invoice_line1.discount = 50.0
         self.invoice._onchange_invoice_line_ids()
