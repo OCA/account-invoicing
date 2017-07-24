@@ -4,6 +4,8 @@
 
 from odoo import models, fields, api, exceptions, _
 from odoo.exceptions import UserError
+from odoo.tools import float_is_zero
+from odoo.tools.float_utils import float_compare
 
 import odoo.addons.decimal_precision as dp
 
@@ -83,12 +85,21 @@ class AccountInvoiceSplit(models.TransientModel):
 
         invoice_to_split = self._get_invoice_from_context()
         invoice_lines = []
+        qty_digit_precision = self.env['decimal.precision'].precision_get(
+            'Product Unit of Measure')
+
         for line in self.line_ids:
             invoice_line = line.origin_invoice_line_id
-            if line.quantity_to_split != 0.0:
+            qty_is_zero = float_is_zero(
+                line.quantity_to_split, precision_digits=qty_digit_precision)
+            if not qty_is_zero:
                 # I Check if the quantity to split isn't greater then the
                 # quantity on the origin line
-                if line.quantity_to_split > invoice_line.quantity:
+                qty_is_valid = float_compare(
+                    line.quantity_to_split,
+                    invoice_line.quantity,
+                    precision_digits=qty_digit_precision) <= 0
+                if not qty_is_valid:
                     raise UserError(
                         _("Quantity to split is greater than "
                           "available quantity"))

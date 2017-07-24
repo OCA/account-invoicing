@@ -12,7 +12,7 @@ Usage
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/95/8.0
+   :target: https://runbot.odoo-community.org/runbot/95/10.0
 
 For further information, please visit:
 
@@ -33,6 +33,7 @@ Contributors
 ------------
 
 * Adrien Peiffer <adrien.peiffer@acsone.eu>
+* Benjamin Willig <benjamin.willig@acsone.eu>
 
 Maintainer
 ----------
