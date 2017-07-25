@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
 
-from openerp import models
+from odoo import models
 _logger = logging.getLogger(__name__)
 
 
@@ -20,7 +20,7 @@ class AccountInvoice(models.Model):
             data['quantity'] = qty
         if self.type == 'in_refund':
             invoice_line = self.env['account.invoice.line']
-            data['quantity'] *= -1
+            data['quantity'] *= -1.0
             data['account_id'] = invoice_line.with_context(
                 {'journal_id': self.journal_id.id,
                  'type': 'in_invoice'})._default_account(),

@@ -3,8 +3,8 @@
 #           <contact@eficent.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models
-from openerp.tools.float_utils import float_compare
+from odoo import api, fields, models
+from odoo.tools.float_utils import float_compare
 
 
 class PurchaseOrder(models.Model):
@@ -15,7 +15,7 @@ class PurchaseOrder(models.Model):
     def _get_invoiced(self):
         super(PurchaseOrder, self)._get_invoiced()
         for order in self:
-            if order.state != 'purchase':
+            if order.state not in ('purchase', 'done'):
                 order.invoice_status = 'no'
                 continue
             if any(line.invoice_status == 'to invoice'
@@ -117,20 +117,13 @@ class PurchaseOrderLine(models.Model):
             for inv_line in line.invoice_lines:
                 inv_type = inv_line.invoice_id.type
                 invl_q = inv_line.quantity
-                # This is a small 'hack' to allow the odoo tests to pass.
-                # See https://github.com/OCA/OCB/pull/598
-                if inv_type == 'out_invoice' and \
-                        inv_line.invoice_id.account_id.user_type_id.type == \
-                        'payable':
-                    inv_type = 'in_invoice'
                 if inv_line.invoice_id.state not in ['cancel']:
                     if (
                         (inv_type == 'in_invoice' and invl_q > 0.0) or
                         (inv_type == 'in_refund' and invl_q < 0.0)
                     ):
-                        qty += inv_line.uom_id._compute_qty_obj(
-                            inv_line.uom_id, inv_line.quantity,
-                            line.product_uom)
+                        qty += inv_line.uom_id._compute_quantity(
+                            inv_line.quantity, line.product_uom)
             line.qty_invoiced = qty
 
     @api.depends('invoice_lines.invoice_id.state',
@@ -145,8 +138,8 @@ class PurchaseOrderLine(models.Model):
                     (inv_type == 'in_invoice' and invl_q < 0.0) or
                     (inv_type == 'in_refund' and invl_q > 0.0)
                 ):
-                    qty += inv_line.uom_id._compute_qty_obj(
-                        inv_line.uom_id, inv_line.quantity, line.product_uom)
+                    qty += inv_line.uom_id._compute_quantity(
+                        inv_line.quantity, line.product_uom)
             line.qty_refunded = qty
 
     @api.depends('order_id.state', 'qty_received', 'qty_invoiced',
@@ -158,7 +151,7 @@ class PurchaseOrderLine(models.Model):
             'Product Unit of Measure')
         for line in self:
             line.qty_to_refund = 0.0
-            if line.order_id.state != 'purchase':
+            if line.order_id.state not in ('purchase', 'done'):
                 line.invoice_status = 'no'
                 continue
             else:
@@ -198,30 +191,24 @@ class PurchaseOrderLine(models.Model):
     def _compute_qty_returned(self):
         for line in self:
             line.qty_returned = 0.0
-            bom_delivered = self.sudo()._get_bom_delivered(line.sudo())
             qty = 0.0
-            if not bom_delivered:
-                for move in line.move_ids:
-                    if move.state == 'done' and move.location_id.usage != \
-                            'supplier':
-                        qty += move.product_uom._compute_qty_obj(
-                            move.product_uom, move.product_uom_qty,
-                            line.product_uom)
+            for move in line.move_ids:
+                if move.state == 'done' and move.location_id.usage != \
+                        'supplier':
+                    qty += move.product_uom._compute_quantity(
+                        move.product_uom_qty, line.product_uom)
             line.qty_returned = qty
 
     @api.depends('order_id.state', 'move_ids.state', 'move_ids')
     def _compute_qty_received(self):
         super(PurchaseOrderLine, self)._compute_qty_received()
         for line in self:
-            bom_delivered = self.sudo()._get_bom_delivered(line.sudo())
-            if not bom_delivered:
-                for move in line.move_ids:
-                    if move.state == 'done' and move.location_id.usage != \
-                            'supplier':
-                        qty = move.product_uom._compute_qty_obj(
-                            move.product_uom, move.product_uom_qty,
-                            line.product_uom)
-                        line.qty_received -= qty
+            for move in line.move_ids:
+                if move.state == 'done' and move.location_id.usage != \
+                        'supplier':
+                    qty = move.product_uom._compute_quantity(
+                        move.product_uom_qty, line.product_uom)
+                    line.qty_received -= qty
 
     qty_to_refund = fields.Float(compute="_compute_qty_to_invoice",
                                  string='Qty to Refund', copy=False,
