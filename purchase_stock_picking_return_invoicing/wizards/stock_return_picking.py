@@ -3,16 +3,16 @@
 #           <contact@eficent.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
-class StockReturnPicking(models.TransientModel):
+class ReturnPicking(models.TransientModel):
     _inherit = "stock.return.picking"
 
     @api.model
     def default_get(self, fields):
         """Get purchase order for lines."""
-        result = super(StockReturnPicking, self).default_get(fields)
+        result = super(ReturnPicking, self).default_get(fields)
         try:
             for line in result["product_return_moves"]:
                 assert line[0] == 0
@@ -26,7 +26,7 @@ class StockReturnPicking(models.TransientModel):
     @api.multi
     def _create_returns(self):
         new_picking_id, pick_type_id = super(
-            StockReturnPicking, self)._create_returns()
+            ReturnPicking, self)._create_returns()
         new_picking = self.env['stock.picking'].browse(new_picking_id)
         for move in new_picking.move_lines:
             return_picking_line = self.product_return_moves.filtered(
@@ -36,7 +36,7 @@ class StockReturnPicking(models.TransientModel):
         return new_picking_id, pick_type_id
 
 
-class StockReturnPickingLine(models.TransientModel):
+class ReturnPickingLine(models.TransientModel):
     _inherit = "stock.return.picking.line"
 
     purchase_line_id = fields.Many2one(
