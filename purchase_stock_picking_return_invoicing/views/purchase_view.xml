@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
+<odoo>
 
-        <record id="purchase_order_form" model="ir.ui.view">
-            <field name="name">purchase.order.form</field>
-            <field name="model">purchase.order</field>
-            <field name="inherit_id" ref="purchase.purchase_order_form"/>
-            <field name="arch" type="xml">
-                <button name="action_view_invoice" position="after">
-                    <button type="object"  name="action_view_invoice_refund"
-                            class="oe_stat_button"
-                            icon="fa-pencil-square-o">
-                        <field name="invoice_refund_count" widget="statinfo"
-                               string="Refunds"/>
-                    </button>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_view_invoice" position="after">
+                <button type="object" name="action_view_invoice_refund"
+                        class="oe_stat_button"
+                        icon="fa-pencil-square-o">
+                    <field name="invoice_refund_count" widget="statinfo"
+                           string="Refunds"/>
                 </button>
-                <xpath expr="//field[@name='order_line']/tree/field[@name='qty_received']" position="after">
-                    <field name="qty_returned"
-                           invisible="not context.get('show_purchase', False)"/>
-                    <field name="invoice_status"
-                           invisible="1"/>
-                </xpath>
-                <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="after">
-                    <field name="qty_to_refund"
-                           invisible="not context.get('show_purchase', False)"/>
-                    <field name="qty_refunded"
-                           invisible="not context.get('show_purchase', False)"/>
-                </xpath>
+            </button>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='qty_received']" position="after">
+                <field name="qty_returned"
+                       invisible="not context.get('show_purchase', False)"/>
+                <field name="invoice_status"
+                       invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']" position="after">
+                <field name="qty_to_refund"
+                       invisible="not context.get('show_purchase', False)"/>
+                <field name="qty_refunded"
+                       invisible="not context.get('show_purchase', False)"/>
+            </xpath>
+            <field name="move_ids" position="attributes">
+                <attribute name="context">{'tree_view_ref':'stock.view_move_tree'}</attribute>
             </field>
-        </record>
+        </field>
+    </record>
 
-    </data>
-</openerp>
+</odoo>
