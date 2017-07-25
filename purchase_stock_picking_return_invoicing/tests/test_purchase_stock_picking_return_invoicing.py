@@ -3,8 +3,8 @@
 #           <contact@eficent.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.tests.common import SavepointCase
-from openerp import fields
+from odoo.tests.common import SavepointCase
+from odoo import fields
 
 
 class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
@@ -457,8 +457,7 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
             po.invoice_status,
             'invoiced',
             ('Purchase Stock: po invoice_status should be "invoiced" instead '
-             'of '
-             '"%s" after invoicing') % po.invoice_status)
+             'of "%s" after invoicing') % po.invoice_status)
 
         self.assertEqual(
             po.amount_untaxed * 3/5,
