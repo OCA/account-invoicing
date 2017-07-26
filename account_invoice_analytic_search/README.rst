@@ -7,21 +7,16 @@ Invoice Analytic Search
 =======================
 
 Organizations often require to quickly find the invoices associated to a
-project or to an analytic account, searching by it's code, name or
-project/account manager. This module introduces the possibility search
-customer or supplier invoices by analytic account or by project manager.
-
+project or to an analytic account, searching by it's code or name.
+This module introduces the possibility search customer or supplier
+invoices by analytic account.
 
 Usage
 =====
 
-To use this module, you need to:
-
-#. Go to ...
-
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/95/9.0
+   :target: https://runbot.odoo-community.org/runbot/95/10.0
 
 
 Bug Tracker
