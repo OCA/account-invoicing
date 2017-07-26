@@ -8,7 +8,7 @@
 {
     'name': 'Invoice Analytic Search',
     'summary': 'Search invoices by analytic account or by project manager',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'author': 'Project Expert Team,'
               'Eficent,'
               'Odoo Community Association (OCA)',
@@ -19,11 +19,12 @@
     'website': 'http://project.expert',
     'license': 'AGPL-3',
     'category': 'Project Management',
-    'depends': ['analytic', 'account'],
+    'depends': [
+        'analytic',
+        'account'
+    ],
     'data': [
         'views/account_invoice_view.xml',
-    ],
-    'test': [
     ],
     'installable': True,
 }

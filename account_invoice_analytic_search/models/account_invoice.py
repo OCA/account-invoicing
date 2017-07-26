@@ -6,7 +6,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
@@ -18,14 +18,14 @@ class AccountInvoice(models.Model):
     def _compute_analytic_accounts(self):
         for invoice in self:
             invoice.account_analytic_ids =\
-            invoice.mapped('invoice_line_ids.account_analytic_id.id')
+                invoice.mapped('invoice_line_ids.account_analytic_id.id')
 
     @api.multi
     @api.depends('invoice_line_ids')
     def _compute_analytic_account_partner_ids(self):
         for invoice in self:
             invoice.account_analytic_partner_ids =\
-            invoice.\
+                invoice.\
                 mapped('invoice_line_ids.account_analytic_partner_id.id')
 
     @api.multi
@@ -50,11 +50,11 @@ class AccountInvoice(models.Model):
         search='_search_analytic_accounts',
         string='Analytic Account',
         readonly=True
-        )
+    )
     account_analytic_partner_ids = fields.Many2many(
         comodel_name='res.partner',
         compute='_compute_analytic_account_partner_ids',
         search='_search_analytic_account_partner_ids',
         string='Project Manager',
         readonly=True
-        )
+    )
