@@ -11,13 +11,8 @@ project or to an analytic account, searching by it's code, name or
 project/account manager. This module introduces the possibility search
 customer or supplier invoices by analytic account or by project manager.
 
-
 Usage
 =====
-
-To use this module, you need to:
-
-#. Go to ...
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
