@@ -30,7 +30,7 @@ class TestAccountInvoiceShippement(common.TransactionCase):
     def setUp(self):
         super(TestAccountInvoiceShippement, self).setUp()
         self.inv_model = self.env['account.invoice']
-        self.stock_model = self.env['stock.picking']
+        self.sale_model = self.env['sale.order']
 
         self.partner_2 = self.ref('base.res_partner_2')
         self.partner_address_3 = self.ref('base.res_partner_address_3')
