@@ -6,9 +6,12 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
-                <field name="fiscal_position" position="before">
-                    <field name="address_shipping_id"/>
-                </field>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                	<field name="address_shipping_id" 
+                	context="{'search_default_customer':1, 'show_address': 1}" 
+                	options="{&quot;always_reload&quot;: True}" 
+                	domain="[('customer', '=', True)]"/>
+                </xpath>
             </field>
         </record>
     </data>

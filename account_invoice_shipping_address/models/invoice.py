@@ -20,20 +20,20 @@
 #
 ##############################################################################
 
-from openerp.osv import fields, orm
+from openerp import fields, models
 
 
-class account_invoice(orm.Model):
+class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    _columns = {
-        'address_shipping_id': fields.many2one(
-            'res.partner',
-            'Shipping Address',
-            readonly=True,
-            states={
-                'draft': [('readonly', False)],
-                'sent': [('readonly', False)]
-            },
-            help="Delivery address for current invoice."),
-    }
+
+    address_shipping_id = fields.Many2one(
+        comodel_name='res.partner',
+        string ='Shipping Address',
+        readonly=True,
+        states={
+            'draft': [('readonly', False)],
+            'sent': [('readonly', False)]
+        },
+        help="Delivery address for current invoice.")
+    

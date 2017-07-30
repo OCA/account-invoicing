@@ -20,20 +20,15 @@
 #
 ##############################################################################
 
+from openerp import models, api
 
-{
-    "name": "Invoice Shipping Address",
-    'summary': """
-        Adds a shipping address field to the invoice.""",
-    "version": "9.0.1.0",
-    'category': 'Generic Modules/Accounting',
-    "depends": ["account", "sale", "sale_stock"],
-    "author": "Andrea Cometa, Agile Business Group,"
-              "Odoo Community Association (OCA)",
-    'website': 'http://www.andreacometa.it',
-    'license': 'AGPL-3',
-    'data': [
-        'views/invoice_view.xml',
-    ],
-    'installable': True,
-}
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+    
+    @api.multi
+    def _prepare_invoice(self,):
+        res = super(SaleOrder, self)._prepare_invoice()
+        res.update({
+            'address_shipping_id': self.partner_shipping_id.id, })
+        return res
