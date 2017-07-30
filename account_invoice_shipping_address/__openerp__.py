@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -25,7 +25,7 @@
     "name": "Invoice Shipping Address",
     'summary': """
         Adds a shipping address field to the invoice.""",
-    "version": "9.0.1.0",
+    "version": "9.0.1.0.1",
     'category': 'Generic Modules/Accounting',
     "depends": ["account", "sale", "sale_stock"],
     "author": "Andrea Cometa, Agile Business Group,"
