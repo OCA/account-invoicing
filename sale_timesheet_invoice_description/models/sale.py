@@ -2,8 +2,8 @@
 # © 2016 Carlos Dauden <carlos.dauden@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models, _
-from openerp.tools import config
+from odoo import api, fields, models, _
+from odoo.tools import config
 
 
 class SaleOrder(models.Model):
@@ -57,7 +57,7 @@ class SaleOrderLine(models.Model):
         # This is for not breaking possible tests that expects to create the
         # invoices lines the standard way
         if note and (not config['test_enable'] or self.env.context.get(
-                'timesheet_description')):
+                'test_timesheet_description')):
             res['name'] += "\n" + (
                 "\n".join(map(lambda x: unicode(x) or '', note)))
         return res
