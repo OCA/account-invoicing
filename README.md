@@ -25,7 +25,7 @@ addon | version | summary
 [account_invoice_merge_payment](account_invoice_merge_payment/) | 9.0.1.0.0 | Use invoice merge regarding fields on Account Payment Partner
 [account_invoice_merge_purchase](account_invoice_merge_purchase/) | 9.0.1.0.0 | Compatibility between purchase and account invoice merge
 [account_invoice_pricelist](account_invoice_pricelist/) | 9.0.1.0.0 | Add partner pricelist on invoices
-[account_invoice_refund_link](account_invoice_refund_link/) | 9.0.2.0.0 | Link refund invoice with its original invoice
+[account_invoice_refund_link](account_invoice_refund_link/) | 9.0.2.0.1 | Link refund invoice with its original invoice
 [account_invoice_refund_option](account_invoice_refund_option/) | 9.0.1.0.0 | Allows you to create directly a refund without starting from an invoice
 [account_invoice_rounding](account_invoice_rounding/) | 9.0.1.0.1 | Unit rounded invoice
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 9.0.1.0.0 | Account invoice search by reference
