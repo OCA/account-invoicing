@@ -1,0 +1,18 @@
+<openerp>
+    <data>
+        <record id="view_account_config_settings_ari" model="ir.ui.view">
+            <field name="name">view_account_config_settings_ari</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings" />
+            <field name="arch" type="xml">
+                <xpath
+                    expr="//field[@name='income_currency_exchange_account_id']"
+                    position="before">
+                        <field
+                            name="reconciliation_writeoff_account"
+                            domain="[('type', 'not in', ('view', 'consolidation'))]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
