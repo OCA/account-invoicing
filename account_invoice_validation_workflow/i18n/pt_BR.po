@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-04 13:40+0000\n"
-"PO-Revision-Date: 2015-06-19 02:05+0000\n"
+"POT-Creation-Date: 2017-08-04 23:42+0000\n"
+"PO-Revision-Date: 2017-08-11 11:55+0000\n"
 "Last-Translator: danimaribeiro <danimaribeiro@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -118,7 +118,7 @@ msgstr ""
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.invoice_supplier_form_validation_wkfl
 msgid "Set to Draft"
-msgstr ""
+msgstr "Definir como Provisório"
 
 #. module: account_invoice_validation_workflow
 #: view:account.invoice:account_invoice_validation_workflow.view_account_invoice_filter
