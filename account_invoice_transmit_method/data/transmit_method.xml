@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  © 2017 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo noupdate="1">
+
+<record id="mail" model="transmit.method">
+    <field name="code">mail</field>
+    <field name="name">E-Mail</field>
+</record>
+
+<record id="post" model="transmit.method">
+    <field name="code">post</field>
+    <field name="name">Post</field>
+</record>
+
+<record id="portal" model="transmit.method">
+    <field name="code">portal</field>
+    <field name="name">Customer Portal</field>
+</record>
+
+</odoo>
