@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  © 2017 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo noupdate="1">
+
+<record id="base.res_partner_12" model="res.partner"> <!-- C2C -->
+    <field name="customer_invoice_transmit_method_id" ref="mail"/>
+    <field name="supplier_invoice_transmit_method_id" ref="mail"/>
+</record>
+
+<record id="base.res_partner_1" model="res.partner">  <!-- Asus -->
+    <field name="supplier_invoice_transmit_method_id" ref="mail"/>
+</record>
+
+<record id="base.res_partner_2" model="res.partner"> <!-- Agrolait -->
+    <field name="customer_invoice_transmit_method_id" ref="post"/>
+</record>
+
+</odoo>

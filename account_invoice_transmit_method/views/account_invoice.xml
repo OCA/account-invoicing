@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  © 2017 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo>
+
+
+<record id="invoice_form" model="ir.ui.view">
+    <field name="name">Add Transmit Method on Customer Invoice form view</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_form"/>
+    <field name="arch" type="xml">
+        <field name="user_id" position="before">
+            <field name="transmit_method_id" widget="selection"
+                domain="[('customer_ok', '=', True)]"/>
+            <field name="transmit_method_code" invisible="1"/>
+        </field>
+        <button name="action_invoice_sent" position="attributes">
+            <attribute name="attrs">{'invisible': ['|', '|', ('sent', '=', True), ('state', 'not in', ('open', 'paid')), ('transmit_method_code', 'not in', ('mail', False))]}</attribute> <!-- Only show the "Send by Mail" button when the transmit method is E-mail or empty. But I also modify the condition on 'state' field: we should be able to send the invoice by email even when the invoice is 'paid' (Even if the customer made an advance payment, he needs an invoice for his accounting !) -->
+        </button>
+    </field>
+</record>
+
+<record id="invoice_supplier_form" model="ir.ui.view">
+    <field name="name">Add Transmit Method on Supplier Invoice form view</field>
+    <field name="model">account.invoice</field>
+    <field name="inherit_id" ref="account.invoice_supplier_form"/>
+    <field name="arch" type="xml">
+        <field name="date" position="after">
+            <field name="transmit_method_id" widget="selection"
+                domain="[('supplier_ok', '=', True)]"/>
+            <field name="transmit_method_code" invisible="1"/>
+        </field>
+    </field>
+</record>
+
+
+</odoo>

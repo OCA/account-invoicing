@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  © 2017 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo>
+
+
+<record id="transmit_method_form" model="ir.ui.view">
+    <field name="name">Transmit Method Form view</field>
+    <field name="model">transmit.method</field>
+    <field name="arch" type="xml">
+        <form string="Transmit Method">
+            <group name="main">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="customer_ok"/>
+                <field name="supplier_ok"/>
+            </group>
+        </form>
+    </field>
+</record>
+
+<record id="transmit_method_tree" model="ir.ui.view">
+    <field name="name">Transmit Method Tree view</field>
+    <field name="model">transmit.method</field>
+    <field name="arch" type="xml">
+        <tree string="Transmit Methods">
+            <field name="name"/>
+            <field name="code"/>
+            <field name="customer_ok"/>
+            <field name="supplier_ok"/>
+        </tree>
+    </field>
+</record>
+
+<record id="transmit_method_search" model="ir.ui.view">
+    <field name="name">Transmit Method Search view</field>
+    <field name="model">transmit.method</field>
+    <field name="arch" type="xml">
+        <search string="Search Transmit Methods">
+            <field name="name" filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]" string="Name or Code"/>
+            <filter name="customer_ok" string="Selectable on Customers" domain="[('customer_ok', '=', True)]"/>
+            <filter name="supplier_ok" string="Selectable on Vendors" domain="[('supplier_ok', '=', True)]"/>
+        </search>
+    </field>
+</record>
+
+<record id="transmit_method_action" model="ir.actions.act_window">
+    <field name="name">Transmit Methods</field>
+    <field name="res_model">transmit.method</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem id="transmit_method_menu"
+    action="transmit_method_action"
+    parent="account.account_management_menu"
+    sequence="100"/>
+
+
+</odoo>

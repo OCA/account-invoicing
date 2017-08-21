@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  © 2017 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo>
+
+
+<record id="view_partner_property_form" model="ir.ui.view">
+    <field name="name">Add Invoice Transmit Methods on partner form view</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="account.view_partner_property_form"/>
+    <field name="arch" type="xml">
+        <field name="property_payment_term_id" position="after">
+            <field name="customer_invoice_transmit_method_id" widget="selection"/>
+            <field name="customer_invoice_transmit_method_code" invisible="1"/>
+        </field>
+        <field name="property_supplier_payment_term_id" position="after">
+            <field name="supplier_invoice_transmit_method_id" widget="selection"/>
+            <field name="supplier_invoice_transmit_method_code" invisible="1"/>
+        </field>
+        <xpath expr="//field[@name='child_ids']/form//field[@name='customer']" position="after">
+            <field name="customer_invoice_transmit_method_code" invisible="1"/>
+            <field name="supplier_invoice_transmit_method_code" invisible="1"/>
+        </xpath>
+        <field name="child_ids" position="attributes">
+            <attribute name="context">{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_supplier': supplier, 'default_customer': customer, 'default_customer_invoice_transmit_method_code': customer_invoice_transmit_method_code, 'default_supplier_invoice_transmit_method_code': supplier_invoice_transmit_method_code}</attribute>
+        </field>
+    </field>
+</record>
+
+
+</odoo>
