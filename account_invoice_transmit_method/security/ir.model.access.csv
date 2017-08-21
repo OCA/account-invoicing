@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_transmit_method_read,Read access on transmit.method to everybody,model_transmit_method,,1,0,0,0
+access_transmit_method_full,Full access on transmit.method to Settings group,model_transmit_method,base.group_system,1,1,1,1
+access_transmit_method_full_account,Full access on transmit.method to Financial Manager,model_transmit_method,account.group_account_manager,1,1,1,1
