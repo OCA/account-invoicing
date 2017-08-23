@@ -5,9 +5,8 @@
 
 {
     'name': 'Invoice Margin',
-    'version': '8.0.1.0.0',
+    'version': '8.0.2.0.0',
     'category': 'Invoicing',
-    'sequence': 1,
     'author': "GRAP,"
               "Odoo Community Association (OCA)",
     'summary': 'Margin on Account Invoices',
@@ -16,6 +15,8 @@
     ],
     'data': [
         'views/view_account_invoice.xml',
+        'data/decimal_precision.xml',
     ],
+    'pre_init_hook': 'pre_init_hook',
     'installable': True,
 }

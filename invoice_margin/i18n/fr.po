@@ -1,4 +1,3 @@
-
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 #	* invoice_margin
@@ -7,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-13 16:15+0000\n"
-"PO-Revision-Date: 2017-06-13 16:15+0000\n"
+"POT-Creation-Date: 2017-08-24 14:32+0000\n"
+"PO-Revision-Date: 2017-08-24 14:32+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,9 +36,19 @@ msgid "It gives profitability by calculating the difference between the Unit Pri
 msgstr "Il donne la rentabilité en calculant la différence entre le prix unitaire et le prix de revient."
 
 #. module: invoice_margin
-#: view:account.invoice:invoice_margin.view_account_invoice_tree
+#: view:account.invoice:invoice_margin.view_account_invoice_form
 #: field:account.invoice,margin:0
 #: field:account.invoice.line,margin:0
 msgid "Margin"
 msgstr "Marge"
 
+#. module: invoice_margin
+#: field:account.invoice,margin_percent:0
+#: field:account.invoice.line,margin_percent:0
+msgid "Margin (%)"
+msgstr "Marge (%)"
+
+#. module: invoice_margin
+#: view:account.invoice:invoice_margin.view_account_invoice_tree
+msgid "Total"
+msgstr "Total"
