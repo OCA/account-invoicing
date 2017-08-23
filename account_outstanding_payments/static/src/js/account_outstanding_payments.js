@@ -8,7 +8,7 @@ openerp.account_outstanding_payments = function(instance){
     var QWeb = instance.web.qweb
 
     openerp.account_outstanding_payments.ShowPaymentLineWidget = form_common.AbstractField.extend({
-    	
+        
         render_value: function() {
             var self = this;
             var info = JSON.parse(this.get('value'));
