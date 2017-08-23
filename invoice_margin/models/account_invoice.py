@@ -12,14 +12,24 @@ class AccountInvoice(models.Model):
 
     # Columns Section
     margin = fields.Float(
-        'Margin', compute='_compute_margin', store=True,
+        'Margin', compute='_compute_margin', store=True, multi='margin',
         digits_compute=dp.get_precision('Product Price'),
         help="It gives profitability by calculating the difference between"
         " the Unit Price and the cost price.")
 
+    margin_percent = fields.Float(
+        'Margin (%)', compute='_compute_margin', store=True, multi='margin',
+        digits_compute=dp.get_precision('PoS Order Margin Percent'))
+
     # Compute Section
     @api.multi
-    @api.depends('invoice_line.margin')
+    @api.depends('invoice_line.margin', 'invoice_line.price_subtotal')
     def _compute_margin(self):
         for invoice in self:
-            invoice.margin = sum(invoice.mapped('invoice_line.margin'))
+            tmp_margin = sum(invoice.mapped('invoice_line.margin'))
+            tmp_subtotal = sum(invoice.mapped('invoice_line.price_subtotal'))
+            invoice.update({
+                'margin': tmp_margin,
+                'margin_percent': tmp_margin / tmp_subtotal * 100 if
+                tmp_subtotal else 0.0,
+            })
