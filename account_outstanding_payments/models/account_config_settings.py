@@ -17,9 +17,11 @@ class AccountConfigSettings(models.Model):
         return {'reconciliation_writeoff_account': ir_values_obj.get_default(
             'account.config.settings', 'reconciliation_writeoff_account')}
 
-    @api.one
+    @api.multi
     def set_reconciliation_writeoff_account(self):
-        ir_values_obj = self.env['ir.values']
-        ir_values_obj.set_default('account.config.settings',
-                                  'reconciliation_writeoff_account',
-                                  self.reconciliation_writeoff_account.id)
+        for record in self:
+            ir_values_obj = self.env['ir.values']
+            ir_values_obj.set_default('account.config.settings',
+                                      'reconciliation_writeoff_account',
+                                      record.
+                                      reconciliation_writeoff_account.id)

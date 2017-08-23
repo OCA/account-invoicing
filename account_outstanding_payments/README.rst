@@ -3,7 +3,7 @@
     :alt: License: AGPL-3
 
 ============================
-account_outstanding_payments
+Account Outstanding Payments
 ============================
 
 This module was written to extend the functionality of account module
@@ -15,17 +15,12 @@ Usage
 
 To use this module, you need to:
 
-#. go to ...
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+
+    image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
     :alt: Try me on Runbot
-    :target: https://runbot.odoo-community.org/runbot/{repo_id}/8.0
+    :target: https://runbot.odoo-community.org/runbot/account-invoicing/8.0
 
 .. repo_id is available in https://github.com/OCA/maintainer-tools/blob/master/tools/repos_with_ids.txt
-
-Known issues / Roadmap
-======================
-
-* ...
 
 Bug Tracker
 ===========
@@ -46,7 +41,12 @@ Images
 Contributors
 ------------
 
-* George Daramouskas <gdaramouskas@therp.nl>  
+* Quentin De Paoli <qdp@odoo.com>
+* Nicolas Martinelli <nim@odoo.com>
+* Raphael Collet <rco@openerp.com> 
+* Cédric Snauwaert <csn@openerp.com>
+* Denis Ledoux <dle@odoo.com>  
+* George Daramouskas <gdaramouskas@therp.nl>
 
 Do not contact contributors directly about help with questions or problems concerning this addon, but use the `community mailing list <mailto:community@mail.odoo.com>`_ or the `appropriate specialized mailinglist <https://odoo-community.org/groups>`_ for help, and the bug tracker linked in `Bug Tracker`_ above for technical issues.
 
