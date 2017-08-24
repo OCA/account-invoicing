@@ -196,22 +196,21 @@ class AccountInvoice(models.Model):
 
         # Make link between original sale order
         # None if sale is not installed
-        so_obj = self.env['sale.order'] \
+        so_line_obj = self.env['sale.order.line'] \
             if 'sale.order' in self.env.registry else False
         invoice_line_obj = self.env['account.invoice.line']
         for new_invoice_id in invoices_info:
-            if so_obj is not False:
-                todos = so_obj.search(
-                    [('invoice_ids', 'in', invoices_info[new_invoice_id])])
-                todos.write({'invoice_ids': [(4, new_invoice_id)]})
-                for org_so in todos:
-                    for so_line in org_so.order_line:
-                        invoice_lines = invoice_line_obj.search(
-                            [('product_id', '=', so_line.product_id.id),
-                             ('invoice_id', '=', new_invoice_id)])
-                        if invoice_lines:
-                            so_line.write(
-                                {'invoice_lines': [(6, 0, invoice_lines.ids)]})
+            if so_line_obj is not False:
+                so_lines = so_line_obj.search(
+                    [('invoice_lines.invoice_id', 'in', invoices_info[
+                        new_invoice_id])])
+                for so_line in so_lines:
+                    invoice_lines = invoice_line_obj.search(
+                        [('product_id', '=', so_line.product_id.id),
+                         ('invoice_id', '=', new_invoice_id)])
+                    if invoice_lines:
+                        so_line.write(
+                            {'invoice_lines': [(6, 0, invoice_lines.ids)]})
 
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
