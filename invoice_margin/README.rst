@@ -22,12 +22,12 @@ To use this module, you need to:
 
 * View Invoices
 
-.. figure:: ./invoice_margin/static/description/account_invoice_tree_view.png
+.. figure:: static/description/account_invoice_tree_view.png
    :width: 800px
 
 * Open an Invoice
 
-.. figure:: ./invoice_margin/static/description/account_invoice_form_view.png
+.. figure:: static/description/account_invoice_form_view.png
    :width: 800px
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
