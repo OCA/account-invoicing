@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-04 23:29+0000\n"
+"POT-Creation-Date: 2017-08-11 23:44+0000\n"
 "PO-Revision-Date: 2015-06-03 04:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/oca/OCA-account-invoicing-7-0/language/pt_PT/)\n"
@@ -141,7 +141,7 @@ msgstr ""
 #. module: account_invoice_template
 #: field:wizard.select.invoice.template.line,amount:0
 msgid "Amount"
-msgstr ""
+msgstr "Valor"
 
 #. module: account_invoice_template
 #: view:account.invoice.template:0 view:wizard.select.invoice.template:0
