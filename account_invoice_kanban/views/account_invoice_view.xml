@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="stage_id" widget="statusbar" clickable="True" />
+            </field>
+        </field>
+    </record>
+
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="stage_id" widget="statusbar" clickable="True" />
+            </field>
+        </field>
+    </record>
+
+    <!-- Inherit base kanban abstract view Kanban View -->
+    <record id="account_invoice_kanban" model="ir.ui.view">
+        <field name="name">account.invoice.kanban</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="base_kanban_stage.base_kanban_abstract_view_kanban" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban/field[@name='display_name']" position="after">
+                <field name="currency_id"/>
+            </xpath>
+            <xpath expr="//div[@name='card_body']">
+                <div>
+                    <strong>
+                        <field name="partner_id"/>
+                    </strong><br/>
+                    <t t-if="record.date_due.raw_value and record.date_due.raw_value &lt; (new Date())" t-set="red">oe_kanban_text_red</t>
+                    <span t-attf-class="#{red || ''}">
+                        Due date - <field name="date_due"/>
+                    </span><br/>
+                    Source - <field name="origin"/><br/>
+                    Total Invoice - <field name="amount_total" widget="monetary" /><br/>
+                    Balance - <field name="residual" widget="monetary" />
+                </div>
+                <div class="oe_kanban_bottom_right">
+                    <div class="pull-left" groups="base.group_user">
+                        <field name="state" widget="kanban_label_selection"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">account.invoice.select</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <filter name="status" position="after">
+                <filter string="Stage" context="{'group_by':'stage_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="account.action_invoice_tree1" model="ir.actions.act_window">
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+    </record>
+
+    <record id="account.action_invoice_tree2" model="ir.actions.act_window">
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+    </record>
+
+    <record id="account.action_invoice_tree1_view1" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="account_invoice_kanban"/>
+        <field name="act_window_id" ref="account.action_invoice_tree1"/>
+    </record>
+
+    <record id="account.action_invoice_supplier_tree1_view1" model="ir.actions.act_window.view">
+       <field eval="1" name="sequence"/>
+       <field name="view_mode">kanban</field>
+       <field name="view_id" ref="account_invoice_kanban"/>
+       <field name="act_window_id" ref="account.action_invoice_tree2"/>
+   </record>
+
+</odoo>
