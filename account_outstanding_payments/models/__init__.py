@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # © 2017 Therp BV <http://therp.nl>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# © 2017 Odoo SA <https://www.odoo.com>
+# © 2017 OCA <https://odoo-community.org>
+# License LGPL-3 (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 from . import account_invoice
 from . import account_config_settings
