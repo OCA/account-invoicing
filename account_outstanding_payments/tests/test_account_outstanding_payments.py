@@ -17,13 +17,13 @@ class TestAccountOutstandingPayments(common.TransactionCase):
         sale_order_model = self.env['sale.order']
         product_product_model = self.env['product.product']
         journal_cash = self.env['account.journal'].search(
-            [('code', '=', 'BNK1')])
+            [('type', '=', 'cash')])
         res_partner = res_partner_model.create(
             {'name': 'James'})
         period_id = self.env['account.period'].search(
             [('code', '=', '00/2017')])
         account_id = self.env['account.account'].search(
-            [('code', '=', 200000)])
+            [('name', 'ilike', 'Product Sales')])
         product = product_product_model.create({'name': 'Product 1'})
         # create a sale.order with one line
         sale_order = sale_order_model.create(
