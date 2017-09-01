@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-30 02:59+0000\n"
-"PO-Revision-Date: 2017-06-30 08:53+0000\n"
+"POT-Creation-Date: 2017-08-18 08:20+0000\n"
+"PO-Revision-Date: 2017-08-29 08:02+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -55,17 +55,17 @@ msgstr ""
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid "Cancel"
-msgstr ""
+msgstr "Verwijderen"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Aangemaakt door"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Aangemaakt op"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,display_name:0
@@ -80,7 +80,7 @@ msgstr "ID"
 #. module: account_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Factuur"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,date_invoice:0
@@ -105,12 +105,12 @@ msgstr "Laatst gewijzigd op"
 #. module: account_invoice_merge
 #: field:invoice.merge,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Laatst bijgewerkt door"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Laatst bijgewerkt op"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
@@ -120,7 +120,7 @@ msgstr ""
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
-msgstr ""
+msgstr "Voeg Facturen samen"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
@@ -133,13 +133,13 @@ msgstr ""
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:39
 #, python-format
 msgid "Not all invoices are at the same company!"
-msgstr ""
+msgstr "Niet alle facturen zijn van het zelfde bedrijf!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
 #, python-format
 msgid "Not all invoices are at the same currency!"
-msgstr ""
+msgstr "Niet alle facturen hebben de zelfde valuta!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:51

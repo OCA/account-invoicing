@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 03:43+0000\n"
-"PO-Revision-Date: 2017-01-13 03:43+0000\n"
+"POT-Creation-Date: 2017-08-18 08:20+0000\n"
+"PO-Revision-Date: 2017-08-18 08:20+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: English (United Kingdom) (https://www.transifex.com/oca/teams/23907/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -127,7 +127,7 @@ msgstr "Last Updated on"
 #. module: account_invoice_supplierinfo_update
 #: field:wizard.update.invoice.supplierinfo,line_ids:0
 msgid "Lines"
-msgstr ""
+msgstr "Lines"
 
 #. module: account_invoice_supplierinfo_update
 #: view:wizard.update.invoice.supplierinfo:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
