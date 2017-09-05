@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sale_order_line_stock_move,sale.order.line.stock.move,model_sale_order_line_stock_move,base.group_sale_salesman,1,1,1,1
+access_sale_order_line_stock_move,sale.order.line.stock.move,model_sale_order_line_stock_move,base.group_portal,1,0,0,0
