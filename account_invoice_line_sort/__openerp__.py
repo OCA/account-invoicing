@@ -31,7 +31,7 @@
     'website': "http://acsone.eu",
 
     'category': 'Finance',
-    'version': '8.0.0.1.0',
+    'version': '8.0.0.1.1',
     'license': 'AGPL-3',
 
     'depends': [

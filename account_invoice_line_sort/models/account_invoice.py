@@ -126,5 +126,5 @@ class AccountInvoiceLine(models.Model):
     @api.returns('self', lambda value: value.id)
     def create(self, vals):
         line = super(AccountInvoiceLine, self).create(vals)
-        self.invoice_id._sort_account_invoice_line()
+        line.invoice_id._sort_account_invoice_line()
         return line
