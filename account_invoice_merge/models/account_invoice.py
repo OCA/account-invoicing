@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # © 2010-2011 Ian Li <ian.li@elico-corp.com>
 # © 2015 Cédric Pigeon <cedric.pigeon@acsone.eu>
-# © 2016 Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
+# © 2016-2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # © 2016 Luc De Meyer <luc.demeyer@noviat.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -202,12 +202,13 @@ class AccountInvoice(models.Model):
                 todos.write({'invoice_ids': [(4, new_invoice_id)]})
                 for org_so in todos:
                     for so_line in org_so.order_line:
-                        org_ilines = so_line.mapped('invoice_lines')
-                        invoice_line_ids = []
-                        for org_iline in org_ilines:
-                            invoice_line_ids.append(
-                                invoice_lines_info[
-                                    new_invoice_id][org_iline.id])
+                        inv_line_dict = invoice_lines_info[new_invoice_id]
+                        org_ilines = so_line.mapped('invoice_lines').filtered(
+                            lambda x: x.id in inv_line_dict.keys()
+                        )
+                        invoice_line_ids = [
+                            inv_line_dict[x.id] for x in org_ilines
+                        ]
                         so_line.write(
                             {'invoice_lines': [(6, 0, invoice_line_ids)]})
         # recreate link (if any) between original analytic account line
