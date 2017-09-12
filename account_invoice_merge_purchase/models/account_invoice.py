@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2015 ACSONE SA/NV (<http://acsone.eu>)
-# Copyright 2009-2016 Noviat
+# Copyright 2009-2017 Noviat
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from openerp import api, models
 
@@ -26,7 +26,9 @@ class AccountInvoice(models.Model):
             todos.write({'invoice_ids': [(4, new_invoice_id)]})
             for org_po in todos:
                 for po_line in org_po.order_line:
-                    org_ilines = po_line.mapped('invoice_lines')
+                    org_ilines = po_line.mapped('invoice_lines').filtered(
+                        lambda l: l.invoice_id.id
+                        in invoices_info[new_invoice_id])
                     invoice_line_ids = []
                     for org_iline in org_ilines:
                         invoice_line_ids.append(

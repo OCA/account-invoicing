@@ -112,6 +112,7 @@ class AccountInvoice(models.Model):
                           if invoice.state == 'draft']
         seen_origins = {}
         seen_client_refs = {}
+        line_sequence = 1
 
         for account_invoice in draft_invoices:
             invoice_key = make_key(
@@ -156,15 +157,16 @@ class AccountInvoice(models.Model):
                     # append a new "standalone" line
                     o_line.update(
                         invoice_line._convert_to_write(invoice_line._cache))
-                    del o_line['invoice_id']
+                    if 'invoice_id' in o_line:
+                        del o_line['invoice_id']
                     o_line['o_line_ids'] = [invoice_line.id]
-        allinvoices = []
+                    o_line['sequence'] = line_sequence
+                    line_sequence += 1
         invoices_info = {}
         invoice_lines_info = {}
         for invoice_key, (invoice_data, old_ids) in new_invoices.iteritems():
             # skip merges with only one invoice
             if len(old_ids) < 2:
-                allinvoices += (old_ids or [])
                 continue
             if date_invoice:
                 invoice_data['date_invoice'] = date_invoice
@@ -182,7 +184,6 @@ class AccountInvoice(models.Model):
                     invoice_lines_info[newinvoice.id][o_line_id] = inv_line.id
             newinvoice.button_reset_taxes()
             invoices_info.update({newinvoice.id: old_ids})
-            allinvoices.append(newinvoice.id)
             # make triggers pointing to the old invoices point to the new
             # invoice
             for old_id in old_ids:
@@ -205,9 +206,15 @@ class AccountInvoice(models.Model):
                         org_ilines = so_line.mapped('invoice_lines')
                         invoice_line_ids = []
                         for org_iline in org_ilines:
-                            invoice_line_ids.append(
-                                invoice_lines_info[
-                                    new_invoice_id][org_iline.id])
+                            # the sale.order, _prepare_invoice method
+                            # allows to remove created invoice lines
+                            # from the final sale order invoice.
+                            # We need as a consequence to add a check.
+                            if org_iline.id \
+                                    in invoice_lines_info[new_invoice_id]:
+                                invoice_line_ids.append(
+                                    invoice_lines_info[
+                                        new_invoice_id][org_iline.id])
                         so_line.write(
                             {'invoice_lines': [(6, 0, invoice_line_ids)]})
         # recreate link (if any) between original analytic account line
