@@ -23,10 +23,10 @@ addon | version | summary
 [account_invoice_kanban](account_invoice_kanban/) | 8.0.1.0.0 | Add Kanban view in Invoice to follow administrative tasks
 [account_invoice_line_description](account_invoice_line_description/) | 8.0.1.0.1 | Account invoice line description
 [account_invoice_line_price_subtotal_gross](account_invoice_line_price_subtotal_gross/) | 8.0.1.0.0 | Show gross price in subtotal for for account.invoice.line
-[account_invoice_line_sort](account_invoice_line_sort/) | 8.0.0.1.0 | Manage sort of customer invoice lines by customers
-[account_invoice_merge](account_invoice_merge/) | 8.0.2.0.0 | Account Invoice Merge Wizard
-[account_invoice_merge_payment](account_invoice_merge_payment/) | 8.0.0.1.0 | Use invoice merge regarding fields on Account Payment Partner
-[account_invoice_merge_purchase](account_invoice_merge_purchase/) | 8.0.2.0.0 | Compatibility between purchase and account invoice merge
+[account_invoice_line_sort](account_invoice_line_sort/) | 8.0.0.1.1 | Manage sort of customer invoice lines by customers
+[account_invoice_merge](account_invoice_merge/) | 8.0.2.0.1 | Account Invoice Merge Wizard
+[account_invoice_merge_payment](account_invoice_merge_payment/) | 8.0.0.1.1 | Use invoice merge regarding fields on Account Payment Partner
+[account_invoice_merge_purchase](account_invoice_merge_purchase/) | 8.0.2.0.1 | Compatibility between purchase and account invoice merge
 [account_invoice_partner](account_invoice_partner/) | 8.0.0.2.0 | Automatically select invoicing partner on invoice
 [account_invoice_period_usability](account_invoice_period_usability/) | 8.0.1.0.0 | Display in the supplier invoice form the fiscal period next to the invoice date
 [account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.1.0 | Add partner pricelist on invoices
