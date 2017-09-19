@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="invoice_new" model="base.kanban.stage">
+        <field name="sequence">1</field>
+        <field name="name">New</field>
+        <field name="res_model_id" search="[('model','=','account.invoice')]" model="ir.model" />
+        <field name="fold">False</field>
+    </record>
+
+    <record id="invoice_created" model="base.kanban.stage">
+        <field name="sequence">2</field>
+        <field name="name">Invoice Created</field>
+        <field name="res_model_id" search="[('model','=','account.invoice')]" model="ir.model" />
+        <field name="fold">False</field>
+    </record>
+
+    <record id="invoice_validated" model="base.kanban.stage">
+        <field name="sequence">3</field>
+        <field name="name">Invoice Validated</field>
+        <field name="res_model_id" search="[('model','=','account.invoice')]" model="ir.model" />
+        <field name="fold">False</field>
+    </record>
+
+    <record id="invoice_sent" model="base.kanban.stage">
+        <field name="sequence">4</field>
+        <field name="name">Documentation Sent</field>
+        <field name="res_model_id" search="[('model','=','account.invoice')]" model="ir.model" />
+        <field name="fold">False</field>
+    </record>
+
+    <record id="invoice_received" model="base.kanban.stage">
+        <field name="sequence">5</field>
+        <field name="name">Documentation Received</field>
+        <field name="res_model_id" search="[('model','=','account.invoice')]" model="ir.model" />
+        <field name="fold">False</field>
+    </record>
+
+    <record id="invoice_signed" model="base.kanban.stage">
+        <field name="sequence">6</field>
+        <field name="name">Contract Signed</field>
+        <field name="res_model_id" search="[('model','=','account.invoice')]" model="ir.model" />
+        <field name="fold">False</field>
+    </record>
+
+    <record id="invoice_patment_received" model="base.kanban.stage">
+        <field name="sequence">7</field>
+        <field name="name">Payment Received</field>
+        <field name="res_model_id" search="[('model','=','account.invoice')]" model="ir.model" />
+        <field name="fold">True</field>
+    </record>
+
+</odoo>
