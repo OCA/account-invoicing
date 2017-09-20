@@ -13,6 +13,7 @@ class TestAccountOutstandingPayments(common.TransactionCase):
     post_install = True
 
     def test_account_outstanding_payments(self):
+        ir_values = self.env['ir.values']
         res_partner_model = self.env['res.partner']
         sale_order_model = self.env['sale.order']
         product_product_model = self.env['product.product']
@@ -59,3 +60,14 @@ class TestAccountOutstandingPayments(common.TransactionCase):
         self.assertEqual(json.loads(
             account_invoice.outstanding_credits_debits_widget)[
                 'content'][0]['amount'], 50.0, 'Incorrect payment info')
+        # see if the payments_widget shows the payments being done
+        ir_values.set_default(
+            'account.config.settings',
+            'reconciliation_writeoff_account',
+            account_id.id)
+        account_move_line_id = json.loads(
+            account_invoice.outstanding_credits_debits_widget)[
+                'content'][0]['id']
+        account_invoice.assign_outstanding_credit(account_move_line_id)
+        self.assertEqual(json.loads(account_invoice.payments_widget)[
+            'content'][0]['amount'], 50, 'Incorrect outstanding credit')
