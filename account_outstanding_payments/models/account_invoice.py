@@ -17,6 +17,10 @@ class AccountInvoice(models.Model):
         """
         Get information for the outstanding payments and return it to the
         widget. This function has been re-used from 9.0.
+        @attention: Source in
+                    https://github.com/OCA/OCB/blob/9.0/addons/
+                    account/models/account_invoice.py#L110
+        @author:    Authors credited at README.rst
         """
         for record in self:
             record.outstanding_credits_debits_widget = json.dumps(False)
@@ -68,9 +72,13 @@ class AccountInvoice(models.Model):
     @api.multi
     @api.depends('payment_ids.amount_residual')
     def _compute_get_payment_info_JSON(self):
-        '''
+        """
         Returns the payment info for the invoice to the widget
-        '''
+        @attention: Source in
+                    https://github.com/OCA/OCB/blob/9.0/addons/
+                    account/models/account_invoice.py#L146
+        @author:    Authors credited at README.rst
+        """
         for record in self:
             record.payments_widget = json.dumps(False)
             if record.payment_ids:
@@ -108,6 +116,12 @@ class AccountInvoice(models.Model):
     @api.multi
     def register_payment(self, payment_line, writeoff_acc_id=False,
                          writeoff_journal_id=False):
+        """
+        @attention: Source in
+                    https://github.com/OCA/OCB/blob/9.0/addons/
+                    account/models/account_invoice.py#L596
+        @author:    Authors credited in README.rst
+        """
         line_to_reconcile = self.env['account.move.line']
         for inv in self:
             line_to_reconcile += inv.move_id.line_id.filtered(
@@ -125,6 +139,12 @@ class AccountInvoice(models.Model):
             writeoff_acc_id=reconciliation_writeoff_account)
 
     def assign_outstanding_credit(self, credit_aml_id):
+        """
+        @attention: Source in
+                    https://github.com/OCA/OCB/blob/9.0/addons/account/
+                    models/account_invoice.py#L604
+        @author:    Authors credited in README.rst
+        """
         credit_aml = self.env['account.move.line'].browse(credit_aml_id)
         if not credit_aml.currency_id and self.currency_id != \
                 self.company_id.currency_id:
