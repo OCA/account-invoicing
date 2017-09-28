@@ -12,7 +12,6 @@
         <field name="arch" type="xml">
             <xpath expr="//search/field[@name='user_id']" position="after">
                 <field name="account_analytic_ids" groups="analytic.group_analytic_accounting"/>
-                <field name="account_analytic_partner_ids" groups="analytic.group_analytic_accounting"/>
             </xpath>
         </field>
     </record>

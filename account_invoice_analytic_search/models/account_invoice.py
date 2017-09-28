@@ -3,7 +3,6 @@
 #   (http://www.eficent.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-
 from odoo import api, fields, models
 
 
@@ -34,14 +33,6 @@ class AccountInvoice(models.Model):
         res = [('id', 'in', invoice_line_ids.ids)]
         return res or []
 
-    @api.multi
-    def _search_analytic_account_partner_ids(self, operator, value):
-        invoice_line_obj = self.env['account.invoice.line']
-        invoice_line_ids = invoice_line_obj.search(
-            [('account_analytic_partner_id', operator, value)])
-        res = [('id', 'in', invoice_line_ids.ids)]
-        return res or []
-
     account_analytic_ids = fields.Many2many(
         comodel_name='account.analytic.account',
         compute='_compute_analytic_accounts',
@@ -52,7 +43,6 @@ class AccountInvoice(models.Model):
     account_analytic_partner_ids = fields.Many2many(
         comodel_name='res.partner',
         compute='_compute_analytic_account_partner_ids',
-        search='_search_analytic_account_partner_ids',
         string='Project Manager',
         readonly=True
     )

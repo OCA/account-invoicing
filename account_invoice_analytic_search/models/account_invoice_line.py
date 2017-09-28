@@ -13,5 +13,6 @@ class AccountInvoiceLine(models.Model):
     account_analytic_partner_id = fields.Many2one(
         'res.partner', string='Project Manager',
         related='account_analytic_id.partner_id',
-        store=True, readonly=True
+        store=True,
+        readonly=True
     )
