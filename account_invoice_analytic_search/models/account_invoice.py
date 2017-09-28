@@ -40,9 +40,3 @@ class AccountInvoice(models.Model):
         string='Analytic Account',
         readonly=True
     )
-    account_analytic_partner_ids = fields.Many2many(
-        comodel_name='res.partner',
-        compute='_compute_analytic_account_partner_ids',
-        string='Project Manager',
-        readonly=True
-    )
