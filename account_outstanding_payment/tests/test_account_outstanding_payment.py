@@ -12,7 +12,7 @@ class TestAccountOutstandingPayments(common.TransactionCase):
 
     post_install = True
 
-    def test_account_outstanding_payments(self):
+    def test_account_outstanding_payment(self):
         ir_values = self.env['ir.values']
         res_partner_model = self.env['res.partner']
         sale_order_model = self.env['sale.order']

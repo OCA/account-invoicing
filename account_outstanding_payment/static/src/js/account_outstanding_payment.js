@@ -1,13 +1,13 @@
 //-*- coding: utf-8 -*-
 //© 2017 Therp BV <http://therp.nl>
 //License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-openerp.account_outstanding_payments = function(instance){
+openerp.account_outstanding_payment = function(instance){
     var form_common = instance.web.form
     var formats = instance.web
     var Model = instance.web.Model
     var QWeb = instance.web.qweb
 
-    openerp.account_outstanding_payments.ShowPaymentLineWidget = form_common.AbstractField.extend({
+    openerp.account_outstanding_payment.ShowPaymentLineWidget = form_common.AbstractField.extend({
         
         render_value: function() {
             var self = this;
@@ -87,6 +87,6 @@ openerp.account_outstanding_payments = function(instance){
         },
     });
 
-instance.web.form.widgets.add('payment', 'openerp.account_outstanding_payments.ShowPaymentLineWidget');
+instance.web.form.widgets.add('payment', 'openerp.account_outstanding_payment.ShowPaymentLineWidget');
 
 }
