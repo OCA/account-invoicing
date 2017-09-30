@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # #############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -19,9 +19,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from odoo import api, models, _
-from odoo.exceptions import ValidationError
-
+from odoo import api, models, fields, _
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -29,24 +27,20 @@ _logger = logging.getLogger(__name__)
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    customer_ref_strip = fields.Char(
+        compute='_compute_customer_ref_strip', store=True)
+
     @api.multi
-    @api.constrains('name')
-    def _check_unique_name_insensitive(self):
+    @api.depends('name')
+    def _compute_customer_ref_strip(self):
         for invoice in self:
             invoice_type = invoice.type
-            invoice_partner = invoice.partner_id
-
             if invoice_type not in ['out_invoice', 'out_refund']:
                 return True
-
-            invoice_obj = self.env['account.invoice'].search(
-                [("type", "=", invoice_type),
-                 ("partner_id", "=", invoice_partner.id)])
-            lst = [
-                x.name.lower() for x in invoice_obj
-                if x.name and x.id != invoice.id
-            ]
-            if invoice.name and invoice.name.lower() in lst:
-                raise ValidationError(_(
-                    "The customer reference must be unique for "
-                    " each customer !"))
+            if invoice.name:
+                invoice.customer_ref_strip = invoice.name.lower()
+    _sql_constraints = [
+        ('unique_customer_ref_strip', 'UNIQUE('
+         'customer_ref_strip, company_id, commercial_partner_id)',
+         _('The customer reference must be unique for '
+           'each customer !'))]

@@ -3,7 +3,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.tests.common import TransactionCase
-from odoo.exceptions import ValidationError
+from psycopg2 import IntegrityError
+
 import time
 
 
@@ -85,6 +86,6 @@ class TestAccountInvoice(TransactionCase):
     def test_action_duplicate_invoice(self):
         # Creation of  invoice instances with de same customer and reference
         # Result: ValidationError
-        with self.assertRaises(ValidationError):
+        with self.assertRaises(IntegrityError):
             self.invoice_model.create(self.invoice_vals1)
             self.invoice_model.create(self.invoice_vals2)

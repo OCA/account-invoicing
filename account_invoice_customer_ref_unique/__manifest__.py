@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # #############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -28,20 +28,6 @@
     'website': 'http://www.savoirfairelinux.com',
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
-    'description': """
-
-Unique Supplier Invoice Number
-==============================
-
-This module adds a insensitive constraint on the name Customer Reference
-(name field): (partner_id, name) must be unique.
-
-Contributors
-------------
-* Marc Cassuto (marc.cassutot@savoirfairelinux.com)
-* Mathieu Benoit (mathieu.benoit@savoirfairelinux.com)
-* Marçal Isern (marsal.isern@qubiq.es)
-    """,
     'depends': [
         'account',
     ],
