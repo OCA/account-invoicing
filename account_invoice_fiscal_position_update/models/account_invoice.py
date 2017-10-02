@@ -12,6 +12,14 @@ from odoo import models, api, _
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        fiscal_position = self.fiscal_position_id
+        res = super(AccountInvoice, self)._onchange_partner_id()
+        if fiscal_position != self.fiscal_position_id:
+            self.fiscal_position_change()
+        return res
+
     @api.onchange('fiscal_position_id')
     def fiscal_position_change(self):
         """Updates taxes and accounts on all invoice lines"""
