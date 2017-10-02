@@ -9,7 +9,7 @@
     'license': 'AGPL-3',
     'summary': 'Configure invoice transmit method (email, post, portal, ...)',
     'author': 'Akretion,Odoo Community Association (OCA)',
-    'website': 'http://www.akretion.com',
+    'website': 'https://github.com/OCA/account-invoicing',
     'depends': ['account'],
     'data': [
         'security/ir.model.access.csv',
