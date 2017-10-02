@@ -36,4 +36,4 @@ msgstr ""
 #. module: account_invoice_supplier_ref_unique
 #: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_invoice_supplier_invoice_number
 msgid "Vendor invoice number"
-msgstr ""
+msgstr "Numéro de facture fournisseur"
