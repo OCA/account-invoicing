@@ -17,20 +17,6 @@ Installation
 To install this module, just selected from available modules.
 
 
-Configuration
-=============
-
-
-
-Usage
-=====
-
-
-Known issues / Roadmap
-======================
-
-
-
 Bug Tracker
 ===========
 
