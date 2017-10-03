@@ -20,13 +20,15 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [account_group_invoice_line](account_group_invoice_line/) | 10.0.1.0.0 | Add option to group invoice lines per account
+[account_invoice_blocking](account_invoice_blocking/) | 10.0.1.0.0 | This module allows the user to set a blocking (No Follow-up) flag on invoices.
 [account_invoice_check_total](account_invoice_check_total/) | 10.0.1.0.0 | Check if the verification total is equal to the bill's total
-[account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 10.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
+[account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 10.0.1.0.1 | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_force_number](account_invoice_force_number/) | 10.0.1.0.0 | Allows to force invoice numbering on specific invoices
 [account_invoice_kanban](account_invoice_kanban/) | 10.0.1.0.0 | Add Kanban view in Invoice to follow administrative tasks
 [account_invoice_line_description](account_invoice_line_description/) | 10.0.1.0.0 | Account invoice line description
 [account_invoice_line_sequence](account_invoice_line_sequence/) | 10.0.1.0.0 | Adds sequence field on invoice lines to manage its order.
 [account_invoice_merge](account_invoice_merge/) | 10.0.1.0.0 | Merge invoices in draft
+[account_invoice_merge_attachment](account_invoice_merge_attachment/) | 10.0.1.0.0 | Consider attachment during invoice merge process
 [account_invoice_partner](account_invoice_partner/) | 10.0.1.0.0 | Replace the partner by an invoice contact if found
 [account_invoice_refund_link](account_invoice_refund_link/) | 10.0.1.0.1 | Link refund invoice with its original invoice
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 10.0.1.0.0 | Checks that supplier invoices are not entered twice
@@ -43,7 +45,7 @@ addon | version | summary
 --- | --- | ---
 [account_invoice_customer_ref_unique](account_invoice_customer_ref_unique/) | 1.0 (unported) | Unique Customer Reference in Invoice
 [account_invoice_line_sort](account_invoice_line_sort/) | 8.0.0.1.0 (unported) | Manage sort of customer invoice lines by customers
-[account_invoice_merge_payment](account_invoice_merge_payment/) | 8.0.0.1.0 (unported) | Use invoice merge regarding fields on Account Payment Partner
+[account_invoice_merge_payment](account_invoice_merge_payment/) | 10.0.1.0.0 (unported) | Use invoice merge regarding fields on Account Payment Partner
 [account_invoice_merge_purchase](account_invoice_merge_purchase/) | 8.0.1.0.0 (unported) | Compatibility between purchase and account invoice merge
 [account_invoice_period_usability](account_invoice_period_usability/) | 8.0.1.0.0 (unported) | Display in the supplier invoice form the fiscal period next to the invoice date
 [account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.0.0 (unported) | Add partner pricelist on invoices
