@@ -43,10 +43,20 @@ class TestAccountInvoice(TransactionCase):
             'account_id': self.invoice_line_account,
             'account_analytic_id': self.analytic_account.id,
         })
+        self.env['account.invoice.line'].create({
+            'product_id': self.product_4,
+            'quantity': 1.0,
+            'price_unit': 10.0,
+            'invoice_id': self.invoice.id,
+            'name': 'product that cost 10',
+            'account_id': self.invoice_line_account,
+            'account_analytic_id': self.analytic_account.id,
+        })
 
     def test_search_analytic_accounts(self):
-        self.name = self.account_invoice.\
+        self.account_invoice_search = self.account_invoice.\
             _search_analytic_accounts('ilike', 'Test Account')
-        self.code = self.account_invoice.\
-            _search_analytic_accounts('ilike', 'TA')
-        self.assertEquals(self.name[0][2][0], self.code[0][2][0])
+        invoice_id = self.account_invoice.\
+            search([('id', '=', self.account_invoice_search[0][2][0])])
+        self.assertEquals(invoice_id.invoice_line_ids,
+                          self.invoice.invoice_line_ids)

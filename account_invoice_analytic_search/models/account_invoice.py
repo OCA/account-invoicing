@@ -18,20 +18,16 @@ class AccountInvoice(models.Model):
                 invoice.mapped('invoice_line_ids.account_analytic_id.id')
 
     @api.multi
-    @api.depends('invoice_line_ids')
-    def _compute_analytic_account_partner_ids(self):
-        for invoice in self:
-            invoice.account_analytic_partner_ids =\
-                invoice.\
-                mapped('invoice_line_ids.account_analytic_partner_id.id')
-
-    @api.multi
     def _search_analytic_accounts(self, operator, value):
         invoice_line_obj = self.env['account.invoice.line']
         invoice_line_ids = invoice_line_obj.search(
             [('account_analytic_id', operator, value)])
-        res = [('id', 'in', invoice_line_ids.ids)]
-        return res or []
+        invoice_id = self.search([('invoice_line_ids', 'in',
+                                   invoice_line_ids.ids)])
+        if invoice_id:
+            return [('id', 'in', tuple(invoice_id.ids))]
+        else:
+            return []
 
     account_analytic_ids = fields.Many2many(
         comodel_name='account.analytic.account',
