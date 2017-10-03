@@ -4,6 +4,7 @@
 
 from odoo.tests.common import TransactionCase
 from psycopg2 import IntegrityError
+from odoo.tools import mute_logger
 
 import time
 
@@ -83,6 +84,7 @@ class TestAccountInvoice(TransactionCase):
             'invoice_line_ids': [(0, 0, value) for value in self.lines_vals2]
         }
 
+    @mute_logger('odoo.sql_db')
     def test_action_duplicate_invoice(self):
         # Creation of  invoice instances with de same customer and reference
         # Result: ValidationError
