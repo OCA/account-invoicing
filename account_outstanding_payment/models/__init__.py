@@ -5,3 +5,4 @@
 # License LGPL-3 (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 from . import account_invoice
 from . import account_config_settings
+from . import account_move_line
