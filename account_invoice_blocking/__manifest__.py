@@ -11,7 +11,7 @@
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'author': 'Acsone SA/NV,Odoo Community Association (OCA)',
-    'website': 'www.acsone.eu',
+    'website': 'https://github.com/OCA/account-invoicing',
     'depends': ['account'],
     'data': [
         'views/account_invoice.xml',
