@@ -14,11 +14,10 @@ class AccountInvoiceLine(models.Model):
         product_supplierinfo_obj = self.env['product.supplierinfo']
         for line in self.filtered(lambda il: il.product_id.supplier_ids):
             product = line.product_id
-            if product.supplier_ids:
-                code_id = product_supplierinfo_obj.search([
-                    ('product_tmpl_id', '=', product.product_tmpl_id.id),
-                ], limit=1)
-                line.product_customer_code = code_id.product_code or ''
+            code_id = product_supplierinfo_obj.search([
+                ('product_tmpl_id', '=', product.product_tmpl_id.id),
+            ], limit=1)
+            line.product_customer_code = code_id.product_code or ''
 
     product_customer_code = fields.Char(
         compute='_get_product_customer_code',
