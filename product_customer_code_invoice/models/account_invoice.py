@@ -13,9 +13,8 @@ class AccountInvoiceLine(models.Model):
     def _get_product_customer_code(self):
         product_supplierinfo_obj = self.env['product.supplierinfo']
         for line in self.filtered(lambda il: il.product_id.supplier_ids):
-            partner = line.partner_id
             product = line.product_id
-            if product.supplier_ids and partner:
+            if product.supplier_ids:
                 code_id = product_supplierinfo_obj.search([
                     ('product_tmpl_id', '=', product.product_tmpl_id.id),
                 ], limit=1)
