@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Akretion
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record id="view_invoice_supplier_purchase_form" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.account_invoice_from_picking</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="reference" position="after" >
+                 <field name="picking_id"  class="oe_edit_only"
+                    options="{'no_create': True}"/>
+            </field>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='company_id']" position="after">
+                <field name="move_line_id" invisible="1"/>
+                <field name="picking_id" invisible="1"/>
+              </xpath>
+        </field>
+    </record>
+
+    <record id="invoice_form_inherit_sale_stock" model="ir.ui.view">
+        <field name="name">account.invoice.form.account_invoice_from_picking</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <field name="payment_term_id" position="after" >
+                    <field name="picking_id" class="oe_edit_only"
+                        options="{'no_create': True}"/>
+               </field>
+             <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='company_id']" position="after">
+                <field name="move_line_id" invisible="1"/>
+                <field name="picking_id" invisible="1"/>
+                <field name="sale_line_ids" invisible="1"/>
+              </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>
