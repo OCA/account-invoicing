@@ -22,7 +22,7 @@ Configuration
 
 To configure this module, you need to:
 
-In Settings -> Configuration -> Accounting you will find 2 new types of
+In Invoicing -> Configuration -> Configuration you will find 2 new types of
 rounding
 
 - `Swedish Round globally`

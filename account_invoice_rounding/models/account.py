@@ -98,7 +98,6 @@ class AccountInvoice(models.Model):
 
         if round_method[:7] != 'swedish':
             return {}
-
         prec = obj_precision.precision_get('Account')
         rounding_prec = company.tax_calculation_rounding
         if rounding_prec <= 0.00:
@@ -125,7 +124,10 @@ class AccountInvoice(models.Model):
                                                 delta)
         return {}
 
-    @api.depends('invoice_line_ids.price_subtotal', 'tax_line_ids.amount')
+    @api.one
+    @api.depends(
+        'invoice_line_ids.price_subtotal', 'tax_line_ids.amount',
+        'currency_id', 'company_id', 'date_invoice', 'type')
     def _compute_amount(self):
         """ Add swedish rounding computing
         Makes sure invoice line for rounding is not computed in totals
