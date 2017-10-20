@@ -69,3 +69,11 @@ class AccountInvoice(models.Model):
         if self.type in ['in_invoice', 'in_refund']:
             default = dict(default or {}, reference='')
         return super(AccountInvoice, self).copy(default)
+
+    @api.multi
+    def _check_invoice_reference(self):
+        """
+        In some cases, vendor reference for payment may already exists.
+        So, disable Odoo constraint on this field.
+        """
+        return

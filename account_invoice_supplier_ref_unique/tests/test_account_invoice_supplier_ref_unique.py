@@ -29,6 +29,7 @@ class TestAccountInvoiceSupplierRefUnique(SavepointCase):
             'partner_id': self.partner.id,
             'account_id': self.account.id,
             'type': 'in_invoice',
+            'reference': 'ABC123',
             'supplier_invoice_number': 'ABC123'})
 
     def test_check_unique_supplier_invoice_number_insensitive(self):
@@ -38,12 +39,14 @@ class TestAccountInvoiceSupplierRefUnique(SavepointCase):
                 'partner_id': self.partner.id,
                 'account_id': self.account.id,
                 'type': 'in_invoice',
+                'reference': 'ABC123',
                 'supplier_invoice_number': 'ABC123'})
         # A new invoice instance with a new supplier_invoice_number
         self.account_invoice.create({
             'partner_id': self.partner.id,
             'account_id': self.account.id,
             'type': 'in_invoice',
+            'reference': 'ABC123',
             'supplier_invoice_number': 'ABC123bis'})
 
     def test_onchange_supplier_invoice_number(self):
