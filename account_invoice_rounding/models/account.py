@@ -59,6 +59,7 @@ class AccountInvoice(models.Model):
         This ajustment must be done only after all tax are computed
         """
         # Here we identify that all taxe lines have been computed
+
         if not self._all_invoice_tax_line_computed(invoice):
             return {}
 
@@ -71,12 +72,14 @@ class AccountInvoice(models.Model):
                 ajust_line = tax_line
         if ajust_line:
             amount = ajust_line.amount - delta
-            ajust_line.write({'amount': amount})
 
             amount_tax = float_round(invoice.amount_tax - delta,
                                      precision_digits=prec)
             return {'amount_total': rounded_total,
-                    'amount_tax': amount_tax}
+                    'amount_tax': amount_tax,
+                    'ajust_line': ajust_line,
+                    'ajust_line_amount': amount,
+                    }
         return {}
 
     @api.model
@@ -149,6 +152,9 @@ class AccountInvoice(models.Model):
                     elif 'amount_untaxed' in swedish_rounding:
                         invoice.amount_untaxed = (
                             swedish_rounding['amount_untaxed'])
+                    if 'ajust_line' in swedish_rounding:
+                        swedish_rounding['ajust_line'].amount = \
+                            swedish_rounding['ajust_line_amount']
 
     def _get_rounding_invoice_line_id(self):
         for invoice in self:

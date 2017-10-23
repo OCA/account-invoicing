@@ -77,7 +77,7 @@ class TestSwedishRounding(test_common.TransactionCase):
         invoice2 = self.create_two_lines_dummy_invoice()
         self.assertEqual(invoice2.amount_total, 134)
         self.assertEqual(sum([t.amount for t in invoice2.tax_line_ids]), 14.02)
-        bigger_tax = self.env['account.invoice.tax'].search([
+        bigger_tax = invoice2.env['account.invoice.tax'].search([
             ('invoice_id', '=', invoice2.id)], limit=1, order='amount desc')
         self.assertEqual(bigger_tax.amount, 10.02)
         self.assertEqual(len(invoice2.invoice_line_ids), 2)
