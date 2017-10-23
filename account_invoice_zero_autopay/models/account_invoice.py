@@ -21,29 +21,30 @@
 
 from functools import partial
 
-from openerp.osv import orm
-from openerp.tools.float_utils import float_is_zero
+from odoo import api, models
+from odoo.tools.float_utils import float_is_zero
 
 
-class account_invoice(orm.Model):
+class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    def invoice_validate(self, cr, uid, ids, context=None):
-        result = super(account_invoice, self).invoice_validate(
-            cr, uid, ids, context=context)
-        dp_obj = self.pool['decimal.precision']
-        precision = dp_obj.precision_get(cr, uid, 'Account')
+    @api.multi
+    def invoice_validate(self):
+        result = super(AccountInvoice, self).invoice_validate()
+
+        dp_obj = self.env['decimal.precision']
+        precision = dp_obj.precision_get('Account')
         is_zero = partial(float_is_zero, precision_digits=precision)
-        for invoice in self.browse(cr, uid, ids, context=context):
+
+        for invoice in self:
             if is_zero(invoice.amount_total):
                 account = invoice.account_id.id
                 # search the payable / receivable lines
-                lines = [line for line in invoice.move_id.line_id
+                lines = [line for line in invoice.move_id.line_ids
                          if line.account_id.id == account]
                 # reconcile the lines with a zero balance
                 if is_zero(sum(line.debit - line.credit for line in lines)):
-                    move_line_obj = self.pool['account.move.line']
-                    move_line_obj.reconcile(cr, uid,
-                                            [line.id for line in lines],
-                                            context=context)
+                    move_line_obj = self.env['account.move.line']
+                    move_line_obj.reconcile([line.id for line in lines])
+
         return result
