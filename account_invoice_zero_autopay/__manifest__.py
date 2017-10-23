@@ -20,7 +20,7 @@
 ##############################################################################
 
 {'name': 'Account Invoice Zero Autopay',
- 'version': '8.0.1.0.0',
+ 'version': '10.0.1.0.0',
  'author': "Camptocamp,Odoo Community Association (OCA)",
  'maintainer': 'Camptocamp',
  'license': 'AGPL-3',
@@ -32,6 +32,6 @@
  'test': ['test/account_invoice_zero_paid.yml',
           'test/account_invoice_no_zero_open.yml',
           ],
- 'installable': False,
+ 'installable': True,
  'auto_install': False,
  }

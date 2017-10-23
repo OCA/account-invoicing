@@ -40,6 +40,7 @@ Contributors
 * Guewen Baconnier <guewen.baconnier@camptocamp.com>
 * Pedro M. Baeza <pedro.baeza@gmail.com>
 * Charbel Jacquin <charbel.jacquin@camptocamp.com>
+* Jarmo Kortetjärvi <jarmo.kortetjarvi@tawasta.fi>
 
 Maintainer
 ----------
