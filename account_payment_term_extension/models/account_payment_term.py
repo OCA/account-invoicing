@@ -67,7 +67,7 @@ class AccountPaymentTermLine(models.Model):
         try:
             payment_days = self._decode_payment_days(self.payment_days)
             error = any(day <= 0 or day > 31 for day in payment_days)
-        except:
+        except Exception:
             error = True
         if error:
             raise exceptions.Warning(
