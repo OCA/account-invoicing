@@ -6,10 +6,10 @@
 # OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-09 02:45+0000\n"
-"PO-Revision-Date: 2017-08-09 02:45+0000\n"
+"POT-Creation-Date: 2017-12-01 03:39+0000\n"
+"PO-Revision-Date: 2017-12-01 03:39+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
 "MIME-Version: 1.0\n"
@@ -111,16 +111,10 @@ msgstr ""
 "Erstattungspositionen, die zu dieser Rechnungsposition erstellt wurden"
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_refund_invoice_ids
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Refund invoices"
 msgstr "Gutschriften"
-
-#. module: account_invoice_refund_link
-#: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_refund_invoice_ids
-msgid "Refund invoices created from this invoice"
-msgstr "Erstattungen zu dieser Rechnung"
 
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_refund_reason

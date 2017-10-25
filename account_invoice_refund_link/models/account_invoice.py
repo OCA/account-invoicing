@@ -21,7 +21,7 @@ class AccountInvoice(models.Model):
     refund_invoice_ids = fields.Many2many(
         comodel_name='account.invoice', column1='original_invoice_id',
         column2='refund_invoice_id', relation='account_invoice_refunds_rel',
-        string="Refund invoices",  readonly=True,
+        string="Refund invoices", readonly=True,
         help="Refund invoices created from this invoice",
         copy=False,
     )
