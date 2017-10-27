@@ -4,16 +4,13 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
-# Goran Kliska <gkliska@gmail.com>, 2017
-# Bole <bole@dajmi5.com>, 2017
-# Ana-Maria Olujić <ana-maria.olujic@slobodni-programi.hr>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 03:43+0000\n"
-"PO-Revision-Date: 2017-01-13 03:43+0000\n"
-"Last-Translator: Ana-Maria Olujić <ana-maria.olujic@slobodni-programi.hr>, 2017\n"
+"POT-Creation-Date: 2017-10-21 02:57+0000\n"
+"PO-Revision-Date: 2017-10-21 02:57+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Croatian (https://www.transifex.com/oca/teams/23907/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -173,9 +170,13 @@ msgid "Product"
 msgstr "Proizvod"
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,state:0
 #: field:wizard.update.invoice.supplierinfo.line,state:0
 msgid "State"
+msgstr "Status"
+
+#. module: account_invoice_supplierinfo_update
+#: field:wizard.update.invoice.supplierinfo,state:0
+msgid "Status"
 msgstr "Status"
 
 #. module: account_invoice_supplierinfo_update

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-17 03:48+0000\n"
-"PO-Revision-Date: 2016-11-25 14:57+0000\n"
+"POT-Creation-Date: 2017-10-21 02:57+0000\n"
+"PO-Revision-Date: 2017-10-02 16:43+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgid "Are you sure you want to merge these invoices ?"
 msgstr "Weet u zeker dat u deze facturen wilt samenvoegen?"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:32
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
 #, python-format
 msgid "At least one of the selected invoices is %s!"
 msgstr "Er is in ieder geval één factuur in status %s. Deze kan niet samengevoegd worden."
@@ -131,37 +131,43 @@ msgid "Merge Partner Invoice"
 msgstr "Facturen samenvoegen per relatie"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:39
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:37
 #, python-format
 msgid "Not all invoices are at the same company!"
 msgstr "Niet alle facturen behoren tot hetzelfde bedrijf!"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:46
 #, python-format
 msgid "Not all invoices are at the same currency!"
 msgstr "Niet alle facturen staan in dezelfde valuta!"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:51
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:49
 #, python-format
 msgid "Not all invoices are at the same journal!"
 msgstr "Niet alle facturen staan in hetzelfde dagboek!"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:40
 #, python-format
 msgid "Not all invoices are for the same partner!"
 msgstr "Niet alle facturen zijn voor dezelfde relatie!"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:45
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:43
 #, python-format
 msgid "Not all invoices are of the same type!"
 msgstr "Niet alle facturen hebben hetzelfde type!"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:36
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:52
+#, python-format
+msgid "Not all invoices have the same Partner Bank Account!"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:34
 #, python-format
 msgid "Not all invoices use the same account!"
 msgstr "Niet alle facturen staan op dezelfde grootboekrekening!"

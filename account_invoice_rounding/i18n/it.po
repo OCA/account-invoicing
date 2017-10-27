@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-28 09:48+0000\n"
-"PO-Revision-Date: 2016-12-28 09:49+0000\n"
+"POT-Creation-Date: 2017-10-21 02:57+0000\n"
+"PO-Revision-Date: 2017-10-16 11:28+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr ""
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_tax
 msgid "Tax"
-msgstr ""
+msgstr "Imposta"
 
 #. module: account_invoice_rounding
 #: field:res.company,tax_calculation_rounding_account_id:0
