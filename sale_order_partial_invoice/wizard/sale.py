@@ -52,6 +52,7 @@ from openerp import models, fields, api
 from openerp.tools.translate import _
 
 
+
 _logger = logging.getLogger(__name__)
 
 
