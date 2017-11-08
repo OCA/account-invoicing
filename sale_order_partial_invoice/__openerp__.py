@@ -23,15 +23,7 @@
     'name': 'Sale Partial Invoice',
     'version': '1.1',
     'category': 'Accounting & Finance',
-    'description': """Allow to partialy invoice Sale Order lines
-
-    With a sale order in 'manual' invoicing policy, when the user selects to
-    invoice some SO lines, a new wizard is display in which it is possible to
-    select how much of the different lines is to be invoiced. The amounts
-    invoiced and the amounts delivered are also displayed. When generating an
-    invoice for the whole sale order, the partial invoices are taken into
-    account and only the amounts not already invoiced are part of the new
-    invoice
+    'summary': """Allow to partialy invoice Sale Order lines
     """,
     'author': "Camptocamp, "
               "Serv. Tecnol. Avanzados - Pedro M. Baeza, "
