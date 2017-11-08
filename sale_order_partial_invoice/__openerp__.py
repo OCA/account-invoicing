@@ -33,19 +33,23 @@
     account and only the amounts not already invoiced are part of the new
     invoice
     """,
-    'author': "Camptocamp,Odoo Community Association (OCA)",
+    'author': "Camptocamp, "
+              "Serv. Tecnol. Avanzados - Pedro M. Baeza, "
+              "Ecosoft - Kitti U., "
+              "Odoo Community Association (OCA)",
     'website': 'http://www.camptocamp.com',
     'license': 'AGPL-3',
     'depends': ['sale', 'account', 'sale_stock'],
     'data': [
-        'sale_view.xml',
+        'view/sale_order_view.xml',
+        'wizard/sale_view.xml',
     ],
     'test': [
         'test/partial_so_invoice.yml',
         'test/make_remaining_invoice.yml',
     ],
     'demo': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
