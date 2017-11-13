@@ -13,7 +13,6 @@ import calendar
 import functools
 
 
-
 class AccountPaymentTermLine(models.Model):
     _inherit = "account.payment.term.line"
 
