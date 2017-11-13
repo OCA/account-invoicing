@@ -10,6 +10,7 @@ from odoo import models, fields, api, exceptions, _
 from odoo.tools.float_utils import float_is_zero, float_round
 import odoo.addons.decimal_precision as dp
 import calendar
+import functools
 
 
 class AccountPaymentTermLine(models.Model):
@@ -152,7 +153,7 @@ class AccountPaymentTerm(models.Model):
             if not float_is_zero(amt, precision_rounding=prec):
                 result.append((fields.Date.to_string(next_date), amt))
                 amount -= amt
-        amount = reduce(lambda x, y: x + y[1], result, 0.0)
+        amount = functools.reduce(lambda x, y: x + y[1], result, 0.0)
         dist = round(value - amount, prec)
         if dist:
             last_date = result and result[-1][0] or fields.Date.today()

@@ -66,7 +66,6 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                                           'account_id': self.prod_account.id,
                                           })],
              })
-        invoice.signal_workflow('invoice_open')
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
                 self.assertEqual(
@@ -90,7 +89,6 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                                           'account_id': self.prod_account.id,
                                           })],
              })
-        invoice.signal_workflow('invoice_open')
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
                 self.assertEqual(
@@ -114,7 +112,6 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                                           'account_id': self.prod_account.id,
                                           })],
              })
-        invoice.signal_workflow('invoice_open')
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
                 self.assertEqual(
