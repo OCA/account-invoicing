@@ -44,7 +44,8 @@ class AccountInvoice(models.Model):
                  '=ilike',
                  self.supplier_invoice_number),
                 ('id', '!=', self.id),
-                ])
+                ('company_id', '=', self.company_id.id)
+            ])
             if same_supplier_inv_num:
                 raise ValidationError(
                     _("The invoice/refund with supplier invoice number '%s' "
