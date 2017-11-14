@@ -44,7 +44,7 @@ class AccountInvoice(models.Model):
                  '=ilike',
                  self.supplier_invoice_number),
                 ('id', '!=', self.id),
-                ('company_id', '=', self.company_id.id)
+                ('state', '!=', 'cancel')
             ])
             if same_supplier_inv_num:
                 raise ValidationError(
