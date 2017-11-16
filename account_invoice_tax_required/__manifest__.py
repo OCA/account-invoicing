@@ -6,7 +6,7 @@
     'version': "11.0.1.0.0",
     "author": "Camptocamp,Tecnativa,Odoo Community Association (OCA)",
     'website': "http://www.camptocamp.com",
-    'category': "Localisation / Accounting",
+    'category': "Localization / Accounting",
     'license': "AGPL-3",
     'depends': ["account"],
     'data': [
