@@ -22,7 +22,7 @@
 
 {
     'name': 'Invoice Fiscal Position Update',
-    'version': '1.0',
+    'version': '8.0.1.0.0',
     'category': 'Accounting & Finance',
     'license': 'AGPL-3',
     'summary': 'Changing the fiscal position of an invoice will auto-update '

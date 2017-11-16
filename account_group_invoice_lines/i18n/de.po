@@ -1,0 +1,53 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_group_invoice_lines
+# 
+# Translators:
+# Rudolf Schnapka <rs@techno-flex.de>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: account-invoicing (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-21 01:40+0000\n"
+"PO-Revision-Date: 2015-11-24 09:27+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
+"Language-Team: German (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_group_invoice_lines
+#: selection:account.journal,group_method:0
+msgid "By Account"
+msgstr "Nach Konto"
+
+#. module: account_group_invoice_lines
+#: selection:account.journal,group_method:0
+msgid "By Product"
+msgstr "Nach Produkt"
+
+#. module: account_group_invoice_lines
+#: field:account.journal,group_method:0
+msgid "Group by"
+msgstr "Gruppiere per"
+
+#. module: account_group_invoice_lines
+#: help:account.journal,group_method:0
+msgid ""
+"If you select 'By Product', the account move lines generated when you "
+"validate an invoice will be grouped by product, account, analytic account "
+"and tax code. If you select 'By Account', they will be grouped by account, "
+"analytic account and tax code, without taking into account the product."
+msgstr "Wenn Sie 'Nach Produkt' wählen, werden die generierten Finanzbuchungen bei Freigabe der Rechnung nach Produkt, Konto, Kostenstelle und Steuerschlüssel gruppiert. Wenn Sie 'Nach Konto' wählen, werden diese Buchungen nach Konto, Kostenstelle, und Steuerschlüssel ohne Berücksichtigung des Produkts gruppiert."
+
+#. module: account_group_invoice_lines
+#: model:ir.model,name:account_group_invoice_lines.model_account_invoice
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: account_group_invoice_lines
+#: model:ir.model,name:account_group_invoice_lines.model_account_journal
+msgid "Journal"
+msgstr "Journal"

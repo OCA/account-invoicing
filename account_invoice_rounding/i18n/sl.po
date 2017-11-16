@@ -3,13 +3,13 @@
 # * account_invoice_rounding
 # 
 # Translators:
-# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-08-16 11:39+0000\n"
+"POT-Creation-Date: 2016-04-30 04:26+0000\n"
+"PO-Revision-Date: 2016-04-30 05:00+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +34,11 @@ msgid "Invoice Line"
 msgstr "Postavka računa"
 
 #. module: account_invoice_rounding
+#: field:account.invoice,global_round_line_id:0
+msgid "Invoice Line for total rounding"
+msgstr "Postavka računa za zaokroževanje seštevka"
+
+#. module: account_invoice_rounding
 #: code:addons/account_invoice_rounding/account.py:42
 #, python-format
 msgid "Rounding"
@@ -55,6 +60,12 @@ msgid "Tax Rounding Account"
 msgstr "Konto zaokroževanja davka"
 
 #. module: account_invoice_rounding
+#: field:account.config.settings,tax_calculation_rounding_account_id:0
+msgid "Tax Rounding account"
+msgstr "Konto zaokroževanja davkov"
+
+#. module: account_invoice_rounding
+#: field:account.config.settings,tax_calculation_rounding:0
 #: field:res.company,tax_calculation_rounding:0
 msgid "Tax Rounding unit"
 msgstr "Enota zaokroževanja davka"

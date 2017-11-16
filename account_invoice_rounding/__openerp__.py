@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {'name': 'Unit rounded invoice',
- 'version': '1.0',
+ 'version': '8.0.1.0.0',
  'category': 'Accounting',
  'description': """
 Unit rounded invoice (_`Swedish rounding`)

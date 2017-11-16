@@ -1,26 +1,8 @@
-# -*- encoding: utf-8 -*-
-##############################################################################
-#
-#    Account - Pricelist on Invoices for Odoo
-#    Copyright (C) 2015-Today GRAP (http://www.grap.coop)
-#    @author Sylvain LE GAL (https://twitter.com/legalsylvain)
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
-from openerp import models, fields, api
+# -*- coding: utf-8 -*-
+# © 2014-2016 GRAP <http://www.grap.coop>.
+# © 2017 Therp BV <http://therp.nl>.
+# License AGPL-3.0 or later <http://www.gnu.org/licenses/agpl.html>.
+from openerp import api, fields, models
 
 
 class AccountInvoice(models.Model):
@@ -30,8 +12,8 @@ class AccountInvoice(models.Model):
     pricelist_id = fields.Many2one(
         comodel_name='product.pricelist', string='Pricelist',
         help="The pricelist of the partner, when the invoice is created"
-        " or the partner has changed. This is a technical field used"
-        " for reporting.")
+             " or the partner has changed."
+    )
 
     @api.multi
     def onchange_partner_id(
@@ -56,3 +38,25 @@ class AccountInvoice(models.Model):
                         partner.property_product_pricelist_purchase.id
         res['value']['pricelist_id'] = pricelist_id
         return res
+
+    @api.model
+    def _prepare_refund(
+            self, invoice, date=None, period_id=None, description=None,
+            journal_id=None):
+        """Pricelist should also be set on refund."""
+        values = super(AccountInvoice, self)._prepare_refund(
+            invoice, date=date, period_id=period_id,
+            description=description, journal_id=journal_id)
+        if invoice.pricelist_id:
+            values.update({
+                'pricelist_id': invoice.pricelist_id.id,
+            })
+        return values
+
+    @api.multi
+    def button_update_prices_from_pricelist(self):
+        for this in self:
+            if this.state != 'draft':
+                continue  # Should only be valid for draft invoices
+            this.invoice_line.filtered('product_id').update_from_pricelist()
+            this.button_reset_taxes()

@@ -1,0 +1,40 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * stock_picking_invoicing_incoterm
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: account-invoicing (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-21 01:41+0000\n"
+"PO-Revision-Date: 2015-11-18 14:35+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: Italian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: stock_picking_invoicing_incoterm
+#: field:account.invoice,incoterm:0 field:stock.picking,incoterm:0
+msgid "Incoterm"
+msgstr "Incoterm"
+
+#. module: stock_picking_invoicing_incoterm
+#: help:account.invoice,incoterm:0 help:stock.picking,incoterm:0
+msgid ""
+"International Commercial Terms are a series of predefined commercial terms "
+"used in international transactions."
+msgstr "I termini commerciali internazionali sono una serie di termini commerciali predefiniti usati nelle transazioni internazionali."
+
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model,name:stock_picking_invoicing_incoterm.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model,name:stock_picking_invoicing_incoterm.model_stock_picking
+msgid "Picking List"
+msgstr "Picking List"

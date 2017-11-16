@@ -1,0 +1,28 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * sale_order_line_price_subtotal_gross
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: account-invoicing (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-18 08:21+0000\n"
+"PO-Revision-Date: 2017-08-29 07:56+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: sale_order_line_price_subtotal_gross
+#: model:ir.model,name:sale_order_line_price_subtotal_gross.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Verkooporderregel"
+
+#. module: sale_order_line_price_subtotal_gross
+#: field:sale.order.line,price_subtotal_gross:0
+msgid "Subtotal gross"
+msgstr ""

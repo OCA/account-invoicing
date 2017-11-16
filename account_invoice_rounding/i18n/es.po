@@ -3,13 +3,15 @@
 # * account_invoice_rounding
 # 
 # Translators:
+# Antonio Trueba, 2016
+# Antonio Trueba, 2016
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-06-03 05:10+0000\n"
+"POT-Creation-Date: 2016-04-30 04:26+0000\n"
+"PO-Revision-Date: 2016-04-30 04:27+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +36,11 @@ msgid "Invoice Line"
 msgstr "Línea de factura"
 
 #. module: account_invoice_rounding
+#: field:account.invoice,global_round_line_id:0
+msgid "Invoice Line for total rounding"
+msgstr ""
+
+#. module: account_invoice_rounding
 #: code:addons/account_invoice_rounding/account.py:42
 #, python-format
 msgid "Rounding"
@@ -47,7 +54,7 @@ msgstr "Línea de redondeo"
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_tax
 msgid "Tax"
-msgstr ""
+msgstr "Impuesto"
 
 #. module: account_invoice_rounding
 #: field:res.company,tax_calculation_rounding_account_id:0
@@ -55,6 +62,12 @@ msgid "Tax Rounding Account"
 msgstr "Cuenta de redondeo del impuesto"
 
 #. module: account_invoice_rounding
+#: field:account.config.settings,tax_calculation_rounding_account_id:0
+msgid "Tax Rounding account"
+msgstr ""
+
+#. module: account_invoice_rounding
+#: field:account.config.settings,tax_calculation_rounding:0
 #: field:res.company,tax_calculation_rounding:0
 msgid "Tax Rounding unit"
 msgstr "Unidad de redondeo del impuesto"

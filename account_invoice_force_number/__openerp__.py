@@ -21,7 +21,7 @@
 ##############################################################################
 {
     'name': "Force Invoice Number",
-    'version': '0.1',
+    'version': '8.0.0.1.0',
     'category': 'Accounting & Finance',
     'summary': "Allows to force invoice numbering on specific invoices",
     'description': """
@@ -39,6 +39,7 @@ invoice numbering for a specific invoice.
         'account'
     ],
     "data": [
+        'security/security.xml',
         'invoice_view.xml'
     ],
     "active": False,

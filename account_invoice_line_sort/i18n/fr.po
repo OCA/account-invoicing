@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
+"POT-Creation-Date: 2017-02-18 00:26+0000\n"
 "PO-Revision-Date: 2015-06-03 04:59+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: French (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/fr/)\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. module: account_invoice_line_sort
 #: selection:account.invoice,line_order:0 selection:res.partner,line_order:0
 msgid "Amount"
-msgstr ""
+msgstr "Montant"
 
 #. module: account_invoice_line_sort
 #: selection:account.invoice,line_order_direction:0
@@ -37,7 +37,7 @@ msgstr ""
 #. module: account_invoice_line_sort
 #: selection:account.invoice,line_order:0 selection:res.partner,line_order:0
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: account_invoice_line_sort
 #: model:ir.model,name:account_invoice_line_sort.model_account_invoice
@@ -52,12 +52,12 @@ msgstr "Ligne de facture"
 #. module: account_invoice_line_sort
 #: model:ir.model,name:account_invoice_line_sort.model_res_partner
 msgid "Partner"
-msgstr ""
+msgstr "Partenaire"
 
 #. module: account_invoice_line_sort
 #: selection:account.invoice,line_order:0 selection:res.partner,line_order:0
 msgid "Sequence"
-msgstr ""
+msgstr "Sequence"
 
 #. module: account_invoice_line_sort
 #: field:account.invoice,line_order_direction:0
@@ -78,4 +78,4 @@ msgstr ""
 #. module: account_invoice_line_sort
 #: selection:account.invoice,line_order:0 selection:res.partner,line_order:0
 msgid "Unit Price"
-msgstr ""
+msgstr "Prix Unitaire"

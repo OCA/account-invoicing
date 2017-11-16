@@ -1,0 +1,68 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * stock_picking_invoicing_unified
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: account-invoicing (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-03 00:05+0000\n"
+"PO-Revision-Date: 2016-03-10 17:50+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Spanish (Mexico) (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/es_MX/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es_MX\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: stock_picking_invoicing_unified
+#: field:stock.invoice.onshipping,purchase_journal:0
+msgid "Purchase Journal"
+msgstr ""
+
+#. module: stock_picking_invoicing_unified
+#: field:stock.invoice.onshipping,purchase_refund_journal:0
+msgid "Purchase Refund Journal"
+msgstr ""
+
+#. module: stock_picking_invoicing_unified
+#: field:stock.invoice.onshipping,sale_journal:0
+msgid "Sale Journal"
+msgstr ""
+
+#. module: stock_picking_invoicing_unified
+#: field:stock.invoice.onshipping,sale_refund_journal:0
+msgid "Sale Refund Journal"
+msgstr ""
+
+#. module: stock_picking_invoicing_unified
+#: field:stock.invoice.onshipping,show_purchase_journal:0
+msgid "Show Purchase Journal"
+msgstr ""
+
+#. module: stock_picking_invoicing_unified
+#: field:stock.invoice.onshipping,show_purchase_refund_journal:0
+msgid "Show Refund Purchase Journal"
+msgstr ""
+
+#. module: stock_picking_invoicing_unified
+#: field:stock.invoice.onshipping,show_sale_refund_journal:0
+msgid "Show Refund Sale Journal"
+msgstr ""
+
+#. module: stock_picking_invoicing_unified
+#: field:stock.invoice.onshipping,show_sale_journal:0
+msgid "Show Sale Journal"
+msgstr ""
+
+#. module: stock_picking_invoicing_unified
+#: model:ir.model,name:stock_picking_invoicing_unified.model_stock_invoice_onshipping
+msgid "Stock Invoice Onshipping"
+msgstr ""
+
+#. module: stock_picking_invoicing_unified
+#: model:ir.model,name:stock_picking_invoicing_unified.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento bursátil"

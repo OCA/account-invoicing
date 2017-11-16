@@ -26,7 +26,7 @@ from openerp import models, fields
 from . import account_invoice
 
 
-class res_partner(models.Model):
+class ResPartner(models.Model):
     _inherit = "res.partner"
 
     line_order = fields.Selection(account_invoice.AVAILABLE_SORT_OPTIONS,

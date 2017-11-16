@@ -1,71 +1,57 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP, Open Source Management Solution
-#    Copyright (c) 2010-2011 Elico Corp. All Rights Reserved.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp import models, fields, api, exceptions
-from openerp.tools.translate import _
+# © 2010-2011 Ian Li <ian.li@elico-corp.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
+from openerp import api, fields, models, _
+from openerp.exceptions import Warning as UserError
 
 
-class invoice_merge(models.TransientModel):
+class InvoiceMerge(models.TransientModel):
     _name = "invoice.merge"
     _description = "Merge Partner Invoice"
 
-    keep_references = fields.Boolean('Keep references'
-                                     ' from original invoices',
-                                     default=True)
+    keep_references = fields.Boolean(
+        string='Keep references from original invoices', default=True)
     date_invoice = fields.Date('Invoice Date')
 
     @api.model
     def _dirty_check(self):
-        if self.env.context.get('active_model', '') == 'account.invoice':
-            ids = self.env.context['active_ids']
+        if self._context.get('active_model') == 'account.invoice':
+            ids = self._context['active_ids']
             if len(ids) < 2:
-                raise exceptions.Warning(
+                raise UserError(
                     _('Please select multiple invoice to merge in the list '
                       'view.'))
-            inv_obj = self.env['account.invoice']
-            invs = inv_obj.read(ids,
-                                ['account_id', 'state', 'type', 'company_id',
-                                 'partner_id', 'currency_id', 'journal_id'])
-            for d in invs:
-                if d['state'] != 'draft':
-                    raise exceptions.Warning(
+            invs = self.env['account.invoice'].browse(ids)
+            for i, inv in enumerate(invs):
+                if inv.state != 'draft':
+                    raise UserError(
                         _('At least one of the selected invoices is %s!') %
-                        d['state'])
-                if d['account_id'] != invs[0]['account_id']:
-                    raise exceptions.Warning(
-                        _('Not all invoices use the same account!'))
-                if d['company_id'] != invs[0]['company_id']:
-                    raise exceptions.Warning(
-                        _('Not all invoices are at the same company!'))
-                if d['partner_id'] != invs[0]['partner_id']:
-                    raise exceptions.Warning(
-                        _('Not all invoices are for the same partner!'))
-                if d['type'] != invs[0]['type']:
-                    raise exceptions.Warning(
-                        _('Not all invoices are of the same type!'))
-                if d['currency_id'] != invs[0]['currency_id']:
-                    raise exceptions.Warning(
-                        _('Not all invoices are at the same currency!'))
-                if d['journal_id'] != invs[0]['journal_id']:
-                    raise exceptions.Warning(
-                        _('Not all invoices are at the same journal!'))
+                        inv.state)
+                if i > 0:
+                    if inv.account_id != invs[0].account_id:
+                        raise UserError(
+                            _('Not all invoices use the same account!'))
+                    if inv.company_id != invs[0].company_id:
+                        raise UserError(
+                            _('Not all invoices are at the same company!'))
+                    if inv.partner_id != invs[0].partner_id:
+                        raise UserError(
+                            _('Not all invoices are for the same partner!'))
+                    if inv.type != invs[0].type:
+                        raise UserError(
+                            _('Not all invoices are of the same type!'))
+                    if inv.currency_id != invs[0].currency_id:
+                        raise UserError(
+                            _('Not all invoices are at the same currency!'))
+                    if inv.journal_id != invs[0].journal_id:
+                        raise UserError(
+                            _('Not all invoices are at the same journal!'))
+                    if inv.partner_bank_id != invs[0].partner_bank_id:
+                        raise UserError(
+                            _('Not all invoices have the same '
+                              'Partner Bank Account!'))
+
         return {}
 
     @api.model
@@ -78,7 +64,7 @@ class invoice_merge(models.TransientModel):
          @param context: A standard dictionary
          @return: New arch of view.
         """
-        res = super(invoice_merge, self).fields_view_get(
+        res = super(InvoiceMerge, self).fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar,
             submenu=False)
         self._dirty_check()
@@ -96,12 +82,11 @@ class invoice_merge(models.TransientModel):
 
              @return: account invoice action
         """
-        inv_obj = self.env['account.invoice']
         aw_obj = self.env['ir.actions.act_window']
-        ids = self.env.context.get('active_ids', [])
-        invoices = inv_obj.browse(ids)
+        ids = self._context.get('active_ids', [])
+        invoices = self.env['account.invoice'].browse(ids)
         allinvoices = invoices.do_merge(keep_references=self.keep_references,
-                                        date_invoice=self.date_invoice)
+                                        date_invoice=self.date_invoice)[0]
         xid = {
             'out_invoice': 'action_invoice_tree1',
             'out_refund': 'action_invoice_tree3',
@@ -110,6 +95,6 @@ class invoice_merge(models.TransientModel):
         }[invoices[0].type]
         action = aw_obj.for_xml_id('account', xid)
         action.update({
-            'domain': [('id', 'in', ids + allinvoices.keys())],
+            'domain': [('id', 'in', list(ids) + allinvoices.keys())],
         })
         return action

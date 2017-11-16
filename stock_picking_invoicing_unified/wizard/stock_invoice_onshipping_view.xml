@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_stock_invoice_onshipping" model="ir.ui.view">
+            <field name="name">Stock Invoice Onshipping</field>
+            <field name="model">stock.invoice.onshipping</field>
+            <field name="inherit_id" ref="stock_account.view_stock_invoice_onshipping"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="journal_id" position="after">
+                    <field name="show_sale_journal" invisible="1"/>
+                    <field name="show_sale_refund_journal" invisible="1"/>
+                    <field name="show_purchase_journal" invisible="1"/>
+                    <field name="show_purchase_refund_journal" invisible="1"/>
+                    <field name="sale_journal" attrs="{'invisible':[('show_sale_journal', '=', False)], 'required':[('show_sale_journal', '=', True)]}"/>
+                    <field name="sale_refund_journal" attrs="{'invisible':[('show_sale_refund_journal', '=', False)], 'required':[('show_sale_refund_journal', '=', True)]}"/>
+                    <field name="purchase_journal" attrs="{'invisible':[('show_purchase_journal', '=', False)], 'required':[('show_purchase_journal', '=', True)]}"/>
+                    <field name="purchase_refund_journal" domain="[('type', '=', 'purchase_refund')]" attrs="{'invisible':[('show_purchase_refund_journal', '=', False)], 'required':[('show_purchase_refund_journal', '=', True)]}"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
