@@ -1,28 +1,18 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Acsone SA/NV
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.tests.common import TransactionCase
-from odoo import workflow
 
 
 class TestAccountInvoiceBlocking(TransactionCase):
 
     def setUp(self):
+        """
+        Setup test instances
+        """
         super(TestAccountInvoiceBlocking, self).setUp()
 
-        # ENVIRONEMENTS
-
-        self.account_invoice = self.env['account.invoice']
-        self.account_move_line = self.env['account.move.line']
-        self.account_account = self.env['account.account']
-        self.account_journal = self.env['account.journal']
-        self.account_invoice_line = self.env['account.invoice.line']
-
-        # INSTANCES
-
-        # Instance: company
-        self.company = self.env.ref('base.main_company')
+        company = self.env.ref('base.main_company')
 
         # Instance: account type (receivable)
         self.type_recv = self.env.ref('account.data_account_type_receivable')
@@ -30,70 +20,75 @@ class TestAccountInvoiceBlocking(TransactionCase):
         # Instance: account type (payable)
         self.type_payable = self.env.ref('account.data_account_type_payable')
 
-        # Instance: account (receivable)
-        self.account_recv = self.account_account.create({
+        # account (receivable)
+        account_recv = self.env['account.account'].create({
             'name': 'test_account_receivable',
             'code': '123',
             'user_type_id': self.type_recv.id,
-            'company_id': self.company.id,
+            'company_id': company.id,
             'reconcile': True})
 
-        # Instance: account (payable)
-        self.account_payable = self.account_account.create({
+        # account (payable)
+        account_payable = self.env['account.account'].create({
             'name': 'test_account_payable',
             'code': '321',
             'user_type_id': self.type_payable.id,
-            'company_id': self.company.id,
+            'company_id': company.id,
             'reconcile': True})
 
-        # Instance: partner
-        self.partner = self.env.ref('base.res_partner_2')
+        partner = self.env.ref('base.res_partner_2')
+        journal = self.env['account.journal'].search([('code', '=', 'BILL')])
+        product = self.env.ref('product.product_product_4')
 
-        # Instance: journal
-        self.journal = self.account_journal.search([('code', '=', 'BILL')])
-
-        # Instance: product
-        self.product = self.env.ref('product.product_product_4')
-
-        # Instance: invoice line
-        self.invoice_line = self.account_invoice_line.create({
+        invoice_line = self.env['account.invoice.line'].create({
             'name': 'test',
-            'account_id': self.account_payable.id,
+            'account_id': account_payable.id,
             'price_unit': 2000.00,
             'quantity': 1,
-            'product_id': self.product.id})
+            'product_id': product.id})
 
         # Instance: invoice
-        self.invoice = self.account_invoice.create({
-            'partner_id': self.partner.id,
-            'account_id': self.account_recv.id,
-            'payment_term': False,
-            'journal_id': self.journal.id,
-            'invoice_line_ids': [(4, self.invoice_line.id)]})
+        self.invoice = self.env['account.invoice'].create({
+            'partner_id': partner.id,
+            'account_id': account_recv.id,
+            'payment_term_id': False,
+            'journal_id': journal.id,
+            'invoice_line_ids': [(4, invoice_line.id)]})
 
-    def test_invoice(self):
-        self.account_invoice.search([('id', '=', self.invoice.id)])
+    def test_01_invoice_blocking(self):
+        """
+        Test Blocking Invoice
+        """
+
         self.invoice.draft_blocked = True
+        self.invoice.action_invoice_open()
 
-        workflow.trg_validate(self.uid, 'account.invoice', self.invoice.id,
-                              'invoice_open', self.cr)
-        move_line = self.account_move_line.search(
-            [('account_id.user_type_id', 'in', [self.type_recv.id,
-                                                self.type_payable.id]),
-             ('invoice_id', '=', self.invoice.id)])
-        if move_line:
-            self.assertTrue(move_line[0].blocked)
-            self.assertEqual(self.invoice.blocked, move_line[0].blocked,
-                             'Blocked values are not equals')
-            move_line[0].blocked = False
-            self.invoice = self.account_invoice.search([('id',
-                                                         '=',
-                                                         self.invoice.id)])
-            self.assertEqual(self.invoice.blocked, move_line[0].blocked,
-                             'Blocked values are not equals')
-            self.invoice.blocked = True
-            self.invoice = self.account_invoice.search([('id',
-                                                         '=',
-                                                         self.invoice.id)])
-            self.assertEqual(self.invoice.blocked, move_line[0].blocked,
-                             'Blocked values are not equals')
+        types_list = [self.type_recv.id, self.type_payable.id]
+        move_lines = self.env['account.move.line'].search([
+            ('account_id.user_type_id', 'in', types_list),
+            ('invoice_id', '=', self.invoice.id)
+        ])
+        self.assertTrue(move_lines)
+        for move_line in move_lines:
+            self.assertTrue(move_line.blocked)
+            self.assertEqual(
+                self.invoice.blocked, move_line.blocked,
+                'Blocked values are not equals')
+
+        self.invoice = self.env['account.invoice'].search([
+            ('id', '=', self.invoice.id)
+        ])
+        for move_line in move_lines:
+            move_line.blocked = False
+            self.assertEqual(
+                self.invoice.blocked, move_line.blocked,
+                'Blocked values are not equals')
+
+        self.invoice = self.env['account.invoice'].search([
+            ('id', '=', self.invoice.id)
+        ])
+        self.invoice.blocked = True
+        for move_line in move_lines:
+            self.assertEqual(
+                self.invoice.blocked, move_line.blocked,
+                'Blocked values are not equals')
