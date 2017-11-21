@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Acsone SA/NV
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
 
@@ -19,10 +18,11 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         type_receivable = self.env.ref('account.data_account_type_receivable')
         type_payable = self.env.ref('account.data_account_type_payable')
-        return self.env['account.move.line'].search(
-            [('account_id.user_type_id', 'in', [type_receivable.id,
-                                                type_payable.id]),
-             ('invoice_id', '=', self.id)])
+        user_type_id_list = [type_receivable.id, type_payable.id]
+        return self.env['account.move.line'].search([
+            ('account_id.user_type_id', 'in', user_type_id_list),
+            ('invoice_id', '=', self.id)
+        ])
 
     @api.multi
     def _update_blocked(self, value):
@@ -37,7 +37,7 @@ class AccountInvoice(models.Model):
             move_line_ids.write({'blocked': value})
 
     @api.multi
-    def _set_move_blocked(self):
+    def _inverse_move_blocked(self):
         """
         Inverse method of the computed field 'blocked'
         This method calls the update of the invoice's move line based on
@@ -59,7 +59,7 @@ class AccountInvoice(models.Model):
         return res
 
     @api.depends('move_id')
-    def _get_move_blocked(self):
+    def _compute_move_blocked(self):
         """
         This method set the value of the field 'invoice.blocked' to True
         If every line of the invoice's move is actualy blocked
@@ -70,15 +70,16 @@ class AccountInvoice(models.Model):
                 continue
 
             move_lines = invoice._get_move_line()
-            invoice.blocked = move_lines and\
-                all(line.blocked for line in move_lines) or False
+            invoice.blocked = all(
+                (line.blocked for line in move_lines)
+            ) if move_lines else False
 
     blocked = fields.Boolean(
-        string='No Follow-up',
+        'No Follow-up',
         states={'draft': [('readonly', True)]},
-        compute='_get_move_blocked',
-        inverse='_set_move_blocked')
+        compute='_compute_move_blocked',
+        inverse='_inverse_move_blocked')
 
     draft_blocked = fields.Boolean(
-        string='No Follow-up',
+        'No Follow-up',
         help="This flag facilitates the blocking of the invoice's move lines.")
