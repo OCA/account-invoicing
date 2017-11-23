@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Tecnativa - Carlos Dauden
 # Copyright 2017 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -18,7 +17,7 @@ class TestSaleTimesheetDescription(common.SavepointCase):
         cls.product_uom = cls.env.ref('product.product_uom_unit')
         cls.product = cls.env['product.product'].create({
             'name': 'Test product',
-            'track_service': 'timesheet',
+            'service_type': 'timesheet',
             'uom_id': cls.product_uom.id,
         })
         cls.analytic_account = cls.env['account.analytic.account'].create({
@@ -29,7 +28,7 @@ class TestSaleTimesheetDescription(common.SavepointCase):
             'partner_invoice_id': cls.partner.id,
             'partner_shipping_id': cls.partner.id,
             'pricelist_id': cls.partner.property_product_pricelist.id,
-            'project_id': cls.analytic_account.id,
+            'analytic_account_id': cls.analytic_account.id,
             'order_line': [
                 (0, 0, {
                     'name': cls.product.name,
@@ -53,6 +52,15 @@ class TestSaleTimesheetDescription(common.SavepointCase):
     def _test_sale_time_description(self, desc_option, expected):
         self.sale_order.timesheet_invoice_description = desc_option
         self.sale_order.action_confirm()
+        invoice_id = self.sale_order.with_context(
+            test_timesheet_description=True
+        ).action_invoice_create()
+        invoice = self.env['account.invoice'].browse(invoice_id)
+        self.assertEqual(invoice.invoice_line_ids[0].name, expected)
+
+        # trigger the creation of another invoice
+        for line in self.sale_order.order_line:
+            line.product_uom_qty += 1
         invoice_id = self.sale_order.with_context(
             test_timesheet_description=True
         ).action_invoice_create()
@@ -94,7 +102,7 @@ class TestSaleTimesheetDescription(common.SavepointCase):
         )
 
     def test_settings(self):
-        settings = self.env['sale.config.settings'].create({})
+        settings = self.env['res.config.settings'].create({})
         settings.default_timesheet_invoice_description = '101'
         settings.execute()
         sale_order = self.env['sale.order'].create({
