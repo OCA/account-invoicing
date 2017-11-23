@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Carlos Dauden <carlos.dauden@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -53,11 +52,11 @@ class SaleOrderLine(models.Model):
                 domain, order='date, id'):
             details = self._prepare_invoice_line_details(line, desc_rule)
             note.append(
-                u' - '.join(map(lambda x: unicode(x) or '', details)))
+                u' - '.join(map(lambda x: str(x) or '', details)))
         # This is for not breaking possible tests that expects to create the
         # invoices lines the standard way
         if note and (not config['test_enable'] or self.env.context.get(
                 'test_timesheet_description')):
             res['name'] += "\n" + (
-                "\n".join(map(lambda x: unicode(x) or '', note)))
+                "\n".join(map(lambda x: str(x) or '', note)))
         return res
