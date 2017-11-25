@@ -1,0 +1,49 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_view_payment
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-23 13:51+0000\n"
+"PO-Revision-Date: 2017-11-23 13:51+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Language-Team: Lithuanian (https://www.transifex.com/oca/teams/23907/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. module: account_invoice_view_payment
+#: model:ir.model,name:account_invoice_view_payment.model_account_invoice
+msgid "Invoice"
+msgstr "Sąskaita faktūra"
+
+#. module: account_invoice_view_payment
+#: code:addons/account_invoice_view_payment/models/account_payment.py:18
+#: code:addons/account_invoice_view_payment/wizards/account_register_payments.py:19
+#: model:ir.model,name:account_invoice_view_payment.model_account_payment
+#, python-format
+msgid "Payments"
+msgstr ""
+
+#. module: account_invoice_view_payment
+#: model:ir.model,name:account_invoice_view_payment.model_account_register_payments
+msgid "Register payments on multiple invoices"
+msgstr ""
+
+#. module: account_invoice_view_payment
+#: model:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_from_invoices
+#: model:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_invoice_form
+msgid "Validate & View Payment"
+msgstr ""
+
+#. module: account_invoice_view_payment
+#: model:ir.ui.view,arch_db:account_invoice_view_payment.invoice_form
+#: model:ir.ui.view,arch_db:account_invoice_view_payment.invoice_supplier_form
+msgid "View Payments"
+msgstr ""
