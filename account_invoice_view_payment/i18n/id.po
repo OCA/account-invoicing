@@ -4,13 +4,14 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
+# Wahyu Setiawan <wahyusetiaaa@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-22 02:48+0000\n"
-"PO-Revision-Date: 2017-06-22 02:48+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"POT-Creation-Date: 2017-11-11 01:10+0000\n"
+"PO-Revision-Date: 2017-11-11 01:10+0000\n"
+"Last-Translator: Wahyu Setiawan <wahyusetiaaa@gmail.com>, 2017\n"
 "Language-Team: Indonesian (https://www.transifex.com/oca/teams/23907/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +30,7 @@ msgstr "Faktur"
 #: model:ir.model,name:account_invoice_view_payment.model_account_payment
 #, python-format
 msgid "Payments"
-msgstr ""
+msgstr "Pembayaran"
 
 #. module: account_invoice_view_payment
 #: model:ir.model,name:account_invoice_view_payment.model_account_register_payments
