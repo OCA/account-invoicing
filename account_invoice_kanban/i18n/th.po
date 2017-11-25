@@ -6,10 +6,10 @@
 # OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-17 02:54+0000\n"
-"PO-Revision-Date: 2017-05-17 02:54+0000\n"
+"POT-Creation-Date: 2017-11-23 13:51+0000\n"
+"PO-Revision-Date: 2017-11-23 13:51+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Thai (https://www.transifex.com/oca/teams/23907/th/)\n"
 "MIME-Version: 1.0\n"
@@ -19,59 +19,58 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: account_invoice_kanban
-#: model:ir.model,name:account_invoice_kanban.model_account_invoice_stage
-msgid "Account Invoice Stage"
+#: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
+msgid ""
+"<br/>\n"
+"                    Balance -"
 msgstr ""
 
 #. module: account_invoice_kanban
-#: view:account.invoice.stage:account_invoice_kanban.account_invoice_stage_form_view
-msgid "Add a description..."
+#: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
+msgid ""
+"<br/>\n"
+"                    Source -"
 msgstr ""
 
 #. module: account_invoice_kanban
-#: view:account.invoice:account_invoice_kanban.view_account_invoice_kanban
-msgid "Balance -"
+#: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
+msgid ""
+"<br/>\n"
+"                    Total Invoice -"
 msgstr ""
 
 #. module: account_invoice_kanban
-#: field:account.invoice,color:0
-msgid "Color Index"
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_signed
+msgid "Contract Signed"
 msgstr ""
 
 #. module: account_invoice_kanban
-#: field:account.invoice.stage,create_uid:0
-msgid "Created by"
-msgstr "สร้างโดย"
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_received
+msgid "Documentation Received"
+msgstr ""
 
 #. module: account_invoice_kanban
-#: field:account.invoice.stage,create_date:0
-msgid "Created on"
-msgstr "สร้างเมื่อ"
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_sent
+msgid "Documentation Sent"
+msgstr ""
 
 #. module: account_invoice_kanban
-#: field:account.invoice.stage,description:0
-msgid "Description"
-msgstr "รายละเอียด"
-
-#. module: account_invoice_kanban
-#: field:account.invoice.stage,display_name:0
-msgid "Display Name"
-msgstr "ชื่อที่ใช้แสดง"
-
-#. module: account_invoice_kanban
-#: view:account.invoice:account_invoice_kanban.view_account_invoice_kanban
+#: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
 msgid "Due date -"
 msgstr ""
 
 #. module: account_invoice_kanban
-#: field:account.invoice.stage,fold:0
-msgid "Folded in Kanban View"
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_created
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_new
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_patment_received
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_received
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_sent
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_signed
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_validated
+msgid ""
+"Give a card the special handling status to indicate that it requires "
+"handling by a special user or subset of users."
 msgstr ""
-
-#. module: account_invoice_kanban
-#: field:account.invoice.stage,id:0
-msgid "ID"
-msgstr "รหัส"
 
 #. module: account_invoice_kanban
 #: model:ir.model,name:account_invoice_kanban.model_account_invoice
@@ -79,69 +78,68 @@ msgid "Invoice"
 msgstr "ใบแจ้งหนี้"
 
 #. module: account_invoice_kanban
-#: view:account.invoice.stage:account_invoice_kanban.account_invoice_stage_form_view
-#: view:account.invoice.stage:account_invoice_kanban.account_invoice_stage_tree_view
-msgid "Invoice Stage"
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_created
+msgid "Invoice Created"
 msgstr ""
 
 #. module: account_invoice_kanban
-#: model:ir.ui.menu,name:account_invoice_kanban.menu_account_invoice_types_view
-msgid "Invoice Stages"
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_validated
+msgid "Invoice Validated"
 msgstr ""
 
 #. module: account_invoice_kanban
-#: field:account.invoice.stage,__last_update:0
-msgid "Last Modified on"
-msgstr "แก้ไขครั้งสุดท้ายเมื่อ"
-
-#. module: account_invoice_kanban
-#: field:account.invoice.stage,write_uid:0
-msgid "Last Updated by"
-msgstr "อัพเดทครั้งสุดท้ายโดย"
-
-#. module: account_invoice_kanban
-#: field:account.invoice.stage,write_date:0
-msgid "Last Updated on"
-msgstr "อัพเดทครั้งสุดท้ายเมื่อ"
-
-#. module: account_invoice_kanban
-#: field:account.invoice.stage,sequence:0
-msgid "Sequence"
-msgstr "กำหนดเลขที่เอกสาร"
-
-#. module: account_invoice_kanban
-#: view:account.invoice:account_invoice_kanban.view_account_invoice_kanban
-msgid "Source -"
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_created
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_new
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_patment_received
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_received
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_sent
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_signed
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_validated
+msgid ""
+"Mark a card as medium or high priority (one or two stars) to indicate that "
+"it should be escalated ahead of others with lower priority/star counts."
 msgstr ""
 
 #. module: account_invoice_kanban
-#: view:account.invoice:account_invoice_kanban.view_account_invoice_filter
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_created
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_new
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_patment_received
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_received
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_sent
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_signed
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_validated
+msgid "Mark a card as ready when it has been fully processed."
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_new
+msgid "New"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_patment_received
+msgid "Payment Received"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:ir.ui.view,arch_db:account_invoice_kanban.view_account_invoice_filter
 msgid "Stage"
 msgstr ""
 
 #. module: account_invoice_kanban
-#: field:account.invoice.stage,name:0
-msgid "Stage Name"
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_created
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_new
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_patment_received
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_received
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_sent
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_signed
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_validated
+msgid ""
+"This is the default status and indicates that a card can be processed by any"
+" user working this queue."
 msgstr ""
 
 #. module: account_invoice_kanban
-#: field:account.invoice,stage_id:0
-#: model:ir.actions.act_window,name:account_invoice_kanban.account_invoice_stage_action
-#: model:ir.ui.menu,name:account_invoice_kanban.menu_parent_invoice_types_view
-msgid "Stages"
-msgstr ""
-
-#. module: account_invoice_kanban
-#: view:account.invoice:account_invoice_kanban.view_account_invoice_filter
-msgid "Status"
-msgstr "สถานะ"
-
-#. module: account_invoice_kanban
-#: view:account.invoice:account_invoice_kanban.view_account_invoice_kanban
-msgid "Total Invoice -"
-msgstr ""
-
-#. module: account_invoice_kanban
-#: view:account.invoice:account_invoice_kanban.view_account_invoice_kanban
+#: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
 msgid "oe_kanban_text_red"
 msgstr ""
