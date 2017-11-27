@@ -45,7 +45,7 @@ invoicing "based on delivery" that will look at those values instead of looking
 in picking.
 """
 from openerp import models, fields, api, osv
-import openerp.addons.decimal_precision as dp
+from openerp.addons.decimal_precision import decimal_precision as dp
 from openerp.addons.sale.sale import sale_order_line
 
 

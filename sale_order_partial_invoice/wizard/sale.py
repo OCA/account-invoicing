@@ -50,7 +50,7 @@ in picking.
 import logging
 from openerp import models, fields, api
 from openerp.tools.translate import _
-
+import openerp.addons.decimal_precision as dp
 
 
 _logger = logging.getLogger(__name__)
@@ -79,11 +79,11 @@ class SaleAdvancePaymentInv(models.TransientModel):
                 val = {'sale_order_line_id': so_line.id, }
                 if so_line.product_id and so_line.product_id.type == 'product':
                     val['quantity'] = so_line.qty_delivered - \
-                        so_line.qty_invoiced
+                                      so_line.qty_invoiced
                 else:
                     # service or consumable
                     val['quantity'] = so_line.product_uom_qty - \
-                        so_line.qty_invoiced
+                                      so_line.qty_invoiced
                 line_values.append((0, 0, val))
         val = {'line_ids': line_values, }
         wizard = wizard_obj.create(val)
@@ -116,20 +116,23 @@ class SaleOrderLineInvoicePartiallyLine(models.TransientModel):
         string="Sold",
         readonly=True)
     qty_invoiced = fields.Float(
-       related='sale_order_line_id.qty_invoiced',
-       type='float', string="Invoiced",
-       readonly=True)
+        related='sale_order_line_id.qty_invoiced',
+        type='float', string="Invoiced",
+        readonly=True)
     qty_delivered = fields.Float(
         related='sale_order_line_id.qty_delivered',
         string="Shipped",
         readonly=True)
     quantity = fields.Float(
+        digits=dp.get_precision("Product UoS"),
         string='To invoice')
 
     @api.one
     @api.constrains('quantity')
     def _check_to_invoice_qty(self):
-        if self.order_qty - self.qty_invoiced < self.quantity:
+        precision = self.env['decimal.precision'].precision_get("Product UoS")
+        if round(self.order_qty - self.qty_invoiced, precision) < round(
+                self.quantity, precision):
             raise Warning(
                 _("Quantity to invoice couldn't be "
                   "greater than remaining quantity"))
@@ -172,7 +175,7 @@ class SaleOrderLineInvoicePartially(models.TransientModel):
             # Call invoice creation
             invoice_id = so_obj.with_context(
                 _partial_invoice=partial_invoice)._make_invoice(
-                    order, invoice_line_ids)
+                order, invoice_line_ids)
             _logger.info(_('Created invoice %d'), invoice_id)
             # the following is copied from many places around
             # (actually sale_line_invoice.py)
