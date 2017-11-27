@@ -8,19 +8,34 @@
 <data>
 
 
+<!-- I have to inherit 2 different views,
+because account.view_partner_property_form is limited to a particular group with
+<field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]"/>
+and we need to have the field 'customer_invoice_transmit_method_code' accessible
+for all users -->
 <record id="view_partner_property_form" model="ir.ui.view">
-    <field name="name">Add Invoice Transmit Methods on partner form view</field>
+    <field name="name">Add Invoice Transmit Methods on partner form view (account tab)</field>
     <field name="model">res.partner</field>
     <field name="inherit_id" ref="account.view_partner_property_form"/>
     <field name="arch" type="xml">
         <field name="property_payment_term" position="after">
             <field name="customer_invoice_transmit_method_id" widget="selection"/>
-            <field name="customer_invoice_transmit_method_code" invisible="1"/>
         </field>
         <field name="property_supplier_payment_term" position="after">
             <field name="supplier_invoice_transmit_method_id" widget="selection"/>
-            <field name="supplier_invoice_transmit_method_code" invisible="1"/>
         </field>
+    </field>
+</record>
+
+<record id="view_partner_form" model="ir.ui.view">
+    <field name="name">Add Invoice Transmit Methods on partner form view</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='sales_purchases']//field[@name='customer']" position="after">
+            <field name="customer_invoice_transmit_method_code" invisible="1"/>
+            <field name="supplier_invoice_transmit_method_code" invisible="1"/>
+        </xpath>
         <xpath expr="//field[@name='child_ids']/form//field[@name='customer']" position="after">
             <field name="customer_invoice_transmit_method_code" invisible="1"/>
             <field name="supplier_invoice_transmit_method_code" invisible="1"/>
