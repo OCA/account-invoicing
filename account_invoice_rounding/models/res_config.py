@@ -38,13 +38,12 @@ class AccountConfigSettings(models.TransientModel):
         string='Tax Rounding account',
         domain=[('internal_type', '<>', 'view')])
 
-    @api.multi
-    def onchange_company_id(self, company_id):
-        res = super(AccountConfigSettings, self
-                    ).onchange_company_id(company_id)
-        company = self.env['res.company'].browse(company_id)
-        res['value'][
-            'tax_calculation_rounding'] = company.tax_calculation_rounding
-        res['value']['tax_calculation_rounding_account_id'] = \
-            company.tax_calculation_rounding_account_id.id
+    @api.onchange('company_id')
+    def onchange_company_id(self):
+        res = super(AccountConfigSettings, self).onchange_company_id()
+        if self.company_id:
+            company = self.company_id
+            self.tax_calculation_rounding = company.tax_calculation_rounding
+            self.tax_calculation_rounding_account_id = \
+                company.tax_calculation_rounding_account_id.id
         return res
