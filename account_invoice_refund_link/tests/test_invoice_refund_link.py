@@ -7,12 +7,12 @@ from odoo.tests import common
 from .. import post_init_hook
 
 
-class TestInvoiceRefundLink(common.SavepointCase):
+class TestInvoiceRefundLinkBase(common.SavepointCase):
     filter_refund = 'refund'
 
     @classmethod
     def setUpClass(cls):
-        super(TestInvoiceRefundLink, cls).setUpClass()
+        super(TestInvoiceRefundLinkBase, cls).setUpClass()
         cls.partner = cls.env['res.partner'].create({
             'name': 'Test partner',
         })
@@ -45,7 +45,7 @@ class TestInvoiceRefundLink(common.SavepointCase):
                 'description': cls.refund_reason,
             }).invoice_refund()
 
-    def test_refund_link(self):
+    def _test_refund_link(self):
         self.assertTrue(self.invoice.refund_invoice_ids)
         refund = self.invoice.refund_invoice_ids[0]
         self.assertEqual(refund.refund_reason, self.refund_reason)
@@ -61,6 +61,8 @@ class TestInvoiceRefundLink(common.SavepointCase):
         self.assertEqual(self.invoice.invoice_line_ids[1],
                          refund.invoice_line_ids[1].origin_line_ids[0])
 
+
+class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
     def test_post_init_hook(self):
         self.assertTrue(self.invoice.refund_invoice_ids)
         refund = self.invoice.refund_invoice_ids[0]
@@ -70,12 +72,39 @@ class TestInvoiceRefundLink(common.SavepointCase):
         self.assertFalse(refund.origin_invoice_ids)
         post_init_hook(self.env.cr, None)
         self.refund_reason = 'Auto'
-        self.test_refund_link()
+        self._test_refund_link()
+
+    def test_refund_link(self):
+        self._test_refund_link()
+
+    def test_invoice_copy(self):
+        refund = self.invoice.refund_invoice_ids[0]
+        self.invoice.copy()
+        self.assertEqual(refund.origin_invoice_ids, self.invoice)
+        self.assertEqual(
+            refund.mapped('invoice_line_ids.origin_line_ids'),
+            self.invoice.mapped('invoice_line_ids'),
+        )
+
+    def test_refund_copy(self):
+        refund = self.invoice.refund_invoice_ids[0]
+        refund.copy()
+        self.assertEqual(self.invoice.refund_invoice_ids, refund)
+        self.assertEqual(
+            self.invoice.mapped('invoice_line_ids.refund_line_ids'),
+            refund.mapped('invoice_line_ids'),
+        )
 
 
-class TestInvoiceRefundCancelLink(TestInvoiceRefundLink):
+class TestInvoiceRefundCancelLink(TestInvoiceRefundLinkBase):
     filter_refund = 'cancel'
 
+    def test_refund_link(self):
+        self._test_refund_link()
 
-class TestInvoiceRefundModifyLink(TestInvoiceRefundLink):
+
+class TestInvoiceRefundModifyLink(TestInvoiceRefundLinkBase):
     filter_refund = 'modify'
+
+    def test_refund_link(self):
+        self._test_refund_link()
