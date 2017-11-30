@@ -152,14 +152,17 @@ class AccountInvoice(models.Model):
                                                 context=ctx)
         return {}
 
-    @api.one
+    @api.multi
     @api.depends('invoice_line.price_subtotal', 'tax_line.amount')
     def _compute_amount(self):
         """ Add swedish rounding computing
         Makes sure invoice line for rounding is not computed in totals
         """
+        self.ensure_one()
         super(AccountInvoice, self)._compute_amount()
-        if self.type in ('out_invoice', 'out_refund'):
+        if self.type in ('out_invoice', 'out_refund')\
+            or (self.enable_rounding_for_supplier
+                and self.type in ('in_invoice', 'in_refund')):
             if self.global_round_line_id.id:
                 line = self.global_round_line_id
                 if line:
@@ -174,12 +177,28 @@ class AccountInvoice(models.Model):
                     self.amount_untaxed = (
                         swedish_rounding['amount_untaxed'])
 
-    @api.one
+    @api.multi
     def _get_rounding_invoice_line_id(self):
+        self.ensure_one()
         lines = self.env['account.invoice.line'].search(
             [('invoice_id', '=', self.id),
              ('is_rounding', '=', True)])
         self.global_round_line_id = lines
+
+    @api.multi
+    def onchange_partner_id(self, type, partner_id, date_invoice=False,
+                            payment_term=False, partner_bank_id=False,
+                            company_id=False):
+        result = super(AccountInvoice, self).onchange_partner_id(
+            type, partner_id, date_invoice=date_invoice,
+            payment_term=payment_term, partner_bank_id=partner_bank_id,
+            company_id=company_id)
+        if partner_id:
+            partner = self.env['res.partner'].browse(partner_id)
+            if partner.supplier:
+                result['value']['enable_rounding_for_supplier'] = \
+                    partner.enable_rounding
+        return result
 
     global_round_line_id = fields.Many2one(
         'account.invoice.line',
@@ -202,6 +221,8 @@ class AccountInvoice(models.Model):
         digits_compute=dp.get_precision('Account'),
         string='Total',
         store=True)
+    enable_rounding_for_supplier = fields.Boolean(
+        string='Enable rounding')
 
 
 class AccountInvoiceLine(models.Model):

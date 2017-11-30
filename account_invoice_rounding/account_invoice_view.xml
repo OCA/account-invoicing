@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Simone Rubino - Agile Business Group
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<openerp>
+    <data>
+        <record id="invoice_supplier_form" model="ir.ui.view">
+            <field name="name">invoice_supplier_form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[last()]">
+                    <field name="enable_rounding_for_supplier"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
