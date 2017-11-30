@@ -15,12 +15,16 @@ class AccountInvoice(models.Model):
         comodel_name='account.invoice', column1='refund_invoice_id',
         column2='original_invoice_id', relation='account_invoice_refunds_rel',
         string="Original invoice", readonly=True,
-        help="Original invoice to which this refund invoice is referred to")
+        help="Original invoice to which this refund invoice is referred to",
+        copy=False,
+    )
     refund_invoice_ids = fields.Many2many(
         comodel_name='account.invoice', column1='original_invoice_id',
         column2='refund_invoice_id', relation='account_invoice_refunds_rel',
         string="Refund invoices",  readonly=True,
-        help="Refund invoices created from this invoice")
+        help="Refund invoices created from this invoice",
+        copy=False,
+    )
 
     @api.model
     def _prepare_refund(self, invoice, date_invoice=None, date=None,
@@ -49,9 +53,13 @@ class AccountInvoiceLine(models.Model):
         column2='original_line_id', string="Original invoice line",
         relation='account_invoice_line_refunds_rel',
         help="Original invoice line to which this refund invoice line "
-             "is referred to")
+             "is referred to",
+        copy=False,
+    )
     refund_line_ids = fields.Many2many(
         comodel_name='account.invoice.line', column1='original_line_id',
         column2='refund_line_id', string="Refund invoice line",
         relation='account_invoice_line_refunds_rel',
-        help="Refund invoice lines created from this invoice line")
+        help="Refund invoice lines created from this invoice line",
+        copy=False,
+    )
