@@ -21,6 +21,8 @@ You can choose the account on which the invoice line will be written
 
 .. _Swedish rounding : https://en.wikipedia.org/wiki/Swedish_rounding
 
+In the supplier invoice, you can also set a flag (inherited by the selected partner),
+in order to round supplier invoices too.
 
 Bug Tracker
 ===========
