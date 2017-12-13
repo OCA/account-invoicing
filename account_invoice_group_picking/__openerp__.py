@@ -16,6 +16,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/portal_security.xml",
         "views/report_invoice.xml",
     ],
 }
