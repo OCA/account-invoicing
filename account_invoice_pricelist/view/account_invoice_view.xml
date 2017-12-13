@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    © 2015-2016 GRAP <http://www.grap.coop>
+    © 2017 Therp BV <http://therp.nl>.
+    License AGPL-3.0 or later <http://www.gnu.org/licenses/agpl.html>.
+-->
+<openerp>
+    <data>
+
+        <!-- Model: account.invoice -->
+        <record id="view_account_invoice_customer_form" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button
+                        type="object"
+                        name="button_update_prices_from_pricelist"
+                        string="Update prices from product and/or pricelist"
+                        attrs="{'invisible': [('state', 'not in', ['draft'])]}"
+                        />
+                </field>
+                <field name="user_id" position="after">
+                    <field name="pricelist_id"/>
+                </field>
+                <field name="invoice_line" position="attributes">
+                    <attribute
+                        name="context"
+                        operation="python_dict"
+                        key="pricelist_id">pricelist_id</attribute>
+                </field>
+                <xpath
+                    expr="//field[@name='invoice_line']/tree/field[@name='quantity']"
+                    position="attributes"
+                    >
+                    <!-- with pricelist qty also influences price! -->
+                    <attribute
+                        name="on_change">product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, parent.company_id, context)
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_supplier_form" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button
+                        type="object"
+                        name="button_update_prices_from_pricelist"
+                        string="Update prices from product and/or pricelist"
+                        attrs="{'invisible': [('state', 'not in', ['draft'])]}"
+                        />
+                </field>
+                <field name="user_id" position="after">
+                    <field name="pricelist_id"/>
+                </field>
+                <field name="invoice_line" position="attributes">
+                    <attribute
+                        name="context_invoice_pricelist">{'pricelist_id': pricelist_id}
+                    </attribute>
+                </field>
+                <xpath
+                    expr="//field[@name='invoice_line']/tree/field[@name='quantity']"
+                    position="attributes"
+                    >
+                    <!-- with pricelist qty also influences price! -->
+                    <attribute
+                        name="on_change">product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, parent.company_id, context)
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_search" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@string='Partner']" position="after">
+                    <filter
+                        string="Pricelist"
+                        context="{'group_by':'pricelist_id'}"
+                        />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

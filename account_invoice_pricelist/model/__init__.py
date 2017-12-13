@@ -1,3 +1,6 @@
-# -*- encoding: utf-8 -*-
-
+# -*- coding: utf-8 -*-
+# © 2015-2016 GRAP <http://www.grap.coop>.
+# © 2017 Therp BV <http://therp.nl>.
+# License AGPL-3.0 or later <http://www.gnu.org/licenses/agpl.html>.
 from . import account_invoice
+from . import account_invoice_line
