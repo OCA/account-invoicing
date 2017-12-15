@@ -17,7 +17,4 @@
     'data': [
         'view/account_invoice_view.xml',
     ],
-    'demo': [
-        'demo/res_groups.yml',
-    ],
 }
