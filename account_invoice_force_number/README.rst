@@ -15,7 +15,7 @@ Once installed, you'll find the Force Number field on all the invoices in draft 
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/95/10.0
+   :target: https://runbot.odoo-community.org/runbot/95/11.0
 
 Bug Tracker
 ===========
@@ -37,6 +37,7 @@ Contributors
 ------------
 
 * Alex Comba <alex.comba@agilebg.com>
+* Francesco Apruzzese <f.apruzzese@apuliasoftware.it>
 
 Maintainer
 ----------
