@@ -20,5 +20,4 @@
     'demo': [
         'demo/res_groups.yml',
     ],
-    'installable': False,
 }

@@ -9,7 +9,7 @@ class TestAccountInvoicePricelist(SavepointCase):
         super(TestAccountInvoicePricelist, self).setUpClass()
         self.AccountInvoice = self.env["account.invoice"]
         self.ProductPricelist = self.env['product.pricelist']
-        self.ProductPricelistVersion = self.env['product.pricelist.version']
+#        self.ProductPricelistVersion = self.env['product.pricelist.version']
         self.ProductPricelistItem = self.env['product.pricelist.item']
         self.FiscalPosition = self.env['account.fiscal.position']
         self.fiscal_position = self.FiscalPosition.create({
@@ -30,7 +30,7 @@ class TestAccountInvoicePricelist(SavepointCase):
         self.a_receivable = self.env["account.account"].create({
             "name": "Test receivable account",
             "code": "TEST_RA",
-            "user_type": self.at_receivable.id,
+            "user_type_id": self.at_receivable.id,
             "type": "receivable",
             "reconcile": True,
         })
@@ -56,26 +56,22 @@ class TestAccountInvoicePricelist(SavepointCase):
             'currency_id': self.env.user.company_id.currency_id.id,
             'type': 'sale',
         })
-        self.sale_pricelist_version_id = self.ProductPricelistVersion.create({
-            'name': 'Test Sale pricelist Version',
-            'pricelist_id': self.sale_pricelist_id.id,
-        })
         self.sale_pricelist_item_id = self.ProductPricelistItem.create({
             'name': 'Test Sale pricelist Item',
-            'price_version_id': self.sale_pricelist_version_id.id,
+            'pricelist_id': self.sale_pricelist_id.id,
+            'applied_on': '1_product',
+            'compute_price': 'formula',
             'min_quantity': 1,
             'sequence': 5,
-            'base': 1,
-            'price_discount': -1.0,
-            'price_surcharge': 300.00,
+            'base': 'list_price',
+            'price_surcharge': 200.00,
             'product_id': self.product.id,
         })
-        # 8.0 invoice_line instead of invoice_line_ids
         self.invoice = self.AccountInvoice.create({
             'partner_id': self.partner.id,
             'account_id': self.a_receivable.id,
             'type': 'out_invoice',
-            'invoice_line': [(0, 0, {
+            'invoice_line_ids': [(0, 0, {
                 'account_id': self.a_receivable.id,
                 'product_id': self.product.id,
                 'name': 'Test line',
@@ -87,37 +83,30 @@ class TestAccountInvoicePricelist(SavepointCase):
     def test_onchange_partner_id(self):
         """Changing partner should set invoice pricelist to partner pricelist.
         """
-        res = self.invoice.onchange_partner_id(
-            'out_invoice', self.partner.id
-        )
+        self.invoice._onchange_partner_id()
         self.assertEqual(
-            res['value']['pricelist_id'],
-            self.partner.property_product_pricelist.id)
+            self.invoice.pricelist_id,
+            self.partner.property_product_pricelist)
 
     def test_product_id_change(self):
         """On change of product, price should be taken from pricelist."""
-        res = self.invoice.invoice_line[0].with_context(
-            pricelist_id=self.sale_pricelist_id.id,
-        ).product_id_change(
-            self.product.id,
-            self.product.uom_id.id,
-            qty=1,
-            partner_id=self.partner.id
-        )
-        self.assertEqual(res['value']['price_unit'], 300.0)
+        self.invoice.pricelist_id = self.sale_pricelist_id
+        self.invoice.invoice_line_ids[0].with_context(
+        )._onchange_product_id()
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 300.0)
 
     def test_button_update_prices_from_pricelist(self):
         """Update button should recompute prices."""
         self.invoice.pricelist_id = self.sale_pricelist_id
         self.invoice.button_update_prices_from_pricelist()
         self.assertEqual(
-            self.invoice.invoice_line[0].price_unit,
+            self.invoice.invoice_line_ids[0].price_unit,
             300.0
         )
         # Update should have no effect if state != draft:
         self.sale_pricelist_item_id.price_surcharge = 400.0
         self.invoice.state = 'open'  # just test, no need for workflow
         self.assertEqual(
-            self.invoice.invoice_line[0].price_unit,
+            self.invoice.invoice_line_ids[0].price_unit,
             300.0
         )

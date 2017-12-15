@@ -23,21 +23,6 @@
                 <field name="user_id" position="after">
                     <field name="pricelist_id"/>
                 </field>
-                <field name="invoice_line" position="attributes">
-                    <attribute
-                        name="context"
-                        operation="python_dict"
-                        key="pricelist_id">pricelist_id</attribute>
-                </field>
-                <xpath
-                    expr="//field[@name='invoice_line']/tree/field[@name='quantity']"
-                    position="attributes"
-                    >
-                    <!-- with pricelist qty also influences price! -->
-                    <attribute
-                        name="on_change">product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, parent.company_id, context)
-                    </attribute>
-                </xpath>
             </field>
         </record>
 
@@ -56,20 +41,6 @@
                 <field name="user_id" position="after">
                     <field name="pricelist_id"/>
                 </field>
-                <field name="invoice_line" position="attributes">
-                    <attribute
-                        name="context_invoice_pricelist">{'pricelist_id': pricelist_id}
-                    </attribute>
-                </field>
-                <xpath
-                    expr="//field[@name='invoice_line']/tree/field[@name='quantity']"
-                    position="attributes"
-                    >
-                    <!-- with pricelist qty also influences price! -->
-                    <attribute
-                        name="on_change">product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, parent.company_id, context)
-                    </attribute>
-                </xpath>
             </field>
         </record>
 
@@ -77,7 +48,7 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.view_account_invoice_filter"/>
             <field name="arch" type="xml">
-                <xpath expr="//filter[@string='Partner']" position="after">
+                <xpath expr="//group" position="inside">
                     <filter
                         string="Pricelist"
                         context="{'group_by':'pricelist_id'}"
