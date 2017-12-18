@@ -84,6 +84,8 @@ Known issues / Roadmap
 
 * The functionality of return processing with refunds was being discussed with
   Odoo here: https://github.com/odoo/odoo/issues/13974.
+* This only works for first level returns. Successive returns won't be
+  reflected, neither on received quantity nor returned quantity.
 
 Bug Tracker
 ===========
@@ -104,7 +106,13 @@ Images
 Contributors
 ------------
 
-* Jordi Ballester Alomar <jordi.ballester@eficent.com>
+* Eficent <http://www.eficent.com>:
+
+  * Jordi Ballester Alomar <jordi.ballester@eficent.com>
+
+* Tecnativa <https://www.tecnativa.com>
+
+  * Pedro M. Baeza
 
 Maintainer
 ----------
