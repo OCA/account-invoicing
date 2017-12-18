@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Eficent Business and IT Consulting Services
-#           <contact@eficent.com>
+# Copyright 2017 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
 
@@ -15,8 +15,10 @@ class AccountInvoice(models.Model):
         data = super(AccountInvoice,
                      self)._prepare_invoice_line_from_po_line(line)
         if line.product_id.purchase_method == 'receive':
-            qty = (line.qty_received - line.qty_returned) - (
-                line.qty_invoiced - line.qty_refunded)
+            # This formula proceeds from the simplification of full expression:
+            # qty_received + qty_returned - (qty_invoiced + qty_refunded) -
+            # (qty_returned - qty_refunded)
+            qty = line.qty_received - line.qty_invoiced
             data['quantity'] = qty
         if self.type == 'in_refund':
             invoice_line = self.env['account.invoice.line']
