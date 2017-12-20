@@ -99,6 +99,8 @@ class AccountInvoice(models.Model):
         company = invoice.company_id
         round_method = company.tax_calculation_rounding_method
 
+        if not round_method:
+            return {}
         if round_method[:7] != 'swedish':
             return {}
         prec = obj_precision.precision_get('Account')
