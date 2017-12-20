@@ -10,8 +10,7 @@
         <field name="inherit_id" ref="account.invoice_supplier_form"/>
         <field name="arch" type="xml">
             <field name="move_id" position="after">
-                <field name="blocked" attrs="{'invisible': [('move_id', '=', False)]}"/>
-                <field name="draft_blocked" attrs="{'invisible': [('move_id', '!=', False)]}"/>
+                <field name="blocked"/>
             </field>
         </field>
     </record>
