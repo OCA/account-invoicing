@@ -3,14 +3,14 @@
 # * sale_timesheet_invoice_description
 # 
 # Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2016
+# OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-17 00:14+0000\n"
-"PO-Revision-Date: 2016-12-17 00:14+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
+"POT-Creation-Date: 2017-12-20 03:39+0000\n"
+"PO-Revision-Date: 2017-12-20 03:39+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,33 +19,38 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:20
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:19
 #, python-format
 msgid "Date - Description"
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:19
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:18
 #, python-format
 msgid "Date - Time spent - Description"
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:21
+#: model:ir.ui.view,arch_db:sale_timesheet_invoice_description.view_sales_config_inherit_timesheet_invoice_description
+msgid "Default timesheet details on invoice lines"
+msgstr ""
+
+#. module: sale_timesheet_invoice_description
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:20
 #, python-format
 msgid "Description"
 msgstr "Opis"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:18
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:17
 #, python-format
 msgid "None"
 msgstr "Brez"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order
-msgid "Sales Order"
-msgstr "Prodajni nalog"
+msgid "Quotation"
+msgstr ""
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order_line
@@ -53,22 +58,18 @@ msgid "Sales Order Line"
 msgstr "Postavka prodajnega naloga"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:22
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:21
 #, python-format
 msgid "Time spent - Description"
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
-#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_config_settings_default_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_res_config_settings_default_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order_timesheet_invoice_description
 msgid "Timesheet Invoice Description"
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
-#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order_timesheet_invoice_description
-msgid "Timesheet invoice description"
-msgstr ""
-
-#. module: sale_timesheet_invoice_description
-#: model:ir.model,name:sale_timesheet_invoice_description.model_sale_config_settings
-msgid "sale.config.settings"
+#: model:ir.model,name:sale_timesheet_invoice_description.model_res_config_settings
+msgid "res.config.settings"
 msgstr ""
