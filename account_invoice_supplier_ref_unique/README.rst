@@ -10,6 +10,11 @@ This module checks that a supplier invoice/refund is not entered twice. This is 
 
 This module adds a constraint on supplier invoice/refunds to check that (commercial_partner_id, supplier_invoice_number) is unique, without considering the case of the supplier invoice number.
 
+
+.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+   :alt: Try me on Runbot
+   :target: https://runbot.odoo-community.org/runbot/95/11.0
+
 Bug Tracker
 ===========
 
