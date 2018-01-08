@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 # Copyright 2012 Therp BV (<http://therp.nl>)
 # Copyright 2013-2018 BCIM SPRL (<http://www.bcim.be>)
 

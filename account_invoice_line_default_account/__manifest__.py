@@ -9,6 +9,7 @@
         'account'
     ],
     'author': 'Therp BV,BCIM,Odoo Community Association (OCA)',
+    'license': 'AGPL-3',
     'contributors': ['Jacques-Etienne Baudoux <je@bcim.be>'],
     'category': 'Accounting',
     'data': [
