@@ -240,7 +240,7 @@
     <report
             id="account_invoices_self"
             model="account.invoice"
-            string="Invoices"
+            string="Self Invoice"
             report_type="qweb-pdf"
             name="account_invoice_supplier_self_invoice.report_invoice_self"
             file="account_invoice_supplier_self_invoice.report_invoice_self"
