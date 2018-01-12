@@ -36,7 +36,13 @@ To use this module, you need to:
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/95/9.0
+   :target: https://runbot.odoo-community.org/runbot/95/10.0
+
+Known issues / Roadmap
+======================
+
+* At the moment, the simultaneous use of percent and fixed discounts (at
+  line level) is not supported.
 
 Bug Tracker
 ===========
