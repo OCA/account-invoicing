@@ -2,9 +2,9 @@
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models, _
-import openerp.addons.decimal_precision as dp
-from openerp.exceptions import ValidationError
+from odoo import api, fields, models, _
+import odoo.addons.decimal_precision as dp
+from odoo.exceptions import ValidationError
 
 
 class AccountInvoice(models.Model):
@@ -60,8 +60,11 @@ class AccountInvoiceLine(models.Model):
     @api.depends('price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
                  'product_id', 'invoice_id.partner_id',
                  'invoice_id.currency_id', 'invoice_id.company_id',
+                 'invoice_id.date_invoice', 'invoice_id.date',
                  'discount_fixed')
     def _compute_price(self):
+        if not self.discount_fixed:
+            return super(AccountInvoiceLine, self)._compute_price()
         prev_price_unit = self.price_unit
         prev_discount_fixed = self.discount_fixed
         price_unit = self.price_unit - self.discount_fixed
