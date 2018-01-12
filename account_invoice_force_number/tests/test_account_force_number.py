@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Davide Corio - davidecorio.com
 # Copyright 2017 Alex Comba - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
