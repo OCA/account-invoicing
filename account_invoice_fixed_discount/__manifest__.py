@@ -4,7 +4,7 @@
 {
     "name": "Account Fixed Discount",
     "summary": "Allows to apply fixed amount discounts in invoices.",
-    "version": "9.0.1.0.0",
+    "version": "10.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://odoo-community.org/",
     "author": "Eficent, Odoo Community Association (OCA)",
