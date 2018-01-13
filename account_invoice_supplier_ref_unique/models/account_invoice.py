@@ -27,17 +27,17 @@ class AccountInvoice(models.Model):
                 ('commercial_partner_id', '=', self.commercial_partner_id.id),
                 ('type', 'in', ('in_invoice', 'in_refund')),
                 ('supplier_invoice_number',
-                 '=ilike',
-                 self.supplier_invoice_number),
-                ('id', '!=', self.id), ])
+                 '=ilike', self.supplier_invoice_number),
+                ('id', '!=', self.id)
+            ], limit=1)
             if same_supplier_inv_num:
                 raise ValidationError(_(
                     "The invoice/refund with supplier invoice number '%s' "
                     "already exists in Odoo under the number '%s' "
                     "for supplier '%s'.") % (
-                        same_supplier_inv_num[0].supplier_invoice_number,
-                        same_supplier_inv_num[0].number or '-',
-                        same_supplier_inv_num[0].partner_id.display_name))
+                        same_supplier_inv_num.supplier_invoice_number,
+                        same_supplier_inv_num.number or '-',
+                        same_supplier_inv_num.partner_id.display_name))
 
     @api.onchange('supplier_invoice_number')
     def _onchange_supplier_invoice_number(self):
