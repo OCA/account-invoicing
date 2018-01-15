@@ -21,6 +21,7 @@ addon | version | summary
 [account_invoice_blocking](account_invoice_blocking/) | 9.0.1.0.0 | This module allows the user to set a blocking (No Follow-up) flag on invoices.
 [account_invoice_check_total](account_invoice_check_total/) | 9.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 9.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
+[account_invoice_fixed_discount](account_invoice_fixed_discount/) | 9.0.1.0.0 | Allows to apply fixed amount discounts in invoices.
 [account_invoice_line_sequence](account_invoice_line_sequence/) | 9.0.1.0.0 | Adds sequence field on invoice lines to manage its order.
 [account_invoice_merge](account_invoice_merge/) | 9.0.1.0.1 | Account Invoice Merge Wizard
 [account_invoice_merge_payment](account_invoice_merge_payment/) | 9.0.1.0.0 | Use invoice merge regarding fields on Account Payment Partner
