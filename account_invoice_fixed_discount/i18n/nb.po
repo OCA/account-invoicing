@@ -1,0 +1,50 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_fixed_discount
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-15 03:57+0000\n"
+"PO-Revision-Date: 2018-01-15 03:57+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"Language-Team: Norwegian Bokmål (https://www.transifex.com/oca/teams/23907/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_invoice_fixed_discount
+#: model:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
+msgid "Disc. Fixed Amount"
+msgstr ""
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_invoice_line_discount_fixed
+msgid "Discount (Fixed)"
+msgstr ""
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model.fields,help:account_invoice_fixed_discount.field_account_invoice_line_discount_fixed
+msgid "Fixed amount discount."
+msgstr ""
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model,name:account_invoice_fixed_discount.model_account_invoice
+msgid "Invoice"
+msgstr "Faktura"
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model,name:account_invoice_fixed_discount.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Fakturalinje"
+
+#. module: account_invoice_fixed_discount
+#: code:addons/account_invoice_fixed_discount/models/account_invoice.py:57
+#, python-format
+msgid "You can only set one type of discount per line."
+msgstr ""
