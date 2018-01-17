@@ -45,7 +45,7 @@ class AccountInvoiceLine(models.Model):
     # Compute Section
     @api.multi
     @api.depends(
-            'purchase_price', 'quantity', 'price_subtotal', 'invoice_id.type')
+        'purchase_price', 'quantity', 'price_subtotal', 'invoice_id.type')
     def _compute_multi_margin(self):
         for line in self.filtered(
                 lambda l: l.product_id and
