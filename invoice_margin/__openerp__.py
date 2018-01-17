@@ -13,6 +13,7 @@
     'depends': [
         'account',
     ],
+    'license': 'AGPL-3',
     'data': [
         'views/view_account_invoice.xml',
         'data/decimal_precision.xml',

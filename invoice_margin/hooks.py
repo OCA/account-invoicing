@@ -9,6 +9,7 @@ _logger = logging.getLogger(__name__)
 
 
 def _create_column(cr, table_name, column_name, column_type):
+    # pylint: disable=sql-injection
     req = "ALTER TABLE %s ADD COLUMN %s %s" % (
         table_name, column_name, column_type)
     cr.execute(req)
