@@ -12,7 +12,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="inherit_id" ref="account.invoice_tree"/>
         <field name="arch" type="xml">
             <field name="residual" position="before">
-                    <field name="margin" widget="monetary" sum="Margin"/>
+                    <field name="margin" widget="monetary" sum="Total"/>
+                    <field name="margin_percent"/>
             </field>
         </field>
     </record>
@@ -22,12 +23,15 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='amount_untaxed']/.." position="after">
-                <group name="margin">
+                <group name="margin" string="Margin">
                     <field name="margin" widget="monetary"/>
+                    <field name="margin_percent"/>
                 </group>
             </xpath>
             <xpath expr="//field[@name='invoice_line']/tree/field[@name='price_unit']" position="after">
-                <field name="purchase_price" attrs="{'invisible': [('product_id', '=', False)]}"/>
+                <field name="purchase_price"/>
+                <field name="margin"/>
+                <field name="margin_percent"/>
             </xpath>
         </field>
     </record>

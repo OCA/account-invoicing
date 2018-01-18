@@ -18,10 +18,16 @@ Usage
 
 To use this module, you need to:
 
-#. Go to 'Invoicing' / 'Customers' / 'Customer Invoices'
-#. Open a customer invoice
+* Go to 'Invoicing' / 'Customers' / 'Customer Invoices'
 
-.. figure:: ./static/description/account_invoice_form.png
+* View Invoices
+
+.. figure:: static/description/account_invoice_tree_view.png
+   :width: 800px
+
+* Open an Invoice
+
+.. figure:: static/description/account_invoice_form_view.png
    :width: 800px
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
@@ -32,7 +38,11 @@ To use this module, you need to:
 Technical information
 =====================
 
-This module is highly inspired from the module 'Sale Order Margin', by Odoo SA.
+* This module is highly inspired from the module 'Sale Order Margin',
+  by Odoo SA and from the module pos_margin, in OCA / pos repository.
+* Note that the module has been renamed in next versions.
+  (account_invoice_margin)
+
 
 Known issues / Roadmap
 ======================
