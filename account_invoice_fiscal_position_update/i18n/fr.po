@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-29 02:39+0000\n"
-"PO-Revision-Date: 2017-04-29 02:39+0000\n"
+"POT-Creation-Date: 2017-11-23 13:51+0000\n"
+"PO-Revision-Date: 2017-11-23 13:51+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid "Invoice"
 msgstr "Facture"
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:60
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:68
 #, python-format
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position because they don't have a Product:\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Vous devez mettre à jour manuellement le compte comptable et les taxes sur chaque ligne de facture."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:54
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:62
 #, python-format
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they don't have products.\n"
@@ -46,7 +46,7 @@ msgstr ""
 "Vous devez mettre à jour manuellement le compte comptable et les taxes sur chaque ligne de facture."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:52
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:60
 #, python-format
 msgid "Warning"
 msgstr "Avertissement"

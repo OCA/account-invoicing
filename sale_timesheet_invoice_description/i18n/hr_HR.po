@@ -3,13 +3,14 @@
 # * sale_timesheet_invoice_description
 # 
 # Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
 # Bole <bole@dajmi5.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-09 02:45+0000\n"
-"PO-Revision-Date: 2017-08-09 02:45+0000\n"
+"POT-Creation-Date: 2017-08-11 23:30+0000\n"
+"PO-Revision-Date: 2017-08-11 23:30+0000\n"
 "Last-Translator: Bole <bole@dajmi5.com>, 2017\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/oca/teams/23907/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -22,13 +23,13 @@ msgstr ""
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:20
 #, python-format
 msgid "Date - Description"
-msgstr ""
+msgstr "Datum - opis"
 
 #. module: sale_timesheet_invoice_description
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:19
 #, python-format
 msgid "Date - Time spent - Description"
-msgstr ""
+msgstr "Datum - utrošak vremena - opis"
 
 #. module: sale_timesheet_invoice_description
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:21
@@ -40,35 +41,35 @@ msgstr "Opis"
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:18
 #, python-format
 msgid "None"
-msgstr ""
+msgstr "Ništa"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Prodajni nalog"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order_line
 msgid "Sales Order Line"
-msgstr ""
+msgstr "Stavka prodajnog naloga"
 
 #. module: sale_timesheet_invoice_description
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:22
 #, python-format
 msgid "Time spent - Description"
-msgstr ""
+msgstr "Utrošak vremena - opis"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_config_settings_default_timesheet_invoice_description
 msgid "Timesheet Invoice Description"
-msgstr ""
+msgstr "Opis računa za utrošak vremena"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order_timesheet_invoice_description
 msgid "Timesheet invoice description"
-msgstr ""
+msgstr "Opis računa za utrošak vremena"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_config_settings
 msgid "sale.config.settings"
-msgstr ""
+msgstr "sale.config.settings"

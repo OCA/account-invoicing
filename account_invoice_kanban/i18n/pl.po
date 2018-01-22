@@ -1,0 +1,145 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_kanban
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-23 13:51+0000\n"
+"PO-Revision-Date: 2017-11-23 13:51+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Language-Team: Polish (https://www.transifex.com/oca/teams/23907/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#. module: account_invoice_kanban
+#: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
+msgid ""
+"<br/>\n"
+"                    Balance -"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
+msgid ""
+"<br/>\n"
+"                    Source -"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
+msgid ""
+"<br/>\n"
+"                    Total Invoice -"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_signed
+msgid "Contract Signed"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_received
+msgid "Documentation Received"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_sent
+msgid "Documentation Sent"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
+msgid "Due date -"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_created
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_new
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_patment_received
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_received
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_sent
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_signed
+#: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_validated
+msgid ""
+"Give a card the special handling status to indicate that it requires "
+"handling by a special user or subset of users."
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:ir.model,name:account_invoice_kanban.model_account_invoice
+msgid "Invoice"
+msgstr "Faktura"
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_created
+msgid "Invoice Created"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_validated
+msgid "Invoice Validated"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_created
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_new
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_patment_received
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_received
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_sent
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_signed
+#: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_validated
+msgid ""
+"Mark a card as medium or high priority (one or two stars) to indicate that "
+"it should be escalated ahead of others with lower priority/star counts."
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_created
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_new
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_patment_received
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_received
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_sent
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_signed
+#: model:base.kanban.stage,legend_done:account_invoice_kanban.invoice_validated
+msgid "Mark a card as ready when it has been fully processed."
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_new
+msgid "New"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,name:account_invoice_kanban.invoice_patment_received
+msgid "Payment Received"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:ir.ui.view,arch_db:account_invoice_kanban.view_account_invoice_filter
+msgid "Stage"
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_created
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_new
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_patment_received
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_received
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_sent
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_signed
+#: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_validated
+msgid ""
+"This is the default status and indicates that a card can be processed by any"
+" user working this queue."
+msgstr ""
+
+#. module: account_invoice_kanban
+#: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
+msgid "oe_kanban_text_red"
+msgstr ""

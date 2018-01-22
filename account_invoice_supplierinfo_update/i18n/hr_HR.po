@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-30 23:48+0000\n"
-"PO-Revision-Date: 2017-06-30 23:48+0000\n"
+"POT-Creation-Date: 2017-08-11 23:30+0000\n"
+"PO-Revision-Date: 2017-08-11 23:30+0000\n"
 "Last-Translator: Bole <bole@dajmi5.com>, 2017\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/oca/teams/23907/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -249,9 +249,9 @@ msgstr "ili"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo
 msgid "wizard.update.invoice.supplierinfo"
-msgstr ""
+msgstr "wizard.update.invoice.supplierinfo"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo_line
 msgid "wizard.update.invoice.supplierinfo.line"
-msgstr ""
+msgstr "wizard.update.invoice.supplierinfo.line"
