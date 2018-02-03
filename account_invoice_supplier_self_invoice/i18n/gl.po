@@ -1,0 +1,206 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_supplier_self_invoice
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-02 03:40+0000\n"
+"PO-Revision-Date: 2018-02-02 03:40+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"Language-Team: Galician (https://www.transifex.com/oca/teams/23907/gl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: gl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "&amp;bull;"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "<strong>Comment:</strong>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "<strong>Customer Code:</strong>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "<strong>Description:</strong>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "<strong>Due Date:</strong>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "<strong>Fiscal Position Remark:</strong>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "<strong>Invoice Date:</strong>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "<strong>Reference:</strong>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "<strong>Source:</strong>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "<strong>Subtotal</strong>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Amount"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_invoice_can_self_invoice
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner_self_invoice
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users_self_invoice
+msgid "Approves self invoice"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Base"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.model,name:account_invoice_supplier_self_invoice.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Description"
+msgstr "Descrición"
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Disc.(%)"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Email:"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.model,name:account_invoice_supplier_self_invoice.model_account_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "PRO-FORMA"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Page:"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Phone:"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Quantity"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.actions.report,name:account_invoice_supplier_self_invoice.account_invoices_self
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.invoice_supplier_form
+msgid "Self Invoice"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_invoice_self_invoice_number
+msgid "Self Invoice Number"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner_self_invoice_sequence_id
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users_self_invoice_sequence_id
+msgid "Self invoice sequence"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.view_partner_form
+msgid "Set Self invoice"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_invoice_set_self_invoice
+msgid "Set self invoice"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Source Document"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "TIN:"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Tax"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Tax Excluded Price"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Taxes"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Unit Price"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Website:"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_account_invoice_can_self_invoice
+#: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_partner_self_invoice
+#: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_users_self_invoice
+msgid "When checked, all invoices will generate a self-invoice on validation"
+msgstr ""
