@@ -10,6 +10,7 @@ This module extends the functionality of payment terms to :
 
 * support rounding, months and weeks on payment term lines
 * allow to set more than one day of payment in payment terms
+* if a payment term date is a holiday, it is postponed to a selected date
 * allow to apply a chronological order on lines
  * for example, with a payment term which contains 2 lines
   * on standard, the due date of all lines is calculated from the invoice date
@@ -23,6 +24,7 @@ To configure the Payment Terms and see the new options on the Payment Term Lines
 #. Go to the menu Accounting > Configuration > Management > Payment Terms.
 
 To use multiple payment days, define for each payment term line which payment days apply, separated by spaces, commas or dashes.
+To use holidays, insert the holiday and the date payment terms will be postponed to.
 
 Usage
 =====
@@ -56,6 +58,7 @@ Contributors
 * Alexis de Lattre <alexis.delattre@akretion.com>
 * Julien Coux <julien.coux@camptocamp.com>
 * Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
+* Simone Rubino <simone.rubino@agilebg.com> (www.agilebg.com)
 
 Maintainer
 ----------
