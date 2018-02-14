@@ -1,15 +1,46 @@
 # -*- coding: utf-8 -*-
-# © 2013-2016 Camptocamp SA (Yannick Vaucher)
-# © 2004-2016 Odoo S.A. (www.odoo.com)
-# © 2015-2016 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+# Copyright 2013-2016 Camptocamp SA (Yannick Vaucher)
+# Copyright 2004-2016 Odoo S.A. (www.odoo.com)
+# Copyright 2015-2016 Akretion
+# (Alexis de Lattre <alexis.delattre@akretion.com>)
+# Copyright 2018 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, exceptions, _
+from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_is_zero, float_round
 import odoo.addons.decimal_precision as dp
 import calendar
+
+
+class AccountPaymentTermHoliday(models.Model):
+    _name = 'account.payment.term.holiday'
+
+    payment_id = fields.Many2one(comodel_name='account.payment.term')
+    holiday = fields.Date(required=True)
+    date_postponed = fields.Date(string='Postponed date', required=True)
+
+    @api.constrains('holiday', 'date_postponed')
+    def check_holiday(self):
+        if fields.Date.from_string(self.date_postponed) \
+                <= fields.Date.from_string(self.holiday):
+            raise ValidationError(_(
+                'Holiday %s can only be postponed into the future')
+                % self.holiday)
+        if self.search_count([('payment_id', '=', self.payment_id.id),
+                              ('holiday', '=', self.holiday)]) > 1:
+            raise ValidationError(_(
+                'Holiday %s is duplicated in current payment term')
+                % self.holiday)
+        if self.search_count([('payment_id', '=', self.payment_id.id),
+                              '|',
+                              ('date_postponed', '=', self.holiday),
+                              ('holiday', '=', self.date_postponed)]) >= 1:
+            raise ValidationError(_(
+                'Date %s cannot is both a holiday and a Postponed date')
+                % self.holiday)
 
 
 class AccountPaymentTermLine(models.Model):
@@ -87,6 +118,18 @@ class AccountPaymentTerm(models.Model):
         string='Sequential lines',
         default=False,
         help="Allows to apply a chronological order on lines.")
+    holiday_ids = fields.One2many(
+        string='Holidays', comodel_name='account.payment.term.holiday',
+        inverse_name='payment_id')
+
+    def apply_holidays(self, date):
+        holiday = self.holiday_ids.search([
+            ('payment_id', '=', self.id),
+            ('holiday', '=', date)
+        ])
+        if holiday:
+            return fields.Date.from_string(holiday.date_postponed)
+        return date
 
     def apply_payment_days(self, line, date):
         """Calculate the new date with days of payments"""
@@ -149,6 +192,7 @@ class AccountPaymentTerm(models.Model):
                 # Getting last day of next month
                 next_date += relativedelta(day=31, months=0)
             next_date = self.apply_payment_days(line, next_date)
+            next_date = self.apply_holidays(next_date)
             if not float_is_zero(amt, precision_rounding=prec):
                 result.append((fields.Date.to_string(next_date), amt))
                 amount -= amt
