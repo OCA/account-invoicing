@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_payment_term_holiday_partner_manager,account.payment.term.line partner manager,model_account_payment_term_holiday,base.group_user,1,0,0,0
+access_account_payment_term_holiday,account.payment.term.line,model_account_payment_term_holiday,account.group_account_user,1,0,0,0
+access_account_payment_term_holiday_manager,account.payment.term.line,model_account_payment_term_holiday,account.group_account_manager,1,1,1,1

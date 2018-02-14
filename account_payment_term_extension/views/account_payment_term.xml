@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_payment_term_holiday_tree" model="ir.ui.view">
+        <field name="name">Tree view for account.payment.term.holiday</field>
+        <field name="model">account.payment.term.holiday</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="holiday"/>
+                <field name="date_postponed"/>
+                <field name="payment_id"/>
+            </tree>
+        </field>
+    </record>
 
     <record id="view_payment_term_form" model="ir.ui.view">
         <field name="name">account.payment.term.form.extension</field>
@@ -8,6 +19,18 @@
         <field name="arch" type="xml">
             <field name="active" position="after">
                 <field name="sequential_lines"/>
+            </field>
+            <field name="line_ids" position="after">
+                <separator string="Holidays"/>
+                <p class="text-muted">
+                    When a payment term coincides with a holiday, it is postponed to the chosen date.
+                </p>
+                <field name="holiday_ids">
+                    <tree editable="top">
+                        <field name="holiday"/>
+                        <field name="date_postponed"/>
+                    </tree>
+                </field>
             </field>
         </field>
     </record>
