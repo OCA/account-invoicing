@@ -3,13 +3,14 @@
 # * account_invoice_merge
 # 
 # Translators:
+# Bole <bole@dajmi5.com>, 2017
 # OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2017-11-23 13:51+0000\n"
+"POT-Creation-Date: 2018-02-03 01:13+0000\n"
+"PO-Revision-Date: 2018-02-03 01:13+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Croatian (https://www.transifex.com/oca/teams/23907/hr/)\n"
 "MIME-Version: 1.0\n"
@@ -21,18 +22,18 @@ msgstr ""
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Are you sure you want to merge these invoices?"
-msgstr ""
+msgstr "Jeste li sigurni da želite spojiti ove račune?"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:34
 #, python-format
 msgid "At least one of the selected invoices is %s!"
-msgstr ""
+msgstr "Najmanje jedan od odabranih računa je %s!"
 
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Cancel"
-msgstr "Odustani"
+msgstr "Otkaži"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_create_uid
@@ -42,12 +43,12 @@ msgstr "Kreirao"
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_create_date
 msgid "Created on"
-msgstr "Kreirano "
+msgstr "Kreirano"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_display_name
 msgid "Display Name"
-msgstr "Prikaži naziv"
+msgstr "Naziv"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_id
@@ -62,75 +63,75 @@ msgstr "Račun"
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_date_invoice
 msgid "Invoice Date"
-msgstr ""
+msgstr "Datum računa"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_keep_references
 msgid "Keep references from original invoices"
-msgstr ""
+msgstr "Zadrži reference iz originalnih računa"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge___last_update
 msgid "Last Modified on"
-msgstr "Zadnja izmjena na"
+msgstr "Zadnje modificirano"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_uid
 msgid "Last Updated by"
-msgstr "Zadnje ažuriranje izvršio"
+msgstr "Zadnje ažurirao"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_date
 msgid "Last Updated on"
-msgstr "Zadnje ažuriranje na"
+msgstr "Zadnje ažurirano"
 
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
-msgstr ""
+msgstr "Spoji račune"
 
 #. module: account_invoice_merge
 #: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Partner Invoice"
-msgstr ""
+msgstr "Spoji račune partnera"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:41
 #, python-format
 msgid "Not all invoices are at the same company!"
-msgstr ""
+msgstr "Svi računi ne prapadaju istoj organizaciji!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:50
 #, python-format
 msgid "Not all invoices are at the same currency!"
-msgstr ""
+msgstr "Svi računi nisu u istoj valuti!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:53
 #, python-format
 msgid "Not all invoices are at the same journal!"
-msgstr ""
+msgstr "Svi računi nisu u istom dnevniku!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:44
 #, python-format
 msgid "Not all invoices are for the same partner!"
-msgstr ""
+msgstr "Svi računi nisu za istog partnera!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:47
 #, python-format
 msgid "Not all invoices are of the same type!"
-msgstr ""
+msgstr "Svi računi nisu istog tipa!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:38
 #, python-format
 msgid "Not all invoices use the same account!"
-msgstr ""
+msgstr "Svi računi ne koriste isti konto!"
 
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -150,7 +151,7 @@ msgstr ""
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:27
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
-msgstr ""
+msgstr "Molimo odaberite nekoliko računa za spajanje u popisnom prikazu"
 
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
