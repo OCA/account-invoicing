@@ -3,13 +3,14 @@
 # * account_invoice_transmit_method
 # 
 # Translators:
+# Bole <bole@dajmi5.com>, 2017
 # OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2017-11-23 13:51+0000\n"
+"POT-Creation-Date: 2018-02-03 01:14+0000\n"
+"PO-Revision-Date: 2018-02-03 01:14+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Croatian (https://www.transifex.com/oca/teams/23907/hr/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +23,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_invoice_transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method_code
 msgid "Code"
-msgstr ""
+msgstr "Šifra"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method_create_uid
@@ -32,7 +33,7 @@ msgstr "Kreirao"
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method_create_date
 msgid "Created on"
-msgstr "Kreirano "
+msgstr "Kreirano"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner_customer_invoice_transmit_method_id
@@ -49,7 +50,7 @@ msgstr ""
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method_display_name
 msgid "Display Name"
-msgstr "Prikaži naziv"
+msgstr "Naziv"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_account_invoice_transmit_method_code
@@ -76,32 +77,32 @@ msgstr "Račun"
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method___last_update
 msgid "Last Modified on"
-msgstr "Zadnja izmjena na"
+msgstr "Zadnje modificirano"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method_write_uid
 msgid "Last Updated by"
-msgstr "Zadnje ažuriranje izvršio"
+msgstr "Zadnje ažurirao"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method_write_date
 msgid "Last Updated on"
-msgstr "Zadnje ažuriranje na"
+msgstr "Zadnje ažurirano"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method_name
 msgid "Name"
-msgstr ""
+msgstr "Naziv"
 
 #. module: account_invoice_transmit_method
 #: model:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
 msgid "Name or Code"
-msgstr ""
+msgstr "Naziv ili šifra"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_res_partner
 msgid "Partner"
-msgstr ""
+msgstr "Partner"
 
 #. module: account_invoice_transmit_method
 #: model:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
@@ -112,13 +113,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method_customer_ok
 #: model:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
 msgid "Selectable on Customers"
-msgstr ""
+msgstr "Odabir na kupcima"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method_supplier_ok
 #: model:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
 msgid "Selectable on Vendors"
-msgstr ""
+msgstr "Odabir na dobavljačima"
 
 #. module: account_invoice_transmit_method
 #: sql_constraint:transmit.method:0
