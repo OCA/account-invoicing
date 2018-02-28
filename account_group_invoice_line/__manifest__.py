@@ -7,7 +7,7 @@
 
 {
     'name': 'Account Group Invoice Lines',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.1.0',
     'category': 'Accounting & Finance',
     'summary': 'Add option to group invoice lines per account',
     'author': 'SYLEAM,Akretion,Odoo Community Association (OCA)',
