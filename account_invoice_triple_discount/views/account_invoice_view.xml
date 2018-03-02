@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<openerp><data>
 
     <record id="invoice_triple_discount_form_view" model="ir.ui.view">
         <field name="name">account.invoice.triple.discount.form</field>
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='discount']"
+            <xpath expr="//field[@name='invoice_line']//tree//field[@name='discount']"
                    position="after">
                 <field name="discount2" groups="base.group_no_one"/>
                 <field name="discount3" groups="base.group_no_one"/>
@@ -20,7 +20,7 @@
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_supplier_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='discount']"
+            <xpath expr="//field[@name='invoice_line']//tree//field[@name='discount']"
                    position="after">
                 <field name="discount2" groups="base.group_no_one"/>
                 <field name="discount3" groups="base.group_no_one"/>
@@ -40,4 +40,4 @@
        </field>
     </record>
 
-</odoo>
+</data></openerp>

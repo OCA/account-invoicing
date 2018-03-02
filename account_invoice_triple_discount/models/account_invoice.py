@@ -3,31 +3,29 @@
 # Copyright 2017 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
-from odoo.addons import decimal_precision as dp
+from openerp import api, fields, models
+from openerp.addons import decimal_precision as dp
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountInvoiceTax(models.Model):
+    _inherit = "account.invoice.tax"
 
-    def get_taxes_values(self):
+    @api.v8
+    def compute(self, invoice):
         vals = {}
-        for line in self.invoice_line_ids:
+        for line in invoice.invoice_line:
             vals[line] = {
                 'price_unit': line.price_unit,
                 'discount': line.discount,
             }
-            price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-            price_unit *= (1 - (line.discount2 or 0.0) / 100.0)
-            price_unit *= (1 - (line.discount3 or 0.0) / 100.0)
             line.update({
-                'price_unit': price_unit,
+                'price_unit': line.price_unit_with_discount(),
                 'discount': 0.0,
             })
-        tax_grouped = super(AccountInvoice, self).get_taxes_values()
-        for line in self.invoice_line_ids:
+        res = super(AccountInvoiceTax, self).compute(invoice)
+        for line in invoice.invoice_line:
             line.update(vals[line])
-        return tax_grouped
+        return res
 
 
 class AccountInvoiceLine(models.Model):
@@ -45,16 +43,21 @@ class AccountInvoiceLine(models.Model):
     )
 
     @api.multi
+    def price_unit_with_discount(self):
+        self.ensure_one()
+        return self.price_unit *\
+            (1 - (self.discount or 0.0) / 100.0) *\
+            (1 - (self.discount2 or 0.0) / 100.0) *\
+            (1 - (self.discount3 or 0.0) / 100.0)
+
+    @api.multi
     @api.depends('discount2', 'discount3')
     def _compute_price(self):
         for line in self:
             prev_price_unit = line.price_unit
             prev_discount = line.discount
-            price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-            price_unit *= (1 - (line.discount2 or 0.0) / 100.0)
-            price_unit *= (1 - (line.discount3 or 0.0) / 100.0)
             line.update({
-                'price_unit': price_unit,
+                'price_unit': line.price_unit_with_discount(),
                 'discount': 0.0,
             })
             super(AccountInvoiceLine, line)._compute_price()
