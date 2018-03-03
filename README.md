@@ -19,7 +19,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[account_group_invoice_line](account_group_invoice_line/) | 10.0.1.0.0 | Add option to group invoice lines per account
+[account_group_invoice_line](account_group_invoice_line/) | 10.0.1.1.0 | Add option to group invoice lines per account
 [account_invoice_blocking](account_invoice_blocking/) | 10.0.1.0.0 | This module allows the user to set a blocking (No Follow-up) flag on invoices.
 [account_invoice_check_total](account_invoice_check_total/) | 10.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 10.0.1.0.1 | Changing the fiscal position of an invoice will auto-update invoice lines
