@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-17 03:48+0000\n"
-"PO-Revision-Date: 2016-10-11 09:50+0000\n"
+"POT-Creation-Date: 2018-02-03 01:28+0000\n"
+"PO-Revision-Date: 2018-03-02 21:12+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Spanish (Peru) (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/es_PE/)\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgid "Are you sure you want to merge these invoices ?"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:32
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
 #, python-format
 msgid "At least one of the selected invoices is %s!"
 msgstr ""
@@ -80,7 +80,7 @@ msgstr "ID"
 #. module: account_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Factura"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,date_invoice:0
@@ -130,37 +130,43 @@ msgid "Merge Partner Invoice"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:39
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:37
 #, python-format
 msgid "Not all invoices are at the same company!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:46
 #, python-format
 msgid "Not all invoices are at the same currency!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:51
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:49
 #, python-format
 msgid "Not all invoices are at the same journal!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:40
 #, python-format
 msgid "Not all invoices are for the same partner!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:45
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:43
 #, python-format
 msgid "Not all invoices are of the same type!"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:36
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:52
+#, python-format
+msgid "Not all invoices have the same Partner Bank Account!"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:34
 #, python-format
 msgid "Not all invoices use the same account!"
 msgstr ""

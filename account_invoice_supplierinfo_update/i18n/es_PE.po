@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-13 03:43+0000\n"
-"PO-Revision-Date: 2017-01-13 03:43+0000\n"
+"POT-Creation-Date: 2018-02-03 01:29+0000\n"
+"PO-Revision-Date: 2018-02-03 01:29+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Spanish (Peru) (https://www.transifex.com/oca/teams/23907/es_PE/)\n"
 "MIME-Version: 1.0\n"
@@ -94,7 +94,7 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Factura"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_account_invoice_line
@@ -170,9 +170,13 @@ msgid "Product"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: field:wizard.update.invoice.supplierinfo,state:0
 #: field:wizard.update.invoice.supplierinfo.line,state:0
 msgid "State"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: field:wizard.update.invoice.supplierinfo,state:0
+msgid "Status"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
