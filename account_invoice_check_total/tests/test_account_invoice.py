@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Acsone SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -24,11 +23,11 @@ class TestAccountInvoice(TransactionCase):
         # INSTANCES
 
         # Instance: Account
-        self.invoice_account = self.account_model.search(
-            [('user_type_id',
-              '=',
-              self.env.ref('account.data_account_type_receivable').id
-              )], limit=1)
+        self.invoice_account = self.account_model.search([
+            ('user_type_id',
+             '=',
+             self.env.ref('account.data_account_type_receivable').id)
+        ], limit=1)
         # Instance: Invoice Line
         self.invoice_line = self.account_invoice_line.create(
             {'name': 'Test invoice line',
