@@ -1,24 +1,7 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Author: Yannick Vaucher
-#    Copyright 2013 Camptocamp SA
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp import models, fields
+# Copyright 2016 Camptocamp SA
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
+from odoo import models, fields, api
 
 
 class AccountConfigSettings(models.TransientModel):
@@ -53,16 +36,14 @@ class AccountConfigSettings(models.TransientModel):
         related='company_id.tax_calculation_rounding_account_id',
         comodel='account.account',
         string='Tax Rounding account',
-        domain=[('type', '<>', 'view')])
+        domain=[('internal_type', '<>', 'view')])
 
-    def onchange_company_id(self, cr, uid, ids, company_id, context=None):
-        res = super(AccountConfigSettings, self
-                    ).onchange_company_id(cr, uid, ids,
-                                          company_id, context=context)
-        company = self.pool.get('res.company').browse(cr, uid, company_id,
-                                                      context=context)
-        res['value'][
-            'tax_calculation_rounding'] = company.tax_calculation_rounding
-        res['value']['tax_calculation_rounding_account_id'] = \
-            company.tax_calculation_rounding_account_id.id
+    @api.onchange('company_id')
+    def onchange_company_id(self):
+        res = super(AccountConfigSettings, self).onchange_company_id()
+        if self.company_id:
+            company = self.company_id
+            self.tax_calculation_rounding = company.tax_calculation_rounding
+            self.tax_calculation_rounding_account_id = \
+                company.tax_calculation_rounding_account_id.id
         return res
