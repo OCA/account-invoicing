@@ -1,0 +1,38 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_force_number
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-16 02:37+0000\n"
+"PO-Revision-Date: 2017-05-16 02:37+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: account_invoice_force_number
+#: model:res.groups,name:account_invoice_force_number.group_allow_invoice_force_number
+msgid "Allow \"Invoice Force Number\""
+msgstr ""
+
+#. module: account_invoice_force_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+msgid "Force Number"
+msgstr "Force le numéro"
+
+#. module: account_invoice_force_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+msgid ""
+"Force invoice number. Use this field if you don't want to use the default "
+"numbering"
+msgstr ""
+"Force le numéro de facture. Utilisez ce champ si vous souhaitez attribuer un"
+" numéro spécifique à la facture au lieu de la séquence habituelle"
