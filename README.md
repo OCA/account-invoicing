@@ -31,6 +31,7 @@ addon | version | summary
 [account_invoice_merge_attachment](account_invoice_merge_attachment/) | 10.0.1.0.0 | Consider attachment during invoice merge process
 [account_invoice_partner](account_invoice_partner/) | 10.0.1.0.0 | Replace the partner by an invoice contact if found
 [account_invoice_refund_link](account_invoice_refund_link/) | 10.0.1.0.2 | Link refund invoice with its original invoice
+[account_invoice_rounding](account_invoice_rounding/) | 10.0.1.0.1 | Unit rounded invoice
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 10.0.1.0.0 | Checks that supplier invoices are not entered twice
 [account_invoice_supplierinfo_update](account_invoice_supplierinfo_update/) | 10.0.1.0.0 | In the supplier invoice, automatically updates all products whose unit price on the line is different from the supplier price
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 10.0.1.0.0 | Configure invoice transmit method (email, post, portal, ...)
@@ -50,7 +51,6 @@ addon | version | summary
 [account_invoice_merge_purchase](account_invoice_merge_purchase/) | 8.0.1.0.0 (unported) | Compatibility between purchase and account invoice merge
 [account_invoice_period_usability](account_invoice_period_usability/) | 8.0.1.0.0 (unported) | Display in the supplier invoice form the fiscal period next to the invoice date
 [account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.0.0 (unported) | Add partner pricelist on invoices
-[account_invoice_rounding](account_invoice_rounding/) | 8.0.1.0.0 (unported) | Unit rounded invoice
 [account_invoice_template](account_invoice_template/) | 0.1 (unported) | Account Invoice Template
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 (unported) | Unit of measure for invoices
 [account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.1 (unported) | Add "To Send" and "To Validate" states in Invoices
