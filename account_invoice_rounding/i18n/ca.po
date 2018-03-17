@@ -11,12 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2018-03-09 03:54+0000\n"
 "PO-Revision-Date: 2018-03-09 03:54+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
-"Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
+"Language-Team: Catalan (https://www.transifex.com/oca/teams/23907/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_res_company
@@ -26,12 +26,12 @@ msgstr ""
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice
 msgid "Invoice"
-msgstr "Facture"
+msgstr "Factura"
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Ligne de facture"
+msgstr "Línia factura"
 
 #. module: account_invoice_rounding
 #: model:ir.model.fields,field_description:account_invoice_rounding.field_account_invoice_global_round_line_id
