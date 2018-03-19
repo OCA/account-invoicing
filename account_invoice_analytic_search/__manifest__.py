@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # Copyright 2014-2017 Eficent Business and IT Consulting Services S.L.
-#   (http://www.eficent.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
@@ -10,10 +9,6 @@
     'author': 'Project Expert Team,'
               'Eficent,'
               'Odoo Community Association (OCA)',
-    'contributors': [
-        'Jordi Ballester <jordi.ballester@eficent.com>',
-        'Matjaž Mozetič <m.mozetic@matmoz.si>',
-    ],
     'website': 'http://project.expert',
     'license': 'AGPL-3',
     'category': 'Project Management',
