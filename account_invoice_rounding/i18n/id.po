@@ -1,0 +1,76 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_rounding
+# 
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-09 03:54+0000\n"
+"PO-Revision-Date: 2018-03-09 03:54+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"Language-Team: Indonesian (https://www.transifex.com/oca/teams/23907/id/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: id\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: account_invoice_rounding
+#: model:ir.model,name:account_invoice_rounding.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: account_invoice_rounding
+#: model:ir.model,name:account_invoice_rounding.model_account_invoice
+msgid "Invoice"
+msgstr "Faktur"
+
+#. module: account_invoice_rounding
+#: model:ir.model,name:account_invoice_rounding.model_account_invoice_line
+msgid "Invoice Line"
+msgstr ""
+
+#. module: account_invoice_rounding
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_account_invoice_global_round_line_id
+msgid "Invoice Line for total rounding"
+msgstr ""
+
+#. module: account_invoice_rounding
+#: code:addons/account_invoice_rounding/models/account.py:25
+#, python-format
+msgid "Rounding"
+msgstr ""
+
+#. module: account_invoice_rounding
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_account_invoice_line_is_rounding
+msgid "Rounding Line"
+msgstr ""
+
+#. module: account_invoice_rounding
+#: model:ir.model,name:account_invoice_rounding.model_account_tax
+msgid "Tax"
+msgstr ""
+
+#. module: account_invoice_rounding
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_res_company_tax_calculation_rounding_account_id
+msgid "Tax Rounding Account"
+msgstr ""
+
+#. module: account_invoice_rounding
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_account_config_settings_tax_calculation_rounding_account_id
+msgid "Tax Rounding account"
+msgstr ""
+
+#. module: account_invoice_rounding
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_account_config_settings_tax_calculation_rounding
+#: model:ir.model.fields,field_description:account_invoice_rounding.field_res_company_tax_calculation_rounding
+msgid "Tax Rounding unit"
+msgstr ""
+
+#. module: account_invoice_rounding
+#: model:ir.model,name:account_invoice_rounding.model_account_config_settings
+msgid "account.config.settings"
+msgstr ""

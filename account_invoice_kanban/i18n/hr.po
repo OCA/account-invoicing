@@ -4,13 +4,14 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
+# Bole <bole@dajmi5.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2017-11-23 13:51+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"POT-Creation-Date: 2018-02-03 01:13+0000\n"
+"PO-Revision-Date: 2018-02-03 01:13+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>, 2018\n"
 "Language-Team: Croatian (https://www.transifex.com/oca/teams/23907/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,6 +25,8 @@ msgid ""
 "<br/>\n"
 "                    Balance -"
 msgstr ""
+"<br/>\n"
+"                    Saldo -"
 
 #. module: account_invoice_kanban
 #: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
@@ -31,6 +34,8 @@ msgid ""
 "<br/>\n"
 "                    Source -"
 msgstr ""
+"<br/>\n"
+"                    Izvor -"
 
 #. module: account_invoice_kanban
 #: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
@@ -38,26 +43,28 @@ msgid ""
 "<br/>\n"
 "                    Total Invoice -"
 msgstr ""
+"<br/>\n"
+"                    Ukupno -"
 
 #. module: account_invoice_kanban
 #: model:base.kanban.stage,name:account_invoice_kanban.invoice_signed
 msgid "Contract Signed"
-msgstr ""
+msgstr "Ugovor potpisan"
 
 #. module: account_invoice_kanban
 #: model:base.kanban.stage,name:account_invoice_kanban.invoice_received
 msgid "Documentation Received"
-msgstr ""
+msgstr "Dokumentacija zaprimljena"
 
 #. module: account_invoice_kanban
 #: model:base.kanban.stage,name:account_invoice_kanban.invoice_sent
 msgid "Documentation Sent"
-msgstr ""
+msgstr "Dokumentacija poslana"
 
 #. module: account_invoice_kanban
 #: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
 msgid "Due date -"
-msgstr ""
+msgstr "Datum dospijeća"
 
 #. module: account_invoice_kanban
 #: model:base.kanban.stage,legend_blocked:account_invoice_kanban.invoice_created
@@ -80,12 +87,12 @@ msgstr "Račun"
 #. module: account_invoice_kanban
 #: model:base.kanban.stage,name:account_invoice_kanban.invoice_created
 msgid "Invoice Created"
-msgstr ""
+msgstr "Račun kreiran"
 
 #. module: account_invoice_kanban
 #: model:base.kanban.stage,name:account_invoice_kanban.invoice_validated
 msgid "Invoice Validated"
-msgstr ""
+msgstr "Račun ovjeren"
 
 #. module: account_invoice_kanban
 #: model:base.kanban.stage,legend_priority:account_invoice_kanban.invoice_created
@@ -114,17 +121,17 @@ msgstr ""
 #. module: account_invoice_kanban
 #: model:base.kanban.stage,name:account_invoice_kanban.invoice_new
 msgid "New"
-msgstr ""
+msgstr "Novi"
 
 #. module: account_invoice_kanban
 #: model:base.kanban.stage,name:account_invoice_kanban.invoice_patment_received
 msgid "Payment Received"
-msgstr ""
+msgstr "Uplata zaprimljena"
 
 #. module: account_invoice_kanban
 #: model:ir.ui.view,arch_db:account_invoice_kanban.view_account_invoice_filter
 msgid "Stage"
-msgstr ""
+msgstr "Faza"
 
 #. module: account_invoice_kanban
 #: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_created
@@ -142,4 +149,4 @@ msgstr ""
 #. module: account_invoice_kanban
 #: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
 msgid "oe_kanban_text_red"
-msgstr ""
+msgstr "oe_kanban_text_red"

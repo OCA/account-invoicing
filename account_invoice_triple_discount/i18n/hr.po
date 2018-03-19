@@ -4,13 +4,14 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
+# Bole <bole@dajmi5.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-09 02:45+0000\n"
-"PO-Revision-Date: 2017-08-09 02:45+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"POT-Creation-Date: 2018-02-03 01:14+0000\n"
+"PO-Revision-Date: 2018-02-03 01:14+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>, 2018\n"
 "Language-Team: Croatian (https://www.transifex.com/oca/teams/23907/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,12 +22,12 @@ msgstr ""
 #. module: account_invoice_triple_discount
 #: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line_discount2
 msgid "Discount 2 (%)"
-msgstr ""
+msgstr "Popust 2 (%)"
 
 #. module: account_invoice_triple_discount
 #: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line_discount3
 msgid "Discount 3 (%)"
-msgstr ""
+msgstr "Popust 3 (%)"
 
 #. module: account_invoice_triple_discount
 #: model:ir.model,name:account_invoice_triple_discount.model_account_invoice
