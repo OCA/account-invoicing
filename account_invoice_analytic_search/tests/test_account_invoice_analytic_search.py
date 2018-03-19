@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # Copyright 2014-2017 Eficent Business and IT Consulting Services S.L.
-#   (http://www.eficent.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo.tests.common import TransactionCase
@@ -27,7 +26,7 @@ class TestAccountInvoice(TransactionCase):
                    ).id
         self.analytic_account = self.analytic_account.create({
             'name': 'Test Account',
-            'code': 'TA'
+            'code': 'TA',
         })
         self.invoice = self.account_invoice.create({
             'partner_id': self.partner_2,
@@ -57,6 +56,6 @@ class TestAccountInvoice(TransactionCase):
         self.account_invoice_search = self.account_invoice.\
             _search_analytic_accounts('ilike', 'Test Account')
         invoice_id = self.account_invoice.\
-            search([('id', '=', self.account_invoice_search[0][2][0])])
+            search(self.account_invoice_search)
         self.assertEquals(invoice_id.invoice_line_ids,
                           self.invoice.invoice_line_ids)
