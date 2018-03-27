@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2018 - Today: GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<openerp><data>
+
+    <record id="tax" model="account.tax">
+        <field name="name">TAX 15%</field>
+        <field name="type">percent</field>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount">0.15</field>
+    </record>
+
+</data></openerp>
+

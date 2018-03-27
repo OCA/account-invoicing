@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2018 - Today: GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<openerp><data>
+
+    <record id="invoice" model="account.invoice">
+        <field name="name">Test Customer Invoice</field>
+        <field name="journal_id" ref="account.sales_journal"/>
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="account_id" ref="account.a_recv"/>
+    </record>
+
+    <record id="invoice_line1" model="account.invoice.line">
+        <field name="name">Test Customer Invoice Line 1</field>
+        <field name="invoice_id" ref="invoice"/>
+        <field name="price_unit">200</field>
+        <field name="quantity">1</field>
+        <field name="account_id" ref="account.a_sale"/>
+        <field name="invoice_line_tax_id" eval="[(6, 0, [ref('tax')])]"/>
+    </record>
+
+    <function model="account.invoice" name="button_reset_taxes">
+        <value eval="[ref('invoice')]"/>
+    </function>
+
+</data></openerp>
+
