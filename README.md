@@ -42,6 +42,7 @@ addon | version | summary
 [account_invoice_supplierinfo_update_on_validate](account_invoice_supplierinfo_update_on_validate/) | 8.0.1.0.0 | In the supplier invoice, to validation proposes to update all products whose unit price on the line is different from the supplier price
 [account_invoice_supplierinfo_update_variant](account_invoice_supplierinfo_update_variant/) | 8.0.1.0.0 | In the supplier invoice, automatically update all products variants whose unit price on the line is different from the supplier price
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 8.0.1.0.0 | Configure invoice transmit method (email, post, portal, ...)
+[account_invoice_triple_discount](account_invoice_triple_discount/) | 8.0.1.0.0 | Manage triple discount on invoice lines
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 | Unit of measure for invoices
 [account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.1 | Add "To Send" and "To Validate" states in Invoices
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 | Account Invoice Zero Autopay
