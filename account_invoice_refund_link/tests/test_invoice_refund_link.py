@@ -49,7 +49,6 @@ class TestInvoiceRefundLinkBase(common.SavepointCase):
         self.assertTrue(self.invoice.refund_invoice_ids)
         refund = self.invoice.refund_invoice_ids[0]
         self.assertEqual(refund.refund_reason, self.refund_reason)
-        self.assertEqual(refund.origin_invoice_ids[0], self.invoice)
         self.assertEqual(len(self.invoice.invoice_line_ids),
                          len(self.invoice_lines))
         self.assertEqual(len(refund.invoice_line_ids),
@@ -66,12 +65,12 @@ class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
     def test_post_init_hook(self):
         self.assertTrue(self.invoice.refund_invoice_ids)
         refund = self.invoice.refund_invoice_ids[0]
-        refund.write({
-            'origin_invoice_ids': [(5, False, False)],
+        refund.invoice_line_ids.write({
+            'origin_line_ids': [(5, False, False)],
         })
-        self.assertFalse(refund.origin_invoice_ids)
+        self.assertFalse(refund.mapped('invoice_line_ids.origin_line_ids'))
         post_init_hook(self.env.cr, None)
-        self.refund_reason = 'Auto'
+        self.refund_reason = 'The refund reason'
         self._test_refund_link()
 
     def test_refund_link(self):
@@ -80,7 +79,6 @@ class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
     def test_invoice_copy(self):
         refund = self.invoice.refund_invoice_ids[0]
         self.invoice.copy()
-        self.assertEqual(refund.origin_invoice_ids, self.invoice)
         self.assertEqual(
             refund.mapped('invoice_line_ids.origin_line_ids'),
             self.invoice.mapped('invoice_line_ids'),
@@ -89,7 +87,6 @@ class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
     def test_refund_copy(self):
         refund = self.invoice.refund_invoice_ids[0]
         refund.copy()
-        self.assertEqual(self.invoice.refund_invoice_ids, refund)
         self.assertEqual(
             self.invoice.mapped('invoice_line_ids.refund_line_ids'),
             refund.mapped('invoice_line_ids'),
