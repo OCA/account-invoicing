@@ -6,10 +6,10 @@
 # OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-06 02:39+0000\n"
-"PO-Revision-Date: 2017-06-06 02:39+0000\n"
+"POT-Creation-Date: 2018-04-11 02:41+0000\n"
+"PO-Revision-Date: 2018-04-11 02:41+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Spanish (Costa Rica) (https://www.transifex.com/oca/teams/23907/es_CR/)\n"
 "MIME-Version: 1.0\n"
@@ -17,12 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: es_CR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#. module: account_invoice_refund_link
-#: code:addons/account_invoice_refund_link/hooks.py:53
-#, python-format
-msgid "Auto"
-msgstr ""
 
 #. module: account_invoice_refund_link
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
@@ -33,24 +27,6 @@ msgstr ""
 #. module: account_invoice_refund_link
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 msgid "Customer"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Description"
-msgstr "Descripción"
-
-#. module: account_invoice_refund_link
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Due"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Due date"
 msgstr ""
 
 #. module: account_invoice_refund_link
@@ -70,13 +46,6 @@ msgid "Number"
 msgstr ""
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_origin_invoice_ids
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Original invoice"
-msgstr ""
-
-#. module: account_invoice_refund_link
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_line_origin_line_ids
 msgid "Original invoice line"
 msgstr ""
@@ -84,11 +53,6 @@ msgstr ""
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_line_origin_line_ids
 msgid "Original invoice line to which this refund invoice line is referred to"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_origin_invoice_ids
-msgid "Original invoice to which this refund invoice is referred to"
 msgstr ""
 
 #. module: account_invoice_refund_link
@@ -108,15 +72,9 @@ msgid "Refund invoice lines created from this invoice line"
 msgstr ""
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_refund_invoice_ids
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Refund invoices"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_refund_invoice_ids
-msgid "Refund invoices created from this invoice"
 msgstr ""
 
 #. module: account_invoice_refund_link
