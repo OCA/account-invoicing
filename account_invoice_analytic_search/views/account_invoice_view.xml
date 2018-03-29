@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+#---------------------------------------------------------------------------------------------------------
+#   Add analytic account id to invoices
+#---------------------------------------------------------------------------------------------------------
+
+    <record id="view_account_invoice_filter_inherited" model="ir.ui.view">
+        <field name="name">account.invoice.select.inherited</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/field[@name='user_id']" position="after">
+                <field name="account_analytic_ids" groups="analytic.group_analytic_accounting"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
