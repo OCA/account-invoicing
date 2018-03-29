@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_invoice_refund_link
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2016
 msgid ""
@@ -11,18 +11,13 @@ msgstr ""
 "POT-Creation-Date: 2016-12-24 00:13+0000\n"
 "PO-Revision-Date: 2016-12-24 00:13+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
-"Language-Team: French (Switzerland) (https://www.transifex.com/oca/teams/23907/fr_CH/)\n"
+"Language-Team: French (Switzerland) (https://www.transifex.com/oca/"
+"teams/23907/fr_CH/)\n"
+"Language: fr_CH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr_CH\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#. module: account_invoice_refund_link
-#: code:addons/account_invoice_refund_link/hooks.py:34
-#, python-format
-msgid "Auto"
-msgstr ""
 
 #. module: account_invoice_refund_link
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
@@ -36,24 +31,6 @@ msgid "Customer"
 msgstr ""
 
 #. module: account_invoice_refund_link
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Description"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Due"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Due date"
-msgstr ""
-
-#. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_invoice
 msgid "Invoice"
 msgstr "Facture"
@@ -64,21 +41,9 @@ msgid "Invoice Line"
 msgstr "Ligne de facture"
 
 #. module: account_invoice_refund_link
-#: model:ir.model,name:account_invoice_refund_link.model_account_invoice_refund
-msgid "Invoice Refund"
-msgstr ""
-
-#. module: account_invoice_refund_link
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Number"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_origin_invoice_ids
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Original invoice"
 msgstr ""
 
 #. module: account_invoice_refund_link
@@ -89,11 +54,6 @@ msgstr ""
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_line_origin_line_ids
 msgid "Original invoice line to which this refund invoice line is referred to"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_origin_invoice_ids
-msgid "Original invoice to which this refund invoice is referred to"
 msgstr ""
 
 #. module: account_invoice_refund_link
@@ -113,15 +73,9 @@ msgid "Refund invoice lines created from this invoice line"
 msgstr ""
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_refund_invoice_ids
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Refund invoices"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_refund_invoice_ids
-msgid "Refund invoices created from this invoice"
 msgstr ""
 
 #. module: account_invoice_refund_link
