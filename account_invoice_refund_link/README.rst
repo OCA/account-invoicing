@@ -6,19 +6,19 @@
 Link refund invoice with original
 =================================
 
-This module links customer and supplier refunds with the invoice that originate
-them (and invoice lines).
+This module shows the links between refunds and their original invoices in the
+invoice form and also keep track of refund lines and their original invoice
+lines.
 
 Usage
 =====
 
-This module creates in the invoice form a new 'Refund' page.
+This module creates in the invoice form a new 'Refunds' page when the invoice
+has some refunds. It shows a line for each refund invoice with main
+information.
 
-In case of refund invoices this new page shows refund reason and original
-invoice information.
-
-In case of original invoices this new page shows a line for each refund
-invoice with main information.
+For refunds, it shows in "Other information" page the refund reason and
+original invoice link.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
@@ -44,7 +44,7 @@ Contributors
 ------------
 
 * Pexego Sistemas Informáticos. (http://pexego.es)
-* Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
+* Pedro M. Baeza <pedro.baeza@tecnativa.com>
 * Antonio Espinosa <antonio.espinosa@tecnativa.com>
 * Luis M. Ontalba <luis.martinez@tecnativa.com>
 
