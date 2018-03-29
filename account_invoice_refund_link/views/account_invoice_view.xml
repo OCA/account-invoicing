@@ -11,46 +11,36 @@
     <field name="inherit_id" ref="account.invoice_form"/>
     <field name="arch" type="xml">
         <notebook position="inside">
-            <page name="refunds" string="Refunds">
-                <group attrs="{'invisible':[('type', 'not in', ['in_refund', 'out_refund'])]}">
-                    <separator string="Description" colspan="4"/>
-                    <field name="refund_reason" nolabel="1"/>
-                    <separator string="Original invoice" colspan="4"/>
-                    <field name="origin_invoice_ids" nolabel="1">
-                        <tree decoration-info="state == 'draft'"
-                              decoration-muted="state == 'cancel'"
-                              string="Original invoice">
-                            <field name="partner_id" string="Customer"/>
-                            <field name="date_invoice" string="Bill date"/>
-                            <field name="date_due" string="Due date"/>
-                            <field name="number" string="Number"/>
-                            <field name="reference" string="Reference"/>
-                            <field name="origin" string="Source"/>
-                            <field name="amount_total_signed" string="Total"/>
-                            <field name="residual_signed" string="Due"/>
-                            <field name="state" string="Status"/>
-                        </tree>
-                    </field>
-                </group>
-                <group attrs="{'invisible':[('type', 'not in', ['in_invoice', 'out_invoice'])]}">
-                    <separator string="Refund invoices" colspan="4"/>
-                    <field name="refund_invoice_ids" nolabel="1">
-                        <tree decoration-info="state == 'draft'"
-                              decoration-muted="state == 'cancel'"
-                              string="Refund invoices">
-                            <field name="partner_id" string="Customer"/>
-                            <field name="date_invoice" string="Bill date"/>
-                            <field name="number" string="Number"/>
-                            <field name="reference" string="Reference"/>
-                            <field name="origin" string="Source"/>
-                            <field name="refund_reason" string="Refund reason"/>
-                            <field name="amount_total" string="Total"/>
-                            <field name="state" string="Status"/>
-                        </tree>
-                    </field>
-                </group>
+            <page name="refunds"
+                  string="Refunds"
+                  attrs="{'invisible':[('type', 'not in', ['in_invoice', 'out_invoice'])]}"
+            >
+                <field name="refund_invoice_ids" nolabel="1">
+                    <tree decoration-info="state == 'draft'"
+                          decoration-muted="state == 'cancel'"
+                          string="Refund invoices">
+                        <field name="partner_id" string="Customer"/>
+                        <field name="date_invoice" string="Bill date"/>
+                        <field name="number" string="Number"/>
+                        <field name="reference" string="Reference"/>
+                        <field name="origin" string="Source"/>
+                        <field name="refund_reason" string="Refund reason"/>
+                        <field name="amount_total" string="Total"/>
+                        <field name="state" string="Status"/>
+                    </tree>
+                </field>
             </page>
         </notebook>
+        <xpath expr="//page[@name='other_info']//field[@name='origin']" position="after">
+            <field name="refund_invoice_id"
+                   readonly="1"
+                   attrs="{'invisible': [('refund_invoice_id', '=', False)]}"
+            />
+            <field name="refund_reason"
+                   readonly="1"
+                   attrs="{'invisible': [('refund_reason', '=', False)]}"
+            />
+        </xpath>
     </field>
 </record>
 
@@ -60,46 +50,36 @@
     <field name="inherit_id" ref="account.invoice_supplier_form"/>
     <field name="arch" type="xml">
         <notebook position="inside">
-            <page name="refunds" string="Refunds">
-                <group attrs="{'invisible':[('type', 'not in', ['in_refund', 'out_refund'])]}">
-                    <separator string="Description" colspan="4"/>
-                    <field name="refund_reason" nolabel="1"/>
-                    <separator string="Original invoice" colspan="4"/>
-                    <field name="origin_invoice_ids" nolabel="1">
-                        <tree decoration-info="state == 'draft'"
-                              decoration-muted="state == 'cancel'"
-                              string="Original invoice">
-                            <field name="partner_id" string="Supplier"/>
-                            <field name="date_invoice" string="Bill date"/>
-                            <field name="date_due" string="Due date"/>
-                            <field name="number" string="Number"/>
-                            <field name="reference" string="Reference"/>
-                            <field name="origin" string="Source"/>
-                            <field name="amount_total_signed" string="Total"/>
-                            <field name="residual_signed" string="Due"/>
-                            <field name="state" string="Status"/>
-                        </tree>
-                    </field>
-                </group>
-                <group attrs="{'invisible':[('type', 'not in', ['in_invoice', 'out_invoice'])]}">
-                    <separator string="Refund invoices" colspan="4"/>
-                    <field name="refund_invoice_ids" nolabel="1">
-                        <tree decoration-info="state == 'draft'"
-                              decoration-muted="state == 'cancel'"
-                              string="Refund invoices">
-                            <field name="partner_id" string="Supplier"/>
-                            <field name="date_invoice" string="Bill date"/>
-                            <field name="number" string="Number"/>
-                            <field name="reference" string="Reference"/>
-                            <field name="origin" string="Source"/>
-                            <field name="refund_reason" string="Refund reason"/>
-                            <field name="amount_total" string="Total"/>
-                            <field name="state" string="Status"/>
-                        </tree>
-                    </field>
-                </group>
+            <page name="refunds"
+                  string="Refunds"
+                  attrs="{'invisible':[('type', 'not in', ['in_invoice', 'out_invoice'])]}"
+            >
+                <field name="refund_invoice_ids" nolabel="1">
+                    <tree decoration-info="state == 'draft'"
+                          decoration-muted="state == 'cancel'"
+                          string="Refund invoices">
+                        <field name="partner_id" string="Supplier"/>
+                        <field name="date_invoice" string="Bill date"/>
+                        <field name="number" string="Number"/>
+                        <field name="reference" string="Reference"/>
+                        <field name="origin" string="Source"/>
+                        <field name="refund_reason" string="Refund reason"/>
+                        <field name="amount_total" string="Total"/>
+                        <field name="state" string="Status"/>
+                    </tree>
+                </field>
             </page>
         </notebook>
+        <xpath expr="//page[@name='other_info']//field[@name='name']" position="after">
+            <field name="refund_invoice_id"
+                   readonly="1"
+                   attrs="{'invisible': [('refund_invoice_id', '=', False)]}"
+            />
+            <field name="refund_reason"
+                   readonly="1"
+                   attrs="{'invisible': [('refund_reason', '=', False)]}"
+            />
+        </xpath>
     </field>
 </record>
 
