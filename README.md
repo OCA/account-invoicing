@@ -20,6 +20,7 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [account_group_invoice_line](account_group_invoice_line/) | 10.0.1.1.0 | Add option to group invoice lines per account
+[account_invoice_analytic_search](account_invoice_analytic_search/) | 10.0.1.0.0 | Search invoices by analytic account or by project manager
 [account_invoice_blocking](account_invoice_blocking/) | 10.0.1.0.0 | This module allows the user to set a blocking (No Follow-up) flag on invoices.
 [account_invoice_check_total](account_invoice_check_total/) | 10.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 10.0.1.0.1 | Changing the fiscal position of an invoice will auto-update invoice lines
@@ -37,7 +38,7 @@ addon | version | summary
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 10.0.1.0.0 | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 10.0.1.0.0 | Manage triple discount on invoice lines
 [account_invoice_view_payment](account_invoice_view_payment/) | 10.0.1.0.0 | Access to the payment from an invoice
-[account_payment_term_extension](account_payment_term_extension/) | 10.0.1.0.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
+[account_payment_term_extension](account_payment_term_extension/) | 10.0.1.1.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 10.0.1.0.0 | Add timesheet details in invoice line
 
 
