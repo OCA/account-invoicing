@@ -3,7 +3,7 @@
 
 {
     'name': 'Account - Pricelist on Invoices',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'summary': 'Add partner pricelist on invoices',
     'category': 'Accounting & Finance',
     'author': 'GRAP,'
@@ -16,7 +16,7 @@
         'account',
     ],
     'data': [
-        'view/view.xml',
+        'views/account_invoice_view.xml',
     ],
     'demo': [
         'demo/res_groups.yml',
