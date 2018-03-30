@@ -20,16 +20,11 @@ Nothing special.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/95/9.0
+   :target: https://runbot.odoo-community.org/runbot/95/10.0
 
 For further information, please visit:
 
 * https://www.odoo.com/forum/help-1
-
-Known issues / Roadmap
-======================
-
-None currently
 
 Bug Tracker
 ===========
@@ -48,6 +43,7 @@ Contributors
 * Sylvain LE GAL (https://twitter.com/legalsylvain)
 * Holger Brunn <hbrunn@therp.nl>
 * Sergio Teruel <sergio.teruel@tecnativa.com>
+* Raphaël Valyi <rvalyi@akretion.com>
 
 Maintainer
 ----------
