@@ -53,13 +53,22 @@ class TestAccountInvoicePricelist(SavepointCase):
             'partner_id': self.partner.id,
             'account_id': self.a_receivable.id,
             'type': 'out_invoice',
-            'invoice_line_ids': [(0, 0, {
-                'account_id': self.a_receivable.id,
-                'product_id': self.product.product_variant_ids[:1].id,
-                'name': 'Test line',
-                'quantity': 1.0,
-                'price_unit': 100.00,
-            })],
+            'invoice_line_ids': [
+                (0, 0, {
+                    'account_id': self.a_receivable.id,
+                    'product_id': self.product.product_variant_ids[:1].id,
+                    'name': 'Test line',
+                    'quantity': 1.0,
+                    'price_unit': 100.00,
+                }),
+                (0, 0, {
+                    'account_id': self.a_receivable.id,
+                    'product_id': self.product.product_variant_ids[:2].id,
+                    'name': 'Test line',
+                    'quantity': 1.0,
+                    'price_unit': 100.00,
+                })
+            ],
         })
 
     def test_account_invoice_pricelist(self):
