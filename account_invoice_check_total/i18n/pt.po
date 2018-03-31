@@ -3,15 +3,14 @@
 # * account_invoice_check_total
 # 
 # Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2017
-# Pedro Castro Silva <pedrocs@exo.pt>, 2018
+# OCA Transbot <transbot@odoo-community.org>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-15 09:48+0000\n"
-"PO-Revision-Date: 2017-12-15 09:48+0000\n"
-"Last-Translator: Pedro Castro Silva <pedrocs@exo.pt>, 2018\n"
+"POT-Creation-Date: 2018-03-28 02:40+0000\n"
+"PO-Revision-Date: 2018-03-28 02:40+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
 "Language-Team: Portuguese (https://www.transifex.com/oca/teams/23907/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,15 +19,25 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_check_total
-#: model:ir.ui.view,arch_db:account_invoice_check_total.account_config_settings_form_view
-msgid "Check Total"
-msgstr "Verificar Total"
-
-#. module: account_invoice_check_total
-#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_config_settings_group_supplier_inv_check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_res_config_settings_group_supplier_inv_check_total
+#: model:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 #: model:res.groups,name:account_invoice_check_total.group_supplier_inv_check_total
 msgid "Check Total on Vendor Bills"
 msgstr "Verificar Total em Faturas de Fornecedores"
+
+#. module: account_invoice_check_total
+#: model:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
+msgid ""
+"Check whether the total computed amount is the same as the verification "
+"total"
+msgstr ""
+
+#. module: account_invoice_check_total
+#: model:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
+msgid ""
+"If you check this box, the system verifies that the total computed amount is"
+" the same as the verification total."
+msgstr ""
 
 #. module: account_invoice_check_total
 #: model:ir.model,name:account_invoice_check_total.model_account_invoice
@@ -36,7 +45,7 @@ msgid "Invoice"
 msgstr "Fatura"
 
 #. module: account_invoice_check_total
-#: code:addons/account_invoice_check_total/models/account_invoice.py:31
+#: code:addons/account_invoice_check_total/models/account_invoice.py:30
 #, python-format
 msgid ""
 "Please verify the price of the invoice!\n"
@@ -51,6 +60,6 @@ msgid "Verification Total"
 msgstr "Total de Controlo"
 
 #. module: account_invoice_check_total
-#: model:ir.model,name:account_invoice_check_total.model_account_config_settings
-msgid "account.config.settings"
-msgstr "account.config.settings"
+#: model:ir.model,name:account_invoice_check_total.model_res_config_settings
+msgid "res.config.settings"
+msgstr ""
