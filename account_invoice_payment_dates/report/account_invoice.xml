@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<odoo>
+
+    <template id="sale_invoice_report_add_payment_deadlines" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@class='row'][3]/div" porsition="after">
+            <div t-if="o.move_id and o.type == 'out_invoice'">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                          <th>Rate date</th>
+                          <th class="text-right">Rate amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.move_id.line_ids" t-as="k">
+                         <t t-if="k.invoice_id.account_id == k.account_id">
+                             <td>
+                               <span t-field="k.date_maturity"/>
+                             </td>
+                         </t>
+                         <t t-if="k.invoice_id.account_id == k.account_id">
+                           <td class="text-right">
+                             <span t-field="k.debit" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                           </td>
+                         </t>
+                        </tr>
+                 </tbody>
+                </table>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>
