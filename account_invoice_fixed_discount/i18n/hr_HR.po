@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-15 03:57+0000\n"
-"PO-Revision-Date: 2018-01-15 03:57+0000\n"
+"POT-Creation-Date: 2018-03-24 01:28+0000\n"
+"PO-Revision-Date: 2018-03-24 01:28+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/oca/teams/23907/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "Račun"
 #. module: account_invoice_fixed_discount
 #: model:ir.model,name:account_invoice_fixed_discount.model_account_invoice_line
 msgid "Invoice Line"
-msgstr ""
+msgstr "Stavka računa"
 
 #. module: account_invoice_fixed_discount
 #: code:addons/account_invoice_fixed_discount/models/account_invoice.py:57
