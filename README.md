@@ -39,6 +39,7 @@ addon | version | summary
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 10.0.1.0.0 | Manage triple discount on invoice lines
 [account_invoice_view_payment](account_invoice_view_payment/) | 10.0.1.0.0 | Access to the payment from an invoice
 [account_payment_term_extension](account_payment_term_extension/) | 10.0.1.1.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
+[purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 10.0.1.0.0 | Add an option to refund returned pickings
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 10.0.1.0.0 | Add timesheet details in invoice line
 
 
