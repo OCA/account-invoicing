@@ -31,8 +31,7 @@ class AccountInvoice(models.Model):
             invoice_line_obj.create(new_invoice_line)
         elif float_compare(invoice.global_round_line_id.price_unit, -delta,
                            precision_digits=prec) != 0:
-            invoice_line_obj.write(invoice.global_round_line_id.id,
-                                   {'price_unit': -delta})
+            invoice.global_round_line_id.write({'price_unit': -delta})
 
         amount_untaxed = float_round(invoice.amount_untaxed - delta,
                                      precision_digits=prec)
