@@ -2,7 +2,7 @@
 # Copyright 2016 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 {'name': 'Unit rounded invoice',
- 'version': '10.0.1.0.1',
+ 'version': '10.0.1.0.2',
  'category': 'Accounting',
  'author': "Camptocamp,Odoo Community Association (OCA)",
  'maintainer': 'Camptocamp',
