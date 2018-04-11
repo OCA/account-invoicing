@@ -38,12 +38,14 @@ class AccountInvoice(models.Model):
 
         company = invoice.company_id
         if not invoice.global_round_line_id.id:
+            sequence = self._compute_sequence(invoice)
             new_invoice_line = {
                 'name': _('Rounding'),
                 'price_unit': -delta,
                 'account_id': company.tax_calculation_rounding_account_id.id,
                 'invoice_id': invoice.id,
                 'is_rounding': True,
+                'sequence': sequence,
             }
             invoice_line_obj.create(cr, uid, new_invoice_line, context=context)
         elif float_compare(invoice.global_round_line_id.price_unit, -delta,
@@ -56,6 +58,18 @@ class AccountInvoice(models.Model):
                                      precision_digits=prec)
         return {'amount_total': rounded_total,
                 'amount_untaxed': amount_untaxed}
+
+    def _compute_sequence(self, invoice):
+        """
+        Returns the max sequence + 1
+        Will allow us to place the rounding difference invoice line always at the end
+        Copied from BT-Store/rounding_difference
+        """
+        sequence = 0
+        for invoice_line in invoice.invoice_line:
+            if invoice_line.sequence > sequence:
+                sequence = invoice_line.sequence
+        return sequence + 1
 
     @staticmethod
     def _all_invoice_tax_line_computed(invoice):
