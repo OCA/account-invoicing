@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from datetime import datetime
@@ -66,7 +65,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                                           'account_id': self.prod_account.id,
                                           })],
              })
-        invoice.signal_workflow('invoice_open')
+        invoice.action_invoice_open()
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
                 self.assertEqual(
@@ -90,7 +89,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                                           'account_id': self.prod_account.id,
                                           })],
              })
-        invoice.signal_workflow('invoice_open')
+        invoice.action_invoice_open()
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
                 self.assertEqual(
@@ -114,7 +113,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                                           'account_id': self.prod_account.id,
                                           })],
              })
-        invoice.signal_workflow('invoice_open')
+        invoice.action_invoice_open()
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
                 self.assertEqual(
