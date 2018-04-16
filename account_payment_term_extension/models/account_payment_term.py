@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2013-2016 Camptocamp SA (Yannick Vaucher)
 # Copyright 2004-2016 Odoo S.A. (www.odoo.com)
 # Copyright 2015-2016 Akretion
@@ -6,7 +5,7 @@
 # Copyright 2018 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-
+from functools import reduce
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, exceptions, _
 from odoo.exceptions import ValidationError
