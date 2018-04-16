@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2013-2016 Camptocamp SA (Yannick Vaucher)
 # Copyright 2015-2016 Akretion
 # (Alexis de Lattre <alexis.delattre@akretion.com>)
@@ -6,7 +5,7 @@
 
 {
     'name': 'Payment Term Extension',
-    'version': '10.0.1.1.0',
+    'version': '11.0.1.0.0',
     'category': 'Accounting & Finance',
     'summary': 'Adds rounding, months, weeks and multiple payment days '
                'properties on payment term lines',
