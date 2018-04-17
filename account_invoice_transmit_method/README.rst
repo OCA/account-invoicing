@@ -1,6 +1,6 @@
-.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-   :alt: License: AGPL-3
+.. image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+    :target: https://www.gnu.org/licenses/agpl
+    :alt: License: AGPL-3
 
 =======================
 Invoice Transmit Method
@@ -12,12 +12,12 @@ This module allows to configure an *Invoice Transmit Method* on each partner. Th
 * Post
 * Customer Portal
 
-You can manually create additionnal transmission methods or other modules can create additionnal transmission methods (for example, the module *l10n_fr_chorus* creates a specific transmission method *Chorus*, which is the e-invoicing plateform of the French administration).
+You can manually create additional transmission methods or other modules can create additional transmission methods (for example, the module *l10n_fr_chorus* creates a specific transmission method *Chorus*, which is the e-invoicing platform of the French administration).
 
 Configuration
 =============
 
-If you need to add Transmit Methods, go to the menu *Accounting > Configuration > Miscellaneous > Transmit Methods*.
+If you need to add Transmit Methods, go to the menu *Invoicing > Configuration > Management > Transmit Methods*.
 
 Usage
 =====
@@ -39,10 +39,14 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues
 <https://github.com/OCA/account-invoicing/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
-help us smashing it by providing a detailed and welcomed feedback.
+help us smash it by providing detailed and welcomed feedback.
 
 Credits
 =======
+Images
+------
+
+* Odoo Community Association: `Icon <https://odoo-community.org/logo.png>`_.
 
 Contributors
 ------------
