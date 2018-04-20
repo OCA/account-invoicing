@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-30 04:26+0000\n"
-"PO-Revision-Date: 2016-04-30 04:27+0000\n"
+"POT-Creation-Date: 2018-04-18 09:19+0000\n"
+"PO-Revision-Date: 2018-04-18 09:23+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: French (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,12 @@ msgstr ""
 #: model:ir.model,name:account_invoice_rounding.model_res_company
 msgid "Companies"
 msgstr "Sociétés"
+
+#. module: account_invoice_rounding
+#: field:account.invoice,enable_rounding_for_supplier:0
+#: field:res.partner,enable_rounding:0
+msgid "Enable rounding"
+msgstr ""
 
 #. module: account_invoice_rounding
 #: model:ir.model,name:account_invoice_rounding.model_account_invoice
@@ -39,6 +45,11 @@ msgstr "Ligne de facture"
 #: field:account.invoice,global_round_line_id:0
 msgid "Invoice Line for total rounding"
 msgstr ""
+
+#. module: account_invoice_rounding
+#: model:ir.model,name:account_invoice_rounding.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
 
 #. module: account_invoice_rounding
 #: code:addons/account_invoice_rounding/account.py:42
@@ -71,3 +82,9 @@ msgstr ""
 #: field:res.company,tax_calculation_rounding:0
 msgid "Tax Rounding unit"
 msgstr "Unité d'arrondi des taxes"
+
+#. module: account_invoice_rounding
+#: help:res.partner,enable_rounding:0
+msgid ""
+"This field enables swedish rounding (if configured) for supplier invoices"
+msgstr ""
