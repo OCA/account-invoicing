@@ -19,7 +19,7 @@
 #
 ##############################################################################
 {'name': 'Unit rounded invoice',
- 'version': '8.0.1.1.0',
+ 'version': '8.0.1.1.1',
  'category': 'Accounting',
  'author': "Camptocamp,Odoo Community Association (OCA)",
  'maintainer': 'Camptocamp',
