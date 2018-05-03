@@ -21,6 +21,7 @@ setuptools.setup(
         'odoo10-addon-account_invoice_merge_attachment',
         'odoo10-addon-account_invoice_partner',
         'odoo10-addon-account_invoice_pricelist',
+        'odoo10-addon-account_invoice_pricelist_sale',
         'odoo10-addon-account_invoice_refund_link',
         'odoo10-addon-account_invoice_rounding',
         'odoo10-addon-account_invoice_supplier_ref_unique',
