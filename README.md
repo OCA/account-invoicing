@@ -32,6 +32,7 @@ addon | version | summary
 [account_invoice_merge_attachment](account_invoice_merge_attachment/) | 10.0.1.0.0 | Consider attachment during invoice merge process
 [account_invoice_partner](account_invoice_partner/) | 10.0.1.0.0 | Replace the partner by an invoice contact if found
 [account_invoice_pricelist](account_invoice_pricelist/) | 10.0.1.0.0 | Add partner pricelist on invoices
+[account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 10.0.1.0.0 | Module to fill pricelist from sales order in invoice.
 [account_invoice_refund_link](account_invoice_refund_link/) | 10.0.1.0.2 | Link refund invoice with its original invoice
 [account_invoice_rounding](account_invoice_rounding/) | 10.0.1.0.2 | Unit rounded invoice
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 10.0.1.0.0 | Checks that supplier invoices are not entered twice
