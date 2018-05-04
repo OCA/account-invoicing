@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2011-2014 Julius Network Solutions SARL <contact@julius.fr>
 # © 2014 Akretion (http://www.akretion.com)
 # @author Mathieu Vatel <mathieu _at_ julius.fr>
@@ -30,7 +29,8 @@ class AccountInvoice(models.Model):
         inv_type = self.type
         for line in self.invoice_line_ids:
             if line.product_id:
-                product = line.product_id
+                product = line.with_context(force_company=self.company_id.id).\
+                    product_id
                 if inv_type in ('out_invoice', 'out_refund'):
                     account = (
                         product.property_account_income_id or
