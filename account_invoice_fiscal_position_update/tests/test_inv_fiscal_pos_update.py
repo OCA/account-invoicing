@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2014 ToDay Akretion (http://www.akretion.com)
 # @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -105,18 +104,18 @@ class TestProductIdChange(AccountingTestCase):
         })
 
         out_line._onchange_product_id()
-        self.assertEquals(
+        self.assertEqual(
             out_line.invoice_line_tax_ids[0],
             tax_sale,
             "The sale tax off invoice line must be the same of product")
         out_invoice.fiscal_position_id = fp
         out_invoice.fiscal_position_change()
-        self.assertEquals(
+        self.assertEqual(
             out_line.invoice_line_tax_ids[0],
             fp_tax_sale.tax_dest_id,
             'The sale tax of invoice line must be changed by'
             ' fiscal position')
-        self.assertEquals(
+        self.assertEqual(
             out_line.account_id,
             fp_account.account_dest_id,
             'The account revenu of invoice line must be changed by'
