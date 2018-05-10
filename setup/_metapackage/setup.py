@@ -24,6 +24,7 @@ setuptools.setup(
         'odoo10-addon-account_invoice_pricelist_sale',
         'odoo10-addon-account_invoice_refund_link',
         'odoo10-addon-account_invoice_rounding',
+        'odoo10-addon-account_invoice_search_by_reference',
         'odoo10-addon-account_invoice_supplier_ref_unique',
         'odoo10-addon-account_invoice_supplierinfo_update',
         'odoo10-addon-account_invoice_transmit_method',
