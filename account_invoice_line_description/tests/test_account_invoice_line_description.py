@@ -2,9 +2,11 @@
 # Copyright 2017 - Tecnativa, S.L. - Luis M. Ontalba
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import at_install, post_install, SavepointCase
 
 
+@at_install(False)
+@post_install(True)
 class TestAccountInvoiceLineDescription(SavepointCase):
 
     @classmethod
