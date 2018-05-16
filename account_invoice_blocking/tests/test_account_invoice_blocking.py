@@ -13,6 +13,7 @@ class TestAccountInvoiceBlocking(TransactionCase):
 
         # ENVIRONEMENTS
 
+        self.account = self.env['account.account']
         self.account_invoice = self.env['account.invoice']
         self.account_move_line = self.env['account.move.line']
         self.account_account = self.env['account.account']
@@ -97,3 +98,41 @@ class TestAccountInvoiceBlocking(TransactionCase):
                                                          self.invoice.id)])
             self.assertEqual(self.invoice.blocked, move_line[0].blocked,
                              'Blocked values are not equals')
+
+    def test_set_invoice_blocked(self):
+        inv = self.invoice
+
+        inv.draft_blocked = True
+        self.assertTrue(inv.blocked)
+
+        inv.blocked = False
+        self.assertFalse(inv.draft_blocked)
+
+        inv.draft_blocked = True
+        self.assertTrue(inv.blocked)
+        inv.action_invoice_open()
+
+        move_lines = inv._get_move_line()
+        self.assertTrue(all([line.blocked for line in move_lines]))
+
+        inv.move_id.journal_id.update_posted = True
+        inv.move_id.button_cancel()
+        bad_account = self.account.search([
+            ('user_type_id', 'not in', [
+                self.type_recv.id, self.type_payable.id
+            ])
+        ], limit=1)
+        move_lines.write({
+            'account_id': bad_account.id,
+        })
+        self.assertFalse(inv.blocked)
+
+        good_account = self.account.search([
+            ('user_type_id', 'in', [
+                self.type_recv.id, self.type_payable.id
+            ])
+        ], limit=1)
+        move_lines.write({
+            'account_id': good_account.id,
+        })
+        self.assertTrue(inv.blocked)

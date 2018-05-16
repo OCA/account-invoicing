@@ -7,7 +7,7 @@
     'summary': """
         This module allows the user to set a blocking (No Follow-up) flag on
         invoices.""",
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'author': 'Acsone SA/NV,Odoo Community Association (OCA)',
