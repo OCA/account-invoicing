@@ -1,21 +1,35 @@
-.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-   :alt: License: AGPL-3
+.. image:: https://img.shields.io/badge/license-LGPL--3-blue.png
+   :target: https://www.gnu.org/licenses/lgpl
+   :alt: License: LGPL-3
 
-============================
-Localization - Corrispettivi
-============================
+====================================
+Italian Localization - Corrispettivi
+====================================
 
-Modulo per inserire agevolmente i corrispettivi in odoo.
+Questo modulo permette di generare le ricevute specificando le varie aliquote per riga
+(le righe della ricevuta hanno gli stessi automatismi di quelle della fattura) e quindi registrare le ricevute una per una.
+Un esempio tipico di questo caso d’uso è la vendita tramite sito di e-commerce.
 
-Per maggiori informazioni: http://planet.agilebg.com/2011/11/openerp-registrare-i-corrispettivi
+Chi invece emette scontrini (e non ha un POS integrato con Odoo) dovrà registrare in contabilità, a fine giornata, gli incassi totali.
+
+Configuration
+=============
+
+Creare almeno un sezionale di tipo vendita su cui saranno registrati i corrispettivi,
+deve avere il flag corrispettivi abilitato.
+
+Utilizzando un utente del gruppo Contabilità & Finanza > Contabilità, sul partner associato al public user:
+
+* Modificare, se necessario, i conti di debito e di credito da utilizzare per i corrispettivi;
+
+Nota: di default, il public user è disabilitato (flag active disabilitato).
 
 Usage
 =====
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/122/8.0
+   :target: https://runbot.odoo-community.org/runbot/122/10.0
 
 Bug Tracker
 ===========
@@ -23,7 +37,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues
 <https://github.com/OCA/l10n-italy/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
-help us smashing it by providing a detailed and welcomed feedback.
+help us smash it by providing detailed and welcomed feedback.
 
 Credits
 =======
@@ -31,12 +45,13 @@ Credits
 Images
 ------
 
-* Odoo Community Association: `Icon <https://github.com/OCA/maintainer-tools/blob/master/template/module/static/description/icon.svg>`_.
+* Odoo Community Association: `Icon <https://odoo-community.org/logo.png>`_.
 
 Contributors
 ------------
 
 * Lorenzo Battistini <lorenzo.battistini@agilebg.com>
+* Simone Rubino <simone.rubino@agilebg.com>
 
 Maintainer
 ----------
