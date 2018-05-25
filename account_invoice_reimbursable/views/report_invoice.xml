@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_invoice_document_with_supplies" inherit_id="account.report_invoice_document">
+         <xpath expr="//div[@id='total']/div/table/tr/td/span[@t-field='o.amount_total']/../.." position="after">
+             <t t-if="o.reimbursable_count > 0">
+                 <t t-foreach="o.reimbursable_ids" t-as="reimbursable">
+                     <tr style="border-bottom:1px solid #dddddd;">
+                         <td><span t-esc="reimbursable.description"/></td>
+                         <td class="text-right">
+                            <span t-field="reimbursable.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                     </tr>
+                 </t>
+                 <tr class="border-black" >
+                     <td><strong>Executable</strong></td>
+                     <td class="text-right">
+                        <span t-field="o.executable_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                    </td>
+                 </tr>
+             </t>
+         </xpath>
+    </template>
+</odoo>
