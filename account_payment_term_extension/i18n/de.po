@@ -1,22 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_payment_term_extension
-# 
+#
 # Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2017
+# OCA Transbot <transbot@odoo-community.org>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-30 02:46+0000\n"
-"PO-Revision-Date: 2018-03-30 02:46+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"POT-Creation-Date: 2018-06-01 02:42+0000\n"
+"PO-Revision-Date: 2018-10-11 12:00+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
 "Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.1.1\n"
 
 #. module: account_payment_term_extension
 #: model:account.payment.term,name:account_payment_term_extension.sixty_days_end_of_month
@@ -45,10 +46,10 @@ msgid "Created on"
 msgstr "Erstellt am:"
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:41
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:40
 #, python-format
 msgid "Date %s cannot is both a holiday and a Postponed date"
-msgstr ""
+msgstr "Datum %s kann nicht gleichzeitig Feiertag und Aufschubdatum sein"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_display_name
@@ -63,25 +64,25 @@ msgstr "Fälligkeitsberechnung"
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_holiday
 msgid "Holiday"
-msgstr ""
+msgstr "Feiertag"
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:29
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:28
 #, python-format
 msgid "Holiday %s can only be postponed into the future"
-msgstr ""
+msgstr "Feiertag %s kann nur in die Zukunft aufgeschoben werden"
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:34
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:33
 #, python-format
 msgid "Holiday %s is duplicated in current payment term"
-msgstr ""
+msgstr "Feiertag %s wurde in diese Zahlungsbedingung kopiert"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_ids
 #: model:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_form
 msgid "Holidays"
-msgstr ""
+msgstr "Feiertage"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_id
@@ -114,13 +115,18 @@ msgid "Number of Weeks"
 msgstr "Anzahl Wochen"
 
 #. module: account_payment_term_extension
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_payment_id
+msgid "Payment"
+msgstr "Zahlung"
+
+#. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term
-msgid "Payment Term"
-msgstr "Zahlungsbedingung"
+msgid "Payment Terms"
+msgstr "Zahlungsbedingungen"
 
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term_line
-msgid "Payment Term Line"
+msgid "Payment Terms Line"
 msgstr "Zahlungsbedingungsposition"
 
 #. module: account_payment_term_extension
@@ -129,20 +135,15 @@ msgid "Payment day(s)"
 msgstr "Zahltag(e)"
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:105
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:104
 #, python-format
 msgid "Payment days field format is not valid."
 msgstr "Format des Feldes Zahltage ist ungültig."
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_payment_id
-msgid "Payment id"
-msgstr ""
-
-#. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_date_postponed
 msgid "Postponed date"
-msgstr ""
+msgstr "Aufschubdatum"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_line_payment_days
@@ -166,7 +167,8 @@ msgid ""
 "To have amounts that end in 0.99, set rounding 1, surcharge -0.01"
 msgstr ""
 "Setzt den Betrag auf ein Vielfaches diesen Wertes.\n"
-"Um Beträge zu erhalten, die auf 0,99 enden, Runden Sie auf 1 mit Aufschlag -0,01"
+"Um Beträge zu erhalten, die auf 0,99 enden, Runden Sie auf 1 mit Aufschlag "
+"-0,01"
 
 #. module: account_payment_term_extension
 #: model:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_form
@@ -174,8 +176,10 @@ msgid ""
 "When a payment term coincides with a holiday, it is postponed to the chosen "
 "date."
 msgstr ""
+"Wenn eine Zahlungsbedingung auf einen Feiertag fällt, wird auf dieses Datum "
+"aufgeschoben."
 
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term_holiday
 msgid "account.payment.term.holiday"
-msgstr ""
+msgstr "account.payment.term.holiday"
