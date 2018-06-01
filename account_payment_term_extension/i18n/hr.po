@@ -3,14 +3,13 @@
 # * account_payment_term_extension
 # 
 # Translators:
-# Bole <bole@dajmi5.com>, 2018
 # OCA Transbot <transbot@odoo-community.org>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-30 02:46+0000\n"
-"PO-Revision-Date: 2018-03-30 02:46+0000\n"
+"POT-Creation-Date: 2018-06-01 02:42+0000\n"
+"PO-Revision-Date: 2018-06-01 02:42+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
 "Language-Team: Croatian (https://www.transifex.com/oca/teams/23907/hr/)\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +45,7 @@ msgid "Created on"
 msgstr "Kreirano"
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:41
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:40
 #, python-format
 msgid "Date %s cannot is both a holiday and a Postponed date"
 msgstr ""
@@ -67,13 +66,13 @@ msgid "Holiday"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:29
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:28
 #, python-format
 msgid "Holiday %s can only be postponed into the future"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:34
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:33
 #, python-format
 msgid "Holiday %s is duplicated in current payment term"
 msgstr ""
@@ -115,14 +114,19 @@ msgid "Number of Weeks"
 msgstr "Broj tjedana"
 
 #. module: account_payment_term_extension
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_payment_id
+msgid "Payment"
+msgstr ""
+
+#. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term
-msgid "Payment Term"
-msgstr "Uvijet plaćanja"
+msgid "Payment Terms"
+msgstr ""
 
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term_line
-msgid "Payment Term Line"
-msgstr "Stavka uvijeta plaćanja"
+msgid "Payment Terms Line"
+msgstr ""
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_payment_days
@@ -130,15 +134,10 @@ msgid "Payment day(s)"
 msgstr "Plaćanje dan(a)"
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:105
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:104
 #, python-format
 msgid "Payment days field format is not valid."
 msgstr "Format polja dani plaćanja nije ispravan."
-
-#. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_payment_id
-msgid "Payment id"
-msgstr ""
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_date_postponed
