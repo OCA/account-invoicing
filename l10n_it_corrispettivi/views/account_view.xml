@@ -5,6 +5,36 @@
 
 <odoo>
     <!-- Invoice -->
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="fiscal_position_id" position="after">
+                <field name="corrispettivo"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="corrispettivi_form" model="ir.ui.view">
+        <field name="name">account.corrispettivi.form</field>
+        <field name="model">account.invoice</field>
+        <field name="type">form</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <button name="invoice_print" attrs="{'invisible':['|',('sent','=',True), ('state', '!=', 'open')]}" position="replace">
+                <button name="corrispettivo_print" string="Print" type="object" class="oe_highlight" groups="base.group_user"
+                        attrs="{'invisible':['|', ('sent', '=', True), ('state', '!=', 'open')]}"/>
+            </button>
+            <button name="invoice_print" attrs="{'invisible':['|',('sent','=',False), ('state', '!=', 'open')]}" position="replace">
+                <button name="corrispettivo_print" string="Print Corrispettivo" type="object" groups="base.group_user"
+                        attrs="{'invisible':['|', ('sent', '=', False), ('state', '!=', 'open')]}"/>
+            </button>
+        </field>
+    </record>
+
     <record id="account.action_invoice_tree" model="ir.actions.act_window">
         <field name="domain">[('corrispettivo', '=', False)]</field>
     </record>
@@ -33,20 +63,8 @@
     <record id="action_corrispettivi_tree1_view2" model="ir.actions.act_window.view">
         <field eval="2" name="sequence"/>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="account.invoice_form"/>
+        <field name="view_id" ref="l10n_it_corrispettivi.corrispettivi_form"/>
         <field name="act_window_id" ref="action_corrispettivi_tree1"/>
-    </record>
-
-    <record id="corrispettivi_form" model="ir.ui.view">
-        <field name="name">account.corrispettivi.form</field>
-        <field name="model">account.invoice</field>
-        <field name="type">form</field>
-        <field name="inherit_id" ref="account.invoice_form"/>
-        <field name="arch" type="xml">
-            <field name="fiscal_position_id" position="after">
-                <field name="corrispettivo"/>
-            </field>
-        </field>
     </record>
 
     <menuitem action="action_corrispettivi_tree1" id="menu_action_corrispettivi_tree"
@@ -76,6 +94,20 @@
             <xpath expr="//page[@name='advanced_settings']/group/group[2]" position="inside">
                 <field name="corrispettivi"/>
             </xpath>
+        </field>
+    </record>
+
+    <!-- Fiscal position -->
+
+    <record id="view_account_position_form" model="ir.ui.view">
+        <field name="name">account.fiscal.position.form</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="corrispettivi"/>
+            </field>
         </field>
     </record>
 </odoo>
