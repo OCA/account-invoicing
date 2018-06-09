@@ -4,214 +4,180 @@
 # Copyright 2016 Acsone (https://www.acsone.eu/)
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
+# Copyright 2018 Camptocamp SA
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from itertools import groupby
+from operator import attrgetter
 
 from odoo import api, models
-from odoo.osv.orm import browse_record, browse_null
 from odoo.tools import float_is_zero
 
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    @api.multi
+    def link_analytic_lines(self):
+        """Link analytic lines from the old invoices to the new one.
+        """
+        self.ensure_one()
+        analytic_line_obj = self.env['account.analytic.line']
+        if 'invoice_id' in analytic_line_obj._fields:
+            analytic_todos = analytic_line_obj.search(
+                [('invoice_id', '=', self.id)]
+            )
+            analytic_todos.write({'invoice_id': self.id})
+
+    @api.multi
+    def link_sale_orders(self, old_invoices):
+        """Link sale order lines from the old invoices to the new one.
+
+        If sale module is installed.
+        """
+        self.ensure_one()
+        invoice_line_obj = self.env['account.invoice.line']
+        if 'sale.order' in self.env.registry:
+            sale_todos = old_invoices.mapped(
+                'invoice_line_ids.sale_line_ids.order_id'
+            )
+            for original_so in sale_todos:
+                for so_line in original_so.order_line:
+                    invoice_line = invoice_line_obj.search([
+                        ('id', 'in', so_line.invoice_lines.ids),
+                        ('invoice_id', '=', self.id)
+                    ])
+                    if invoice_line:
+                        so_line.write({
+                            'invoice_lines': [(6, 0, invoice_line.ids)]
+                        })
+
     @api.model
-    def _get_invoice_key_cols(self):
+    def _get_invoice_group_fields(self):
+        """Fields that invoices are getting grouped upon.
+
+        This are the fields that will be carried over from the old invoices
+        to the new one. Content of this fields should be strictly equal for
+        the invoices to be merged.
+        """
         return [
-            'partner_id', 'user_id', 'type', 'account_id', 'currency_id',
-            'journal_id', 'company_id', 'partner_bank_id',
+            'partner_id',
+            'user_id',
+            'type',
+            'account_id',
+            'currency_id',
+            'journal_id',
+            'company_id',
+            'partner_bank_id',
         ]
 
-    @api.model
-    def _get_invoice_line_key_cols(self):
-        fields = [
-            'name', 'origin', 'discount', 'invoice_line_tax_ids', 'price_unit',
-            'product_id', 'account_id', 'account_analytic_id',
-            'uom_id'
-        ]
-        for field in ['sale_line_ids']:
-            if field in self.env['account.invoice.line']._fields:
-                fields.append(field)
-        return fields
+    @api.multi
+    def get_group_values(self):
+        """Calculate values for grouping.
+        """
+        self.ensure_one()
+        group_dict = {}
+        for field in self._get_invoice_group_fields():
+            value = getattr(self, field)
+            field_type = self.fields_get()[field]['type']
+            if field_type == 'many2one':
+                value = value.id
+            elif field_type == 'many2many':
+                value = [(4, x.id) for x in value]
+            elif field_type == 'one2many':
+                value = [(6, 0, value.ids)]
+            group_dict[field] = value
+        return group_dict
 
-    @api.model
-    def _get_first_invoice_fields(self, invoice):
-        return {
-            'origin': '%s' % (invoice.origin or '',),
-            'partner_id': invoice.partner_id.id,
-            'journal_id': invoice.journal_id.id,
-            'user_id': invoice.user_id.id,
-            'currency_id': invoice.currency_id.id,
-            'company_id': invoice.company_id.id,
-            'type': invoice.type,
-            'account_id': invoice.account_id.id,
-            'state': 'draft',
-            'reference': '%s' % (invoice.reference or '',),
-            'name': '%s' % (invoice.name or '',),
-            'fiscal_position_id': invoice.fiscal_position_id.id,
-            'payment_term_id': invoice.payment_term_id.id,
-            'invoice_line_ids': {},
-            'partner_bank_id': invoice.partner_bank_id.id,
-        }
+    @api.multi
+    def group_by_fields(self):
+        """Groups invoices by their fields values.
+
+        Takes invoices and then groups them by their values from
+        get_group_values() fields. Returns list of recordsets.
+        """
+        groups = []
+        for key, group in groupby(
+                self.sorted(key=attrgetter(*self._get_invoice_group_fields())),
+                key=lambda x: x.get_group_values(),
+        ):
+            recordset = self.env["account.invoice"]
+            for record in group:
+                recordset |= record
+            groups.append(recordset)
+        return groups
 
     @api.multi
     def do_merge(self, keep_references=True, date_invoice=False,
                  remove_empty_invoice_lines=True):
+        """Merge invoices.
+
+        Groups invoices by their fields values and then creates a new
+        merge invoice, while cancelling old ones.
+        :param keep_references: Boolean, if True, new invoice name will
+                                contain names of the merged invoices.
+        :param date_invoice: Date, if not False, will fill date_invoice
+                             field with passed values
+        :param remove_empty_invoice: Boolean, if True, will ignore invoice
+                                     lines with quantity=0
+        :return: dict, keys are new invoice id, and values being ids of old
+                 invoices
         """
-        To merge similar type of account invoices.
-        Invoices will only be merged if:
-        * Account invoices are in draft
-        * Account invoices belong to the same partner
-        * Account invoices are have same company, partner, address, currency,
-          journal, currency, salesman, account, type
-        Lines will only be merged if:
-        * Invoice lines are exactly the same except for the quantity and unit
-
-         @param self: The object pointer.
-         @param keep_references: If True, keep reference of original invoices
-
-         @return: new account invoice id
-
-        """
-
-        def make_key(br, fields):
-            list_key = []
-            for field in fields:
-                field_val = getattr(br, field)
-                if field in ('product_id', 'account_id'):
-                    if not field_val:
-                        field_val = False
-                if (isinstance(field_val, browse_record) and
-                        field != 'invoice_line_tax_ids' and
-                        field != 'sale_line_ids'):
-                    field_val = field_val.id
-                elif isinstance(field_val, browse_null):
-                    field_val = False
-                elif (isinstance(field_val, list) or
-                        field == 'invoice_line_tax_ids' or
-                        field == 'sale_line_ids'):
-                    field_val = ((6, 0, tuple([v.id for v in field_val])),)
-                list_key.append((field, field_val))
-            list_key.sort()
-            return tuple(list_key)
-
-        # compute what the new invoices should contain
-        new_invoices = {}
-        draft_invoices = [invoice
-                          for invoice in self
-                          if invoice.state == 'draft']
-        seen_origins = {}
-        seen_client_refs = {}
-
-        for account_invoice in draft_invoices:
-            invoice_key = make_key(
-                account_invoice, self._get_invoice_key_cols())
-            new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
-            origins = seen_origins.setdefault(invoice_key, set())
-            client_refs = seen_client_refs.setdefault(invoice_key, set())
-            new_invoice[1].append(account_invoice.id)
-            invoice_infos = new_invoice[0]
-            if not invoice_infos:
-                invoice_infos.update(
-                    self._get_first_invoice_fields(account_invoice))
-                origins.add(account_invoice.origin)
-                client_refs.add(account_invoice.reference)
-                if not keep_references:
-                    invoice_infos.pop('name')
-            else:
-                if account_invoice.name and keep_references:
-                    invoice_infos['name'] = \
-                        (invoice_infos['name'] or '') + ' ' + \
-                        account_invoice.name
-                if account_invoice.origin and \
-                        account_invoice.origin not in origins:
-                    invoice_infos['origin'] = \
-                        (invoice_infos['origin'] or '') + ' ' + \
-                        account_invoice.origin
-                    origins.add(account_invoice.origin)
-                if account_invoice.reference \
-                        and account_invoice.reference not in client_refs:
-                    invoice_infos['reference'] = \
-                        (invoice_infos['reference'] or '') + ' ' + \
-                        account_invoice.reference
-                    client_refs.add(account_invoice.reference)
-
-            for invoice_line in account_invoice.invoice_line_ids:
-                line_key = make_key(
-                    invoice_line, self._get_invoice_line_key_cols())
-
-                o_line = invoice_infos['invoice_line_ids'].\
-                    setdefault(line_key, {})
-
-                if o_line:
-                    # merge the line with an existing line
-                    o_line['quantity'] += invoice_line.quantity
-                else:
-                    # append a new "standalone" line
-                    o_line['quantity'] = invoice_line.quantity
-
-        allinvoices = []
-        allnewinvoices = []
-        invoices_info = {}
         qty_prec = self.env['decimal.precision'].precision_get(
-            'Product Unit of Measure')
-        for invoice_key, (invoice_data, old_ids) in new_invoices.iteritems():
-            # skip merges with only one invoice
-            if len(old_ids) < 2:
-                allinvoices += (old_ids or [])
+            'Product Unit of Measure'
+        )
+        # we only work with draft invoices. We have a dirty check for
+        # this in wizard as well
+        draft_invoices = self.filtered(lambda x: x.state == 'draft')
+        grouped_invoices = draft_invoices.group_by_fields()
+        result = {}
+        for group in grouped_invoices:
+            # Ignore groups of 1 invoice as there is nothing to merge there
+            if len(group) < 2:
                 continue
-            # cleanup invoice line data
-            for key, value in invoice_data['invoice_line_ids'].iteritems():
-                value.update(dict(key))
-
-            if remove_empty_invoice_lines:
-                invoice_data['invoice_line_ids'] = [
-                    (0, 0, value) for value in
-                    invoice_data['invoice_line_ids'].itervalues() if
-                    not float_is_zero(
-                        value['quantity'], precision_digits=qty_prec)]
-            else:
-                invoice_data['invoice_line_ids'] = [
-                    (0, 0, value) for value in
-                    invoice_data['invoice_line_ids'].itervalues()]
-
+            # Building values for the new invoice
+            # As this values are the same across the group
+            # we can simply take them from the first invoice of the group
+            vals = group[0].get_group_values()
+            if keep_references:
+                vals['name'] = " ".join(
+                    (x for x in group.mapped("name") if x)
+                )
             if date_invoice:
-                invoice_data['date_invoice'] = date_invoice
-
-            # create the new invoice
-            newinvoice = self.with_context(is_merge=True).create(invoice_data)
-            invoices_info.update({newinvoice.id: old_ids})
-            allinvoices.append(newinvoice.id)
-            allnewinvoices.append(newinvoice)
+                vals["date_invoice"] = date_invoice
+            vals.update({
+                'origin': " ".join(
+                    (x for x in group.mapped("origin") if x)
+                ),
+                'reference': " ".join(
+                    (x for x in group.mapped("reference") if x)
+                ),
+            })
+            lines = []
+            # merge invoice lines
+            line_ids = group.mapped("invoice_line_ids")
+            for line_group in line_ids.group_by_fields():
+                line_vals = line_group[0].get_group_values()
+                line_vals['quantity'] = sum(line_group.mapped('quantity'))
+                if remove_empty_invoice_lines:
+                    # TODO: not sure this check is needed as
+                    # I don't see the case when this is 0. But
+                    # just in case i copy it from original
+                    if not float_is_zero(
+                            line_vals['quantity'], precision_digits=qty_prec
+                    ):
+                        lines.append((0, 0, line_vals))
+                else:
+                    lines.append((0, 0, line_vals))
+            vals['invoice_line_ids'] = lines
+            # create new invoice
+            new_invoice = self.with_context(is_merge=True).create(vals)
             # cancel old invoices
-            old_invoices = self.env['account.invoice'].browse(old_ids)
-            old_invoices.with_context(is_merge=True).action_invoice_cancel()
-
-        # Make link between original sale order
-        # None if sale is not installed
-        invoice_line_obj = self.env['account.invoice.line']
-        for new_invoice_id in invoices_info:
-            if 'sale.order' in self.env.registry:
-                sale_todos = old_invoices.mapped(
-                    'invoice_line_ids.sale_line_ids.order_id')
-                for org_so in sale_todos:
-                    for so_line in org_so.order_line:
-                        invoice_line = invoice_line_obj.search(
-                            [('id', 'in', so_line.invoice_lines.ids),
-                             ('invoice_id', '=', new_invoice_id)])
-                        if invoice_line:
-                            so_line.write(
-                                {'invoice_lines': [(6, 0, invoice_line.ids)]})
-
-        # recreate link (if any) between original analytic account line
-        # (invoice time sheet for example) and this new invoice
-        anal_line_obj = self.env['account.analytic.line']
-        if 'invoice_id' in anal_line_obj._fields:
-            for new_invoice_id in invoices_info:
-                anal_todos = anal_line_obj.search(
-                    [('invoice_id', 'in', invoices_info[new_invoice_id])])
-                anal_todos.write({'invoice_id': new_invoice_id})
-
-        for new_invoice in allnewinvoices:
+            group.with_context(is_merge=True).action_invoice_cancel()
+            # link sale orders from old invoices
+            new_invoice.link_sale_orders(group)
+            # link analytic lines from old invoices
+            new_invoice.link_analytic_lines()
+            # recompute taxes
             new_invoice.compute_taxes()
-
-        return invoices_info
+            result[new_invoice.id] = group.ids
+        return result
