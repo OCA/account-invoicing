@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_invoice_sequence_qweb" inherit_id="account.report_invoice_document">
-        <xpath expr="//table[@class='table table-condensed']/thead/tr/th[1]" position="before">
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[1]" position="before">
             <th><strong>Sequence</strong></th>
         </xpath>
-        <xpath expr="//table[@class='table table-condensed']/tbody/tr/td[1]" position="before">
+        <xpath expr="//table[@name='invoice_line_table']/tbody/tr/td[1]" position="before">
              <td>
                 <span t-field="l.sequence2"/>
              </td>
