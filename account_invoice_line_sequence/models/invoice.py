@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Camptocamp SA - Damien Crier, Alexandre Fayolle
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 # Copyright 2017 Serpent Consulting Services Pvt. Ltd.
@@ -42,10 +41,8 @@ class AccountInvoice(models.Model):
     @api.multi
     def _reset_sequence(self):
         for rec in self:
-            current_sequence = 1
-            for line in rec.invoice_line_ids:
-                line.sequence = current_sequence
-                current_sequence += 1
+            for current_seq, line in enumerate(rec.invoice_line_ids, start=1):
+                line.sequence = current_seq
 
     @api.multi
     def write(self, values):
