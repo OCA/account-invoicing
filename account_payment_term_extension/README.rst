@@ -12,19 +12,23 @@ This module extends the functionality of payment terms to :
 * allow to set more than one day of payment in payment terms
 * if a payment term date is a holiday, it is postponed to a selected date
 * allow to apply a chronological order on lines
- * for example, with a payment term which contains 2 lines
+
+  * for example, with a payment term which contains 2 lines
   * on standard, the due date of all lines is calculated from the invoice date
-  * with this feature, the due date of the second line is calculated from the due date of the first line
+  * with this feature, the due date of the second line is calculated from the
+    due date of the first line
 
 Configuration
 =============
 
-To configure the Payment Terms and see the new options on the Payment Term Lines, you need to:
+To configure the Payment Terms and see the new options on the Payment Term
+Lines, you need to:
 
 #. Go to the menu Accounting > Configuration > Management > Payment Terms.
 
-To use multiple payment days, define for each payment term line which payment days apply, separated by spaces, commas or dashes.
-To use holidays, insert the holiday and the date payment terms will be postponed to.
+To use multiple payment days, define for each payment term line which payment
+days apply, separated by spaces, commas or dashes.  To use holidays, insert the
+holiday and the date payment terms will be postponed to.
 
 Usage
 =====

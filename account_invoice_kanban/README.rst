@@ -31,7 +31,7 @@ This module provides administrative stage management similar to the tasks in Odo
 * Add a Stage in Invoice (like in tasks) with the separate field for the additional
   workflow on top of current one.
 * No button to switch from stages: simply clicking on it is enough (like tasks)
-* Add Kanban view, default with stage group by. 
+* Add Kanban view, default with stage group by.
 * Kanban becomes the default view.
 
 Configuration
@@ -45,15 +45,17 @@ Developer Mode):
 Usage
 =====
 #. Go to Invoicing menu --> Customers --> Customer Invoices
-#. Enjoy the new kanban view 
+#. Enjoy the new kanban view
 #. Drag and drop the invoices from stage to stage
 #. In the form view, click on any new stage to change it
 
 Roadmap / Known Issues
 ======================
+
 * Invoice stages and status are currently not synchronized: this is so since
   every organization might have different needs and stages. Nevertheless, they
   can be easily sync'ed (at least from status to Stages) via server actions.
+
 Bug Tracker
 ===========
 
