@@ -63,9 +63,6 @@ invoices:
 6. invoice_6 - partner_2
     1. product_D - category_3 --> picking_2
 
-Usage
-=====
-
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/95/8.0
