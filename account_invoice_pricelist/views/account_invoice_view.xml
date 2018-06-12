@@ -6,33 +6,29 @@
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <field name="user_id" position="after">
-                <group col="4" colspan="4">
-                    <field name="pricelist_id"/>
-                    <button type="object"
-                            name="button_update_prices_from_pricelist"
-                            string="Update prices"
-                            attrs="{'invisible': ['|', ('pricelist_id', '=', False), ('state', 'not in', ['draft'])]}"
-                            help="Update price in lines from the pricelist"
-                    />
-                </group>
+                <field name="pricelist_id"/>
+                <button type="object"
+                        name="button_update_prices_from_pricelist"
+                        string="Update prices"
+                        attrs="{'invisible': ['|', ('pricelist_id', '=', False), ('state', 'not in', ['draft'])]}"
+                        help="Update price in lines from the pricelist"
+                />
             </field>
         </field>
     </record>
 
     <record id="view_account_invoice_supplier_form" model="ir.ui.view">
-	      <field name="model">account.invoice</field>
+        <field name="model">account.invoice</field>
       	<field name="inherit_id" ref="account.invoice_supplier_form"/>
       	<field name="arch" type="xml">
 	          <field name="user_id" position="after">
-                <group col="4" colspan="4">
-                    <field name="pricelist_id"/>
-      	            <button type="object"
-                            name="button_update_prices_from_pricelist"
-                            string="Update prices"
-                            attrs="{'invisible': ['|', ('pricelist_id', '=', False), ('state', 'not in', ['draft'])]}"
-                            help="Update price in lines from the pricelist"
-                    />
-                </group>
+                <field name="pricelist_id"/>
+                <button type="object"
+                        name="button_update_prices_from_pricelist"
+                        string="Update prices"
+                        attrs="{'invisible': ['|', ('pricelist_id', '=', False), ('state', 'not in', ['draft'])]}"
+                        help="Update price in lines from the pricelist"
+                />
       	    </field>
    	    </field>
     </record>
