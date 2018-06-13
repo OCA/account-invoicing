@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo10-addon-account_invoice_blocking',
         'odoo10-addon-account_invoice_check_total',
         'odoo10-addon-account_invoice_fiscal_position_update',
+        'odoo10-addon-account_invoice_fixed_discount',
         'odoo10-addon-account_invoice_force_number',
         'odoo10-addon-account_invoice_kanban',
         'odoo10-addon-account_invoice_line_description',
