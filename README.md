@@ -24,6 +24,7 @@ addon | version | summary
 [account_invoice_blocking](account_invoice_blocking/) | 10.0.1.0.1 | This module allows the user to set a blocking (No Follow-up) flag on invoices.
 [account_invoice_check_total](account_invoice_check_total/) | 10.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 10.0.1.0.1 | Changing the fiscal position of an invoice will auto-update invoice lines
+[account_invoice_fixed_discount](account_invoice_fixed_discount/) | 10.0.1.0.0 | Allows to apply fixed amount discounts in invoices.
 [account_invoice_force_number](account_invoice_force_number/) | 10.0.1.0.0 | Allows to force invoice numbering on specific invoices
 [account_invoice_kanban](account_invoice_kanban/) | 10.0.1.0.0 | Add Kanban view in Invoice to follow administrative tasks
 [account_invoice_line_description](account_invoice_line_description/) | 10.0.1.0.1 | Account invoice line description
