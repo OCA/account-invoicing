@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo11-addon-account_invoice_check_total',
         'odoo11-addon-account_invoice_force_number',
+        'odoo11-addon-account_invoice_line_description',
         'odoo11-addon-account_invoice_refund_link',
         'odoo11-addon-account_invoice_supplier_ref_reuse',
         'odoo11-addon-account_invoice_supplier_ref_unique',
