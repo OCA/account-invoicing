@@ -32,7 +32,7 @@ addon | version | summary
 [account_invoice_pricelist](account_invoice_pricelist/) | 8.0.1.1.0 | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 8.0.1.0.0 | Module to fill pricelist from sales order in invoice.
 [account_invoice_pricelist_sale_stock](account_invoice_pricelist_sale_stock/) | 8.0.1.0.0 | Set pricelist from SO in invoice created from picking.
-[account_invoice_rounding](account_invoice_rounding/) | 8.0.1.1.0 | Unit rounded invoice
+[account_invoice_rounding](account_invoice_rounding/) | 8.0.1.1.1 | Unit rounded invoice
 [account_invoice_rounding_by_currency](account_invoice_rounding_by_currency/) | 8.0.1.0.0 | Unit rounded invoice by Currency
 [account_invoice_shipping_address](account_invoice_shipping_address/) | 8.0.0.1.1 | Adds a shipping address field to the invoice.
 [account_invoice_supplier_number_info](account_invoice_supplier_number_info/) | 8.0.1.0.0 | Allows to force invoice numbering on specific invoices
