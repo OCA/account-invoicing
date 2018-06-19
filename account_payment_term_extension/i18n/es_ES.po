@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_payment_term_extension
-# 
+#
 # Translators:
 # Fernando Lara <gennesis45@gmail.com>, 2017
 # OCA Transbot <transbot@odoo-community.org>, 2018
@@ -12,11 +12,12 @@ msgstr ""
 "POT-Creation-Date: 2018-03-30 02:46+0000\n"
 "PO-Revision-Date: 2018-03-30 02:46+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
-"Language-Team: Spanish (Spain) (https://www.transifex.com/oca/teams/23907/es_ES/)\n"
+"Language-Team: Spanish (Spain) (https://www.transifex.com/oca/teams/23907/"
+"es_ES/)\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_payment_term_extension
@@ -166,7 +167,8 @@ msgid ""
 "To have amounts that end in 0.99, set rounding 1, surcharge -0.01"
 msgstr ""
 "Establece la cantidad de manera que sea un múltiplo de este valor.'U+23CE'\n"
-"Para tener cantidades que terminan en 0,99, redondear el conjunto 1, recargo -0,01"
+"Para tener cantidades que terminan en 0,99, redondear el conjunto 1, recargo "
+"-0,01"
 
 #. module: account_payment_term_extension
 #: model:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_form
