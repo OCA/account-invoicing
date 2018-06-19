@@ -11,5 +11,8 @@
     "depends": [
         'account',
     ],
+    "data": [
+        'views/account_move_line.xml',
+    ],
     "post_init_hook": 'post_init_hook',
 }
