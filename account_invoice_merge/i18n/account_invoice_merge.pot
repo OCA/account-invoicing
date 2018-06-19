@@ -1,23 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * account_invoice_merge
+#	* account_invoice_merge
 #
-# Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-09 03:38+0000\n"
-"PO-Revision-Date: 2016-12-09 03:38+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
-"Language-Team: Bosnian (https://www.transifex.com/oca/teams/23907/bs/)\n"
-"Language: bs\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: \n"
 
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -33,32 +27,32 @@ msgstr ""
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Cancel"
-msgstr "Otkaži"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_create_uid
 msgid "Created by"
-msgstr "Kreirao"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_create_date
 msgid "Created on"
-msgstr "Kreirano"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_display_name
 msgid "Display Name"
-msgstr "Prikaži naziv"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_account_invoice
 msgid "Invoice"
-msgstr "Faktura"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_date_invoice
@@ -73,17 +67,17 @@ msgstr ""
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge___last_update
 msgid "Last Modified on"
-msgstr "Zadnje mijenjano"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_uid
 msgid "Last Updated by"
-msgstr "Zadnji ažurirao"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_date
 msgid "Last Updated on"
-msgstr "Zadnje ažurirano"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -135,14 +129,12 @@ msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
-msgid ""
-"Please note that:<br/><br/>\n"
+msgid "Please note that:<br/><br/>\n"
 "                        Invoices will only be merged if:<br/>\n"
 "                        * Invoices are in state 'draft'.<br/>\n"
 "                        * Invoices belong to the same partner.<br/>\n"
 "                        * Invoices have the same company, partner, address,\n"
-"                        currency, journal, salesman, account and type.<br/"
-"><br/>\n"
+"                        currency, journal, salesman, account and type.<br/><br/>\n"
 "                        Lines will only be merged if:<br/>\n"
 "                        * Invoice lines are exactly the same except for the\n"
 "                        product, quantity and unit.<br/>"
@@ -157,4 +149,5 @@ msgstr ""
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "or"
-msgstr "ili"
+msgstr ""
+
