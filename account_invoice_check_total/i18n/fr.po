@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_invoice_check_total
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2018
 # Nicolas JEUDY <njeudy@panda-chi.io>, 2018
@@ -14,10 +14,10 @@ msgstr ""
 "PO-Revision-Date: 2018-04-11 02:41+0000\n"
 "Last-Translator: Quentin THEURET <odoo@kerpeo.com>, 2018\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: account_invoice_check_total
@@ -30,8 +30,7 @@ msgstr "Vérifier le total sur les factures fournisseur"
 #. module: account_invoice_check_total
 #: model:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 msgid ""
-"Check whether the total computed amount is the same as the verification "
-"total"
+"Check whether the total computed amount is the same as the verification total"
 msgstr ""
 "Vérifier que le montant total calculé est le même que le montant de "
 "vérification"
@@ -39,8 +38,8 @@ msgstr ""
 #. module: account_invoice_check_total
 #: model:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 msgid ""
-"If you check this box, the system verifies that the total computed amount is"
-" the same as the verification total."
+"If you check this box, the system verifies that the total computed amount is "
+"the same as the verification total."
 msgstr ""
 "Si vous cochez cette case, le système vérifiera que le total calculé est le "
 "même que le montant de vérification."
@@ -58,7 +57,8 @@ msgid ""
 "                        The encoded total does not match the computed total."
 msgstr ""
 "Veuillez vérifier le montant de la facture !\n"
-"                         Le montant de vérification ne correspond pas au montant calculé."
+"                         Le montant de vérification ne correspond pas au "
+"montant calculé."
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice_check_total
