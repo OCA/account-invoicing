@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * purchase_stock_picking_return_invoicing
-# 
+#
 # Translators:
 # Nicola Malcontenti <nicola.malcontenti@gmail.com>, 2017
 # OCA Transbot <transbot@odoo-community.org>, 2017
@@ -14,10 +14,10 @@ msgstr ""
 "PO-Revision-Date: 2017-03-24 18:04+0000\n"
 "Last-Translator: Giacomo Grasso <giacomo.grasso.82@gmail.com>, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: purchase_stock_picking_return_invoicing
@@ -59,11 +59,6 @@ msgstr "Riga Ordine d'Acquisto"
 #: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_stock_return_picking_line_purchase_line_id
 msgid "Purchase order line"
 msgstr "Riga ordine d'acquisto"
-
-#. module: purchase_stock_picking_return_invoicing
-#: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order_line_qty_to_invoice
-msgid "Qty to Bill"
-msgstr ""
 
 #. module: purchase_stock_picking_return_invoicing
 #: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order_line_qty_to_refund
