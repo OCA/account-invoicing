@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     'name': 'Italian Localization - Corrispettivi e ordini di vendita',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'category': 'Accounting & Finance',
     'summary': 'Modulo per integrare i corrispettivi in odoo '
                'con gli ordini di vendita.',
