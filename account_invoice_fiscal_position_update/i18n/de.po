@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_invoice_fiscal_position_update
-# 
+#
 # Translators:
 # Rudolf Schnapka <rs@techno-flex.de>, 2017
 # OCA Transbot <transbot@odoo-community.org>, 2017
@@ -13,10 +13,10 @@ msgstr ""
 "PO-Revision-Date: 2017-02-01 03:40+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_fiscal_position_update
@@ -28,20 +28,26 @@ msgstr "Rechnung"
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:57
 #, python-format
 msgid ""
-"The following invoice lines were not updated to the new Fiscal Position because they don't have a Product:\n"
+"The following invoice lines were not updated to the new Fiscal Position "
+"because they don't have a Product:\n"
 "- %s\n"
 "You should update the Account and the Taxes of these invoice lines manually."
 msgstr ""
-"Die folgenden Rechnungspositionen wurden nicht auf die neue Steuerzuordnung aktualisiert, da Sie kein Produkt enthalten:\n"
+"Die folgenden Rechnungspositionen wurden nicht auf die neue Steuerzuordnung "
+"aktualisiert, da Sie kein Produkt enthalten:\n"
 "- %s\n"
-"Sie müssen die Kontierung und Versteuerung dieser Positionen manuell anpassen."
+"Sie müssen die Kontierung und Versteuerung dieser Positionen manuell "
+"anpassen."
 
 #. module: account_invoice_fiscal_position_update
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:51
 #, python-format
 msgid ""
-"The invoice lines were not updated to the new Fiscal Position because they don't have products.\n"
+"The invoice lines were not updated to the new Fiscal Position because they "
+"don't have products.\n"
 "You should update the Account and the Taxes of each invoice line manually."
 msgstr ""
-"Die Rechnungspositionen wurden nicht auf die neue Steuerzuordnung aktualisiert, da Sie keine Produkte enthalten.\n"
-"Sie müssen die Kontierung und Versteuerung jeder dieser Positionen manuell anpassen."
+"Die Rechnungspositionen wurden nicht auf die neue Steuerzuordnung "
+"aktualisiert, da Sie keine Produkte enthalten.\n"
+"Sie müssen die Kontierung und Versteuerung jeder dieser Positionen manuell "
+"anpassen."
