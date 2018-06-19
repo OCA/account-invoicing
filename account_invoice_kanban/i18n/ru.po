@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_invoice_kanban
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
 # nek, 2018
@@ -13,11 +13,13 @@ msgstr ""
 "PO-Revision-Date: 2018-03-17 01:09+0000\n"
 "Last-Translator: nek, 2018\n"
 "Language-Team: Russian (https://www.transifex.com/oca/teams/23907/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: account_invoice_kanban
 #: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
@@ -138,8 +140,8 @@ msgstr "Стадия"
 #: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_signed
 #: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_validated
 msgid ""
-"This is the default status and indicates that a card can be processed by any"
-" user working this queue."
+"This is the default status and indicates that a card can be processed by any "
+"user working this queue."
 msgstr ""
 
 #. module: account_invoice_kanban
