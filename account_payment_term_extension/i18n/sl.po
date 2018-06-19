@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_payment_term_extension
-# 
+#
 # Translators:
 # Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
 msgid ""
@@ -11,12 +11,14 @@ msgstr ""
 "POT-Creation-Date: 2016-04-30 02:53+0000\n"
 "PO-Revision-Date: 2016-04-27 11:16+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-invoicing-9-0/language/sl/)\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-"
+"invoicing-9-0/language/sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 #. module: account_payment_term_extension
 #: model:account.payment.term,name:account_payment_term_extension.sixty_days_end_of_month
@@ -87,4 +89,6 @@ msgstr ""
 msgid ""
 "Sets the amount so that it is a multiple of this value.\n"
 "To have amounts that end in 0.99, set rounding 1, surcharge -0.01"
-msgstr "Znesek nastavi kot večkratnik te vrednosti.\nDa bi zneske, ki se končujejo z 0.99 zaokrožili na 1, dodajte -0.01"
+msgstr ""
+"Znesek nastavi kot večkratnik te vrednosti.\n"
+"Da bi zneske, ki se končujejo z 0.99 zaokrožili na 1, dodajte -0.01"
