@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_invoice_document" inherit_id="account.report_invoice_document" priority="99">
+
+    <xpath expr="//tbody[@class='invoice_tbody']" position="before">
+        <t t-set="subtotal" t-value="0.0"/>
+        <!--<t t-set="date_format"-->
+           <!--t-value="env['res.lang'].search([('code', '=', o.partner_id.lang)]).date_format"/>-->
+    </xpath>
+    <xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="attributes">
+        <attribute name="t-foreach">o.lines_grouped_by_picking()</attribute>
+        <attribute name="t-as">lines_group</attribute>
+    </xpath>
+    <xpath expr="//td/span[@t-field='l.name']/.." position="before">
+        <t t-set="l" t-value="lines_group['line']"/>
+        <t t-set="picking" t-value="lines_group['picking']"/>
+        <t t-set="picking_info" t-value="lines_group['picking_info']"/>
+        <t t-if="picking != last_picking">
+            <tr t-if="last_picking">
+                <td colspan="10" class="text-right">
+                    <strong>Subtotal: </strong>
+                    <strong t-esc="subtotal"
+                            t-esc-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                </td>
+                <t t-set="subtotal" t-value="0.0"/>
+            </tr>
+            <tr t-if="picking_info">
+                <td colspan="10">
+                    <strong t-esc="picking_info"/>
+                </td>
+            </tr>
+            <t t-set="last_picking" t-value="picking"/>
+        </t>
+        <t t-set="subtotal" t-value="(subtotal or 0.0) + l.price_subtotal"/>
+    </xpath>
+    <xpath expr="//tbody[@class='invoice_tbody']" position="inside">
+        <tr>
+            <td colspan="10" class="text-right">
+                <strong>Subtotal: </strong>
+                <strong t-esc="subtotal"
+                        t-esc-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+            </td>
+            <t t-set="subtotal" t-value="0.0"/>
+        </tr>
+    </xpath>
+
+</template>
+
+</odoo>

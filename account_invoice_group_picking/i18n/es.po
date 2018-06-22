@@ -1,0 +1,116 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_group_picking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-23 13:36+0100\n"
+"PO-Revision-Date: 2017-03-23 13:39+0100\n"
+"Last-Translator: Carlos Dauden <carlos.dauden@tecnativa.com>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: account_invoice_group_picking
+#: code:addons/account_invoice_group_picking/models/account_invoice.py:17
+#, python-format
+msgid "%s Picking: %s %s"
+msgstr "%s Albarán: %s %s"
+
+#. module: account_invoice_group_picking
+#: model:ir.ui.view,arch_db:account_invoice_group_picking.report_invoice_document
+msgid "<strong>Subtotal: </strong>"
+msgstr "<strong>Subtotal: </strong>"
+
+#. module: account_invoice_group_picking
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_sale_order_line_stock_move_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_invoice_group_picking
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_sale_order_line_stock_move_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: account_invoice_group_picking
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_sale_order_line_stock_move_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: account_invoice_group_picking
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_sale_order_line_stock_move_id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: account_invoice_group_picking
+#: model:ir.model,name:account_invoice_group_picking.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_invoice_group_picking
+#: model:ir.model,name:account_invoice_group_picking.model_account_invoice_line
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_sale_order_line_stock_move_invoice_line_id
+msgid "Invoice Line"
+msgstr "Línea factura"
+
+#. module: account_invoice_group_picking
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_sale_order_line_stock_move___last_update
+msgid "Last Modified on"
+msgstr "Última actualización el"
+
+#. module: account_invoice_group_picking
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_sale_order_line_stock_move_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: account_invoice_group_picking
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_sale_order_line_stock_move_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: account_invoice_group_picking
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_sale_order_line_stock_move_move_id
+msgid "Move"
+msgstr "Movimiento"
+
+#. module: account_invoice_group_picking
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_sale_order_line_move_invoice_link_ids
+msgid "Move invoice link ids"
+msgstr ""
+
+#. module: account_invoice_group_picking
+#: code:addons/account_invoice_group_picking/models/account_invoice.py:14
+#, python-format
+msgid "Order: %s"
+msgstr "Pedido: %s"
+
+#. module: account_invoice_group_picking
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_sale_order_line_stock_move_sale_line_id
+msgid "Sale Order Line"
+msgstr "Línea pedido de venta"
+
+#. module: account_invoice_group_picking
+#: model:ir.model.fields,field_description:account_invoice_group_picking.field_account_invoice_line_sale_move_link_ids
+msgid "Sale move link ids"
+msgstr ""
+
+#. module: account_invoice_group_picking
+#: model:ir.model,name:account_invoice_group_picking.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Líneas de pedido"
+
+#. module: account_invoice_group_picking
+#: model:ir.model,name:account_invoice_group_picking.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de existencias"
+
+#. module: account_invoice_group_picking
+#: model:ir.model,name:account_invoice_group_picking.model_sale_order_line_stock_move
+msgid "sale.order.line.stock.move"
+msgstr ""

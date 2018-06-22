@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_order_line_stock_move_salesman,sale.order.line.stock.move.salesman,model_sale_order_line_stock_move,base.group_sale_salesman,1,1,1,1
+access_sale_order_line_stock_move_portal,sale.order.line.stock.move.portal,model_sale_order_line_stock_move,base.group_portal,1,0,0,0
+access_procurement_order_portal,procurement.order.portal,procurement.model_procurement_order,base.group_portal,1,0,0,0
