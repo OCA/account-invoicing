@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 Komit <http://komit-consulting.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="wizard_change_currency_form_view" model="ir.ui.view">
+        <field name="name">wizard.change.currency.form.view</field>
+        <field name="model">wizard.change.invoice.currency</field>
+        <field name="arch" type="xml">
+            <form string="Change Currency">
+                <group>
+                    <group>
+                        <field name="currency_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Change" class="btn-primary" type="object" name="button_change_currency"/>
+                    or
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_change_currency" model="ir.actions.act_window">
+        <field name="name">Change currency of the Invoice</field>
+        <field name="res_model">wizard.change.invoice.currency</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
