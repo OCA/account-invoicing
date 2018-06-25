@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo10-addon-account_group_invoice_line',
         'odoo10-addon-account_invoice_analytic_search',
         'odoo10-addon-account_invoice_blocking',
+        'odoo10-addon-account_invoice_change_currency',
         'odoo10-addon-account_invoice_check_total',
         'odoo10-addon-account_invoice_fiscal_position_update',
         'odoo10-addon-account_invoice_fixed_discount',
