@@ -17,8 +17,10 @@ class AccountInvoice(models.Model):
         company = self.env['res.company']._company_default_get()
         if company.pro_forma_sequence:
             sequence = company.pro_forma_sequence
-            dt = fields.Date.today()
+            today = fields.Date.today()
             for invoice in self:
                 invoice.pro_forma_number = \
-                    sequence.with_context(ir_sequence_date=dt).next_by_id()
+                    sequence.with_context(
+                        ir_sequence_date=invoice.date_invoice or today) \
+                    .next_by_id()
         return res
