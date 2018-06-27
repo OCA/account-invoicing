@@ -50,5 +50,5 @@ msgstr "Rectificacions"
 
 #. module: purchase_stock_picking_return_invoicing
 #: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order_line_qty_returned
-msgid "Returned Qty"
+msgid "Returned* Qty"
 msgstr ""
