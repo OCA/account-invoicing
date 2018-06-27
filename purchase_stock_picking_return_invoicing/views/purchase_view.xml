@@ -10,8 +10,11 @@
                 <button type="object" name="action_view_invoice_refund"
                         class="oe_stat_button"
                         icon="fa-pencil-square-o">
-                    <field name="invoice_refund_count" widget="statinfo"
-                           string="Refunds"/>
+                    <field name="invoice_refund_count"
+                           widget="statinfo"
+                           string="Refunds"
+                           attrs="{'invisible': [('state', 'in', ('draft', 'sent', 'to approve'))]}"
+                    />
                 </button>
             </button>
             <xpath expr="//field[@name='order_line']/tree/field[@name='qty_received']" position="after">
