@@ -3,6 +3,7 @@
 # Copyright 2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import collections
 from odoo import api, fields, models
 
 
@@ -40,7 +41,7 @@ class PurchaseOrder(models.Model):
         Make this compatible with other extensions, only subtracting refunds
         from the number obtained in super.
         """
-        super(PurchaseOrder, self)._compute_invoice()
+        super()._compute_invoice()
         for order in self:
             order.invoice_count -= order.invoice_refund_count
 
@@ -72,7 +73,7 @@ class PurchaseOrder(models.Model):
             # Use the same account journal than a previous invoice
             result['context']['default_journal_id'] = refunds[0].journal_id.id
         # choose the view_mode accordingly
-        if len(refunds) != 1:
+        if len(refunds) > 1:
             result['domain'] = [('id', 'in', refunds.ids)]
         elif len(refunds) == 1:
             res = self.env.ref('account.invoice_supplier_form', False)
@@ -106,7 +107,8 @@ class PurchaseOrderLine(models.Model):
     )
     qty_returned = fields.Float(
         compute="_compute_qty_returned",
-        string='Returned Qty',
+        string='Returned* Qty',
+        help="This is ONLY the returned quantity that is refundable.",
         store=True,
     )
 
@@ -129,40 +131,28 @@ class PurchaseOrderLine(models.Model):
     def _compute_qty_returned(self):
         """Made through read_group for not impacting in performance."""
         ProductUom = self.env['product.uom']
-        StockMove = self.env['stock.move']
-        groups = StockMove.read_group(
-            [('origin_returned_move_id.purchase_line_id', 'in', self.ids),
+        groups = self.env['stock.move'].read_group(
+            [('purchase_line_id', 'in', self.ids),
              ('state', '=', 'done'),
+             ('to_refund', '=', True),
              ('location_id.usage', '!=', 'supplier')],
-            ['origin_returned_move_id', 'product_uom_qty', 'product_uom'],
-            ['origin_returned_move_id', 'product_uom'], lazy=False,
+            ['purchase_line_id', 'product_uom_qty', 'product_uom'],
+            ['purchase_line_id', 'product_uom'], lazy=False,
         )
         p = self._prefetch
-        # load all moves records at once on first access
-        origin_move_ids = set(g['origin_returned_move_id'][0] for g in groups)
-        StockMove.browse(origin_move_ids).with_prefetch(p)
         # load all UoM records at once on first access
         uom_ids = set(g['product_uom'][0] for g in groups)
-        ProductUom.browse(list(uom_ids)).with_prefetch(p)
-        line_qtys = {}
+        ProductUom.browse(list(uom_ids), prefetch=p)
+        line_qtys = collections.defaultdict(lambda: 0)
         for g in groups:
-            uom = ProductUom.browse(g["product_uom"][0]).with_prefetch(p)
-            move = StockMove.browse(
-                g['origin_returned_move_id'][0]
-            ).with_prefetch(p)
-            line_qtys.setdefault(move.purchase_line_id.id, 0)
-            line_qtys[move.purchase_line_id.id] += uom._compute_quantity(
-                g["product_uom_qty"], move.purchase_line_id.product_uom,
-            )
+            uom = ProductUom.browse(g["product_uom"][0], prefetch=p)
+            line = self.browse(g['purchase_line_id'][0], prefetch=p)
+            if uom == line.product_uom:
+                qty = g["product_uom_qty"]
+            else:
+                qty = uom._compute_quantity(
+                    g["product_uom_qty"], line.product_uom,
+                )
+            line_qtys[line.id] += qty
         for line in self:
             line.qty_returned = line_qtys.get(line.id, 0)
-
-    @api.depends('qty_returned')
-    def _compute_qty_received(self):
-        """Substract returned quantity from received one, as super sums
-        only direct moves, and we want to reflect here the actual received qty.
-        Odoo v11 also does this.
-        """
-        super(PurchaseOrderLine, self)._compute_qty_received()
-        for line in self:
-            line.qty_received -= line.qty_returned

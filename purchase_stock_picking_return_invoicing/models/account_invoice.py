@@ -1,19 +1,29 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Eficent Business and IT Consulting Services
-# Copyright 2017 Tecnativa - Pedro M. Baeza
+# Copyright 2017-2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-import logging
 
-from odoo import models
-_logger = logging.getLogger(__name__)
+from odoo import api, models
+from odoo.tools import float_is_zero
 
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    @api.onchange('purchase_id')
+    def purchase_order_change(self):
+        """Remove lines with qty=0 when making refunds."""
+        res = super().purchase_order_change()
+        if self.type == 'in_refund':
+            self.invoice_line_ids -= self.invoice_line_ids.filtered(
+                lambda x: float_is_zero(
+                    x.quantity, precision_rounding=x.uom_id.rounding,
+                )
+            )
+        return res
+
     def _prepare_invoice_line_from_po_line(self, line):
-        data = super(AccountInvoice,
-                     self)._prepare_invoice_line_from_po_line(line)
+        data = super()._prepare_invoice_line_from_po_line(line)
         if line.product_id.purchase_method == 'receive':
             # This formula proceeds from the simplification of full expression:
             # qty_received + qty_returned - (qty_invoiced + qty_refunded) -
