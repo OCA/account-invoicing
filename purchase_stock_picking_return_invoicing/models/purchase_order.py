@@ -127,15 +127,35 @@ class PurchaseOrderLine(models.Model):
         'move_ids.returned_move_ids.state',
     )
     def _compute_qty_returned(self):
+        """Made through read_group for not impacting in performance."""
+        ProductUom = self.env['product.uom']
+        StockMove = self.env['stock.move']
+        groups = StockMove.read_group(
+            [('origin_returned_move_id.purchase_line_id', 'in', self.ids),
+             ('state', '=', 'done'),
+             ('location_id.usage', '!=', 'supplier')],
+            ['origin_returned_move_id', 'product_uom_qty', 'product_uom'],
+            ['origin_returned_move_id', 'product_uom'], lazy=False,
+        )
+        p = self._prefetch
+        # load all moves records at once on first access
+        origin_move_ids = set(g['origin_returned_move_id'][0] for g in groups)
+        StockMove.browse(origin_move_ids).with_prefetch(p)
+        # load all UoM records at once on first access
+        uom_ids = set(g['product_uom'][0] for g in groups)
+        ProductUom.browse(list(uom_ids)).with_prefetch(p)
+        line_qtys = {}
+        for g in groups:
+            uom = ProductUom.browse(g["product_uom"][0]).with_prefetch(p)
+            move = StockMove.browse(
+                g['origin_returned_move_id'][0]
+            ).with_prefetch(p)
+            line_qtys.setdefault(move.purchase_line_id.id, 0)
+            line_qtys[move.purchase_line_id.id] += uom._compute_quantity(
+                g["product_uom_qty"], move.purchase_line_id.product_uom,
+            )
         for line in self:
-            qty = 0.0
-            moves = line.mapped('move_ids.returned_move_ids')
-            for move in moves.filtered(lambda x: x.state == 'done'):
-                if move.location_id.usage != 'supplier':
-                    qty += move.product_uom._compute_quantity(
-                        move.product_uom_qty, line.product_uom,
-                    )
-            line.qty_returned = qty
+            line.qty_returned = line_qtys.get(line.id, 0)
 
     @api.depends('qty_returned')
     def _compute_qty_received(self):
