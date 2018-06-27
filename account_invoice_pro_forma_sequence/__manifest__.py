@@ -17,6 +17,7 @@
     ],
     "data": [
         "views/account.xml",
-        "views/account_config_settings.xml"
+        "views/account_config_settings.xml",
+        "views/account_report.xml"
     ]
 }
