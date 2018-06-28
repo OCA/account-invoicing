@@ -14,13 +14,12 @@ class AccountInvoice(models.Model):
     @api.multi
     def action_invoice_proforma2(self):
         res = super(AccountInvoice, self).action_invoice_proforma2()
-        company = self.env['res.company']._company_default_get()
-        if company.pro_forma_sequence:
-            sequence = company.pro_forma_sequence
-            today = fields.Date.today()
-            for invoice in self:
+        today = fields.Date.today()
+        for invoice in self:
+            company = invoice.company_id
+            if company.pro_forma_sequence:
+                date = invoice.date_invoice or today
+                sequence = company.pro_forma_sequence
                 invoice.pro_forma_number = \
-                    sequence.with_context(
-                        ir_sequence_date=invoice.date_invoice or today) \
-                    .next_by_id()
+                    sequence.with_context(ir_sequence_date=date).next_by_id()
         return res
