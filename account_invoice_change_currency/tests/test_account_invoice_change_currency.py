@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017 Komit <http://komit-consulting.com>
+# Copyright 2018 Komit <http://komit-consulting.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields
+from odoo import exceptions, fields
 import odoo.tests.common as common
 
 
@@ -92,3 +91,14 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
         self.assertEqual(
             inv.amount_total, expected_value,
             'Total amount of invoice does not equal to expected value!!!')
+
+    def test_change_validated_invoice_currency(self):
+        inv = self.create_simple_invoice(fields.Date.today())
+        wiz = self.env['wizard.change.invoice.currency'].\
+            with_context(active_id=inv.id).create(
+                {'currency_id': self.env.ref('base.USD').id})
+        # Validate invoice before change
+        inv.action_invoice_open()
+        # Make sure that we can not change the currency after validated:
+        with self.assertRaises(exceptions.UserError):
+            wiz.button_change_currency()
