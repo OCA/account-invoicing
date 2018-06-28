@@ -10,6 +10,7 @@ class TestSaleTimesheetDescription(common.SavepointCase):
     def setUpClass(cls):
         super(TestSaleTimesheetDescription, cls).setUpClass()
         # Make sure user is in English
+        cls.env['res.lang'].load_lang('en_US')
         cls.env.user.lang = 'en_US'
         cls.partner = cls.env['res.partner'].create({
             'name': 'Test partner',
