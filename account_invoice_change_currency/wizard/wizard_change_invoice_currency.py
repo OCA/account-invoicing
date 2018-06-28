@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017 Komit <http://komit-consulting.com>
+# Copyright 2018 Komit <http://komit-consulting.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, models, fields
+from odoo import api, models, fields, _
+from odoo.exceptions import UserError
 
 
 class WizardChangeInvoiceCurrency(models.TransientModel):
@@ -17,6 +17,12 @@ class WizardChangeInvoiceCurrency(models.TransientModel):
         self.ensure_one()
         invoice = self.env['account.invoice'].browse(
             self._context.get('active_id'))
+        if invoice and invoice.state not in ['draft', 'cancel']:
+            # To ensure that we can not change the currency if
+            # there already has some move lines
+            raise UserError(_("Invoice state must be in draft or cancelled "
+                              "in order to change currency."))
+
         if invoice and invoice.currency_id != self.currency_id:
             from_currency = invoice.currency_id
 
