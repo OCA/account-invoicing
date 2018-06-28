@@ -74,15 +74,15 @@
         <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
     </record>
 
-    <record id="account.action_invoice_tree1_view1" model="ir.actions.act_window.view">
-        <field eval="1" name="sequence"/>
+    <record id="action_invoice_tree1_view0" model="ir.actions.act_window.view">
+        <field eval="0" name="sequence"/>
         <field name="view_mode">kanban</field>
         <field name="view_id" ref="account_invoice_kanban"/>
         <field name="act_window_id" ref="account.action_invoice_tree1"/>
     </record>
 
-    <record id="account.action_invoice_supplier_tree1_view1" model="ir.actions.act_window.view">
-       <field eval="1" name="sequence"/>
+    <record id="action_invoice_supplier_tree1_view0" model="ir.actions.act_window.view">
+       <field eval="0" name="sequence"/>
        <field name="view_mode">kanban</field>
        <field name="view_id" ref="account_invoice_kanban"/>
        <field name="act_window_id" ref="account.action_invoice_tree2"/>

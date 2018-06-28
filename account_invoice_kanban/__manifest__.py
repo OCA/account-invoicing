@@ -4,7 +4,7 @@
 {
     'name': 'Account Invoice Kanban',
     'summary': 'Add Kanban view in Invoice to follow administrative tasks',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.1.0',
     'website': 'https://www.elico-corp.com/',
     'author': 'Elico Corp, Odoo Community Association (OCA)',
     'depends': [
