@@ -1,38 +1,33 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * account_invoice_transmit_method
+#	* account_invoice_transmit_method
 #
-# Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-21 02:58+0000\n"
-"PO-Revision-Date: 2017-10-21 02:58+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
-"Language-Team: Romanian (https://www.transifex.com/oca/teams/23907/ro/)\n"
-"Language: ro\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
-"2:1));\n"
+"Plural-Forms: \n"
 
 #. module: account_invoice_transmit_method
-#: field:account.invoice,transmit_method_code:0 field:transmit.method,code:0
+#: field:account.invoice,transmit_method_code:0
+#: field:transmit.method,code:0
 msgid "Code"
 msgstr ""
 
 #. module: account_invoice_transmit_method
 #: field:transmit.method,create_uid:0
 msgid "Created by"
-msgstr "Creat de"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: field:transmit.method,create_date:0
 msgid "Created on"
-msgstr "Creat la"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: field:res.partner,customer_invoice_transmit_method_id:0
@@ -47,47 +42,45 @@ msgstr ""
 #. module: account_invoice_transmit_method
 #: field:transmit.method,display_name:0
 msgid "Display Name"
-msgstr "Nume Afişat"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: help:account.invoice,transmit_method_code:0
 #: help:res.partner,customer_invoice_transmit_method_code:0
 #: help:res.partner,supplier_invoice_transmit_method_code:0
 #: help:transmit.method,code:0
-msgid ""
-"Do not modify the code of an existing Transmit Method because it may be used "
-"to identify a particular transmit method."
+msgid "Do not modify the code of an existing Transmit Method because it may be used to identify a particular transmit method."
 msgstr ""
 
 #. module: account_invoice_transmit_method
 #: field:transmit.method,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_account_invoice
 msgid "Invoice"
-msgstr "Factura"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: field:transmit.method,__last_update:0
 msgid "Last Modified on"
-msgstr "Ultima actualizare în"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: field:transmit.method,write_uid:0
 msgid "Last Updated by"
-msgstr "Ultima actualizare făcută de"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: field:transmit.method,write_date:0
 msgid "Last Updated on"
-msgstr "Ultima actualizare la"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: field:transmit.method,name:0
 msgid "Name"
-msgstr "Nume"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: view:transmit.method:account_invoice_transmit_method.transmit_method_search
@@ -97,7 +90,7 @@ msgstr ""
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_res_partner
 msgid "Partner"
-msgstr "Partener"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: view:transmit.method:account_invoice_transmit_method.transmit_method_search
@@ -155,21 +148,11 @@ msgstr ""
 
 #. module: account_invoice_transmit_method
 #: view:res.partner:account_invoice_transmit_method.view_partner_property_form
-msgid ""
-"{'default_parent_id': active_id, 'default_street': street, "
-"'default_street2': street2, 'default_city': city, 'default_state_id': "
-"state_id, 'default_zip': zip, 'default_country_id': country_id, "
-"'default_supplier': supplier, 'default_customer': customer, "
-"'default_use_parent_address': True, "
-"'default_customer_invoice_transmit_method_code': "
-"customer_invoice_transmit_method_code, "
-"'default_supplier_invoice_transmit_method_code': "
-"supplier_invoice_transmit_method_code}"
+msgid "{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_supplier': supplier, 'default_customer': customer, 'default_use_parent_address': True, 'default_customer_invoice_transmit_method_code': customer_invoice_transmit_method_code, 'default_supplier_invoice_transmit_method_code': supplier_invoice_transmit_method_code}"
 msgstr ""
 
 #. module: account_invoice_transmit_method
 #: view:account.invoice:account_invoice_transmit_method.invoice_form
-msgid ""
-"{'invisible': ['|', '|', ('sent', '=', True), ('state', 'not in', ('open', "
-"'paid')), ('transmit_method_code', 'not in', ('mail', False))]}"
+msgid "{'invisible': ['|', '|', ('sent', '=', True), ('state', 'not in', ('open', 'paid')), ('transmit_method_code', 'not in', ('mail', False))]}"
 msgstr ""
+
