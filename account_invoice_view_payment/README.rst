@@ -36,7 +36,7 @@ After payment has been made
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/96/10.0
+   :target: https://runbot.odoo-community.org/runbot/96/11.0
 
 Bug Tracker
 ===========
@@ -54,6 +54,7 @@ Contributors
 ------------
 * Jordi Ballester <jordi.ballester@eficent.com>
 * Miquel Raïch <miquel.raich@eficent.com>
+* Achraf Mhadhbi <machraf@bloopark.de>
 
 
 Maintainer
