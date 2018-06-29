@@ -1,11 +1,22 @@
+<<<<<<< HEAD
 # Translation of Odoo Server.
+=======
+# Translation of OpenERP Server.
+>>>>>>> [ADD] account_invoice_force_number
 # This file contains the translation of the following modules:
 #	* account_invoice_force_number
 #
 msgid ""
 msgstr ""
+<<<<<<< HEAD
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
+=======
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-11-16 16:44+0000\n"
+"PO-Revision-Date: 2011-11-16 16:44+0000\n"
+>>>>>>> [ADD] account_invoice_force_number
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -14,6 +25,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_force_number
+<<<<<<< HEAD
 #: model:res.groups,name:account_invoice_force_number.group_allow_invoice_force_number
 msgid "Allow \"Invoice Force Number\""
 msgstr ""
@@ -26,5 +38,28 @@ msgstr ""
 #. module: account_invoice_force_number
 #: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
 msgid "Force invoice number. Use this field if you don't want to use the default numbering"
+=======
+#: view:account.invoice:0
+msgid "Force Number"
+msgstr ""
+
+#. module: account_invoice_force_number
+#: model:ir.module.module,description:account_invoice_force_number.module_meta_information
+msgid "\n"
+"    This module allows to force the invoice numbering.\n"
+"    It displays the internal_number field. If user fills that field, the typed value will be used as invoice (and move) number. Otherwise, the next sequence sequence number will be retrieved and saved.\n"
+"    So, the new field has to be used when user doesn't want to use the default invoice numbering for a specific invoice.\n"
+"    "
+msgstr ""
+
+#. module: account_invoice_force_number
+#: model:ir.module.module,shortdesc:account_invoice_force_number.module_meta_information
+msgid "Force Invoice Number"
+msgstr ""
+
+#. module: account_invoice_force_number
+#: model:ir.model,name:account_invoice_force_number.model_account_invoice
+msgid "Invoice"
+>>>>>>> [ADD] account_invoice_force_number
 msgstr ""
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="payments_widget" position="after">
+                <field name="payment_ids" invisible="1"/>
+                <button type="object"  name="action_view_payments"
+                        class="oe_link" string="View Payments"
+                        colspan="2"
+                        attrs="{'invisible':[('payment_ids','=',[])]}"
+                        groups="account.group_account_user"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="payments_widget" position="after">
+                <field name="payment_ids" invisible="1"/>
+                <button type="object"  name="action_view_payments"
+                        class="oe_link" string="View Payments"
+                        colspan="2"
+                        attrs="{'invisible':[('payment_ids','=',[])]}"
+                        groups="account.group_account_user"/>
+            </field>
+        </field>
+    </record>
+</odoo>
