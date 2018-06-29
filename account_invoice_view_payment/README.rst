@@ -16,8 +16,8 @@ the associated check.
 Configuration
 =============
 
-Only users assigned to the 'Accounting & Finance' groups 'Accountant' or
-'Adviser' can display the payments from the invoice.
+Only users assigned to the group "Billing" can display the payments from
+the invoice.
 
 Usage
 =====
