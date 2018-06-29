@@ -5,7 +5,7 @@
         <field name="name">account.payment.invoice.form</field>
         <field name="model">account.payment</field>
         <field name="inherit_id"
-               ref="account.view_account_payment_invoice_form"/>
+               ref="account.view_account_payment_form"/>
         <field name="arch" type="xml">
             <button name="action_validate_invoice_payment" position="after">
                 <button name="post_and_open_payment" class="oe_highlight"
