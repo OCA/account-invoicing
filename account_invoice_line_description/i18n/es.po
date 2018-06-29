@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_invoice_line_description
-# 
+#
 # Translators:
 # Antonio Trueba, 2016
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014
@@ -12,11 +12,12 @@ msgstr ""
 "POT-Creation-Date: 2015-12-04 01:38+0000\n"
 "PO-Revision-Date: 2016-02-23 12:42+0000\n"
 "Last-Translator: Antonio Trueba\n"
-"Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/oca/OCA-account-"
+"invoicing-8-0/language/es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_line_description
@@ -24,14 +25,18 @@ msgstr ""
 msgid ""
 "Allow using only the product description on the\n"
 "            invoice lines"
-msgstr "Permitir únicamente el uso de la descripción del producto para las lineas de factura"
+msgstr ""
+"Permitir únicamente el uso de la descripción del producto para las lineas de "
+"factura"
 
 #. module: account_invoice_line_description
 #: help:account.config.settings,group_use_product_description_per_inv_line:0
 msgid ""
 "Allows you to use only product description on the\n"
 "            invoice lines."
-msgstr "Le permite utilizar únicamente la descrpción del producto en las líneas de factura."
+msgstr ""
+"Le permite utilizar únicamente la descrpción del producto en las líneas de "
+"factura."
 
 #. module: account_invoice_line_description
 #: model:ir.model,name:account_invoice_line_description.model_account_invoice_line
