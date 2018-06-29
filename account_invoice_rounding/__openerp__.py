@@ -30,7 +30,6 @@
      'res_config_view.xml',
      'res_partner_view.xml',
      'account_invoice_view.xml'],
- 'test': ['test/test_invoice_rounding.yml'],
  'installable': True,
  'auto_install': False,
  'application': True,
