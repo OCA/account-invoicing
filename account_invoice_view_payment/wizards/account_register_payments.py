@@ -10,7 +10,7 @@ class AccountRegisterPayments(models.TransientModel):
 
     @api.multi
     def create_payment_and_open(self):
-        payment = self.env['account.payment'].create(self.get_payment_vals())
+        payment = self.env['account.payment'].create(self.get_payments_vals())
         payment.post()
         res = {
             'res_id': payment.id,
