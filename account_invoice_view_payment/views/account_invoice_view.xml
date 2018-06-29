@@ -12,7 +12,7 @@
                         class="oe_link" string="View Payments"
                         colspan="2"
                         attrs="{'invisible':[('payment_ids','=',[])]}"
-                        groups="account.group_account_user"/>
+                        groups="account.group_account_invoice"/>
             </field>
         </field>
     </record>
@@ -28,7 +28,7 @@
                         class="oe_link" string="View Payments"
                         colspan="2"
                         attrs="{'invisible':[('payment_ids','=',[])]}"
-                        groups="account.group_account_user"/>
+                        groups="account.group_account_invoice"/>
             </field>
         </field>
     </record>
