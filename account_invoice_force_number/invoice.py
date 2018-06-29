@@ -19,4 +19,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import invoice
+
+from osv import fields, osv
+
+class account_invoice(osv.osv):
+    _inherit = "account.invoice"
+    _columns = {
+        'internal_number': fields.char('Invoice Number', size=32, readonly=True, states={'draft':[('readonly',False)]}),
+        }
+account_invoice()
