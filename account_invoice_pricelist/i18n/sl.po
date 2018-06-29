@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_invoice_pricelist
-# 
+#
 # Translators:
 # Matjaž Mozetič <m.mozetic@matmoz.si>, 2015,2017
 msgid ""
@@ -11,12 +11,14 @@ msgstr ""
 "POT-Creation-Date: 2017-06-10 05:41+0000\n"
 "PO-Revision-Date: 2017-06-14 04:31+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
-"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/sl/)\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-"
+"invoicing-8-0/language/sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 #. module: account_invoice_pricelist
 #: model:ir.model,name:account_invoice_pricelist.model_account_invoice
@@ -37,8 +39,8 @@ msgstr "Cenik"
 #. module: account_invoice_pricelist
 #: help:account.invoice,pricelist_id:0
 msgid ""
-"The pricelist of the partner, when the invoice is created or the partner has"
-" changed."
+"The pricelist of the partner, when the invoice is created or the partner has "
+"changed."
 msgstr "Cenik za partnerja ko se ustvari račun ali spremeni partnerja."
 
 #. module: account_invoice_pricelist
@@ -56,10 +58,13 @@ msgstr "pricelist_id"
 #: view:account.invoice:account_invoice_pricelist.view_account_invoice_customer_form
 #: view:account.invoice:account_invoice_pricelist.view_account_invoice_supplier_form
 msgid ""
-"product_id_change(product_id, uos_id, quantity, name, parent.type, "
-"parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, "
-"parent.company_id, context)"
-msgstr "product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, parent.company_id, context)"
+"product_id_change(product_id, uos_id, quantity, name, parent.type, parent."
+"partner_id, parent.fiscal_position, price_unit, parent.currency_id, parent."
+"company_id, context)"
+msgstr ""
+"product_id_change(product_id, uos_id, quantity, name, parent.type, parent."
+"partner_id, parent.fiscal_position, price_unit, parent.currency_id, parent."
+"company_id, context)"
 
 #. module: account_invoice_pricelist
 #: view:account.invoice:account_invoice_pricelist.view_account_invoice_supplier_form
