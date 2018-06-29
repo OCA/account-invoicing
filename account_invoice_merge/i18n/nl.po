@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_invoice_merge
-# 
+#
 # Translators:
 # Stefan Rijnhart <stefan@therp.nl>, 2015
 msgid ""
@@ -11,18 +11,18 @@ msgstr ""
 "POT-Creation-Date: 2017-10-21 02:57+0000\n"
 "PO-Revision-Date: 2017-10-02 16:43+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Dutch (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/oca/OCA-account-invoicing-8-0/"
+"language/nl/)\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid ""
-"* Invoice lines are exactly the same except for the product,quantity and "
-"unit"
+"* Invoice lines are exactly the same except for the product,quantity and unit"
 msgstr "* deze exact gelijk zijn behalve de hoeveelheid en de maateenheid"
 
 #. module: account_invoice_merge
@@ -30,7 +30,9 @@ msgstr "* deze exact gelijk zijn behalve de hoeveelheid en de maateenheid"
 msgid ""
 "* Invoices are have same company, partner, address, currency, journal, "
 "salesman, account, type"
-msgstr "* het bedrijf, de relatie, het adres, de valuta, het dagboek, de verkoper, de grootboekrekening en het type factuur gelijk zijn"
+msgstr ""
+"* het bedrijf, de relatie, het adres, de valuta, het dagboek, de verkoper, "
+"de grootboekrekening en het type factuur gelijk zijn"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
@@ -51,7 +53,9 @@ msgstr "Weet u zeker dat u deze facturen wilt samenvoegen?"
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
 #, python-format
 msgid "At least one of the selected invoices is %s!"
-msgstr "Er is in ieder geval één factuur in status %s. Deze kan niet samengevoegd worden."
+msgstr ""
+"Er is in ieder geval één factuur in status %s. Deze kan niet samengevoegd "
+"worden."
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge

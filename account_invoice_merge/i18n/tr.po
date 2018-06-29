@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_invoice_merge
-# 
+#
 # Translators:
 # Ivan BARAYEV <ivanbarayev@hotmail.com>, 2017
 msgid ""
@@ -11,18 +11,18 @@ msgstr ""
 "POT-Creation-Date: 2017-10-21 02:57+0000\n"
 "PO-Revision-Date: 2017-09-22 09:43+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Turkish (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/tr/)\n"
+"Language-Team: Turkish (http://www.transifex.com/oca/OCA-account-"
+"invoicing-8-0/language/tr/)\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid ""
-"* Invoice lines are exactly the same except for the product,quantity and "
-"unit"
+"* Invoice lines are exactly the same except for the product,quantity and unit"
 msgstr "* Fatura hatları, ürün, miktar ve birim haricinde tamamen aynıdır."
 
 #. module: account_invoice_merge
@@ -30,7 +30,9 @@ msgstr "* Fatura hatları, ürün, miktar ve birim haricinde tamamen aynıdır."
 msgid ""
 "* Invoices are have same company, partner, address, currency, journal, "
 "salesman, account, type"
-msgstr "* Faturaların aynı şirketi, ortağı, adresini, para birimini, günlüğü, satış elemanı, hesabı, türü var"
+msgstr ""
+"* Faturaların aynı şirketi, ortağı, adresini, para birimini, günlüğü, satış "
+"elemanı, hesabı, türü var"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
