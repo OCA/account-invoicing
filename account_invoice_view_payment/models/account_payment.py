@@ -11,7 +11,6 @@ class AccountPayment(models.Model):
     @api.multi
     def post_and_open_payment(self):
         self.post()
-
         res = {
             'domain': "[('id','in', ["+','.join(map(str, self.ids))+"])]",
             'name': _('Payments'),

@@ -10,10 +10,13 @@ class AccountRegisterPayments(models.TransientModel):
 
     @api.multi
     def create_payment_and_open(self):
-        payment = self.env['account.payment'].create(self.get_payments_vals())
-        payment.post()
+        payment_model = self.env['account.payment']
+        payments = payment_model
+        for payment_vals in self.get_payments_vals():
+            payments += payment_model.create(payment_vals)
+        payments.post()
         res = {
-            'res_id': payment.id,
+            'domain': [('id', 'in', payments.ids), ('state', '=', 'posted')],
             'views': [(False, 'form')],
             'name': _('Payments'),
             'view_type': 'form',
