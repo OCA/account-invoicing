@@ -18,6 +18,7 @@ setuptools.setup(
         'odoo11-addon-account_invoice_supplier_self_invoice',
         'odoo11-addon-account_invoice_tax_required',
         'odoo11-addon-account_invoice_triple_discount',
+        'odoo11-addon-account_invoice_view_payment',
         'odoo11-addon-account_payment_term_extension',
         'odoo11-addon-sale_timesheet_invoice_description',
     ],
