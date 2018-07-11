@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Simone Rubino - Agile Business Group
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <template id="report_invoice_proforma" inherit_id="account.report_invoice_document">
+        <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'" position="replace">
+            <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">
+                PRO-FORMA <span t-field="o.pro_forma_number"/>
+            </span>
+        </span>
+    </template>
+</odoo>
