@@ -4,7 +4,7 @@
 {
     "name": "Purchase Batch Invoicing",
     "summary": "Make invoices for all ready purchase orders",
-    "version": "9.0.1.0.0",
+    "version": "9.0.1.0.1",
     "category": "Purchases",
     "website": "https://tecnativa.com/",
     "author": "Tecnativa, Odoo Community Association (OCA)",
