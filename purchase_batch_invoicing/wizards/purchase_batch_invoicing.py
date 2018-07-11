@@ -95,6 +95,7 @@ class PurchaseBatchInvoicing(models.TransientModel):
             invoices |= invoice
         if not invoices:
             raise UserError(_("No ready-to-invoice purchase orders selected."))
+        invoices.compute_taxes()
         return {
             "type": "ir.actions.act_window",
             "res_model": "account.invoice",

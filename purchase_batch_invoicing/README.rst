@@ -72,6 +72,7 @@ Contributors
 
 * Jairo Llopis <jairo.llopis@tecnativa.com>
 * Pedro M. Baeza <pedro.baeza@tecnativa.com>
+* Isaac Gallart <igallart@puntsistemes.es>
 
 Maintainer
 ----------
