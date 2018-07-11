@@ -32,6 +32,7 @@ addon | version | summary
 [account_invoice_line_sequence](account_invoice_line_sequence/) | 10.0.1.0.0 | Adds sequence field on invoice lines to manage its order.
 [account_invoice_merge](account_invoice_merge/) | 10.0.1.0.0 | Merge invoices in draft
 [account_invoice_merge_attachment](account_invoice_merge_attachment/) | 10.0.1.0.0 | Consider attachment during invoice merge process
+[account_invoice_merge_purchase](account_invoice_merge_purchase/) | 10.0.1.0.0 | Compatibility between purchase and account invoice merge
 [account_invoice_partner](account_invoice_partner/) | 10.0.1.0.0 | Replace the partner by an invoice contact if found
 [account_invoice_pricelist](account_invoice_pricelist/) | 10.0.1.0.0 | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 10.0.1.0.0 | Module to fill pricelist from sales order in invoice.
@@ -55,7 +56,6 @@ addon | version | summary
 [account_invoice_customer_ref_unique](account_invoice_customer_ref_unique/) | 1.0 (unported) | Unique Customer Reference in Invoice
 [account_invoice_line_sort](account_invoice_line_sort/) | 8.0.0.1.0 (unported) | Manage sort of customer invoice lines by customers
 [account_invoice_merge_payment](account_invoice_merge_payment/) | 10.0.1.0.0 (unported) | Use invoice merge regarding fields on Account Payment Partner
-[account_invoice_merge_purchase](account_invoice_merge_purchase/) | 8.0.1.0.0 (unported) | Compatibility between purchase and account invoice merge
 [account_invoice_period_usability](account_invoice_period_usability/) | 8.0.1.0.0 (unported) | Display in the supplier invoice form the fiscal period next to the invoice date
 [account_invoice_template](account_invoice_template/) | 0.1 (unported) | Account Invoice Template
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 (unported) | Unit of measure for invoices
