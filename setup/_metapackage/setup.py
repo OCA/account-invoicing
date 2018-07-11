@@ -21,6 +21,7 @@ setuptools.setup(
         'odoo10-addon-account_invoice_line_sequence',
         'odoo10-addon-account_invoice_merge',
         'odoo10-addon-account_invoice_merge_attachment',
+        'odoo10-addon-account_invoice_merge_purchase',
         'odoo10-addon-account_invoice_partner',
         'odoo10-addon-account_invoice_pricelist',
         'odoo10-addon-account_invoice_pricelist_sale',
