@@ -131,6 +131,8 @@ class AccountInvoice(models.Model):
 
         if float_compare(rounded_total, invoice.amount_total,
                          precision_digits=prec) == 0:
+            if invoice.global_round_line_id:
+                invoice.global_round_line_id.unlink()
             return {}
 
         # To avoid recursivity as we need to write on invoice or
