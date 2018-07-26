@@ -89,9 +89,9 @@ class InvoiceMerge(models.TransientModel):
                                         date_invoice=self.date_invoice)
         xid = {
             'out_invoice': 'action_invoice_tree1',
-            'out_refund': 'action_invoice_tree3',
+            'out_refund': 'action_invoice_tree1',
             'in_invoice': 'action_invoice_tree2',
-            'in_refund': 'action_invoice_tree4',
+            'in_refund': 'action_invoice_tree2',
         }[invoices[0].type]
         action = aw_obj.for_xml_id('account', xid)
         action.update({
