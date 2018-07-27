@@ -9,14 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2017-11-23 13:51+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"PO-Revision-Date: 2018-07-27 10:53+0000\n"
+"Last-Translator: Pedro Castro Silva <pedrocs@exo.pt>\n"
 "Language-Team: Portuguese (https://www.transifex.com/oca/teams/23907/pt/)\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 3.0.1\n"
 
 #. module: account_invoice_view_payment
 #: model:ir.model,name:account_invoice_view_payment.model_account_invoice
@@ -29,21 +30,21 @@ msgstr "Fatura"
 #: model:ir.model,name:account_invoice_view_payment.model_account_payment
 #, python-format
 msgid "Payments"
-msgstr ""
+msgstr "Pagamentos"
 
 #. module: account_invoice_view_payment
 #: model:ir.model,name:account_invoice_view_payment.model_account_register_payments
 msgid "Register payments on multiple invoices"
-msgstr ""
+msgstr "Registar pagamentos em múltiplas faturas"
 
 #. module: account_invoice_view_payment
 #: model:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_from_invoices
 #: model:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_invoice_form
 msgid "Validate & View Payment"
-msgstr ""
+msgstr "Validar e Ver Pagamentos"
 
 #. module: account_invoice_view_payment
 #: model:ir.ui.view,arch_db:account_invoice_view_payment.invoice_form
 #: model:ir.ui.view,arch_db:account_invoice_view_payment.invoice_supplier_form
 msgid "View Payments"
-msgstr ""
+msgstr "Ver Pagamentos"
