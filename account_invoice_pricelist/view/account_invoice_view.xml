@@ -21,7 +21,7 @@
                         />
                 </field>
                 <field name="user_id" position="after">
-                    <field name="pricelist_id"/>
+                    <field name="pricelist_id" domain="[('type', '=', 'sale')]"/>
                 </field>
                 <field name="invoice_line" position="attributes">
                     <attribute
@@ -54,7 +54,7 @@
                         />
                 </field>
                 <field name="user_id" position="after">
-                    <field name="pricelist_id"/>
+                    <field name="pricelist_id" domain="[('type', '=', 'purchase')]"/>
                 </field>
                 <field name="invoice_line" position="attributes">
                     <attribute

@@ -24,8 +24,20 @@ class AccountInvoiceLine(models.Model):
             return res
         context = self._context
         partner = self.env['res.partner'].browse(partner_id)
-        pricelist_id = context.get(
-            'pricelist_id', partner.property_product_pricelist.id)
+        pricelist_id = context.get('pricelist_id', False)
+        if not pricelist_id:
+            # If pricelist is not set on invoice, or not available in the
+            # context, use the pricelist of the partner
+            if type in ('out_invoice', 'out_refund'):
+                # Customer Invoices
+                pricelist_id = partner.property_product_pricelist.id
+            elif type in ('in_invoice', 'in_refund'):
+                # Supplier Invoices
+                if partner._model._columns.get(
+                        'property_product_pricelist_purchase', False):
+                    pricelist_id =\
+                        partner.property_product_pricelist_purchase.id
+
         if not pricelist_id:
             return res
         company_id = company_id or context.get('company_id', False)
