@@ -13,8 +13,9 @@ class StockPicking(models.Model):
         inv_vals = super(StockPicking, self)._get_invoice_vals(
             key, inv_type, journal_id, move
         )
-        if self.sale_id and self.sale_id.pricelist_id:
+        sale = move.picking_id.sale_id
+        if sale and sale.pricelist_id:
             inv_vals.update({
-                'pricelist_id': self.sale_id.pricelist_id.id,
+                'pricelist_id': sale.pricelist_id.id,
             })
         return inv_vals
