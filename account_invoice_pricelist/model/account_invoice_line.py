@@ -28,15 +28,7 @@ class AccountInvoiceLine(models.Model):
         if not pricelist_id:
             # If pricelist is not set on invoice, or not available in the
             # context, use the pricelist of the partner
-            if type in ('out_invoice', 'out_refund'):
-                # Customer Invoices
-                pricelist_id = partner.property_product_pricelist.id
-            elif type in ('in_invoice', 'in_refund'):
-                # Supplier Invoices
-                if partner._model._columns.get(
-                        'property_product_pricelist_purchase', False):
-                    pricelist_id =\
-                        partner.property_product_pricelist_purchase.id
+            pricelist_id = partner._get_pricelist_for_invoice(type).id
 
         if not pricelist_id:
             return res
