@@ -27,7 +27,7 @@ class AccountInvoice(models.Model):
         pricelist_id = False
         if partner_id:
             partner = partner_obj.browse(partner_id)
-            pricelist_id = partner._get_pricelist_for_invoice(type).id
+            pricelist_id = partner._get_invoice_pricelist_id(type)
         res['value']['pricelist_id'] = pricelist_id
         return res
 
