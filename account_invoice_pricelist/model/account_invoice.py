@@ -27,15 +27,7 @@ class AccountInvoice(models.Model):
         pricelist_id = False
         if partner_id:
             partner = partner_obj.browse(partner_id)
-            if type in ('out_invoice', 'out_refund'):
-                # Customer Invoices
-                pricelist_id = partner.property_product_pricelist.id
-            elif type in ('in_invoice', 'in_refund'):
-                # Supplier Invoices
-                if partner._model._columns.get(
-                        'property_product_pricelist_purchase', False):
-                    pricelist_id =\
-                        partner.property_product_pricelist_purchase.id
+            pricelist_id = partner._get_pricelist_for_invoice(type).id
         res['value']['pricelist_id'] = pricelist_id
         return res
 
