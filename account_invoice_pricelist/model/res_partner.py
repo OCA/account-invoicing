@@ -10,16 +10,16 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     @api.multi
-    def _get_pricelist_for_invoice(self, invoice_type):
+    def _get_invoice_pricelist_id(self, invoice_type):
         self.ensure_one()
-        pricelist = False
+        pricelist_id = False
         if invoice_type in ['out_invoice', 'out_refund']:
             # Customer Invoices
-            pricelist = self.property_product_pricelist
+            pricelist_id = self.property_product_pricelist.id
         elif invoice_type in ['in_invoice', 'in_refund']:
             # Supplier Invoices
             if self._model._columns.get(
                     'property_product_pricelist_purchase', False):
-                pricelist =\
-                    self.property_product_pricelist_purchase
-        return pricelist
+                pricelist_id =\
+                    self.property_product_pricelist_purchase.id
+        return pricelist_id

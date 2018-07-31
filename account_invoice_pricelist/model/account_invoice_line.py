@@ -28,7 +28,7 @@ class AccountInvoiceLine(models.Model):
         if not pricelist_id:
             # If pricelist is not set on invoice, or not available in the
             # context, use the pricelist of the partner
-            pricelist_id = partner._get_pricelist_for_invoice(type).id
+            pricelist_id = partner._get_invoice_pricelist_id(type)
 
         if not pricelist_id:
             return res
