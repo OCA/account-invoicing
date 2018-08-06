@@ -19,6 +19,8 @@ class Tests(TransactionCase):
         self.product2 = self.env.ref('product.product_delivery_01')
         self.prod_account = self.env.ref('account.demo_coffee_machine_account')
         unit = self.env.ref('uom.product_uom_unit')
+        self.currency = self.env.ref('base.GBP')
+        self.journal.write({'currency_id': self.currency.id})
 
         self.invoice = self.invoice_model.create(
             {'journal_id': self.journal.id,
@@ -80,6 +82,7 @@ class Tests(TransactionCase):
                 product_id.product_tmpl_id.id),
         ])
         self.assertEquals(len(supplierinfos1), 1)
+        self.assertEqual(supplierinfos1.currency_id, self.currency)
 
         self.assertEquals(supplierinfos1.price, 400.0)
 
