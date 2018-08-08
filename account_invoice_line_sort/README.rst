@@ -27,6 +27,7 @@ Contributors
 ------------
 
 * Cédric Pigeon <cedric.pigeon@acsone.eu>
+* Cristina Martin R. <cristina.martin@tecnativa.com>
 
 Maintainer
 ----------
