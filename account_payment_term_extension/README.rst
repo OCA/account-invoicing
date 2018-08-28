@@ -10,10 +10,10 @@ This module extends the functionality of payment terms to :
 
 * support rounding, months and weeks on payment term lines
 * allow to set more than one day of payment in payment terms
-* allow to apply a chronological order on lines
- * for example, with a payment term which contains 2 lines
-  * on standard, the due date of all lines is calculated from the invoice date
-  * with this feature, the due date of the second line is calculated from the due date of the first line
+* allow to apply a chronological order on lines. For example, with a payment
+  term which contains 2 lines. On standard, the due date of all lines is
+  calculated from the invoice date. With this feature, the due date of the
+  second line is calculated from the due date of the first line.
 
 Configuration
 =============
@@ -30,11 +30,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues
 <https://github.com/OCA/account-invoicing/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
-help us smashing it by providing a detailed and welcomed `feedback
-<https://github.com/OCA/
-account-invoicing/issues/new?body=module:%20
-account_payment_term_extension%0Aversion:%20
-9.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+help us smash it by providing detailed and welcomed feedback.
 
 Credits
 =======
