@@ -1,4 +1,4 @@
-Unit rounded invoice (_`Swedish rounding`)
+Unit rounded invoice (`Swedish rounding`_)
 ==========================================
 
 Add a parameter to give a unit for rounding such as CHF 0.05 for Swiss
@@ -19,16 +19,16 @@ rounding
 
 You can choose the account on which the invoice line will be written
 
-.. _Swedish rounding : https://en.wikipedia.org/wiki/Swedish_rounding
+.. _`Swedish rounding` : https://en.wikipedia.org/wiki/Swedish_rounding
 
 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
-In case of trouble, please check there if your issue has already been reported.
-If you spotted it first, help us smashing it by providing a detailed and welcomed feedback
-`here <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_rounding%0Aversion:%209.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+Bugs are tracked on `GitHub Issues
+<https://github.com/OCA/account-invoicing/issues>`_. In case of trouble, please
+check there if your issue has already been reported. If you spotted it first,
+help us smash it by providing detailed and welcomed feedback.
 
 
 Credits
