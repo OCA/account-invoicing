@@ -96,25 +96,41 @@ class AccountInvoice(models.Model):
         self.reimbursable_ids._onchange_partner_id()
         return res
 
-    @api.model
-    def invoice_line_move_line_get(self):
-        vals = super().invoice_line_move_line_get()
-        for reimbursable in self.reimbursable_ids:
-            if reimbursable.amount == 0:
-                continue
-            vals.append(reimbursable._invoice_reimbursable_move_line_get())
-        return vals
-
-    @api.model
-    def line_get_convert(self, line, part):
-        res = super(AccountInvoice, self).line_get_convert(line, part)
-        if line.get('type', '/') == 'reimbursable':
-            res['partner_id'] = line.get('partner_id', res['partner_id'])
+    @api.multi
+    def finalize_invoice_move_lines(self, move_lines):
+        res = super().finalize_invoice_move_lines(move_lines)
+        for reimbursable in self.reimbursable_ids.filtered(
+            lambda r: r.amount != 0
+        ):
+            res.append((0, 0, self.line_get_convert(
+                reimbursable._invoice_reimbursable_move_line_get(),
+                reimbursable.partner_id.id
+            )))
         return res
 
-    def inv_line_characteristic_hashcode(self, invoice_line):
-        res = super().inv_line_characteristic_hashcode(invoice_line)
-        return '%s-%s' % (res, invoice_line.get('partner_id', 'False'))
+    @api.multi
+    def compute_invoice_totals(self, company_currency, invoice_move_lines):
+        total, total_currency, iml = super().compute_invoice_totals(
+            company_currency, invoice_move_lines)
+        price = self.reimbursable_total
+        if self.currency_id != company_currency:
+            date = self._get_currency_rate_date() or fields.Date.context_today(
+                self)
+            currency = self.currency_id.with_context(
+                date=date)
+            if not (self.get('currency_id') and self.get('amount_currency')):
+                amount_currency = currency.round(price)
+                price = currency.compute(price, company_currency)
+        else:
+            amount_currency = False
+            price = self.currency_id.round(price)
+        if self.type in ('out_invoice', 'in_refund'):
+            total += price
+            total_currency += amount_currency or price
+        else:
+            total -= price
+            total_currency -= amount_currency or price
+        return total, total_currency, iml
 
     @api.model
     def _prepare_refund(self, invoice, date_invoice=None, date=None,
