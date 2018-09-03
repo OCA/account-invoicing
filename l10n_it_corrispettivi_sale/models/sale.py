@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo.addons.account.models.account_invoice import TYPE2JOURNAL
@@ -44,7 +43,8 @@ class SaleOrder(models.Model):
         company_id = self._context \
             .get('company_id', self.env.user.company_id.id)
         domain = [
-            ('type', 'in', filter(None, map(TYPE2JOURNAL.get, inv_types))),
+            ('type', 'in', [_f
+                            for _f in map(TYPE2JOURNAL.get, inv_types) if _f]),
             ('company_id', '=', company_id),
             ('corrispettivi', '=', False)  # with this tiny modification
         ]
