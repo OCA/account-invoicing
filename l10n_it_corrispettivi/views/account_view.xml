@@ -24,13 +24,13 @@
         <field name="mode">primary</field>
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
-            <button name="invoice_print" attrs="{'invisible':['|',('sent','=',True), ('state', '!=', 'open')]}" position="replace">
+            <button name="invoice_print" attrs="{'invisible':['|',('sent','=',True), ('state', 'not in', ('open','paid'))]}" position="replace">
                 <button name="corrispettivo_print" string="Print" type="object" class="oe_highlight" groups="base.group_user"
-                        attrs="{'invisible':['|', ('sent', '=', True), ('state', '!=', 'open')]}"/>
+                        attrs="{'invisible':['|',('sent','=',True), ('state', 'not in', ('open','paid'))]}"/>
             </button>
-            <button name="invoice_print" attrs="{'invisible':['|',('sent','=',False), ('state', '!=', 'open')]}" position="replace">
+            <button name="invoice_print" attrs="{'invisible':['|',('sent','=',False), ('state', 'not in', ('open','paid'))]}" position="replace">
                 <button name="corrispettivo_print" string="Print Corrispettivo" type="object" groups="base.group_user"
-                        attrs="{'invisible':['|', ('sent', '=', False), ('state', '!=', 'open')]}"/>
+                        attrs="{'invisible':['|',('sent','=',False), ('state', 'not in', ('open','paid'))]}"/>
             </button>
         </field>
     </record>
@@ -68,7 +68,7 @@
     </record>
 
     <menuitem action="action_corrispettivi_tree1" id="menu_action_corrispettivi_tree"
-              parent="account.menu_finance_receivables"/>
+              parent="account.menu_finance_receivables_documents"/>
 
     <!-- Partner -->
 
