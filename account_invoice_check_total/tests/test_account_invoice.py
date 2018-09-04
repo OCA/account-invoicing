@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.tests.common import TransactionCase
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 from ..models.account_invoice import GROUP_AICT
 
 
@@ -38,11 +38,29 @@ class TestAccountInvoice(TransactionCase):
     def test_action_move_create(self):
         # Creation of an invoice instance, wrong check_total
         # Result: UserError
-        with self.assertRaises(UserError):
-            self.account_invoice.create({
-                'partner_id': self.env.ref('base.res_partner_2').id,
-                'account_id': self.invoice_account.id,
-                'type': 'in_invoice',
-                'check_total': 1.19,
-                'invoice_line_ids': [(6, 0, [self.invoice_line.id])]
-            }).action_move_create()
+        invoice = self.account_invoice.create({
+            'partner_id': self.env.ref('base.res_partner_2').id,
+            'account_id': self.invoice_account.id,
+            'type': 'in_invoice',
+            'check_total': 1.19,
+            'invoice_line_ids': [(6, 0, [self.invoice_line.id])]
+        })
+        self.assertEqual(invoice.check_total, 1.19)
+        self.assertEqual(invoice.check_total_display_difference, -1.80)
+        with self.assertRaises(ValidationError):
+            invoice.action_move_create()
+
+    def test_onchange_check_total(self):
+        invoice = self.account_invoice.create({
+            'partner_id': self.env.ref('base.res_partner_2').id,
+            'account_id': self.invoice_account.id,
+            'type': 'in_invoice',
+            'check_total': 1.19,
+            'invoice_line_ids': [(6, 0, [self.invoice_line.id])]
+        })
+
+        invoice.invoice_line_ids.ensure_one()
+        invoice.invoice_line_ids.price_unit = 5.99
+        invoice.onchange_check_total()
+        self.assertEqual(invoice.check_total, 1.19)
+        self.assertEqual(invoice.check_total_display_difference, -4.80)

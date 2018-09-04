@@ -50,14 +50,21 @@ msgid "Invoice"
 msgstr "Factuur"
 
 #. module: account_invoice_check_total
-#: code:addons/account_invoice_check_total/models/account_invoice.py:30
-#, python-format
+#: code:addons/account_invoice_check_total/models/account_invoice.py:48
+#, fuzzy, python-format
 msgid ""
 "Please verify the price of the invoice!\n"
-"                        The encoded total does not match the computed total."
+"                        The total amount (%s) does not "
+"match                        the Verification Total amount (%s)!\n"
+"There is a difference of %s"
 msgstr ""
 "Controleer de prijs op de factuur!\n"
 "Het genoemde totaal komt niet overeen met het berekende totaal."
+
+#. module: account_invoice_check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice__check_total_display_difference
+msgid "Total Difference"
+msgstr ""
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice__check_total
