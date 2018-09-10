@@ -98,26 +98,26 @@ msgstr "Fusionar factura de empresa"
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:40
 #, python-format
-msgid "Not all invoices are at the same company!"
-msgstr "¡No todas las facturas son de la misma compañía!"
+msgid "Not all invoices belong to the same company!"
+msgstr "¡No todas las facturas pertenecen a la misma compañía!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:49
 #, python-format
-msgid "Not all invoices are at the same currency!"
-msgstr "¡No todas las facturas son de la misma moneda!"
+msgid "The currency in the invoices is different!"
+msgstr "¡La moneda en las facturas es diferente!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:52
 #, python-format
-msgid "Not all invoices are at the same journal!"
-msgstr "¡No todas las facturas tienen el mismo diario!"
+msgid "All invoices must belong to the same journal!"
+msgstr "¡Todas las facturas deben pertenecer al mismo diario!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:43
 #, python-format
-msgid "Not all invoices are for the same partner!"
-msgstr "¡No todas las facturas tienen la misma empresa!"
+msgid "Not all invoices are from the same partner!"
+msgstr "¡No todas las facturas pertenecen a la misma empresa!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:46

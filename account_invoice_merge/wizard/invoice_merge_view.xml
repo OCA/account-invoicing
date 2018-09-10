@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2004-2010 Tiny SPRL (http://tiny.be).
+    Copyright 2010-2011 Elico Corp.
+    Copyright 2016 Acsone (https://www.acsone.eu/)
+    Copyright 2017 Eficent Business and IT Consulting Services S.L.
+    (http://www.eficent.com)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
     <record id="view_invoice_merge" model="ir.ui.view">
@@ -12,7 +19,7 @@
                         colspan="4" />
                     <p>
                         Please note that:<br/><br/>
-                        Invoices will only be merged if:<br/>
+                        Invoices will only be merged if:<br/><br/>
                         * Invoices are in state 'draft'.<br/>
                         * Invoices belong to the same partner.<br/>
                         * Invoices have the same company, partner, address,

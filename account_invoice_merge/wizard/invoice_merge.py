@@ -37,19 +37,19 @@ class InvoiceMerge(models.TransientModel):
                         _('Not all invoices use the same account!'))
                 if d['company_id'] != invs[0]['company_id']:
                     raise exceptions.Warning(
-                        _('Not all invoices are at the same company!'))
+                        _('Not all invoices belong to the same company!'))
                 if d['partner_id'] != invs[0]['partner_id']:
                     raise exceptions.Warning(
-                        _('Not all invoices are for the same partner!'))
+                        _('Not all invoices are from the same partner!'))
                 if d['type'] != invs[0]['type']:
                     raise exceptions.Warning(
-                        _('Not all invoices are of the same type!'))
+                        _('Not all invoices are from the same type!'))
                 if d['currency_id'] != invs[0]['currency_id']:
                     raise exceptions.Warning(
-                        _('Not all invoices are at the same currency!'))
+                        _('The currency in the invoices is different!'))
                 if d['journal_id'] != invs[0]['journal_id']:
                     raise exceptions.Warning(
-                        _('Not all invoices are at the same journal!'))
+                        _('All invoices must belong to the same journal!'))
         return {}
 
     @api.model
