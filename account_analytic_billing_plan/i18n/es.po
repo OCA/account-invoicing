@@ -1,0 +1,165 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_analytic_billing_plan
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-12 09:02+0000\n"
+"PO-Revision-Date: 2018-09-12 09:02+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_analytic_billing_plan
+#: view:account.analytic.account:account_analytic_billing_plan.account_analytic_form_view_inh_billing_plan
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_tree_view
+#: field:account.analytic.billing.plan,amount:0
+msgid "Amount"
+msgstr "Importe"
+
+#. module: account_analytic_billing_plan
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_form_view
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+#: field:account.analytic.billing.plan,analytic_account_id:0
+msgid "Analytic account"
+msgstr "Cuenta analítica"
+
+#. module: account_analytic_billing_plan
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_form_view
+#: model:ir.model,name:account_analytic_billing_plan.model_account_analytic_billing_plan
+msgid "Billing plan"
+msgstr "Plan facturación"
+
+#. module: account_analytic_billing_plan
+#: code:addons/account_analytic_billing_plan/wizard/wiz_create_invoice_from_billing_plan.py:20
+#, python-format
+msgid "Billing plan for product: {}, with analytic account: {}, without partner.\n"
+""
+msgstr "Plan de facturación para producto: {}, con cuenta analítica: {}, sin empresa.\n"
+""
+
+#. module: account_analytic_billing_plan
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Billing plan search"
+msgstr "Buscar plan facturación"
+
+#. module: account_analytic_billing_plan
+#: view:account.analytic.account:account_analytic_billing_plan.account_analytic_form_view_inh_billing_plan
+#: field:account.analytic.account,billing_plan_ids:0
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_tree_view
+#: field:account.invoice,billing_plan_ids:0
+#: model:ir.actions.act_window,name:account_analytic_billing_plan.action_account_analytic_billing_plan
+#: model:ir.ui.menu,name:account_analytic_billing_plan.account_analytic_billing_plan_option
+#: model:ir.ui.menu,name:account_analytic_billing_plan.menu_billing_plan
+msgid "Billing plans"
+msgstr "Planes de facturación"
+
+#. module: account_analytic_billing_plan
+#: view:wiz.create.invoice.from.billing.plan:account_analytic_billing_plan.wiz_create_invoice_from_billing_plan_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_analytic_billing_plan
+#: model:ir.actions.act_window,name:account_analytic_billing_plan.action_create_invoice_from_billing_plan
+#: view:wiz.create.invoice.from.billing.plan:account_analytic_billing_plan.wiz_create_invoice_from_billing_plan_form_view
+msgid "Create invoice"
+msgstr "Crear factura"
+
+#. module: account_analytic_billing_plan
+#: view:wiz.create.invoice.from.billing.plan:account_analytic_billing_plan.wiz_create_invoice_from_billing_plan_form_view
+msgid "Create invoice from billing plan"
+msgstr "Crear factura desde plan de facturación"
+
+#. module: account_analytic_billing_plan
+#: field:account.analytic.billing.plan,create_uid:0
+#: field:wiz.create.invoice.from.billing.plan,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_analytic_billing_plan
+#: field:account.analytic.billing.plan,create_date:0
+#: field:wiz.create.invoice.from.billing.plan,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: account_analytic_billing_plan
+#: field:wiz.create.invoice.from.billing.plan,name:0
+msgid "Description"
+msgstr "Descripción"
+
+#. module: account_analytic_billing_plan
+#: field:account.analytic.billing.plan,estimated_billing_date:0
+msgid "Estimated billing date"
+msgstr "Fecha estimada facturación"
+
+#. module: account_analytic_billing_plan
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: account_analytic_billing_plan
+#: field:account.analytic.billing.plan,id:0
+#: field:wiz.create.invoice.from.billing.plan,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: account_analytic_billing_plan
+#: field:account.analytic.billing.plan,invoice_id:0
+#: model:ir.model,name:account_analytic_billing_plan.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_analytic_billing_plan
+#: field:account.analytic.billing.plan,invoice_state:0
+msgid "Invoice state"
+msgstr "Estado factura"
+
+#. module: account_analytic_billing_plan
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "Invoiced"
+msgstr "Facturado"
+
+#. module: account_analytic_billing_plan
+#: field:account.analytic.billing.plan,write_uid:0
+#: field:wiz.create.invoice.from.billing.plan,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: account_analytic_billing_plan
+#: field:account.analytic.billing.plan,write_date:0
+#: field:wiz.create.invoice.from.billing.plan,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: account_analytic_billing_plan
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "No invoiced"
+msgstr "No facturado"
+
+#. module: account_analytic_billing_plan
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+#: field:account.analytic.billing.plan,partner_id:0
+msgid "Partner"
+msgstr "Partner"
+
+#. module: account_analytic_billing_plan
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+#: field:account.analytic.billing.plan,product_id:0
+msgid "Product"
+msgstr "Producto"
+
+#. module: account_analytic_billing_plan
+#: view:account.analytic.billing.plan:account_analytic_billing_plan.account_analytic_billing_plan_search_view
+msgid "invoice"
+msgstr "Factura"
+
+#. module: account_analytic_billing_plan
+#: view:wiz.create.invoice.from.billing.plan:account_analytic_billing_plan.wiz_create_invoice_from_billing_plan_form_view
+msgid "or"
+msgstr "o"
+

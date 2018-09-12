@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="account_analytic_billing_plan_tree_view" model="ir.ui.view">
+            <field name="name">account.analytic.billing.plan.tree.view</field>
+            <field name="model">account.analytic.billing.plan</field>
+            <field name="arch" type="xml">
+                <tree string="Billing plans"
+                      colors="green:(invoice_id == False and estimated_billing_date != False and estimated_billing_date&lt;current_date);blue:(invoice_id == False and estimated_billing_date != False and estimated_billing_date&gt;current_date)">
+                    <field name="analytic_account_id" />
+                    <field name="partner_id" />
+                    <field name="product_id" />
+                    <field name="amount" sum="Amount"/>
+                    <field name="estimated_billing_date" />
+                    <field name="invoice_id" />
+                    <field name="invoice_state" />
+                </tree>
+            </field>
+        </record>
+        <record id="account_analytic_billing_plan_form_view" model="ir.ui.view">
+            <field name="name">account.analytic.billing.plan.form.view</field>
+            <field name="model">account.analytic.billing.plan</field>
+            <field name="arch" type="xml">
+                <form string="Billing plan">
+                    <sheet string="Billing plan">
+                        <div class="oe_title">
+                            <h1>
+                                <label string="Analytic account" for="analytic_account_id" />
+                                <field name="analytic_account_id" class="oe_inline"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id" />
+                                <field name="product_id" />
+                                <field name="amount" />
+                            </group>
+                            <group>
+                                <field name="estimated_billing_date" />
+                                <field name="invoice_id" />
+                                <field name="invoice_state" readonly="1" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="account_analytic_billing_plan_search_view" model="ir.ui.view">
+            <field name="name">account.analytic.billing.plan.search.view</field>
+            <field name="model">account.analytic.billing.plan</field>
+            <field name="arch" type="xml">
+                <search string="Billing plan search">
+                    <field name="analytic_account_id" />
+                    <field name="partner_id" />
+                    <field name="product_id" />
+                    <field name="invoice_id" />
+                    <separator/>
+                    <filter name="invoiced" string="Invoiced" domain="[('invoice_id','!=',False])]" />
+                    <filter name="no_invoiced" string="No invoiced" domain="[('invoice','=',False)]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Analytic account" domain="[]"
+                                context="{'group_by':'analytic_account_id'}"/>
+                        <filter string="Partner" domain="[]"
+                                context="{'group_by':'partner_id'}"/>
+                        <filter string="Product" domain="[]"
+                                context="{'group_by':'product_id'}"/>
+                        <filter string="invoice" domain="[]"
+                                context="{'group_by':'invoice_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+    <record id="action_account_analytic_billing_plan" model="ir.actions.act_window">
+        <field name="name">Billing plans</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.analytic.billing.plan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_billing_plan" name="Billing plans"
+              parent="account.menu_finance" sequence="3"
+              groups="analytic.group_analytic_accounting"/>
+    <menuitem action="action_account_analytic_billing_plan"
+              id="account_analytic_billing_plan_option"
+              parent="menu_billing_plan"
+              groups="analytic.group_analytic_accounting" />
+    </data>
+</openerp>
