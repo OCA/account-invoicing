@@ -41,7 +41,7 @@ class TestProductIdChange(AccountingTestCase):
     def test_fiscal_position_id_change(self):
         partner = self.res_partner_model.create(dict(name="George"))
         account_export_id = self.account_model.sudo().create({
-            'code': "710000",
+            'code': "710000-account_invoice_fiscal_position_update",
             'name': "customer export account",
             'user_type_id': self.account_user_type.id,
             'reconcile': True,
