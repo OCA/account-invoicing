@@ -4,7 +4,7 @@
 
 {
     'name': 'Invoice Transmit Method',
-    'version': '8.0.1.0.0',
+    'version': '8.0.1.1.0',
     'category': 'Accounting & Finance',
     'license': 'AGPL-3',
     'summary': 'Configure invoice transmit method (email, post, portal, ...)',

@@ -11,14 +11,14 @@ class ResPartner(models.Model):
 
     customer_invoice_transmit_method_id = fields.Many2one(
         'transmit.method', string='Customer Invoice Transmission Method',
-        company_dependant=True, track_visibility='onchange',
+        company_dependent=True, track_visibility='onchange',
         domain=[('customer_ok', '=', True)], ondelete='restrict')
     customer_invoice_transmit_method_code = fields.Char(
         related='customer_invoice_transmit_method_id.code',
         string='Customer Invoice Transmission Method Code', readonly=True)
     supplier_invoice_transmit_method_id = fields.Many2one(
         'transmit.method', string='Vendor Invoice Reception Method',
-        company_dependant=True, track_visibility='onchange',
+        company_dependent=True, track_visibility='onchange',
         domain=[('supplier_ok', '=', True)], ondelete='restrict')
     supplier_invoice_transmit_method_code = fields.Char(
         related='supplier_invoice_transmit_method_id.code',
