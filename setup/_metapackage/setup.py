@@ -36,6 +36,7 @@ setuptools.setup(
         'odoo8-addon-account_invoice_uom',
         'odoo8-addon-account_invoice_validation_workflow',
         'odoo8-addon-account_invoice_zero_autopay',
+        'odoo8-addon-account_outstanding_payment',
         'odoo8-addon-account_payment_term_extension',
         'odoo8-addon-invoice_fiscal_position_update',
         'odoo8-addon-invoice_margin',
