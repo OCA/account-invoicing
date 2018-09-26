@@ -46,6 +46,7 @@ addon | version | summary
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 | Unit of measure for invoices
 [account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.1 | Add "To Send" and "To Validate" states in Invoices
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 | Account Invoice Zero Autopay
+[account_outstanding_payment](account_outstanding_payment/) | 8.0.1.0.0 | Allows for reconciliation of invoices.
 [account_payment_term_extension](account_payment_term_extension/) | 8.0.1.0.0 | Adds rounding, months and weeks properties on payment term lines
 [invoice_fiscal_position_update](invoice_fiscal_position_update/) | 8.0.1.0.0 | Changing the fiscal position of an invoice will auto-update invoice lines
 [invoice_margin](invoice_margin/) | 8.0.2.0.0 | Margin on Account Invoices
