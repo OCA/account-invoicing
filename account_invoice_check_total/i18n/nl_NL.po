@@ -9,16 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-28 02:40+0000\n"
-"PO-Revision-Date: 2018-10-01 14:34+0000\n"
-"Last-Translator: Yung-Wa <yw.ng@onestein.nl>\n"
-"Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/"
-"23907/nl_NL/)\n"
+"PO-Revision-Date: 2018-03-28 02:40+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/"
+"teams/23907/nl_NL/)\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.1.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_res_config_settings_group_supplier_inv_check_total
@@ -32,7 +31,6 @@ msgstr "Controleer het Totaal op de Leveranciersrekening"
 msgid ""
 "Check whether the total computed amount is the same as the verification total"
 msgstr ""
-"Controleer of het berekend totaalbedrag gelijk is aan het controlebedrag"
 
 #. module: account_invoice_check_total
 #: model:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
@@ -40,8 +38,6 @@ msgid ""
 "If you check this box, the system verifies that the total computed amount is "
 "the same as the verification total."
 msgstr ""
-"Als u dit aanvinkt, dan zal het systeem het berekend totaalbedrag "
-"controleren of het gelijk is aan het controlebedrag."
 
 #. module: account_invoice_check_total
 #: model:ir.model,name:account_invoice_check_total.model_account_invoice
