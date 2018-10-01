@@ -19,17 +19,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_line_description
-#: model:ir.model.fields,field_description:account_invoice_line_description.field_res_config_settings_group_use_product_description_per_inv_line
+#: model:ir.model.fields,field_description:account_invoice_line_description.field_res_config_settings__group_use_product_description_per_inv_line
 msgid ""
 "Allow using only the product description on the\n"
 "        invoice lines"
 msgstr ""
 
 #. module: account_invoice_line_description
-#: model:ir.model.fields,help:account_invoice_line_description.field_res_config_settings_group_use_product_description_per_inv_line
+#: model:ir.model.fields,help:account_invoice_line_description.field_res_config_settings__group_use_product_description_per_inv_line
 msgid ""
 "Allows you to use only product description on the\n"
 "        invoice lines."
+msgstr ""
+
+#. module: account_invoice_line_description
+#: model:ir.model,name:account_invoice_line_description.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: account_invoice_line_description
@@ -40,9 +45,4 @@ msgstr "Arve rida"
 #. module: account_invoice_line_description
 #: model:res.groups,name:account_invoice_line_description.group_use_product_description_per_inv_line
 msgid "Use only product description on invoice lines"
-msgstr ""
-
-#. module: account_invoice_line_description
-#: model:ir.model,name:account_invoice_line_description.model_res_config_settings
-msgid "res.config.settings"
 msgstr ""
