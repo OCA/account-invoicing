@@ -20,20 +20,25 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. module: account_invoice_check_total
-#: model:ir.model.fields,field_description:account_invoice_check_total.field_res_config_settings_group_supplier_inv_check_total
-#: model:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_res_config_settings__group_supplier_inv_check_total
+#: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 #: model:res.groups,name:account_invoice_check_total.group_supplier_inv_check_total
 msgid "Check Total on Vendor Bills"
 msgstr ""
 
 #. module: account_invoice_check_total
-#: model:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 msgid ""
 "Check whether the total computed amount is the same as the verification total"
 msgstr ""
 
 #. module: account_invoice_check_total
-#: model:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
+#: model:ir.model,name:account_invoice_check_total.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: account_invoice_check_total
+#: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 msgid ""
 "If you check this box, the system verifies that the total computed amount is "
 "the same as the verification total."
@@ -53,11 +58,6 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_check_total
-#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice_check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice__check_total
 msgid "Verification Total"
-msgstr ""
-
-#. module: account_invoice_check_total
-#: model:ir.model,name:account_invoice_check_total.model_res_config_settings
-msgid "res.config.settings"
 msgstr ""
