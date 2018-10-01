@@ -4,12 +4,12 @@
 
 {
     'name': 'Account invoice line description',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Generic Modules/Accounting',
     'author':   "Agile Business Group, "
                 "Tecnativa, "
                 "Odoo Community Association (OCA)",
-    'website': 'http://www.agilebg.com',
+    'website': 'https://github.com/OCA/account-invoicing',
     'license': 'AGPL-3',
     "depends": [
         'account',

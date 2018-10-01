@@ -32,6 +32,7 @@ class TestAccountInvoiceLineDescription(SavepointCase):
             'type': 'consu',
             'categ_id': cls.product_category.id,
             'description_sale': 'Test Description Sale',
+            'sale_line_warn': 'no-message',
         })
         cls.account_type_regular = cls.env['account.account.type'].create({
             'name': 'regular,'
