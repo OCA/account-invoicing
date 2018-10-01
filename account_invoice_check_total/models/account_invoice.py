@@ -33,7 +33,6 @@ class AccountInvoice(models.Model):
         return super(AccountInvoice, self).action_move_create()
 
     @api.model
-    # pylint: disable=too-many-arguments
     def _prepare_refund(self, invoice, date_invoice=None,
                         date=None, description=None, journal_id=None):
         vals = super(AccountInvoice, self)._prepare_refund(
