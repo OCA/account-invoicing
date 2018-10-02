@@ -51,7 +51,7 @@ class AccountInvoice(models.Model):
         The unique vendor invoice number cannot be passed to the credit note
         in vendor bills
         """
-        vals = super(AccountInvoice, self)._prepare_refund(
+        vals = super()._prepare_refund(
             invoice, date_invoice, date, description, journal_id)
 
         if invoice and invoice.type in ['in_invoice', 'in_refund'] and\
@@ -67,4 +67,4 @@ class AccountInvoice(models.Model):
         """
         if self.type in ['in_invoice', 'in_refund']:
             default = dict(default or {}, reference='')
-        return super(AccountInvoice, self).copy(default)
+        return super().copy(default)
