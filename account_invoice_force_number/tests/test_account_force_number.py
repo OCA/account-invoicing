@@ -1,13 +1,10 @@
 # Copyright 2016 Davide Corio - davidecorio.com
 # Copyright 2017 Alex Comba - Agile Business Group
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from openerp.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase
 
 
 class TestAccountForceNumber(TransactionCase):
-
-    def setUp(self):
-        super(TestAccountForceNumber, self).setUp()
 
     def test_force_number(self):
         # in order to test the correct assignment of the internal_number
@@ -28,7 +25,7 @@ class TestAccountForceNumber(TransactionCase):
         invoice = self.env['account.invoice'].create({
             'name': "Test Customer Invoice",
             'journal_id': self.env['account.journal'].search(
-                [('type', '=', 'sale')])[0].id,
+                [('type', '=', 'sale')], limit=1).id,
             'partner_id': self.env.ref('base.res_partner_12').id,
             'account_id': self.env['account.account'].search(
                 [('user_type_id', '=', self.env.ref(
@@ -43,3 +40,5 @@ class TestAccountForceNumber(TransactionCase):
 
         # I check that the invoice number is the one we expect
         self.assertEqual(invoice.number, invoice.move_name, msg='Wrong number')
+        # I check move_name is not modified when validating the invoice.
+        self.assertEqual(invoice.number, '0001')
