@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
@@ -26,8 +25,8 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def _inverse_is_refund(self):
-        for one in self:
+        for invoice in self:
             args = "refund", "invoice"
-            if one.is_refund:
+            if invoice.is_refund:
                 args = reversed(args)
-            one.type = one.type.replace(*args)
+            invoice.type = invoice.type.replace(*args)

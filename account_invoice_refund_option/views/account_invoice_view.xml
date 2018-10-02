@@ -4,26 +4,26 @@
 
 <odoo>
 
-<record id="invoice_form" model="ir.ui.view">
-    <field name="name">Add refund option to customer invoices</field>
-    <field name="model">account.invoice</field>
-    <field name="inherit_id" ref="account.invoice_form"/>
-    <field name="arch" type="xml">
-        <xpath expr="//field[@name='payment_term_id']" position="after">
-            <field name="is_refund"/>
-        </xpath>
-    </field>
-</record>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">Add refund option to customer invoices</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="is_refund"/>
+            </field>
+        </field>
+    </record>
 
-<record id="invoice_supplier_form" model="ir.ui.view">
-    <field name="name">Add refund option to vendor invoices</field>
-    <field name="model">account.invoice</field>
-    <field name="inherit_id" ref="account.invoice_supplier_form"/>
-    <field name="arch" type="xml">
-        <xpath expr="//field[@name='reference']" position="after">
-            <field name="is_refund"/>
-        </xpath>
-    </field>
-</record>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">Add refund option to vendor invoices</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="reference" position="after">
+                <field name="is_refund"/>
+            </field>
+        </field>
+    </record>
 
 </odoo>
