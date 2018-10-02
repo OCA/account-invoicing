@@ -1,9 +1,10 @@
 # Copyright 2018 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models, api, _
-from odoo.exceptions import ValidationError, Warning
 import re
+
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError, UserError
 
 
 class AccountInvoiceLine(models.Model):
@@ -18,22 +19,24 @@ class AccountInvoiceLine(models.Model):
             r'(\s*[-+]\s*\d+([,.]\d+)?\s*)*$'
         )
 
-        # This regex is composed of 2 parts:
-        # 1) A starting number which is mandatory {1} composed of:
-        #    a) \s* = any number of starting spaces
-        #    b) [-+]{0,1} = an optional symbol '+' or '-'
-        #    c) \s* = any number of spaces
-        #    d) \d+ = a digit sequence of length at least 1
-        #    e) ([,.]\d+)? = an optional decimal part, composed of a '.' or ','
-        #       symbol followed by a digital sequence of length at least 1
-        # 2) An optional list of other numbers each one composed of:
-        #    a) \s* = any number of starting spaces
-        #    b) [-+] = a mandatory '+' or '-' symbol
-        #    c) \s* = any number of spaces
-        #    d) \d+ = a digit sequence of length at least 1
-        #    e) ([,.]\d+)? = an optional decimal part, composed of a '.' or ','
-        #       symbol followed by a digital sequence of length at least 1
-        #    f) \s* = any number of ending spaces
+        '''
+        This regex is composed of 2 parts:
+        1) A starting number which is mandatory {1} composed of:
+           a) \s* = any number of starting spaces
+           b) [-+]{0,1} = an optional symbol '+' or '-'
+           c) \s* = any number of spaces
+           d) \d+ = a digit sequence of length at least 1
+           e) ([,.]\d+)? = an optional decimal part, composed of a '.' or ','
+              symbol followed by a digital sequence of length at least 1
+        2) An optional list of other numbers each one composed of:
+           a) \s* = any number of starting spaces
+           b) [-+] = a mandatory '+' or '-' symbol
+           c) \s* = any number of spaces
+           d) \d+ = a digit sequence of length at least 1
+           e) ([,.]\d+)? = an optional decimal part, composed of a '.' or ','
+              symbol followed by a digital sequence of length at least 1
+           f) \s* = any number of ending spaces
+        '''
 
         if discount and not discount_regex.match(discount):
             return False
@@ -55,7 +58,7 @@ class AccountInvoiceLine(models.Model):
                         line.multiple_discount)
                 else:
                     line.discount = 0
-                    raise Warning(
+                    raise UserError(
                         _('Warning! The discount format is not recognized.'))
 
                 tokens = re.split(r'([+-])', normalized_discount)

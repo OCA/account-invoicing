@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': "Account Invoice Discount Formula",
-    'summary': "Express discounts on Invoice lines as mathematical formula",
+    'name': 'Account Invoice Discount Formula',
+    'summary': 'Express discounts on Invoice lines as mathematical formula',
     'author': 'Onestein, Odoo Community Association (OCA)',
-    'website': 'http://www.onestein.eu',
+    'website': 'https://github.com/OCA/account-invoicing',
     'category': 'Invoicing Management',
     'license': 'AGPL-3',
     'version': '11.0.1.0.0',
