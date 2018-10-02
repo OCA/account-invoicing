@@ -4,7 +4,7 @@
     "name": "Create Refund Invoice",
     "summary": "Allows you to create directly a refund without starting from "
                "an invoice",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "category": "Accounting",
     "website": "https://www.tecnativa.com/",
     "author": "Tecnativa, Odoo Community Association (OCA)",
