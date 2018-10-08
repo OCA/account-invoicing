@@ -12,6 +12,7 @@ setuptools.setup(
         'odoo11-addon-account_invoice_blocking',
         'odoo11-addon-account_invoice_check_total',
         'odoo11-addon-account_invoice_fiscal_position_update',
+        'odoo11-addon-account_invoice_fixed_discount',
         'odoo11-addon-account_invoice_force_number',
         'odoo11-addon-account_invoice_line_description',
         'odoo11-addon-account_invoice_pricelist',
