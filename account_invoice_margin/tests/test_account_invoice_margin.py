@@ -1,11 +1,13 @@
-# -*- coding: utf-8 -*-
 # © 2016 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp.tests.common import SavepointCase
+from odoo.tests.common import SavepointCase
 
 
 class TestAccountInvoiceMargin(SavepointCase):
+    at_install = False
+    post_install = True
+
     @classmethod
     def setUpClass(cls):
         super(TestAccountInvoiceMargin, cls).setUpClass()
@@ -72,12 +74,13 @@ class TestAccountInvoiceMargin(SavepointCase):
         self.assertEqual(self.invoice.invoice_line_ids.margin, 0.0)
 
     def test_invoice_margin_uom(self):
-        self.invoice.invoice_line_ids.write({
+        inv_line = self.invoice.invoice_line_ids
+        inv_line.write({
             'uom_id': self.env.ref('product.product_uom_dozen').id,
         })
-        self.invoice.invoice_line_ids._onchange_uom_id()
-        self.invoice.invoice_line_ids._onchange_product_id_margin()
-        self.assertEqual(self.invoice.invoice_line_ids.margin, 12000.00)
+        inv_line._onchange_uom_id()
+        inv_line._onchange_product_id_account_invoice_margin()
+        self.assertEqual(inv_line.margin, -10000.00)
 
     def test_invoice_refund(self):
         new_invoice = self.invoice.refund()

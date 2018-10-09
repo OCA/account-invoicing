@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # © 2017 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models
-import openerp.addons.decimal_precision as dp
+from odoo import api, fields, models
+from odoo.addons import decimal_precision as dp
 
 
 class AccountInvoiceLine(models.Model):
@@ -59,5 +58,5 @@ class AccountInvoiceLine(models.Model):
                 purchase_price = taxes['total_excluded']
             if self.uom_id != self.product_id.uom_id:
                 purchase_price = self.product_id.uom_id._compute_price(
-                    self.product_id.uom_id.id, purchase_price, self.uom_id.id)
+                    purchase_price, self.uom_id)
             self.purchase_price = purchase_price
