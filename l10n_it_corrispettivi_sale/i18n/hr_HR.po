@@ -27,5 +27,8 @@ msgstr ""
 
 #. module: l10n_it_corrispettivi_sale
 #: model:ir.model,name:l10n_it_corrispettivi_sale.model_sale_order
-msgid "Sales Order"
-msgstr "Prodjani nalog"
+msgid "Quotation"
+msgstr ""
+
+#~ msgid "Sales Order"
+#~ msgstr "Prodjani nalog"
