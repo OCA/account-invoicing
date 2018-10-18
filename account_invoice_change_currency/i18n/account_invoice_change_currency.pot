@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,18 +14,23 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_change_currency
-#: model:ir.ui.view,arch_db:account_invoice_change_currency.wizard_change_currency_form_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.wizard_change_currency_form_view
 msgid "Cancel"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.ui.view,arch_db:account_invoice_change_currency.wizard_change_currency_form_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.wizard_change_currency_form_view
 msgid "Change"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.ui.view,arch_db:account_invoice_change_currency.wizard_change_currency_form_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.wizard_change_currency_form_view
 msgid "Change Currency"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model,name:account_invoice_change_currency.model_wizard_change_invoice_currency
+msgid "Change Invoice Currency"
 msgstr ""
 
 #. module: account_invoice_change_currency
@@ -34,63 +39,64 @@ msgid "Change currency of the Invoice"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.model.fields,help:account_invoice_change_currency.field_wizard_change_invoice_currency_currency_id
+#: model:ir.model.fields,help:account_invoice_change_currency.field_wizard_change_invoice_currency__currency_id
 msgid "Choose the currency you want to change"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency_create_uid
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency_create_date
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency_currency_id
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency__currency_id
 msgid "Currency"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency_display_name
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency_id
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency__id
 msgid "ID"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency___last_update
+#: code:addons/account_invoice_change_currency/wizard/wizard_change_invoice_currency.py:24
+#, python-format
+msgid "Invoice state must be in draft or cancelled in order to change currency."
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency_write_uid
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency_write_date
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_form_inherit
-#: model:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_supplier_form_inherit
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_form_inherit
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_supplier_form_inherit
 msgid "Update Currency"
 msgstr ""
 
 #. module: account_invoice_change_currency
-#: model:ir.ui.view,arch_db:account_invoice_change_currency.wizard_change_currency_form_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.wizard_change_currency_form_view
 msgid "or"
-msgstr ""
-
-#. module: account_invoice_change_currency
-#: model:ir.model,name:account_invoice_change_currency.model_wizard_change_invoice_currency
-msgid "wizard.change.invoice.currency"
 msgstr ""
 
