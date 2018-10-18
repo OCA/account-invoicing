@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 class WizardChangeInvoiceCurrency(models.TransientModel):
 
     _name = 'wizard.change.invoice.currency'
+    _description = "Change Invoice Currency"
 
     currency_id = fields.Many2one(
         comodel_name='res.currency', string='Currency',
