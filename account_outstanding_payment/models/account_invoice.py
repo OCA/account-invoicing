@@ -7,9 +7,7 @@ from openerp import api, exceptions, fields, models
 from openerp.tools.translate import _
 import json
 from openerp.tools.float_utils import float_is_zero
-import logging
 
-logging.basicConfig(level=logging.DEBUG)
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
