@@ -7,8 +7,9 @@ from openerp import api, exceptions, fields, models
 from openerp.tools.translate import _
 import json
 from openerp.tools.float_utils import float_is_zero
+import logging
 
-
+logging.basicConfig(level=logging.DEBUG)
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
@@ -138,6 +139,7 @@ class AccountInvoice(models.Model):
             writeoff_period_id=self.env['account.period'].find().id,
             writeoff_acc_id=reconciliation_writeoff_account)
 
+    @api.multi
     def assign_outstanding_credit(self, credit_aml_id):
         """
         @attention: Source in
