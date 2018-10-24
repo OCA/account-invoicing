@@ -25,6 +25,7 @@ Account Invoice - Change Currency
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
+
 ==================================
 Update currency of Account Invoice
 ==================================
@@ -41,8 +42,6 @@ to new currency, thus the Total amounts (tax and without tax) of Invoice will be
 Configuration
 =============
 
-Configuration
-=============
 
 The exchange rate will be configured in
 Accounting > Configuration > Multi-Currencies > Currencies
@@ -50,8 +49,6 @@ Accounting > Configuration > Multi-Currencies > Currencies
 Usage
 =====
 
-Usage
-=====
 To use this module, the user must be in group Accounting & Finance / Adviser
 to be able to update currency of Invoices
 
@@ -76,8 +73,6 @@ Authors
 Contributors
 ~~~~~~~~~~~~
 
-Contributors
-------------
 
 * Duc, Dao Dong <duc.dd@komit-consulting.com> (https://komit-consulting.com)
 * Hugo Adan <hugo@vauxoo.com>
