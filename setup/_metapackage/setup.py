@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo11-addon-account_invoice_anglo_saxon_no_cogs_deferral',
         'odoo11-addon-account_invoice_blocking',
+        'odoo11-addon-account_invoice_change_currency',
         'odoo11-addon-account_invoice_check_total',
         'odoo11-addon-account_invoice_fiscal_position_update',
         'odoo11-addon-account_invoice_fixed_discount',
