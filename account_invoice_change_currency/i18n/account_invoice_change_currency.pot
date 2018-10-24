@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -61,6 +61,12 @@ msgstr ""
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_wizard_change_invoice_currency_id
 msgid "ID"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: code:addons/account_invoice_change_currency/wizard/wizard_change_invoice_currency.py:23
+#, python-format
+msgid "Invoice state must be in draft or cancelled in order to change currency."
 msgstr ""
 
 #. module: account_invoice_change_currency
