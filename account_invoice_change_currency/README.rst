@@ -41,17 +41,12 @@ to new currency, thus the Total amounts (tax and without tax) of Invoice will be
 Configuration
 =============
 
-Configuration
-=============
-
 The exchange rate will be configured in
 Accounting > Configuration > Multi-Currencies > Currencies
 
 Usage
 =====
 
-Usage
-=====
 To use this module, the user must be in group Accounting & Finance / Adviser
 to be able to update currency of Invoices
 
@@ -75,9 +70,6 @@ Authors
 
 Contributors
 ~~~~~~~~~~~~
-
-Contributors
-------------
 
 * Duc, Dao Dong <duc.dd@komit-consulting.com> (https://komit-consulting.com)
 
