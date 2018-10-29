@@ -56,7 +56,7 @@ msgid "Display Name"
 msgstr "Weergavenaam"
 
 #. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:101
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:100
 #, python-format
 msgid "Generated Invoices"
 msgstr ""
@@ -70,6 +70,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_id
 msgid "ID"
 msgstr "ID"
+
+#. module: purchase_batch_invoicing
+#: model:ir.actions.server,name:purchase_batch_invoicing.cron_ir_actions_server
+#: model:ir.cron,cron_name:purchase_batch_invoicing.cron
+#: model:ir.cron,name:purchase_batch_invoicing.cron
+msgid "Invoice all pending purchase orders"
+msgstr ""
 
 #. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing___last_update
@@ -92,7 +99,7 @@ msgid "Make one invoice for each..."
 msgstr ""
 
 #. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:97
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:96
 #: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
 #, python-format
 msgid "No ready-to-invoice purchase orders selected."
