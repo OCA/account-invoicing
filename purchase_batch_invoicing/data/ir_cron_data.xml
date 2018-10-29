@@ -4,14 +4,14 @@
 
 <odoo>
 
-<record id="cron" model="ir.cron">
-    <field name="name">Invoice all pending purchase orders</field>
-    <field name="active" eval="False"/>
-    <field name="interval_type">weeks</field>
-    <field name="numbercall">-1</field>
-    <field name="model">purchase.batch_invoicing</field>
-    <field name="function">cron_invoice_all_pending</field>
-    <field name="args">("partner_id",)</field>
-</record>
+    <record id="cron" model="ir.cron">
+        <field name="name">Invoice all pending purchase orders</field>
+        <field name="active" eval="False"/>
+        <field name="interval_type">weeks</field>
+        <field name="numbercall">-1</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_purchase_batch_invoicing"/>
+        <field name="code">model.cron_invoice_all_pending("partner_id",)</field>
+    </record>
 
 </odoo>

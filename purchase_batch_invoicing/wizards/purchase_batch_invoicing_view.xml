@@ -3,42 +3,42 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-<record id="wizard_purchase_batch_invoicing_view" model="ir.ui.view">
-    <field name="name">Purchase Batch Invoicing</field>
-    <field name="model">purchase.batch_invoicing</field>
-    <field name="arch" type="xml">
-        <form>
-            <sheet>
-                <group attrs="{'invisible': [('purchase_order_ids', '=', False)]}">
-                    <field name="purchase_order_ids"/>
-                    <field name="grouping"/>
-                </group>
-                <div attrs="{'invisible': [('purchase_order_ids', '!=', False)]}">
-                    <p>No ready-to-invoice purchase orders selected.</p>
-                </div>
-            </sheet>
-            <footer>
-                <button name="action_batch_invoice"
+    <record id="wizard_purchase_batch_invoicing_view" model="ir.ui.view">
+        <field name="name">Purchase Batch Invoicing</field>
+        <field name="model">purchase.batch_invoicing</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group attrs="{'invisible': [('purchase_order_ids', '=', False)]}">
+                        <field name="purchase_order_ids"/>
+                        <field name="grouping"/>
+                    </group>
+                    <div attrs="{'invisible': [('purchase_order_ids', '!=', False)]}">
+                        <p>No ready-to-invoice purchase orders selected.</p>
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_batch_invoice"
                         type="object"
                         string="Accept"
                         attrs="{'invisible': [('purchase_order_ids', '=', False)]}"
                         class="oe_highlight"/>
-                <button special="cancel"
+                    <button special="cancel"
                         string="Cancel"/>
-            </footer>
-        </form>
-    </field>
-</record>
+                </footer>
+            </form>
+        </field>
+    </record>
 
-<act_window
-    id="wizard_purchase_batch_invoicing_action"
-    key2="client_action_multi"
-    name="Batch Invoice"
-    src_model="purchase.order"
-    res_model="purchase.batch_invoicing"
-    target="new"
-    multi="True"
-    view_mode="form"
-    view_type="form"/>
+    <act_window
+        id="wizard_purchase_batch_invoicing_action"
+        key2="client_action_multi"
+        name="Batch Invoice"
+        src_model="purchase.order"
+        res_model="purchase.batch_invoicing"
+        target="new"
+        multi="True"
+        view_mode="form"
+        view_type="form"/>
 
 </odoo>
