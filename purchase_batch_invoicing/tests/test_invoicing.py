@@ -1,15 +1,15 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-import mock
+from unittest import mock
 
-from openerp.exceptions import UserError
-from openerp.tests.common import SavepointCase
+from odoo.exceptions import UserError
+from odoo.tests.common import SavepointCase
+
+mock_ns = ("odoo.addons.purchase_batch_invoicing.wizards"
+           ".purchase_batch_invoicing")
 
 
 class PurchaseBatchInvoicingCase(SavepointCase):
-    mock_ns = ("openerp.addons.purchase_batch_invoicing.wizards"
-               ".purchase_batch_invoicing")
 
     @classmethod
     def setUpClass(cls):
@@ -75,10 +75,11 @@ class PurchaseBatchInvoicingCase(SavepointCase):
         for po in cls.pos:
             # Confirm purchase order
             po.button_confirm()
-            # Receive products
-            cls.env["stock.immediate.transfer"] \
-                .with_context(active_id=po.picking_ids.id) \
-                .create(dict()).process()
+        # Receive products
+        for picking in cls.pos.mapped('picking_ids'):
+            for ml in picking.move_line_ids:
+                ml.qty_done = ml.product_uom_qty
+            picking.action_done()
         cls.wizard = cls.env["purchase.batch_invoicing"].with_context(
             active_ids=cls.pos.ids).create(dict())
 
