@@ -33,6 +33,10 @@ When you create an invoice, this value is automatically copied on the invoice (a
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/95/10.0
 
+Known issues / Roadmap
+======================
+- Make partner transmit methods company-aware (`company_dependent`) and add necessary migration scripts to migrate the partner fields `customer_invoice_transmit_method_id` and `supplier_invoice_transmit_method_id` as corresponding `ir.property` records
+
 Bug Tracker
 ===========
 
