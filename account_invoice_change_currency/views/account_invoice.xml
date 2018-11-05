@@ -9,7 +9,9 @@
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <field name="currency_id" position="after">
-                <button type="action" name="%(account_invoice_change_currency.action_wizard_change_currency)d" string="Update Currency" states="draft" groups="account.group_account_manager"/>
+                <button aria-label="Opened" type="object" name="action_account_change_currency" class="btn-link" states="draft" groups="account.group_account_manager">
+                    <i title="Update Currency: Will convert the amount lines to the new currency set" class="fa fa-fw fa-refresh"/>
+                </button>
             </field>
         </field>
     </record>
@@ -20,7 +22,9 @@
         <field name="inherit_id" ref="account.invoice_supplier_form"/>
         <field name="arch" type="xml">
             <xpath expr="//form/header" position="inside">
-                <button type="action" name="%(account_invoice_change_currency.action_wizard_change_currency)d" string="Update Currency" states="draft" groups="account.group_account_manager"/>
+                <button aria-label="Opened" type="object" name="action_account_change_currency" class="btn-link" states="draft" groups="account.group_account_manager">
+                    <i title="Update Currency: Will convert the amount lines to the new currency set" class="fa fa-fw fa-refresh"/>
+                </button>
             </xpath>
         </field>
     </record>
