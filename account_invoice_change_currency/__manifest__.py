@@ -12,7 +12,7 @@
         'account',
     ],
     'data': [
-        'wizard/wizard_change_invoice_currency.xml',
+        'data/message_subtype.xml',
         'views/account_invoice.xml',
     ],
     "installable": True

@@ -1,6 +1,6 @@
 # Copyright 2018 Komit <http://komit-consulting.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import exceptions, fields
+from odoo import fields
 import odoo.tests.common as common
 
 
@@ -8,6 +8,18 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
 
     def setUp(self):
         super(TestAccountInvoiceChangeCurrency, self).setUp()
+
+        res_users_account_manager = self.env.ref(
+            'account.group_account_manager')
+        self.manager = self.env['res.users'].with_context({
+            'no_reset_password': True}).create(dict(
+                name="Adviser",
+                company_id=self.env.ref('base.main_company').id,
+                login="fm",
+                email="accountmanager@yourcompany.com",
+                groups_id=[(6, 0, [
+                    res_users_account_manager.id])]
+            ))
 
         # Needed to create invoice
         self.account_type1 = self.env['account.account.type'].\
@@ -43,6 +55,10 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
             {'name': 'Product 2'})
         self.analytic_account = self.env['account.analytic.account'].\
             create({'name': 'test account'})
+        self.tax_account = self.env['account.account'].search([
+            ('user_type_id', '=',
+             self.env.ref('account.data_account_type_current_assets').id)],
+            limit=1)
 
     def create_simple_invoice(self, date):
         invoice_lines = [
@@ -63,7 +79,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
                 'account_analytic_id': self.analytic_account.id,
             })
         ]
-        invoice = self.env['account.invoice'].create({
+        invoice = self.env['account.invoice'].sudo(self.manager).create({
             'partner_id': 1,
             'account_id': self.account_account.id,
             'type': 'in_invoice',
@@ -73,6 +89,15 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
             'invoice_line_ids': invoice_lines,
             'state': 'draft',
         })
+        invoice_tax_line = {
+            'name': 'Test Tax for Customer Invoice',
+            'manual': 1,
+            'amount': 9050,
+            'account_id': self.tax_account.id,
+            'invoice_id': invoice.id,
+        }
+        self.env['account.invoice.tax'].sudo(self.manager).create(
+            invoice_tax_line)
 
         return invoice
 
@@ -81,12 +106,10 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
         before_curr = inv.currency_id
         before_amount = inv.amount_total
         after_curr = self.env.ref('base.USD')
-        wiz = self.env['wizard.change.invoice.currency'].\
-            with_context(active_id=inv.id).create(
-                {'currency_id': after_curr.id})
-        wiz.button_change_currency()
-        expected_value = before_curr.with_context(date=fields.Date.today()).\
-            compute(before_amount, after_curr)
+        inv.write({'currency_id': after_curr.id})
+        inv.action_account_change_currency()
+        expected_value = before_curr._convert(
+            before_amount, after_curr, inv.company_id, fields.Date.today())
 
         self.assertEqual(
             inv.amount_total, expected_value,
@@ -94,11 +117,11 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
 
     def test_change_validated_invoice_currency(self):
         inv = self.create_simple_invoice(fields.Date.today())
-        wiz = self.env['wizard.change.invoice.currency'].\
-            with_context(active_id=inv.id).create(
-                {'currency_id': self.env.ref('base.USD').id})
-        # Validate invoice before change
+        before_amount = inv.amount_total
         inv.action_invoice_open()
         # Make sure that we can not change the currency after validated:
-        with self.assertRaises(exceptions.UserError):
-            wiz.button_change_currency()
+        inv.write({'currency_id': self.env.ref('base.USD').id})
+        inv.action_account_change_currency()
+        self.assertEqual(
+            inv.amount_total, before_amount,
+            'Total amount of invoice does not equal to expected value!!!')
