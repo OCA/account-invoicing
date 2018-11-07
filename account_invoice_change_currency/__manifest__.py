@@ -12,6 +12,7 @@
         'account',
     ],
     'data': [
+        'data/ir_server_actions.xml',
         'data/message_subtype.xml',
         'views/account_invoice.xml',
     ],
