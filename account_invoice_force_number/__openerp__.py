@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2011-2016 Agile Business Group
 # Copyright 2017 Alex Comba - Agile Business Group
+# Backort and testing on 9.0 by Piotr Cierkosz
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Force Invoice Number',
@@ -15,7 +16,8 @@
     ],
     'data': [
         'security/security.xml',
-        'views/account_invoice_view.xml'
+        'views/account_invoice_view_customer.xml',
+        'views/account_invoice_view_vendor.xml',
     ],
     'installable': True,
 }
