@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="toggle_force_custom_rate_action" model="ir.actions.server">
+        <field name="name">Toggle custom force rate</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="state">code</field>
+        <field name="code">
+for inv in records:
+    inv._toggle_forced_rate()</field>
+    </record>
+
+    <function name="create_action" model="ir.actions.server">
+        <value model="ir.actions.server" search="[
+            ('id', 'in', [ref('toggle_force_custom_rate_action')]),
+            ]"/>
+    </function>
+
+</odoo>
+
