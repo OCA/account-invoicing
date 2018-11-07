@@ -26,6 +26,7 @@ setuptools.setup(
         'odoo11-addon-account_invoice_triple_discount',
         'odoo11-addon-account_invoice_view_payment',
         'odoo11-addon-account_payment_term_extension',
+        'odoo11-addon-purchase_batch_invoicing',
         'odoo11-addon-purchase_stock_picking_return_invoicing',
         'odoo11-addon-sale_timesheet_invoice_description',
     ],
