@@ -20,6 +20,19 @@ msgid "Currency Updated"
 msgstr ""
 
 #. module: account_invoice_change_currency
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_invoice__custom_rate
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_form_inherit
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_supplier_form_inherit
+msgid "Custom Rate"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:mail.message.subtype,description:account_invoice_change_currency.mt_force_rate
+#: model:mail.message.subtype,name:account_invoice_change_currency.mt_force_rate
+msgid "Forced Rate"
+msgstr ""
+
+#. module: account_invoice_change_currency
 #: model:ir.model,name:account_invoice_change_currency.model_account_invoice
 msgid "Invoice"
 msgstr ""
@@ -28,5 +41,16 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_form_inherit
 #: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_supplier_form_inherit
 msgid "Opened"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model.fields,help:account_invoice_change_currency.field_account_invoice__custom_rate
+msgid "Set new currency rate to apply on the invoice\n"
+".This rate will be taken in order to convert amounts between the currency on the invoice and last currency"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.actions.server,name:account_invoice_change_currency.toggle_force_custom_rate_action
+msgid "Toggle custom force rate"
 msgstr ""
 
