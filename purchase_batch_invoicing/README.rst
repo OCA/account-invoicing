@@ -47,12 +47,15 @@ week, but it is disabled by default. To enable it:
 #. Enable it by clicking on *Active* and set the date accordingly.
 #. Save.
 
+To use this module, you'll need:
+
+#. Have *Purchase / User* permissions.
+
 Usage
 =====
 
 To use this module, you need to:
 
-#. Have *Purchase / User* permissions.
 #. Go to *Purchases > Purchase > Purchase Orders > Create* and fill the form.
 #. Press *Confirm*.
 #. Press *Receive Products*.
@@ -74,7 +77,7 @@ To use this module, you need to:
 Known issues / Roadmap
 ======================
 
-It would be nice to be able to group invoices by PO line.
+* It would be nice to be able to group invoices by PO line.
 
 Bug Tracker
 ===========
