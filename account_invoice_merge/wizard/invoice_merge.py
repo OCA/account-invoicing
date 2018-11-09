@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright 2004-2010 Tiny SPRL (http://tiny.be).
 # Copyright 2010-2011 Elico Corp.
 # Copyright 2016 Acsone (https://www.acsone.eu/)
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 
 from odoo import api, exceptions, fields, models
 from odoo.tools.translate import _
@@ -38,19 +37,19 @@ class InvoiceMerge(models.TransientModel):
                         _('Not all invoices use the same account!'))
                 if d['company_id'] != invs[0]['company_id']:
                     raise exceptions.Warning(
-                        _('Not all invoices are at the same company!'))
+                        _('Not all invoices belong to the same company!'))
                 if d['partner_id'] != invs[0]['partner_id']:
                     raise exceptions.Warning(
-                        _('Not all invoices are for the same partner!'))
+                        _('Not all invoices are from the same partner!'))
                 if d['type'] != invs[0]['type']:
                     raise exceptions.Warning(
-                        _('Not all invoices are of the same type!'))
+                        _('Not all invoices are from the same type!'))
                 if d['currency_id'] != invs[0]['currency_id']:
                     raise exceptions.Warning(
-                        _('Not all invoices are at the same currency!'))
+                        _('The currency in the invoices is different!'))
                 if d['journal_id'] != invs[0]['journal_id']:
                     raise exceptions.Warning(
-                        _('Not all invoices are at the same journal!'))
+                        _('All invoices must belong to the same journal!'))
         return {}
 
     @api.model
@@ -58,9 +57,6 @@ class InvoiceMerge(models.TransientModel):
                         submenu=False):
         """Changes the view dynamically
          @param self: The object pointer.
-         @param cr: A database cursor
-         @param uid: ID of the user currently logged in
-         @param context: A standard dictionary
          @return: New arch of view.
         """
         res = super(InvoiceMerge, self).fields_view_get(
@@ -72,13 +68,7 @@ class InvoiceMerge(models.TransientModel):
     @api.multi
     def merge_invoices(self):
         """To merge similar type of account invoices.
-
              @param self: The object pointer.
-             @param cr: A database cursor
-             @param uid: ID of the user currently logged in
-             @param ids: the ID or list of IDs
-             @param context: A standard dictionary
-
              @return: account invoice action
         """
         inv_obj = self.env['account.invoice']
