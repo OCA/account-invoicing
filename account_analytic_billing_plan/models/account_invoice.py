@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from openerp import models, fields, api
+
+from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
@@ -9,7 +9,7 @@ class AccountInvoice(models.Model):
 
     billing_plan_ids = fields.One2many(
         comodel_name='account.analytic.billing.plan',
-        inverse_name='analytic_account_id', string='Billing plans')
+        inverse_name='analytic_account_id', string='Billing Plans')
 
     def create_invoice_from_billing_plans(self, plans):
         customers = {}

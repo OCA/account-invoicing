@@ -1,6 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_account_analytic_billing_plan_invoice,account.analytic.billing.plan,model_account_analytic_billing_plan,account.group_account_invoice,1,1,1,1
-access_account_analytic_billing_plan_user,account.analytic.billing.plan user,model_account_analytic_billing_plan,base.group_user,1,0,0,0
-access_account_analytic_billing_plan_accountant,account.analytic.billing.plan accountant,model_account_analytic_billing_plan,account.group_account_user,1,0,0,0
-
-
+access_account_analytic_billing_plan_user,account.analytic.billing.plan user,model_account_analytic_billing_plan,,1,0,0,0

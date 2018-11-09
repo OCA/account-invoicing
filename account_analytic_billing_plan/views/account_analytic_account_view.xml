@@ -1,32 +1,15 @@
-<?xml version="1.0"?>
-<openerp>
-    <data>
-        <record model="ir.ui.view" id="account_analytic_form_view_inh_billing_plan" >
-            <field name="name">account.analytic.form.view.inh.billing.plan</field>
-            <field name="model">account.analytic.account</field>
-            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
-            <field name="arch" type="xml">
-                <page name="contract_page" position="after">
-                    <page string="Billing plans" name="billing_plans"
-                        attrs="{'invisible':[('type','in',['contract', 'template'])]}">
-                        <group colspan="4">
-                            <field name="billing_plan_ids" nolabel="1" 
-                                    context="{'default_analytic_account_id': active_id}">
-                                <tree string="Billing plans"
-                                      colors="green:invoice_id == False and estimated_billing_date != False and estimated_billing_date&lt;current_date;blue:invoice_id == False and estimated_billing_date != False and estimated_billing_date&gt;current_date">
-                                    <field name="analytic_account_id" invisible="1"/>
-                                    <field name="partner_id" />
-                                    <field name="product_id" />
-                                    <field name="amount" sum="Amount"/>
-                                    <field name="estimated_billing_date" />
-                                    <field name="invoice_id" />
-                                    <field name="invoice_state" />
-                                </tree>
-                            </field>
-                        </group>
-                    </page>
-                </page>
-            </field>
-        </record>
-    </data>
-</openerp>
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="account_analytic_form_view_inh_billing_plan" >
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object"
+                        name="button_open_billing_plan" icon="fa-pencil-square-o">
+                    <field string="Billing Plans" name="billing_plan_count" widget="statinfo" />
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>
