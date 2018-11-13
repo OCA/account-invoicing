@@ -1,4 +1,4 @@
-# Copy'analytic.account.billing.plan'right 2018 Alfredo de la Fuente - AvanzOSC
+# Copyright 2018 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 from odoo import api, fields, models, _
@@ -12,9 +12,6 @@ from odoo.tools.safe_eval import safe_eval
 class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
 
-    billing_plan_ids = fields.One2many(
-        comodel_name='account.analytic.billing.plan',
-        inverse_name='analytic_account_id', string='Billing plans')
     billing_plan_count = fields.Integer(
         string='# Billing Plans', compute='_compute_billing_plan_count')
 
@@ -54,28 +51,34 @@ class AccountAnalyticBillingPlan(models.Model):
         string='Plan Reference', required=True, copy=False,
         readonly=True, index=True, default=lambda self: _('New'))
     analytic_account_id = fields.Many2one(
-        comodel_name='account.analytic.account', string='Analytic account',
+        comodel_name='account.analytic.account', string='Analytic Account',
         required=True)
     partner_id = fields.Many2one(
-        comodel_name='res.partner', string='Partner', store=True,
-        related='analytic_account_id.partner_id')
+        comodel_name='res.partner', string='Partner', required=True)
     product_id = fields.Many2one(
         comodel_name='product.product', string='Product', required=True)
     amount = fields.Float(
         string='Amount', digits=dp.get_precision('Account'), required=True)
     estimated_billing_date = fields.Date(
-        string='Estimated billing date', copy=False)
+        string='Estimated Billing Date', copy=False, required=True,
+        default=lambda self: fields.Date.context_today(self))
     invoice_id = fields.Many2one(
         comodel_name='account.invoice', string='Invoice', readonly=True,
         copy=False)
     invoice_state = fields.Selection(
-        string='Invoice state', related='invoice_id.state', store=True)
+        string='Invoice State', related='invoice_id.state', store=True)
 
     @api.multi
     @api.onchange('product_id')
     def _onchange_product_id(self):
-        for plan in self.filtered('product_id'):
+        for plan in self:
             plan.amount = plan.product_id.lst_price
+
+    @api.multi
+    @api.onchange('analytic_account_id')
+    def _onchange_analytic_account_id(self):
+        for plan in self:
+            plan.partner_id = plan.analytic_account_id.partner_id
 
     @api.model
     def create(self, vals):
@@ -101,6 +104,7 @@ class AccountAnalyticBillingPlan(models.Model):
         invoice_vals = {
             'name': self.name or '',
             'origin': self.name,
+            'date_invoice': self.estimated_billing_date,
             'type': 'out_invoice',
             'account_id': self.partner_id.property_account_receivable_id.id,
             'partner_id': self.partner_id.id,
@@ -122,7 +126,7 @@ class AccountAnalyticBillingPlan(models.Model):
         invoices_origin = {}
         invoices_name = {}
         for plan in self.filtered(lambda p: not p.invoice_id and p.amount):
-            group_key = plan.partner_id.id
+            group_key = (plan.partner_id.id, plan.estimated_billing_date)
             if group_key not in invoices:
                 inv_data = plan._prepare_invoice()
                 invoice = invoice_obj.create(inv_data)

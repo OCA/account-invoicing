@@ -7,14 +7,20 @@
                   decoration-warning="invoice_id == False and estimated_billing_date == False"
                   decoration-danger="invoice_id == False and estimated_billing_date and estimated_billing_date &lt; current_date"
                   decoration-success="invoice_id == False and estimated_billing_date and estimated_billing_date == current_date"
-                  decoration-info="invoice_id == False and estimated_billing_date and estimated_billing_date &gt; current_date" >
+                  decoration-info="invoice_id == False and estimated_billing_date and estimated_billing_date &gt; current_date"
+                  editable="top">
+                <field name="name" />
                 <field name="analytic_account_id" invisible="context.get('hide_analytic_account_id', True)"/>
-                <field name="partner_id" invisible="context.get('hide_analytic_account_id', True)"/>
+                <field name="partner_id" />
                 <field name="product_id" />
                 <field name="amount" sum="Amount"/>
                 <field name="estimated_billing_date" />
                 <field name="invoice_id" />
                 <field name="invoice_state" />
+                <button type="object" name="action_invoice_create"
+                        string="Create Invoice"
+                        attrs="{'invisible': [('invoice_id', '!=', False)]}"
+                        icon="fa-pencil-square-o" />
             </tree>
         </field>
     </record>
@@ -73,6 +79,8 @@
                             context="{'group_by':'product_id'}"/>
                     <filter string="Invoice" name="invoice_group"
                             context="{'group_by':'invoice_id'}" />
+                    <filter string="Estimated Billing Date" name="billing_date_group"
+                            context="{'group_by':'estimated_billing_date:day'}" />
                 </group>
             </search>
         </field>
@@ -103,6 +111,18 @@
         <field name="code">
 if records:
     action = records.action_invoice_create()
+        </field>
+    </record>
+
+    <record id="action_copy_billing_plan" model="ir.actions.server">
+        <field name="name">Duplicate</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_account_analytic_billing_plan" />
+        <field name="binding_model_id" ref="model_account_analytic_billing_plan" />
+        <field name="code">
+for record in records:
+    record.copy()
         </field>
     </record>
 </odoo>

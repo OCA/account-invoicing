@@ -3,10 +3,11 @@
     :alt: License: AGPL-3
 
 =============================
-Account analytic billing plan
+Account Analytic Billing Plan
 =============================
 
-* New menu option "Billing plan" on "Invoicing", to create invoices.
+You can define a billing plan, to make invoices on a known date for an analytic
+account and partner.
 
 Bug Tracker
 ===========

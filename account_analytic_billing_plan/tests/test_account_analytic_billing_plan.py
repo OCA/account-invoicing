@@ -5,6 +5,8 @@ from odoo.tests import common
 from odoo.exceptions import UserError
 
 
+@common.at_install(False)
+@common.post_install(True)
 class TestAccountAnalyticBillingPlan(common.SavepointCase):
 
     @classmethod
@@ -35,11 +37,13 @@ class TestAccountAnalyticBillingPlan(common.SavepointCase):
         })
         cls.plan1 = cls.billing_model.create({
             'analytic_account_id': cls.analytic.id,
+            'partner_id': cls.analytic.partner_id.id,
             'product_id': cls.product1.id,
             'amount': cls.product1.lst_price,
         })
         cls.plan2 = cls.billing_model.create({
             'analytic_account_id': cls.analytic.id,
+            'partner_id': cls.analytic.partner_id.id,
             'product_id': cls.product2.id,
             'amount': cls.product2.lst_price,
         })
@@ -60,20 +64,29 @@ class TestAccountAnalyticBillingPlan(common.SavepointCase):
         partner = self.partner.copy()
         analytic = self.analytic.copy(default={'partner_id': partner.id})
         self.assertFalse(analytic.billing_plan_count)
-        self.plan2.analytic_account_id = analytic
+        self.plan2.write({
+            'analytic_account_id': analytic.id,
+            'partner_id': partner.id,
+        })
         analytic.invalidate_cache()
         self.assertEqual(analytic.billing_plan_count, 1)
         plans = self.plan1 | self.plan2
         plans.action_invoice_create()
         self.assertNotEqual(self.plan1.invoice_id, self.plan2.invoice_id)
 
-    def test_billing_plan_onchange(self):
+    def test_billing_plan_onchange_product(self):
         plan = self.billing_model.new({
-            'analytic_account_id': self.analytic.id,
-            'product_id': self.product2.id
+            'product_id': self.product2.id,
         })
         plan._onchange_product_id()
         self.assertEqual(plan.amount, self.product2.lst_price)
+
+    def test_billing_plan_onchange_analytic_account(self):
+        plan = self.billing_model.new({
+            'analytic_account_id': self.analytic.id,
+        })
+        plan._onchange_analytic_account_id()
+        self.assertEqual(plan.partner_id, self.analytic.partner_id)
 
     def test_billing_plan_open(self):
         self.assertEqual(self.analytic.billing_plan_count, 2)
