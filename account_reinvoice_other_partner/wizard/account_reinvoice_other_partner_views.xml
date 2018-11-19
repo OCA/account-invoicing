@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_reinvoice_other_partner_form" model="ir.ui.view">
+        <field name="name">account.reinvoice.other.partner.form</field>
+        <field name="model">account.reinvoice.other.partner</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Reinvoice to another partner">
+                <group>
+                    <field name="old_partner_id" readonly="1"/>
+                    <field name="new_partner_id"/>
+                    <field name="reinvoice_journal_id" invisible="1"/>
+                    <field name="single_invoice"/>
+                </group>
+                <footer>
+                    <button name="process" string="Process" type="object" class="btn-primary"/>
+                    <button special="cancel" string="Cancel" class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window
+            id="action_account_reinvoice_other_partner"
+            name="Re-Invoice to another Customer"
+            res_model="account.reinvoice.other.partner"
+            src_model="account.invoice"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+        />
+</odoo>
