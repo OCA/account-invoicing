@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_reimbursable
-#: code:addons/account_invoice_reimbursable/models/account_invoice.py:178
+#: code:addons/account_invoice_reimbursable/models/account_invoice.py:194
 #, python-format
 msgid "%s from %s"
 msgstr ""
