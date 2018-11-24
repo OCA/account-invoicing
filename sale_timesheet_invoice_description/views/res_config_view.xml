@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- © 2016 Carlos Dauden <carlos.dauden@tecnativa.com>
+<!-- Copyright 2016 Carlos Dauden <carlos.dauden@tecnativa.com>
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
     <record id="view_sales_config_inherit_timesheet_invoice_description" model="ir.ui.view">
@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="sale_timesheet.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='msg_module_sale_timesheet']" position="after">
-                <div class="content-group" name="sale_timesheet_invoice_description" attrs="{'invisible': [('module_sale_timesheet', '=', False)]}">
+                <div class="content-group" name="sale_timesheet_invoice_description">
                     <div class="mt16">
                         <label for="default_timesheet_invoice_description"/>
                         <div class="text-muted">
