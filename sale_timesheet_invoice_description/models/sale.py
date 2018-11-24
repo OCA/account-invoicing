@@ -1,4 +1,4 @@
-# © 2016 Carlos Dauden <carlos.dauden@tecnativa.com>
+# Copyright 2016 Carlos Dauden <carlos.dauden@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models, _
@@ -29,7 +29,12 @@ class SaleOrderLine(models.Model):
     def _prepare_invoice_line_details(self, line, desc_rule):
         details = []
         if desc_rule[0] == '1':
-            details.append(line.date)
+            # If project_timesheet_time_control module is installed,
+            # date field is hidden and the new date_time field is used instead
+            if hasattr(line, 'date_time'): # pragma: no cover
+                details.append(fields.Datetime.to_string(line.date_time))
+            else:
+                details.append(fields.Date.to_string(line.date))
         if desc_rule[1] == '1':
             details.append(
                 "%s %s" % (line.unit_amount, line.product_uom_id.name))
@@ -47,9 +52,14 @@ class SaleOrderLine(models.Model):
         domain = [('so_line', '=', self.id)]
         last_invoice = self.invoice_lines.sorted(lambda x: x.create_date)[-1:]
         if last_invoice:
-            domain.append(('create_date', '>', last_invoice.create_date))
-        for line in self.env['account.analytic.line'].search(
-                domain, order='date, id'):
+            last_date = fields.Datetime.to_string(last_invoice.create_date)
+            domain.append(('create_date', '>', last_date))
+
+        # If project_timesheet_time_control module is installed,
+        # date field is hidden and the new date_time field is used instead
+        line_obj = self.env['account.analytic.line']
+        order = hasattr(line_obj, 'date_time') and 'date_time' or 'date'
+        for line in line_obj.search(domain, order=order + ', id'):
             details = self._prepare_invoice_line_details(line, desc_rule)
             note.append(
                 u' - '.join(map(lambda x: str(x) or '', details)))
