@@ -15,7 +15,7 @@ class TestSaleTimesheetDescription(common.SavepointCase):
         cls.partner = cls.env['res.partner'].create({
             'name': 'Test partner',
         })
-        cls.product_uom = cls.env.ref('product.product_uom_unit')
+        cls.product_uom = cls.env.ref('uom.product_uom_unit')
         cls.product = cls.env['product.product'].create({
             'name': 'Test product',
             'service_type': 'timesheet',
