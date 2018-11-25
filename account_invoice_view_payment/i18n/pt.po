@@ -24,8 +24,8 @@ msgid "Invoice"
 msgstr "Fatura"
 
 #. module: account_invoice_view_payment
-#: code:addons/account_invoice_view_payment/models/account_payment.py:18
-#: code:addons/account_invoice_view_payment/wizards/account_register_payments.py:19
+#: code:addons/account_invoice_view_payment/models/account_payment.py:16
+#: code:addons/account_invoice_view_payment/wizards/account_register_payments.py:21
 #: model:ir.model,name:account_invoice_view_payment.model_account_payment
 #, python-format
 msgid "Payments"
