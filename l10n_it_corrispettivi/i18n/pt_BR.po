@@ -30,6 +30,11 @@ msgid "Cancelled Corrispettivo"
 msgstr ""
 
 #. module: l10n_it_corrispettivi
+#: model:ir.model,name:l10n_it_corrispettivi.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_it_corrispettivi
 #: model:ir.actions.act_window,name:l10n_it_corrispettivi.action_corrispettivi_tree1
 #: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_fiscal_position_corrispettivi
 #: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_journal_corrispettivi
@@ -38,7 +43,7 @@ msgid "Corrispettivi"
 msgstr ""
 
 #. module: l10n_it_corrispettivi
-#: model:ir.actions.report.xml,name:l10n_it_corrispettivi.account_corrispettivi
+#: model:ir.actions.report,name:l10n_it_corrispettivi.account_corrispettivi
 #: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_invoice_corrispettivo
 #: model:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
 msgid "Corrispettivo"
@@ -71,11 +76,6 @@ msgid "No journal found for corrispettivi"
 msgstr ""
 
 #. module: l10n_it_corrispettivi
-#: model:ir.model,name:l10n_it_corrispettivi.model_res_partner
-msgid "Partner"
-msgstr "Parceiro"
-
-#. module: l10n_it_corrispettivi
 #: model:ir.ui.view,arch_db:l10n_it_corrispettivi.corrispettivi_form
 msgid "Print"
 msgstr ""
@@ -90,3 +90,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_res_users_use_corrispettivi
 msgid "Use Corrispettivi"
 msgstr ""
+
+#~ msgid "Partner"
+#~ msgstr "Parceiro"
