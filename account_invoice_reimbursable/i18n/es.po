@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_reimbursable
+# 	* account_invoice_reimbursable
 #
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Weblate 3.1.1\n"
 
 #. module: account_invoice_reimbursable
-#: code:addons/account_invoice_reimbursable/models/account_invoice.py:178
+#: code:addons/account_invoice_reimbursable/models/account_invoice.py:194
 #, python-format
 msgid "%s from %s"
 msgstr "%s de %s"
@@ -137,14 +137,19 @@ msgstr "Total ejecutable"
 #. module: account_invoice_reimbursable
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice_executable_total_company_signed
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice_reimbursable_total_company_signed
-msgid "Total executable amount in the currency of the company, negative for credit notes."
+msgid ""
+"Total executable amount in the currency of the company, negative for credit "
+"notes."
 msgstr ""
 "Total ejecutable con la moneda de la compañía, negativo para los abonos."
 
 #. module: account_invoice_reimbursable
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice_executable_total_signed
-msgid "Total executable amount in the currency of the invoice, negative for credit notes."
-msgstr "Total ejecutable con la moneda de la factura, negativo para los abonos."
+msgid ""
+"Total executable amount in the currency of the invoice, negative for credit "
+"notes."
+msgstr ""
+"Total ejecutable con la moneda de la factura, negativo para los abonos."
 
 #. module: account_invoice_reimbursable
 #: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_executable_total_company_signed
@@ -163,7 +168,9 @@ msgstr "Total suplido"
 
 #. module: account_invoice_reimbursable
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice_reimbursable_total_signed
-msgid "Total reimbursable amount in the currency of the invoice, negative for credit notes."
+msgid ""
+"Total reimbursable amount in the currency of the invoice, negative for "
+"credit notes."
 msgstr "Total suplido en la moneda de la factura, negativo para los abonos."
 
 #. module: account_invoice_reimbursable
