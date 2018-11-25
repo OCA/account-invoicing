@@ -26,11 +26,13 @@ msgstr "Ermögliche \"Rechnungsnummer erzwingen\""
 
 #. module: account_invoice_force_number
 #: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.invoice_supplier_form
 msgid "Force Number"
 msgstr "Nummer erzwingen"
 
 #. module: account_invoice_force_number
 #: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.invoice_supplier_form
 msgid ""
 "Force invoice number. Use this field if you don't want to use the default "
 "numbering"
