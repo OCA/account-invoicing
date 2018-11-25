@@ -54,3 +54,8 @@ msgstr "Notas de crédito"
 #: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order_line_qty_returned
 msgid "Returned* Qty"
 msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
+#: model:ir.model.fields,help:purchase_stock_picking_return_invoicing.field_purchase_order_line_qty_returned
+msgid "This is ONLY the returned quantity that is refundable."
+msgstr ""
