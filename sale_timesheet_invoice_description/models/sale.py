@@ -31,7 +31,7 @@ class SaleOrderLine(models.Model):
         if desc_rule[0] == '1':
             # If project_timesheet_time_control module is installed,
             # date field is hidden and the new date_time field is used instead
-            if hasattr(line, 'date_time'): # pragma: no cover
+            if hasattr(line, 'date_time'):  # pragma: no cover
                 details.append(fields.Datetime.to_string(line.date_time))
             else:
                 details.append(fields.Date.to_string(line.date))
