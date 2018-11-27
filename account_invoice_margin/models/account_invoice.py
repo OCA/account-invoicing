@@ -34,7 +34,10 @@ class AccountInvoiceLine(models.Model):
     @api.multi
     @api.depends('purchase_price', 'price_subtotal')
     def _compute_margin(self):
-        for line in self.filtered(lambda x: x.invoice_id.type[:2] != 'in'):
+        applicable = self.filtered(
+            lambda x: x.invoice_id and x.invoice_id.type[:2] != 'in'
+        )
+        for line in applicable:
             tmp_margin = line.price_subtotal - (
                 line.purchase_price * line.quantity)
             sign = line.invoice_id.type in [
