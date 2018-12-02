@@ -67,7 +67,7 @@ To use this module, you need to:
 #. You get a wizard with a list of ready-to-invoice purchase orders. Choose the
    *Grouping* method.
 
-   .. figure:: /purchase_batch_invoicing/static/description/wizard.png
+   .. figure:: https://raw.githubusercontent.com/purchase_batch_invoicing/static/description/wizard.png
       :alt: Purchase order batch invoicing wizard
 
 #. Press *Accept*.
