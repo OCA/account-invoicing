@@ -29,7 +29,7 @@ Account - Pricelist on Invoices
 * Use this pricelist when manually adding invoice lines
 * Possibility to group by pricelist on account.invoice view;
 
-.. image:: static/src/description/screenshot_group_by.png
+.. image:: https://raw.githubusercontent.com/OCA/account-invoicing/11.0/account_invoice_pricelist/static/src/description/screenshot_group_by.png
 
 For further information, please visit:
 
