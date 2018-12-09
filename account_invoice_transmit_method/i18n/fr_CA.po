@@ -156,7 +156,7 @@ msgid "Vendor Invoice Reception Method Code"
 msgstr ""
 
 #. module: account_invoice_transmit_method
-#: view:res.partner:account_invoice_transmit_method.view_partner_property_form
+#: view:res.partner:account_invoice_transmit_method.view_partner_form
 msgid ""
 "{'default_parent_id': active_id, 'default_street': street, "
 "'default_street2': street2, 'default_city': city, 'default_state_id': "
