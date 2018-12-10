@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[hasclass('page') and last()]" position="inside">
+            <t t-set="analytic_lines" t-value="o.mapped('invoice_line_ids.account_analytic_line_ids').sorted(key='date', reverse=True)" />
+            <table t-if="analytic_lines" class="table table-condensed" style="page-break-before: always;">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th class="text-right">Hours</th>
+                        <th>Task</th>
+                        <th>Summary</th>
+                        <th t-if="display_discount">Discount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="analytic_lines" t-as="line">
+                        <td style="white-space: nowrap"><span t-field="line.date" /></td>
+                        <td class="text-right"><span t-field="line.unit_amount" /></td>
+                        <td><span t-field="line.task_id.display_name" /></td>
+                        <td><span t-field="line.name" /></td>
+                        <td t-if="display_discount"><span t-field="line.invoice_discount_id.display_name" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </xpath>
+    </template>
+</odoo>

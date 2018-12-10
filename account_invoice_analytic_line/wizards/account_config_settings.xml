@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_config_settings_form" model="ir.ui.view">
+        <field name="model">account.config.settings</field>
+        <field name="inherit_id" ref="account.view_account_config_settings" />
+        <field name="arch" type="xml">
+            <xpath expr="./group[last()]" position="after">
+                <group name="account_invoice_analytic_line" string="Analytic line invoicing">
+                    <field name="account_invoice_analytic_line_product_id" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

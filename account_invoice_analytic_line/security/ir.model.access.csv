@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_account_invoice_analytic_line_discount,access_account_invoice_analytic_line_discount,model_account_invoice_analytic_line_discount,analytic.group_analytic_accounting,1,0,0,0
+access_account_invoice_analytic_line_discount_manager,access_account_invoice_analytic_line_discount,model_account_invoice_analytic_line_discount,account.group_account_manager,1,1,1,1

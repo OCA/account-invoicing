@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="discount_none" model="account.invoice.analytic.line.discount">
+        <field name="name">None</field>
+        <field name="discount">0</field>
+    </record>
+    <record id="discount_free" model="account.invoice.analytic.line.discount">
+        <field name="name">Free</field>
+        <field name="discount">100</field>
+    </record>
+    <record id="discount_50" model="account.invoice.analytic.line.discount">
+        <field name="name">50%</field>
+        <field name="discount">50</field>
+    </record>
+</odoo>

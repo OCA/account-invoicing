@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_invoice_analytic_line_discount_tree" model="ir.ui.view">
+        <field name="model">account.invoice.analytic.line.discount</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" colors="grey: active == False">
+                <field name="name" />
+                <field name="discount" />
+                <field name="active" />
+            </tree>
+        </field>
+    </record>
+    <act_window
+        id="action_account_invoice_analytic_line_discount"
+        name="Analytic line discounts"
+        res_model="account.invoice.analytic.line.discount"
+        view_mode="tree"
+        context="{'active_test': False}"
+    />
+    <menuitem
+        id="menu_account_invoice_analytic_line_discount"
+        action="action_account_invoice_analytic_line_discount"
+        parent="account.menu_finance_configuration"
+    />
+</odoo>

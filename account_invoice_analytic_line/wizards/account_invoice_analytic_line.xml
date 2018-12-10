@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_invoice_analytic_line_form" model="ir.ui.view">
+        <field name="model">account.analytic.line.invoice</field>
+        <field name="arch" type="xml">
+            <form>
+                <div>Create invoices for selected lines?</div>
+                <footer>
+                    <button string="Ok" class="btn-primary" type="object" name="action_invoice" />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window
+        id="action_account_invoice_analytic_line"
+        name="Invoice lines"
+        res_model="account.analytic.line.invoice"
+        src_model="account.analytic.line"
+        target="new"
+        view_mode="form"
+        groups="account.group_account_invoice"
+        multi="True"
+    />
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree" />
+        <field name="arch" type="xml">
+            <field name="unit_amount" position="after">
+                <field name="invoice_discount_id" groups="base.group_no_one" />
+            </field>
+        </field>
+    </record>
+    <record id="view_account_analytic_line_search" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[last()]" position="after">
+                <field name="invoice_discount_id" />
+            </xpath>
+            <search position="inside">
+                <group name="account_invoice_analytic_line">
+                    <filter name="not_invoiced" string="Not invoiced" domain="['|', ('invoice_line_id', '=', False), ('invoice_line_id.invoice_id.state', '=', 'cancel')]" />
+                    <separator />
+                    <filter name="this_month" string="This month" domain="[('date', '>=', (datetime.date.today() + relativedelta(day=1)).strftime('%Y-%m-%d')), ('date', '&lt;=', (datetime.date.today() + relativedelta(day=31)).strftime('%Y-%m-%d'))]" />
+                    <filter name="last_month" string="Last month" domain="[('date', '>=', (datetime.date.today() + relativedelta(months=-1, day=1)).strftime('%Y-%m-%d')), ('date', '&lt;=', (datetime.date.today() + relativedelta(months=-1, day=31)).strftime('%Y-%m-%d'))]" />
+                    <filter name="before_last_month" string="Before last month" domain="[('date', '&lt;', (datetime.date.today() + relativedelta(months=-1, day=1)).strftime('%Y-%m-%d'))]" />
+                    <filter name="this_year" string="This year" domain="[('date', '>=', time.strftime('%Y-01-01')), ('date', '&lt;=', time.strftime('%Y-12-31'))]" />
+                </group>
+            </search>
+        </field>
+    </record>
+    <act_window
+        id="action_account_analytic_line"
+        name="Invoice analytic lines"
+        res_model="account.analytic.line"
+        domain="[('partner_id', '!=', False), ('project_id', '!=', False)]"
+        view_id="hr_timesheet.hr_timesheet_line_tree"
+        context="{'search_default_not_invoiced': 1, 'search_default_last_month': 1}"
+    />
+    <menuitem
+        id="menu_account_analytic_line"
+        action="action_account_analytic_line"
+        parent="account.menu_finance_receivables"
+        sequence="40"
+    />
+</odoo>
