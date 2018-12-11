@@ -2,4 +2,4 @@ account-financial-tools
 product-attribute
 purchase-workflow
 stock-logistics-workflow
-partner-contact
+partner-contact https://github.com/akretion/partner-contact 10-partner-history
