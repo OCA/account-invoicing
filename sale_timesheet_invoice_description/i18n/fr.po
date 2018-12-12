@@ -20,12 +20,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: sale_timesheet_invoice_description
+<<<<<<< HEAD
 #: model:ir.model,name:sale_timesheet_invoice_description.model_res_config_settings
 #, fuzzy
 msgid "Config Settings"
 msgstr "res.config.settings"
 
 #. module: sale_timesheet_invoice_description
+=======
+>>>>>>> MIG purchase stock picking return invoicing
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:19
 #, python-format
 msgid "Date - Description"
@@ -38,7 +41,11 @@ msgid "Date - Time spent - Description"
 msgstr "Date - Temps presté - Description"
 
 #. module: sale_timesheet_invoice_description
+<<<<<<< HEAD
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_invoice_description.view_sales_config_inherit_timesheet_invoice_description
+=======
+#: model:ir.ui.view,arch_db:sale_timesheet_invoice_description.view_sales_config_inherit_timesheet_invoice_description
+>>>>>>> MIG purchase stock picking return invoicing
 msgid "Default timesheet details on invoice lines"
 msgstr "Détails des feuilles de temps par défaut sur les lignes de facture"
 
@@ -56,9 +63,14 @@ msgstr "Aucune"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order
+<<<<<<< HEAD
 #, fuzzy
 msgid "Sale Order"
 msgstr "Ligne de commandes de vente"
+=======
+msgid "Quotation"
+msgstr "Devis"
+>>>>>>> MIG purchase stock picking return invoicing
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order_line
@@ -72,6 +84,7 @@ msgid "Time spent - Description"
 msgstr "Temps presté - Description"
 
 #. module: sale_timesheet_invoice_description
+<<<<<<< HEAD
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_res_config_settings__default_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order__timesheet_invoice_description
 msgid "Timesheet Invoice Description"
@@ -79,3 +92,14 @@ msgstr "Description de la facture de la feuille de temps"
 
 #~ msgid "Quotation"
 #~ msgstr "Devis"
+=======
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_res_config_settings_default_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order_timesheet_invoice_description
+msgid "Timesheet Invoice Description"
+msgstr "Description de la facture de la feuille de temps"
+
+#. module: sale_timesheet_invoice_description
+#: model:ir.model,name:sale_timesheet_invoice_description.model_res_config_settings
+msgid "res.config.settings"
+msgstr "res.config.settings"
+>>>>>>> MIG purchase stock picking return invoicing

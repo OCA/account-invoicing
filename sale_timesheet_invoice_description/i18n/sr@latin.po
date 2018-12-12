@@ -21,11 +21,14 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. module: sale_timesheet_invoice_description
+<<<<<<< HEAD
 #: model:ir.model,name:sale_timesheet_invoice_description.model_res_config_settings
 msgid "Config Settings"
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
+=======
+>>>>>>> MIG purchase stock picking return invoicing
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:19
 #, python-format
 msgid "Date - Description"
@@ -38,7 +41,11 @@ msgid "Date - Time spent - Description"
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
+<<<<<<< HEAD
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_invoice_description.view_sales_config_inherit_timesheet_invoice_description
+=======
+#: model:ir.ui.view,arch_db:sale_timesheet_invoice_description.view_sales_config_inherit_timesheet_invoice_description
+>>>>>>> MIG purchase stock picking return invoicing
 msgid "Default timesheet details on invoice lines"
 msgstr ""
 
@@ -56,7 +63,11 @@ msgstr ""
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order
+<<<<<<< HEAD
 msgid "Sale Order"
+=======
+msgid "Quotation"
+>>>>>>> MIG purchase stock picking return invoicing
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
@@ -71,7 +82,19 @@ msgid "Time spent - Description"
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
+<<<<<<< HEAD
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_res_config_settings__default_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order__timesheet_invoice_description
 msgid "Timesheet Invoice Description"
 msgstr ""
+=======
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_res_config_settings_default_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order_timesheet_invoice_description
+msgid "Timesheet Invoice Description"
+msgstr ""
+
+#. module: sale_timesheet_invoice_description
+#: model:ir.model,name:sale_timesheet_invoice_description.model_res_config_settings
+msgid "res.config.settings"
+msgstr ""
+>>>>>>> MIG purchase stock picking return invoicing
