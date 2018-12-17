@@ -26,12 +26,17 @@ msgstr "Račun"
 
 #. module: account_invoice_fiscal_position_update
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:68
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "The following invoice lines were not updated to the new Fiscal Position "
+#| "because they don't have a Product:\n"
+#| "- %s\n"
+#| "You should update the Account and the Taxes of these invoice lines "
+#| "manually."
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position "
-"because they don't have a Product:\n"
-"- %s\n"
-"You should update the Account and the Taxes of these invoice lines manually."
+"because they don't have a Product: - %s You should update the Account and "
+"the Taxes of these invoice lines manually."
 msgstr ""
 "Naslednje računske postavke niso bile posodobljene na nov fiskalni položaj, "
 "ker ne vsebujejo proizvoda:\n"
@@ -40,11 +45,15 @@ msgstr ""
 
 #. module: account_invoice_fiscal_position_update
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:62
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "The invoice lines were not updated to the new Fiscal Position because "
+#| "they don't have products.\n"
+#| "You should update the Account and the Taxes of each invoice line manually."
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they "
-"don't have products.\n"
-"You should update the Account and the Taxes of each invoice line manually."
+"don't have products. You should update the Account and the Taxes of each "
+"invoice line manually."
 msgstr ""
 "Računske postavke niso bile posodobljene na nov fiskalni položaj, ker nimajo "
 "proizvoda:\n"
