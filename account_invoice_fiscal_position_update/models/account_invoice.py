@@ -1,11 +1,11 @@
-# © 2011-2014 Julius Network Solutions SARL <contact@julius.fr>
-# © 2014 Akretion (http://www.akretion.com)
+# Copyright 2011-2014 Julius Network Solutions SARL <contact@julius.fr>
+# Copyright 2014 Akretion (http://www.akretion.com)
 # @author Mathieu Vatel <mathieu _at_ julius.fr>
 # @author Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from odoo import models, api, _
+from odoo import _, api, models
 
 
 class AccountInvoice(models.Model):
@@ -61,14 +61,14 @@ class AccountInvoice(models.Model):
             if len(lines_without_product) == len(self.invoice_line_ids):
                 res['warning']['message'] = _(
                     "The invoice lines were not updated to the new "
-                    "Fiscal Position because they don't have products.\n"
+                    "Fiscal Position because they don't have products. "
                     "You should update the Account and the Taxes of each "
                     "invoice line manually.")
             else:
                 res['warning']['message'] = _(
                     "The following invoice lines were not updated "
                     "to the new Fiscal Position because they don't have a "
-                    "Product:\n- %s\nYou should update the Account and the "
+                    "Product: - %s You should update the Account and the "
                     "Taxes of these invoice lines manually."
-                ) % ('\n- '.join(lines_without_product))
+                ) % ('- '.join(lines_without_product))
         return res

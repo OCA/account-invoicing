@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
 "PO-Revision-Date: 2018-10-01 09:39+0000\n"
 "Last-Translator: Yung-Wa <yw.ng@onestein.nl>\n"
-"Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/"
-"23907/nl_NL/)\n"
+"Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/"
+"teams/23907/nl_NL/)\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,12 +27,17 @@ msgstr "Factuur"
 
 #. module: account_invoice_fiscal_position_update
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:68
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "The following invoice lines were not updated to the new Fiscal Position "
+#| "because they don't have a Product:\n"
+#| "- %s\n"
+#| "You should update the Account and the Taxes of these invoice lines "
+#| "manually."
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position "
-"because they don't have a Product:\n"
-"- %s\n"
-"You should update the Account and the Taxes of these invoice lines manually."
+"because they don't have a Product: - %s You should update the Account and "
+"the Taxes of these invoice lines manually."
 msgstr ""
 "De volgende factuurregels werden niet bijgewerkt naar de nieuwe fiscale "
 "positie, omdat ze geen producten bevat:\n"
@@ -41,11 +46,15 @@ msgstr ""
 
 #. module: account_invoice_fiscal_position_update
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:62
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "The invoice lines were not updated to the new Fiscal Position because "
+#| "they don't have products.\n"
+#| "You should update the Account and the Taxes of each invoice line manually."
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they "
-"don't have products.\n"
-"You should update the Account and the Taxes of each invoice line manually."
+"don't have products. You should update the Account and the Taxes of each "
+"invoice line manually."
 msgstr ""
 "De factuurregels werden niet bijgewerkt naar de nieuwe fiscale positie, "
 "omdat ze geen producten bevat.\n"
