@@ -1,4 +1,4 @@
-# © 2014 ToDay Akretion (http://www.akretion.com)
+# Copyright 2014 ToDay Akretion (http://www.akretion.com)
 # @author Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 

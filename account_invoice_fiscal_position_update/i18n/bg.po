@@ -28,9 +28,8 @@ msgstr "Фактура"
 #, python-format
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position "
-"because they don't have a Product:\n"
-"- %s\n"
-"You should update the Account and the Taxes of these invoice lines manually."
+"because they don't have a Product: - %s You should update the Account and "
+"the Taxes of these invoice lines manually."
 msgstr ""
 
 #. module: account_invoice_fiscal_position_update
@@ -38,8 +37,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they "
-"don't have products.\n"
-"You should update the Account and the Taxes of each invoice line manually."
+"don't have products. You should update the Account and the Taxes of each "
+"invoice line manually."
 msgstr ""
 
 #. module: account_invoice_fiscal_position_update
