@@ -55,12 +55,17 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
 
     # Custom Section
     @api.multi
-    def _prepare_supplierinfo(self):
+    def _prepare_supplierinfo(self, create=False):
         self.ensure_one()
-        return {
-            'product_tmpl_id': self.product_id.product_tmpl_id.id,
-            'name': self.wizard_id.invoice_id.supplier_partner_id.id,
-            'min_qty': 0.0,
+        res = {}
+        if create:
+            res.update({
+                'product_tmpl_id': self.product_id.product_tmpl_id.id,
+                'name': self.wizard_id.invoice_id.supplier_partner_id.id,
+                'delay': 1,
+            })
+        res.update({
             'price': self.new_price,
-            'delay': 1,
-        }
+            'min_qty': self.new_min_quantity,
+        })
+        return res

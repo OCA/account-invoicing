@@ -6,8 +6,10 @@
         <field name="inherit_id" ref="account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='line_ids']/tree/field[@name='price_variation']" position="after">
-                <field name="current_discount" attrs="{'invisible': [('state', '!=', 'update_partnerinfo')]}"/>
-                <field name="new_discount"/>
+                <field name="current_discount" attrs="{'invisible': [('current_discount', '=', 0)]}"
+                    groups="sale.group_discount_per_so_line"/>
+                <field name="new_discount"
+                    groups="sale.group_discount_per_so_line"/>
             </xpath>
         </field>
     </record>

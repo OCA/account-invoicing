@@ -33,11 +33,11 @@ class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
             supplierinfo = line.supplierinfo_id
             # Create supplierinfo if not exist
             if not supplierinfo:
-                supplierinfo_vals = line._prepare_supplierinfo()
-                supplierinfo = supplierinfo_obj.create(supplierinfo_vals)
+                supplierinfo_obj.create(
+                    line._prepare_supplierinfo(create=True))
             else:
-                supplierinfo.price = line.new_price
-                supplierinfo.min_qty = line.new_min_quantity
+                supplierinfo.write(
+                    line._prepare_supplierinfo(create=False))
 
         # Mark the invoice as checked
         self.invoice_id.write({'supplierinfo_ok': True})
