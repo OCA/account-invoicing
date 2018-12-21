@@ -22,6 +22,7 @@ setuptools.setup(
         'odoo11-addon-account_invoice_supplier_ref_reuse',
         'odoo11-addon-account_invoice_supplier_ref_unique',
         'odoo11-addon-account_invoice_supplier_self_invoice',
+        'odoo11-addon-account_invoice_tax_note',
         'odoo11-addon-account_invoice_tax_required',
         'odoo11-addon-account_invoice_triple_discount',
         'odoo11-addon-account_invoice_view_payment',
