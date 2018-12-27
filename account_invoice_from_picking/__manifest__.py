@@ -15,6 +15,7 @@
     ],
     'data': [
         'views/account_invoice.xml',
+        'views/stock_view.xml',
     ],
     'demo': [
     ],

@@ -43,6 +43,7 @@ class AccountInvoice(models.Model):
                 ('partner_id', '!=', False),
                 ('partner_id', 'child_of', self.partner_id.id),
                 ('id', 'not in', picking_ids.ids),
+                ('invoice_state', '=', '2binvoiced')
             ],
         }
         # TODO we can still select a picking linked to a sale
