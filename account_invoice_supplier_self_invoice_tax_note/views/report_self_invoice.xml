@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_self_document_inherit" inherit_id="account_invoice_supplier_self_invoice.report_invoice_self_document">
+        <p t-if="o.fiscal_position_id.note" position="after">
+            <t t-set="account_tax_groups" t-value="o._get_account_tax_groups_with_notes()"/>
+            <t t-if="account_tax_groups">
+                <t t-foreach="account_tax_groups" t-as="account_tax_group">
+                    <p t-field="account_tax_group.report_note"/>
+                </t>
+            </t>
+        </p>
+    </template>
+</odoo>
