@@ -113,6 +113,12 @@ msgid "Email:"
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_partner_self_invoice_report_footer
+#: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_users_self_invoice_report_footer
+msgid "Footer text displayed at the bottom of the self invoice reports."
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_account_invoice
 #: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
 msgid "Invoice"
@@ -147,6 +153,12 @@ msgstr ""
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_invoice_self_invoice_number
 msgid "Self Invoice Number"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner_self_invoice_report_footer
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users_self_invoice_report_footer
+msgid "Self invoice footer"
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice

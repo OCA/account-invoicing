@@ -10,11 +10,13 @@
                 <field name="self_invoice"
                        attrs="{'invisible': [('self_invoice_sequence_id', '=', False)]}"/>
                 <field name="self_invoice_sequence_id" readonly="1"
-                    attrs="{'invisible': [('self_invoice', '=', False)]}"/>
+                       attrs="{'invisible': [('self_invoice', '=', False)]}"/>
                 <button string="Set Self invoice" type="object"
                         name="set_self_invoice" class="oe_highlight"
                         attrs="{'readonly': [('supplier', '=', False)], 'invisible': [('self_invoice_sequence_id', '!=', False)]}"
                 />
+                <field name="self_invoice_report_footer"
+                       attrs="{'invisible': [('self_invoice', '=', False)]}"/>
             </group>
         </field>
     </record>
