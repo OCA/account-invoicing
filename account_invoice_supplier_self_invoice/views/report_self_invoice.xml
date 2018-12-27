@@ -215,6 +215,9 @@
                     <li t-if="o.partner_id.vat">TIN:
                         <span t-field="o.partner_id.vat"/>
                     </li>
+                    <li t-if="o.partner_id.self_invoice_report_footer">
+                        <span t-field="o.partner_id.self_invoice_report_footer"/>
+                    </li>
                 </ul>
                 <ul class="list-inline">
                     <li>Page:</li>
