@@ -14,11 +14,14 @@ class ResPartner(models.Model):
         help='When checked, all invoices will generate a self-invoice '
              'on validation'
     )
-
     self_invoice_sequence_id = fields.Many2one(
         comodel_name='ir.sequence',
         string='Self invoice sequence',
         ondelete='restrict'
+    )
+    self_invoice_report_footer = fields.Text(
+        string='Self invoice footer',
+        help='Footer text displayed at the bottom of the self invoice reports.'
     )
 
     def set_self_invoice(self):
