@@ -33,7 +33,6 @@
              <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='company_id']" position="after">
                 <field name="move_line_id" invisible="1"/>
                 <field name="picking_id" invisible="1"/>
-                <field name="sale_line_ids" invisible="1"/>
               </xpath>
             </data>
         </field>
