@@ -11,10 +11,13 @@
     'author': 'Akretion,Odoo Community Association (OCA)',
     'website': 'www.akretion.com',
     'depends': [
-        'stock_account'
+        'stock_account',
+        'onchange_helper',
     ],
     'data': [
         'views/account_invoice.xml',
+        'wizard/stock_invoice_onshipping_view.xml',
+        'wizard/stock_return_picking_view.xml',
         'views/stock_view.xml',
     ],
     'demo': [
