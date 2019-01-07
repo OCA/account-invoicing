@@ -55,7 +55,7 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:100
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:106
 #, python-format
 msgid "Generated Invoices"
 msgstr ""
@@ -98,7 +98,7 @@ msgid "Make one invoice for each..."
 msgstr ""
 
 #. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:96
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:102
 #: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
 #, python-format
 msgid "No ready-to-invoice purchase orders selected."
