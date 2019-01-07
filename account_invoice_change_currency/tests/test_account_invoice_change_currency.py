@@ -119,7 +119,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
             before_amount, after_curr, inv.company_id, fields.Date.today())
 
         self.assertEqual(
-            inv.amount_total, expected_value,
+            float_compare(inv.amount_total, expected_value, 1), 0,
             'Total amount of invoice does not equal to expected value!!!')
 
     def test_change_validated_invoice_currency(self):
@@ -171,7 +171,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
         expected_value = before_curr._convert(
             before_amount, usd, inv.company_id, fields.Date.today())
         self.assertEqual(
-            inv.amount_total, expected_value,
+            float_compare(inv.amount_total, expected_value, 1), 0,
             'Total amount of invoice does not equal to expected value!!!')
         # Change currency and set custom rate 0
         inv.write({'currency_id': eur.id, 'custom_rate': custom_rate})
@@ -237,12 +237,12 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
         expected_value = before_amount * rate / old_rate
         # TODO: Check float comparation, 26179.05 vs 26179.07656
         self.assertEqual(float_compare(
-            inv.amount_total, expected_value, self.precision), -1,
+            inv.amount_total, expected_value, 1), 0,
             'Total amount of invoice does not equal to expected value!!!')
         inv.action_account_change_currency()
         # TODO: Check float comparation, 26179.05 vs 26179.07656
         self.assertEqual(float_compare(
-            inv.amount_total, expected_value, self.precision), -1,
+            inv.amount_total, expected_value, 1), 0,
             'Total amount of invoice does not equal to expected value!!!')
 
     def test_force_custom_rate(self):

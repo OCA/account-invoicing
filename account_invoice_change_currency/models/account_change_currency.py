@@ -107,17 +107,25 @@ class AccountInvoice(models.Model):
         subtype_id = self.env.ref(
             'account_invoice_change_currency.mt_currency_update')
         subtype_create_id = self.env.ref('account.mt_invoice_created')
-        domain = [
-            ('mail_message_id', 'in', self.message_ids.ids),
-            ('field', '=', 'currency_id'),
-        ]
+        query = """
+SELECT mtv.old_value_integer, mtv.new_value_integer, mm.subtype_id
+FROM mail_tracking_value as mtv INNER JOIN mail_message AS mm
+ON mtv.mail_message_id = mm.id """
         if skip_update_currency:
-            domain += [('mail_message_id.subtype_id', '!=', subtype_id.id)]
-        last_value = self.env['mail.tracking.value'].sudo().search(
-            domain, limit=1, order='write_date desc, id desc')
-        value = last_value.old_value_integer
-        if last_value.mail_message_id.subtype_id == subtype_create_id:
-            value = last_value.new_value_integer
+            query += " AND mm.subtype_id != %s "
+            params = (subtype_id.id, tuple(self.message_ids.ids))
+        else:
+            params = (tuple(self.message_ids.ids), )
+        query += """WHERE mtv.field = 'currency_id' AND
+mtv.mail_message_id IN %s
+ORDER BY mtv.write_date DESC, mtv.id DESC LIMIT 1"""
+        self.env.cr.execute(query, params)
+        res = self.env.cr.dictfetchone()
+        value = False
+        if res:
+            value = res['old_value_integer']
+            if res['subtype_id'] == subtype_create_id.id:
+                value = res['new_value_integer']
         return self.currency_id.browse(value)
 
     @api.multi
