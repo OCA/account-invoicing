@@ -46,10 +46,16 @@ class PurchaseBatchInvoicing(models.TransientModel):
         if ids:
             domain += [("id", "in", ids)]
         pos = self.env["purchase.order"].search(domain)
-        # Use only POs with less qty invoiced than received
+        # Use only POs with less qty invoiced than the expected
         pos = pos.filtered(lambda order: (
-            sum(order.mapped("order_line.qty_invoiced")) <
-            sum(order.mapped("order_line.qty_received"))))
+            any(
+                line.qty_invoiced < (
+                    line.qty_received
+                    if line.product_id.purchase_method == 'receive'
+                    else line.product_qty
+                )
+            ) for line in order.order_line
+        ))
         if len(domain) > 1:
             domain[1] = ("id", "in", pos.ids)
         return domain
