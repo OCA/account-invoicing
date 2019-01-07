@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Eficent Business and IT Consulting Services
 # Copyright 2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import collections
 from odoo import api, fields, models
+from odoo.tools import float_compare
 
 
 class PurchaseOrder(models.Model):
@@ -15,15 +15,24 @@ class PurchaseOrder(models.Model):
         string='# of Invoice Refunds',
     )
 
-    @api.depends('order_line.qty_returned', 'order_line.qty_refunded')
     def _get_invoiced(self):
         """Modify invoice_status for taking into account returned/refunded
-        qty. It's only needed to modify the method for resetting state to
+        qty, as the comparison qty_received vs qty_invoiced can be negative.
+        It's only needed to modify the method for resetting state to
         "to invoice", as the rest of the states are already handled by super.
         """
         super(PurchaseOrder, self)._get_invoiced()
+        precision = self.env['decimal.precision'].precision_get(
+            'Product Unit of Measure'
+        )
         for order in self.filtered(lambda x: x.state in ('purchase', 'done')):
-            if any(x.qty_received - x.qty_invoiced for x in order.order_line):
+            if any(
+                float_compare(
+                    line.qty_invoiced, line.product_qty
+                    if line.product_id.purchase_method == 'purchase'
+                    else line.qty_received, precision_digits=precision,
+                ) for line in order.order_line
+            ):
                 order.invoice_status = 'to invoice'
 
     @api.depends('order_line.invoice_lines.invoice_id.state')
