@@ -7,3 +7,8 @@
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 * Migration from 6.1
+
+10.0.1.0.1 (2019-01-09)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* Allows to use same entry type and sum amounts

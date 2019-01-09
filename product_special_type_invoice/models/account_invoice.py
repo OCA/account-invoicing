@@ -47,13 +47,16 @@ class AccountInvoice(models.Model):
     def _compute_special_fields(self):
         """ Compute Discount and Advances amounts (sum of all the products of
         these types)
+        You can have several types amounts that are added to the same field
+        depending on the grouping in '_get_special_fields' (overriding it)
+        function.
         """
         # mapping where keys are product special type and values are the
         # invoice fields
         product_to_fields = self._get_special_fields()
         for invoice in self:
             for special_type, field in product_to_fields.iteritems():
-                invoice[field] = reduce(
+                invoice[field] += reduce(
                     add,
                     [
                         line.price_subtotal
