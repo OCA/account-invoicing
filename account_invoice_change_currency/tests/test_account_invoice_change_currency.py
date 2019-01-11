@@ -115,8 +115,9 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
         inv.write({'currency_id': after_curr.id})
         inv._onchange_currency_change_rate()
         inv.action_account_change_currency()
-        expected_value = before_curr._convert(
-            before_amount, after_curr, inv.company_id, fields.Date.today())
+        expected_value = before_curr.with_context(
+            date=fields.Date.today())._compute(
+                before_curr, after_curr, before_amount)
 
         self.assertEqual(
             float_compare(inv.amount_total, expected_value, 1), 0,
@@ -168,8 +169,9 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
         inv._onchange_currency_change_rate()
         inv.write({'custom_rate': custom_rate})
         inv.action_account_change_currency()
-        expected_value = before_curr._convert(
-            before_amount, usd, inv.company_id, fields.Date.today())
+        expected_value = before_curr.with_context(
+            date=fields.Date.today())._compute(
+                before_curr, usd, before_amount)
         self.assertEqual(
             float_compare(inv.amount_total, expected_value, 1), 0,
             'Total amount of invoice does not equal to expected value!!!')
@@ -184,16 +186,18 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
         # Change Again custom rate with old_rate but now without new currency
         inv.write({'custom_rate': inv.get_last_rate()[1]})
         inv.action_account_change_currency()
-        expected_value = before_curr._convert(
-            before_amount, eur, inv.company_id, fields.Date.today())
+        expected_value = before_curr.with_context(
+            date=fields.Date.today())._compute(
+                before_curr, eur, before_amount)
         self.assertEqual(
             inv.amount_total, before_amount,
             'Total amount of invoice does not equal to expected value!!!')
         # Custom rate with 0 but now without new currency
         inv.write({'custom_rate': custom_rate})
         inv.action_account_change_currency()
-        expected_value = before_curr._convert(
-            before_amount, eur, inv.company_id, fields.Date.today())
+        expected_value = before_curr.with_context(
+            date=fields.Date.today())._compute(
+                before_curr, eur, before_amount)
         self.assertEqual(
             inv.amount_total, before_amount,
             'Total amount of invoice does not equal to expected value!!!')

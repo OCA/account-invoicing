@@ -64,17 +64,17 @@ Credits
 =======
 
 Authors
-~~~~~~
+~~~~~~-
 
 * Komit Consulting
 
 Contributors
-~~~~~~~~~~~
+~~~~~~~~~~~-
 
 * Duc, Dao Dong <duc.dd@komit-consulting.com> (https://komit-consulting.com)
 
 Maintainers
-~~~~~~~~~~
+~~~~~~~~~~-
 
 This module is maintained by the OCA.
 
