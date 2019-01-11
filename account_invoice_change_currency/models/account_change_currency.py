@@ -40,7 +40,7 @@ class AccountInvoice(models.Model):
             old_rate_currency, old_rate = invoice.get_last_rate()
             new_rate = invoice.custom_rate
             rate_skip = currency.with_context(**ctx)._get_conversion_rate(
-                currency_skip, currency, invoice.company_id, date_invoice)
+                currency_skip, currency)
             if not invoice.custom_rate:
                 new_rate = rate_skip
             if (old_rate_currency == currency and new_rate
@@ -57,8 +57,7 @@ class AccountInvoice(models.Model):
                 continue
 
             rate = currency.with_context(**ctx)._get_conversion_rate(
-                from_currency, currency, invoice.company_id,
-                date_invoice)
+                from_currency, currency)
             if from_currency == currency and old_rate and new_rate != old_rate:
                 rate = new_rate / old_rate
             if from_currency != currency:
@@ -98,8 +97,7 @@ class AccountInvoice(models.Model):
                'date': self.date_invoice or today}
         self.custom_rate = last_currency.with_context(
             **ctx)._get_conversion_rate(
-                last_currency, self.currency_id, self.company_id,
-                self.date_invoice or today)
+                last_currency, self.currency_id)
 
     @api.multi
     def get_last_currency_id(self, skip_update_currency=False):

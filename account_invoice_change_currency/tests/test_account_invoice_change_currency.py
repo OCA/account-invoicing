@@ -207,9 +207,10 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
             'currency_id': usd.id,
             'company_id': inv.company_id.id,
         })
-        rate = usd._get_conversion_rate(
-            usd, inv.currency_id, inv.company_id,
-            inv.date_invoice or fields.Date.today())
+        ctx = {'company_id': inv.company_id.id,
+               'date': inv.date_invoice or fields.Date.today()}
+        rate = usd.with_context(**ctx)._get_conversion_rate(
+            usd, inv.currency_id)
         inv.write({'custom_rate': old_rate})
         inv.action_account_change_currency()
         expected_value = before_amount * rate / old_rate
@@ -222,9 +223,8 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
         # custom rate
         before_amount = inv.amount_total
         old_rate = inv.get_last_rate()[1]
-        rate = usd._get_conversion_rate(
-            usd, inv.currency_id, inv.company_id,
-            inv.date_invoice or fields.Date.today())
+        rate = usd.with_context(**ctx)._get_conversion_rate(
+            usd, inv.currency_id)
         inv.action_account_change_currency()
         expected_value = before_amount * rate / old_rate
         self.assertEqual(float_compare(
