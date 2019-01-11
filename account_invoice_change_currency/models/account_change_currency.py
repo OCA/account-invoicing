@@ -65,10 +65,10 @@ class AccountInvoice(models.Model):
             tracking_value_ids = [
                 [0, 0, track.create_tracking_values(
                     currency, currency, 'currency_id',
-                    self.fields_get(['currency_id'])['currency_id'], 100)],
+                    self.fields_get(['currency_id'])['currency_id'])],
                 [0, 0, track.create_tracking_values(
                     new_rate, new_rate, 'rate',
-                    currency.fields_get(['rate'])['rate'], 100)],
+                    currency.fields_get(['rate'])['rate'])],
             ]
             self.message_post(
                 subtype='account_invoice_change_currency.mt_currency_update',
@@ -175,13 +175,13 @@ ORDER BY mtv.write_date DESC, mtv.id DESC LIMIT 1"""
         tracking_value_ids = [
             [0, 0, track.create_tracking_values(
                 force, force, 'force_rate',
-                force_rate_description, 100)],
+                force_rate_description)],
             [0, 0, track.create_tracking_values(
                 self.currency_id, self.currency_id, 'currency_id',
-                self.fields_get(['currency_id'])['currency_id'], 100)],
+                self.fields_get(['currency_id'])['currency_id'])],
             [0, 0, track.create_tracking_values(
                 self.custom_rate, self.custom_rate, 'rate',
-                self.fields_get(['custom_rate'])['custom_rate'], 100)],
+                self.fields_get(['custom_rate'])['custom_rate'])],
         ]
         self.message_post(
             subtype='account_invoice_change_currency.mt_force_rate',
