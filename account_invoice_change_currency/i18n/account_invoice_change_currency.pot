@@ -14,6 +14,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_change_currency
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_form_inherit
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_supplier_form_inherit
+msgid "<i title=\"Update Currency: Will convert the amount lines to the new currency set\" class=\"fa fa-fw fa-refresh\"/>"
+msgstr ""
+
+#. module: account_invoice_change_currency
 #: model:mail.message.subtype,description:account_invoice_change_currency.mt_currency_update
 #: model:mail.message.subtype,name:account_invoice_change_currency.mt_currency_update
 msgid "Currency Updated"
