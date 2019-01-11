@@ -102,6 +102,8 @@ class AccountInvoice(models.Model):
     @api.multi
     def get_last_currency_id(self, skip_update_currency=False):
         self.ensure_one()
+        if not self.id:
+            return self.currency_id
         subtype_id = self.env.ref(
             'account_invoice_change_currency.mt_currency_update')
         subtype_create_id = self.env.ref('account.mt_invoice_created')
