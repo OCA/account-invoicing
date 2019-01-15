@@ -23,20 +23,21 @@
                     </tree>
                 </field>
                 <footer>
-                    <button name="update_supplierinfo"
-                            string="Update without Validating"
-                            type="object"
-                            class="oe_highlight"/>
                     <button name="update_supplierinfo_validate"
-                            string="Update and Validate"
+                            string="Update definitively"
+                            help="The supplierinfo will be updated and the invoice marked as checked (about supplierinfo)"
                             type="object" states="draft,proforma2"
-                            groups="account.group_account_invoice"/>
-                    <button name="set_supplierinfo_ok" string="Ignore" type="object"
-                        confirm="Do you want to set invoice as checked ?" help="This will mark the invoice as checked. It will be possible to uncheck manually in the 'Other Info' tab."/>
-                    or
+                            groups="account.group_account_invoice"
+                            class="oe_highlight"/>
+                    <button name="update_supplierinfo"
+                            string="Update temporarily"
+                            help="The supplierinfo will be updated but the invoice will not be marked as checked (about supplierinfo)"
+                            type="object"/>
+                    <button name="set_supplierinfo_ok" string="Mark as checked without updating" type="object"
+                        confirm="Do you want to set this invoice as checked ? (about its supplierinfo)" help="This will mark the invoice as checked. It will be possible to uncheck manually in the 'Other Info' tab."/>
                     <button string="Cancel" class="oe_link" special="cancel"/>
                 </footer>
             </form>
         </field>
-    </record>    
+    </record>
 </odoo>
