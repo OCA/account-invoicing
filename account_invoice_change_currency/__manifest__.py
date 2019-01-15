@@ -12,7 +12,8 @@
         'account',
     ],
     'data': [
-        'wizard/wizard_change_invoice_currency.xml',
+        'data/ir_server_actions.xml',
+        'data/message_subtype.xml',
         'views/account_invoice.xml',
     ],
     "installable": True

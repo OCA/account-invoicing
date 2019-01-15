@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="mt_currency_update" model="mail.message.subtype">
+        <field name="name">Currency Updated</field>
+        <field name="res_model">account.invoice</field>
+        <field name="default" eval="False"/>
+        <field name="hidden" eval="True"/>
+        <field name="description">Currency Updated</field>
+    </record>
+    <record id="mt_force_rate" model="mail.message.subtype">
+        <field name="name">Forced Rate</field>
+        <field name="res_model">account.invoice</field>
+        <field name="default" eval="False"/>
+        <field name="hidden" eval="True"/>
+        <field name="description">Forced Rate</field>
+    </record>
+</odoo>
