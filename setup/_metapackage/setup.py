@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo12-addon-account_invoice_change_currency',
         'odoo12-addon-account_invoice_check_total',
+        'odoo12-addon-account_invoice_force_number',
         'odoo12-addon-account_invoice_line_description',
         'odoo12-addon-sale_timesheet_invoice_description',
     ],
