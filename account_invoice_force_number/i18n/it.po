@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-16 02:37+0000\n"
 "PO-Revision-Date: 2019-01-16 08:41+0000\n"
-"Last-Translator: Lorenzo Battistini <lorenzo.battistini@agilebg.com>\n"
+"Last-Translator: Sergio Zanchetta <primes2h@gmail.com>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +22,12 @@ msgstr ""
 #. module: account_invoice_force_number
 #: model:res.groups,name:account_invoice_force_number.group_allow_invoice_force_number
 msgid "Allow \"Invoice Force Number\""
-msgstr "Permetti \"Forza Numero Fattura\""
+msgstr "Consentire forzatura del numero fattura"
 
 #. module: account_invoice_force_number
 #: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
 msgid "Force Number"
-msgstr "Forza numero"
+msgstr "Numero da forzare"
 
 #. module: account_invoice_force_number
 #: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
