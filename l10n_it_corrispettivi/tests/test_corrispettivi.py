@@ -9,16 +9,19 @@ class TestCorrispettivi(AccountingTestCase):
 
     def setUp(self):
         super(TestCorrispettivi, self).setUp()
-        fiscal_position_model = self.env['account.fiscal.position']
         partner_model = self.env['res.partner']
+        self.fiscal_pos_model = self.env['account.fiscal.position']
+        self.journal_model = self.env['account.journal']
         self.invoice_model = self.env['account.invoice']
-        self.corr_fiscal_position = fiscal_position_model.create({
+        self.corr_fiscal_position = self.fiscal_pos_model.create({
             'name': 'corrispettivi fiscal position',
-            'corrispettivi': True
+            'corrispettivi': True,
+            'company_id': self.env.user.company_id.id
         })
-        self.no_corr_fiscal_position = fiscal_position_model.create({
+        self.no_corr_fiscal_position = self.fiscal_pos_model.create({
             'name': 'corrispettivi fiscal position',
-            'corrispettivi': False
+            'corrispettivi': False,
+            'company_id': self.env.user.company_id.id
         })
         self.corrispettivi_partner = partner_model.create({
             'name': 'Corrispettivi partner',
@@ -49,6 +52,23 @@ class TestCorrispettivi(AccountingTestCase):
             .with_context(default_corrispettivi=True) \
             .create({'account_id': self.account_receivable.id})
         return corr_invoice
+
+    def test_get_corr_journal(self):
+        """ Test that get_corr_journal gets a corrispettivi journal
+        or raises an UserError if none found"""
+        corr_journal_id = self.journal_model.get_corr_journal()
+        self.assertEqual(corr_journal_id.type, 'sale')
+        self.assertTrue(corr_journal_id.corrispettivi)
+
+        corr_journal_id.unlink()
+        with self.assertRaises(UserError):
+            self.journal_model.get_corr_journal()
+
+    def test_get_corr_fiscal_pos(self):
+        """ Test that get_corr_fiscal_pos gets a corrispettivi fiscal
+        position"""
+        corr_fiscal_pos = self.fiscal_pos_model.get_corr_fiscal_pos()
+        self.assertTrue(corr_fiscal_pos.corrispettivi)
 
     def test_corrispettivi_partner_onchange(self):
         """ Test onchange in partner. """
@@ -99,6 +119,12 @@ class TestCorrispettivi(AccountingTestCase):
         self.create_corr_journal()
         corr_invoice = self.create_corrispettivi_invoice()
         self.assertTrue(corr_invoice)
+
+    def test_corrispettivo_print_sent(self):
+        """ Test corrispettivo report. """
+        corr_invoice = self.create_corrispettivi_invoice()
+        corr_invoice.corrispettivo_print()
+        self.assertTrue(corr_invoice.sent)
 
     def test_corrispettivi_invoice_onchange(self):
         """ Test onchange methods for invoice. """

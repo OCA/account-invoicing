@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2016 Lorenzo Battistini - Agile Business Group
-     Copyright 2018 Simone Rubino - Agile Business Group
+     Copyright 2018-2019 Simone Rubino - Agile Business Group
      License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
 
 <odoo>
@@ -24,14 +24,14 @@
         <field name="mode">primary</field>
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
-            <button name="invoice_print" attrs="{'invisible':['|',('sent','=',True), ('state', 'not in', ('open','paid'))]}" position="replace">
-                <button name="corrispettivo_print" string="Print" type="object" class="oe_highlight" groups="base.group_user"
-                        attrs="{'invisible':['|',('sent','=',True), ('state', 'not in', ('open','paid'))]}"/>
-            </button>
-            <button name="invoice_print" attrs="{'invisible':['|',('sent','=',False), ('state', 'not in', ('open','paid'))]}" position="replace">
-                <button name="corrispettivo_print" string="Print Corrispettivo" type="object" groups="base.group_user"
-                        attrs="{'invisible':['|',('sent','=',False), ('state', 'not in', ('open','paid'))]}"/>
-            </button>
+            <header position="inside">
+                <button name="corrispettivo_print" string="Print Corrispettivo"
+                        type="object" class="oe_highlight" groups="base.group_user"
+                        attrs="{'invisible':['|',('sent','=',True), ('state', 'not in', ('open', 'in_payment', 'paid'))]}"/>
+                <button name="corrispettivo_print" string="Print Corrispettivo"
+                        type="object" groups="base.group_user"
+                        attrs="{'invisible':['|',('sent','=',False), ('state', 'not in', ('open', 'in_payment', 'paid'))]}"/>
+            </header>
         </field>
     </record>
 
@@ -68,7 +68,7 @@
     </record>
 
     <menuitem action="action_corrispettivi_tree1" id="menu_action_corrispettivi_tree"
-              parent="account.menu_finance_receivables_documents"/>
+              parent="account.menu_finance_receivables"/>
 
     <!-- Partner -->
 
@@ -92,8 +92,10 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="account.view_account_journal_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='advanced_settings']/group/group[2]" position="inside">
-                <field name="corrispettivi"/>
+            <xpath expr="//page[@name='advanced_settings']/group" position="inside">
+                <group name="corrispettivi" string="Corrispettivi" attrs="{'invisible': [('type', '!=',  'sale')]}">
+                    <field name="corrispettivi"/>
+                </group>
             </xpath>
         </field>
     </record>

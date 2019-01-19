@@ -61,8 +61,8 @@ class AccountInvoice(models.Model):
         """ Print the corrispettivo and mark it as sent"""
         self.ensure_one()
         self.sent = True
-        return self.env['report'].get_action(
-            self, 'l10n_it_corrispettivi.report_corrispettivi')
+        return self.env.ref('l10n_it_corrispettivi.account_corrispettivi') \
+            .report_action(self)
 
 
 class AccountJournal(models.Model):
@@ -88,7 +88,9 @@ class AccountFiscalPosition(models.Model):
     corrispettivi = fields.Boolean(string='Corrispettivi')
 
     @api.model
-    def get_corr_fiscal_pos(self, company_id):
+    def get_corr_fiscal_pos(self, company_id=None):
+        if not company_id:
+            company_id = self.env.user.company_id
         corr_fiscal_pos = self.search([
             ('corrispettivi', '=', True),
             ('company_id', '=', company_id.id)], limit=1)
