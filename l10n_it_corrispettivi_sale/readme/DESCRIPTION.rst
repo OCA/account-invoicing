@@ -1,7 +1,7 @@
 **Italiano**
 
-Modulo per integrare i corrispettivi in odoo con gli ordini di vendita.
+Modulo per integrare le ricevute in Odoo con gli ordini di vendita.
 
 **English**
 
-Module to supplement the corrispettivi with sale orders in odoo.
+Module to supplement the receipts with sale orders in Odoo.

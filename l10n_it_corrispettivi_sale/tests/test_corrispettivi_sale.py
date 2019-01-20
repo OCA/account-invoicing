@@ -13,20 +13,20 @@ class TestCorrispettiviSale(AccountingTestCase):
         self.invoice_model = self.env['account.invoice']
         self.sale_model = self.env['sale.order']
         self.corr_fiscal_position = fiscal_position_model.create({
-            'name': 'corrispettivi fiscal position',
+            'name': 'receipts fiscal position',
             'corrispettivi': True
         })
         self.no_corr_fiscal_position = fiscal_position_model.create({
-            'name': 'corrispettivi fiscal position',
+            'name': 'receipts fiscal position',
             'corrispettivi': False
         })
         self.corrispettivi_partner = partner_model.create({
-            'name': 'Corrispettivi partner',
+            'name': 'Receipts partner',
             'use_corrispettivi': True,
             'property_account_position_id': self.corr_fiscal_position.id
         })
         self.no_corrispettivi_partner = partner_model.create({
-            'name': 'Corrispettivi partner',
+            'name': 'Receipts partner',
             'use_corrispettivi': False,
             'property_account_position_id': self.no_corr_fiscal_position.id
         })
@@ -34,12 +34,12 @@ class TestCorrispettiviSale(AccountingTestCase):
         self.account_receivable = self.env['account.account'].search(
             [('user_type_id', '=', self.env.ref(
                 'account.data_account_type_receivable').id)], limit=1)
-        self.product = self.env['product.product'].search([], limit=1)
+        self.product = self.env.ref('sale.advance_product_0')
 
     def create_corr_journal(self):
         corr_journal_id = self.env['account.journal'].create({
-            'name': 'CORR',
-            'code': 'CORR',
+            'name': 'RICEV',
+            'code': 'RICEV',
             'type': 'sale',
             'corrispettivi': True
         })
@@ -47,8 +47,8 @@ class TestCorrispettiviSale(AccountingTestCase):
 
     def create_no_corr_journal(self):
         no_corr_journal_id = self.env['account.journal'].create({
-            'name': 'NOCORR',
-            'code': 'NOCORR',
+            'name': 'NORICEV',
+            'code': 'NORICEV',
             'type': 'sale',
             'corrispettivi': False
         })
@@ -85,7 +85,7 @@ class TestCorrispettiviSale(AccountingTestCase):
 
     def test_corrispettivi_sale_invoice(self):
         """
-        Test corrispettivo creation for a sale order having flag corrispettivi.
+        Test receipt creation for a sale order having flag corrispettivi.
         """
         self.create_corr_journal()
         sale = self.create_corrispettivi_sale()
