@@ -51,7 +51,6 @@ Known Issues / Roadmap
 
 * This module does not manage correctly difference if
 
-    * invoice line UoM are not the same as Supplierinfo UoM
     * invoice line taxes are not the same as products taxes. (If one is
       marked as tax included in the price and the other is marked as
       tax excluded in the price)
@@ -65,6 +64,7 @@ Contributors
 * Chafique Delli <chafique.delli@akretion.com>
 * Sylvain LE GAL (https://twitter.com/legalsylvain)
 * Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
+* Stefan Rijnhart <stefan@opener.amsterdam>
 
 Maintainer
 ----------
