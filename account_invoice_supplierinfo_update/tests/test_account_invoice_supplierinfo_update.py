@@ -19,6 +19,7 @@ class Tests(TransactionCase):
         self.product1 = self.env.ref('product.product_product_4b')
         self.product2 = self.env.ref('product.product_delivery_01')
         self.prod_account = self.env.ref('account.demo_coffee_machine_account')
+        unit = self.env.ref('product.product_uom_unit')
 
         self.invoice = self.invoice_model.create(
             {'journal_id': self.journal.id,
@@ -31,11 +32,13 @@ class Tests(TransactionCase):
                                           'name': 'iPad Retina Display',
                                           'quantity': 10.0,
                                           'price_unit': 400.0,
+                                          'uom_id': unit.id,
                                           'account_id': self.prod_account.id,
                                           }),
                                   (0, 0, {'name': 'line without product',
                                           'quantity': 1.0,
                                           'price_unit': 35.0,
+                                          'uom_id': unit.id,
                                           'account_id': self.prod_account.id,
                                           }),
                                   (0, 0, {'product_id': self.product2.id,
@@ -43,6 +46,7 @@ class Tests(TransactionCase):
                                           ' to update',
                                           'quantity': 1.0,
                                           'price_unit': 10.0,
+                                          'uom_id': unit.id,
                                           'account_id': self.prod_account.id,
                                           }),
                                   ],
@@ -90,3 +94,25 @@ class Tests(TransactionCase):
         self.assertEquals(len(supplierinfos2), 1)
 
         self.assertEquals(supplierinfos2.price, 10.0)
+
+    def test_update_pricelist_supplierinfo_uom_conversion(self):
+        """ Price is converted to the product's purchase UOM """
+        self.product1.uom_po_id = self.env.ref('product.product_uom_dozen')
+        invoice_line = self.invoice.invoice_line_ids.filtered(
+            lambda ail: ail.product_id == self.product1)
+        invoice_line.write({'price_unit': 33.0})
+        wizard = self.wizard_obj.with_context(
+            self.invoice.check_supplierinfo()['context']).create({})
+        line = wizard.line_ids.filtered(
+            lambda line: line.product_id == self.product1)
+
+        # Prices are converted to the purchase UOM.
+        # 33 per unit equals 396 per dozen
+        self.assertEquals(line.new_price, 396.0)
+
+        wizard.update_supplierinfo()
+        supplierinfo = self.supplierinfo_obj.search([
+            ('name', '=', self.invoice.supplier_partner_id.id),
+            ('product_tmpl_id', '=', self.product1.product_tmpl_id.id)])
+        self.assertEquals(supplierinfo.price, 396.0)
+        self.assertTrue(invoice_line._is_correct_price(supplierinfo))
