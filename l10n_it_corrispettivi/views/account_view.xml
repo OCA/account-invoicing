@@ -32,6 +32,12 @@
                         type="object" groups="base.group_user"
                         attrs="{'invisible':['|',('sent','=',False), ('state', 'not in', ('open', 'in_payment', 'paid'))]}"/>
             </header>
+            <xpath expr="//button[@name='action_invoice_sent' and hasclass('oe_highlight')]" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_invoice_sent' and not(hasclass('oe_highlight'))]" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
         </field>
     </record>
 
