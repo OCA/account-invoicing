@@ -79,15 +79,18 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
 
     def test_change_invoice_currency(self):
         inv = self.create_simple_invoice(fields.Date.today())
-        before_curr = inv.currency_id
-        before_amount = inv.amount_total
+        before_curr = inv.currency_id.with_context(
+            date=fields.Date.today())
         after_curr = self.env.ref('base.USD')
+        expected_value = sum(
+            [line.quantity * before_curr.compute(
+                line.price_unit, after_curr)
+             for line in inv.invoice_line_ids])
+
         wiz = self.env['wizard.change.invoice.currency'].\
             with_context(active_id=inv.id).create(
                 {'currency_id': after_curr.id})
         wiz.button_change_currency()
-        expected_value = before_curr.with_context(date=fields.Date.today()).\
-            compute(before_amount, after_curr)
 
         self.assertEqual(
             inv.amount_total, expected_value,
