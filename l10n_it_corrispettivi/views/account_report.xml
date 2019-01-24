@@ -28,9 +28,15 @@
         <field name="mode">primary</field>
         <field name="inherit_id" ref="account.report_invoice_document"/>
         <field name="arch" type="xml">
-            <t t-set="address" position="attributes">
+            <address position="attributes">
                 <attribute name="style">display: none;</attribute>
-            </t>
+            </address>
+            <div t-if="o.partner_id.vat" position="attributes">
+                <attribute name="style">display: none;</attribute>
+            </div>
+            <div name="due_date" position="attributes">
+                <attribute name="style">display: none;</attribute>
+            </div>
             <xpath expr="//div[@t-if='o.partner_id.ref']" position="attributes">
                 <attribute name="style">display: none;</attribute>
             </xpath>
@@ -55,6 +61,9 @@
                     <p class="m-0" t-field="o.date_invoice"/>
                 </div>
             </div>
+            <p t-if="o.reference" position="attributes">
+                <attribute name="style">display: none;</attribute>
+            </p>
         </field>
     </record>
 </odoo>
