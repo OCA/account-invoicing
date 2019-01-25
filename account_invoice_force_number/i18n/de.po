@@ -24,12 +24,14 @@ msgid "Allow \"Invoice Force Number\""
 msgstr ""
 
 #. module: account_invoice_force_number
-#: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+#: model_terms:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+#: model_terms:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_supplier_form_force_number
 msgid "Force Number"
 msgstr "Nummer erzwingen"
 
 #. module: account_invoice_force_number
-#: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+#: model_terms:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+#: model_terms:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_supplier_form_force_number
 msgid ""
 "Force invoice number. Use this field if you don't want to use the default "
 "numbering"
