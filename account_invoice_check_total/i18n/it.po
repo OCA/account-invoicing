@@ -53,7 +53,8 @@ msgid ""
 "There is a difference of %s"
 msgstr ""
 "Si prega verificare gli importi in fattura!\n"
-"Il totale indicato non corrisponde con il totale calcolato."
+"Il totale indicato (%s) non corrisponde con il totale calcolato (%s).\n"
+"C'è una differenza di %s"
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice_check_total_display_difference
