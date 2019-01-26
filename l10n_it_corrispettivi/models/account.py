@@ -70,7 +70,9 @@ class AccountJournal(models.Model):
     corrispettivi = fields.Boolean(string='Corrispettivi')
 
     @api.model
-    def get_corr_journal(self, company_id):
+    def get_corr_journal(self, company_id=None):
+        if not company_id:
+            company_id = self.env.user.company_id
         corr_journal_id = self.search(
             [('type', '=', 'sale'),
              ('corrispettivi', '=', True),
