@@ -35,12 +35,10 @@ class AccountInvoiceLine(models.Model):
     discount2 = fields.Float(
         'Discount 2 (%)',
         digits=dp.get_precision('Discount'),
-        default=0.0,
     )
     discount3 = fields.Float(
         'Discount 3 (%)',
         digits=dp.get_precision('Discount'),
-        default=0.0,
     )
 
     @api.multi
