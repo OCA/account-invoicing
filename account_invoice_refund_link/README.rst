@@ -47,6 +47,7 @@ Contributors
 * Pedro M. Baeza <pedro.baeza@tecnativa.com>
 * Antonio Espinosa <antonio.espinosa@tecnativa.com>
 * Luis M. Ontalba <luis.martinez@tecnativa.com>
+* Nikul Chaudhary <nikulchaudhary2112@gmail.com>
 
 Maintainer
 ----------
