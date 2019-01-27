@@ -13,12 +13,13 @@ class TestInvoiceSupplierReferenceReuse(SavepointCase):
         # Inspired by TestAccountSupplierInvoice
         # https://github.com/odoo/odoo/blob/11.0/addons/account/tests/test_account_supplier_invoice.py
 
-        self.invoice_account = self.env['account.account'].search(
+        self.account_account = self.env['account.account']
+        self.invoice_account = self.account_account.search(
             [('user_type_id',
               '=',
               self.env.ref('account.data_account_type_receivable').id
               )], limit=1).id
-        self.invoice_line_account = self.env['account.account'].search(
+        self.invoice_line_account = self.account_account.search(
             [('user_type_id',
               '=',
               self.env.ref('account.data_account_type_expenses').id
