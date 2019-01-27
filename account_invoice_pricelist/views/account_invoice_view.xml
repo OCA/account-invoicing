@@ -39,6 +39,7 @@
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='group_by_partner_id']" position="after">
                 <filter string="Pricelist"
+                        name="pricelist"
                         context="{'group_by':'pricelist_id'}"
                         invisible="context.get('type', '') not in ['out_invoice', 'out_refund']"/>
             </xpath>
