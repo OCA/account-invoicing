@@ -5,7 +5,6 @@ from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
-
     _inherit = 'account.invoice'
 
     @api.multi
@@ -78,8 +77,9 @@ class AccountInvoice(models.Model):
         'No Follow-up',
         states={'draft': [('readonly', True)]},
         compute='_compute_move_blocked',
-        inverse='_inverse_move_blocked')
+        inverse='_inverse_move_blocked'
+    )
 
     draft_blocked = fields.Boolean(
-        'No Follow-up',
-        help="This flag facilitates the blocking of the invoice's move lines.")
+        help="This flag facilitates the blocking of the invoice's move lines."
+    )

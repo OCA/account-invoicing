@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_blocking
+# 	* account_invoice_blocking
 #
 msgid ""
 msgstr ""
@@ -17,18 +17,23 @@ msgstr ""
 "X-Generator: Weblate 3.3\n"
 
 #. module: account_invoice_blocking
+#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice__draft_blocked
+msgid "Draft Blocked"
+msgstr ""
+
+#. module: account_invoice_blocking
 #: model:ir.model,name:account_invoice_blocking.model_account_invoice
 msgid "Invoice"
 msgstr "Factuur"
 
 #. module: account_invoice_blocking
-#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice_blocked
-#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice_draft_blocked
+#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice__blocked
+#: model_terms:ir.ui.view,arch_db:account_invoice_blocking.account_invoice_form_view
 msgid "No Follow-up"
 msgstr "Geen opvolging"
 
 #. module: account_invoice_blocking
-#: model:ir.model.fields,help:account_invoice_blocking.field_account_invoice_draft_blocked
+#: model:ir.model.fields,help:account_invoice_blocking.field_account_invoice__draft_blocked
 msgid "This flag facilitates the blocking of the invoice's move lines."
 msgstr ""
 "De optie maakt het mogelijk om factuuregels uit te sluiten van opvolging."

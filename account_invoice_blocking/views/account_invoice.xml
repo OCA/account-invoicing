@@ -10,7 +10,7 @@
         <field name="arch" type="xml">
             <field name="move_id" position="after">
                 <field name="blocked" attrs="{'invisible': [('move_id', '=', False)]}"/>
-                <field name="draft_blocked" attrs="{'invisible': [('move_id', '!=', False)]}"/>
+                <field name="draft_blocked" string="No Follow-up" attrs="{'invisible': [('move_id', '!=', False)]}"/>
             </field>
         </field>
     </record>
