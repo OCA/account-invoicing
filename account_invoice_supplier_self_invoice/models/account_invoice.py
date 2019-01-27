@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2017 Creu Blanca
 # License AGPL-3.0 or later (https://www.gnuorg/licenses/agpl.html).
 
@@ -11,7 +10,7 @@ class AccountInvoice(models.Model):
     self_invoice_number = fields.Char(
         readonly=True
     )
-    set_self_invoice = fields.Boolean(string='Set self invoice')
+    set_self_invoice = fields.Boolean('Set self invoice')
     can_self_invoice = fields.Boolean(related='partner_id.self_invoice')
 
     @api.onchange('partner_id', 'company_id')
@@ -49,9 +48,13 @@ class AccountInvoice(models.Model):
                         )
         return super(AccountInvoice, self).create(vals)
 
-    @api.multi
-    def action_view_account_invoice_self(self):
-        self.ensure_one()
-        return self.env['ir.actions.report']._get_report_from_name(
-            'account_invoice_supplier_self_invoice.report_invoice_self'
-        ).report_action(self.id)
+    @api.model
+    def action_view_account_invoice_self(self, docids, data=None):
+        report = self.env['ir.actions.report']._get_report_from_name(
+            'account_invoice_supplier_self_invoice.report_invoice_self')
+        return {
+            'doc_ids': docids,
+            'doc_model': report.model,
+            'docs': self.env[report.model].browse(docids),
+            'report_type': data.get('report_type') if data else '',
+        }
