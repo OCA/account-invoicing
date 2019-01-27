@@ -29,5 +29,4 @@ class AccountInvoice(models.Model):
         if not (config['test_enable'] and
                 not self.env.context.get('test_tax_required')):
             self._test_invoice_line_tax()
-        res = super(AccountInvoice, self).invoice_validate()
-        return res
+        return super(AccountInvoice, self).invoice_validate()
