@@ -36,8 +36,8 @@ class TestAccountInvoiceTaxRequired(TransactionCase):
             'standard_price': 50,
             'list_price': 100,
             'type': 'service',
-            'uom_id': self.env.ref("product.product_uom_unit").id,
-            'uom_po_id': self.env.ref("product.product_uom_unit").id,
+            'uom_id': self.env.ref("uom.product_uom_unit").id,
+            'uom_po_id': self.env.ref("uom.product_uom_unit").id,
             'description': 'Test',
         })
 
