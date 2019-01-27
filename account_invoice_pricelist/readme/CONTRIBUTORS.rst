@@ -3,3 +3,4 @@
 * Sergio Teruel <sergio.teruel@tecnativa.com>
 * Raphaël Valyi <rvalyi@akretion.com>
 * Alberto Martín <alberto.martin@guadaltech.es>
+* Nikul Chaudhary <nikulchaudhary2112@gmail.com>
