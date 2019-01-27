@@ -126,7 +126,7 @@
                                       t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                             </td>
                         </tr>
-                        <t t-foreach="o._get_tax_amount_by_group()"
+                        <t t-foreach="o.amount_by_group"
                            t-as="amount_by_group">
                             <tr>
                                 <td>
@@ -248,5 +248,5 @@
             name="account_invoice_supplier_self_invoice.report_invoice_self"
             file="account_invoice_supplier_self_invoice.report_invoice_self"
             attachment_use="False"
-    />e
+    />
 </odoo>
