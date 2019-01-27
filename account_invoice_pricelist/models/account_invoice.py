@@ -7,7 +7,8 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     pricelist_id = fields.Many2one(
-        comodel_name='product.pricelist', string='Pricelist',
+        comodel_name='product.pricelist',
+        string='Pricelist',
         readonly=True,
         states={'draft': [('readonly', False)]},
     )
