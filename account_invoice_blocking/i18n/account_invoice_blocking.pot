@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,18 +14,23 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_blocking
+#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice__draft_blocked
+msgid "Draft Blocked"
+msgstr ""
+
+#. module: account_invoice_blocking
 #: model:ir.model,name:account_invoice_blocking.model_account_invoice
 msgid "Invoice"
 msgstr ""
 
 #. module: account_invoice_blocking
-#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice_blocked
-#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice_draft_blocked
+#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice__blocked
+#: model_terms:ir.ui.view,arch_db:account_invoice_blocking.account_invoice_form_view
 msgid "No Follow-up"
 msgstr ""
 
 #. module: account_invoice_blocking
-#: model:ir.model.fields,help:account_invoice_blocking.field_account_invoice_draft_blocked
+#: model:ir.model.fields,help:account_invoice_blocking.field_account_invoice__draft_blocked
 msgid "This flag facilitates the blocking of the invoice's move lines."
 msgstr ""
 
