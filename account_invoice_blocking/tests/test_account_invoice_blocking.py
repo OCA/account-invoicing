@@ -11,15 +11,11 @@ class TestAccountInvoiceBlocking(TransactionCase):
         Setup test instances
         """
         super(TestAccountInvoiceBlocking, self).setUp()
-
         company = self.env.ref('base.main_company')
-
         # Instance: account type (receivable)
         self.type_recv = self.env.ref('account.data_account_type_receivable')
-
         # Instance: account type (payable)
         self.type_payable = self.env.ref('account.data_account_type_payable')
-
         # account (receivable)
         account_recv = self.env['account.account'].create({
             'name': 'test_account_receivable',
