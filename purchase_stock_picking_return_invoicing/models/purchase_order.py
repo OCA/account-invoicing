@@ -26,6 +26,12 @@ class PurchaseOrder(models.Model):
             'Product Unit of Measure'
         )
         for order in self.filtered(lambda x: x.state in ('purchase', 'done')):
+            # the field 'force_invoiced' is defined in the
+            # 'purchase_force_invoiced' module of OCA/purchase-workflow.
+            if getattr(order, 'force_invoiced', None) and \
+                    order.force_invoiced and \
+                    order.invoice_status == 'invoiced':
+                continue
             if any(
                 float_compare(
                     line.qty_invoiced, line.product_qty
