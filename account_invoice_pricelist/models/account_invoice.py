@@ -16,19 +16,15 @@ class AccountInvoice(models.Model):
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id_account_invoice_pricelist(self):
         result = super(AccountInvoice, self)._onchange_partner_id()
-        for invoice in self:
-            if invoice.partner_id and invoice.type in\
-                    ('out_invoice', 'out_refund') and\
-                    invoice.partner_id.property_product_pricelist:
-                invoice.pricelist_id =\
-                    invoice.partner_id.property_product_pricelist
-                invoice.currency_id = invoice.pricelist_id.currency_id
+        if self.partner_id and self.type in ('out_invoice', 'out_refund')\
+                and self.partner_id.property_product_pricelist:
+            self.pricelist_id = self.partner_id.property_product_pricelist
+            self.currency_id = self.pricelist_id.currency_id
         return result
 
     @api.onchange('pricelist_id')
     def _change_pricelist(self):
-        for invoice in self:
-            invoice.currency_id = invoice.pricelist_id.currency_id
+        self.currency_id = self.pricelist_id.currency_id
 
     @api.multi
     def button_update_prices_from_pricelist(self):
