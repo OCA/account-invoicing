@@ -84,3 +84,52 @@ class TestInvoiceTripleDiscount(SavepointCase):
         self.invoice_line1.discount = 50.0
         self.invoice._onchange_invoice_line_ids()
         self.assertEqual(self.invoice.amount_total, 365.0)
+
+    def test_03_round_globally(self):
+        """ Tests particular rounding use case of an invoice line having:
+         price_unit = 15.2,
+         qty = 131.04
+         discount = 50
+         discount2 = 0
+         discount3 = 3
+
+         The result should be the same as applying only one discount of 51.5:
+         15.2 * 131.04 * (1 - 0.5) * (1 - 0.03) =
+         = 15.2 * 131.04 * (1 - 0.515) = 966.02688 ~ 966.03"""
+        invoice = self.env['account.invoice'].create({
+            'name': "Test Customer Invoice",
+            'journal_id': self.env['account.journal'].search(
+                [('type', '=', 'sale')])[0].id,
+            'partner_id': self.partner.id,
+            'account_id': self.account.id,
+        })
+        invoice_line = self.invoice_line.create({
+            'invoice_id': invoice.id,
+            'name': 'Line 1',
+            'price_unit': 15.2,
+            'discount': 50.0,
+            'discount2': 0.0,
+            'discount3': 3.0,
+            'account_id': self.account.id,
+            'quantity': 131.04
+        })
+        invoice2 = self.env['account.invoice'].create({
+            'name': "Test Customer Invoice",
+            'journal_id': self.env['account.journal'].search(
+                [('type', '=', 'sale')])[0].id,
+            'partner_id': self.partner.id,
+            'account_id': self.account.id,
+        })
+        invoice_line2 = self.invoice_line.create({
+            'invoice_id': invoice2.id,
+            'name': 'Line 1',
+            'price_unit': 15.2,
+            'discount': 51.5,
+            'account_id': self.account.id,
+            'quantity': 131.04
+        })
+        self.assertEqual(
+            invoice_line.price_subtotal, 966.03)
+        self.assertEqual(
+            invoice_line.price_subtotal,
+            invoice_line2.price_subtotal)
