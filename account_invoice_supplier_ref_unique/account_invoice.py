@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# coding: utf-8
 ###############################################################################
 #
 #    Odoo, Open Source Management Solution
@@ -24,6 +24,7 @@
 
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
+from datetime import datetime
 
 
 class AccountInvoice(models.Model):
@@ -31,12 +32,11 @@ class AccountInvoice(models.Model):
 
     supplier_invoice_number = fields.Char(copy=False)
 
-    @api.one
-    @api.constrains('supplier_invoice_number')
+    @api.constrains('supplier_invoice_number', 'date_invoice')
     def _check_unique_supplier_invoice_number_insensitive(self):
-        if (
-                self.supplier_invoice_number and
-                self.type in ('in_invoice', 'in_refund')):
+        if (self.supplier_invoice_number and
+                self.date_invoice and self.type in
+                ('in_invoice', 'in_refund')):
             same_supplier_inv_num = self.search([
                 ('commercial_partner_id', '=', self.commercial_partner_id.id),
                 ('type', 'in', ('in_invoice', 'in_refund')),
@@ -44,12 +44,27 @@ class AccountInvoice(models.Model):
                  '=ilike',
                  self.supplier_invoice_number),
                 ('id', '!=', self.id),
-                ])
+            ])
             if same_supplier_inv_num:
-                raise ValidationError(
-                    _("The invoice/refund with supplier invoice number '%s' "
-                      "already exists in Odoo under the number '%s' "
-                      "for supplier '%s'.") % (
-                        same_supplier_inv_num[0].supplier_invoice_number,
-                        same_supplier_inv_num[0].number or '-',
-                        same_supplier_inv_num[0].partner_id.display_name))
+                for inv in same_supplier_inv_num:
+                    year_inv_date = datetime.strptime(inv.date_invoice,
+                                                      '%Y-%m-%d').year
+                    self_year_inv_date = datetime.strptime(self.date_invoice,
+                                                           '%Y-%m-%d').year
+                    if year_inv_date == self_year_inv_date:
+                        suppl_year_inv_date = datetime.strptime(
+                            same_supplier_inv_num[0].date_invoice,
+                            '%Y-%m-%d').year
+                        raise ValidationError(
+                            _(
+                                "The invoice/refund with supplier "
+                                "invoice number '%s' "
+                                "of year '%s' "
+                                "already exists in Odoo under the number '%s' "
+                                "for supplier '%s'.") % (
+                                same_supplier_inv_num[
+                                    0].supplier_invoice_number,
+                                suppl_year_inv_date,
+                                same_supplier_inv_num[0].number or '-',
+                                same_supplier_inv_num[
+                                    0].partner_id.display_name))
