@@ -96,6 +96,26 @@ class TestCorrispettiviSale(AccountingTestCase):
             invoice = self.invoice_model.browse(invoice_id)
             self.assertTrue(invoice.corrispettivo)
 
+    def test_corrispettivi_sale_invoice_advance(self):
+        """
+        Test receipt creation for a sale order having flag corrispettivi
+        when there is an advance payment.
+        """
+        self.create_corr_journal()
+        sale = self.create_corrispettivi_sale()
+        self.assertTrue(sale.action_confirm())
+        payment = self.env['sale.advance.payment.inv'] \
+            .with_context(active_ids=sale.ids).create({
+                'advance_payment_method': 'percentage',
+                'amount': 5,
+                'deposit_account_id': self.account_receivable.id
+            })
+        payment.create_invoices()
+        invoice_ids_list = sale.mapped('invoice_ids')
+        self.assertTrue(len(invoice_ids_list))
+        for invoice_id in invoice_ids_list:
+            self.assertTrue(invoice_id.corrispettivo)
+
     def test_no_corrispettivi_sale_invoice(self):
         """
         Test invoice creation for a sale order not having flag corrispettivi.
