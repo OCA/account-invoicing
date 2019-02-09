@@ -19,12 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: l10n_it_corrispettivi
-#: model:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
+#: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
 msgid "<strong>Corrispettivo Date:</strong>"
 msgstr ""
 
 #. module: l10n_it_corrispettivi
-#: model:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
+#: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
 msgid "Cancelled Corrispettivo"
 msgstr ""
 
@@ -35,21 +35,22 @@ msgstr ""
 
 #. module: l10n_it_corrispettivi
 #: model:ir.actions.act_window,name:l10n_it_corrispettivi.action_corrispettivi_tree1
-#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_fiscal_position_corrispettivi
-#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_journal_corrispettivi
+#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_fiscal_position__corrispettivi
+#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_journal__corrispettivi
 #: model:ir.ui.menu,name:l10n_it_corrispettivi.menu_action_corrispettivi_tree
+#: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.view_account_journal_form
 msgid "Corrispettivi"
 msgstr ""
 
 #. module: l10n_it_corrispettivi
 #: model:ir.actions.report,name:l10n_it_corrispettivi.account_corrispettivi
-#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_invoice_corrispettivo
-#: model:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
+#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_invoice__corrispettivo
+#: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
 msgid "Corrispettivo"
 msgstr ""
 
 #. module: l10n_it_corrispettivi
-#: model:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
+#: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
 msgid "Draft Corrispettivo"
 msgstr ""
 
@@ -65,30 +66,33 @@ msgstr "Számla"
 
 #. module: l10n_it_corrispettivi
 #: model:ir.model,name:l10n_it_corrispettivi.model_account_journal
+#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_invoice__journal_id
 msgid "Journal"
 msgstr ""
 
 #. module: l10n_it_corrispettivi
-#: code:addons/l10n_it_corrispettivi/models/account.py:80
+#: code:addons/l10n_it_corrispettivi/models/account.py:82
 #, python-format
 msgid "No journal found for corrispettivi"
 msgstr ""
 
 #. module: l10n_it_corrispettivi
-#: model:ir.ui.view,arch_db:l10n_it_corrispettivi.corrispettivi_form
-msgid "Print"
-msgstr ""
+#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_invoice__partner_id
+msgid "Partner"
+msgstr "Partner"
 
 #. module: l10n_it_corrispettivi
-#: model:ir.ui.view,arch_db:l10n_it_corrispettivi.corrispettivi_form
+#: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.corrispettivi_form
 msgid "Print Corrispettivo"
 msgstr ""
 
 #. module: l10n_it_corrispettivi
-#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_res_partner_use_corrispettivi
-#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_res_users_use_corrispettivi
+#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_res_partner__use_corrispettivi
+#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_res_users__use_corrispettivi
 msgid "Use Corrispettivi"
 msgstr ""
 
-#~ msgid "Partner"
-#~ msgstr "Partner"
+#. module: l10n_it_corrispettivi
+#: model:ir.model.fields,help:l10n_it_corrispettivi.field_account_invoice__partner_id
+msgid "You can find a contact by its Name, TIN, Email or Internal Reference."
+msgstr ""
