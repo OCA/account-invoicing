@@ -40,7 +40,9 @@ class AccountAnalyticLine(models.Model):
             return self.env['account.invoice']
         first = self[:1]
         invoice_vals = {
-            'partner_id': first.partner_id.id,
+            'partner_id':
+            first.partner_id.commercial_partner_id.address_get(['invoice'])
+            .get('invoice', first.partner_id.commercial_partner_id.id),
             'type': 'out_invoice',
         }
         invoice_vals = self.env['account.invoice'].play_onchanges(
