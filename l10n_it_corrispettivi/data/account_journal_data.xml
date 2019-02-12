@@ -6,8 +6,8 @@
 
 <odoo noupdate="1">
     <record id="corrispettivi_journal" model="account.journal">
-        <field name="name">Corrispettivi Journal</field>
-        <field name="code">CORR</field>
+        <field name="name">Receipts Journal</field>
+        <field name="code">RICEV</field>
         <field name="type">sale</field>
         <field name="corrispettivi" eval="True"/>
         <!-- Avoid being selected as default journal -->

@@ -6,12 +6,12 @@
     <report
         id="account_corrispettivi"
         model="account.invoice"
-        string="Corrispettivo"
+        string="Receipt"
         report_type="qweb-pdf"
         name="l10n_it_corrispettivi.report_corrispettivi"
         file="l10n_it_corrispettivi.report_corrispettivi"
         attachment_use="True"
-        attachment="(object.state in ('open','paid')) and ('CORR'+(object.number or '').replace('/','')+'.pdf')"
+        attachment="(object.state in ('open','paid')) and ('RICEV'+(object.number or '').replace('/','')+'.pdf')"
     />
 
     <template id="report_corrispettivi">
@@ -23,7 +23,7 @@
     </template>
 
     <record id="report_corrispettivi_document" model="ir.ui.view">
-        <field name="name">Corrispettivi</field>
+        <field name="name">Receipts</field>
         <field name="model">account.invoice</field>
         <field name="mode">primary</field>
         <field name="inherit_id" ref="account.report_invoice_document"/>
@@ -42,22 +42,22 @@
             </xpath>
             <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')" position="replace">
                 <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')">
-                    Corrispettivo
+                    Receipt
                 </span>
             </span>
             <span t-if="o.type == 'out_invoice' and o.state == 'draft'" position="replace">
                 <span t-if="o.type == 'out_invoice' and o.state == 'draft'">
-                    Draft Corrispettivo
+                    Draft Receipt
                 </span>
             </span>
             <span t-if="o.type == 'out_invoice' and o.state == 'cancel'" position="replace">
                 <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">
-                    Cancelled Corrispettivo
+                    Cancelled Receipt
                 </span>
             </span>
             <div name="invoice_date" position="replace">
                 <div class="col-auto mw-100 mb-2" t-if="o.date_invoice" name="invoice_date">
-                    <strong>Corrispettivo Date:</strong>
+                    <strong>Receipt Date:</strong>
                     <p class="m-0" t-field="o.date_invoice"/>
                 </div>
             </div>

@@ -25,10 +25,10 @@
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <header position="inside">
-                <button name="corrispettivo_print" string="Print Corrispettivo"
+                <button name="corrispettivo_print" string="Print Receipt"
                         type="object" class="oe_highlight" groups="base.group_user"
                         attrs="{'invisible':['|',('sent','=',True), ('state', 'not in', ('open', 'in_payment', 'paid'))]}"/>
-                <button name="corrispettivo_print" string="Print Corrispettivo"
+                <button name="corrispettivo_print" string="Print Receipt"
                         type="object" groups="base.group_user"
                         attrs="{'invisible':['|',('sent','=',False), ('state', 'not in', ('open', 'in_payment', 'paid'))]}"/>
             </header>
@@ -50,7 +50,7 @@
     </record>
 
     <record id="action_corrispettivi_tree1" model="ir.actions.act_window">
-        <field name="name">Corrispettivi</field>
+        <field name="name">Receipts</field>
         <field name="res_model">account.invoice</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
@@ -99,7 +99,7 @@
         <field name="inherit_id" ref="account.view_account_journal_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='advanced_settings']/group" position="inside">
-                <group name="corrispettivi" string="Corrispettivi" attrs="{'invisible': [('type', '!=',  'sale')]}">
+                <group name="corrispettivi" string="Receipts" attrs="{'invisible': [('type', '!=',  'sale')]}">
                     <field name="corrispettivi"/>
                 </group>
             </xpath>

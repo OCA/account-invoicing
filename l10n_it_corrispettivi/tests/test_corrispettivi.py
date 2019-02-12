@@ -15,22 +15,22 @@ class TestCorrispettivi(AccountingTestCase):
         self.invoice_model = self.env['account.invoice']
 
         self.corr_fiscal_position = self.fiscal_pos_model.create({
-            'name': 'corrispettivi fiscal position',
+            'name': 'receipts fiscal position',
             'corrispettivi': True,
             'company_id': self.env.user.company_id.id
         })
         self.no_corr_fiscal_position = self.fiscal_pos_model.create({
-            'name': 'corrispettivi fiscal position',
+            'name': 'receipts fiscal position',
             'corrispettivi': False,
             'company_id': self.env.user.company_id.id
         })
         self.corrispettivi_partner = partner_model.create({
-            'name': 'Corrispettivi partner',
+            'name': 'Receipts partner',
             'use_corrispettivi': True,
             'property_account_position_id': self.corr_fiscal_position.id
         })
         self.no_corrispettivi_partner = partner_model.create({
-            'name': 'Corrispettivi partner',
+            'name': 'Receipts partner',
             'use_corrispettivi': False,
             'property_account_position_id': self.no_corr_fiscal_position.id
         })
@@ -46,7 +46,7 @@ class TestCorrispettivi(AccountingTestCase):
         return corr_invoice
 
     def test_get_corr_journal(self):
-        """ Test that get_corr_journal gets a corrispettivi journal
+        """ Test that get_corr_journal gets a receipts journal
         or raises an UserError if none found"""
         corr_journal_id = self.journal_model.get_corr_journal()
         self.assertEqual(corr_journal_id.type, 'sale')
@@ -57,31 +57,31 @@ class TestCorrispettivi(AccountingTestCase):
             self.journal_model.get_corr_journal()
 
     def test_get_corr_fiscal_pos(self):
-        """ Test that get_corr_fiscal_pos gets a corrispettivi fiscal
-        position"""
+        """ Test that get_corr_fiscal_pos gets a receipts (corrispettivi)
+        fiscal position"""
         corr_fiscal_pos = self.fiscal_pos_model.get_corr_fiscal_pos()
         self.assertTrue(corr_fiscal_pos.corrispettivi)
 
     def test_corrispettivi_partner_onchange(self):
         """ Test onchange in partner. """
-        # If the partner uses corrispettivi,
-        # the fiscal position must have the flag corrispettivi
+        # If the partner uses receipts,
+        # the fiscal position must have the flag receipts (corrispettivi)
         self.corrispettivi_partner.onchange_use_corrispettivi()
         self.assertTrue(self.corrispettivi_partner
                         .property_account_position_id.corrispettivi)
 
-        # If the partner does not use corrispettivi
-        # and it already has a fiscal position that is corrispettivi,
-        # it must be removed
+        # If the partner does not use receipts
+        # and it already has a fiscal position that is
+        # receipts (corrispettivi), it must be removed
         self.no_corrispettivi_partner.write({
             'property_account_position_id': self.corr_fiscal_position.id})
         self.no_corrispettivi_partner.onchange_use_corrispettivi()
         self.assertFalse(
             self.no_corrispettivi_partner.property_account_position_id)
 
-        # If the partner does not use corrispettivi
-        # and it already has a fiscal position that is not corrispettivi,
-        # it must not be removed
+        # If the partner does not use receipts
+        # and it already has a fiscal position that is
+        # not receipts (corrispettivi), it must not be removed
         self.no_corrispettivi_partner.write({
             'property_account_position_id': self.no_corr_fiscal_position.id})
         self.no_corrispettivi_partner.onchange_use_corrispettivi()
@@ -107,13 +107,13 @@ class TestCorrispettivi(AccountingTestCase):
     def test_invoice_creation_ko(self):
         """ Test invoice creation fails . """
         self.journal_model.get_corr_journal().unlink()
-        # if no corrispettivi journal exists, raise
-        # No journal found for corrispettivi
+        # if no receipts journal exists, raise
+        # No journal found for receipts
         with self.assertRaises(UserError):
             self.create_corrispettivi_invoice()
 
     def test_corrispettivo_print_sent(self):
-        """ Test corrispettivo report. """
+        """ Test receipt report. """
         corr_invoice = self.create_corrispettivi_invoice()
         corr_invoice.corrispettivo_print()
         self.assertTrue(corr_invoice.sent)
