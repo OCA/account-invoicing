@@ -1,12 +1,13 @@
-# -*- coding: utf-8 -*-
 # Copyright 2004-2010 Tiny SPRL (http://tiny.be).
 # Copyright 2010-2011 Elico Corp.
 # Copyright 2016 Acsone (https://www.acsone.eu/)
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
+# Copyright 2019 Okia SPRL
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, exceptions, fields, models
+from odoo import api, fields, models
+from odoo.exceptions import UserError
 from odoo.tools.translate import _
 
 
@@ -23,33 +24,33 @@ class InvoiceMerge(models.TransientModel):
         if self.env.context.get('active_model', '') == 'account.invoice':
             ids = self.env.context['active_ids']
             if len(ids) < 2:
-                raise exceptions.Warning(
+                raise UserError(
                     _('Please select multiple invoices to merge in the list '
                       'view.'))
 
             invs = self.env['account.invoice'].browse(ids)
             for d in invs:
                 if d['state'] != 'draft':
-                    raise exceptions.Warning(
+                    raise UserError(
                         _('At least one of the selected invoices is %s!') %
                         d['state'])
                 if d['account_id'] != invs[0]['account_id']:
-                    raise exceptions.Warning(
+                    raise UserError(
                         _('Not all invoices use the same account!'))
                 if d['company_id'] != invs[0]['company_id']:
-                    raise exceptions.Warning(
+                    raise UserError(
                         _('Not all invoices are at the same company!'))
                 if d['partner_id'] != invs[0]['partner_id']:
-                    raise exceptions.Warning(
+                    raise UserError(
                         _('Not all invoices are for the same partner!'))
                 if d['type'] != invs[0]['type']:
-                    raise exceptions.Warning(
+                    raise UserError(
                         _('Not all invoices are of the same type!'))
                 if d['currency_id'] != invs[0]['currency_id']:
-                    raise exceptions.Warning(
+                    raise UserError(
                         _('Not all invoices are at the same currency!'))
                 if d['journal_id'] != invs[0]['journal_id']:
-                    raise exceptions.Warning(
+                    raise UserError(
                         _('Not all invoices are at the same journal!'))
         return {}
 
@@ -95,6 +96,6 @@ class InvoiceMerge(models.TransientModel):
         }[invoices[0].type]
         action = aw_obj.for_xml_id('account', xid)
         action.update({
-            'domain': [('id', 'in', ids + allinvoices.keys())],
+            'domain': [('id', 'in', ids + list(allinvoices.keys()))],
         })
         return action

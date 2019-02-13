@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright 2004-2010 Tiny SPRL (http://tiny.be).
 # Copyright 2010-2011 Elico Corp.
 # Copyright 2016 Acsone (https://www.acsone.eu/)
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
+# Copyright 2019 Okia SPRL
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, models
@@ -152,27 +152,28 @@ class AccountInvoice(models.Model):
         allinvoices = []
         allnewinvoices = []
         invoices_info = {}
+        old_invoices = self.env['account.invoice']
         qty_prec = self.env['decimal.precision'].precision_get(
             'Product Unit of Measure')
-        for invoice_key, (invoice_data, old_ids) in new_invoices.iteritems():
+        for invoice_key, (invoice_data, old_ids) in new_invoices.items():
             # skip merges with only one invoice
             if len(old_ids) < 2:
                 allinvoices += (old_ids or [])
                 continue
             # cleanup invoice line data
-            for key, value in invoice_data['invoice_line_ids'].iteritems():
+            for key, value in invoice_data['invoice_line_ids'].items():
                 value.update(dict(key))
 
             if remove_empty_invoice_lines:
                 invoice_data['invoice_line_ids'] = [
                     (0, 0, value) for value in
-                    invoice_data['invoice_line_ids'].itervalues() if
+                    invoice_data['invoice_line_ids'].values() if
                     not float_is_zero(
                         value['quantity'], precision_digits=qty_prec)]
             else:
                 invoice_data['invoice_line_ids'] = [
                     (0, 0, value) for value in
-                    invoice_data['invoice_line_ids'].itervalues()]
+                    invoice_data['invoice_line_ids'].values()]
 
             if date_invoice:
                 invoice_data['date_invoice'] = date_invoice
