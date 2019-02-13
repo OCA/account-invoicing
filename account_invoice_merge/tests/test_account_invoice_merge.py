@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo.tests.common import TransactionCase
-from odoo.exceptions import Warning
+from odoo.exceptions import UserError
 
 
 class TestAccountInvoiceMerge(TransactionCase):
@@ -101,5 +100,63 @@ class TestAccountInvoiceMerge(TransactionCase):
             active_ids=[self.invoice1.id, self.invoice3.id],
             active_model='account.invoice'
         ).create({})
-        with self.assertRaises(Warning):
+        with self.assertRaises(UserError):
             wiz_id.fields_view_get()
+
+    def test_dirty_check(self):
+        """ Check  """
+        wiz_id = self.wiz.with_context(
+            active_model='account.invoice'
+        )
+
+        # Check with only one invoice
+        with self.assertRaises(UserError):
+            wiz_id.with_context(
+                active_ids=[self.invoice1.id])\
+                .fields_view_get()
+
+        # Check with two different invoice type
+        # Create the invoice 4 with a different account
+        new_account = self.acc_model.create({
+            'code': 'TEST',
+            'name': 'Test Account',
+            'reconcile': True,
+            'user_type_id':
+                self.env.ref('account.data_account_type_receivable').id
+        })
+        invoice_line4 = self._create_inv_line(new_account.id)
+        invoice4 = self._create_invoice(self.partner1, 'D', invoice_line4)
+        invoice4.account_id = new_account.id
+        with self.assertRaises(UserError):
+            wiz_id.with_context(
+                active_ids=[self.invoice1.id, invoice4.id]) \
+                .fields_view_get()
+
+        # Check with a canceled invoice
+        # Create and cancel the invoice 5
+        invoice_line5 = self._create_inv_line(self.invoice_account.id)
+        invoice5 = self._create_invoice(self.partner1, 'E', invoice_line5)
+        invoice5.action_invoice_cancel()
+        with self.assertRaises(UserError):
+            wiz_id.with_context(
+                active_ids=[self.invoice1.id, invoice5.id]) \
+                .fields_view_get()
+
+        # Check with an another company
+        # Create the invoice 6 and change the company
+        invoice_line6 = self._create_inv_line(self.invoice_account.id)
+        invoice6 = self._create_invoice(self.partner1, 'E', invoice_line6)
+        new_company = self.env['res.company'].create({
+            'name': 'Hello World'
+        })
+        invoice6.company_id = new_company.id
+        with self.assertRaises(UserError):
+            wiz_id.with_context(
+                active_ids=[self.invoice1.id, invoice6.id]) \
+                .fields_view_get()
+
+        # Check with two different partners
+        with self.assertRaises(UserError):
+            wiz_id.with_context(
+                active_ids=[self.invoice1.id, self.invoice3.id]) \
+                .fields_view_get()
