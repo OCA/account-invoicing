@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo.tests.common import TransactionCase
-from odoo.exceptions import Warning
+from odoo.exceptions import UserError
 
 
 class TestAccountInvoiceMerge(TransactionCase):
@@ -101,5 +100,5 @@ class TestAccountInvoiceMerge(TransactionCase):
             active_ids=[self.invoice1.id, self.invoice3.id],
             active_model='account.invoice'
         ).create({})
-        with self.assertRaises(Warning):
+        with self.assertRaises(UserError):
             wiz_id.fields_view_get()
