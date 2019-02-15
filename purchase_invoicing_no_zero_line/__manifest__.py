@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Purchase invoicing no zero line",
-    "summary": "Avoid the creation of zero quantity invoice lines from purchase",
+    "summary": "Avoid creation of zero quantity invoice lines from purchase",
     "version": "11.0.1.0.0",
     "category": "Purchase Management",
     "author": "Digital5 S.L., Odoo Community Association (OCA)",
