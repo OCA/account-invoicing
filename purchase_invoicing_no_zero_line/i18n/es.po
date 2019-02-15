@@ -1,0 +1,38 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_invoicing_no_zero_line
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-15 15:22+0000\n"
+"PO-Revision-Date: 2019-02-15 16:23+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#. module: purchase_invoicing_no_zero_line
+#: model:ir.model.fields,field_description:purchase_invoicing_no_zero_line.field_account_journal_avoid_zero_lines
+msgid "Avoid zero lines?"
+msgstr "Evitar líneas a cero?"
+
+#. module: purchase_invoicing_no_zero_line
+#: model:ir.model.fields,help:purchase_invoicing_no_zero_line.field_account_journal_avoid_zero_lines
+msgid "If this option is checked, the purchase invoices in this journal will have no lines with zero quantity"
+msgstr "Si se marca esta opción, las facturas de compra en este diario no se crearán con líneas a cantidad cero"
+
+#. module: purchase_invoicing_no_zero_line
+#: model:ir.model,name:purchase_invoicing_no_zero_line.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: purchase_invoicing_no_zero_line
+#: model:ir.model,name:purchase_invoicing_no_zero_line.model_account_journal
+msgid "Journal"
+msgstr "Diario"
