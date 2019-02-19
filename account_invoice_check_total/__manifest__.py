@@ -1,13 +1,14 @@
 # Copyright 2016 Acsone SA/NV
+# Copyright 2019 Okia SPRL
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     'name': 'Account Invoice Check Total',
     'summary': """
         Check if the verification total is equal to the bill's total""",
-    'version': '11.0.1.1.0',
+    'version': '12.0.1.1.0',
     'license': 'AGPL-3',
-    'author': 'Acsone SA/NV,Odoo Community Association (OCA)',
+    'author': 'Okia SPRL,Acsone SA/NV,Odoo Community Association (OCA)',
     'website': 'https://acsone.eu/',
     'depends': [
         'account',
