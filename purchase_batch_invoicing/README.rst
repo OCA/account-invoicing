@@ -105,7 +105,6 @@ Contributors
   * Jairo Llopis <jairo.llopis@tecnativa.com>
   * Pedro M. Baeza <pedro.baeza@tecnativa.com>
   * David Vidal <david.vidal@tecnativa.com>
-  * Carlos Dauden <carlos.dauden@tecnativa.com>
 
 Maintainers
 ~~~~~~~~~~~
