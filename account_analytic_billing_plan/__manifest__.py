@@ -3,10 +3,11 @@
 
 {
     "name": "Account Analytic Billing Plan",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "license": "AGPL-3",
-    "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "author": "AvanzOSC, "
+              "Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/account-invoicing",
     "category": "Accounting & Finance",
     "depends": [
         "account",
