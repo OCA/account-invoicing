@@ -55,7 +55,7 @@ msgid "Display Name"
 msgstr "Schermnaam"
 
 #. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:101
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:102
 #, python-format
 msgid "Generated Invoices"
 msgstr ""
