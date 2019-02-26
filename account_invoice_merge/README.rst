@@ -38,6 +38,7 @@ Contributors
 
 * Ian Li <ian.li@elico-corp.com>
 * Cédric Pigeon <cedric.pigeon@acsone.eu>
+* Isaac Gallart <igallart@puntsistemes.es>
 
 Maintainer
 ----------
