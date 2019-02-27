@@ -9,7 +9,7 @@ class AccountInvoice(models.Model):
 
     @api.one
     def copy(self, default=None):
-        invoice = super(AccountInvoice, self).copy()
+        invoice = super(AccountInvoice, self).copy(default)
         invoice.reset_discount()
         return invoice
 
