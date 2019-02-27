@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# © 2016 <OCA>
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
+# Copyright (C) 2019-Today: Odoo Community Association (OCA)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from . import test_picking_invoicing
