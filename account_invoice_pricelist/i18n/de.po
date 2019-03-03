@@ -30,19 +30,19 @@ msgid "Invoice Line"
 msgstr "Rechnungsposition"
 
 #. module: account_invoice_pricelist
-#: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_invoice_pricelist_id
-#: model:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_search
+#: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_invoice__pricelist_id
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_search
 msgid "Pricelist"
 msgstr "Preisliste"
 
 #. module: account_invoice_pricelist
-#: model:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_customer_form
-#: model:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_supplier_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_customer_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_supplier_form
 msgid "Update price in lines from the pricelist"
 msgstr "Preisaktualisierung in Positionen der Preisliste"
 
 #. module: account_invoice_pricelist
-#: model:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_customer_form
-#: model:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_supplier_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_customer_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_supplier_form
 msgid "Update prices"
 msgstr "Preise aktualisieren"
