@@ -20,12 +20,12 @@ msgstr ""
 "X-Generator: Weblate 3.1.1\n"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line_discount2
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount2
 msgid "Discount 2 (%)"
 msgstr "2. Rabatt (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line_discount3
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount3
 msgid "Discount 3 (%)"
 msgstr "3. Rabatt (%)"
 
