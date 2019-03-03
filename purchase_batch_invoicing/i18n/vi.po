@@ -54,7 +54,7 @@ msgid "Display Name"
 msgstr "Tên hiển thị"
 
 #. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:106
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:107
 #, python-format
 msgid "Generated Invoices"
 msgstr ""
