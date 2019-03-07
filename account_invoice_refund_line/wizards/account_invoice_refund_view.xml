@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_invoice_refund_lines" model="ir.ui.view">
+        <field name="name">account.invoice.refund.lines.form</field>
+        <field name="model">account.invoice.refund</field>
+        <field name="inherit_id" ref="account.view_account_invoice_refund"/>
+        <field name="arch" type="xml">
+            <xpath expr="//footer" position="before">
+                <notebook attrs="{'invisible': [('filter_refund', '!=', 'refund_lines')]}">
+                    <page string="Invoice Lines">
+                        <field name="selectable_invoice_lines_ids" invisible="1"/>
+                        <field name="line_ids">
+                            <tree string="Invoice Lines">
+                                <field name="sequence" widget="handle" />
+                                <field name="product_id"/>
+                                <field name="name"/>
+                                <field name="quantity"/>
+                                <field name="discount"/>
+                                <field name="invoice_line_tax_ids"/>
+                                <field name="price_unit"/>
+                                <field name="price_subtotal"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>
