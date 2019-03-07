@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-01 08:10+0000\n"
-"PO-Revision-Date: 2019-02-18 08:57+0000\n"
+"PO-Revision-Date: 2019-03-07 11:50+0000\n"
 "Last-Translator: Sergio Zanchetta <primes2h@gmail.com>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -21,13 +21,11 @@ msgstr ""
 
 #. module: l10n_it_corrispettivi
 #: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
-#, fuzzy
 msgid "<strong>Receipt Date:</strong>"
 msgstr "<strong>Data ricevuta:</strong>"
 
 #. module: l10n_it_corrispettivi
 #: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
-#, fuzzy
 msgid "Cancelled Receipt"
 msgstr "Ricevuta annullata"
 
@@ -39,7 +37,7 @@ msgstr "Contatto"
 #. module: l10n_it_corrispettivi
 #: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
 msgid "Draft Receipt"
-msgstr ""
+msgstr "Ricevuta in bozza"
 
 #. module: l10n_it_corrispettivi
 #: model:ir.model,name:l10n_it_corrispettivi.model_account_fiscal_position
@@ -59,7 +57,7 @@ msgstr "Registro"
 
 #. module: l10n_it_corrispettivi
 #: code:addons/l10n_it_corrispettivi/models/account.py:82
-#, fuzzy, python-format
+#, python-format
 msgid "No journal found for receipts"
 msgstr "Nessun registro trovato per le ricevute"
 
@@ -71,14 +69,14 @@ msgstr "Partner"
 #. module: l10n_it_corrispettivi
 #: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.corrispettivi_form
 msgid "Print Receipt"
-msgstr ""
+msgstr "Stampa ricevuta"
 
 #. module: l10n_it_corrispettivi
 #: model:ir.actions.report,name:l10n_it_corrispettivi.account_corrispettivi
 #: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_invoice__corrispettivo
 #: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
 msgid "Receipt"
-msgstr ""
+msgstr "Ricevuta"
 
 #. module: l10n_it_corrispettivi
 #: model:ir.actions.act_window,name:l10n_it_corrispettivi.action_corrispettivi_tree1
@@ -87,19 +85,19 @@ msgstr ""
 #: model:ir.ui.menu,name:l10n_it_corrispettivi.menu_action_corrispettivi_tree
 #: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.view_account_journal_form
 msgid "Receipts"
-msgstr ""
+msgstr "Ricevute"
 
 #. module: l10n_it_corrispettivi
 #: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_res_partner__use_corrispettivi
 #: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_res_users__use_corrispettivi
 msgid "Use Receipts"
-msgstr ""
+msgstr "Usare ricevute"
 
 #. module: l10n_it_corrispettivi
 #: model:ir.model.fields,help:l10n_it_corrispettivi.field_account_invoice__partner_id
 msgid "You can find a contact by its Name, TIN, Email or Internal Reference."
 msgstr ""
-"Un contatto può essere trovato da nome, partita IVA, e-mail o riferimento "
+"Un contatto può essere trovato da nome, codice fiscale, e-mail o riferimento "
 "interno."
 
 #~ msgid "Corrispettivi"
