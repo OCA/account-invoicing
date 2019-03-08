@@ -20,9 +20,38 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: sale_stock_picking_return_invoicing
+#: selection:stock.picking,to_refund_lines:0
+msgid "Keep Line Value"
+msgstr ""
+
+#. module: sale_stock_picking_return_invoicing
+#: selection:stock.picking,to_refund_lines:0
+#, fuzzy
+msgid "No Refund In Sales Order"
+msgstr "In Auftrag zu erstatten"
+
+#. module: sale_stock_picking_return_invoicing
+#: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_stock_move_origin_to_refund_so
+#, fuzzy
+msgid "Origin To Refund in SO"
+msgstr "In Auftrag zu erstatten"
+
+#. module: sale_stock_picking_return_invoicing
+#: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_stock_picking_to_refund_lines
+#: model:ir.ui.view,arch_db:sale_stock_picking_return_invoicing.view_picking_form
+#, fuzzy
+msgid "Refund Options"
+msgstr "In Auftrag zu erstatten"
+
+#. module: sale_stock_picking_return_invoicing
 #: model:ir.model,name:sale_stock_picking_return_invoicing.model_stock_return_picking
 msgid "Return Picking"
 msgstr "Rücknahme"
+
+#. module: sale_stock_picking_return_invoicing
+#: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_sale_order_line_qty_returned
+msgid "Returned Qty"
+msgstr ""
 
 #. module: sale_stock_picking_return_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_stock_return_picking_line_sale_order_id
@@ -40,14 +69,37 @@ msgid "Stock Move"
 msgstr "Lagerbuchung"
 
 #. module: sale_stock_picking_return_invoicing
+#: model:ir.model.fields,help:sale_stock_picking_return_invoicing.field_stock_picking_to_refund_lines
+msgid ""
+"This field allow modify 'to_refund_so' field value in all stock moves from "
+"this picking after it has been confirmed.keep_line_value: keep the original "
+"value.\n"
+"to_refund_so: set all stock moves to True value and recompute delivered "
+"quantities in sale order.\n"
+"no_refund_so: set all stock moves to False value and recompute delivered "
+"quantities in sale order."
+msgstr ""
+
+#. module: sale_stock_picking_return_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_stock_return_picking_line_to_refund_so
 msgid "To Refund"
 msgstr "Zu erstatten"
 
 #. module: sale_stock_picking_return_invoicing
+#: selection:stock.picking,to_refund_lines:0
+#, fuzzy
+msgid "To Refund In Sales Order"
+msgstr "In Auftrag zu erstatten"
+
+#. module: sale_stock_picking_return_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_stock_move_to_refund_so
 msgid "To Refund in SO"
 msgstr "In Auftrag zu erstatten"
+
+#. module: sale_stock_picking_return_invoicing
+#: model:ir.model,name:sale_stock_picking_return_invoicing.model_stock_picking
+msgid "Transfer"
+msgstr ""
 
 #. module: sale_stock_picking_return_invoicing
 #: model:ir.model.fields,help:sale_stock_picking_return_invoicing.field_stock_move_to_refund_so
