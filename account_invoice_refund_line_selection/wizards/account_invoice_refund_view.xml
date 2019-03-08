@@ -24,6 +24,11 @@
                     </page>
                 </notebook>
             </xpath>
+            <xpath expr="//group/div[2]" position="after">
+            <div attrs="{'invisible':['|',('refund_only','=',True),('filter_refund','!=','refund_lines')]}" class="oe_grey" colspan="4">
+                Use this option if you want to refund only some specific lines in an invoice.
+            </div>
+            </xpath>
         </field>
     </record>
 </odoo>
