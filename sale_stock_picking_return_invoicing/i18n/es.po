@@ -20,93 +20,9 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 
 #. module: sale_stock_picking_return_invoicing
-#: model:ir.model.fields,help:sale_stock_picking_return_invoicing.field_stock_picking_location_usage
-#, fuzzy
-msgid ""
-"* Vendor Location: Virtual location representing the source location for "
-"products coming from your vendors\n"
-"                       \n"
-"* View: Virtual location used to create a hierarchical structures for your "
-"warehouse, aggregating its child locations ; can't directly contain "
-"products\n"
-"                       \n"
-"* Internal Location: Physical locations inside your own warehouses,\n"
-"                       \n"
-"* Customer Location: Virtual location representing the destination location "
-"for products sent to your customers\n"
-"                       \n"
-"* Inventory Loss: Virtual location serving as counterpart for inventory "
-"operations used to correct stock levels (Physical inventories)\n"
-"                       \n"
-"* Procurement: Virtual location serving as temporary counterpart for "
-"procurement operations when the source (vendor or production) is not known "
-"yet. This location should be empty when the procurement scheduler has "
-"finished running.\n"
-"                       \n"
-"* Production: Virtual counterpart location for production operations: this "
-"location consumes the raw material and produces finished products\n"
-"                       \n"
-"* Transit Location: Counterpart location that should be used in inter-"
-"companies or inter-warehouses operations\n"
-"                      "
-msgstr ""
-"* Ubicación de proveedor: Ubicación virtual representando la fuente para los "
-"productos que vengan de sus proveedores\n"
-"* Vista: Ubicación virtual usada para crear una estructura jerárquica para "
-"su almacén, agregando sus ubicaciones hijas. No puede contener directamente "
-"productos\n"
-"* Ubicaciones internas: Ubicaciones físicas dentro de sus almacenes\n"
-"* Ubicación de cliente: Ubicación virtual representando la ubicación destino "
-"para los productos enviados a sus clientes\n"
-"* Inventario: Ubicación virtual que sirve de contrapartida para las "
-"operaciones de inventario usadas para corregir los niveles de existencias "
-"(inventarios físicos)\n"
-"* Abastecimiento: Ubicación virtual que sirve como contrapartida virtual "
-"para las operaciones de abastecimiento cuando la fuente (proveedor o "
-"producción) no se conoce aún. Esta ubicación debería ser vacía cuando el "
-"planificador de abastecimiento termina\n"
-"* Producción: Ubicación virtual de contrapartida para las operaciones de "
-"producción: esta ubicación consume las materias primas y produce los "
-"productos finales\n"
-"* Ubicación de tránsito: Ubicación de contrapartida que debe usarse en "
-"operaciones inter-compañía o inter-almacén\n"
-"                      "
-
-#. module: sale_stock_picking_return_invoicing
-#: selection:stock.picking,to_refund_lines:0
-msgid "Keep Line Value"
-msgstr "Mantener los valores de las líneas"
-
-#. module: sale_stock_picking_return_invoicing
-#: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_stock_picking_location_usage
-msgid "Location Type"
-msgstr "Tipo de ubicación"
-
-#. module: sale_stock_picking_return_invoicing
-#: selection:stock.picking,to_refund_lines:0
-msgid "No Refund In Sales Order"
-msgstr "No abonar en el pedido de venta"
-
-#. module: sale_stock_picking_return_invoicing
-#: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_stock_move_origin_to_refund_so
-msgid "Origin To Refund in SO"
-msgstr "Valor original para abonar en pedido"
-
-#. module: sale_stock_picking_return_invoicing
-#: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_stock_picking_to_refund_lines
-#: model:ir.ui.view,arch_db:sale_stock_picking_return_invoicing.view_picking_form
-msgid "Refund Options"
-msgstr "Opciones de abono "
-
-#. module: sale_stock_picking_return_invoicing
 #: model:ir.model,name:sale_stock_picking_return_invoicing.model_stock_return_picking
 msgid "Return Picking"
 msgstr "Albarán de devolución"
-
-#. module: sale_stock_picking_return_invoicing
-#: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_sale_order_line_qty_returned
-msgid "Returned Qty"
-msgstr "Devuelto"
 
 #. module: sale_stock_picking_return_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_stock_return_picking_line_sale_order_id
@@ -124,46 +40,14 @@ msgid "Stock Move"
 msgstr "Movimiento de existencias"
 
 #. module: sale_stock_picking_return_invoicing
-#: model:ir.model.fields,help:sale_stock_picking_return_invoicing.field_stock_picking_to_refund_lines
-msgid ""
-"This field allow modify 'to_refund_so' field value in all stock moves from "
-"this picking after it has been confirmed.keep_line_value: keep the original "
-"value.\n"
-"to_refund_so: set all stock moves to True value and recompute delivered "
-"quantities in sale order.\n"
-"no_refund_so: set all stock moves to False value and recompute delivered "
-"quantities in sale order."
-msgstr ""
-"Este campo permite modificar el valor del campo 'para abonar en el pedido' "
-"de todos los movimientos de stock del albarán despues de que haya sido "
-"confirmado.\n"
-"Mantener el valor de las líneas: Mantiene el valor original de los "
-"movimietos de stock.\n"
-"Para abonar en el pedido: Actualiza todos los movimientos de stock con el "
-"valor a 'verdadero' y recalcula las unidades entregadas del pedido de "
-"venta.\n"
-"No abonar en el pedido: Actualiza todos los movimientos de stock con el "
-"valor a 'falso' y recalcula las unidades entregadas del pedido de venta."
-
-#. module: sale_stock_picking_return_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_stock_return_picking_line_to_refund_so
 msgid "To Refund"
 msgstr "Para abonar"
 
 #. module: sale_stock_picking_return_invoicing
-#: selection:stock.picking,to_refund_lines:0
-msgid "To Refund In Sales Order"
-msgstr "Para abonar en el pedido de venta"
-
-#. module: sale_stock_picking_return_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_return_invoicing.field_stock_move_to_refund_so
 msgid "To Refund in SO"
 msgstr "Para abonar en el pedido de venta"
-
-#. module: sale_stock_picking_return_invoicing
-#: model:ir.model,name:sale_stock_picking_return_invoicing.model_stock_picking
-msgid "Transfer"
-msgstr "Transferir"
 
 #. module: sale_stock_picking_return_invoicing
 #: model:ir.model.fields,help:sale_stock_picking_return_invoicing.field_stock_move_to_refund_so
@@ -177,3 +61,98 @@ msgstr ""
 #: model:ir.model,name:sale_stock_picking_return_invoicing.model_stock_return_picking_line
 msgid "stock.return.picking.line"
 msgstr "stock.return.picking.line"
+
+#, fuzzy
+#~ msgid ""
+#~ "* Vendor Location: Virtual location representing the source location for "
+#~ "products coming from your vendors\n"
+#~ "                       \n"
+#~ "* View: Virtual location used to create a hierarchical structures for "
+#~ "your warehouse, aggregating its child locations ; can't directly contain "
+#~ "products\n"
+#~ "                       \n"
+#~ "* Internal Location: Physical locations inside your own warehouses,\n"
+#~ "                       \n"
+#~ "* Customer Location: Virtual location representing the destination "
+#~ "location for products sent to your customers\n"
+#~ "                       \n"
+#~ "* Inventory Loss: Virtual location serving as counterpart for inventory "
+#~ "operations used to correct stock levels (Physical inventories)\n"
+#~ "                       \n"
+#~ "* Procurement: Virtual location serving as temporary counterpart for "
+#~ "procurement operations when the source (vendor or production) is not "
+#~ "known yet. This location should be empty when the procurement scheduler "
+#~ "has finished running.\n"
+#~ "                       \n"
+#~ "* Production: Virtual counterpart location for production operations: "
+#~ "this location consumes the raw material and produces finished products\n"
+#~ "                       \n"
+#~ "* Transit Location: Counterpart location that should be used in inter-"
+#~ "companies or inter-warehouses operations\n"
+#~ "                      "
+#~ msgstr ""
+#~ "* Ubicación de proveedor: Ubicación virtual representando la fuente para "
+#~ "los productos que vengan de sus proveedores\n"
+#~ "* Vista: Ubicación virtual usada para crear una estructura jerárquica "
+#~ "para su almacén, agregando sus ubicaciones hijas. No puede contener "
+#~ "directamente productos\n"
+#~ "* Ubicaciones internas: Ubicaciones físicas dentro de sus almacenes\n"
+#~ "* Ubicación de cliente: Ubicación virtual representando la ubicación "
+#~ "destino para los productos enviados a sus clientes\n"
+#~ "* Inventario: Ubicación virtual que sirve de contrapartida para las "
+#~ "operaciones de inventario usadas para corregir los niveles de existencias "
+#~ "(inventarios físicos)\n"
+#~ "* Abastecimiento: Ubicación virtual que sirve como contrapartida virtual "
+#~ "para las operaciones de abastecimiento cuando la fuente (proveedor o "
+#~ "producción) no se conoce aún. Esta ubicación debería ser vacía cuando el "
+#~ "planificador de abastecimiento termina\n"
+#~ "* Producción: Ubicación virtual de contrapartida para las operaciones de "
+#~ "producción: esta ubicación consume las materias primas y produce los "
+#~ "productos finales\n"
+#~ "* Ubicación de tránsito: Ubicación de contrapartida que debe usarse en "
+#~ "operaciones inter-compañía o inter-almacén\n"
+#~ "                      "
+
+#~ msgid "Keep Line Value"
+#~ msgstr "Mantener los valores de las líneas"
+
+#~ msgid "Location Type"
+#~ msgstr "Tipo de ubicación"
+
+#~ msgid "No Refund In Sales Order"
+#~ msgstr "No abonar en el pedido de venta"
+
+#~ msgid "Origin To Refund in SO"
+#~ msgstr "Valor original para abonar en pedido"
+
+#~ msgid "Refund Options"
+#~ msgstr "Opciones de abono "
+
+#~ msgid "Returned Qty"
+#~ msgstr "Devuelto"
+
+#~ msgid ""
+#~ "This field allow modify 'to_refund_so' field value in all stock moves "
+#~ "from this picking after it has been confirmed.keep_line_value: keep the "
+#~ "original value.\n"
+#~ "to_refund_so: set all stock moves to True value and recompute delivered "
+#~ "quantities in sale order.\n"
+#~ "no_refund_so: set all stock moves to False value and recompute delivered "
+#~ "quantities in sale order."
+#~ msgstr ""
+#~ "Este campo permite modificar el valor del campo 'para abonar en el "
+#~ "pedido' de todos los movimientos de stock del albarán despues de que haya "
+#~ "sido confirmado.\n"
+#~ "Mantener el valor de las líneas: Mantiene el valor original de los "
+#~ "movimietos de stock.\n"
+#~ "Para abonar en el pedido: Actualiza todos los movimientos de stock con el "
+#~ "valor a 'verdadero' y recalcula las unidades entregadas del pedido de "
+#~ "venta.\n"
+#~ "No abonar en el pedido: Actualiza todos los movimientos de stock con el "
+#~ "valor a 'falso' y recalcula las unidades entregadas del pedido de venta."
+
+#~ msgid "To Refund In Sales Order"
+#~ msgstr "Para abonar en el pedido de venta"
+
+#~ msgid "Transfer"
+#~ msgstr "Transferir"
