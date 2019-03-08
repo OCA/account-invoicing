@@ -8,7 +8,8 @@ Refund Returned Pickings from Sales Orders
 
 This module extends the functionality of sales orders to support marking some
 returned pickings as "To refund in Sale Order" and to allow you to create
-invoices deducting the products that are returned and refunded.
+invoices deducting the products that are returned and refunded. Also allows to
+modify stock move field to_refund_so after it has been confirmed.
 
 Usage
 =====
@@ -50,6 +51,9 @@ after you created an invoice, you need to:
    Create and View Invoices*.
 #. A refund is created for the quantity you returned before.
 
+For allowing to refund quantities after the picking has been confirmed, you can
+change the value of 'Refund Options' field.
+
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/95/9.0
@@ -81,6 +85,7 @@ Contributors
 ------------
 
 * Jairo Llopis <jairo.llopis@tecnativa.com>
+* Sergio Teruel <sergio.teruel@tecnativa.com>
 
 Maintainer
 ----------

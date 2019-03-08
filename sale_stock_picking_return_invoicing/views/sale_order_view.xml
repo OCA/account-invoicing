@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record id="view_order_form" model="ir.ui.view">
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="model">sale.order</field>
+    <field name="arch" type="xml">
+        <xpath expr="//tree/field[@name='qty_invoiced']" position="before">
+            <field name="qty_returned" readonly="1"/>
+        </xpath>
+    </field>
+</record>
+
+</odoo>

@@ -33,6 +33,9 @@ class StockReturnPicking(models.TransientModel):
                 lambda r: r.move_id == move.origin_returned_move_id)
             if return_picking_line and return_picking_line.to_refund_so:
                 move.to_refund_so = True
+                move.origin_to_refund_so = True
+        if all(new_picking.mapped('move_lines.to_refund_so')):
+            new_picking.to_refund_lines = 'to_refund_so'
         return new_picking_id, pick_type_id
 
 

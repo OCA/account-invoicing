@@ -137,3 +137,40 @@ class SaleStockRefundPickingCase(SavepointCase):
             inv_2.amount_untaxed_signed,
             inv_1.amount_untaxed_signed / 5 * -2)
         inv_1.signal_workflow('invoice_open')
+
+        # Return some items, after SO was invoiced with
+        # to_refund_so value set to False
+        return_wizard = self.env["stock.return.picking"].with_context(
+            active_id=pick.id).create({})
+        return_wizard.product_return_moves.write({
+            "quantity": 2.0,
+            "to_refund_so": False,
+        })
+        return_pick = pick.browse(return_wizard.create_returns()["res_id"])
+        return_pick.force_assign()
+        return_pick.pack_operation_product_ids.write({'qty_done': 2})
+        return_pick.do_new_transfer()
+
+        # Check returned quantities in sale order
+        so_lines = return_pick.mapped(
+            'move_lines.procurement_id.sale_line_id').filtered(
+            lambda x: x.product_id.invoice_policy in ('order', 'delivery'))
+        self.assertEqual(so_lines[:1].qty_returned, 2.0)
+
+        # Check return invoice
+        self.assertEqual(
+            so.invoice_status,
+            'no',
+            ('Sale Stock: so invoice_status should be "no" instead of '
+             '"%s" after invoicing the return') % so.invoice_status)
+
+        # Update picking after it has been confirmed
+        return_pick.to_refund_lines = 'no_refund_so'
+        self.assertFalse(all(return_pick.mapped('move_lines.to_refund_so')))
+
+        return_pick.to_refund_lines = 'keep_line_value'
+        self.assertFalse(all(return_pick.mapped('move_lines.to_refund_so')))
+
+        return_pick.to_refund_lines = 'to_refund_so'
+        self.assertTrue(all(return_pick.mapped('move_lines.to_refund_so')))
+        self.assertEqual(so.invoice_status, 'to invoice')
