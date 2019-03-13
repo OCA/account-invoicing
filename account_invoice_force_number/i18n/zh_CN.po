@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * account_invoice_force_number
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
@@ -10,34 +10,32 @@ msgstr ""
 "POT-Creation-Date: 2015-08-25 16:48+0000\n"
 "PO-Revision-Date: 2015-06-03 04:59+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/oca/OCA-account-invoicing-8-0/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/oca/OCA-account-"
+"invoicing-8-0/language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: account_invoice_force_number
-#: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
-#: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
+#: model:res.groups,name:account_invoice_force_number.group_allow_invoice_force_number
+msgid "Allow \"Invoice Force Number\""
+msgstr ""
+
+#. module: account_invoice_force_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.invoice_supplier_form
 msgid "Force Number"
 msgstr ""
 
 #. module: account_invoice_force_number
-#: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
-#: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.invoice_supplier_form
 msgid ""
 "Force invoice number. Use this field if you don't want to use the default "
 "numbering"
 msgstr ""
 
-#. module: account_invoice_force_number
-#: model:ir.model,name:account_invoice_force_number.model_account_invoice
-msgid "Invoice"
-msgstr "发票"
-
-#. module: account_invoice_force_number
-#: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
-#: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
-msgid "{'invisible': [('state', '!=', 'draft')]}"
-msgstr ""
+#~ msgid "Invoice"
+#~ msgstr "发票"

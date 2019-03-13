@@ -4,10 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-07 17:51+0000\n"
-"PO-Revision-Date: 2014-10-07 17:51+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,19 +14,19 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_force_number
-#: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
-#: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
+#: model:res.groups,name:account_invoice_force_number.group_allow_invoice_force_number
+msgid "Allow \"Invoice Force Number\""
+msgstr ""
+
+#. module: account_invoice_force_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.invoice_supplier_form
 msgid "Force Number"
 msgstr ""
 
 #. module: account_invoice_force_number
-#: view:account.invoice:account_invoice_force_number.account_invoice_form_int_number
-#: view:account.invoice:account_invoice_force_number.account_invoice_supplier_form_int_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
+#: model:ir.ui.view,arch_db:account_invoice_force_number.invoice_supplier_form
 msgid "Force invoice number. Use this field if you don't want to use the default numbering"
-msgstr ""
-
-#. module: account_invoice_force_number
-#: model:ir.model,name:account_invoice_force_number.model_account_invoice
-msgid "Invoice"
 msgstr ""
 

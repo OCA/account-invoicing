@@ -4,10 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-27 19:44+0000\n"
-"PO-Revision-Date: 2015-07-27 19:44+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,8 +19,13 @@ msgid "Invoice"
 msgstr ""
 
 #. module: account_invoice_supplier_ref_unique
-#: code:addons/account_invoice_supplier_ref_unique/account_invoice.py:50
+#: code:addons/account_invoice_supplier_ref_unique/models/account_invoice.py:35
 #, python-format
 msgid "The invoice/refund with supplier invoice number '%s' already exists in Odoo under the number '%s' for supplier '%s'."
+msgstr ""
+
+#. module: account_invoice_supplier_ref_unique
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_invoice_supplier_invoice_number
+msgid "Vendor invoice number"
 msgstr ""
 

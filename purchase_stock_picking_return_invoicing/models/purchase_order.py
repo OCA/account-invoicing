@@ -3,6 +3,7 @@
 # Copyright 2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import collections
 from odoo import api, fields, models
 
 
@@ -127,15 +128,40 @@ class PurchaseOrderLine(models.Model):
         'move_ids.returned_move_ids.state',
     )
     def _compute_qty_returned(self):
+        """Made through read_group for not impacting in performance."""
+        ProductUom = self.env['product.uom']
+        StockMove = self.env['stock.move']
+        groups = StockMove.read_group(
+            [('origin_returned_move_id.purchase_line_id', 'in', self.ids),
+             ('state', '=', 'done'),
+             ('location_id.usage', '!=', 'supplier')],
+            ['origin_returned_move_id', 'product_uom_qty', 'product_uom'],
+            ['origin_returned_move_id', 'product_uom'], lazy=False,
+        )
+        p = self._prefetch
+        # load all records at once on first access
+        origin_move_ids = []
+        uom_ids = set()
+        for g in groups:
+            origin_move_ids.append(g['origin_returned_move_id'][0])
+            uom_ids.add(g['product_uom'][0])
+        StockMove.browse(origin_move_ids, prefetch=p)
+        ProductUom.browse(list(uom_ids), prefetch=p)
+        line_qtys = collections.defaultdict(lambda: 0)
+        for g in groups:
+            uom = ProductUom.browse(g["product_uom"][0], prefetch=p)
+            move = StockMove.browse(
+                g['origin_returned_move_id'][0], prefetch=p,
+            )
+            if uom == move.purchase_line_id.product_uom:
+                qty = g["product_uom_qty"]
+            else:
+                qty = uom._compute_quantity(
+                    g["product_uom_qty"], move.purchase_line_id.product_uom,
+                )
+            line_qtys[move.purchase_line_id.id] += qty
         for line in self:
-            qty = 0.0
-            moves = line.mapped('move_ids.returned_move_ids')
-            for move in moves.filtered(lambda x: x.state == 'done'):
-                if move.location_id.usage != 'supplier':
-                    qty += move.product_uom._compute_quantity(
-                        move.product_uom_qty, line.product_uom,
-                    )
-            line.qty_returned = qty
+            line.qty_returned = line_qtys.get(line.id, 0)
 
     @api.depends('qty_returned')
     def _compute_qty_received(self):

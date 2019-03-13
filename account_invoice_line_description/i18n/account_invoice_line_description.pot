@@ -4,10 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-07 08:44+0000\n"
-"PO-Revision-Date: 2015-07-07 08:44+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,15 +14,15 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_line_description
-#: field:account.config.settings,group_use_product_description_per_inv_line:0
+#: model:ir.model.fields,field_description:account_invoice_line_description.field_account_config_settings_group_use_product_description_per_inv_line
 msgid "Allow using only the product description on the\n"
-"            invoice lines"
+"        invoice lines"
 msgstr ""
 
 #. module: account_invoice_line_description
-#: help:account.config.settings,group_use_product_description_per_inv_line:0
+#: model:ir.model.fields,help:account_invoice_line_description.field_account_config_settings_group_use_product_description_per_inv_line
 msgid "Allows you to use only product description on the\n"
-"            invoice lines."
+"        invoice lines."
 msgstr ""
 
 #. module: account_invoice_line_description
@@ -35,5 +33,10 @@ msgstr ""
 #. module: account_invoice_line_description
 #: model:res.groups,name:account_invoice_line_description.group_use_product_description_per_inv_line
 msgid "Use only product description on invoice lines"
+msgstr ""
+
+#. module: account_invoice_line_description
+#: model:ir.model,name:account_invoice_line_description.model_account_config_settings
+msgid "account.config.settings"
 msgstr ""
 
