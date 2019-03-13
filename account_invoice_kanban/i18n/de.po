@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2018-11-21 19:13+0000\n"
+"PO-Revision-Date: 2019-03-13 23:53+0000\n"
 "Last-Translator: Peter Schubert <psc@saco.info>\n"
 "Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.2.2\n"
+"X-Generator: Weblate 3.4\n"
 
 #. module: account_invoice_kanban
 #: model:ir.ui.view,arch_db:account_invoice_kanban.account_invoice_kanban
@@ -78,6 +78,9 @@ msgid ""
 "Give a card the special handling status to indicate that it requires "
 "handling by a special user or subset of users."
 msgstr ""
+"Markieren Sie eine Karte mit dem Spezial Behandlung Status um darauf "
+"hinzuweisen, das sie von einem speziellen Benutzer oder einer Benutzergruppe "
+"bearbeitet werden muss."
 
 #. module: account_invoice_kanban
 #: model:ir.model,name:account_invoice_kanban.model_account_invoice
@@ -134,7 +137,7 @@ msgstr "Zahlung erhalten"
 #. module: account_invoice_kanban
 #: model:ir.ui.view,arch_db:account_invoice_kanban.view_account_invoice_filter
 msgid "Stage"
-msgstr ""
+msgstr "Stufe"
 
 #. module: account_invoice_kanban
 #: model:base.kanban.stage,legend_normal:account_invoice_kanban.invoice_created
