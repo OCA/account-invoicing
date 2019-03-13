@@ -7,7 +7,7 @@
 
 from functools import reduce
 from dateutil.relativedelta import relativedelta
-from odoo import models, fields, api, exceptions, _
+from odoo import _, api, exceptions, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_is_zero, float_round
 import odoo.addons.decimal_precision as dp
@@ -16,6 +16,7 @@ import calendar
 
 class AccountPaymentTermHoliday(models.Model):
     _name = 'account.payment.term.holiday'
+    _description = "Payment Term Holidays"
 
     payment_id = fields.Many2one(comodel_name='account.payment.term')
     holiday = fields.Date(required=True)
@@ -178,18 +179,18 @@ class AccountPaymentTerm(models.Model):
                 next_date += relativedelta(days=line.days,
                                            weeks=line.weeks,
                                            months=line.months)
-            elif line.option == 'fix_day_following_month':
+            elif line.option == 'after_invoice_month':
                 # Getting 1st of next month
                 next_first_date = next_date + relativedelta(day=1, months=1)
                 next_date = next_first_date + relativedelta(days=line.days - 1,
                                                             weeks=line.weeks,
                                                             months=line.months)
-            elif line.option == 'last_day_following_month':
+            elif line.option == 'day_following_month':
                 # Getting last day of next month
-                next_date += relativedelta(day=31, months=1)
-            elif line.option == 'last_day_current_month':
+                next_date += relativedelta(day=line.days, months=1)
+            elif line.option == 'day_current_month':
                 # Getting last day of next month
-                next_date += relativedelta(day=31, months=0)
+                next_date += relativedelta(day=line.days, months=0)
             next_date = self.apply_payment_days(line, next_date)
             next_date = self.apply_holidays(next_date)
             if not float_is_zero(amt, precision_rounding=prec):
