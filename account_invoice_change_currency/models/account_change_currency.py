@@ -131,6 +131,7 @@ ORDER BY mtv.write_date DESC, mtv.id DESC LIMIT 1"""
     @api.multi
     def get_last_rate(self):
         self.ensure_one()
+        subtype_create_id = self.env.ref('account.mt_invoice_created')
         last_values = self.env['mail.tracking.value'].sudo().search([
             ('mail_message_id', 'in', self.message_ids.ids),
             ('field', 'in', ['rate', 'currency_id']),
@@ -142,6 +143,10 @@ ORDER BY mtv.write_date DESC, mtv.id DESC LIMIT 1"""
                                                 key=lambda r: r.field)
             return (self.currency_id.browse(currency_value.old_value_integer),
                     rate_value.old_value_float)
+        if (len(last_values) == 1 and last_values.mail_message_id.subtype_id ==
+                subtype_create_id):
+            return (self.currency_id.browse(last_values.new_value_integer),
+                    None)
         return self.currency_id.browse(None), None
 
     @api.multi
