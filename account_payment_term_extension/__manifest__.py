@@ -5,7 +5,7 @@
 
 {
     'name': 'Payment Term Extension',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Accounting & Finance',
     'summary': 'Adds rounding, months, weeks and multiple payment days '
                'properties on payment term lines',
@@ -14,7 +14,7 @@
               'Agile Business Group, '
               'Odoo Community Association (OCA)',
     'maintainer': 'OCA',
-    'website': 'http://www.camptocamp.com/',
+    'website': 'https://github.com/OCA/account-invoicing/',
     'license': 'AGPL-3',
     'depends': ['account'],
     'data': [

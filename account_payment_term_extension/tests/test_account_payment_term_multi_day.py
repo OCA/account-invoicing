@@ -1,7 +1,5 @@
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
-from datetime import datetime
 import odoo.tests.common as common
+from odoo import fields
 
 
 class TestAccountPaymentTermMultiDay(common.TransactionCase):
@@ -21,7 +19,8 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
              "active": True,
              "line_ids": [(0, 0, {'value': 'balance',
                                   'days': 5,
-                                  'option': 'fix_day_following_month'
+                                  'payment_days': '5',
+                                  'day_of_the_month': 31,
                                   })],
              })
         self.payment_term_0_days_5_10 = self.payment_term_model.create(
@@ -56,7 +55,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
              'partner_id': self.partner.id,
              'account_id': self.inv_account.id,
              'payment_term_id': self.payment_term_0_day_5.id,
-             'date_invoice': '%s-01-01' % datetime.now().year,
+             'date_invoice': '%s-01-01' % fields.datetime.now().year,
              'name': 'Invoice for normal payment on day 5',
              'invoice_line_ids': [(0, 0, {'product_id': self.product.id,
                                           'name': 'Test',
@@ -69,8 +68,8 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
                 self.assertEqual(
-                    line.date_maturity,
-                    '%s-02-05' % datetime.now().year,
+                    fields.Date.to_string(line.date_maturity),
+                    '%s-02-05' % fields.datetime.now().year,
                     "Incorrect due date for invoice with normal payment day "
                     "on 5")
 
@@ -80,7 +79,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
              'partner_id': self.partner.id,
              'account_id': self.inv_account.id,
              'payment_term_id': self.payment_term_0_days_5_10.id,
-             'date_invoice': '%s-01-01' % datetime.now().year,
+             'date_invoice': '%s-01-01' % fields.datetime.now().year,
              'name': 'Invoice for payment on days 5 and 10 (1)',
              'invoice_line_ids': [(0, 0, {'product_id': self.product.id,
                                           'name': 'Test',
@@ -93,8 +92,8 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
                 self.assertEqual(
-                    line.date_maturity,
-                    '%s-01-05' % datetime.now().year,
+                    fields.Date.to_string(line.date_maturity),
+                    '%s-01-05' % fields.datetime.now().year,
                     "Incorrect due date for invoice with payment days on 5 "
                     "and 10 (1)")
 
@@ -104,7 +103,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
              'partner_id': self.partner.id,
              'account_id': self.inv_account.id,
              'payment_term_id': self.payment_term_0_days_5_10.id,
-             'date_invoice': '%s-01-06' % datetime.now().year,
+             'date_invoice': '%s-01-06' % fields.datetime.now().year,
              'name': 'Invoice for payment on days 5 and 10 (2)',
              'invoice_line_ids': [(0, 0, {'product_id': self.product.id,
                                           'name': 'Test',
@@ -117,8 +116,8 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
         for line in invoice.move_id.line_ids:
             if line.name == invoice.name and line.date_maturity:
                 self.assertEqual(
-                    line.date_maturity,
-                    '%s-01-10' % datetime.now().year,
+                    fields.Date.to_string(line.date_maturity),
+                    '%s-01-10' % fields.datetime.now().year,
                     "Incorrect due date for invoice with payment days on 5 "
                     "and 10 (2)")
 
@@ -128,7 +127,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
              'partner_id': self.partner.id,
              'account_id': self.inv_account.id,
              'payment_term_id': self.payment_term_0_days_15_20_then_5_10.id,
-             'date_invoice': '%s-01-01' % datetime.now().year,
+             'date_invoice': '%s-01-01' % fields.datetime.now().year,
              'name': 'Invoice for payment on days 15 and 20 then 5 and 10 (1)',
              'invoice_line_ids': [(0, 0, {'product_id': self.product.id,
                                           'name': 'Test',
@@ -144,13 +143,13 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                 dates_maturity.append(line.date_maturity)
         dates_maturity.sort()
         self.assertEqual(
-            dates_maturity[0],
-            '%s-01-15' % datetime.now().year,
+            fields.Date.to_string(dates_maturity[0]),
+            '%s-01-15' % fields.datetime.now().year,
             "Incorrect due date for invoice with payment days on "
             "15 and 20 then 5 and 10 (1)")
         self.assertEqual(
-            dates_maturity[1],
-            '%s-02-05' % datetime.now().year,
+            fields.Date.to_string(dates_maturity[1]),
+            '%s-02-05' % fields.datetime.now().year,
             "Incorrect due date for invoice with payment days on "
             "15 and 20 then 5 and 10 (1)")
 
@@ -160,7 +159,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
              'partner_id': self.partner.id,
              'account_id': self.inv_account.id,
              'payment_term_id': self.payment_term_0_days_15_20_then_5_10.id,
-             'date_invoice': '%s-01-18' % datetime.now().year,
+             'date_invoice': '%s-01-18' % fields.datetime.now().year,
              'name': 'Invoice for payment on days 15 and 20 then 5 and 10 (2)',
              'invoice_line_ids': [(0, 0, {'product_id': self.product.id,
                                           'name': 'Test',
@@ -176,13 +175,13 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                 dates_maturity.append(line.date_maturity)
         dates_maturity.sort()
         self.assertEqual(
-            dates_maturity[0],
-            '%s-01-20' % datetime.now().year,
+            fields.Date.to_string(dates_maturity[0]),
+            '%s-01-20' % fields.datetime.now().year,
             "Incorrect due date for invoice with payment days on "
             "15 and 20 then 5 and 10 (2)")
         self.assertEqual(
-            dates_maturity[1],
-            '%s-02-05' % datetime.now().year,
+            fields.Date.to_string(dates_maturity[1]),
+            '%s-02-05' % fields.datetime.now().year,
             "Incorrect due date for invoice with payment days on "
             "15 and 20 then 5 and 10 (2)")
 
@@ -192,7 +191,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
              'partner_id': self.partner.id,
              'account_id': self.inv_account.id,
              'payment_term_id': self.payment_term_0_days_15_20_then_5_10.id,
-             'date_invoice': '%s-01-25' % datetime.now().year,
+             'date_invoice': '%s-01-25' % fields.datetime.now().year,
              'name': 'Invoice for payment on days 15 and 20 then 5 and 10 (3)',
              'invoice_line_ids': [(0, 0, {'product_id': self.product.id,
                                           'name': 'Test',
@@ -208,13 +207,13 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
                 dates_maturity.append(line.date_maturity)
         dates_maturity.sort()
         self.assertEqual(
-            dates_maturity[0],
-            '%s-02-15' % datetime.now().year,
+            fields.Date.to_string(dates_maturity[0]),
+            '%s-02-15' % fields.datetime.now().year,
             "Incorrect due date for invoice with payment days on "
             "15 and 20 then 5 and 10 (3)")
         self.assertEqual(
-            dates_maturity[1],
-            '%s-03-05' % datetime.now().year,
+            fields.Date.to_string(dates_maturity[1]),
+            '%s-03-05' % fields.datetime.now().year,
             "Incorrect due date for invoice with payment days on "
             "15 and 20 then 5 and 10 (3)")
 
