@@ -28,6 +28,8 @@ class TestAccountInvoice(common.TransactionCase):
              'quantity': 1.000,
              'price_unit': 2.99})
 
+        self.current_user.company_id.invoice_date_required = True
+
     def test_account_invoice_date_required(self):
         invoice = self.account_invoice.create({
             'partner_id': self.env.ref('base.res_partner_2').id,
@@ -46,3 +48,12 @@ class TestAccountInvoice(common.TransactionCase):
                 'type': 'out_invoice',
                 'invoice_line_ids': [(6, 0, [self.invoice_line.id])]
             }).action_invoice_open()
+
+    def test_account_invoice_date_not_required(self):
+        self.current_user.company_id.invoice_date_required = False
+        self.account_invoice.create({
+            'partner_id': self.env.ref('base.res_partner_2').id,
+            'account_id': self.invoice_account.id,
+            'type': 'out_invoice',
+            'invoice_line_ids': [(6, 0, [self.invoice_line.id])]
+        }).action_invoice_open()

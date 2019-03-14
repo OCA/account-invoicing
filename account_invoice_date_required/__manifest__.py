@@ -7,7 +7,7 @@
     'summary': """
         Requires invoice date before validation to avoid Odoo setting 'today'
         as default if not filled in.""",
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.1.0',
     'development_status': 'Alpha',
     'maintainers': ['rousseldenis'],
     'category': 'Accounting',
@@ -17,4 +17,7 @@
     'depends': [
         'account',
     ],
+    'data': [
+        'views/account_config_settings.xml',
+    ]
 }

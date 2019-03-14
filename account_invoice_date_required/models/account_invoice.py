@@ -12,7 +12,9 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def _check_invoice_date(self):
-        if self.filtered(lambda i: not i.date_invoice):
+        if self.filtered(
+                lambda i: i.company_id.invoice_date_required and
+                not i.date_invoice):
             raise ValidationError(
                 _('You have to fill in the invoice date before validating'
                   'the invoice !')

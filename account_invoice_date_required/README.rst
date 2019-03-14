@@ -35,10 +35,18 @@ The invoice validation is now restricted if the invoice date is not filled in.
 .. contents::
    :local:
 
+Configuration
+=============
+
+Go to Accounting > Settings > Invoicing & Payments > Date Required
+
+Check the box if you want to make the invoice date required before
+validation.
+
 Usage
 =====
 
-Create an invoice with a void date (Invoicing > Sales > Customer Invoices).
+Create an invoice with a void date (Accounting > Sales > Customer Invoices).
 
 Try to validate it. An error is raised.
 
