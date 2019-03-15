@@ -1,68 +1,64 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
-# Copyright 2018 Camptocamp SA
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 from odoo.exceptions import Warning
 
 
-class TestAccountInvoiceMerge(SavepointCase):
-    """Tests for Account Invoice Merge.
+class TestAccountInvoiceMerge(TransactionCase):
     """
-    @classmethod
-    def setUpClass(cls):
-        super(TestAccountInvoiceMerge, cls).setUpClass()
-        cls.par_model = cls.env['res.partner']
-        cls.context = cls.env['res.users'].context_get()
-        cls.acc_model = cls.env['account.account']
-        cls.inv_model = cls.env['account.invoice']
-        cls.inv_line_model = cls.env['account.invoice.line']
-        cls.wiz = cls.env['invoice.merge']
+        Tests for Account Invoice Merge.
+    """
+    def setUp(self):
+        super(TestAccountInvoiceMerge, self).setUp()
+        self.par_model = self.env['res.partner']
+        self.context = self.env['res.users'].context_get()
+        self.acc_model = self.env['account.account']
+        self.inv_model = self.env['account.invoice']
+        self.inv_line_model = self.env['account.invoice.line']
+        self.wiz = self.env['invoice.merge']
 
-        cls.partner1 = cls._create_partner()
-        cls.partner2 = cls._create_partner()
+        self.partner1 = self._create_partner()
+        self.partner2 = self._create_partner()
 
-        cls.invoice_account = cls.acc_model.search(
+        self.invoice_account = self.acc_model.search(
             [('user_type_id',
               '=',
-              cls.env.ref('account.data_account_type_receivable').id
+              self.env.ref('account.data_account_type_receivable').id
               )], limit=1)
 
-        cls.invoice_line1 = cls._create_inv_line(cls.invoice_account.id)
-        cls.invoice_line2 = cls.invoice_line1.copy()
-        cls.invoice_line3 = cls._create_inv_line(cls.invoice_account.id)
+        self.invoice_line1 = self._create_inv_line(self.invoice_account.id)
+        self.invoice_line2 = self.invoice_line1.copy()
+        self.invoice_line3 = self._create_inv_line(self.invoice_account.id)
 
-        cls.invoice1 = cls._create_invoice(
-            cls.partner1, 'A', cls.invoice_line1)
-        cls.invoice2 = cls._create_invoice(
-            cls.partner1, 'B', cls.invoice_line2)
-        cls.invoice3 = cls._create_invoice(
-            cls.partner2, 'C', cls.invoice_line3)
+        self.invoice1 = self._create_invoice(
+            self.partner1, 'A', self.invoice_line1)
+        self.invoice2 = self._create_invoice(
+            self.partner1, 'B', self.invoice_line2)
+        self.invoice3 = self._create_invoice(
+            self.partner2, 'C', self.invoice_line3)
 
-    @classmethod
-    def _create_partner(cls):
-        partner = cls.par_model.create({
+    def _create_partner(self):
+        partner = self.par_model.create({
             'name': 'Test Partner',
             'supplier': True,
             'company_type': 'company',
         })
         return partner
 
-    @classmethod
-    def _create_inv_line(cls, account_id):
-        inv_line = cls.inv_line_model.create({
+    def _create_inv_line(self, account_id):
+        inv_line = self.inv_line_model.create({
             'name': 'test invoice line',
             'account_id': account_id,
             'quantity': 1.0,
             'price_unit': 3.0,
-            'product_id': cls.env.ref('product.product_product_8').id
+            'product_id': self.env.ref('product.product_product_8').id
         })
         return inv_line
 
-    @classmethod
-    def _create_invoice(cls, partner, name, inv_line):
-        invoice = cls.inv_model.create({
+    def _create_invoice(self, partner, name, inv_line):
+        invoice = self.inv_model.create({
             'partner_id': partner.id,
             'name': name,
             'invoice_line_ids': [(4, inv_line.id)],
