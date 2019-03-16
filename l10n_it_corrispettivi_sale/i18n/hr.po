@@ -20,14 +20,18 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: l10n_it_corrispettivi_sale
-#: model:ir.model.fields,field_description:l10n_it_corrispettivi_sale.field_sale_order_corrispettivi
+#: model:ir.model.fields,field_description:l10n_it_corrispettivi_sale.field_sale_order__corrispettivi
 msgid "Corrispettivi"
 msgstr ""
 
 #. module: l10n_it_corrispettivi_sale
 #: model:ir.model,name:l10n_it_corrispettivi_sale.model_sale_order
-msgid "Quotation"
-msgstr ""
+#, fuzzy
+#| msgid "Sales Order"
+msgid "Sale Order"
+msgstr "Narudžbenica"
 
-#~ msgid "Sales Order"
-#~ msgstr "Narudžbenica"
+#. module: l10n_it_corrispettivi_sale
+#: model:ir.model,name:l10n_it_corrispettivi_sale.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr ""
