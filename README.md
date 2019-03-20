@@ -47,6 +47,7 @@ addon | version | summary
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 10.0.1.0.0 | Manage triple discount on invoice lines
 [account_invoice_view_payment](account_invoice_view_payment/) | 10.0.1.0.0 | Access to the payment from an invoice
 [account_payment_term_extension](account_payment_term_extension/) | 10.0.1.1.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
+[product_supplierinfo_for_customer_invoice](product_supplierinfo_for_customer_invoice/) | 10.0.1.0.0 | Based on product_customer_code, this module loads in every account invoice the customer code defined in the product,
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 10.0.1.0.1 | Add an option to refund returned pickings
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 10.0.1.0.0 | Add timesheet details in invoice line
 
@@ -62,7 +63,6 @@ addon | version | summary
 [account_invoice_uom](account_invoice_uom/) | 8.0.1.0.0 (unported) | Unit of measure for invoices
 [account_invoice_validation_workflow](account_invoice_validation_workflow/) | 8.0.1.0.1 (unported) | Add "To Send" and "To Validate" states in Invoices
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 (unported) | Account Invoice Zero Autopay
-[product_customer_code_invoice](product_customer_code_invoice/) | 1.0 (unported) | Product Customer code for account invoice
 [sale_order_partial_invoice](sale_order_partial_invoice/) | 1.1 (unported) | Sale Partial Invoice
 [stock_invoice_picking_incoterm](stock_invoice_picking_incoterm/) | 0.1 (unported) | Stock Invoice Picking Incoterm
 [stock_picking_invoicing](stock_picking_invoicing/) | 8.0.1.0.0 (unported) | Stock Picking Invoicing
