@@ -36,6 +36,7 @@ setuptools.setup(
         'odoo10-addon-account_invoice_triple_discount',
         'odoo10-addon-account_invoice_view_payment',
         'odoo10-addon-account_payment_term_extension',
+        'odoo10-addon-product_supplierinfo_for_customer_invoice',
         'odoo10-addon-purchase_stock_picking_return_invoicing',
         'odoo10-addon-sale_timesheet_invoice_description',
     ],
