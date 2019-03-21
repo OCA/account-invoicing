@@ -22,16 +22,16 @@ msgid "Invoice"
 msgstr "Facture"
 
 #. module: account_invoice_tax_note
-#: model:ir.model.fields,help:account_invoice_tax_note.field_account_tax_group_report_note
+#: model:ir.model.fields,help:account_invoice_tax_note.field_account_tax_group__report_note
 msgid "Note to insert on Invoice Report if the tax group is used."
 msgstr "Note à insérer dans le rapport des factures si ce groupe est utilisé"
 
 #. module: account_invoice_tax_note
-#: model:ir.model.fields,field_description:account_invoice_tax_note.field_account_tax_group_report_note
+#: model:ir.model.fields,field_description:account_invoice_tax_note.field_account_tax_group__report_note
 msgid "Report Note"
 msgstr "Note rapport"
 
 #. module: account_invoice_tax_note
 #: model:ir.model,name:account_invoice_tax_note.model_account_tax_group
-msgid "account.tax.group"
+msgid "Tax Group"
 msgstr ""
