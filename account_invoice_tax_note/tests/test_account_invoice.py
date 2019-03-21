@@ -15,7 +15,7 @@ class TestAccountInvoice(TransactionCase):
         tax_group_obj = self.env['account.tax.group']
         tax_obj = self.env['account.tax']
         invoice_obj = self.env['account.invoice']
-        self.product1 = self.env.ref("product.product_product_17")
+        self.product1 = self.env.ref("product.product_product_7")
         self.product2 = self.env.ref("product.product_product_8")
         account_type = self.env.ref('account.data_account_type_revenue')
         customer = self.env.ref("base.res_partner_2")

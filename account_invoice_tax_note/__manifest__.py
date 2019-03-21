@@ -2,8 +2,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': "Account invoice tax note",
-    'version': "11.0.1.0.0",
+    'version': "12.0.1.0.0",
     "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
+    "development_status": "Production/Stable",
     "summary": "Print tax notes on customer invoices",
     'website': "https://github.com/OCA/account-invoicing",
     'category': "Localization / Accounting",
