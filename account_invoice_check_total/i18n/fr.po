@@ -11,14 +11,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-11 02:41+0000\n"
-"PO-Revision-Date: 2018-04-11 02:41+0000\n"
-"Last-Translator: Quentin THEURET <odoo@kerpeo.com>, 2018\n"
+"PO-Revision-Date: 2019-03-22 18:14+0000\n"
+"Last-Translator: Valaeys Stéphane <svalaeys@fiefmanage.ch>\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.5.1\n"
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_res_config_settings_group_supplier_inv_check_total
@@ -51,7 +52,7 @@ msgstr "Facture"
 
 #. module: account_invoice_check_total
 #: code:addons/account_invoice_check_total/models/account_invoice.py:48
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Please verify the price of the invoice!\n"
 "                        The total amount (%s) does not "
@@ -59,13 +60,14 @@ msgid ""
 "There is a difference of %s"
 msgstr ""
 "Veuillez vérifier le montant de la facture !\n"
-"                         Le montant de vérification ne correspond pas au "
-"montant calculé."
+"                        Le montant total (%s) ne correspond "
+"pas                        au montant calculé (%s)!\n"
+"Il y a une différence de %s"
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice_check_total_display_difference
 msgid "Total Difference"
-msgstr ""
+msgstr "Différence totale"
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice_check_total
