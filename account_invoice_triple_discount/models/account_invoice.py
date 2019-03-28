@@ -54,6 +54,7 @@ class AccountInvoiceLine(models.Model):
         Resetting discount2 and discount3 to 0.0 avoids issues if
         this method is called multiple times."""
         prev_values = dict()
+        self.invalidate_cache(['discount', 'discount2', 'discount3'], self.ids)
         for line in self:
             prev_values[line] = dict(
                 discount=line.discount,
