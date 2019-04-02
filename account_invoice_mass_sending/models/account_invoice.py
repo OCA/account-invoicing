@@ -12,10 +12,17 @@ SEND_QUEUE_CHANNEL = "root.SEND_PRINT_INVOICE"
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    sending_in_progress = fields.Boolean(default=False)
+    sending_in_progress = fields.Boolean(
+        default=False,
+        help="If checked, the invoice is already being processed, "
+             "and it will prevent the sending of a duplicated mail.")
 
     @api.multi
     def mass_send_print(self):
+        """
+        This method triggers the asynchronous "Send & Print" for the selected
+        invoices for which there is no asynchronous sending in progress.
+        """
         invoices_to_send = self.filtered(lambda i: not i.sending_in_progress)
         in_progress_invoices_count = len(self) - len(invoices_to_send)
         title = _("Invoices: Send & Print")
