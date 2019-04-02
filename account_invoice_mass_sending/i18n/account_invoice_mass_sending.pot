@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 10.0+e\n"o
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-02 07:04+0000\n"
-"PO-Revision-Date: 2019-04-02 07:04+0000\n"
+"POT-Creation-Date: 2019-04-15 13:47+0000\n"
+"PO-Revision-Date: 2019-04-15 13:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,40 +16,45 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_mass_sending
+#: model:ir.model.fields,help:account_invoice_mass_sending.field_account_invoice_sending_in_progress
+msgid "If checked, the invoice is already being processed, and it will prevent the sending of a duplicated mail."
+msgstr ""
+
+#. module: account_invoice_mass_sending
 #: model:ir.model,name:account_invoice_mass_sending.model_account_invoice
 msgid "Invoice"
 msgstr ""
 
 #. module: account_invoice_mass_sending
-#: code:addons/account_invoice_mass_sending/models/account_invoice.py:21
+#: code:addons/account_invoice_mass_sending/models/account_invoice.py:28
 #, python-format
-msgid "Invoices: Send & Print"
+msgid "Invoices: Send"
 msgstr ""
 
 #. module: account_invoice_mass_sending
-#: code:addons/account_invoice_mass_sending/models/account_invoice.py:48
+#: code:addons/account_invoice_mass_sending/models/account_invoice.py:55
 #, python-format
 msgid "Missing email address on customer '{customer_name}'."
 msgstr ""
 
 #. module: account_invoice_mass_sending
 #: model:ir.actions.server,name:account_invoice_mass_sending.action_invoice_mass_send_print
-msgid "Send & Print"
+msgid "Send"
 msgstr ""
 
 #. module: account_invoice_mass_sending
-#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_invoice__sending_in_progress
-msgid "Sending In Progress"
+#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_invoice_sending_in_progress
+msgid "Sending in progress"
 msgstr ""
 
 #. module: account_invoice_mass_sending
-#: code:addons/account_invoice_mass_sending/models/account_invoice.py:23
+#: code:addons/account_invoice_mass_sending/models/account_invoice.py:30
 #, python-format
 msgid "The sending of {in_progress_invoices_count} invoices is already in progress."
 msgstr ""
 
 #. module: account_invoice_mass_sending
-#: code:addons/account_invoice_mass_sending/models/account_invoice.py:29
+#: code:addons/account_invoice_mass_sending/models/account_invoice.py:36
 #, python-format
 msgid "The sending of {invoices_count} invoices will be processed in background."
 msgstr ""

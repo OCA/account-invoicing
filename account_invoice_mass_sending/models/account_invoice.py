@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -25,7 +26,7 @@ class AccountInvoice(models.Model):
         """
         invoices_to_send = self.filtered(lambda i: not i.sending_in_progress)
         in_progress_invoices_count = len(self) - len(invoices_to_send)
-        title = _("Invoices: Send & Print")
+        title = _("Invoices: Send")
         if in_progress_invoices_count > 0:
             warn_msg = _(
                 "The sending of {in_progress_invoices_count} invoices is "
@@ -53,7 +54,7 @@ class AccountInvoice(models.Model):
         for rec in self:
             if not rec.partner_id.email:
                 raise UserError(_(
-                    "Missing email address on customer " "'{customer_name}'."
+                    "Missing email address on customer '{customer_name}'."
                 ).format(
                     customer_name=rec.partner_id.display_name
                 ))
@@ -71,7 +72,6 @@ class AccountInvoice(models.Model):
                 .with_context(ctx)
                 .create({})
             )
-            invoice_wizard._compute_composition_mode()
-            invoice_wizard.onchange_template_id()
-            invoice_wizard.send_and_print_action()
+            invoice_wizard.onchange_template_id_wrapper()
+            invoice_wizard.send_mail_action()
         self.write({"sending_in_progress": False})
