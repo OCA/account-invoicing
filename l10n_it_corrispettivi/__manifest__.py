@@ -4,7 +4,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     'name': 'Italian Localization - Ricevute',
-    'version': '12.0.1.1.1',
+    'version': '12.0.1.1.2',
     'category': 'Accounting & Finance',
     'author': 'Odoo Italian Community, Agile Business Group, '
               'Odoo Community Association (OCA)',

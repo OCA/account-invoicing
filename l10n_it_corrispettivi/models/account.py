@@ -93,9 +93,22 @@ class AccountFiscalPosition(models.Model):
     def get_corr_fiscal_pos(self, company_id=None):
         if not company_id:
             company_id = self.env.user.company_id
-        corr_fiscal_pos = self.search([
-            ('corrispettivi', '=', True),
-            ('company_id', '=', company_id.id)], limit=1)
+        corr_fiscal_pos = self.search(
+            [
+                ('company_id', '=', company_id.id),
+                ('corrispettivi', '=', True),
+            ],
+            limit=1
+        )
+        if not corr_fiscal_pos:
+            # Fall back to fiscal positions without company
+            corr_fiscal_pos = self.search(
+                [
+                    ('company_id', '=', False),
+                    ('corrispettivi', '=', True),
+                ],
+                limit=1
+            )
 
         return corr_fiscal_pos
 
