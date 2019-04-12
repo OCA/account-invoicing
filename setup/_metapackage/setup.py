@@ -17,6 +17,7 @@ setuptools.setup(
         'odoo11-addon-account_invoice_force_number',
         'odoo11-addon-account_invoice_line_description',
         'odoo11-addon-account_invoice_pricelist',
+        'odoo11-addon-account_invoice_refund_line_selection',
         'odoo11-addon-account_invoice_refund_link',
         'odoo11-addon-account_invoice_reimbursable',
         'odoo11-addon-account_invoice_supplier_ref_reuse',
