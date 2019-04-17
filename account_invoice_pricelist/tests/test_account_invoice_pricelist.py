@@ -12,9 +12,29 @@ class TestAccountInvoicePricelist(SavepointCase):
         self.ProductPricelistVersion = self.env['product.pricelist.version']
         self.ProductPricelistItem = self.env['product.pricelist.item']
         self.FiscalPosition = self.env['account.fiscal.position']
+        self.AccountTax = self.env['account.tax']
+        self.tax_excl = self.AccountTax.create({
+            'name': '20% (Tax Excl)',
+            'price_include': False,
+            'type_tax_use': 'sale',
+            'type': 'percent',
+            'amount': 0.2,
+        })
+        self.tax_incl = self.AccountTax.create({
+            'name': '20% (Tax Incl)',
+            'price_include': True,
+            'type_tax_use': 'sale',
+            'type': 'percent',
+            'amount': 0.2,
+        })
+
         self.fiscal_position = self.FiscalPosition.create({
             "name": "Test Fiscal Position",
             "active": True,
+            'tax_ids': [(0, 0, {
+                'tax_src_id': self.tax_incl.id,
+                'tax_dest_id': self.tax_excl.id,
+            })],
         })
         self.journal_sale = self.env["account.journal"].create({
             "name": "Test sale journal",
@@ -42,8 +62,23 @@ class TestAccountInvoicePricelist(SavepointCase):
         })
         self.product = self.env['product.product'].create({
             'name': 'Product Test',
+            'categ_id': self.env.ref('product.product_category_all').id,
             'list_price': 100.00,
             'default_code': 'TEST0001',
+        })
+        self.product_with_tax_excl = self.env['product.product'].create({
+            'name': 'Product Test (Tax Excl)',
+            'categ_id': self.env.ref('product.product_category_all').id,
+            'list_price': 1000.00,
+            'default_code': 'TEST0002',
+            'taxes_id': [(6, 0, [self.tax_excl.id])]
+        })
+        self.product_with_tax_incl = self.env['product.product'].create({
+            'name': 'Product Test (tax Incl)',
+            'categ_id': self.env.ref('product.product_category_all').id,
+            'list_price': 12.00,
+            'default_code': 'TEST0003',
+            'taxes_id': [(6, 0, [self.tax_incl.id])]
         })
         # In 9.0 and later pricelist items are directly under pricelist,
         # each item having its own start and end date. In 8.0 and before
@@ -70,6 +105,15 @@ class TestAccountInvoicePricelist(SavepointCase):
             'price_surcharge': 300.00,
             'product_id': self.product.id,
         })
+        self.sale_pricelist_item_id_default =\
+            self.ProductPricelistItem.create({
+                'name': 'Test Sale pricelist Item (-10%)',
+                'price_version_id': self.sale_pricelist_version_id.id,
+                'min_quantity': 1,
+                'sequence': 10,
+                'base': 1,
+                'price_discount': -0.10,
+            })
         # 8.0 invoice_line instead of invoice_line_ids
         self.invoice = self.AccountInvoice.create({
             'partner_id': self.partner.id,
@@ -78,14 +122,28 @@ class TestAccountInvoicePricelist(SavepointCase):
             'invoice_line': [(0, 0, {
                 'account_id': self.a_receivable.id,
                 'product_id': self.product.id,
-                'name': 'Test line',
+                'name': 'Test line 1 (No Tax)',
                 'quantity': 1.0,
                 'price_unit': 100.00,
+            }), (0, 0, {
+                'account_id': self.a_receivable.id,
+                'product_id': self.product_with_tax_excl.id,
+                'name': 'Test line 2 (Tax Excl)',
+                'quantity': 1.0,
+                'price_unit': 1000.00,
+            }), (0, 0, {
+                'account_id': self.a_receivable.id,
+                'product_id': self.product_with_tax_incl.id,
+                'name': 'Test line 3 (Tax Incl)',
+                'quantity': 1.0,
+                'price_unit': 12.00,
             })],
         })
 
     def test_onchange_partner_id(self):
-        """Changing partner should set invoice pricelist to partner pricelist.
+        """
+        Changing partner should set invoice pricelist to partner
+        pricelist.
         """
         res = self.invoice.onchange_partner_id(
             'out_invoice', self.partner.id
@@ -96,15 +154,24 @@ class TestAccountInvoicePricelist(SavepointCase):
 
     def test_product_id_change(self):
         """On change of product, price should be taken from pricelist."""
-        res = self.invoice.invoice_line[0].with_context(
-            pricelist_id=self.sale_pricelist_id.id,
-        ).product_id_change(
-            self.product.id,
-            self.product.uom_id.id,
-            qty=1,
-            partner_id=self.partner.id
-        )
-        self.assertEqual(res['value']['price_unit'], 300.0)
+        checks = [
+            (0, 300, "product_id_change failed"),
+            (1, 1000 * (1 - 0.1), "1000 Tax Excl + Disc 10%"),
+            (2, 12 / (1 + 0.2) * (1 - 0.1), "12 Vat Incl with a Disc 10%"),
+        ]
+        for (line_number, expected_value, error) in checks:
+            line = self.invoice.invoice_line[line_number]
+            res = line.with_context(
+                pricelist_id=self.sale_pricelist_id.id,
+            ).product_id_change(
+                line.product_id.id,
+                line.product_id.uom_id.id,
+                qty=1,
+                partner_id=self.partner.id,
+                fposition_id=self.fiscal_position.id,
+            )
+            self.assertEqual(
+                res['value']['price_unit'], expected_value, error)
 
     def test_button_update_prices_from_pricelist(self):
         """Update button should recompute prices."""

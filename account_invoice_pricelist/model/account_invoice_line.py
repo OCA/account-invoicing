@@ -46,6 +46,8 @@ class AccountInvoiceLine(models.Model):
         )
         pricelist_model = self.env['product.pricelist']
         product_model = self.env['product.product']
+        AccountTax = self.env['account.tax']
+        AccountAccount = self.env['account.account']
         product = product_model.browse(product)
         pricelist = pricelist_model.browse(pricelist_id)
         values = res['value']
@@ -57,6 +59,8 @@ class AccountInvoiceLine(models.Model):
         else:
             pricedict = pricelist.price_get(product.id, qty, partner_id)
         price_unit = pricedict[pricelist_id]
+
+        # MultiCurrency context
         if currency_id:
             company = self.env['res.company'].browse(company_id)
             currency = self.env['res.currency'].browse(currency_id)
@@ -65,6 +69,18 @@ class AccountInvoiceLine(models.Model):
                     price_unit, currency, round=True
                 )
                 price_unit = currency.round(price_unit)
+
+        # Fiscal position with Tax Excl / Incl context
+        if fposition_id:
+            fp_tax_ids = res['value']['invoice_line_tax_id']
+            account = AccountAccount.browse(res['value']['account_id'])
+            if type in ('out_invoice', 'out_refund'):
+                taxes = product.taxes_id or account.tax_ids
+            else:
+                taxes = product.supplier_taxes_id or account.tax_ids
+            price_unit = AccountTax._fix_tax_included_price(
+                price_unit, taxes, fp_tax_ids)
+
         res['value']['price_unit'] = price_unit
         return res
 
