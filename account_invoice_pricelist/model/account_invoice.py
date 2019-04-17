@@ -17,8 +17,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def onchange_partner_id(
-            self, type, partner_id, date_invoice=False,
-            payment_term=False,
+            self, type, partner_id, date_invoice=False, payment_term=False,
             partner_bank_id=False, company_id=False):
         partner_obj = self.env['res.partner']
         res = super(AccountInvoice, self).onchange_partner_id(
