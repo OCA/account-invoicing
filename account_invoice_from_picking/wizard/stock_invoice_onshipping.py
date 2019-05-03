@@ -26,7 +26,7 @@ class StockInvoiceOnshipping(models.TransientModel):
     def _get_journal(self):
         journal_type = self._get_journal_type()
         journal = self.env['account.journal'].search(
-            [('type', '=', journal_type)]
+            [('type', '=', journal_type)], limit=1
         )
         if journal.id:
             return journal.id
