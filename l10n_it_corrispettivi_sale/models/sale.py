@@ -11,6 +11,12 @@ class SaleOrder(models.Model):
     def onchange_partner_corrispettivi_sale(self):
         self.corrispettivi = self.partner_id.use_corrispettivi
 
+    @api.onchange('fiscal_position_id')
+    def _compute_tax_id(self):
+        res = super(SaleOrder, self)._compute_tax_id()
+        self.corrispettivi = self.fiscal_position_id.corrispettivi
+        return res
+
     corrispettivi = fields.Boolean()
 
     @api.multi
