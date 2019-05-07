@@ -12,7 +12,7 @@ class AccountMoveLine(models.Model):
     def reconcile(self, writeoff_acc_id=False, writeoff_journal_id=False):
         res = super(AccountMoveLine, self).reconcile(writeoff_acc_id, writeoff_journal_id)
         # find payment move lines
-        remaining_moves = self.filtered(lambda m: remaining_moves.company_id.rounding_diff_amount >= abs(m.amount_residual) > 0.0 and not m.payment_id)
+        remaining_moves = self.filtered(lambda m: self.company_id.rounding_diff_amount >= abs(m.amount_residual) > 0.0 and not m.payment_id)
         if remaining_moves:
             # Do create rounding difference account entrie
             writeoff_acc_id = remaining_moves.company_id.rounding_diff_account_id
