@@ -14,6 +14,9 @@
                     <attribute name="invisible">0</attribute>
                     <attribute name="groups">account_invoice_force_number.group_allow_invoice_force_number</attribute>
                 </field>
+                <field name="journal_id" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', '!=', 'draft'), ('internal_number', '!=', False)]}</attribute>
+                </field>
             </field>
         </record>
 
@@ -28,6 +31,9 @@
                     <attribute name="help">Force invoice number. Use this field if you don't want to use the default numbering</attribute>
                     <attribute name="invisible">0</attribute>
                     <attribute name="groups">account_invoice_force_number.group_allow_invoice_force_number</attribute>
+                </field>
+                <field name="journal_id" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', '!=', 'draft'), ('internal_number', '!=', False)]}</attribute>
                 </field>
             </field>
         </record>
