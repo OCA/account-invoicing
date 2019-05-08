@@ -1,0 +1,12 @@
+<odoo>
+
+    <report id="report_account_billing"
+            model="account.billing"
+            string="Billing"
+            report_type="qweb-pdf"
+            name="account_billing.report_billing"
+            file="account_billing.report_billing"
+            print_report_name="'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
+    />
+
+</odoo>
