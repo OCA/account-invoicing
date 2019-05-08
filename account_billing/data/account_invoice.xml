@@ -1,0 +1,11 @@
+<odoo>
+    <act_window id="action_account_invoice_billing"
+        multi="True"
+        key2="client_action_multi"
+        name="Create Billing"
+        res_model="account.billing"
+        src_model="account.invoice"
+        view_mode="form"
+        target="current"
+        context="{'bill_type': context.get('type', False)}"/>
+</odoo>
