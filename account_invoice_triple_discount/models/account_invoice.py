@@ -32,8 +32,15 @@ class AccountInvoiceLine(models.Model):
         default=0.0,
     )
 
-    @api.multi
-    @api.depends('discount2', 'discount3')
+    # Each iteration of api.multi is done into a different cache!
+    # As we're using cache to define a value into discount field, we have
+    # to stay into the same cache. So we can not use api.multi in this case.
+    @api.one
+    @api.depends(
+        'price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
+        'product_id', 'invoice_id.partner_id',
+        'invoice_id.currency_id', 'invoice_id.company_id',
+        'invoice_id.date_invoice', 'invoice_id.date', 'discount2', 'discount3')
     def _compute_price(self):
         prev_values = self.triple_discount_preprocess()
         super(AccountInvoiceLine, self)._compute_price()
@@ -60,7 +67,7 @@ class AccountInvoiceLine(models.Model):
                 discount2=line.discount2,
                 discount3=line.discount3,
             )
-            line.update({
+            line._cache.update({
                 'discount': line._get_triple_discount(),
                 'discount2': 0.0,
                 'discount3': 0.0
