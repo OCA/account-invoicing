@@ -16,6 +16,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_pricelist',
         'odoo12-addon-account_invoice_refund_link',
         'odoo12-addon-account_invoice_search_by_reference',
+        'odoo12-addon-account_invoice_tax_note',
         'odoo12-addon-account_invoice_triple_discount',
         'odoo12-addon-account_payment_term_extension',
         'odoo12-addon-sale_timesheet_invoice_description',
