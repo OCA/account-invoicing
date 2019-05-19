@@ -55,6 +55,9 @@
                 <br/>
                 <label for="months" attrs="{'invisible': [('option', 'in', ['day_following_month', 'day_current_month'])]}"/>
                 <field name="months" class="oe_inline" attrs="{'invisible': [('option', 'in', ['day_following_month', 'day_current_month'])]}"/>
+                <br/>
+                <label for="payment_days"/>
+                <field name="payment_days"/>
             </field>
         </field>
     </record>
