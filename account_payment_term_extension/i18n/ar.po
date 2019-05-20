@@ -26,97 +26,97 @@ msgid "60 Days End of Month"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_sequential_lines
+#: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term__sequential_lines
 msgid "Allows to apply a chronological order on lines."
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_amount_round
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line__amount_round
 msgid "Amount Rounding"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_create_uid
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__create_uid
 msgid "Created by"
 msgstr "أنشئ بواسطة"
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_create_date
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__create_date
 msgid "Created on"
 msgstr "أنشئ في"
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:40
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:41
 #, python-format
 msgid "Date %s cannot is both a holiday and a Postponed date"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_display_name
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__display_name
 msgid "Display Name"
 msgstr "اسم العرض"
 
 #. module: account_payment_term_extension
-#: model:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_line_form
-msgid "Due Date Computation"
-msgstr ""
-
-#. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_holiday
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__holiday
 msgid "Holiday"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:28
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:29
 #, python-format
 msgid "Holiday %s can only be postponed into the future"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:33
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:34
 #, python-format
 msgid "Holiday %s is duplicated in current payment term"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_ids
-#: model:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_form
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term__holiday_ids
+#: model_terms:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_form
 msgid "Holidays"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_id
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__id
 msgid "ID"
 msgstr "المعرف"
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday___last_update
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday____last_update
 msgid "Last Modified on"
 msgstr "آخر تعديل في"
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_write_uid
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__write_uid
 msgid "Last Updated by"
 msgstr "آخر تحديث بواسطة"
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_write_date
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__write_date
 msgid "Last Updated on"
 msgstr "آخر تحديث في"
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_months
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line__months
 msgid "Number of Months"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_weeks
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line__weeks
 msgid "Number of Weeks"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_payment_id
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__payment_id
 msgid "Payment"
+msgstr ""
+
+#. module: account_payment_term_extension
+#: model:ir.model,name:account_payment_term_extension.model_account_payment_term_holiday
+msgid "Payment Term Holidays"
 msgstr ""
 
 #. module: account_payment_term_extension
@@ -130,48 +130,43 @@ msgid "Payment Terms Line"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_payment_days
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line__payment_days
 msgid "Payment day(s)"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: code:addons/account_payment_term_extension/models/account_payment_term.py:104
+#: code:addons/account_payment_term_extension/models/account_payment_term.py:105
 #, python-format
 msgid "Payment days field format is not valid."
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_date_postponed
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__date_postponed
 msgid "Postponed date"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_line_payment_days
+#: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_line__payment_days
 msgid ""
 "Put here the day or days when the partner makes the payment. Separate each "
 "possible payment day with dashes (-), commas (,) or spaces ( )."
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_sequential_lines
+#: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term__sequential_lines
 msgid "Sequential lines"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_line_amount_round
+#: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_line__amount_round
 msgid ""
 "Sets the amount so that it is a multiple of this value.\n"
 "To have amounts that end in 0.99, set rounding 1, surcharge -0.01"
 msgstr ""
 
 #. module: account_payment_term_extension
-#: model:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_form
+#: model_terms:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_form
 msgid ""
 "When a payment term coincides with a holiday, it is postponed to the chosen "
 "date."
-msgstr ""
-
-#. module: account_payment_term_extension
-#: model:ir.model,name:account_payment_term_extension.model_account_payment_term_holiday
-msgid "account.payment.term.holiday"
 msgstr ""
