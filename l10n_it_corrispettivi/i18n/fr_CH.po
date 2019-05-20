@@ -35,6 +35,11 @@ msgid "Contact"
 msgstr ""
 
 #. module: l10n_it_corrispettivi
+#: model:ir.model,name:l10n_it_corrispettivi.model_account_invoice_refund
+msgid "Credit Note"
+msgstr ""
+
+#. module: l10n_it_corrispettivi
 #: model_terms:ir.ui.view,arch_db:l10n_it_corrispettivi.report_corrispettivi_document
 msgid "Draft Receipt"
 msgstr ""
