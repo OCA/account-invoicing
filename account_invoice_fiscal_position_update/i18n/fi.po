@@ -24,7 +24,7 @@ msgid "Invoice"
 msgstr "Lasku"
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:68
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:64
 #, python-format
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position "
@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:62
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:58
 #, python-format
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they "
@@ -42,7 +42,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:60
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:56
 #, python-format
 msgid "Warning"
 msgstr ""

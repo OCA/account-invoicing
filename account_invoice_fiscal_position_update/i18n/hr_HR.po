@@ -27,7 +27,7 @@ msgid "Invoice"
 msgstr "Račun"
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:68
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:64
 #, fuzzy, python-format
 #| msgid ""
 #| "The following invoice lines were not updated to the new Fiscal Position "
@@ -46,7 +46,7 @@ msgstr ""
 "Potrebno je ručno ažurirati poreze i konta na navedenim stavkama."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:62
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:58
 #, fuzzy, python-format
 #| msgid ""
 #| "The invoice lines were not updated to the new Fiscal Position because "
@@ -62,7 +62,7 @@ msgstr ""
 "Potrebno je ručno ažurirati poreze i konta na stavkama."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:60
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:56
 #, python-format
 msgid "Warning"
 msgstr "Upozorenje"
