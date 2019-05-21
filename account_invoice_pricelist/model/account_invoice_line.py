@@ -57,6 +57,17 @@ class AccountInvoiceLine(models.Model):
         else:
             pricedict = pricelist.price_get(product.id, qty, partner_id)
         price_unit = pricedict[pricelist_id]
+
+        # Call _fix_tax_included_price to handled correcty fiscal position
+        if type in ('out_invoice', 'out_refund'):
+            taxes = product.taxes_id
+        else:
+            taxes = product.supplier_taxes_id
+
+        price_unit = self.env['account.tax']._fix_tax_included_price(
+            price_unit, taxes, values['invoice_line_tax_id'])
+
+        # Apply currency algorithm
         if currency_id:
             company = self.env['res.company'].browse(company_id)
             currency = self.env['res.currency'].browse(currency_id)
