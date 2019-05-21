@@ -29,29 +29,25 @@ class AccountInvoice(models.Model):
         inv_type = self.type
         for line in self.invoice_line_ids:
             if line.product_id:
+                account = line.get_invoice_line_account(
+                    inv_type, line.product_id, fp, self.company_id)
                 product = line.with_context(force_company=self.company_id.id).\
                     product_id
                 if inv_type in ('out_invoice', 'out_refund'):
-                    account = (
-                        product.property_account_income_id or
-                        product.categ_id.property_account_income_categ_id)
                     # M2M fields don't have an option 'company_dependent=True'
                     # so we need per-company post-filtering
                     taxes = product.taxes_id.filtered(
                         lambda tax: tax.company_id == self.company_id)
                 else:
-                    account = (
-                        product.property_account_expense_id or
-                        product.categ_id.property_account_expense_categ_id)
                     taxes = product.supplier_taxes_id.filtered(
                         lambda tax: tax.company_id == self.company_id)
                 taxes = taxes or account.tax_ids.filtered(
                     lambda tax: tax.company_id == self.company_id)
                 if fp:
-                    account = fp.map_account(account)
                     taxes = fp.map_tax(taxes)
 
                 line.invoice_line_tax_ids = [(6, 0, taxes.ids)]
+
                 line.account_id = account.id
             else:
                 lines_without_product.append(line.name)
