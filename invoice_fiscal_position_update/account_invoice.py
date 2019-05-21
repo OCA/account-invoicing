@@ -32,6 +32,7 @@ class account_invoice(models.Model):
     def fiscal_position_change(self):
         """Updates taxes and accounts on all invoice lines"""
         self.ensure_one()
+        AccountTax = self.env['account.tax']
         res = {}
         lines_without_product = []
         fp = self.fiscal_position
@@ -54,6 +55,10 @@ class account_invoice(models.Model):
                     account = fp.map_account(account)
                     taxes = fp.map_tax(taxes)
 
+                line.price_unit = AccountTax._fix_tax_included_price(
+                    line.price_unit,
+                    line.invoice_line_tax_id,
+                    taxes.ids)
                 line.invoice_line_tax_id = [(6, 0, taxes.ids)]
                 line.account_id = account.id
             else:
