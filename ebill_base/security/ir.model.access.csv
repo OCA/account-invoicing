@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ebill_payment_contract_read,Read access on ebill.payment.contract to everybody,model_ebill_payment_contract,,1,0,0,0
+access_ebill_payment_contract_full,Full access on ebill.payment.contract to Financial Manager,model_ebill_payment_contract,account.group_account_manager,1,1,1,1

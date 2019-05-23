@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo noupdate="1">
+
+    <record model="ebill.payment.contract" id="ebill_payment_contract_demo_1">
+      <field name="state">draft</field>
+      <field name="partner_id" ref="base.res_partner_12"/>
+    </record>
+    <record model="ebill.payment.contract" id="ebill_payment_contract_demo_2">
+      <field name="state">open</field>
+      <field name="partner_id" ref="base.res_partner_12"/>
+    </record>
+
+</odoo>

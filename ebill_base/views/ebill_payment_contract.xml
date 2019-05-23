@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Camptocamp SA
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+  <record model="ir.ui.view" id="ebill_payment_contract_form_view">
+    <field name="name">ebill.payment.contract.form (in ebill_base)</field>
+    <field name="model">ebill.payment.contract</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+        </header>
+        <sheet>
+          <group>
+            <field name="transmit_method_id"/>
+            <field name="state"/>
+            <field name="date_start"/>
+            <field name="date_end"/>
+            <field name="partner_id"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="ebill_payment_contract_search_view">
+    <field name="name">ebill.payment.contract.search (in ebill_base)</field>
+    <field name="model">ebill.payment.contract</field>
+    <field name="arch" type="xml">
+      <search>
+      </search>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="ebill_payment_contract_tree_view">
+    <field name="name">ebill.payment.contract.tree (in ebill_base)</field>
+    <field name="model">ebill.payment.contract</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="state"/>
+        <field name="date_start"/>
+        <field name="date_end"/>
+        <field name="partner_id"/>
+      </tree>
+    </field>
+  </record>
+
+  <record model="ir.actions.act_window" id="ebill_payment_contract_act_window">
+    <field name="name">Ebill Payment Contract</field>
+    <field name="res_model">ebill.payment.contract</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[]</field>
+    <field name="context">{}</field>
+  </record>
+
+  <record model="ir.ui.menu" id="ebill_payment_contract_menu">
+    <field name="name">Ebill Payment Contract</field>
+    <field name="parent_id" ref="account.menu_finance_receivables"/>
+    <field name="action" ref="ebill_payment_contract_act_window"/>
+    <field name="sequence" eval="16"/> 
+  </record>
+
+</odoo>
