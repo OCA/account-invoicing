@@ -30,10 +30,10 @@ class PurchaseBatchInvoicingCase(SavepointCase):
             "is_company": True,
             "property_account_payable_id": cls.account1.id,
         })
-        cls.uomcateg1 = cls.env["product.uom.categ"].create({
+        cls.uomcateg1 = cls.env["uom.categ"].create({
             "name": "Category 1",
         })
-        cls.uom1 = cls.env["product.uom"].create({
+        cls.uom1 = cls.env["uom.uom"].create({
             "name": "UOM 1",
             "category_id": cls.uomcateg1.id,
             "factor": 1,
