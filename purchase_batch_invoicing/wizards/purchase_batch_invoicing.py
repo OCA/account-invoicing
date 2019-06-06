@@ -10,6 +10,7 @@ _logger = getLogger(__name__)
 
 class PurchaseBatchInvoicing(models.TransientModel):
     _name = "purchase.batch_invoicing"
+    _description = "Purchase Batch Invoicing"
 
     purchase_order_ids = fields.Many2many(
         comodel_name="purchase.order",

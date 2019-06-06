@@ -5,7 +5,7 @@
     "summary": "Make invoices for all ready purchase orders",
     "version": "12.0.1.0.0",
     "category": "Purchases",
-    "website": "https://www.github.com/OCA/account-invoicing",
+    "website": "https://github.com/OCA/account-invoicing",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": [
