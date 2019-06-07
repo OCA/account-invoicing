@@ -12,11 +12,14 @@
         </xpath>
 
         <xpath expr="//th[@t-if='display_discount']" position="after">
-            <th t-if="display_discount_fixed" class="text-right">Disc. Fixed Amount</th>
+            <th t-if="display_discount_fixed" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                <span>Disc. Fixed Amount</span>
+                <t t-set="colspan" t-value="colspan+1"/>
+            </th>
         </xpath>
 
         <xpath expr="//td[@t-if='display_discount']" position="after">
-            <td t-if="display_discount_fixed" class="text-right">
+            <td t-if="display_discount_fixed" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                 <span t-field="l.discount_fixed"/>
             </td>
         </xpath>
