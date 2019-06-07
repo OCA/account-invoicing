@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: account_invoice_fixed_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
-msgid "Disc. Fixed Amount"
+msgid "<span>Disc. Fixed Amount</span>"
 msgstr ""
 
 #. module: account_invoice_fixed_discount
