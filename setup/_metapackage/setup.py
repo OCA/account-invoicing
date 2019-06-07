@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_change_currency',
         'odoo12-addon-account_invoice_check_total',
         'odoo12-addon-account_invoice_fiscal_position_update',
+        'odoo12-addon-account_invoice_fixed_discount',
         'odoo12-addon-account_invoice_force_number',
         'odoo12-addon-account_invoice_line_description',
         'odoo12-addon-account_invoice_pricelist',
