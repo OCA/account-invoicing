@@ -69,8 +69,9 @@ class AccountInvoice(models.Model):
             ):
                 currency_id = rec.currency_id.with_context(
                     date=rec.date_invoice)
-                amount = currency_id.compute(
-                    rec.reimbursable_total, rec.company_id.currency_id)
+                amount = currency_id._convert(
+                    rec.reimbursable_total, rec.company_id.currency_id,
+                    rec.company_id, fields.Date.today())
             sign = rec.type in ['in_refund', 'out_refund'] and -1 or 1
             rec.reimbursable_total_company_signed = amount * sign
             rec.reimbursable_total_signed = rec.reimbursable_total * sign
@@ -118,9 +119,9 @@ class AccountInvoice(models.Model):
                 self)
             currency = self.currency_id.with_context(
                 date=date)
-            if not (self.get('currency_id') and self.get('amount_currency')):
-                amount_currency = currency.round(price)
-                price = currency.compute(price, company_currency)
+            amount_currency = currency.round(price)
+            price = currency._convert(
+                price, company_currency, self.company_id, date)
         else:
             amount_currency = False
             price = self.currency_id.round(price)
@@ -145,12 +146,15 @@ class AccountInvoice(models.Model):
 
 class AccountInvoiceReimbursable(models.Model):
     _name = 'account.invoice.reimbursable'
+    _description = 'Account Invoice Reimbursable'
 
     invoice_id = fields.Many2one(
-        'account.invoice', required=True
+        'account.invoice',
+        required=True
     )
     company_id = fields.Many2one(
-        'res.company', related='invoice_id.company_id'
+        'res.company',
+        related='invoice_id.company_id'
     )
     product_id = fields.Many2one(
         "product.product",
@@ -160,14 +164,19 @@ class AccountInvoiceReimbursable(models.Model):
                "('company_id', '=', False)]"
     )
     partner_id = fields.Many2one(
-        "res.partner", required=True,
+        "res.partner",
+        required=True,
         domain="['|',('company_id', '=', parent.company_id), "
                "('company_id', '=', False)]"
     )
     amount = fields.Monetary(
-        currency_field='currency_id', required=True, default=0.,
+        currency_field='currency_id',
+        required=True,
+        default=0.,
     )
-    name = fields.Text(required=True)
+    name = fields.Text(
+        required=True
+    )
     currency_id = fields.Many2one(
         'res.currency',
         related='invoice_id.currency_id',
@@ -181,12 +190,16 @@ class AccountInvoiceReimbursable(models.Model):
         string='Analytic Tags',
     )
     account_id = fields.Many2one(
-        'account.account', string='Account',
+        'account.account',
+        string='Account',
         required=True,
         domain=[('deprecated', '=', False)],
     )
-    description = fields.Char(readonly=True,
-                              store=True, compute='_compute_description')
+    description = fields.Char(
+        readonly=True,
+        store=True,
+        compute='_compute_description'
+    )
 
     @api.depends('name', 'partner_id', 'product_id')
     def _compute_description(self):
@@ -197,6 +210,15 @@ class AccountInvoiceReimbursable(models.Model):
     @api.multi
     def _invoice_reimbursable_move_line_get(self):
         self.ensure_one()
+        amount = False
+        currency_id = False
+        amount_currency = False
+        if self.currency_id != self.company_id.currency_id:
+            amount = self.currency_id._convert(
+                self.amount, self.company_id.currency_id,
+                self.company_id, fields.Date.today())
+            currency_id = self.currency_id.id
+            amount_currency = self.amount
         return {
             'reimbursable_id': self.id,
             'type': 'reimbursable',
@@ -204,7 +226,9 @@ class AccountInvoiceReimbursable(models.Model):
             'name': self.name.split('\n')[0][:64],
             'price_unit': self.amount,
             'quantity': 1,
-            'price': self.amount,
+            'price': amount or self.amount,
+            'currency_id': currency_id or False,
+            'amount_currency': amount_currency or False,
             'account_id': self.account_id.id,
             'product_id': self.product_id.id,
             'uom_id': self.product_id.uom_id.id,

@@ -1,9 +1,18 @@
 from odoo.tests.common import TransactionCase
+from odoo import fields
 
 
 class TestReimbursable(TransactionCase):
     def setUp(self):
         super().setUp()
+        self.currency_eur = self.env.ref('base.EUR')
+        self.currency_usd = self.env.ref('base.USD')
+        self.main_company = self.env.ref('base.main_company')
+        self.env.cr.execute(
+            """UPDATE res_company SET currency_id = %s
+            WHERE id = %s""",
+            (self.main_company.id, self.currency_eur.id),
+        )
         self.journal = self.env['account.journal'].create({
             'name': 'Journal',
             'type': 'purchase',
@@ -86,12 +95,21 @@ class TestReimbursable(TransactionCase):
         self.assertEqual(refund.reimbursable_count, 1)
         self.assertEqual(refund.executable_total, 200)
 
+    def test_currency(self):
+        invoice = self.complete_check_invoice(60)
+        invoice.write({'currency_id': self.currency_usd.id})
+        # Invoice amount 100 usd reimburs 60 usd
+        invoice.action_invoice_open()
+        currency = invoice.currency_id._convert(
+            invoice.amount_total, self.currency_eur,
+            invoice.company_id, fields.Date.today())
+        self.assertEqual(invoice.amount_total_company_signed, currency)
+
     def complete_check_invoice(self, amount):
         invoice = self.env['account.invoice'].with_context(
             default_type='in_invoice', type='in_invoice',
             journal_type='purchase'
-        ).create(
-            self.create_invoice_vals())
+        ).create(self.create_invoice_vals())
         self.assertEqual(invoice.amount_total, 100)
         self.assertEqual(invoice.reimbursable_count, 0)
         self.assertEqual(invoice.executable_total, 100)

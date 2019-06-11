@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="invoice_supplier_form" model="ir.ui.view">
         <field name="name">account.invoice.supplier.form</field>
@@ -32,5 +31,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>
