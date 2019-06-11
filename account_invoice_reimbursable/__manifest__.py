@@ -3,7 +3,7 @@
 
 {
     'name': 'Reimbursables management',
-    'version': '11.0.1.0.1',
+    'version': '12.0.1.0.0',
     'summary': 'Create the option to add reimbursables on invoices',
     'author': "Creu Blanca, Odoo Community Association (OCA)",
     "category": "Accounting & Finance",
@@ -17,4 +17,5 @@
         'views/account_invoice_view.xml',
         'views/report_invoice.xml',
     ],
+    'installable': True,
 }
