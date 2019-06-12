@@ -17,6 +17,5 @@ class SaleAdvancePaymentInv(models.TransientModel):
     @api.multi
     def create_invoices(self):
         if self.copy_notes_to_invoice:
-            return super(SaleAdvancePaymentInv, self.with_context(
-                _copy_notes=True)).create_invoices()
+            self = self.with_context(_copy_notes=True)
         return super().create_invoices()

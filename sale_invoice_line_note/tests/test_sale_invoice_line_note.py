@@ -43,3 +43,16 @@ class TestSaleInvoiceLineNote(SavepointCase):
         )
         self.assertEqual(invoice_line_note.name, 'Test sale order line note')
         self.assertEqual(invoice_line_note.sequence, 12)
+
+    def test_sale_note_no_copy(self):
+        wizard = self.env['sale.advance.payment.inv'].with_context(
+            active_ids=self.sale_order.ids).create({
+            'advance_payment_method': 'all',
+        })
+        wizard.copy_notes_to_invoice = False
+        wizard.create_invoices()
+        invoice = self.sale_order.invoice_ids
+        invoice_line_note = invoice.invoice_line_ids.filtered(
+            lambda l: l.display_type == 'line_note'
+        )
+        self.assertFalse(invoice_line_note)
