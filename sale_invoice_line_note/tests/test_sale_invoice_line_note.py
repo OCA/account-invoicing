@@ -47,8 +47,8 @@ class TestSaleInvoiceLineNote(SavepointCase):
     def test_sale_note_no_copy(self):
         wizard = self.env['sale.advance.payment.inv'].with_context(
             active_ids=self.sale_order.ids).create({
-            'advance_payment_method': 'all',
-        })
+                'advance_payment_method': 'all',
+            })
         wizard.copy_notes_to_invoice = False
         wizard.create_invoices()
         invoice = self.sale_order.invoice_ids
