@@ -9,7 +9,8 @@ class TestCrmOpportunityCurrency(SingleTransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.contract1 = cls.env.ref("ebill_base.ebill_payment_contract_demo_1")
+        cls.contract1 = cls.env.ref(
+            "base_ebill_payment_contract.ebill_payment_contract_demo_1")
 
     def test_contract_validity(self):
         self.contract1.state = 'open'

@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Ebill Base',
+    'name': 'Base Ebill Payment Contract',
     'summary': """
         Base for ebilling addons""",
     'version': '12.0.1.0.0',
