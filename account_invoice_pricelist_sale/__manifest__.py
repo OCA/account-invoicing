@@ -10,7 +10,7 @@
     "version": "12.0.1.0.0",
     "depends": [
         "account_invoice_pricelist",
-        "sale_management",
+        "sale",
     ],
     "installable": True,
     "auto_install": True,
