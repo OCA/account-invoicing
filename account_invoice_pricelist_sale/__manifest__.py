@@ -8,10 +8,10 @@
     'license': 'AGPL-3',
     'website': 'http://therp.nl',
     'category': 'Sales',
-    'version': '10.0.1.0.0',
+    'version': '12.0.1.0.0',
     'depends': [
         'account_invoice_pricelist',
-        'sale',
+        'sale_management',
     ],
     'installable': True,
     'auto_install': True,
