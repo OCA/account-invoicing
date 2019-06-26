@@ -1,0 +1,12 @@
+<odoo>
+    <record id="invoice_form_inherit_account_billing" model="ir.ui.view">
+        <field name="name">account.invoice.form.inherit.view</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group/group[1]" position="inside">
+                <field name="billing_id" attrs="{'invisible': [('billing_id', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,74 @@
+<odoo>
+
+    <template id="report_billing_document">
+        <t t-call="web.external_layout">
+            <t t-set="address">
+                <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                <div t-if="o.partner_id.vat" class="mt16"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="o.partner_id.vat"/></div>
+            </t>
+            <div class="page">
+                <h2>
+                    <span t-if="o.state == 'billed'">Billing</span>
+                    <span t-if="o.state == 'draft'">Draft Billing</span>
+                    <span t-if="o.state == 'cancel'">Cancelled Billing</span>
+                    <span t-field="o.name"/>
+                </h2>
+
+                <div id="informations" class="row mt32 mb32">
+                    <div class="col-auto mw-100 mb-2" t-if="o.date" name="billing_date">
+                        <strong>Billing Date:</strong>
+                        <p class="m-0" t-field="o.date"/>
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.due_date" name="due_date">
+                        <strong>Due Date:</strong>
+                        <p class="m-0" t-field="o.due_date"/>
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.currency_id" name="currency_id">
+                        <strong>Currency:</strong>
+                        <p class="m-0" t-field="o.currency_id"/>
+                    </div>
+                </div>
+
+                <table class="table table-sm o_main_table" name="invoice_line_table">
+                    <thead>
+                        <tr>
+                            <t t-set="colspan" t-value="6"/>
+                            <th class="text-left"><span>Invoice Number</span></th>
+                            <th class="text-left"><span>Invoice Date</span></th>
+                            <th class="text-left"><span>Due Date</span></th>
+                            <th class="text-left"><span>Source Document</span></th>
+                            <th class="text-right"><span>Total</span></th>
+                            <th class="text-left"><span>Status</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="billing_tbody">
+                        <t t-foreach="o.invoice_ids" t-as="line">
+                            <tr name="account_billing_line">
+                                <td name="account_billing_line_number"><span t-field="line.number"/></td>
+                                <td t-attf-class="text-left"><span t-field="line.date_invoice"/></td>
+                                <td t-attf-class="text-left"><span t-field="line.date_due"/></td>
+                                <td t-attf-class="text-left"><span t-field="line.origin"/></td>
+                                <td class="text-right"><span t-field="line.amount_total"/></td>
+                                <td class="text-left"><span t-field="line.state"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <p t-if="o.narration" name="narration">
+                    <span>Notes :</span>
+                    <span t-field="o.narration"/>
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_billing">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="account_billing.report_billing_document"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>
