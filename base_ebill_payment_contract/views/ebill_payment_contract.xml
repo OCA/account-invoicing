@@ -38,10 +38,11 @@
     <field name="model">ebill.payment.contract</field>
     <field name="arch" type="xml">
       <tree>
+        <field name="transmit_method_id"/>
+        <field name="partner_id"/>
         <field name="state"/>
         <field name="date_start"/>
         <field name="date_end"/>
-        <field name="partner_id"/>
       </tree>
     </field>
   </record>

@@ -12,10 +12,10 @@ class EbillPaymentContract(models.Model):
 
     transmit_method_id = fields.Many2one(
         comodel_name="transmit.method",
-        string="Transmit method",
+        string="Service Name",
         ondelete="restrict",
     )
-    partner_id = fields.Many2one(comodel_name="res.partner", required=True)
+    partner_id = fields.Many2one(comodel_name="res.partner", required=True, string="Customer")
     name = fields.Char(related="partner_id.name")
     date_start = fields.Date(
         string="Start date",
