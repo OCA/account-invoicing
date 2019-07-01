@@ -2,7 +2,7 @@
 
 {
     'name': 'Account - Pricelist on Invoices',
-    'version': '12.0.1.0.0',
+    'version': '12.0.1.0.1',
     'summary': 'Add partner pricelist on invoices',
     'category': 'Accounting & Finance',
     'author': 'GRAP,'
