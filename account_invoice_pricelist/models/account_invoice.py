@@ -56,8 +56,10 @@ class AccountInvoiceLine(models.Model):
             fiscal_position=(
                 self.invoice_id.partner_id.property_account_position_id.id)
         )
-        self.price_unit = self.env['account.tax']._fix_tax_included_price(
-            product.price, product.taxes_id, self.invoice_line_tax_ids)
+        tax_obj = self.env['account.tax']
+        self.price_unit = tax_obj._fix_tax_included_price_company(
+            product.price, product.taxes_id, self.invoice_line_tax_ids,
+            self.company_id)
 
     @api.multi
     def update_from_pricelist(self):
