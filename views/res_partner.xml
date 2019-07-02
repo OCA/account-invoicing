@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <data>
+
+    <record model="ir.ui.view" id="partner_view_invoice_merge_params">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.partner_view_buttons"/>
+        <field name="arch" type="xml">
+          <xpath expr="//group[@name='banks']" position="after">
+            <group string="Payment preferences" name="payment_preferences">
+              <field name="invoice_merge_recurring_rule_type"/>
+              <field name="invoice_merge_recurring_interval"/>
+              <field name="invoice_merge_next_date"/>
+            </group>
+          </xpath>
+        </field>
+    </record>
+
+  </data>
+
+</odoo>
