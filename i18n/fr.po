@@ -1,0 +1,87 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_merge_auto
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-02 09:54+0000\n"
+"PO-Revision-Date: 2019-07-02 09:54+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_merge_auto
+#: selection:res.partner,invoice_merge_recurring_rule_type:0
+msgid "Day(s)"
+msgstr "Jour(s)"
+
+#. module: account_invoice_merge_auto
+#: model:ir.model.fields,field_description:account_invoice_merge_auto.field_res_partner_invoice_merge_next_date
+#: model:ir.model.fields,field_description:account_invoice_merge_auto.field_res_users_invoice_merge_next_date
+msgid "Invoice merge next date"
+msgstr "Date de la prochaine agrégation des factures"
+
+#. module: account_invoice_merge_auto
+#: model:ir.model.fields,field_description:account_invoice_merge_auto.field_res_partner_invoice_merge_recurring_rule_type
+#: model:ir.model.fields,field_description:account_invoice_merge_auto.field_res_users_invoice_merge_recurring_rule_type
+msgid "Merged invoice recurrence rule"
+msgstr "Unité de temps entre deux agrégations des factures"
+
+#. module: account_invoice_merge_auto
+#: model:ir.model.fields,field_description:account_invoice_merge_auto.field_res_partner_invoice_merge_recurring_interval
+#: model:ir.model.fields,field_description:account_invoice_merge_auto.field_res_users_invoice_merge_recurring_interval
+msgid "Merged invoicing recurrence number"
+msgstr "Nombre d'unités de temps entre deux agrégations des factures"
+
+#. module: account_invoice_merge_auto
+#: selection:res.partner,invoice_merge_recurring_rule_type:0
+msgid "Month(s)"
+msgstr "Mois"
+
+#. module: account_invoice_merge_auto
+#: selection:res.partner,invoice_merge_recurring_rule_type:0
+msgid "Month(s) last day"
+msgstr "Mois - dernier jour du mois"
+
+#. module: account_invoice_merge_auto
+#: model:ir.model.fields,help:account_invoice_merge_auto.field_res_partner_invoice_merge_next_date
+#: model:ir.model.fields,help:account_invoice_merge_auto.field_res_users_invoice_merge_next_date
+msgid "Next merged invoicing date"
+msgstr "Date de la prochaine agragation des factures"
+
+#. module: account_invoice_merge_auto
+#: model:ir.model,name:account_invoice_merge_auto.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: account_invoice_merge_auto
+#: model:ir.ui.view,arch_db:account_invoice_merge_auto.partner_view_invoice_merge_params
+msgid "Payment preferences"
+msgstr "Préférences de paiement"
+
+#. module: account_invoice_merge_auto
+#: model:ir.model.fields,help:account_invoice_merge_auto.field_res_partner_invoice_merge_recurring_interval
+#: model:ir.model.fields,help:account_invoice_merge_auto.field_res_users_invoice_merge_recurring_interval
+msgid "Repeat merged invoicing every (Days/Week/Month/Year)"
+msgstr "Nombre d'intervalles de temps entre deux agrégations des factures (Jours/Semaines/Mois/Années)"
+
+#. module: account_invoice_merge_auto
+#: model:ir.model.fields,help:account_invoice_merge_auto.field_res_partner_invoice_merge_recurring_rule_type
+#: model:ir.model.fields,help:account_invoice_merge_auto.field_res_users_invoice_merge_recurring_rule_type
+msgid "Specify Interval for automatic invoice merge."
+msgstr "Intervalle de temps pour la agrégation des factures."
+
+#. module: account_invoice_merge_auto
+#: selection:res.partner,invoice_merge_recurring_rule_type:0
+msgid "Week(s)"
+msgstr "Semaine(s)"
+
+#. module: account_invoice_merge_auto
+#: selection:res.partner,invoice_merge_recurring_rule_type:0
+msgid "Year(s)"
+msgstr "Année(s)"
