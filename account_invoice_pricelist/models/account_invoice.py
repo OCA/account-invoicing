@@ -25,6 +25,7 @@ class AccountInvoice(models.Model):
     def button_update_prices_from_pricelist(self):
         for inv in self.filtered(lambda r: r.state == 'draft'):
             inv.invoice_line_ids.filtered('product_id').update_from_pricelist()
+        self.filtered(lambda r: r.state == 'draft').compute_taxes()
 
     @api.model
     def _prepare_refund(self, invoice, date_invoice=None, date=None,
