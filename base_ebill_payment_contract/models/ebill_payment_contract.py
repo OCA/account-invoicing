@@ -15,12 +15,16 @@ class EbillPaymentContract(models.Model):
         string="Service Name",
         ondelete="restrict",
     )
-    partner_id = fields.Many2one(comodel_name="res.partner", required=True, string="Customer")
+    partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        required=True,
+        string="Customer"
+    )
     name = fields.Char(related="partner_id.name")
     date_start = fields.Date(
         string="Start date",
         required=True,
-        default=lambda self: fields.Date.today(),
+        default=fields.Date.today,
     )
     date_end = fields.Date(string="End date")
     state = fields.Selection(
@@ -28,7 +32,7 @@ class EbillPaymentContract(models.Model):
         required=True,
         default='draft',
     )
-    is_valid = fields.Boolean(compute="_compute_is_valid")
+    is_valid = fields.Boolean(compute="_compute_is_valid", store=True)
 
     @api.onchange('state')
     def _compute_state_changed(self):

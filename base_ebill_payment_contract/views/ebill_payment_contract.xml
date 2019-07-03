@@ -9,8 +9,6 @@
     <field name="model">ebill.payment.contract</field>
     <field name="arch" type="xml">
       <form>
-        <header>
-        </header>
         <sheet>
           <group>
             <field name="transmit_method_id"/>
@@ -29,6 +27,9 @@
     <field name="model">ebill.payment.contract</field>
     <field name="arch" type="xml">
       <search>
+        <field name="transmit_method_id"/>
+        <field name="partner_id"/>
+        <filter name="active" string="Active" domain="[('is_valid', '=', True)]"/>
       </search>
     </field>
   </record>
@@ -43,6 +44,7 @@
         <field name="state"/>
         <field name="date_start"/>
         <field name="date_end"/>
+        <field name="is_valid" invisible="1"/>
       </tree>
     </field>
   </record>
