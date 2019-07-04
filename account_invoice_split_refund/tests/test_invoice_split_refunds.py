@@ -72,7 +72,7 @@ class TestInvoiceSplitRefunds(TestSale):
             'price_unit': service_product.list_price
         })
         self.assertEqual(sale_order_line_2.qty_invoiced, 0)
-        self.assertEqual(sale_order_line_2.qty_to_invoice, 5)
+        self.assertEqual(sale_order_line_2.qty_to_invoice, 6)
         create_invoice_wiz = self.env['sale.advance.payment.inv'].with_context(
             active_ids=self.sale_order.ids, active_id=self.sale_order.id
         ).create({})
