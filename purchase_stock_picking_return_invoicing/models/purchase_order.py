@@ -15,6 +15,18 @@ class PurchaseOrder(models.Model):
         string='# of Invoice Refunds',
     )
 
+    def _check_invoice_status_to_invoice(self):
+        precision = self.env['decimal.precision'].precision_get(
+            'Product Unit of Measure'
+        )
+        return any(
+            float_compare(
+                line.qty_invoiced, line.product_qty
+                if line.product_id.purchase_method == 'purchase'
+                else line.qty_received, precision_digits=precision,
+            ) for line in self.order_line
+        )
+
     def _get_invoiced(self):
         """Modify invoice_status for taking into account returned/refunded
         qty, as the comparison qty_received vs qty_invoiced can be negative.
@@ -22,17 +34,8 @@ class PurchaseOrder(models.Model):
         "to invoice", as the rest of the states are already handled by super.
         """
         super(PurchaseOrder, self)._get_invoiced()
-        precision = self.env['decimal.precision'].precision_get(
-            'Product Unit of Measure'
-        )
         for order in self.filtered(lambda x: x.state in ('purchase', 'done')):
-            if any(
-                float_compare(
-                    line.qty_invoiced, line.product_qty
-                    if line.product_id.purchase_method == 'purchase'
-                    else line.qty_received, precision_digits=precision,
-                ) for line in order.order_line
-            ):
+            if order._check_invoice_status_to_invoice():
                 order.invoice_status = 'to invoice'
 
     @api.depends('order_line.invoice_lines.invoice_id.state')
