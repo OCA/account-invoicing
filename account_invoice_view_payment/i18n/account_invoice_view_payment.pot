@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -28,18 +28,18 @@ msgstr ""
 
 #. module: account_invoice_view_payment
 #: model:ir.model,name:account_invoice_view_payment.model_account_register_payments
-msgid "Register payments on multiple invoices"
+msgid "Register Payments"
 msgstr ""
 
 #. module: account_invoice_view_payment
-#: model:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_from_invoices
-#: model:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_from_invoices
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_invoice_form
 msgid "Validate & View Payment"
 msgstr ""
 
 #. module: account_invoice_view_payment
-#: model:ir.ui.view,arch_db:account_invoice_view_payment.invoice_form
-#: model:ir.ui.view,arch_db:account_invoice_view_payment.invoice_supplier_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.invoice_supplier_form
 msgid "View Payments"
 msgstr ""
 
