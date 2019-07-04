@@ -22,6 +22,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_tax_required',
         'odoo12-addon-account_invoice_transmit_method',
         'odoo12-addon-account_invoice_triple_discount',
+        'odoo12-addon-account_invoice_view_payment',
         'odoo12-addon-account_payment_term_extension',
         'odoo12-addon-sale_invoice_line_note',
         'odoo12-addon-sale_timesheet_invoice_description',
