@@ -1,7 +1,5 @@
 # Copyright 2019 Camptocamp SA
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
-from datetime import datetime
-
 from odoo.addons.sale.tests.test_sale_common import TestSale
 
 
@@ -35,13 +33,12 @@ class TestInvoiceSplitRefunds(TestSale):
             'price_unit': self.delivery_product.list_price
         })
         self.sale_order.action_confirm()
-        # import pdb; pdb.set_trace()
+
         delivery_picking = self.sale_order.picking_ids
         delivery_picking.force_assign()
         delivery_picking.pack_operation_product_ids.write({'qty_done': 5})
         delivery_picking.do_new_transfer()
-        # wiz = self.env[wiz_act['res_model']].browse(wiz_act['res_id'])
-        # wiz.process()
+
         invoice_id = self.sale_order.action_invoice_create()
         self.invoice = self.env['account.invoice'].browse(invoice_id)
         self.invoice.action_invoice_open()
@@ -70,7 +67,7 @@ class TestInvoiceSplitRefunds(TestSale):
             'order_id': self.sale_order.id,
             'name': service_product.name,
             'product_id': service_product.id,
-            'product_uom_qty': 5,
+            'product_uom_qty': 6,
             'product_uom': service_product.uom_id.id,
             'price_unit': service_product.list_price
         })
@@ -98,5 +95,4 @@ class TestInvoiceSplitRefunds(TestSale):
             new_invoice.invoice_line_ids.product_id, service_product
         )
 
-        self.assertEqual(new_refund.invoice_line_ids.quantity, 5)
-
+        self.assertEqual(new_invoice.invoice_line_ids.quantity, 6)
