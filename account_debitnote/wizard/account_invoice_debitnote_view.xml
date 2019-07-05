@@ -1,0 +1,55 @@
+<!-- Copyright 2019 Ecosoft Co., Ltd (http://ecosoft.co.th/)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html) -->
+
+<odoo>
+
+    <record id="view_account_invoice_debitnote" model="ir.ui.view">
+        <field name="name">account.invoice.debitnote.form</field>
+        <field name="model">account.invoice.debitnote</field>
+        <field name="arch" type="xml">
+            <form string="Debit Note">
+                <group>
+                    <group>
+                        <field name="filter_debit" widget="radio"/>
+                    </group>
+                    <group>
+                        <div class="oe_grey" colspan="4">
+                            You will be able to edit and validate this
+                            debit note directly or keep it draft,
+                            waiting for the document to be issued by
+                            your supplier/customer.
+                        </div>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <group>
+                        <field name="date_invoice"/>
+                        <field name="date"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Add Debit Note"
+                            name="invoice_debitnote"
+                            type="object"
+                            class="btn-primary"
+                            />
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"
+                            />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_invoice_debitnote" model="ir.actions.act_window">
+        <field name="name">Debit Note</field>
+        <field name="res_model">account.invoice.debitnote</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_invoice_debitnote"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

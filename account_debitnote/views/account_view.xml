@@ -1,0 +1,38 @@
+<!-- Copyright 2019 Ecosoft Co., Ltd (http://ecosoft.co.th/)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html) -->
+
+<odoo>
+
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="name">account.journal.form</field>
+        <field name="model">account.journal</field>
+        <field name="priority">1</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook//page[@name='journal_entries']/group//group[1]//div[2]" position="after">
+                <field name="debitnote_sequence"
+                       attrs="{'invisible': [('type', 'not in',
+                               ['sale', 'purchase'])]}"
+                       />
+                <label for="debitnote_sequence_number_next"
+                       attrs="{'invisible': ['|',('type', 'not in',
+                               ['sale', 'purchase']),
+                               ('debitnote_sequence', '!=', True)]}"
+                       />
+                <div attrs="{'invisible': ['|',('type', 'not in',
+                             ['sale', 'purchase']),
+                             ('debitnote_sequence', '!=', True)]}"
+                     >
+                    <field name="debitnote_sequence_number_next"
+                           style="padding-right: 1.0em"/>
+                    <field name="debitnote_sequence_id"
+                           required="0"
+                           attrs="{'readonly': 1}"
+                           groups="base.group_no_one"
+                           />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
