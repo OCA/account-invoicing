@@ -1,0 +1,24 @@
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <button name="%(account.action_account_invoice_refund)d" position="after">
+                <button name="%(action_account_invoice_debitnote)d" type="action" string="Add Debit Note" attrs="{'invisible': ['|',('type', '=', 'out_refund'), ('state', 'not in', ('open','in_payment','paid'))]}"/>
+            </button>
+        </field>
+    </record>
+
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">invoice.supplier.ext</field>
+        <field name="model">account.invoice</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <button name="%(account.action_account_invoice_refund)d" position="after">
+                <button name="%(action_account_invoice_debitnote)d" type='action' string='Debit Note' states='open,paid' groups="base.group_user" />
+            </button>
+        </field>
+    </record>
+</odoo>
