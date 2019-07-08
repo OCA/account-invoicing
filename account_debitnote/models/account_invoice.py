@@ -5,17 +5,16 @@ from odoo.exceptions import ValidationError
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
+    is_debitnote = fields.Boolean(
+        compute="_compute_is_debitnote",
+        string='Debit Note',
+        store=True,
+    )
     debit_invoice_id = fields.Many2one(
         comodel_name='account.invoice',
         string='invoice(debit)',
         readonly=True,
         states={'draft': [('readonly', False)]},
-    )
-    refund_invoice_ids = fields.One2many(
-        comodel_name='account.invoice',
-        inverse_name='debit_invoice_id',
-        string='Refund Invoices',
-        readonly=True,
     )
 
     @api.model
@@ -45,7 +44,7 @@ class AccountInvoice(models.Model):
             result.append((0, 0, values))
         return result
 
-    @api.multi
+    @api.model
     def _prepare_debitnote(self, invoice, date_invoice=None,
                            date=None, description=None, journal_id=None):
         """
@@ -108,6 +107,16 @@ class AccountInvoice(models.Model):
         if description:
             values['name'] = description
         return values
+
+        @api.multi
+        @api.depends('journal_id', 'journal_id.type')
+        def _compute_is_debitnote(self):
+            for invoice in self:
+                if invoice.journal_id and invoice.journal_id.type in (
+                        'sale_debitnote', 'purchase_debitnote'):
+                    invoice.is_debitnote = True
+                else:
+                    invoice.is_debitnote = False
 
     @api.multi
     @api.returns('self')
