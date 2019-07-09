@@ -63,34 +63,29 @@ class PurchaseOrder(models.Model):
         bills of given purchase order id.
         When only one found, show the vendor bill immediately.
         """
-        action = self.env.ref('account.action_invoice_tree2')
+        action = self.env.ref('account.action_vendor_bill_template')
         result = action.read()[0]
+        create_refund = self.env.context.get('create_refund', False)
         refunds = self.invoice_ids.filtered(lambda x: x.type == 'in_refund')
         # override the context to get rid of the default filtering
-        result['context'] = {'type': 'in_refund',
-                             'default_purchase_id': self.id}
-        if not refunds:
-            # Choose a default account journal in the
-            # same currency in case a new invoice is created
-            journal_domain = [
-                ('type', '=', 'purchase'),
-                ('company_id', '=', self.company_id.id),
-                ('currency_id', '=', self.currency_id.id),
-            ]
-            default_journal_id = self.env['account.journal'].search(
-                journal_domain, limit=1)
-            if default_journal_id:
-                result['context']['default_journal_id'] = default_journal_id.id
-        else:
-            # Use the same account journal than a previous invoice
-            result['context']['default_journal_id'] = refunds[0].journal_id.id
+        result['context'] = {
+            'type': 'in_refund',
+            'default_purchase_id': self.id,
+            'default_currency_id': self.currency_id.id,
+            'default_company_id': self.company_id.id,
+            'company_id': self.company_id.id
+        }
         # choose the view_mode accordingly
-        if len(refunds) > 1:
-            result['domain'] = [('id', 'in', refunds.ids)]
-        elif len(refunds) == 1:
+        if len(refunds) > 1 and not create_refund:
+            result['domain'] = "[('id', 'in', " + str(refunds.ids) + ")]"
+        else:
             res = self.env.ref('account.invoice_supplier_form', False)
             result['views'] = [(res and res.id or False, 'form')]
-            result['res_id'] = refunds.id
+            # Do not set an invoice_id if we want to create a new refund.
+            if not create_refund:
+                result['res_id'] = refunds.id or False
+        result['context']['default_origin'] = self.name
+        result['context']['default_reference'] = self.partner_ref
         return result
 
     @api.multi
@@ -142,7 +137,7 @@ class PurchaseOrderLine(models.Model):
     )
     def _compute_qty_returned(self):
         """Made through read_group for not impacting in performance."""
-        ProductUom = self.env['product.uom']
+        ProductUom = self.env['uom.uom']
         groups = self.env['stock.move'].read_group(
             [('purchase_line_id', 'in', self.ids),
              ('state', '=', 'done'),

@@ -13,7 +13,7 @@ received the bill from the supplier
 #. On the return picking press *Validate > Apply*.
 #. Go back to the purchase order. You will notice that the field *Returned
    Qty* is now the quantity that was returned.
-#. Press the button *Vendor Bills* to create the vendor bill.
+#. Press the button *Create Bill* to create the vendor bill.
 #. The proposed vendor bill will be proposed for the difference between the
    received and the returned quantity.
 
@@ -25,7 +25,7 @@ received a bill from the supplier.
    *On received quantities*, and input some quantity to purchase.
 #. Confirm the purchase order.
 #. Go to *Shipment > Validate > Apply* so as to receive the quantities ordered.
-#. Go back to the purchase order. Press the button *Vendor Bills* to create
+#. Go back to the purchase order. Press the button *Create Bill* to create
    the vendor bill.
 #. The proposed vendor bill will be proposed for the quantity received. The
    *Billing Status* is now 'No Bill to Receive'
@@ -36,7 +36,7 @@ received a bill from the supplier.
    mark "To refund (Update SO/PO)" check before pressing the button.
 #. On the return picking press *Validate > Apply*.
 #. Go back to the purchase order. It will have  *Billing Status* as 'Waiting
-   Invoices'. You will notice that the field *Returned Qty* is now the quantity
+   Bills'. You will notice that the field *Returned Qty* is now the quantity
    that was returned.
 #. Press the button *Refunds* to create the vendor refund bill.
 #. The proposed vendor refund bill will be proposed for the quantity that is
