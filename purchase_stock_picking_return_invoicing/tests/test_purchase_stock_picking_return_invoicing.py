@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017 Eficent Business and IT Consulting Services
+# Copyright 2019 Eficent Business and IT Consulting Services
 # Copyright 2017-2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -43,8 +42,8 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         cls.product = cls.env["product.product"].create({
             "name": "test product",
             "categ_id": cls.product_categ.id,
-            "uom_id": cls.env.ref('product.product_uom_unit').id,
-            "uom_po_id": cls.env.ref('product.product_uom_unit').id,
+            "uom_id": cls.env.ref('uom.product_uom_unit').id,
+            "uom_po_id": cls.env.ref('uom.product_uom_unit').id,
             "default_code": "tpr1",
         })
         cls.product.property_account_expense_id = cls.account
