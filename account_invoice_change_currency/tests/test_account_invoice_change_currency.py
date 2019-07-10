@@ -92,6 +92,6 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
                 {'currency_id': after_curr.id})
         wiz.button_change_currency()
 
-        self.assertEqual(
+        self.assertAlmostEqual(
             inv.amount_total, expected_value,
-            'Total amount of invoice does not equal to expected value!!!')
+            msg='Total amount of invoice does not equal to expected value!!!')
