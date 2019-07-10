@@ -22,6 +22,7 @@ setuptools.setup(
         'odoo8-addon-account_invoice_pricelist',
         'odoo8-addon-account_invoice_pricelist_sale',
         'odoo8-addon-account_invoice_pricelist_sale_stock',
+        'odoo8-addon-account_invoice_pricelist_stock_account',
         'odoo8-addon-account_invoice_rounding',
         'odoo8-addon-account_invoice_rounding_by_currency',
         'odoo8-addon-account_invoice_shipping_address',
