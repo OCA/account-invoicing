@@ -39,6 +39,7 @@ setuptools.setup(
         'odoo10-addon-product_supplierinfo_for_customer_invoice',
         'odoo10-addon-purchase_stock_picking_return_invoicing',
         'odoo10-addon-sale_timesheet_invoice_description',
+        'odoo10-addon-stock_picking_invoicing',
     ],
     classifiers=[
         'Programming Language :: Python',
