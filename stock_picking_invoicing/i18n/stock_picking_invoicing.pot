@@ -1,24 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * stock_picking_invoicing
+#	* stock_picking_invoicing
 #
-# Translators:
-# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: account-invoicing (8.0)\n"
+"Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-25 16:48+0000\n"
-"PO-Revision-Date: 2015-08-16 11:38+0000\n"
-"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
-"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-account-"
-"invoicing-8-0/language/sl/)\n"
-"Language: sl\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3);\n"
+"Plural-Forms: \n"
 
 #. module: stock_picking_invoicing
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:478
@@ -30,7 +23,7 @@ msgstr ""
 #: code:addons/stock_picking_invoicing/stock.py:44
 #, python-format
 msgid "Can't update invoice control for picking %s: It's 'to be invoiced' yet"
-msgstr "Nadzora obračuna za zbirnik %s ni mogoče posodobiti: ni še zaračunan"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
@@ -44,9 +37,8 @@ msgstr ""
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.onshipping,journal_type:0
-#, fuzzy
 msgid "Create Customer Invoice"
-msgstr "Nastavljeno za obračun"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.actions.act_window,name:stock_picking_invoicing.action_stock_invoice_onshipping
@@ -55,9 +47,8 @@ msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_inherit_form2
-#, fuzzy
 msgid "Create Invoice"
-msgstr "Nastavljeno za obračun"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.onshipping,journal_type:0
@@ -66,9 +57,8 @@ msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
-#, fuzzy
 msgid "Create invoice"
-msgstr "Nastavljeno za obračun"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping_create_uid
@@ -93,12 +83,10 @@ msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_invoice_onshipping_group
-msgid ""
-"Group pickings/moves to create invoice(s):\n"
+msgid "Group pickings/moves to create invoice(s):\n"
 "Picking: One invoice per picking;\n"
 "Partner: One invoice for each picking's partner;\n"
-"Partner/Product: One invoice per picking's partner and group product into a "
-"single invoice line."
+"Partner/Product: One invoice per picking's partner and group product into a single invoice line."
 msgstr ""
 
 #. module: stock_picking_invoicing
@@ -146,8 +134,7 @@ msgstr ""
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_invoice_state_mixin_invoice_state
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_move_invoice_state
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_picking_invoice_state
-msgid ""
-"Invoiced: an invoice already exists\n"
+msgid "Invoiced: an invoice already exists\n"
 "To Be Invoiced: need to be invoiced\n"
 "Not Applicable: no invoice to create"
 msgstr ""
@@ -205,21 +192,19 @@ msgstr ""
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.onshipping,group:0
-#, fuzzy
 msgid "Picking"
-msgstr "Zbirni seznam"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: code:addons/stock_picking_invoicing/stock.py:48
 #, python-format
 msgid "Picking %s has linked invoice %s"
-msgstr "Zbirnik %s je povezan z računom %s"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_account_invoice_picking_ids
-#, fuzzy
 msgid "Picking ids"
-msgstr "Zbirni seznam"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping_purchase_journal
@@ -254,13 +239,12 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: model:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_inherit_form2
 msgid "Set to be invoiced"
-msgstr "Nastavljeno za obračun"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_invoicing_inherit_tree
-#, fuzzy
 msgid "Shipments to Invoice"
-msgstr "Nastavljeno za obračun"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping_show_purchase_refund_journal
@@ -290,21 +274,19 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_move
 msgid "Stock Move"
-msgstr "Premik zaloge"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_account_invoice_line_stock_move_ids
-#, fuzzy
 msgid "Stock moves"
-msgstr "Premik zaloge"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
 #: selection:stock.move,invoice_state:0
 #: selection:stock.picking,invoice_state:0
-#, fuzzy
 msgid "To Be Invoiced"
-msgstr "Nastavljeno za obračun"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_picking
@@ -325,3 +307,4 @@ msgstr ""
 #: model:ir.model,name:stock_picking_invoicing.model_stock_invoice_state_mixin
 msgid "stock.invoice.state.mixin"
 msgstr ""
+
