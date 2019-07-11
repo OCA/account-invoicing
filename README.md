@@ -50,6 +50,7 @@ addon | version | summary
 [product_supplierinfo_for_customer_invoice](product_supplierinfo_for_customer_invoice/) | 10.0.1.0.0 | Based on product_customer_code, this module loads in every account invoice the customer code defined in the product,
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 10.0.1.0.1 | Add an option to refund returned pickings
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 10.0.1.0.0 | Add timesheet details in invoice line
+[stock_picking_invoicing](stock_picking_invoicing/) | 10.0.1.0.0 | Stock Picking Invoicing
 
 
 Unported addons
@@ -65,7 +66,6 @@ addon | version | summary
 [account_invoice_zero_autopay](account_invoice_zero_autopay/) | 8.0.1.0.0 (unported) | Account Invoice Zero Autopay
 [sale_order_partial_invoice](sale_order_partial_invoice/) | 1.1 (unported) | Sale Partial Invoice
 [stock_invoice_picking_incoterm](stock_invoice_picking_incoterm/) | 0.1 (unported) | Stock Invoice Picking Incoterm
-[stock_picking_invoicing](stock_picking_invoicing/) | 8.0.1.0.0 (unported) | Stock Picking Invoicing
 
 [//]: # (end addons)
 

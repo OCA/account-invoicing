@@ -44,6 +44,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
             {'name': 'Product 2'})
         self.analytic_account = self.env['account.analytic.account'].\
             create({'name': 'test account'})
+        self.precision = 2
 
     def create_simple_invoice(self, date):
         invoice_lines = [
@@ -92,6 +93,6 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
                 {'currency_id': after_curr.id})
         wiz.button_change_currency()
 
-        self.assertAlmostEqual(
-            inv.amount_total, expected_value,
+        self.assertAlmostEquals(
+            inv.amount_total, expected_value, places=self.precision,
             msg='Total amount of invoice does not equal to expected value!!!')
