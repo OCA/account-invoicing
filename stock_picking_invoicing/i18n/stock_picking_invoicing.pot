@@ -20,12 +20,6 @@ msgid "All pickings are not related to your company!"
 msgstr ""
 
 #. module: stock_picking_invoicing
-#: code:addons/stock_picking_invoicing/stock.py:44
-#, python-format
-msgid "Can't update invoice control for picking %s: It's 'to be invoiced' yet"
-msgstr ""
-
-#. module: stock_picking_invoicing
 #: model:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "Cancel"
 msgstr ""
@@ -193,12 +187,6 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.onshipping,group:0
 msgid "Picking"
-msgstr ""
-
-#. module: stock_picking_invoicing
-#: code:addons/stock_picking_invoicing/stock.py:48
-#, python-format
-msgid "Picking %s has linked invoice %s"
 msgstr ""
 
 #. module: stock_picking_invoicing
