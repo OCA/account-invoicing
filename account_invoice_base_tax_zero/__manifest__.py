@@ -9,5 +9,8 @@
     'category': 'Accounting',
     'author': 'Openforce,Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/account-invoicing/',
-    'depends': ['account'],
+    'depends': [
+        'account',
+        'account_tax_balance'
+        ],
 }
