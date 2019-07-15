@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
 from odoo import api, fields, models
 
 
@@ -9,6 +9,7 @@ class StockInvoiceStateMixin(models.AbstractModel):
     Abstract model used to define invoice state with selection choices
     """
     _name = "stock.invoice.state.mixin"
+    _description = "Stock Invoice State Mixin"
 
     invoice_state = fields.Selection(
         selection=[
