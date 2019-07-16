@@ -8,7 +8,7 @@
             <field name="date_expected" position="after">
                 <field name="invoice_state" groups="account.group_account_invoice"/>
             </field>
-            <group name="moved_quants_grp" position="after">
+            <group name="quants_grp" position="after">
                 <group name="invoice_lines" string="Invoicing" colspan="4" groups="base.group_no_one" attrs="{'invisible': [('invoice_state', 'in', [False, 'none'])]}">
                     <field name="invoice_line_ids" readonly="1" nolabel="1"/>
                 </group>
@@ -21,11 +21,11 @@
         <field name="model">stock.move</field>
         <field name="inherit_id" ref="stock.view_move_form"/>
         <field name="arch" type="xml">
-            <field name="picking_type_id" position="after">
+            <field name="date" position="after">
                 <field name="invoice_state" groups="account.group_account_invoice"/>
                 <field name="invoice_line_ids" invisible="1" groups="account.group_account_invoice"/>
             </field>
-            <group name="moved_quants_grp" position="after">
+            <group name="linked_group" position="after">
                 <group name="invoice_lines" string="Invoicing" colspan="4" groups="base.group_no_one" attrs="{'invisible': [('invoice_state', 'in', [False, 'none'])]}">
                     <field name="invoice_line_ids" readonly="1" nolabel="1"/>
                 </group>
