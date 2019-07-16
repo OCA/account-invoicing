@@ -1,0 +1,35 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* purchase_invoicing_no_zero_line
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: purchase_invoicing_no_zero_line
+#: model:ir.model.fields,field_description:purchase_invoicing_no_zero_line.field_account_journal_avoid_zero_lines
+msgid "Avoid zero lines?"
+msgstr ""
+
+#. module: purchase_invoicing_no_zero_line
+#: model:ir.model.fields,help:purchase_invoicing_no_zero_line.field_account_journal_avoid_zero_lines
+msgid "If this option is checked, the purchase invoices in this journal will have no lines with zero quantity"
+msgstr ""
+
+#. module: purchase_invoicing_no_zero_line
+#: model:ir.model,name:purchase_invoicing_no_zero_line.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: purchase_invoicing_no_zero_line
+#: model:ir.model,name:purchase_invoicing_no_zero_line.model_account_journal
+msgid "Journal"
+msgstr ""
