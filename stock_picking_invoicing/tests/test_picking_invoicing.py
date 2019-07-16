@@ -52,9 +52,12 @@ class TestPickingInvoicing(TransactionCase):
         new_move.onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
+        # Check product availability
         picking.action_assign()
-        picking.do_prepare_partial()
-        picking.do_transfer()
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking.button_validate()
         self.assertEqual(picking.state, 'done')
         wizard_obj = self.invoice_wizard.with_context(
             active_ids=picking.ids,
@@ -96,9 +99,12 @@ class TestPickingInvoicing(TransactionCase):
         new_move = self.move_model.create(move_vals)
         new_move.onchange_product_id()
         picking.action_confirm()
+        # Check product availability
         picking.action_assign()
-        picking.do_prepare_partial()
-        picking.do_transfer()
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking.button_validate()
         self.assertEqual(picking.state, 'done')
         wizard_obj = self.invoice_wizard.with_context(
             active_ids=picking.ids,
@@ -138,9 +144,12 @@ class TestPickingInvoicing(TransactionCase):
         new_move.onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
+        # Check product availability
         picking.action_assign()
-        picking.do_prepare_partial()
-        picking.do_transfer()
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking.button_validate()
         self.assertEqual(picking.state, 'done')
         wizard_obj = self.invoice_wizard.with_context(
             active_ids=picking.ids,
@@ -191,9 +200,12 @@ class TestPickingInvoicing(TransactionCase):
         new_move.onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
+        # Check product availability
         picking.action_assign()
-        picking.do_prepare_partial()
-        picking.do_transfer()
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking.button_validate()
         self.assertEqual(picking.state, 'done')
         wizard_obj = self.invoice_wizard.with_context(
             active_ids=picking.ids,
@@ -245,9 +257,12 @@ class TestPickingInvoicing(TransactionCase):
         new_move.onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
+        # Check product availability
         picking.action_assign()
-        picking.do_prepare_partial()
-        picking.do_transfer()
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking.button_validate()
         self.assertEqual(picking.state, 'done')
         wizard_obj = self.invoice_wizard.with_context(
             active_ids=picking.ids,
@@ -316,9 +331,12 @@ class TestPickingInvoicing(TransactionCase):
         new_move2.onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
+        # Check product availability
         picking.action_assign()
-        picking.do_prepare_partial()
-        picking.do_transfer()
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking.button_validate()
         self.assertEqual(picking.state, 'done')
         wizard_obj = self.invoice_wizard.with_context(
             active_ids=picking.ids,
@@ -388,14 +406,20 @@ class TestPickingInvoicing(TransactionCase):
         new_move2.onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
+        # Check product availability
         picking.action_assign()
-        picking.do_prepare_partial()
-        picking.do_transfer()
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking.button_validate()
         picking2.set_to_be_invoiced()
         picking2.action_confirm()
+        # Check product availability
         picking2.action_assign()
-        picking2.do_prepare_partial()
-        picking2.do_transfer()
+        # Force product availability
+        for move in picking2.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking2.button_validate()
         self.assertEqual(picking.state, 'done')
         self.assertEqual(picking2.state, 'done')
         pickings = picking | picking2
@@ -478,14 +502,20 @@ class TestPickingInvoicing(TransactionCase):
         new_move2.onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
+        # Check product availability
         picking.action_assign()
-        picking.do_prepare_partial()
-        picking.do_transfer()
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking.button_validate()
         picking2.set_to_be_invoiced()
         picking2.action_confirm()
+        # Check product availability
         picking2.action_assign()
-        picking2.do_prepare_partial()
-        picking2.do_transfer()
+        # Force product availability
+        for move in picking2.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking2.button_validate()
         self.assertEqual(picking.state, 'done')
         self.assertEqual(picking2.state, 'done')
         pickings = picking | picking2
