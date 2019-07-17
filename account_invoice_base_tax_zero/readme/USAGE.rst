@@ -1,1 +1,1 @@
-For existing invoice, it needed to re-validate them.
+For existing invoice, it is necessary to re-validate them.
