@@ -6,25 +6,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2019-07-17 12:43+0000\n"
+"Last-Translator: Maria Sparenberg <maria.sparenberg@gmx.net>\n"
 "Language-Team: none\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.7.1\n"
 
 #. module: account_invoice_change_currency
 #: model:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_form_inherit
 #: model:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_supplier_form_inherit
 msgid "<i title=\"Update Currency: Will convert the amount lines to the new currency set\" class=\"fa fa-fw fa-refresh\"/>"
 msgstr ""
+"<i title=\"Währung aktualisieren: Die Beträge Rechnungszeilen werden anhand "
+"der neuen Währung neu berechnet.\" class=\"fa fa-fw fa-refresh\"/>"
 
 #. module: account_invoice_change_currency
 #: model:mail.message.subtype,description:account_invoice_change_currency.mt_currency_update
 #: model:mail.message.subtype,name:account_invoice_change_currency.mt_currency_update
 msgid "Currency Updated"
-msgstr ""
+msgstr "Währung aktualisiert"
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_invoice_custom_rate
@@ -42,7 +46,7 @@ msgstr ""
 #. module: account_invoice_change_currency
 #: model:ir.model,name:account_invoice_change_currency.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Rechnung"
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,help:account_invoice_change_currency.field_account_invoice_custom_rate
