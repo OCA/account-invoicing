@@ -6,41 +6,45 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2019-07-17 12:43+0000\n"
+"Last-Translator: Maria Sparenberg <maria.sparenberg@gmx.net>\n"
 "Language-Team: none\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.7.1\n"
 
 #. module: account_invoice_fixed_discount
 #: model:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
 msgid "Disc. Fixed Amount"
-msgstr ""
+msgstr "Rabatt (abs.)"
 
 #. module: account_invoice_fixed_discount
 #: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_invoice_line_discount_fixed
 msgid "Discount (Fixed)"
-msgstr ""
+msgstr "Rabatt (abs.)"
 
 #. module: account_invoice_fixed_discount
 #: model:ir.model.fields,help:account_invoice_fixed_discount.field_account_invoice_line_discount_fixed
 msgid "Fixed amount discount."
-msgstr ""
+msgstr "Hier kann ein absoluter Rabatt hinzugefügt werden."
 
 #. module: account_invoice_fixed_discount
 #: model:ir.model,name:account_invoice_fixed_discount.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Rechnung"
 
 #. module: account_invoice_fixed_discount
 #: model:ir.model,name:account_invoice_fixed_discount.model_account_invoice_line
 msgid "Invoice Line"
-msgstr ""
+msgstr "Rechnungsposition"
 
 #. module: account_invoice_fixed_discount
 #: code:addons/account_invoice_fixed_discount/models/account_invoice.py:56
 #, python-format
 msgid "You can only set one type of discount per line."
 msgstr ""
+"Es kann nur eine Art von Rabatt (prozentual oder absolut) pro Zeile gesetzt "
+"werden."
