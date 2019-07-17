@@ -6,30 +6,33 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2019-07-17 12:43+0000\n"
+"Last-Translator: Maria Sparenberg <maria.sparenberg@gmx.net>\n"
 "Language-Team: none\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.7.1\n"
 
 #. module: account_invoice_tax_note
 #: model:ir.model,name:account_invoice_tax_note.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Rechnung"
 
 #. module: account_invoice_tax_note
 #: model:ir.model.fields,help:account_invoice_tax_note.field_account_tax_group_report_note
 msgid "Note to insert on Invoice Report if the tax group is used."
 msgstr ""
+"Dies ist ein Hinweis zur Steuer, der auf dem Rechnungsbeleg gedruckt wird."
 
 #. module: account_invoice_tax_note
 #: model:ir.model.fields,field_description:account_invoice_tax_note.field_account_tax_group_report_note
 msgid "Report Note"
-msgstr ""
+msgstr "Hinweis auf Beleg"
 
 #. module: account_invoice_tax_note
 #: model:ir.model,name:account_invoice_tax_note.model_account_tax_group
 msgid "account.tax.group"
-msgstr ""
+msgstr "account.tax.group"
