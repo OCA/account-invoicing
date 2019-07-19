@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <report
+        id="account_invoices_with_payments"
+        model="account.invoice"
+        string="Invoices with payments"
+        report_type="qweb-pdf"
+        name="account_invoice_payment_report.report_invoice_with_payments"
+        file="account_invoice_payment_report.report_invoice_with_payments"
+        attachment="(object.state in ('open','in_payment','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+    />
+</odoo>
