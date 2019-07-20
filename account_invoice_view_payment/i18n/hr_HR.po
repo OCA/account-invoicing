@@ -35,17 +35,17 @@ msgstr ""
 
 #. module: account_invoice_view_payment
 #: model:ir.model,name:account_invoice_view_payment.model_account_register_payments
-msgid "Register payments on multiple invoices"
+msgid "Register Payments"
 msgstr ""
 
 #. module: account_invoice_view_payment
-#: model:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_from_invoices
-#: model:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_from_invoices
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_invoice_form
 msgid "Validate & View Payment"
 msgstr ""
 
 #. module: account_invoice_view_payment
-#: model:ir.ui.view,arch_db:account_invoice_view_payment.invoice_form
-#: model:ir.ui.view,arch_db:account_invoice_view_payment.invoice_supplier_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.invoice_supplier_form
 msgid "View Payments"
 msgstr ""
