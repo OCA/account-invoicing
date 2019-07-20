@@ -30,6 +30,11 @@ msgid "Invoice Line"
 msgstr "Rechnungsposition"
 
 #. module: account_invoice_pricelist
+#: model:ir.model,name:account_invoice_pricelist.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: account_invoice_pricelist
 #: view:account.invoice:account_invoice_pricelist.view_account_invoice_search
 #: field:account.invoice,pricelist_id:0
 msgid "Pricelist"
