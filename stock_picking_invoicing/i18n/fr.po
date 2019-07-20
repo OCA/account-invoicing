@@ -23,12 +23,6 @@ msgid "All pickings are not related to your company!"
 msgstr "Les pickings ne sont pas liés à la même société!"
 
 #. module: stock_picking_invoicing
-#: code:addons/stock_picking_invoicing/stock.py:44
-#, python-format
-msgid "Can't update invoice control for picking %s: It's 'to be invoiced' yet"
-msgstr ""
-
-#. module: stock_picking_invoicing
 #: model:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "Cancel"
 msgstr "Annuler"
@@ -135,8 +129,7 @@ msgstr "Factures"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 msgid "Invoiced"
 msgstr "Facturé"
 
@@ -189,8 +182,7 @@ msgstr "Pas de facture créée!"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 msgid "Not Applicable"
 msgstr "Non applicable"
 
@@ -208,12 +200,6 @@ msgstr "Partenaire/Article"
 #: selection:stock.invoice.onshipping,group:0
 msgid "Picking"
 msgstr "Picking"
-
-#. module: stock_picking_invoicing
-#: code:addons/stock_picking_invoicing/stock.py:48
-#, python-format
-msgid "Picking %s has linked invoice %s"
-msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_account_invoice_picking_ids
@@ -303,8 +289,7 @@ msgstr "Mouvements de stock"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 msgid "To Be Invoiced"
 msgstr "À facturer"
 

@@ -27,12 +27,6 @@ msgid "All pickings are not related to your company!"
 msgstr ""
 
 #. module: stock_picking_invoicing
-#: code:addons/stock_picking_invoicing/stock.py:44
-#, python-format
-msgid "Can't update invoice control for picking %s: It's 'to be invoiced' yet"
-msgstr "Nadzora obračuna za zbirnik %s ni mogoče posodobiti: ni še zaračunan"
-
-#. module: stock_picking_invoicing
 #: model:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "Cancel"
 msgstr ""
@@ -137,8 +131,7 @@ msgstr ""
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 msgid "Invoiced"
 msgstr ""
 
@@ -188,8 +181,7 @@ msgstr ""
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 msgid "Not Applicable"
 msgstr ""
 
@@ -208,12 +200,6 @@ msgstr ""
 #, fuzzy
 msgid "Picking"
 msgstr "Zbirni seznam"
-
-#. module: stock_picking_invoicing
-#: code:addons/stock_picking_invoicing/stock.py:48
-#, python-format
-msgid "Picking %s has linked invoice %s"
-msgstr "Zbirnik %s je povezan z računom %s"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_account_invoice_picking_ids
@@ -300,8 +286,7 @@ msgstr "Premik zaloge"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 #, fuzzy
 msgid "To Be Invoiced"
 msgstr "Nastavljeno za obračun"
@@ -325,3 +310,11 @@ msgstr ""
 #: model:ir.model,name:stock_picking_invoicing.model_stock_invoice_state_mixin
 msgid "stock.invoice.state.mixin"
 msgstr ""
+
+#~ msgid ""
+#~ "Can't update invoice control for picking %s: It's 'to be invoiced' yet"
+#~ msgstr ""
+#~ "Nadzora obračuna za zbirnik %s ni mogoče posodobiti: ni še zaračunan"
+
+#~ msgid "Picking %s has linked invoice %s"
+#~ msgstr "Zbirnik %s je povezan z računom %s"
