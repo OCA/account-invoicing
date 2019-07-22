@@ -34,17 +34,19 @@ class TestInvoiceSplitRefunds(TestSale):
         })
         self.sale_order.action_confirm()
 
-        delivery_picking = self.sale_order.picking_ids
-        delivery_picking.force_assign()
-        delivery_picking.pack_operation_product_ids.write({'qty_done': 5})
-        delivery_picking.do_new_transfer()
+        self.delivery_picking = self.sale_order.picking_ids
+        self.delivery_picking.force_assign()
+        self.delivery_picking.pack_operation_product_ids.write({'qty_done': 5})
+        self.delivery_picking.do_new_transfer()
 
+    def test_account_invoice_split_refunds(self):
         invoice_id = self.sale_order.action_invoice_create()
         self.invoice = self.env['account.invoice'].browse(invoice_id)
         self.invoice.action_invoice_open()
 
         return_wiz = self.env['stock.return.picking'].with_context(
-            active_ids=delivery_picking.ids, active_id=delivery_picking.id
+            active_ids=self.delivery_picking.ids,
+            active_id=self.delivery_picking.id
         ).create({})
         return_wiz.product_return_moves.write({
             'quantity': 2,
@@ -55,8 +57,6 @@ class TestInvoiceSplitRefunds(TestSale):
         return_picking.force_assign()
         return_picking.pack_operation_product_ids.write({'qty_done': 2})
         return_picking.do_new_transfer()
-
-    def test_account_invoice_split_refunds(self):
 
         self.assertEqual(self.sale_order_line.qty_delivered, 3)
         self.assertEqual(self.sale_order_line.qty_invoiced, 5)
@@ -96,3 +96,10 @@ class TestInvoiceSplitRefunds(TestSale):
         )
 
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 6)
+
+    def test_invoice_without_refunds(self):
+        create_invoice_wiz = self.env['sale.advance.payment.inv'].with_context(
+            active_ids=self.sale_order.ids, active_id=self.sale_order.id
+        ).create({})
+        create_invoice_wiz.create_invoices()
+        self.assertEqual(len(self.sale_order.invoice_ids), 1)
