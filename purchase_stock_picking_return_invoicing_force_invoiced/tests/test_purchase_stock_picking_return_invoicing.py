@@ -37,8 +37,8 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
         self.product = self.env["product.product"].create({
             "name": "test product",
             "categ_id": self.product_categ.id,
-            "uom_id": self.env.ref('product.product_uom_unit').id,
-            "uom_po_id": self.env.ref('product.product_uom_unit').id,
+            "uom_id": self.env.ref('uom.product_uom_unit').id,
+            "uom_po_id": self.env.ref('uom.product_uom_unit').id,
             "default_code": "tpr1",
         })
         self.product.property_account_expense_id = self.account
