@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2019 Camptocamp SA
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl)
-from odoo import models, api, fields
+from odoo import models, fields
 from odoo.tools import float_is_zero
 
 
