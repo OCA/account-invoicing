@@ -39,7 +39,7 @@ class TestInvoiceSplitRefunds(TestSale):
         self.delivery_picking.pack_operation_product_ids.write({'qty_done': 5})
         self.delivery_picking.do_new_transfer()
 
-    def test_account_invoice_split_refunds(self):
+    def test_account_invoice_split_refund_and_invoice(self):
         invoice_id = self.sale_order.action_invoice_create()
         self.invoice = self.env['account.invoice'].browse(invoice_id)
         self.invoice.action_invoice_open()
@@ -97,9 +97,36 @@ class TestInvoiceSplitRefunds(TestSale):
 
         self.assertEqual(new_invoice.invoice_line_ids.quantity, 6)
 
-    def test_invoice_without_refunds(self):
+    def test_invoice_split_invoice(self):
         create_invoice_wiz = self.env['sale.advance.payment.inv'].with_context(
             active_ids=self.sale_order.ids, active_id=self.sale_order.id
         ).create({})
         create_invoice_wiz.create_invoices()
         self.assertEqual(len(self.sale_order.invoice_ids), 1)
+
+    def test_invoice_split_refund(self):
+        invoice_id = self.sale_order.action_invoice_create()
+        self.invoice = self.env['account.invoice'].browse(invoice_id)
+        self.invoice.action_invoice_open()
+
+        return_wiz = self.env['stock.return.picking'].with_context(
+            active_ids=self.delivery_picking.ids,
+            active_id=self.delivery_picking.id
+        ).create({})
+        return_wiz.product_return_moves.write({
+            'quantity': 2,
+            'to_refund_so': True
+        })
+        return_id = return_wiz.create_returns()['res_id']
+        return_picking = self.env['stock.picking'].browse(return_id)
+        return_picking.force_assign()
+        return_picking.pack_operation_product_ids.write({'qty_done': 2})
+        return_picking.do_new_transfer()
+        self.assertEqual(self.sale_order_line.qty_to_invoice, -2)
+        create_invoice_wiz = self.env['sale.advance.payment.inv'].with_context(
+            active_ids=self.sale_order.ids, active_id=self.sale_order.id
+        ).create({})
+        create_invoice_wiz.create_invoices()
+        new_refund = self.sale_order.invoice_ids.filtered(
+            lambda i: i.type == 'out_refund')
+        self.assertEqual(new_refund.invoice_line_ids.quantity, 2)

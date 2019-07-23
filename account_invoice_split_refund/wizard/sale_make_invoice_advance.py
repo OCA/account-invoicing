@@ -25,11 +25,14 @@ class SaleAdvancePaymentInv(models.TransientModel):
             return super(SaleAdvancePaymentInv, self).create_invoices()
         sale_orders = self.env['sale.order'].browse(
             self._context.get('active_ids', []))
-        # Create all the invoices first
-        sale_orders.action_invoice_create()
-        still_to_invoice = any(sale_orders.mapped('order_line.qty_to_invoice'))
-        if still_to_invoice:
-            # Create any refund afterwards
+        qties_to_invoice = sale_orders.mapped('order_line.qty_to_invoice')
+        to_invoice = bool(filter(lambda qty: qty > 0, qties_to_invoice))
+        to_refund = bool(filter(lambda qty: qty < 0, qties_to_invoice))
+        # Create all the invoices
+        if to_invoice:
+            sale_orders.action_invoice_create()
+        # Create all the refunds
+        if to_refund:
             sale_orders.action_invoice_create(final=True)
         # Open invoices or close the wizard according to context key
         if self._context.get('open_invoices', False):
