@@ -9,7 +9,7 @@
     'summary': 'Configure invoice transmit method (email, post, portal, ...)',
     'author': 'Akretion, Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/account-invoicing',
-    'depends': ['account'],
+    'depends': ['account', 'base_view_inheritance_extension'],
     'data': [
         'security/ir.model.access.csv',
         'views/transmit_method.xml',
