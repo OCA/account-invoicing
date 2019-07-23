@@ -10,7 +10,7 @@ class AccountInvoiceLine(models.Model):
     move_line_ids = fields.Many2many(
         'account.move.line', relation='account_invoice_line_move_line_rel',
         column1='invoice_line_id', column2='move_line_id', auto_join=True,
-        string='Accounting entries',
+        string='Accounting entries', copy=False, readonly=True,
     )
 
     @api.model
