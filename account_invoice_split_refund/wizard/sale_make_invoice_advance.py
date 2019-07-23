@@ -30,7 +30,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
         to_refund = bool(filter(lambda qty: qty < 0, qties_to_invoice))
         # Create all the invoices
         if to_invoice:
-            sale_orders.action_invoice_create()
+            sale_orders.action_invoice_create(final=False)
         # Create all the refunds
         if to_refund:
             sale_orders.action_invoice_create(final=True)
