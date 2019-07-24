@@ -25,6 +25,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_view_payment',
         'odoo12-addon-account_payment_term_extension',
         'odoo12-addon-purchase_stock_picking_return_invoicing',
+        'odoo12-addon-purchase_stock_picking_return_invoicing_force_invoiced',
         'odoo12-addon-sale_invoice_line_note',
         'odoo12-addon-sale_timesheet_invoice_description',
     ],
