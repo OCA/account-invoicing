@@ -35,7 +35,7 @@ class EbillPaymentContract(models.Model):
     is_valid = fields.Boolean(compute="_compute_is_valid", store=True)
 
     @api.onchange('state')
-    def _compute_state_changed(self):
+    def _onchange_state(self):
         """Change the end date if contract is canceled."""
         if self.state == 'cancel' and self.date_end > fields.Date.today():
             self.date_end = fields.Date.today()
