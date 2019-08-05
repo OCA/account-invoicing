@@ -25,7 +25,6 @@
         'wizard/wizard_update_invoice_supplierinfo.xml',
     ],
     'demo': [
-        'demo/res_groups.xml',
         'demo/res_partner.xml',
         'demo/account_invoice.xml',
     ],
