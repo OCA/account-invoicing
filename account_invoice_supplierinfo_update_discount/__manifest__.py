@@ -18,7 +18,6 @@
     'depends': [
         'account_invoice_supplierinfo_update',
         'product_supplierinfo_discount',
-        'sale',
     ],
     'installable': True,
     'auto_install': True,
