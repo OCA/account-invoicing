@@ -32,7 +32,7 @@ class EbillPaymentContract(models.Model):
         required=True,
         default='draft',
     )
-    is_valid = fields.Boolean(compute="_compute_is_valid", store=True)
+    is_valid = fields.Boolean(compute="_compute_is_valid")
 
     @api.onchange('state')
     def _onchange_state(self):
