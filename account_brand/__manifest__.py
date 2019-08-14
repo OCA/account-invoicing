@@ -15,6 +15,8 @@
     ],
     "data": [
         "views/account_invoice.xml",
+        "views/res_partner_account_brand.xml",
+        "security/res_partner_account_brand.xml",
     ],
     "installable": True,
     "development_status": "Beta",

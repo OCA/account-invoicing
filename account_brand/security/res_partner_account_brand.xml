@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.model.access" id="res_partner_account_brand_access">
+        <field name="name">res.partner.account.brand access</field>
+        <field name="model_id" ref="model_res_partner_account_brand"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+
+    <record model="ir.model.access"
+            id="res_partner_account_brand_group_account_invoice_user_access">
+        <field name="name">res.partner.account.brand invoice user access</field>
+        <field name="model_id" ref="model_res_partner_account_brand"/>
+        <field name="group_id" ref="account.group_account_invoice"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+</odoo>
