@@ -8,7 +8,7 @@
                 <button name="check_supplierinfo" string="Check Supplier Infos"
                         help="Check if the invoice information are similar from the supplier information"
                         class="oe_highlight" type="object"
-                        attrs="{'invisible': [('supplierinfo_ok', '=', True)]}"/>
+                        attrs="{'invisible': ['|', ('supplierinfo_ok', '=', True), ('partner_id', '=', False)]}"/>
             </xpath>
             <field name="payment_term_id" position="after">
                 <field name="supplierinfo_ok" />
