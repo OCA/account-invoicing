@@ -7,5 +7,4 @@ from odoo import fields, models
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    brand_id = fields.Many2one('res.partner', string='Brand',
-                               domain="[('type', '=', 'brand')]")
+    brand_id = fields.Many2one('res.brand', string='Brand')
