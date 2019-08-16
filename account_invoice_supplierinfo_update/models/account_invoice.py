@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Chafique DELLI @ Akretion
 # Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
@@ -33,10 +32,15 @@ class AccountInvoice(models.Model):
     def _get_update_supplierinfo_lines(self):
         self.ensure_one()
         lines = []
+        product_ids = []
 
-        for line in self.invoice_line_ids:
-            if not line.product_id:
+        for line in self.invoice_line_ids.filtered(lambda x: x.product_id):
+            # We the invoice has two or more lines with the same product,
+            # the computation will be based only on the first line.
+            if line.product_id.id in product_ids:
                 continue
+            else:
+                product_ids.append(line.product_id.id)
 
             # Get supplierinfo if exist
             supplierinfo = line._get_supplierinfo()
