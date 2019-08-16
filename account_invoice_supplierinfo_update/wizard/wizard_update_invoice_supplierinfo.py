@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Chafique DELLI @ Akretion
 # Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
@@ -9,6 +8,7 @@ from odoo import models, api, fields
 
 class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
     _name = 'wizard.update.invoice.supplierinfo'
+    _description = 'Wizard to update supplierinfo'
 
     line_ids = fields.One2many(
         comodel_name='wizard.update.invoice.supplierinfo.line',
