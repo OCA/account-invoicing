@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Chafique DELLI @ Akretion
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -19,7 +18,7 @@ class Tests(TransactionCase):
         self.product1 = self.env.ref('product.product_product_4b')
         self.product2 = self.env.ref('product.product_delivery_01')
         self.prod_account = self.env.ref('account.demo_coffee_machine_account')
-        unit = self.env.ref('product.product_uom_unit')
+        unit = self.env.ref('uom.product_uom_unit')
 
         self.invoice = self.invoice_model.create(
             {'journal_id': self.journal.id,
@@ -97,7 +96,7 @@ class Tests(TransactionCase):
 
     def test_update_pricelist_supplierinfo_uom_conversion(self):
         """ Price is converted to the product's purchase UOM """
-        self.product1.uom_po_id = self.env.ref('product.product_uom_dozen')
+        self.product1.uom_po_id = self.env.ref('uom.product_uom_dozen')
         invoice_line = self.invoice.invoice_line_ids.filtered(
             lambda ail: ail.product_id == self.product1)
         invoice_line.write({'price_unit': 33.0})
