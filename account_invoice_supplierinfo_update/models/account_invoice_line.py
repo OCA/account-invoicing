@@ -21,8 +21,9 @@ class AccountInvoiceLine(models.Model):
         self.ensure_one()
         if not self.product_id:
             return self.price_unit
+        uom = self.uom_id or self.product_id.uom_id
         return self.invoice_id.currency_id.round(
-            self.uom_id._compute_price(
+            uom._compute_price(
                 self.price_unit, self.product_id.uom_po_id))
 
     @api.multi
@@ -42,10 +43,7 @@ class AccountInvoiceLine(models.Model):
         price_unit = self._get_unit_price_in_purchase_uom()
         price_variation = False
 
-        if not supplierinfo:
-            state = 'new_supplierinfo'
-        else:
-            state = 'update_supplierinfo'
+        if supplierinfo:
             # Compute price variation
             if supplierinfo.price:
                 price_variation = 100 *\
@@ -61,6 +59,5 @@ class AccountInvoiceLine(models.Model):
                 supplierinfo and supplierinfo.min_qty or False,
             'new_min_quantity':
                 supplierinfo and supplierinfo.min_qty or False,
-            'state': state,
             'price_variation': price_variation,
         }
