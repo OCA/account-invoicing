@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Onestein
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo noupdate="1">
+    <record id="mail_template_invoice_review_request" model="mail.template">
+        <field name="name">Invoice Review Request</field>
+        <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
+        <field name="subject">Invoice Review Request</field>
+        <field name="partner_to">${('user' in ctx and ctx['user'].partner_id.id or '')|safe}</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="lang">${('user' in ctx and ctx['user'].lang or '')}</field>
+        <field name="body_html"><![CDATA[
+            % set types = {'out_invoice':'Customer Invoice','in_invoice':'Vendor Bill','out_refund':'Customer Credit Note','in_refund':'Vendor Credit Note'}
+            Dear${('user' in ctx and ' ' + ctx['user'].name or '')},
+            <br />
+            <br />
+            <p>You've received a request to review a ${types[object.type]} with partner '${object.partner_id.name}'.</p>
+            <p>Click <a href="${ctx['base_url']}/web?#view_type=form&amp;model=account.invoice&amp;id=${object.id}">here</a> to go to the related ${types[object.type]}.</p>
+            <br />
+            <p>Thank you,</p>
+        ]]></field>
+    </record>
+
+    <record id="mail_template_invoice_refused" model="mail.template">
+        <field name="name">Invoice Refused</field>
+        <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
+        <field name="subject">Invoice Refused</field>
+        <field name="partner_to">${('user' in ctx and ctx['user'].partner_id.id or '')|safe}</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="lang">${('user' in ctx and ctx['user'].lang or '')}</field>
+        <field name="body_html"><![CDATA[
+            % set types = {'out_invoice':'Customer Invoice','in_invoice':'Vendor Bill','out_refund':'Customer Credit Note','in_refund':'Vendor Credit Note'}
+            Dear${('user' in ctx and ' ' + ctx['user'].name or '')},
+            <br />
+            <br />
+            <p>The ${types[object.type]} with partner '${object.partner_id.name}' has been refused.</p>
+            <p>Click <a href="${ctx['base_url']}/web?#view_type=form&amp;model=account.invoice&amp;id=${object.id}">here</a> to go to the related ${types[object.type]}.</p>
+            <br />
+            <p>Thank you,</p>
+        ]]></field>
+    </record>
+</odoo>

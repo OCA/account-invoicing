@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Onestein
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <!-- Customer invoice -->
+    <record id="account_invoice_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Submit for Approval button -->
+            <xpath expr="//header" position="inside">
+                <button name="submit_for_review"
+                        type="object" states="draft"
+                        string="Submit for Review" class="oe_highlight" />
+                <field name="user_awaiting_review" invisible="1"/>
+                <field name="user_override_allowed" invisible="1"/>
+                <button name="approve"
+                        type="object"
+                        attrs="{'invisible': ['|', ('state', '!=', 'to_review'), ('user_awaiting_review', '=', False)]}"
+                        string="Approve" class="oe_highlight" />
+                <button name="refuse"
+                        type="object"
+                        attrs="{'invisible': ['|', ('state', '!=', 'to_review'), ('user_awaiting_review', '=', False)]}"
+                        string="Refuse" />
+                <button name="refused_to_draft" states="refused" string="Reset to Draft" type="object"
+                        groups="account.group_account_invoice" />
+                <button name="override_approval"
+                        type="object"
+                        attrs="{'invisible': ['|', ('state', '!=', 'to_review'), ('user_override_allowed', '=', False)]}"
+                        string="Override Approval Step" class="btn-danger" />
+            </xpath>
+
+            <!-- Change Validate button to only show in to_approve state -->
+            <xpath expr="//button[@name='action_invoice_open']" position="attributes">
+                <attribute name="states">approved</attribute>
+            </xpath>
+
+            <!-- Add approval page -->
+            <xpath expr="//page[@name='other_info']" position="before">
+                <page string="Approval" name="approval" attrs="{'invisible': [('approval_flow_id', '=', False)]}">
+                    <group>
+                        <field name="approval_flow_id" readonly="1" groups="base.group_no_one"/>
+                        <field name="requesting_user_id" readonly="1" />
+                        <field name="approval_step_user_ids" widget="many2many_tags" readonly="1"/>
+                        <field name="override_user_ids" widget="many2many_tags" readonly="1"/>
+                        <field name="approved_user_ids" widget="many2many_tags" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Vendor bill -->
+    <record id="account_invoice_supplier_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Submit for Approval button -->
+            <xpath expr="//header" position="inside">
+                <button name="submit_for_review"
+                        type="object" states="draft"
+                        string="Submit for Review" class="oe_highlight" />
+                <field name="user_awaiting_review" invisible="1"/>
+                <field name="user_override_allowed" invisible="1"/>
+                <button name="approve"
+                        type="object"
+                        attrs="{'invisible': ['|', ('state', '!=', 'to_review'), ('user_awaiting_review', '=', False)]}"
+                        string="Approve" class="oe_highlight" />
+                <button name="refuse"
+                        type="object"
+                        attrs="{'invisible': ['|', ('state', '!=', 'to_review'), ('user_awaiting_review', '=', False)]}"
+                        string="Refuse" />
+                <button name="refused_to_draft" states="refused" string="Reset to Draft" type="object"
+                        groups="account.group_account_invoice" />
+                <button name="override_approval"
+                        type="object"
+                        attrs="{'invisible': ['|', ('state', '!=', 'to_review'), ('user_override_allowed', '=', False)]}"
+                        string="Override Approval Step" class="btn-danger" />
+            </xpath>
+
+            <!-- Change Validate button to only show in to_approve state -->
+            <xpath expr="//button[@name='action_invoice_open']" position="attributes">
+                <attribute name="states">approved</attribute>
+            </xpath>
+
+            <!-- Add approval page -->
+            <xpath expr="//page[@name='other_info']" position="before">
+                <page string="Approval" name="approval" attrs="{'invisible': [('approval_flow_id', '=', False)]}">
+                    <group>
+                        <field name="approval_flow_id" readonly="1" />
+                        <field name="requesting_user_id" readonly="1" />
+                        <field name="approval_step_user_ids" widget="many2many_tags" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Search view -->
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='draft']" position="after">
+                <filter string="To Review" name="to_review"
+                        domain="[('state', '=', 'to_review'), ('approval_step_user_ids', '=', uid)]" />
+                <filter string="Approved" name="approved"
+                        domain="[('state', '=', 'approved')]"/>
+                <filter string="Refused" name="refused"
+                        domain="[('state', '=', 'refused')]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- To Review Documents -->
+    <record id="invoice_review_tree" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="commercial_partner_id" invisible="1"/>
+                <field name="reference" invisible="1"/>
+                <field name="name" invisible="1"/>
+                <field name="journal_id" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="company_currency_id" invisible="1"/>
+                <field name="type"/>
+                <field name="partner_id" groups="base.group_user" string="Customer"/>
+                <field name="date_invoice"/>
+                <field name="number"/>
+                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                <field name="user_id"/>
+                <field name="date_due"/>
+                <field name="origin"/>
+                <field name="amount_total_signed" string="Total" sum="Total"/>
+                <field name="residual_signed" string="Amount Due" sum="Amount Due"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="to_review_documents">
+        <field name="name">Documents To Review</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="invoice_review_tree"/>
+        <field name="context">{'search_default_to_review': 1}</field>
+    </record>
+</odoo>

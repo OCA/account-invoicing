@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Onestein
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <menuitem id="account_invoice_approval_flow_menu"
+              parent="account.menu_finance_configuration"
+              action="account_invoice_approval_flow_action"
+              groups="account.group_account_manager"/>
+
+    <menuitem id="account_invoice_to_review_menu"
+              parent="account.menu_finance"
+              action="to_review_documents" groups="account.group_account_invoice"
+    />
+</odoo>

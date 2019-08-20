@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Onestein
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <record id="subtype_state_to_review" model="mail.message.subtype">
+        <field name="name">Waiting for Review</field>
+        <field name="res_model">account.invoice</field>
+        <field name="default" eval="False"/>
+    </record>
+
+    <record id="subtype_state_refused" model="mail.message.subtype">
+        <field name="name">Refused</field>
+        <field name="res_model">account.invoice</field>
+        <field name="default" eval="False"/>
+    </record>
+</odoo>
