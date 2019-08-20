@@ -11,11 +11,6 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
     _name = 'wizard.update.invoice.supplierinfo.line'
     _description = 'Wizard Line to update supplierinfo'
 
-    _SELECTION_STATE = [
-        ('new_supplierinfo', 'New Supplier Info'),
-        ('update_supplierinfo', 'Update Supplier Info'),
-    ]
-
     wizard_id = fields.Many2one(
         comodel_name='wizard.update.invoice.supplierinfo', required=True,
         ondelete='cascade')
@@ -42,8 +37,6 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
     price_variation = fields.Float(
         string='Price Variation (%)', compute='_compute_price_variation',
         digits=dp.get_precision('Discount'))
-
-    state = fields.Selection(selection=_SELECTION_STATE)
 
     @api.depends('current_price', 'new_price')
     @api.multi

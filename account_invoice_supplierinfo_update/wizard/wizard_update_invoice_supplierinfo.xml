@@ -11,13 +11,12 @@
                 </group>
                 <separator string="List of products to update"/>
                 <field name="line_ids">
-                    <tree create="false" editable="0" colors="blue: state == 'new_supplierinfo'; brown: state == 'update_supplierinfo'">
-                        <field name="state" invisible="1"/>
+                    <tree create="false" editable="0" colors="blue: supplierinfo_id == False; brown: supplierinfo_id != False">
                         <field name="product_id"/>
                         <field name="supplierinfo_id" invisible="1"/>
-                        <field name="current_min_quantity" attrs="{'invisible': [('state', '!=', 'update_supplierinfo')]}"/>
+                        <field name="current_min_quantity" attrs="{'invisible': [('supplierinfo_id', '=', False)]}"/>
                         <field name="new_min_quantity"/>
-                        <field name="current_price" attrs="{'invisible': [('state', '!=', 'update_supplierinfo')]}"/>
+                        <field name="current_price" attrs="{'invisible': [('supplierinfo_id', '=', False)]}"/>
                         <field name="new_price"/>
                         <field name="price_variation" attrs="{'invisible': [('price_variation', '=', 0.0)]}"/>
                     </tree>
