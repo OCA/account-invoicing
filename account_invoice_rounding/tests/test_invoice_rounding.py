@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Copyright 2016 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
-import openerp.tests.common as test_common
+from openerp.tests import common as test_common
+from openerp.fields import Date
 
 
 # @test_common.post_install(True)
@@ -12,7 +13,7 @@ class TestSwedishRounding(test_common.TransactionCase):
             'partner_id': self.partner.id,
             'currency_id': self.env.ref('base.EUR').id,
             'account_id': self.account.id,
-            'date_invoice': '2018-01-01',
+            'date_invoice': '%s-01-01' % self.year,
             'invoice_line': [(0, 0, {
                 'name': 'Dummy invoice line',
                 'product_id': self.product.id,
@@ -30,7 +31,7 @@ class TestSwedishRounding(test_common.TransactionCase):
             'partner_id': self.partner.id,
             'currency_id': self.env.ref('base.EUR').id,
             'account_id': self.account.id,
-            'date_invoice': '2018-01-01',
+            'date_invoice': '%s-01-01' % self.year,
             'invoice_line': [(0, 0, {
                 'name': 'Dummy invoice line',
                 'product_id': self.product.id,
@@ -48,7 +49,7 @@ class TestSwedishRounding(test_common.TransactionCase):
             'partner_id': self.partner.id,
             'currency_id': self.env.ref('base.EUR').id,
             'account_id': self.account.id,
-            'date_invoice': '2018-01-01',
+            'date_invoice': '%s-01-01' % self.year,
             'invoice_line': [(0, 0, {
                 'name': 'Dummy invoice line',
                 'product_id': self.product.id,
@@ -71,7 +72,7 @@ class TestSwedishRounding(test_common.TransactionCase):
 
     def setUp(self):
         super(TestSwedishRounding, self).setUp()
-        # self.sudo(self.ref('base.user_demo'))
+        self.year = Date.context_today(self.env.user)[:4]
         expense_type = self.env.ref('account.data_account_type_expense')
         self.journal_sale = self.env["account.journal"].create({
             "name": "Test sale journal",
