@@ -70,7 +70,6 @@ class TestSwedishRounding(test_common.TransactionCase):
         return invoice
 
     def setUp(self):
-        print "blubb"
         super(TestSwedishRounding, self).setUp()
         # self.sudo(self.ref('base.user_demo'))
         expense_type = self.env.ref('account.data_account_type_expense')
@@ -80,7 +79,6 @@ class TestSwedishRounding(test_common.TransactionCase):
             "code": "TEST_SJ",
         })
         # expense_type.reconcile = True
-        print "\n\n\n\n setup test"
         self.account = self.env['account.account'].create({
             'name': 'Rounding account',
             'code': '6666',

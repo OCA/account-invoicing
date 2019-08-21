@@ -9,9 +9,6 @@ Invoices created from picking grouped by product
 This module allows you to group invoices generated from pickings by product
 or by product category.
 
-Usage
-=====
-
 This is possible by selecting the related option in the wizard used
 for creating draft invoices.
 
