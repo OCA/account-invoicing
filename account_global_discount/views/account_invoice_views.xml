@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Tecnativa - David Vidal
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="account_invoice_form_view" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="global_discount_ids" widget="many2many_tags" placeholder="Discounts..."/>
+            </field>
+            <field name="amount_untaxed" position="before">
+                <field name="amount_untaxed_before_global_discounts" string="Untaxed Amount Before Disc." attrs="{'invisible': [('global_discount_ids', '=', [])]}"/>
+                <field name="amount_global_discount" string="Global Discounts" attrs="{'invisible': [('global_discount_ids', '=', [])]}"/>
+            </field>
+            <field name="tax_line_ids" position="before">
+                <group string="Global Discounts">
+                    <field name="invoice_global_discount_ids"  nolabel="1" attrs="{'invisible': [('global_discount_ids', '=', [])]}">
+                        <tree create="0" delete="0">
+                            <field name="name"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="global_discount_id" invisible="1" force_save="1"/>
+                            <field name="discount" invisible="1" force_save="1"/>
+                            <field name="base" widget="monetary" options="{'currency_field': 'currency_id'}" force_save="1"/>
+                            <field name="discount_display"/>
+                            <field name="discount_amount"/>
+                            <field name="base_discounted" widget="monetary" options="{'currency_field': 'currency_id'}" force_save="1"/>
+                            <field name="account_id" required="1" force_save="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field domain="[('company_id', '=', company_id)]" name="account_analytic_id" groups="analytic.group_analytic_accounting" force_sace="1"/>
+                        </tree>
+                    </field>
+                </group>
+            </field>
+        </field>
+    </record>
+
+</odoo>
