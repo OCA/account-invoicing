@@ -16,6 +16,7 @@ addons:
 #      https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
     packages:
       - expect-dev  # provides unbuffer utility
+      - libmysqlclient-dev # To install mysqlclient and import MySQLdb
 #     Search your packages here:
 #       https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
 #     For wkhtmltopdf, see the env section below
