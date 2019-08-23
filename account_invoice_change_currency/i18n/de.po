@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2019-07-17 12:43+0000\n"
+"PO-Revision-Date: 2019-08-23 14:44+0000\n"
 "Last-Translator: Maria Sparenberg <maria.sparenberg@gmx.net>\n"
 "Language-Team: none\n"
 "Language: de\n"
@@ -26,7 +26,7 @@ msgstr ""
 #: model:mail.message.subtype,description:account_invoice_change_currency.mt_currency_update
 #: model:mail.message.subtype,name:account_invoice_change_currency.mt_currency_update
 msgid "Currency Updated"
-msgstr ""
+msgstr "Währung aktualisiert"
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_invoice__custom_rate
