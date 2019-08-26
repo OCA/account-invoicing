@@ -1,0 +1,34 @@
+<odoo>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page id="reimbursable" string="Reimbursable">
+                    <field name="reimbursable_ids">
+                        <tree string="Reimbursable" editable="bottom">
+                            <field name="product_id" context="{'default_type': 'service'}"/>
+                            <field name="name"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="partner_id" domain="[('supplier', '=', True), '|',('company_id', '=', parent.company_id),('company_id', '=', False)]" context="{'default_supplier': True}"/>
+                            <field name="account_id" groups="account.group_account_user"
+                                domain="[('company_id', '=', parent.company_id), ('internal_type', '=', 'other'), ('deprecated', '=', False)]"/>
+                            <field name="account_analytic_id" groups="analytic.group_analytic_accounting"
+                                domain="[('company_id', '=', parent.company_id)]"
+                                context="{'default_partner_id': partner_id}"/>
+                            <field name="analytic_tag_ids" groups="analytic.group_analytic_accounting" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="amount"/>
+                            <field name="currency_id" invisible="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+            <xpath expr="//group[hasclass('oe_subtotal_footer')]/field[@name='amount_total']" position="after">
+                <field name="reimbursable_count" invisible="1"/>
+                <field name="reimbursable_total" attrs="{'invisible': [('reimbursable_count', '=', 0)]}"/>
+                <field name="executable_total" attrs="{'invisible': [('reimbursable_count', '=', 0)]}" class="oe_subtotal_footer_separator"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
