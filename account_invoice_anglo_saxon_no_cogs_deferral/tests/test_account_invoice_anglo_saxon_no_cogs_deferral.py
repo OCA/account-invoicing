@@ -19,7 +19,7 @@ class TestAccountAngloSaxonNoCogsDeferral(TransactionCase):
             'stock.stock_location_customers')
         self.supplier_location = self.env.ref(
             'stock.stock_location_suppliers')
-        self.uom_unit = self.env.ref('product.product_uom_unit')
+        self.uom_unit = self.env.ref('uom.product_uom_unit')
         self.partner = self.env['res.partner'].create({
             'name': 'Test partner'
         })
@@ -95,7 +95,7 @@ class TestAccountAngloSaxonNoCogsDeferral(TransactionCase):
         # invoice on order
         so.action_invoice_create()
         pick = so.picking_ids
-        pick.force_assign()
+        pick.action_assign()
         pick.move_lines.write({'quantity_done': 1})
         pick.button_validate()
         self.assertEqual(pick.state, 'done')
