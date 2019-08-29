@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 Tecnativa - Pedro M. Baeza
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="groups_id" eval="[(4, ref('queue_job.group_queue_job_manager'))]"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="page_validation_jobs" string="Validation Jobs" attrs="{'invisible': [('validation_job_ids', '=', [])]}">
+                    <field name="validation_job_ids"
+                           options="{'reload_on_button': true}"
+                           nolabel="1"
+                           readonly="1"
+                           context="{'tree_view_ref': 'account_invoice_validation_queued.view_queue_job_account_invoice_validation'}"
+                    />
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="groups_id" eval="[(4, ref('queue_job.group_queue_job_manager'))]"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="page_validation_jobs" string="Validation Jobs" attrs="{'invisible': [('validation_job_ids', '=', [])]}">
+                    <field name="validation_job_ids"
+                           options="{'reload_on_button': true}"
+                           nolabel="1"
+                           readonly="1"
+                           context="{'tree_view_ref': 'account_invoice_validation_queued.view_queue_job_account_invoice_validation'}"
+                    />
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
