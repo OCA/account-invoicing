@@ -1,0 +1,35 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_invoice_line_note
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: sale_invoice_line_note
+#: model:ir.model.fields,field_description:sale_invoice_line_note.field_sale_advance_payment_inv__copy_notes_to_invoice
+msgid "Copy notes to invoice"
+msgstr ""
+
+#. module: sale_invoice_line_note
+#: model:ir.model.fields,help:sale_invoice_line_note.field_sale_advance_payment_inv__copy_notes_to_invoice
+msgid "Mark this to create invoice line notes from the notes in the sale order"
+msgstr ""
+
+#. module: sale_invoice_line_note
+#: model:ir.model,name:sale_invoice_line_note.model_sale_order
+msgid "Sale Order"
+msgstr ""
+
+#. module: sale_invoice_line_note
+#: model:ir.model,name:sale_invoice_line_note.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr ""
