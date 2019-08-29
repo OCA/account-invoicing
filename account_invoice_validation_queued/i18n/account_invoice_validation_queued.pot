@@ -1,0 +1,64 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_validation_queued
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_validation_queued
+#: model:ir.ui.view,arch_db:account_invoice_validation_queued.view_queue_job_account_invoice_validation
+msgid "Cancel"
+msgstr ""
+
+#. module: account_invoice_validation_queued
+#: model:ir.model,name:account_invoice_validation_queued.model_account_invoice_confirm
+msgid "Confirm the selected invoices"
+msgstr ""
+
+#. module: account_invoice_validation_queued
+#: model:ir.ui.view,arch_db:account_invoice_validation_queued.account_invoice_confirm_view
+msgid "Enqueue Validation"
+msgstr ""
+
+#. module: account_invoice_validation_queued
+#: model:ir.model,name:account_invoice_validation_queued.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: account_invoice_validation_queued
+#: model:ir.model,name:account_invoice_validation_queued.model_queue_job
+msgid "Queue Job"
+msgstr ""
+
+#. module: account_invoice_validation_queued
+#: model:ir.ui.view,arch_db:account_invoice_validation_queued.view_queue_job_account_invoice_validation
+msgid "Requeue"
+msgstr ""
+
+#. module: account_invoice_validation_queued
+#: code:addons/account_invoice_validation_queued/wizards/account_invoice_confirm.py:28
+#, python-format
+msgid "There's already an enqueued job for validating the invoice #%s. Please wait until it's finished or remove it from the selection."
+msgstr ""
+
+#. module: account_invoice_validation_queued
+#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_account_invoice_validation_job_ids
+#: model:ir.ui.view,arch_db:account_invoice_validation_queued.invoice_form
+#: model:ir.ui.view,arch_db:account_invoice_validation_queued.invoice_supplier_form
+msgid "Validation Jobs"
+msgstr ""
+
+#. module: account_invoice_validation_queued
+#: code:addons/account_invoice_validation_queued/wizards/account_invoice_confirm.py:21
+#, python-format
+msgid "You can't enqueue invoices with different dates."
+msgstr ""
+
