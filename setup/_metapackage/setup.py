@@ -32,6 +32,7 @@ setuptools.setup(
         'odoo11-addon-purchase_invoicing_no_zero_line',
         'odoo11-addon-purchase_stock_picking_return_invoicing',
         'odoo11-addon-purchase_stock_picking_return_invoicing_force_invoiced',
+        'odoo11-addon-sale_order_invoicing_queued',
         'odoo11-addon-sale_timesheet_invoice_description',
     ],
     classifiers=[
