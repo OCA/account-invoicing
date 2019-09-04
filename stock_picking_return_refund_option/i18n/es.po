@@ -39,11 +39,6 @@ msgid "Return Picking"
 msgstr "Albarán de devolución"
 
 #. module: stock_picking_return_refund_option
-#: model:ir.model,name:stock_picking_return_refund_option.model_stock_move
-msgid "Stock Move"
-msgstr "Movimiento de stock"
-
-#. module: stock_picking_return_refund_option
 #: model:ir.model.fields,help:stock_picking_return_refund_option.field_stock_picking_to_refund_lines
 msgid ""
 "This field allow modify 'to_refund' field value in all stock moves from this "
@@ -70,3 +65,6 @@ msgstr "Para abonar"
 #: model:ir.model,name:stock_picking_return_refund_option.model_stock_picking
 msgid "Transfer"
 msgstr "Transferir"
+
+#~ msgid "Stock Move"
+#~ msgstr "Movimiento de stock"
