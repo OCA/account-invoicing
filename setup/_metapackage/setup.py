@@ -35,6 +35,7 @@ setuptools.setup(
         'odoo11-addon-purchase_stock_picking_return_invoicing_force_invoiced',
         'odoo11-addon-sale_order_invoicing_queued',
         'odoo11-addon-sale_timesheet_invoice_description',
+        'odoo11-addon-stock_picking_return_refund_option',
     ],
     classifiers=[
         'Programming Language :: Python',
