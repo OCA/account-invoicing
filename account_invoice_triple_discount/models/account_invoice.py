@@ -16,9 +16,7 @@ class AccountInvoice(models.Model):
                 'price_unit': line.price_unit,
                 'discount': line.discount,
             }
-            price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-            price_unit *= (1 - (line.discount2 or 0.0) / 100.0)
-            price_unit *= (1 - (line.discount3 or 0.0) / 100.0)
+            price_unit = line._get_discounted_price_unit()
             line.update({
                 'price_unit': price_unit,
                 'discount': 0.0,
@@ -43,15 +41,30 @@ class AccountInvoiceLine(models.Model):
         default=0.0,
     )
 
+    def _get_discounted_price_unit(self):
+        """Inheritable method for getting the unit price after applying
+        discount(s).
+
+        :returns: Unit price after discount(s).
+        :rtype: float
+        """
+        self.ensure_one()
+        price_unit = self.price_unit
+        if self.discount:
+            price_unit *= (1 - self.discount / 100)
+        if self.discount2:
+            price_unit *= (1 - self.discount2 / 100.0)
+        if self.discount3:
+            price_unit *= (1 - self.discount3 / 100.0)
+        return price_unit
+
     @api.multi
     @api.depends('discount2', 'discount3')
     def _compute_price(self):
         for line in self:
             prev_price_unit = line.price_unit
             prev_discount = line.discount
-            price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-            price_unit *= (1 - (line.discount2 or 0.0) / 100.0)
-            price_unit *= (1 - (line.discount3 or 0.0) / 100.0)
+            price_unit = line._get_discounted_price_unit()
             line.update({
                 'price_unit': price_unit,
                 'discount': 0.0,
