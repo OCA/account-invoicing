@@ -17,126 +17,133 @@ msgstr ""
 "X-Generator: Weblate 3.1.1\n"
 
 #. module: account_invoice_reimbursable
-#: code:addons/account_invoice_reimbursable/models/account_invoice.py:194
+#: code:addons/account_invoice_reimbursable/models/account_invoice.py:207
 #, python-format
 msgid "%s from %s"
 msgstr "%s de %s"
 
 #. module: account_invoice_reimbursable
-#: model:ir.ui.view,arch_db:account_invoice_reimbursable.report_invoice_document_with_supplies
+#: model_terms:ir.ui.view,arch_db:account_invoice_reimbursable.report_invoice_document_with_supplies
 msgid "<strong>Executable</strong>"
 msgstr "<strong>Ejecutable</strong>"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_account_id
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__account_id
 msgid "Account"
 msgstr "Cuenta"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_amount
+#: model:ir.model,name:account_invoice_reimbursable.model_account_invoice_reimbursable
+#, fuzzy
+#| msgid "account.invoice.reimbursable"
+msgid "Account Invoice Reimbursable"
+msgstr "account.invoice.reimbursable"
+
+#. module: account_invoice_reimbursable
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__amount
 msgid "Amount"
 msgstr "Importe"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_account_analytic_id
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__account_analytic_id
 msgid "Analytic Account"
 msgstr "Cuenta Analítica"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_analytic_tag_ids
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__analytic_tag_ids
 msgid "Analytic Tags"
 msgstr "Etiquetas analíticas"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_company_id
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__company_id
 msgid "Company"
 msgstr "Compañía"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_create_uid
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_create_date
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__create_date
 msgid "Created on"
 msgstr "Creado en"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_currency_id
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__currency_id
 msgid "Currency"
 msgstr "Moneda"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_description
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__description
 msgid "Description"
 msgstr "Descripción"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_display_name
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_id
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__id
 msgid "ID"
 msgstr "ID (identificación)"
 
 #. module: account_invoice_reimbursable
 #: model:ir.model,name:account_invoice_reimbursable.model_account_invoice
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_invoice_id
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__invoice_id
 msgid "Invoice"
 msgstr "Factura"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable___last_update
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_write_uid
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización de"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_write_date
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__write_date
 msgid "Last Updated on"
 msgstr "Última actualización en"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_name
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__name
 msgid "Name"
 msgstr "Nombre"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_partner_id
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__partner_id
 msgid "Partner"
 msgstr "Contacto"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_product_id
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable__product_id
 msgid "Product"
 msgstr "Producto"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_ids
-#: model:ir.ui.view,arch_db:account_invoice_reimbursable.invoice_supplier_form
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice__reimbursable_ids
+#: model_terms:ir.ui.view,arch_db:account_invoice_reimbursable.invoice_supplier_form
 msgid "Reimbursable"
 msgstr "Suplido"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_count
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice__reimbursable_count
 msgid "Reimbursable Count"
 msgstr "Número de Suplidos"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_executable_total
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice__executable_total
 msgid "Total executable"
 msgstr "Total ejecutable"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice_executable_total_company_signed
-#: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice_reimbursable_total_company_signed
+#: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__executable_total_company_signed
+#: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__reimbursable_total_company_signed
 msgid ""
 "Total executable amount in the currency of the company, negative for credit "
 "notes."
@@ -144,7 +151,7 @@ msgstr ""
 "Total ejecutable con la moneda de la compañía, negativo para los abonos."
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice_executable_total_signed
+#: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__executable_total_signed
 msgid ""
 "Total executable amount in the currency of the invoice, negative for credit "
 "notes."
@@ -152,38 +159,33 @@ msgstr ""
 "Total ejecutable con la moneda de la factura, negativo para los abonos."
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_executable_total_company_signed
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice__executable_total_company_signed
 msgid "Total executable in Company Currency"
 msgstr "Total ejecutable en la moneda de la compañía"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_executable_total_signed
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice__executable_total_signed
 msgid "Total executable in Invoice Currency"
 msgstr "Total ejecutable en la moneda de la factura"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_total
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice__reimbursable_total
 msgid "Total reimbursable"
 msgstr "Total suplido"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice_reimbursable_total_signed
+#: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__reimbursable_total_signed
 msgid ""
 "Total reimbursable amount in the currency of the invoice, negative for "
 "credit notes."
 msgstr "Total suplido en la moneda de la factura, negativo para los abonos."
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_total_company_signed
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice__reimbursable_total_company_signed
 msgid "Total reimbursable in Company Currency"
 msgstr "Total suplido en la moneda de la compañía"
 
 #. module: account_invoice_reimbursable
-#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice_reimbursable_total_signed
+#: model:ir.model.fields,field_description:account_invoice_reimbursable.field_account_invoice__reimbursable_total_signed
 msgid "Total reimbursable in Invoice Currency"
 msgstr "Total suplido en la moneda de la factura"
-
-#. module: account_invoice_reimbursable
-#: model:ir.model,name:account_invoice_reimbursable.model_account_invoice_reimbursable
-msgid "account.invoice.reimbursable"
-msgstr "account.invoice.reimbursable"
