@@ -28,4 +28,7 @@ class AccountInvoice(models.Model):
 
     @job(default_channel='root.account_invoice_validation_queued')
     def action_invoice_open_job(self):
+        self.ensure_one()
+        if self.state not in {'draft', 'sent'}:
+            return
         self.action_invoice_open()
