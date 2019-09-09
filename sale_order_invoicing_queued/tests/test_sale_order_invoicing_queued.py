@@ -52,9 +52,6 @@ class TestSaleOrderInvoicingQueue(SavepointCase):
         self.assertNotEqual(
             self.order.invoicing_job_ids, self.order2.invoicing_job_ids
         )
-        # Remove job
-        self.order.invoicing_job_ids.cancel()
-        self.assertFalse(self.order.invoicing_job_ids.exists())
         # Try to enqueue invoicing again
         with self.assertRaises(exceptions.UserError):
             wizard.enqueue_invoices()

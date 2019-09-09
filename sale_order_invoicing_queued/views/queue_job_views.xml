@@ -17,7 +17,7 @@
                         class="oe_highlight"
                         attrs="{'invisible': [('state', '!=', 'failed')]}"/>
                  <button type="object"
-                         name="cancel"
+                         name="unlink"
                          string="Cancel"
                          class="oe_highlight_cancel"
                          icon="fa-times-circle"
