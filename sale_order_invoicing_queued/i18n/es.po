@@ -33,11 +33,6 @@ msgid "Invoicing Jobs"
 msgstr "Trabajos de facturación"
 
 #. module: sale_order_invoicing_queued
-#: model:ir.model,name:sale_order_invoicing_queued.model_queue_job
-msgid "Queue Job"
-msgstr "Trabajo en cola"
-
-#. module: sale_order_invoicing_queued
 #: model:ir.model,name:sale_order_invoicing_queued.model_sale_order
 msgid "Quotation"
 msgstr "Presupuesto"
@@ -61,3 +56,6 @@ msgid ""
 msgstr ""
 "Ya existe un trabajo encolado para facturar el pedido de venta %s. Por favor "
 "espera hasta que haya terminado o elimine el pedido de la selección."
+
+#~ msgid "Queue Job"
+#~ msgstr "Trabajo en cola"
