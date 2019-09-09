@@ -30,6 +30,6 @@ class SaleAdvancePaymentInv(models.TransientModel):
                 ) % (order.name, ))
             grouped_orders[group_key] |= order
         for orders in grouped_orders.values():
-            new_delay = orders.sudo().with_delay().create_invoices_job(final)
+            new_delay = orders.with_delay().create_invoices_job(final)
             job = queue_obj.search([('uuid', '=', new_delay.uuid)])
             orders.sudo().write({'invoicing_job_ids': [(4, job.id)]})
