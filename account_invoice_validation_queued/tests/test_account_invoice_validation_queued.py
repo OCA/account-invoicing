@@ -50,12 +50,6 @@ class TestAccountInvoiceValidationQueued(SavepointCase):
         jobs = current_jobs - prev_jobs
         self.assertEqual(len(jobs), 1)
         self.assertTrue(self.invoice.validation_job_ids)
-        # Try to enqueue validation again
-        with self.assertRaises(exceptions.UserError):
-            wizard.enqueue_invoice_confirm()
-        # Remove job
-        self.invoice.validation_job_ids.cancel()
-        self.assertFalse(self.invoice.validation_job_ids.exists())
 
     def test_queue_validation_several_dates(self):
         invoice2 = self.invoice.copy({'date_invoice': '2019-01-01'})
@@ -69,9 +63,3 @@ class TestAccountInvoiceValidationQueued(SavepointCase):
         # Execute method directly for checking if validation is done
         self.invoice.action_invoice_open_job()
         self.assertEqual(self.invoice.state, 'open')
-        wizard = self.wizard_obj.with_context(
-            active_ids=self.invoice.ids,
-        ).create({})
-        # Try to enqueue validation against an already validated invoice
-        with self.assertRaises(exceptions.UserError):
-            wizard.enqueue_invoice_confirm()

@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, exceptions, models
+from odoo.addons.queue_job.job import identity_exact
 
 
 class AccountInvoiceConfirm(models.TransientModel):
@@ -22,14 +23,8 @@ class AccountInvoiceConfirm(models.TransientModel):
                     "You can't enqueue invoices with different dates."
                 ))
         for invoice in invoices:
-            if invoice.validation_job_ids.filtered(
-                lambda x: x.state in {'pending', 'enqueued', 'started'}
-            ):
-                raise exceptions.UserError(_(
-                    "There's already an enqueued job for validating the "
-                    "invoice #%s. Please wait until it's finished or remove "
-                    "it from the selection."
-                ) % invoice.id)
-            new_delay = invoice.sudo().with_delay().action_invoice_open_job()
+            new_delay = invoice.with_delay(
+                identity_key=identity_exact,
+            ).action_invoice_open_job()
             job = queue_obj.search([('uuid', '=', new_delay.uuid)])
             invoice.sudo().validation_job_ids = [(4, job.id)]
