@@ -30,11 +30,6 @@ msgid "Invoicing Jobs"
 msgstr ""
 
 #. module: sale_order_invoicing_queued
-#: model:ir.model,name:sale_order_invoicing_queued.model_queue_job
-msgid "Queue Job"
-msgstr ""
-
-#. module: sale_order_invoicing_queued
 #: model:ir.model,name:sale_order_invoicing_queued.model_sale_order
 msgid "Quotation"
 msgstr ""
