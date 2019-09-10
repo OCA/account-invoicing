@@ -34,11 +34,6 @@ msgid "Invoice"
 msgstr ""
 
 #. module: account_invoice_validation_queued
-#: model:ir.model,name:account_invoice_validation_queued.model_queue_job
-msgid "Queue Job"
-msgstr ""
-
-#. module: account_invoice_validation_queued
 #: model:ir.ui.view,arch_db:account_invoice_validation_queued.view_queue_job_account_invoice_validation
 msgid "Requeue"
 msgstr ""
@@ -58,6 +53,7 @@ msgstr ""
 
 #. module: account_invoice_validation_queued
 #: code:addons/account_invoice_validation_queued/wizards/account_invoice_confirm.py:21
+#: code:addons/account_invoice_validation_queued/wizards/account_invoice_confirm.py:22
 #, python-format
 msgid "You can't enqueue invoices with different dates."
 msgstr ""
