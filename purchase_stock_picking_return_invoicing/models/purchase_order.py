@@ -139,6 +139,7 @@ class PurchaseOrderLine(models.Model):
     @api.depends(
         'move_ids.state',
         'move_ids.returned_move_ids.state',
+        'move_ids.product_uom_qty',
     )
     def _compute_qty_returned(self):
         """Made through read_group for not impacting in performance."""
