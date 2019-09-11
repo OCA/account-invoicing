@@ -6,8 +6,8 @@
 #   (http://www.eficent.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import json
 from odoo import api, models
-from odoo.osv.orm import browse_record, browse_null
 from odoo.tools import float_is_zero
 
 
@@ -73,24 +73,15 @@ class AccountInvoice(models.Model):
 
         """
 
-        def make_key(br, fields):
+        def make_key(record, fields):
             list_key = []
+            values = {}
             for field in fields:
-                field_val = getattr(br, field)
-                if field in ('product_id', 'account_id'):
-                    if not field_val:
-                        field_val = False
-                if (isinstance(field_val, browse_record) and
-                        field != 'invoice_line_tax_ids' and
-                        field != 'sale_line_ids'):
-                    field_val = field_val.id
-                elif isinstance(field_val, browse_null):
-                    field_val = False
-                elif (isinstance(field_val, list) or
-                        field == 'invoice_line_tax_ids' or
-                        field == 'sale_line_ids'):
-                    field_val = ((6, 0, tuple([v.id for v in field_val])),)
-                list_key.append((field, field_val))
+                name, value = field, getattr(record, field)
+                values[name] = value
+            dict_key = record._convert_to_write(values)
+            for name, value in dict_key.iteritems():
+                list_key.append((name, value))
             list_key.sort()
             return tuple(list_key)
 
@@ -138,10 +129,8 @@ class AccountInvoice(models.Model):
             for invoice_line in account_invoice.invoice_line_ids:
                 line_key = make_key(
                     invoice_line, self._get_invoice_line_key_cols())
-
                 o_line = invoice_infos['invoice_line_ids'].\
-                    setdefault(line_key, {})
-
+                    setdefault(json.dumps(line_key), {})
                 if o_line:
                     # merge the line with an existing line
                     o_line['quantity'] += invoice_line.quantity
@@ -161,7 +150,7 @@ class AccountInvoice(models.Model):
                 continue
             # cleanup invoice line data
             for key, value in invoice_data['invoice_line_ids'].iteritems():
-                value.update(dict(key))
+                value.update(dict(json.loads(key)))
 
             if remove_empty_invoice_lines:
                 invoice_data['invoice_line_ids'] = [
