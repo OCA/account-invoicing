@@ -28,9 +28,8 @@ class AccountInvoice(models.Model):
             'product_id', 'account_id', 'account_analytic_id',
             'uom_id'
         ]
-        for field in ['sale_line_ids']:
-            if field in self.env['account.invoice.line']._fields:
-                fields.append(field)
+        if 'sale_line_ids' in self.env['account.invoice.line']._fields:
+            fields.append('sale_line_ids')
         return fields
 
     @api.model
@@ -73,84 +72,72 @@ class AccountInvoice(models.Model):
 
         """
 
-        def make_key(record, fields):
-            list_key = []
+        def make_field_dict(record, fields):
             values = {}
             for field in fields:
-                name, value = field, getattr(record, field)
-                values[name] = value
-            dict_key = record._convert_to_write(values)
-            for name, value in dict_key.iteritems():
-                list_key.append((name, value))
-            list_key.sort()
-            return tuple(list_key)
+                value = getattr(record, field)
+                values[field] = value
+            return record._convert_to_write(values)
 
         # compute what the new invoices should contain
         new_invoices = {}
-        draft_invoices = [invoice
-                          for invoice in self
-                          if invoice.state == 'draft']
-        seen_origins = {}
-        seen_client_refs = {}
+        origins = []
+        client_refs = []
+        for invoice in self:
+            if invoice.state != 'draft':
+                continue
+            same_infos = make_field_dict(
+                invoice, self._get_invoice_key_cols())
+            invoice_key = json.dumps(same_infos)
+            invoice_infos = new_invoices.setdefault(
+                invoice_key,
+                self._get_first_invoice_fields(invoice))
+            invoice_infos.update(same_infos)
+            if 'ids' not in invoice_infos:
+                invoice_infos['ids'] = []
+            invoice_infos['ids'].append(invoice.id)
+            if invoice.name and keep_references:
+                invoice_infos['name'] = \
+                    (invoice_infos['name'] or '') + ' ' + \
+                    invoice.name
+            if invoice.origin and \
+                    invoice.origin not in origins:
+                invoice_infos['origin'] = \
+                    (invoice_infos['origin'] or '') + ' ' + \
+                    invoice.origin
+                origins.append(invoice.origin)
+            if invoice.reference \
+                    and invoice.reference not in client_refs:
+                invoice_infos['reference'] = \
+                    (invoice_infos['reference'] or '') + ' ' + \
+                    invoice.reference
+                client_refs.append(invoice.reference)
 
-        for account_invoice in draft_invoices:
-            invoice_key = make_key(
-                account_invoice, self._get_invoice_key_cols())
-            new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
-            origins = seen_origins.setdefault(invoice_key, set())
-            client_refs = seen_client_refs.setdefault(invoice_key, set())
-            new_invoice[1].append(account_invoice.id)
-            invoice_infos = new_invoice[0]
-            if not invoice_infos:
-                invoice_infos.update(
-                    self._get_first_invoice_fields(account_invoice))
-                origins.add(account_invoice.origin)
-                client_refs.add(account_invoice.reference)
-                if not keep_references:
-                    invoice_infos.pop('name')
-            else:
-                if account_invoice.name and keep_references:
-                    invoice_infos['name'] = \
-                        (invoice_infos['name'] or '') + ' ' + \
-                        account_invoice.name
-                if account_invoice.origin and \
-                        account_invoice.origin not in origins:
-                    invoice_infos['origin'] = \
-                        (invoice_infos['origin'] or '') + ' ' + \
-                        account_invoice.origin
-                    origins.add(account_invoice.origin)
-                if account_invoice.reference \
-                        and account_invoice.reference not in client_refs:
-                    invoice_infos['reference'] = \
-                        (invoice_infos['reference'] or '') + ' ' + \
-                        account_invoice.reference
-                    client_refs.add(account_invoice.reference)
-
-            for invoice_line in account_invoice.invoice_line_ids:
-                line_key = make_key(
+            for invoice_line in invoice.invoice_line_ids:
+                line_infos = make_field_dict(
                     invoice_line, self._get_invoice_line_key_cols())
-                o_line = invoice_infos['invoice_line_ids'].\
-                    setdefault(json.dumps(line_key), {})
+                line_key = json.dumps(line_infos)
+                o_line = invoice_infos['invoice_line_ids'].get(line_key)
                 if o_line:
                     # merge the line with an existing line
                     o_line['quantity'] += invoice_line.quantity
                 else:
                     # append a new "standalone" line
-                    o_line['quantity'] = invoice_line.quantity
+                    invoice_infos['invoice_line_ids'][line_key] = line_infos
+                    invoice_infos['invoice_line_ids'][line_key]['quantity'] = \
+                        invoice_line.quantity
 
         allinvoices = []
         allnewinvoices = []
         invoices_info = {}
         qty_prec = self.env['decimal.precision'].precision_get(
             'Product Unit of Measure')
-        for invoice_key, (invoice_data, old_ids) in new_invoices.iteritems():
+        for invoice_key, invoice_data in new_invoices.iteritems():
             # skip merges with only one invoice
+            old_ids = invoice_data['ids']
             if len(old_ids) < 2:
                 allinvoices += (old_ids or [])
                 continue
-            # cleanup invoice line data
-            for key, value in invoice_data['invoice_line_ids'].iteritems():
-                value.update(dict(json.loads(key)))
 
             if remove_empty_invoice_lines:
                 invoice_data['invoice_line_ids'] = [
