@@ -9,33 +9,34 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-15 03:39+0000\n"
-"PO-Revision-Date: 2017-02-15 03:39+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
-"teams/23907/pt_BR/)\n"
+"PO-Revision-Date: 2019-09-23 14:24+0000\n"
+"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
+"23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_res_config_settings__group_supplier_inv_check_total
 #: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 #: model:res.groups,name:account_invoice_check_total.group_supplier_inv_check_total
 msgid "Check Total on Vendor Bills"
-msgstr ""
+msgstr "Verificar total nas contas do fornecedor"
 
 #. module: account_invoice_check_total
 #: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 msgid ""
 "Check whether the total computed amount is the same as the verification total"
-msgstr ""
+msgstr "Verifique se o valor total calculado é igual ao total de verificação"
 
 #. module: account_invoice_check_total
 #: model:ir.model,name:account_invoice_check_total.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Definições de configuração"
 
 #. module: account_invoice_check_total
 #: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
@@ -43,6 +44,8 @@ msgid ""
 "If you check this box, the system verifies that the total computed amount is "
 "the same as the verification total."
 msgstr ""
+"Se você marcar esta caixa, o sistema verificará se o valor total calculado é "
+"igual ao total de verificação."
 
 #. module: account_invoice_check_total
 #: model:ir.model,name:account_invoice_check_total.model_account_invoice
@@ -58,13 +61,17 @@ msgid ""
 "match                        the Verification Total amount (%s)!\n"
 "There is a difference of %s"
 msgstr ""
+"Verifique o preço da fatura!\n"
+"                         O valor total (%s) não corresponde ao valor total "
+"da verificação (%s)!\n"
+"Há uma diferença de %s"
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice__check_total_display_difference
 msgid "Total Difference"
-msgstr ""
+msgstr "Diferença Total"
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice__check_total
 msgid "Verification Total"
-msgstr ""
+msgstr "Verificação Total"
