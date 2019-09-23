@@ -9,21 +9,22 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-11 02:41+0000\n"
-"PO-Revision-Date: 2018-04-11 02:41+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
-"teams/23907/pt_BR/)\n"
+"PO-Revision-Date: 2019-09-23 14:24+0000\n"
+"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
+"23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Bill date"
-msgstr ""
+msgstr "Data da Fatura"
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
@@ -49,12 +50,13 @@ msgstr "Número"
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_line__origin_line_ids
 msgid "Original invoice line"
-msgstr ""
+msgstr "Linha de fatura original"
 
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_line__origin_line_ids
 msgid "Original invoice line to which this refund invoice line is referred to"
 msgstr ""
+"Linha de fatura original à qual essa linha de fatura de reembolso é referida"
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
@@ -65,37 +67,37 @@ msgstr "Referencia"
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_line__refund_line_ids
 msgid "Refund invoice line"
-msgstr ""
+msgstr "Linha de fatura de reembolso"
 
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_line__refund_line_ids
 msgid "Refund invoice lines created from this invoice line"
-msgstr ""
+msgstr "Reembolsar linhas de fatura criadas a partir desta linha de fatura"
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Refund invoices"
-msgstr ""
+msgstr "Reembolsar faturas"
 
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice__refund_reason
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Refund reason"
-msgstr ""
+msgstr "Reembolsar razão"
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Refunds"
-msgstr ""
+msgstr "Reembolso"
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Source"
-msgstr ""
+msgstr "Origem"
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
