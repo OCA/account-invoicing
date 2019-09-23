@@ -9,26 +9,27 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2017-11-23 13:51+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
-"teams/23907/pt_BR/)\n"
+"PO-Revision-Date: 2019-09-23 14:24+0000\n"
+"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
+"23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_invoice__transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__code
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contato"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__create_uid
@@ -44,13 +45,13 @@ msgstr "Criado em"
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_id
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_id
 msgid "Customer Invoice Transmission Method"
-msgstr ""
+msgstr "Método de transmissão da fatura do cliente"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_code
 msgid "Customer Invoice Transmission Method Code"
-msgstr ""
+msgstr "Código do método de transmissão da fatura do cliente"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__display_name
@@ -68,6 +69,8 @@ msgid ""
 "Do not modify the code of an existing Transmit Method because it may be used "
 "to identify a particular transmit method."
 msgstr ""
+"Não modifique o código de um método de transmissão existente, pois ele pode "
+"ser usado para identificar um método de transmissão específico."
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__id
@@ -97,65 +100,65 @@ msgstr "Última atualização em"
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__name
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: account_invoice_transmit_method
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
 msgid "Name or Code"
-msgstr ""
+msgstr "Nome ou Código"
 
 #. module: account_invoice_transmit_method
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
 msgid "Search Transmit Methods"
-msgstr ""
+msgstr "Métodos de transmissão de pesquisa"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__customer_ok
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
 msgid "Selectable on Customers"
-msgstr ""
+msgstr "Selecionável em clientes"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__supplier_ok
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
 msgid "Selectable on Vendors"
-msgstr ""
+msgstr "Selecionável em Vendedores"
 
 #. module: account_invoice_transmit_method
 #: sql_constraint:transmit.method:0
 msgid "This transmit method code already exists!"
-msgstr ""
+msgstr "Este código do método de transmissão já existe!"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_invoice__transmit_method_id
 msgid "Transmission Method"
-msgstr ""
+msgstr "Método de transmissão"
 
 #. module: account_invoice_transmit_method
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_form
 msgid "Transmit Method"
-msgstr ""
+msgstr "Método de transmissão"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_transmit_method
 msgid "Transmit Method of a document"
-msgstr ""
+msgstr "Método de transmissão de um documento"
 
 #. module: account_invoice_transmit_method
 #: model:ir.actions.act_window,name:account_invoice_transmit_method.transmit_method_action
 #: model:ir.ui.menu,name:account_invoice_transmit_method.transmit_method_menu
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_tree
 msgid "Transmit Methods"
-msgstr ""
+msgstr "Método de transmissão"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_id
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_id
 msgid "Vendor Invoice Reception Method"
-msgstr ""
+msgstr "Método de recepção de fatura de fornecedor"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
-msgstr ""
+msgstr "Código do método de recepção da fatura do fornecedor"
