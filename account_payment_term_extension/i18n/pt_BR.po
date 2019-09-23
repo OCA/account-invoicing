@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-01 02:42+0000\n"
-"PO-Revision-Date: 2018-06-01 02:42+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
-"teams/23907/pt_BR/)\n"
+"PO-Revision-Date: 2019-09-23 14:24+0000\n"
+"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
+"23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
 
 #. module: account_payment_term_extension
 #: model:account.payment.term,name:account_payment_term_extension.sixty_days_end_of_month
@@ -28,7 +29,7 @@ msgstr "60 dias final do mês"
 #. module: account_payment_term_extension
 #: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term__sequential_lines
 msgid "Allows to apply a chronological order on lines."
-msgstr ""
+msgstr "Permite aplicar uma ordem cronológica nas linhas."
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line__amount_round
@@ -49,7 +50,7 @@ msgstr "Criado em"
 #: code:addons/account_payment_term_extension/models/account_payment_term.py:41
 #, python-format
 msgid "Date %s cannot is both a holiday and a Postponed date"
-msgstr ""
+msgstr "A data %s não pode ser um feriado e uma data adiada"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__display_name
@@ -59,25 +60,25 @@ msgstr "Nome para Mostrar"
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__holiday
 msgid "Holiday"
-msgstr ""
+msgstr "Feriado"
 
 #. module: account_payment_term_extension
 #: code:addons/account_payment_term_extension/models/account_payment_term.py:29
 #, python-format
 msgid "Holiday %s can only be postponed into the future"
-msgstr ""
+msgstr "O feriado %s só pode ser adiado para o futuro"
 
 #. module: account_payment_term_extension
 #: code:addons/account_payment_term_extension/models/account_payment_term.py:34
 #, python-format
 msgid "Holiday %s is duplicated in current payment term"
-msgstr ""
+msgstr "O feriado %s é duplicado no prazo de pagamento atual"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term__holiday_ids
 #: model_terms:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_form
 msgid "Holidays"
-msgstr ""
+msgstr "Feriados"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__id
@@ -112,38 +113,38 @@ msgstr "Número de semanas"
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__payment_id
 msgid "Payment"
-msgstr ""
+msgstr "Pagamento"
 
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term_holiday
 msgid "Payment Term Holidays"
-msgstr ""
+msgstr "Férias de Prazo de Pagamento"
 
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term
 msgid "Payment Terms"
-msgstr ""
+msgstr "Termos de Pagamentos"
 
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term_line
 msgid "Payment Terms Line"
-msgstr ""
+msgstr "Linha de condições de pagamento"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line__payment_days
 msgid "Payment day(s)"
-msgstr ""
+msgstr "Dia(s) de Pagamento(s)"
 
 #. module: account_payment_term_extension
 #: code:addons/account_payment_term_extension/models/account_payment_term.py:105
 #, python-format
 msgid "Payment days field format is not valid."
-msgstr ""
+msgstr "O formato do campo Dias de pagamento não é válido."
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday__date_postponed
 msgid "Postponed date"
-msgstr ""
+msgstr "Data adiada"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_line__payment_days
@@ -151,11 +152,13 @@ msgid ""
 "Put here the day or days when the partner makes the payment. Separate each "
 "possible payment day with dashes (-), commas (,) or spaces ( )."
 msgstr ""
+"Coloque aqui o dia ou dias em que o parceiro faz o pagamento. Separe cada "
+"dia de pagamento possível com traços (-), vírgulas (,) ou espaços ( )."
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term__sequential_lines
 msgid "Sequential lines"
-msgstr ""
+msgstr "Linhas Sequenciais"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_line__amount_round
@@ -163,6 +166,9 @@ msgid ""
 "Sets the amount so that it is a multiple of this value.\n"
 "To have amounts that end in 0.99, set rounding 1, surcharge -0.01"
 msgstr ""
+"Define a quantidade para que seja um múltiplo desse valor.\n"
+"Para ter valores que terminam em 0,99, defina o arredondamento 1, sobretaxa "
+"-0,01"
 
 #. module: account_payment_term_extension
 #: model_terms:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_form
@@ -170,3 +176,5 @@ msgid ""
 "When a payment term coincides with a holiday, it is postponed to the chosen "
 "date."
 msgstr ""
+"Quando um prazo de pagamento coincide com um feriado, é adiado para a data "
+"escolhida."
