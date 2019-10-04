@@ -15,7 +15,8 @@ class AccountInvoice(models.Model):
     def _test_invoice_line_tax(self):
         errors = []
         error_template = _("Invoice has a line with product %s with no taxes")
-        for invoice_line in self.mapped('invoice_line_ids'):
+        for invoice_line in self.mapped('invoice_line_ids').filtered(
+            lambda x: x.display_type is False):
             if not invoice_line.invoice_line_tax_ids:
                 error_string = error_template % (invoice_line.name)
                 errors.append(error_string)
