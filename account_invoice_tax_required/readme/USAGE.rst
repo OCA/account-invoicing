@@ -1,7 +1,7 @@
 To use this module, you need to:
 
-#. Go to Accounting (or Invoicing) > Sales > Customer Invoices.
+#. Go to Invoicing > Customers > Invoices.
 #. Create a new invoice.
 #. Insert a new invoice line without taxes.
-#. Press on "Validate".
+#. Press on "Post".
 #. An error will raise preventing to do it.
