@@ -10,7 +10,7 @@ class TestAccountInvoiceTaxRequired(TransactionCase):
     def setUp(self):
         super(TestAccountInvoiceTaxRequired, self).setUp()
 
-        self.account_invoice = self.env['account.invoice']
+        self.account_invoice = self.env['account.move']
         self.account_journal = self.env['account.journal']
         self.journal = self.account_journal.create({
             'code': 'test',
@@ -67,4 +67,4 @@ class TestAccountInvoiceTaxRequired(TransactionCase):
         """
         with self.assertRaises(exceptions.Warning):
             self.invoice.with_context(
-                test_tax_required=True).action_invoice_open()
+                test_tax_required=True).action_post()

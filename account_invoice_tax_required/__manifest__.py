@@ -3,8 +3,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': "Tax required in invoice",
-    'version': "12.0.1.0.0",
-    "author": "Camptocamp,Tecnativa,Odoo Community Association (OCA)",
+    'version': "13.0.1.0.0",
+    "author": "Camptocamp,Tecnativa,Punt Sistemes, "
+              "Odoo Community Association (OCA)",
     'website': "https://github.com/OCA/account-invoicing",
     'category': "Localization / Accounting",
     'license': "AGPL-3",
