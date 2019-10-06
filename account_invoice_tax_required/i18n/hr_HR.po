@@ -22,6 +22,7 @@ msgstr ""
 
 #. module: account_invoice_tax_required
 #: code:addons/account_invoice_tax_required/models/account_invoice.py:24
+#: code:addons/account_invoice_tax_required/models/account_invoice.py:25
 #, python-format
 msgid ""
 "%s\n"
@@ -41,6 +42,7 @@ msgstr ""
 
 #. module: account_invoice_tax_required
 #: code:addons/account_invoice_tax_required/models/account_invoice.py:24
+#: code:addons/account_invoice_tax_required/models/account_invoice.py:25
 #, python-format
 msgid "No Taxes Defined!"
 msgstr ""
