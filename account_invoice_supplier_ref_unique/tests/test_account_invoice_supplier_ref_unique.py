@@ -8,25 +8,26 @@ from odoo.tests.common import SavepointCase
 class TestAccountInvoiceSupplierRefUnique(SavepointCase):
 
     @classmethod
-    def setUpClass(self):
-        super(TestAccountInvoiceSupplierRefUnique, self).setUpClass()
+    def setUpClass(cls):
+        super(TestAccountInvoiceSupplierRefUnique, cls).setUpClass()
 
         # ENVIRONMENTS
-        self.account_account = self.env['account.account']
-        self.account_invoice = self.env['account.invoice']
+        cls.account_account = cls.env['account.account']
+        cls.account_invoice = cls.env['account.invoice'].with_context(
+            {'tracking_disable': True})
 
         # INSTANCES
-        self.partner = self.env.ref('base.res_partner_2')
+        cls.partner = cls.env.ref('base.res_partner_2')
         # Account for invoice
-        self.account = self.account_account.search(
+        cls.account = cls.account_account.search(
             [('user_type_id',
               '=',
-              self.env.ref('account.data_account_type_receivable').id
+              cls.env.ref('account.data_account_type_receivable').id
               )], limit=1)
         # Invoice with unique reference 'ABC123'
-        self.invoice = self.account_invoice.create({
-            'partner_id': self.partner.id,
-            'account_id': self.account.id,
+        cls.invoice = cls.account_invoice.create({
+            'partner_id': cls.partner.id,
+            'account_id': cls.account.id,
             'type': 'in_invoice',
             'supplier_invoice_number': 'ABC123'})
 
