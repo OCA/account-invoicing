@@ -84,6 +84,8 @@ class AccountInvoice(models.Model):
         state = self.get_force_rate_state()
         if state.new_value_integer:
             return
+        if self._context.get('tracking_disable'):
+            return
         last_currency = self.get_last_currency_id()
         if (last_currency == self.currency_id and
                 self.get_last_currency_id(True)):
