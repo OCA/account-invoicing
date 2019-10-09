@@ -14,30 +14,31 @@ class AccountInvoice(models.Model):
         states={'draft': [('readonly', False)]},
         copy=False)
 
-    @api.one
     @api.constrains('supplier_invoice_number')
     def _check_unique_supplier_invoice_number_insensitive(self):
         """
         Check if an other vendor bill has the same supplier_invoice_number
         and the same commercial_partner_id than the current instance
         """
-        if self.supplier_invoice_number and\
-                self.type in ('in_invoice', 'in_refund'):
-            same_supplier_inv_num = self.search([
-                ('commercial_partner_id', '=', self.commercial_partner_id.id),
-                ('type', 'in', ('in_invoice', 'in_refund')),
-                ('supplier_invoice_number',
-                 '=ilike', self.supplier_invoice_number),
-                ('id', '!=', self.id)
-            ], limit=1)
-            if same_supplier_inv_num:
-                raise ValidationError(_(
-                    "The invoice/refund with supplier invoice number '%s' "
-                    "already exists in Odoo under the number '%s' "
-                    "for supplier '%s'.") % (
-                        same_supplier_inv_num.supplier_invoice_number,
-                        same_supplier_inv_num.number or '-',
-                        same_supplier_inv_num.partner_id.display_name))
+        for rec in self:
+            if rec.supplier_invoice_number and\
+                    rec.type in ('in_invoice', 'in_refund'):
+                same_supplier_inv_num = rec.search([
+                    ('commercial_partner_id', '=',
+                     rec.commercial_partner_id.id),
+                    ('type', 'in', ('in_invoice', 'in_refund')),
+                    ('supplier_invoice_number',
+                     '=ilike', rec.supplier_invoice_number),
+                    ('id', '!=', rec.id)
+                ], limit=1)
+                if same_supplier_inv_num:
+                    raise ValidationError(_(
+                        "The invoice/refund with supplier invoice number '%s' "
+                        "already exists in Odoo under the number '%s' "
+                        "for supplier '%s'.") % (
+                            same_supplier_inv_num.supplier_invoice_number,
+                            same_supplier_inv_num.number or '-',
+                            same_supplier_inv_num.partner_id.display_name))
 
     @api.onchange('supplier_invoice_number')
     def _onchange_supplier_invoice_number(self):
