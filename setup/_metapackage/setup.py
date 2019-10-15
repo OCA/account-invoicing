@@ -25,6 +25,7 @@ setuptools.setup(
         'odoo11-addon-account_invoice_supplier_self_invoice',
         'odoo11-addon-account_invoice_tax_note',
         'odoo11-addon-account_invoice_tax_required',
+        'odoo11-addon-account_invoice_transmit_method',
         'odoo11-addon-account_invoice_triple_discount',
         'odoo11-addon-account_invoice_validation_queued',
         'odoo11-addon-account_invoice_view_payment',
