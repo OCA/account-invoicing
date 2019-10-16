@@ -7,7 +7,7 @@
     "name": "Product Customer code for account invoice",
     "summary": """Based on product_customer_code, this module loads in every
                 account invoice the customer code defined in the product,""",
-    "version": "10.0.1.0.0",
+    "version": "10.0.1.0.1",
     "author": "Agile Business Group,Odoo Community Association (OCA)",
     "website": "http://www.agilebg.com",
     "category": "Account",
