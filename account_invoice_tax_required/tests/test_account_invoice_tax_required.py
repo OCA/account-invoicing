@@ -55,7 +55,6 @@ class TestAccountInvoiceTaxRequired(TransactionCase):
 
         self.invoice = self.account_invoice.create(dict(
             name="Test Customer Invoice",
-            reference_type="none",
             journal_id=self.journal.id,
             partner_id=self.partner.id,
             account_id=self.account_rec1_id.id,
