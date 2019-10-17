@@ -76,7 +76,6 @@ class AccountPaymentTermLine(models.Model):
     months = fields.Integer(string="Number of Months")
     weeks = fields.Integer(string="Number of Weeks")
 
-    @api.multi
     def compute_line_amount(self, total_amount, remaining_amount, precision_digits):
         """Compute the amount for a payment term line.
         In case of procent computation, use the payment
@@ -107,7 +106,6 @@ class AccountPaymentTermLine(models.Model):
         days.sort()
         return days
 
-    @api.one
     @api.constrains("payment_days")
     def _check_payment_days(self):
         if not self.payment_days:
@@ -172,7 +170,6 @@ class AccountPaymentTerm(models.Model):
                 return new_date
         return date
 
-    @api.one
     def compute(self, value, date_ref=False):
         """Complete overwrite of compute method to add rounding on line
         computing and also to handle weeks and months
