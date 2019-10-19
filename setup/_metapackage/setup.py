@@ -31,6 +31,7 @@ setuptools.setup(
         'odoo11-addon-account_invoice_validation_queued',
         'odoo11-addon-account_invoice_view_payment',
         'odoo11-addon-account_payment_term_extension',
+        'odoo11-addon-product_supplierinfo_for_customer_invoice',
         'odoo11-addon-purchase_batch_invoicing',
         'odoo11-addon-purchase_invoicing_no_zero_line',
         'odoo11-addon-purchase_stock_picking_return_invoicing',
