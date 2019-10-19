@@ -1,3 +1,4 @@
+product-attribute
 purchase-workflow
 queue
 server-tools
