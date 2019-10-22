@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_sequence_qweb" inherit_id="account.report_invoice_document">
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[1]" position="before">
+            <th><strong>Sequence</strong></th>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[@name='account_invoice_line_accountable']/td[1]" position="before">
+             <td>
+                <span t-field="l.sequence2"/>
+             </td>
+        </xpath>
+    </template>
+</odoo>
