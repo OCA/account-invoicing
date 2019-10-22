@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
 
 #. module: account_invoice_analytic_search
-#: model:ir.model.fields,field_description:account_invoice_analytic_search.field_account_invoice_account_analytic_ids
+#: model:ir.model.fields,field_description:account_invoice_analytic_search.field_account_invoice__account_analytic_ids
 msgid "Analytic Account"
 msgstr ""
 
