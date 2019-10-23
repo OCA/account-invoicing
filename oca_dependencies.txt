@@ -1,3 +1,4 @@
 partner-contact
+product-attribute
 purchase-workflow
 brand
