@@ -6,12 +6,13 @@
     "name": "Product Customer code for account invoice",
     "summary": """Based on product_customer_code, this module loads in every
                 account invoice the customer code defined in the product""",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "author": "Agile Business Group,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Account",
     "license": "AGPL-3",
     "depends": [
+        "account",
         "product_supplierinfo_for_customer",
     ],
     "data": [

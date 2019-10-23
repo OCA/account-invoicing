@@ -9,12 +9,13 @@ class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
     @api.multi
+    @api.depends('product_id')
     def _get_product_customer_code(self):
-        product_supplierinfo_obj = self.env['product.supplierinfo']
-        for line in self.filtered(lambda il: il.product_id.supplier_ids):
+        product_customerinfo_obj = self.env['product.customerinfo']
+        for line in self.filtered(
+                lambda il: il.invoice_id.partner_id.customer):
             product = line.product_id
-            code_id = product_supplierinfo_obj.search([
-                ('supplierinfo_type', '=', 'customer'),
+            code_id = product_customerinfo_obj.search([
                 ('product_tmpl_id', '=', product.product_tmpl_id.id),
                 ('name', '=', line.invoice_id.partner_id.id)
             ], limit=1)
@@ -23,5 +24,7 @@ class AccountInvoiceLine(models.Model):
     product_customer_code = fields.Char(
         compute='_get_product_customer_code',
         string='Product Customer Code',
-        size=64
+    )
+    partner_is_customer = fields.Boolean(
+        related='invoice_id.partner_id.customer',
     )
