@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-account-invoicing Odoo addons",
     version=version,
     install_requires=[
+        'odoo11-addon-account_invoice_alternate_payer',
         'odoo11-addon-account_invoice_anglo_saxon_no_cogs_deferral',
         'odoo11-addon-account_invoice_blocking',
         'odoo11-addon-account_invoice_change_currency',
