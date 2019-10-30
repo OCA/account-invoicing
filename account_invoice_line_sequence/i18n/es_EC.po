@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_line_sequence
-#: model:ir.ui.view,arch_db:account_invoice_line_sequence.report_invoice_sequence_qweb
+#: model_terms:ir.ui.view,arch_db:account_invoice_line_sequence.report_invoice_sequence_qweb
 msgid "<strong>Sequence</strong>"
 msgstr ""
 
@@ -35,16 +35,22 @@ msgid "Invoice Line"
 msgstr "Detalle de Factura"
 
 #. module: account_invoice_line_sequence
-#: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice_max_line_sequence
+#: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice__max_line_sequence
 msgid "Max sequence in lines"
 msgstr ""
 
 #. module: account_invoice_line_sequence
-#: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice_line_sequence2
+#: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice_line__sequence2
 msgid "Sequence"
 msgstr ""
 
 #. module: account_invoice_line_sequence
-#: model:ir.model.fields,help:account_invoice_line_sequence.field_account_invoice_line_sequence2
+#: model:ir.model.fields,help:account_invoice_line_sequence.field_account_invoice_line__sequence
+#: model:ir.model.fields,help:account_invoice_line_sequence.field_account_invoice_line__sequence2
 msgid "Shows the sequence of this line in the  invoice."
+msgstr ""
+
+#. module: account_invoice_line_sequence
+#: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice_line__sequence
+msgid "original sequence"
 msgstr ""
