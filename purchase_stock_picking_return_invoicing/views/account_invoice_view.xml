@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Add purchase orders to refund -->
+    <record id="view_invoice_supplier_purchase_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="purchase.view_invoice_supplier_purchase_form"/>
+        <field name="arch" type="xml">
+            <field name="vendor_bill_id" position="after">
+                <field name="vendor_bill_purchase_id" attrs="{'invisible': ['|', '|', ('state','not in',['draft']), ('state', '=', 'purchase'), ('type', '=', 'in_invoice')]}" class="oe_edit_only" domain="[('partner_id','child_of',[partner_id])]" placeholder="Select a purchase order or an old bill" options="{'no_create': True, 'no_open': True}"/>
+            </field>
+            <field name="vendor_bill_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>
