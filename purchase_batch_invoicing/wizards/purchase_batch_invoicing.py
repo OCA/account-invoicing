@@ -10,6 +10,7 @@ _logger = getLogger(__name__)
 
 class PurchaseBatchInvoicing(models.TransientModel):
     _name = "purchase.batch_invoicing"
+    _description = "Purchase Batch Invoicing"
 
     purchase_order_ids = fields.Many2many(
         comodel_name="purchase.order",
@@ -60,6 +61,11 @@ class PurchaseBatchInvoicing(models.TransientModel):
             domain[1] = ("id", "in", pos.ids)
         return domain
 
+    def _prepare_batch_invoice_vals(self, partner):
+        """Allow to override the invoice defaults by a third module.
+        i.e.: set invoice type to in_refund"""
+        return {"partner_id": partner.id, "type": "in_invoice"}
+
     @api.multi
     def grouped_purchase_orders(self):
         """Purchase orders, applying current grouping.
@@ -88,10 +94,8 @@ class PurchaseBatchInvoicing(models.TransientModel):
         """
         invoices = self.env["account.invoice"]
         for pogroup in self.grouped_purchase_orders():
-            invoice = invoices.create({
-                "partner_id": pogroup.mapped("partner_id").id,
-                "type": "in_invoice",
-            })
+            invoice = invoices.create(
+                self._prepare_batch_invoice_vals(pogroup.mapped("partner_id")))
             invoice._onchange_partner_id()
             for po in pogroup:
                 invoice.currency_id = po.currency_id

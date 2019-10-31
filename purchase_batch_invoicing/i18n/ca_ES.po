@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: purchase_batch_invoicing
-#: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
+#: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
 msgid "Accept"
 msgstr ""
 
@@ -31,43 +31,43 @@ msgid "Batch Invoice"
 msgstr ""
 
 #. module: purchase_batch_invoicing
-#: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
+#: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
 msgid "Cancel"
 msgstr "Cancel·la"
 
 #. module: purchase_batch_invoicing
-#: model:ir.ui.view,arch_db:purchase_batch_invoicing.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.purchase_order_form
 msgid "Create Invoice"
 msgstr ""
 
 #. module: purchase_batch_invoicing
-#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_create_uid
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__create_uid
 msgid "Created by"
 msgstr "Creat per"
 
 #. module: purchase_batch_invoicing
-#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_create_date
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__create_date
 msgid "Created on"
 msgstr "Creat a"
 
 #. module: purchase_batch_invoicing
-#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_display_name
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__display_name
 msgid "Display Name"
 msgstr "Nom visible"
 
 #. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:107
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:111
 #, python-format
 msgid "Generated Invoices"
 msgstr ""
 
 #. module: purchase_batch_invoicing
-#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_grouping
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__grouping
 msgid "Grouping"
 msgstr ""
 
 #. module: purchase_batch_invoicing
-#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_id
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__id
 msgid "ID"
 msgstr ""
 
@@ -79,30 +79,35 @@ msgid "Invoice all pending purchase orders"
 msgstr ""
 
 #. module: purchase_batch_invoicing
-#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing___last_update
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing____last_update
 msgid "Last Modified on"
 msgstr "Darrera modificació en"
 
 #. module: purchase_batch_invoicing
-#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_write_uid
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__write_uid
 msgid "Last Updated by"
 msgstr "Darrera actualització per"
 
 #. module: purchase_batch_invoicing
-#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_write_date
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__write_date
 msgid "Last Updated on"
 msgstr "Darrera actualització el"
 
 #. module: purchase_batch_invoicing
-#: model:ir.model.fields,help:purchase_batch_invoicing.field_purchase_batch_invoicing_grouping
+#: model:ir.model.fields,help:purchase_batch_invoicing.field_purchase_batch_invoicing__grouping
 msgid "Make one invoice for each..."
 msgstr ""
 
 #. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:102
-#: model:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:106
+#: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
 #, python-format
 msgid "No ready-to-invoice purchase orders selected."
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: model:ir.model,name:purchase_batch_invoicing.model_purchase_batch_invoicing
+msgid "Purchase Batch Invoicing"
 msgstr ""
 
 #. module: purchase_batch_invoicing
@@ -111,16 +116,11 @@ msgid "Purchase Order"
 msgstr ""
 
 #. module: purchase_batch_invoicing
-#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_purchase_order_ids
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__purchase_order_ids
 msgid "Purchase orders"
 msgstr ""
 
 #. module: purchase_batch_invoicing
 #: selection:purchase.batch_invoicing,grouping:0
 msgid "Vendor"
-msgstr ""
-
-#. module: purchase_batch_invoicing
-#: model:ir.model,name:purchase_batch_invoicing.model_purchase_batch_invoicing
-msgid "purchase.batch_invoicing"
 msgstr ""

@@ -1,5 +1,6 @@
 To use this module, you need to:
 
+#. Have *Purchase / User* permissions.
 #. Go to *Purchases > Purchase > Purchase Orders > Create* and fill the form.
 #. Press *Confirm*.
 #. Press *Receive Products*.
