@@ -9,11 +9,11 @@
             <button name="action_view_invoice" position="after">
                 <button type="object" name="action_view_invoice_refund"
                         class="oe_stat_button"
-                        icon="fa-pencil-square-o">
+                        icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('state', 'in', ('draft', 'sent', 'to approve'))]}">
                     <field name="invoice_refund_count"
                            widget="statinfo"
                            string="Refunds"
-                           attrs="{'invisible': [('state', 'in', ('draft', 'sent', 'to approve'))]}"
                     />
                 </button>
             </button>

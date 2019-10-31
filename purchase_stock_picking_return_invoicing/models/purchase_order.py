@@ -67,8 +67,13 @@ class PurchaseOrder(models.Model):
         result = action.read()[0]
         refunds = self.invoice_ids.filtered(lambda x: x.type == 'in_refund')
         # override the context to get rid of the default filtering
-        result['context'] = {'type': 'in_refund',
-                             'default_purchase_id': self.id}
+        result['context'] = result['context'] = {
+            'type': 'in_refund',
+            'default_purchase_id': self.id,
+            'default_currency_id': self.currency_id.id,
+            'default_company_id': self.company_id.id,
+            'company_id': self.company_id.id
+        }
         if not refunds:
             # Choose a default account journal in the
             # same currency in case a new invoice is created
@@ -87,10 +92,12 @@ class PurchaseOrder(models.Model):
         # choose the view_mode accordingly
         if len(refunds) > 1:
             result['domain'] = [('id', 'in', refunds.ids)]
-        elif len(refunds) == 1:
+        else:
             res = self.env.ref('account.invoice_supplier_form', False)
             result['views'] = [(res and res.id or False, 'form')]
-            result['res_id'] = refunds.id
+            result['res_id'] = refunds.id or False
+        result['context']['default_origin'] = self.name
+        result['context']['default_reference'] = self.partner_ref
         return result
 
     @api.multi
