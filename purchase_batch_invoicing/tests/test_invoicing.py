@@ -30,10 +30,10 @@ class PurchaseBatchInvoicingCase(SavepointCase):
             "is_company": True,
             "property_account_payable_id": cls.account1.id,
         })
-        cls.uomcateg1 = cls.env["product.uom.categ"].create({
+        cls.uomcateg1 = cls.env["uom.category"].create({
             "name": "Category 1",
         })
-        cls.uom1 = cls.env["product.uom"].create({
+        cls.uom1 = cls.env["uom.uom"].create({
             "name": "UOM 1",
             "category_id": cls.uomcateg1.id,
             "factor": 1,
@@ -43,7 +43,7 @@ class PurchaseBatchInvoicingCase(SavepointCase):
         cls.product1 = cls.env["product.product"].create({
             "name": "Product 1",
             "purchase_ok": True,
-            "type": "product",
+            "type": "consu",
             "list_price": 150,
             "standard_price": 100,
             "uom_id": cls.uom1.id,
@@ -75,11 +75,9 @@ class PurchaseBatchInvoicingCase(SavepointCase):
         for po in cls.pos:
             # Confirm purchase order
             po.button_confirm()
-        # Receive products
-        for picking in cls.pos.mapped('picking_ids'):
-            for ml in picking.move_line_ids:
-                ml.qty_done = ml.product_uom_qty
-            picking.action_done()
+            # Receive products
+            for pl in po.order_line:
+                pl.qty_received = pl.product_qty
         cls.wizard = cls.env["purchase.batch_invoicing"].with_context(
             active_ids=cls.pos.ids).create(dict())
 
