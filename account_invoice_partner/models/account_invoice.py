@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2013-2017 Therp BV (<http://therp.nl>)
+# Copyright 2020 initOS GmbH <https://initos.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, api
+from odoo import api, models
 
 
 class AccountInvoice(models.Model):
@@ -19,6 +19,6 @@ class AccountInvoice(models.Model):
             partner_invoice_id = self.env['res.partner'].browse(
                 addr_ids['invoice'])
         result = super(AccountInvoice, self)._onchange_partner_id()
-        if partner_invoice_id != self.partner_id:
+        if partner_invoice_id != self.partner_id and partner_invoice_id.customer:
             self.partner_id = partner_invoice_id
         return result
