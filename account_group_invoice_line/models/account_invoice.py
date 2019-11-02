@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # © 2012-2016 SYLEAM Info Services (<http://www.syleam.fr/>)
 # © 2015-2016 Akretion (http://www.akretion.com)
 # @author: Sébastien LANGE <sebastien.lange@syleam.fr>
 # @author: Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, api
+from odoo import api, models
 
 
 class AccountInvoice(models.Model):

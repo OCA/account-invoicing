@@ -1,0 +1,1 @@
+This module was written to extend the option *Group Invoice Lines* of the journal. With this module, you can choose to group the account move lines generated when you validate an invoice per account, instead of grouping per product.
