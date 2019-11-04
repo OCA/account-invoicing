@@ -3,16 +3,7 @@
 
 from odoo import fields, models
 
-try:  # The try can be removed in v12 as not needed
-    from odoo.addons.queue_job.job import job
-except ImportError:
-    import logging
-    import functools
-
-    logging.getLogger(__name__).debug("Can't `import queue_job`.")
-
-    def job(*argv, **kwargs):
-        return functools.partial
+from odoo.addons.queue_job.job import job
 
 
 class SaleOrder(models.Model):

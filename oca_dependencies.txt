@@ -1,3 +1,4 @@
 partner-contact
 purchase-workflow
+queue
 brand
