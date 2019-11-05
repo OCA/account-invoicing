@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record id="cron" model="ir.cron">
+        <field name="name">Invoice all pending purchase orders</field>
+        <field name="active" eval="False"/>
+        <field name="interval_type">weeks</field>
+        <field name="numbercall">-1</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_purchase_batch_invoicing"/>
+        <field name="code">model.cron_invoice_all_pending("partner_id",)</field>
+    </record>
+
+</odoo>
