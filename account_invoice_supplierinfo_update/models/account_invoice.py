@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 # © 2016 Chafique DELLI @ Akretion
 # Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 
 
 class AccountInvoice(models.Model):
@@ -16,7 +15,7 @@ class AccountInvoice(models.Model):
         compute='_compute_supplier_partner_id')
 
     supplierinfo_ok = fields.Boolean(
-        string='Supplier Informations Checked', copy=False,
+        string='Supplier Informations Checked',
         help="Checked if the check of supplierinfo has been done.\n"
         " - Uncheck this box, if you want to check again this invoice\n"
         " - Check this box, if you want to mark this invoice as checked")
@@ -31,10 +30,9 @@ class AccountInvoice(models.Model):
     # Custom Section
     @api.multi
     def _get_update_supplierinfo_lines(self):
-        self.ensure_one()
         lines = []
 
-        for line in self.invoice_line_ids:
+        for line in self.mapped('invoice_line_ids'):
             if not line.product_id:
                 continue
 

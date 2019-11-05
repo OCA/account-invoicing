@@ -1,15 +1,14 @@
-# -*- coding: utf-8 -*-
 # © 2016 Chafique DELLI @ Akretion
 # Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, api, fields
 import odoo.addons.decimal_precision as dp
+from odoo import api, fields, models
 
 
 class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
-    _name = 'wizard.update.invoice.supplierinfo.line'
+    _name = "wizard.update.invoice.supplierinfo.line"
 
     _SELECTION_STATE = [
         ('new_supplierinfo', 'New Supplier Info'),

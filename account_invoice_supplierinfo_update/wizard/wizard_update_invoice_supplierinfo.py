@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
 # © 2016 Chafique DELLI @ Akretion
 # Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, api, fields
+from odoo import api, fields, models
 
 
 class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
-    _name = 'wizard.update.invoice.supplierinfo'
+    _name = "wizard.update.invoice.supplierinfo"
 
     line_ids = fields.One2many(
         comodel_name='wizard.update.invoice.supplierinfo.line',
@@ -29,7 +28,7 @@ class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
     def update_supplierinfo(self):
         self.ensure_one()
         supplierinfo_obj = self.env['product.supplierinfo']
-        for line in self.line_ids:
+        for line in self.mapped('line_ids'):
             supplierinfo = line.supplierinfo_id
             # Create supplierinfo if not exist
             if not supplierinfo:
@@ -51,4 +50,4 @@ class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
         self.update_supplierinfo()
         invoice = self.env['account.invoice'].browse(
             self._context['active_id'])
-        invoice.signal_workflow('invoice_open')
+        invoice.action_invoice_open()

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Chafique DELLI @ Akretion
 # Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
@@ -9,21 +8,22 @@
     'summary': 'In the supplier invoice, automatically updates all products '
                'whose unit price on the line is different from '
                'the supplier price',
-    'version': '10.0.1.0.1',
+    'version': '11.0.1.0.1',
     'category': 'Accounting & Finance',
     'website': 'https://github.com/OCA/account-invoicing',
     'author':
+        'initOS GmbH,'
         'Akretion,'
         'GRAP,'
         'Odoo Community Association (OCA)',
     'license': 'AGPL-3',
-    'installable': True,
     'depends': [
-        'account',
+        'account_invoicing',
     ],
     'data': [
         'views/account_invoice_view.xml',
         'wizard/wizard_update_invoice_supplierinfo.xml'
     ],
     'images': ['static/description/main_screenshot.png'],
+    'installable': True,
 }
