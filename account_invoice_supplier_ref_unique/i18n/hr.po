@@ -25,7 +25,7 @@ msgid "Invoice"
 msgstr "Račun"
 
 #. module: account_invoice_supplier_ref_unique
-#: code:addons/account_invoice_supplier_ref_unique/models/account_invoice.py:34
+#: code:addons/account_invoice_supplier_ref_unique/models/account_invoice.py:35
 #, python-format
 msgid ""
 "The invoice/refund with supplier invoice number '%s' already exists in Odoo "
@@ -35,6 +35,6 @@ msgstr ""
 "brojem '%s' za dobavljača '%s'."
 
 #. module: account_invoice_supplier_ref_unique
-#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_invoice_supplier_invoice_number
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_invoice__supplier_invoice_number
 msgid "Vendor invoice number"
 msgstr "Broj računa dobavljača"
