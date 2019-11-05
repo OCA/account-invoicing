@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2017 Elico Corp (https://www.elico-corp.com).
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo.tests.common import TransactionCase
@@ -45,7 +44,7 @@ class TestAccountInvoiceKanban(TransactionCase):
                     'account_id': self.account_type_revenue,
                     'name': '[PCSC234] PC Assemble SC234',
                     'price_unit': 450.00
-                    })
+                })
             ],
         })
 

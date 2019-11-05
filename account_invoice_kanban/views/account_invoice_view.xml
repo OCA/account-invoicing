@@ -61,16 +61,18 @@
         <field name="inherit_id" ref="account.view_account_invoice_filter"/>
         <field name="arch" type="xml">
             <filter name="status" position="after">
-                <filter string="Stage" context="{'group_by':'stage_id'}"/>
+                <filter string="Stage" name="stage" context="{'group_by':'stage_id'}"/>
             </filter>
         </field>
     </record>
 
     <record id="account.action_invoice_tree1" model="ir.actions.act_window">
+        <field name="name">Invoices</field>
         <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
     </record>
 
-    <record id="account.action_invoice_tree2" model="ir.actions.act_window">
+    <record id="account.action_vendor_bill_template" model="ir.actions.act_window">
+        <field name="name">Vendor Bills</field>
         <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
     </record>
 
@@ -85,7 +87,7 @@
        <field eval="0" name="sequence"/>
        <field name="view_mode">kanban</field>
        <field name="view_id" ref="account_invoice_kanban"/>
-       <field name="act_window_id" ref="account.action_invoice_tree2"/>
+       <field name="act_window_id" ref="account.action_vendor_bill_template"/>
    </record>
 
 </odoo>
