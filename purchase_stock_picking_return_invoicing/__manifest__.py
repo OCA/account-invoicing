@@ -19,6 +19,7 @@
         "purchase",
     ],
     "data": [
+        "views/account_invoice_view.xml",
         "views/purchase_view.xml",
     ],
     "maintainers": [

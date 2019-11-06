@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_inherit_account_invoice_vendor_bill_form" model="ir.ui.view">
+        <field name="name">view.inherit.account.invoice.vendor.bill.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="purchase.view_invoice_supplier_purchase_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='purchase_id']" position="attributes">
+                <!--The 'invisible' domain used to be ['|', ('state', '=', 'purchase'), ('type', '=', 'in_refund')],
+                change it to allow selecting the purchase order on vendor refunds-->
+                <attribute name="attrs">{'readonly': [('state','not in',['draft'])], 'invisible': [('state', '=', 'purchase')]}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

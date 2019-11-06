@@ -126,6 +126,10 @@ Contributors
 
   * Pedro M. Baeza
 
+* Avoin.Systems <https://avoin.systems>:
+
+  * Atte Isopuro
+
 Maintainers
 ~~~~~~~~~~~
 
