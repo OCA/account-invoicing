@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Camptocamp SA
+# Copyright 2020 initOS GmbH <https://initos.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
-from odoo import models, fields, api
+from odoo import fields, models
 
 
-class AccountConfigSettings(models.TransientModel):
-    _inherit = 'account.config.settings'
+class ResConfigSettings(models.TransientModel):
+    _inherit = 'res.config.settings'
 
     tax_calculation_rounding = fields.Float(
         related='company_id.tax_calculation_rounding',
@@ -19,7 +19,7 @@ class AccountConfigSettings(models.TransientModel):
                 ('swedish_round_globally', 'Swedish Round globally'),
                 ('swedish_add_invoice_line',
                  'Swedish Round by adding an invoice line'),
-            ],
+        ],
         string='Tax calculation rounding method',
         help="If you select 'Round per line' : for each tax, the tax "
              "amount will first be computed and rounded for each "
@@ -37,13 +37,3 @@ class AccountConfigSettings(models.TransientModel):
         comodel='account.account',
         string='Tax Rounding account',
         domain=[('internal_type', '<>', 'view')])
-
-    @api.onchange('company_id')
-    def onchange_company_id(self):
-        res = super(AccountConfigSettings, self).onchange_company_id()
-        if self.company_id:
-            company = self.company_id
-            self.tax_calculation_rounding = company.tax_calculation_rounding
-            self.tax_calculation_rounding_account_id = \
-                company.tax_calculation_rounding_account_id.id
-        return res

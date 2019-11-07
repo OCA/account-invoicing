@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2020 initOS GmbH <https://initos.com>
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
+-->
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form.inherit.account.invoice.rounding</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='invoice_line_ids']//field[@name='quantity']" position="before">
+                <field name="is_rounding" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
