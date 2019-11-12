@@ -5,7 +5,7 @@
 {
     "name": "Purchase Stock Picking Return Invoicing",
     "summary": "Add an option to refund returned pickings",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Purchases",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Eficent,"
