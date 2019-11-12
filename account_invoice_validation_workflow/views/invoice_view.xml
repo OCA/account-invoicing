@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="invoice_supplier_form" model="ir.ui.view" >
+        <field name="name">account.invoice.supplier.form.validation.wkfl</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header/button[@name='action_invoice_open']" position="after">
+                <button name="action_to_send" type="object" states="to_valid" string="Invoice To Send"/>
+                <button name="action_to_valid" type="object" states="draft" string="To Validation"/>
+            </xpath>
+            <xpath expr="//button[@name='action_invoice_open']" position="attributes">
+                <attribute name="states">to_send</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form.validation.wkfl</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='invoice_print'][2]" position="after">
+                <button name="action_to_send" type="object" states="to_valid" string="Invoice To Send"/>
+                <button name="action_to_valid" type="object" states="draft" string="To Validation"/>
+            </xpath>
+            <xpath expr="//button[@name='action_invoice_open']" position="attributes">
+                <attribute name="states">to_send</attribute>
+            </xpath>
+      </field>
+    </record>
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">account.invoice.valid_wkf.select</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="/search/filter[@name='draft']" position="after">
+                <filter name="to_valid" string="To Validate" domain="[('state','=','to_valid')]" help="To Validate Invoices"/>
+                <filter name="to_send" string="To Send" domain="[('state','=','to_send')]" help="To Send Invoices"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

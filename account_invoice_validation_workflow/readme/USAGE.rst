@@ -1,0 +1,1 @@
+Go to Customer Invoices/Supplier Invoices  you will find "To Validate" button on click of it puts an invoice to "To validate" state  and  on click of "Invoice to Send" it puts the invoice state to "To Send" state.
