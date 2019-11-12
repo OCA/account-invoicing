@@ -17,30 +17,30 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_order_invoicing_queued
-#: model:ir.ui.view,arch_db:sale_order_invoicing_queued.view_queue_job_sale_order_invoicing
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_queue_job_sale_order_invoicing
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: sale_order_invoicing_queued
-#: model:ir.ui.view,arch_db:sale_order_invoicing_queued.view_sale_advance_payment_inv
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_sale_advance_payment_inv
 msgid "Enqueue Invoicing"
 msgstr "Encolar facturación"
 
 #. module: sale_order_invoicing_queued
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order_invoicing_job_ids
-#: model:ir.ui.view,arch_db:sale_order_invoicing_queued.view_order_form
+#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__invoicing_job_ids
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_order_form
 msgid "Invoicing Jobs"
 msgstr "Trabajos de facturación"
 
 #. module: sale_order_invoicing_queued
-#: model:ir.model,name:sale_order_invoicing_queued.model_sale_order
-msgid "Quotation"
-msgstr "Presupuesto"
-
-#. module: sale_order_invoicing_queued
-#: model:ir.ui.view,arch_db:sale_order_invoicing_queued.view_queue_job_sale_order_invoicing
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_queue_job_sale_order_invoicing
 msgid "Requeue"
 msgstr "Volver a poner en cola"
+
+#. module: sale_order_invoicing_queued
+#: model:ir.model,name:sale_order_invoicing_queued.model_sale_order
+msgid "Sale Order"
+msgstr ""
 
 #. module: sale_order_invoicing_queued
 #: model:ir.model,name:sale_order_invoicing_queued.model_sale_advance_payment_inv
@@ -56,6 +56,9 @@ msgid ""
 msgstr ""
 "Ya existe un trabajo encolado para facturar el pedido de venta %s. Por favor "
 "espera hasta que haya terminado o elimine el pedido de la selección."
+
+#~ msgid "Quotation"
+#~ msgstr "Presupuesto"
 
 #~ msgid "Queue Job"
 #~ msgstr "Trabajo en cola"
