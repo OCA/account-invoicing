@@ -6,7 +6,7 @@
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']/tbody/t/tr/t[@name='account_invoice_line_accountable']/td[1]" position="before">
              <td>
-                <span t-field="l.sequence2"/>
+                <span t-field="line.sequence2"/>
              </td>
         </xpath>
     </template>
