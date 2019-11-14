@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_validation_queued
-#: model:ir.ui.view,arch_db:account_invoice_validation_queued.view_queue_job_account_invoice_validation
+#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.view_queue_job_account_invoice_validation
 msgid "Cancel"
 msgstr ""
 
@@ -24,7 +24,7 @@ msgid "Confirm the selected invoices"
 msgstr ""
 
 #. module: account_invoice_validation_queued
-#: model:ir.ui.view,arch_db:account_invoice_validation_queued.account_invoice_confirm_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.account_invoice_confirm_view
 msgid "Enqueue Validation"
 msgstr ""
 
@@ -34,14 +34,14 @@ msgid "Invoice"
 msgstr ""
 
 #. module: account_invoice_validation_queued
-#: model:ir.ui.view,arch_db:account_invoice_validation_queued.view_queue_job_account_invoice_validation
+#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.view_queue_job_account_invoice_validation
 msgid "Requeue"
 msgstr ""
 
 #. module: account_invoice_validation_queued
-#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_account_invoice_validation_job_ids
-#: model:ir.ui.view,arch_db:account_invoice_validation_queued.invoice_form
-#: model:ir.ui.view,arch_db:account_invoice_validation_queued.invoice_supplier_form
+#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_account_invoice__validation_job_ids
+#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.invoice_supplier_form
 msgid "Validation Jobs"
 msgstr ""
 
