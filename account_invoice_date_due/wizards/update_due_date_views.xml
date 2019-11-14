@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="wizard_set_due_date" model="ir.ui.view">
+        <field name="name">wizard.set.due.date</field>
+        <field name="model">account.invoice.set.due.date</field>
+        <field name="arch" type="xml">
+            <form>
+                <div>
+                    <p>
+                        Set a new due date on selected invoices.
+                    </p>
+                </div>
+                <group>
+                    <field name="date_due"/>
+                </group>
+                <footer>
+                    <button
+                        string="Set Due Date"
+                        name="action_set_due_date"
+                        type="object"
+                        class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+   <act_window
+        id="action_show_wizard_set_due_date"
+        name="Change due date"
+        res_model="account.invoice.set.due.date"
+        src_model="account.invoice"
+        view_type="form"
+        view_mode="form"
+        target="new"
+        key2="client_action_multi"
+        groups="allow_to_change_due_date"
+        view_id="wizard_set_due_date"/>
+
+</odoo>
