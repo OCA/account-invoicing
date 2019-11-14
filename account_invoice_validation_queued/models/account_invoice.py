@@ -2,17 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models
-
-try:  # the try/except statements can be removed on v12
-    from odoo.addons.queue_job.job import job
-except ImportError:
-    import logging
-    import functools
-
-    logging.getLogger(__name__).debug("Can't `import queue_job`.")
-
-    def job(*argv, **kwargs):
-        return functools.partial
+from odoo.addons.queue_job.job import job
 
 
 class AccountInvoice(models.Model):
