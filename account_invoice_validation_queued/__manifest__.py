@@ -3,7 +3,7 @@
 
 {
     'name': 'Enqueue account invoice validation',
-    'version': '11.0.1.1.0',
+    'version': '12.0.1.0.0',
     'category': 'Accounting',
     'license': 'AGPL-3',
     'author': 'Tecnativa, '
@@ -19,4 +19,6 @@
         'wizards/account_invoice_confirm_views.xml',
     ],
     'installable': True,
+    'development_status': 'Production/Stable',
+    'maintainers': ['pedrobaeza'],
 }
