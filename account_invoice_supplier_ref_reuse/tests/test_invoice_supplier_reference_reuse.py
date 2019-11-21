@@ -6,60 +6,47 @@ from odoo.tests.common import SavepointCase
 
 class TestInvoiceSupplierReferenceReuse(SavepointCase):
     @classmethod
-    def setUpClass(self):
+    def setUpClass(cls):
         super().setUpClass()
-
-        # Inspired by TestAccountSupplierInvoice
-        # https://github.com/odoo/odoo/blob/11.0/addons/account/tests/test_account_supplier_invoice.py
-
-        self.account_account = self.env["account.account"]
-        self.invoice_account = self.account_account.search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_receivable").id,
-                )
-            ],
-            limit=1,
-        ).id
-        self.invoice_line_account = self.account_account.search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_expenses").id,
-                )
-            ],
-            limit=1,
-        ).id
-
-        self.invoice = self._create_invoice_with_reference(self, "ABC123")
-
-    def _create_invoice_with_reference(self, reference):
-        invoice = self.env["account.invoice"].create(
+        cls.journal = cls.env["account.journal"].create(
+            {"name": "purchase_0", "code": "purchase0", "type": "purchase"}
+        )
+        cls.invoice_line_account = cls.env["account.account"].create(
             {
-                "partner_id": self.env.ref("base.res_partner_2").id,
-                "account_id": self.invoice_account,
-                "type": "in_invoice",
-                "reference": reference,
+                "code": "PA1000",
+                "name": "Test Payable Account",
+                "user_type_id": cls.env.ref("account.data_account_type_payable").id,
+                "reconcile": True,
             }
         )
-        self.env["account.invoice.line"].create(
+        cls.invoice = cls._create_invoice_with_reference(cls, "ABC123")
+
+    def _create_invoice_with_reference(self, reference):
+        invoice = (
+            self.env["account.move"]
+            .with_context(default_journal_id=self.journal.id, test_no_refuse_ref=True)
+            .create(
+                {
+                    "partner_id": self.env.ref("base.res_partner_2").id,
+                    "type": "in_invoice",
+                    "ref": reference,
+                }
+            )
+        )
+        self.env["account.move.line"].create(
             {
                 "product_id": self.env.ref("product.product_product_4").id,
                 "quantity": 1.0,
-                "price_unit": 100.0,
-                "invoice_id": invoice.id,
+                "price_unit": 0,
+                "move_id": invoice.id,
                 "name": "product that cost 100",
-                "account_id": self.invoice_line_account,
+                "account_id": self.invoice_line_account.id,
             }
         )
-        invoice.action_invoice_open()
+        invoice.action_post()
         return invoice
 
     def test_01_reference_reuse(self):
-        """ Check that reusing the reference number is possible
-        """
-        invoice2 = self._create_invoice_with_reference(self.invoice.reference)
-        self.assertEqual(invoice2.reference, self.invoice.reference)
+        """ Check that reusing the reference number is possible """
+        invoice2 = self._create_invoice_with_reference(self.invoice.ref)
+        self.assertEqual(invoice2.ref, self.invoice.ref)
