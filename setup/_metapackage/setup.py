@@ -19,6 +19,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_line_description',
         'odoo12-addon-account_invoice_line_sequence',
         'odoo12-addon-account_invoice_pricelist',
+        'odoo12-addon-account_invoice_pricelist_sale',
         'odoo12-addon-account_invoice_refund_link',
         'odoo12-addon-account_invoice_reimbursable',
         'odoo12-addon-account_invoice_repair_link',
