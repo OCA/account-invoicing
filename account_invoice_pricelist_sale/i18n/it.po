@@ -20,5 +20,7 @@ msgstr ""
 
 #. module: account_invoice_pricelist_sale
 #: model:ir.model,name:account_invoice_pricelist_sale.model_sale_order
-msgid "Sales Order"
+#, fuzzy
+#| msgid "Sales Order"
+msgid "Sale Order"
 msgstr "Ordini vendita"
