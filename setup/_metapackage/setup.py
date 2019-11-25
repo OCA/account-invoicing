@@ -31,6 +31,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_tax_required',
         'odoo12-addon-account_invoice_transmit_method',
         'odoo12-addon-account_invoice_triple_discount',
+        'odoo12-addon-account_invoice_validation_queued',
         'odoo12-addon-account_invoice_view_payment',
         'odoo12-addon-account_menu_invoice_refund',
         'odoo12-addon-account_payment_term_extension',
