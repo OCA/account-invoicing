@@ -19,7 +19,7 @@ class TestSaleOrderInvoicingGroupingCriteria(SavepointCase):
         cls.grouping_criteria = cls.GroupingCriteria.create({
             'name': 'Delivery Address',
             'field_ids': [(
-                4, cls.env.ref('sale.field_sale_order_partner_shipping_id').id,
+                4, cls.env.ref('sale.field_sale_order__partner_shipping_id').id
             )],
         })
         cls.order = cls.env['sale.order'].create({
