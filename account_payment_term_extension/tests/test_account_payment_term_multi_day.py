@@ -6,7 +6,7 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
     def setUp(self):
         super(TestAccountPaymentTermMultiDay, self).setUp()
         self.payment_term_model = self.env["account.payment.term"]
-        self.invoice_model = self.env["account.invoice"]
+        self.invoice_model = self.env["account.move"]
         journal_model = self.env["account.journal"]
         self.journal = journal_model.search([("type", "=", "purchase")])
         self.partner = self.env.ref("base.res_partner_3")
@@ -313,3 +313,4 @@ class TestAccountPaymentTermMultiDay(common.TransactionCase):
         self.assertEqual(expected_days, model._decode_payment_days("5, 10"))
         self.assertEqual(expected_days, model._decode_payment_days("5 - 10"))
         self.assertEqual(expected_days, model._decode_payment_days("5    10"))
+        
