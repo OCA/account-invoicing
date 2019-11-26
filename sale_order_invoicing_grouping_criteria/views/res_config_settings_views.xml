@@ -13,9 +13,9 @@
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane"/>
                         <div class="o_setting_right_pane">
-                            <label string="Default Grouping Criteria"/>
+                            <label string="Default Grouping Criteria" for="default_sale_invoicing_grouping_criteria_id"/>
                             <div class="text-muted">If empty, invoicing address and currency will be applied.</div>
-                            <field name="default_sale_invoicing_grouping_criteria_id"/>
+                            <field name="res_default_sale_invoicing_grouping_criteria_id"/>
                         </div>
                     </div>
                 </div>
