@@ -3,7 +3,7 @@
 
 {
     'name': 'Sales order invoicing grouping criteria',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Sales Management',
     'license': 'AGPL-3',
     'author': 'Tecnativa, '

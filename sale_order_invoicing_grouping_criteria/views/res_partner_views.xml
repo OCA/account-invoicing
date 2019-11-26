@@ -3,13 +3,15 @@
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
 
-    <record id="view_partner_form" model="ir.ui.view">
+    <record id="view_partner_property_form" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='acc_sale']" position="inside">
-                <field name="sale_invoicing_grouping_criteria_id" string="Invoicing Grouping Criteria"/>
-            </xpath>
+            <group name="banks" position="after">
+                <group name="sale_invoicing">
+                    <field name="sale_invoicing_grouping_criteria_id" string="Sales Invoicing Grouping Criteria"/>
+                </group>
+            </group>
         </field>
     </record>
 
