@@ -9,5 +9,5 @@ class ResCompany(models.Model):
 
     default_sale_invoicing_grouping_criteria_id = fields.Many2one(
         string="Default Sales Invoicing Grouping Criteria",
-        comodel_name='sale.invoicing.grouping.criteria',
+        comodel_name="sale.invoicing.grouping.criteria",
     )
