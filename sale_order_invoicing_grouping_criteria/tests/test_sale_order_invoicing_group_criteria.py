@@ -48,13 +48,13 @@ class TestSaleOrderInvoicingGroupingCriteria(SavepointCase):
         cls.order2.action_confirm()
 
     def test_invoicing_same_data(self):
-        invoice_ids = (self.order + self.order2).action_invoice_create()
+        invoice_ids = (self.order + self.order2)._create_invoices()
         self.assertEqual(len(invoice_ids), 1)
         self.assertEqual(self.order.invoice_ids, self.order2.invoice_ids)
 
     def test_invoicing_grouping_default(self):
         self.order2.partner_invoice_id = self.partner2.id
-        invoice_ids = (self.order + self.order2).action_invoice_create()
+        invoice_ids = (self.order + self.order2)._create_invoices()
         self.assertEqual(len(invoice_ids), 2)
         self.assertNotEqual(self.order.invoice_ids, self.order2.invoice_ids)
 
@@ -63,13 +63,22 @@ class TestSaleOrderInvoicingGroupingCriteria(SavepointCase):
         self.order.company_id.default_sale_invoicing_grouping_criteria_id = (
             self.grouping_criteria.id
         )
-        invoice_ids = (self.order + self.order2).action_invoice_create()
+        invoice_ids = (self.order + self.order2)._create_invoices()
         self.assertEqual(len(invoice_ids), 2)
         self.assertNotEqual(self.order.invoice_ids, self.order2.invoice_ids)
 
     def test_invoicing_grouping_partner_criteria(self):
         self.order2.partner_shipping_id = self.partner2.id
         self.partner.sale_invoicing_grouping_criteria_id = self.grouping_criteria.id
-        invoice_ids = (self.order + self.order2).action_invoice_create()
+        invoice_ids = (self.order + self.order2)._create_invoices()
         self.assertEqual(len(invoice_ids), 2)
         self.assertNotEqual(self.order.invoice_ids, self.order2.invoice_ids)
+
+    def test_commercial_field(self):
+        self.partner.sale_invoicing_grouping_criteria_id = self.grouping_criteria.id
+        children = self.env["res.partner"].create(
+            {"name": "Test children", "parent_id": self.partner.id}
+        )
+        self.assertEqual(
+            children.sale_invoicing_grouping_criteria_id, self.grouping_criteria
+        )
