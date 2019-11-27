@@ -1,0 +1,44 @@
+
+<odoo>
+    <data>
+
+        <record id="view_account_invoice_refund_reason" model="ir.ui.view">
+            <field name="name">account.invoice.refund.reason.form</field>
+            <field name="model">account.invoice.refund.reason</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_refund_reason_tree" model="ir.ui.view">
+            <field name="name">account.invoice.refund.reason.tree</field>
+            <field name="model">account.invoice.refund.reason</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="refund_reason_action" model="ir.actions.act_window">
+            <field name="name">Refund Reasons</field>
+            <field name="res_model">account.invoice.refund.reason</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="refund_reasons_menu"
+            name="Refund Reasons"
+            parent="account.account_management_menu"
+            action="refund_reason_action"
+            groups="base.group_user"/>
+
+    </data>
+</odoo>
