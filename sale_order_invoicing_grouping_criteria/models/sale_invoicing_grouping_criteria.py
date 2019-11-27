@@ -6,13 +6,13 @@ from odoo import fields, models
 
 class SaleInvoicingGroupingCriteria(models.Model):
     _name = "sale.invoicing.grouping.criteria"
-    _description = 'Sales Invoicing Grouping Criteria'
+    _description = "Sales Invoicing Grouping Criteria"
 
     name = fields.Char()
     field_ids = fields.Many2many(
         string="Grouping Fields",
-        comodel_name='ir.model.fields',
+        comodel_name="ir.model.fields",
         domain="[('model', '=', 'sale.order')]",
         help="Fields used for grouping sales orders when invoicing. "
-             "Invoicing address and currency will always be applied.",
+        "Invoicing address and currency will always be applied.",
     )

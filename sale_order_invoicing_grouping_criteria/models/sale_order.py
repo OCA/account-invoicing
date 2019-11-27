@@ -11,8 +11,8 @@ class SaleOrder(models.Model):
         self.ensure_one()
         group_key = [self.partner_invoice_id.id, self.currency_id.id]
         criteria = (
-            self.partner_id.sale_invoicing_grouping_criteria_id or
-            self.company_id.default_sale_invoicing_grouping_criteria_id
+            self.partner_id.sale_invoicing_grouping_criteria_id
+            or self.company_id.default_sale_invoicing_grouping_criteria_id
         )
         for field in criteria.field_ids:
             group_key.append(self[field.name])
@@ -30,5 +30,6 @@ class SaleOrder(models.Model):
         invoice_ids = []
         for group in order_groups.values():
             invoice_ids += super(SaleOrder, group).action_invoice_create(
-                grouped=grouped, final=final)
+                grouped=grouped, final=final
+            )
         return invoice_ids
