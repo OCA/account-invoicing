@@ -9,7 +9,7 @@ class ResPartner(models.Model):
 
     sale_invoicing_grouping_criteria_id = fields.Many2one(
         string="Sales Invoicing Grouping Criteria",
-        comodel_name='sale.invoicing.grouping.criteria',
+        comodel_name="sale.invoicing.grouping.criteria",
         help="If empty, company default (if any) or default will be applied.",
     )
 
@@ -18,5 +18,4 @@ class ResPartner(models.Model):
         """Add this field to commercial fields, as it should be propagated
         to children.
         """
-        return super()._commercial_fields() + [
-            'sale_invoicing_grouping_criteria_id']
+        return super()._commercial_fields() + ["sale_invoicing_grouping_criteria_id"]
