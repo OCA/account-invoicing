@@ -35,6 +35,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_view_payment',
         'odoo12-addon-account_menu_invoice_refund',
         'odoo12-addon-account_payment_term_extension',
+        'odoo12-addon-product_supplierinfo_for_customer_invoice',
         'odoo12-addon-purchase_batch_invoicing',
         'odoo12-addon-purchase_stock_picking_return_invoicing',
         'odoo12-addon-purchase_stock_picking_return_invoicing_force_invoiced',
