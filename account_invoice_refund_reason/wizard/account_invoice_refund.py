@@ -8,7 +8,7 @@ class AccountInvoiceRefund(models.TransientModel):
     _inherit = 'account.invoice.refund'
 
     reason_id = fields.Many2one('account.invoice.refund.reason',
-                                string="Reason")
+                                string="Reason to credit")
 
     @api.onchange('reason_id')
     def _onchange_reason_id(self):
