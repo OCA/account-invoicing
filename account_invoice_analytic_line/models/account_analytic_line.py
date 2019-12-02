@@ -45,9 +45,9 @@ class AccountAnalyticLine(models.Model):
             .get('invoice', first.partner_id.commercial_partner_id.id),
             'type': 'out_invoice',
         }
-        invoice_vals = self.env['account.invoice'].play_onchanges(
+        invoice_vals.update(self.env['account.invoice'].play_onchanges(
             invoice_vals, ['partner_id'],
-        )
+        ))
         invoice = self.env['account.invoice'].create(invoice_vals)
         for lines in self._account_invoice_analytic_line_group_invoice_lines():
             self.search(
@@ -85,9 +85,11 @@ class AccountAnalyticLine(models.Model):
                 quantity=quantity,
             ).price,
         }
-        invoice_line_vals = self.env['account.invoice.line'].play_onchanges(
-            invoice_line_vals,
-            ['product_id', 'price_unit', 'discount', 'quantity'],
+        invoice_line_vals.update(
+            self.env['account.invoice.line'].play_onchanges(
+                invoice_line_vals,
+                ['product_id', 'price_unit', 'discount', 'quantity'],
+            )
         )
         invoice_line_vals['name'] = first.project_id.name
         invoice_line = self.env['account.invoice.line'].create(
