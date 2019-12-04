@@ -20,6 +20,9 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. module: account_invoice_supplier_ref_reuse
-#: model:ir.model,name:account_invoice_supplier_ref_reuse.model_account_invoice
-msgid "Invoice"
-msgstr "Faktura"
+#: model:ir.model,name:account_invoice_supplier_ref_reuse.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Faktura"

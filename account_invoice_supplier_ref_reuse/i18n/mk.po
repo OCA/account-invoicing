@@ -19,6 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
 
 #. module: account_invoice_supplier_ref_reuse
-#: model:ir.model,name:account_invoice_supplier_ref_reuse.model_account_invoice
-msgid "Invoice"
-msgstr "Фактура"
+#: model:ir.model,name:account_invoice_supplier_ref_reuse.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Фактура"
