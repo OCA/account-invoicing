@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_picking_return_refund_option
-#: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking_is_return
+#: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking__is_return
 msgid "Is Return"
 msgstr ""
 
@@ -24,18 +24,13 @@ msgid "No Refund"
 msgstr ""
 
 #. module: stock_picking_return_refund_option
-#: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking_to_refund_lines
-#: model:ir.ui.view,arch_db:stock_picking_return_refund_option.view_picking_form
+#: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking__to_refund_lines
+#: model_terms:ir.ui.view,arch_db:stock_picking_return_refund_option.view_picking_form
 msgid "Refund Options"
 msgstr ""
 
 #. module: stock_picking_return_refund_option
-#: model:ir.model,name:stock_picking_return_refund_option.model_stock_return_picking
-msgid "Return Picking"
-msgstr ""
-
-#. module: stock_picking_return_refund_option
-#: model:ir.model.fields,help:stock_picking_return_refund_option.field_stock_picking_to_refund_lines
+#: model:ir.model.fields,help:stock_picking_return_refund_option.field_stock_picking__to_refund_lines
 msgid "This field allow modify 'to_refund' field value in all stock moves from this picking after it has been confirmed.to_refund: set all stock moves to True value and recompute delivered quantities in sale order.\n"
 "no_refund: set all stock moves to False value and recompute delivered quantities in sale/purchase order."
 msgstr ""

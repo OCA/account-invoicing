@@ -7,6 +7,6 @@ def pre_init_hook(cr):
     if not tools.config.options.get('without_demo', False):
         env = api.Environment(cr, SUPERUSER_ID, {})
         env['ir.module.module'].search([
-            ('name', 'in', ['purchase', 'sale_stock']),
+            ('name', 'in', ['purchase_stock', 'sale_stock']),
             ('state', '!=', 'installed'),
         ]).write({'state': 'to install'})

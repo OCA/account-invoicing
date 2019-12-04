@@ -48,14 +48,12 @@ class StockPicking(models.Model):
             if any(x.origin_returned_move_id for x in picking.move_lines):
                 picking.is_return = True
 
-    @api.multi
     def _update_stock_moves(self):
         for pick in self.filtered('to_refund_lines'):
             pick.move_lines.write({
                 'to_refund': pick.to_refund_lines == 'to_refund',
             })
 
-    @api.multi
     def set_delivered_qty(self):
         """
         Check if exists sale_line_id field in stock.move model that has been
@@ -66,10 +64,8 @@ class StockPicking(models.Model):
             # The sale_stock module is installed
             so_lines = self.mapped('move_lines.sale_line_id').filtered(
                 lambda x: x.product_id.invoice_policy in ('order', 'delivery'))
-            for so_line in so_lines:
-                so_line.qty_delivered = so_line._get_delivered_qty()
+            so_lines._compute_qty_delivered()
 
-    @api.multi
     def set_received_qty(self):
         """
         Check if exists purchase_line_id field in stock.move model that has
@@ -81,4 +77,4 @@ class StockPicking(models.Model):
             # The purchase module is installed
             po_lines = self.mapped('move_lines.purchase_line_id').filtered(
                 lambda x: x.product_id.invoice_policy in ('order', 'delivery'))
-            po_lines._compute_qty_received()
+            po_lines._update_received_qty()
