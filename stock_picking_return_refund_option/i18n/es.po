@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-10 08:29+0000\n"
-"PO-Revision-Date: 2019-06-10 10:31+0200\n"
+"POT-Creation-Date: 2019-12-04 17:16+0000\n"
+"PO-Revision-Date: 2019-12-04 18:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: stock_picking_return_refund_option
-#: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking_is_return
+#: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking__is_return
 msgid "Is Return"
 msgstr "Es devolución"
 
@@ -28,8 +28,8 @@ msgid "No Refund"
 msgstr "No abonar"
 
 #. module: stock_picking_return_refund_option
-#: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking_to_refund_lines
-#: model:ir.ui.view,arch_db:stock_picking_return_refund_option.view_picking_form
+#: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking__to_refund_lines
+#: model_terms:ir.ui.view,arch_db:stock_picking_return_refund_option.view_picking_form
 msgid "Refund Options"
 msgstr "Opciones de devolución"
 
@@ -39,7 +39,7 @@ msgid "Return Picking"
 msgstr "Albarán de devolución"
 
 #. module: stock_picking_return_refund_option
-#: model:ir.model.fields,help:stock_picking_return_refund_option.field_stock_picking_to_refund_lines
+#: model:ir.model.fields,help:stock_picking_return_refund_option.field_stock_picking__to_refund_lines
 msgid ""
 "This field allow modify 'to_refund' field value in all stock moves from this "
 "picking after it has been confirmed.to_refund: set all stock moves to True "
