@@ -12,7 +12,7 @@ For a sale order:
 #. Press *Create Invoice > Invoiceable lines > Create and View Invoices*.
 #. The created invoice's amount is the same you sold.
 #. Return to the sale order.
-#. Go to *Delivery > Reverse*.
+#. Go to *Delivery > Return*.
 #. Set *Quantity* to a lower quantity than the sold one, and enable
    *To Refund*.
 #. Press *Return > Validate > Apply*.
@@ -37,7 +37,7 @@ after you created an invoice, you need to:
 #. Press on smart button "Invoices" and create one.
 #. The created invoice's amount is the same you sold.
 #. Return to the purchase order.
-#. Go to *Delivery > Reverse*.
+#. Go to *Delivery > Return*.
 #. Set *Quantity* to a lower quantity than you bought, and enable
    *To Refund*.
 #. Press *Return > Validate > Apply*.
