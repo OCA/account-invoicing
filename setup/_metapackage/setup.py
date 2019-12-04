@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo13-addon-account_invoice_supplier_ref_reuse',
+        'odoo13-addon-sale_order_invoicing_grouping_criteria',
         'odoo13-addon-sale_order_invoicing_queued',
     ],
     classifiers=[
