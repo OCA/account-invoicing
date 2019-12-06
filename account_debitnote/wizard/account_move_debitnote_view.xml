@@ -1,0 +1,46 @@
+<odoo>
+
+    <record id="view_account_move_debitnote" model="ir.ui.view">
+        <field name="name">account.move.debitnote.form</field>
+        <field name="model">account.move.debitnote</field>
+        <field name="arch" type="xml">
+            <form string="Debit Note">
+                <group>
+                    <group>
+                        <field name="filter_debit" widget="radio"/>
+                    </group>
+                    <group>
+                        <div class="oe_grey" colspan="4">
+                            You will be able to edit and validate this
+                            debit note directly or keep it draft,
+                            waiting for the document to be issued by
+                            your supplier/customer.
+                        </div>
+                    </group>
+                    <group>
+                        <field name="reason"/>
+                        <field name="date"/>
+                    </group>
+                    <group>
+                        <field name="journal_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Add Debit Note" name="invoice_debitnote" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_move_debitnote" model="ir.actions.act_window">
+        <field name="name">Debit Note</field>
+        <field name="res_model">account.move.debitnote</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_move_debitnote"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="binding_view_types">list</field>
+    </record>
+
+</odoo>
