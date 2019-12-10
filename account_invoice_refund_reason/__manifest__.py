@@ -1,4 +1,4 @@
-# Copyright (C) 2019 - TODAY, Open Source Integrators
+# Copyright (C) 2019 Open Source Integrators
 # Copyright (C) 2019 Serpent Consulting Services Pvt. Ltd.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -8,7 +8,8 @@
     "summary": "Account Invoice Refund Reason.",
     'category': 'Accounting',
     'author': "Open Source Integrators, "
-              "Serpent CS, ",
+              "Odoo Community Association (OCA), ",
+              "Serpent CS, "
     'website': 'https://github.com/OCA/account-invoicing.git',
     'data': ['security/ir.model.access.csv',
               'data/account.invoice.refund.reason.csv',
@@ -17,5 +18,6 @@
               'wizard/account_invoice_refund_view.xml'],
     'depends': ['account'],
     'license': 'AGPL-3',
-    'installable': True,
+    'development_status': 'Beta',
+    'maintainers': ['max3903']
 }

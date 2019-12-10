@@ -1,34 +1,29 @@
-
 <odoo>
-    <data>
+    <record id="extended_view_account_invoice" model="ir.ui.view">
+        <field name="name">extended.account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reference']" position="after">
+                <field name="reason_id" attrs="{'invisible': [('reason_id', '=', False)]}"  readonly="1"/>
+            </xpath>
+            <xpath expr="//page[@name='other_info']/group/group[1]/field[@name='name']" position="attributes">
+                <attribute name="attrs">{'invisible': [('reason_id','!=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
 
-        <record id="extended_view_account_invoice" model="ir.ui.view">
-            <field name="name">extended.account.invoice.form</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='reference']" position="after">
-                    <field name="reason_id" attrs="{'invisible': [('type','not in', ['in_refund', 'out_refund'])]}"  readonly="1"/>
-                </xpath>
-                <xpath expr="//page[@name='other_info']/group/group[1]/field[@name='name']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('type','in', ['in_refund', 'out_refund'])]}</attribute>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="extended_view_account_invoice_supplier_form" model="ir.ui.view">
-            <field name="name">extended.account.invoice.supplier.form</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_supplier_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//page[@name='other_info']/group/group[1]/field[@name='name']" position="attributes">
-                    <attribute name="attrs">{'invisible': [('type','in', ['in_refund', 'out_refund'])]}</attribute>
-                </xpath>
-                <xpath expr="//field[@name='date']" position="after">
-                    <field name="reason_id"  attrs="{'invisible': [('type','not in', ['in_refund', 'out_refund'])]}"  readonly="1"/>
-                </xpath>
-            </field>
-        </record>
-
-    </data>
+    <record id="extended_view_account_invoice_supplier_form" model="ir.ui.view">
+        <field name="name">extended.account.invoice.supplier.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_info']/group/group[1]/field[@name='name']" position="attributes">
+                <attribute name="attrs">{'invisible': [('reason_id','!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="reason_id"  attrs="{'invisible': [('reason_id', '=', False)]}"  readonly="1"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

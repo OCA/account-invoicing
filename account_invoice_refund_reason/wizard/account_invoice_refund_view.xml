@@ -1,21 +1,16 @@
-
 <odoo>
-    <data>
-
-        <record id="extended_view_account_invoice_refund" model="ir.ui.view">
-            <field name="name">extended.account.invoice.refund.form</field>
-            <field name="model">account.invoice.refund</field>
-            <field name="inherit_id" ref="account.view_account_invoice_refund"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='description']" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                    <attribute name="required">0</attribute>
-                </xpath>
-                <xpath expr="//group[3]" position="inside">
-                    <field name="reason_id" required="1"/>
-                </xpath>
-            </field>
-        </record>
-
-    </data>
+    <record id="extended_view_account_invoice_refund" model="ir.ui.view">
+        <field name="name">extended.account.invoice.refund.form</field>
+        <field name="model">account.invoice.refund</field>
+        <field name="inherit_id" ref="account.view_account_invoice_refund"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                <attribute name="required">0</attribute>
+            </xpath>
+            <xpath expr="//group[3]" position="inside">
+                <field name="reason_id" required="1"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>
