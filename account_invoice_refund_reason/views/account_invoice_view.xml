@@ -5,10 +5,10 @@
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='reference']" position="after">
-                <field name="reason_id" attrs="{'invisible': [('reason_id', '=', False)]}"  readonly="1"/>
+                <field name="reason_id" attrs="{'invisible': [('reason_id', '=', False)]}" readonly="1"/>
             </xpath>
             <xpath expr="//page[@name='other_info']/group/group[1]/field[@name='name']" position="attributes">
-                <attribute name="attrs">{'invisible': [('reason_id','!=', False)]}</attribute>
+                <attribute name="attrs">{'invisible': [('type','in', ['in_refund', 'out_refund'])]}</attribute>
             </xpath>
         </field>
     </record>
@@ -19,10 +19,10 @@
         <field name="inherit_id" ref="account.invoice_supplier_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='other_info']/group/group[1]/field[@name='name']" position="attributes">
-                <attribute name="attrs">{'invisible': [('reason_id','!=', False)]}</attribute>
+                <attribute name="attrs">{'invisible': [('type', 'in', ['in_refund', 'out_refund'])]}</attribute>
             </xpath>
             <xpath expr="//field[@name='date']" position="after">
-                <field name="reason_id"  attrs="{'invisible': [('reason_id', '=', False)]}"  readonly="1"/>
+                <field name="reason_id" attrs="{'invisible': [('reason_id', '=', False)]}" readonly="1"/>
             </xpath>
         </field>
     </record>
