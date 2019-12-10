@@ -25,6 +25,7 @@ msgid "Invoice"
 msgstr "Račun"
 
 #. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:62
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:68
 #, python-format
 msgid ""
@@ -39,6 +40,7 @@ msgstr ""
 "Konto in davke vsake računske postavke morate posodobiti ročno."
 
 #. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:56
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:62
 #, python-format
 msgid ""
@@ -51,6 +53,7 @@ msgstr ""
 "Konto in davke vsake računske postavke morate posodobiti ročno."
 
 #. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:54
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:60
 #, python-format
 msgid "Warning"

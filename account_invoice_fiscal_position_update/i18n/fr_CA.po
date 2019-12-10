@@ -25,6 +25,7 @@ msgid "Invoice"
 msgstr "Facture"
 
 #. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:62
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:68
 #, python-format
 msgid ""
@@ -35,6 +36,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:56
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:62
 #, python-format
 msgid ""
@@ -44,6 +46,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:54
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:60
 #, python-format
 msgid "Warning"
