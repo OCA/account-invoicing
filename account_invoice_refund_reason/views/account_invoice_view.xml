@@ -1,5 +1,4 @@
 <odoo>
-
     <record id="extended_view_account_invoice" model="ir.ui.view">
         <field name="name">extended.account.invoice.form</field>
         <field name="model">account.invoice</field>
@@ -27,5 +26,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>

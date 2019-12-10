@@ -1,5 +1,4 @@
 <odoo>
-
     <record id="view_account_invoice_refund_reason" model="ir.ui.view">
         <field name="name">account.invoice.refund.reason.form</field>
         <field name="model">account.invoice.refund.reason</field>
@@ -13,7 +12,7 @@
             </form>
         </field>
     </record>
-
+  
     <record id="view_account_invoice_refund_reason_tree" model="ir.ui.view">
         <field name="name">account.invoice.refund.reason.tree</field>
         <field name="model">account.invoice.refund.reason</field>
@@ -37,5 +36,4 @@
         parent="account.account_management_menu"
         action="refund_reason_action"
         groups="base.group_user"/>
-
 </odoo>

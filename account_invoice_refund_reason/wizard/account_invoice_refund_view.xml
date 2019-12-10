@@ -1,5 +1,4 @@
 <odoo>
-
     <record id="extended_view_account_invoice_refund" model="ir.ui.view">
         <field name="name">extended.account.invoice.refund.form</field>
         <field name="model">account.invoice.refund</field>
@@ -14,5 +13,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>

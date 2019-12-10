@@ -1,5 +1,5 @@
-Overview
-========
+Description
+===========
 
 This module allows you to define a list of reasons to create a credit note from an invoice and report on them.
 
@@ -10,9 +10,6 @@ Create the different reasons you want to provide users
 
 Usage
 =====
-
-Operations
-==========
 
 Go to Accounting > Customers > Invoices (or Accounting > Vendors > Bills)
 Select an open invoice (or bill)
