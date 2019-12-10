@@ -20,7 +20,6 @@ msgstr ""
 
 #. module: account_invoice_fiscal_position_update
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:62
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:68
 #, python-format
 msgid "The following invoice lines were not updated to the new Fiscal Position because they don't have a Product:\n"
 "- %s\n"
@@ -29,7 +28,6 @@ msgstr ""
 
 #. module: account_invoice_fiscal_position_update
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:56
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:62
 #, python-format
 msgid "The invoice lines were not updated to the new Fiscal Position because they don't have products.\n"
 "You should update the Account and the Taxes of each invoice line manually."
@@ -37,7 +35,6 @@ msgstr ""
 
 #. module: account_invoice_fiscal_position_update
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:54
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:60
 #, python-format
 msgid "Warning"
 msgstr ""
