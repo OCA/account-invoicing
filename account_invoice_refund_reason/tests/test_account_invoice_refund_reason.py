@@ -26,7 +26,7 @@ class TestAccountInvoiceRefundReason(TransactionCase):
         self.journalrec = self.journal_obj.search([('type', '=', 'sale')])[0]
         self.account_id = self.account_obj.search([
             ('user_type_id', '=', self.account_revenue.id)], limit=1)
-        self.reson_id = self.env.ref('account_invoice_refund_reason.'
+        self.reason_id = self.env.ref('account_invoice_refund_reason.'
                                      'refund_reason_cancellation')
 
         self.account_rec1_id = self.account_obj.create(dict(
