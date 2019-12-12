@@ -27,7 +27,7 @@ class TestAccountInvoiceRefundReason(TransactionCase):
         self.account_id = self.account_obj.search([
             ('user_type_id', '=', self.account_revenue.id)], limit=1)
         self.reason_id = self.env.ref('account_invoice_refund_reason.'
-                                     'refund_reason_cancellation')
+                                      'refund_reason_cancellation')
 
         self.account_rec1_id = self.account_obj.create(dict(
             code="cust_acc",
@@ -63,7 +63,7 @@ class TestAccountInvoiceRefundReason(TransactionCase):
             description='Credit Note',
             date=datetime.date.today(),
             filter_refund='refund',
-            reason_id=self.reson_id.id
+            reason_id=self.reason_id.id
         ))
 
         self.account_invoice_refund_0._onchange_reason_id()
