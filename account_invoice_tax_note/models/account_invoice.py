@@ -1,10 +1,11 @@
-# Copyright 2018 ACSONE SA/NV (<http://acsone.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2018 ACSONE SA/NV (https://acsone.eu)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
+
 from odoo import api, models
 
 
 class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
+    _inherit = "account.invoice"
 
     @api.multi
     def _get_account_tax_groups_with_notes(self):
