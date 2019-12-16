@@ -1,15 +1,14 @@
 # Copyright 2017 - Tecnativa, S.L. - Luis M. Ontalba
-# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
-from odoo.tests.common import SavepointCase, at_install, post_install
+from odoo.tests.common import SavepointCase, tagged
 
 
-@at_install(False)
-@post_install(True)
+@tagged("post_install", "-at_install")
 class TestAccountInvoiceLineDescription(SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestAccountInvoiceLineDescription, cls).setUpClass()
+        super().setUpClass()
         cls.new_permission = cls.env.ref(
             "account_invoice_line_description"
             ".group_use_product_description_per_inv_line"
@@ -29,11 +28,11 @@ class TestAccountInvoiceLineDescription(SavepointCase):
                 "type": "consu",
                 "categ_id": cls.product_category.id,
                 "description_sale": "Test Description Sale",
-                "sale_line_warn": "no-message",
+                "lst_price": 0,
             }
         )
         cls.account_type_regular = cls.env["account.account.type"].create(
-            {"name": "regular,"}
+            {"name": "regular", "type": "other", "internal_group": "income"}
         )
         cls.account = cls.env["account.account"].create(
             {
@@ -54,7 +53,7 @@ class TestAccountInvoiceLineDescription(SavepointCase):
                 },
             )
         ]
-        cls.invoice_sale = cls.env["account.invoice"].create(
+        cls.invoice_sale = cls.env["account.move"].create(
             {
                 "partner_id": cls.partner.id,
                 "journal_id": cls.journal_sale.id,
@@ -72,6 +71,7 @@ class TestAccountInvoiceLineDescription(SavepointCase):
                 "type": "consu",
                 "categ_id": cls.product_category.id,
                 "description_purchase": "Test Description Purchase",
+                "lst_price": 0,
             }
         )
         cls.invoice_purchase_vals = [
@@ -86,7 +86,7 @@ class TestAccountInvoiceLineDescription(SavepointCase):
                 },
             )
         ]
-        cls.invoice_purchase = cls.env["account.invoice"].create(
+        cls.invoice_purchase = cls.env["account.move"].create(
             {
                 "partner_id": cls.partner.id,
                 "journal_id": cls.journal_purchase.id,
