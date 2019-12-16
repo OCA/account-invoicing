@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2018 ACSONE SA/NV
-     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html) -->
 <odoo>
+
     <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
         <p t-if="o.fiscal_position_id.note" position="after">
             <t t-set="account_tax_groups" t-value="o._get_account_tax_groups_with_notes()"/>
@@ -12,5 +12,5 @@
             </t>
         </p>
     </template>
-</odoo>
 
+</odoo>
