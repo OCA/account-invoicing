@@ -15,7 +15,7 @@ class TestAccountInvoice(TransactionCase):
         super(TestAccountInvoice, self).setUp()
         tax_group_obj = self.env["account.tax.group"]
         tax_obj = self.env["account.tax"]
-        invoice_obj = self.env["account.invoice"]
+        invoice_obj = self.env["account.move"]
         self.product1 = self.env.ref("product.product_product_7")
         self.product2 = self.env.ref("product.product_product_8")
         account_type = self.env.ref("account.data_account_type_revenue")
@@ -64,10 +64,10 @@ class TestAccountInvoice(TransactionCase):
                     "name": self.product1.display_name,
                     "product_id": self.product1.id,
                     "quantity": 3,
-                    "uom_id": self.product1.uom_id.id,
+                    "product_uom_id": self.product1.uom_id.id,
                     "price_unit": self.product1.standard_price,
                     "account_id": account.id,
-                    "invoice_line_tax_ids": [(6, False, self.tax1.ids)],
+                    "tax_ids": self.tax1.ids,
                 },
             )
         ]
@@ -76,11 +76,10 @@ class TestAccountInvoice(TransactionCase):
             {
                 "partner_id": customer.id,
                 "type": "out_invoice",
-                "date_invoice": fields.Date.today(),
+                "invoice_date": fields.Date.today(),
                 "invoice_line_ids": invoice_lines1,
-                "origin": "Unit test",
+                "invoice_origin": "Unit test",
                 "journal_id": journal.id,
-                "account_id": account.id,
             }
         )
         invoice_lines2 = [
@@ -91,10 +90,10 @@ class TestAccountInvoice(TransactionCase):
                     "name": self.product1.display_name,
                     "product_id": self.product1.id,
                     "quantity": 3,
-                    "uom_id": self.product1.uom_id.id,
+                    "product_uom_id": self.product1.uom_id.id,
                     "price_unit": self.product1.standard_price,
                     "account_id": account.id,
-                    "invoice_line_tax_ids": [(6, False, self.tax1.ids)],
+                    "tax_ids": self.tax1.ids,
                 },
             ),
             (
@@ -104,10 +103,10 @@ class TestAccountInvoice(TransactionCase):
                     "name": self.product1.display_name,
                     "product_id": self.product2.id,
                     "quantity": 3,
-                    "uom_id": self.product2.uom_id.id,
+                    "product_uom_id": self.product2.uom_id.id,
                     "price_unit": self.product2.standard_price,
                     "account_id": account.id,
-                    "invoice_line_tax_ids": [(6, False, taxes.ids)],
+                    "tax_ids": taxes.ids,
                 },
             ),
         ]
@@ -116,25 +115,22 @@ class TestAccountInvoice(TransactionCase):
             {
                 "partner_id": customer.id,
                 "type": "out_invoice",
-                "date_invoice": fields.Date.today(),
+                "invoice_date": fields.Date.today(),
                 "invoice_line_ids": invoice_lines2,
-                "origin": "Unit test",
+                "invoice_origin": "Unit test",
                 "journal_id": journal.id,
-                "account_id": account.id,
             }
         )
-        self.invoice1.compute_taxes()
-        self.invoice2.compute_taxes()
 
     def test_get_account_tax_groups_with_notes1(self):
         """
         Test the function _get_account_tax_groups_with_notes()
         This function should return every account.tax.group used on the
-        invoice (by tax_line_ids)
+        invoice (by invoice_line_ids.tax_ids)
         For this test, we use an invoice with only 1 tax group
         :return: bool
         """
-        tax_group = self.invoice1.tax_line_ids.tax_id.tax_group_id
+        tax_group = self.invoice1.mapped("invoice_line_ids.tax_ids.tax_group_id")
         # We need only 1 tax group for this test
         self.assertEquals(len(tax_group), 1)
         tax_group_result = self.invoice1._get_account_tax_groups_with_notes()
@@ -145,11 +141,11 @@ class TestAccountInvoice(TransactionCase):
         """
         Test the function _get_account_tax_groups_with_notes()
         This function should return every account.tax.group used on the
-        invoice (by tax_line_ids)
+        invoice (by invoice_line_ids.tax_ids)
         For this test, we use an invoice with more than 1 tax group
         :return: bool
         """
-        tax_group = self.invoice2.tax_line_ids.mapped("tax_id.tax_group_id")
+        tax_group = self.invoice2.mapped("invoice_line_ids.tax_ids.tax_group_id")
         # We need more than 1 tax group for this test
         self.assertGreater(len(tax_group), 1)
         tax_group_result = self.invoice2._get_account_tax_groups_with_notes()
@@ -160,14 +156,13 @@ class TestAccountInvoice(TransactionCase):
         """
         Test the function _get_account_tax_groups_with_notes()
         This function should return every account.tax.group used on the
-        invoice (by tax_line_ids)
+        invoice (by invoice_line_ids.tax_ids)
         For this test, we use the function on a multi invoice without any
         taxes. So the result should be empty
         :return: bool
         """
-        self.invoice1.invoice_line_ids.write({"invoice_line_tax_ids": [(6, False, [])]})
-        self.invoice1.compute_taxes()
-        tax_group = self.invoice1.tax_line_ids.tax_id.tax_group_id
+        self.invoice1.invoice_line_ids.write({"tax_ids": [(6, False, [])]})
+        tax_group = self.invoice1.mapped("invoice_line_ids.tax_ids.tax_group_id")
         # We need 0 tax group for this test
         self.assertFalse(bool(tax_group))
         tax_group_result = self.invoice1._get_account_tax_groups_with_notes()
