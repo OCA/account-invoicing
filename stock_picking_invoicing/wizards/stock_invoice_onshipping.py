@@ -38,9 +38,7 @@ class StockInvoiceOnshipping(models.TransientModel):
 
     journal_type = fields.Selection(
         selection=[
-            ('purchase_refund', 'Refund Purchase'),
             ('purchase', 'Create Supplier Invoice'),
-            ('sale_refund', 'Refund Sale'),
             ('sale', 'Create Customer Invoice')
         ],
         default=_get_journal_type,
@@ -67,32 +65,14 @@ class StockInvoiceOnshipping(models.TransientModel):
         default=lambda self: self._default_journal('sale'),
         ondelete="cascade",
     )
-    sale_refund_journal = fields.Many2one(
-        comodel_name='account.journal',
-        domain="[('type', '=', 'sale_refund')]",
-        default=lambda self: self._default_journal('sale_refund'),
-        ondelete="cascade",
-    )
     purchase_journal = fields.Many2one(
         comodel_name='account.journal',
         domain="[('type', '=', 'purchase')]",
         default=lambda self: self._default_journal('purchase'),
         ondelete="cascade",
     )
-    purchase_refund_journal = fields.Many2one(
-        comodel_name='account.journal',
-        domain="[('type', '=', 'purchase_refund')]",
-        default=lambda self: self._default_journal('purchase_refund'),
-        ondelete="cascade",
-    )
     show_sale_journal = fields.Boolean()
-    show_sale_refund_journal = fields.Boolean(
-        string="Show Refund Sale Journal",
-    )
     show_purchase_journal = fields.Boolean()
-    show_purchase_refund_journal = fields.Boolean(
-        string="Show Refund Purchase Journal",
-    )
 
     @api.model
     def default_get(self, fields_list):
@@ -113,9 +93,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         sale_pickings, sale_refund_pickings, purchase_pickings,\
             purchase_refund_pickings = self.get_split_pickings()
         self.show_sale_journal = bool(sale_pickings)
-        self.show_sale_refund_journal = bool(sale_refund_pickings)
         self.show_purchase_journal = bool(purchase_pickings)
-        self.show_purchase_refund_journal = bool(purchase_refund_pickings)
 
     @api.multi
     def get_partner_sum(
