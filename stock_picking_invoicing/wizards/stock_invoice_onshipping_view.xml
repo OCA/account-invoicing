@@ -10,13 +10,9 @@
                 </h1>
                 <group>
                     <field name="show_sale_journal" invisible="1"/>
-                    <field name="show_sale_refund_journal" invisible="1"/>
                     <field name="show_purchase_journal" invisible="1"/>
-                    <field name="show_purchase_refund_journal" invisible="1"/>
                     <field name="sale_journal" attrs="{'invisible':[('show_sale_journal', '=', False)], 'required':[('show_sale_journal', '=', True)]}"/>
-                    <field name="sale_refund_journal" attrs="{'invisible':[('show_sale_refund_journal', '=', False)], 'required':[('show_sale_refund_journal', '=', True)]}"/>
                     <field name="purchase_journal" attrs="{'invisible':[('show_purchase_journal', '=', False)], 'required':[('show_purchase_journal', '=', True)]}"/>
-                    <field name="purchase_refund_journal" domain="[('type', '=', 'purchase_refund')]" attrs="{'invisible':[('show_purchase_refund_journal', '=', False)], 'required':[('show_purchase_refund_journal', '=', True)]}"/>
                     <field name="group"/>
                     <field name="invoice_date" />
                 </group>
