@@ -2,26 +2,42 @@
 #        (https://www.eficent.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
-from odoo import _, api, models
+from odoo import _, models
 
 
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
-    @api.multi
     def post_and_open_payment(self):
         self.post()
         res = {
-            "domain": "[('id','in', [" + ",".join(map(str, self.ids)) + "])]",
             "name": _("Payments"),
-            "view_type": "form",
+            "views": [(False, "form")],
+            "res_id": self.id,
+            "res_model": "account.payment",
+            "view_id": False,
+            "context": False,
+            "type": "ir.actions.act_window",
+        }
+        return res
+
+
+class AccountPaymentRegister(models.TransientModel):
+    _inherit = "account.payment.register"
+
+    def create_payment_and_open(self):
+        payment_model = self.env["account.payment"]
+        payments = payment_model
+        for payment_vals in self.get_payments_vals():
+            payments += payment_model.create(payment_vals)
+        payments.post()
+        res = {
+            "domain": [("id", "in", payments.ids), ("state", "=", "posted")],
+            "name": _("Payments"),
             "view_mode": "tree,form",
             "res_model": "account.payment",
             "view_id": False,
             "context": False,
             "type": "ir.actions.act_window",
         }
-        if len(self.ids) == 1:
-            res["views"] = [(False, "form")]
-            res["res_id"] = self.id
         return res

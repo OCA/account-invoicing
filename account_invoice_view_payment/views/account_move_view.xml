@@ -1,0 +1,20 @@
+<odoo>
+
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="invoice_payments_widget" position="after">
+                <button type="object"
+                        name="action_view_payments"
+                        string="View Payments"
+                        class="oe_link"
+                        colspan="2"
+                        attrs="{'invisible': [('invoice_payments_widget', '=', [])]}"
+                        groups="account.group_account_invoice"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
