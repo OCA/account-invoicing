@@ -11,6 +11,6 @@
     "author": "Eficent, " "Odoo Community Association (OCA)",
     "category": "Accounting",
     "depends": ["account"],
-    "data": ["views/account_payment_view.xml", "views/account_invoice_view.xml"],
+    "data": ["views/account_payment_view.xml", "views/account_move_view.xml"],
     "installable": True,
 }
