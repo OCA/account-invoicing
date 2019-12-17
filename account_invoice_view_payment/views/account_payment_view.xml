@@ -3,26 +3,28 @@
     <record id="view_account_payment_invoice_form" model="ir.ui.view">
         <field name="name">account.payment.invoice.form</field>
         <field name="model">account.payment</field>
-        <field name="inherit_id"
-               ref="account.view_account_payment_invoice_form"/>
+        <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
         <field name="arch" type="xml">
-            <button name="action_validate_invoice_payment" position="after">
-                <button name="post_and_open_payment" class="oe_highlight"
-                        string="Validate &amp; View Payment" type="object"
+            <button name="post" position="after">
+                <button name="post_and_open_payment"
+                        string="Validate &amp; View Payment"
+                        type="object"
+                        class="oe_highlight"
                         groups="account.group_account_invoice"/>
             </button>
         </field>
     </record>
 
-    <record id="view_account_payment_from_invoices" model="ir.ui.view">
-        <field name="name">account.register.payments.wizard</field>
-        <field name="model">account.register.payments</field>
-        <field name="inherit_id"
-               ref="account.view_account_payment_from_invoices"/>
+    <record id="view_account_payment_form_multi" model="ir.ui.view">
+        <field name="name">account.payment.form.multi</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_form_multi"/>
         <field name="arch" type="xml">
             <button name="create_payments" position="after">
-                <button name="create_payment_and_open" class="oe_highlight"
-                        string="Validate &amp; View Payment" type="object"
+                <button name="create_payment_and_open"
+                        string="Validate &amp; View Payment"
+                        type="object"
+                        class="oe_highlight"
                         groups="account.group_account_invoice"/>
             </button>
         </field>
