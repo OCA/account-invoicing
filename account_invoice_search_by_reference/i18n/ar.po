@@ -20,6 +20,9 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #. module: account_invoice_search_by_reference
-#: model:ir.model,name:account_invoice_search_by_reference.model_account_invoice
-msgid "Invoice"
-msgstr "فاتورة"
+#: model:ir.model,name:account_invoice_search_by_reference.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "فاتورة"
