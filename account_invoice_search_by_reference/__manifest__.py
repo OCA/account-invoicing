@@ -8,9 +8,7 @@
     "category": "Invoicing",
     "website": "http://www.eficent.com/",
     "license": "AGPL-3",
-    "depends": [
-        "account"
-    ],
+    "depends": ["account"],
     "installable": True,
     "auto_install": False,
 }
