@@ -20,6 +20,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #. module: account_invoice_search_by_reference
-#: model:ir.model,name:account_invoice_search_by_reference.model_account_invoice
-msgid "Invoice"
-msgstr "Faktúra"
+#: model:ir.model,name:account_invoice_search_by_reference.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Faktúra"
