@@ -18,7 +18,6 @@ class AccountInvoiceRefund(models.TransientModel):
     @api.multi
     def compute_refund(self, mode='refund'):
         res = super().compute_refund(mode)
-        context = dict(self._context or {})
         inv_obj = self.env['account.invoice']
         for inv in inv_obj.browse(self.env.context.get('active_ids')):
             inv.reason_id = self.reason_id.id
