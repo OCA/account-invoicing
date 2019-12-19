@@ -4,3 +4,4 @@
 * Alex Comba <alex.comba@agilebg.com>
 * Florent THOMAS <florent.thomas@mind-and-go.com>
 * François Honoré <francois.honore@acsone.eu>
+* Magno Costa <magno.costa@akretion.com.br>

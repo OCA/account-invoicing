@@ -1,7 +1,7 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, api, fields
+from odoo import models, api
 
 
 class StockPicking(models.Model):
@@ -10,15 +10,6 @@ class StockPicking(models.Model):
         _name,
         "stock.invoice.state.mixin",
     ]
-
-    invoice_ids = fields.Many2many(
-        comodel_name="account.invoice",
-        relation="stock_picking_account_invoice_m2m",
-        column1="picking_id",
-        column2="invoice_id",
-        readonly=True,
-        copy=False,
-    )
 
     @api.multi
     def set_to_be_invoiced(self):
