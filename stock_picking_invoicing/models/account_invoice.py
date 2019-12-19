@@ -1,20 +1,11 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import api, models
 
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
-
-    picking_ids = fields.Many2many(
-        comodel_name="stock.picking",
-        relation="stock_picking_account_invoice_m2m",
-        column1="invoice_id",
-        column2="picking_id",
-        copy=True,
-        readonly=True,
-    )
 
     @api.multi
     def action_cancel(self):
@@ -27,7 +18,7 @@ class AccountInvoice(models.Model):
         pickings = self.filtered(
             lambda i: i.picking_ids and
             i.type in ['out_invoice', 'in_invoice']).mapped("picking_ids")
-        self.mapped("invoice_line_ids.stock_move_ids")._set_as_2binvoiced()
+        self.mapped("invoice_line_ids.move_line_ids")._set_as_2binvoiced()
         pickings._set_as_2binvoiced()
         return result
 
@@ -41,7 +32,7 @@ class AccountInvoice(models.Model):
         pickings = self.filtered(
             lambda i: i.picking_ids and
             i.type in ['out_invoice', 'in_invoice']).mapped("picking_ids")
-        self.mapped("invoice_line_ids.stock_move_ids")._set_as_2binvoiced()
+        self.mapped("invoice_line_ids.move_line_ids")._set_as_2binvoiced()
         pickings._set_as_2binvoiced()
         return super(AccountInvoice, self).unlink()
 
