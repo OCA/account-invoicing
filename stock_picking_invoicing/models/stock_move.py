@@ -11,15 +11,6 @@ class StockMove(models.Model):
         "stock.invoice.state.mixin",
     ]
 
-    invoice_line_ids = fields.Many2many(
-        comodel_name='account.invoice.line',
-        relation="stock_move_account_move_line_m2m",
-        column1="stock_move_id",
-        column2="invoice_line_id",
-        string='Invoice Line',
-        readonly=True,
-    )
-
     @api.multi
     def _get_taxes(self, fiscal_position):
         """
