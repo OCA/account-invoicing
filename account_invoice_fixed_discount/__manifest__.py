@@ -12,5 +12,5 @@
     "application": False,
     "installable": True,
     "depends": ["account"],
-    "data": ["views/account_invoice_view.xml", "reports/report_account_invoice.xml"],
+    "data": ["views/account_move_view.xml", "reports/report_account_invoice.xml"],
 }
