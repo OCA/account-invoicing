@@ -3,3 +3,4 @@ product-attribute
 purchase-workflow
 queue
 brand
+stock-logistics-workflow

@@ -430,7 +430,7 @@ class StockInvoiceOnshipping(models.TransientModel):
             'quantity': quantity,
             'price_unit': price,
             'invoice_line_tax_ids': [(6, 0, taxes.ids)],
-            'stock_move_ids': [(4, m.id, False) for m in moves],
+            'move_line_ids': [(4, m.id, False) for m in moves],
         })
         values = self._simulate_invoice_line_onchange(values)
         return values
