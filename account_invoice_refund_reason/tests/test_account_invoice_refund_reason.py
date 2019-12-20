@@ -71,3 +71,6 @@ class TestAccountInvoiceRefundReason(TransactionCase):
                          self.account_invoice_refund_0.reason_id.name)
 
         self.account_invoice_refund_0.invoice_refund()
+        
+        self.assertEqual(self.account_invoice_customer0.reason_id.id,
+                         self.reason_id.id)
