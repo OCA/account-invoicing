@@ -77,6 +77,12 @@ class TestPickingInvoicing(TransactionCase):
         self.assertIn(picking, invoice.picking_ids)
         nb_invoice_after = self.invoice_model.search_count([])
         self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoice))
+        assert invoice.invoice_line_ids, 'Error to create invoice line.'
+        for inv_line in invoice.invoice_line_ids:
+            for mv_line in inv_line.move_line_ids:
+                self.assertEquals(
+                    mv_line.id, new_move.id,
+                    'Error to link stock.move with invoice.line.')
 
     def test_1_picking_invoicing(self):
         nb_invoice_before = self.invoice_model.search_count([])
@@ -172,6 +178,12 @@ class TestPickingInvoicing(TransactionCase):
         self.assertIn(picking, invoice.picking_ids)
         nb_invoice_after = self.invoice_model.search_count([])
         self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoice))
+        assert invoice.invoice_line_ids, 'Error to create invoice line.'
+        for inv_line in invoice.invoice_line_ids:
+            for mv_line in inv_line.move_line_ids:
+                self.assertEquals(
+                    mv_line.id, new_move.id,
+                    'Error to link stock.move with invoice.line.')
 
     def test_picking_cancel(self):
         """
