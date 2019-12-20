@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="2binvoiced_action_picking_dashboard" model="ir.actions.act_window">
+        <field name="name">Picking to Invoice</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="False"/>
+        <field name="domain">[('state', '!=', 'cancel'), ('picking_type_id', '=', active_id),
+            ('invoice_state', '=', '2binvoiced')]</field>
+        <field name="context">{'default_picking_type_id': active_id}</field>
+    </record>
+
+    <record id="stock_picking_type_kanban" model="ir.ui.view">
+        <field name="name">stock.picking.type.kanban</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="count_picking_2binvoiced"/>
+            </field>
+            <xpath expr="//div[hasclass('o_kanban_primary_right')]" position="inside">
+                <div t-if="record.count_picking_2binvoiced.raw_value > 0" class="row">
+                    <div class="col-9">
+                        <a name="%(2binvoiced_action_picking_dashboard)d"  type="action">
+                            To be Invoiced
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <field name="count_picking_2binvoiced"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
