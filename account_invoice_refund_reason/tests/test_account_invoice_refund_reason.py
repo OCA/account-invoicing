@@ -16,12 +16,14 @@ class TestAccountInvoiceRefundReason(TransactionCase):
         self.invoice_refund_obj = self.env['account.invoice.refund']
         self.reason_obj = self.env['account.invoice.refund.reason']
 
-        self.payment_term = self.env.ref('account.account_payment_term_advance')
+        self.payment_term = \
+            self.env.ref('account.account_payment_term_advance')
         self.partner3 = self.env.ref('base.res_partner_3')
         self.account_user_type =\
             self.env.ref('account.data_account_type_receivable')
         self.product_id = self.env.ref('product.product_product_5')
-        self.account_revenue = self.env.ref('account.data_account_type_revenue')
+        self.account_revenue = \
+            self.env.ref('account.data_account_type_revenue')
 
         self.journalrec = self.journal_obj.search([('type', '=', 'sale')])[0]
         self.account_id = self.account_obj.search([
@@ -69,8 +71,6 @@ class TestAccountInvoiceRefundReason(TransactionCase):
         self.account_invoice_refund_0._onchange_reason_id()
         self.assertEqual(self.account_invoice_refund_0.description,
                          self.account_invoice_refund_0.reason_id.name)
-
         self.account_invoice_refund_0.invoice_refund()
-        
         self.assertEqual(self.account_invoice_customer0.reason_id.id,
                          self.reason_id.id)
