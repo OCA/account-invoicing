@@ -61,13 +61,12 @@ class TestAccountInvoiceRefundReason(TransactionCase):
     def test_onchange_reason_id(self):
         self.account_invoice_customer0.action_invoice_open()
 
-        self.account_invoice_refund_0 = self.invoice_refund_obj.create(dict(
-            description='Credit Note',
-            date=datetime.date.today(),
-            filter_refund='refund',
-            reason_id=self.reason_id.id
-        ))
-
+        self.account_invoice_refund_0 = self.invoice_refund_obj.with_context(
+            {'active_ids' : self.account_invoice_customer0.ids}).create(dict(
+                description='Credit Note',
+                date=datetime.date.today(),
+                filter_refund='refund',
+                reason_id=self.reason_id.id))
         self.account_invoice_refund_0._onchange_reason_id()
         self.assertEqual(self.account_invoice_refund_0.description,
                          self.account_invoice_refund_0.reason_id.name)
