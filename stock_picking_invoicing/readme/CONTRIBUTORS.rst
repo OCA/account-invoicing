@@ -5,3 +5,4 @@
 * Florent THOMAS <florent.thomas@mind-and-go.com>
 * François Honoré <francois.honore@acsone.eu>
 * Magno Costa <magno.costa@akretion.com.br>
+* Luis Felipe Mileo <mileo@kmee.com.br>
