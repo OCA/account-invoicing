@@ -190,6 +190,10 @@ class StockInvoiceOnshipping(models.TransientModel):
         invoices = self._action_generate_invoices()
         if not invoices:
             raise UserError(_('No invoice created!'))
+
+        # Update the state on pickings related to new invoices only
+        self._update_picking_invoice_status(invoices.mapped("picking_ids"))
+
         inv_type = self._get_invoice_type()
         if inv_type in ["out_invoice", "out_refund"]:
             action = self.env.ref("account.action_invoice_tree1")
@@ -499,6 +503,4 @@ class StockInvoiceOnshipping(models.TransientModel):
                     invoice = self._create_invoice(invoice_values)
                     invoice._onchange_invoice_line_ids()
                     invoices |= invoice
-        # Update the state on pickings related to new invoices only
-        self._update_picking_invoice_status(invoices.mapped("picking_ids"))
         return invoices
