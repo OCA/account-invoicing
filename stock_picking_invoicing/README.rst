@@ -23,7 +23,7 @@ Stock Picking Invoicing
     :target: https://runbot.odoo-community.org/runbot/95/12.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module allows to create invoices directly from picking, without having to
 use sale or purchase orders.
