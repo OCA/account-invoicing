@@ -22,12 +22,7 @@
         </t>
     </template>
 
-    <record id="report_corrispettivi_document" model="ir.ui.view">
-        <field name="name">Receipts</field>
-        <field name="model">account.invoice</field>
-        <field name="mode">primary</field>
-        <field name="inherit_id" ref="account.report_invoice_document"/>
-        <field name="arch" type="xml">
+    <template id="report_corrispettivi_document" inherit_id="account.report_invoice_document" primary="True">
             <address position="attributes">
                 <attribute name="style">display: none;</attribute>
             </address>
@@ -64,6 +59,5 @@
             <p t-if="o.reference" position="attributes">
                 <attribute name="style">display: none;</attribute>
             </p>
-        </field>
-    </record>
+    </template>
 </odoo>
