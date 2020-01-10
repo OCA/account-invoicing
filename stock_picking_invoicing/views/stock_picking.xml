@@ -72,7 +72,10 @@
                 <field name="invoice_state" groups="account.group_account_invoice"/>
             </xpath>
             <button name="%(stock.act_stock_return_picking)d" position="after">
-                <button name="set_to_be_invoiced" type="object" string="Set to be invoiced" attrs="{'invisible':['|', ('invoice_state', '=', '2binvoiced'), ('invoice_ids', '!=', False)]}"/>
+                <button name="set_to_be_invoiced" type="object" string="Set to be invoiced"
+                        attrs="{'invisible':['|', '|',
+                         ('invoice_state', 'in', ('2binvoiced', 'invoiced')),
+                         ('invoice_ids', '=', True), ('state', '=', 'cancel')]}"/>
             </button>
         </field>
     </record>
