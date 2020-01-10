@@ -65,7 +65,7 @@
                     'default_location_dest_id': location_dest_id}
                 </attribute>
             </field>
-            <field name="move_type" position="after">
+            <field name="move_type" position="before">
                 <field name="invoice_state" groups="account.group_account_invoice"/>
             </field>
             <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']" position="after">
