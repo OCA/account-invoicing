@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Stocking Picking - To be Invoiced - State Draft-->
+
+    <record id="stock_picking_invoicing_1" model="stock.picking">
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="picking_type_id" ref="stock.picking_type_out"/>
+        <field name="invoice_state">2binvoiced</field>
+        <field name="origin">stock_picking_invoicing demo</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+    </record>
+
+    <record id="stock_move_invoicing_1-1" model="stock.move">
+        <field name="product_id" ref="product.product_product_6"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_1"/>
+        <field name="invoice_state">2binvoiced</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <record id="stock_move_invoicing_1-2" model="stock.move">
+        <field name="product_id" ref="product.product_product_27"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_1"/>
+        <field name="invoice_state">2binvoiced</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <!-- Stocking Picking - To be Invoiced - State Assigned-->
+
+    <record id="stock_picking_invoicing_2" model="stock.picking">
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="picking_type_id" ref="stock.picking_type_out"/>
+        <field name="invoice_state">2binvoiced</field>
+        <field name="origin">stock_picking_invoicing demo</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+    </record>
+
+    <record id="stock_move_invoicing_2-1" model="stock.move">
+        <field name="product_id" ref="product.product_product_6"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_2"/>
+        <field name="invoice_state">2binvoiced</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <record id="stock_move_invoicing_2-2" model="stock.move">
+        <field name="product_id" ref="product.product_product_27"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_2"/>
+        <field name="invoice_state">2binvoiced</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <function model="stock.picking" name="action_confirm" eval="[[ref('stock_picking_invoicing_2')]]"/>
+
+    <function model="stock.picking" name="action_assign" eval="[[ref('stock_picking_invoicing_2')]]"/>
+
+    <function model="stock.picking" name="button_validate" eval="[[ref('stock_picking_invoicing_2')]]"/>
+
+    <!-- Stocking Picking - To be Invoiced - State Cancel -->
+
+    <record id="stock_picking_invoicing_3" model="stock.picking">
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="picking_type_id" ref="stock.picking_type_out"/>
+        <field name="invoice_state">2binvoiced</field>
+        <field name="origin">stock_picking_invoicing demo</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+    </record>
+
+    <record id="stock_move_invoicing_3-1" model="stock.move">
+        <field name="product_id" ref="product.product_product_6"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_3"/>
+        <field name="invoice_state">2binvoiced</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <record id="stock_move_invoicing_3-2" model="stock.move">
+        <field name="product_id" ref="product.product_product_27"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_3"/>
+        <field name="invoice_state">2binvoiced</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <function model="stock.picking" name="action_cancel" eval="[[ref('stock_picking_invoicing_3')]]"/>
+
+    <!-- Stocking Picking - Invoiced - State Draft-->
+
+    <record id="stock_picking_invoicing_4" model="stock.picking">
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="picking_type_id" ref="stock.picking_type_out"/>
+        <field name="invoice_state">invoiced</field>
+        <field name="origin">stock_picking_invoicing demo</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+    </record>
+
+    <record id="stock_move_invoicing_4-1" model="stock.move">
+        <field name="product_id" ref="product.product_product_6"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_4"/>
+        <field name="invoice_state">invoiced</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <record id="stock_move_invoicing_4-2" model="stock.move">
+        <field name="product_id" ref="product.product_product_27"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_4"/>
+        <field name="invoice_state">invoiced</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <!-- Stocking Picking - None - State Draft-->
+
+    <record id="stock_picking_invoicing_5" model="stock.picking">
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="picking_type_id" ref="stock.picking_type_out"/>
+        <field name="invoice_state">none</field>
+        <field name="origin">stock_picking_invoicing demo</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+    </record>
+
+    <record id="stock_move_invoicing_5-1" model="stock.move">
+        <field name="product_id" ref="product.product_product_6"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_5"/>
+        <field name="invoice_state">none</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <record id="stock_move_invoicing_5-2" model="stock.move">
+        <field name="product_id" ref="product.product_product_27"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_5"/>
+        <field name="invoice_state">none</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <function model="stock.picking" name="action_confirm" eval="[[ref('stock_picking_invoicing_5')]]"/>
+
+    <function model="stock.picking" name="action_assign" eval="[[ref('stock_picking_invoicing_5')]]"/>
+
+    <function model="stock.picking" name="button_validate" eval="[[ref('stock_picking_invoicing_5')]]"/>
+
+    <!-- Stocking Picking - To be Invoiced - State Cancel -->
+
+    <record id="stock_picking_invoicing_6" model="stock.picking">
+        <field name="partner_id" ref="base.res_partner_2"/>
+        <field name="picking_type_id" ref="stock.picking_type_out"/>
+        <field name="invoice_state">none</field>
+        <field name="origin">stock_picking_invoicing demo</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+    </record>
+
+    <record id="stock_move_invoicing_6-1" model="stock.move">
+        <field name="product_id" ref="product.product_product_6"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_6"/>
+        <field name="invoice_state">none</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <record id="stock_move_invoicing_6-2" model="stock.move">
+        <field name="product_id" ref="product.product_product_27"/>
+        <field name="name">Test</field>
+        <field name="picking_id" ref="stock_picking_invoicing_6"/>
+        <field name="invoice_state">none</field>
+        <field name="location_id" ref="stock.stock_location_stock"/>
+        <field name="location_dest_id" ref="stock.stock_location_customers"/>
+        <field name="product_uom_qty">1</field>
+        <field name="product_uom" ref="uom.product_uom_unit"/>
+    </record>
+
+    <function model="stock.picking" name="action_cancel" eval="[[ref('stock_picking_invoicing_6')]]"/>
+
+</odoo>
