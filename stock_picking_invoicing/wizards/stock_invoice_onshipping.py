@@ -459,9 +459,9 @@ class StockInvoiceOnshipping(models.TransientModel):
         """ Ungrup your moves, split them again, grouping by
         fiscal position, max itens per invoice and etc
         :param grouped_moves_list:
-        :return: grouped_moves_list
+        :return: list of grouped moves list
         """
-        return grouped_moves_list
+        return [grouped_moves_list]
 
     def _create_invoice(self, invoice_values):
         """ Overrite this metothod if you need to change any values of the
