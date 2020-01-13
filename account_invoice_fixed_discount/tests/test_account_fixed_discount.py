@@ -21,6 +21,35 @@ class TestInvoiceFixedDiscount(SavepointCase):
             ],
             limit=1,
         )
+        type_current_liability = cls.env.ref(
+            "account.data_account_type_current_liabilities"
+        )
+        cls.output_vat_acct = cls.env["account.account"].create(
+            {"name": "10", "code": "10", "user_type_id": type_current_liability.id}
+        )
+        cls.tax_group_vat = cls.env["account.tax.group"].create({"name": "VAT"})
+        cls.vat = cls.env["account.tax"].create(
+            {
+                "name": "TEST 10%",
+                "type_tax_use": "sale",
+                "amount_type": "percent",
+                "amount": 10.00,
+                "tax_group_id": cls.tax_group_vat.id,
+                "tax_exigibility": "on_invoice",
+                "invoice_repartition_line_ids": [
+                    (0, 0, {"factor_percent": 100.0, "repartition_type": "base"}),
+                    (
+                        0,
+                        0,
+                        {
+                            "factor_percent": 100.0,
+                            "repartition_type": "tax",
+                            "account_id": cls.output_vat_acct.id,
+                        },
+                    ),
+                ],
+            }
+        )
 
     def _create_invoice(self, discount=0.00, discount_fixed=0.00):
         invoice_vals = [
@@ -35,6 +64,7 @@ class TestInvoiceFixedDiscount(SavepointCase):
                     "price_unit": 200.00,
                     "discount_fixed": discount_fixed,
                     "discount": discount,
+                    "tax_ids": [(6, 0, [self.vat.id])],
                 },
             )
         ]
@@ -62,7 +92,10 @@ class TestInvoiceFixedDiscount(SavepointCase):
         invoice.invoice_line_ids._onchange_discount_fixed()
         self.assertEqual(invoice.invoice_line_ids.discount, 0.00)
         invoice.invoice_line_ids._onchange_price_subtotal()
+        invoice.line_ids.write({"recompute_tax_line": True})
         invoice._onchange_invoice_line_ids()
+        # compute amount total (200 - 57) * 10%
+        self.assertEqual(invoice.amount_total, 157.3)
         self.assertEqual(invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(invoice.invoice_line_ids.price_subtotal, 143.00)
 
