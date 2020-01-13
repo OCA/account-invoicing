@@ -444,6 +444,14 @@ class StockInvoiceOnshipping(models.TransientModel):
         """
         return pickings._set_as_invoiced()
 
+    def ungroup_moves(self, grouped_moves_list):
+        """ Ungrup your moves, split them again, grouping by
+        fiscal position, max itens per invoice and etc
+        :param grouped_moves_list:
+        :return: grouped_moves_list
+        """
+        return grouped_moves_list
+
     @api.multi
     def _action_generate_invoices(self):
         """
@@ -457,21 +465,25 @@ class StockInvoiceOnshipping(models.TransientModel):
         pick_list = self._group_pickings(pickings)
         invoices = self.env['account.invoice'].browse()
         for pickings in pick_list:
-            invoice_values = self._build_invoice_values_from_pickings(pickings)
-            invoice = self.env['account.invoice'].create(invoice_values)
             moves = pickings.mapped("move_lines")
-            moves_list = self._group_moves(moves)
-            lines = []
-            for moves in moves_list:
-                line_values = self._get_invoice_line_values(moves, invoice)
-                if line_values:
-                    lines.append(line_values)
-            if lines:
-                invoice.write({
-                    'invoice_line_ids': [(0, False, l) for l in lines],
-                })
-            invoice._onchange_invoice_line_ids()
-            invoices |= invoice
+            grouped_moves_list = self._group_moves(moves)
+            parts = self.ungroup_moves(grouped_moves_list)
+            for moves_list in parts:
+                invoice_values = self._build_invoice_values_from_pickings(
+                    pickings
+                )
+                invoice = self.env['account.invoice'].create(invoice_values)
+                lines = []
+                for moves in moves_list:
+                    line_values = self._get_invoice_line_values(moves, invoice)
+                    if line_values:
+                        lines.append(line_values)
+                if lines:
+                    invoice.write({
+                        'invoice_line_ids': [(0, False, l) for l in lines],
+                    })
+                invoice._onchange_invoice_line_ids()
+                invoices |= invoice
         # Update the state on pickings related to new invoices only
         self._update_picking_invoice_status(invoices.mapped("picking_ids"))
         return invoices
