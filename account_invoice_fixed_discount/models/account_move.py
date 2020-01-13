@@ -5,6 +5,23 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
+class AccountMove(models.Model):
+    _inherit = "account.move"
+
+    def _recompute_tax_lines(self, recompute_tax_base_amount=False):
+        vals = {}
+        for line in self.invoice_line_ids.filtered("discount_fixed"):
+            vals[line] = {"price_unit": line.price_unit}
+            price_unit = line.price_unit - line.discount_fixed
+            line.update({"price_unit": price_unit})
+        res = super(AccountMove, self)._recompute_tax_lines(
+            recompute_tax_base_amount=recompute_tax_base_amount
+        )
+        for line in vals.keys():
+            line.update(vals[line])
+        return res
+
+
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
