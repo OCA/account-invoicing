@@ -471,6 +471,9 @@ class TestPickingInvoicing(TransactionCase):
         # Should be equals because we delete the invoice
         self.assertEquals(nb_invoice_before, nb_invoice_after)
 
+        # Check method counting 2binvoice used in kanban view
+        self.assertEquals(2, self.pick_type_in.count_picking_2binvoiced)
+
     def test_picking_invoicing_by_product3(self):
         """
         Test the invoice generation grouped by partner/product with 2
