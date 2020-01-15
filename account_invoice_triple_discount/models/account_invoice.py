@@ -42,7 +42,7 @@ class AccountInvoiceLine(models.Model):
         'product_id', 'invoice_id.partner_id',
         'invoice_id.currency_id', 'invoice_id.company_id',
         'invoice_id.date_invoice', 'invoice_id.date', 'discount2', 'discount3')
-    def _compute_price(self):
+    def _compute_price(self, recursion=True):
         prev_values = self.triple_discount_preprocess()
         # it can happen that the cache gets reset in the middle of the call to
         # super(), and I have no idea why.  in that case we get the wrong
@@ -51,11 +51,11 @@ class AccountInvoiceLine(models.Model):
         discount = self.discount
         super(AccountInvoiceLine, self)._compute_price()
         self.triple_discount_postprocess(prev_values)
-        if discount:
+        if discount and recursion:
             prec = self.env['decimal.precision'].precision_get('Product Price')
             expected = (1. - discount / 100.) * self.price_unit * self.quantity
             if 0 != float_compare(self.price_subtotal, expected, precision_digits=prec):
-                self._compute_price()
+                self._compute_price(False)
 
     def _get_triple_discount(self):
         """Get the discount that is equivalent to the subsequent application
