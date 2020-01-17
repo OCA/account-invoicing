@@ -6,53 +6,55 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2020-01-17 05:13+0000\n"
+"Last-Translator: Nelson Ramírez Sánchez <info@konos.cl>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model,name:account_invoice_refund_reason.model_account_invoice_refund_reason
 msgid "Account Invoice refund Reasons"
-msgstr ""
+msgstr "Motivo de Reembolso de la Factura de Cuenta"
 
 #. module: account_invoice_refund_reason
 #: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_cancellation
 msgid "Cancellation"
-msgstr ""
+msgstr "Cancelación"
 
 #. module: account_invoice_refund_reason
 #: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_agreement
 msgid "Commercial and/or Collection Agreement"
-msgstr ""
+msgstr "Acuerdo comercial y / o de cobranza"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creado en"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model,name:account_invoice_refund_reason.model_account_invoice_refund
 msgid "Credit Note"
-msgstr ""
+msgstr "Nota de Crédito"
 
 #. module: account_invoice_refund_reason
 #: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_correction
 msgid "Data Correction"
-msgstr ""
+msgstr "Corrección de Datos"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nombre para Mostrar"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__id
@@ -62,60 +64,60 @@ msgstr ""
 #. module: account_invoice_refund_reason
 #: model:ir.model,name:account_invoice_refund_reason.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Factura"
 
 #. module: account_invoice_refund_reason
 #: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_noref
 msgid "Invoice without reference"
-msgstr ""
+msgstr "Factura sin referencia"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última modificación el"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Última Actualización por"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultima Actualización en"
 
 #. module: account_invoice_refund_reason
 #: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_error
 msgid "Lease and/or Minimum Charge Error"
-msgstr ""
+msgstr "Arrendamiento y / o error de carga mínima"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__name
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #. module: account_invoice_refund_reason
 #: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_others
 msgid "Others"
-msgstr ""
+msgstr "Otros"
 
 #. module: account_invoice_refund_reason
 #: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_difference
 msgid "Price Difference"
-msgstr ""
+msgstr "Diferencia de Precio"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice__reason_id
 msgid "Reason"
-msgstr ""
+msgstr "Razón"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund__reason_id
 msgid "Reason to credit"
-msgstr ""
+msgstr "Motivo para acreditar"
 
 #. module: account_invoice_refund_reason
 #: model:ir.actions.act_window,name:account_invoice_refund_reason.refund_reason_action
 #: model:ir.ui.menu,name:account_invoice_refund_reason.refund_reasons_menu
 msgid "Refund Reasons"
-msgstr ""
+msgstr "Motivos de Reembolso"
