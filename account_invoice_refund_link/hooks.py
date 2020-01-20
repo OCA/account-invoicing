@@ -3,7 +3,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
-from odoo import api, SUPERUSER_ID
+
+from odoo import SUPERUSER_ID, api
 
 _logger = logging.getLogger(__name__)
 
@@ -15,9 +16,9 @@ def match_origin_lines(refund):
     for refund_line in refund.invoice_line_ids:
         for invoice_line in invoice_lines:
             match = (
-                refund_line.product_id and
-                refund_line.product_id == invoice_line.product_id or
-                refund_line.name == invoice_line.name
+                refund_line.product_id
+                and refund_line.product_id == invoice_line.product_id
+                or refund_line.name == invoice_line.name
             )
             if match:
                 invoice_lines -= invoice_line
@@ -31,9 +32,11 @@ def post_init_hook(cr, registry):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
         # Linking all refund invoices to its original invoices
-        refunds = env['account.invoice'].search([
-            ('type', 'in', ('out_refund', 'in_refund')),
-            ('refund_invoice_id', '!=', False),
-        ])
+        refunds = env["account.invoice"].search(
+            [
+                ("type", "in", ("out_refund", "in_refund")),
+                ("refund_invoice_id", "!=", False),
+            ]
+        )
         for refund in refunds:
             match_origin_lines(refund)
