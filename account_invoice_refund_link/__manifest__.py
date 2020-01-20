@@ -9,16 +9,10 @@
     "version": "12.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
-    "author": "Pexego, "
-              "Tecnativa, "
-              "Odoo Community Association (OCA)",
+    "author": "Pexego, " "Tecnativa, " "Odoo Community Association (OCA)",
     "installable": True,
     "post_init_hook": "post_init_hook",
-    "depends": [
-        'account',
-    ],
+    "depends": ["account"],
     "license": "AGPL-3",
-    "data": [
-        'views/account_invoice_view.xml',
-    ],
+    "data": ["views/account_invoice_view.xml"],
 }
