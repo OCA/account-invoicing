@@ -1,16 +1,15 @@
 <!-- Copyright 2019 Ecosoft
-     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
 
     <!-- Customer Invoice / Refund -->
     <record id="action_invoice_out_tree" model="ir.actions.act_window">
         <field name="name">Invoices / Credit Notes</field>
-        <field name="res_model">account.invoice</field>
-        <field name="view_type">form</field>
+        <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
         <field eval="False" name="view_id"/>
         <field name="domain">[('type', 'in', ('out_invoice', 'out_refund'))]</field>
-        <field name="context">{'type':'out_invoice', 'journal_type': 'sale'}</field>
+        <field name="context">{'type':'entry', 'journal_type': 'sale'}</field>
         <field name="search_view_id" ref="account.view_account_invoice_filter"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -24,14 +23,14 @@
     <record id="action_invoice_out_view1" model="ir.actions.act_window.view">
         <field eval="1" name="sequence"/>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="account.invoice_tree"/>
+        <field name="view_id" ref="account.view_invoice_tree"/>
         <field name="act_window_id" ref="action_invoice_out_tree"/>
     </record>
 
     <record id="action_invoice_out_view2" model="ir.actions.act_window.view">
         <field eval="2" name="sequence"/>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="account.invoice_form"/>
+        <field name="view_id" ref="account.view_move_form"/>
         <field name="act_window_id" ref="action_invoice_out_tree"/>
     </record>
 
@@ -40,8 +39,7 @@
     <!-- Vendor Bill / Refund -->
     <record id="action_invoice_in_tree" model="ir.actions.act_window">
         <field name="name">Bills / Refunds</field>
-        <field name="res_model">account.invoice</field>
-        <field name="view_type">form</field>
+        <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
         <field eval="False" name="view_id"/>
         <field name="domain">[('type', 'in', ('in_invoice', 'in_refund'))]</field>
@@ -59,14 +57,14 @@
     <record id="action_invoice_in_view1" model="ir.actions.act_window.view">
         <field eval="1" name="sequence"/>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="account.invoice_supplier_tree"/>
+        <field name="view_id" ref="account.view_invoice_tree"/>
         <field name="act_window_id" ref="action_invoice_in_tree"/>
     </record>
 
     <record id="action_invoice_in_view2" model="ir.actions.act_window.view">
         <field eval="2" name="sequence"/>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="account.invoice_supplier_form"/>
+        <field name="view_id" ref="account.view_move_form"/>
         <field name="act_window_id" ref="action_invoice_in_tree"/>
     </record>
 
