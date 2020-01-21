@@ -20,95 +20,64 @@ msgstr ""
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Bill date"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-msgid "Customer"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model:ir.model,name:account_invoice_refund_link.model_account_invoice
-msgid "Invoice"
-msgstr "Fatura"
-
-#. module: account_invoice_refund_link
-#: model:ir.model,name:account_invoice_refund_link.model_account_invoice_line
-msgid "Invoice Line"
+#, fuzzy
+#| msgid "Invoice Line"
+msgid "Invoice reference"
 msgstr "Linha de fatura"
 
 #. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Number"
+#: model:ir.model,name:account_invoice_refund_link.model_account_move
+msgid "Journal Entries"
 msgstr ""
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_line__origin_line_ids
+#: model:ir.model,name:account_invoice_refund_link.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__origin_line_id
 msgid "Original invoice line"
 msgstr ""
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_line__origin_line_ids
+#: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__origin_line_id
 msgid "Original invoice line to which this refund invoice line is referred to"
 msgstr ""
 
 #. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Reference"
-msgstr "Referência"
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__refund_invoice_ids
+#, fuzzy
+#| msgid "Invoice"
+msgid "Refund Invoices"
+msgstr "Fatura"
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_line__refund_line_ids
-msgid "Refund invoice line"
-msgstr ""
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__refund_line_ids
+#, fuzzy
+#| msgid "Invoice Line"
+msgid "Refund invoice lines"
+msgstr "Linha de fatura"
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_line__refund_line_ids
+#: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__refund_line_ids
 msgid "Refund invoice lines created from this invoice line"
 msgstr ""
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Refund invoices"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice__refund_reason
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Refund reason"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Refunds"
 msgstr ""
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Source"
-msgstr ""
-
-#. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Status"
 msgstr ""
 
 #. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Supplier"
-msgstr ""
-
-#. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Total"
 msgstr "Total"
+
+#~ msgid "Reference"
+#~ msgstr "Referência"
