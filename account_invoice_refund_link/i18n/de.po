@@ -21,97 +21,87 @@ msgstr ""
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Bill date"
-msgstr "Rechnungstellungsdatum"
-
-#. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-msgid "Customer"
-msgstr "Kunde"
-
-#. module: account_invoice_refund_link
-#: model:ir.model,name:account_invoice_refund_link.model_account_invoice
-msgid "Invoice"
-msgstr "Rechnung"
-
-#. module: account_invoice_refund_link
-#: model:ir.model,name:account_invoice_refund_link.model_account_invoice_line
-msgid "Invoice Line"
+#, fuzzy
+#| msgid "Invoice Line"
+msgid "Invoice reference"
 msgstr "Rechnungsposition"
 
 #. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Number"
-msgstr "Nummer"
+#: model:ir.model,name:account_invoice_refund_link.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_line__origin_line_ids
+#: model:ir.model,name:account_invoice_refund_link.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__origin_line_id
 msgid "Original invoice line"
 msgstr "Ursprüngliche Rechnungsposition"
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_line__origin_line_ids
+#: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__origin_line_id
 msgid "Original invoice line to which this refund invoice line is referred to"
 msgstr ""
 "Ursprüngliche Rechnungsposition, auf die sich diese Erstattungsposition "
 "bezieht"
 
 #. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Reference"
-msgstr "Referenz"
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__refund_invoice_ids
+#, fuzzy
+#| msgid "Refund invoices"
+msgid "Refund Invoices"
+msgstr "Gutschriften"
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_line__refund_line_ids
-msgid "Refund invoice line"
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__refund_line_ids
+#, fuzzy
+#| msgid "Refund invoice line"
+msgid "Refund invoice lines"
 msgstr "Gutschriftposition"
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_line__refund_line_ids
+#: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__refund_line_ids
 msgid "Refund invoice lines created from this invoice line"
 msgstr "Erstattungspositionen, die zu dieser Rechnungsposition erstellt wurden"
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Refund invoices"
-msgstr "Gutschriften"
-
-#. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice__refund_reason
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Refund reason"
-msgstr "Erstattungsgrund"
-
-#. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Refunds"
 msgstr "Gutschriften"
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Source"
-msgstr "Herkunft"
-
-#. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Status"
 msgstr "Status"
 
 #. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Supplier"
-msgstr "Lieferant"
-
-#. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Total"
 msgstr "Total"
+
+#~ msgid "Bill date"
+#~ msgstr "Rechnungstellungsdatum"
+
+#~ msgid "Customer"
+#~ msgstr "Kunde"
+
+#~ msgid "Invoice"
+#~ msgstr "Rechnung"
+
+#~ msgid "Number"
+#~ msgstr "Nummer"
+
+#~ msgid "Reference"
+#~ msgstr "Referenz"
+
+#~ msgid "Refund reason"
+#~ msgstr "Erstattungsgrund"
+
+#~ msgid "Source"
+#~ msgstr "Herkunft"
+
+#~ msgid "Supplier"
+#~ msgstr "Lieferant"
