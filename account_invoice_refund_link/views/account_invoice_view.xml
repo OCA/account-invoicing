@@ -7,8 +7,8 @@
 
 <record id="view_customer_account_invoice_add_refunds_details_form" model="ir.ui.view">
     <field name="name">Account invoice (customer) | add Refunds details (form)</field>
-    <field name="model">account.invoice</field>
-    <field name="inherit_id" ref="account.invoice_form"/>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form"/>
     <field name="arch" type="xml">
         <notebook position="inside">
             <page name="refunds"
@@ -17,69 +17,31 @@
             >
                 <field name="refund_invoice_ids" nolabel="1">
                     <tree decoration-info="state == 'draft'"
-                          decoration-muted="state == 'cancel'"
-                          string="Refund invoices">
-                        <field name="partner_id" string="Customer"/>
-                        <field name="date_invoice" string="Bill date"/>
-                        <field name="number" string="Number"/>
-                        <field name="reference" string="Reference"/>
-                        <field name="origin" string="Source"/>
-                        <field name="refund_reason" string="Refund reason"/>
+                          decoration-muted="state == 'cancel'">
+                        <field name="partner_id" invisible="1"/>
+                        <field name="type" invisible="1"/>
+                        <field name="invoice_date"/>
+                        <field name="name"/>
+                        <field name="invoice_origin"/>
+                        <field name="ref"/>
                         <field name="amount_total" string="Total"/>
                         <field name="state" string="Status"/>
                     </tree>
                 </field>
             </page>
         </notebook>
-        <xpath expr="//page[@name='other_info']//field[@name='origin']" position="after">
-            <field name="refund_invoice_id"
-                   readonly="1"
-                   attrs="{'invisible': [('refund_invoice_id', '=', False)]}"
+        <field name="ref" position="after">
+            <field name="type" invisible="1"/>
+            <field name="reversed_entry_id"
+                string="Invoice reference"
+                readonly="1"
+                attrs="{'invisible': [
+                    '|',
+                    ('reversed_entry_id', '=', False),
+                    ('type', 'not in', ('in_refund', 'out_refund'))
+                ]}"
             />
-            <field name="refund_reason"
-                   readonly="1"
-                   attrs="{'invisible': [('refund_reason', '=', False)]}"
-            />
-        </xpath>
-    </field>
-</record>
-
-<record id="view_supplier_account_invoice_add_refunds_details_form" model="ir.ui.view">
-    <field name="name">Account invoice (supplier) | add Refunds details (form)</field>
-    <field name="model">account.invoice</field>
-    <field name="inherit_id" ref="account.invoice_supplier_form"/>
-    <field name="arch" type="xml">
-        <notebook position="inside">
-            <page name="refunds"
-                  string="Refunds"
-                  attrs="{'invisible':[('type', 'not in', ['in_invoice', 'out_invoice'])]}"
-            >
-                <field name="refund_invoice_ids" nolabel="1">
-                    <tree decoration-info="state == 'draft'"
-                          decoration-muted="state == 'cancel'"
-                          string="Refund invoices">
-                        <field name="partner_id" string="Supplier"/>
-                        <field name="date_invoice" string="Bill date"/>
-                        <field name="number" string="Number"/>
-                        <field name="reference" string="Reference"/>
-                        <field name="origin" string="Source"/>
-                        <field name="refund_reason" string="Refund reason"/>
-                        <field name="amount_total" string="Total"/>
-                        <field name="state" string="Status"/>
-                    </tree>
-                </field>
-            </page>
-        </notebook>
-        <xpath expr="//page[@name='other_info']//field[@name='name']" position="after">
-            <field name="refund_invoice_id"
-                   readonly="1"
-                   attrs="{'invisible': [('refund_invoice_id', '=', False)]}"
-            />
-            <field name="refund_reason"
-                   readonly="1"
-                   attrs="{'invisible': [('refund_reason', '=', False)]}"
-            />
-        </xpath>
+        </field>
     </field>
 </record>
 

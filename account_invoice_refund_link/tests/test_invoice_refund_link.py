@@ -8,7 +8,7 @@ from .. import post_init_hook
 
 
 class TestInvoiceRefundLinkBase(common.SavepointCase):
-    filter_refund = "refund"
+    refund_method = "refund"
 
     @classmethod
     def setUpClass(cls):
@@ -44,45 +44,48 @@ class TestInvoiceRefundLinkBase(common.SavepointCase):
                 },
             ),
         ]
-        cls.invoice = cls.env["account.invoice"].create(
+        cls.invoice = cls.env["account.move"].create(
             {
                 "partner_id": cls.partner.id,
                 "type": "out_invoice",
                 "invoice_line_ids": cls.invoice_lines,
             }
         )
-        cls.invoice.action_invoice_open()
+        cls.invoice.post()
         cls.refund_reason = "The refund reason"
-        cls.env["account.invoice.refund"].with_context(
-            active_ids=cls.invoice.ids
+        cls.env["account.move.reversal"].with_context(
+            active_ids=cls.invoice.ids, active_model="account.move"
         ).create(
-            {"filter_refund": cls.filter_refund, "description": cls.refund_reason}
-        ).invoice_refund()
+            {"refund_method": cls.refund_method, "reason": cls.refund_reason}
+        ).reverse_moves()
 
     def _test_refund_link(self):
         self.assertTrue(self.invoice.refund_invoice_ids)
         refund = self.invoice.refund_invoice_ids[0]
-        self.assertEqual(refund.refund_reason, self.refund_reason)
+        ref = "Reversal of: {}, {}".format(self.invoice.name, self.refund_reason)
+        self.assertEqual(refund.ref, ref)
         self.assertEqual(len(self.invoice.invoice_line_ids), len(self.invoice_lines))
         self.assertEqual(len(refund.invoice_line_ids), len(self.invoice_lines))
-        self.assertTrue(refund.invoice_line_ids[0].origin_line_ids)
+        self.assertTrue(refund.invoice_line_ids[0].origin_line_id)
         self.assertEqual(
-            self.invoice.invoice_line_ids[0],
-            refund.invoice_line_ids[0].origin_line_ids[0],
+            self.invoice.invoice_line_ids[0], refund.invoice_line_ids[0].origin_line_id
         )
-        self.assertTrue(refund.invoice_line_ids[1].origin_line_ids)
+        self.assertTrue(refund.invoice_line_ids[1].origin_line_id)
         self.assertEqual(
-            self.invoice.invoice_line_ids[1],
-            refund.invoice_line_ids[1].origin_line_ids[0],
+            self.invoice.invoice_line_ids[1], refund.invoice_line_ids[1].origin_line_id
         )
 
 
 class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
+    @classmethod
+    def setUpClass(cls):
+        super(TestInvoiceRefundLink, cls).setUpClass()
+
     def test_post_init_hook(self):
         self.assertTrue(self.invoice.refund_invoice_ids)
         refund = self.invoice.refund_invoice_ids[0]
-        refund.invoice_line_ids.write({"origin_line_ids": [(5, False, False)]})
-        self.assertFalse(refund.mapped("invoice_line_ids.origin_line_ids"))
+        refund.invoice_line_ids.write({"origin_line_id": False})
+        self.assertFalse(refund.mapped("invoice_line_ids.origin_line_id"))
         post_init_hook(self.env.cr, None)
         self.refund_reason = "The refund reason"
         self._test_refund_link()
@@ -94,28 +97,28 @@ class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
         refund = self.invoice.refund_invoice_ids[0]
         self.invoice.copy()
         self.assertEqual(
-            refund.mapped("invoice_line_ids.origin_line_ids"),
-            self.invoice.mapped("invoice_line_ids"),
+            refund.invoice_line_ids.mapped("origin_line_id"),
+            self.invoice.invoice_line_ids,
         )
 
     def test_refund_copy(self):
         refund = self.invoice.refund_invoice_ids[0]
         refund.copy()
         self.assertEqual(
-            self.invoice.mapped("invoice_line_ids.refund_line_ids"),
-            refund.mapped("invoice_line_ids"),
+            self.invoice.invoice_line_ids.mapped("refund_line_ids"),
+            refund.invoice_line_ids,
         )
 
 
 class TestInvoiceRefundCancelLink(TestInvoiceRefundLinkBase):
-    filter_refund = "cancel"
+    refund_method = "cancel"
 
     def test_refund_link(self):
         self._test_refund_link()
 
 
 class TestInvoiceRefundModifyLink(TestInvoiceRefundLinkBase):
-    filter_refund = "modify"
+    refund_method = "modify"
 
     def test_refund_link(self):
         self._test_refund_link()
