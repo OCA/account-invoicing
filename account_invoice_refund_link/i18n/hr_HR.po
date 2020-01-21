@@ -22,95 +22,85 @@ msgstr ""
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Bill date"
-msgstr "Datum računa"
-
-#. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-msgid "Customer"
-msgstr "Kupac"
-
-#. module: account_invoice_refund_link
-#: model:ir.model,name:account_invoice_refund_link.model_account_invoice
-msgid "Invoice"
-msgstr "Račun"
-
-#. module: account_invoice_refund_link
-#: model:ir.model,name:account_invoice_refund_link.model_account_invoice_line
-msgid "Invoice Line"
+#, fuzzy
+#| msgid "Invoice Line"
+msgid "Invoice reference"
 msgstr "Stavka računa"
 
 #. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Number"
-msgstr "Broj"
+#: model:ir.model,name:account_invoice_refund_link.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_line__origin_line_ids
+#: model:ir.model,name:account_invoice_refund_link.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__origin_line_id
 msgid "Original invoice line"
 msgstr "Originalna stavka računa"
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_line__origin_line_ids
+#: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__origin_line_id
 msgid "Original invoice line to which this refund invoice line is referred to"
 msgstr "Originalna stavka računa na koju se ova stavka referencira."
 
 #. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Reference"
-msgstr "Referenca"
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__refund_invoice_ids
+#, fuzzy
+#| msgid "Refund invoices"
+msgid "Refund Invoices"
+msgstr "Računi povrata"
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice_line__refund_line_ids
-msgid "Refund invoice line"
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__refund_line_ids
+#, fuzzy
+#| msgid "Refund invoice line"
+msgid "Refund invoice lines"
 msgstr "Stavka računa povrata"
 
 #. module: account_invoice_refund_link
-#: model:ir.model.fields,help:account_invoice_refund_link.field_account_invoice_line__refund_line_ids
+#: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__refund_line_ids
 msgid "Refund invoice lines created from this invoice line"
 msgstr "Stavke računa povrata kreirane iz ove stavke računa."
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Refund invoices"
-msgstr "Računi povrata"
-
-#. module: account_invoice_refund_link
-#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_invoice__refund_reason
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Refund reason"
-msgstr "Razlog povrata"
-
-#. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Refunds"
 msgstr "Povrati"
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Source"
-msgstr "Izvor"
-
-#. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Status"
 msgstr "Status"
 
 #. module: account_invoice_refund_link
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
-msgid "Supplier"
-msgstr "Dobavljač"
-
-#. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_supplier_account_invoice_add_refunds_details_form
 msgid "Total"
 msgstr "Ukupno"
+
+#~ msgid "Bill date"
+#~ msgstr "Datum računa"
+
+#~ msgid "Customer"
+#~ msgstr "Kupac"
+
+#~ msgid "Invoice"
+#~ msgstr "Račun"
+
+#~ msgid "Number"
+#~ msgstr "Broj"
+
+#~ msgid "Reference"
+#~ msgstr "Referenca"
+
+#~ msgid "Refund reason"
+#~ msgstr "Razlog povrata"
+
+#~ msgid "Source"
+#~ msgstr "Izvor"
+
+#~ msgid "Supplier"
+#~ msgstr "Dobavljač"
