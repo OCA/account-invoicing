@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2020 ForgeFlow S.L.
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo noupdate="1">
+    <record id="account_invoice_default_tier_definition" model="tier.definition">
+        <field name="model_id" ref="model_account_invoice"/>
+        <field name="definition_type">domain</field>
+        <field name="definition_domain"/>
+        <field name="review_type">group</field>
+        <field name="reviewer_group_id" ref='account.group_account_manager'/>
+    </record>
+</odoo>
