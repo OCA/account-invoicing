@@ -3,11 +3,12 @@
 # © 2015 Akretion (http://www.akretion.com)
 # @author: Sébastien LANGE <sebastien.lange@syleam.fr>
 # @author: Alexis de Lattre <alexis.delattre@akretion.com>
+# @author: Emmanuel HURET <emmanuel.huret@infoatoutprix.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     'name': 'Account Group Invoice Lines',
-    'version': '10.0.1.1.0',
+    'version': '12.0.1.0.0',
     'category': 'Accounting & Finance',
     'summary': 'Add option to group invoice lines per account',
     'author': 'SYLEAM,Akretion,Odoo Community Association (OCA)',

@@ -22,7 +22,7 @@ Usage
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/95/10.0
+   :target: https://runbot.odoo-community.org/runbot/95/12.0
 
 Bug Tracker
 ===========
@@ -40,6 +40,7 @@ Contributors
 
 * Sébastien LANGE <sebastien.lange@syleam.fr>
 * Alexis de Lattre <alexis.delattre@akretion.com>
+* Emmanuel HURET <huret.emmanuel@infoatoutprix.fr>
 
 Maintainer
 ----------

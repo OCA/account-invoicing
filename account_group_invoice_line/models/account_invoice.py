@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2012-2016 SYLEAM Info Services (<http://www.syleam.fr/>)
 # © 2015-2016 Akretion (http://www.akretion.com)
 # @author: Sébastien LANGE <sebastien.lange@syleam.fr>
