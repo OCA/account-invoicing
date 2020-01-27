@@ -68,8 +68,8 @@ class TestPickingInvoicing(TransactionCase):
         wizard_values = wizard_obj.default_get(fields_list)
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
-        action = wizard.action_generate()
-        domain = action.get('domain', [])
+        wizard.action_generate()
+        domain = [('picking_ids', '=', picking.id)]
         invoice = self.invoice_model.search(domain)
         self.assertEqual(picking.invoice_state, 'invoiced')
         self.assertEqual(invoice.partner_id, self.partner)
@@ -169,9 +169,10 @@ class TestPickingInvoicing(TransactionCase):
         })
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
-        action = wizard.action_generate()
-        domain = action.get('domain', [])
+        wizard.action_generate()
+        domain = [('picking_ids', '=', picking.id)]
         invoice = self.invoice_model.search(domain)
+        # invoice = picking.invoice_ids[0]
         self.assertEqual(picking.invoice_state, 'invoiced')
         self.assertEqual(invoice.partner_id, self.partner)
         self.assertIn(invoice, picking.invoice_ids)
@@ -231,8 +232,8 @@ class TestPickingInvoicing(TransactionCase):
         })
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
-        action = wizard.action_generate()
-        domain = action.get('domain', [])
+        wizard.action_generate()
+        domain = [('picking_ids', '=', picking.id)]
         invoice = self.invoice_model.search(domain)
         self.assertEqual(picking.invoice_state, 'invoiced')
         self.assertEqual(invoice.partner_id, self.partner)
@@ -288,8 +289,8 @@ class TestPickingInvoicing(TransactionCase):
         })
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
-        action = wizard.action_generate()
-        domain = action.get('domain', [])
+        wizard.action_generate()
+        domain = [('picking_ids', '=', picking.id)]
         invoice = self.invoice_model.search(domain)
         self.assertEqual(picking.invoice_state, 'invoiced')
         self.assertEqual(invoice.partner_id, self.partner)
@@ -363,8 +364,8 @@ class TestPickingInvoicing(TransactionCase):
         })
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
-        action = wizard.action_generate()
-        domain = action.get('domain', [])
+        wizard.action_generate()
+        domain = [('picking_ids', '=', picking.id)]
         invoice = self.invoice_model.search(domain)
         self.assertEqual(picking.invoice_state, 'invoiced')
         self.assertEqual(invoice.partner_id, self.partner)
@@ -447,8 +448,8 @@ class TestPickingInvoicing(TransactionCase):
         })
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
-        action = wizard.action_generate()
-        domain = action.get('domain', [])
+        wizard.action_generate()
+        domain = [('picking_ids', '=', picking.id)]
         invoice = self.invoice_model.search(domain)
         self.assertEquals(len(invoice), 1)
         self.assertEqual(picking.invoice_state, 'invoiced')
@@ -472,7 +473,7 @@ class TestPickingInvoicing(TransactionCase):
         self.assertEquals(nb_invoice_before, nb_invoice_after)
 
         # Check method counting 2binvoice used in kanban view
-        self.assertEquals(2, self.pick_type_in.count_picking_2binvoiced)
+        self.assertEquals(3, self.pick_type_in.count_picking_2binvoiced)
 
     def test_picking_invoicing_by_product3(self):
         """
@@ -546,8 +547,8 @@ class TestPickingInvoicing(TransactionCase):
         })
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
-        action = wizard.action_generate()
-        domain = action.get('domain', [])
+        wizard.action_generate()
+        domain = [('picking_ids', 'in', [picking.id, picking2.id])]
         invoices = self.invoice_model.search(domain)
         self.assertEquals(len(invoices), 2)
         self.assertEqual(picking.invoice_state, 'invoiced')
