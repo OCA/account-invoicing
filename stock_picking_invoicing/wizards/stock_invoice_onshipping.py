@@ -198,16 +198,26 @@ class StockInvoiceOnshipping(models.TransientModel):
         if inv_type in ["out_invoice", "out_refund"]:
             action = self.env.ref("account.action_invoice_tree1")
         else:
-            action = self.env.ref("account.action_invoice_tree2")
+            action = self.env.ref("account.action_vendor_bill_template")
+
         action_dict = action.read()[0]
-        if action_dict:
-            action_dict.update({
-                'domain': [('id', 'in', invoices.ids)],
-            })
-            if len(invoices) == 1:
-                action_dict.update({
-                    'res_id': invoices.id,
-                })
+
+        if len(invoices) > 1:
+            action_dict['domain'] = [('id', 'in', invoices.ids)]
+        elif len(invoices) == 1:
+            if inv_type in ["out_invoice", "out_refund"]:
+                form_view = [(self.env.ref('account.invoice_form').id, 'form')]
+            else:
+                form_view = [(self.env.ref(
+                    'account.invoice_supplier_form').id, 'form')]
+            if 'views' in action_dict:
+                action_dict['views'] = form_view + [
+                    (state,  view) for state, view in action[
+                        'views'] if view != 'form']
+            else:
+                action_dict['views'] = form_view
+            action_dict['res_id'] = invoices.ids[0]
+
         return action_dict
 
     @api.multi
