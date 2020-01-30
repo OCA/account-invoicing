@@ -75,12 +75,12 @@ class AccountMoveLine(models.Model):
 
     @api.model
     def _get_fields_onchange_balance_model(
-        self, quantity, discount, balance, move_type, currency, taxes
+        self, quantity, discount, balance, move_type, currency, taxes, price_subtotal
     ):
         if self.discount_fixed != 0:
             discount = ((self.discount_fixed) / self.price_unit) * 100 or 0.00
         return super(AccountMoveLine, self)._get_fields_onchange_balance_model(
-            quantity, discount, balance, move_type, currency, taxes
+            quantity, discount, balance, move_type, currency, taxes, price_subtotal
         )
 
     @api.model_create_multi
