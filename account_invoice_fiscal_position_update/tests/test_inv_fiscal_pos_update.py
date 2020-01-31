@@ -15,7 +15,7 @@ class TestProductIdChange(AccountingTestCase):
 
     def setUp(self):
         super(TestProductIdChange, self).setUp()
-        self.invoice_model = self.env["account.invoice"]
+        self.invoice_model = self.env["account.move"]
         self.fiscal_position_model = self.env["account.fiscal.position"]
         self.fiscal_position_tax_model = self.env["account.fiscal.position.tax"]
         self.fiscal_position_account_model = self.env["account.fiscal.position.account"]
@@ -25,7 +25,7 @@ class TestProductIdChange(AccountingTestCase):
         self.res_partner_model = self.env["res.partner"]
         self.product_tmpl_model = self.env["product.template"]
         self.product_model = self.env["product.product"]
-        self.invoice_line_model = self.env["account.invoice.line"]
+        self.invoice_line_model = self.env["account.move.line"]
         self.account_user_type = self.env.ref("account.data_account_type_revenue")
         self.account_receivable = self.env["account.account"].search(
             [
@@ -93,18 +93,19 @@ class TestProductIdChange(AccountingTestCase):
         out_invoice = self.invoice_model.create(
             {
                 "partner_id": partner.id,
-                "name": "invoice to client",
-                "account_id": self.account_receivable.id,
+                "invoice_payment_ref": "invoice to client",
                 "type": "out_invoice",
-                "date_invoice": time.strftime("%Y") + "-04-01",
+                "invoice_date": time.strftime("%Y") + "-04-01",
             }
         )
-        out_line = self.invoice_line_model.create(
+        out_line = self.invoice_line_model.with_context(
+            check_move_validity=False
+        ).create(
             {
                 "product_id": product.id,
                 "price_unit": 15000,
                 "quantity": 1,
-                "invoice_id": out_invoice.id,
+                "move_id": out_invoice.id,
                 "name": "Car",
                 "account_id": self.account_revenue.id,
             }
@@ -112,19 +113,19 @@ class TestProductIdChange(AccountingTestCase):
 
         out_line._onchange_product_id()
         self.assertEqual(
-            out_line.invoice_line_tax_ids[0],
+            out_line.tax_ids[0],
             tax_sale,
             "The sale tax off invoice line must be the same of product",
         )
         out_invoice.fiscal_position_id = fp
-        out_invoice.fiscal_position_change()
+        out_invoice.with_context(check_move_validity=False).fiscal_position_change()
         self.assertEqual(
-            out_line.invoice_line_tax_ids[0],
+            out_line.tax_ids[0],
             fp_tax_sale.tax_dest_id,
-            "The sale tax of invoice line must be changed by" " fiscal position",
+            "The sale tax of invoice line must be changed by fiscal position",
         )
         self.assertEqual(
             out_line.account_id,
             fp_account.account_dest_id,
-            "The account revenu of invoice line must be changed by" " fiscal position",
+            "The account revenue of invoice line must be changed by fiscal position",
         )
