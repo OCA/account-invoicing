@@ -438,7 +438,7 @@ class StockInvoiceOnshipping(models.TransientModel):
                 qty *= -1
             quantity += qty
             move_line_ids.append((4, move.id, False))
-        taxes = moves._get_taxes(fiscal_position)
+        taxes = moves._get_taxes(fiscal_position, inv_type)
         price = moves._get_price_unit_invoice(
             inv_type, partner_id, quantity)
         line_obj = self.env['account.invoice.line']
