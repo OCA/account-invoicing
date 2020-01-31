@@ -19,17 +19,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_fiscal_position_update
-#: model:ir.model,name:account_invoice_fiscal_position_update.model_account_invoice
-msgid "Invoice"
-msgstr "Factura"
+#: model:ir.model,name:account_invoice_fiscal_position_update.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:64
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
 #, fuzzy, python-format
-#| msgid ""
-#| "The invoice lines were not updated to the new Fiscal Position because "
-#| "they don't have products.\n"
-#| "You should update the Account and the Taxes of each invoice line manually."
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position "
 "because they don't have a Product: - %s You should update the Account and "
@@ -41,12 +37,8 @@ msgstr ""
 "manualmente."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:58
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
 #, fuzzy, python-format
-#| msgid ""
-#| "The invoice lines were not updated to the new Fiscal Position because "
-#| "they don't have products.\n"
-#| "You should update the Account and the Taxes of each invoice line manually."
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they "
 "don't have products. You should update the Account and the Taxes of each "
@@ -58,7 +50,10 @@ msgstr ""
 "manualmente."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:56
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
 #, python-format
 msgid "Warning"
 msgstr "Aviso"
+
+#~ msgid "Invoice"
+#~ msgstr "Factura"
