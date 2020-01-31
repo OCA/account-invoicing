@@ -7,7 +7,7 @@
 
 {
     "name": "Invoice Fiscal Position Update",
-    "version": "12.0.1.0.1",
+    "version": "13.0.1.0.1",
     "category": "Accounting & Finance",
     "license": "AGPL-3",
     "summary": "Changing the fiscal position of an invoice will auto-update "
