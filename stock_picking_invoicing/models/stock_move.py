@@ -12,15 +12,19 @@ class StockMove(models.Model):
     ]
 
     @api.multi
-    def _get_taxes(self, fiscal_position):
+    def _get_taxes(self, fiscal_position, inv_type):
         """
         Map product taxes based on given fiscal position
         :param fiscal_position: account.fiscal.position recordset
+        :param inv_type: string
         :return: account.tax recordset
         """
         product = self.mapped("product_id")
         product.ensure_one()
-        taxes = product.taxes_id
+        if inv_type in ('out_invoice', 'out_refund'):
+            taxes = product.taxes_id
+        else:
+            taxes = product.supplier_taxes_id
         company_id = self.env.context.get(
             'force_company', self.env.user.company_id.id)
         my_taxes = taxes.filtered(lambda r: r.company_id.id == company_id)
