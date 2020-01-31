@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_fixed_discount
+# 	* account_invoice_fixed_discount
 #
 msgid ""
 msgstr ""
@@ -22,29 +22,35 @@ msgid "<span>Disc. Fixed Amount</span>"
 msgstr "<span>Rabatt (abs.)</span>"
 
 #. module: account_invoice_fixed_discount
-#: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_invoice_line__discount_fixed
+#: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_move_line__discount_fixed
 msgid "Discount (Fixed)"
 msgstr "Rabatt (abs.)"
 
 #. module: account_invoice_fixed_discount
-#: model:ir.model.fields,help:account_invoice_fixed_discount.field_account_invoice_line__discount_fixed
+#: model:ir.model.fields,help:account_invoice_fixed_discount.field_account_move_line__discount_fixed
 msgid "Fixed amount discount."
 msgstr "Hier kann ein absoluter Rabatt hinzugefügt werden."
 
 #. module: account_invoice_fixed_discount
-#: model:ir.model,name:account_invoice_fixed_discount.model_account_invoice
-msgid "Invoice"
-msgstr "Rechnung"
+#: model:ir.model,name:account_invoice_fixed_discount.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_fixed_discount
-#: model:ir.model,name:account_invoice_fixed_discount.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Rechnungsposition"
+#: model:ir.model,name:account_invoice_fixed_discount.model_account_move_line
+msgid "Journal Item"
+msgstr ""
 
 #. module: account_invoice_fixed_discount
-#: code:addons/account_invoice_fixed_discount/models/account_invoice.py:56
+#: code:addons/account_invoice_fixed_discount/models/account_move.py:0
 #, python-format
 msgid "You can only set one type of discount per line."
 msgstr ""
 "Es kann nur eine Art von Rabatt (prozentual oder absolut) pro Zeile gesetzt "
 "werden."
+
+#~ msgid "Invoice"
+#~ msgstr "Rechnung"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Rechnungsposition"
