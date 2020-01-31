@@ -6,16 +6,16 @@
 
 
 {
-    'name': 'Invoice Fiscal Position Update',
-    'version': '12.0.1.0.1',
-    'category': 'Accounting & Finance',
-    'license': 'AGPL-3',
-    'summary': 'Changing the fiscal position of an invoice will auto-update '
-               'invoice lines',
-    'website': "https://github.com/OCA/account-invoicing",
-    'author': "Julius Network Solutions,"
-              "Akretion,"
-              "Odoo Community Association (OCA)",
-    'depends': ['account'],
-    'installable': True,
+    "name": "Invoice Fiscal Position Update",
+    "version": "12.0.1.0.1",
+    "category": "Accounting & Finance",
+    "license": "AGPL-3",
+    "summary": "Changing the fiscal position of an invoice will auto-update "
+    "invoice lines",
+    "website": "https://github.com/OCA/account-invoicing",
+    "author": "Julius Network Solutions,"
+    "Akretion,"
+    "Odoo Community Association (OCA)",
+    "depends": ["account"],
+    "installable": True,
 }

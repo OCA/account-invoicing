@@ -11,7 +11,7 @@ from odoo import _, api, models
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    @api.onchange('partner_id')
+    @api.onchange("partner_id")
     def _onchange_partner_id(self):
         fiscal_position = self.fiscal_position_id
         res = super(AccountInvoice, self)._onchange_partner_id()
@@ -19,7 +19,7 @@ class AccountInvoice(models.Model):
             self.fiscal_position_change()
         return res
 
-    @api.onchange('fiscal_position_id')
+    @api.onchange("fiscal_position_id")
     def fiscal_position_change(self):
         """Updates taxes and accounts on all invoice lines"""
         self.ensure_one()
@@ -30,19 +30,22 @@ class AccountInvoice(models.Model):
         for line in self.invoice_line_ids:
             if line.product_id:
                 account = line.get_invoice_line_account(
-                    inv_type, line.product_id, fp, self.company_id)
-                product = line.with_context(force_company=self.company_id.id).\
-                    product_id
-                if inv_type in ('out_invoice', 'out_refund'):
+                    inv_type, line.product_id, fp, self.company_id
+                )
+                product = line.with_context(force_company=self.company_id.id).product_id
+                if inv_type in ("out_invoice", "out_refund"):
                     # M2M fields don't have an option 'company_dependent=True'
                     # so we need per-company post-filtering
                     taxes = product.taxes_id.filtered(
-                        lambda tax: tax.company_id == self.company_id)
+                        lambda tax: tax.company_id == self.company_id
+                    )
                 else:
                     taxes = product.supplier_taxes_id.filtered(
-                        lambda tax: tax.company_id == self.company_id)
+                        lambda tax: tax.company_id == self.company_id
+                    )
                 taxes = taxes or account.tax_ids.filtered(
-                    lambda tax: tax.company_id == self.company_id)
+                    lambda tax: tax.company_id == self.company_id
+                )
                 if fp:
                     taxes = fp.map_tax(taxes)
 
@@ -53,18 +56,19 @@ class AccountInvoice(models.Model):
                 lines_without_product.append(line.name)
 
         if lines_without_product:
-            res['warning'] = {'title': _('Warning')}
+            res["warning"] = {"title": _("Warning")}
             if len(lines_without_product) == len(self.invoice_line_ids):
-                res['warning']['message'] = _(
+                res["warning"]["message"] = _(
                     "The invoice lines were not updated to the new "
                     "Fiscal Position because they don't have products. "
                     "You should update the Account and the Taxes of each "
-                    "invoice line manually.")
+                    "invoice line manually."
+                )
             else:
-                res['warning']['message'] = _(
+                res["warning"]["message"] = _(
                     "The following invoice lines were not updated "
                     "to the new Fiscal Position because they don't have a "
                     "Product: - %s You should update the Account and the "
                     "Taxes of these invoice lines manually."
-                ) % ('- '.join(lines_without_product))
+                ) % ("- ".join(lines_without_product))
         return res
