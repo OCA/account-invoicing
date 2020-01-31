@@ -4,17 +4,16 @@
 # @author Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-
 from odoo import _, api, models
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
         fiscal_position = self.fiscal_position_id
-        res = super(AccountInvoice, self)._onchange_partner_id()
+        res = super()._onchange_partner_id()
         if fiscal_position != self.fiscal_position_id:
             self.fiscal_position_change()
         return res
@@ -29,9 +28,7 @@ class AccountInvoice(models.Model):
         inv_type = self.type
         for line in self.invoice_line_ids:
             if line.product_id:
-                account = line.get_invoice_line_account(
-                    inv_type, line.product_id, fp, self.company_id
-                )
+                account = line._get_computed_account()
                 product = line.with_context(force_company=self.company_id.id).product_id
                 if inv_type in ("out_invoice", "out_refund"):
                     # M2M fields don't have an option 'company_dependent=True'
@@ -49,7 +46,7 @@ class AccountInvoice(models.Model):
                 if fp:
                     taxes = fp.map_tax(taxes)
 
-                line.invoice_line_tax_ids = [(6, 0, taxes.ids)]
+                line.tax_ids = [(6, 0, taxes.ids)]
 
                 line.account_id = account.id
             else:
