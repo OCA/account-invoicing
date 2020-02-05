@@ -14,7 +14,8 @@ class SaleOrder(models.Model):
     @api.onchange('fiscal_position_id')
     def _compute_tax_id(self):
         res = super(SaleOrder, self)._compute_tax_id()
-        self.corrispettivi = self.fiscal_position_id.corrispettivi
+        if self.fiscal_position_id:
+            self.corrispettivi = self.fiscal_position_id.corrispettivi
         return res
 
     corrispettivi = fields.Boolean()
