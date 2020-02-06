@@ -41,14 +41,15 @@ class AccountInvoice(models.Model):
 
         self.set_corr_journal()
 
-    @api.onchange('partner_id')
+    @api.onchange('partner_id', 'fiscal_position_id')
     def onchange_partner_id_corrispettivi(self):
-        if not self.partner_id or not self.partner_id.use_corrispettivi:
-            # If partner is not set or its use_corrispettivi flag is disabled,
-            # do nothing
-            return
-
-        self.set_corr_journal()
+        if (
+            self.partner_id.use_corrispettivi or
+            self.fiscal_position_id.corrispettivi
+        ):
+            self.set_corr_journal()
+        else:
+            self.journal_id = self._default_journal()
 
     @api.multi
     def set_corr_journal(self):
