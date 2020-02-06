@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     'name': 'Italian Localization - Ricevute e ordini di vendita',
-    'version': '12.0.1.0.1',
+    'version': '12.0.1.0.2',
     'category': 'Accounting & Finance',
     'summary': 'Modulo per integrare le ricevute in Odoo '
                'con gli ordini di vendita.',
