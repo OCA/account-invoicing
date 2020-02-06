@@ -6,54 +6,62 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2020-02-06 12:13+0000\n"
+"Last-Translator: Pedro Castro Silva <pedrocs@exo.pt>\n"
 "Language-Team: none\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: account_menu_invoice_refund
 #: model:ir.actions.act_window,name:account_menu_invoice_refund.action_invoice_in_tree
 #: model:ir.ui.menu,name:account_menu_invoice_refund.menu_action_invoice_in_tree
 msgid "Bills / Refunds"
-msgstr ""
+msgstr "Faturas / Créditos"
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_out_tree
 msgid "Create a customer invoice"
-msgstr ""
+msgstr "Criar uma fatura a cliente"
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_in_tree
 msgid "Create a vendor bill"
-msgstr ""
+msgstr "Criar uma fatura de fornecedor"
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_out_tree
 msgid "Create invoices, register payments and keep track of the discussions with your customers."
 msgstr ""
+"Crie faturas, registe pagamentos e mantenha um registo das conversações com "
+"os seus clientes."
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_in_tree
 msgid "Create vendor bills, register payments and keep track of the discussions with your customers."
 msgstr ""
+"Crie faturas de fornecedores, registe pagamentos e mantenha um registo das "
+"conversações com os seus clientes."
 
 #. module: account_menu_invoice_refund
 #: code:addons/account_menu_invoice_refund/hooks.py:37
 #, python-format
 msgid "In order to pay multiple invoices at once, they must use the same currency."
 msgstr ""
+"Para pagar simultaneamente múltiplas faturas, estas têm que ter a mesma "
+"moeda."
 
 #. module: account_menu_invoice_refund
 #: model:ir.actions.act_window,name:account_menu_invoice_refund.action_invoice_out_tree
 #: model:ir.ui.menu,name:account_menu_invoice_refund.menu_action_invoice_out_tree
 msgid "Invoices / Credit Notes"
-msgstr ""
+msgstr "Faturas / Créditos"
 
 #. module: account_menu_invoice_refund
 #: code:addons/account_menu_invoice_refund/hooks.py:34
 #, python-format
 msgid "You can only register payments for open invoices"
-msgstr ""
+msgstr "Só pode registar pagamentos para faturas em aberto"
