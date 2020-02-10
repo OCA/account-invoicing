@@ -41,10 +41,10 @@ class PurchaseOrder(models.Model):
             if order._check_invoice_status_to_invoice():
                 order.invoice_status = "to invoice"
 
-    @api.depends("order_line.invoice_lines.invoice_id.state")
+    @api.depends("order_line.invoice_lines.move_id.state")
     def _compute_invoice_refund_count(self):
         for order in self:
-            invoices = order.mapped("order_line.invoice_lines.invoice_id").filtered(
+            invoices = order.mapped("order_line.invoice_lines.move_id").filtered(
                 lambda x: x.type == "in_refund"
             )
             order.invoice_refund_count = len(invoices)
@@ -60,23 +60,20 @@ class PurchaseOrder(models.Model):
         for order in self:
             order.invoice_count -= order.invoice_refund_count
 
-    @api.multi
     def action_view_invoice_refund(self):
         """This function returns an action that display existing vendor refund
         bills of given purchase order id.
         When only one found, show the vendor bill immediately.
         """
-        action = self.env.ref("account.action_vendor_bill_template")
+        action = self.env.ref("account.action_move_in_refund_type")
         result = action.read()[0]
         create_refund = self.env.context.get("create_refund", False)
         refunds = self.invoice_ids.filtered(lambda x: x.type == "in_refund")
         # override the context to get rid of the default filtering
         result["context"] = {
-            "type": "in_refund",
-            "default_purchase_id": self.id,
-            "default_currency_id": self.currency_id.id,
+            "default_type": "in_refund",
             "default_company_id": self.company_id.id,
-            "company_id": self.company_id.id,
+            "default_purchase_id": self.id,
         }
         # choose the view_mode accordingly
         if len(refunds) > 1 and not create_refund:
@@ -84,14 +81,13 @@ class PurchaseOrder(models.Model):
         else:
             res = self.env.ref("account.invoice_supplier_form", False)
             result["views"] = [(res and res.id or False, "form")]
-            # Do not set an invoice_id if we want to create a new refund.
+            # Do not set an move_id if we want to create a new refund.
             if not create_refund:
                 result["res_id"] = refunds.id or False
         result["context"]["default_origin"] = self.name
         result["context"]["default_reference"] = self.partner_ref
         return result
 
-    @api.multi
     def action_view_invoice(self):
         """Change super action for displaying only normal invoices."""
         result = super(PurchaseOrder, self).action_view_invoice()
@@ -100,7 +96,7 @@ class PurchaseOrder(models.Model):
         if len(invoices) != 1:
             result["domain"] = [("id", "in", invoices.ids)]
         elif len(invoices) == 1:
-            res = self.env.ref("account.invoice_supplier_form", False)
+            res = self.env.ref("account.view_move_form", False)
             result["views"] = [(res and res.id or False, "form")]
             result["res_id"] = invoices.id
         return result
@@ -117,18 +113,20 @@ class PurchaseOrderLine(models.Model):
         store=True,
     )
 
-    @api.depends("invoice_lines.invoice_id.state", "invoice_lines.quantity")
+    @api.depends("invoice_lines.move_id.state", "invoice_lines.quantity")
     def _compute_qty_refunded(self):
         for line in self:
             inv_lines = line.invoice_lines.filtered(
                 lambda x: (
-                    (x.invoice_id.type == "in_invoice" and x.quantity < 0.0)
-                    or (x.invoice_id.type == "in_refund" and x.quantity > 0.0)
+                    (x.move_id.type == "in_invoice" and x.quantity < 0.0)
+                    or (x.move_id.type == "in_refund" and x.quantity > 0.0)
                 )
             )
             line.qty_refunded = sum(
                 inv_lines.mapped(
-                    lambda x: (x.uom_id._compute_quantity(x.quantity, line.product_uom))
+                    lambda x: (
+                        x.product_uom_id._compute_quantity(x.quantity, line.product_uom)
+                    )
                 )
             )
 
@@ -147,14 +145,13 @@ class PurchaseOrderLine(models.Model):
             ["purchase_line_id", "product_uom"],
             lazy=False,
         )
-        p = self._prefetch
         # load all UoM records at once on first access
         uom_ids = {g["product_uom"][0] for g in groups}
-        ProductUom.browse(list(uom_ids), prefetch=p)
+        ProductUom.browse(list(uom_ids))  # Prefetching
         line_qtys = collections.defaultdict(lambda: 0)
         for g in groups:
-            uom = ProductUom.browse(g["product_uom"][0], prefetch=p)
-            line = self.browse(g["purchase_line_id"][0], prefetch=p)
+            uom = ProductUom.browse(g["product_uom"][0])
+            line = self.browse(g["purchase_line_id"][0])
             if uom == line.product_uom:
                 qty = g["product_uom_qty"]
             else:
@@ -162,3 +159,15 @@ class PurchaseOrderLine(models.Model):
             line_qtys[line.id] += qty
         for line in self:
             line.qty_returned = line_qtys.get(line.id, 0)
+
+    def _prepare_account_move_line(self, move):
+        data = super()._prepare_account_move_line(move)
+        if self.product_id.purchase_method == "receive":
+            # This formula proceeds from the simplification of full expression:
+            # qty_received + qty_returned - (qty_invoiced + qty_refunded) -
+            # (qty_returned - qty_refunded)
+            qty = self.qty_received - self.qty_invoiced
+            data["quantity"] = qty
+        if move.type == "in_refund":
+            data["quantity"] *= -1.0
+        return data
