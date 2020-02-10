@@ -28,7 +28,7 @@ received a bill from the supplier.
 #. Go back to the purchase order. Press the button *Create Bill* to create
    the vendor bill.
 #. The proposed vendor bill will be proposed for the quantity received. The
-   *Billing Status* is now 'No Bill to Receive'
+   *Billing Status* is now 'Fully Billed'
 #. Go to the original incoming shipment
 #. Press the button *Return*.
 #. In the wizard *Reverse Transfer* set *Quantity* to the quantity to be
@@ -42,7 +42,7 @@ received a bill from the supplier.
 #. The proposed vendor refund bill will be proposed for the quantity that is
    to be refunded.
 #. If you back to the purchase order, you will notice that *Billing Status*
-   is now 'No Bill to Receive', even when the quantity ordered does not match
+   is now 'Fully Billed', even when the quantity ordered does not match
    with the quantity invoiced, because you did return some products.
 
 Remark: If you accept that you will not claim for a refund for the quantity
