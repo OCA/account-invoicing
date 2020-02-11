@@ -44,7 +44,7 @@ class AccountInvoice(models.Model):
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
-    @api.onchange('product_id', 'quantity', 'uom_id')
+    @api.onchange('product_id', 'quantity')
     def _onchange_product_id_account_invoice_pricelist(self):
         if not self.invoice_id.pricelist_id or not self.invoice_id.partner_id:
             return
@@ -62,6 +62,13 @@ class AccountInvoiceLine(models.Model):
         self.price_unit = tax_obj._fix_tax_included_price_company(
             product.price, product.taxes_id, self.invoice_line_tax_ids,
             self.company_id)
+
+    @api.onchange('uom_id')
+    def _onchange_uom_id(self):
+        if self.invoice_id.pricelist_id:
+            self._onchange_product_id_account_invoice_pricelist()
+        else:
+            super(AccountInvoiceLine, self)._onchange_uom_id()
 
     @api.multi
     def update_from_pricelist(self):
