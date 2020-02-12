@@ -65,10 +65,9 @@ class AccountInvoiceLine(models.Model):
 
     @api.onchange('uom_id')
     def _onchange_uom_id(self):
+        super(AccountInvoiceLine, self)._onchange_uom_id()
         if self.invoice_id.pricelist_id:
             self._onchange_product_id_account_invoice_pricelist()
-        else:
-            super(AccountInvoiceLine, self)._onchange_uom_id()
 
     @api.multi
     def update_from_pricelist(self):
