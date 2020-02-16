@@ -26,8 +26,6 @@ class AccountInvoice(models.Model):
             else:
                 self.transmit_method_id = self.partner_id.\
                     supplier_invoice_transmit_method_id.id or False
-        else:
-            self.transmit_method_id = False
         return res
 
     @api.model
