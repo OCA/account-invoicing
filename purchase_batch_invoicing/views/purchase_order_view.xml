@@ -25,7 +25,7 @@
         <field name="inherit_id" ref="purchase.purchase_order_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='invoice_status']" position="attributes">
-                <attribute name="attrs"/>
+                <attribute name="invisible">0</attribute>
             </xpath>
         </field>
     </record>
