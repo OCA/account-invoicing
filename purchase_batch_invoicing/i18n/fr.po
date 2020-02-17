@@ -9,24 +9,25 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-02 02:43+0000\n"
-"PO-Revision-Date: 2017-04-02 02:43+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"PO-Revision-Date: 2020-02-19 18:13+0000\n"
+"Last-Translator: Martronic SA <info@martronic.ch>\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: purchase_batch_invoicing
 #: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
 msgid "Accept"
-msgstr ""
+msgstr "Accepter"
 
 #. module: purchase_batch_invoicing
 #: model:ir.actions.act_window,name:purchase_batch_invoicing.wizard_purchase_batch_invoicing_action
 msgid "Batch Invoice"
-msgstr ""
+msgstr "Facturation par lots"
 
 #. module: purchase_batch_invoicing
 #: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
@@ -57,12 +58,12 @@ msgstr "Afficher le nom"
 #: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:111
 #, python-format
 msgid "Generated Invoices"
-msgstr ""
+msgstr "Factures générées"
 
 #. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__grouping
 msgid "Grouping"
-msgstr ""
+msgstr "Regroupement"
 
 #. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__id
@@ -74,7 +75,7 @@ msgstr "Identifiant"
 #: model:ir.cron,cron_name:purchase_batch_invoicing.cron
 #: model:ir.cron,name:purchase_batch_invoicing.cron
 msgid "Invoice all pending purchase orders"
-msgstr ""
+msgstr "Facturer toutes les commandes fournisseurs en attente"
 
 #. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing____last_update
@@ -94,19 +95,19 @@ msgstr "Dernière mise à jour le"
 #. module: purchase_batch_invoicing
 #: model:ir.model.fields,help:purchase_batch_invoicing.field_purchase_batch_invoicing__grouping
 msgid "Make one invoice for each..."
-msgstr ""
+msgstr "Créer une facture pour chaque..."
 
 #. module: purchase_batch_invoicing
 #: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:106
 #: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
 #, python-format
 msgid "No ready-to-invoice purchase orders selected."
-msgstr ""
+msgstr "Aucune commande prête à facturer sélectionnée."
 
 #. module: purchase_batch_invoicing
 #: model:ir.model,name:purchase_batch_invoicing.model_purchase_batch_invoicing
 msgid "Purchase Batch Invoicing"
-msgstr ""
+msgstr "Facturation par lots des achats"
 
 #. module: purchase_batch_invoicing
 #: selection:purchase.batch_invoicing,grouping:0
@@ -116,9 +117,9 @@ msgstr "Bon de commande"
 #. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__purchase_order_ids
 msgid "Purchase orders"
-msgstr ""
+msgstr "Commandes d'achat"
 
 #. module: purchase_batch_invoicing
 #: selection:purchase.batch_invoicing,grouping:0
 msgid "Vendor"
-msgstr ""
+msgstr "Fournisseur"
