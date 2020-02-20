@@ -22,5 +22,4 @@
         "demo/stock_picking_demo.xml"
     ],
     'installable': True,
-    'pre_init_hook': 'pre_init_hook',
 }
