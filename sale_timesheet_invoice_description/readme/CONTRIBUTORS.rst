@@ -3,3 +3,4 @@
   * Carlos Dauden
   * Pedro M. Baeza
   * Ernesto Tejeda
+  * Manuel Calero
