@@ -61,20 +61,18 @@ class TestSaleTimesheetDescription(common.SavepointCase):
     def _test_sale_time_description(self, desc_option, expected):
         self.sale_order.timesheet_invoice_description = desc_option
         self.sale_order.action_confirm()
-        invoice_id = self.sale_order.with_context(
+        invoice = self.sale_order.with_context(
             test_timesheet_description=True
-        ).action_invoice_create()
-        invoice = self.env["account.invoice"].browse(invoice_id)
-        self.assertEqual(invoice.invoice_line_ids[0].name, expected)
+        )._create_invoices()
+        self.assertEqual(invoice.line_ids[0].name, expected)
 
         # trigger the creation of another invoice
         for line in self.sale_order.order_line:
             line.product_uom_qty += 1
-        invoice_id = self.sale_order.with_context(
+        invoice = self.sale_order.with_context(
             test_timesheet_description=True
-        ).action_invoice_create()
-        invoice = self.env["account.invoice"].browse(invoice_id)
-        self.assertEqual(invoice.invoice_line_ids[0].name, expected)
+        )._create_invoices()
+        self.assertEqual(invoice.line_ids[0].name, expected)
 
     def test_sale_timesheet_description_000(self):
         self._test_sale_time_description("000", "Test product")
@@ -82,7 +80,7 @@ class TestSaleTimesheetDescription(common.SavepointCase):
     def test_sale_timesheet_description_111(self):
         self._test_sale_time_description(
             "111",
-            "Test product\n" "2017-08-04 - 10.5 Unit(s) - Test description 1234567890",
+            "Test product\n" "2017-08-04 - 10.5 Units - Test description 1234567890",
         )
 
     def test_sale_timesheet_description_101(self):
@@ -97,7 +95,7 @@ class TestSaleTimesheetDescription(common.SavepointCase):
 
     def test_sale_timesheet_description_011(self):
         self._test_sale_time_description(
-            "011", "Test product\n" "10.5 Unit(s) - Test description 1234567890"
+            "011", "Test product\n" "10.5 Units - Test description 1234567890"
         )
 
     def test_settings(self):
