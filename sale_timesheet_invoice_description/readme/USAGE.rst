@@ -5,7 +5,7 @@ To use this module, you need to:
 
    - *Product Type* -> **Service**
    - *Service Invoicing Policy* -> **Timesheets on tasks**
-   - *Service Tracking* -> **Create a task in a new project**
+   - *Service Tracking* -> **Create a task in sales order's project**
 
    e.g. *Junior Architect (Invoice on Timesheets)*
 #. Confirm Sale
