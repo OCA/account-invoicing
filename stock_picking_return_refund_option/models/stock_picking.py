@@ -28,6 +28,8 @@ class StockPicking(models.Model):
                 picking.to_refund_lines = "no_refund"
             elif len(moves_to_refund) == len(picking.move_lines):
                 picking.to_refund_lines = "to_refund"
+            else:
+                picking.to_refund_lines = False
 
     def _inverse_to_refund_lines(self):
         """
@@ -45,6 +47,8 @@ class StockPicking(models.Model):
         for picking in self:
             if any(x.origin_returned_move_id for x in picking.move_lines):
                 picking.is_return = True
+            else:
+                picking.is_return = False
 
     def _update_stock_moves(self):
         for pick in self.filtered("to_refund_lines"):
@@ -74,4 +78,4 @@ class StockPicking(models.Model):
             po_lines = self.mapped("move_lines.purchase_line_id").filtered(
                 lambda x: x.product_id.invoice_policy in ("order", "delivery")
             )
-            po_lines._update_received_qty()
+            po_lines._compute_qty_received()
