@@ -11,7 +11,7 @@ class TestSaleOrderLineInput(SavepointCase):
         super().setUpClass()
         cls.warehouse = cls.env.ref("stock.warehouse0")
         cls.partner = cls.env["res.partner"].create(
-            {"name": "Test", "sale_discount": 10.0, "customer": True, "supplier": True}
+            {"name": "Test", "customer_rank": 1, "supplier_rank": 1}
         )
         cls.product = cls.env["product.product"].create(
             {"name": "test_product", "type": "product", "invoice_policy": "delivery"}
@@ -65,16 +65,18 @@ class TestSaleOrderLineInput(SavepointCase):
         )
         cls.order.action_confirm()
         cls.picking = cls.order.picking_ids
+        cls.picking.action_assign()
         cls.picking.move_line_ids.write({"qty_done": 1.0})
         cls.picking.action_done()
-        cls.order.action_invoice_create()
+        cls.order._create_invoices()
 
     def return_picking_wiz(self, picking):
         wizard = (
             self.env["stock.return.picking"]
-            .with_context(active_id=picking.id)
+            .with_context(active_model="stock.picking", active_id=picking.id)
             .create({})
         )
+        wizard._onchange_picking_id()
         wizard.product_return_moves.write({"quantity": 1.0, "to_refund": False})
         return wizard
 
@@ -122,7 +124,7 @@ class TestSaleOrderLineInput(SavepointCase):
                             "name": self.product.name,
                             "product_id": self.product.id,
                             "product_qty": 1.0,
-                            "product_uom": self.product.uom_id.id,
+                            "product_uom": self.product.uom_po_id.id,
                             "price_unit": 1000.00,
                             "date_planned": fields.Datetime.now(),
                         },
