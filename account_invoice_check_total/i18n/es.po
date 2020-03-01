@@ -55,7 +55,7 @@ msgid ""
 "There is a difference of %s"
 msgstr ""
 "Por favor, verifique el total de la factura.\n"
-"                        El total introducido (%s) no "
+"                        El total introducido (s) no "
 "corresponde                        con el total calculado (%s)!\n"
 "Hay una diferencia de %s"
 
