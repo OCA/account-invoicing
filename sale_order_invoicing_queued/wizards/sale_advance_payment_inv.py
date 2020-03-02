@@ -1,4 +1,4 @@
-# Copyright 2019 Tecnativa - Pedro M. Baeza
+# Copyright 2019-2020 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, exceptions, models
@@ -20,6 +20,10 @@ class SaleAdvancePaymentInv(models.TransientModel):
         grouped_orders = defaultdict(lambda: order_obj.browse())
         for order in sale_orders:
             group_key = (order.partner_invoice_id.id, order.currency_id.id)
+            # If we have `sale_order_invoicing_grouping_criteria` module
+            # installed, we take that grouping criteria
+            if hasattr(order, '_get_sale_invoicing_group_key'):
+                group_key = order._get_sale_invoicing_group_key()
             if order.invoicing_job_ids.filtered(
                 lambda x: x.state in {'pending', 'enqueued', 'started'}
             ):
