@@ -27,9 +27,9 @@ class SaleOrder(models.Model):
                 order_groups[group_key] = order
             else:
                 order_groups[group_key] += order
-        invoice_ids = []
+        invoices = self.env["account.move"].browse()
         for group in order_groups.values():
-            invoice_ids += super(SaleOrder, group)._create_invoices(
+            invoices += super(SaleOrder, group)._create_invoices(
                 grouped=grouped, final=final
             )
-        return invoice_ids
+        return invoices
