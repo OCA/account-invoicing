@@ -19,12 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: account_invoice_supplier_ref_unique
-#: model:ir.model,name:account_invoice_supplier_ref_unique.model_account_invoice
-msgid "Invoice"
-msgstr "ใบแจ้งหนี้"
+#: model:ir.model,name:account_invoice_supplier_ref_unique.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_supplier_ref_unique
-#: code:addons/account_invoice_supplier_ref_unique/models/account_invoice.py:34
+#: code:addons/account_invoice_supplier_ref_unique/models/account_move.py:0
 #, python-format
 msgid ""
 "The invoice/refund with supplier invoice number '%s' already exists in Odoo "
@@ -32,6 +32,9 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_supplier_ref_unique
-#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_invoice_supplier_invoice_number
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_move__supplier_invoice_number
 msgid "Vendor invoice number"
 msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "ใบแจ้งหนี้"
