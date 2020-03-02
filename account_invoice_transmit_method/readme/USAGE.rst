@@ -1,4 +1,4 @@
-On the form view of a parent Partner (not a Contact), in the *Accounting* tab, there are 2 fields:
+On the form view of a Partner, in the *Sales & Purchase* tab, there are 2 fields:
 
 * Customer Invoice Transmission Method
 * Vendor Invoice Reception Method
