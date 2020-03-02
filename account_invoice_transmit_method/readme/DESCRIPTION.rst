@@ -4,4 +4,4 @@ This module allows to configure an *Invoice Transmit Method* on each partner. Th
 * Post
 * Customer Portal
 
-You can manually create additionnal transmission methods or other modules can create additionnal transmission methods (for example, the module *l10n_fr_chorus* creates a specific transmission method *Chorus*, which is the e-invoicing plateform of the French administration).
+You can manually create additionnal transmission methods or other modules can create additionnal transmission methods (for example, the module *l10n_fr_chorus_account* creates a specific transmission method *Chorus Pro*, which is the e-invoicing plateform of the French administration).
