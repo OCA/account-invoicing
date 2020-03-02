@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo13-addon-account_invoice_fixed_discount',
+        'odoo13-addon-account_invoice_refund_link',
         'odoo13-addon-account_invoice_supplier_ref_reuse',
         'odoo13-addon-account_invoice_supplier_ref_unique',
         'odoo13-addon-sale_order_invoicing_grouping_criteria',
