@@ -3,6 +3,7 @@
 
 from odoo.tests.common import TransactionCase
 from odoo import fields
+from odoo.exceptions import ValidationError
 
 
 class TestAccountInvoiceAlternateCommercialPartner(TransactionCase):
@@ -255,3 +256,24 @@ class TestAccountInvoiceAlternateCommercialPartner(TransactionCase):
         self.assertEqual(supplier_invoice_1.state, 'paid')
         self.assertEqual(supplier_invoice_2.state, 'paid')
         self.assertEqual(supplier_invoice_3.state, 'paid')
+
+    def test_constrains(self):
+        with self.assertRaises(ValidationError):
+            self.env['account.invoice'].create({
+                'partner_id': self.vendor.id,
+                'type': 'in_invoice',
+                'account_id': self.account_payable.id,
+                'payment_term_id': False,
+                'journal_id': self.purchase_journal.id,
+                'currency_id': self.currency_usd_id,
+                'company_id': self.company.id,
+                'partner_bank_id': self.payee_bank.id,
+                'invoice_line_ids': [
+                    (0, 0, {'name': 'test',
+                            'account_id': self.account_expense.id,
+                            'price_unit': 2000.00,
+                            'quantity': 1,
+                            'product_id': self.product.id
+                            }
+                     )
+                ]})
