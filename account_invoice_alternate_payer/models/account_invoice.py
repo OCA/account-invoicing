@@ -3,6 +3,7 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import RedirectWarning
+from odoo.exceptions import ValidationError
 
 
 class AccountInvoice(models.Model):
@@ -42,7 +43,6 @@ class AccountInvoice(models.Model):
             payment_term_id = False
             p = self.alternate_payer_id if not company_id else \
                 self.alternate_payer_id.with_context(force_company=company_id)
-            type = self.type
             if p:
                 rec_account = p.property_account_receivable_id
                 pay_account = p.property_account_payable_id
@@ -55,7 +55,7 @@ class AccountInvoice(models.Model):
                     raise RedirectWarning(msg, action.id,
                                           _('Go to the configuration panel'))
 
-                if type in ('out_invoice', 'out_refund'):
+                if self.type in ('out_invoice', 'out_refund'):
                     account_id = rec_account.id
                     payment_term_id = p.property_payment_term_id.id
                 else:
@@ -64,3 +64,22 @@ class AccountInvoice(models.Model):
             self.account_id = account_id
             self.payment_term_id = payment_term_id
         return res
+
+    @api.constrains('partner_id', 'partner_bank_id')
+    def validate_partner_bank_id(self):
+        for record in self:
+            if record.partner_bank_id:
+                partner = record.alternate_payer_id or record.partner_id
+                bank_partner = record.partner_bank_id.partner_id
+                if record.type in (
+                    'in_invoice', 'out_refund'
+                ) and bank_partner != partner.commercial_partner_id:
+                    raise ValidationError(_(
+                        "Commercial partner and vendor account owners must "
+                        "be identical."))
+                elif record.type in (
+                    'out_invoice', 'in_refund'
+                ) and record.company_id not in bank_partner.ref_company_ids:
+                    raise ValidationError(_(
+                        "The account selected for payment does not belong to "
+                        "the same company as this invoice."))
