@@ -14,5 +14,5 @@ class SaleInvoicingGroupingCriteria(models.Model):
         comodel_name="ir.model.fields",
         domain="[('model', '=', 'sale.order')]",
         help="Fields used for grouping sales orders when invoicing. "
-        "Invoicing address and currency will always be applied.",
+        "Invoicing address, company and currency will always be applied.",
     )

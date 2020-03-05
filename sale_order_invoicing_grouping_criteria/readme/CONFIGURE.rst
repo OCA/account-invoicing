@@ -21,4 +21,5 @@ whole company:
 #. Locate inside "Sales Order Invoicing" section, the field "Default
    Grouping Criteria".
 #. Introduce there the grouping criteria to be applied by default. If empty,
-   the general default of invoicing address + currency will be applied.
+   the general default of invoicing address + currency + company will be
+   applied.
