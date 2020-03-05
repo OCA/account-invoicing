@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-26 10:26+0000\n"
-"PO-Revision-Date: 2019-11-26 11:27+0100\n"
+"POT-Creation-Date: 2020-03-05 09:09+0000\n"
+"PO-Revision-Date: 2020-03-05 10:10+0100\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -60,12 +60,8 @@ msgstr "Nombre mostrado"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,help:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__field_ids
-msgid ""
-"Fields used for grouping sales orders when invoicing. Invoicing address and "
-"currency will always be applied."
-msgstr ""
-"Campos usados para agrupar los pedidos de venta cuando se facturan. La "
-"dirección de facturación y la moneda se aplicarán siempre."
+msgid "Fields used for grouping sales orders when invoicing. Invoicing address, company and currency will always be applied."
+msgstr "Campos usados para agrupar los pedidos de venta cuando se facturan. La dirección de facturación, la compañía y la moneda se aplicarán siempre."
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__field_ids
@@ -81,15 +77,12 @@ msgstr "ID"
 #: model:ir.model.fields,help:sale_order_invoicing_grouping_criteria.field_res_partner__sale_invoicing_grouping_criteria_id
 #: model:ir.model.fields,help:sale_order_invoicing_grouping_criteria.field_res_users__sale_invoicing_grouping_criteria_id
 msgid "If empty, company default (if any) or default will be applied."
-msgstr ""
-"Si está vacío, el valor por defecto de la compañía (si está establecido) o "
-"el de por defecto general serán aplicados."
+msgstr "Si está vacío, el valor por defecto de la compañía (si está establecido) o el de por defecto general serán aplicados."
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
-msgid "If empty, invoicing address and currency will be applied."
-msgstr ""
-"Si está vacío, la dirección de facturacíón y la moneda serán aplicados."
+msgid "If empty, invoicing address, company and currency will be applied."
+msgstr "Si está vacío, la dirección de facturacíón, la compañía y la moneda serán aplicados."
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.ui.menu,name:sale_order_invoicing_grouping_criteria.menu_sale_invoice_grouping_criteria
@@ -127,8 +120,6 @@ msgstr "Criterio de agrupación de facturación de ventas"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model,name:sale_order_invoicing_grouping_criteria.model_sale_order
-#, fuzzy
-#| msgid "Sale Order"
 msgid "Sales Order"
 msgstr "Pedido de venta"
 

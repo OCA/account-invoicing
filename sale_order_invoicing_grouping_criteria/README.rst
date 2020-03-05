@@ -28,14 +28,21 @@ Sales order invoicing grouping criteria
 This module allows to use custom criteria for grouping sales orders to be
 invoiced.
 
-Default criteria for grouping (invoicing partner and currency used) will be
-always applied, as if not respected, there will be business inconsistencies,
-but you can add more fields to split the invoicing according them.
+Default criteria for grouping (invoicing partner, company and used currency)
+will be always applied, as if not respected, there will be business
+inconsistencies, but you can add more fields to split the invoicing according
+them.
 
 **Table of contents**
 
 .. contents::
    :local:
+
+Installation
+============
+
+This module only works in an updated 13.0 version after the 4th of March of 2020,
+specifically after the commit https://github.com/odoo/odoo/commit/6f036e758000.
 
 Configuration
 =============
@@ -63,7 +70,8 @@ whole company:
 #. Locate inside "Sales Order Invoicing" section, the field "Default
    Grouping Criteria".
 #. Introduce there the grouping criteria to be applied by default. If empty,
-   the general default of invoicing address + currency will be applied.
+   the general default of invoicing address + currency + company will be
+   applied.
 
 Usage
 =====

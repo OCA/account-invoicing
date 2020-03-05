@@ -57,8 +57,8 @@ msgstr ""
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,help:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__field_ids
 msgid ""
-"Fields used for grouping sales orders when invoicing. Invoicing address and "
-"currency will always be applied."
+"Fields used for grouping sales orders when invoicing. Invoicing address, "
+"company and currency will always be applied."
 msgstr ""
 
 #. module: sale_order_invoicing_grouping_criteria
@@ -79,7 +79,7 @@ msgstr ""
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
-msgid "If empty, invoicing address and currency will be applied."
+msgid "If empty, invoicing address, company and currency will be applied."
 msgstr ""
 
 #. module: sale_order_invoicing_grouping_criteria
