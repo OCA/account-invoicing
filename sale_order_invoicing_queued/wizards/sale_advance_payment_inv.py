@@ -1,4 +1,4 @@
-# Copyright 2019 Tecnativa - Pedro M. Baeza
+# Copyright 2019-2020 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from collections import defaultdict
@@ -20,7 +20,10 @@ class SaleAdvancePaymentInv(models.TransientModel):
         sale_orders = order_obj.browse(context.get("active_ids", []))
         grouped_orders = defaultdict(lambda: order_obj.browse())
         for order in sale_orders:
-            group_key = (order.partner_invoice_id.id, order.currency_id.id)
+            group_key = (
+                order[grouping_key]
+                for grouping_key in order._get_invoice_grouping_keys()
+            )
             if order.invoicing_job_ids.filtered(
                 lambda x: x.state in {"pending", "enqueued", "started"}
             ):
