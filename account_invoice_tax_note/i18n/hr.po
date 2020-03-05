@@ -6,7 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2020-03-05 16:13+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>\n"
 "Language-Team: none\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -14,23 +15,24 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: account_invoice_tax_note
 #: model:ir.model,name:account_invoice_tax_note.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Račun"
 
 #. module: account_invoice_tax_note
 #: model:ir.model.fields,help:account_invoice_tax_note.field_account_tax_group__report_note
 msgid "Note to insert on Invoice Report if the tax group is used."
-msgstr ""
+msgstr "Napomena za ispis na računu ako se koristi porezna grupa."
 
 #. module: account_invoice_tax_note
 #: model:ir.model.fields,field_description:account_invoice_tax_note.field_account_tax_group__report_note
 msgid "Report Note"
-msgstr ""
+msgstr "Napomena za izvještaj"
 
 #. module: account_invoice_tax_note
 #: model:ir.model,name:account_invoice_tax_note.model_account_tax_group
 msgid "Tax Group"
-msgstr ""
+msgstr "Porezna grupa"
