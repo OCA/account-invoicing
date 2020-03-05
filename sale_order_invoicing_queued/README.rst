@@ -43,6 +43,9 @@ Installation
 This module depends on *queue_job* module that is hosted on
 https://github.com/OCA/queue.
 
+It only works in an updated 13.0 version after the 4th of March of 2020,
+specifically after the commit https://github.com/odoo/odoo/commit/6f036e758000.
+
 Configuration
 =============
 
@@ -64,13 +67,6 @@ Usage
 #. Having the "Job Queue Manager" permissions, you can go to the sales order,
    and see the tab "Invoicing Jobs". There a list with all the jobs related
    to that sales order can be found.
-
-Known issues / Roadmap
-======================
-
-* This module doesn't take into account any possible modification on grouping
-  criteria, like all the modules that use
-  ``sale_order_action_invoice_create_hook``.
 
 Bug Tracker
 ===========
