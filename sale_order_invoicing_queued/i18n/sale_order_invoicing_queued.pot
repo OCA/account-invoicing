@@ -45,7 +45,6 @@ msgid "Sales Advance Payment Invoice"
 msgstr ""
 
 #. module: sale_order_invoicing_queued
-#: code:addons/sale_order_invoicing_queued/wizards/sale_advance_payment_inv.py:26
 #: code:addons/sale_order_invoicing_queued/wizards/sale_advance_payment_inv.py:30
 #, python-format
 msgid "There's already an enqueued job for invoicing the sales order %s. Please wait until it's finished or remove it from the selection."
