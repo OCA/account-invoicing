@@ -1,0 +1,81 @@
+<!-- Copyright 2019 Ecosoft Co., Ltd (http://ecosoft.co.th/)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html) -->
+
+<odoo>
+
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <button name="%(account.action_account_invoice_refund)d" position="after">
+                <field name="debit_invoice_id" invisible="1"/>
+                <button name="%(action_account_invoice_debitnote)d"
+                        type="action"
+                        string="Add Debit Note"
+                        attrs="{'invisible': ['|','|',('type', '=', 'out_refund'),
+                        ('debit_invoice_id', '!=', False),
+                        ('state', 'not in', ('open','in_payment','paid'))]}"
+                        />
+            </button>
+            <xpath expr="//page[@name='other_info']/group//group[2]//field[@name='origin']" position="after">
+                <field name="debit_invoice_id" invisible="1"/>
+                <field name="debit_invoice_ids"
+                       attrs="{'invisible': ['|','|',('type', '!=', 'out_invoice'),
+                       ('debit_invoice_id', '!=', False),
+                       ('state', '=', 'draft'),]}"
+                       widget="many2many_tags"
+                       />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">view.account.invoice.filter.ext</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <separator/>
+                <filter name="invoice_filter"
+                        string="Invoices"
+                        domain="[('debit_invoice_id', '=', False)]"
+                        help="Filter invoice from My Invoice"
+                        />
+                <filter name="debitnote_filter"
+                        string="Debit Notes"
+                        domain="[('debit_invoice_id','!=', False)]"
+                        help="Filter debit note from My Invoice"
+                        />
+            </search>
+        </field>
+    </record>
+
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">invoice.supplier.ext</field>
+        <field name="model">account.invoice</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <button name="%(account.action_account_invoice_refund)d" position="after">
+                <button name="%(action_account_invoice_debitnote)d"
+                        type="action"
+                        string="Ask for a Debit Note"
+                        attrs="{'invisible': ['|', ('type', '=',
+                                ['in_refund', 'out_refund']),
+                                ('state', 'not in', ['open','in_payment','paid'])]}"
+                        />
+            </button>
+            <xpath expr="//page[@name='other_info']/group//group[2]//field[@name='fiscal_position_id']" position="after">
+                <field name="debit_invoice_id" invisible="1"/>
+                <field name="debit_invoice_ids"
+                       attrs="{'invisible': ['|',('type', '!=', 'out_invoice'),
+                       ('debit_invoice_id', '=', False),
+                       ('state', '=', 'draft')]}"
+                       widget="many2many_tags"
+                       />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
