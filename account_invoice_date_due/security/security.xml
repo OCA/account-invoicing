@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+<odoo noupdate="1">
     <record id="allow_to_change_due_date" model="res.groups">
         <field name="name">Allow to change due date</field>
     </record>
