@@ -23,7 +23,7 @@ Debit Notes
     :target: https://runbot.odoo-community.org/runbot/95/12.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 In some situations, user need to add some service charge or some fees on top of what already invoiced.
 This module add new feature to "Add Debit Note" from customer invoice / vendor bill
