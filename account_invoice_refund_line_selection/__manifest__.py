@@ -3,7 +3,7 @@
 
 {
     'name': 'Account invoice refund line',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Accounting & Finance',
     'summary': 'This module allows the user to refund specific '
                'lines in a invoice',
