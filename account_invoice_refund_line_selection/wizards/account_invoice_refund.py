@@ -43,7 +43,6 @@ class AccountInvoiceRefund(models.TransientModel):
         xml_id = False
         for form in self:
             created_inv = []
-            description = False
             for inv in inv_obj.browse(context.get('active_ids')):
                 if inv.state in ['draft', 'cancel']:
                     raise UserError(_('Cannot create credit note for '
