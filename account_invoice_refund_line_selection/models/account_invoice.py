@@ -15,12 +15,11 @@ class AccountInvoice(models.Model):
         new_invoices = self.browse()
         for invoice in self:
             # create the new invoice
-            values = self._prepare_refund_partial(invoice,
-                                                  date_invoice=date_invoice,
-                                                  date=date,
-                                                  description=description,
-                                                  journal_id=journal_id,
-                                                  lines_id=lines_id)
+            values = self._prepare_refund_partial(
+                invoice, date_invoice=date_invoice, date=date,
+                description=description, journal_id=journal_id,
+                lines_id=lines_id
+            )
             refund_invoice = self.create(values)
             refund_invoice.compute_taxes()
             invoice_type = {'out_invoice': 'customer invoices credit note',
@@ -53,16 +52,19 @@ class AccountInvoice(models.Model):
         else:
             journal = self.env['account.journal'].search(
                 [('type', '=', 'sale')], limit=1)
-        values['journal_id'] = journal.id
 
-        values['type'] = TYPE2REFUND[invoice['type']]
-        values['date_invoice'] = date_invoice or fields.Date.context_today(
-            invoice)
-        values['state'] = 'draft'
-        values['number'] = False
-        values['origin'] = invoice.number
-        values['payment_term_id'] = False
-        values['refund_invoice_id'] = invoice.id
+        values.update({
+            'journal_id': journal.id,
+            'type': TYPE2REFUND[invoice['type']],
+            'date_invoice': date_invoice or fields.Date.context_today(
+                invoice
+            ),
+            'state': 'draft',
+            'number': False,
+            'origin': invoice.number,
+            'payment_term_id': False,
+            'refund_invoice_id': invoice.id,
+        })
 
         if date:
             values['date'] = date
