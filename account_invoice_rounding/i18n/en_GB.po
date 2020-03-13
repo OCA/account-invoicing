@@ -51,11 +51,6 @@ msgid "Rounding Line"
 msgstr ""
 
 #. module: account_invoice_rounding
-#: model:ir.model,name:account_invoice_rounding.model_account_tax
-msgid "Tax"
-msgstr ""
-
-#. module: account_invoice_rounding
 #: model:ir.model.fields,field_description:account_invoice_rounding.field_res_company_tax_calculation_rounding_account_id
 msgid "Tax Rounding Account"
 msgstr ""
