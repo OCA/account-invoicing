@@ -1,13 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2019 Tecnativa - Pedro M. Baeza
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
     <record id="view_sale_advance_payment_inv" model="ir.ui.view">
         <field name="model">sale.advance.payment.inv</field>
-        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv" />
         <field name="arch" type="xml">
             <button name="create_invoices" position="before">
-                <button name="enqueue_invoices" string="Enqueue Invoicing" type="object" class="btn-primary"/>
+                <button
+                    name="enqueue_invoices"
+                    string="Enqueue Invoicing"
+                    type="object"
+                    class="btn-primary"
+                />
             </button>
         </field>
     </record>
