@@ -1,26 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2019 Tecnativa - Pedro M. Baeza
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record id="res_config_settings_view_form" model="ir.ui.view">
-        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
         <field name="model">res.config.settings</field>
         <field name="arch" type="xml">
             <div id="invoicing_settings" position="after">
                 <h2>Sales Order Invoicing</h2>
-                <div class="row mt16 o_settings_container" id="sale_order_invoicing_settings">
+                <div
+                    class="row mt16 o_settings_container"
+                    id="sale_order_invoicing_settings"
+                >
                     <div class="col-12 col-lg-6 o_setting_box">
-                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_left_pane" />
                         <div class="o_setting_right_pane">
-                            <label string="Default Grouping Criteria" for="default_sale_invoicing_grouping_criteria_id"/>
-                            <div class="text-muted">If empty, invoicing address, company and currency will be applied.</div>
-                            <field name="res_default_sale_invoicing_grouping_criteria_id"/>
+                            <label
+                                string="Default Grouping Criteria"
+                                for="default_sale_invoicing_grouping_criteria_id"
+                            />
+                            <div
+                                class="text-muted"
+                            >If empty, invoicing address, company and currency will be applied.</div>
+                            <field
+                                name="res_default_sale_invoicing_grouping_criteria_id"
+                            />
                         </div>
                     </div>
                 </div>
             </div>
         </field>
     </record>
-
 </odoo>
