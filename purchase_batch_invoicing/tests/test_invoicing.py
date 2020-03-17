@@ -12,26 +12,22 @@ class PurchaseBatchInvoicingCase(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super(PurchaseBatchInvoicingCase, cls).setUpClass()
-        cls.account_type1 = cls.env["account.account.type"].create(
-            {"name": "Account Type 1", "type": "payable",}
-        )
         cls.account1 = cls.env["account.account"].create(
             {
                 "name": "Account 1",
                 "code": "AC1",
-                "user_type_id": cls.account_type1.id,
+                "user_type_id": cls.env.ref("account.data_account_type_payable").id,
                 "reconcile": True,
             }
         )
         cls.vendor1 = cls.env["res.partner"].create(
             {
                 "name": "Vendor 1",
-                "supplier": True,
                 "is_company": True,
                 "property_account_payable_id": cls.account1.id,
             }
         )
-        cls.uomcateg1 = cls.env["uom.category"].create({"name": "Category 1",})
+        cls.uomcateg1 = cls.env["uom.category"].create({"name": "Category 1"})
         cls.uom1 = cls.env["uom.uom"].create(
             {
                 "name": "UOM 1",
@@ -50,9 +46,8 @@ class PurchaseBatchInvoicingCase(SavepointCase):
                 "standard_price": 100,
                 "uom_id": cls.uom1.id,
                 "uom_po_id": cls.uom1.id,
-                "property_account_expense_id": cls.account1.id,
                 "seller_ids": [
-                    (0, False, {"name": cls.vendor1.id, "min_qty": 1, "price": 100,}),
+                    (0, False, {"name": cls.vendor1.id, "min_qty": 1, "price": 100}),
                 ],
             }
         )
@@ -91,10 +86,12 @@ class PurchaseBatchInvoicingCase(SavepointCase):
 
     def check_created_invoices(self, result):
         """The invoices count and sum are OK."""
-        self.assertEqual(result["res_model"], "account.invoice")
+        self.assertEqual(result["res_model"], "account.move")
         invoices = self.env[result["res_model"]].search(result["domain"])
         self.assertEqual(len(invoices), self.expected_invoices)
-        self.assertEqual(invoices.mapped("invoice_line_ids.purchase_id"), self.pos)
+        self.assertEqual(
+            invoices.mapped("invoice_line_ids.purchase_line_id.order_id"), self.pos
+        )
         self.assertItemsEqual(self.expected_untaxed, invoices.mapped("amount_untaxed"))
 
     @mock.patch(mock_ns + "._logger.debug")

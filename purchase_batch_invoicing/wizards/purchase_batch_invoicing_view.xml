@@ -31,13 +31,10 @@
     </record>
     <act_window
         id="wizard_purchase_batch_invoicing_action"
-        key2="client_action_multi"
         name="Batch Invoice"
-        src_model="purchase.order"
+        binding_model="purchase.order"
         res_model="purchase.batch_invoicing"
         target="new"
-        multi="True"
         view_mode="form"
-        view_type="form"
     />
 </odoo>

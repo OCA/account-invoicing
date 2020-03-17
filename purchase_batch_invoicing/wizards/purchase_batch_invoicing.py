@@ -21,7 +21,7 @@ class PurchaseBatchInvoicing(models.TransientModel):
         default=lambda self: self._default_purchase_order_ids(),
     )
     grouping = fields.Selection(
-        selection=[("id", "Purchase Order"), ("partner_id", "Vendor"),],
+        selection=[("id", "Purchase Order"), ("partner_id", "Vendor")],
         required=True,
         default="id",
         help="Make one invoice for each...",
@@ -69,7 +69,6 @@ class PurchaseBatchInvoicing(models.TransientModel):
         i.e.: set invoice type to in_refund"""
         return {"partner_id": partner.id, "type": "in_invoice"}
 
-    @api.multi
     def grouped_purchase_orders(self):
         """Purchase orders, applying current grouping.
 
@@ -87,34 +86,29 @@ class PurchaseBatchInvoicing(models.TransientModel):
             if pos:
                 yield pos
 
-    @api.multi
     def action_batch_invoice(self):
         """Generate invoices for all selected purchase orders.
 
         :return dict:
             Window action to see the generated invoices.
         """
-        invoices = self.env["account.invoice"]
+        invoices = self.env["account.move"]
         for pogroup in self.grouped_purchase_orders():
-            invoice = invoices.create(
+            invoice = invoices.new(
                 self._prepare_batch_invoice_vals(pogroup.mapped("partner_id"))
             )
             invoice._onchange_partner_id()
             for po in pogroup:
                 invoice.currency_id = po.currency_id
                 invoice.purchase_id = po
-                invoice.purchase_order_change()
-            invoices |= invoice
+                invoice._onchange_purchase_auto_complete()
+            invoices |= invoices.create(invoice._convert_to_write(invoice._cache))
         if not invoices:
             raise UserError(_("No ready-to-invoice purchase orders selected."))
-        invoices.compute_taxes()
-        return {
-            "type": "ir.actions.act_window",
-            "res_model": "account.invoice",
-            "name": _("Generated Invoices"),
-            "views": [[False, "tree"], [False, "form"]],
-            "domain": [["id", "in", invoices.ids]],
-        }
+        action = self.env.ref("account.action_move_in_invoice_type")
+        result = action.read()[0]
+        result["domain"] = [("id", "in", invoices.ids)]
+        return result
 
     @api.model
     def cron_invoice_all_pending(self, grouping="partner_id"):
