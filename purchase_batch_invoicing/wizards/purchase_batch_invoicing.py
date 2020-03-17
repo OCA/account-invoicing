@@ -21,10 +21,7 @@ class PurchaseBatchInvoicing(models.TransientModel):
         default=lambda self: self._default_purchase_order_ids(),
     )
     grouping = fields.Selection(
-        selection=[
-            ("id", "Purchase Order"),
-            ("partner_id", "Vendor"),
-        ],
+        selection=[("id", "Purchase Order"), ("partner_id", "Vendor"),],
         required=True,
         default="id",
         help="Make one invoice for each...",
@@ -34,9 +31,11 @@ class PurchaseBatchInvoicing(models.TransientModel):
     def _default_purchase_order_ids(self):
         """Get purchase orders from active ids."""
         try:
-            return self.env["purchase.order"].search(
-                self._purchase_order_domain(self.env.context["active_ids"])
-            ).ids
+            return (
+                self.env["purchase.order"]
+                .search(self._purchase_order_domain(self.env.context["active_ids"]))
+                .ids
+            )
         except KeyError:
             return False
 
@@ -48,15 +47,19 @@ class PurchaseBatchInvoicing(models.TransientModel):
             domain += [("id", "in", ids)]
         pos = self.env["purchase.order"].search(domain)
         # Use only POs with less qty invoiced than the expected
-        pos = pos.filtered(lambda order: (
-            any(
-                line.qty_invoiced < (
-                    line.qty_received
-                    if line.product_id.purchase_method == 'receive'
-                    else line.product_qty
+        pos = pos.filtered(
+            lambda order: (
+                any(
+                    line.qty_invoiced
+                    < (
+                        line.qty_received
+                        if line.product_id.purchase_method == "receive"
+                        else line.product_qty
+                    )
                 )
-            ) for line in order.order_line
-        ))
+                for line in order.order_line
+            )
+        )
         if len(domain) > 1:
             domain[1] = ("id", "in", pos.ids)
         return domain
@@ -80,8 +83,7 @@ class PurchaseBatchInvoicing(models.TransientModel):
         PurchaseOrder = self.env["purchase.order"]
         domain = self._purchase_order_domain(self.purchase_order_ids.ids)
         for group in self.mapped("purchase_order_ids.%s" % self.grouping):
-            pos = PurchaseOrder.search(
-                domain + [(self.grouping, "=", int(group))])
+            pos = PurchaseOrder.search(domain + [(self.grouping, "=", int(group))])
             if pos:
                 yield pos
 
@@ -95,7 +97,8 @@ class PurchaseBatchInvoicing(models.TransientModel):
         invoices = self.env["account.invoice"]
         for pogroup in self.grouped_purchase_orders():
             invoice = invoices.create(
-                self._prepare_batch_invoice_vals(pogroup.mapped("partner_id")))
+                self._prepare_batch_invoice_vals(pogroup.mapped("partner_id"))
+            )
             invoice._onchange_partner_id()
             for po in pogroup:
                 invoice.currency_id = po.currency_id
@@ -117,12 +120,20 @@ class PurchaseBatchInvoicing(models.TransientModel):
     def cron_invoice_all_pending(self, grouping="partner_id"):
         """Invoice all pending purchase orders."""
         _logger.info("Starting to invoice all pending purchase orders.")
-        wizard = self.create({
-            "purchase_order_ids": [
-                (6, False, self.env["purchase.order"].search(
-                    self._purchase_order_domain()).ids)],
-            "grouping": grouping,
-        })
+        wizard = self.create(
+            {
+                "purchase_order_ids": [
+                    (
+                        6,
+                        False,
+                        self.env["purchase.order"]
+                        .search(self._purchase_order_domain())
+                        .ids,
+                    )
+                ],
+                "grouping": grouping,
+            }
+        )
         try:
             result = wizard.action_batch_invoice()
             _logger.info("Finished invoicing all pending purchase orders.")

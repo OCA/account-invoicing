@@ -8,15 +8,11 @@
     "website": "https://www.github.com/OCA/account-invoicing",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "depends": [
-        "purchase",
-    ],
+    "depends": ["purchase",],
     "data": [
         "data/ir_cron_data.xml",
         "wizards/purchase_batch_invoicing_view.xml",
         "views/purchase_order_view.xml",
     ],
-    "images": [
-        "static/description/wizard.png",
-    ],
+    "images": ["static/description/wizard.png",],
 }
