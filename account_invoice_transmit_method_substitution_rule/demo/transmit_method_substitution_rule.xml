@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo noupdate="1">
+
+    <record model="transmit.method.substitution.rule" id="transmit_method_substitution_rule_demo_1">
+        <field name="name">Transmit method Post for partners with undefined email</field>
+        <field name="domain">[('partner_id.email', '=', False)]</field>
+        <field name="transmit_method_id" eval="ref('account_invoice_transmit_method.post')"/>
+    </record>
+
+    <record model="transmit.method.substitution.rule" id="transmit_method_substitution_rule_demo_2">
+        <field name="name">Transmit method Post for partners with undefined email</field>
+        <field name="domain">["|","|","|",["partner_id.city","=",False],["partner_id.street","=",False],["partner_id.zip","=",False],["partner_id.country_id","=",False]]</field>
+        <field name="transmit_method_id" eval="ref('account_invoice_transmit_method.post')"/>
+    </record>
+
+</odoo>
