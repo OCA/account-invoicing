@@ -83,8 +83,7 @@ class TestAccountMenuInvoiceRefund(TransactionCase):
             Form(PaymentWizard.with_context(ctx), view=view_id)
         refund.action_invoice_open()
         # Finally, do the payment
-        with Form(PaymentWizard.with_context(ctx), view=view_id) as f:
-            f.amount = 450.0
+        f = Form(PaymentWizard.with_context(ctx), view=view_id)
         payment = f.save()
         payment.create_payments()
         self.assertEqual(invoice.state, 'paid')
