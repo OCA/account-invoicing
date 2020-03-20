@@ -23,4 +23,11 @@
         <field name="perm_write" eval="1"/>
         <field name="perm_unlink" eval="1"/>
     </record>
+
+    <record id="transmit_method_substitution_rule_multi_company_rule" model="ir.rule">
+        <field name="name">Transmit Method Substitution Rule Multi-company Rule</field>
+        <field name="model_id" ref="model_transmit_method_substitution_rule"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
 </odoo>

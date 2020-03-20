@@ -29,10 +29,9 @@ class AccountInvoice(models.Model):
                     != substitution_rule.transmit_method_id
                 ):
                     # conflict between rules, we set the transmit
-                    # method to False
                     return False
                 transmit_method_id = substitution_rule.transmit_method_id
-        return transmit_method_id.id if transmit_method_id else False
+        return transmit_method_id
 
     @api.multi
     def apply_transmit_method_substitutions(self):
@@ -41,7 +40,9 @@ class AccountInvoice(models.Model):
             substitution_rule_model.get_substitution_rules_by_company()
         )
         for group in self.read_group(
-            [("id", "in", self.ids)], ["id"], ["company_id"]
+            [("id", "in", self.ids), ("transmit_method_id", "!=", False)],
+            ["id"],
+            ["company_id"],
         ):
             invoices = self.search(group["__domain"])
             company_id = (
@@ -50,4 +51,5 @@ class AccountInvoice(models.Model):
             transmit_method_id = invoices.get_substitution_transmit_method(
                 substitution_rules_by_company.get(company_id, [])
             )
-            invoices.write({"transmit_method_id": transmit_method_id})
+            if transmit_method_id:
+                invoices.write({"transmit_method_id": transmit_method_id.id})

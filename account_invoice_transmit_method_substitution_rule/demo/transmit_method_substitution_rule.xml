@@ -13,7 +13,7 @@
     <record model="transmit.method.substitution.rule" id="transmit_method_substitution_rule_demo_2">
         <field name="name">Transmit method Post for partners with undefined email</field>
         <field name="domain">["|","|","|",["partner_id.city","=",False],["partner_id.street","=",False],["partner_id.zip","=",False],["partner_id.country_id","=",False]]</field>
-        <field name="transmit_method_id" eval="ref('account_invoice_transmit_method.post')"/>
+        <field name="transmit_method_id" eval="ref('account_invoice_transmit_method.mail')"/>
     </record>
 
 </odoo>
