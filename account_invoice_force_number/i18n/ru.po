@@ -26,17 +26,29 @@ msgid "Allow \"Invoice Force Number\""
 msgstr ""
 
 #. module: account_invoice_force_number
-#: model_terms:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
-#: model_terms:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_supplier_form_force_number
+#: model:ir.model.fields,field_description:account_invoice_force_number.field_account_move__move_name
 msgid "Force Number"
 msgstr ""
 
 #. module: account_invoice_force_number
-#: model_terms:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_form_force_number
-#: model_terms:ir.ui.view,arch_db:account_invoice_force_number.account_invoice_supplier_form_force_number
+#: model:ir.model.fields,help:account_invoice_force_number.field_account_move__move_name
 msgid ""
-"Force invoice number. Use this field if you don't want to use the default "
-"numbering"
+"Force invoice number. Use this field if\n"
+"        you don't want to use the default numbering."
+msgstr ""
+
+#. module: account_invoice_force_number
+#: model:ir.model,name:account_invoice_force_number.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#. module: account_invoice_force_number
+#: code:addons/account_invoice_force_number/models/account_move.py:0
+#, python-format
+msgid ""
+"You cannot delete an invoice after it has been validated(and received a "
+"number). You can set it back to \"Draft\"state and modify its content, then "
+"re-confirm it."
 msgstr ""
 
 #~ msgid "Invoice"
