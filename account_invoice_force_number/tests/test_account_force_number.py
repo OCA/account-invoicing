@@ -2,6 +2,8 @@
 # Copyright 2017 Alex Comba - Agile Business Group
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
+
+from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 
@@ -33,35 +35,36 @@ class TestAccountForceNumber(TransactionCase):
                 },
             )
         ]
-
-        invoice = self.env["account.invoice"].create(
+        invoice = self.env["account.move"].create(
             {
-                "name": "Test Customer Invoice",
                 "journal_id": self.env["account.journal"]
                 .search([("type", "=", "sale")], limit=1)
                 .id,
                 "partner_id": self.env.ref("base.res_partner_12").id,
-                "account_id": self.env["account.account"]
-                .search(
-                    [
-                        (
-                            "user_type_id",
-                            "=",
-                            self.env.ref("account.data_account_type_receivable").id,
-                        )
-                    ],
-                    limit=1,
-                )
-                .id,
+                "type": "out_invoice",
                 "invoice_line_ids": invoice_vals,
             }
         )
         # I set the force number
-        invoice.move_name = "0001"
+        invoice.write({"move_name": "0001"})
         # I validate the invoice
-        invoice.action_invoice_open()
-
+        invoice.action_post()
         # I check that the invoice number is the one we expect
-        self.assertEqual(invoice.number, invoice.move_name, msg="Wrong number")
+        self.assertEqual(invoice.name, invoice.move_name, msg="Wrong number")
         # I check move_name is not modified when validating the invoice.
-        self.assertEqual(invoice.number, "0001")
+        self.assertEqual(invoice.name, "0001")
+        # Delete invoice while move_name is True
+        with self.assertRaises(UserError):
+            invoice.unlink()
+        # Delete invoice while move_name is False
+        invoice_2 = self.env["account.move"].create(
+            {
+                "journal_id": self.env["account.journal"]
+                .search([("type", "=", "sale")], limit=1)
+                .id,
+                "partner_id": self.env.ref("base.res_partner_12").id,
+                "type": "out_invoice",
+                "invoice_line_ids": invoice_vals,
+            }
+        )
+        invoice_2.unlink()
