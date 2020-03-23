@@ -2,7 +2,7 @@
 
 {
     "name": "Update Invoice's Due Date",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.1.0",
     "author": "Vauxoo,Odoo Community Association (OCA)",
     "maintainers": [
         "luisg123v",
