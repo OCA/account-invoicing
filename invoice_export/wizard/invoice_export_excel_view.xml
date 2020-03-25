@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+        <record id="view_invoice_excel_export_wizard" model="ir.ui.view">
+            <field name="name">invoice.excel.export.wizard</field>
+            <field name="model">invoice.excel.export</field>
+            <field name="arch" type="xml">
+                <form string="Invoices">
+                    <field name="invoice_ids" context="{'tree_view_ref': 'account.invoice_tree'}"/>
+                    <footer>
+					<button name="export_report_xlsx" string="Export Excel" type="object"
+						class="oe_highlight" />
+					<button string="Cancel"
+						special="cancel" />
+				</footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_invoice_excel_export" model="ir.actions.act_window">
+            <field name="name">Invoice Excel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">invoice.excel.export</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+		<menuitem name="Invoice Excel"
+            id="menu_invoice_excel_export"
+            parent="sale.sale_order_menu"
+            action="action_invoice_excel_export"/>
+</odoo>
