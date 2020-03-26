@@ -17,6 +17,7 @@ setuptools.setup(
         'odoo13-addon-account_move_tier_validation',
         'odoo13-addon-sale_order_invoicing_grouping_criteria',
         'odoo13-addon-sale_order_invoicing_queued',
+        'odoo13-addon-sale_timesheet_invoice_description',
     ],
     classifiers=[
         'Programming Language :: Python',
