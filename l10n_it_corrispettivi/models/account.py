@@ -13,6 +13,11 @@ class AccountInvoice(models.Model):
         if not self._context.get('default_corrispettivi', False):
             # If this is not a receipts (corrispettivi), do nothing
             return False
+        domain = [('use_corrispettivi', '=', True)]
+        partner = self.env['res.partner'].search(
+            domain, order="id desc", limit=1)
+        if partner:
+            return partner.id
         return self.env.ref('base.public_user').partner_id.id
 
     @api.model

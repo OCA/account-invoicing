@@ -112,7 +112,7 @@ class TestCorrispettivi(AccountingTestCase):
         corr_invoice = self.create_corrispettivi_invoice()
         self.assertEqual(
             corr_invoice.partner_id.id,
-            self.env.ref('base.public_user').partner_id.id)
+            self.corrispettivi_partner.id)
         self.assertEqual(
             corr_invoice.journal_id,
             self.journal_model.get_corr_journal())
