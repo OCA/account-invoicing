@@ -2,32 +2,31 @@
 # Copyright 2014-2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import common
 from .. import post_init_hook
+from odoo.addons.account.tests.account_test_no_chart \
+    import TestAccountNoChartCommon
 
 
-class TestInvoiceRefundLinkBase(common.SavepointCase):
+class TestInvoiceRefundLinkBase(TestAccountNoChartCommon):
     filter_refund = 'refund'
 
     @classmethod
     def setUpClass(cls):
-        super(TestInvoiceRefundLinkBase, cls).setUpClass()
+        super().setUpClass()
+        super().setUpAdditionalAccounts()
         cls.partner = cls.env['res.partner'].create({
             'name': 'Test partner',
+            'customer': True,
+            'property_account_receivable_id': cls.account_receivable.id,
         })
-        default_line_account = cls.env['account.account'].search([
-            ('internal_type', '=', 'other'),
-            ('deprecated', '=', False),
-            ('company_id', '=', cls.env.user.company_id.id),
-        ], limit=1)
         cls.invoice_lines = [(0, False, {
             'name': 'Test description #1',
-            'account_id': default_line_account.id,
+            'account_id': cls.account_income.id,
             'quantity': 1.0,
             'price_unit': 100.0,
         }), (0, False, {
             'name': 'Test description #2',
-            'account_id': default_line_account.id,
+            'account_id': cls.account_income.id,
             'quantity': 2.0,
             'price_unit': 25.0,
         })]
