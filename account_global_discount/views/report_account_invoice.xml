@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@id='total']/div/table/tr[1]" position="before">
+            <t t-if="o.global_discount_ids">
+                <tr>
+                    <td><strong>Subtotal w/o disc.</strong></td>
+                    <td class="text-right">
+                        <span t-field="o.amount_untaxed_before_global_discounts"
+                            t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                    </td>
+                </tr>
+                <tr style="border-bottom:1px solid #dddddd;">
+                    <td><strong>Global Discounts</strong><br />
+                    <t t-esc="'→'.join(['{:.2f}%'.format(x.discount) for x in o.global_discount_ids])"/></td>
+                    <td class="text-right">
+                        <span t-field="o.amount_global_discount"
+                            t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
