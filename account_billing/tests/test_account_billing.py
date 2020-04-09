@@ -14,10 +14,10 @@ class TestAccountBilling(SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.journal_sale = cls.env["account.journal"].search([("type", "=", "sale")])[0]
-        cls.invoice_model = cls.env["account.invoice"]
-        cls.invoice_line_model = cls.env["account.invoice.line"]
+        cls.invoice_model = cls.env["account.move"]
+        cls.invoice_line_model = cls.env["account.move.line"]
         cls.billing_model = cls.env["account.billing"]
-        cls.register_payments_model = cls.env["account.register.payments"]
+        cls.register_payments_model = cls.env["account.payment.register"]
 
         cls.partner_id = cls.env["res.partner"].create({"name": "Test Partner"})
         cls.payment_term = cls.env.ref("account.account_payment_term_15days")
@@ -77,13 +77,13 @@ class TestAccountBilling(SavepointCase):
             amount=500,
             currency_id=cls.currency_usd_id,
             partner=cls.partner_id.id,
-            type="in_refund",
+            invoice_type="in_refund",
         )
 
     def create_invoice(
         self,
         amount=None,
-        type="out_invoice",
+        invoice_type="out_invoice",
         currency_id=None,
         partner=None,
         account_id=None,
@@ -93,23 +93,24 @@ class TestAccountBilling(SavepointCase):
             {
                 "partner_id": partner or self.partner_agrolait.id,
                 "currency_id": currency_id or self.currency_eur_id,
-                "name": type,
-                "account_id": account_id or self.account_receivable.id,
-                "type": type,
-                "payment_term_id": self.payment_term.id,
+                "type": invoice_type,
+                "invoice_payment_term_id": self.payment_term.id,
+                "invoice_line_ids": [
+                    [
+                        0,
+                        0,
+                        {
+                            "product_id": self.product.id,
+                            "quantity": 1,
+                            "price_unit": amount,
+                            "name": "something",
+                            "account_id": self.account_revenue.id,
+                        },
+                    ]
+                ],
             }
         )
-        self.invoice_line_model.create(
-            {
-                "product_id": self.product.id,
-                "quantity": 1,
-                "price_unit": amount,
-                "invoice_id": invoice.id,
-                "name": "something",
-                "account_id": self.account_revenue.id,
-            }
-        )
-        invoice.action_invoice_open()
+        invoice.action_post()
         return invoice
 
     def create_payment(self, ctx):
@@ -123,7 +124,7 @@ class TestAccountBilling(SavepointCase):
 
     def test_1_invoice_partner(self):
         ctx = {
-            "active_model": "account.invoice",
+            "active_model": "account.move",
             "active_ids": [self.inv_1.id, self.inv_4.id],
             "bill_type": "out_invoice",
         }
@@ -132,7 +133,7 @@ class TestAccountBilling(SavepointCase):
 
     def test_2_invoice_currency(self):
         ctx1 = {
-            "active_model": "account.invoice",
+            "active_model": "account.move",
             "active_ids": [self.inv_1.id, self.inv_3.id],
             "bill_type": "out_invoice",
         }
@@ -150,12 +151,11 @@ class TestAccountBilling(SavepointCase):
     def test_4_create_billing_from_selected_invoices(self):
         """ Create two invoices, post it and send context to Billing """
         ctx = {
-            "active_model": "account.invoice",
+            "active_model": "account.move",
             "active_ids": [self.inv_1.id, self.inv_2.id],
             "bill_type": "out_invoice",
         }
         customer_billing1 = self.billing_model.with_context(ctx).create({})
-        customer_billing1._onchange_bill_type()
         self.assertEqual(customer_billing1.state, "draft")
         customer_billing1.with_context(ctx)._onchange_invoice_list()
         with self.assertRaises(ValidationError):
@@ -185,13 +185,14 @@ class TestAccountBilling(SavepointCase):
                 "partner_id": self.partner_id.id,
                 "currency_id": self.currency_eur_id,
                 "threshold_date": datetime.now(),
-                "billing_date_type": "date_due",
+                "threshold_date_type": "invoice_date_due",
             }
         )
-        bill1.threshold_date = bill1.threshold_date + relativedelta(months=1)
+        bill1.threshold_date = bill1.threshold_date + relativedelta(months=12)
         bill1._onchange_invoice_list()
         bill1.validate_billing()
         self.assertEqual(bill1.invoice_related_count, 2)
+        self.assertEqual(bill1.billing_line_ids.mapped("invoice_id.billing_ids"), bill1)
 
         # Create billing type - supplier
         bill2 = self.billing_model.create(
@@ -200,9 +201,21 @@ class TestAccountBilling(SavepointCase):
                 "partner_id": self.partner_id.id,
                 "currency_id": self.currency_usd_id,
                 "threshold_date": datetime.now(),
+                "threshold_date_type": "invoice_date_due",
             }
         )
         bill2.threshold_date = bill2.threshold_date + relativedelta(months=1)
         bill2._onchange_invoice_list()
         bill2.validate_billing()
         self.assertEqual(bill2.invoice_related_count, 1)
+
+    def test_6_check_billing_from_bills(self):
+        self.inv_1.type = "in_invoice"
+        self.inv_2.type = "in_invoice"
+        ctx = {
+            "active_model": "account.move",
+            "active_ids": [self.inv_1.id, self.inv_2.id],
+            "bill_type": "in_invoice",
+        }
+        vendor_billing = self.billing_model.with_context(ctx).create({})
+        vendor_billing.with_context(ctx)._onchange_invoice_list()
