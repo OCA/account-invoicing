@@ -40,48 +40,48 @@
                     </div>
                 </div>
                 <table class="table table-sm o_main_table" name="invoice_line_table">
-                    <thead>
+                    <thead name="line_header">
                         <tr>
                             <t t-set="colspan" t-value="6" />
-                            <th class="text-left">
+                            <th>
                                 <span>Invoice Number</span>
                             </th>
-                            <th class="text-left">
+                            <th>
                                 <span>Invoice Date</span>
                             </th>
-                            <th class="text-left">
+                            <th>
                                 <span>Due Date</span>
                             </th>
-                            <th class="text-left">
+                            <th>
                                 <span>Source Document</span>
                             </th>
                             <th class="text-right">
                                 <span>Total</span>
                             </th>
-                            <th class="text-left">
+                            <th>
                                 <span>Status</span>
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="billing_tbody">
+                    <tbody name="line_body" class="billing_tbody">
                         <t t-foreach="o.billing_line_ids" t-as="line">
                             <tr name="account_billing_line">
-                                <td name="account_billing_line_number">
-                                    <span t-field="line.number" />
+                                <td>
+                                    <span t-field="line.name" />
                                 </td>
-                                <td t-attf-class="text-left">
+                                <td>
                                     <span t-field="line.invoice_date" />
                                 </td>
-                                <td t-attf-class="text-left">
-                                    <span t-field="line.invoice_id.date_due" />
+                                <td>
+                                    <span t-field="line.invoice_id.invoice_date_due" />
                                 </td>
-                                <td t-attf-class="text-left">
+                                <td>
                                     <span t-field="line.origin" />
                                 </td>
                                 <td class="text-right">
                                     <span t-field="line.total" />
                                 </td>
-                                <td class="text-left">
+                                <td>
                                     <span t-field="line.state" />
                                 </td>
                             </tr>
