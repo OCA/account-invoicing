@@ -11,3 +11,7 @@ class AccountMoveLine(models.Model):
         string='Global Discount',
         ondelete='restrict',
     )
+    invoice_global_discount_id = fields.Many2one(
+        comodel_name='account.invoice.global.discount',
+        string='Invoice Global Discount',
+    )
