@@ -17,6 +17,7 @@
         'security/security.xml',
         'views/account_invoice_views.xml',
         'views/global_discount_views.xml',
+        'views/report_account_invoice.xml',
     ],
     'application': False,
     'installable': True,
