@@ -150,7 +150,6 @@
                             <field
                                 name="partner_id"
                                 attrs="{'readonly': [('state', '!=', 'draft')]}"
-                                context="{'default_supplier': bill_type == 'in_invoice', 'default_customer': bill_type == 'out_invoice'}"
                             />
                             <field name="bill_type" invisible="1" />
                         </group>
@@ -166,7 +165,7 @@
                             <field name="billing_line_ids">
                                 <tree name="billing" create="0" editable="bottom">
                                     <field name="invoice_id" />
-                                    <field name="number" readonly="1" force_save="1" />
+                                    <field name="name" readonly="1" force_save="1" />
                                     <field
                                         name="invoice_date"
                                         readonly="1"
@@ -207,11 +206,10 @@
     <record id="action_customer_billing" model="ir.actions.act_window">
         <field name="name">Billing</field>
         <field name="res_model">account.billing</field>
-        <field name="view_id" eval="False" />
+        <field name="view_id" eval="view_account_billing_tree" />
         <field
             name="context"
         >{'bill_type':'out_invoice', 'search_default_customer_filter': 1}</field>
-        <field name="view_id" ref="view_account_billing_tree" />
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
             Click to register a new billing.
@@ -225,11 +223,10 @@
     <record id="action_supplier_billing" model="ir.actions.act_window">
         <field name="name">Billing</field>
         <field name="res_model">account.billing</field>
-        <field name="view_id" eval="False" />
+        <field name="view_id" eval="view_account_supplier_billing_tree" />
         <field
             name="context"
         >{'bill_type':'in_invoice', 'search_default_vendor_filter': 1}</field>
-        <field name="view_id" ref="view_account_supplier_billing_tree" />
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
             Click to register a new billing.
