@@ -1,1 +1,1 @@
-import test_partner
+import test_res_partner
