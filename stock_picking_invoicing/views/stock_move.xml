@@ -11,7 +11,7 @@
             </field>
             <group name="quants_grp" position="after">
                 <group name="invoice_lines" string="Invoicing" colspan="4" groups="base.group_no_one" attrs="{'invisible': [('invoice_state', 'in', [False, 'none'])]}">
-                    <field name="invoice_line_id" readonly="1" nolabel="1"/>
+                    <field name="invoice_line_ids" readonly="1" nolabel="1"/>
                 </group>
             </group>
         </field>
@@ -25,7 +25,7 @@
             <field name="date" position="after">
                 <field name="invoice_state" groups="account.group_account_invoice"/>
             </field>
-            <field name="invoice_line_id" position="attributes">
+            <field name="invoice_line_ids" position="attributes">
                 <attribute name="attrs">{'invisible': [('invoice_state', 'in', [False, 'none'])]}</attribute>
             </field>
 
