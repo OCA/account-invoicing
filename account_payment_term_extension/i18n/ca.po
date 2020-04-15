@@ -9,30 +9,31 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-30 02:46+0000\n"
-"PO-Revision-Date: 2018-03-30 02:46+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"PO-Revision-Date: 2020-04-15 19:19+0000\n"
+"Last-Translator: mtbochaca <mtbochaca@gmail.com>\n"
 "Language-Team: Catalan (https://www.transifex.com/oca/teams/23907/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: account_payment_term_extension
 #: model:account.payment.term,name:account_payment_term_extension.sixty_days_end_of_month
 #: model:account.payment.term,note:account_payment_term_extension.sixty_days_end_of_month
 msgid "60 Days End of Month"
-msgstr ""
+msgstr "60 Dies Final de Mes"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_sequential_lines
 msgid "Allows to apply a chronological order on lines."
-msgstr ""
+msgstr "Permet aplicar un ordre cronològic a les línies."
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_amount_round
 msgid "Amount Rounding"
-msgstr ""
+msgstr "Quantitat d'arrodoniment"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_create_uid
@@ -48,7 +49,7 @@ msgstr "Creat el"
 #: code:addons/account_payment_term_extension/models/account_payment_term.py:41
 #, python-format
 msgid "Date %s cannot is both a holiday and a Postponed date"
-msgstr ""
+msgstr "La data %s no pot ser alhora un festiu i una data ajornada"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_display_name
@@ -58,30 +59,30 @@ msgstr "Veure el nom"
 #. module: account_payment_term_extension
 #: model:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_line_form
 msgid "Due Date Computation"
-msgstr ""
+msgstr "Càlcul de la Data de Venciment"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_holiday
 msgid "Holiday"
-msgstr ""
+msgstr "Vacances"
 
 #. module: account_payment_term_extension
 #: code:addons/account_payment_term_extension/models/account_payment_term.py:29
 #, python-format
 msgid "Holiday %s can only be postponed into the future"
-msgstr ""
+msgstr "Les Vacances %s només poden ser ajornades en el futur"
 
 #. module: account_payment_term_extension
 #: code:addons/account_payment_term_extension/models/account_payment_term.py:34
 #, python-format
 msgid "Holiday %s is duplicated in current payment term"
-msgstr ""
+msgstr "Les vacances %s estan duplicades en l'actual termini de pagament"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_ids
 #: model:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_form
 msgid "Holidays"
-msgstr ""
+msgstr "Vacances"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_id
@@ -106,43 +107,43 @@ msgstr "Darrera Actualització el"
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_months
 msgid "Number of Months"
-msgstr ""
+msgstr "Nombre de Mesos"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_weeks
 msgid "Number of Weeks"
-msgstr ""
+msgstr "Nombre de Setmanes"
 
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term
 msgid "Payment Term"
-msgstr ""
+msgstr "Termini de Pagament"
 
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term_line
 msgid "Payment Term Line"
-msgstr ""
+msgstr "Línia de Termini de Pagament"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_line_payment_days
 msgid "Payment day(s)"
-msgstr ""
+msgstr "Dia(es) de Pagament"
 
 #. module: account_payment_term_extension
 #: code:addons/account_payment_term_extension/models/account_payment_term.py:105
 #, python-format
 msgid "Payment days field format is not valid."
-msgstr ""
+msgstr "El format del camp dies de pagament no és vàlid."
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_payment_id
 msgid "Payment id"
-msgstr ""
+msgstr "ID de Pagament"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_holiday_date_postponed
 msgid "Postponed date"
-msgstr ""
+msgstr "Data d'ajornament"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_line_payment_days
@@ -150,11 +151,13 @@ msgid ""
 "Put here the day or days when the partner makes the payment. Separate each "
 "possible payment day with dashes (-), commas (,) or spaces ( )."
 msgstr ""
+"Poseu aquí el dia o els dies que el contacte realitza el pagament. Es "
+"possible separar el pagament amb guions (-), comes (,) o espais ( )."
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,field_description:account_payment_term_extension.field_account_payment_term_sequential_lines
 msgid "Sequential lines"
-msgstr ""
+msgstr "Línies seqüencials"
 
 #. module: account_payment_term_extension
 #: model:ir.model.fields,help:account_payment_term_extension.field_account_payment_term_line_amount_round
@@ -162,6 +165,9 @@ msgid ""
 "Sets the amount so that it is a multiple of this value.\n"
 "To have amounts that end in 0.99, set rounding 1, surcharge -0.01"
 msgstr ""
+"Estableix la quantitat de manera que sigui un múltiple d’aquest valor.\n"
+"Per tenir quantitats que finalitzin amb 0.99, poseu l'arrodoniment a 1 i el "
+"recàrrec a -0.01"
 
 #. module: account_payment_term_extension
 #: model:ir.ui.view,arch_db:account_payment_term_extension.view_payment_term_form
