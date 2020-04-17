@@ -43,7 +43,7 @@ addon | version | summary
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 10.0.1.0.0 | Account invoice search by reference
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 10.0.1.0.0 | Checks that supplier invoices are not entered twice
 [account_invoice_supplierinfo_update](account_invoice_supplierinfo_update/) | 10.0.1.0.1 | In the supplier invoice, automatically updates all products whose unit price on the line is different from the supplier price
-[account_invoice_transmit_method](account_invoice_transmit_method/) | 10.0.1.0.0 | Configure invoice transmit method (email, post, portal, ...)
+[account_invoice_transmit_method](account_invoice_transmit_method/) | 10.0.1.0.1 | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 10.0.1.0.2 | Manage triple discount on invoice lines
 [account_invoice_view_payment](account_invoice_view_payment/) | 10.0.1.0.0 | Access to the payment from an invoice
 [account_payment_term_extension](account_payment_term_extension/) | 10.0.1.1.0 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
