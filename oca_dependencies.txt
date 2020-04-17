@@ -2,3 +2,4 @@ account-financial-tools
 product-attribute
 purchase-workflow
 stock-logistics-workflow
+server-tools
