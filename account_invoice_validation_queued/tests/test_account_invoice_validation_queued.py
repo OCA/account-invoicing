@@ -9,14 +9,12 @@ class TestAccountInvoiceValidationQueued(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.wizard_obj = cls.env["account.invoice.confirm"]
+        cls.wizard_obj = cls.env["validate.account.move"]
         cls.queue_obj = cls.env["queue.job"]
+
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
-        cls.product = cls.env["product.product"].create(
-            {"name": "Test product", "type": "service",}
-        )
         cls.account_type = cls.env["account.account.type"].create(
-            {"name": "Test account type",}
+            {"name": "Test account type", "internal_group": "equity"}
         )
         cls.account = cls.env["account.account"].create(
             {
@@ -25,22 +23,19 @@ class TestAccountInvoiceValidationQueued(SavepointCase):
                 "user_type_id": cls.account_type.id,
             }
         )
-        cls.invoice = cls.env["account.invoice"].create(
+        cls.invoice = cls.env["account.move"].create(
             {
                 "partner_id": cls.partner.id,
                 "type": "out_invoice",
-                "account_id": cls.partner.property_account_receivable_id.id,
                 "invoice_line_ids": [
                     (
                         0,
                         0,
                         {
-                            "name": cls.product.name,
-                            "product_id": cls.product.id,
+                            "name": "Test product",
                             "account_id": cls.account.id,
                             "price_unit": 20,
                             "quantity": 1,
-                            "uom_id": cls.product.uom_id.id,
                         },
                     ),
                 ],
@@ -57,7 +52,7 @@ class TestAccountInvoiceValidationQueued(SavepointCase):
         self.assertTrue(self.invoice.validation_job_ids)
 
     def test_queue_validation_several_dates(self):
-        invoice2 = self.invoice.copy({"date_invoice": "2019-01-01"})
+        invoice2 = self.invoice.copy({"date": "2019-01-01"})
         wizard = self.wizard_obj.with_context(
             active_ids=(self.invoice + invoice2).ids,
         ).create({})
@@ -67,4 +62,4 @@ class TestAccountInvoiceValidationQueued(SavepointCase):
     def test_validation(self):
         # Execute method directly for checking if validation is done
         self.invoice.action_invoice_open_job()
-        self.assertEqual(self.invoice.state, "open")
+        self.assertEqual(self.invoice.state, "posted")
