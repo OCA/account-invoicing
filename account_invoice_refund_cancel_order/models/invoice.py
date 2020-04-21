@@ -48,8 +48,13 @@ class AccountInvoice(models.Model):
                 ('code', '=', 'manual'),
                 ('payment_type', '=', 'inbound'),
             ])
+            # get the payment journal:
+            original_payments = payment_obj.search([
+                ('invoice_ids', 'in', [self.id]),
+            ])
+            journal_id = original_payments[0].journal_id.id
             payment = payment_obj.create({
-                'journal_id': refund.journal_id.id,
+                'journal_id': journal_id,
                 'payment_date': today_str,
                 'amount': refund.amount_total,
                 'communication': description,
