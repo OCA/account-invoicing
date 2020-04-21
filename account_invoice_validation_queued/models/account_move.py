@@ -1,4 +1,5 @@
 # Copyright 2019 Tecnativa - Pedro M. Baeza
+# Copyright 2020 Tecnativa - Manuel Calero
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models
@@ -6,8 +7,8 @@ from odoo import fields, models
 from odoo.addons.queue_job.job import job
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     validation_job_ids = fields.Many2many(
         comodel_name="queue.job",
@@ -22,4 +23,4 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         if self.state not in {"draft", "sent"}:
             return
-        self.action_invoice_open()
+        self.post()
