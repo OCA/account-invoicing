@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_picking_form" model="ir.ui.view" >
+        <field name="name">stock.move.form.invoice_state</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock_picking_invoice_link.view_move_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="date_expected" position="after">
+                <field name="invoice_state" groups="account.group_account_invoice"/>
+            </field>
+            <group name="quants_grp" position="after">
+                <group name="invoice_lines" string="Invoicing" colspan="4" groups="base.group_no_one" attrs="{'invisible': [('invoice_state', 'in', [False, 'none'])]}">
+                    <field name="invoice_line_ids" readonly="1" nolabel="1"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <record id="view_move_form_inherit" model="ir.ui.view">
+        <field name="name">stock.move.form.inherit</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock_picking_invoice_link.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="invoice_state" groups="account.group_account_invoice"/>
+            </field>
+            <field name="invoice_line_ids" position="attributes">
+                <attribute name="attrs">{'invisible': [('invoice_state', 'in', [False, 'none'])]}</attribute>
+            </field>
+
+        </field>
+    </record>
+
+    <record id="view_move_tree" model="ir.ui.view">
+        <field name="name">stock.move.tree (in stock_picking_invoicing)</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="invoice_state" groups="account.group_account_invoice"/>
+            </field>
+        </field>
+    </record>
+
+    <!--Tree view used into stock.picking form view-->
+    <record id="view_picking_move_tree" model="ir.ui.view">
+        <field name="name">stock.move.tree (in stock_picking_invoicing)</field>
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_picking_move_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="invoice_state" groups="account.group_account_invoice"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
