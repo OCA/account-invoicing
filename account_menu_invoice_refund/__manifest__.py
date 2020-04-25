@@ -3,7 +3,7 @@
 
 {
     'name': 'Accunt Menu - Invoice & Refund',
-    'version': '12.0.1.0.0',
+    'version': '12.0.2.0.0',
     'summary': 'New invoice menu that combine invoices and refunds',
     'category': 'Accounting & Finance',
     'author': 'Ecosoft, '
@@ -19,5 +19,4 @@
     'installable': True,
     'development_status': 'beta',
     'maintainers': ['kittiu'],
-    'post_load': 'post_load_hook',
 }
