@@ -19,5 +19,4 @@
     'installable': True,
     'development_status': 'beta',
     'maintainers': ['kittiu'],
-    'post_load': 'post_load_hook',
 }
