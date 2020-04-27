@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_menu_invoice_refund
+# 	* account_menu_invoice_refund
 #
 msgid ""
 msgstr ""
@@ -34,25 +34,21 @@ msgstr "Criar uma fatura de fornecedor"
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_out_tree
-msgid "Create invoices, register payments and keep track of the discussions with your customers."
+msgid ""
+"Create invoices, register payments and keep track of the discussions with "
+"your customers."
 msgstr ""
 "Crie faturas, registe pagamentos e mantenha um registo das conversações com "
 "os seus clientes."
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_in_tree
-msgid "Create vendor bills, register payments and keep track of the discussions with your customers."
+msgid ""
+"Create vendor bills, register payments and keep track of the discussions "
+"with your customers."
 msgstr ""
 "Crie faturas de fornecedores, registe pagamentos e mantenha um registo das "
 "conversações com os seus clientes."
-
-#. module: account_menu_invoice_refund
-#: code:addons/account_menu_invoice_refund/hooks.py:37
-#, python-format
-msgid "In order to pay multiple invoices at once, they must use the same currency."
-msgstr ""
-"Para pagar simultaneamente múltiplas faturas, estas têm que ter a mesma "
-"moeda."
 
 #. module: account_menu_invoice_refund
 #: model:ir.actions.act_window,name:account_menu_invoice_refund.action_invoice_out_tree
@@ -60,8 +56,12 @@ msgstr ""
 msgid "Invoices / Credit Notes"
 msgstr "Faturas / Créditos"
 
-#. module: account_menu_invoice_refund
-#: code:addons/account_menu_invoice_refund/hooks.py:34
-#, python-format
-msgid "You can only register payments for open invoices"
-msgstr "Só pode registar pagamentos para faturas em aberto"
+#~ msgid ""
+#~ "In order to pay multiple invoices at once, they must use the same "
+#~ "currency."
+#~ msgstr ""
+#~ "Para pagar simultaneamente múltiplas faturas, estas têm que ter a mesma "
+#~ "moeda."
+
+#~ msgid "You can only register payments for open invoices"
+#~ msgstr "Só pode registar pagamentos para faturas em aberto"
