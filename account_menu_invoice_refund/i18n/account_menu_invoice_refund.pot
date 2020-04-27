@@ -40,20 +40,8 @@ msgid "Create vendor bills, register payments and keep track of the discussions 
 msgstr ""
 
 #. module: account_menu_invoice_refund
-#: code:addons/account_menu_invoice_refund/hooks.py:37
-#, python-format
-msgid "In order to pay multiple invoices at once, they must use the same currency."
-msgstr ""
-
-#. module: account_menu_invoice_refund
 #: model:ir.actions.act_window,name:account_menu_invoice_refund.action_invoice_out_tree
 #: model:ir.ui.menu,name:account_menu_invoice_refund.menu_action_invoice_out_tree
 msgid "Invoices / Credit Notes"
-msgstr ""
-
-#. module: account_menu_invoice_refund
-#: code:addons/account_menu_invoice_refund/hooks.py:34
-#, python-format
-msgid "You can only register payments for open invoices"
 msgstr ""
 
