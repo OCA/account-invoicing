@@ -404,7 +404,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param invoice: account.invoice
         :return: dict
         """
-        name = ", ".join(moves.mapped("product_id.name"))
+        name = ", ".join(moves.mapped("name"))
         move = fields.first(moves)
         product = move.product_id
         fiscal_position = self.env['account.fiscal.position'].browse(
@@ -465,6 +465,7 @@ class StockInvoiceOnshipping(models.TransientModel):
             if move.sale_line_id:
                 values['sale_line_ids'] = [(6, 0, move.sale_line_id.id)]
         values = self._simulate_invoice_line_onchange(values)
+        values.update({'name': name})
         return values
 
     @api.multi
@@ -512,6 +513,7 @@ class StockInvoiceOnshipping(models.TransientModel):
                     pickings
                 )
                 lines = [(5, 0, {})]
+                line_values = False
                 for moves in moves_list:
                     line_values = self._get_invoice_line_values(
                         moves, invoice_values, invoice
@@ -520,6 +522,7 @@ class StockInvoiceOnshipping(models.TransientModel):
                         lines.append((0, 0, line_values))
                 if line_values:  # Only create the invoice if it have lines
                     invoice_values['invoice_line_ids'] = lines
+                    invoice_values['date_invoice'] = self.invoice_date
                     invoice = self._create_invoice(invoice_values)
                     invoice._onchange_invoice_line_ids()
                     invoice.compute_taxes()
