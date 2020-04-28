@@ -74,7 +74,7 @@
             <button name="%(stock.act_stock_return_picking)d" position="after">
                 <button name="set_to_be_invoiced" type="object" string="Set to be invoiced"
                         attrs="{'invisible':['|', '|',
-                         ('invoice_state', 'in', ('2binvoiced', 'invoiced')),
+                         ('invoice_state', '=', 'invoiced'),
                          ('invoice_ids', '=', True), ('state', '=', 'cancel')]}"/>
             </button>
         </field>
