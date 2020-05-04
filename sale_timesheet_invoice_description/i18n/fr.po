@@ -26,13 +26,13 @@ msgid "Config Settings"
 msgstr "res.config.settings"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:19
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Date - Description"
 msgstr "Date - Description"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:18
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Date - Time spent - Description"
 msgstr "Date - Temps presté - Description"
@@ -43,13 +43,13 @@ msgid "Default timesheet details on invoice lines"
 msgstr "Détails des feuilles de temps par défaut sur les lignes de facture"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:20
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Description"
 msgstr "Description"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:17
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "None"
 msgstr "Aucune"
@@ -57,7 +57,7 @@ msgstr "Aucune"
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order
 #, fuzzy
-msgid "Sale Order"
+msgid "Sales Order"
 msgstr "Ligne de commandes de vente"
 
 #. module: sale_timesheet_invoice_description
@@ -66,7 +66,7 @@ msgid "Sales Order Line"
 msgstr "Ligne de commandes de vente"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:21
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Time spent - Description"
 msgstr "Temps presté - Description"
