@@ -26,13 +26,13 @@ msgid "Config Settings"
 msgstr "Parámetros de configuración"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:19
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Date - Description"
 msgstr "Fecha - Descripción"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:18
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Date - Time spent - Description"
 msgstr "Fecha - Tiempo empleado - Descripción"
@@ -43,20 +43,22 @@ msgid "Default timesheet details on invoice lines"
 msgstr "Detalles por defecto del parte de horas en las líneas de factura"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:20
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Description"
 msgstr "Descripción"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:17
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "None"
 msgstr "Ninguno"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order
-msgid "Sale Order"
+#, fuzzy
+#| msgid "Sale Order"
+msgid "Sales Order"
 msgstr "Número de pedido"
 
 #. module: sale_timesheet_invoice_description
@@ -65,7 +67,7 @@ msgid "Sales Order Line"
 msgstr "Línea pedido de venta"
 
 #. module: sale_timesheet_invoice_description
-#: code:addons/sale_timesheet_invoice_description/models/sale.py:21
+#: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Time spent - Description"
 msgstr "Tiempo empleado - Descripción"
