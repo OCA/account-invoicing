@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo13-addon-account_invoice_search_by_reference',
         'odoo13-addon-account_invoice_supplier_ref_reuse',
         'odoo13-addon-account_invoice_supplier_ref_unique',
+        'odoo13-addon-account_invoice_validation_queued',
         'odoo13-addon-account_move_tier_validation',
         'odoo13-addon-sale_order_invoicing_grouping_criteria',
         'odoo13-addon-sale_order_invoicing_queued',
