@@ -118,9 +118,8 @@ class AccountInvoice(models.Model):
                 self)
             currency = self.currency_id.with_context(
                 date=date)
-            if not (self.get('currency_id') and self.get('amount_currency')):
-                amount_currency = currency.round(price)
-                price = currency.compute(price, company_currency)
+            amount_currency = currency.round(price)
+            price = currency.compute(price, company_currency)
         else:
             amount_currency = False
             price = self.currency_id.round(price)
