@@ -22,19 +22,14 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: account_invoice_validation_queued
-#: model:ir.model,name:account_invoice_validation_queued.model_account_invoice_confirm
-msgid "Confirm the selected invoices"
-msgstr "Confirmar las facturas seleccionadas"
-
-#. module: account_invoice_validation_queued
-#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.account_invoice_confirm_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.validate_account_move_view
 msgid "Enqueue Validation"
 msgstr "Encolar validación"
 
 #. module: account_invoice_validation_queued
-#: model:ir.model,name:account_invoice_validation_queued.model_account_invoice
-msgid "Invoice"
-msgstr "Factura"
+#: model:ir.model,name:account_invoice_validation_queued.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_validation_queued
 #: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.view_queue_job_account_invoice_validation
@@ -42,17 +37,29 @@ msgid "Requeue"
 msgstr "Volver a poner en cola"
 
 #. module: account_invoice_validation_queued
-#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_account_invoice__validation_job_ids
-#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.invoice_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.invoice_supplier_form
+#: model:ir.model,name:account_invoice_validation_queued.model_validate_account_move
+#, fuzzy
+#| msgid "Validation Jobs"
+msgid "Validate Account Move"
+msgstr "Trabajos de validación"
+
+#. module: account_invoice_validation_queued
+#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_account_move__validation_job_ids
+#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.view_move_form
 msgid "Validation Jobs"
 msgstr "Trabajos de validación"
 
 #. module: account_invoice_validation_queued
-#: code:addons/account_invoice_validation_queued/wizards/account_invoice_confirm.py:22
+#: code:addons/account_invoice_validation_queued/wizards/validate_account_move.py:0
 #, python-format
 msgid "You can't enqueue invoices with different dates."
 msgstr "No puede encolar facturas de diferentes fechas."
+
+#~ msgid "Confirm the selected invoices"
+#~ msgstr "Confirmar las facturas seleccionadas"
+
+#~ msgid "Invoice"
+#~ msgstr "Factura"
 
 #~ msgid ""
 #~ "There's already an enqueued job for validating the invoice #%s. Please "
