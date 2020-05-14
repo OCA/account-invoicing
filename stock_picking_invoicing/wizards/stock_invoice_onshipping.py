@@ -345,6 +345,8 @@ class StockInvoiceOnshipping(models.TransientModel):
             'journal_id': journal.id,
             'picking_ids': [(4, p.id, False) for p in pickings],
         })
+        if hasattr(picking, 'purchase_id'):
+            values['purchase_id'] = picking.purchase_id.id
         invoice, values = self._simulate_invoice_onchange(values)
         return invoice, values
 
@@ -454,6 +456,8 @@ class StockInvoiceOnshipping(models.TransientModel):
             'move_line_ids': move_line_ids,
             'invoice_id': invoice.id,
         })
+        if hasattr(move, 'purchase_line_id'):
+            values['purchase_line_id'] = move.purchase_line_id.id
         values = self._simulate_invoice_line_onchange(values)
         return values
 
