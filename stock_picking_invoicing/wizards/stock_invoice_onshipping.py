@@ -458,6 +458,9 @@ class StockInvoiceOnshipping(models.TransientModel):
         })
         if hasattr(move, 'purchase_line_id'):
             values['purchase_line_id'] = move.purchase_line_id.id
+        if hasattr(move, 'sale_line_id'):
+            if move.sale_line_id:
+                values['sale_line_ids'] = [(6, 0, move.sale_line_id.id)]
         values = self._simulate_invoice_line_onchange(values)
         return values
 
