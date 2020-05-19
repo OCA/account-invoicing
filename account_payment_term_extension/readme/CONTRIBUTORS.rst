@@ -7,3 +7,7 @@
 
   * Pedro M. Baeza
   * Vicent Cubells
+
+* `Domatix <https://domatix.com>`:
+
+  * Carlos Martínez

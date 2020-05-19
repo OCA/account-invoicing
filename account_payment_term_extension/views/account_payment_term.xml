@@ -78,6 +78,9 @@
                 <label for="payment_days" />
                 <field name="payment_days" />
             </field>
+            <xpath expr="//form/div[2]" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
         </field>
     </record>
     <record id="view_payment_term_line_tree" model="ir.ui.view">
@@ -92,6 +95,9 @@
                 <field name="weeks" />
                 <field name="months" />
                 <field name="payment_days" />
+            </field>
+            <field name="day_of_the_month" position="attributes">
+                <attribute name="invisible">True</attribute>
             </field>
         </field>
     </record>
