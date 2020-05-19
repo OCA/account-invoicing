@@ -179,6 +179,10 @@ class AccountPaymentTerm(models.Model):
                 next_date += relativedelta(days=line.days,
                                            weeks=line.weeks,
                                            months=line.months)
+                if line.day_of_the_month > 0:
+                    months_delta = (line.day_of_the_month < next_date.day) and 1 or 0
+                    next_date += relativedelta(
+                        day=line.day_of_the_month, months=months_delta)
             elif line.option == 'after_invoice_month':
                 # Getting 1st of next month
                 next_first_date = next_date + relativedelta(day=1, months=1)
