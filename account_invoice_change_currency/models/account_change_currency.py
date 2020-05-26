@@ -78,6 +78,7 @@ class AccountInvoice(models.Model):
                 line.price_unit *= rate
             for tax in invoice.tax_line_ids:
                 tax.amount *= rate
+            invoice.compute_taxes()
 
     @api.onchange('currency_id', 'date_invoice')
     def _onchange_currency_change_rate(self):
