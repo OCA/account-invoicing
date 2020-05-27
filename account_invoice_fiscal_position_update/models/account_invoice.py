@@ -40,6 +40,12 @@ class AccountInvoice(models.Model):
                 else:
                     taxes = product.supplier_taxes_id.filtered(
                         lambda tax: tax.company_id == self.company_id)
+                    # If you change from purchase line the taxes, maintain it.
+                    # HACK: using hasattr for not depending on purchase
+                    if (hasattr(line.invoice_id, 'purchase_id') and
+                            line.invoice_id.purchase_id and
+                            line.purchase_line_id.taxes_id):
+                        taxes = line.purchase_line_id.taxes_id
                 taxes = taxes or account.tax_ids.filtered(
                     lambda tax: tax.company_id == self.company_id)
                 if fp:
