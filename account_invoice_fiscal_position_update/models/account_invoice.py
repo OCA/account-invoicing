@@ -31,7 +31,7 @@ class AccountInvoice(models.Model):
             if line.product_id:
                 account = line.get_invoice_line_account(
                     inv_type, line.product_id, fp, self.company_id)
-                product = line.with_context(force_company=self.company_id.id).\
+                product = line.with_context(force_company=self.company_id.id). \
                     product_id
                 if inv_type in ('out_invoice', 'out_refund'):
                     # M2M fields don't have an option 'company_dependent=True'
@@ -62,9 +62,9 @@ class AccountInvoice(models.Model):
                     "invoice line manually.")
             else:
                 res['warning']['message'] = _(
-                    "The following invoice lines were not updated "
-                    "to the new Fiscal Position because they don't have a "
-                    "Product: - %s You should update the Account and the "
-                    "Taxes of these invoice lines manually."
-                ) % ('- '.join(lines_without_product))
+                    ("The following invoice lines were not updated "
+                     "to the new Fiscal Position because they don't have a "
+                     "Product: - %s You should update the Account and the "
+                     "Taxes of these invoice lines manually.") % (
+                        '- '.join(lines_without_product)))
         return res
