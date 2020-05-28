@@ -4,3 +4,8 @@
   * David Vidal
   * Carlos Dauden
   * Rafael Blasco
+
+* `Xtendoo <https://www.xtendoo.es>`_
+
+  * Manuel Calero
+
