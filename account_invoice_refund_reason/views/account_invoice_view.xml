@@ -22,7 +22,7 @@
             <xpath expr="//page[@name='other_info']/group/group[1]/field[@name='name']" position="attributes">
                 <attribute name="attrs">{'invisible': [('type', 'in', ['in_refund', 'out_refund'])]}</attribute>
             </xpath>
-            <xpath expr="//field[@name='date']" position="after">
+            <xpath expr="//page[@name='other_info']/group/group[1]/field[@name='date']" position="after">
                 <field name="reason_id" attrs="{'invisible': [('reason_id', '=', False)]}" readonly="1"/>
             </xpath>
         </field>
