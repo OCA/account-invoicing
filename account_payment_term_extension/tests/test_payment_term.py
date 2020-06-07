@@ -38,6 +38,14 @@ class TestAccountPaymentTerm(TransactionCase):
             '2015-03-16',
             'Error in the compute of payment terms with weeks')
 
+    def test_02_compute(self):
+        # test for bug caused by bad use of precision_digits/precision_rounding
+        res = self.env.ref("account.account_payment_term_15days").compute(
+            0.2, date_ref="2015-03-01")
+        self.assertEquals(
+            res[0][0][0], "2015-03-16", "Error in the compute of payment terms 15 days",
+        )
+
     def test_postpone_holiday(self):
         str_date_invoice = '2015-03-02'
         str_date_holiday = '2015-03-16'
