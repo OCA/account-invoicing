@@ -24,7 +24,7 @@ class InvoiceMerge(models.TransientModel):
                       'view.'))
             invs = self.env['account.invoice'].browse(ids)
             for i, inv in enumerate(invs):
-                if inv.state != 'draft':
+                if not inv._get_draft_invoices():
                     raise UserError(
                         _('At least one of the selected invoices is %s!') %
                         inv.state)
