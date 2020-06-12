@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* stock_picking_invoicing
+# 	* stock_picking_invoicing
 #
 msgid ""
 msgstr ""
@@ -18,6 +18,7 @@ msgstr ""
 
 #. module: stock_picking_invoicing
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:493
+#: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:494
 #, python-format
 msgid "All pickings are not related to your company!"
 msgstr "Todas as coletas não estão relacionadas à sua empresa!"
@@ -85,10 +86,12 @@ msgstr "Grupo"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_invoice_onshipping__group
-msgid "Group pickings/moves to create invoice(s):\n"
+msgid ""
+"Group pickings/moves to create invoice(s):\n"
 "Picking: One invoice per picking;\n"
 "Partner: One invoice for each picking's partner;\n"
-"Partner/Product: One invoice per picking's partner and group product into a single invoice line."
+"Partner/Product: One invoice per picking's partner and group product into a "
+"single invoice line."
 msgstr ""
 "Grupo de coletas\n"
 "Movimentos para criar faturas:\n"
@@ -122,8 +125,7 @@ msgstr "Status (situação) da Fatura"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 msgid "Invoiced"
 msgstr "Faturado"
 
@@ -131,7 +133,8 @@ msgstr "Faturado"
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_invoice_state_mixin__invoice_state
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_move__invoice_state
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_picking__invoice_state
-msgid "Invoiced: an invoice already exists\n"
+msgid ""
+"Invoiced: an invoice already exists\n"
 "To Be Invoiced: need to be invoiced\n"
 "Not Applicable: no invoice to create"
 msgstr ""
@@ -174,8 +177,7 @@ msgstr "Nenhuma fatura criada!"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 msgid "Not Applicable"
 msgstr "Não se aplica"
 
@@ -251,8 +253,7 @@ msgstr "Movimentação de Estoque"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 msgid "To Be Invoiced"
 msgstr "A ser faturado"
 
