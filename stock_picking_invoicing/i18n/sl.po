@@ -21,7 +21,6 @@ msgstr ""
 "%100==4 ? 2 : 3);\n"
 
 #. module: stock_picking_invoicing
-#: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:493
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:494
 #, python-format
 msgid "All pickings are not related to your company!"
