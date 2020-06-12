@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2019-08-23 14:44+0000\n"
+"PO-Revision-Date: 2020-06-12 13:19+0000\n"
 "Last-Translator: Maria Sparenberg <maria.sparenberg@gmx.net>\n"
 "Language-Team: none\n"
 "Language: de\n"
@@ -14,13 +14,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.7.1\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: account_invoice_change_currency
 #: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_form_inherit
 #: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_supplier_form_inherit
 msgid "<i title=\"Update Currency: Will convert the amount lines to the new currency set\" class=\"fa fa-fw fa-refresh\"/>"
 msgstr ""
+"<i title=\"Währung aktualisieren: Die Beträge werden in die neue Währung "
+"umgerechnet.\" class=\"fa fa-fw fa-refresh\"/>"
 
 #. module: account_invoice_change_currency
 #: model:mail.message.subtype,description:account_invoice_change_currency.mt_currency_update
@@ -33,7 +35,7 @@ msgstr "Währung aktualisiert"
 #: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_form_inherit
 #: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_supplier_form_inherit
 msgid "Custom Rate"
-msgstr ""
+msgstr "Umrechungsfaktor"
 
 #. module: account_invoice_change_currency
 #: model:mail.message.subtype,description:account_invoice_change_currency.mt_force_rate
@@ -57,6 +59,9 @@ msgstr ""
 msgid "Set new currency rate to apply on the invoice\n"
 ".This rate will be taken in order to convert amounts between the currency on the invoice and last currency"
 msgstr ""
+"Bitte hier den neuen Umrechnungsfaktor für die Währung angeben.\n"
+"Der Faktor wird verwendet, um die Beträge in der Rechnung entsprechend "
+"umzurechnen."
 
 #. module: account_invoice_change_currency
 #: model:ir.actions.server,name:account_invoice_change_currency.toggle_force_custom_rate_action
