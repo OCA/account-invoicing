@@ -15,9 +15,9 @@ class InvoiceMerge(models.TransientModel):
         if self.env.context.get('active_model', '') == 'account.invoice':
             ids = self.env.context['active_ids']
             invs = self.env['account.invoice'].browse(ids)
-            inv_diff = invs.filtered(lambda inv: inv.payment_mode_id != invs[0].payment_mode_id )
+            inv_diff = invs.filtered(
+                lambda inv: inv.payment_mode_id != invs[0].payment_mode_id)
             if inv_diff:
                 raise UserError(
                     _('Not all invoices use the same payment mode !'))
         return res
-

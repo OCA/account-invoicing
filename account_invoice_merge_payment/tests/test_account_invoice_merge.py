@@ -37,18 +37,17 @@ class TestAccountInvoiceMergePayment(TransactionCase):
         self.invoice2 = self._create_invoice(
             self.partner1, self.payment_mode_1.id, self.invoice_account.id)
 
-
     def _create_invoice(self, partner, payment_mode_id, account_id):
         invoice = self.inv_model.create({
             'partner_id': partner.id,
             'payment_mode_id': payment_mode_id,
             'invoice_line_ids': [(0, 0, {
-            'name': 'test invoice line',
-            'account_id': account_id,
-            'quantity': 1.0,
-            'price_unit': 1.0,
-            'product_id': self.env.ref('product.product_product_2').id
-        })],
+                'name': 'test invoice line',
+                'account_id': account_id,
+                'quantity': 1.0,
+                'price_unit': 1.0,
+                'product_id': self.env.ref('product.product_product_2').id
+            })],
         })
         return invoice
 
@@ -57,7 +56,7 @@ class TestAccountInvoiceMergePayment(TransactionCase):
             'name': name,
             'bank_account_link': 'fixed',
             'payment_method_id': self.env.ref(
-            'account.account_payment_method_manual_out').id,        
+                'account.account_payment_method_manual_out').id,
             'fixed_journal_id': self.journal_c1.id,
         })
         return payment_mode
@@ -72,7 +71,7 @@ class TestAccountInvoiceMergePayment(TransactionCase):
             active_model='account.invoice'
         ).create({})
         wiz_id.fields_view_get()
-        action = wiz_id.merge_invoices()
+        wiz_id.merge_invoices()
         end_inv = self.inv_model.search(
             [('state', '=', 'draft'),
              ('partner_id', '=', self.partner1.id)])
