@@ -1,7 +1,7 @@
 # Copyright 2015-2017 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    'name': "account_invoice_merge_payment",
+    'name': "Account Invoice Merge Payment",
     'summary': """
         Use invoice merge regarding fields on Account Payment Partner""",
     'author': "ACSONE SA/NV,Odoo Community Association (OCA)",
