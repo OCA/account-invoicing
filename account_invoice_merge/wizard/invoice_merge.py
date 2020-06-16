@@ -20,6 +20,20 @@ class InvoiceMerge(models.TransientModel):
     date_invoice = fields.Date('Invoice Date')
 
     @api.model
+    def _get_not_mergeable_invoices_message(self, invoices):
+        """Overridable function to custom error message"""
+        key_fields = invoices._get_invoice_key_cols()
+        error_msg = {}
+        if len(invoices) != len(invoices._get_draft_invoices()):
+            error_msg['state'] = (
+                _('Megeable State (ex : %s)') %
+                (invoices and invoices[0].state or _('Draf')))
+        for field in key_fields:
+            if len(set(invoices.mapped(field))) > 1:
+                error_msg[field] = invoices._fields[field].string
+        return error_msg
+
+    @api.model
     def _dirty_check(self):
         if self.env.context.get('active_model', '') == 'account.invoice':
             ids = self.env.context['active_ids']
@@ -29,29 +43,11 @@ class InvoiceMerge(models.TransientModel):
                       'view.'))
 
             invs = self.env['account.invoice'].browse(ids)
-            for d in invs:
-                if d['state'] != 'draft':
-                    raise UserError(
-                        _('At least one of the selected invoices is %s!') %
-                        d['state'])
-                if d['account_id'] != invs[0]['account_id']:
-                    raise UserError(
-                        _('Not all invoices use the same account!'))
-                if d['company_id'] != invs[0]['company_id']:
-                    raise UserError(
-                        _('Not all invoices are at the same company!'))
-                if d['partner_id'] != invs[0]['partner_id']:
-                    raise UserError(
-                        _('Not all invoices are for the same partner!'))
-                if d['type'] != invs[0]['type']:
-                    raise UserError(
-                        _('Not all invoices are of the same type!'))
-                if d['currency_id'] != invs[0]['currency_id']:
-                    raise UserError(
-                        _('Not all invoices are at the same currency!'))
-                if d['journal_id'] != invs[0]['journal_id']:
-                    raise UserError(
-                        _('Not all invoices are at the same journal!'))
+            error_msg = self._get_not_mergeable_invoices_message(invs)
+            if error_msg:
+                all_msg = _("All invoices must have the same: \n")
+                all_msg += '\n'.join([value for value in error_msg.values()])
+                raise UserError(all_msg)
         return {}
 
     @api.model
