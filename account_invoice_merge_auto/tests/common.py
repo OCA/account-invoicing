@@ -10,13 +10,13 @@ class AutoMergeInvoiceTC(TransactionCase):
         revenue_type = self.env.ref('account.data_account_type_revenue')
 
         self.account_recv = self.env['account.account'].create({
-            'code': u'cust_acc', 'name': u'recv account',
+            'code': 'cust_acc', 'name': 'recv account',
             'user_type_id': receivable_type.id,
             'reconcile': True,
         })
 
         self.account_revenue = self.env['account.account'].create({
-            'code': u'rev_acc', 'name': u'revenue account',
+            'code': 'rev_acc', 'name': 'revenue account',
             'user_type_id': revenue_type.id,
         })
 
@@ -49,7 +49,7 @@ class AutoMergeInvoiceTC(TransactionCase):
             'journal_id': self.inv_journal.id,
             'date_invoice': date,
             'auto_merge': True,
-            }
+        }
         params.update(kwargs)
         invoice = self.env['account.invoice'].create(params)
         self.env['account.invoice.line'].create({

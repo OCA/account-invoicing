@@ -1,3 +1,4 @@
+from odoo import fields
 from odoo.tests.common import at_install, post_install
 
 from .common import AutoMergeInvoiceTC
@@ -28,5 +29,7 @@ class PartnerTC(AutoMergeInvoiceTC):
         self.assertEqual(len(other_inv), 1)
         self.assertEqual(other_inv.amount_total, 15)
         self.assertEqual(other_inv.state, 'draft')
-        self.assertEqual(other_inv.date_invoice, '2019-05-17')
-        self.assertEqual(self.partner_1.invoice_merge_next_date, '2019-06-15')
+        self.assertEqual(other_inv.date_invoice,
+                         fields.Date.from_string('2019-05-17'))
+        self.assertEqual(self.partner_1.invoice_merge_next_date,
+                         fields.Date.from_string('2019-06-15'))

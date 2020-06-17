@@ -2,7 +2,7 @@
     'name': 'Account invoice merge auto',
     'category': 'Accounting',
     'summary': "",
-    'version': '10.0.0.0.1',
+    'version': '12.0.0.0.1',
     'author': "Commown SCIC SAS",
     'license': "AGPL-3",
     'website': "https://commown.fr",

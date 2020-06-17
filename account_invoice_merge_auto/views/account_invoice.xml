@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <data>
-
     <record model="ir.ui.view" id="invoice_form_merge_auto">
         <field name="name">account.invoice.form</field>
         <field name="model">account.invoice</field>
@@ -13,7 +11,5 @@
           </xpath>
         </field>
     </record>
-
-  </data>
 
 </odoo>
