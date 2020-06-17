@@ -51,11 +51,11 @@ class TestAccountInvoiceMergeAttachment(TransactionCase):
 
         invoices = invoice1 + invoice2
         invoices_info = invoices.with_context(link_attachment=True).do_merge()
-        self.assertTrue(len(invoices_info.keys()) == 1)
+        self.assertTrue(len(list(invoices_info.keys())) == 1)
         attach = self.AttachmentObj.search([
-            ('res_id', 'in', invoices_info.keys()),
+            ('res_id', 'in', list(invoices_info.keys())),
             ('res_model', '=', 'account.invoice')
         ])
-        self.assertEquals(
+        self.assertEqual(
             len(attach), 3,
             msg="Merged invoiced should have 3 attachments")
