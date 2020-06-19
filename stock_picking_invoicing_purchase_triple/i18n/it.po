@@ -1,0 +1,109 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* purchase_triple_discount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-19 15:23+0000\n"
+"PO-Revision-Date: 2020-06-19 15:23+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_triple_discount
+#: model:ir.model,name:purchase_triple_discount.model_res_partner
+msgid "Contact"
+msgstr "Contatto"
+
+#. module: purchase_triple_discount
+#: model:ir.model.fields,field_description:purchase_triple_discount.field_res_partner__default_supplierinfo_discount2
+#: model:ir.model.fields,field_description:purchase_triple_discount.field_res_users__default_supplierinfo_discount2
+msgid "Default Supplier Discount 2 (%)"
+msgstr "Sconto Fornitore Predefinito 2 (%)"
+
+#. module: purchase_triple_discount
+#: model:ir.model.fields,field_description:purchase_triple_discount.field_res_partner__default_supplierinfo_discount3
+#: model:ir.model.fields,field_description:purchase_triple_discount.field_res_users__default_supplierinfo_discount3
+msgid "Default Supplier Discount 3 (%)"
+msgstr "Sconto Fornitore Predefinito 3 (%)"
+
+#. module: purchase_triple_discount
+#: model:ir.model.fields,field_description:purchase_triple_discount.field_purchase_order_line_discount2
+msgid "Disc. 2 (%)"
+msgstr "Sconto 2 (%)"
+
+#. module: purchase_triple_discount
+#: model:ir.model.fields,field_description:purchase_triple_discount.field_purchase_order_line_discount3
+msgid "Disc. 3 (%)"
+msgstr "Sconto 3 (%)"
+
+#. module: purchase_triple_discount
+#: model:ir.model.fields,field_description:purchase_triple_discount.field_product_supplierinfo_discount2
+#: model:ir.model.fields,field_description:purchase_triple_discount.field_purchase_report__discount2
+msgid "Discount 2 (%)"
+msgstr ""
+
+#. module: purchase_triple_discount
+#: sql_constraint:purchase.order.line:0
+msgid "Discount 2 must be lower than 100%."
+msgstr "Sconto 2 deve essere inferiore di 100%."
+
+#. module: purchase_triple_discount
+#: model:ir.model.fields,field_description:purchase_triple_discount.field_product_supplierinfo_discount3
+#: model:ir.model.fields,field_description:purchase_triple_discount.field_purchase_report__discount3
+msgid "Discount 3 (%)"
+msgstr ""
+
+#. module: purchase_triple_discount
+#: sql_constraint:purchase.order.line:0
+msgid "Discount 3 must be lower than 100%."
+msgstr "Sconto 3 deve essere inferiore di 100%."
+
+#. module: purchase_triple_discount
+#: model:ir.model,name:purchase_triple_discount.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: purchase_triple_discount
+#: model:ir.model,name:purchase_triple_discount.model_purchase_order
+msgid "Purchase Order"
+msgstr "Ordine di Acquisto"
+
+#. module: purchase_triple_discount
+#: model:ir.model,name:purchase_triple_discount.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Riga ordine di acquisto"
+
+#. module: purchase_triple_discount
+#: model:ir.model,name:purchase_triple_discount.model_purchase_report
+msgid "Purchase Report"
+msgstr "Report Ordine d'Acquisto"
+
+#. module: purchase_triple_discount
+#: model:ir.model,name:purchase_triple_discount.model_stock_move
+msgid "Stock Move"
+msgstr "Movimento di magazzino"
+
+#. module: purchase_triple_discount
+#: model:ir.model,name:purchase_triple_discount.model_stock_rule
+msgid "Stock Rule"
+msgstr "Regola Stock"
+
+#. module: purchase_triple_discount
+#: model:ir.model,name:purchase_triple_discount.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr "Listino Fornitore"
+
+#. module: purchase_triple_discount
+#: model:ir.model.fields,help:purchase_triple_discount.field_res_partner__default_supplierinfo_discount2
+#: model:ir.model.fields,help:purchase_triple_discount.field_res_partner__default_supplierinfo_discount3
+#: model:ir.model.fields,help:purchase_triple_discount.field_res_users__default_supplierinfo_discount2
+#: model:ir.model.fields,help:purchase_triple_discount.field_res_users__default_supplierinfo_discount3
+msgid "This value will be used as the default one, for each new supplierinfo line depending on that supplier."
+msgstr "Questo valore verrà usato come predefinito per ogni nuova riga d'ordine di acquisto che dipende da questo fornitore."
+
