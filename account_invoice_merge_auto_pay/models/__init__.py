@@ -1,2 +1,1 @@
-import res_partner
-import account_invoice
+from . import account_invoice
