@@ -8,37 +8,58 @@ from odoo import models, fields, api
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    transmit_method_id = fields.Many2one(
-        'transmit.method', string='Transmission Method',
-        track_visibility='onchange', ondelete='restrict')  # domain in the view
+    transmit_method_ids = fields.Many2many(
+        'transmit.method', string='Transmission Methods',
+        track_visibility='onchange', ondelete='restrict')
+    # domain in the view
     # Field used to match specific invoice transmit method
     # to show/display fields/buttons, add constraints, etc...
+    transmit_method_id = fields.Many2one(
+        'transmit.method', string='Transmission Method',
+        store=True, compute='_compute_transmit_method',
+        inverse='_inverse_transmit_method',
+    )
     transmit_method_code = fields.Char(
-        related='transmit_method_id.code', readonly=True, store=True)
+        related='transmit_method_id.code', readonly=True, store=True
+    )
+
+    @api.depends('transmit_method_ids')
+    def _compute_transmit_method(self):
+        for record in self:
+            method = False
+            if len(record.transmit_method_ids) == 1:
+                method = record.transmit_method_ids
+            record.transmit_method_id = method
+
+    def _inverse_transmit_method(self):
+        if self.env.context.get('computing_transmit_method', False):
+            return
+        for record in self:
+            record.transmit_method_ids = record.transmit_method_id
 
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id(self):
         res = super(AccountInvoice, self)._onchange_partner_id()
         if self.partner_id and self.type:
             if self.type in ('out_invoice', 'out_refund'):
-                self.transmit_method_id = self.partner_id.\
-                    customer_invoice_transmit_method_id.id or False
+                self.transmit_method_ids = self.partner_id.\
+                    customer_invoice_transmit_method_ids
             else:
-                self.transmit_method_id = self.partner_id.\
-                    supplier_invoice_transmit_method_id.id or False
+                self.transmit_method_ids = self.partner_id.\
+                    supplier_invoice_transmit_method_ids
         return res
 
     @api.model
     def create(self, vals):
         if (
-                'transmit_method_id' not in vals and
+                'transmit_method_ids' not in vals and
                 vals.get('type') and
                 vals.get('partner_id')):
             partner = self.env['res.partner'].browse(vals['partner_id'])
             if vals['type'] in ('out_invoice', 'out_refund'):
-                vals['transmit_method_id'] =\
-                    partner.customer_invoice_transmit_method_id.id or False
+                vals['transmit_method_ids'] = [(
+                    6, 0, partner.customer_invoice_transmit_method_ids.ids)]
             else:
-                vals['transmit_method_id'] =\
-                    partner.supplier_invoice_transmit_method_id.id or False
+                vals['transmit_method_ids'] = [(
+                    6, 0, partner.supplier_invoice_transmit_method_ids.ids)]
         return super(AccountInvoice, self).create(vals)

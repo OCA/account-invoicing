@@ -13,13 +13,30 @@
     <field name="inherit_id" ref="account.invoice_form"/>
     <field name="arch" type="xml">
         <field name="user_id" position="before">
-            <field name="transmit_method_id" widget="selection"
-                domain="[('customer_ok', '=', True)]"/>
+            <field name="transmit_method_ids" widget="many2many_tags" options="{'no_create': True}"
+                domain="[('customer_ok', '=', True)]" invisible="1"/>
+            <field name="transmit_method_id" widget="selection" domain="[('customer_ok', '=', True)]"/>
             <field name="transmit_method_code" invisible="1"/>
         </field>
         <button name="action_invoice_sent" position="attributes">
             <attribute name="attrs">{'invisible': ['|', '|', ('sent', '=', True), ('state', 'not in', ('open', 'paid')), ('transmit_method_code', 'not in', ('mail', False))]}</attribute> <!-- Only show the "Send by Mail" button when the transmit method is E-mail or empty. But I also modify the condition on 'state' field: we should be able to send the invoice by email even when the invoice is 'paid' (Even if the customer made an advance payment, he needs an invoice for his accounting !) -->
         </button>
+    </field>
+</record>
+
+<record id="invoice_form_multi_transmit" model="ir.ui.view">
+    <field name="name">Add Multi Transmit Method on Customer Invoice form view</field>
+    <field name="model">account.invoice</field>
+    <field name="groups_id" eval="[(4, ref('account_invoice_transmit_method.group_multi_transmit_method'))]"/>
+    <field name="inherit_id" ref="account_invoice_transmit_method.invoice_form"/>
+    <field name="arch" type="xml">
+        <field name="transmit_method_ids" position="attributes">
+            <attribute name="invisible">0</attribute>
+        </field>
+        <field name="transmit_method_id" position="attributes">
+            <attribute name="invisible">1</attribute>
+            <attribute name="readonly">1</attribute>
+        </field>
     </field>
 </record>
 
@@ -29,12 +46,28 @@
     <field name="inherit_id" ref="account.invoice_supplier_form"/>
     <field name="arch" type="xml">
         <field name="date" position="after">
-            <field name="transmit_method_id" widget="selection"
-                domain="[('supplier_ok', '=', True)]"/>
+            <field name="transmit_method_ids" widget="many2many_tags" options="{'no_create': True}"
+                domain="[('supplier_ok', '=', True)]" invisible="1"/>
+                <field name="transmit_method_id" widget="selection" domain="[('supplier_ok', '=', True)]"/>
             <field name="transmit_method_code" invisible="1"/>
         </field>
     </field>
 </record>
 
+<record id="invoice_supplier_form_multi_transmit" model="ir.ui.view">
+    <field name="name">Add Multi Transmit Method on Supplier Invoice form view</field>
+    <field name="model">account.invoice</field>
+    <field name="groups_id" eval="[(4, ref('account_invoice_transmit_method.group_multi_transmit_method'))]"/>
+    <field name="inherit_id" ref="account_invoice_transmit_method.invoice_supplier_form"/>
+    <field name="arch" type="xml">
+        <field name="transmit_method_ids" position="attributes">
+            <attribute name="invisible">0</attribute>
+        </field>
+        <field name="transmit_method_id" position="attributes">
+            <attribute name="invisible">1</attribute>
+            <attribute name="readonly">1</attribute>
+        </field>
+    </field>
+</record>
 
 </odoo>

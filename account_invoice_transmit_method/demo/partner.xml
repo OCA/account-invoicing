@@ -6,17 +6,17 @@
 
 <odoo noupdate="1">
 
-<record id="base.res_partner_12" model="res.partner"> <!-- C2C -->
-    <field name="customer_invoice_transmit_method_id" ref="mail"/>
-    <field name="supplier_invoice_transmit_method_id" ref="mail"/>
+<record id="base.res_partner_12" model="res.partner"> <!-- Azure Interior -->
+    <field name="customer_invoice_transmit_method_ids" eval="[(4, ref('account_invoice_transmit_method.mail'))]"/>
+    <field name="supplier_invoice_transmit_method_ids" eval="[(4, ref('account_invoice_transmit_method.mail'))]"/>
 </record>
 
-<record id="base.res_partner_1" model="res.partner">  <!-- Asus -->
-    <field name="supplier_invoice_transmit_method_id" ref="mail"/>
+<record id="base.res_partner_1" model="res.partner">  <!-- Wood Corner -->
+    <field name="supplier_invoice_transmit_method_ids" eval="[(4, ref('account_invoice_transmit_method.mail'))]"/>
 </record>
 
-<record id="base.res_partner_2" model="res.partner"> <!-- Agrolait -->
-    <field name="customer_invoice_transmit_method_id" ref="post"/>
+<record id="base.res_partner_2" model="res.partner"> <!-- Deco Addict -->
+    <field name="customer_invoice_transmit_method_ids" eval="[(4, ref('account_invoice_transmit_method.post'))]"/>
 </record>
 
 </odoo>

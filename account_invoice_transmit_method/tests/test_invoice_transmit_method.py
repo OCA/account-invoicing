@@ -32,4 +32,4 @@ class TestAccountInvoiceTransmitMethod(TransactionCase):
             'journal_id': sale_journal.id,
             'account_id': account_receivable.id,
         })
-        self.assertEqual(inv1.transmit_method_id, post_method)
+        self.assertEqual(inv1.transmit_method_ids, post_method)

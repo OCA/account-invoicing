@@ -17,10 +17,35 @@ for all users -->
     <field name="inherit_id" ref="account.view_partner_property_form"/>
     <field name="arch" type="xml">
         <field name="property_payment_term_id" position="after">
+            <field name="customer_invoice_transmit_method_ids" widget="many2many_tags" options="{'no_create': True}" invisible="1"/>
             <field name="customer_invoice_transmit_method_id" widget="selection"/>
         </field>
         <field name="property_supplier_payment_term_id" position="after">
+            <field name="supplier_invoice_transmit_method_ids" widget="many2many_tags" options="{'no_create': True}" invisible="1"/>
             <field name="supplier_invoice_transmit_method_id" widget="selection"/>
+        </field>
+    </field>
+</record>
+
+<record id="view_partner_property_form_multi_transmit" model="ir.ui.view">
+    <field name="name">Add Invoice Multi Transmit Methods on partner form view (account tab)</field>
+    <field name="model">res.partner</field>
+    <field name="groups_id" eval="[(4, ref('account_invoice_transmit_method.group_multi_transmit_method'))]"/>
+    <field name="inherit_id" ref="account_invoice_transmit_method.view_partner_property_form"/>
+    <field name="arch" type="xml">
+        <field name="customer_invoice_transmit_method_ids" position="attributes">
+            <attribute name="invisible">0</attribute>
+        </field>
+        <field name="customer_invoice_transmit_method_id" position="attributes">
+            <attribute name="invisible">1</attribute>
+            <attribute name="readonly">1</attribute>
+        </field>
+        <field name="supplier_invoice_transmit_method_ids" position="attributes">
+            <attribute name="invisible">0</attribute>
+        </field>
+        <field name="supplier_invoice_transmit_method_id" position="attributes">
+            <attribute name="invisible">1</attribute>
+            <attribute name="readonly">1</attribute>
         </field>
     </field>
 </record>
