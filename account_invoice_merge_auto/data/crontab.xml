@@ -11,7 +11,7 @@
       <field name="interval_type">days</field>
       <field name="numbercall">-1</field>
       <field eval="False" name="doall"/>
-      <field eval="'res.partner'" name="model"/>
+      <field eval="'account.invoice'" name="model"/>
       <field eval="'_cron_invoice_merge'" name="function"/>
       <field eval="'()'" name="args"/>
     </record>
