@@ -25,3 +25,4 @@ def migrate(env, version):
         "WHERE transmit_method_id IS NOT NULL")
     for r in cr.fetchall():
         env['account.invoice'].browse(r[0]).transmit_method_ids = [(4, r[1])]
+    env.ref('account_invoice_transmit_method.mail').send_mail = True

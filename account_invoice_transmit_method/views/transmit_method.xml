@@ -17,6 +17,8 @@
                 <field name="code"/>
                 <field name="customer_ok"/>
                 <field name="supplier_ok"/>
+                <field name="send_mail"/>
+                <field name="mail_template_id" attrs="{'invisible': [('send_mail', '=', False)]}"/>
             </group>
         </form>
     </field>

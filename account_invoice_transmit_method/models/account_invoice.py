@@ -2,7 +2,7 @@
 # @author: Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
@@ -63,3 +63,17 @@ class AccountInvoice(models.Model):
                 vals['transmit_method_ids'] = [(
                     6, 0, partner.supplier_invoice_transmit_method_ids.ids)]
         return super(AccountInvoice, self).create(vals)
+
+    def _transmit_invoice(self):
+        self.ensure_one()
+        transmitted = False
+        for transmit_method in self.transmit_method_ids:
+            transmition_result = transmit_method._transmit_invoice(self)
+            transmitted = transmitted or transmition_result
+        return transmitted
+
+    def action_invoice_sent(self):
+        result = super().action_invoice_sent()
+        result['context']['default_is_transmit'] = bool(
+            self.transmit_method_ids)
+        return result

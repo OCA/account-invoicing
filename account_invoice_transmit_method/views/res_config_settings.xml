@@ -25,7 +25,6 @@
                     </div>
                     <div class="o_setting_right_pane">
                         <label for="group_multi_transmit"/>
-                        <span class="fa fa-lg fa-building-o" title="Values set here are company-specific."/>
                     </div>
                 </div>
             </xpath>
