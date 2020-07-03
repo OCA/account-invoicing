@@ -16,7 +16,7 @@
             </field>
             <field name="tax_line_ids" position="before">
                 <group string="Global Discounts">
-                    <field name="invoice_global_discount_ids"  nolabel="1" attrs="{'invisible': [('global_discount_ids', '=', [])]}">
+                    <field name="invoice_global_discount_ids"  nolabel="1" attrs="{'invisible': [('global_discount_ids', '=', [])]}" force_save="1">
                         <tree create="0" delete="0">
                             <field name="name"/>
                             <field name="currency_id" invisible="1"/>
@@ -27,6 +27,7 @@
                             <field name="discount_amount"/>
                             <field name="base_discounted" widget="monetary" options="{'currency_field': 'currency_id'}" force_save="1"/>
                             <field name="account_id" required="1" force_save="1"/>
+                            <field name="tax_ids" widget="many2many_tags"/>
                             <field name="company_id" invisible="1"/>
                             <field domain="[('company_id', '=', company_id)]" name="account_analytic_id" groups="analytic.group_analytic_accounting" force_sace="1"/>
                         </tree>
