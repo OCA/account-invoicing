@@ -1,5 +1,7 @@
 # Copyright 2019 Tecnativa - David Vidal
+# Copyright 2020 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from odoo import exceptions
 from odoo.tests import common
 
 
@@ -123,9 +125,116 @@ class TestGlobalDiscount(common.SavepointCase):
         # on the type of the invoice. In this case, we fetch the supplier
         # global discounts
         self.invoice.partner_id = self.partner_2
+        # trigger onchanges mimicking UI
         self.invoice._onchange_partner_id()
+        self.invoice._onchange_global_discount_ids()
         self.assertAlmostEqual(self.invoice.tax_line_ids.base, 140.0)
         self.assertAlmostEqual(self.invoice.tax_line_ids.amount, 21.0)
         self.assertAlmostEqual(self.invoice.amount_untaxed, 140.0)
         self.assertAlmostEqual(self.invoice.amount_total, 161.0)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -60.0)
+
+    def test_03_multiple_taxes_multi_line(self):
+        tax2 = self.env['account.tax'].create({
+            'name': 'TAX 20%',
+            'amount_type': 'percent',
+            'type_tax_use': 'purchase',
+            'amount': 20.0,
+        })
+        self.invoice_line.create({
+            'invoice_id': self.invoice.id,
+            'name': 'Line 2',
+            'price_unit': 100.0,
+            'account_id': self.account.id,
+            'invoice_line_tax_ids': [(6, 0, [tax2.id])],
+            'quantity': 1,
+        })
+        self.invoice.global_discount_ids = self.global_discount_1
+        self.invoice._onchange_global_discount_ids()
+        # Global discounts are applied to the base and taxes are recomputed:
+        # 300 - 20% (global disc. 1) =  240
+        self.assertEqual(len(self.invoice.invoice_global_discount_ids), 2)
+        discount_tax_15 = self.invoice.invoice_global_discount_ids.filtered(
+            lambda x: x.tax_ids == self.tax)
+        discount_tax_20 = self.invoice.invoice_global_discount_ids.filtered(
+            lambda x: x.tax_ids == tax2)
+        self.assertAlmostEqual(discount_tax_15.discount_amount, 40)
+        self.assertAlmostEqual(discount_tax_20.discount_amount, 20)
+        tax_line_15 = self.invoice.tax_line_ids.filtered(
+            lambda x: x.tax_id == self.tax)
+        tax_line_20 = self.invoice.tax_line_ids.filtered(
+            lambda x: x.tax_id == tax2)
+        self.assertAlmostEqual(tax_line_15.base, 160)
+        self.assertAlmostEqual(tax_line_15.amount, 24)
+        self.assertAlmostEqual(tax_line_20.base, 80.0)
+        self.assertAlmostEqual(tax_line_20.amount, 16)
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 240.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 280)
+        self.assertAlmostEqual(self.invoice.amount_global_discount, -60.0)
+        # Validate invoice for seeing result
+        self.invoice.action_invoice_open()
+        self.assertEqual(len(self.invoice.move_id.line_ids), 7)
+
+    def test_04_multiple_taxes_same_line(self):
+        tax2 = self.env['account.tax'].create({
+            'name': 'Retention 20%',
+            'amount_type': 'percent',
+            'type_tax_use': 'purchase',
+            'amount': -20.0,  # negative for testing more use cases
+        })
+        self.invoice_line1.invoice_line_tax_ids = [(4, tax2.id)]
+        self.invoice.global_discount_ids = self.global_discount_1
+        self.invoice._onchange_global_discount_ids()
+        # Global discounts are applied to the base and taxes are recomputed:
+        # 300 - 20% (global disc. 1) =  240
+        self.assertEqual(len(self.invoice.invoice_global_discount_ids), 1)
+        self.assertAlmostEqual(
+            self.invoice.invoice_global_discount_ids.discount_amount, 40)
+        self.assertEqual(
+            self.invoice.invoice_global_discount_ids.tax_ids, self.tax + tax2)
+        tax_line_15 = self.invoice.tax_line_ids.filtered(
+            lambda x: x.tax_id == self.tax)
+        tax_line_20 = self.invoice.tax_line_ids.filtered(
+            lambda x: x.tax_id == tax2)
+        self.assertAlmostEqual(tax_line_15.base, 160)
+        self.assertAlmostEqual(tax_line_15.amount, 24)
+        self.assertAlmostEqual(tax_line_20.base, 160.0)
+        self.assertAlmostEqual(tax_line_20.amount, -32)
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 160.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 152)
+        self.assertAlmostEqual(self.invoice.amount_global_discount, -40.0)
+        # Validate invoice for seeing result
+        self.invoice.action_invoice_open()
+        move = self.invoice.move_id
+        self.assertEqual(len(move.line_ids), 5)
+        line = move.line_ids.filtered(lambda x: "Test Discount 1" in x.name)
+        self.assertEqual(line.tax_ids, self.tax + tax2)
+
+    def test_05_incompatible_taxes(self):
+        # Line 1 with tax and tax2
+        # Line 2 with only tax2
+        tax2 = self.env['account.tax'].create({
+            'name': 'Retention 20%',
+            'amount_type': 'percent',
+            'type_tax_use': 'purchase',
+            'amount': -20.0,  # negative for testing more use cases
+        })
+        self.invoice_line1.invoice_line_tax_ids = [
+            (4, tax2.id), (4, self.tax.id)]
+        self.invoice_line.create({
+            'invoice_id': self.invoice.id,
+            'name': 'Line 2',
+            'price_unit': 100.0,
+            'account_id': self.account.id,
+            'invoice_line_tax_ids': [(6, 0, [tax2.id])],
+            'quantity': 1,
+        })
+        self.invoice.global_discount_ids = self.global_discount_1
+        with self.assertRaises(exceptions.UserError):
+            self.invoice._onchange_global_discount_ids()
+
+    def test_06_no_taxes(self):
+        self.invoice_line1.invoice_line_tax_ids = False
+        self.invoice.global_discount_ids = self.global_discount_1
+        with self.assertRaises(exceptions.UserError):
+            self.invoice._onchange_global_discount_ids()
