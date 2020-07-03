@@ -53,9 +53,10 @@ You can assign global discounts to partners as well:
 Known issues / Roadmap
 ======================
 
-* Global Discount move lines are created for a common base amount. If that
-  wasn't the case, we should split discount move lines between bases and
-  assign proper taxes accordingly.
+* Not all the taxes combination can be compatible with global discounts, as
+  the generated journal items won't be correct for taxes declarations. An error
+  is raised in that cases.
+* Currently, taxes in invoice lines are mandatory with global discounts.
 
 Bug Tracker
 ===========
