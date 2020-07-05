@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="split_invoice_form_inherit" model="ir.ui.view">
+		<field name="name">split.account.invoice.form.inherit</field>
+		<field name="model">account.invoice</field>
+		<field name="inherit_id" ref="account.invoice_form"/>
+		<field name="arch" type="xml">
+			<xpath expr ="//group//group[2]" position="inside">
+				<field name="split_id" attrs="{'invisible':[('split_id','=',False)]}"/>
+			</xpath>
+			<xpath expr ="//field[@name='invoice_line_ids']//tree/field[last()]" position="before">
+				<field name="split"
+					   groups="account.group_show_checkbox_button"/>
+			</xpath>
+			<xpath expr ="//button[@name='action_invoice_cancel']" position="after">
+				<!--attrs="{'invisible':[('state', '=', 'draft')]}"-->
+				<button string="Split Invoice" name="btn_split_quotation" type="object"
+						groups="account.group_show_checkbox_button"/>
+			</xpath>
+		</field>
+	</record>
+	<record id="split_invoice_supplier_form_inherit" model="ir.ui.view">
+		<field name="name">split.account.invoice.supplier.form.inherit</field>
+		<field name="model">account.invoice</field>
+		<field name="inherit_id" ref="account.invoice_supplier_form"/>
+		<field name="arch" type="xml">
+			<xpath expr ="//group//group[2]" position="inside">
+				<field name="split_id" attrs="{'invisible':[('split_id','=',False)]}"/>
+			</xpath>
+			<xpath expr ="//field[@name='invoice_line_ids']//tree/field[last()]" position="before">
+				<field name="split"
+					   groups="account.group_show_checkbox_button"/>
+			</xpath>
+			<xpath expr ="//button[@name='action_invoice_cancel']" position="after">
+				<!--attrs="{'invisible':[('state', '=', 'draft')]}"-->
+				<button string="Split Bill" name="btn_split_quotation" type="object"
+						groups="account.group_show_checkbox_button"/>
+			</xpath>
+		</field>
+	</record>
+</odoo>
+	
+
+
