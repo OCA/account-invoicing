@@ -9,20 +9,20 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-01 08:10+0000\n"
-"PO-Revision-Date: 2019-10-27 15:33+0000\n"
-"Last-Translator: Sergio Zanchetta <primes2h@gmail.com>\n"
+"PO-Revision-Date: 2020-07-05 09:52+0000\n"
+"Last-Translator: Sergio Corato <sergiocorato@gmail.com>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: l10n_it_corrispettivi_sale
 #: model:ir.model.fields,field_description:l10n_it_corrispettivi_sale.field_sale_order__corrispettivi
 msgid "Corrispettivi"
-msgstr "Ricevute"
+msgstr "Corrispettivi"
 
 #. module: l10n_it_corrispettivi_sale
 #: model:ir.model,name:l10n_it_corrispettivi_sale.model_sale_order
@@ -32,7 +32,7 @@ msgstr "Ordine di vendita"
 #. module: l10n_it_corrispettivi_sale
 #: model:ir.model,name:l10n_it_corrispettivi_sale.model_sale_advance_payment_inv
 msgid "Sales Advance Payment Invoice"
-msgstr ""
+msgstr "Anticipo su Corrispettivo"
 
 #~ msgid "Quotation"
 #~ msgstr "Preventivo"
