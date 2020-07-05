@@ -1,12 +1,8 @@
-# -*- coding: utf-8 -*-
-from odoo import api, fields, models, _
+from odoo import fields, models
 
-class AccountInvoiceLineInherit(models.Model):
-    _inherit = 'account.invoice.line'
-   
-    split = fields.Boolean(string='Split')
-    state = fields.Selection(related='invoice_id.state')
-    
 
-	
+class AccountInvoiceLine(models.Model):
+    _inherit = "account.invoice.line"
 
+    split = fields.Boolean(string="Split")
+    state = fields.Selection(related="invoice_id.state")

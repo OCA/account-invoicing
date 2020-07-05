@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #################################################################################
 #
 #    Odoo, Open Source Management Solution
@@ -20,17 +19,20 @@
 #################################################################################
 
 {
-    'name': "Split Invoice",
-    'author': 'Zadsolutions, Ahmed Salama',    'category': 'Account',
-    'summary': """Split Invoice/Bill""",
-    'website': 'http://www.zadsolutions.com',
-    'license': 'AGPL-3',
-    'description': """
-""",
-    'version': '10.0',
-    'depends': ['base','account'],
-    'data': ['security/show_allow_split_invoice.xml','views/account_invoice_view.xml'],
-    'installable': True,
-    'application': True,
-    'auto_install': False,
+    "name": "Split Invoice",
+    "author": "Zadsolutions, Ahmed Salama,"
+    "Coop IT Easy SCRLfs,"
+    "Odoo Community Association (OCA)",
+    "category": "Account",
+    "summary": """Split Invoice/Bill""",
+    "website": "http://www.zadsolutions.com",
+    "license": "AGPL-3",
+    "version": "11.0.1.0.0",
+    "depends": ["account"],
+    "data": [
+        "security/show_allow_split_invoice.xml",
+        "views/account_invoice_view.xml",
+    ],
+    "installable": True,
+    "auto_install": False,
 }
