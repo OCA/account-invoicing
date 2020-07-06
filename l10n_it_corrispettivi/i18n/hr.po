@@ -85,6 +85,7 @@ msgstr ""
 
 #. module: l10n_it_corrispettivi
 #: model:ir.actions.act_window,name:l10n_it_corrispettivi.action_corrispettivi_tree1
+#: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_bank_statement_import_journal_creation__corrispettivi
 #: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_fiscal_position__corrispettivi
 #: model:ir.model.fields,field_description:l10n_it_corrispettivi.field_account_journal__corrispettivi
 #: model:ir.ui.menu,name:l10n_it_corrispettivi.menu_action_corrispettivi_tree
