@@ -58,7 +58,7 @@ class AccountInvoiceInherit(models.Model):
                 "view_id": compose_tree.id,
                 "res.id": False,
                 "target": "current",
-                "domain": [("id", "in", [new_invoice.id])],
+                "domain": [("id", "in", [self.id, new_invoice.id])],
                 "context": {},
             }
 
