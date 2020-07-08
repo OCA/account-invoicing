@@ -227,7 +227,7 @@ class AccountInvoiceGlobalDiscount(models.Model):
         readonly=True,
     )
     discount = fields.Float(
-        string='Discount',
+        string='Discount (number)',
         readonly=True,
     )
     discount_display = fields.Char(
