@@ -66,9 +66,13 @@ msgid "Currency"
 msgstr ""
 
 #. module: account_global_discount
-#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount_discount_display
 msgid "Discount"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount_discount
+msgid "Discount (number)"
 msgstr ""
 
 #. module: account_global_discount
@@ -160,4 +164,3 @@ msgstr ""
 #: model:ir.ui.view,arch_db:account_global_discount.account_invoice_form_view
 msgid "Untaxed Amount Before Disc."
 msgstr ""
-
