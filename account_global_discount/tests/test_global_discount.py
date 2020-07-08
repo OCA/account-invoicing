@@ -52,10 +52,14 @@ class TestGlobalDiscount(common.SavepointCase):
             'type_tax_use': 'purchase',
             'amount': 15.0,
         })
+        cls.journal = cls.env["account.journal"].create({
+            "name": "Test purchase journal",
+            "code": "TPUR",
+            "type": "purchase",
+        })
         cls.invoice = cls.env['account.invoice'].create({
             'name': "Test Customer Invoice",
-            'journal_id': cls.env['account.journal'].search(
-                [('type', '=', 'sale')])[0].id,
+            'journal_id': cls.journal.id,
             'partner_id': cls.partner_1.id,
             'account_id': cls.account.id,
             'type': 'in_invoice',
