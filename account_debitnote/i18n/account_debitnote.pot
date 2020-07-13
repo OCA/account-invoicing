@@ -60,6 +60,7 @@ msgid "Cannot create debit note for\n"
 msgstr ""
 
 #. module: account_debitnote
+#: model:ir.model.fields,help:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence
 #: model:ir.model.fields,help:account_debitnote.field_account_journal__debitnote_sequence
 msgid "Check this box if you don't want to share the same sequence\n"
 "                for invoices and debit notes made from this journal"
@@ -99,6 +100,7 @@ msgid "Debit Note Date"
 msgstr ""
 
 #. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence_id
 #: model:ir.model.fields,field_description:account_debitnote.field_account_journal__debitnote_sequence_id
 msgid "Debit Note Entry Sequence"
 msgstr ""
@@ -110,11 +112,13 @@ msgid "Debit Notes"
 msgstr ""
 
 #. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence_number_next
 #: model:ir.model.fields,field_description:account_debitnote.field_account_journal__debitnote_sequence_number_next
 msgid "Debit Notes: Next Number"
 msgstr ""
 
 #. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence
 #: model:ir.model.fields,field_description:account_debitnote.field_account_journal__debitnote_sequence
 msgid "Dedicated Debit Note Sequence"
 msgstr ""
@@ -201,11 +205,13 @@ msgid "Sequence"
 msgstr ""
 
 #. module: account_debitnote
+#: model:ir.model.fields,help:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence_number_next
 #: model:ir.model.fields,help:account_debitnote.field_account_journal__debitnote_sequence_number_next
 msgid "The next sequence number will be used for the next debit note."
 msgstr ""
 
 #. module: account_debitnote
+#: model:ir.model.fields,help:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence_id
 #: model:ir.model.fields,help:account_debitnote.field_account_journal__debitnote_sequence_id
 msgid "This field contains the information related to the numbering of\n"
 "                the debit note entries of this journal."
