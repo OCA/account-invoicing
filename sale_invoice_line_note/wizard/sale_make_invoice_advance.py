@@ -1,6 +1,6 @@
 # Copyright 2019 Camptocamp SA
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class SaleAdvancePaymentInv(models.TransientModel):
@@ -11,7 +11,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
         default=True,
         string="Copy notes to invoice",
         help="Mark this to create invoice line notes from the notes in the "
-             "sale order",
+        "sale order",
     )
 
     @api.multi

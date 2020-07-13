@@ -3,17 +3,13 @@
 {
     "name": "Sale invoice line note",
     "summary": "Propagate sale order note lines to the invoice",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "category": "Sales",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": [
-        "sale",
-    ],
-    "data": [
-        "wizard/sale_make_invoice_advance.xml",
-    ],
+    "depends": ["sale"],
+    "data": ["wizard/sale_make_invoice_advance.xml"],
 }
