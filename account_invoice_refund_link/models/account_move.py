@@ -16,7 +16,10 @@ class AccountMove(models.Model):
     @api.model
     def _reverse_move_vals(self, default_values, cancel=True):
         move_vals = super()._reverse_move_vals(default_values, cancel)
-        if move_vals["type"] in ("out_refund", "in_refund"):
+        if self.env.context.get("link_origin_line", False) and move_vals["type"] in (
+            "out_refund",
+            "in_refund",
+        ):
             refund_lines_vals = move_vals.get("line_ids", [])
             for i, line in enumerate(self.line_ids):
                 if i + 1 > len(refund_lines_vals):  # pragma: no cover
