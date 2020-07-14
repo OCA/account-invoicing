@@ -1,20 +1,21 @@
 # Copyright 2019 Camptocamp SA
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
-from odoo import api, models
+from odoo import models
 
 
 class SaleOrder(models.Model):
 
     _inherit = "sale.order"
 
-    @api.multi
-    def action_invoice_create(self, grouped=False, final=False):
+    def _create_invoices(self, grouped=False, final=False):
         """Create invoice note lines with notes from the sale order"""
-        invoice_ids = super().action_invoice_create(grouped=grouped, final=final)
+        invoice_ids = super()._create_invoices(grouped, final)
         if self.env.context.get("_copy_notes"):
             note_lines_vals = []
             for sale_order in self:
-                invoice = sale_order.invoice_ids.filtered(lambda i: i.id in invoice_ids)
+                invoice = sale_order.invoice_ids.filtered(
+                    lambda i: i.id in invoice_ids.ids
+                )
                 if not invoice:
                     # The sale order did not generate an invoice
                     continue
@@ -23,12 +24,12 @@ class SaleOrder(models.Model):
                 )
                 for note in notes_to_create:
                     note_vals = {
-                        "origin": sale_order.name,
-                        "invoice_id": invoice.id,
+                        "ref": sale_order.name,
+                        "move_id": invoice.id,
                         "sequence": note.sequence,
                         "display_type": "line_note",
                         "name": note.name,
                     }
                     note_lines_vals.append(note_vals)
-            self.env["account.invoice.line"].create(note_lines_vals)
+            self.env["account.move.line"].create(note_lines_vals)
         return invoice_ids
