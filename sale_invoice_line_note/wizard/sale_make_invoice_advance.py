@@ -1,6 +1,6 @@
 # Copyright 2019 Camptocamp SA
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class SaleAdvancePaymentInv(models.TransientModel):
@@ -14,7 +14,6 @@ class SaleAdvancePaymentInv(models.TransientModel):
         "sale order",
     )
 
-    @api.multi
     def create_invoices(self):
         if self.copy_notes_to_invoice:
             self = self.with_context(_copy_notes=True)
