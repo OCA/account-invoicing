@@ -5,10 +5,10 @@
 from odoo import fields
 from odoo.exceptions import ValidationError
 
-from odoo.addons.account.tests.invoice_test_common import InvoiceTestCommon
+from odoo.addons.account.tests.account_test_savepoint import AccountTestInvoicingCommon
 
 
-class TestAccountInvoiceSupplierRefUnique(InvoiceTestCommon):
+class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
