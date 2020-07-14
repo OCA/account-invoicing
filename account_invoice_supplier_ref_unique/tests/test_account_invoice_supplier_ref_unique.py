@@ -4,14 +4,16 @@
 
 from odoo import fields
 from odoo.exceptions import ValidationError
+from odoo.tests import tagged
 
-from odoo.addons.account.tests.invoice_test_common import InvoiceTestCommon
+from odoo.addons.account.tests.account_test_savepoint import AccountTestInvoicingCommon
 
 
-class TestAccountInvoiceSupplierRefUnique(InvoiceTestCommon):
+@tagged("post_install", "-at_install")
+class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpClass(cls, chart_template_ref=None):
+        super().setUpClass(chart_template_ref=chart_template_ref)
 
         # ENVIRONMENTS
         cls.account_account = cls.env["account.account"]
