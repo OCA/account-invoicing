@@ -7,9 +7,9 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     def _prepare_invoice(self):
-        """Make sure pricelist_id is set on invoice."""
+        """Pricelist_id is set on invoice."""
         self.ensure_one()
         val = super(SaleOrder, self)._prepare_invoice()
         if self.pricelist_id:
-            val.update({"pricelist_id": self.pricelist_id})
+            val.update({"pricelist_id": self.pricelist_id.id})
         return val
