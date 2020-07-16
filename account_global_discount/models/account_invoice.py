@@ -1,6 +1,7 @@
 # Copyright 2019 Tecnativa - David Vidal
+# Copyright 2020 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import api, fields, models
+from odoo import _, api, exceptions, fields, models
 from odoo.addons import decimal_precision as dp
 
 
@@ -35,42 +36,71 @@ class AccountInvoice(models.Model):
     invoice_global_discount_ids = fields.One2many(
         comodel_name='account.invoice.global.discount',
         inverse_name='invoice_id',
+        readonly=True,
     )
 
-    def _set_global_discounts(self):
-        """Get global discounts in order and apply them in chain. They will be
-           fetched in their sequence order """
-        for inv in self:
-            if inv.amount_untaxed_before_global_discounts:
-                base = inv.amount_untaxed_before_global_discounts
+    def _set_global_discounts_by_tax(self):
+        """Create invoice global discount lines by taxes combinations and
+        discounts.
+        """
+        self.ensure_one()
+        if not self.global_discount_ids:
+            return
+        invoice_global_discounts = self.env['account.invoice.global.discount']
+        taxes_keys = {}
+        # Perform a sanity check for discarding cases that will lead to
+        # incorrect data in discounts
+        for inv_line in self.invoice_line_ids:
+            if not inv_line.invoice_line_tax_ids:
+                raise exceptions.UserError(_(
+                    "With global discounts, taxes in lines are required."
+                ))
+            for key in taxes_keys:
+                if key == inv_line.invoice_line_tax_ids:
+                    break
+                elif key & inv_line.invoice_line_tax_ids:
+                    raise exceptions.UserError(_(
+                        "Incompatible taxes found for global discounts."
+                    ))
             else:
-                base = inv.amount_untaxed
-            invoice_global_discounts = (
-                self.env['account.invoice.global.discount'])
-            for global_discount in inv.global_discount_ids:
+                taxes_keys[inv_line.invoice_line_tax_ids] = True
+        for tax_line in self.tax_line_ids:
+            key = []
+            to_create = True
+            for key in taxes_keys:
+                if tax_line.tax_id in key:
+                    to_create = taxes_keys[key]
+                    taxes_keys[key] = False  # mark for not duplicating
+                    break  # we leave in key variable the proper taxes value
+            if not to_create:
+                continue
+            base = tax_line.base_before_global_discounts or tax_line.base
+            for global_discount in self.global_discount_ids:
                 discount = global_discount._get_global_discount_vals(base)
                 invoice_global_discounts += invoice_global_discounts.new({
                     'name': global_discount.display_name,
-                    'invoice_id': inv.id,
+                    'invoice_id': self.id,
                     'global_discount_id': global_discount.id,
                     'discount': global_discount.discount,
                     'base': base,
                     'base_discounted': discount['base_discounted'],
                     'account_id': global_discount.account_id.id,
+                    'tax_ids': [(4, x.id) for x in key],
                 })
                 base = discount['base_discounted']
-            inv.invoice_global_discount_ids = invoice_global_discounts
-            # Recompute line taxes according to global discounts
-            taxes_grouped = inv.get_taxes_values()
-            tax_lines = inv.tax_line_ids.filtered('manual')
-            for tax in taxes_grouped.values():
-                tax_lines += tax_lines.new(tax)
-            inv.tax_line_ids = tax_lines
+        self.invoice_global_discount_ids = invoice_global_discounts
+
+    def _set_global_discounts(self):
+        """Get global discounts in order and apply them in chain. They will be
+        fetched in their sequence order """
+        for inv in self:
+            inv._set_global_discounts_by_tax()
 
     @api.onchange('invoice_line_ids')
     def _onchange_invoice_line_ids(self):
+        res = super()._onchange_invoice_line_ids()
         self._set_global_discounts()
-        return super()._onchange_invoice_line_ids()
+        return res
 
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id(self):
@@ -83,14 +113,12 @@ class AccountInvoice(models.Model):
                 self.partner_id.supplier_global_discount_ids):
             self.global_discount_ids = (
                 self.partner_id.supplier_global_discount_ids)
-        self._set_global_discounts()
         return res
 
     @api.onchange('global_discount_ids')
     def _onchange_global_discount_ids(self):
         """Trigger global discount lines to recompute all"""
-        self._set_global_discounts()
-        return
+        return self._onchange_invoice_line_ids()
 
     @api.depends('invoice_line_ids.price_subtotal', 'tax_line_ids.amount',
                  'tax_line_ids.amount_rounding', 'currency_id', 'company_id',
@@ -123,10 +151,12 @@ class AccountInvoice(models.Model):
         self.amount_untaxed_signed = amount_untaxed_signed * sign
 
     def get_taxes_values(self):
+        """Override this computation for adding global discount to taxes."""
         round_curr = self.currency_id.round
         tax_grouped = super().get_taxes_values()
         for key in tax_grouped.keys():
             base = tax_grouped[key]['base']
+            tax_grouped[key]['base_before_global_discounts'] = base
             amount = tax_grouped[key]['amount']
             for discount in self.global_discount_ids:
                 base = discount._get_global_discount_vals(
@@ -144,19 +174,36 @@ class AccountInvoice(models.Model):
         for discount in self.invoice_global_discount_ids:
             if not discount.discount:
                 continue
-            res.append({
+            # Traverse upstream result for taking existing dictionary vals
+            inv_lines = self.invoice_line_ids.filtered(
+                lambda x: x.invoice_line_tax_ids == discount.tax_ids)
+            discount_dict = {}
+            for move_line_dict in res:
+                if move_line_dict.get("invl_id", 0) in inv_lines.ids:
+                    discount_dict.update(move_line_dict)
+            # Change needed values for the global discount
+            discount_dict.update({
                 'invoice_global_discount_id': discount.id,
-                'global_discount_id': discount.global_discount_id.id,
                 'type': 'global_discount',
-                'name': discount.name,
+                'name': "%s - %s" % (
+                    discount.name, ", ".join(discount.tax_ids.mapped("name"))),
                 'price_unit': discount.discount_amount * -1,
                 'quantity': 1,
                 'price': discount.discount_amount * -1,
                 'account_id': discount.account_id.id,
                 'account_analytic_id': discount.account_analytic_id.id,
-                'invoice_id': self.id,
             })
+            res.append(discount_dict)
         return res
+
+
+class AccountInvoiceTax(models.Model):
+    _inherit = "account.invoice.tax"
+
+    base_before_global_discounts = fields.Monetary(
+        string='Amount Untaxed Before Discounts',
+        readonly=True,
+    )
 
 
 class AccountInvoiceGlobalDiscount(models.Model):
@@ -207,6 +254,9 @@ class AccountInvoiceGlobalDiscount(models.Model):
         compute='_compute_discount_amount',
         currency_field='currency_id',
         readonly=True,
+    )
+    tax_ids = fields.Many2many(
+        comodel_name='account.tax',
     )
     account_id = fields.Many2one(
         comodel_name='account.account',
