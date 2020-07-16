@@ -12,6 +12,7 @@ setuptools.setup(
         'odoo13-addon-account_invoice_force_number',
         'odoo13-addon-account_invoice_refund_link',
         'odoo13-addon-account_invoice_search_by_reference',
+        'odoo13-addon-account_invoice_section_sale_order',
         'odoo13-addon-account_invoice_supplier_ref_reuse',
         'odoo13-addon-account_invoice_supplier_ref_unique',
         'odoo13-addon-account_invoice_validation_queued',
