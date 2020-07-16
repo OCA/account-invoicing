@@ -31,6 +31,7 @@ msgstr ""
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_amount_untaxed_before_global_discounts
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_tax_base_before_global_discounts
 msgid "Amount Untaxed Before Discounts"
 msgstr ""
 
@@ -99,7 +100,6 @@ msgstr ""
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount_global_discount_id
-#: model:ir.model.fields,field_description:account_global_discount.field_account_move_line_global_discount_id
 msgid "Global Discount"
 msgstr ""
 
@@ -115,6 +115,12 @@ msgid "ID"
 msgstr ""
 
 #. module: account_global_discount
+#: code:addons/account_global_discount/models/account_invoice.py:62
+#, python-format
+msgid "Incompatible taxes found for global discounts."
+msgstr ""
+
+#. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_invoice
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount_invoice_id
 msgid "Invoice"
@@ -123,12 +129,18 @@ msgstr ""
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_invoice_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_invoice_global_discount_ids
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move_line_invoice_global_discount_id
 msgid "Invoice Global Discount"
 msgstr ""
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount_ids
 msgid "Invoice Global Discounts"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.model,name:account_global_discount.model_account_invoice_tax
+msgid "Invoice Tax"
 msgstr ""
 
 #. module: account_global_discount
@@ -152,6 +164,11 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount_tax_ids
+msgid "Tax"
+msgstr ""
+
+#. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_amount_global_discount
 msgid "Total Global Discounts"
 msgstr ""
@@ -159,5 +176,11 @@ msgstr ""
 #. module: account_global_discount
 #: model:ir.ui.view,arch_db:account_global_discount.account_invoice_form_view
 msgid "Untaxed Amount Before Disc."
+msgstr ""
+
+#. module: account_global_discount
+#: code:addons/account_global_discount/models/account_invoice.py:55
+#, python-format
+msgid "With global discounts, taxes in lines are required."
 msgstr ""
 
