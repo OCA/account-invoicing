@@ -52,13 +52,13 @@ class AccountInvoice(models.Model):
 
     @api.one
     def cron_account_invoice_auto_send_mail_item(self):
-        if self.type in ['out_invoice', 'out_refund'] and self.date_invoice_send_mail == False and self.state in ['open', 'paid']:
+        if self.type in ['out_invoice', 'out_refund'] and self.date_invoice_send_mail is False and self.state in ['open', 'paid']:
             current_date = fields.Datetime.from_string(str(datetime.today().strftime("%Y-%m-%d")))
             days_difference = (current_date - fields.Datetime.from_string(self.date_invoice)).days
             # send_invoice
             send_invoice = False
             if self.state == 'paid':
-                 send_invoice = True
+                send_invoice = True
             else:
                 if days_difference >= self.journal_id.invoice_mail_days:
                     send_invoice = True

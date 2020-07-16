@@ -14,5 +14,5 @@
         "views/account_journal_view.xml",
         "views/account_invoice_view.xml"
     ],
-    "installable": True,
+    "installable": True
 }

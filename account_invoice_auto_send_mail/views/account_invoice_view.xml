@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
     <record id="account_invoice_auto_send_mail_form" model="ir.ui.view">
         <field name="name">account.invoice.auto.send.mail.form</field>
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form" />
-        <field name="priority" eval="20"/>                
+        <field name="priority" eval="20"/>
         <field name="arch" type="xml">
             <field name="date_invoice" position="after">
                 <field name="date_invoice_send_mail"/>
-            </field>                                                
+            </field>
         </field>
     </record>
 
