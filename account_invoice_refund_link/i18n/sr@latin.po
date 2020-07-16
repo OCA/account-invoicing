@@ -21,6 +21,11 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. module: account_invoice_refund_link
+#: model:ir.model,name:account_invoice_refund_link.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr ""
+
+#. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 msgid "Invoice reference"
 msgstr ""
