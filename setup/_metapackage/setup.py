@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo12-addon-account_billing',
         'odoo12-addon-account_debitnote',
+        'odoo12-addon-account_global_discount',
         'odoo12-addon-account_invoice_analytic_search',
         'odoo12-addon-account_invoice_anglo_saxon_no_cogs_deferral',
         'odoo12-addon-account_invoice_blocking',
