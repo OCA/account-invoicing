@@ -5,3 +5,5 @@ queue
 brand
 server-backend
 stock-logistics-workflow
+web
+
