@@ -29,6 +29,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_reimbursable',
         'odoo12-addon-account_invoice_repair_link',
         'odoo12-addon-account_invoice_search_by_reference',
+        'odoo12-addon-account_invoice_supplier_date',
         'odoo12-addon-account_invoice_supplier_ref_reuse',
         'odoo12-addon-account_invoice_supplier_ref_unique',
         'odoo12-addon-account_invoice_supplierinfo_update',
