@@ -68,6 +68,11 @@ class AccountInvoice(models.Model):
                              uos_factor / uom_factor)
 
     @api.multi
+    def _get_draft_invoices(self):
+        """Overridable function to return draft invoices in selection"""
+        return self.filtered(lambda x: x.state == 'draft')
+
+    @api.multi
     def do_merge(self, keep_references=True, date_invoice=False):
         """
         To merge similar type of account invoices.
@@ -107,14 +112,11 @@ class AccountInvoice(models.Model):
         # compute what the new invoices should contain
 
         new_invoices = {}
-        draft_invoices = [invoice
-                          for invoice in self
-                          if invoice.state == 'draft']
         seen_origins = {}
         seen_client_refs = {}
         line_sequence = 1
 
-        for account_invoice in draft_invoices:
+        for account_invoice in self._get_draft_invoices():
             invoice_key = make_key(
                 account_invoice, self._get_invoice_key_cols())
             new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
