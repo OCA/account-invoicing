@@ -8,7 +8,7 @@
     "version": "13.0.1.0.0",
     "license": "AGPL-3",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
-    "website": "www.github.com/OCA/account-invoicing.git",
+    "website": "https://github.com/OCA/account-invoicing",
     "depends": ["account"],
     "data": ["views/account_move_views.xml"],
 }
