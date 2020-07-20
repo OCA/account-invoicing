@@ -13,48 +13,48 @@ class AccountInvoice(models.Model):
         string='Date invoice send mail'
     )
 
-    @api.one
     def account_invoice_auto_send_mail_item_real(self, mail_template_id, author_id):
-        _logger.info('Operations account_invoice_auto_send_mail_item_real invoice ' + str(self.id))
+        self.ensure_one()
+        _logger.info('Operations account_invoice_auto_send_mail_item_real invoice %s' % self.id)
 
-        mail_compose_message_vals = {
+        vals = {
             'author_id': self.user_id.partner_id.id,
             'record_name': self.number,
         }
         # Author_id (journal_id)
-        if author_id.id > 0:
-            mail_compose_message_vals['author_id'] = author_id.id
+        if author_id:
+            vals['author_id'] = author_id.id
 
-        mail_compose_message_obj = self.env['mail.compose.message'].with_context().sudo().create(mail_compose_message_vals)
-        return_onchange_template_id = mail_compose_message_obj.onchange_template_id(mail_template_id.id, 'comment', 'account.invoice', self.id)
+        mail_compose_message_obj = self.env['mail.compose.message'].sudo().create(vals)
+        res = mail_compose_message_obj.onchange_template_id(mail_template_id.id, 'comment', 'account.invoice', self.id)
 
-        mail_compose_message_obj_vals = {
-            'author_id': mail_compose_message_vals['author_id'],
+        vals = {
+            'author_id': vals['author_id'],
             'template_id': mail_template_id.id,
             'composition_mode': 'comment',
             'model': 'account.invoice',
             'res_id': self.id,
-            'body': return_onchange_template_id['value']['body'],
-            'subject': return_onchange_template_id['value']['subject'],
-            'email_from': return_onchange_template_id['value']['email_from'],
+            'body': res['value']['body'],
+            'subject': res['value']['subject'],
+            'email_from': res['value']['email_from'],
             'record_name': self.number,
             'no_auto_thread': False,
         }
         # attachment_ids
-        if 'attachment_ids' in return_onchange_template_id['value']:
-            mail_compose_message_obj_vals['attachment_ids'] = return_onchange_template_id['value']['attachment_ids']
+        if 'attachment_ids' in res['value']:
+            vals['attachment_ids'] = res['value']['attachment_ids']
         # update
-        mail_compose_message_obj.update(mail_compose_message_obj_vals)
+        mail_compose_message_obj.update(vals)
         # send_mail_action
-        mail_compose_message_obj.send_mail_action()
+        mail_compose_message_obj.send_mail()
         # other
         self.date_invoice_send_mail = datetime.today()
 
-    @api.one
     def cron_account_invoice_auto_send_mail_item(self):
-        if self.type in ['out_invoice', 'out_refund'] and self.date_invoice_send_mail is False and self.state in ['open', 'paid']:
-            current_date = fields.Datetime.from_string(str(datetime.today().strftime("%Y-%m-%d")))
-            days_difference = (current_date - fields.Datetime.from_string(self.date_invoice)).days
+        self.ensure_one()
+        if self.type in ['out_invoice', 'out_refund'] and not self.date_invoice_send_mail and self.state in ['open', 'paid']:
+            current_date = fields.Date.context_today(self)
+            days_difference = (current_date - fields.Date.from_string(self.date_invoice)).days
             # send_invoice
             send_invoice = False
             if self.state == 'paid':
@@ -64,11 +64,11 @@ class AccountInvoice(models.Model):
                     send_invoice = True
             # send_invoice
             if send_invoice:
-                self.account_invoice_auto_send_mail_item_real(self.journal_id.invoice_mail_template_id, self.journal_id.invoice_mail_template_id_author_id.partner_id)
+                self.account_invoice_auto_send_mail_item_real(self.journal_id.invoice_mail_template_id, self.journal_id.invoice_mail_author_id.partner_id)
 
     @api.model
     def cron_account_invoice_auto_send_mail(self):
-        account_invoice_ids = self.env['account.invoice'].search(
+        invoices = self.env['account.invoice'].search(
             [
                 ('state', 'in', ('open', 'paid')),
                 ('type', 'in', ('out_invoice', 'out_refund')),
@@ -76,13 +76,17 @@ class AccountInvoice(models.Model):
                 ('date_invoice_send_mail', '=', False)
              ], order="date_invoice asc", limit=200
         )
-        if len(account_invoice_ids) > 0:
+        if invoices:
             count = 0
-            for account_invoice_id in account_invoice_ids:
+            for invoice in invoices:
                 count += 1
                 # cron_account_invoice_auto_send_mail_item
-                account_invoice_id.cron_account_invoice_auto_send_mail_item()
+                invoice.cron_account_invoice_auto_send_mail_item()
                 # logger_percent
-                percent = (float(count) / float(len(account_invoice_ids))) * 100
+                percent = (float(count) / float(len(invoices))) * 100
                 percent = "{0:.2f}".format(percent)
-                _logger.info(str(percent) + '% (' + str(count) + '/' + str(len(account_invoice_ids)) + ')')
+                _logger.info("%s (%s / %s)" % (
+                    percent,
+                    count,
+                    len(invoices)
+                ))

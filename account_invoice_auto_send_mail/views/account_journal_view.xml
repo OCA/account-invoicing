@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <field name="account_control_ids" position="after">
                 <field name="invoice_mail_template_id" options='{"no_create": True, "no_create_edit": True}' attrs="{'invisible': [('type','not in', ('sale'))]}"/>
-                <field name="invoice_mail_template_id_author_id" options='{"no_create": True, "no_create_edit": True}' attrs="{'invisible': [('type','not in', ('sale'))]}"/>
+                <field name="invoice_mail_author_id" options='{"no_create": True, "no_create_edit": True}' attrs="{'invisible': [('type','not in', ('sale'))]}"/>
                 <field name="invoice_mail_days" attrs="{'invisible': [('type','not in', ('sale'))]}"/>
             </field>
         </field>

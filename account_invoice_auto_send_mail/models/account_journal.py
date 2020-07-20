@@ -11,7 +11,7 @@ class AccountJournal(models.Model):
         domain=[('model_id.model', '=', 'account.invoice')],
         string='Invoice mail template id'
     )
-    invoice_mail_template_id_author_id = fields.Many2one(
+    invoice_mail_author_id = fields.Many2one(
         comodel_name='res.users',
         string='Invoice mail template author id'
     )
