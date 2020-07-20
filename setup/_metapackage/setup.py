@@ -24,6 +24,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_line_description',
         'odoo12-addon-account_invoice_line_sequence',
         'odoo12-addon-account_invoice_mass_sending',
+        'odoo12-addon-account_invoice_merge',
         'odoo12-addon-account_invoice_pricelist',
         'odoo12-addon-account_invoice_pricelist_sale',
         'odoo12-addon-account_invoice_refund_link',
