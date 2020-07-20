@@ -149,7 +149,6 @@ msgstr "Descuentos Globales en Factura"
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_invoice_tax
 #, fuzzy
-#| msgid "Invoice"
 msgid "Invoice Tax"
 msgstr "Factura"
 
