@@ -19,40 +19,45 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
+#, fuzzy, python-format
+#| msgid "Not all invoices use the same account!"
+msgid "All invoices must have the same: \n"
+msgstr "Niet alle facturen staan op dezelfde grootboekrekening!"
+
+#. module: account_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Are you sure you want to merge these invoices?"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:34
-#, python-format
-msgid "At least one of the selected invoices is %s!"
-msgstr ""
-"Er is in ieder geval één factuur in status %s. Deze kan niet samengevoegd "
-"worden."
-
-#. module: account_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Cancel"
 msgstr "Annuleer"
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_create_uid
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__create_uid
 msgid "Created by"
 msgstr "Aangemaakt door"
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_create_date
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__create_date
 msgid "Created on"
 msgstr "Aangemaakt op"
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_display_name
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__display_name
 msgid "Display Name"
 msgstr "Te tonen naam"
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_id
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:30
+#, python-format
+msgid "Draf"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__id
 msgid "ID"
 msgstr "ID"
 
@@ -62,80 +67,50 @@ msgid "Invoice"
 msgstr "Factuur"
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_date_invoice
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__date_invoice
 msgid "Invoice Date"
 msgstr "Factuurdatum"
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_keep_references
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__keep_references
 msgid "Keep references from original invoices"
 msgstr "Referenties van samengevoegde facturen behouden"
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge___last_update
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge____last_update
 msgid "Last Modified on"
 msgstr "Laatst bijgewerkt op"
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_uid
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__write_uid
 msgid "Last Updated by"
 msgstr "Laatste bijgewerkt door"
 
 #. module: account_invoice_merge
-#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge_write_date
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__write_date
 msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
 
 #. module: account_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
+#, python-format
+msgid "Megeable State (ex : %s)"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
 msgstr "Facturen samenvoegen"
 
 #. module: account_invoice_merge
 #: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Partner Invoice"
 msgstr "Facturen samenvoegen per relatie"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:41
-#, python-format
-msgid "Not all invoices are at the same company!"
-msgstr "Niet alle facturen behoren tot hetzelfde bedrijf!"
-
-#. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:50
-#, python-format
-msgid "Not all invoices are at the same currency!"
-msgstr "Niet alle facturen staan in dezelfde valuta!"
-
-#. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:53
-#, python-format
-msgid "Not all invoices are at the same journal!"
-msgstr "Niet alle facturen staan in hetzelfde dagboek!"
-
-#. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:44
-#, python-format
-msgid "Not all invoices are for the same partner!"
-msgstr "Niet alle facturen zijn voor dezelfde relatie!"
-
-#. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:47
-#, python-format
-msgid "Not all invoices are of the same type!"
-msgstr "Niet alle facturen hebben hetzelfde type!"
-
-#. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:38
-#, python-format
-msgid "Not all invoices use the same account!"
-msgstr "Niet alle facturen staan op dezelfde grootboekrekening!"
-
-#. module: account_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid ""
 "Please note that:<br/><br/>\n"
 "                        Invoices will only be merged if:<br/>\n"
@@ -150,12 +125,32 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:27
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
 msgstr ""
 
 #. module: account_invoice_merge
-#: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "or"
 msgstr "of"
+
+#~ msgid "At least one of the selected invoices is %s!"
+#~ msgstr ""
+#~ "Er is in ieder geval één factuur in status %s. Deze kan niet samengevoegd "
+#~ "worden."
+
+#~ msgid "Not all invoices are at the same company!"
+#~ msgstr "Niet alle facturen behoren tot hetzelfde bedrijf!"
+
+#~ msgid "Not all invoices are at the same currency!"
+#~ msgstr "Niet alle facturen staan in dezelfde valuta!"
+
+#~ msgid "Not all invoices are at the same journal!"
+#~ msgstr "Niet alle facturen staan in hetzelfde dagboek!"
+
+#~ msgid "Not all invoices are for the same partner!"
+#~ msgstr "Niet alle facturen zijn voor dezelfde relatie!"
+
+#~ msgid "Not all invoices are of the same type!"
+#~ msgstr "Niet alle facturen hebben hetzelfde type!"
