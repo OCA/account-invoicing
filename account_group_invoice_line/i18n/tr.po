@@ -29,12 +29,14 @@ msgid "By Product"
 msgstr ""
 
 #. module: account_group_invoice_line
-#: model:ir.model.fields,field_description:account_group_invoice_line.field_account_journal_group_method
+#: model:ir.model.fields,field_description:account_group_invoice_line.field_account_bank_statement_import_journal_creation__group_method
+#: model:ir.model.fields,field_description:account_group_invoice_line.field_account_journal__group_method
 msgid "Group by"
 msgstr "Grupla"
 
 #. module: account_group_invoice_line
-#: model:ir.model.fields,help:account_group_invoice_line.field_account_journal_group_method
+#: model:ir.model.fields,help:account_group_invoice_line.field_account_bank_statement_import_journal_creation__group_method
+#: model:ir.model.fields,help:account_group_invoice_line.field_account_journal__group_method
 msgid ""
 "If you select 'By Product', the account move lines generated when you "
 "validate an invoice will be grouped by product, account, analytic account "
