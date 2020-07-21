@@ -9,7 +9,7 @@
         <field name="numbercall">-1</field>
         <field eval="False" name="doall" />
         <field name="model_id" ref="model_sale_order" />
-        <field name="code">model.cron_generate_montly_invoices()</field>
+        <field name="code">model.cron_generate_monthly_invoices()</field>
         <field
             name="nextcall"
             eval="(DateTime.now().replace(hour=1,minute=0).strftime('%Y-%m-%d %H:%M:%S'))"

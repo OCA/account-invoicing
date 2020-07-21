@@ -15,7 +15,7 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     @api.model
-    def cron_generate_montly_invoices(self):
+    def cron_generate_monthly_invoices(self):
         """Cron called daily to check if monthly invoicing needs to be done."""
         company_ids = self._company_monthly_invoicing_today()
         if company_ids:
