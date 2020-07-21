@@ -54,11 +54,13 @@ class SaleOrder(models.Model):
             [
                 ("invoice_status", "=", "to invoice"),
                 ("partner_invoice_id", "=", partner.id),
-                ("order_line.qty_to_invoice", ">", 0),
+                ("order_line.qty_to_invoice", "!=", 0),
             ]
         )
         # By default grouped by partner/currency. Refund are not generated
-        invoices = sales._create_invoices(grouped=partner.one_invoice_per_order)
+        invoices = sales._create_invoices(
+            grouped=partner.one_invoice_per_order, final=True
+        )
         for invoice in invoices:
             invoice.with_delay()._validate_invoice()
         return invoices
