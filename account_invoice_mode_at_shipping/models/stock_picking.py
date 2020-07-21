@@ -23,7 +23,10 @@ class StockPicking(models.Model):
     def _invoicing_at_shipping(self):
         self.ensure_one()
         sale_order_ids = self._get_sales_order_to_invoice()
-        invoices = sale_order_ids._create_invoices()
+        partner = sale_order_ids.partner_invoice_id
+        invoices = sale_order_ids._create_invoices(
+            grouped=partner.one_invoice_per_order
+        )
         for invoice in invoices:
             invoice.with_delay()._validate_invoice()
         return invoices
