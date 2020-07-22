@@ -8,5 +8,5 @@ class StockReturnPicking(models.TransientModel):
 
     def _prepare_move_default_values(self, return_line, new_picking):
         vals = super()._prepare_move_default_values(return_line, new_picking)
-        vals.update({'origin_to_refund': return_line.to_refund})
+        vals.update({'to_refund': return_line.to_refund})
         return vals
