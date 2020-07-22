@@ -6,8 +6,7 @@ from odoo import fields, models
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    global_discount_id = fields.Many2one(
-        comodel_name='global.discount',
-        string='Global Discount',
-        ondelete='restrict',
+    invoice_global_discount_id = fields.Many2one(
+        comodel_name='account.invoice.global.discount',
+        string='Invoice Global Discount',
     )
