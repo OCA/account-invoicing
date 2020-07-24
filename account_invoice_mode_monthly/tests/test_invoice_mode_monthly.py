@@ -15,11 +15,14 @@ class TestInvoiceModeMonthly(SavepointCase):
         cls.partner2 = cls.env.ref("base.res_partner_2")
         cls.partner2.invoicing_mode = "monthly"
         cls.product = cls.env.ref("product.product_delivery_01")
+        cls.pt1 = cls.env["account.payment.term"].create({"name": "Term Two"})
+        cls.pt2 = cls.env["account.payment.term"].create({"name": "Term One"})
         cls.so1 = cls.env["sale.order"].create(
             {
                 "partner_id": cls.partner.id,
                 "partner_invoice_id": cls.partner.id,
                 "partner_shipping_id": cls.partner.id,
+                "payment_term_id": cls.pt1.id,
                 "order_line": [
                     (
                         0,
@@ -36,12 +39,13 @@ class TestInvoiceModeMonthly(SavepointCase):
                 "pricelist_id": cls.env.ref("product.list0").id,
             }
         )
-
+        # Lets give the saleorder the same partner and payment terms
         cls.so2 = cls.env["sale.order"].create(
             {
                 "partner_id": cls.partner.id,
                 "partner_invoice_id": cls.partner.id,
                 "partner_shipping_id": cls.partner.id,
+                "payment_term_id": cls.pt1.id,
                 "order_line": [
                     (
                         0,
@@ -90,6 +94,22 @@ class TestInvoiceModeMonthly(SavepointCase):
             picking.action_assign()
             picking.button_validate()
 
+    def test_saleorder_with_different_mode_term(self):
+        """Check multiple sale order one partner diverse terms."""
+        self.so1.payment_term_id = self.pt1.id
+        self.deliver_invoice(self.so1)
+        self.so2.payment_term_id = self.pt2.id
+        self.deliver_invoice(self.so2)
+        with tools.mute_logger("odoo.addons.queue_job.models.base"):
+            self.SaleOrder.with_context(
+                test_queue_job_no_delay=True
+            ).generate_monthly_invoices(self.company)
+        self.assertEqual(len(self.so1.invoice_ids), 1)
+        self.assertEqual(len(self.so2.invoice_ids), 1)
+        # Two invoices because the term are different
+        self.assertNotEqual(self.so1.invoice_ids, self.so2.invoice_ids)
+        self.assertEqual(self.so1.invoice_ids.state, "posted")
+
     def test_saleorder_grouped_in_invoice(self):
         """Check multiple sale order grouped in one invoice"""
         self.deliver_invoice(self.so1)
@@ -100,6 +120,7 @@ class TestInvoiceModeMonthly(SavepointCase):
             ).generate_monthly_invoices(self.company)
         self.assertEqual(len(self.so1.invoice_ids), 1)
         self.assertEqual(len(self.so2.invoice_ids), 1)
+        # Same invoice for both order
         self.assertEqual(self.so1.invoice_ids, self.so2.invoice_ids)
         self.assertEqual(self.so1.invoice_ids.state, "posted")
 
@@ -115,6 +136,7 @@ class TestInvoiceModeMonthly(SavepointCase):
             ).generate_monthly_invoices(self.company)
         self.assertEqual(len(self.so1.invoice_ids), 1)
         self.assertEqual(len(self.so2.invoice_ids), 1)
+        # Two invoices as they must be split
         self.assertNotEqual(self.so1.invoice_ids, self.so2.invoice_ids)
         self.assertEqual(self.so1.invoice_ids.state, "posted")
         self.assertEqual(self.so2.invoice_ids.state, "posted")
