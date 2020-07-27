@@ -90,7 +90,7 @@ class AccountInvoice(models.Model):
                 ('type', 'in', ('out_invoice', 'out_refund')),
                 ('journal_id.invoice_mail_template_id', '!=', False),
                 ('date_invoice_send_mail', '=', False)
-             ],
+            ],
             order="date_invoice asc",
             limit=200
         )
