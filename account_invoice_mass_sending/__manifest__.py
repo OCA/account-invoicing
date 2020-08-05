@@ -14,5 +14,5 @@
         "queue_job",
         "web_notify",
     ],
-    "data": ["views/account_invoice_views.xml"],
+    "data": ["views/account_move_views.xml"],
 }

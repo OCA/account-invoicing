@@ -1,7 +1,7 @@
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 from odoo.addons.queue_job.job import job
@@ -10,8 +10,8 @@ JOB_QUEUE_CHANNEL = "root.PREPARE_SEND_PRINT_INVOICE"
 SEND_QUEUE_CHANNEL = "root.SEND_PRINT_INVOICE"
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     sending_in_progress = fields.Boolean(
         default=False,
@@ -19,7 +19,6 @@ class AccountInvoice(models.Model):
         "and it will prevent the sending of a duplicated mail.",
     )
 
-    @api.multi
     def mass_send_print(self):
         """
         This method triggers the asynchronous "Send & Print" for the selected
@@ -43,13 +42,11 @@ class AccountInvoice(models.Model):
             invoices_to_send.write({"sending_in_progress": True})
             invoices_to_send.with_delay().do_prepare_send_print()
 
-    @api.multi
     @job(default_channel=JOB_QUEUE_CHANNEL)
     def do_prepare_send_print(self):
         for rec in self:
             rec.with_delay().do_send_print()
 
-    @api.multi
     @job(default_channel=SEND_QUEUE_CHANNEL)
     def do_send_print(self):
         for rec in self:
@@ -65,7 +62,7 @@ class AccountInvoice(models.Model):
                 {
                     "active_id": rec.id,
                     "active_ids": rec.ids,
-                    "active_model": "account.invoice",
+                    "active_model": "account.move",
                 }
             )
             invoice_wizard = (
