@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_vendor_bill_id']" position="after">
+                <field
+                    name="has_payment_retention"
+                    groups="account_invoice_payment_retention.group_enable_retention"
+                    attrs="{'invisible': [('type', '!=', 'in_invoice')]}"
+                />
+                <field
+                    name="retention_percent"
+                    attrs="{'invisible': [('has_payment_retention', '=', False)]}"
+                />
+                <field
+                    name="date_due"
+                    attrs="{'invisible': [('has_payment_retention', '=', False)]}"
+                />
+                <field
+                    name="retention_bill_id"
+                    groups="account_invoice_payment_retention.group_enable_retention"
+                    attrs="{'invisible': [('type', '!=', 'in_invoice')]}"
+                    placeholder="Select a retention bill"
+                    options="{'no_create': True, 'no_open': True}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
