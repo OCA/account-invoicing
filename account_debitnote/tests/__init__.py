@@ -1,4 +1,4 @@
-# Copyright 2019 Ecosoft (http://ecosoft.co.th)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
+# Copyright 2019 Ecosoft Co., Ltd (https://ecosoft.co.th)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
 from . import test_account_debitnote

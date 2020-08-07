@@ -1,9 +1,7 @@
-<!-- Copyright 2019 Ecosoft Co., Ltd (http://ecosoft.co.th/)
-License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html) -->
 <odoo>
-    <record id="view_account_invoice_debitnote" model="ir.ui.view">
-        <field name="name">account.invoice.debitnote.form</field>
-        <field name="model">account.invoice.debitnote</field>
+    <record id="view_account_move_debitnote" model="ir.ui.view">
+        <field name="name">account.move.debitnote.form</field>
+        <field name="model">account.move.debitnote</field>
         <field name="arch" type="xml">
             <form string="Debit Note">
                 <group>
@@ -19,11 +17,11 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html) -->
                         </div>
                     </group>
                     <group>
-                        <field name="description" />
+                        <field name="reason" />
+                        <field name="date" />
                     </group>
                     <group>
-                        <field name="date_invoice" />
-                        <field name="date" />
+                        <field name="journal_id" />
                     </group>
                 </group>
                 <footer>
@@ -38,12 +36,13 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html) -->
             </form>
         </field>
     </record>
-    <record id="action_account_invoice_debitnote" model="ir.actions.act_window">
+    <record id="action_account_move_debitnote" model="ir.actions.act_window">
         <field name="name">Debit Note</field>
-        <field name="res_model">account.invoice.debitnote</field>
-        <field name="view_type">form</field>
+        <field name="res_model">account.move.debitnote</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="view_account_invoice_debitnote" />
+        <field name="view_id" ref="view_account_move_debitnote" />
         <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="binding_view_types">list</field>
     </record>
 </odoo>

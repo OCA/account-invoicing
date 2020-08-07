@@ -14,46 +14,42 @@ Debit Notes
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/12.0/account_debitnote
+    :target: https://github.com/OCA/account-invoicing/tree/13.0-mig-account_debitnote/account_debitnote
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-12-0/account-invoicing-12-0-account_debitnote
+    :target: https://translation.odoo-community.org/projects/account-invoicing-13-0-mig-account_debitnote/account-invoicing-13-0-mig-account_debitnote-account_debitnote
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/95/12.0
+    :target: https://runbot.odoo-community.org/runbot/95/13.0-mig-account_debitnote
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-In some situations, user need to add some service charge or some fees on top of what already invoiced.
-This module add new feature to "Add Debit Note" from customer invoice / vendor bill
+In some situations, You need to add some service charge or add some fees
+you need to create debit note but in Invoicing don't have this module,
 
 **Table of contents**
 
 .. contents::
    :local:
 
-Configuration
-=============
-
-To configure this module, you need to:
-
-- Make sure user has access to "Show Full Accounting Features".
-- Invoicing -> Configuration -> Journals -> Customer Invoices/Vendor Bills
-    -> check Dedicated Debit Note Sequence.
-
 Usage
 =====
 
 To use this module, you need to:
 
-- Go to Invoicing -> Customers -> Invoices.
-    - Create a new invoice and validate.
-    - Click on Add Debit Note and fill in reasons. You can also specify an account date.
-    - Click Add Debit Note, You will have a new one Invoice(Debit Note).
-    - Validate Debit note.
+Case 1
+    Go to Invoicing -> Customers -> Invoices.
+        - Create a new invoice and the Validate.
+        - Click on Add Debit Note.
+        - Get Reason. (You can add Account Date, If not Default is the same as the invoice.)
+        - Click Add Debit Note, You will have a new one Invoice(Debit Note).
 
-You can also do the same with Vendor Bill.
+Case 2
+    Go to Invoicing -> Customers -> Invoices.
+        - Select invoice
+        - "Action"
+        - "Debit Note"
 
 Bug Tracker
 ===========
@@ -61,7 +57,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_debitnote%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_debitnote%0Aversion:%2013.0-mig-account_debitnote%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -91,6 +87,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/12.0/account_debitnote>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/13.0-mig-account_debitnote/account_debitnote>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

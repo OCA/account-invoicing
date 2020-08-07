@@ -1,2 +1,2 @@
-In some situations, user need to add some service charge or some fees on top of what already invoiced.
-This module add new feature to "Add Debit Note" from customer invoice / vendor bill
+In some situations, You need to add some service charge or add some fees
+you need to create debit note but in Invoicing don't have this module,

@@ -1,5 +1,5 @@
-# Copyright 2019 Ecosoft Co., Ltd (http://ecosoft.co.th/)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
+# Copyright 2019 Ecosoft Co., Ltd (https://ecosoft.co.th)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
 from odoo import _, api, fields, models
 
@@ -10,21 +10,21 @@ class AccountJournal(models.Model):
     debitnote_sequence_id = fields.Many2one(
         comodel_name="ir.sequence",
         string="Debit Note Entry Sequence",
-        help="""This field contains the information related to the numbering of
-                the debit note entries of this journal.""",
         copy=False,
+        help="""This field contains the information related to the numbering of
+        the debit note entries of this journal.""",
     )
     debitnote_sequence_number_next = fields.Integer(
         string="Debit Notes: Next Number",
-        help="The next sequence number will be used for the next debit note.",
         compute="_compute_debitnote_seq_number_next",
         inverse="_inverse_debitnote_seq_number_next",
+        help="The next sequence number will be used for the next debit note.",
     )
     debitnote_sequence = fields.Boolean(
         string="Dedicated Debit Note Sequence",
-        help="""Check this box if you don't want to share the same sequence
-                for invoices and debit notes made from this journal""",
         default=False,
+        help="""Check this box if you don't want to share the same sequence
+        for invoices and debit notes made from this journal""",
     )
 
     @api.depends(
@@ -43,7 +43,6 @@ class AccountJournal(models.Model):
             else:
                 journal.debitnote_sequence_number_next = 1
 
-    @api.multi
     def _inverse_debitnote_seq_number_next(self):
         """
             Inverse 'debitnote_sequence_number_next' to edit
@@ -56,16 +55,14 @@ class AccountJournal(models.Model):
                 and journal.debitnote_sequence_number_next
             ):
                 sequence = journal.debitnote_sequence_id._get_current_sequence()
-                sequence.number_next = journal.debitnote_sequence_number_next
+                sequence.sudo().number_next = journal.debitnote_sequence_number_next
 
-    @api.multi
     def write(self, vals):
         # create the relevant debitnote sequence
         res = super().write(vals)
         if vals.get("debitnote_sequence"):
             for journal in self.filtered(
-                        lambda j: j.type in ("sale", "purchase")
-                        and not j.debitnote_sequence_id
+                lambda j: j.type in ("sale", "purchase") and not j.debitnote_sequence_id
             ):
                 journal_vals = {
                     "name": journal.name,
@@ -129,5 +126,4 @@ class AccountJournal(models.Model):
                 }
             )
         res = super().create(vals)
-
         return res
