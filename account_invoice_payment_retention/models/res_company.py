@@ -7,7 +7,9 @@ from odoo import fields, models
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    default_account_retention_id = fields.Many2one(
-        comodel_name="account.account", string="Account Retention",
+    retention_account_id = fields.Many2one(
+        comodel_name="account.account",
+        string="Retention Account",
+        domain=[("user_type_id.type", "=", "other")],
+        help="Retention account used for case payment retention",
     )
-    retention_percent = fields.Float(string="Retention Percent",)

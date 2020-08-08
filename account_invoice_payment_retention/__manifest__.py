@@ -13,8 +13,9 @@
         "security/security.xml",
         "views/res_config_settings_views.xml",
         "views/account_move_views.xml",
+        "views/account_payment_views.xml",
     ],
-    "maintainer": ["niaisoh"],
+    "maintainer": ["kittiu"],
     "installable": True,
     "development_status": "Alpha",
 }
