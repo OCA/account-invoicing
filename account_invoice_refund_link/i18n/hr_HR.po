@@ -28,7 +28,6 @@ msgstr ""
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 #, fuzzy
-#| msgid "Invoice Line"
 msgid "Invoice reference"
 msgstr "Stavka računa"
 
@@ -55,14 +54,12 @@ msgstr "Originalna stavka računa na koju se ova stavka referencira."
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__refund_invoice_ids
 #, fuzzy
-#| msgid "Refund invoices"
 msgid "Refund Invoices"
 msgstr "Računi povrata"
 
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__refund_line_ids
 #, fuzzy
-#| msgid "Refund invoice line"
 msgid "Refund invoice lines"
 msgstr "Stavka računa povrata"
 
