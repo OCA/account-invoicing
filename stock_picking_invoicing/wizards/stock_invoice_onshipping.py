@@ -7,11 +7,11 @@ from odoo.exceptions import UserError
 
 JOURNAL_TYPE_MAP = {
     ('outgoing', 'customer'): ['sale'],
-    ('outgoing', 'supplier'): ['purchase_refund'],
-    ('outgoing', 'transit'): ['sale', 'purchase_refund'],
+    ('outgoing', 'supplier'): ['purchase'],
+    ('outgoing', 'transit'): ['sale', 'purchase'],
     ('incoming', 'supplier'): ['purchase'],
-    ('incoming', 'customer'): ['sale_refund'],
-    ('incoming', 'transit'): ['purchase', 'sale_refund'],
+    ('incoming', 'customer'): ['sale'],
+    ('incoming', 'transit'): ['purchase', 'sale'],
 }
 
 
