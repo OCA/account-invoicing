@@ -35,7 +35,6 @@ msgstr "Cuenta"
 #. module: account_invoice_reimbursable
 #: model:ir.model,name:account_invoice_reimbursable.model_account_invoice_reimbursable
 #, fuzzy
-#| msgid "account.invoice.reimbursable"
 msgid "Account Invoice Reimbursable"
 msgstr "account.invoice.reimbursable"
 
