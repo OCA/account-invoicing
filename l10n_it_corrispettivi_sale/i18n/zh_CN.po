@@ -27,7 +27,6 @@ msgstr ""
 #. module: l10n_it_corrispettivi_sale
 #: model:ir.model,name:l10n_it_corrispettivi_sale.model_sale_order
 #, fuzzy
-#| msgid "Sales Order"
 msgid "Sale Order"
 msgstr "销售订单"
 
