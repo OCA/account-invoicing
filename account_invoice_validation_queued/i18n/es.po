@@ -39,7 +39,6 @@ msgstr "Volver a poner en cola"
 #. module: account_invoice_validation_queued
 #: model:ir.model,name:account_invoice_validation_queued.model_validate_account_move
 #, fuzzy
-#| msgid "Validation Jobs"
 msgid "Validate Account Move"
 msgstr "Trabajos de validación"
 
