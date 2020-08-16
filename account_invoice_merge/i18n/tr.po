@@ -22,7 +22,6 @@ msgstr ""
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
 #, fuzzy, python-format
-#| msgid "Not all invoices use the same account!"
 msgid "All invoices must have the same: \n"
 msgstr "Tüm faturalar aynı hesabı kullanmaz!"
 
