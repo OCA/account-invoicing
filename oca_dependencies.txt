@@ -4,6 +4,7 @@ purchase-workflow
 queue
 brand
 server-backend
+server-ux
 stock-logistics-workflow
 web
 
