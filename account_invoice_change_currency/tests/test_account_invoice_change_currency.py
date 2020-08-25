@@ -31,6 +31,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
                 "name": "acc type test 1",
                 "type": "receivable",
                 "include_initial_balance": True,
+                "internal_group": "asset",
             }
         )
         self.account_type2 = self.env["account.account.type"].create(
@@ -38,6 +39,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
                 "name": "acc type test 2",
                 "type": "other",
                 "include_initial_balance": True,
+                "internal_group": "asset",
             }
         )
         self.account_account = self.env["account.account"].create(
@@ -101,7 +103,6 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
                     "price_unit": 142.0,
                     "name": "Product that cost 142",
                     "account_id": self.account_account_line.id,
-                    "account_analytic_id": self.analytic_account.id,
                 },
             ),
             (
@@ -113,36 +114,25 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
                     "price_unit": 213.0,
                     "name": "Product that cost 213",
                     "account_id": self.account_account_line.id,
-                    "account_analytic_id": self.analytic_account.id,
                 },
             ),
         ]
         invoice = (
-            self.env["account.invoice"]
-            .sudo(self.manager)
+            self.env["account.move"]
+            .with_user(self.manager)
             .with_context(**context)
             .create(
                 {
                     "partner_id": 1,
-                    "account_id": self.account_account.id,
                     "type": inv_type or "in_invoice",
                     "journal_id": self.account_journal_sale.id,
-                    "date_invoice": date,
+                    "invoice_date": date,
                     "currency_id": self.env.ref("base.EUR").id,
                     "invoice_line_ids": invoice_lines,
                     "state": "draft",
                 }
             )
         )
-        invoice_tax_line = {
-            "name": "Test Tax for Customer Invoice",
-            "manual": 1,
-            "amount": 9050,
-            "account_id": self.tax_account.id,
-            "invoice_id": invoice.id,
-        }
-        self.env["account.invoice.tax"].sudo(self.manager).create(invoice_tax_line)
-
         return invoice
 
     def test_change_invoice_currency(self):
@@ -166,7 +156,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
     def test_change_validated_invoice_currency(self):
         inv = self.create_simple_invoice(fields.Date.today())
         before_amount = inv.amount_total
-        inv.action_invoice_open()
+        inv.post()
         # Make sure that we can not change the currency after validated:
         inv.write({"currency_id": self.env.ref("base.USD").id})
         inv._onchange_currency_change_rate()
@@ -271,7 +261,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
             usd,
             inv.currency_id,
             inv.company_id,
-            inv.date_invoice or fields.Date.today(),
+            inv.invoice_date or fields.Date.today(),
         )
         inv.write({"custom_rate": old_rate})
         inv.action_account_change_currency()
@@ -291,7 +281,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
             usd,
             inv.currency_id,
             inv.company_id,
-            inv.date_invoice or fields.Date.today(),
+            inv.invoice_date or fields.Date.today(),
         )
         inv.action_account_change_currency()
         expected_value = before_amount * rate / old_rate
