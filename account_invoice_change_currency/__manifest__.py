@@ -1,5 +1,6 @@
 # Copyright 2017 Komit <http://komit-consulting.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
 {
     "name": "Account Invoice - Change Currency",
     "version": "13.0.1.0.0",
