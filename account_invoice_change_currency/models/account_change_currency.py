@@ -4,8 +4,8 @@ from odoo import api, fields, models
 from odoo.tools import float_compare
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     custom_rate = fields.Float(
         digits=(12, 6),
@@ -17,29 +17,30 @@ class AccountInvoice(models.Model):
 
     @api.model
     def create(self, values):
-        invoice = super(AccountInvoice, self).create(values)
+        invoice = super(AccountMove, self).create(values)
         if self.env.context.get("force_rate"):
             invoice._toggle_forced_rate()
         invoice._onchange_currency_change_rate()
         return invoice
 
-    @api.multi
     def action_account_change_currency(self):
         track = self.env["mail.tracking.value"]
         precision = self.env["decimal.precision"].precision_get("Payment Terms")
         today = fields.Date.today()
-        for invoice in self.filtered(lambda x: x.state == "draft"):
+        for invoice in self.filtered(lambda x: x.state == "draft").with_context(
+            {"check_move_validity": False}
+        ):
             from_currency = invoice.get_last_currency_id()
             if not from_currency:
                 continue
-            date_invoice = invoice.date_invoice or today
-            ctx = {"company_id": invoice.company_id.id, "date": date_invoice}
+            invoice_date = invoice.invoice_date or today
+            ctx = {"company_id": invoice.company_id.id, "date": invoice_date}
             currency = invoice.with_context(**ctx).currency_id
             currency_skip = invoice.get_last_currency_id(True)
             old_rate_currency, old_rate = invoice.get_last_rate()
             new_rate = invoice.custom_rate
             rate_skip = currency.with_context(**ctx)._get_conversion_rate(
-                currency_skip, currency, invoice.company_id, date_invoice
+                currency_skip, currency, invoice.company_id, invoice_date
             )
             if not invoice.custom_rate:
                 new_rate = rate_skip
@@ -59,7 +60,7 @@ class AccountInvoice(models.Model):
                 continue
 
             rate = currency.with_context(**ctx)._get_conversion_rate(
-                from_currency, currency, invoice.company_id, date_invoice
+                from_currency, currency, invoice.company_id, invoice_date
             )
             if from_currency == currency and old_rate and new_rate != old_rate:
                 rate = new_rate / old_rate
@@ -95,11 +96,9 @@ class AccountInvoice(models.Model):
             )
             for line in invoice.invoice_line_ids:
                 line.price_unit *= rate
-            for tax in invoice.tax_line_ids:
-                tax.amount *= rate
-            invoice.compute_taxes()
+            invoice._recompute_dynamic_lines(recompute_all_taxes=True)
 
-    @api.onchange("currency_id", "date_invoice")
+    @api.onchange("currency_id", "invoice_date")
     def _onchange_currency_change_rate(self):
         state = self.get_force_rate_state()
         if state.new_value_integer:
@@ -117,12 +116,11 @@ class AccountInvoice(models.Model):
         ):
             last_currency = self.company_currency_id
         today = fields.Date.today()
-        ctx = {"company_id": self.company_id.id, "date": self.date_invoice or today}
+        ctx = {"company_id": self.company_id.id, "date": self.invoice_date or today}
         self.custom_rate = last_currency.with_context(**ctx)._get_conversion_rate(
-            last_currency, self.currency_id, self.company_id, self.date_invoice or today
+            last_currency, self.currency_id, self.company_id, self.invoice_date or today
         )
 
-    @api.multi
     def get_last_currency_id(self, skip_update_currency=False):
         self.ensure_one()
         if not self.id:
@@ -150,7 +148,6 @@ ORDER BY mtv.write_date DESC, mtv.id DESC LIMIT 1"""
                 value = res["new_value_integer"]
         return self.currency_id.browse(value)
 
-    @api.multi
     def get_last_rate(self):
         self.ensure_one()
         subtype_create_id = self.env.ref("account.mt_invoice_created")
@@ -183,7 +180,6 @@ ORDER BY mtv.write_date DESC, mtv.id DESC LIMIT 1"""
             return (self.currency_id.browse(last_values.new_value_integer), None)
         return self.currency_id.browse(None), None
 
-    @api.multi
     def _toggle_forced_rate(self):
         self.ensure_one()
         state = self.get_force_rate_state()
@@ -193,7 +189,6 @@ ORDER BY mtv.write_date DESC, mtv.id DESC LIMIT 1"""
             force = not state.new_value_integer
             self._track_force_rate(force)
 
-    @api.multi
     def get_force_rate_state(self):
         self.ensure_one()
         subtype_id = self.env.ref("account_invoice_change_currency.mt_force_rate")
@@ -209,10 +204,9 @@ ORDER BY mtv.write_date DESC, mtv.id DESC LIMIT 1"""
         )
         return last_value
 
-    @api.multi
     def _track_force_rate(self, force=True):
         track = self.env["mail.tracking.value"]
-        force_rate_description = self.fields_get(["reconciled"])["reconciled"]
+        force_rate_description = self.fields_get(["to_check"])["to_check"]
         force_rate_description.update({"string": "Force Rate"})
         tracking_value_ids = [
             [
