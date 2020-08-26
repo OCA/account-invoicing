@@ -25,8 +25,8 @@ Account Invoice Warn Message
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module add a warning popup on invoice to ensure warning is populated
-no only when partner is changed.
+This module add a warning popup on invoice to ensure warning is populated no only when partner is changed.
+[This description is not super clear and needs to be developed. It's hard to understand what that module does exactly.]
 
 **Table of contents**
 
