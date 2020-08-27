@@ -1,5 +1,6 @@
 * Add a stored field pricelist on invoices, related to the partner pricelist;
-* Use this pricelist when manually adding invoice lines
+* Use this pricelist when manually adding invoice lines;
+* Rules defined in pricelists applied in multicurrency context;
 * Possibility to group by pricelist on account.invoice view;
 
 .. image:: static/src/description/screenshot_group_by.png

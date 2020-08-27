@@ -23,10 +23,11 @@ Account - Pricelist on Invoices
     :target: https://runbot.odoo-community.org/runbot/95/12.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 * Add a stored field pricelist on invoices, related to the partner pricelist;
 * Use this pricelist when manually adding invoice lines
+* Rules defined in pricelists applied in multicurrency context;
 * Possibility to group by pricelist on account.invoice view;
 
 .. image:: https://raw.githubusercontent.com/OCA/account-invoicing/12.0/account_invoice_pricelist/static/src/description/screenshot_group_by.png
@@ -69,6 +70,7 @@ Contributors
 * Raphaël Valyi <rvalyi@akretion.com>
 * Alberto Martín <alberto.martin@guadaltech.es>
 * Nikul Chaudhary <nikulchaudhary2112@gmail.com>
+* Manuel Regidor <manuel.regidor@sygel.es>
 
 Maintainers
 ~~~~~~~~~~~
