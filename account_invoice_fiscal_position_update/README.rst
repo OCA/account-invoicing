@@ -23,7 +23,7 @@ Invoice Fiscal Position Update
     :target: https://runbot.odoo-community.org/runbot/95/13.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 With this module, when a user changes the fiscal position of an invoice, the
 taxes and the accounts on all the invoice lines which have a product are
