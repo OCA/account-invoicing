@@ -1,4 +1,4 @@
-# Copyright 2019 Tecnativa - Pedro M. Baeza
+# Copyright 2019-2020 Tecnativa - Pedro M. Baeza
 # Copyright 2020 Tecnativa - Manuel Calero
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -15,6 +15,7 @@ class AccountMove(models.Model):
         column1="invoice_id",
         column2="job_id",
         string="Validation Jobs",
+        relation="account_move_validation_job_rel",
         copy=False,
     )
 

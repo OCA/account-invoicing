@@ -1,10 +1,10 @@
-# Copyright 2019 Tecnativa - Pedro M. Baeza
+# Copyright 2019-2020 Tecnativa - Pedro M. Baeza
 # Copyright 2020 Tecnativa - Manuel Calero
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "Enqueue account invoice validation",
-    "version": "13.0.1.0.0",
+    "version": "13.0.2.0.0",
     "category": "Accounting",
     "license": "AGPL-3",
     "author": "Tecnativa, Odoo Community Association (OCA)",
