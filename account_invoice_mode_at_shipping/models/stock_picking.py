@@ -32,4 +32,4 @@ class StockPicking(models.Model):
         return invoices
 
     def _get_sales_order_to_invoice(self):
-        return self.mapped("move_lines.group_id.sale_id")
+        return self.mapped("move_lines.sale_line_id.order_id")
