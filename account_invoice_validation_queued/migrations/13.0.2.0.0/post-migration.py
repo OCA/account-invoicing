@@ -24,7 +24,7 @@ def migrate(env, version):
         """
         DELETE FROM account_move_queue_job_rel
         WHERE job_id IN (
-            SELECT rel.id
+            SELECT rel.job_id
             FROM account_move_queue_job_rel rel
             JOIN queue_job qj ON qj.id = rel.job_id
             WHERE qj.method_name = 'action_invoice_open_job'
