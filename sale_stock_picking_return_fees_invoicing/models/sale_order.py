@@ -11,6 +11,18 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     @api.multi
+    def _get_fees_line_name(self, stock_move):
+        """ Return the de name for the so line. This method should be called
+        with the customer lang into the context to get the description into
+        the right language
+        """
+        return _("Return fees for %s %s %s") % (
+            stock_move.product_uom_qty,
+            stock_move.product_uom.name,
+            stock_move.procurement_id.sale_line_id.name,
+        )
+
+    @api.multi
     def _get_customer_return_fees_line_value(self, stock_move):
         self.ensure_one()
         product_id = self.company_id.customer_return_fees_product_id
@@ -22,14 +34,13 @@ class SaleOrder(models.Model):
                     "contact you administrator."
                 )
             )
-        description = _("Return fees for %s %s %s") % (
-            stock_move.product_uom_qty,
-            stock_move.product_uom.name,
-            stock_move.procurement_id.sale_line_id.name,
-        )
+        name = self.with_context(
+            lang=self.partner_id.lang
+        )._get_fees_line_name(stock_move=stock_move)
+
         values = {
             "order_id": self.id,
-            "name": description,
+            "name": name,
             "product_uom_qty": 1,
             "product_uom": product_id.uom_id.id,
             "product_id": product_id.id,
