@@ -17,4 +17,5 @@ class StockConfigSettings(models.TransientModel):
              "charged for returning goods. In the case where fees are to "
              "be applied, the product specified here is added to the sale"
              " order to charge these fees.",
+        default=lambda self: self.env.user.company_id.customer_return_fees_product_id
     )

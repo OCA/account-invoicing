@@ -14,7 +14,7 @@ class ResCompany(models.Model):
         string="Customer Return Fees Product",
         ondelete="restrict",
         default=lambda a: a._default_customer_return_fees_product_id(),
-        domain=[("product_type", "=", "service")],
+        domain=[("type", "=", "service")],
         help="It is possible to specify on a customer whether fees must be "
         "charged for returning goods. In the case where fees are to "
         "be applied, the product specified here is added to the sale"
