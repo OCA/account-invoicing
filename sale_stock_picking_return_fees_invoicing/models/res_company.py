@@ -12,7 +12,6 @@ class ResCompany(models.Model):
     customer_return_fees_product_id = fields.Many2one(
         "product.product",
         string="Customer Return Fees Product",
-        required=True,
         ondelete="restrict",
         default=lambda a: a._default_customer_return_fees_product_id(),
         domain=[("product_type", "=", "service")],
