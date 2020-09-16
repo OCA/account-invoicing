@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="product_restocking_fee" model="product.product">
+        <field name="name">Restocking fee</field>
+        <field name="list_price">100</field>
+        <field name="type">service</field>
+        <field name="sale_ok" eval="False"/>
+        <field name="invoice_policy">order</field>
+    </record>
+
+</odoo>
