@@ -3,7 +3,7 @@
     'category': 'Accounting',
     'summary': "",
     'version': '12.0.0.0.1',
-    'author': "Commown SCIC SAS",
+    'author': "Odoo Community Association (OCA)",
     'license': "AGPL-3",
     'website': "https://commown.fr",
     'depends': [
