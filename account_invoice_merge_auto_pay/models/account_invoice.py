@@ -1,4 +1,9 @@
-from odoo import models, api, fields
+# Copyright (C) 2019 - Today: Commown (https://commown.coop)
+# @author: Florent Cayré
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
+from odoo import models, api, fields, _
+from odoo.exceptions import ValidationError
 
 from odoo.addons.queue_job.job import job
 from odoo.addons.queue_job.job import identity_exact
@@ -27,7 +32,7 @@ class AccountInvoice(models.Model):
         for inv in self:
             if inv.auto_merge and not inv.payment_mode_id:
                 raise models.ValidationError(
-                    "Payment mode is needed to auto pay an invoice")
+                    _("Payment mode is needed to auto pay an invoice"))
 
     @api.model
     @job(default_channel='root.account_invoice_merge_auto_pay_queued')
@@ -40,7 +45,6 @@ class AccountInvoice(models.Model):
         self.exists().action_invoice_open()
         if self.state != "paid":  # Avoid crash if, e.g. amount == 0
             self._invoice_merge_payment().post()
-
 
     @api.model
     def _invoice_merge_payment(self):

@@ -53,11 +53,14 @@ class AutoPayInvoiceTC(AutoMergeInvoiceTC):
         self.assertEqual(len(merge_infos), 1)
         new_inv = Invoice.browse(
             list(merge_infos.keys())[0])
-        self.assertEqual(new_inv.date_invoice,
-               fields.Date.from_string("2019-05-16"))
-        self.assertEqual({inv.id for inv in invoices},
-                         set(merge_infos[new_inv.id]))
+        self.assertEqual(
+            new_inv.date_invoice,
+            fields.Date.from_string("2019-05-16"))
+        self.assertEqual(
+            {inv.id for inv in invoices},
+            set(merge_infos[new_inv.id]))
         self.assertTrue(all(inv.state == "cancel" for inv in invoices))
-        self.assertEqual(self.partner_1.invoice_merge_next_date,
-           fields.Date.from_string("2019-06-15"))
+        self.assertEqual(
+            self.partner_1.invoice_merge_next_date,
+            fields.Date.from_string("2019-06-15"))
         return new_inv
