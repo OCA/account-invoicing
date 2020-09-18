@@ -2,7 +2,13 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, exceptions, models
-from odoo.addons.queue_job.job import identity_exact
+
+try:  # the try/except statements can be removed on v12
+    from odoo.addons.queue_job.job import identity_exact
+except ImportError:
+    import logging
+
+    logging.getLogger(__name__).debug("Can't `import queue_job`.")
 
 
 class AccountInvoiceConfirm(models.TransientModel):
