@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='header_right_group']" position="inside">
+                <field name="is_return" invisible="1" />
+                <field
+                    name="is_warranty"
+                    attrs="{'invisible': [('type', 'not in', ('out_invoice', 'in_invoice'))]}"
+                    context="{'is_warranty': True}"
+                    groups="account_invoice_payment_warranty.group_payment_warranty"
+                />
+                <field
+                    name="warranty_move_ids"
+                    widget="many2many_tags"
+                    options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                    attrs="{'invisible': [('type', 'not in', ('out_invoice', 'in_invoice'))]}"
+                    groups="account_invoice_payment_warranty.group_payment_warranty"
+                />
+            </xpath>
+            <field name="invoice_line_ids" position="attributes">
+                <attribute name="context">{
+                    'default_type': context.get('default_type'),
+                    'journal_id': journal_id,
+                    'default_partner_id': commercial_partner_id,
+                    'default_currency_id': currency_id != company_currency_id and currency_id or False,
+                    'is_warranty': is_warranty
+                }</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
