@@ -10,10 +10,6 @@ class TestStockReturnPicking(SavepointCase):
     def setUpClass(cls):
         super(TestStockReturnPicking, cls).setUpClass()
 
-        cls.env.user.company_id.restocking_fee_product_id = cls.env.ref(
-            "sale_stock_restocking_fee_invoicing."
-            "product_restocking_fee")
-
         cls.partner = cls.env["res.partner"].create(
             {"name": "Partner", "charge_restocking_fee": False}
         )

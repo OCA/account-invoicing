@@ -20,5 +20,6 @@
         "wizards/stock_config_settings.xml",
         "wizards/stock_return_picking.xml",
     ],
+    "post_init_hook": "post_init_hook",
     "demo": [],
 }
