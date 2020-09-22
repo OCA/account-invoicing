@@ -9,6 +9,7 @@ class TestInvoiceModeMonthly(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.SaleOrder = cls.env["sale.order"]
         cls.partner = cls.env.ref("base.res_partner_1")
         cls.partner.invoicing_mode = "monthly"
