@@ -12,4 +12,4 @@ class AccountMove(models.Model):
     @job(default_channel="root.invoice_validation")
     @related_action(action="related_action_open_invoice")
     def _validate_invoice(self):
-        return self.action_post()
+        return self.sudo().action_post()
