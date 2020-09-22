@@ -8,6 +8,7 @@ class TestInvoiceModeAtShipping(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.partner = cls.env.ref("base.res_partner_1")
         cls.product = cls.env.ref("product.product_delivery_01")
         cls.so1 = cls.env["sale.order"].create(
@@ -66,7 +67,7 @@ class TestInvoiceModeAtShipping(SavepointCase):
         self.assertEqual(self.so1.invoice_ids.state, "posted")
 
     def test_invoice_not_created_at_shipping(self):
-        """Check that an invoice is created when goods are shipped."""
+        """Check that an invoice is not created when goods are shipped."""
         self.partner.invoicing_mode = "standard"
         self.so1.action_confirm()
         for picking in self.so1.picking_ids:
