@@ -11,22 +11,26 @@ class StockPicking(models.Model):
 
     def action_done(self):
         res = super().action_done()
-        picking_to_invoice = self.filtered(
-            lambda r: r.sale_id.partner_invoice_id.invoicing_mode == "at_shipping"
-            and r.picking_type_code == "outgoing"
-        )
-        for picking in picking_to_invoice:
-            picking.with_delay()._invoicing_at_shipping()
+
+        for picking in self:
+            if picking._invoice_at_shipping():
+                picking.with_delay()._invoicing_at_shipping()
         return res
+
+    def _invoice_at_shipping(self):
+        """Check if picking must be invoiced at shipping."""
+        self.ensure_one()
+        return (
+            self.picking_type_code == "outgoing"
+            and self.sale_id.partner_invoice_id.invoicing_mode == "at_shipping"
+        )
 
     @job(default_channel="root.invoice_at_shipping")
     def _invoicing_at_shipping(self):
         self.ensure_one()
-        sale_order_ids = self._get_sales_order_to_invoice()
-        partner = sale_order_ids.partner_invoice_id
-        invoices = sale_order_ids._create_invoices(
-            grouped=partner.one_invoice_per_order
-        )
+        sales_order = self._get_sales_order_to_invoice()
+        partner = sales_order.partner_invoice_id
+        invoices = sales_order._create_invoices(grouped=partner.one_invoice_per_order)
         for invoice in invoices:
             invoice.with_delay()._validate_invoice()
         return invoices
