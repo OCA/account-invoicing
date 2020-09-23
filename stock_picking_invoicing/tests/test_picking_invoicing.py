@@ -11,7 +11,7 @@ class TestPickingInvoicing(TransactionCase):
         self.picking_model = self.env["stock.picking"]
         self.move_model = self.env["stock.move"]
         self.invoice_wizard = self.env["stock.invoice.onshipping"]
-        self.invoice_model = self.env["account.invoice"]
+        self.invoice_model = self.env["account.move"]
         self.partner_model = self.env["res.partner"]
         self.partner = self.env.ref("base.res_partner_2")
         self.partner2 = self.env.ref("base.res_partner_address_4")
@@ -319,8 +319,7 @@ class TestPickingInvoicing(TransactionCase):
                     "Error to link stock.move with invoice.line.",
                 )
             self.assertTrue(
-                inv_line.invoice_line_tax_ids,
-                "Error to map Purchase Tax in invoice.line.",
+                inv_line.tax_ids, "Error to map Purchase Tax in invoice.line.",
             )
 
     def test_picking_cancel(self):
@@ -592,9 +591,7 @@ class TestPickingInvoicing(TransactionCase):
         for inv_line in invoice.invoice_line_ids:
             # qty = 3 because 1 move + duplicate one + 1 new
             self.assertAlmostEqual(inv_line.quantity, 3)
-            self.assertTrue(
-                inv_line.invoice_line_tax_ids, "Error to map Sale Tax in invoice.line."
-            )
+            self.assertTrue(inv_line.tax_ids, "Error to map Sale Tax in invoice.line.")
         # Now test behaviour if the invoice is delete
         invoice.unlink()
         for picking in pickings:
@@ -687,8 +684,7 @@ class TestPickingInvoicing(TransactionCase):
             for inv_line in invoice.invoice_line_ids:
                 self.assertAlmostEqual(inv_line.quantity, 1)
                 self.assertTrue(
-                    inv_line.invoice_line_tax_ids,
-                    "Error to map Sale Tax in invoice.line.",
+                    inv_line.tax_ids, "Error to map Sale Tax in invoice.line.",
                 )
             # Test the behaviour when the invoice is cancelled
             # The picking invoice_status should be updated
