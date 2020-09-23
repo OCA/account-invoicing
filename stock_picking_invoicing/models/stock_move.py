@@ -11,7 +11,6 @@ class StockMove(models.Model):
         "stock.invoice.state.mixin",
     ]
 
-    @api.multi
     def _get_taxes(self, fiscal_position, inv_type):
         """
         Map product taxes based on given fiscal position
@@ -39,7 +38,6 @@ class StockMove(models.Model):
         """
         return fiscal_position.map_account(account)
 
-    @api.multi
     def _get_price_unit_invoice(self, inv_type, partner, qty=1):
         """
         Gets price unit for invoice
@@ -52,6 +50,9 @@ class StockMove(models.Model):
         product.ensure_one()
         if inv_type in ("in_invoice", "in_refund"):
             result = product.price
+            move = fields.first(self)
+            if move and move.price_unit:
+                result = move.price_unit
         else:
             # If partner given, search price in its sale pricelist
             if partner and partner.property_product_pricelist:

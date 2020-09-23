@@ -9,3 +9,9 @@
 
  * Included dependency from module stock_picking_invoice_link
    from repository https://github.com/OCA/stock-logistics-workflow.git.
+
+
+13.0.1.0.0 (2020-09-23)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+ * Migration to version 13.0 .
