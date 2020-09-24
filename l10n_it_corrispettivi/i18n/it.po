@@ -61,7 +61,7 @@ msgid "Journal"
 msgstr "Registro"
 
 #. module: l10n_it_corrispettivi
-#: code:addons/l10n_it_corrispettivi/models/account.py:83
+#: code:addons/l10n_it_corrispettivi/models/account.py:82
 #, python-format
 msgid "No journal found for receipts"
 msgstr "Nessun registro trovato per le ricevute"
