@@ -1,6 +1,5 @@
 #  -*- coding: utf-8 -*-
 #  Copyright 2019 Simone Rubino - Agile Business Group
-#  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, models
 from odoo.tools.safe_eval import safe_eval

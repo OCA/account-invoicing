@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2016 Lorenzo Battistini - Agile Business Group
-     Copyright 2018-2019 Simone Rubino - Agile Business Group
-     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+     Copyright 2018-2019 Simone Rubino - Agile Business Group -->
 
 <odoo>
     <!-- Invoice -->
