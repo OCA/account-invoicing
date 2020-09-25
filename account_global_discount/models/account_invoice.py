@@ -120,12 +120,7 @@ class AccountInvoice(models.Model):
         """Trigger global discount lines to recompute all"""
         return self._onchange_invoice_line_ids()
 
-    @api.depends('invoice_line_ids.price_subtotal', 'tax_line_ids.amount',
-                 'tax_line_ids.amount_rounding', 'currency_id', 'company_id',
-                 'date_invoice', 'type',
-                 'invoice_global_discount_ids', 'global_discount_ids')
-    def _compute_amount(self):
-        super()._compute_amount()
+    def _compute_amount_one(self):
         if not self.invoice_global_discount_ids:
             return
         round_curr = self.currency_id.round
@@ -151,6 +146,15 @@ class AccountInvoice(models.Model):
         self.amount_total_company_signed = amount_total_company_signed * sign
         self.amount_total_signed = self.amount_total * sign
         self.amount_untaxed_signed = amount_untaxed_signed * sign
+
+    @api.depends('invoice_line_ids.price_subtotal', 'tax_line_ids.amount',
+                 'tax_line_ids.amount_rounding', 'currency_id', 'company_id',
+                 'date_invoice', 'type',
+                 'invoice_global_discount_ids', 'global_discount_ids')
+    def _compute_amount(self):
+        super()._compute_amount()
+        for record in self:
+            record._compute_amount_one()
 
     def get_taxes_values(self):
         """Override this computation for adding global discount to taxes."""
