@@ -12,6 +12,7 @@ setuptools.setup(
         'odoo13-addon-account_invoice_fixed_discount',
         'odoo13-addon-account_invoice_force_number',
         'odoo13-addon-account_invoice_pricelist',
+        'odoo13-addon-account_invoice_pricelist_sale',
         'odoo13-addon-account_invoice_refund_link',
         'odoo13-addon-account_invoice_search_by_reference',
         'odoo13-addon-account_invoice_section_sale_order',
