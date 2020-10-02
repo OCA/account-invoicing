@@ -268,3 +268,17 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
         self.assertEqual(
             inv.amount_total, before_amount,
             'Amount must remain the same, because None change was made')
+
+    def test_force_custom_rate_no_tracking(self):
+        inv = self.create_simple_invoice(
+            context={'force_rate': True, 'tracking_disable': True},
+        )
+        inv2 = self.create_simple_invoice(context={'tracking_disable': True})
+        self.assertNotEqual(
+            inv.custom_rate, inv2.custom_rate,
+            'Rates must be different!')
+        inv._toggle_forced_rate()
+        inv._onchange_currency_change_rate()
+        self.assertEqual(
+            inv.custom_rate, inv2.custom_rate,
+            'Amount must remain the same, because force rate was disable')

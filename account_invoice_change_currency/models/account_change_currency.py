@@ -102,7 +102,7 @@ class AccountInvoice(models.Model):
     @api.multi
     def get_last_currency_id(self, skip_update_currency=False):
         self.ensure_one()
-        if not self.id:
+        if not self.id or not self.message_ids:
             return self.currency_id
         subtype_id = self.env.ref(
             'account_invoice_change_currency.mt_currency_update')
@@ -164,14 +164,23 @@ ORDER BY mtv.write_date DESC, mtv.id DESC LIMIT 1"""
         self.ensure_one()
         subtype_id = self.env.ref(
             'account_invoice_change_currency.mt_force_rate')
-        domain = [
-            ('mail_message_id', 'in', self.message_ids.ids),
-            ('mail_message_id.subtype_id', '=', subtype_id.id),
-            ('field', '=', 'force_rate'),
-        ]
-        last_value = self.env['mail.tracking.value'].sudo().search(
-            domain, limit=1, order='write_date desc, id desc')
-        return last_value
+        mtv_env = self.env['mail.tracking.value'].sudo()
+        if not self.message_ids.ids:
+            return mtv_env
+        query = """
+SELECT mtv.id
+FROM mail_tracking_value as mtv
+INNER JOIN mail_message AS mm
+ON mtv.mail_message_id = mm.id
+WHERE mtv.mail_message_id IN %s
+AND mm.subtype_id = %s
+AND mtv.field = 'force_rate'
+ORDER BY mtv.write_date DESC, mtv.id DESC LIMIT 1"""
+        params = (tuple(self.message_ids.ids), subtype_id.id)
+        self.env.cr.execute(query, params)
+        res = self.env.cr.dictfetchone()
+        value = res and res.get('id')
+        return mtv_env.browse(value) if value else mtv_env
 
     @api.multi
     def _track_force_rate(self, force=True):
