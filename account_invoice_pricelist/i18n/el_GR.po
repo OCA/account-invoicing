@@ -19,30 +19,40 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_pricelist
-#: model:ir.model,name:account_invoice_pricelist.model_account_invoice
-msgid "Invoice"
-msgstr "Τιμολόγιο"
+#: model:ir.model,name:account_invoice_pricelist.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_pricelist
-#: model:ir.model,name:account_invoice_pricelist.model_account_invoice_line
-#, fuzzy
-msgid "Invoice Line"
-msgstr "Τιμολόγιο"
+#: model:ir.model,name:account_invoice_pricelist.model_account_move_line
+msgid "Journal Item"
+msgstr ""
 
 #. module: account_invoice_pricelist
-#: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_invoice__pricelist_id
-#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_search
+#: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_move__pricelist_id
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.account_invoice_filter_inherit_account_pricelist
 msgid "Pricelist"
 msgstr ""
 
 #. module: account_invoice_pricelist
-#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_customer_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_supplier_form
+#: code:addons/account_invoice_pricelist/models/account_move.py:0
+#, python-format
+msgid "Pricelist and Invoice need to use the same currency."
+msgstr ""
+
+#. module: account_invoice_pricelist
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_move_customer_form
 msgid "Update price in lines from the pricelist"
 msgstr ""
 
 #. module: account_invoice_pricelist
-#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_customer_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_supplier_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_move_customer_form
 msgid "Update prices"
 msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Τιμολόγιο"
+
+#, fuzzy
+#~ msgid "Invoice Line"
+#~ msgstr "Τιμολόγιο"
