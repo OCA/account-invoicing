@@ -1,4 +1,6 @@
-# Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+# Copyright 2016 Tecnativa - Jairo Llopis
+# Copyright 2020 Tecnativa - Sergio Teruel
+# Copyright 2020 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from unittest import mock
 
@@ -89,6 +91,8 @@ class PurchaseBatchInvoicingCase(SavepointCase):
         self.assertEqual(result["res_model"], "account.move")
         invoices = self.env[result["res_model"]].search(result["domain"])
         self.assertEqual(len(invoices), self.expected_invoices)
+        # Regression test for avoiding incorrect journal
+        self.assertEqual(invoices[:1].journal_id.type, "purchase")
         self.assertEqual(
             invoices.mapped("invoice_line_ids.purchase_line_id.order_id"), self.pos
         )

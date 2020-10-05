@@ -1,4 +1,6 @@
-# Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+# Copyright 2016 Tecnativa - Jairo Llopis
+# Copyright 2020 Tecnativa - Sergio Teruel
+# Copyright 2020 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from logging import getLogger
 
@@ -66,8 +68,12 @@ class PurchaseBatchInvoicing(models.TransientModel):
 
     def _prepare_batch_invoice_vals(self, partner):
         """Allow to override the invoice defaults by a third module.
-        i.e.: set invoice type to in_refund"""
-        return {"partner_id": partner.id, "type": "in_invoice"}
+        i.e.: set invoice type to in_refund.
+        """
+        Move = self.env["account.move"].with_context(default_type="in_invoice")
+        vals = Move.default_get(Move._fields.keys())
+        vals.update({"partner_id": partner.id})
+        return vals
 
     def grouped_purchase_orders(self):
         """Purchase orders, applying current grouping.
