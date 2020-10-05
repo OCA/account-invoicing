@@ -10,14 +10,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-02 02:43+0000\n"
-"PO-Revision-Date: 2017-04-02 02:43+0000\n"
-"Last-Translator: Pedro M. Baeza <pedro.baeza@gmail.com>, 2017\n"
+"PO-Revision-Date: 2021-03-10 10:46+0000\n"
+"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: purchase_batch_invoicing
 #: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
@@ -35,11 +36,6 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: purchase_batch_invoicing
-#: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.purchase_order_form
-msgid "Create Invoice"
-msgstr "Crear factura"
-
-#. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__create_uid
 msgid "Created by"
 msgstr "Creado por"
@@ -53,12 +49,6 @@ msgstr "Creado el"
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__display_name
 msgid "Display Name"
 msgstr "Nombre a mostrar"
-
-#. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:111
-#, python-format
-msgid "Generated Invoices"
-msgstr "Facturas generadas"
 
 #. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__grouping
@@ -75,7 +65,7 @@ msgstr "ID"
 #: model:ir.cron,cron_name:purchase_batch_invoicing.cron
 #: model:ir.cron,name:purchase_batch_invoicing.cron
 msgid "Invoice all pending purchase orders"
-msgstr ""
+msgstr "Facturar todos los pedidos de compra pendientes"
 
 #. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing____last_update
@@ -98,7 +88,7 @@ msgid "Make one invoice for each..."
 msgstr "Hacer una factura por cada..."
 
 #. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:106
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:0
 #: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
 #, python-format
 msgid "No ready-to-invoice purchase orders selected."
@@ -106,13 +96,11 @@ msgstr "No se ha seleccionado ningún pedido de compra listo para facturar."
 
 #. module: purchase_batch_invoicing
 #: model:ir.model,name:purchase_batch_invoicing.model_purchase_batch_invoicing
-#, fuzzy
-#| msgid "purchase.batch_invoicing"
 msgid "Purchase Batch Invoicing"
-msgstr "purchase.batch_invoicing"
+msgstr "Facturación de compras por lotes"
 
 #. module: purchase_batch_invoicing
-#: selection:purchase.batch_invoicing,grouping:0
+#: model:ir.model.fields.selection,name:purchase_batch_invoicing.selection__purchase_batch_invoicing__grouping__id
 msgid "Purchase Order"
 msgstr "Pedido de compra"
 
@@ -122,6 +110,12 @@ msgid "Purchase orders"
 msgstr "Pedidos de compra"
 
 #. module: purchase_batch_invoicing
-#: selection:purchase.batch_invoicing,grouping:0
+#: model:ir.model.fields.selection,name:purchase_batch_invoicing.selection__purchase_batch_invoicing__grouping__partner_id
 msgid "Vendor"
 msgstr "Vendedor"
+
+#~ msgid "Create Invoice"
+#~ msgstr "Crear factura"
+
+#~ msgid "Generated Invoices"
+#~ msgstr "Facturas generadas"
