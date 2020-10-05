@@ -22,5 +22,5 @@ msgstr ""
 #: model:ir.model,name:account_invoice_pricelist_sale.model_sale_order
 #, fuzzy
 #| msgid "Sales Order"
-msgid "Sale Order"
+msgid "Sales Order"
 msgstr "Vevői megrendelés"
