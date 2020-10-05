@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_pricelist
+# 	* account_invoice_pricelist
 #
 msgid ""
 msgstr ""
@@ -17,29 +17,39 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: account_invoice_pricelist
-#: model:ir.model,name:account_invoice_pricelist.model_account_invoice
-msgid "Invoice"
-msgstr "Factura"
+#: model:ir.model,name:account_invoice_pricelist.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_pricelist
-#: model:ir.model,name:account_invoice_pricelist.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Línea de Factura"
+#: model:ir.model,name:account_invoice_pricelist.model_account_move_line
+msgid "Journal Item"
+msgstr ""
 
 #. module: account_invoice_pricelist
-#: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_invoice__pricelist_id
-#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_search
+#: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_move__pricelist_id
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.account_invoice_filter_inherit_account_pricelist
 msgid "Pricelist"
 msgstr "Lista de Precio"
 
 #. module: account_invoice_pricelist
-#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_customer_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_supplier_form
+#: code:addons/account_invoice_pricelist/models/account_move.py:0
+#, python-format
+msgid "Pricelist and Invoice need to use the same currency."
+msgstr ""
+
+#. module: account_invoice_pricelist
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_move_customer_form
 msgid "Update price in lines from the pricelist"
 msgstr "Actualizar precio en líneas de la lista de precios"
 
 #. module: account_invoice_pricelist
-#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_customer_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_supplier_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_move_customer_form
 msgid "Update prices"
 msgstr "Actualizar precios"
+
+#~ msgid "Invoice"
+#~ msgstr "Factura"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Línea de Factura"
