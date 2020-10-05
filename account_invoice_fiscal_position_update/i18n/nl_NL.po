@@ -21,12 +21,12 @@ msgstr ""
 "X-Generator: Weblate 3.1.1\n"
 
 #. module: account_invoice_fiscal_position_update
-#: model:ir.model,name:account_invoice_fiscal_position_update.model_account_invoice
-msgid "Invoice"
-msgstr "Factuur"
+#: model:ir.model,name:account_invoice_fiscal_position_update.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:64
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
 #, fuzzy, python-format
 #| msgid ""
 #| "The following invoice lines were not updated to the new Fiscal Position "
@@ -45,7 +45,7 @@ msgstr ""
 "U zult de grootboekrekening en BTW handmatig moeten aanpassen."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:58
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
 #, fuzzy, python-format
 #| msgid ""
 #| "The invoice lines were not updated to the new Fiscal Position because "
@@ -62,7 +62,10 @@ msgstr ""
 "aanpassen."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:56
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
 #, python-format
 msgid "Warning"
 msgstr "Waarschuwing"
+
+#~ msgid "Invoice"
+#~ msgstr "Factuur"
