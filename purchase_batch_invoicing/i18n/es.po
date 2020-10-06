@@ -35,11 +35,6 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: purchase_batch_invoicing
-#: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.purchase_order_form
-msgid "Create Invoice"
-msgstr "Crear factura"
-
-#. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__create_uid
 msgid "Created by"
 msgstr "Creado por"
@@ -53,12 +48,6 @@ msgstr "Creado el"
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__display_name
 msgid "Display Name"
 msgstr "Nombre a mostrar"
-
-#. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:111
-#, python-format
-msgid "Generated Invoices"
-msgstr "Facturas generadas"
 
 #. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__grouping
@@ -98,7 +87,7 @@ msgid "Make one invoice for each..."
 msgstr "Hacer una factura por cada..."
 
 #. module: purchase_batch_invoicing
-#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:106
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:0
 #: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
 #, python-format
 msgid "No ready-to-invoice purchase orders selected."
@@ -112,7 +101,7 @@ msgid "Purchase Batch Invoicing"
 msgstr "purchase.batch_invoicing"
 
 #. module: purchase_batch_invoicing
-#: selection:purchase.batch_invoicing,grouping:0
+#: model:ir.model.fields.selection,name:purchase_batch_invoicing.selection__purchase_batch_invoicing__grouping__id
 msgid "Purchase Order"
 msgstr "Pedido de compra"
 
@@ -122,6 +111,12 @@ msgid "Purchase orders"
 msgstr "Pedidos de compra"
 
 #. module: purchase_batch_invoicing
-#: selection:purchase.batch_invoicing,grouping:0
+#: model:ir.model.fields.selection,name:purchase_batch_invoicing.selection__purchase_batch_invoicing__grouping__partner_id
 msgid "Vendor"
 msgstr "Vendedor"
+
+#~ msgid "Create Invoice"
+#~ msgstr "Crear factura"
+
+#~ msgid "Generated Invoices"
+#~ msgstr "Facturas generadas"
