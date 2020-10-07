@@ -1,0 +1,8 @@
+<odoo>
+
+    <template id="portal_my_home_invoice_inherit" name="Portal My Home : invoice entries" inherit_id="account.portal_my_home_invoice" priority="30">
+        <xpath expr="//t[@t-if='invoice_count']" position="replace">
+        </xpath>
+    </template>
+
+</odoo>
