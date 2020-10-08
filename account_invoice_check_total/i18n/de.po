@@ -49,17 +49,16 @@ msgstr ""
 "mit der Vergleichssumme übereinstimmt."
 
 #. module: account_invoice_check_total
-#: model:ir.model,name:account_invoice_check_total.model_account_invoice
-msgid "Invoice"
-msgstr "Rechnung"
+#: model:ir.model,name:account_invoice_check_total.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_check_total
-#: code:addons/account_invoice_check_total/models/account_invoice.py:48
-#, python-format
+#: code:addons/account_invoice_check_total/models/account_move.py:0
+#, fuzzy, python-format
 msgid ""
 "Please verify the price of the invoice!\n"
-"                        The total amount (%s) does not "
-"match                        the Verification Total amount (%s)!\n"
+"The total amount (%s) does not match the Verification Total amount (%s)!\n"
 "There is a difference of %s"
 msgstr ""
 "Bitte den Preis der Rechnung überprüfen!\n"
@@ -67,11 +66,14 @@ msgstr ""
 "Es gibt eine Differenz von %s."
 
 #. module: account_invoice_check_total
-#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice__check_total_display_difference
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total_display_difference
 msgid "Total Difference"
 msgstr "Gesamtdifferenz"
 
 #. module: account_invoice_check_total
-#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice__check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total
 msgid "Verification Total"
 msgstr "Prüfsumme"
+
+#~ msgid "Invoice"
+#~ msgstr "Rechnung"
