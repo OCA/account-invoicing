@@ -2,77 +2,33 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.exceptions import ValidationError
-from odoo.tests.common import TransactionCase
+from odoo.tests import Form, SavepointCase
 
-from ..models.account_invoice import GROUP_AICT
+from ..models.account_move import GROUP_AICT
 
 
-class TestAccountInvoice(TransactionCase):
-    def setUp(self):
-        super(TestAccountInvoice, self).setUp()
-
-        # ENVIRONEMENTS
-
-        self.account_invoice = self.env["account.invoice"]
-        self.account_model = self.env["account.account"]
-        self.account_invoice_line = self.env["account.invoice.line"]
-        self.current_user = self.env.user
+class TestAccountInvoice(SavepointCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.account_move = cls.env["account.move"]
         # Add current user to group: group_supplier_inv_check_total
-        self.env.ref(GROUP_AICT).write({"users": [(4, self.current_user.id)]})
-
-        # INSTANCES
-
-        # Instance: Account
-        self.invoice_account = self.account_model.search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_receivable").id,
-                )
-            ],
-            limit=1,
+        cls.env.ref(GROUP_AICT).write({"users": [(4, cls.env.user.id)]})
+        # create a vendor bill
+        invoice_form = Form(cls.account_move.with_context(default_type="in_invoice"))
+        invoice_form.partner_id = cls.env["res.partner"].create(
+            {"name": "test partner"}
         )
-        # Instance: Invoice Line
-        self.invoice_line = self.account_invoice_line.create(
-            {
-                "name": "Test invoice line",
-                "account_id": self.invoice_account.id,
-                "quantity": 1.000,
-                "price_unit": 2.99,
-            }
-        )
+        invoice_form.check_total = 1.19
+        with invoice_form.invoice_line_ids.new() as line_form:
+            line_form.name = "Test invoice line"
+            line_form.price_unit = 2.99
+            line_form.tax_ids.clear()
+        cls.invoice = invoice_form.save()
 
-    def test_action_move_create(self):
-        # Creation of an invoice instance, wrong check_total
-        # Result: UserError
-        invoice = self.account_invoice.create(
-            {
-                "partner_id": self.env.ref("base.res_partner_2").id,
-                "account_id": self.invoice_account.id,
-                "type": "in_invoice",
-                "check_total": 1.19,
-                "invoice_line_ids": [(6, 0, [self.invoice_line.id])],
-            }
-        )
-        self.assertEqual(invoice.check_total, 1.19)
-        self.assertEqual(invoice.check_total_display_difference, -1.80)
+    def test_post(self):
+        # wrong check_total rise a ValidationError
+        self.assertEqual(self.invoice.check_total, 1.19)
+        self.assertEqual(self.invoice.check_total_display_difference, -1.80)
         with self.assertRaises(ValidationError):
-            invoice.action_move_create()
-
-    def test_onchange_check_total(self):
-        invoice = self.account_invoice.create(
-            {
-                "partner_id": self.env.ref("base.res_partner_2").id,
-                "account_id": self.invoice_account.id,
-                "type": "in_invoice",
-                "check_total": 1.19,
-                "invoice_line_ids": [(6, 0, [self.invoice_line.id])],
-            }
-        )
-
-        invoice.invoice_line_ids.ensure_one()
-        invoice.invoice_line_ids.price_unit = 5.99
-        invoice.onchange_check_total()
-        self.assertEqual(invoice.check_total, 1.19)
-        self.assertEqual(invoice.check_total_display_difference, -4.80)
+            self.invoice.post()

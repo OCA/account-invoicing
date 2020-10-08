@@ -5,11 +5,11 @@
     "name": "Account Invoice Check Total",
     "summary": """
         Check if the verification total is equal to the bill's total""",
-    "version": "12.0.1.1.0",
+    "version": "13.0.1.0.0",
     "website": "https://github.com/OCA/account-invoicing",
-    "author": "Acsone SA/NV,Odoo Community Association (OCA)",
+    "author": "Acsone SA/NV, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "depends": ["account",],
+    "depends": ["account"],
     "data": [
         "security/account_invoice_security.xml",
         "views/res_config_settings.xml",
