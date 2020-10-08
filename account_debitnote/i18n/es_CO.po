@@ -1,0 +1,244 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_debitnote
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-08 20:16+0000\n"
+"PO-Revision-Date: 2020-10-08 15:35-0500\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#. module: account_debitnote
+#: code:addons/account_debitnote/models/account.py:94
+#, python-format
+msgid "%s Sequence"
+msgstr "%s Secuencia"
+
+#. module: account_debitnote
+#: code:addons/account_debitnote/models/account.py:92
+#, python-format
+msgid ": Debitnote"
+msgstr ": Nota Débito"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice_debitnote__date
+msgid "Accounting Date"
+msgstr "Fecha contable"
+
+#. module: account_debitnote
+#: model_terms:ir.ui.view,arch_db:account_debitnote.invoice_form
+#: model_terms:ir.ui.view,arch_db:account_debitnote.view_account_invoice_debitnote
+msgid "Add Debit Note"
+msgstr "Agregar Nota Débito"
+
+#. module: account_debitnote
+#: model_terms:ir.ui.view,arch_db:account_debitnote.invoice_supplier_form
+msgid "Ask for a Debit Note"
+msgstr "Solicite una nota de débito"
+
+#. module: account_debitnote
+#: code:addons/account_debitnote/models/account_invoice.py:73
+#, python-format
+msgid "Can not create Debit Note"
+msgstr "No puede crear Nota Débito"
+
+#. module: account_debitnote
+#: model_terms:ir.ui.view,arch_db:account_debitnote.view_account_invoice_debitnote
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_debitnote
+#: code:addons/account_debitnote/wizard/account_invoice_debitnote.py:51
+#, python-format
+msgid ""
+"Cannot create debit note for\n"
+"                                           draft/cancel invoice."
+msgstr ""
+"No puede crear nota débito para\n"
+"                                           factura borrador/cancelada."
+
+#. module: account_debitnote
+#: model:ir.model.fields,help:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence
+#: model:ir.model.fields,help:account_debitnote.field_account_journal__debitnote_sequence
+msgid ""
+"Check this box if you don't want to share the same sequence\n"
+"                for invoices and debit notes made from this journal"
+msgstr ""
+"Marque esta casilla si no desea compartir la misma secuencia\n"
+"                para facturas y notas de débito realizadas desde este diario"
+
+#. module: account_debitnote
+#: selection:account.invoice.debitnote,filter_debit:0
+msgid "Create a draft debit note"
+msgstr "Crear una nota débito borrador"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice_debitnote__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice_debitnote__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice_debitnote__filter_debit
+msgid "Debit Method"
+msgstr "Método Débito"
+
+#. module: account_debitnote
+#: model:ir.actions.act_window,name:account_debitnote.action_account_invoice_debitnote
+#: model:ir.model,name:account_debitnote.model_account_invoice_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice__debit_invoice_id
+#: model_terms:ir.ui.view,arch_db:account_debitnote.view_account_invoice_debitnote
+msgid "Debit Note"
+msgstr "Nota Débito"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice_debitnote__date_invoice
+msgid "Debit Note Date"
+msgstr "Fecha Nota Débito"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence_id
+#: model:ir.model.fields,field_description:account_debitnote.field_account_journal__debitnote_sequence_id
+msgid "Debit Note Entry Sequence"
+msgstr "Secuencia de entrada de Nota de Débito"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice__debit_invoice_ids
+#: model_terms:ir.ui.view,arch_db:account_debitnote.view_account_invoice_filter
+msgid "Debit Notes"
+msgstr "Notas Débito"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence_number_next
+#: model:ir.model.fields,field_description:account_debitnote.field_account_journal__debitnote_sequence_number_next
+msgid "Debit Notes: Next Number"
+msgstr "Notas Débito: Siguiente número"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence
+#: model:ir.model.fields,field_description:account_debitnote.field_account_journal__debitnote_sequence
+msgid "Dedicated Debit Note Sequence"
+msgstr "Secuencia de notas débito dedicada"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice_debitnote__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: account_debitnote
+#: model:ir.model,name:account_debitnote.model_account_invoice
+msgid "Facturación electrónica"
+msgstr ""
+
+#. module: account_debitnote
+#: model_terms:ir.ui.view,arch_db:account_debitnote.view_account_invoice_filter
+msgid "Filter debit note from My Invoice"
+msgstr "Filtrar nota débito desde Mi factura"
+
+#. module: account_debitnote
+#: model_terms:ir.ui.view,arch_db:account_debitnote.view_account_invoice_filter
+msgid "Filter invoice from My Invoice"
+msgstr "Filtrar factura desde Mi Factura"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice_debitnote__id
+msgid "ID"
+msgstr ""
+
+#. module: account_debitnote
+#: model_terms:ir.ui.view,arch_db:account_debitnote.view_account_invoice_filter
+msgid "Invoices"
+msgstr "Facturas"
+
+#. module: account_debitnote
+#: model:ir.model,name:account_debitnote.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_debitnote
+#: model:ir.model,name:account_debitnote.model_account_move
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice_debitnote____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice_debitnote__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice_debitnote__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: account_debitnote
+#: model:ir.model.fields,help:account_debitnote.field_account_invoice__debit_invoice_ids
+msgid "List all debit notes being created by this invoice"
+msgstr "Enumere todas las notas de débito creadas por esta factura"
+
+#. module: account_debitnote
+#: code:addons/account_debitnote/models/ir_sequence.py:21
+#, python-format
+msgid "Please define a sequence for the debit notes"
+msgstr "Por favor defina una secuencia para las notas débito"
+
+#. module: account_debitnote
+#: model:ir.model.fields,field_description:account_debitnote.field_account_invoice_debitnote__description
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: account_debitnote
+#: model:ir.model.fields,help:account_debitnote.field_account_invoice__debit_invoice_id
+msgid "Reference to the origin invoice that create this debit note"
+msgstr "Referencia a la factura de origen que crea esta nota débito"
+
+#. module: account_debitnote
+#: model:ir.model,name:account_debitnote.model_ir_sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: account_debitnote
+#: model:ir.model.fields,help:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence_number_next
+#: model:ir.model.fields,help:account_debitnote.field_account_journal__debitnote_sequence_number_next
+msgid "The next sequence number will be used for the next debit note."
+msgstr "El siguiente número de secuencia se utilizará para la siguiente nota débito."
+
+#. module: account_debitnote
+#: model:ir.model.fields,help:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence_id
+#: model:ir.model.fields,help:account_debitnote.field_account_journal__debitnote_sequence_id
+msgid ""
+"This field contains the information related to the numbering of\n"
+"                the debit note entries of this journal."
+msgstr ""
+"Este campo contiene la información relacionada con la numeración de\n"
+"                los asientos de notas débito de este diario."
+
+#. module: account_debitnote
+#: model_terms:ir.ui.view,arch_db:account_debitnote.view_account_invoice_debitnote
+msgid ""
+"You will be able to edit and validate this\n"
+"                            debit note directly or keep it draft,\n"
+"                            waiting for the document to be issued by\n"
+"                            your supplier/customer."
+msgstr ""
+"Podrás editar y validar esta\n"
+"                            nota débito directamente o mantenerla en borrador,\n"
+"                            esperando que el documento sea emitido por\n"
+"                            tu proveedor/cliente."
