@@ -3,7 +3,7 @@
 
 from odoo import fields, models
 
-from ..models.account_invoice import GROUP_AICT
+from ..models.account_move import GROUP_AICT
 
 
 class AccountConfigSettings(models.TransientModel):
