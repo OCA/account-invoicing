@@ -74,6 +74,15 @@ class TestSaleOrderInvoicingGroupingCriteria(SavepointCase):
         self.assertEqual(len(invoice_ids), 2)
         self.assertNotEqual(self.order.invoice_ids, self.order2.invoice_ids)
 
+    def test_invoicing_grouping_specific_order_field(self):
+        """Regression test for checking values in order, not in invoices vals."""
+        self.partner.sale_invoicing_grouping_criteria_id = self.grouping_criteria.id
+        self.grouping_criteria["field_ids"] = [
+            (4, self.env.ref("sale.field_sale_order__id").id)
+        ]
+        invoices = (self.order + self.order2)._create_invoices()
+        self.assertEqual(len(invoices), 2)
+
     def test_commercial_field(self):
         self.partner.sale_invoicing_grouping_criteria_id = self.grouping_criteria.id
         children = self.env["res.partner"].create(
