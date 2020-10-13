@@ -30,12 +30,15 @@ class ResPartner(models.Model):
                 continue
             if record.self_invoice:
                 record.self_invoice_sequence_id = \
-                    self.env['ir.sequence'].create({
+                    self.env['ir.sequence'].sudo().create({
                         'name': record.name + ' Self invoice sequence',
                         'implementation': 'no_gap',
                         'number_increment': 1,
                         'padding': 4,
-                        'prefix': 'CBINV/%(range_year)s/',
+                        'prefix': record._self_invoice_sequence_prefix(),
                         'use_date_range': True,
                         'number_next': 1
                     })
+
+    def _self_invoice_sequence_prefix(self):
+        return 'SI/INV/%(range_year)s/'
