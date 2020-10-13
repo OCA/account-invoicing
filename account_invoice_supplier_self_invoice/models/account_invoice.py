@@ -48,13 +48,7 @@ class AccountInvoice(models.Model):
                         )
         return super(AccountInvoice, self).create(vals)
 
-    @api.model
-    def action_view_account_invoice_self(self, docids, data=None):
+    def action_view_account_invoice_self(self):
         report = self.env['ir.actions.report']._get_report_from_name(
             'account_invoice_supplier_self_invoice.report_invoice_self')
-        return {
-            'doc_ids': docids,
-            'doc_model': report.model,
-            'docs': self.env[report.model].browse(docids),
-            'report_type': data.get('report_type') if data else '',
-        }
+        return report.report_action(self)
