@@ -3,19 +3,16 @@
 
 {
     "name": "Purchase Self Invoice",
-    "version": "12.0.1.0.0",
-    "author": "Creu Blanca, "
-              "Odoo Community Association (OCA)",
+    "version": "13.0.1.0.0",
+    "author": "Creu Blanca, " "Odoo Community Association (OCA)",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
-    "depends": [
-        "account",
-    ],
+    "depends": ["account"],
     "data": [
         "views/res_partner_views.xml",
         "views/account_invoice_views.xml",
-        "views/report_self_invoice.xml"
+        "views/report_self_invoice.xml",
     ],
     "installable": True,
 }
