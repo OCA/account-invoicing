@@ -50,7 +50,8 @@ class AccountInvoice(models.Model):
         taxes_keys = {}
         # Perform a sanity check for discarding cases that will lead to
         # incorrect data in discounts
-        for inv_line in self.invoice_line_ids:
+        for inv_line in self.invoice_line_ids.filtered(
+                lambda l: not l.display_type):
             if not inv_line.invoice_line_tax_ids:
                 raise exceptions.UserError(_(
                     "With global discounts, taxes in lines are required."

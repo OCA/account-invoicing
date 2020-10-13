@@ -119,7 +119,7 @@ msgid "ID"
 msgstr ""
 
 #. module: account_global_discount
-#: code:addons/account_global_discount/models/account_invoice.py:62
+#: code:addons/account_global_discount/models/account_invoice.py:63
 #, python-format
 msgid "Incompatible taxes found for global discounts."
 msgstr ""
@@ -183,7 +183,7 @@ msgid "Untaxed Amount Before Disc."
 msgstr ""
 
 #. module: account_global_discount
-#: code:addons/account_global_discount/models/account_invoice.py:55
+#: code:addons/account_global_discount/models/account_invoice.py:56
 #, python-format
 msgid "With global discounts, taxes in lines are required."
 msgstr ""
