@@ -249,9 +249,5 @@
             name="account_invoice_supplier_self_invoice.report_invoice_self"
             file="account_invoice_supplier_self_invoice.report_invoice_self"
             attachment_use="False"
-<<<<<<< HEAD
-    />e
-=======
     />
->>>>>>> 23729325... [MIG] account_invoice_supplier_self_invoice v11 to v12
 </odoo>
