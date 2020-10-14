@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-account-invoicing Odoo addons",
     version=version,
     install_requires=[
+        'odoo13-addon-account_invoice_check_total',
         'odoo13-addon-account_invoice_fiscal_position_update',
         'odoo13-addon-account_invoice_fixed_discount',
         'odoo13-addon-account_invoice_force_number',
