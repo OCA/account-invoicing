@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="res_config_settings_form_view">
+        <field
+            name="name"
+        >res.config.settings.form (in account_invoice_check_total)</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='sepa_right_pane']/parent::div" position="after">
+                <div
+                    class="col-xs-12 col-md-6 o_setting_box"
+                    title="If you check this box, the system verifies that the total computed amount is the same as the verification total."
+                >
+                    <div class="o_setting_left_pane">
+                        <field name="group_supplier_inv_check_total" />
+                    </div>
+                    <div class="o_setting_right_pane" name="inv_check_total_right_pane">
+                        <label
+                            string="Check Total on Vendor Bills"
+                            for="group_supplier_inv_check_total"
+                        />
+                        <div class="text-muted">
+                            Check whether the total computed amount is the same as the verification total
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
