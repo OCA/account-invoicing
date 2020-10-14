@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_global_discount
+# 	* account_global_discount
 #
 msgid ""
 msgstr ""
@@ -123,6 +123,7 @@ msgstr "ID"
 
 #. module: account_global_discount
 #: code:addons/account_global_discount/models/account_invoice.py:62
+#: code:addons/account_global_discount/models/account_invoice.py:63
 #, python-format
 msgid "Incompatible taxes found for global discounts."
 msgstr "Foram encontrados impostos incompatíveis nos descontos globais."
@@ -187,6 +188,7 @@ msgstr "Montante sem Impostos antes de Desc."
 
 #. module: account_global_discount
 #: code:addons/account_global_discount/models/account_invoice.py:55
+#: code:addons/account_global_discount/models/account_invoice.py:56
 #, python-format
 msgid "With global discounts, taxes in lines are required."
 msgstr "Com descontos globais, são requeridos impostos nas linhas."
