@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Creu Blanca
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="account_invoice_send_form_view">
+        <field name="name">account.invoice.send.form (in account_invoice_transmit_method)</field>
+        <field name="model">account.invoice.send</field>
+            <field name="inherit_id" ref="account.account_invoice_send_wizard_form"/>
+        <field name="arch" type="xml">
+            <div name="option_email" position="after">
+                <div name="option_transmit">
+                    <field name="is_transmit" />
+                    <b><label for="is_transmit"/></b>
+                </div>
+            </div>
+            <xpath expr="//footer/button[hasclass('send_and_print')]" position='attributes'>
+                <attribute name="attrs">{'invisible': ['|', ('is_print', '=', False), '&amp;', '&amp;', ('is_print', '=', True), ('is_transmit', '=', False), ('is_email', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//footer/button[hasclass('send')]" position='attributes'>
+                <attribute name="attrs">{'invisible': ['|', ('is_print', '=', True), '&amp;', '&amp;', ('is_print', '=', False), ('is_transmit', '=', False), ('is_email', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

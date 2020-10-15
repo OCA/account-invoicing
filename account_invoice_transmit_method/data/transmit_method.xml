@@ -9,6 +9,7 @@
 <record id="mail" model="transmit.method">
     <field name="code">mail</field>
     <field name="name">E-Mail</field>
+    <field name="send_mail" eval="True"/>
 </record>
 
 <record id="post" model="transmit.method">
