@@ -187,7 +187,6 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__supplierinfo_id
 #, fuzzy
-#| msgid "Supplier"
 msgid "Supplierinfo"
 msgstr "Dobavljač"
 
@@ -235,14 +234,12 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo_line
 #, fuzzy
-#| msgid "wizard.update.invoice.supplierinfo"
 msgid "Wizard Line to update supplierinfo"
 msgstr "wizard.update.invoice.supplierinfo"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo
 #, fuzzy
-#| msgid "wizard.update.invoice.supplierinfo"
 msgid "Wizard to update supplierinfo"
 msgstr "wizard.update.invoice.supplierinfo"
 
