@@ -184,7 +184,6 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__supplierinfo_id
 #, fuzzy
-#| msgid "Supplier"
 msgid "Supplierinfo"
 msgstr "Proveïdor "
 
