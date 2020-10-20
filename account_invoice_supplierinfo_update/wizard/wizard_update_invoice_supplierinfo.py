@@ -49,4 +49,4 @@ class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
         self.update_supplierinfo()
         invoice = self.env['account.invoice'].browse(
             self._context['active_id'])
-        invoice.signal_workflow('invoice_open')
+        invoice.action_invoice_open()
