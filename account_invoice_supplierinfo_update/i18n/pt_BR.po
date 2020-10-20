@@ -12,8 +12,8 @@ msgstr ""
 "POT-Creation-Date: 2017-06-23 02:38+0000\n"
 "PO-Revision-Date: 2019-11-24 19:58+0000\n"
 "Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
-"23907/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
+"teams/23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,8 +39,8 @@ msgstr ""
 " * O status 'Rascunho' é usado quando um usuário está codificando uma fatura "
 "nova e não confirmada.\n"
 " * O status 'Aberto' é usado quando o usuário cria uma fatura, um número de "
-"fatura é gerado. Ele permanece no status aberto até o usuário pagar a fatura."
-"\n"
+"fatura é gerado. Ele permanece no status aberto até o usuário pagar a "
+"fatura.\n"
 " * O status 'Em pagamento' é usado quando os pagamentos foram registrados "
 "para a totalidade da fatura em um diário configurado para lançar lançamentos "
 "apenas na reconciliação bancária, e alguns deles ainda não foram "
@@ -199,7 +199,6 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__supplierinfo_id
 #, fuzzy
-#| msgid "Supplier"
 msgid "Supplierinfo"
 msgstr "Fornecedor"
 
@@ -242,7 +241,6 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__wizard_id
 #, fuzzy
-#| msgid "Wizard id"
 msgid "Wizard"
 msgstr "Identificação do assistente"
 
