@@ -3,4 +3,7 @@ product-attribute
 purchase-workflow
 queue
 brand
+server-backend
 stock-logistics-workflow
+web
+

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- Copyright 2019 Tecnativa - David Vidal
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.rule" id="global_discount_comp_rule">
+        <field name="name">Global Discount multi-company</field>
+        <field name="model_id" ref="account_global_discount.model_account_invoice_global_discount"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+</odoo>

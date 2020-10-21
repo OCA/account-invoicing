@@ -173,7 +173,7 @@ class AccountPaymentTerm(models.Model):
             if not self.sequential_lines:
                 # For all lines, the beginning date is `date_ref`
                 next_date = fields.Date.from_string(date_ref)
-                if float_is_zero(amt, precision_rounding=prec):
+                if float_is_zero(amt, precision_digits=prec):
                     continue
             if line.option == 'day_after_invoice_date':
                 next_date += relativedelta(days=line.days,
@@ -193,7 +193,7 @@ class AccountPaymentTerm(models.Model):
                 next_date += relativedelta(day=line.days, months=0)
             next_date = self.apply_payment_days(line, next_date)
             next_date = self.apply_holidays(next_date)
-            if not float_is_zero(amt, precision_rounding=prec):
+            if not float_is_zero(amt, precision_digits=prec):
                 result.append((fields.Date.to_string(next_date), amt))
                 amount -= amt
         amount = reduce(lambda x, y: x + y[1], result, 0.0)
