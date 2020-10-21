@@ -14,6 +14,6 @@
         "views/stock_picking.xml",
         "views/stock_picking_type.xml",
     ],
-    "demo": ["demo/stock_picking_demo.xml"],
+    # "demo": ["demo/stock_picking_demo.xml"],
     "installable": True,
 }
