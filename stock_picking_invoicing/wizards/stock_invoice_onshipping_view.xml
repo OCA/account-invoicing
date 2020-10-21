@@ -35,12 +35,13 @@
             </form>
         </field>
     </record>
-    <act_window
-        name="Create Draft Invoices"
-        res_model="stock.invoice.onshipping"
-        binding_model="stock.picking"
-        view_mode="form"
-        target="new"
-        id="action_stock_invoice_onshipping"
-    />
+    <record id="action_stock_invoice_onshipping" model="ir.actions.act_window">
+        <field name="name">Create Draft Invoices</field>
+        <field name="res_model">stock.invoice.onshipping</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_stock_invoice_onshipping"/>
+        <field name="binding_model_id" ref="stock.model_stock_picking" />
+        <field name="binding_view_types">form,list</field>
+    </record>
 </odoo>
