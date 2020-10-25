@@ -13,9 +13,13 @@
     <field name="model">account.move</field>
     <field name="inherit_id" ref="account.view_move_form"/>
     <field name="arch" type="xml">
+        <!-- For customer invoices, the field transmit_method_id is displayed
+            at the top. For vendor bills, it is displayed in the 3rd tab.
+            But I can't define different domain, it will apply the domain
+            of the last field for both. So the domain is set via
+            @api.onchange('type')  -->
         <field name="journal_id" position="after">
             <field name="transmit_method_id" widget="selection"
-                domain="[('customer_ok', '=', True)]"
                 attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}"/>
             <field name="transmit_method_code" invisible="1"/>
         </field>
@@ -24,8 +28,7 @@
         </button>
         <field name="invoice_source_email" position="after">
             <field name="transmit_method_id" widget="selection"
-                attrs="{'invisible': [('type', 'not in', ('in_invoice', 'in_refund'))]}"
-                domain="[('supplier_ok', '=', True)]"/>
+                attrs="{'invisible': [('type', 'not in', ('in_invoice', 'in_refund'))]}"/>
         </field>
     </field>
 </record>

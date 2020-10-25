@@ -13,10 +13,19 @@ class AccountMove(models.Model):
         string="Transmission Method",
         tracking=True,
         ondelete="restrict",
-    )  # domain in the view
+    )  # domain is set by @api.onchange("type")
     # Field used to match specific invoice transmit method
     # to show/display fields/buttons, add constraints, etc...
     transmit_method_code = fields.Char(related="transmit_method_id.code", store=True)
+
+    @api.onchange("type")
+    def _transmit_method_type_change(self):
+        res = {"domain": {}}
+        if self.is_sale_document():
+            res["domain"]["transmit_method_id"] = "[('customer_ok', '=', True)]"
+        elif self.is_purchase_document():
+            res["domain"]["transmit_method_id"] = "[('supplier_ok', '=', True)]"
+        return res
 
     @api.onchange("partner_id", "company_id")
     def _transmit_method_partner_change(self):
