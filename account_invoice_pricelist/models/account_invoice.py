@@ -15,11 +15,9 @@ class AccountInvoice(models.Model):
 
     @api.onchange('partner_id', 'company_id')
     def _onchange_partner_id_account_invoice_pricelist(self):
-        result = super(AccountInvoice, self)._onchange_partner_id()
         if self.partner_id and self.type in ('out_invoice', 'out_refund')\
                 and self.partner_id.property_product_pricelist:
             self.pricelist_id = self.partner_id.property_product_pricelist
-        return result
 
     @api.multi
     def button_update_prices_from_pricelist(self):
