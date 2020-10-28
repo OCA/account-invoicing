@@ -5,6 +5,6 @@ from odoo import fields, models
 
 
 class AccountTax(models.Model):
-    _inherit = 'account.tax'
+    _inherit = "account.tax"
 
     description = fields.Char(translate=True)

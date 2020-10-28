@@ -5,9 +5,9 @@
     "name": "Translate account tax description",
     "version": "12.0.1.0.0",
     "depends": ["account"],
-    "website": 'https://github.com/OCA/account-invoicing',
-    'author': "Quartile Limited, Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/account-invoicing",
+    "author": "Quartile Limited, Odoo Community Association (OCA)",
     "category": "Localisation",
-    'license': "LGPL-3",
-    'installable': True,
+    "license": "LGPL-3",
+    "installable": True,
 }
