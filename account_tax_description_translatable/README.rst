@@ -19,7 +19,7 @@ Translate account tax description
 
 |badge1| |badge2| |badge3| 
 
-This module allows to translate the tax description.
+This module allows to translate the tax description to show in the printed quotation/purchase order/invoice.
 
 **Table of contents**
 
@@ -49,8 +49,6 @@ Contributors
 
 * `Quartile Limited <https://www.quartile.co>`__:
 
-  * Yoshi Tashiro <tashiro@quartile.co>
-  * Tim Lai <tl@quartile.com>
   * Ryoko Tsuda <ryoko@quartile.co>
 
 Maintainers
