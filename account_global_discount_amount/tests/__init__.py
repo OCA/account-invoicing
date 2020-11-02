@@ -1,0 +1,1 @@
+from . import test_account_global_discount_amount
