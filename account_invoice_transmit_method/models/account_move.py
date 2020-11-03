@@ -13,19 +13,41 @@ class AccountMove(models.Model):
         string="Transmission Method",
         tracking=True,
         ondelete="restrict",
-    )  # domain is set by @api.onchange("type")
+        domain="['|', '&', ('customer_ok', '=', transmit_method_domain_sale),"
+        "('customer_ok', '=', True),"
+        "'&', ('supplier_ok', '=', transmit_method_domain_purchase),"
+        " ('supplier_ok', '=', True)]",
+    )
     # Field used to match specific invoice transmit method
     # to show/display fields/buttons, add constraints, etc...
     transmit_method_code = fields.Char(related="transmit_method_id.code", store=True)
+    transmit_method_domain_sale = fields.Boolean(
+        compute="_compute_transmit_method_domain", default=True
+    )
+    transmit_method_domain_purchase = fields.Boolean(
+        compute="_compute_transmit_method_domain", default=True
+    )
 
-    @api.onchange("type")
-    def _transmit_method_type_change(self):
-        res = {"domain": {}}
-        if self.is_sale_document():
-            res["domain"]["transmit_method_id"] = "[('customer_ok', '=', True)]"
-        elif self.is_purchase_document():
-            res["domain"]["transmit_method_id"] = "[('supplier_ok', '=', True)]"
-        return res
+    @api.depends("type")
+    def _compute_transmit_method_domain(self):
+        """Compute fields specific to the domain applied on transmit_method_id.
+
+        Because the field is displayed twice in the view the domain can not
+        be set there (only the last one would be applied).
+        Using api.onchange could be an option but does the domain is not
+        applied when opening an exsiting record.
+
+        """
+        for record in self:
+            if record.is_sale_document():
+                record.transmit_method_domain_sale = True
+                record.transmit_method_domain_purchase = False
+            elif record.is_purchase_document():
+                record.transmit_method_domain_sale = False
+                record.transmit_method_domain_purchase = True
+            else:
+                record.transmit_method_domain_sale = True
+                record.transmit_method_domain_purchase = True
 
     @api.onchange("partner_id", "company_id")
     def _transmit_method_partner_change(self):
