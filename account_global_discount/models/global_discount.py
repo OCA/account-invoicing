@@ -4,21 +4,20 @@ from odoo import fields, models
 
 
 class GlobalDiscount(models.Model):
-    _inherit = 'global.discount'
+    _inherit = "global.discount"
 
     account_id = fields.Many2one(
-        comodel_name='account.account',
-        string='Account',
+        comodel_name="account.account",
+        string="Account",
         domain="[('user_type_id.type', 'not in', ['receivable', 'payable'])]",
     )
     account_analytic_id = fields.Many2one(
-        comodel_name='account.analytic.account',
-        string='Analytic account',
+        comodel_name="account.analytic.account", string="Analytic account",
     )
 
     def _get_global_discount_vals(self, base, account_id=False, **kwargs):
         """Return account as well if passed"""
         res = super()._get_global_discount_vals(base)
         if account_id:
-            res.update({'account_id': account_id})
+            res.update({"account_id": account_id})
         return res

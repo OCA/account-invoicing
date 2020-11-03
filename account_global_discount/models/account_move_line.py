@@ -4,9 +4,9 @@ from odoo import fields, models
 
 
 class AccountMoveLine(models.Model):
-    _inherit = 'account.move.line'
+    _inherit = "account.move.line"
 
     invoice_global_discount_id = fields.Many2one(
-        comodel_name='account.invoice.global.discount',
-        string='Invoice Global Discount',
+        comodel_name="account.invoice.global.discount",
+        string="Invoice Global Discount",
     )
