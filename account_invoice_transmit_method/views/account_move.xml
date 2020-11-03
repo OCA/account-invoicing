@@ -12,10 +12,10 @@
         <field name="arch" type="xml">
             <!-- For customer invoices, the field transmit_method_id is displayed
             at the top. For vendor bills, it is displayed in the 3rd tab.
-            But I can't define different domain, it will apply the domain
-            of the last field for both. So the domain is set via
-            @api.onchange('type')  -->
+            -->
             <field name="journal_id" position="after">
+                <field name="transmit_method_domain_sale" invisible="1" />
+                <field name="transmit_method_domain_purchase" invisible="1" />
                 <field
                     name="transmit_method_id"
                     widget="selection"
