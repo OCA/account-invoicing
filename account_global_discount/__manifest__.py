@@ -3,12 +3,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Account Global Discount",
-    "version": "12.0.1.0.3",
+    "version": "13.0.1.0.0",
     "category": "Accounting",
-    "author": "Tecnativa," "Odoo Community Association (OCA)",
+    "author": "Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/server-backend",
     "license": "AGPL-3",
-    "depends": ["account", "base_global_discount",],
+    "depends": ["account", "base_global_discount"],
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",
