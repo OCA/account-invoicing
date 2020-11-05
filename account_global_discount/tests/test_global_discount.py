@@ -2,7 +2,7 @@
 # Copyright 2020 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import exceptions
-from odoo.tests import common
+from odoo.tests import Form, common
 
 
 class TestGlobalDiscount(common.SavepointCase):
@@ -10,13 +10,35 @@ class TestGlobalDiscount(common.SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.account_type = cls.env["account.account.type"].create(
-            {"name": "Test", "type": "receivable",}
+            {"name": "Test", "type": "other", "internal_group": "income"}
         )
         cls.account = cls.env["account.account"].create(
             {
                 "name": "Test account",
                 "code": "TEST",
                 "user_type_id": cls.account_type.id,
+                "reconcile": True,
+            }
+        )
+        cls.account_type_receivable = cls.env["account.account.type"].create(
+            {"name": "Test", "type": "receivable", "internal_group": "income"}
+        )
+        cls.account_receivable = cls.env["account.account"].create(
+            {
+                "name": "Test receivable account",
+                "code": "ACCRV",
+                "user_type_id": cls.account_type_receivable.id,
+                "reconcile": True,
+            }
+        )
+        cls.account_type_payable = cls.env["account.account.type"].create(
+            {"name": "Test", "type": "payable", "internal_group": "income"}
+        )
+        cls.account_payable = cls.env["account.account"].create(
+            {
+                "name": "Test receivable account",
+                "code": "ACCPAY",
+                "user_type_id": cls.account_type_payable.id,
                 "reconcile": True,
             }
         )
@@ -45,8 +67,20 @@ class TestGlobalDiscount(common.SavepointCase):
                 "account_id": cls.account.id,
             }
         )
-        cls.partner_1 = cls.env["res.partner"].create({"name": "Mr. Odoo",})
-        cls.partner_2 = cls.env["res.partner"].create({"name": "Mrs. Odoo",})
+        cls.partner_1 = cls.env["res.partner"].create(
+            {
+                "name": "Mr. Odoo",
+                "property_account_receivable_id": cls.account_receivable.id,
+                "property_account_payable_id": cls.account_payable.id,
+            }
+        )
+        cls.partner_2 = cls.env["res.partner"].create(
+            {
+                "name": "Mrs. Odoo",
+                "property_account_receivable_id": cls.account_receivable.id,
+                "property_account_payable_id": cls.account_payable.id,
+            }
+        )
         cls.partner_2.supplier_global_discount_ids = cls.global_discount_2
         cls.tax = cls.env["account.tax"].create(
             {
@@ -57,47 +91,42 @@ class TestGlobalDiscount(common.SavepointCase):
             }
         )
         cls.journal = cls.env["account.journal"].create(
-            {"name": "Test purchase journal", "code": "TPUR", "type": "purchase",}
+            {"name": "Test purchase journal", "code": "TPUR", "type": "purchase"}
         )
-        cls.invoice = cls.env["account.invoice"].create(
-            {
-                "name": "Test Customer Invoice",
-                "journal_id": cls.journal.id,
-                "partner_id": cls.partner_1.id,
-                "account_id": cls.account.id,
-                "type": "in_invoice",
-            }
+        cls.invoice_line = cls.env["account.move.line"]
+        invoice_form = Form(
+            cls.env["account.move"].with_context(
+                default_type="in_invoice", test_account_global_discount=True,
+            )
         )
-        cls.invoice_line = cls.env["account.invoice.line"]
-        cls.invoice_line1 = cls.invoice_line.create(
-            {
-                "invoice_id": cls.invoice.id,
-                "name": "Line 1",
-                "price_unit": 200.0,
-                "account_id": cls.account.id,
-                "invoice_line_tax_ids": [(6, 0, [cls.tax.id])],
-                "quantity": 1,
-            }
-        )
-        cls.invoice._onchange_invoice_line_ids()
+        invoice_form.partner_id = cls.partner_1
+        with invoice_form.invoice_line_ids.new() as line_form:
+            line_form.name = "Line 1"
+            line_form.price_unit = 200.0
+            line_form.quantity = 1
+            line_form.tax_ids.clear()
+            line_form.tax_ids.add(cls.tax)
+        cls.invoice = invoice_form.save()
 
     def test_01_global_invoice_succesive_discounts(self):
         """Add global discounts to the invoice"""
+        invoice_no_check = self.invoice.with_context(check_move_validity=False)
+        invoice_tax_line = self.invoice.line_ids.filtered("tax_line_id")
         self.assertAlmostEqual(self.invoice.amount_total, 230)
-        self.assertAlmostEqual(self.invoice.tax_line_ids.base, 200.0)
-        self.assertAlmostEqual(self.invoice.tax_line_ids.amount, 30.0)
+        self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 200.0)
+        self.assertAlmostEqual(invoice_tax_line.balance, 30.0)
         # Global discounts are applied to the base and taxes are recomputed:
         # 200 - 50% (global disc. 1) =  100
-        self.invoice.global_discount_ids = self.global_discount_3
-        self.invoice._onchange_global_discount_ids()
+        invoice_no_check.global_discount_ids = [(6, 0, self.global_discount_3.ids)]
+        invoice_no_check._onchange_global_discount_ids()
         self.assertEqual(len(self.invoice.invoice_global_discount_ids), 1)
         precision = self.env["decimal.precision"].precision_get("Discount")
         self.assertEqual(
             self.invoice.invoice_global_discount_ids.discount_display,
             "-50.{}%".format("0" * precision),
         )
-        self.assertAlmostEqual(self.invoice.tax_line_ids.base, 100.0)
-        self.assertAlmostEqual(self.invoice.tax_line_ids.amount, 15.0)
+        self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 100.0)
+        self.assertAlmostEqual(invoice_tax_line.balance, 15.0)
         self.assertAlmostEqual(self.invoice.amount_untaxed, 100.0)
         self.assertAlmostEqual(self.invoice.amount_total, 115.0)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -100.0)
@@ -105,11 +134,11 @@ class TestGlobalDiscount(common.SavepointCase):
         # 200 - 50% (global disc. 1) =  100
         # 100  - 30% (global disc. 2) =  70
         # The global discounts amount is then 200 - 70 = 130
-        self.invoice.global_discount_ids += self.global_discount_2
-        self.invoice._onchange_global_discount_ids()
+        self.invoice.global_discount_ids = [(4, self.global_discount_2.id)]
+        invoice_no_check._onchange_global_discount_ids()
         self.assertEqual(len(self.invoice.invoice_global_discount_ids), 2)
-        self.assertAlmostEqual(self.invoice.tax_line_ids.base, 70.0)
-        self.assertAlmostEqual(self.invoice.tax_line_ids.amount, 10.5)
+        self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 70.0)
+        self.assertAlmostEqual(invoice_tax_line.balance, 10.5)
         self.assertAlmostEqual(self.invoice.amount_untaxed, 70.0)
         self.assertAlmostEqual(self.invoice.amount_total, 80.5)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -130.0)
@@ -118,56 +147,54 @@ class TestGlobalDiscount(common.SavepointCase):
         # 160 - 50% (global disc. 1) =  80
         # 80  - 30% (global disc. 2) =  56
         # The global discounts amount is then 160 - 56 = 104
-        self.invoice_line1.discount = 20
-        self.invoice._onchange_invoice_line_ids()
+        invoice_no_check.invoice_line_ids.discount = 20
+        invoice_no_check._onchange_invoice_line_ids()
         self.assertEqual(len(self.invoice.invoice_global_discount_ids), 2)
-        self.assertAlmostEqual(self.invoice.tax_line_ids.base, 56.0)
-        self.assertAlmostEqual(self.invoice.tax_line_ids.amount, 8.4)
+        self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 56.0)
+        self.assertAlmostEqual(invoice_tax_line.balance, 8.4)
         self.assertAlmostEqual(self.invoice.amount_untaxed, 56.0)
         self.assertAlmostEqual(self.invoice.amount_total, 64.4)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -104.0)
 
     def test_02_global_invoice_discounts_from_partner(self):
         """Change the partner and his global discounts go to the invoice"""
+        invoice_no_check = self.invoice.with_context(check_move_validity=False)
+        invoice_tax_line = self.invoice.line_ids.filtered("tax_line_id")
         self.assertAlmostEqual(self.invoice.amount_total, 230)
-        self.assertAlmostEqual(self.invoice.tax_line_ids.base, 200.0)
-        self.assertAlmostEqual(self.invoice.tax_line_ids.amount, 30.0)
+        self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 200.0)
+        self.assertAlmostEqual(invoice_tax_line.balance, 30.0)
         # When we change the parter, his global discounts are fetched depending
         # on the type of the invoice. In this case, we fetch the supplier
         # global discounts
         self.invoice.partner_id = self.partner_2
         # trigger onchanges mimicking UI
-        self.invoice._onchange_partner_id()
-        self.invoice._onchange_global_discount_ids()
-        self.assertAlmostEqual(self.invoice.tax_line_ids.base, 140.0)
-        self.assertAlmostEqual(self.invoice.tax_line_ids.amount, 21.0)
+        invoice_no_check._onchange_partner_id()
+        invoice_no_check._onchange_global_discount_ids()
+        self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 140.0)
+        self.assertAlmostEqual(invoice_tax_line.balance, 21.0)
         self.assertAlmostEqual(self.invoice.amount_untaxed, 140.0)
         self.assertAlmostEqual(self.invoice.amount_total, 161.0)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -60.0)
 
     def test_03_multiple_taxes_multi_line(self):
+        invoice_no_check = self.invoice.with_context(check_move_validity=False)
         tax2 = self.env["account.tax"].create(
             {
-                "name": "TAX 20%",
+                "name": "TAX 20% 2",
                 "amount_type": "percent",
                 "type_tax_use": "purchase",
                 "amount": 20.0,
             }
         )
-        self.invoice_line.create(
-            {
-                "invoice_id": self.invoice.id,
-                "name": "Line 2",
-                "price_unit": 100.0,
-                "account_id": self.account.id,
-                "invoice_line_tax_ids": [(6, 0, [tax2.id])],
-                "quantity": 1,
-            }
-        )
-        self.invoice.global_discount_ids = self.global_discount_1
-        self.invoice._onchange_global_discount_ids()
-        # Global discounts are applied to the base and taxes are recomputed:
-        # 300 - 20% (global disc. 1) =  240
+        with Form(self.invoice) as invoice_form:
+            invoice_form.global_discount_ids.add(self.global_discount_1)
+            with invoice_form.invoice_line_ids.new() as line_form:
+                line_form.name = "Line 2"
+                line_form.price_unit = 100.0
+                line_form.quantity = 1
+                line_form.tax_ids.clear()
+                line_form.tax_ids.add(tax2)
+        invoice_no_check._onchange_global_discount_ids()
         self.assertEqual(len(self.invoice.invoice_global_discount_ids), 2)
         discount_tax_15 = self.invoice.invoice_global_discount_ids.filtered(
             lambda x: x.tax_ids == self.tax
@@ -177,20 +204,24 @@ class TestGlobalDiscount(common.SavepointCase):
         )
         self.assertAlmostEqual(discount_tax_15.discount_amount, 40)
         self.assertAlmostEqual(discount_tax_20.discount_amount, 20)
-        tax_line_15 = self.invoice.tax_line_ids.filtered(lambda x: x.tax_id == self.tax)
-        tax_line_20 = self.invoice.tax_line_ids.filtered(lambda x: x.tax_id == tax2)
-        self.assertAlmostEqual(tax_line_15.base, 160)
-        self.assertAlmostEqual(tax_line_15.amount, 24)
-        self.assertAlmostEqual(tax_line_20.base, 80.0)
-        self.assertAlmostEqual(tax_line_20.amount, 16)
+        tax_line_15 = self.invoice.line_ids.filtered(
+            lambda x: x.tax_line_id == self.tax
+        )
+        tax_line_20 = self.invoice.line_ids.filtered(lambda x: x.tax_line_id == tax2)
+        self.assertAlmostEqual(tax_line_15.tax_base_amount, 160)
+        self.assertAlmostEqual(tax_line_15.balance, 24)
+        self.assertAlmostEqual(tax_line_20.tax_base_amount, 80.0)
+        self.assertAlmostEqual(tax_line_20.balance, 16)
         self.assertAlmostEqual(self.invoice.amount_untaxed, 240.0)
         self.assertAlmostEqual(self.invoice.amount_total, 280)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -60.0)
         # Validate invoice for seeing result
-        self.invoice.action_invoice_open()
-        self.assertEqual(len(self.invoice.move_id.line_ids), 7)
+        self.assertEqual(len(self.invoice.line_ids), 7)
+        self.invoice.post()
+        self.assertEqual(len(self.invoice.line_ids), 7)
 
     def test_04_multiple_taxes_same_line(self):
+        invoice_no_check = self.invoice.with_context(check_move_validity=False)
         tax2 = self.env["account.tax"].create(
             {
                 "name": "Retention 20%",
@@ -199,9 +230,11 @@ class TestGlobalDiscount(common.SavepointCase):
                 "amount": -20.0,  # negative for testing more use cases
             }
         )
-        self.invoice_line1.invoice_line_tax_ids = [(4, tax2.id)]
-        self.invoice.global_discount_ids = self.global_discount_1
-        self.invoice._onchange_global_discount_ids()
+        with Form(self.invoice.with_context(check_move_validity=False)) as invoice_form:
+            invoice_form.global_discount_ids.add(self.global_discount_1)
+            with invoice_form.invoice_line_ids.edit(0) as line_form:
+                line_form.tax_ids.add(tax2)
+        invoice_no_check._onchange_global_discount_ids()
         # Global discounts are applied to the base and taxes are recomputed:
         # 300 - 20% (global disc. 1) =  240
         self.assertEqual(len(self.invoice.invoice_global_discount_ids), 1)
@@ -211,21 +244,21 @@ class TestGlobalDiscount(common.SavepointCase):
         self.assertEqual(
             self.invoice.invoice_global_discount_ids.tax_ids, self.tax + tax2
         )
-        tax_line_15 = self.invoice.tax_line_ids.filtered(lambda x: x.tax_id == self.tax)
-        tax_line_20 = self.invoice.tax_line_ids.filtered(lambda x: x.tax_id == tax2)
-        self.assertAlmostEqual(tax_line_15.base, 160)
-        self.assertAlmostEqual(tax_line_15.amount, 24)
-        self.assertAlmostEqual(tax_line_20.base, 160.0)
-        self.assertAlmostEqual(tax_line_20.amount, -32)
+        tax_line_15 = self.invoice.line_ids.filtered(
+            lambda x: x.tax_line_id == self.tax
+        )
+        tax_line_20 = self.invoice.line_ids.filtered(lambda x: x.tax_line_id == tax2)
+        self.assertAlmostEqual(tax_line_15.tax_base_amount, 160)
+        self.assertAlmostEqual(tax_line_15.balance, 24)
+        self.assertAlmostEqual(tax_line_20.tax_base_amount, 160.0)
+        self.assertAlmostEqual(tax_line_20.balance, -32)
         self.assertAlmostEqual(self.invoice.amount_untaxed, 160.0)
         self.assertAlmostEqual(self.invoice.amount_total, 152)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -40.0)
         # Validate invoice for seeing result
-        self.invoice.action_invoice_open()
-        move = self.invoice.move_id
-        self.assertEqual(len(move.line_ids), 5)
-        line = move.line_ids.filtered(lambda x: "Test Discount 1" in x.name)
-        self.assertEqual(line.tax_ids, self.tax + tax2)
+        self.assertEqual(len(self.invoice.line_ids), 5)
+        self.invoice.post()
+        self.assertEqual(len(self.invoice.line_ids), 5)
 
     def test_05_incompatible_taxes(self):
         # Line 1 with tax and tax2
@@ -238,23 +271,20 @@ class TestGlobalDiscount(common.SavepointCase):
                 "amount": -20.0,  # negative for testing more use cases
             }
         )
-        self.invoice_line1.invoice_line_tax_ids = [(4, tax2.id), (4, self.tax.id)]
-        self.invoice_line.create(
-            {
-                "invoice_id": self.invoice.id,
-                "name": "Line 2",
-                "price_unit": 100.0,
-                "account_id": self.account.id,
-                "invoice_line_tax_ids": [(6, 0, [tax2.id])],
-                "quantity": 1,
-            }
-        )
-        self.invoice.global_discount_ids = self.global_discount_1
         with self.assertRaises(exceptions.UserError):
-            self.invoice._onchange_global_discount_ids()
+            with Form(self.invoice) as invoice_form:
+                invoice_form.global_discount_ids.add(self.global_discount_1)
+                with invoice_form.invoice_line_ids.new() as line_form:
+                    line_form.name = "Line 2"
+                    line_form.price_unit = 100.0
+                    line_form.quantity = 1
+                    line_form.tax_ids.clear()
+                    line_form.tax_ids.add(self.tax)
+                    line_form.tax_ids.add(tax2)
 
     def test_06_no_taxes(self):
-        self.invoice_line1.invoice_line_tax_ids = False
-        self.invoice.global_discount_ids = self.global_discount_1
         with self.assertRaises(exceptions.UserError):
-            self.invoice._onchange_global_discount_ids()
+            with Form(self.invoice) as invoice_form:
+                invoice_form.global_discount_ids.add(self.global_discount_1)
+                with invoice_form.invoice_line_ids.edit(0) as line_form:
+                    line_form.tax_ids.clear()
