@@ -14,13 +14,13 @@ Account Global Discount
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/12.0/account_global_discount
+    :target: https://github.com/OCA/account-invoicing/tree/13.0/account_global_discount
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-12-0/account-invoicing-12-0-account_global_discount
+    :target: https://translation.odoo-community.org/projects/account-invoicing-13-0/account-invoicing-13-0-account_global_discount
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/95/12.0
+    :target: https://runbot.odoo-community.org/runbot/95/13.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
@@ -32,13 +32,13 @@ Apply global discounts to invoices
 .. contents::
    :local:
 
-Usage
-=====
+Configuration
+=============
 
-To use this module, you need to:
+To configure this module, you need to:
 
-#. Go to *Settings > Parameters > Global Discounts*
-#. Add a new discount that can be either by percentage or fixed amount.
+#. Go to *Settings > Parameters > Global Discounts*.
+#. Add a new discount percentage.
 #. Choose the discount scope (sales or purchases).
 #. You can also restrict it to a certain company if needed.
 
@@ -46,9 +46,28 @@ You can assign global discounts to partners as well:
 
 #. Go to a partner that is a company.
 #. Go to the *Sales & Purchases* tab.
-#. In section sale (if the partner is a customer), you can set sale discounts.
-#. In section purchase (if the partner is a supplier), you can set purchase
-   discounts.
+#. In section sale, you can set sale discounts.
+#. In section purchase, you can set purchase discounts.
+
+Usage
+=====
+
+To use this module, you need to:
+
+#. Go to *Invoicing > Customers > Invoices*.
+#. Create a new sales invoice, choose a customer with a defined global
+   discount and you will see how the value of the 'Invoice Global Discounts'
+   field is auto-completed with the global discounts defined in the customer
+   (See configuration section in this readme), although you can choose
+   then other global discounts defined in configuration.
+#. Add several invoice lines.
+#. At the bottom of the form you will see how global discounts affect the
+   total values.
+#. Go to the 'Journal Items' tab (if you have permissions for that).
+   There you will see how the tax lines have the discount percentage applied
+   and you will also see the lines that reflect the global discount applied.
+#. In the 'Other info' tab, you can see in the 'Global Discounts' table,
+   the global discounts applied to each of the invoice lines.
 
 Known issues / Roadmap
 ======================
@@ -64,7 +83,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_global_discount%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_global_discount%0Aversion:%2013.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -85,6 +104,7 @@ Contributors
   * David Vidal
   * Carlos Dauden
   * Rafael Blasco
+  * Ernesto Tejeda
 
 Maintainers
 ~~~~~~~~~~~
@@ -99,6 +119,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/12.0/account_global_discount>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/13.0/account_global_discount>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
