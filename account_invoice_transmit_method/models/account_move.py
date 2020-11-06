@@ -65,6 +65,8 @@ class AccountMove(models.Model):
 
     @api.model
     def create(self, vals):
+        # TODO: Improvement make it computed and writeable instead, and drop
+        #       This override
         if (
             "transmit_method_id" not in vals
             and vals.get("type")

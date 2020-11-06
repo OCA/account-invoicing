@@ -2,10 +2,15 @@
 # @author: Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SingleTransactionCase
 
 
-class TestAccountInvoiceTransmitMethod(TransactionCase):
+class TestAccountInvoiceTransmitMethod(SingleTransactionCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
+
     def test_create_invoice(self):
         post_method = self.env.ref("account_invoice_transmit_method.post")
         partner1 = self.env["res.partner"].create(
