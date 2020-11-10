@@ -12,6 +12,6 @@
     "depends": ["account"],
     "data": ["views/account_invoice_view.xml"],
     "installable": True,
-    "development_status": "beta",
+    "development_status": "Beta",
     "maintainers": ["kittiu"],
 }
