@@ -12,7 +12,13 @@
                 <field name="partner_id" string="Customer" />
                 <field name="date" />
                 <field name="threshold_date" />
-                <field name="state" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state == 'billed'"
+                    decoration-info="state == 'draft'"
+                    decoration-danger="state == 'cancel'"
+                />
             </tree>
         </field>
     </record>
@@ -29,7 +35,13 @@
                 <field name="partner_id" string="Vendor" />
                 <field name="date" />
                 <field name="threshold_date" />
-                <field name="state" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state == 'billed'"
+                    decoration-info="state == 'draft'"
+                    decoration-danger="state == 'cancel'"
+                />
             </tree>
         </field>
     </record>
@@ -183,7 +195,23 @@
                                         readonly="1"
                                         force_save="1"
                                     />
-                                    <field name="state" readonly="1" force_save="1" />
+                                    <field
+                                        name="state"
+                                        readonly="1"
+                                        force_save="1"
+                                        widget="badge"
+                                        decoration-success="state == 'posted'"
+                                        decoration-info="state == 'draft'"
+                                        decoration-danger="state == 'cancel'"
+                                    />
+                                    <field
+                                        name="payment_state"
+                                        widget="badge"
+                                        decoration-success="payment_state == 'paid'"
+                                        decoration-info="payment_state == 'not_paid'"
+                                        decoration-danger="payment_state == 'reversed'"
+                                        decoration-warning="payment_state == 'in_payment'"
+                                    />
                                 </tree>
                             </field>
                             <group>
