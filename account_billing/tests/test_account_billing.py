@@ -26,7 +26,6 @@ class TestAccountBilling(SavepointCase):
         cls.product = cls.env.ref("product.product_product_4")
         cls.currency_usd_id = cls.env.ref("base.USD").id
         cls.currency_eur_id = cls.env.ref("base.EUR").id
-
         cls.account_receivable = cls.env["account.account"].search(
             [
                 (
@@ -43,7 +42,8 @@ class TestAccountBilling(SavepointCase):
                     "user_type_id",
                     "=",
                     cls.env.ref("account.data_account_type_revenue").id,
-                )
+                ),
+                ("company_id", "=", cls.env.company.id),
             ],
             limit=1,
         )
@@ -93,7 +93,7 @@ class TestAccountBilling(SavepointCase):
             {
                 "partner_id": partner or self.partner_agrolait.id,
                 "currency_id": currency_id or self.currency_eur_id,
-                "type": invoice_type,
+                "move_type": invoice_type,
                 "invoice_payment_term_id": self.payment_term.id,
                 "invoice_line_ids": [
                     [
@@ -120,11 +120,10 @@ class TestAccountBilling(SavepointCase):
                 "payment_method_id": self.payment_method_manual_in.id,
             }
         )
-        return register_payments.create_payments()
+        return register_payments.action_create_payments()
 
     def test_1_invoice_partner(self):
         ctx = {
-            "active_model": "account.move",
             "active_ids": [self.inv_1.id, self.inv_4.id],
             "bill_type": "out_invoice",
         }
@@ -133,7 +132,6 @@ class TestAccountBilling(SavepointCase):
 
     def test_2_invoice_currency(self):
         ctx1 = {
-            "active_model": "account.move",
             "active_ids": [self.inv_1.id, self.inv_3.id],
             "bill_type": "out_invoice",
         }
@@ -143,7 +141,7 @@ class TestAccountBilling(SavepointCase):
         self.billing_model.create({"partner_id": self.partner_agrolait.id})
 
     def test_3_validate_billing_state_not_open(self):
-        ctx = {"active_model": "account.invoice", "active_ids": [self.inv_1.id]}
+        ctx = {"active_model": "account.move", "active_ids": [self.inv_1.id]}
         self.create_payment(ctx)
         with self.assertRaises(ValidationError):
             self.billing_model.with_context(ctx).create({})
@@ -210,10 +208,9 @@ class TestAccountBilling(SavepointCase):
         self.assertEqual(bill2.invoice_related_count, 1)
 
     def test_6_check_billing_from_bills(self):
-        self.inv_1.type = "in_invoice"
-        self.inv_2.type = "in_invoice"
+        self.inv_1.move_type = "in_invoice"
+        self.inv_2.move_type = "in_invoice"
         ctx = {
-            "active_model": "account.move",
             "active_ids": [self.inv_1.id, self.inv_2.id],
             "bill_type": "in_invoice",
         }

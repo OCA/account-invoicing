@@ -26,7 +26,7 @@ class AccountBilling(models.Model):
         required=True,
         default=lambda self: self._get_partner_id(),
         help="Partner Information",
-        track_visibility="always",
+        tracking=True,
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
@@ -42,7 +42,7 @@ class AccountBilling(models.Model):
         states={"draft": [("readonly", False)]},
         default=fields.Date.context_today,
         help="Effective date for accounting entries",
-        track_visibility="always",
+        tracking=True,
     )
     threshold_date = fields.Date(
         readonly=True,
@@ -50,7 +50,9 @@ class AccountBilling(models.Model):
         string="Threshold Date",
         default=lambda self: fields.Date.context_today(self),
         required=True,
-        track_visibility="always",
+        tracking=True,
+        help="All invoices with date (threshold date type) before and equal to "
+        "threshold date will be listed in billing lines",
     )
     invoice_related_count = fields.Integer(
         string="# of Invoices",
@@ -104,6 +106,8 @@ class AccountBilling(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
         default="invoice_date_due",
+        help="All invoices with date (threshold date type) before and equal to "
+        "threshold date will be listed in billing lines",
     )
 
     def _get_invoices(self, date=False, types=False):
@@ -111,10 +115,10 @@ class AccountBilling(models.Model):
             [
                 ("partner_id", "=", self.partner_id.id),
                 ("state", "=", "posted"),
-                ("invoice_payment_state", "!=", "paid"),
+                ("payment_state", "!=", "paid"),
                 ("currency_id", "=", self.currency_id.id),
                 (date, "<=", self.threshold_date),
-                ("type", "in", types),
+                ("move_type", "in", types),
             ]
         )
         return invoices
@@ -130,12 +134,12 @@ class AccountBilling(models.Model):
                 types = ["out_invoice", "out_refund"]
             invoices = self._get_invoices(self.threshold_date_type, types)
         else:
-            if invoices[0].type in ["out_invoice", "out_refund"]:
+            if invoices[0].move_type in ["out_invoice", "out_refund"]:
                 self.bill_type = "out_invoice"
             else:
                 self.bill_type = "in_invoice"
         for line in invoices:
-            if line.type in ["out_refund", "in_refund"]:
+            if line.move_type in ["out_refund", "in_refund"]:
                 line.amount_residual = line.amount_residual * (-1)
             self.billing_line_ids += Billing_line.new(
                 {"invoice_id": line.id, "total": line.amount_residual}
@@ -143,14 +147,11 @@ class AccountBilling(models.Model):
 
     def _get_partner_id(self):
         inv_ids = self.env["account.move"].browse(self._context.get("active_ids", []))
-        if any(
-            inv.state != "posted" or inv.invoice_payment_state == "paid"
-            for inv in inv_ids
-        ):
+        if any(inv.state != "posted" or inv.payment_state == "paid" for inv in inv_ids):
             raise ValidationError(
                 _(
-                    """Billing cannot be processed because
-                    some invoices are not in state Open"""
+                    "Billing cannot be processed because "
+                    "some invoices are not in state Open"
                 )
             )
         partners = (
@@ -222,7 +223,7 @@ class AccountBilling(models.Model):
     def action_cancel(self):
         for rec in self:
             invoice_paid = rec.billing_line_ids.mapped("invoice_id").filtered(
-                lambda l: l.invoice_payment_state == "paid"
+                lambda l: l.payment_state == "paid"
             )
             if invoice_paid:
                 raise ValidationError(_("Invoice paid already."))
@@ -231,10 +232,7 @@ class AccountBilling(models.Model):
         return True
 
     def invoice_relate_billing_tree_view(self):
-        if self.bill_type == "out_invoice":
-            name = "Invoices"
-        else:
-            name = "Bills"
+        name = self.bill_type == "out_invoice" and "Invoices" or "Bills"
         return {
             "name": _("%s" % name),
             "view_mode": "tree,form",
@@ -264,3 +262,4 @@ class AccountBillingLine(models.Model):
     origin = fields.Char(related="invoice_id.invoice_origin")
     total = fields.Float()
     state = fields.Selection(related="invoice_id.state")
+    payment_state = fields.Selection(related="invoice_id.payment_state")
