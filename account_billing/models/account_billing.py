@@ -16,7 +16,11 @@ class AccountBilling(models.Model):
     _inherit = ["mail.thread"]
     _order = "date desc, id desc"
 
-    name = fields.Char(readonly=True, copy=False, help="Number of account.billing",)
+    name = fields.Char(
+        readonly=True,
+        copy=False,
+        help="Number of account.billing",
+    )
     partner_id = fields.Many2one(
         comodel_name="res.partner",
         required=True,
