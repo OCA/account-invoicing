@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_transmit_method
+# 	* account_invoice_transmit_method
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_invoice__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__code
 msgid "Code"
 msgstr ""
@@ -52,13 +52,15 @@ msgid "Display Name"
 msgstr ""
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_invoice__transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_transmit_method__code
-msgid "Do not modify the code of an existing Transmit Method because it may be used to identify a particular transmit method."
+msgid ""
+"Do not modify the code of an existing Transmit Method because it may be used"
+" to identify a particular transmit method."
 msgstr ""
 
 #. module: account_invoice_transmit_method
@@ -67,8 +69,8 @@ msgid "ID"
 msgstr ""
 
 #. module: account_invoice_transmit_method
-#: model:ir.model,name:account_invoice_transmit_method.model_account_invoice
-msgid "Invoice"
+#: model:ir.model,name:account_invoice_transmit_method.model_account_move
+msgid "Journal Entries"
 msgstr ""
 
 #. module: account_invoice_transmit_method
@@ -114,18 +116,28 @@ msgid "Selectable on Vendors"
 msgstr ""
 
 #. module: account_invoice_transmit_method
-#: sql_constraint:transmit.method:0
+#: model:ir.model.constraint,message:account_invoice_transmit_method.constraint_transmit_method_code_unique
 msgid "This transmit method code already exists!"
 msgstr ""
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_invoice__transmit_method_id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_id
 msgid "Transmission Method"
 msgstr ""
 
 #. module: account_invoice_transmit_method
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_form
 msgid "Transmit Method"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_purchase
+msgid "Transmit Method Domain Purchase"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_sale
+msgid "Transmit Method Domain Sale"
 msgstr ""
 
 #. module: account_invoice_transmit_method
@@ -151,4 +163,3 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
 msgstr ""
-
