@@ -1,0 +1,10 @@
+<odoo>
+    <act_window
+        id="action_account_invoice_billing"
+        name="Create Billing"
+        res_model="account.billing"
+        binding_model="account.move"
+        view_mode="form"
+        target="current"
+    />
+</odoo>
