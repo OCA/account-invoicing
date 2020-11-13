@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_invoice__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__code
 msgid "Code"
 msgstr ""
@@ -57,7 +57,7 @@ msgid "Display Name"
 msgstr "표시 이름"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_invoice__transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_code
@@ -74,8 +74,8 @@ msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model,name:account_invoice_transmit_method.model_account_invoice
-msgid "Invoice"
+#: model:ir.model,name:account_invoice_transmit_method.model_account_move
+msgid "Journal Entries"
 msgstr ""
 
 #. module: account_invoice_transmit_method
@@ -121,18 +121,28 @@ msgid "Selectable on Vendors"
 msgstr ""
 
 #. module: account_invoice_transmit_method
-#: sql_constraint:transmit.method:0
+#: model:ir.model.constraint,message:account_invoice_transmit_method.constraint_transmit_method_code_unique
 msgid "This transmit method code already exists!"
 msgstr ""
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_invoice__transmit_method_id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_id
 msgid "Transmission Method"
 msgstr ""
 
 #. module: account_invoice_transmit_method
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_form
 msgid "Transmit Method"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_purchase
+msgid "Transmit Method Domain Purchase"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_sale
+msgid "Transmit Method Domain Sale"
 msgstr ""
 
 #. module: account_invoice_transmit_method
