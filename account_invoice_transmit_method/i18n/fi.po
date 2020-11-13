@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_invoice__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__code
 msgid "Code"
 msgstr "Koodi"
@@ -58,7 +58,7 @@ msgid "Display Name"
 msgstr "Nimi"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_invoice__transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_code
@@ -77,9 +77,9 @@ msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model,name:account_invoice_transmit_method.model_account_invoice
-msgid "Invoice"
-msgstr "Lasku"
+#: model:ir.model,name:account_invoice_transmit_method.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method____last_update
@@ -124,12 +124,12 @@ msgid "Selectable on Vendors"
 msgstr "Valittavissa toimittajilla"
 
 #. module: account_invoice_transmit_method
-#: sql_constraint:transmit.method:0
+#: model:ir.model.constraint,message:account_invoice_transmit_method.constraint_transmit_method_code_unique
 msgid "This transmit method code already exists!"
 msgstr "Tämä lähetystavan koodi on jo olemassa!"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_invoice__transmit_method_id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_id
 msgid "Transmission Method"
 msgstr "Lähetystapa"
 
@@ -137,6 +137,20 @@ msgstr "Lähetystapa"
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_form
 msgid "Transmit Method"
 msgstr "Lähetystapa"
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_purchase
+#, fuzzy
+#| msgid "Transmit Method of a document"
+msgid "Transmit Method Domain Purchase"
+msgstr "Dokumentin lähetystapa"
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_sale
+#, fuzzy
+#| msgid "Transmit Method of a document"
+msgid "Transmit Method Domain Sale"
+msgstr "Dokumentin lähetystapa"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_transmit_method
@@ -161,6 +175,9 @@ msgstr "Toimittajan laskun vastaanottotapa"
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
 msgstr "Toimittajan laskun vastaanottotavan koodi"
+
+#~ msgid "Invoice"
+#~ msgstr "Lasku"
 
 #~ msgid "Partner"
 #~ msgstr "Kumppani"
