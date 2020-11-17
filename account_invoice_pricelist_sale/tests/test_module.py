@@ -10,6 +10,7 @@ class TestModule(TransactionCase):
         super(TestModule, self).setUp()
         self.partner = self.env.ref("base.res_partner_12")
         self.product = self.env.ref("product.consu_delivery_01")
+        self.product.invoice_policy = "order"
 
     def test_main(self):
         # Create Pricelist
