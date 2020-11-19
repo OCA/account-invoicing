@@ -27,7 +27,8 @@ class AccountInvoice(models.Model):
         lines_without_product = []
         fp = self.fiscal_position_id
         inv_type = self.type
-        for line in self.invoice_line_ids:
+        for line in self.invoice_line_ids.filtered(
+                lambda l: not l.display_type):
             if line.product_id:
                 account = line.get_invoice_line_account(
                     inv_type, line.product_id, fp, self.company_id)
