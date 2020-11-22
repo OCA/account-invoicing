@@ -118,7 +118,6 @@ msgstr ""
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term_holiday
 #, fuzzy
-#| msgid "Payment day(s)"
 msgid "Payment Term Holidays"
 msgstr "Plaćanje dan(a)"
 

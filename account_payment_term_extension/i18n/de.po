@@ -117,7 +117,6 @@ msgstr "Zahlung"
 #. module: account_payment_term_extension
 #: model:ir.model,name:account_payment_term_extension.model_account_payment_term_holiday
 #, fuzzy
-#| msgid "Payment Terms"
 msgid "Payment Term Holidays"
 msgstr "Zahlungsbedingungen"
 
