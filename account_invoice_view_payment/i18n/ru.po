@@ -37,7 +37,6 @@ msgstr "Платежи"
 #. module: account_invoice_view_payment
 #: model:ir.model,name:account_invoice_view_payment.model_account_register_payments
 #, fuzzy
-#| msgid "View Payments"
 msgid "Register Payments"
 msgstr "Просмотр Платежей"
 
