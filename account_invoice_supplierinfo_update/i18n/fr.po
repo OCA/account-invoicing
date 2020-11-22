@@ -190,7 +190,6 @@ msgstr "Partenaire fournisseur"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__supplierinfo_id
 #, fuzzy
-#| msgid "Supplierinfo id"
 msgid "Supplierinfo"
 msgstr "Supplierinfo id"
 
@@ -237,7 +236,6 @@ msgstr "Mettre à jour sans valider"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__wizard_id
 #, fuzzy
-#| msgid "Wizard id"
 msgid "Wizard"
 msgstr "Wizard id"
 
@@ -249,7 +247,6 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo
 #, fuzzy
-#| msgid "Update Supplier Info"
 msgid "Wizard to update supplierinfo"
 msgstr "Mettre à jour les Informations Fournisseur"
 
