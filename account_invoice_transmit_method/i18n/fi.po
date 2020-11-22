@@ -141,14 +141,12 @@ msgstr "Lähetystapa"
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_purchase
 #, fuzzy
-#| msgid "Transmit Method of a document"
 msgid "Transmit Method Domain Purchase"
 msgstr "Dokumentin lähetystapa"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_sale
 #, fuzzy
-#| msgid "Transmit Method of a document"
 msgid "Transmit Method Domain Sale"
 msgstr "Dokumentin lähetystapa"
 
