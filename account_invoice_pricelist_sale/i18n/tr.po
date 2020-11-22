@@ -21,6 +21,5 @@ msgstr ""
 #. module: account_invoice_pricelist_sale
 #: model:ir.model,name:account_invoice_pricelist_sale.model_sale_order
 #, fuzzy
-#| msgid "Sales Order"
 msgid "Sales Order"
 msgstr "Sipariş Emri"
