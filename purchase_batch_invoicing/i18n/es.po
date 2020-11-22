@@ -107,7 +107,6 @@ msgstr "No se ha seleccionado ningún pedido de compra listo para facturar."
 #. module: purchase_batch_invoicing
 #: model:ir.model,name:purchase_batch_invoicing.model_purchase_batch_invoicing
 #, fuzzy
-#| msgid "purchase.batch_invoicing"
 msgid "Purchase Batch Invoicing"
 msgstr "purchase.batch_invoicing"
 
