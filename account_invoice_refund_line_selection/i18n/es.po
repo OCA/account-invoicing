@@ -19,7 +19,6 @@ msgstr ""
 #. module: account_invoice_refund_line_selection
 #: selection:account.invoice.refund,filter_refund:0
 #, fuzzy
-#| msgid "Cannot create credit note for the draft/cancelled invoice."
 msgid "Cancel: create credit note and reconcile"
 msgstr "No es posible crear un abono para una factura borrador/cancelada."
 
@@ -44,7 +43,6 @@ msgstr ""
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_invoice_refund__filter_refund
 #, fuzzy
-#| msgid "Credit Note"
 msgid "Credit Method"
 msgstr "Nota de crédito"
 
@@ -78,7 +76,6 @@ msgstr "Líneas de factura para abonar"
 #. module: account_invoice_refund_line_selection
 #: selection:account.invoice.refund,filter_refund:0
 #, fuzzy
-#| msgid "Cannot create credit note for the draft/cancelled invoice."
 msgid "Modify: create credit note, reconcile and create a new draft invoice"
 msgstr "No es posible crear un abono para una factura borrador/cancelada."
 
