@@ -9,7 +9,7 @@
                 <field name="is_return" invisible="1" />
                 <field
                     name="is_warranty"
-                    attrs="{'invisible': [('type', 'not in', ('out_invoice', 'in_invoice'))]}"
+                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'in_invoice'))]}"
                     context="{'is_warranty': True}"
                     groups="account_invoice_payment_warranty.group_payment_warranty"
                 />
@@ -17,13 +17,13 @@
                     name="warranty_move_ids"
                     widget="many2many_tags"
                     options="{'no_create': True, 'no_edit': True, 'no_open': True}"
-                    attrs="{'invisible': [('type', 'not in', ('out_invoice', 'in_invoice'))]}"
+                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'in_invoice'))]}"
                     groups="account_invoice_payment_warranty.group_payment_warranty"
                 />
             </xpath>
             <field name="invoice_line_ids" position="attributes">
                 <attribute name="context">{
-                    'default_type': context.get('default_type'),
+                    'default_move_type': context.get('default_move_type'),
                     'journal_id': journal_id,
                     'default_partner_id': commercial_partner_id,
                     'default_currency_id': currency_id != company_currency_id and currency_id or False,

@@ -51,17 +51,17 @@ class AccountMove(models.Model):
             ]
             move_lines = self.env["account.move.line"].search(dom)
             move_type = (
-                self.type == "out_invoice"
+                self.move_type == "out_invoice"
                 and "in_invoice"
-                or (self.type == "in_invoice" and "out_invoice")
+                or (self.move_type == "in_invoice" and "out_invoice")
                 or "entry"
             )
             move_ids = (
                 move_lines.mapped("move_id")
                 .filtered(
-                    lambda l: l.type == move_type
+                    lambda l: l.move_type == move_type
                     and not l.is_return
-                    and l.invoice_payment_state == "paid"
+                    and l.payment_state == "paid"
                     and l.is_warranty
                 )
                 .ids
@@ -71,7 +71,7 @@ class AccountMove(models.Model):
 
     @api.model
     def _move_lines_warranty_moves(self, warranty_moves):
-        """ Get move_lines from selected retained moves in list of dict """
+        """Get move_lines from selected retained moves in list of dict"""
         warranty_move_lines = []
         warranty_account = self.env.company.warranty_account_id
         move_lines = warranty_moves.mapped("line_ids").filtered(
@@ -98,7 +98,7 @@ class AccountMove(models.Model):
         self.line_ids = False
         if (
             self.warranty_move_ids
-            and len(set(self.warranty_move_ids.mapped("type"))) != 1
+            and len(set(self.warranty_move_ids.mapped("move_type"))) != 1
         ):
             raise UserError(_("You can't select warranty is not same type."))
         if self.warranty_move_ids:
@@ -107,6 +107,14 @@ class AccountMove(models.Model):
                 self.env["account.move.line"].new(line)
         self.currency_id = self.env.company.currency_id
         self._recompute_dynamic_lines()
+
+    def action_post(self):
+        for rec in self:
+            if rec.is_warranty and any(line.tax_ids for line in rec.invoice_line_ids):
+                raise UserError(
+                    _("Can not payment warranty with taxes. Please check invoice lines")
+                )
+        return super().action_post()
 
     def button_draft(self):
         res = super().button_draft()
