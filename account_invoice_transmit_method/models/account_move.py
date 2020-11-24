@@ -20,7 +20,9 @@ class AccountMove(models.Model):
     )
     # Field used to match specific invoice transmit method
     # to show/display fields/buttons, add constraints, etc...
-    transmit_method_code = fields.Char(related="transmit_method_id.code", store=True)
+    transmit_method_code = fields.Char(
+        related="transmit_method_id.code", store=True, string="Transmission Method Code"
+    )
     transmit_method_domain_sale = fields.Boolean(
         compute="_compute_transmit_method_domain", default=True
     )
@@ -28,7 +30,7 @@ class AccountMove(models.Model):
         compute="_compute_transmit_method_domain", default=True
     )
 
-    @api.depends("type")
+    @api.depends("move_type")
     def _compute_transmit_method_domain(self):
         """Compute fields specific to the domain applied on transmit_method_id.
 
@@ -49,36 +51,39 @@ class AccountMove(models.Model):
                 record.transmit_method_domain_sale = True
                 record.transmit_method_domain_purchase = True
 
-    @api.onchange("partner_id", "company_id")
+    @api.onchange("partner_id")
     def _transmit_method_partner_change(self):
-        if self.partner_id and self.type:
-            if self.type in ("out_invoice", "out_refund"):
+        if self.partner_id and self.move_type:
+            if self.is_sale_document():
                 self.transmit_method_id = (
                     self.partner_id.customer_invoice_transmit_method_id.id or False
                 )
-            else:
+            elif self.is_purchase_document():
                 self.transmit_method_id = (
                     self.partner_id.supplier_invoice_transmit_method_id.id or False
                 )
+            else:
+                self.transmit_method_id = False
         else:
             self.transmit_method_id = False
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         # TODO: Improvement make it computed and writeable instead, and drop
         #       This override
-        if (
-            "transmit_method_id" not in vals
-            and vals.get("type")
-            and vals.get("partner_id")
-        ):
-            partner = self.env["res.partner"].browse(vals["partner_id"])
-            if vals["type"] in ("out_invoice", "out_refund"):
-                vals["transmit_method_id"] = (
-                    partner.customer_invoice_transmit_method_id.id or False
-                )
-            else:
-                vals["transmit_method_id"] = (
-                    partner.supplier_invoice_transmit_method_id.id or False
-                )
-        return super().create(vals)
+        for vals in vals_list:
+            if (
+                "transmit_method_id" not in vals
+                and vals.get("move_type")
+                and vals.get("partner_id")
+            ):
+                partner = self.env["res.partner"].browse(vals["partner_id"])
+                if vals["move_type"] in ("out_invoice", "out_refund"):
+                    vals["transmit_method_id"] = (
+                        partner.customer_invoice_transmit_method_id.id or False
+                    )
+                elif vals["move_type"] in ("in_invoice", "in_refund"):
+                    vals["transmit_method_id"] = (
+                        partner.supplier_invoice_transmit_method_id.id or False
+                    )
+        return super().create(vals_list)
