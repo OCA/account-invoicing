@@ -26,7 +26,7 @@ class TestAccountInvoiceTransmitMethod(SingleTransactionCase):
         inv1 = self.env["account.move"].create(
             {
                 "partner_id": partner1.id,
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "journal_id": sale_journal.id,
             }
         )
