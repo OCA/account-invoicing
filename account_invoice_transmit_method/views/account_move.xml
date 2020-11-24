@@ -13,27 +13,27 @@
             <!-- For customer invoices, the field transmit_method_id is displayed
             at the top. For vendor bills, it is displayed in the 3rd tab.
             -->
-            <field name="journal_id" position="after">
+            <div name="journal_div" position="after">
                 <field name="transmit_method_domain_sale" invisible="1" />
                 <field name="transmit_method_domain_purchase" invisible="1" />
                 <field
                     name="transmit_method_id"
                     widget="selection"
-                    attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}"
+                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}"
                 />
                 <field name="transmit_method_code" invisible="1" />
-            </field>
+            </div>
             <button name="action_invoice_sent" position="attributes">
                 <attribute
                     name="attrs"
-                >{'invisible': ['|', '|', '|', ('state', '!=', 'posted'), ('invoice_sent', '=', True), ('type', 'not in', ('out_invoice', 'out_refund')), ('transmit_method_code', 'not in', ('mail', False))]}</attribute>
+                >{'invisible': ['|', '|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', True), ('move_type', 'not in', ('out_invoice', 'out_refund')), ('transmit_method_code', 'not in', ('mail', False))]}</attribute>
                 <!-- Only show the "Send by Mail" button when the transmit method is E-mail or empty -->
             </button>
             <field name="invoice_source_email" position="after">
                 <field
                     name="transmit_method_id"
                     widget="selection"
-                    attrs="{'invisible': [('type', 'not in', ('in_invoice', 'in_refund'))]}"
+                    attrs="{'invisible': [('move_type', 'not in', ('in_invoice', 'in_refund'))]}"
                 />
             </field>
         </field>
