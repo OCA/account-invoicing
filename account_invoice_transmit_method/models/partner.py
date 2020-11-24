@@ -11,7 +11,7 @@ class ResPartner(models.Model):
     customer_invoice_transmit_method_id = fields.Many2one(
         "transmit.method",
         string="Customer Invoice Transmission Method",
-        company_dependant=True,
+        company_dependent=True,
         tracking=True,
         ondelete="restrict",
     )
@@ -23,7 +23,7 @@ class ResPartner(models.Model):
     supplier_invoice_transmit_method_id = fields.Many2one(
         "transmit.method",
         string="Vendor Invoice Reception Method",
-        company_dependant=True,
+        company_dependent=True,
         tracking=True,
         ondelete="restrict",
     )
