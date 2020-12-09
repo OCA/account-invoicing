@@ -1,8 +1,6 @@
--
-  In order to test the stock_picking_invoicing_incoterm module.
-  First I create an outgoing picking order
--
-  !record {model: stock.picking, id: stock_picking_out0}:
+- In order to test the stock_picking_invoicing_incoterm module. First I create an
+  outgoing picking order
+- !record {model: stock.picking, id: stock_picking_out0}:
     partner_id: base.res_partner_address_22
     invoice_state: 2binvoiced
     picking_type_id: stock.picking_type_out
@@ -13,15 +11,11 @@
         product_uom_qty: 3.0
         location_dest_id: stock.stock_location_customers
     move_type: direct
--
-  I modify the outgoing picking order and set the incoterm.
--
-  !record {model: stock.picking, id: stock_picking_out0}:
+- I modify the outgoing picking order and set the incoterm.
+- !record {model: stock.picking, id: stock_picking_out0}:
     incoterm: stock.incoterm_EXW
--
-  I process the delivery
--
-  !python {model: stock.transfer_details}: |
+- I process the delivery
+- !python {model: stock.transfer_details}: |
     picking_pool = self.pool['stock.picking']
     picking_pool.action_assign(cr, uid, [ref('stock_picking_out0')])
     partial_id = self.create(cr, uid, {
@@ -32,19 +26,15 @@
         'active_id': ref('stock_picking_out0')
     })
     self.do_detailed_transfer(cr, uid, [partial_id])
--
-  As the invoice state of the picking order is to be invoiced. I create invoice for my outgoing picking order.
--
-  !python {model: stock.invoice.onshipping}: |
+- As the invoice state of the picking order is to be invoiced. I create invoice for my
+  outgoing picking order.
+- !python {model: stock.invoice.onshipping}: |
     wiz_id = self.create(cr, uid, {'invoice_date': '2010-08-04', 'journal_id': ref('account.sales_journal')},
       {'active_ids': [ref("stock_picking_out0")], "active_model": "stock.picking"})
     self.create_invoice(cr, uid, [wiz_id], {"lang": "en_US",
       "search_default_available": 1, "tz": False, "active_model": "stock.picking",
       "contact_display": "partner", "active_ids": [ref("stock_picking_out0")], "active_id": ref("stock_picking_out0")})
--
-  I check that the invoice incoterm has equal to stock incoterm.
--
-  !python {model: stock.picking}: |
+- I check that the invoice incoterm has equal to stock incoterm.
+- !python {model: stock.picking}: |
     picking = self.browse(cr, uid, ref('stock_picking_out0'))
     assert picking.invoice_id.incoterm == picking.incoterm, 'The incoterm values are different'
-
