@@ -1,9 +1,9 @@
-# Copyright 2014-2015 Agile Business Group sagl
+# Copyright 2014-2020 Agile Business Group sagl
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Stock Picking Invoicing Incoterm",
-    "version": "8.0.1.0.0",
-    "category": "Warehouse Management",
+    "version": "14.0.1.0.0",
+    "category": "Inventory/Inventory",
     "author": "Agile Business Group, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
@@ -11,11 +11,7 @@
         "sale_stock",
     ],
     "data": [
-        "views/account_invoice_view.xml",
-        "views/stock_view.xml",
-    ],
-    "test": [
-        "test/stock_picking_invoicing_incoterm.yml",
+        "views/stock_picking_views.xml",
     ],
     "installable": True,
 }
