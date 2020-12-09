@@ -24,7 +24,6 @@ msgid "Invoice"
 msgstr "Facture"
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:64
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:65
 #, fuzzy, python-format
 msgid ""
@@ -39,7 +38,6 @@ msgstr ""
 "chaque ligne de facture."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:58
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:59
 #, fuzzy, python-format
 msgid ""
@@ -53,7 +51,6 @@ msgstr ""
 "chaque ligne de facture."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:56
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:57
 #, python-format
 msgid "Warning"
