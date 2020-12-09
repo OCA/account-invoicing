@@ -25,6 +25,7 @@ msgstr "Facture"
 
 #. module: account_invoice_fiscal_position_update
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:64
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:65
 #, fuzzy, python-format
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position "
@@ -39,6 +40,7 @@ msgstr ""
 
 #. module: account_invoice_fiscal_position_update
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:58
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:59
 #, fuzzy, python-format
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they "
@@ -52,6 +54,7 @@ msgstr ""
 
 #. module: account_invoice_fiscal_position_update
 #: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:56
+#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:57
 #, python-format
 msgid "Warning"
 msgstr "Avertissement"
