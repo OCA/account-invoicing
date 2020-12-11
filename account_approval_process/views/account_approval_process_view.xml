@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (C) 2020 - TODAY, Elego Software Solutions GmbH, Berlin
+    License AGPL-3 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_account_approval_process_tree" model="ir.ui.view">
+        <field name="name">account.approval.process.tree</field>
+        <field name="model">account.approval.process</field>
+        <field name="arch" type="xml">
+            <tree string="Account approval process" editable="bottom" decoration-muted="(not active)">
+                <field name="sequence" widget="handle" />
+                <field name="company_id" invisible="True" />
+                <field name="journal_id" invisible="True" />
+                <field name="invoice_type" />
+                <field name="name" />
+                <field name="validation_amount_from" />
+                <field name="validation_amount_to" />
+                <field name="email_template_id" />
+                <field name="group_ids" widget="many2many_tags" />
+                <field name="user_ids" widget="many2many_tags" />
+                <field name="active" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_account_approval_process_form" model="ir.ui.view">
+        <field name="name">account.approval.process.form</field>
+        <field name="model">account.approval.process</field>
+        <field name="arch" type="xml">
+            <form string="Account approval process">
+                <sheet>
+                    <group>
+                        <field name="company_id" attrs="{'invisible': [('company_id', '=', False)]}" />
+                        <field name="journal_id" attrs="{'invisible': [('journal_id', '=', False)]}" />
+                        <field name="active" />
+                        <field name="sequence" />
+                        <field name="invoice_type" />
+                        <field name="name" />
+                        <field name="validation_amount_from" />
+                        <field name="validation_amount_to" />
+                        <field name="email_template_id" />
+                        <field name="group_ids" widget="many2many_tags" />
+                        <field name="user_ids" widget="many2many_tags" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

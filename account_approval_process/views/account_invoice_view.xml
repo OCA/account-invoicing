@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (C) 2020 - TODAY, Elego Software Solutions GmbH, Berlin
+    License AGPL-3 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <header>
+                <field name="approval_requested" invisible="True" />
+                <field name="approval_needed" invisible="True" />
+                <field name="approval_authorized" invisible="True" />
+                <field name="approval_process_progress_last_step" invisible="True" />
+            </header>
+            <button name="action_invoice_open" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('approval_needed', '=', True),('state', '!=', 'draft')]}</attribute>
+                <attribute name="states"></attribute>
+            </button>
+            <button name="action_invoice_open" position="after">
+                <button
+                    name="action_invoice_request_approval"
+                    type="object"
+                    string="Request Approval"
+                    attrs="{'invisible': ['|',('approval_needed', '=', False),'|',('approval_authorized', '=', False),('approval_requested','=',True)]}"
+                />
+                <button
+                    name="action_invoice_request_approval"
+                    type="object"
+                    string="Request Approval"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('approval_needed', '=', False),'|',('approval_authorized', '=', True),('approval_requested','=',True)]}"
+                />
+                <button
+                    name="action_invoice_approve"
+                    type="object"
+                    string="Approve Invoice"
+                    class="oe_highlight"
+                    attrs="{'invisible': [('approval_authorized', '=', False)]}"
+                />
+            </button>
+            <field name="date_invoice" position="after">
+                <field
+                    name="current_approval_process_id"
+                    string="Approval process"
+                    readonly="1"
+                    attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('current_approval_process_id', '=', False)]}"
+                    options="{'no_open': True}"
+                />
+                <field
+                    name="approval_process_progress_percent"
+                    string="Approval process progress"
+                    widget="progressbar"
+                    attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('approval_process_progress_last_step', '=', 0)]}"
+                    options="{'current_value': 'approval_process_progress_percent'}"
+                />
+            </field>
+        </field>
+    </record>
+
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form" />
+        <field name="arch" type="xml">
+            <header>
+                <field name="approval_requested" invisible="True" />
+                <field name="approval_needed" invisible="True" />
+                <field name="approval_authorized" invisible="True" />
+                <field name="approval_process_progress_last_step" invisible="True" />
+            </header>
+            <button name="action_invoice_open" position="attributes">
+                <attribute name="attrs">{'invisible': ['|',('approval_needed', '=', True),('state', '!=', 'draft')]}</attribute>
+                <attribute name="states"></attribute>
+            </button>
+            <button name="action_invoice_open" position="after">
+                <button
+                    name="action_invoice_request_approval"
+                    type="object"
+                    string="Request Approval"
+                    attrs="{'invisible': ['|',('approval_needed', '=', False),'|',('approval_authorized', '=', False),('approval_requested','=',True)]}"
+                />
+                <button
+                    name="action_invoice_request_approval"
+                    type="object"
+                    string="Request Approval"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('approval_needed', '=', False),'|',('approval_authorized', '=', True),('approval_requested','=',True)]}"
+                />
+                <button
+                    name="action_invoice_approve"
+                    type="object"
+                    string="Approve Invoice"
+                    class="oe_highlight"
+                    attrs="{'invisible': [('approval_authorized', '=', False)]}"
+                />
+            </button>
+            <field name="date_invoice" position="after">
+                <field
+                    name="current_approval_process_id"
+                    string="Approval process"
+                    readonly="1"
+                    attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('current_approval_process_id', '=', False)]}"
+                    options="{'no_open': True}"
+                />
+                <field
+                    name="approval_process_progress_percent"
+                    string="Approval process progress"
+                    widget="progressbar"
+                    attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('approval_process_progress_last_step', '=', 0)]}"
+                    options="{'current_value': 'approval_process_progress_percent'}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,1 @@
+* Elego Software Solutions GmbH

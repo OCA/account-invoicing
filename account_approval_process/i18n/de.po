@@ -1,0 +1,405 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_approval_process
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-25 16:02+0000\n"
+"PO-Revision-Date: 2021-01-25 16:02+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_approval_process
+#: model:mail.template,body_html:account_approval_process.email_template_request_approval
+msgid "\n"
+"<p>The user ${user.name} requested to approve '${object.current_approval_process_id.name}' an invoice.</p>\n"
+""
+msgstr "\n"
+"<p>Der Benutzer ${user.name} erwartet für eine Rechnung die Genehmigung '${object.current_approval_process_id.name}'.</p>\n"
+""
+
+#. module: account_approval_process
+#: model:mail.template,subject:account_approval_process.email_template_request_approval
+msgid "${object.company_id.name} Invoice approval requested"
+msgstr "${object.company_id.name} Rechnungsgenehmigung angefragt"
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account_invoice.py:181
+#, python-format
+msgid "'{test}' approved."
+msgstr "'{test}' approved."
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account.py:64
+#: code:addons/account_approval_process/tests/test_account_approval_process.py:30
+#, python-format
+msgid "A type is not allowed; only the following types are permitted for journal '{journal}':\n"
+"{types}"
+msgstr "Ein Typ ist nicht erlaubt; für das Journal '{journal}' sind nur folgende Typen erlaubt:\n"
+"{types}"
+
+#. module: account_approval_process
+#: model:ir.model,name:account_approval_process.model_account_approval_process
+#: model:ir.ui.view,arch_db:account_approval_process.view_account_approval_process_form
+#: model:ir.ui.view,arch_db:account_approval_process.view_account_approval_process_tree
+#: model:ir.ui.view,arch_db:account_approval_process.view_account_journal_form
+#: model:ir.ui.view,arch_db:account_approval_process.view_company_form
+msgid "Account approval process"
+msgstr "Rechnungsgenehmigungsverfahren"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_active
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_invoice_current_approval_process_id
+msgid "Actual approval process"
+msgstr "Aktueller Genehmigungsprozess"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_group_ids
+msgid "Allowed Groups"
+msgstr "Erlaubte Gruppen"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_user_ids
+msgid "Allowed Users"
+msgstr "Erlaubte Benutzer"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_validation_amount_from
+msgid "Amount (from)"
+msgstr "Betrag (von)"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_validation_amount_to
+msgid "Amount (to)"
+msgstr "Betrag (bis)"
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account_invoice.py:144
+#, python-format
+msgid "Approval '{name}' requested."
+msgstr "Genehmigung '{name}' angefordert."
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_invoice_approval_authorized
+msgid "Approval Authorized"
+msgstr "Genehmigung berechtigt"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_invoice_approval_needed
+msgid "Approval Needed"
+msgstr "Genehmigung benötigt"
+
+#. module: account_approval_process
+#: model:ir.ui.view,arch_db:account_approval_process.invoice_form
+#: model:ir.ui.view,arch_db:account_approval_process.invoice_supplier_form
+msgid "Approval process"
+msgstr "Genehmigungsprozess"
+
+#. module: account_approval_process
+#: model:ir.ui.view,arch_db:account_approval_process.invoice_form
+#: model:ir.ui.view,arch_db:account_approval_process.invoice_supplier_form
+msgid "Approval process progress"
+msgstr "Genehmigungsprozessfortschritt"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_invoice_approval_process_progress_current_step
+msgid "Approval process progress (current step)"
+msgstr "Genehmigungsprozessfortschritt (aktueller Schritt)"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_invoice_approval_process_progress_last_step
+msgid "Approval process progress (last step)"
+msgstr "Genehmigungsprozessfortschritt (letzter Schritt)"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_invoice_approval_process_progress_percent
+msgid "Approval process progress (percent)"
+msgstr "Genehmigungsprozessfortschritt (Prozent)"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_invoice_approval_process_ids
+#: model:ir.model.fields,field_description:account_approval_process.field_res_company_account_approval_process_ids
+msgid "Approval processes"
+msgstr "Genehmigungsprozesse"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_invoice_approval_requested
+msgid "Approval requested"
+msgstr "Genehmigung angefragt"
+
+#. module: account_approval_process
+#: model:ir.ui.view,arch_db:account_approval_process.invoice_form
+#: model:ir.ui.view,arch_db:account_approval_process.invoice_supplier_form
+msgid "Approve Invoice"
+msgstr "Rechnung genehmigen"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_approvers
+msgid "Approvers"
+msgstr "Empfänger"
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account.py:121
+#: code:addons/account_approval_process/models/res_company.py:60
+#, python-format
+msgid "Aproval process resetted."
+msgstr "Genehmigungsprozess zurückgesetzt."
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account.py:55
+#: code:addons/account_approval_process/models/res_company.py:34
+#: code:addons/account_approval_process/tests/test_account_approval_process.py:26
+#, python-format
+msgid "At least one step of the type '{type}' must have the value -1 for unlimited at the field 'Amount (to)'."
+msgstr "Mindestens ein Schritt vom Typ '{type}' muss den Wert -1 für unbegrenzt beim Feld 'Betrag (bis)' haben."
+
+#. module: account_approval_process
+#: model:ir.model.fields,help:account_approval_process.field_account_approval_process_validation_amount_from
+msgid "Begin of the validation net total amount"
+msgstr "Anfang des Freigabenettobetrages"
+
+#. module: account_approval_process
+#: model:ir.model,name:account_approval_process.model_res_company
+msgid "Companies"
+msgstr "Unternehmen"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_company_id
+msgid "Company"
+msgstr "Unternehmen"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_journal_company_account_approval_process_ids
+msgid "Company Approval processes"
+msgstr "Unternehmengenehmigungsprozesse"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_company_currency_id
+msgid "Company Currency"
+msgstr "Betriebl. Währung"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_invoice_completed_approval_process_id
+msgid "Completed approval process"
+msgstr "Abgeschlossener Genehmigungsprozess"
+
+#. module: account_approval_process
+#: model:ir.ui.view,arch_db:account_approval_process.view_account_journal_form
+msgid "Copy company approval processes"
+msgstr "Genehmigungsprozess des Unternehmens kopieren"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_create_uid
+msgid "Created by"
+msgstr "Erstellt von"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_create_date
+msgid "Created on"
+msgstr "Erstellt am"
+
+#. module: account_approval_process
+#: selection:account.approval.process,invoice_type:0
+msgid "Customer Credit Note"
+msgstr "Kunden-Gutschrift"
+
+#. module: account_approval_process
+#: selection:account.approval.process,invoice_type:0
+msgid "Customer Invoice"
+msgstr "Ausgangsrechnung"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: account_approval_process
+#: model:ir.ui.view,arch_db:account_approval_process.view_company_form
+msgid "Do you realy want to reset the approval process for all draft invoices from this company?"
+msgstr "Möchten Sie wirklich bei allen Rechnungen im Entwurfsmodus die Genehmigungsprozesse des Unternehmens zurücksetzen?"
+
+#. module: account_approval_process
+#: model:ir.ui.view,arch_db:account_approval_process.view_account_journal_form
+msgid "Do you realy want to reset the approval process for all draft invoices from this journal?"
+msgstr "Möchten Sie wirklich bei allen Rechnungen im Entwurfsmodus die Genehmigungsprozesse des Journals zurücksetzen?"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_email_template_id
+msgid "Email Template"
+msgstr "E-Mail Vorlage"
+
+#. module: account_approval_process
+#: model:ir.model.fields,help:account_approval_process.field_account_approval_process_validation_amount_to
+msgid "End of the validation net total amount"
+msgstr "Ende des Freigabenettobetrages"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_journal_has_invoices_for_reset
+#: model:ir.model.fields,field_description:account_approval_process.field_res_company_has_invoices_for_reset
+msgid "Has Invoices For Reset"
+msgstr "Rechnungen zum Zurücksetzen existieren"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_approval_process
+#: model:ir.model,name:account_approval_process.model_account_invoice
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_invoice_type
+msgid "Invoice Type"
+msgstr "Rechnungstyp"
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account_invoice.py:151
+#: code:addons/account_approval_process/tests/test_account_approval_process.py:18
+#, python-format
+msgid "Invoices must be in draft state in order to approve it.\n"
+"Invoices:\n"
+"{ids}"
+msgstr "Rechnungen müssen im Status Entwurf sein, um genehmigt zu werden.\n"
+"Rechnungen:\n"
+"{ids}"
+
+#. module: account_approval_process
+#: model:ir.model,name:account_approval_process.model_account_journal
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_journal_id
+msgid "Journal"
+msgstr "Journal"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_journal_journal_account_approval_process_ids
+msgid "Journal Approval processes"
+msgstr "Journalgenehmigungsprozesse"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process___last_update
+msgid "Last Modified on"
+msgstr "Zuletzt geändert am"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_write_uid
+msgid "Last Updated by"
+msgstr "Zuletzt aktualisiert durch"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_write_date
+msgid "Last Updated on"
+msgstr "Zuletzt aktualisiert am"
+
+#. module: account_approval_process
+#: model:ir.model.fields,help:account_approval_process.field_account_approval_process_email_template_id
+msgid "Mail template which is used for the notification"
+msgstr "Mail-Template welches für die Benachrichtigung verwendet wird"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_name
+msgid "Name"
+msgstr "Name"
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account_invoice.py:133
+#: code:addons/account_approval_process/models/account_invoice.py:163
+#: code:addons/account_approval_process/tests/test_account_approval_process.py:15
+#, python-format
+msgid "One or more invoice do not require approval.\n"
+"Invoices (ids):\n"
+"{ids}"
+msgstr "Eine oder mehrere Rechnungen benötigt keine Genehmigung.\n"
+"Rechnungen (IDs):\n"
+"{ids}"
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account_invoice.py:192
+#: code:addons/account_approval_process/tests/test_account_approval_process.py:38
+#, python-format
+msgid "One or more invoice do require approval.\n"
+"Invoices (ids):\n"
+"{ids}"
+msgstr "Eine oder mehrere Rechnungen benötigen eine Genehmigung.\n"
+"Rechnungen (IDs):\n"
+"{ids}"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_journal_overwrite_company_settings
+msgid "Overwrite Company Settings"
+msgstr "Überschreibe Unternehmenseinstellungen"
+
+#. module: account_approval_process
+#: model:ir.ui.view,arch_db:account_approval_process.invoice_form
+#: model:ir.ui.view,arch_db:account_approval_process.invoice_supplier_form
+msgid "Request Approval"
+msgstr "Genehmigung anfragen"
+
+#. module: account_approval_process
+#: model:ir.ui.view,arch_db:account_approval_process.view_account_journal_form
+#: model:ir.ui.view,arch_db:account_approval_process.view_company_form
+msgid "Reset all draft invoices"
+msgstr "Alle Entwurfsrechnungen zurücksetzen"
+
+#. module: account_approval_process
+#: model:ir.model.fields,field_description:account_approval_process.field_account_approval_process_sequence
+msgid "Sequence"
+msgstr "Nummernfolge"
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account_approval_process.py:100
+#: code:addons/account_approval_process/tests/test_account_approval_process.py:21
+#, python-format
+msgid "The field 'Amount (from)' must be positive."
+msgstr "Das Feld 'Betrag (von)' muss positiv sein."
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account_approval_process.py:120
+#: code:addons/account_approval_process/tests/test_account_approval_process.py:23
+#, python-format
+msgid "The field 'Amount (to)' must be greater than the field 'Amount (from)'."
+msgstr "Das Feld 'Betrag (bis)' muss größer sein als das Feld 'Betrag (von)'."
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account_approval_process.py:109
+#: code:addons/account_approval_process/tests/test_account_approval_process.py:22
+#, python-format
+msgid "The field 'Amount (to)' must be positive or -1 for unlimited."
+msgstr "Das Feld 'Betrag (bis)' muss positiv oder -1 für unbegrenzt sein."
+
+#. module: account_approval_process
+#: model:ir.model.fields,help:account_approval_process.field_account_approval_process_company_currency_id
+msgid "Utility field to express amount currency"
+msgstr "Hilfsfeld, welches die Betragswährung ausweist"
+
+#. module: account_approval_process
+#: selection:account.approval.process,invoice_type:0
+msgid "Vendor Bill"
+msgstr "Lieferantenrechnung"
+
+#. module: account_approval_process
+#: selection:account.approval.process,invoice_type:0
+msgid "Vendor Credit Note"
+msgstr "Lieferanten-Gutschrift"
+
+#. module: account_approval_process
+#: code:addons/account_approval_process/models/account_invoice.py:173
+#: code:addons/account_approval_process/tests/test_account_approval_process.py:34
+#, python-format
+msgid "You have no rights to approval one or more invoices.\n"
+"Invoices (ids):\n"
+"{ids}"
+msgstr "Sie haben keine Rechte um eine oder mehrere Rechnungen zu genehmigen.\n"
+"Rechnungen (IDs):\n"
+"{ids}"
+

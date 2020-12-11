@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (C) 2020 - TODAY, Elego Software Solutions GmbH, Berlin
+    License AGPL-3 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_account_approval_process_tree" model="ir.ui.view">
+        <field name="name">account.approval.process.tree</field>
+        <field name="model">account.approval.process</field>
+        <field name="inherit_id" ref="account_approval_process.view_account_approval_process_tree" />
+        <field name="arch" type="xml">
+            <field name="user_ids" position="after">
+                <field name="department_ids" widget="many2many_tags" />
+                <field name="manager_of_department_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+    <record id="view_account_approval_process_form" model="ir.ui.view">
+        <field name="name">account.approval.process.form</field>
+        <field name="model">account.approval.process</field>
+        <field name="inherit_id" ref="account_approval_process.view_account_approval_process_form" />
+        <field name="arch" type="xml">
+            <field name="user_ids" position="after">
+                <field name="department_ids" widget="many2many_tags" />
+                <field name="manager_of_department_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+</odoo>

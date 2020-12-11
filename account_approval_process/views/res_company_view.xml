@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (C) 2020 - TODAY, Elego Software Solutions GmbH, Berlin
+    License AGPL-3 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="name">res.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Account approval process">
+                    <field name="account_approval_process_ids"
+                           context="{'default_company_id': id, 'active_test': False}"
+                    />
+                    <field name="has_invoices_for_reset"
+                           invisible="True"
+                    />
+                    <button name="action_reset_journal_draft_invoices"
+                            string="Reset all draft invoices"
+                            confirm="Do you realy want to reset the approval process for all draft invoices from this company?"
+                            type="object"
+                            attrs="{'invisible': [('has_invoices_for_reset', '=', False),],}"
+                    />
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (C) 2020 - TODAY, Elego Software Solutions GmbH, Berlin
+    License AGPL-3 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="name">account.journal.form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Account approval process"
+                      attrs="{'invisible': [('type', 'not in', ('purchase', 'sale'))],}">
+                    <group>
+                        <group>
+                            <field name="overwrite_company_settings" />
+                            <field name="has_invoices_for_reset" invisible="True" />
+                        </group>
+                        <group>
+                            <button name="action_copy_company_processes"
+                                    string="Copy company approval processes"
+                                    type="object"
+                                    class="oe_highlight"
+                                    attrs="{'invisible': [
+                                    '|',
+                                    '|',
+                                    ('overwrite_company_settings', '=', False),
+                                    ('company_account_approval_process_ids', '=', []),
+                                    ('journal_account_approval_process_ids', '!=', []),
+                                    ],}"
+                            />
+                        </group>
+                    </group>
+                    <field name="company_account_approval_process_ids"
+                           attrs="{'invisible': [('overwrite_company_settings', '=', True)],}"
+                    />
+                    <field name="journal_account_approval_process_ids"
+                           attrs="{'invisible': [('overwrite_company_settings', '=', False)],}"
+                           context="{'default_journal_id': id}"
+                    />
+                    <button name="action_reset_journal_draft_invoices"
+                            string="Reset all draft invoices"
+                            confirm="Do you realy want to reset the approval process for all draft invoices from this journal?"
+                            type="object"
+                            attrs="{'invisible': [
+                            '|',
+                            ('overwrite_company_settings', '=', False),
+                            ('has_invoices_for_reset', '=', False),
+                            ],}"
+                    />
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>
