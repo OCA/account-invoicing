@@ -14,6 +14,14 @@
                     name="global_discount_ids"
                     widget="many2many_tags"
                     placeholder="Discounts..."
+                    groups="base_global_discount.group_global_discount"
+                />
+                <field
+                    string="Invoice Global Discounts"
+                    name="global_discount_ids_readonly"
+                    widget="many2many_tags"
+                    readonly="1"
+                    groups="!base_global_discount.group_global_discount"
                 />
             </xpath>
             <field name="amount_untaxed" position="before">

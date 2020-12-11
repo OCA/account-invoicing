@@ -9,6 +9,15 @@ from odoo.tools import config
 class AccountMove(models.Model):
     _inherit = "account.move"
 
+    # HACK: Looks like UI doesn't behave well with Many2many fields and
+    # negative groups when the same field is shown. In this case, we want to
+    # show the readonly version to any not in the global discount group.
+    # TODO: Check if it's fixed in future versions
+    global_discount_ids_readonly = fields.Many2many(
+        string="Invoice Global Discounts (readonly)",
+        related="global_discount_ids",
+        readonly=True,
+    )
     global_discount_ids = fields.Many2many(
         comodel_name="global.discount",
         column1="invoice_id",
