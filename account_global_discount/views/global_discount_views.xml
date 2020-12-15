@@ -28,6 +28,7 @@
     <menuitem id="menu_account_global_discount"
         action="base_global_discount.action_global_discount_tree"
         name="Global Discounts"
+        groups="base_global_discount.group_global_discount"
         parent="account.account_management_menu"/>
 
 </odoo>
