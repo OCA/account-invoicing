@@ -112,6 +112,7 @@ msgstr "Facture"
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__invoice_date
 #, fuzzy
+#| msgid "Invoice date"
 msgid "Invoice Date"
 msgstr "Date de facturation"
 
@@ -150,6 +151,7 @@ msgstr "Facturation"
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__journal_type
 #, fuzzy
+#| msgid "Journal type"
 msgid "Journal Type"
 msgstr "Type de journal"
 
@@ -199,6 +201,7 @@ msgstr "Picking"
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_picking_type
 #, fuzzy
+#| msgid "Picking"
 msgid "Picking Type"
 msgstr "Picking"
 
@@ -211,6 +214,7 @@ msgstr "Marquer comme à facturer"
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__purchase_journal
 #, fuzzy
+#| msgid "Purchase journal"
 msgid "Purchase Journal"
 msgstr "Journal d'achat"
 
@@ -251,6 +255,7 @@ msgstr "Facturation livraison"
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_invoice_state_mixin
 #, fuzzy
+#| msgid "Stock Invoice Onshipping"
 msgid "Stock Invoice State Mixin"
 msgstr "Facturation livraison"
 
@@ -268,6 +273,7 @@ msgstr "À facturer"
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.stock_picking_type_kanban
 #, fuzzy
+#| msgid "To Be Invoiced"
 msgid "To be Invoiced"
 msgstr "À facturer"
 
