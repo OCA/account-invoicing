@@ -1,7 +1,7 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, api, fields
+from odoo import api, fields, models
 
 
 class StockMove(models.Model):
@@ -21,12 +21,11 @@ class StockMove(models.Model):
         """
         product = self.mapped("product_id")
         product.ensure_one()
-        if inv_type in ('out_invoice', 'out_refund'):
+        if inv_type in ("out_invoice", "out_refund"):
             taxes = product.taxes_id
         else:
             taxes = product.supplier_taxes_id
-        company_id = self.env.context.get(
-            'force_company', self.env.user.company_id.id)
+        company_id = self.env.context.get("force_company", self.env.user.company_id.id)
         my_taxes = taxes.filtered(lambda r: r.company_id.id == company_id)
         return fiscal_position.map_tax(my_taxes)
 
@@ -51,7 +50,7 @@ class StockMove(models.Model):
         """
         product = self.mapped("product_id")
         product.ensure_one()
-        if inv_type in ('in_invoice', 'in_refund'):
+        if inv_type in ("in_invoice", "in_refund"):
             result = product.price
         else:
             # If partner given, search price in its sale pricelist
@@ -60,7 +59,7 @@ class StockMove(models.Model):
                     partner=partner.id,
                     quantity=qty,
                     pricelist=partner.property_product_pricelist.id,
-                    uom=fields.first(self).product_uom.id
+                    uom=fields.first(self).product_uom.id,
                 )
                 result = product.price
             else:
