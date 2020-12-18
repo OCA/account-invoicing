@@ -1,7 +1,7 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, api
+from odoo import api, models
 
 
 class StockPicking(models.Model):
@@ -42,4 +42,4 @@ class StockPicking(models.Model):
     def _get_partner_to_invoice(self):
         self.ensure_one()
         partner = self.partner_id
-        return partner.address_get(['invoice']).get('invoice')
+        return partner.address_get(["invoice"]).get("invoice")
