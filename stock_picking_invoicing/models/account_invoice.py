@@ -5,16 +5,15 @@ from odoo import api, models
 
 
 class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+    _inherit = "account.move"
 
-    @api.multi
-    def action_cancel(self):
+    def button_cancel(self):
         """
         Inherit to update related picking as '2binvoiced' when the invoice is
         cancelled (only for invoices, not refunds)
         :return: bool
         """
-        result = super(AccountInvoice, self).action_cancel()
+        result = super(AccountInvoice, self).button_cancel()
         pickings = self.filtered(
             lambda i: i.picking_ids and i.type in ["out_invoice", "in_invoice"]
         ).mapped("picking_ids")
@@ -22,7 +21,6 @@ class AccountInvoice(models.Model):
         pickings._set_as_2binvoiced()
         return result
 
-    @api.multi
     def unlink(self):
         """
         Inherit the unlink to update related picking as "2binvoiced"
@@ -51,12 +49,10 @@ class AccountInvoice(models.Model):
         """
         result = super(AccountInvoice, self)._prepare_refund(
             invoice=invoice,
-            date_invoice=date_invoice,
+            invoice_date=date_invoice,
             date=date,
             description=description,
             journal_id=journal_id,
         )
-        result.update(
-            {"picking_ids": [(6, False, invoice.picking_ids.ids)],}
-        )
+        result.update({"picking_ids": [(6, False, invoice.picking_ids.ids)]})
         return result
