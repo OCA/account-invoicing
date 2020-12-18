@@ -8,4 +8,3 @@ To use this module, you need to:
 
 If an invoice (not refund) is cancelled or deleted, invoice status of related picking is automatically
 updated to "To be invoiced".
-

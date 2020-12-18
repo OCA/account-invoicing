@@ -8,6 +8,7 @@ class StockInvoiceStateMixin(models.AbstractModel):
     """
     Abstract model used to define invoice state with selection choices
     """
+
     _name = "stock.invoice.state.mixin"
     _description = "Stock Invoice State Mixin"
 
@@ -20,8 +21,8 @@ class StockInvoiceStateMixin(models.AbstractModel):
         string="Invoice Status",
         default="none",
         help="Invoiced: an invoice already exists\n"
-             "To Be Invoiced: need to be invoiced\n"
-             "Not Applicable: no invoice to create",
+        "To Be Invoiced: need to be invoiced\n"
+        "Not Applicable: no invoice to create",
         copy=False,
     )
 
@@ -31,7 +32,7 @@ class StockInvoiceStateMixin(models.AbstractModel):
         Update invoice_state on current recordset to 'invoiced'
         :return: self recordset (where the updated has been executed)
         """
-        return self._update_invoice_state('invoiced')
+        return self._update_invoice_state("invoiced")
 
     @api.multi
     def _set_as_2binvoiced(self):
@@ -39,7 +40,7 @@ class StockInvoiceStateMixin(models.AbstractModel):
         Update invoice_state on current recordset to '2binvoiced'
         :return: self recordset (where the updated has been executed)
         """
-        return self._update_invoice_state('2binvoiced')
+        return self._update_invoice_state("2binvoiced")
 
     @api.multi
     def _set_as_not_billable(self):
@@ -47,7 +48,7 @@ class StockInvoiceStateMixin(models.AbstractModel):
         Update invoice_state on current recordset to 'invoiced'
         :return: self recordset (where the updated has been executed)
         """
-        return self._update_invoice_state('none')
+        return self._update_invoice_state("none")
 
     @api.multi
     def _update_invoice_state(self, invoice_state):
@@ -58,7 +59,7 @@ class StockInvoiceStateMixin(models.AbstractModel):
         """
         records = self.filtered(lambda r: r.invoice_state != invoice_state)
         if records:
-            records.write({
-                'invoice_state': invoice_state,
-            })
+            records.write(
+                {"invoice_state": invoice_state,}
+            )
         return records
