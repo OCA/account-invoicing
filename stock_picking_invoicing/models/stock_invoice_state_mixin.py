@@ -1,7 +1,7 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class StockInvoiceStateMixin(models.AbstractModel):
@@ -26,7 +26,6 @@ class StockInvoiceStateMixin(models.AbstractModel):
         copy=False,
     )
 
-    @api.multi
     def _set_as_invoiced(self):
         """
         Update invoice_state on current recordset to 'invoiced'
@@ -34,7 +33,6 @@ class StockInvoiceStateMixin(models.AbstractModel):
         """
         return self._update_invoice_state("invoiced")
 
-    @api.multi
     def _set_as_2binvoiced(self):
         """
         Update invoice_state on current recordset to '2binvoiced'
@@ -42,7 +40,6 @@ class StockInvoiceStateMixin(models.AbstractModel):
         """
         return self._update_invoice_state("2binvoiced")
 
-    @api.multi
     def _set_as_not_billable(self):
         """
         Update invoice_state on current recordset to 'invoiced'
@@ -50,7 +47,6 @@ class StockInvoiceStateMixin(models.AbstractModel):
         """
         return self._update_invoice_state("none")
 
-    @api.multi
     def _update_invoice_state(self, invoice_state):
         """
         Execute the write
@@ -59,7 +55,5 @@ class StockInvoiceStateMixin(models.AbstractModel):
         """
         records = self.filtered(lambda r: r.invoice_state != invoice_state)
         if records:
-            records.write(
-                {"invoice_state": invoice_state,}
-            )
+            records.write({"invoice_state": invoice_state})
         return records

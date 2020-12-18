@@ -1,7 +1,7 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import exceptions, fields
+from odoo import exceptions
 from odoo.tests.common import TransactionCase
 
 
@@ -11,7 +11,7 @@ class TestPickingInvoicing(TransactionCase):
         self.picking_model = self.env["stock.picking"]
         self.move_model = self.env["stock.move"]
         self.invoice_wizard = self.env["stock.invoice.onshipping"]
-        self.invoice_model = self.env["account.invoice"]
+        self.invoice_model = self.env["account.move"]
         self.partner_model = self.env["res.partner"]
         self.partner = self.env.ref("base.res_partner_2")
         self.partner2 = self.env.ref("base.res_partner_address_4")
@@ -54,19 +54,19 @@ class TestPickingInvoicing(TransactionCase):
         )
 
         self.tax_sale_1 = self.tax_model.create(
-            {"name": "Sale tax 20", "type_tax_use": "sale", "amount": "20.00",}
+            {"name": "Sale tax 20", "type_tax_use": "sale", "amount": "20.00"}
         )
         self.tax_sale_2 = self.tax_model.create(
-            {"name": "Sale tax 10", "type_tax_use": "sale", "amount": "10.00",}
+            {"name": "Sale tax 10", "type_tax_use": "sale", "amount": "10.00"}
         )
         self.tax_purchase_1 = self.tax_model.create(
-            {"name": "Purchase tax 10", "type_tax_use": "purchase", "amount": "10.00",}
+            {"name": "Purchase tax 10", "type_tax_use": "purchase", "amount": "10.00"}
         )
         self.tax_purchase_2 = self.tax_model.create(
-            {"name": "Purchase tax 20", "type_tax_use": "purchase", "amount": "20.00",}
+            {"name": "Purchase tax 20", "type_tax_use": "purchase", "amount": "20.00"}
         )
 
-        product_tmpl_1 = self.product_tmpl_model.create(
+        self.product_test_1 = self.product_model.create(
             {
                 "name": "Test 1",
                 "lst_price": "15000",
@@ -75,12 +75,10 @@ class TestPickingInvoicing(TransactionCase):
                     (6, 0, [self.tax_purchase_1.id, self.tax_purchase_2.id])
                 ],
                 "property_account_income_id": self.account_revenue.id,
+                "standard_price": "500",
             }
         )
-        self.product_test_1 = self.product_model.create(
-            {"product_tmpl_id": product_tmpl_1.id, "standard_price": "500",}
-        )
-        product_tmpl_2 = self.product_tmpl_model.create(
+        self.product_test_2 = self.product_model.create(
             {
                 "name": "Test 2",
                 "lst_price": "15000",
@@ -89,10 +87,8 @@ class TestPickingInvoicing(TransactionCase):
                     (6, 0, [self.tax_purchase_1.id, self.tax_purchase_2.id])
                 ],
                 "property_account_income_id": self.account_revenue.id,
+                "standard_price": "500",
             }
-        )
-        self.product_test_2 = self.product_model.create(
-            {"product_tmpl_id": product_tmpl_2.id, "standard_price": "500",}
         )
 
     def test_0_picking_out_invoicing(self):
@@ -151,9 +147,7 @@ class TestPickingInvoicing(TransactionCase):
                     new_move.id,
                     "Error to link stock.move with invoice.line.",
                 )
-            self.assertTrue(
-                inv_line.invoice_line_tax_ids, "Error to map Sale Tax in invoice.line."
-            )
+            self.assertTrue(inv_line.tax_ids, "Error to map Sale Tax in invoice.line.")
 
     def test_1_picking_out_invoicing(self):
         nb_invoice_before = self.invoice_model.search_count([])
@@ -235,9 +229,7 @@ class TestPickingInvoicing(TransactionCase):
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
-        wizard_values.update(
-            {"group": "partner",}
-        )
+        wizard_values.update({"group": "partner"})
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
         wizard.action_generate()
@@ -258,9 +250,7 @@ class TestPickingInvoicing(TransactionCase):
                     new_move.id,
                     "Error to link stock.move with invoice.line.",
                 )
-            self.assertTrue(
-                inv_line.invoice_line_tax_ids, "Error to map Sale Tax in invoice.line."
-            )
+            self.assertTrue(inv_line.tax_ids, "Error to map Sale Tax in invoice.line.")
 
     def test_3_picking_out_invoicing(self):
         """
@@ -321,8 +311,7 @@ class TestPickingInvoicing(TransactionCase):
                     "Error to link stock.move with invoice.line.",
                 )
             self.assertTrue(
-                inv_line.invoice_line_tax_ids,
-                "Error to map Purchase Tax in invoice.line.",
+                inv_line.tax_ids, "Error to map Purchase Tax in invoice.line.",
             )
 
     def test_picking_cancel(self):
@@ -366,9 +355,7 @@ class TestPickingInvoicing(TransactionCase):
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
-        wizard_values.update(
-            {"group": "partner",}
-        )
+        wizard_values.update({"group": "partner"})
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
         wizard.action_generate()
@@ -376,7 +363,7 @@ class TestPickingInvoicing(TransactionCase):
         invoice = self.invoice_model.search(domain)
         self.assertEqual(picking.invoice_state, "invoiced")
         self.assertEqual(invoice.partner_id, self.partner)
-        invoice.action_cancel()
+        invoice.button_cancel()
         self.assertEqual(picking.invoice_state, "2binvoiced")
         self.assertIn(invoice, picking.invoice_ids)
         self.assertIn(picking, invoice.picking_ids)
@@ -423,9 +410,7 @@ class TestPickingInvoicing(TransactionCase):
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
-        wizard_values.update(
-            {"group": "partner",}
-        )
+        wizard_values.update({"group": "partner"})
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
         wizard.action_generate()
@@ -435,8 +420,7 @@ class TestPickingInvoicing(TransactionCase):
         self.assertEqual(invoice.partner_id, self.partner)
         self.assertIn(invoice, picking.invoice_ids)
         self.assertIn(picking, invoice.picking_ids)
-        today = fields.Date.today()
-        refund = invoice.refund(date_invoice=today, date=today, description="A refund")
+        refund = invoice._reverse_moves(cancel=True)
         self.assertEqual(picking.invoice_state, "invoiced")
         self.assertIn(refund, picking.invoice_ids)
         self.assertIn(picking, refund.picking_ids)
@@ -496,9 +480,7 @@ class TestPickingInvoicing(TransactionCase):
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
         # One invoice per partner but group products
-        wizard_values.update(
-            {"group": "partner_product",}
-        )
+        wizard_values.update({"group": "partner_product"})
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
         wizard.action_generate()
@@ -581,9 +563,7 @@ class TestPickingInvoicing(TransactionCase):
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
         # One invoice per partner but group products
-        wizard_values.update(
-            {"group": "partner_product",}
-        )
+        wizard_values.update({"group": "partner_product"})
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
         wizard.action_generate()
@@ -602,9 +582,7 @@ class TestPickingInvoicing(TransactionCase):
         for inv_line in invoice.invoice_line_ids:
             # qty = 3 because 1 move + duplicate one + 1 new
             self.assertAlmostEqual(inv_line.quantity, 3)
-            self.assertTrue(
-                inv_line.invoice_line_tax_ids, "Error to map Sale Tax in invoice.line."
-            )
+            self.assertTrue(inv_line.tax_ids, "Error to map Sale Tax in invoice.line.")
         # Now test behaviour if the invoice is delete
         invoice.unlink()
         for picking in pickings:
@@ -641,7 +619,7 @@ class TestPickingInvoicing(TransactionCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        picking2 = picking.copy({"partner_id": self.partner3.id,})
+        picking2 = picking.copy({"partner_id": self.partner3.id})
         move_vals2 = {
             "product_id": self.product_test_2.id,
             "picking_id": picking2.id,
@@ -679,9 +657,7 @@ class TestPickingInvoicing(TransactionCase):
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
         # One invoice per partner but group products
-        wizard_values.update(
-            {"group": "partner_product",}
-        )
+        wizard_values.update({"group": "partner_product"})
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
         wizard.action_generate()
@@ -699,12 +675,11 @@ class TestPickingInvoicing(TransactionCase):
             for inv_line in invoice.invoice_line_ids:
                 self.assertAlmostEqual(inv_line.quantity, 1)
                 self.assertTrue(
-                    inv_line.invoice_line_tax_ids,
-                    "Error to map Sale Tax in invoice.line.",
+                    inv_line.tax_ids, "Error to map Sale Tax in invoice.line.",
                 )
             # Test the behaviour when the invoice is cancelled
             # The picking invoice_status should be updated
-            invoice.action_cancel()
+            invoice.button_cancel()
             self.assertEquals(picking.invoice_state, "2binvoiced")
         nb_invoice_after = self.invoice_model.search_count([])
         self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoices))
