@@ -1,74 +1,73 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
-
 JOURNAL_TYPE_MAP = {
-    ('outgoing', 'customer'): ['sale'],
-    ('outgoing', 'supplier'): ['purchase'],
-    ('outgoing', 'transit'): ['sale', 'purchase'],
-    ('incoming', 'supplier'): ['purchase'],
-    ('incoming', 'customer'): ['sale'],
-    ('incoming', 'transit'): ['purchase', 'sale'],
+    ("outgoing", "customer"): ["sale"],
+    ("outgoing", "supplier"): ["purchase"],
+    ("outgoing", "transit"): ["sale", "purchase"],
+    ("incoming", "supplier"): ["purchase"],
+    ("incoming", "customer"): ["sale"],
+    ("incoming", "transit"): ["purchase", "sale"],
 }
 
 
 class StockInvoiceOnshipping(models.TransientModel):
-    _name = 'stock.invoice.onshipping'
+    _name = "stock.invoice.onshipping"
     _description = "Stock Invoice Onshipping"
 
     @api.model
     def _get_journal_type(self):
-        active_ids = self.env.context.get('active_ids', [])
+        active_ids = self.env.context.get("active_ids", [])
         if active_ids:
             active_ids = active_ids[0]
-        pick_obj = self.env['stock.picking']
+        pick_obj = self.env["stock.picking"]
         picking = pick_obj.browse(active_ids)
         if not picking or not picking.move_lines:
-            return 'sale'
+            return "sale"
         pick_type_code = picking.picking_type_id.code
         line = fields.first(picking.move_lines)
-        if pick_type_code == 'incoming':
+        if pick_type_code == "incoming":
             usage = line.location_id.usage
         else:
             usage = line.location_dest_id.usage
-        return JOURNAL_TYPE_MAP.get((pick_type_code, usage), ['sale'])[0]
+        return JOURNAL_TYPE_MAP.get((pick_type_code, usage), ["sale"])[0]
 
     journal_type = fields.Selection(
         selection=[
-            ('purchase', 'Create Supplier Invoice'),
-            ('sale', 'Create Customer Invoice')
+            ("purchase", "Create Supplier Invoice"),
+            ("sale", "Create Customer Invoice"),
         ],
         default=_get_journal_type,
         readonly=True,
     )
     group = fields.Selection(
         selection=[
-            ('picking', 'Picking'),
-            ('partner', 'Partner'),
-            ('partner_product', 'Partner/Product'),
+            ("picking", "Picking"),
+            ("partner", "Partner"),
+            ("partner_product", "Partner/Product"),
         ],
         default="picking",
         help="Group pickings/moves to create invoice(s):\n"
-             "Picking: One invoice per picking;\n"
-             "Partner: One invoice for each picking's partner;\n"
-             "Partner/Product: One invoice per picking's partner and group "
-             "product into a single invoice line.",
+        "Picking: One invoice per picking;\n"
+        "Partner: One invoice for each picking's partner;\n"
+        "Partner/Product: One invoice per picking's partner and group "
+        "product into a single invoice line.",
         required=True,
     )
     invoice_date = fields.Date()
     sale_journal = fields.Many2one(
-        comodel_name='account.journal',
+        comodel_name="account.journal",
         domain="[('type', '=', 'sale')]",
-        default=lambda self: self._default_journal('sale'),
+        default=lambda self: self._default_journal("sale"),
         ondelete="cascade",
     )
     purchase_journal = fields.Many2one(
-        comodel_name='account.journal',
+        comodel_name="account.journal",
         domain="[('type', '=', 'purchase')]",
-        default=lambda self: self._default_journal('purchase'),
+        default=lambda self: self._default_journal("purchase"),
         ondelete="cascade",
     )
     show_sale_journal = fields.Boolean()
@@ -82,90 +81,115 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return: dict
         """
         result = super(StockInvoiceOnshipping, self).default_get(fields_list)
-        result.update({
-            'invoice_date': fields.Date.today(),
-        })
+        result.update(
+            {"invoice_date": fields.Date.today(),}
+        )
         return result
 
-    @api.onchange('group')
+    @api.onchange("group")
     def onchange_group(self):
         self.ensure_one()
-        sale_pickings, sale_refund_pickings, purchase_pickings,\
-            purchase_refund_pickings = self.get_split_pickings()
+        (
+            sale_pickings,
+            sale_refund_pickings,
+            purchase_pickings,
+            purchase_refund_pickings,
+        ) = self.get_split_pickings()
         self.show_sale_journal = bool(sale_pickings)
         self.show_purchase_journal = bool(purchase_pickings)
 
     @api.multi
-    def get_partner_sum(
-            self, pickings, partner, inv_type, picking_type, usage):
+    def get_partner_sum(self, pickings, partner, inv_type, picking_type, usage):
         pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == picking_type and
-            x.partner_id == partner)
-        lines = pickings.mapped('move_lines')
-        if picking_type == 'outgoing':
+            lambda x: x.picking_type_id.code == picking_type and x.partner_id == partner
+        )
+        lines = pickings.mapped("move_lines")
+        if picking_type == "outgoing":
             moves = lines.filtered(lambda x: x.location_dest_id.usage == usage)
         else:
             moves = lines.filtered(lambda x: x.location_id.usage == usage)
-        total = sum([
-            (m._get_price_unit_invoice(inv_type, m.picking_id.partner_id) *
-             m.product_uom_qty) for m in moves])
-        return total, moves.mapped('picking_id')
+        total = sum(
+            [
+                (
+                    m._get_price_unit_invoice(inv_type, m.picking_id.partner_id)
+                    * m.product_uom_qty
+                )
+                for m in moves
+            ]
+        )
+        return total, moves.mapped("picking_id")
 
     @api.multi
     def get_split_pickings(self):
         self.ensure_one()
-        picking_obj = self.env['stock.picking']
-        pickings = picking_obj.browse(self.env.context.get('active_ids', []))
-        if self.group != 'picking':
+        picking_obj = self.env["stock.picking"]
+        pickings = picking_obj.browse(self.env.context.get("active_ids", []))
+        if self.group != "picking":
             return self.get_split_pickings_grouped(pickings)
         return self.get_split_pickings_nogrouped(pickings)
 
     @api.multi
     def get_split_pickings_grouped(self, pickings):
-        sale_pickings = self.env['stock.picking'].browse()
-        sale_refund_pickings = self.env['stock.picking'].browse()
-        purchase_pickings = self.env['stock.picking'].browse()
-        purchase_refund_pickings = self.env['stock.picking'].browse()
+        sale_pickings = self.env["stock.picking"].browse()
+        sale_refund_pickings = self.env["stock.picking"].browse()
+        purchase_pickings = self.env["stock.picking"].browse()
+        purchase_refund_pickings = self.env["stock.picking"].browse()
 
-        for partner in pickings.mapped('partner_id'):
+        for partner in pickings.mapped("partner_id"):
             so_sum, so_pickings = self.get_partner_sum(
-                pickings, partner, 'out_invoice', 'outgoing', 'customer')
+                pickings, partner, "out_invoice", "outgoing", "customer"
+            )
             si_sum, si_pickings = self.get_partner_sum(
-                pickings, partner, 'out_invoice', 'incoming', 'customer')
+                pickings, partner, "out_invoice", "incoming", "customer"
+            )
             if (so_sum - si_sum) >= 0:
-                sale_pickings |= (so_pickings | si_pickings)
+                sale_pickings |= so_pickings | si_pickings
             else:
-                sale_refund_pickings |= (so_pickings | si_pickings)
+                sale_refund_pickings |= so_pickings | si_pickings
             pi_sum, pi_pickings = self.get_partner_sum(
-                pickings, partner, 'in_invoice', 'incoming', 'supplier')
+                pickings, partner, "in_invoice", "incoming", "supplier"
+            )
             po_sum, po_pickings = self.get_partner_sum(
-                pickings, partner, 'in_invoice', 'outgoing', 'supplier')
+                pickings, partner, "in_invoice", "outgoing", "supplier"
+            )
             if (pi_sum - po_sum) >= 0:
-                purchase_pickings |= (pi_pickings | po_pickings)
+                purchase_pickings |= pi_pickings | po_pickings
             else:
-                purchase_refund_pickings |= (pi_pickings | po_pickings)
+                purchase_refund_pickings |= pi_pickings | po_pickings
 
-        return (sale_pickings, sale_refund_pickings, purchase_pickings,
-                purchase_refund_pickings)
+        return (
+            sale_pickings,
+            sale_refund_pickings,
+            purchase_pickings,
+            purchase_refund_pickings,
+        )
 
     @api.multi
     def get_split_pickings_nogrouped(self, pickings):
         first = fields.first
         sale_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == 'outgoing' and
-            first(x.move_lines).location_dest_id.usage == 'customer')
+            lambda x: x.picking_type_id.code == "outgoing"
+            and first(x.move_lines).location_dest_id.usage == "customer"
+        )
         sale_refund_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == 'incoming' and
-            first(x.move_lines).location_id.usage == 'customer')
+            lambda x: x.picking_type_id.code == "incoming"
+            and first(x.move_lines).location_id.usage == "customer"
+        )
         purchase_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == 'incoming' and
-            first(x.move_lines).location_id.usage == 'supplier')
+            lambda x: x.picking_type_id.code == "incoming"
+            and first(x.move_lines).location_id.usage == "supplier"
+        )
         purchase_refund_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == 'outgoing' and
-            first(x.move_lines).location_dest_id.usage == 'supplier')
+            lambda x: x.picking_type_id.code == "outgoing"
+            and first(x.move_lines).location_dest_id.usage == "supplier"
+        )
 
-        return (sale_pickings, sale_refund_pickings, purchase_pickings,
-                purchase_refund_pickings)
+        return (
+            sale_pickings,
+            sale_refund_pickings,
+            purchase_pickings,
+            purchase_refund_pickings,
+        )
 
     @api.model
     def _default_journal(self, journal_type):
@@ -174,10 +198,13 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param journal_type: str
         :return: account.journal recordset
         """
-        default_journal = self.env['account.journal'].search([
-            ('type', '=', journal_type),
-            ('company_id', '=', self.env.user.company_id.id),
-        ], limit=1)
+        default_journal = self.env["account.journal"].search(
+            [
+                ("type", "=", journal_type),
+                ("company_id", "=", self.env.user.company_id.id),
+            ],
+            limit=1,
+        )
         return default_journal
 
     @api.multi
@@ -189,7 +216,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         self.ensure_one()
         invoices = self._action_generate_invoices()
         if not invoices:
-            raise UserError(_('No invoice created!'))
+            raise UserError(_("No invoice created!"))
 
         # Update the state on pickings related to new invoices only
         self._update_picking_invoice_status(invoices.mapped("picking_ids"))
@@ -203,20 +230,19 @@ class StockInvoiceOnshipping(models.TransientModel):
         action_dict = action.read()[0]
 
         if len(invoices) > 1:
-            action_dict['domain'] = [('id', 'in', invoices.ids)]
+            action_dict["domain"] = [("id", "in", invoices.ids)]
         elif len(invoices) == 1:
             if inv_type in ["out_invoice", "out_refund"]:
-                form_view = [(self.env.ref('account.invoice_form').id, 'form')]
+                form_view = [(self.env.ref("account.invoice_form").id, "form")]
             else:
-                form_view = [(self.env.ref(
-                    'account.invoice_supplier_form').id, 'form')]
-            if 'views' in action_dict:
-                action_dict['views'] = form_view + [
-                    (state,  view) for state, view in action[
-                        'views'] if view != 'form']
+                form_view = [(self.env.ref("account.invoice_supplier_form").id, "form")]
+            if "views" in action_dict:
+                action_dict["views"] = form_view + [
+                    (state, view) for state, view in action["views"] if view != "form"
+                ]
             else:
-                action_dict['views'] = form_view
-            action_dict['res_id'] = invoices.ids[0]
+                action_dict["views"] = form_view
+            action_dict["res_id"] = invoices.ids[0]
 
         return action_dict
 
@@ -226,10 +252,10 @@ class StockInvoiceOnshipping(models.TransientModel):
         Load pickings from context
         :return: stock.picking recordset
         """
-        picking_obj = self.env['stock.picking']
-        active_ids = self.env.context.get('active_ids', [])
+        picking_obj = self.env["stock.picking"]
+        active_ids = self.env.context.get("active_ids", [])
         pickings = picking_obj.browse(active_ids)
-        pickings = pickings.filtered(lambda p: p.invoice_state == '2binvoiced')
+        pickings = pickings.filtered(lambda p: p.invoice_state == "2binvoiced")
         return pickings
 
     @api.multi
@@ -251,12 +277,12 @@ class StockInvoiceOnshipping(models.TransientModel):
         """
         self.ensure_one()
         journal2type = {
-            'sale': 'out_invoice',
-            'purchase': 'in_invoice',
-            'sale_refund': 'out_refund',
-            'purchase_refund': 'in_refund',
+            "sale": "out_invoice",
+            "purchase": "in_invoice",
+            "sale_refund": "out_refund",
+            "purchase_refund": "in_refund",
         }
-        inv_type = journal2type.get(self.journal_type) or 'out_invoice'
+        inv_type = journal2type.get(self.journal_type) or "out_invoice"
         return inv_type
 
     @api.model
@@ -269,7 +295,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return: key (tuple,...)
         """
         key = picking
-        if self.group in ['partner', 'partner_product']:
+        if self.group in ["partner", "partner_product"]:
             key = (picking._get_partner_to_invoice(), picking.picking_type_id)
         return key
 
@@ -281,15 +307,14 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return: list of stock.picking recordset
         """
         grouped_picking = {}
-        pickings = pickings.filtered(lambda p: p.invoice_state == '2binvoiced')
+        pickings = pickings.filtered(lambda p: p.invoice_state == "2binvoiced")
         for picking in pickings:
             key = self._get_picking_key(picking)
-            picks_grouped = grouped_picking.get(
-                key, self.env['stock.picking'].browse())
+            picks_grouped = grouped_picking.get(key, self.env["stock.picking"].browse())
             picks_grouped |= picking
-            grouped_picking.update({
-                key: picks_grouped,
-            })
+            grouped_picking.update(
+                {key: picks_grouped,}
+            )
         return grouped_picking.values()
 
     @api.multi
@@ -299,7 +324,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param values: dict
         :return: dict
         """
-        invoice = self.env['account.invoice'].new(values.copy())
+        invoice = self.env["account.invoice"].new(values.copy())
         invoice._onchange_partner_id()
         new_values = invoice._convert_to_write(invoice._cache)
         # Ensure basic values are not updated
@@ -315,9 +340,9 @@ class StockInvoiceOnshipping(models.TransientModel):
         """
         picking = fields.first(pickings)
         partner_id = picking._get_partner_to_invoice()
-        partner = self.env['res.partner'].browse(partner_id)
+        partner = self.env["res.partner"].browse(partner_id)
         inv_type = self._get_invoice_type()
-        if inv_type in ('out_invoice', 'out_refund'):
+        if inv_type in ("out_invoice", "out_refund"):
             account_id = partner.property_account_receivable_id.id
             payment_term = partner.property_payment_term_id.id
         else:
@@ -327,24 +352,26 @@ class StockInvoiceOnshipping(models.TransientModel):
         currency = company.currency_id
         if partner:
             code = picking.picking_type_id.code
-            if partner.property_product_pricelist and code == 'outgoing':
+            if partner.property_product_pricelist and code == "outgoing":
                 currency = partner.property_product_pricelist.currency_id
         journal = self._get_journal()
-        invoice_obj = self.env['account.invoice']
+        invoice_obj = self.env["account.invoice"]
         values = invoice_obj.default_get(invoice_obj.fields_get().keys())
-        values.update({
-            'origin': ", ".join(pickings.mapped("name")),
-            'user_id': self.env.user.id,
-            'partner_id': partner_id,
-            'account_id': account_id,
-            'payment_term_id': payment_term,
-            'type': inv_type,
-            'fiscal_position_id': partner.property_account_position_id.id,
-            'company_id': company.id,
-            'currency_id': currency.id,
-            'journal_id': journal.id,
-            'picking_ids': [(4, p.id, False) for p in pickings],
-        })
+        values.update(
+            {
+                "origin": ", ".join(pickings.mapped("name")),
+                "user_id": self.env.user.id,
+                "partner_id": partner_id,
+                "account_id": account_id,
+                "payment_term_id": payment_term,
+                "type": inv_type,
+                "fiscal_position_id": partner.property_account_position_id.id,
+                "company_id": company.id,
+                "currency_id": currency.id,
+                "journal_id": journal.id,
+                "picking_ids": [(4, p.id, False) for p in pickings],
+            }
+        )
         invoice, values = self._simulate_invoice_onchange(values)
         return invoice, values
 
@@ -356,7 +383,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return: key
         """
         key = move
-        if self.group == 'partner_product':
+        if self.group == "partner_product":
             key = move.product_id
         return key
 
@@ -368,15 +395,14 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return: list of stock.move recordset
         """
         grouped_moves = {}
-        moves = moves.filtered(lambda m: m.invoice_state == '2binvoiced')
+        moves = moves.filtered(lambda m: m.invoice_state == "2binvoiced")
         for move in moves:
             key = self._get_move_key(move)
-            move_grouped = grouped_moves.get(
-                key, self.env['stock.move'].browse())
+            move_grouped = grouped_moves.get(key, self.env["stock.move"].browse())
             move_grouped |= move
-            grouped_moves.update({
-                key: move_grouped,
-            })
+            grouped_moves.update(
+                {key: move_grouped,}
+            )
         return grouped_moves.values()
 
     @api.multi
@@ -386,7 +412,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param values: dict
         :return: dict
         """
-        line = self.env['account.invoice.line'].new(values.copy())
+        line = self.env["account.invoice.line"].new(values.copy())
         line._onchange_product_id()
         new_values = line._convert_to_write(line._cache)
         # Ensure basic values are not updated
@@ -404,15 +430,13 @@ class StockInvoiceOnshipping(models.TransientModel):
         name = ", ".join(moves.mapped("name"))
         move = fields.first(moves)
         product = move.product_id
-        fiscal_position = self.env['account.fiscal.position'].browse(
-            invoice_values['fiscal_position_id']
+        fiscal_position = self.env["account.fiscal.position"].browse(
+            invoice_values["fiscal_position_id"]
         )
-        partner_id = self.env['res.partner'].browse(
-            invoice_values['partner_id']
-        )
+        partner_id = self.env["res.partner"].browse(invoice_values["partner_id"])
         categ = product.categ_id
-        inv_type = invoice_values['type']
-        if inv_type in ('out_invoice', 'out_refund'):
+        inv_type = invoice_values["type"]
+        if inv_type in ("out_invoice", "out_refund"):
             account = product.property_account_income_id
             if not account:
                 account = categ.property_account_income_categ_id
@@ -428,34 +452,35 @@ class StockInvoiceOnshipping(models.TransientModel):
             loc = move.location_id
             loc_dst = move.location_dest_id
             # Better to understand with IF/ELIF than many OR
-            if inv_type == 'out_invoice' and loc.usage == 'customer':
+            if inv_type == "out_invoice" and loc.usage == "customer":
                 qty *= -1
-            elif inv_type == 'out_refund' and loc_dst.usage == 'customer':
+            elif inv_type == "out_refund" and loc_dst.usage == "customer":
                 qty *= -1
-            elif inv_type == 'in_invoice' and loc_dst.usage == 'supplier':
+            elif inv_type == "in_invoice" and loc_dst.usage == "supplier":
                 qty *= -1
-            elif inv_type == 'in_refund' and loc.usage == 'supplier':
+            elif inv_type == "in_refund" and loc.usage == "supplier":
                 qty *= -1
             quantity += qty
             move_line_ids.append((4, move.id, False))
         taxes = moves._get_taxes(fiscal_position, inv_type)
-        price = moves._get_price_unit_invoice(
-            inv_type, partner_id, quantity)
-        line_obj = self.env['account.invoice.line']
+        price = moves._get_price_unit_invoice(inv_type, partner_id, quantity)
+        line_obj = self.env["account.invoice.line"]
         values = line_obj.default_get(line_obj.fields_get().keys())
-        values.update({
-            'name': name,
-            'account_id': account.id,
-            'product_id': product.id,
-            'uom_id': product.uom_id.id,
-            'quantity': quantity,
-            'price_unit': price,
-            'invoice_line_tax_ids': [(6, 0, taxes.ids)],
-            'move_line_ids': move_line_ids,
-            'invoice_id': invoice.id,
-        })
+        values.update(
+            {
+                "name": name,
+                "account_id": account.id,
+                "product_id": product.id,
+                "uom_id": product.uom_id.id,
+                "quantity": quantity,
+                "price_unit": price,
+                "invoice_line_tax_ids": [(6, 0, taxes.ids)],
+                "move_line_ids": move_line_ids,
+                "invoice_id": invoice.id,
+            }
+        )
         values = self._simulate_invoice_line_onchange(values)
-        values.update({'name': name})
+        values.update({"name": name})
         return values
 
     @api.multi
@@ -481,7 +506,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param invoice_values: dict with the invoice and its lines
         :return: invoice
         """
-        return self.env['account.invoice'].create(invoice_values)
+        return self.env["account.invoice"].create(invoice_values)
 
     def _action_generate_invoices(self):
         """
@@ -493,7 +518,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         if company and company != self.env.user.company_id:
             raise UserError(_("All pickings are not related to your company!"))
         pick_list = self._group_pickings(pickings)
-        invoices = self.env['account.invoice'].browse()
+        invoices = self.env["account.invoice"].browse()
         for pickings in pick_list:
             moves = pickings.mapped("move_lines")
             grouped_moves_list = self._group_moves(moves)
@@ -511,8 +536,8 @@ class StockInvoiceOnshipping(models.TransientModel):
                     if line_values:
                         lines.append((0, 0, line_values))
                 if line_values:  # Only create the invoice if it have lines
-                    invoice_values['invoice_line_ids'] = lines
-                    invoice_values['date_invoice'] = self.invoice_date
+                    invoice_values["invoice_line_ids"] = lines
+                    invoice_values["date_invoice"] = self.invoice_date
                     invoice = self._create_invoice(invoice_values)
                     invoice._onchange_invoice_line_ids()
                     invoice.compute_taxes()
