@@ -92,9 +92,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return: dict
         """
         result = super(StockInvoiceOnshipping, self).default_get(fields_list)
-        result.update(
-            {"invoice_date": fields.Date.today(),}
-        )
+        result.update({"invoice_date": fields.Date.today()})
         return result
 
     @api.onchange("group")
@@ -109,7 +107,6 @@ class StockInvoiceOnshipping(models.TransientModel):
         self.show_sale_journal = bool(sale_pickings)
         self.show_purchase_journal = bool(purchase_pickings)
 
-    @api.multi
     def get_partner_sum(self, pickings, partner, inv_type, picking_type, usage):
         pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == picking_type and x.partner_id == partner
@@ -130,7 +127,6 @@ class StockInvoiceOnshipping(models.TransientModel):
         )
         return total, moves.mapped("picking_id")
 
-    @api.multi
     def get_split_pickings(self):
         self.ensure_one()
         picking_obj = self.env["stock.picking"]
@@ -139,7 +135,6 @@ class StockInvoiceOnshipping(models.TransientModel):
             return self.get_split_pickings_grouped(pickings)
         return self.get_split_pickings_nogrouped(pickings)
 
-    @api.multi
     def get_split_pickings_grouped(self, pickings):
         sale_pickings = self.env["stock.picking"].browse()
         sale_refund_pickings = self.env["stock.picking"].browse()
@@ -175,7 +170,6 @@ class StockInvoiceOnshipping(models.TransientModel):
             purchase_refund_pickings,
         )
 
-    @api.multi
     def get_split_pickings_nogrouped(self, pickings):
         first = fields.first
         sale_pickings = pickings.filtered(
@@ -218,7 +212,6 @@ class StockInvoiceOnshipping(models.TransientModel):
         )
         return default_journal
 
-    @api.multi
     def action_generate(self):
         """
         Launch the invoice generation
@@ -234,9 +227,9 @@ class StockInvoiceOnshipping(models.TransientModel):
 
         inv_type = self._get_invoice_type()
         if inv_type in ["out_invoice", "out_refund"]:
-            action = self.env.ref("account.action_invoice_tree1")
+            action = self.env.ref("account.action_move_out_invoice_type")
         else:
-            action = self.env.ref("account.action_vendor_bill_template")
+            action = self.env.ref("account.action_move_in_invoice_type")
 
         action_dict = action.read()[0]
 
@@ -244,9 +237,9 @@ class StockInvoiceOnshipping(models.TransientModel):
             action_dict["domain"] = [("id", "in", invoices.ids)]
         elif len(invoices) == 1:
             if inv_type in ["out_invoice", "out_refund"]:
-                form_view = [(self.env.ref("account.invoice_form").id, "form")]
+                form_view = [(self.env.ref("account.view_move_form").id, "form")]
             else:
-                form_view = [(self.env.ref("account.invoice_supplier_form").id, "form")]
+                form_view = [(self.env.ref("account.view_move_form").id, "form")]
             if "views" in action_dict:
                 action_dict["views"] = form_view + [
                     (state, view) for state, view in action["views"] if view != "form"
@@ -257,7 +250,6 @@ class StockInvoiceOnshipping(models.TransientModel):
 
         return action_dict
 
-    @api.multi
     def _load_pickings(self):
         """
         Load pickings from context
@@ -269,7 +261,6 @@ class StockInvoiceOnshipping(models.TransientModel):
         pickings = pickings.filtered(lambda p: p.invoice_state == "2binvoiced")
         return pickings
 
-    @api.multi
     def _get_journal(self):
         """
         Get the journal depending on the journal_type
@@ -280,7 +271,6 @@ class StockInvoiceOnshipping(models.TransientModel):
         journal = self[journal_field]
         return journal
 
-    @api.multi
     def _get_invoice_type(self):
         """
         Get the invoice type
@@ -316,7 +306,6 @@ class StockInvoiceOnshipping(models.TransientModel):
                    picking.partner_id)
         return key
 
-    @api.multi
     def _group_pickings(self, pickings):
         """
         Group given picking
@@ -329,26 +318,22 @@ class StockInvoiceOnshipping(models.TransientModel):
             key = self._get_picking_key(picking)
             picks_grouped = grouped_picking.get(key, self.env["stock.picking"].browse())
             picks_grouped |= picking
-            grouped_picking.update(
-                {key: picks_grouped,}
-            )
+            grouped_picking.update({key: picks_grouped})
         return grouped_picking.values()
 
-    @api.multi
     def _simulate_invoice_onchange(self, values):
         """
         Simulate onchange for invoice
         :param values: dict
         :return: dict
         """
-        invoice = self.env["account.invoice"].new(values.copy())
+        invoice = self.env["account.move"].new(values.copy())
         invoice._onchange_partner_id()
         new_values = invoice._convert_to_write(invoice._cache)
         # Ensure basic values are not updated
         values.update(new_values)
         return invoice, values
 
-    @api.multi
     def _build_invoice_values_from_pickings(self, pickings):
         """
         Build dict to create a new invoice from given pickings
@@ -360,10 +345,8 @@ class StockInvoiceOnshipping(models.TransientModel):
         partner = self.env["res.partner"].browse(partner_id)
         inv_type = self._get_invoice_type()
         if inv_type in ("out_invoice", "out_refund"):
-            account_id = partner.property_account_receivable_id.id
             payment_term = partner.property_payment_term_id.id
         else:
-            account_id = partner.property_account_payable_id.id
             payment_term = partner.property_supplier_payment_term_id.id
         company = self.env.user.company_id
         currency = company.currency_id
@@ -372,26 +355,25 @@ class StockInvoiceOnshipping(models.TransientModel):
             if partner.property_product_pricelist and code == "outgoing":
                 currency = partner.property_product_pricelist.currency_id
         journal = self._get_journal()
-        invoice_obj = self.env["account.invoice"]
+        invoice_obj = self.env["account.move"]
         values = invoice_obj.default_get(invoice_obj.fields_get().keys())
-        values.update({
-            'origin': ", ".join(pickings.mapped("name")),
-            'user_id': self.env.user.id,
-            'partner_id': partner_id,
-            'account_id': account_id,
-            'payment_term_id': payment_term,
-            'type': inv_type,
-            'fiscal_position_id': partner.property_account_position_id.id,
-            'company_id': company.id,
-            'currency_id': currency.id,
-            'journal_id': journal.id,
-            'picking_ids': [(4, p.id, False) for p in pickings],
-        })
-
+        values.update(
+            {
+                "invoice_origin": ", ".join(pickings.mapped("name")),
+                "user_id": self.env.user.id,
+                "partner_id": partner_id,
+                "invoice_payment_term_id": payment_term,
+                "type": inv_type,
+                "fiscal_position_id": partner.property_account_position_id.id,
+                "company_id": company.id,
+                "currency_id": currency.id,
+                "journal_id": journal.id,
+                "picking_ids": [(4, p.id, False) for p in pickings],
+            }
+        )
         invoice, values = self._simulate_invoice_onchange(values)
         return invoice, values
 
-    @api.multi
     def _get_move_key(self, move):
         """
         Get the key based on the given move
@@ -403,7 +385,6 @@ class StockInvoiceOnshipping(models.TransientModel):
             key = move.product_id
         return key
 
-    @api.multi
     def _group_moves(self, moves):
         """
         Possibility to group moves (to create 1 invoice line with many moves)
@@ -416,19 +397,16 @@ class StockInvoiceOnshipping(models.TransientModel):
             key = self._get_move_key(move)
             move_grouped = grouped_moves.get(key, self.env["stock.move"].browse())
             move_grouped |= move
-            grouped_moves.update(
-                {key: move_grouped,}
-            )
+            grouped_moves.update({key: move_grouped})
         return grouped_moves.values()
 
-    @api.multi
     def _simulate_invoice_line_onchange(self, values, price_unit=None):
         """
         Simulate onchange for invoice line
         :param values: dict
         :return: dict
         """
-        line = self.env["account.invoice.line"].new(values.copy())
+        line = self.env["account.move.line"].new(values.copy())
         line._onchange_product_id()
         new_values = line._convert_to_write(line._cache)
         if price_unit:
@@ -437,12 +415,11 @@ class StockInvoiceOnshipping(models.TransientModel):
         values.update(new_values)
         return values
 
-    @api.multi
     def _get_invoice_line_values(self, moves, invoice_values, invoice):
         """
         Create invoice line values from given moves
         :param moves: stock.move
-        :param invoice: account.invoice
+        :param invoice: account.move
         :return: dict
         """
         name = ", ".join(moves.mapped("name"))
@@ -482,7 +459,7 @@ class StockInvoiceOnshipping(models.TransientModel):
             move_line_ids.append((4, move.id, False))
         taxes = moves._get_taxes(fiscal_position, inv_type)
         price = moves._get_price_unit_invoice(inv_type, partner_id, quantity)
-        line_obj = self.env["account.invoice.line"]
+        line_obj = self.env["account.move.line"]
         values = line_obj.default_get(line_obj.fields_get().keys())
         values.update({
             'name': name,
@@ -500,7 +477,6 @@ class StockInvoiceOnshipping(models.TransientModel):
         values.update({'name': name})
         return values
 
-    @api.multi
     def _update_picking_invoice_status(self, pickings):
         """
         Update invoice_state on pickings
@@ -523,19 +499,19 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param invoice_values: dict with the invoice and its lines
         :return: invoice
         """
-        return self.env["account.invoice"].create(invoice_values)
+        return self.env["account.move"].create(invoice_values)
 
     def _action_generate_invoices(self):
         """
         Action to generate invoices based on pickings
-        :return: account.invoice recordset
+        :return: account.move recordset
         """
         pickings = self._load_pickings()
         company = pickings.mapped("company_id")
         if company and company != self.env.user.company_id:
             raise UserError(_("All pickings are not related to your company!"))
         pick_list = self._group_pickings(pickings)
-        invoices = self.env["account.invoice"].browse()
+        invoices = self.env["account.move"].browse()
         for pickings in pick_list:
             moves = pickings.mapped("move_lines")
             grouped_moves_list = self._group_moves(moves)
@@ -545,6 +521,7 @@ class StockInvoiceOnshipping(models.TransientModel):
                     pickings
                 )
                 lines = [(5, 0, {})]
+                # lines = []
                 line_values = False
                 for moves in moves_list:
                     line_values = self._get_invoice_line_values(
@@ -552,11 +529,15 @@ class StockInvoiceOnshipping(models.TransientModel):
                     )
                     if line_values:
                         lines.append((0, 0, line_values))
-                if line_values:  # Only create the invoice if it have lines
+                if line_values:  # Only create the invoice if it has lines
                     invoice_values["invoice_line_ids"] = lines
-                    invoice_values["date_invoice"] = self.invoice_date
+                    invoice_values["invoice_date"] = self.invoice_date
+                    # this is needed otherwise invoice_line_ids are removed
+                    # in _move_autocomplete_invoice_lines_create
+                    # and no invoice line is created
+                    invoice_values.pop("line_ids")
                     invoice = self._create_invoice(invoice_values)
                     invoice._onchange_invoice_line_ids()
-                    invoice.compute_taxes()
+                    invoice._compute_amount()
                     invoices |= invoice
         return invoices
