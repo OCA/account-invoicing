@@ -11,7 +11,7 @@
             <field name="date_expected" position="after">
                 <field name="invoice_state" groups="account.group_account_invoice" />
             </field>
-            <group name="quants_grp" position="after">
+            <group name="linked_group" position="after">
                 <group
                     name="invoice_lines"
                     string="Invoicing"
