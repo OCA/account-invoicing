@@ -16,8 +16,8 @@ class AccountInvoice(models.Model):
         """
         result = super(AccountInvoice, self).action_cancel()
         pickings = self.filtered(
-            lambda i: i.picking_ids and
-            i.type in ['out_invoice', 'in_invoice']).mapped("picking_ids")
+            lambda i: i.picking_ids and i.type in ["out_invoice", "in_invoice"]
+        ).mapped("picking_ids")
         self.mapped("invoice_line_ids.move_line_ids")._set_as_2binvoiced()
         pickings._set_as_2binvoiced()
         return result
@@ -30,15 +30,16 @@ class AccountInvoice(models.Model):
         :return:
         """
         pickings = self.filtered(
-            lambda i: i.picking_ids and
-            i.type in ['out_invoice', 'in_invoice']).mapped("picking_ids")
+            lambda i: i.picking_ids and i.type in ["out_invoice", "in_invoice"]
+        ).mapped("picking_ids")
         self.mapped("invoice_line_ids.move_line_ids")._set_as_2binvoiced()
         pickings._set_as_2binvoiced()
         return super(AccountInvoice, self).unlink()
 
     @api.model
-    def _prepare_refund(self, invoice, date_invoice=None, date=None,
-                        description=None, journal_id=None):
+    def _prepare_refund(
+        self, invoice, date_invoice=None, date=None, description=None, journal_id=None
+    ):
         """
         Inherit to put link picking of the invoice into the new refund
         :param invoice: self recordset
@@ -49,9 +50,13 @@ class AccountInvoice(models.Model):
         :return: dict
         """
         result = super(AccountInvoice, self)._prepare_refund(
-            invoice=invoice, date_invoice=date_invoice, date=date,
-            description=description, journal_id=journal_id)
-        result.update({
-            'picking_ids': [(6, False, invoice.picking_ids.ids)],
-        })
+            invoice=invoice,
+            date_invoice=date_invoice,
+            date=date,
+            description=description,
+            journal_id=journal_id,
+        )
+        result.update(
+            {"picking_ids": [(6, False, invoice.picking_ids.ids)],}
+        )
         return result
