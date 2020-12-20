@@ -97,7 +97,7 @@ class TestInvoiceGroupBySaleOrder(SavepointCase):
             self.assertEqual(line.name, result[idx])
 
     def test_create_invoice_no_section(self):
-        """ Check invoice for only one sale order
+        """Check invoice for only one sale order
 
         No need to create sections
 
