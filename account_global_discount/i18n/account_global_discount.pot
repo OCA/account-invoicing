@@ -120,6 +120,7 @@ msgstr ""
 
 #. module: account_global_discount
 #: code:addons/account_global_discount/models/account_invoice.py:71
+#: code:addons/account_global_discount/models/account_invoice.py:72
 #, python-format
 msgid "Incompatible taxes found for global discounts."
 msgstr ""
@@ -139,8 +140,13 @@ msgstr ""
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice__global_discount_ids
-#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice__global_discount_ids_readonly
+#: model_terms:ir.ui.view,arch_db:account_global_discount.account_invoice_form_view
 msgid "Invoice Global Discounts"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice__global_discount_ids_readonly
+msgid "Invoice Global Discounts (readonly)"
 msgstr ""
 
 #. module: account_global_discount
@@ -185,6 +191,7 @@ msgstr ""
 
 #. module: account_global_discount
 #: code:addons/account_global_discount/models/account_invoice.py:64
+#: code:addons/account_global_discount/models/account_invoice.py:65
 #, python-format
 msgid "With global discounts, taxes in lines are required."
 msgstr ""
