@@ -43,8 +43,13 @@ class AccountMove(models.Model):
 
     def _recompute_tax_lines(self, recompute_tax_base_amount=False):
         super()._recompute_tax_lines(recompute_tax_base_amount)
-        # if recompute_tax_base_amount:
-        self._update_tax_lines_for_global_discount()
+        # If recompute_tax_base_amount is True, only the tax_base_amount
+        # field is recalculated, therefore the debit and debit fields
+        # will not be recalculated and it doesn't make sense to apply
+        # the global discount to the taxes move lines by calling the
+        # _update_tax_lines_for_global_discount method.
+        if not recompute_tax_base_amount:
+            self._update_tax_lines_for_global_discount()
 
     def _update_tax_lines_for_global_discount(self):
         """ Update tax_base_amount and taxes debits."""
