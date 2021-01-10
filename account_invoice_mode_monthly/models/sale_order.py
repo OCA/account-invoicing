@@ -53,8 +53,7 @@ class SaleOrder(models.Model):
 
     @job(default_channel="root.invoice_monthly")
     def _generate_invoices_by_partner(self, saleorder_ids, invoicing_mode="monthly"):
-        """Generate invoices for a group of sale order belonging to a customer.
-        """
+        """Generate invoices for a group of sale order belonging to a customer."""
         sales = (
             self.browse(saleorder_ids)
             .exists()
