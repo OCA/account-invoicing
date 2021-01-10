@@ -8,7 +8,7 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     def _get_related_invoices(self):
-        """ Overridden from stock_account to return the customer invoices
+        """Overridden from stock_account to return the customer invoices
         related to this stock move.
         """
         invoices = super()._get_related_invoices()
