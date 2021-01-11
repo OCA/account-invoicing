@@ -3,29 +3,25 @@
 
 from odoo import models
 
-from odoo.addons.queue_job.job import job
-
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    def action_done(self):
-        res = super().action_done()
-
+    def _action_done(self):
+        res = super()._action_done()
         for picking in self:
             if picking._invoice_at_shipping():
                 picking.with_delay()._invoicing_at_shipping()
         return res
 
     def _invoice_at_shipping(self):
-        """Check if picking must be invoiced at shipping."""
+        """Check if picking must be invoiced at shippin`g."""
         self.ensure_one()
         return (
             self.picking_type_code == "outgoing"
             and self.sale_id.partner_invoice_id.invoicing_mode == "at_shipping"
         )
 
-    @job(default_channel="root.invoice_at_shipping")
     def _invoicing_at_shipping(self):
         self.ensure_one()
         sales_order = self._get_sales_order_to_invoice()
