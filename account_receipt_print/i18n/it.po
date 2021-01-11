@@ -1,0 +1,95 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_receipt_print
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-13 20:33+0000\n"
+"PO-Revision-Date: 2022-07-13 22:36+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: account_receipt_print
+#: model:ir.actions.report,print_report_name:account_receipt_print.account_receipts
+msgid "(object._get_move_display_name())"
+msgstr "(object._get_move_display_name())"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<strong>Amount In Words:</strong>"
+msgstr "<strong>Importo in lettere:</strong>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<strong>Receipt Date:</strong>"
+msgstr "<strong>Data ricevuta:</strong>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "Cancelled Receipt"
+msgstr "Ricevuta annullata"
+
+#. module: account_receipt_print
+#: model:ir.model.fields,field_description:account_receipt_print.field_ir_actions_report__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "Draft Receipt"
+msgstr "Ricevuta in bozza"
+
+#. module: account_receipt_print
+#: model:ir.model.fields,field_description:account_receipt_print.field_ir_actions_report__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_receipt_print
+#: model:ir.model.fields,field_description:account_receipt_print.field_ir_actions_report____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: account_receipt_print
+#: code:addons/account_receipt_print/models/ir_actions_report.py:0
+#, python-format
+msgid "Only invoices could be printed."
+msgstr "Possono essere stampate solo fatture."
+
+#. module: account_receipt_print
+#: code:addons/account_receipt_print/models/ir_actions_report.py:0
+#, python-format
+msgid "Only receipts could be printed."
+msgstr "Possono essere stampate solo ricevute."
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "Please use the following communication for your payment :"
+msgstr "Per il pagamento utilizzare la seguente indicazione:"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "Purchase Receipt"
+msgstr "Ricevuta di acquisto"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "Receipt"
+msgstr "Ricevuta"
+
+#. module: account_receipt_print
+#: model:ir.actions.report,name:account_receipt_print.account_receipts
+msgid "Receipts"
+msgstr "Ricevute"
+
+#. module: account_receipt_print
+#: model:ir.model,name:account_receipt_print.model_ir_actions_report
+msgid "Report Action"
+msgstr "Azione resoconto"
