@@ -3,15 +3,12 @@
 
 from odoo import _, models
 
-from odoo.addons.queue_job.job import job
-
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    def action_done(self):
-        res = super().action_done()
-
+    def _action_done(self):
+        res = super()._action_done()
         for picking in self:
             if picking._invoice_at_shipping():
                 picking.with_delay()._invoicing_at_shipping()
@@ -25,7 +22,6 @@ class StockPicking(models.Model):
             and self.sale_id.partner_invoice_id.invoicing_mode == "at_shipping"
         )
 
-    @job(default_channel="root.invoice_at_shipping")
     def _invoicing_at_shipping(self):
         self.ensure_one()
         sales = self.env["sale.order"].browse()
