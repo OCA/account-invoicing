@@ -8,8 +8,6 @@ from dateutil.relativedelta import relativedelta
 from odoo import api, models
 from odoo.osv.expression import OR
 
-from odoo.addons.queue_job.job import job
-
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
@@ -51,7 +49,6 @@ class SaleOrder(models.Model):
         """Returns the sale order fields used to group them into jobs."""
         return ["partner_invoice_id", "payment_term_id"]
 
-    @job(default_channel="root.invoice_monthly")
     def _generate_invoices_by_partner(self, saleorder_ids, invoicing_mode="monthly"):
         """Generate invoices for a group of sale order belonging to a customer."""
         sales = (
