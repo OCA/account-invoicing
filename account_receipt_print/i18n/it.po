@@ -1,0 +1,166 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_receipt_print
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-25 19:10+0000\n"
+"PO-Revision-Date: 2021-02-25 20:11+0100\n"
+"Last-Translator: Sergio Zanchetta <primes2h@gmail.com>\n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: account_receipt_print
+#: model:ir.actions.report,print_report_name:account_receipt_print.account_receipts
+msgid "(object._get_move_display_name())"
+msgstr "(object._get_move_display_name())"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid ""
+"<span groups=\"account.group_show_line_subtotals_tax_excluded\">Amount</"
+"span>\n"
+"                                    <span groups=\"account."
+"group_show_line_subtotals_tax_included\">Total Price</span>"
+msgstr ""
+"<span groups=\"account.group_show_line_subtotals_tax_excluded\">Importo</"
+"span>\n"
+"                                    <span groups=\"account."
+"group_show_line_subtotals_tax_included\">Prezzo totale</span>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<span>Description</span>"
+msgstr "<span>Descrizione</span>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<span>Quantity</span>"
+msgstr "<span>Quantità</span>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<span>Taxes</span>"
+msgstr "<span>Imposte</span>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<span>Unit Price</span>"
+msgstr "<span>Prezzo unitario</span>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<strong class=\"mr16\">Subtotal</strong>"
+msgstr "<strong class=\"mr16\">Imponibile</strong>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<strong>Amount In Words:</strong>"
+msgstr "<strong>Importo in lettere:</strong>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<strong>Customer Code:</strong>"
+msgstr "<strong>Codice cliente:</strong>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<strong>Due Date:</strong>"
+msgstr "<strong>Data scadenza:</strong>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<strong>Receipt Date:</strong>"
+msgstr "<strong>Data ricevuta:</strong>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<strong>Reference:</strong>"
+msgstr "<strong>Riferimento:</strong>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<strong>Source:</strong>"
+msgstr "<strong>Origine:</strong>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<strong>Subtotal</strong>"
+msgstr "<strong>Imponibile</strong>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "<strong>Total</strong>"
+msgstr "<strong>Totale</strong>"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "Cancelled Receipt"
+msgstr "Ricevuta annullata"
+
+#. module: account_receipt_print
+#: model:ir.model.fields,field_description:account_receipt_print.field_account_move__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "Draft Receipt"
+msgstr "Ricevuta in bozza"
+
+#. module: account_receipt_print
+#: model:ir.model.fields,field_description:account_receipt_print.field_account_move__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_receipt_print
+#: model:ir.model,name:account_receipt_print.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: account_receipt_print
+#: model:ir.model.fields,field_description:account_receipt_print.field_account_move____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "Please use the following communication for your payment:"
+msgstr "Per il pagamento utilizzare la seguente indicazione:"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.view_move_form_receipt
+msgid "Print"
+msgstr "Stampa"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "Purchase Receipt"
+msgstr "Ricevuta di acquisto"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "Receipt"
+msgstr "Ricevuta"
+
+#. module: account_receipt_print
+#: model:ir.actions.report,name:account_receipt_print.account_receipts
+msgid "Receipts"
+msgstr "Ricevute"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "Tax ID"
+msgstr "Partita IVA"
+
+#. module: account_receipt_print
+#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
+msgid "on"
+msgstr "su"
