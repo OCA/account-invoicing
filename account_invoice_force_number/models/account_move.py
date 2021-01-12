@@ -29,8 +29,8 @@ class AccountMove(models.Model):
                 )
         return super(AccountMove, self).unlink()
 
-    def post(self):
+    def action_post(self):
         for move in self:
             if move.move_name:
                 move.write({"name": move.move_name})
-        return super(AccountMove, self).post()
+        return super(AccountMove, self).action_post()
