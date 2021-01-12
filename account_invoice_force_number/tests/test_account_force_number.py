@@ -4,49 +4,43 @@
 
 
 from odoo.exceptions import UserError
-from odoo.tests.common import TransactionCase
+
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-class TestAccountForceNumber(TransactionCase):
+class TestAccountForceNumber(AccountTestInvoicingCommon):
+    def create_invoice(self, move_name=None):
+        partner_id = self.env.ref("base.res_partner_12").id
+        invoice_vals = {
+            "move_type": "out_invoice",
+            "partner_id": partner_id,
+            "invoice_line_ids": [
+                (
+                    0,
+                    0,
+                    {
+                        "name": "Test product",
+                        "quantity": 1,
+                        "price_unit": 450,
+                        "tax_ids": [(6, 0, [])],
+                    },
+                )
+            ],
+        }
+        invoice = (
+            self.env["account.move"]
+            .with_context(default_move_type="out_invoice")
+            .create(invoice_vals)
+        )
+        if move_name:
+            invoice.write({"move_name": "0001"})
+        return invoice
+
     def test_force_number(self):
         # in order to test the correct assignment of the internal_number
         # I create a customer invoice.
-        invoice_vals = [
-            (
-                0,
-                0,
-                {
-                    "product_id": self.env.ref("product.product_product_3").id,
-                    "quantity": 1.0,
-                    "account_id": self.env["account.account"]
-                    .search(
-                        [
-                            (
-                                "user_type_id",
-                                "=",
-                                self.env.ref("account.data_account_type_revenue").id,
-                            )
-                        ],
-                        limit=1,
-                    )
-                    .id,
-                    "name": "[PCSC234] PC Assemble SC234",
-                    "price_unit": 450.00,
-                },
-            )
-        ]
-        invoice = self.env["account.move"].create(
-            {
-                "journal_id": self.env["account.journal"]
-                .search([("type", "=", "sale")], limit=1)
-                .id,
-                "partner_id": self.env.ref("base.res_partner_12").id,
-                "type": "out_invoice",
-                "invoice_line_ids": invoice_vals,
-            }
-        )
         # I set the force number
-        invoice.write({"move_name": "0001"})
+        invoice = self.create_invoice(move_name="0001")
         # I validate the invoice
         invoice.action_post()
         # I check that the invoice number is the one we expect
@@ -57,14 +51,5 @@ class TestAccountForceNumber(TransactionCase):
         with self.assertRaises(UserError):
             invoice.unlink()
         # Delete invoice while move_name is False
-        invoice_2 = self.env["account.move"].create(
-            {
-                "journal_id": self.env["account.journal"]
-                .search([("type", "=", "sale")], limit=1)
-                .id,
-                "partner_id": self.env.ref("base.res_partner_12").id,
-                "type": "out_invoice",
-                "invoice_line_ids": invoice_vals,
-            }
-        )
+        invoice_2 = self.create_invoice()
         invoice_2.unlink()
