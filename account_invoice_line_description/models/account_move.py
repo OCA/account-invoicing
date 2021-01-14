@@ -14,7 +14,7 @@ class AccountMove(models.Model):
             "account_invoice_line_description."
             "group_use_product_description_per_inv_line"
         ):
-            inv_type = self.move_id.type
+            inv_type = self.move_id.move_type
             product = self.product_id.with_context(lang=self.move_id.partner_id.lang)
             self.name = (
                 product.description_purchase or self.name

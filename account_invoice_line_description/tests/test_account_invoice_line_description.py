@@ -1,11 +1,11 @@
 # Copyright 2017 - Tecnativa, S.L. - Luis M. Ontalba
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
-from odoo.tests.common import SavepointCase, at_install, post_install
+from odoo.tests import tagged
+from odoo.tests.common import SavepointCase
 
 
-@at_install(False)
-@post_install(True)
+@tagged("-at_install", "post_install")
 class TestAccountInvoiceLineDescription(SavepointCase):
     @classmethod
     def setUpClass(cls):
@@ -58,7 +58,7 @@ class TestAccountInvoiceLineDescription(SavepointCase):
             {
                 "partner_id": cls.partner.id,
                 "journal_id": cls.journal_sale.id,
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_line_ids": cls.invoice_sale_vals,
             }
         )
@@ -91,7 +91,7 @@ class TestAccountInvoiceLineDescription(SavepointCase):
             {
                 "partner_id": cls.partner.id,
                 "journal_id": cls.journal_purchase.id,
-                "type": "in_invoice",
+                "move_type": "in_invoice",
                 "invoice_line_ids": cls.invoice_purchase_vals,
             }
         )
