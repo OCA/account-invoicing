@@ -1,6 +1,17 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import hashlib
+import inspect
+
 from odoo.tests import common
+
+from odoo.addons.sale.models.sale import SaleOrderLine as upstream
+
+# if this hash fails then the original function it was copied from
+# needs to be checked to see if there are any major changes that
+# need to be updated in this module's _get_real_price_currency
+
+VALID_HASHES = ["7c0bb27c20598327008f81aee58cdfb4"]
 
 
 class TestAccountMovePricelist(common.SavepointCase):
@@ -193,7 +204,7 @@ class TestAccountMovePricelist(common.SavepointCase):
         cls.invoice = cls.AccountMove.create(
             {
                 "partner_id": cls.partner.id,
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_line_ids": [
                     (
                         0,
@@ -299,3 +310,9 @@ class TestAccountMovePricelist(common.SavepointCase):
         invoice_line = self.invoice.invoice_line_ids[:1]
         self.assertAlmostEqual(invoice_line.price_unit, 65.41)
         self.assertEqual(invoice_line.discount, 8.27)
+
+    def test_upstream_file_hash(self):
+        """Test that copied upstream function hasn't received fixes"""
+        func = inspect.getsource(upstream._get_real_price_currency).encode()
+        func_hash = hashlib.md5(func).hexdigest()
+        self.assertIn(func_hash, VALID_HASHES)
