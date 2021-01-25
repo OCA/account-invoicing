@@ -25,15 +25,13 @@ class AccountMove(models.Model):
     @api.onchange("partner_id", "company_id")
     def _onchange_partner_id_account_invoice_pricelist(self):
         if self.is_invoice():
-            result = super(AccountMove, self)._onchange_partner_id()
             if (
                 self.partner_id
-                and self.type in ("out_invoice", "out_refund")
+                and self.move_type in ("out_invoice", "out_refund")
                 and self.partner_id.property_product_pricelist
             ):
                 self.pricelist_id = self.partner_id.property_product_pricelist
                 self._set_pricelist_currency()
-            return result
 
     @api.onchange("pricelist_id")
     def _set_pricelist_currency(self):
@@ -93,10 +91,10 @@ class AccountMoveLine(models.Model):
                         price_subtotal=price_subtotal,
                         currency=self.move_id.company_currency_id,
                     )
-                    balance = accounting_vals["debit"] - accounting_vals["credit"]
-                    price_unit = sel._get_fields_onchange_balance(balance=balance).get(
-                        "price_unit", price_unit
-                    )
+                    amount_currency = accounting_vals["amount_currency"]
+                    price_unit = sel._get_fields_onchange_balance(
+                        amount_currency=amount_currency
+                    ).get("price_unit", price_unit)
                 sel.with_context(check_move_validity=False).update(
                     {"price_unit": price_unit}
                 )
@@ -118,7 +116,7 @@ class AccountMoveLine(models.Model):
             ):
                 price, rule_id = pricelist_item.base_pricelist_id.with_context(
                     uom=uom.id
-                ).get_product_price_rule(product, qty, self.order_id.partner_id)
+                ).get_product_price_rule(product, qty, self.move_id.partner_id)
                 pricelist_item = PricelistItem.browse(rule_id)
 
             if pricelist_item.base == "standard_price":

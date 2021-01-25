@@ -9,7 +9,7 @@
                     type="object"
                     name="button_update_prices_from_pricelist"
                     string="Update prices"
-                    attrs="{'invisible': ['|', '|', ('pricelist_id', '=', False), ('state', 'not in', ['draft']), ('type', 'not in', ['out_invoice', 'out_refund', 'in_invoice', 'in_refund'])]}"
+                    attrs="{'invisible': ['|', '|', ('pricelist_id', '=', False), ('state', 'not in', ['draft']), ('move_type', 'not in', ['out_invoice', 'out_refund', 'in_invoice', 'in_refund'])]}"
                     help="Update price in lines from the pricelist"
                 />
             </button>
@@ -19,12 +19,12 @@
                     name="attrs"
                 >{'readonly': [('pricelist_id', '!=', False)]}</attribute>
             </field>
-            <field name="journal_id" position="after">
+            <xpath expr="//div[field[@name='journal_id']]" position="after">
                 <field
                     name="pricelist_id"
-                    attrs="{'invisible': [('type', 'not in', ['out_invoice', 'out_refund', 'in_invoice', 'in_refund'])]}"
+                    attrs="{'invisible': [('move_type', 'not in', ['out_invoice', 'out_refund', 'in_invoice', 'in_refund'])]}"
                 />
-            </field>
+            </xpath>
         </field>
     </record>
     <record id="account_invoice_filter_inherit_account_pricelist" model="ir.ui.view">
@@ -39,7 +39,7 @@
                     string="Pricelist"
                     name="pricelist"
                     context="{'group_by':'pricelist_id'}"
-                    invisible="context.get('type', '') not in ['out_invoice', 'out_refund']"
+                    invisible="context.get('move_type', '') not in ['out_invoice', 'out_refund']"
                 />
                 <separator />
             </xpath>
