@@ -105,6 +105,7 @@ Contributors
   * Carlos Dauden
   * Rafael Blasco
   * Ernesto Tejeda
+  * Víctor Martínez
 
 Maintainers
 ~~~~~~~~~~~

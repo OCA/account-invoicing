@@ -1,5 +1,6 @@
 # Copyright 2019 Tecnativa - David Vidal
 # Copyright 2020 Tecnativa - Pedro M. Baeza
+# Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import _, api, exceptions, fields, models
 from odoo.tools import config
@@ -71,6 +72,22 @@ class AccountMove(models.Model):
             tax_line._onchange_amount_currency()
             tax_line._onchange_balance()
 
+    def _prepare_global_discount_vals(self, global_discount, base, tax_ids):
+        """Prepare the dictionary values for an invoice global discount
+        line.
+        """
+        discount = global_discount._get_global_discount_vals(base)
+        return {
+            "name": global_discount.display_name,
+            "invoice_id": self.id,
+            "global_discount_id": global_discount.id,
+            "discount": global_discount.discount,
+            "base": base,
+            "base_discounted": discount["base_discounted"],
+            "account_id": global_discount.account_id.id,
+            "tax_ids": [(4, tax_id) for tax_id in tax_ids],
+        }
+
     def _set_global_discounts_by_tax(self):
         """Create invoice global discount lines by taxes combinations and
         discounts.
@@ -113,24 +130,21 @@ class AccountMove(models.Model):
                 continue
             base = tax_line.base_before_global_discounts or tax_line.tax_base_amount
             for global_discount in self.global_discount_ids:
-                discount = global_discount._get_global_discount_vals(base)
-                invoice_global_discounts.append(
-                    (
-                        0,
-                        0,
-                        {
-                            "name": global_discount.display_name,
-                            "invoice_id": self.id,
-                            "global_discount_id": global_discount.id,
-                            "discount": global_discount.discount,
-                            "base": base,
-                            "base_discounted": discount["base_discounted"],
-                            "account_id": global_discount.account_id.id,
-                            "tax_ids": [(4, taxid) for taxid in key],
-                        },
+                vals = self._prepare_global_discount_vals(global_discount, base, key)
+                invoice_global_discounts.append((0, 0, vals))
+                base = vals["base_discounted"]
+        # Check all moves with defined taxes to check if there's any discount not
+        # created (tax amount is zero and only one tax is applied)
+        for line in self.line_ids.filtered("tax_ids"):
+            key = tuple(line.tax_ids.ids)
+            if taxes_keys.get(key):
+                base = line.price_subtotal
+                for global_discount in self.global_discount_ids:
+                    vals = self._prepare_global_discount_vals(
+                        global_discount, base, key
                     )
-                )
-                base = discount["base_discounted"]
+                    invoice_global_discounts.append((0, 0, vals))
+                    base = vals["base_discounted"]
         self.invoice_global_discount_ids = invoice_global_discounts
 
     def _create_global_discount_journal_items(self):
