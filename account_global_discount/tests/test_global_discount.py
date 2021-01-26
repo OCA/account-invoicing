@@ -1,5 +1,6 @@
 # Copyright 2019 Tecnativa - David Vidal
 # Copyright 2020 Tecnativa - Pedro M. Baeza
+# Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import exceptions
 from odoo.tests import Form, common
@@ -88,6 +89,14 @@ class TestGlobalDiscount(common.SavepointCase):
                 "amount_type": "percent",
                 "type_tax_use": "purchase",
                 "amount": 15.0,
+            }
+        )
+        cls.tax_0 = cls.env["account.tax"].create(
+            {
+                "name": "TAX 0%",
+                "amount_type": "percent",
+                "type_tax_use": "purchase",
+                "amount": 0.0,
             }
         )
         cls.journal = cls.env["account.journal"].create(
@@ -288,3 +297,46 @@ class TestGlobalDiscount(common.SavepointCase):
                 invoice_form.global_discount_ids.add(self.global_discount_1)
                 with invoice_form.invoice_line_ids.edit(0) as line_form:
                     line_form.tax_ids.clear()
+
+    def test_07_line_with_tax_0(self):
+        invoice_form = Form(
+            self.env["account.move"].with_context(
+                default_type="in_invoice", test_account_global_discount=True,
+            )
+        )
+        invoice_form.partner_id = self.partner_1
+        invoice_form.global_discount_ids.add(self.global_discount_1)
+        with invoice_form.invoice_line_ids.new() as line_form:
+            line_form.name = "Line 1"
+            line_form.price_unit = 200.0
+            line_form.quantity = 1
+            line_form.tax_ids.clear()
+            line_form.tax_ids.add(self.tax_0)
+        invoice = invoice_form.save()
+        invoice._onchange_global_discount_ids()
+        self.assertEqual(len(invoice.invoice_global_discount_ids), 1)
+        discount_tax_0 = invoice.invoice_global_discount_ids.filtered(
+            lambda x: x.tax_ids == self.tax_0
+        )
+        self.assertAlmostEqual(discount_tax_0.discount_amount, 40)
+
+    def test_07_line2_with_tax_0(self):
+        invoice_no_check = self.invoice.with_context(check_move_validity=False)
+        with Form(self.invoice) as invoice_form:
+            invoice_form.global_discount_ids.add(self.global_discount_1)
+            with invoice_form.invoice_line_ids.new() as line_form:
+                line_form.name = "Line 2"
+                line_form.price_unit = 100.0
+                line_form.quantity = 1
+                line_form.tax_ids.clear()
+                line_form.tax_ids.add(self.tax_0)
+        invoice_no_check._onchange_global_discount_ids()
+        self.assertEqual(len(self.invoice.invoice_global_discount_ids), 2)
+        discount_tax_15 = self.invoice.invoice_global_discount_ids.filtered(
+            lambda x: x.tax_ids == self.tax
+        )
+        self.assertAlmostEqual(discount_tax_15.discount_amount, 40)
+        discount_tax_0 = self.invoice.invoice_global_discount_ids.filtered(
+            lambda x: x.tax_ids == self.tax_0
+        )
+        self.assertAlmostEqual(discount_tax_0.discount_amount, 20)
