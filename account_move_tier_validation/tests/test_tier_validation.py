@@ -2,13 +2,13 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo.tests import common
+from odoo.tests.common import tagged
 
 from .common import setup_test_model, teardown_test_model
 from .tier_validation_tester import TierValidationTester
 
 
-@common.at_install(False)
-@common.post_install(True)
+@tagged("post_install", "-at_install")
 class TestAccountTierValidation(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
