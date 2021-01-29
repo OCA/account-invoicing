@@ -58,11 +58,6 @@ msgid "Company"
 msgstr "Compañía"
 
 #. module: account_global_discount
-#: model:ir.model.fields,help:account_global_discount.field_account_invoice_global_discount__company_id
-msgid "Company related to this journal"
-msgstr ""
-
-#. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__create_uid
 msgid "Created by"
 msgstr "Creado por"
