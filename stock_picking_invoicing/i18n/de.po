@@ -15,7 +15,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. module: stock_picking_invoicing
-#: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:494
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:504
 #, python-format
 msgid "All pickings are not related to your company!"
