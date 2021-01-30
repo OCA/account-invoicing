@@ -461,20 +461,28 @@ class StockInvoiceOnshipping(models.TransientModel):
         price = moves._get_price_unit_invoice(inv_type, partner_id, quantity)
         line_obj = self.env["account.move.line"]
         values = line_obj.default_get(line_obj.fields_get().keys())
-        values.update({
-            'name': name,
-            'account_id': account.id,
-            'product_id': product.id,
-            'uom_id': product.uom_id.id,
-            'quantity': quantity,
-            'price_unit': price,
-            'invoice_line_tax_ids': [(6, 0, taxes.ids)],
-            'move_line_ids': move_line_ids,
-            'invoice_id': invoice.id,
-        })
-
+        values.update(
+            {
+                "name": name,
+                "account_id": account.id,
+                "product_id": product.id,
+                "product_uom_id": product.uom_id.id,
+                "quantity": quantity,
+                "price_unit": price,
+                "tax_ids": [(6, 0, taxes.ids)],
+                "move_line_ids": move_line_ids,
+                "move_id": invoice.id,
+            }
+        )
+        # HACK: using hasattr for not depending on Purchase
+        if hasattr(move, "purchase_line_id"):
+            values["purchase_line_id"] = move.purchase_line_id.id
+        # HACK: using hasattr for not depending on Sale
+        if hasattr(move, "sale_line_id"):
+            if move.sale_line_id:
+                values["sale_line_ids"] = [(6, 0, [move.sale_line_id.id])]
         values = self._simulate_invoice_line_onchange(values, price_unit=price)
-        values.update({'name': name})
+        values.update({"name": name})
         return values
 
     def _update_picking_invoice_status(self, pickings):
