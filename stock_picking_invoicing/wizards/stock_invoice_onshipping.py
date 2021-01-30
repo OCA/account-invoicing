@@ -463,7 +463,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         # HACK: using hasattr for not depending on Sale
         if hasattr(move, 'sale_line_id'):
             if move.sale_line_id:
-                values['sale_line_ids'] = [(6, 0, move.sale_line_id.id)]
+                values['sale_line_ids'] = [(6, 0, [move.sale_line_id.id])]
         values = self._simulate_invoice_line_onchange(values)
         values.update({'name': name})
         return values
