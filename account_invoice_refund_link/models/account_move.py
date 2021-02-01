@@ -16,7 +16,9 @@ class AccountMove(models.Model):
     @api.model
     def _reverse_move_vals(self, default_values, cancel=True):
         move_vals = super()._reverse_move_vals(default_values, cancel)
-        if self.env.context.get("link_origin_line", False) and move_vals["type"] in (
+        if self.env.context.get("link_origin_line", False) and move_vals[
+            "move_type"
+        ] in (
             "out_refund",
             "in_refund",
         ):
