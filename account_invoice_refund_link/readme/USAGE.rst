@@ -1,7 +1,7 @@
 To use this module, you need to:
 
 #. Go to "Invoicing -> customers -> Invoices", create an Invoice
-   and validate it by clicking on the 'Post' button.
+   and validate it by clicking on the 'Confirm' button.
 #. Create a Credit Note by clicking on the 'Add Credit Note' button.
 #. In the form view of that Credit Note you can see the new field
    'Invoice reference' that is a link to the Original Invoice
