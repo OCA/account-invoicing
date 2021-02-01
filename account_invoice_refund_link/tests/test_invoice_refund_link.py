@@ -2,25 +2,36 @@
 # Copyright 2014-2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import common
+from odoo.tests.common import SavepointCase
 
 from .. import post_init_hook
 
 
-class TestInvoiceRefundLinkBase(common.SavepointCase):
+class TestInvoiceRefundLinkBase(SavepointCase):
     refund_method = "refund"
 
     @classmethod
     def setUpClass(cls):
-        super(TestInvoiceRefundLinkBase, cls).setUpClass()
+        super().setUpClass()
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
-        default_line_account = cls.env["account.account"].search(
-            [
-                ("internal_type", "=", "other"),
-                ("deprecated", "=", False),
-                ("company_id", "=", cls.env.user.company_id.id),
-            ],
-            limit=1,
+        default_line_account = cls.env["account.account"].create(
+            {
+                "name": "TESTACC",
+                "code": "TESTACC",
+                "user_type_id": cls.env.ref(
+                    "account.data_account_type_other_income"
+                ).id,
+                "deprecated": False,
+                "company_id": cls.env.user.company_id.id,
+            }
+        )
+        cls.env["account.journal"].create(
+            {
+                "name": "Journal 1",
+                "code": "J1",
+                "type": "sale",
+                "company_id": cls.env.user.company_id.id,
+            }
         )
         cls.invoice_lines = [
             (
@@ -47,11 +58,11 @@ class TestInvoiceRefundLinkBase(common.SavepointCase):
         cls.invoice = cls.env["account.move"].create(
             {
                 "partner_id": cls.partner.id,
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_line_ids": cls.invoice_lines,
             }
         )
-        cls.invoice.post()
+        cls.invoice.action_post()
         cls.refund_reason = "The refund reason"
         cls.env["account.move.reversal"].with_context(
             active_ids=cls.invoice.ids, active_model="account.move"

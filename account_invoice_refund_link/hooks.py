@@ -30,7 +30,7 @@ def post_init_hook(cr, registry):
         # Linking all refund invoices to its original invoices
         refunds = env["account.move"].search(
             [
-                ("type", "in", ("out_refund", "in_refund")),
+                ("move_type", "in", ("out_refund", "in_refund")),
                 ("reversed_entry_id", "!=", False),
             ]
         )
