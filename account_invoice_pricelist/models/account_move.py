@@ -25,7 +25,6 @@ class AccountMove(models.Model):
     @api.onchange("partner_id", "company_id")
     def _onchange_partner_id_account_invoice_pricelist(self):
         if self.is_invoice():
-            result = super(AccountMove, self)._onchange_partner_id()
             if (
                 self.partner_id
                 and self.type in ("out_invoice", "out_refund")
@@ -33,7 +32,6 @@ class AccountMove(models.Model):
             ):
                 self.pricelist_id = self.partner_id.property_product_pricelist
                 self._set_pricelist_currency()
-            return result
 
     @api.onchange("pricelist_id")
     def _set_pricelist_currency(self):
