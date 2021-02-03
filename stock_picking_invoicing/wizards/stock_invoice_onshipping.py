@@ -383,7 +383,7 @@ class StockInvoiceOnshipping(models.TransientModel):
             grouped_moves.update({key: move_grouped})
         return grouped_moves.values()
 
-    def _simulate_invoice_line_onchange(self, values):
+    def _simulate_invoice_line_onchange(self, values, price_unit=None):
         """
         Simulate onchange for invoice line
         :param values: dict
@@ -392,6 +392,8 @@ class StockInvoiceOnshipping(models.TransientModel):
         line = self.env["account.move.line"].new(values.copy())
         line._onchange_product_id()
         new_values = line._convert_to_write(line._cache)
+        if price_unit:
+            new_values["price_unit"] = price_unit
         # Ensure basic values are not updated
         values.update(new_values)
         return values
@@ -462,7 +464,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         if hasattr(move, "sale_line_id"):
             if move.sale_line_id:
                 values["sale_line_ids"] = [(6, 0, [move.sale_line_id.id])]
-        values = self._simulate_invoice_line_onchange(values)
+        values = self._simulate_invoice_line_onchange(values, price_unit=price)
         values.update({"name": name})
         return values
 
