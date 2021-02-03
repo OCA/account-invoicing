@@ -4,16 +4,14 @@
 
     <record id="ir_cron_invoice_merge_auto" model="ir.cron" forcecreate="True">
       <field name="name">Automatically merge invoices</field>
-      <field eval="True" name="active"/>
+      <field name="active" eval="True"/>
       <field name="user_id" ref="base.user_root"/>
-      <field name="model_id" ref="account.model_account_invoice"/>
       <field name="interval_number">1</field>
       <field name="interval_type">days</field>
       <field name="numbercall">-1</field>
-      <field eval="False" name="doall"/>
-      <field eval="'account.invoice'" name="model"/>
-      <field eval="'_cron_invoice_merge'" name="function"/>
-      <field eval="'()'" name="args"/>
+      <field name="doall" eval="False"/>
+      <field name="model_id" ref="account.model_account_invoice"/>
+      <field name="code">model._cron_invoice_merge()</field>
     </record>
 
   </data>

@@ -6,7 +6,7 @@ from .common import AutoMergeInvoiceTC
 
 @at_install(False)
 @post_install(True)
-class PartnerTC(AutoMergeInvoiceTC):
+class AccountInvoiceMergeAutoTC(AutoMergeInvoiceTC):
 
     def _partner_invoices(self, partner):
         return self.env['account.invoice'].search([
@@ -19,7 +19,7 @@ class PartnerTC(AutoMergeInvoiceTC):
         inv_3 = self.create_invoice(self.partner_1, '2019-05-16', 20)
         old_invoices = self._partner_invoices(self.partner_1)
 
-        self.env['res.partner']._cron_invoice_merge('2019-05-17')
+        self.env['account.invoice']._cron_invoice_merge('2019-05-17')
 
         self.assertEqual(inv_1.state, 'cancel')
         self.assertEqual(inv_2.state, 'cancel')
