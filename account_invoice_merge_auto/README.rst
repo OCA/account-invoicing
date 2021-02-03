@@ -13,11 +13,11 @@ Account invoice merge auto
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-OCA%2Ffield--service-lightgray.png?logo=github
-    :target: https://github.com/OCA/field-service/tree/12.0/account_invoice_merge_auto
-    :alt: OCA/field-service
+.. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount-invoicing-lightgray.png?logo=github
+    :target: https://github.com/OCA/account-invoicing/tree/12.0/account_invoice_merge_auto
+    :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/field-service-12-0/field-service-12-0-account_invoice_merge_auto
+    :target: https://translation.odoo-community.org/projects/account-invoicing-12-0/account-invoicing-12-0-account_invoice_merge_auto
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
     :target: https://runbot.odoo-community.org/runbot/264/12.0
@@ -29,7 +29,7 @@ This module implements automatic merge of invoices.
 
 A cron entry is used to regularly merge invoices that are draft and
 which `Merge automatically` attribute is True. This requires the invoice partner
-to have attributes set that define the reccuring automatic merge setting.
+to have attributes set that define the recurring automatic merge date.
 
 The invoices are merged together according to rules defined in the
 `account_invoice_merge` module. The candidate invoices are returned
@@ -54,10 +54,10 @@ To use this module, you need to configure :
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/OCA/field-service/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/field-service/issues/new?body=module:%20account_invoice_merge_auto%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_merge_auto%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -72,9 +72,7 @@ Authors
 Contributors
 ~~~~~~~~~~~~
 
-* Stéphane Bidoul <stephane.bidoul@acsone.eu>
-* Adrien Peiffer <adrien.peiffer@acsone.eu>
-* Benjamin Willig <benjamin.willig@acsone.eu>
+* Florent Cayré <florent@commown.coop>
 * Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 
 Maintainers
@@ -90,6 +88,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/field-service <https://github.com/OCA/field-service/tree/12.0/account_invoice_merge_auto>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/12.0/account_invoice_merge_auto>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

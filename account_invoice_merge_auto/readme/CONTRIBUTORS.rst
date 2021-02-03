@@ -1,4 +1,2 @@
-* Stéphane Bidoul <stephane.bidoul@acsone.eu>
-* Adrien Peiffer <adrien.peiffer@acsone.eu>
-* Benjamin Willig <benjamin.willig@acsone.eu>
+* Florent Cayré <florent@commown.coop>
 * Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
