@@ -410,7 +410,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         line._onchange_product_id()
         new_values = line._convert_to_write(line._cache)
         if price_unit:
-            new_values['price_unit'] = price_unit
+            new_values["price_unit"] = price_unit
         # Ensure basic values are not updated
         values.update(new_values)
         return values
