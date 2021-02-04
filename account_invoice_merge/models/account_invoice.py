@@ -200,7 +200,7 @@ class AccountInvoice(models.Model):
                              ('invoice_id', '=', new_invoice_id)])
                         if invoice_line:
                             so_line.write(
-                                {'invoice_lines': [(6, 0, invoice_line.ids)]})
+                                {'invoice_lines': [(4, inv.id)for inv in invoice_line]})
 
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
