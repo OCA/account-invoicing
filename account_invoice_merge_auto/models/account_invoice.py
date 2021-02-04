@@ -19,7 +19,7 @@ class AccountInvoice(models.Model):
     @api.onchange('partner_id')
     def _onchange_partner_id(self):
         result = super(AccountInvoice, self)._onchange_partner_id()
-        if self.partner_id and self.type in ('out_invoice')\
+        if self.partner_id and self.type == 'out_invoice' \
                 and self.partner_id.auto_merge_invoice:
             self.auto_merge = self.partner_id.auto_merge_invoice
         return result
