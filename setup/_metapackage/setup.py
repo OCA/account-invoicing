@@ -37,6 +37,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_supplier_date',
         'odoo12-addon-account_invoice_supplier_ref_reuse',
         'odoo12-addon-account_invoice_supplier_ref_unique',
+        'odoo12-addon-account_invoice_supplier_self_invoice',
         'odoo12-addon-account_invoice_supplierinfo_update',
         'odoo12-addon-account_invoice_supplierinfo_update_discount',
         'odoo12-addon-account_invoice_supplierinfo_update_triple_discount',
