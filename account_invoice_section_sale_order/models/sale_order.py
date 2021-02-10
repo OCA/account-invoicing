@@ -21,9 +21,7 @@ class SaleOrder(models.Model):
             so = None
             sequence = 10
             section_lines = []
-            lines = invoice.line_ids.sorted(
-                key=lambda r: r.sale_line_ids.order_id.id
-            ).filtered(lambda r: not r.exclude_from_invoice_tab)
+            lines = self._get_ordered_invoice_lines(invoice)
             for line in lines:
                 if line.sale_line_ids.order_id and so != line.sale_line_ids.order_id:
                     so = line.sale_line_ids.order_id
@@ -44,6 +42,11 @@ class SaleOrder(models.Model):
             invoice.line_ids = section_lines
 
         return invoice_ids
+
+    def _get_ordered_invoice_lines(self, invoice):
+        return invoice.line_ids.sorted(
+            key=lambda r: r.sale_line_ids.order_id.id
+        ).filtered(lambda r: not r.exclude_from_invoice_tab)
 
     def _get_saleorder_section_name(self):
         """Returns the text for the section name."""
