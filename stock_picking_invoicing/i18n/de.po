@@ -16,7 +16,6 @@ msgstr ""
 
 #. module: stock_picking_invoicing
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:498
-#: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:506
 #, python-format
 msgid "All pickings are not related to your company!"
 msgstr ""
