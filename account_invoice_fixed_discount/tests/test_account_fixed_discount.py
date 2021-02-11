@@ -105,3 +105,17 @@ class TestInvoiceFixedDiscount(SavepointCase):
         self.assertEqual(invoice.invoice_line_ids.discount_fixed, 0.00)
         self.assertEqual(invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(invoice.invoice_line_ids.price_subtotal, 100.00)
+
+    def test_03_discounts_fixed_with_amount_currency(self):
+        invoice = self._create_invoice(discount_fixed=37)
+        with self.assertRaises(ValidationError):
+            invoice.invoice_line_ids.discount = 50
+        invoice.invoice_line_ids._onchange_discount_fixed()
+        self.assertEqual(invoice.invoice_line_ids.discount, 0.00)
+        invoice.invoice_line_ids._onchange_amount_currency()
+        invoice.line_ids.write({"recompute_tax_line": True})
+        invoice._onchange_invoice_line_ids()
+        # compute amount total (200 - 37) * 10%
+        self.assertEqual(invoice.amount_total, 179.3)
+        self.assertEqual(invoice.invoice_line_ids.price_unit, 200.00)
+        self.assertEqual(invoice.invoice_line_ids.price_subtotal, 163.00)
