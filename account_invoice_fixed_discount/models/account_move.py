@@ -78,6 +78,7 @@ class AccountMoveLine(models.Model):
         self,
         quantity,
         discount,
+        amount_currency,
         balance,
         move_type,
         currency,
@@ -90,6 +91,7 @@ class AccountMoveLine(models.Model):
         return super(AccountMoveLine, self)._get_fields_onchange_balance_model(
             quantity,
             discount,
+            amount_currency,
             balance,
             move_type,
             currency,
