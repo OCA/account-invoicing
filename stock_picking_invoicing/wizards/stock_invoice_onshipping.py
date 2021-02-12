@@ -286,7 +286,13 @@ class StockInvoiceOnshipping(models.TransientModel):
         """
         key = picking
         if self.group in ["partner", "partner_product"]:
-            key = (picking._get_partner_to_invoice(), picking.picking_type_id)
+            # Pickings with same Partner to create Invoice but the
+            # Partner to Shipping is different should not be grouping.
+            key = (
+                picking._get_partner_to_invoice(),
+                picking.picking_type_id,
+                picking.partner_id,
+            )
         return key
 
     def _group_pickings(self, pickings):
