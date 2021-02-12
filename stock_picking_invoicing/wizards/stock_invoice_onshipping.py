@@ -15,13 +15,13 @@ JOURNAL_TYPE_MAP = {
 
 INVOICE_TYPE_MAP = {
     # Picking Type Code | Local Origin Usage | Local Dest Usage
-    ('outgoing', 'internal', 'customer'): 'out_invoice',
-    ('incoming', 'customer', 'internal'): 'out_refund',
-    ('incoming', 'supplier', 'internal'): 'in_invoice',
-    ('outgoing', 'internal', 'supplier'): 'in_refund',
-    ('incoming', 'transit', 'internal'): 'in_invoice',
-    ('outgoing', 'transit', 'supplier'): 'in_refund',
-    ('outgoing', 'transit', 'customer'): 'out_invoice',
+    ("outgoing", "internal", "customer"): "out_invoice",
+    ("incoming", "customer", "internal"): "out_refund",
+    ("incoming", "supplier", "internal"): "in_invoice",
+    ("outgoing", "internal", "supplier"): "in_refund",
+    ("incoming", "transit", "internal"): "in_invoice",
+    ("outgoing", "transit", "supplier"): "in_refund",
+    ("outgoing", "transit", "customer"): "out_invoice",
 }
 
 
@@ -278,14 +278,21 @@ class StockInvoiceOnshipping(models.TransientModel):
         """
         self.ensure_one()
 
-        active_ids = self.env.context.get('active_ids', [])
+        active_ids = self.env.context.get("active_ids", [])
         if active_ids:
             active_ids = active_ids[0]
-        picking = self.env['stock.picking'].browse(active_ids)
+        picking = self.env["stock.picking"].browse(active_ids)
 
-        inv_type = INVOICE_TYPE_MAP.get((
-            picking.picking_type_code, picking.location_id.usage,
-            picking.location_dest_id.usage)) or 'out_invoice'
+        inv_type = (
+            INVOICE_TYPE_MAP.get(
+                (
+                    picking.picking_type_code,
+                    picking.location_id.usage,
+                    picking.location_dest_id.usage,
+                )
+            )
+            or "out_invoice"
+        )
 
         return inv_type
 
@@ -299,11 +306,14 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return: key (tuple,...)
         """
         key = picking
-        if self.group in ['partner', 'partner_product']:
+        if self.group in ["partner", "partner_product"]:
             # Pickings with same Partner to create Invoice but the
             # Partner to Shipping is different should not be grouping.
-            key = (picking._get_partner_to_invoice(), picking.picking_type_id,
-                   picking.partner_id)
+            key = (
+                picking._get_partner_to_invoice(),
+                picking.picking_type_id,
+                picking.partner_id,
+            )
         return key
 
     def _group_pickings(self, pickings):
