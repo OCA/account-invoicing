@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_payment_term_line_form_dr" model="ir.ui.view">
+        <field name="name">view_payment_term_line_form_dr</field>
+        <field name="model">account.payment.term.line</field>
+        <field name="inherit_id" ref="account.view_payment_term_line_form"/>
+        <field name="arch" type="xml">
+            <field name="sequence" position="after">
+                <label for="based_on_date_ranges"/><field name="based_on_date_ranges"/>
+            </field>
+            <xpath expr="/form/div[1]" position="attributes">
+                <attribute name="attrs">{'invisible': [('based_on_date_ranges', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="/form/div[2]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('option','!=', 'day_after_invoice_date'), ('based_on_date_ranges', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="/form/div[2]" position="after">
+                <div colspan="2" attrs="{'invisible': [('based_on_date_ranges', '=', False)]}">
+                    <field name="date_range_ids">
+                        <tree>
+                            <field name="due_date_day"/>
+                            <field name="due_date_month"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <label string="From"/>
+                                <div><field name="start_date_day" class="oe_inline" style="max-width:30px;"/>&amp;nbsp;<field name="start_date_month" class="oe_inline" style="height:26px;"/></div>
+                                <label string="To"/>
+                                <div><field name="end_date_day" class="oe_inline" style="max-width:30px;"/>&amp;nbsp;<field name="end_date_month" class="oe_inline" style="height:26px;"/></div>
+                                <label string=" > Due date"/>
+                                <div><field name="due_date_day" class="oe_inline" style="max-width:30px;"/>&amp;nbsp;<field name="due_date_month" class="oe_inline" style="height:26px;"/></div>
+                            </group>
+                        </form>
+                    </field>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_payment_term_line_tree_dr" model="ir.ui.view">
+        <field name="name">view_payment_term_line_tree_dr</field>
+        <field name="model">account.payment.term.line</field>
+        <field name="inherit_id" ref="account.view_payment_term_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="value_amount" position="after">
+                <field name="based_on_date_ranges"/>
+            </field>
+            <field name="days" position="attributes">
+                <attribute name="attrs">{'invisible': [('based_on_date_ranges', '=', True)]}</attribute>
+            </field>
+            <field name="option" position="attributes">
+                <attribute name="attrs">{'invisible': [('based_on_date_ranges', '=', True)]}</attribute>
+            </field>
+            <field name="day_of_the_month" position="attributes">
+                <attribute name="attrs">{'invisible': [('based_on_date_ranges', '=', True)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>

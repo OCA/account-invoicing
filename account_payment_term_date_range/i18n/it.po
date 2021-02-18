@@ -1,0 +1,229 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_payment_term_date_range
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-18 13:26+0000\n"
+"PO-Revision-Date: 2021-02-18 13:26+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_payment_term_date_range
+#: model_terms:ir.ui.view,arch_db:account_payment_term_date_range.view_payment_term_line_form_dr
+msgid "&amp;nbsp;"
+msgstr ""
+
+#. module: account_payment_term_date_range
+#: model_terms:ir.ui.view,arch_db:account_payment_term_date_range.view_payment_term_line_form_dr
+msgid "> Due date"
+msgstr "> Scadenza"
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "April"
+msgstr "Aprile"
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "August"
+msgstr "Agosto"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line__based_on_date_ranges
+msgid "Based on date ranges"
+msgstr "Basato su intervalli di date"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line__date_range_ids
+msgid "Date ranges for due date"
+msgstr "Intervalli di date per la scadenza"
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "December"
+msgstr "Dicembre"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__due_date_day
+msgid "Due date day"
+msgstr "Giorno scadenza"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__due_date_month
+msgid "Due date month"
+msgstr "Mese scadenza"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__end_date_day
+msgid "End date day"
+msgstr "Giorno fine"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__end_date_month
+msgid "End date month"
+msgstr "Mese fine"
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "February"
+msgstr "Febbraio"
+
+#. module: account_payment_term_date_range
+#: model_terms:ir.ui.view,arch_db:account_payment_term_date_range.view_payment_term_line_form_dr
+msgid "From"
+msgstr "Da"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__id
+msgid "ID"
+msgstr ""
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "January"
+msgstr "Gennaio"
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "July"
+msgstr "Luglio"
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "June"
+msgstr "Giugno"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "March"
+msgstr "Marzo"
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "May"
+msgstr "Maggio"
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "November"
+msgstr "Novembre"
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "October"
+msgstr "Ottobre"
+
+#. module: account_payment_term_date_range
+#: model:ir.model,name:account_payment_term_date_range.model_account_payment_term
+msgid "Payment Terms"
+msgstr "Termini di pagamento"
+
+#. module: account_payment_term_date_range
+#: model:ir.model,name:account_payment_term_date_range.model_account_payment_term_line
+msgid "Payment Terms Line"
+msgstr "Riga termini di pagamento"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__term_line_id
+msgid "Payment term line"
+msgstr "Riga termine di pagamento"
+
+#. module: account_payment_term_date_range
+#: model:ir.model,name:account_payment_term_date_range.model_account_payment_term_line_date_range
+msgid "Payment term line date range"
+msgstr "Intervallo date riga termine di pagamento"
+
+#. module: account_payment_term_date_range
+#: selection:account.payment.term.line.date.range,due_date_month:0
+#: selection:account.payment.term.line.date.range,end_date_month:0
+#: selection:account.payment.term.line.date.range,start_date_month:0
+msgid "September"
+msgstr "Settembre"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,help:account_payment_term_date_range.field_account_payment_term_line__date_range_ids
+msgid "Setting a date range here allows to establish the corresponding due date when payment must be done.\n"
+"Example: from 1 Jan to 31 Mar > due date 20 May"
+msgstr "Impostare qui un intervallo di date permette to stabilire la corrispondente scadenza in cui il pagamento deve essere fatto.\n"
+"Esempio: dal 1 Gen al 31 Mar > scadenza 20 Mag"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__start_date_day
+msgid "Start date day"
+msgstr "Giorno inizio"
+
+#. module: account_payment_term_date_range
+#: model:ir.model.fields,field_description:account_payment_term_date_range.field_account_payment_term_line_date_range__start_date_month
+msgid "Start date month"
+msgstr "Mese inizio"
+
+#. module: account_payment_term_date_range
+#: code:addons/account_payment_term_date_range/models/account_payment_term.py:28
+#, python-format
+msgid "Term %s: every line must have date ranges."
+msgstr "Termine %s: ogni riga deve avere intervalli di date."
+
+#. module: account_payment_term_date_range
+#: model_terms:ir.ui.view,arch_db:account_payment_term_date_range.view_payment_term_line_form_dr
+msgid "To"
+msgstr "A"
+

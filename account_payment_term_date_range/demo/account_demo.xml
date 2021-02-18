@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+    1° quarter > 20 May
+    2° quarter > 20 August
+    3° quarter > 20 November
+    4° quarter > 20 February
+    -->
+    <record id="account_payment_term_date_ranges" model="account.payment.term">
+        <field name="name">Term based on date ranges</field>
+        <field name="line_ids" eval="[
+            (0, 0, {'value': 'balance', 'value_amount': 0.0, 'sequence': 10, 'based_on_date_ranges': True, 'date_range_ids': [
+                (0, 0, {
+                    'start_date_day': 1,
+                    'start_date_month': '01',
+                    'end_date_day': 31,
+                    'end_date_month': '03',
+                    'due_date_day': 20,
+                    'due_date_month': '05',
+                }),
+                (0, 0, {
+                    'start_date_day': 1,
+                    'start_date_month': '04',
+                    'end_date_day': 30,
+                    'end_date_month': '06',
+                    'due_date_day': 20,
+                    'due_date_month': '08',
+                }),
+                (0, 0, {
+                    'start_date_day': 1,
+                    'start_date_month': '07',
+                    'end_date_day': 30,
+                    'end_date_month': '09',
+                    'due_date_day': 20,
+                    'due_date_month': '09',
+                }),
+                (0, 0, {
+                    'start_date_day': 1,
+                    'start_date_month': '10',
+                    'end_date_day': 31,
+                    'end_date_month': '12',
+                    'due_date_day': 20,
+                    'due_date_month': '02',
+                }),
+            ]})
+        ]"/>
+    </record>
+</odoo>

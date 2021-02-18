@@ -1,0 +1,3 @@
+- Open a payment term
+- Add a line selecting "Based on date ranges"
+- Set date range and due date
