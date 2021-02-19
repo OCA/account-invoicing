@@ -51,7 +51,8 @@ class ResPartnerTC(AutoPayInvoiceTC):
         self.assertFalse(merge_infos)
         self.assertEqual(inv.state, "paid")
         self.assertEqual(inv.date_invoice, fields.Date.from_string("2019-05-10"))
-        self.assertEqual(self.partner_1.invoice_merge_next_date, "2019-06-15")
+        self.assertEqual(self.partner_1.invoice_merge_next_date,
+                         fields.Date.from_string("2019-06-15"))
 
     def test_auto_pay_no_token_error(self):
         self.partner_1.payment_token_id = False
