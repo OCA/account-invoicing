@@ -44,7 +44,11 @@ class AccountInvoice(models.Model):
             "_invoice_merge_auto_pay_invoice_job executed for invoice %d", self.id)
         self.exists().action_invoice_open()
         if self.state != "paid":  # Avoid crash if, e.g. amount == 0
-            self._invoice_merge_payment().post()
+            payment = self._invoice_merge_payment()
+            tx = payment._create_payment_transaction()
+            tx.s2s_do_transaction()
+            tx._set_transaction_done()
+            tx._post_process_after_done()
 
     @api.model
     def _invoice_merge_payment(self):

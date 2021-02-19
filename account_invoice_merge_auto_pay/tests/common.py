@@ -6,7 +6,6 @@ from odoo.addons.account_invoice_merge_auto.tests.common import \
 
 
 def fake_do_tx_ok(self, *args, **kwargs):
-    self.state = "done"
     return True
 
 
