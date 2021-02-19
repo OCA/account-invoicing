@@ -19,13 +19,6 @@ class AccountInvoice(models.Model):
         string="Pay automatically",
         help="Pay automatically at partner's next merge date",
     )
-    merge_auto_pay_job_ids = fields.Many2many(
-        comodel_name='queue.job',
-        column1='invoice_id',
-        column2='job_id',
-        string="Merge Auto Payment Jobs",
-        copy=False,
-    )
 
     @api.constrains("auto_merge", "payment_mode_id")
     def _check_auto_merge(self):
