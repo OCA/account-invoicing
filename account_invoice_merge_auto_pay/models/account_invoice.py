@@ -72,6 +72,7 @@ class AccountInvoice(models.Model):
             "currency_id": self.currency_id.id,
             "invoice_ids": [(6, 0, [self.id])],
             "payment_token_id": token.id,
+            "communication": self.reference or self.number,
         })
 
     @api.model
