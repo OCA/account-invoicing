@@ -49,24 +49,24 @@ class AccountInvoice(models.Model):
         create and return a payment
         """
         self.ensure_one()
+        # Use payment register wizard to get basic payment creation values:
         pay_mode = self.payment_mode_id
+        register_env = self.env['account.register.payments'].with_context(
+            active_ids=self.ids, active_model=self._name)
+        register_payment = register_env.create({
+            "journal_id": pay_mode.fixed_journal_id.id,
+            "payment_method_id": pay_mode.payment_method_id.id,
+        })
+        data = register_payment.get_payments_vals()[0]
+
+        # Add partner token
         token = self.partner_id.payment_token_id
         if not token:
             raise ValidationError(_("No payment token for invoice id %s (%s)")
                                   % (self.id, self.number))
-        return self.env["account.payment"].create({
-            "partner_id": self.partner_id.id,
-            "partner_type": "customer",
-            "state": "draft",
-            "payment_type": "inbound",
-            "journal_id": pay_mode.fixed_journal_id.id,
-            "payment_method_id": pay_mode.payment_method_id.id,
-            "amount": self.amount_total,
-            "currency_id": self.currency_id.id,
-            "invoice_ids": [(6, 0, [self.id])],
-            "payment_token_id": token.id,
-            "communication": self.reference or self.number,
-        })
+        data["payment_token_id"] = token.id
+
+        return self.env['account.payment'].create(data)
 
     @api.model
     def _cron_invoice_merge(self, merge_date=None):
