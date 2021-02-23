@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template
+        id="portal_my_home_invoice_inherit"
+        name="Show Invoices &amp; Bills"
+        inherit_id="account.portal_my_home_invoice"
+        priority="30"
+    >
+        <xpath expr="//t[@t-call='portal.portal_docs_entry']" position="attributes">
+            <attribute name="t-if">'invoice_count'</attribute>
+        </xpath>
+    </template>
+
+</odoo>
