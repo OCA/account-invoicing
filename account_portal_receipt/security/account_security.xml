@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<data noupdate="1">
+
+<!-- Portal for receipt move and receipt move lines -->
+<record id="account_receipt_rule_portal" model="ir.rule">
+    <field name="name">Portal Personal Account Receipts</field>
+    <field name="model_id" ref="account.model_account_move" />
+    <field
+                name="domain_force"
+            >[('move_type', 'in', ('out_receipt', 'in_receipt')), ('message_partner_ids','child_of',[user.commercial_partner_id.id])]</field>
+    <field name="groups" eval="[(4, ref('base.group_portal'))]" />
+</record>
+
+<record id="account_receipt_line_rule_portal" model="ir.rule">
+    <field name="name">Portal Receipt Lines</field>
+    <field name="model_id" ref="account.model_account_move_line" />
+    <field
+                name="domain_force"
+            >[('move_id.move_type', 'in', ('out_receipt', 'in_receipt')), ('move_id.message_partner_ids','child_of',[user.commercial_partner_id.id])]</field>
+    <field name="groups" eval="[(4, ref('base.group_portal'))]" />
+</record>
+
+</data>
+</odoo>

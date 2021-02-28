@@ -1,0 +1,219 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_portal_receipt
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-27 19:37+0000\n"
+"PO-Revision-Date: 2021-02-27 20:59+0100\n"
+"Last-Translator: Sergio Zanchetta <primes2h@gmail.com>\n"
+"Language-Team: \n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: account_portal_receipt
+#: code:addons/account_portal_receipt/controllers/portal.py:0
+#, python-format
+msgid "%s is not the reference of a report"
+msgstr "%s non è il riferimento a un documento"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_home_menu_receipt
+msgid "<em>Draft Receipt</em>"
+msgstr "<em>Ricevuta in bozza</em>"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_receipt_page
+msgid "<i class=\"fa fa-download\"/> Download"
+msgstr "<i class=\"fa fa-download\"/> Scarica"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_receipt_page
+msgid "<i class=\"fa fa-fw fa-comments\"/><b>Send message</b>"
+msgstr "<i class=\"fa fa-fw fa-comments\"/><b>Invia messaggio</b>"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_receipt_page
+msgid "<i class=\"fa fa-print\"/> Print"
+msgstr "<i class=\"fa fa-print\"/> Stampa"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_receipts
+msgid ""
+"<span class=\"badge badge-pill badge-info\"><i class=\"fa fa-fw fa-clock-o\" "
+"aria-label=\"Opened\" title=\"Opened\" role=\"img\"/><span class=\"d-none d-"
+"md-inline\"> Waiting for Payment</span></span>"
+msgstr ""
+"<span class=\"badge badge-pill badge-info\"><i class=\"fa fa-fw fa-clock-o\" "
+"aria-label=\"Opened\" title=\"Aperta\" role=\"img\"/><span class=\"d-none d-"
+"md-inline\"> In attesa di pagamento</span></span>"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_receipts
+msgid ""
+"<span class=\"badge badge-pill badge-success\"><i class=\"fa fa-fw fa-check"
+"\" aria-label=\"Paid\" title=\"Paid\" role=\"img\"/><span class=\"d-none d-"
+"md-inline\"> Paid</span></span>"
+msgstr ""
+"<span class=\"badge badge-pill badge-success\"><i class=\"fa fa-fw fa-check"
+"\" aria-label=\"Paid\" title=\"Pagata\" role=\"img\"/><span class=\"d-none d-"
+"md-inline\"> Pagata</span></span>"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_receipts
+msgid ""
+"<span class=\"badge badge-pill badge-success\"><i class=\"fa fa-fw fa-check"
+"\" aria-label=\"Reversed\" title=\"Reversed\" role=\"img\"/><span class=\"d-"
+"none d-md-inline\"> Reversed</span></span>"
+msgstr ""
+"<span class=\"badge badge-pill badge-success\"><i class=\"fa fa-fw fa-check"
+"\" aria-label=\"Reversed\" title=\"Stornata\" role=\"img\"/><span class=\"d-"
+"none d-md-inline\"> Stornata</span></span>"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_receipts
+msgid ""
+"<span class=\"badge badge-pill badge-warning\"><i class=\"fa fa-fw fa-remove"
+"\" aria-label=\"Cancelled\" title=\"Cancelled\" role=\"img\"/><span class="
+"\"d-none d-md-inline\"> Cancelled</span></span>"
+msgstr ""
+"<span class=\"badge badge-pill badge-warning\"><i class=\"fa fa-fw fa-remove"
+"\" aria-label=\"Cancelled\" title=\"Annullata\" role=\"img\"/><span class="
+"\"d-none d-md-inline\"> Annullata</span></span>"
+
+#. module: account_portal_receipt
+#: code:addons/account_portal_receipt/controllers/portal.py:0
+#, python-format
+msgid "All"
+msgstr "Tutte"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_receipts
+msgid "Amount Due"
+msgstr "Importo dovuto"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_receipt_page
+msgid "Contact"
+msgstr "Contatto"
+
+#. module: account_portal_receipt
+#: code:addons/account_portal_receipt/controllers/portal.py:0
+#, python-format
+msgid "Date"
+msgstr "Data"
+
+#. module: account_portal_receipt
+#: model:ir.model.fields,field_description:account_portal_receipt.field_account_move__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_receipt_page
+msgid "Download"
+msgstr "Scarica"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_receipts
+msgid "Draft Receipt"
+msgstr "Ricevuta in bozza"
+
+#. module: account_portal_receipt
+#: code:addons/account_portal_receipt/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_receipts
+#, python-format
+msgid "Due Date"
+msgstr "Scadenza"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_receipt_page
+msgid "History"
+msgstr "Cronologia"
+
+#. module: account_portal_receipt
+#: model:ir.model.fields,field_description:account_portal_receipt.field_account_move__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_portal_receipt
+#: code:addons/account_portal_receipt/controllers/portal.py:0
+#, python-format
+msgid "Invalid report type: %s"
+msgstr "Tipo di documento non valido: %s"
+
+#. module: account_portal_receipt
+#: model:ir.model,name:account_portal_receipt.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: account_portal_receipt
+#: model:ir.model.fields,field_description:account_portal_receipt.field_account_move____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_receipt_page
+msgid "Print"
+msgstr "Stampa"
+
+#. module: account_portal_receipt
+#: code:addons/account_portal_receipt/controllers/portal.py:0
+#, python-format
+msgid "Purchase Receipts"
+msgstr "Ricevute di acquisto"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_receipt_page
+msgid "Purchase Representative"
+msgstr "Referente acquisti"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_receipts
+msgid "Receipt #"
+msgstr "Ricevuta n°"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_receipts
+msgid "Receipt Date"
+msgstr "Data ricevuta"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_home_menu_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_home_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_receipts
+msgid "Receipts"
+msgstr "Ricevute"
+
+#. module: account_portal_receipt
+#: code:addons/account_portal_receipt/controllers/portal.py:0
+#, python-format
+msgid "Reference"
+msgstr "Riferimento"
+
+#. module: account_portal_receipt
+#: code:addons/account_portal_receipt/controllers/portal.py:0
+#, python-format
+msgid "Sale Receipts"
+msgstr "Ricevute di vendita"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_receipt_page
+msgid "Salesperson"
+msgstr "Addetto vendite"
+
+#. module: account_portal_receipt
+#: code:addons/account_portal_receipt/controllers/portal.py:0
+#, python-format
+msgid "Status"
+msgstr "Stato"
+
+#. module: account_portal_receipt
+#: model_terms:ir.ui.view,arch_db:account_portal_receipt.portal_my_receipts
+msgid "There are currently no receipts and payments for your account."
+msgstr "Al momento nell'account non sono presenti ricevute e pagamenti."
