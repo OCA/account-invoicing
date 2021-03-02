@@ -10,6 +10,7 @@
                    position="after">
                 <field name="discount2" groups="base.group_no_one"/>
                 <field name="discount3" groups="base.group_no_one"/>
+                <field name="discounting_type" groups="base.group_no_one"/>
             </xpath>
         </field>
     </record>
@@ -24,6 +25,7 @@
                    position="after">
                 <field name="discount2" groups="base.group_no_one"/>
                 <field name="discount3" groups="base.group_no_one"/>
+                <field name="discounting_type" groups="base.group_no_one"/>
             </xpath>
         </field>
     </record>

@@ -83,3 +83,23 @@ class TestInvoiceTripleDiscount(SavepointCase):
         self.invoice_line1.discount = 50.0
         self.invoice._onchange_invoice_line_ids()
         self.assertEqual(self.invoice.amount_total, 365.0)
+
+    def test_03_discounts(self):
+        """ Tests discounts in edge case """
+        invoice = self.env['account.invoice'].create({
+            'name': "Test Customer Invoice",
+            'journal_id': self.env['account.journal'].search(
+                [('type', '=', 'sale')])[0].id,
+            'partner_id': self.partner.id,
+            'account_id': self.account.id,
+            'invoice_line_ids': [(0, 0, {
+                'name': 'Line 1',
+                'price_unit': 25.0,
+                'account_id': self.account.id,
+                'quantity': 65,
+                'discount': 50,
+                'discount2': 13,
+                'discount3': 0,
+            })],
+        })
+        self.assertEqual(invoice.invoice_line_ids.price_subtotal, 706.88)
