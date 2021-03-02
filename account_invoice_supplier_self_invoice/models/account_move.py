@@ -7,7 +7,7 @@ from odoo import api, fields, models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    self_invoice_number = fields.Char(readonly=True)
+    self_invoice_number = fields.Char(readonly=True, copy=False)
     set_self_invoice = fields.Boolean("Set self invoice")
     can_self_invoice = fields.Boolean(related="partner_id.self_invoice")
 
