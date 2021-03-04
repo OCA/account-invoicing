@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-account-invoicing Odoo addons",
     version=version,
     install_requires=[
+        'odoo14-addon-account_billing',
         'odoo14-addon-account_invoice_refund_link',
     ],
     classifiers=[
