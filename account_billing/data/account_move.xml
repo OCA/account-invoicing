@@ -1,0 +1,9 @@
+<odoo>
+    <record id="action_account_invoice_billing" model="ir.actions.act_window">
+        <field name="name">Create Billing</field>
+        <field name="res_model">account.billing</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="binding_model_id" ref="model_account_move" />
+    </record>
+</odoo>
