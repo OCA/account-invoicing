@@ -23,6 +23,7 @@ class AccountInvoiceLine(models.Model):
     @api.multi
     @api.depends('discount2', 'discount3', 'discounting_type')
     def _compute_price(self):
-        prev_values = self.triple_discount_preprocess()
-        super()._compute_price()
-        self.triple_discount_postprocess(prev_values)
+        for line in self:
+            prev_values = line.triple_discount_preprocess()
+            super(AccountInvoiceLine, line)._compute_price()
+            line.triple_discount_postprocess(prev_values)
