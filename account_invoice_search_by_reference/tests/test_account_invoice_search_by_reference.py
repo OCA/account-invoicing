@@ -26,7 +26,8 @@ class TestAccountInvoiceSearchByReference(TransactionCase):
         )
 
         self.invoice1 = self._create_invoice(self.partner1)
-
+        self.invoice_name_get = self._create_invoice(self.partner1)
+        self.invoice_name_get.name = "/"
         self.invoice_line1 = self._create_inv_line(
             self.invoice_account.id, self.invoice1.id
         )
@@ -57,6 +58,12 @@ class TestAccountInvoiceSearchByReference(TransactionCase):
         return inv_line
 
     def test_account_invoice_method(self):
+        self.assertEqual(self.invoice_name_get.name_get()[0][1], self.invoice1.ref)
+        self.invoice_name_get.ref = False
+        self.assertEqual(
+            self.invoice_name_get.name_get()[0][1],
+            "Draft Entry (* %s)" % self.invoice_name_get.id,
+        )
         check_method1 = self.invoice1.name_search(
             name="TEST", operator="ilike", args=[("id", "in", self.invoice1.ids)]
         )
