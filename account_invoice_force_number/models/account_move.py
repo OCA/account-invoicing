@@ -22,15 +22,16 @@ class AccountMove(models.Model):
             if move.move_name:
                 raise UserError(
                     _(
-                        """You cannot delete an invoice after it has been validated"""
-                        '''(and received a number). You can set it back to "Draft"'''
-                        """state and modify its content, then re-confirm it."""
+                        """You cannot delete an invoice with a"""
+                        """ Force Number" established."""
+                        """ You can set it back to "Draft" state"""
+                        """ and modify its content, then re-confirm it."""
                     )
                 )
-        return super(AccountMove, self).unlink()
+        return super().unlink()
 
-    def post(self):
+    def action_post(self):
         for move in self:
             if move.move_name:
                 move.write({"name": move.move_name})
-        return super(AccountMove, self).post()
+        return super().action_post()

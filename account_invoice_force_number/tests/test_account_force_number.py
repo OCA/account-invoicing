@@ -41,7 +41,7 @@ class TestAccountForceNumber(TransactionCase):
                 .search([("type", "=", "sale")], limit=1)
                 .id,
                 "partner_id": self.env.ref("base.res_partner_12").id,
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_line_ids": invoice_vals,
             }
         )
@@ -63,7 +63,7 @@ class TestAccountForceNumber(TransactionCase):
                 .search([("type", "=", "sale")], limit=1)
                 .id,
                 "partner_id": self.env.ref("base.res_partner_12").id,
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_line_ids": invoice_vals,
             }
         )
