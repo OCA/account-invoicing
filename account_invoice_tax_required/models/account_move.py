@@ -44,6 +44,7 @@ class AccountMove(models.Model):
                 config["test_enable"],
             )
         )
-        if self.type != "entry" and (force_test or not skip_test):
-            self._test_invoice_line_tax()
+        for move in self:
+            if move.move_type != "entry" and (force_test or not skip_test):
+                move._test_invoice_line_tax()
         return super(AccountMove, self).action_post()
