@@ -73,7 +73,6 @@ class TestAccountInvoiceTaxRequired(TransactionCase):
         )
 
     def test_exception(self):
-        """Validate invoice without tax must raise exception
-        """
+        """Validate invoice without tax must raise exception"""
         with self.assertRaises(exceptions.UserError):
             self.invoice.with_context(test_tax_required=True).action_post()
