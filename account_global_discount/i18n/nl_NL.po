@@ -59,11 +59,6 @@ msgid "Company"
 msgstr "Bedrijf"
 
 #. module: account_global_discount
-#: model:ir.model.fields,help:account_global_discount.field_account_invoice_global_discount__company_id
-msgid "Company related to this journal"
-msgstr "Bedrijf gerelateerd aan journaal"
-
-#. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__create_uid
 msgid "Created by"
 msgstr "Aangemaakt door"
@@ -203,3 +198,6 @@ msgstr "Onbelast bedrag voor kort."
 #, python-format
 msgid "With global discounts, taxes in lines are required."
 msgstr "Met globale kortingen zijn belastingen in regels vereist."
+
+#~ msgid "Company related to this journal"
+#~ msgstr "Bedrijf gerelateerd aan journaal"
