@@ -17,7 +17,10 @@ class AccountInvoice(models.Model):
         if line.get('invoice_id'):
             inv = self.browse(line['invoice_id'])
             jrl = inv.journal_id
-            if jrl.group_invoice_lines and jrl.group_method == 'account':
+            if (
+                    res.get('product_id') and
+                    jrl.group_invoice_lines and
+                    jrl.group_method == 'account'):
                 res['name'] = '/'
                 res['product_id'] = False
         return res
