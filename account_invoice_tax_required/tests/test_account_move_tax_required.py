@@ -2,10 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import exceptions
-from odoo.tests.common import TransactionCase
+
+from odoo.addons.account.tests.common import TestAccountReconciliationCommon
 
 
-class TestAccountInvoiceTaxRequired(TransactionCase):
+class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
     def setUp(self):
         super(TestAccountInvoiceTaxRequired, self).setUp()
 
@@ -69,6 +70,7 @@ class TestAccountInvoiceTaxRequired(TransactionCase):
                 journal_id=self.journal.id,
                 partner_id=self.partner.id,
                 invoice_line_ids=invoice_line_data,
+                move_type="out_invoice",
             )
         )
 
@@ -76,3 +78,8 @@ class TestAccountInvoiceTaxRequired(TransactionCase):
         """Validate invoice without tax must raise exception"""
         with self.assertRaises(exceptions.UserError):
             self.invoice.with_context(test_tax_required=True).action_post()
+
+    def test_without_exception(self):
+        """Validate invoice without tax must raise exception"""
+        self.invoice.invoice_line_ids[0].tax_ids = [(4, self.tax_cash_basis.id)]
+        self.invoice.with_context(test_tax_required=True).action_post()
