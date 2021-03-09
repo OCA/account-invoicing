@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2021 ForgeFlow S.L. (http://www.forgeflow.com)
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+-->
+<odoo>
+    <record id="group_journal_entry_post_block" model="res.groups">
+        <field name="name">Release Journal Entry with post block</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+        <field name="users" eval="[(4, ref('base.user_root'))]" />
+        <field name="comment">
+            The user will be able to release a Journal Entry blocked for post.
+        </field>
+    </record>
+    <record id="account.group_account_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_journal_entry_post_block'))]" />
+    </record>
+</odoo>
