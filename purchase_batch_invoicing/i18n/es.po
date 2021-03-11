@@ -10,14 +10,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-02 02:43+0000\n"
-"PO-Revision-Date: 2017-04-02 02:43+0000\n"
-"Last-Translator: Pedro M. Baeza <pedro.baeza@gmail.com>, 2017\n"
+"PO-Revision-Date: 2021-03-11 18:45+0000\n"
+"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: purchase_batch_invoicing
 #: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
@@ -75,7 +76,7 @@ msgstr "ID"
 #: model:ir.cron,cron_name:purchase_batch_invoicing.cron
 #: model:ir.cron,name:purchase_batch_invoicing.cron
 msgid "Invoice all pending purchase orders"
-msgstr ""
+msgstr "Facturar todos los pedido de compra pendientes"
 
 #. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing____last_update
@@ -106,9 +107,8 @@ msgstr "No se ha seleccionado ningún pedido de compra listo para facturar."
 
 #. module: purchase_batch_invoicing
 #: model:ir.model,name:purchase_batch_invoicing.model_purchase_batch_invoicing
-#, fuzzy
 msgid "Purchase Batch Invoicing"
-msgstr "purchase.batch_invoicing"
+msgstr "Facturación en lote de compras"
 
 #. module: purchase_batch_invoicing
 #: selection:purchase.batch_invoicing,grouping:0
