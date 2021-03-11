@@ -7,20 +7,20 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-07-08 11:07+0200\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: 2021-03-11 13:45+0000\n"
+"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"X-Generator: Poedit 2.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.report_invoice_document
 msgid "<strong>Global Discounts</strong><br/>"
-msgstr "<strong>Descuento Global</strong>"
+msgstr "<strong>Descuentos Globales</strong><br/>"
 
 #. module: account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.report_invoice_document
@@ -126,7 +126,7 @@ msgstr "ID (identificación)"
 #: code:addons/account_global_discount/models/account_invoice.py:72
 #, python-format
 msgid "Incompatible taxes found for global discounts."
-msgstr ""
+msgstr "Se han encontrado impuestos incompatibles con los impuestos globales."
 
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_invoice
@@ -150,13 +150,12 @@ msgstr "Descuentos Globales en Factura"
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice__global_discount_ids_readonly
 msgid "Invoice Global Discounts (readonly)"
-msgstr ""
+msgstr "Descuentos Globales en Factura (solo lectura)"
 
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_invoice_tax
-#, fuzzy
 msgid "Invoice Tax"
-msgstr "Factura"
+msgstr "Impuesto Factura"
 
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_move_line
@@ -181,7 +180,7 @@ msgstr "Última actualización en"
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__tax_ids
 msgid "Tax"
-msgstr ""
+msgstr "Impuesto"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice__amount_global_discount
@@ -197,4 +196,4 @@ msgstr "Base Imponible Antes Desc."
 #: code:addons/account_global_discount/models/account_invoice.py:65
 #, python-format
 msgid "With global discounts, taxes in lines are required."
-msgstr ""
+msgstr "Con descuentos globales, es obligatorio poner impuestos en las líneas."
