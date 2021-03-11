@@ -6,86 +6,91 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2021-03-11 18:45+0000\n"
+"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule__active
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule__company_id
 msgid "Company"
-msgstr ""
+msgstr "Compañía"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creado el"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nombre mostrado"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule__domain
 msgid "Domain"
-msgstr ""
+msgstr "Dominio"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model,name:account_invoice_transmit_method_substitution_rule.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Factura"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última modificación el"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Última modificación por"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Última modificación el"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule__name
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model.fields,field_description:account_invoice_transmit_method_substitution_rule.field_transmit_method_substitution_rule__transmit_method_id
+#, fuzzy
 msgid "Transmit Method"
-msgstr ""
+msgstr "Método de transmisión"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.model,name:account_invoice_transmit_method_substitution_rule.model_transmit_method_substitution_rule
+#, fuzzy
 msgid "Transmit Method Substitution Rule"
-msgstr ""
+msgstr "Regla de sustitución para el método de transmisión"
 
 #. module: account_invoice_transmit_method_substitution_rule
 #: model:ir.actions.act_window,name:account_invoice_transmit_method_substitution_rule.transmit_method_substitution_rule_act_window
 #: model:ir.ui.menu,name:account_invoice_transmit_method_substitution_rule.transmit_method_substitution_rule_menu
+#, fuzzy
 msgid "Transmit Method Substitution Rules"
-msgstr ""
+msgstr "Reglas de sustitución para el método de transmisión"
