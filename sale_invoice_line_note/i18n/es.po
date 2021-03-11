@@ -6,30 +6,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2021-03-11 18:45+0000\n"
+"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: sale_invoice_line_note
 #: model:ir.model.fields,field_description:sale_invoice_line_note.field_sale_advance_payment_inv__copy_notes_to_invoice
 msgid "Copy notes to invoice"
-msgstr ""
+msgstr "Copiar notas en factura"
 
 #. module: sale_invoice_line_note
 #: model:ir.model.fields,help:sale_invoice_line_note.field_sale_advance_payment_inv__copy_notes_to_invoice
 msgid "Mark this to create invoice line notes from the notes in the sale order"
 msgstr ""
+"Marque esto para crear notas de líneas de factura a partir de las notas del "
+"pedido de venta"
 
 #. module: sale_invoice_line_note
 #: model:ir.model,name:sale_invoice_line_note.model_sale_order
 msgid "Sale Order"
-msgstr ""
+msgstr "Pedido de Venta"
 
 #. module: sale_invoice_line_note
 #: model:ir.model,name:sale_invoice_line_note.model_sale_advance_payment_inv
+#, fuzzy
 msgid "Sales Advance Payment Invoice"
-msgstr ""
+msgstr "Factura de ventas de pago por adelantado"
