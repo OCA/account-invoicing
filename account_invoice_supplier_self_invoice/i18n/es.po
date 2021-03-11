@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-02 03:40+0000\n"
-"PO-Revision-Date: 2018-09-06 10:56+0000\n"
-"Last-Translator: Enric Tobella <etobella@creublanca.es>\n"
+"PO-Revision-Date: 2021-03-11 18:45+0000\n"
+"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.1.1\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
@@ -116,6 +116,8 @@ msgstr "Correo electrónico:"
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_users_self_invoice_report_footer
 msgid "Footer text displayed at the bottom of the self invoice reports."
 msgstr ""
+"Texto de pie de página mostrado en la parte inferior de los informes de "
+"autofactura."
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_account_invoice
@@ -157,9 +159,8 @@ msgstr "Número de autofactura"
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner_self_invoice_report_footer
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users_self_invoice_report_footer
-#, fuzzy
 msgid "Self invoice footer"
-msgstr "Número de autofactura"
+msgstr "Pie de página de autofactura"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner_self_invoice_sequence_id
