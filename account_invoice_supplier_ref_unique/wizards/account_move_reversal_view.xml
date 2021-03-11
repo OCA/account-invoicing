@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_move_reversal_form_view" model="ir.ui.view">
+        <field
+            name="name"
+        >account.move.reversal.form (in account_invoice_supplier_ref_unique)</field>
+        <field name="model">account.move.reversal</field>
+        <field name="inherit_id" ref="account.view_account_move_reversal" />
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="supplier_invoice_number" />
+            </field>
+        </field>
+    </record>
+</odoo>
