@@ -15,7 +15,9 @@ class TestAccountInvoice(SavepointCase):
         # Add current user to group: group_supplier_inv_check_total
         cls.env.ref(GROUP_AICT).write({"users": [(4, cls.env.user.id)]})
         # create a vendor bill
-        invoice_form = Form(cls.account_move.with_context(default_type="in_invoice"))
+        invoice_form = Form(
+            cls.account_move.with_context(default_move_type="in_invoice")
+        )
         invoice_form.partner_id = cls.env["res.partner"].create(
             {"name": "test partner"}
         )
