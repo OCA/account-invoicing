@@ -29,11 +29,11 @@ class AccountMove(models.Model):
                 precision_rounding=invoice.currency_id.rounding,
             )
 
-    def post(self):
+    def action_post(self):
         for inv in self:
             if (
                 self.env.user.has_group(GROUP_AICT)
-                and inv.type in ("in_invoice", "in_refund")
+                and inv.move_type in ("in_invoice", "in_refund")
                 and float_compare(
                     inv.check_total,
                     inv.amount_total,
@@ -54,11 +54,11 @@ class AccountMove(models.Model):
                         inv.check_total_display_difference,
                     )
                 )
-        return super().post()
+        return super().action_post()
 
     @api.model
     def _reverse_move_vals(self, default_values, cancel=True):
         vals = super()._reverse_move_vals(default_values, cancel)
-        if self.type in ["in_invoice", "in_refund"]:
+        if self.move_type in ["in_invoice", "in_refund"]:
             vals["check_total"] = self.check_total
         return vals
