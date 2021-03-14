@@ -25,11 +25,11 @@ class AccountMove(models.Model):
         res = {}
         lines_without_product = []
         fp = self.fiscal_position_id
-        inv_type = self.type
+        inv_type = self.move_type
         for line in self.invoice_line_ids:
             if line.product_id:
                 account = line._get_computed_account()
-                product = line.with_context(force_company=self.company_id.id).product_id
+                product = line.with_company(self.company_id).product_id
                 if inv_type in ("out_invoice", "out_refund"):
                     # M2M fields don't have an option 'company_dependent=True'
                     # so we need per-company post-filtering

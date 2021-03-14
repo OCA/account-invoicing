@@ -7,10 +7,10 @@
 
 {
     "name": "Invoice Fiscal Position Update",
-    "version": "13.0.1.0.1",
+    "version": "14.0.1.0.0",
     "category": "Accounting & Finance",
     "license": "AGPL-3",
-    "summary": "Changing the fiscal position of an invoice will auto-update "
+    "summary": "Changing the fiscal position of an invoice will auto-update."
     "invoice lines",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Julius Network Solutions,"

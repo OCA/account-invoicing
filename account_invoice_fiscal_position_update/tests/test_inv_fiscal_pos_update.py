@@ -4,10 +4,10 @@
 
 import time
 
-from odoo.addons.account.tests.account_test_classes import AccountingTestCase
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-class TestProductIdChange(AccountingTestCase):
+class TestProductIdChange(AccountTestInvoicingCommon):
     """Test that when an included tax is mapped by a fiscal position,
     when position fiscal change taxes and account wil be update on
     invoice lines.
@@ -93,8 +93,8 @@ class TestProductIdChange(AccountingTestCase):
         out_invoice = self.invoice_model.create(
             {
                 "partner_id": partner.id,
-                "invoice_payment_ref": "invoice to client",
-                "type": "out_invoice",
+                "payment_reference": "invoice to client",
+                "move_type": "out_invoice",
                 "invoice_date": time.strftime("%Y") + "-04-01",
             }
         )
