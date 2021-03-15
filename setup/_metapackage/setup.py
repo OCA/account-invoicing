@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo14-addon-account_billing',
         'odoo14-addon-account_invoice_refund_link',
+        'odoo14-addon-account_invoice_search_by_reference',
     ],
     classifiers=[
         'Programming Language :: Python',
