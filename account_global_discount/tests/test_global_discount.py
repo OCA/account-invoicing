@@ -299,23 +299,14 @@ class TestGlobalDiscount(common.SavepointCase):
                     line_form.tax_ids.clear()
 
     def test_07_line_with_tax_0(self):
-        invoice_form = Form(
-            self.env["account.move"].with_context(
-                default_type="in_invoice", test_account_global_discount=True,
-            )
-        )
-        invoice_form.partner_id = self.partner_1
-        invoice_form.global_discount_ids.add(self.global_discount_1)
-        with invoice_form.invoice_line_ids.new() as line_form:
-            line_form.name = "Line 1"
-            line_form.price_unit = 200.0
-            line_form.quantity = 1
-            line_form.tax_ids.clear()
-            line_form.tax_ids.add(self.tax_0)
-        invoice = invoice_form.save()
-        invoice._onchange_global_discount_ids()
-        self.assertEqual(len(invoice.invoice_global_discount_ids), 1)
-        discount_tax_0 = invoice.invoice_global_discount_ids.filtered(
+        with Form(self.invoice) as invoice_form:
+            invoice_form.global_discount_ids.add(self.global_discount_1)
+            with invoice_form.invoice_line_ids.edit(0) as line_form:
+                line_form.tax_ids.clear()
+                line_form.tax_ids.add(self.tax_0)
+        self.invoice._onchange_global_discount_ids()
+        self.assertEqual(len(self.invoice.invoice_global_discount_ids), 1)
+        discount_tax_0 = self.invoice.invoice_global_discount_ids.filtered(
             lambda x: x.tax_ids == self.tax_0
         )
         self.assertAlmostEqual(discount_tax_0.discount_amount, 40)
