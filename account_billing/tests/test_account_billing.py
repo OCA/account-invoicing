@@ -1,4 +1,5 @@
 # Copyright 2019 Ecosoft Co., Ltd (https://ecosoft.co.th/)
+# Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
 from datetime import datetime
@@ -52,6 +53,9 @@ class TestAccountBilling(SavepointCase):
         )
         cls.journal_bank = cls.env["account.journal"].create(
             {"name": "Bank", "type": "bank", "code": "BNK67"}
+        )
+        cls.journal_purchase = cls.env["account.journal"].create(
+            {"name": "Purchase", "type": "purchase", "code": "PURCHASE"}
         )
 
         cls.inv_1 = cls.create_invoice(
@@ -210,11 +214,14 @@ class TestAccountBilling(SavepointCase):
         self.assertEqual(bill2.invoice_related_count, 1)
 
     def test_6_check_billing_from_bills(self):
-        self.inv_1.type = "in_invoice"
-        self.inv_2.type = "in_invoice"
+        vals = {"type": "in_invoice", "journal_id": self.journal_purchase.id}
+        inv_1 = self.inv_1.copy(vals)
+        inv_1.post()
+        inv_2 = self.inv_2.copy(vals)
+        inv_2.post()
         ctx = {
             "active_model": "account.move",
-            "active_ids": [self.inv_1.id, self.inv_2.id],
+            "active_ids": [inv_1.id, inv_2.id],
             "bill_type": "in_invoice",
         }
         vendor_billing = self.billing_model.with_context(ctx).create({})
