@@ -21,6 +21,7 @@ addon | version | summary
 --- | --- | ---
 [account_billing](account_billing/) | 14.0.1.0.0 | Group invoice as billing before payment
 [account_invoice_refund_link](account_invoice_refund_link/) | 14.0.1.0.0 | Show links between refunds and their originator invoices
+[account_invoice_search_by_reference](account_invoice_search_by_reference/) | 14.0.1.0.0 | Account invoice search by reference
 
 [//]: # (end addons)
 
