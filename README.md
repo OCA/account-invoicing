@@ -13,16 +13,45 @@ This project aim to deal with modules related to manage invoicing in a generic w
  - Utils and ease of use for invoicing with OpenERP
  - ...
 
+[//]: # (addons)
 
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[account_billing](account_billing/) | 13.0.1.0.1 | Group invoice as billing before payment
+[account_global_discount](account_global_discount/) | 13.0.1.0.2 | Account Global Discount
+[account_invoice_check_total](account_invoice_check_total/) | 13.0.1.0.0 | Check if the verification total is equal to the bill's total
+[account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 13.0.1.0.1 | Changing the fiscal position of an invoice will auto-update invoice lines
+[account_invoice_fixed_discount](account_invoice_fixed_discount/) | 13.0.1.0.2 | Allows to apply fixed amount discounts in invoices.
+[account_invoice_force_number](account_invoice_force_number/) | 13.0.1.0.0 | Allows to force invoice numbering on specific invoices
+[account_invoice_pricelist](account_invoice_pricelist/) | 13.0.1.0.1 | Add partner pricelist on invoices
+[account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 13.0.1.0.1 | Module to fill pricelist from sales order in invoice.
+[account_invoice_refund_link](account_invoice_refund_link/) | 13.0.1.0.1 | Show links between refunds and their originator invoices
+[account_invoice_search_by_reference](account_invoice_search_by_reference/) | 13.0.1.0.0 | Account invoice search by reference
+[account_invoice_section_sale_order](account_invoice_section_sale_order/) | 13.0.1.0.0 | For invoices targetting multiple sale order addsections with sale order name.
+[account_invoice_supplier_ref_reuse](account_invoice_supplier_ref_reuse/) | 13.0.1.0.0 | Makes it possible to reuse supplier invoice references
+[account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 13.0.1.0.3 | Checks that supplier invoices are not entered twice
+[account_invoice_transmit_method](account_invoice_transmit_method/) | 13.0.1.1.0 | Configure invoice transmit method (email, post, portal, ...)
+[account_invoice_validation_queued](account_invoice_validation_queued/) | 13.0.2.0.0 | Enqueue account invoice validation
+[account_invoice_warn_message](account_invoice_warn_message/) | 13.0.1.0.0 | Add a popup warning on invoice to ensure warning is populated
+[account_menu_invoice_refund](account_menu_invoice_refund/) | 13.0.1.0.0 | New invoice menu that combine invoices and refunds
+[account_move_tier_validation](account_move_tier_validation/) | 13.0.1.0.1 | Extends the functionality of Account Moves to support a tier validation process.
+[purchase_batch_invoicing](purchase_batch_invoicing/) | 13.0.1.0.0 | Make invoices for all ready purchase orders
+[purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 13.0.1.0.0 | Add an option to refund returned pickings
+[sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 13.0.2.0.1 | Sales order invoicing grouping criteria
+[sale_order_invoicing_queued](sale_order_invoicing_queued/) | 13.0.2.0.0 | Enqueue sales order invoicing
+[sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 13.0.1.0.0 | Add timesheet details in invoice line
+
+[//]: # (end addons)
 
 Translation Status
 ------------------
-[![Transifex Status](https://www.transifex.com/projects/p/OCA-account-invoicing-13-0/chart/image_png)](https://www.transifex.com/projects/p/OCA-account-invoicing-13-0)
+
+[![Translation status](https://translation.odoo-community.org/widgets/account-invoicing-13-0/-/multi-auto.svg)](https://translation.odoo-community.org/engage/account-invoicing-13-0/?utm_source=widget)
 
 ----
 
-OCA, or the Odoo Community Association, is a nonprofit organization whose
+OCA, or the [Odoo Community Association](http://odoo-community.org/), is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
-
-http://odoo-community.org/
