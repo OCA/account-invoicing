@@ -57,6 +57,9 @@ class TestAccountBilling(SavepointCase):
         cls.journal_purchase = cls.env["account.journal"].create(
             {"name": "Purchase", "type": "purchase", "code": "PURCHASE"}
         )
+        cls.journal_sale = cls.env["account.journal"].create(
+            {"name": "Sale", "type": "sale", "code": "SALE"}
+        )
 
         cls.inv_1 = cls.create_invoice(
             cls, amount=100, currency_id=cls.currency_eur_id, partner=cls.partner_id.id
@@ -214,10 +217,14 @@ class TestAccountBilling(SavepointCase):
         self.assertEqual(bill2.invoice_related_count, 1)
 
     def test_6_check_billing_from_bills(self):
-        vals = {"type": "in_invoice", "journal_id": self.journal_purchase.id}
-        inv_1 = self.inv_1.copy(vals)
+        inv_1 = self.create_invoice(
+            amount=100,
+            currency_id=self.currency_eur_id,
+            partner=self.partner_id.id,
+            invoice_type="in_invoice",
+        )
         inv_1.post()
-        inv_2 = self.inv_2.copy(vals)
+        inv_2 = inv_1.copy()
         inv_2.post()
         ctx = {
             "active_model": "account.move",
