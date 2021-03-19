@@ -39,3 +39,9 @@ class StockPicking(models.Model):
         self.ensure_one()
         partner = self.partner_id
         return partner.address_get(["invoice"]).get("invoice")
+
+    def action_assign(self):
+        """If any stock move is to be invoiced, picking status is updated"""
+        if any(m.invoice_state == "2binvoiced" for m in self.mapped("move_lines")):
+            self.write({"invoice_state": "2binvoiced"})
+        return super().action_assign()
