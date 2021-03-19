@@ -354,7 +354,6 @@ class TestPickingInvoicing(TransactionCase):
             move.quantity_done = move.product_uom_qty / 2.0
         picking.button_validate()
 
-
         backorder_action = picking.button_validate()
         backorder_wizard = self.env[
             (backorder_action.get('res_model'))].browse(
