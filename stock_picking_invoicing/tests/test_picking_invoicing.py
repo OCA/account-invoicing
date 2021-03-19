@@ -314,6 +314,81 @@ class TestPickingInvoicing(TransactionCase):
                 inv_line.tax_ids, "Error to map Purchase Tax in invoice.line.",
             )
 
+    def test_4_picking_out_invoicing_backorder(self):
+        """
+         Test invoicing picking out to check if backorder is create
+         with same invoice state.
+        """
+        nb_invoice_before = self.invoice_model.search_count([])
+        self.partner.write({"type": "invoice"})
+        picking = self.picking_model.create(
+            {
+                "partner_id": self.partner2.id,
+                "picking_type_id": self.pick_type_out.id,
+                "location_id": self.stock_location.id,
+                "location_dest_id": self.customers_location.id,
+            }
+        )
+        move_vals = {
+            "product_id": self.product_test_1.id,
+            "picking_id": picking.id,
+            "location_dest_id": self.customers_location.id,
+            "location_id": self.stock_location.id,
+            "name": self.product_test_1.name,
+            "product_uom_qty": 4,
+            "product_uom": self.product_test_1.uom_id.id,
+        }
+        new_move = self.move_model.create(move_vals)
+        new_move.onchange_product_id()
+        picking.set_to_be_invoiced()
+        picking.action_confirm()
+        # Check product availability
+        picking.action_assign()
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty / 2.0
+        picking.button_validate()
+
+        backorder_action = picking.button_validate()
+        backorder_wizard = self.env[(backorder_action.get("res_model"))].browse(
+            backorder_action.get("res_id")
+        )
+        backorder_wizard.process()
+        backorder = self.env["stock.picking"].search(
+            [("backorder_id", "=", picking.id)]
+        )
+
+        self.assertEqual(backorder.invoice_state, "2binvoiced")
+
+        self.assertEqual(picking.state, "done")
+        wizard_obj = self.invoice_wizard.with_context(
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+        )
+        fields_list = wizard_obj.fields_get().keys()
+        wizard_values = wizard_obj.default_get(fields_list)
+        wizard = wizard_obj.create(wizard_values)
+        wizard.onchange_group()
+        wizard.action_generate()
+        domain = [("picking_ids", "=", picking.id)]
+        invoice = self.invoice_model.search(domain)
+        self.assertEqual(picking.invoice_state, "invoiced")
+        self.assertEqual(invoice.partner_id, self.partner)
+        self.assertIn(invoice, picking.invoice_ids)
+        self.assertIn(picking, invoice.picking_ids)
+        nb_invoice_after = self.invoice_model.search_count([])
+        self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoice))
+        assert invoice.invoice_line_ids, "Error to create invoice line."
+        for inv_line in invoice.invoice_line_ids:
+            for mv_line in inv_line.move_line_ids:
+                self.assertEquals(
+                    mv_line.id,
+                    new_move.id,
+                    "Error to link stock.move with invoice.line.",
+                )
+            self.assertTrue(
+                inv_line.tax_ids, "Error to map Sale Tax in invoice.line."
+            )
+
     def test_picking_cancel(self):
         """
         Ensure that the invoice_state of the picking is correctly
