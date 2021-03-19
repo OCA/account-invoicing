@@ -67,11 +67,11 @@ class StockMove(models.Model):
     def _prepare_extra_move_vals(self, qty):
         """Copy invoice state for a new extra stock move"""
         values = super()._prepare_extra_move_vals(qty)
-        values['invoice_state'] = self.invoice_state
+        values["invoice_state"] = self.invoice_state
         return values
 
     def _prepare_move_split_vals(self, uom_qty):
         """Copy invoice state for a new splitted stock move"""
         values = super()._prepare_move_split_vals(uom_qty)
-        values['invoice_state'] = self.invoice_state
+        values["invoice_state"] = self.invoice_state
         return values
