@@ -2,15 +2,15 @@
 
 {
     "name": "Update Invoice's Due Date",
-    "version": "12.0.1.1.0",
+    "version": "13.0.1.0.0",
     "author": "Vauxoo,Odoo Community Association (OCA)",
-    "maintainers": ["luisg123v",],
+    "maintainers": ["luisg123v"],
     "category": "Accounting",
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
-    "depends": ["account",],
+    "depends": ["account"],
     "demo": [],
-    "data": ["security/security.xml", "wizards/update_due_date_views.xml",],
+    "data": ["security/security.xml", "wizards/update_due_date_views.xml"],
     "installable": True,
     "auto_install": False,
 }
