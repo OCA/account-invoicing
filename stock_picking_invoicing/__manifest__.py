@@ -10,6 +10,7 @@
     "depends": ["stock", "account", "stock_picking_invoice_link"],
     "data": [
         "wizards/stock_invoice_onshipping_view.xml",
+        "wizards/stock_return_picking_view.xml",
         "views/stock_move.xml",
         "views/stock_picking.xml",
         "views/stock_picking_type.xml",
