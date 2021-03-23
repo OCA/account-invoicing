@@ -2,3 +2,4 @@
 
 from . import line_triple_discount
 from . import account_invoice
+from . import res_partner

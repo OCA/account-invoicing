@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2021 Simone Rubino - Agile Business Group
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+  -->
+
+<odoo>
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field name="name">Add triple discount fields</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <page name="accounting" position="inside">
+                <group name="triple_discount">
+                    <field name="discounting_type"/>
+                </group>
+            </page>
+        </field>
+    </record>
+</odoo>

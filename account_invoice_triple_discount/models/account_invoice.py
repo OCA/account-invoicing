@@ -2,7 +2,7 @@
 # Copyright 2017 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
@@ -14,6 +14,17 @@ class AccountInvoice(models.Model):
         tax_grouped = super().get_taxes_values()
         lines.triple_discount_postprocess(prev_values)
         return tax_grouped
+
+    @api.onchange('partner_id', 'company_id')
+    def _onchange_partner_id(self):
+        self.ensure_one()
+        res = super()._onchange_partner_id()
+        partner_discounting_type = self.partner_id.discounting_type
+        if partner_discounting_type:
+            self.invoice_line_ids.update({
+                'discounting_type': partner_discounting_type,
+            })
+        return res
 
 
 class AccountInvoiceLine(models.Model):
