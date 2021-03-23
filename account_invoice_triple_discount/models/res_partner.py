@@ -14,6 +14,7 @@ class ResPartner (models.Model):
             ('multiplicative', 'Multiplicative'),
         ],
         default="multiplicative",
+        required=True,
         help="""
         Specifies whether discounts should be additive or multiplicative.
         Additive discounts are summed first and then applied.

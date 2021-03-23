@@ -8,6 +8,10 @@ from odoo import api, fields, models
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
+    discounting_type = fields.Selection(
+        related='partner_id.discounting_type',
+    )
+
     def get_taxes_values(self):
         lines = self.invoice_line_ids
         prev_values = lines.triple_discount_preprocess()

@@ -6,6 +6,12 @@
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="discounting_type" invisible="True"/>
+            </field>
+            <field name="invoice_line_ids" position="attributes">
+                <attribute name="context">{'type': type, 'journal_id': journal_id, 'default_invoice_id': id, 'default_discounting_type': discounting_type}</attribute>
+            </field>
             <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='discount']"
                    position="after">
                 <field name="discount2" groups="base.group_no_one"/>
