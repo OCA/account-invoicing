@@ -6,22 +6,18 @@ from odoo import fields, models
 
 
 class StockReturnPicking(models.TransientModel):
-    _inherit = 'stock.return.picking'
+    _inherit = "stock.return.picking"
 
     invoice_state = fields.Selection(
-        selection=[
-            ('2binvoiced', 'To be refunded/invoiced'),
-            ('none', 'No invoicing')],
-        string='Invoicing',
+        selection=[("2binvoiced", "To be refunded/invoiced"), ("none", "No invoicing")],
+        string="Invoicing",
         required=True,
-        default='none'
+        default="none",
     )
 
     def _prepare_move_default_values(self, return_line, new_picking):
         vals = super()._prepare_move_default_values(return_line, new_picking)
-        if self.invoice_state == '2binvoiced':
-            vals.update({
-                'invoice_state': self.invoice_state,
-            })
+        if self.invoice_state == "2binvoiced":
+            vals.update({"invoice_state": self.invoice_state})
 
         return vals
