@@ -2,131 +2,94 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import exceptions
-from odoo.tests.common import TransactionCase
+from odoo.tests import Form, SavepointCase, tagged
 
 
-class TestPickingInvoicing(TransactionCase):
-    def setUp(self):
-        super(TestPickingInvoicing, self).setUp()
-        self.picking_model = self.env["stock.picking"]
-        self.move_model = self.env["stock.move"]
-        self.invoice_wizard = self.env["stock.invoice.onshipping"]
-        self.invoice_model = self.env["account.move"]
-        self.partner_model = self.env["res.partner"]
-        self.partner = self.env.ref("base.res_partner_2")
-        self.partner2 = self.env.ref("base.res_partner_address_4")
-        self.partner3 = self.env.ref("base.res_partner_18")
-        self.supplier = self.env.ref("base.res_partner_12")
-        self.pick_type_in = self.env.ref("stock.picking_type_in")
-        self.pick_type_out = self.env.ref("stock.picking_type_out")
-        self.stock_location = self.env.ref("stock.stock_location_stock")
-        self.customers_location = self.env.ref("stock.stock_location_customers")
-        self.suppliers_location = self.env.ref('stock.stock_location_suppliers')
-        self.stock_return_picking = self.env['stock.return.picking']
-        self.journal = self.env['account.journal'].create({
-            'name': 'A super journal name',
-            'code': 'ABC',
-            'type': 'sale',
-            'refund_sequence': True,
-        })
+@tagged("post_install", "-at_install")
+class TestPickingInvoicing(SavepointCase):
+    @classmethod
+    def setUpClass(cls):
+        super(TestPickingInvoicing, cls).setUpClass()
+        cls.picking_model = cls.env["stock.picking"]
+        cls.move_model = cls.env["stock.move"]
+        cls.invoice_wizard = cls.env["stock.invoice.onshipping"]
+        cls.invoice_model = cls.env["account.move"]
+        cls.partner_model = cls.env["res.partner"]
+        cls.partner = cls.env.ref("base.res_partner_2")
+        cls.partner2 = cls.env.ref("base.res_partner_address_4")
+        cls.partner3 = cls.env.ref("base.res_partner_18")
+        cls.supplier = cls.env.ref("base.res_partner_12")
+        cls.pick_type_in = cls.env.ref("stock.picking_type_in")
+        cls.pick_type_out = cls.env.ref("stock.picking_type_out")
+        cls.stock_location = cls.env.ref("stock.stock_location_stock")
+        cls.customers_location = cls.env.ref("stock.stock_location_customers")
+        cls.suppliers_location = cls.env.ref("stock.stock_location_suppliers")
+        cls.stock_return_picking = cls.env["stock.return.picking"]
+        cls.journal = cls.env["account.journal"].create(
+            {
+                "name": "A super journal name",
+                "code": "ABC",
+                "type": "sale",
+                "refund_sequence": True,
+            }
+        )
 
-        self.product_model = self.env['product.product']
-        self.fiscal_position_model = self.env['account.fiscal.position']
-        self.fiscal_position_tax_model = \
-            self.env['account.fiscal.position.tax']
-        self.fiscal_position_account_model = \
-            self.env['account.fiscal.position.account']
-        self.account_user_type = self.env.ref(
-            'account.data_account_type_revenue')
-        self.account_model = self.env['account.account']
-        self.tax_model = self.env['account.tax']
-        self.product_tmpl_model = self.env['product.template']
-        self.account_receivable = self.env['account.account'].search(
-            [('user_type_id', '=',
-                self.env.ref('account.data_account_type_receivable').id)],
-            limit=1)
-        self.account_revenue = self.env['account.account'].search(
-            [('user_type_id', '=',
-                self.account_user_type.id)],
-            limit=1)
-
-        self.tax_sale_1 = self.tax_model.create({
-            'name': 'Sale tax 20',
-            'type_tax_use': 'sale',
-            'amount': '20.00',
-        })
-        self.tax_sale_2 = self.tax_model.create({
-            'name': 'Sale tax 10',
-            'type_tax_use': 'sale',
-            'amount': '10.00',
-        })
-        self.tax_purchase_1 = self.tax_model.create({
-            'name': 'Purchase tax 10',
-            'type_tax_use': 'purchase',
-            'amount': '10.00',
-        })
-        self.tax_purchase_2 = self.tax_model.create({
-            'name': 'Purchase tax 20',
-            'type_tax_use': 'purchase',
-            'amount': '20.00',
-        })
-
-        self.product_model = self.env["product.product"]
-        self.fiscal_position_model = self.env["account.fiscal.position"]
-        self.fiscal_position_tax_model = self.env["account.fiscal.position.tax"]
-        self.fiscal_position_account_model = self.env["account.fiscal.position.account"]
-        self.account_user_type = self.env.ref("account.data_account_type_revenue")
-        self.account_model = self.env["account.account"]
-        self.tax_model = self.env["account.tax"]
-        self.product_tmpl_model = self.env["product.template"]
-        self.account_receivable = self.env["account.account"].search(
+        cls.product_model = cls.env["product.product"]
+        cls.fiscal_position_model = cls.env["account.fiscal.position"]
+        cls.fiscal_position_tax_model = cls.env["account.fiscal.position.tax"]
+        cls.fiscal_position_account_model = cls.env["account.fiscal.position.account"]
+        cls.account_user_type = cls.env.ref("account.data_account_type_revenue")
+        cls.account_model = cls.env["account.account"]
+        cls.tax_model = cls.env["account.tax"]
+        cls.product_tmpl_model = cls.env["product.template"]
+        cls.account_receivable = cls.env["account.account"].search(
             [
                 (
                     "user_type_id",
                     "=",
-                    self.env.ref("account.data_account_type_receivable").id,
+                    cls.env.ref("account.data_account_type_receivable").id,
                 )
             ],
             limit=1,
         )
-        self.account_revenue = self.env["account.account"].search(
-            [("user_type_id", "=", self.account_user_type.id)], limit=1
+        cls.account_revenue = cls.env["account.account"].search(
+            [("user_type_id", "=", cls.account_user_type.id)], limit=1
         )
 
-        self.tax_sale_1 = self.tax_model.create(
+        cls.tax_sale_1 = cls.tax_model.create(
             {"name": "Sale tax 20", "type_tax_use": "sale", "amount": "20.00"}
         )
-        self.tax_sale_2 = self.tax_model.create(
+        cls.tax_sale_2 = cls.tax_model.create(
             {"name": "Sale tax 10", "type_tax_use": "sale", "amount": "10.00"}
         )
-        self.tax_purchase_1 = self.tax_model.create(
+        cls.tax_purchase_1 = cls.tax_model.create(
             {"name": "Purchase tax 10", "type_tax_use": "purchase", "amount": "10.00"}
         )
-        self.tax_purchase_2 = self.tax_model.create(
+        cls.tax_purchase_2 = cls.tax_model.create(
             {"name": "Purchase tax 20", "type_tax_use": "purchase", "amount": "20.00"}
         )
 
-        self.product_test_1 = self.product_model.create(
+        cls.product_test_1 = cls.product_model.create(
             {
                 "name": "Test 1",
                 "lst_price": "15000",
-                "taxes_id": [(6, 0, [self.tax_sale_1.id, self.tax_sale_2.id])],
+                "taxes_id": [(6, 0, [cls.tax_sale_1.id, cls.tax_sale_2.id])],
                 "supplier_taxes_id": [
-                    (6, 0, [self.tax_purchase_1.id, self.tax_purchase_2.id])
+                    (6, 0, [cls.tax_purchase_1.id, cls.tax_purchase_2.id])
                 ],
-                "property_account_income_id": self.account_revenue.id,
+                "property_account_income_id": cls.account_revenue.id,
                 "standard_price": "500",
             }
         )
-        self.product_test_2 = self.product_model.create(
+        cls.product_test_2 = cls.product_model.create(
             {
                 "name": "Test 2",
                 "lst_price": "15000",
-                "taxes_id": [(6, 0, [self.tax_sale_1.id, self.tax_sale_2.id])],
+                "taxes_id": [(6, 0, [cls.tax_sale_1.id, cls.tax_sale_2.id])],
                 "supplier_taxes_id": [
-                    (6, 0, [self.tax_purchase_1.id, self.tax_purchase_2.id])
+                    (6, 0, [cls.tax_purchase_1.id, cls.tax_purchase_2.id])
                 ],
-                "property_account_income_id": self.account_revenue.id,
+                "property_account_income_id": cls.account_revenue.id,
                 "standard_price": "500",
             }
         )
@@ -164,7 +127,7 @@ class TestPickingInvoicing(TransactionCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -220,7 +183,7 @@ class TestPickingInvoicing(TransactionCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -265,7 +228,7 @@ class TestPickingInvoicing(TransactionCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -327,7 +290,7 @@ class TestPickingInvoicing(TransactionCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -351,7 +314,7 @@ class TestPickingInvoicing(TransactionCase):
                     "Error to link stock.move with invoice.line.",
                 )
             self.assertTrue(
-                inv_line.tax_ids, "Error to map Purchase Tax in invoice.line.",
+                inv_line.tax_ids, "Error to map Purchase Tax in invoice.line."
             )
 
     def test_4_picking_out_invoicing_backorder(self):
@@ -402,7 +365,7 @@ class TestPickingInvoicing(TransactionCase):
 
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -425,9 +388,7 @@ class TestPickingInvoicing(TransactionCase):
                     new_move.id,
                     "Error to link stock.move with invoice.line.",
                 )
-            self.assertTrue(
-                inv_line.tax_ids, "Error to map Sale Tax in invoice.line."
-            )
+            self.assertTrue(inv_line.tax_ids, "Error to map Sale Tax in invoice.line.")
 
     def test_picking_cancel(self):
         """
@@ -466,7 +427,7 @@ class TestPickingInvoicing(TransactionCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -521,7 +482,7 @@ class TestPickingInvoicing(TransactionCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -590,7 +551,7 @@ class TestPickingInvoicing(TransactionCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -673,7 +634,7 @@ class TestPickingInvoicing(TransactionCase):
         self.assertEqual(picking2.state, "done")
         pickings = picking | picking2
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=pickings.ids, active_model=pickings._name,
+            active_ids=pickings.ids, active_model=pickings._name
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -767,7 +728,7 @@ class TestPickingInvoicing(TransactionCase):
         self.assertEqual(picking2.state, "done")
         pickings = picking | picking2
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=pickings.ids, active_model=pickings._name,
+            active_ids=pickings.ids, active_model=pickings._name
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -790,7 +751,7 @@ class TestPickingInvoicing(TransactionCase):
             for inv_line in invoice.invoice_line_ids:
                 self.assertAlmostEqual(inv_line.quantity, 1)
                 self.assertTrue(
-                    inv_line.tax_ids, "Error to map Sale Tax in invoice.line.",
+                    inv_line.tax_ids, "Error to map Sale Tax in invoice.line."
                 )
             # Test the behaviour when the invoice is cancelled
             # The picking invoice_status should be updated
@@ -809,46 +770,44 @@ class TestPickingInvoicing(TransactionCase):
         """
         Test Return Customer Picking and Invoice created.
         """
-        picking = self.env.ref(
-            'stock_picking_invoicing.stock_picking_invoicing_2')
+        picking = self.env.ref("stock_picking_invoicing.stock_picking_invoicing_2")
         # Force product availability
         for move in picking.move_ids_without_package:
             move.quantity_done = move.product_uom_qty
         picking.button_validate()
-        self.assertEqual(picking.state, 'done')
+        self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids,
-            active_model=picking._name,
-            active_id=picking.id,
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
         wizard.action_generate()
-        domain = [('picking_ids', '=', picking.id)]
+        domain = [("picking_ids", "=", picking.id)]
         invoice = self.invoice_model.search(domain)
         # Confirm Invoice
-        invoice.action_invoice_open()
-        self.assertEquals(
-            invoice.state, 'open', 'Invoice should be in state Open')
-        # Check Invoice Type
-        self.assertEquals(
-            invoice.type, 'out_invoice', 'Invoice Type should be Out Invoice')
+        invoice.action_post()
+        self.assertEquals(invoice.state, "posted", "Invoice should be in state Posted")
 
         # Return Picking
-        self.return_wizard = self.stock_return_picking.with_context(
-            dict(active_id=picking.id)).create(
-            dict(invoice_state='2binvoiced'))
+        return_wizard_form = Form(
+            self.stock_return_picking.with_context(
+                dict(active_id=picking.id, active_model="stock.picking")
+            )
+        )
+        return_wizard_form.invoice_state = "2binvoiced"
+        self.return_wizard = return_wizard_form.save()
 
         result_wizard = self.return_wizard.create_returns()
-        self.assertTrue(result_wizard, 'Create returns wizard fail.')
-        picking_devolution = self.env['stock.picking'].browse(
-            result_wizard.get('res_id'))
+        self.assertTrue(result_wizard, "Create returns wizard fail.")
+        picking_devolution = self.env["stock.picking"].browse(
+            result_wizard.get("res_id")
+        )
 
-        self.assertEqual(picking_devolution.invoice_state, '2binvoiced')
+        self.assertEqual(picking_devolution.invoice_state, "2binvoiced")
         for line in picking_devolution.move_lines:
-            self.assertEqual(line.invoice_state, '2binvoiced')
+            self.assertEqual(line.invoice_state, "2binvoiced")
 
         picking_devolution.action_confirm()
         picking_devolution.action_assign()
@@ -856,10 +815,7 @@ class TestPickingInvoicing(TransactionCase):
         for move in picking_devolution.move_ids_without_package:
             move.quantity_done = move.product_uom_qty
         picking_devolution.button_validate()
-        self.assertEquals(
-            picking_devolution.state, 'done',
-            'Change state fail.'
-        )
+        self.assertEquals(picking_devolution.state, "done", "Change state fail.")
         wizard_obj = self.invoice_wizard.with_context(
             active_ids=picking_devolution.ids,
             active_model=picking_devolution._name,
@@ -870,62 +826,60 @@ class TestPickingInvoicing(TransactionCase):
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
         wizard.action_generate()
-        domain = [('picking_ids', '=', picking_devolution.id)]
+        domain = [("picking_ids", "=", picking_devolution.id)]
         invoice_devolution = self.invoice_model.search(domain)
         # Confirm Return Invoice
-        invoice_devolution.action_invoice_open()
+        invoice_devolution.action_post()
         self.assertEquals(
-            invoice_devolution.state, 'open',
-            'Invoice should be in state Open')
+            invoice_devolution.state, "posted", "Invoice should be in state Posted"
+        )
         # Check Invoice Type
         self.assertEquals(
-            invoice_devolution.type, 'out_refund',
-            'Invoice Type should be Out Refund')
+            invoice_devolution.type, "out_refund", "Invoice Type should be Out Refund"
+        )
 
     def test_return_supplier_picking(self):
         """
         Test Return Supplier Picking and Invoice created.
         """
-        picking = self.env.ref(
-            'stock_picking_invoicing.stock_picking_invoicing_7')
+        picking = self.env.ref("stock_picking_invoicing.stock_picking_invoicing_7")
         # Force product availability
         for move in picking.move_ids_without_package:
             move.quantity_done = move.product_uom_qty
         picking.button_validate()
-        self.assertEqual(picking.state, 'done')
+        self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids,
-            active_model=picking._name,
-            active_id=picking.id,
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
         wizard.action_generate()
-        domain = [('picking_ids', '=', picking.id)]
+        domain = [("picking_ids", "=", picking.id)]
         invoice = self.invoice_model.search(domain)
         # Confirm Invoice
         invoice.action_invoice_open()
-        self.assertEquals(
-            invoice.state, 'open', 'Invoice should be in state Open')
+        self.assertEquals(invoice.state, "open", "Invoice should be in state Open")
         # Check Invoice Type
         self.assertEquals(
-            invoice.type, 'in_invoice', 'Invoice Type should be In Invoice')
+            invoice.type, "in_invoice", "Invoice Type should be In Invoice"
+        )
 
         # Return Picking
         self.return_wizard = self.stock_return_picking.with_context(
-            dict(active_id=picking.id)).create(
-            dict(invoice_state='2binvoiced'))
+            dict(active_id=picking.id)
+        ).create(dict(invoice_state="2binvoiced"))
 
         result_wizard = self.return_wizard.create_returns()
-        self.assertTrue(result_wizard, 'Create returns wizard fail.')
-        picking_devolution = self.env['stock.picking'].browse(
-            result_wizard.get('res_id'))
+        self.assertTrue(result_wizard, "Create returns wizard fail.")
+        picking_devolution = self.env["stock.picking"].browse(
+            result_wizard.get("res_id")
+        )
 
-        self.assertEqual(picking_devolution.invoice_state, '2binvoiced')
+        self.assertEqual(picking_devolution.invoice_state, "2binvoiced")
         for line in picking_devolution.move_lines:
-            self.assertEqual(line.invoice_state, '2binvoiced')
+            self.assertEqual(line.invoice_state, "2binvoiced")
 
         picking_devolution.action_confirm()
         picking_devolution.action_assign()
@@ -933,10 +887,7 @@ class TestPickingInvoicing(TransactionCase):
         for move in picking_devolution.move_ids_without_package:
             move.quantity_done = move.product_uom_qty
         picking_devolution.button_validate()
-        self.assertEquals(
-            picking_devolution.state, 'done',
-            'Change state fail.'
-        )
+        self.assertEquals(picking_devolution.state, "done", "Change state fail.")
         wizard_obj = self.invoice_wizard.with_context(
             active_ids=picking_devolution.ids,
             active_model=picking_devolution._name,
@@ -947,14 +898,15 @@ class TestPickingInvoicing(TransactionCase):
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
         wizard.action_generate()
-        domain = [('picking_ids', '=', picking_devolution.id)]
+        domain = [("picking_ids", "=", picking_devolution.id)]
         invoice_devolution = self.invoice_model.search(domain)
         # Confirm Return Invoice
         invoice_devolution.action_invoice_open()
         self.assertEquals(
-            invoice_devolution.state, 'open',
-            'Invoice should be in state Open')
+            invoice_devolution.state, "open", "Invoice should be in state Open"
+        )
         # Check Invoice Type
         self.assertEquals(
-            invoice_devolution.type, 'in_refund',
-            'Invoice Type should be In Refund')
+            invoice_devolution.type, "in_refund", "Invoice Type should be In Refund"
+        )
+
