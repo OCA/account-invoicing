@@ -13,6 +13,15 @@ JOURNAL_TYPE_MAP = {
     ("incoming", "transit"): ["purchase", "sale"],
 }
 
+INVOICE_TYPE_MAP = {
+    ("outgoing", "internal"): "out_invoice",
+    ("incoming", "customer"): "out_refund",
+    ("incoming", "internal"): "in_invoice",
+    ("outgoing", "supplier"): "in_refund",
+    ("incoming", "transit"): "in_invoice",
+    ("outgoing", "transit"): "out_invoice",
+}
+
 
 class StockInvoiceOnshipping(models.TransientModel):
     _name = "stock.invoice.onshipping"
@@ -266,13 +275,17 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return: str
         """
         self.ensure_one()
-        journal2type = {
-            "sale": "out_invoice",
-            "purchase": "in_invoice",
-            "sale_refund": "out_refund",
-            "purchase_refund": "in_refund",
-        }
-        inv_type = journal2type.get(self.journal_type) or "out_invoice"
+
+        active_ids = self.env.context.get("active_ids", [])
+        if active_ids:
+            active_ids = active_ids[0]
+        picking = self.env["stock.picking"].browse(active_ids)
+
+        inv_type = (
+            INVOICE_TYPE_MAP.get((picking.picking_type_code, picking.location_id.usage))
+            or "out_invoice"
+        )
+
         return inv_type
 
     @api.model
