@@ -14,12 +14,14 @@ JOURNAL_TYPE_MAP = {
 }
 
 INVOICE_TYPE_MAP = {
-    ("outgoing", "internal"): "out_invoice",
-    ("incoming", "customer"): "out_refund",
-    ("incoming", "internal"): "in_invoice",
-    ("outgoing", "supplier"): "in_refund",
-    ("incoming", "transit"): "in_invoice",
-    ("outgoing", "transit"): "out_invoice",
+    # Picking Type Code | Local Origin Usage | Local Dest Usage
+    ("outgoing", "internal", "customer"): "out_invoice",
+    ("incoming", "customer", "internal"): "out_refund",
+    ("incoming", "supplier", "internal"): "in_invoice",
+    ("outgoing", "internal", "supplier"): "in_refund",
+    ("incoming", "transit", "internal"): "in_invoice",
+    ("outgoing", "transit", "supplier"): "in_refund",
+    ("outgoing", "transit", "customer"): "out_invoice",
 }
 
 
@@ -282,7 +284,13 @@ class StockInvoiceOnshipping(models.TransientModel):
         picking = self.env["stock.picking"].browse(active_ids)
 
         inv_type = (
-            INVOICE_TYPE_MAP.get((picking.picking_type_code, picking.location_id.usage))
+            INVOICE_TYPE_MAP.get(
+                (
+                    picking.picking_type_code,
+                    picking.location_id.usage,
+                    picking.location_dest_id.usage,
+                )
+            )
             or "out_invoice"
         )
 
