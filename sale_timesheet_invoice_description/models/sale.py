@@ -23,39 +23,65 @@ class SaleOrder(models.Model):
             ("011", _("Time spent - Description")),
         ]
 
+    def _get_timesheet_details(self, timesheet, desc_rule):
+        details = []
+        if desc_rule[0] == "1":
+            details.append(fields.Date.to_string(timesheet.date))
+        if desc_rule[1] == "1":
+            details.append(
+                "{} {}".format(timesheet.unit_amount, timesheet.product_uom_id.name)
+            )
+        if desc_rule[2] == "1":
+            details.append(timesheet.name)
+        return details
+
+    def _get_timesheet_description_list(self, timesheet_ids, desc_rule):
+        """Returns a list of timesheets description"""
+        desc_list = []
+        for timesheet_id in timesheet_ids:
+            details = self._get_timesheet_details(timesheet_id, desc_rule)
+            desc_list.append(" - ".join(map(lambda x: str(x) or "", details)))
+        return desc_list
+
+    def _create_invoices(
+        self, grouped=False, final=False, start_date=None, end_date=None
+    ):
+        """Override the native _create_invoice method in order to :
+        1. link the new invoices lines with their related timesheets
+        2. change their names consequently
+        """
+        # Additional condition to avoid beaking third party tests expecting to create
+        # invoices lines the standard way
+        is_third_party_test = config["test_enable"] and not self.env.context.get(
+            "test_timesheet_description"
+        )
+
+        moves = super()._create_invoices(grouped=grouped, final=final)
+        moves._link_timesheets_to_invoice_line(start_date=start_date, end_date=end_date)
+
+        for move_id in moves:
+            for aml in move_id.invoice_line_ids:
+                ts_ids = aml.timesheet_ids
+                desc_rule = aml.timesheet_invoice_description
+                desc_list = self._get_timesheet_description_list(ts_ids, desc_rule)
+                if (
+                    desc_list
+                    and desc_rule
+                    and desc_rule != "000"
+                    and not is_third_party_test
+                ):
+                    desc = "\n".join(map(lambda x: str(x) or "", desc_list))
+                    new_name = aml.name + "\n" + desc
+                    aml.write({"name": new_name})
+
+        return moves
+
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    def _prepare_invoice_line_details(self, line, desc_rule):
-        details = []
-        if desc_rule[0] == "1":
-            details.append(fields.Date.to_string(line.date))
-        if desc_rule[1] == "1":
-            details.append("{} {}".format(line.unit_amount, line.product_uom_id.name))
-        if desc_rule[2] == "1":
-            details.append(line.name)
-        return details
-
-    def _prepare_invoice_line(self):
-        res = super(SaleOrderLine, self)._prepare_invoice_line()
+    def _prepare_invoice_line(self, **optional_values):
+        res = super(SaleOrderLine, self)._prepare_invoice_line(**optional_values)
         desc_rule = self.order_id.timesheet_invoice_description
-        if not desc_rule or desc_rule == "000":
-            return res
-        note = []
-        domain = [("so_line", "=", self.id)]
-        last_invoice = self.invoice_lines.sorted(lambda x: x.create_date)[-1:]
-        if last_invoice:
-            last_date = fields.Datetime.to_string(last_invoice.create_date)
-            domain.append(("create_date", ">", last_date))
-        for line in self.env["account.analytic.line"].search(domain):
-            details = self._prepare_invoice_line_details(line, desc_rule)
-            note.append(u" - ".join(map(lambda x: str(x) or "", details)))
-        # This is for not breaking possible tests that expects to create the
-        # invoices lines the standard way
-        if note and (
-            not config["test_enable"]
-            or self.env.context.get("test_timesheet_description")
-        ):
-            res["name"] += "\n" + ("\n".join(map(lambda x: str(x) or "", note)))
+        res.update({"timesheet_invoice_description": desc_rule})
         return res
