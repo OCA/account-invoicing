@@ -789,6 +789,10 @@ class TestPickingInvoicing(SavepointCase):
         # Confirm Invoice
         invoice.action_post()
         self.assertEquals(invoice.state, "posted", "Invoice should be in state Posted")
+        # Check Invoice Type
+        self.assertEquals(
+            invoice.type, "out_invoice", "Invoice Type should be Out Invoice"
+        )
 
         # Return Picking
         return_wizard_form = Form(
@@ -849,7 +853,7 @@ class TestPickingInvoicing(SavepointCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -859,17 +863,21 @@ class TestPickingInvoicing(SavepointCase):
         domain = [("picking_ids", "=", picking.id)]
         invoice = self.invoice_model.search(domain)
         # Confirm Invoice
-        invoice.action_invoice_open()
-        self.assertEquals(invoice.state, "open", "Invoice should be in state Open")
+        invoice.action_post()
+        self.assertEquals(invoice.state, "posted", "Invoice should be in state Posted")
         # Check Invoice Type
         self.assertEquals(
             invoice.type, "in_invoice", "Invoice Type should be In Invoice"
         )
 
         # Return Picking
-        self.return_wizard = self.stock_return_picking.with_context(
-            dict(active_id=picking.id)
-        ).create(dict(invoice_state="2binvoiced"))
+        return_wizard_form = Form(
+            self.stock_return_picking.with_context(
+                dict(active_id=picking.id, active_model="stock.picking")
+            )
+        )
+        return_wizard_form.invoice_state = "2binvoiced"
+        self.return_wizard = return_wizard_form.save()
 
         result_wizard = self.return_wizard.create_returns()
         self.assertTrue(result_wizard, "Create returns wizard fail.")
@@ -901,12 +909,11 @@ class TestPickingInvoicing(SavepointCase):
         domain = [("picking_ids", "=", picking_devolution.id)]
         invoice_devolution = self.invoice_model.search(domain)
         # Confirm Return Invoice
-        invoice_devolution.action_invoice_open()
+        invoice_devolution.action_post()
         self.assertEquals(
-            invoice_devolution.state, "open", "Invoice should be in state Open"
+            invoice_devolution.state, "posted", "Invoice should be in state Posted"
         )
         # Check Invoice Type
         self.assertEquals(
             invoice_devolution.type, "in_refund", "Invoice Type should be In Refund"
         )
-
