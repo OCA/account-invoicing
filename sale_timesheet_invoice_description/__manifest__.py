@@ -6,11 +6,11 @@
 {
     "name": "Timesheet details invoice",
     "summary": "Add timesheet details in invoice line",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Sales Management",
     "license": "AGPL-3",
     "author": "Tecnativa, Odoo Community Association (OCA)",
-    "website": "https://www.tecnativa.com",
+    "website": "https://github.com/OCA/account-invoicing",
     "depends": ["sale_timesheet"],
     "data": ["views/sale_view.xml", "views/res_config_view.xml"],
     "installable": True,
