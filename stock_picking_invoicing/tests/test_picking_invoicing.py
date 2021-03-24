@@ -815,6 +815,9 @@ class TestPickingInvoicing(SavepointCase):
         invoice.action_invoice_open()
         self.assertEquals(
             invoice.state, 'open', 'Invoice should be in state Open')
+        # Check Invoice Type
+        self.assertEquals(
+            invoice.type, 'out_invoice', 'Invoice Type should be Out Invoice')
 
         # Return Picking
         self.return_wizard = self.stock_return_picking.with_context(
@@ -861,3 +864,80 @@ class TestPickingInvoicing(SavepointCase):
         self.assertEquals(
             invoice_devolution.type, 'out_refund',
             'Invoice Type should be Out Refund')
+
+    def test_return_supplier_picking(self):
+        """
+        Test Return Supplier Picking and Invoice created.
+        """
+        picking = self.env.ref(
+            'stock_picking_invoicing.stock_picking_invoicing_7')
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking.button_validate()
+        self.assertEqual(picking.state, 'done')
+        wizard_obj = self.invoice_wizard.with_context(
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
+        )
+        fields_list = wizard_obj.fields_get().keys()
+        wizard_values = wizard_obj.default_get(fields_list)
+        wizard = wizard_obj.create(wizard_values)
+        wizard.onchange_group()
+        wizard.action_generate()
+        domain = [('picking_ids', '=', picking.id)]
+        invoice = self.invoice_model.search(domain)
+        # Confirm Invoice
+        invoice.action_invoice_open()
+        self.assertEquals(
+            invoice.state, 'open', 'Invoice should be in state Open')
+        # Check Invoice Type
+        self.assertEquals(
+            invoice.type, 'in_invoice', 'Invoice Type should be In Invoice')
+
+        # Return Picking
+        self.return_wizard = self.stock_return_picking.with_context(
+            dict(active_id=picking.id)).create(
+            dict(invoice_state='2binvoiced'))
+
+        result_wizard = self.return_wizard.create_returns()
+        self.assertTrue(result_wizard, 'Create returns wizard fail.')
+        picking_devolution = self.env['stock.picking'].browse(
+            result_wizard.get('res_id'))
+
+        self.assertEqual(picking_devolution.invoice_state, '2binvoiced')
+        for line in picking_devolution.move_lines:
+            self.assertEqual(line.invoice_state, '2binvoiced')
+
+        picking_devolution.action_confirm()
+        picking_devolution.action_assign()
+        # Force product availability
+        for move in picking_devolution.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking_devolution.button_validate()
+        self.assertEquals(
+            picking_devolution.state, 'done',
+            'Change state fail.'
+        )
+        wizard_obj = self.invoice_wizard.with_context(
+            active_ids=picking_devolution.ids,
+            active_model=picking_devolution._name,
+            active_id=picking_devolution.id,
+        )
+        fields_list = wizard_obj.fields_get().keys()
+        wizard_values = wizard_obj.default_get(fields_list)
+        wizard = wizard_obj.create(wizard_values)
+        wizard.onchange_group()
+        wizard.action_generate()
+        domain = [('picking_ids', '=', picking_devolution.id)]
+        invoice_devolution = self.invoice_model.search(domain)
+        # Confirm Return Invoice
+        invoice_devolution.action_invoice_open()
+        self.assertEquals(
+            invoice_devolution.state, 'open',
+            'Invoice should be in state Open')
+        # Check Invoice Type
+        self.assertEquals(
+            invoice_devolution.type, 'in_refund',
+            'Invoice Type should be In Refund')
