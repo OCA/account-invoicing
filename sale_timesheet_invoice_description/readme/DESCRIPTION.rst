@@ -1,1 +1,1 @@
-Add timesheet details in invoice line to invoices related with timesheets.
+This module allows to add timesheets details on invoices.
