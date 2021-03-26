@@ -34,6 +34,12 @@ class AccountMove(models.Model):
                 timesheets = self.env["account.analytic.line"].sudo().search(domain)
                 timesheets.write({"timesheet_invoice_line_id": aml.id})
 
+    def _check_balanced(self):
+        if self.env.context.get("split_aml_by_timesheets"):
+            return
+
+        return super()._check_balanced()
+
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
@@ -48,6 +54,7 @@ class AccountMoveLine(models.Model):
 
     # Filled by sale order line's _prepare_invoice_line()
     timesheet_invoice_description = fields.Char("Timesheet Invoice Description")
+    timesheet_invoice_split = fields.Boolean("Split Order lines by timesheets")
 
     def _get_sale_line_delivery(self):
         return self.sale_line_ids.filtered(
