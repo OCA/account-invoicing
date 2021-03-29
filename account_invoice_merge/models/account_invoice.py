@@ -211,7 +211,7 @@ class AccountInvoice(models.Model):
         if 'timesheet_invoice_id' in anal_line_obj._fields:
             for new_invoice_id in invoices_info:
                 anal_todos = anal_line_obj.search(
-                    [('timesheet_invoice_id', 'in', old_ids)])
+                    [('timesheet_invoice_id', 'in', invoices_info[new_invoice_id])])
                 anal_todos.write({'timesheet_invoice_id': new_invoice_id})
 
         for new_invoice in allnewinvoices:
