@@ -208,11 +208,11 @@ class AccountInvoice(models.Model):
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
         anal_line_obj = self.env['account.analytic.line']
-        if 'invoice_id' in anal_line_obj._fields:
+        if 'timesheet_invoice_id' in anal_line_obj._fields:
             for new_invoice_id in invoices_info:
                 anal_todos = anal_line_obj.search(
-                    [('invoice_id', 'in', invoices_info[new_invoice_id])])
-                anal_todos.write({'invoice_id': new_invoice_id})
+                    [('timesheet_invoice_id', 'in', old_ids)])
+                anal_todos.write({'timesheet_invoice_id': new_invoice_id})
 
         for new_invoice in allnewinvoices:
             new_invoice.compute_taxes()
