@@ -28,6 +28,9 @@ class PurchaseBatchInvoicing(models.TransientModel):
         default="id",
         help="Make one invoice for each...",
     )
+    exclude_zero_qty = fields.Boolean(
+        help="Do not invoice lines with zero quantity."
+    )
 
     @api.model
     def _default_purchase_order_ids(self):
