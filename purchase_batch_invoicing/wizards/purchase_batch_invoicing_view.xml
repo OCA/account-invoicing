@@ -12,6 +12,7 @@
                     <group attrs="{'invisible': [('purchase_order_ids', '=', False)]}">
                         <field name="purchase_order_ids"/>
                         <field name="grouping"/>
+                        <field name="exclude_zero_qty"/>
                     </group>
                     <div attrs="{'invisible': [('purchase_order_ids', '!=', False)]}">
                         <p>No ready-to-invoice purchase orders selected.</p>
