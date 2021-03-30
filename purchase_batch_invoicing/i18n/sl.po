@@ -17,8 +17,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3;\n"
 "X-Generator: Weblate 3.10\n"
 
 #. module: purchase_batch_invoicing
@@ -57,7 +57,18 @@ msgid "Display Name"
 msgstr "Prikazni naziv"
 
 #. module: purchase_batch_invoicing
+#: model:ir.model.fields,help:purchase_batch_invoicing.field_purchase_batch_invoicing__exclude_zero_qty
+msgid "Do not invoice lines with zero quantity."
+msgstr ""
+
+#. module: purchase_batch_invoicing
+#: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__exclude_zero_qty
+msgid "Exclude Zero Qty"
+msgstr ""
+
+#. module: purchase_batch_invoicing
 #: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:111
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:116
 #, python-format
 msgid "Generated Invoices"
 msgstr "Ustvarjeni računi"
@@ -71,6 +82,11 @@ msgstr "Združevanje"
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing__id
 msgid "ID"
 msgstr "ID"
+
+#. module: purchase_batch_invoicing
+#: model:ir.model,name:purchase_batch_invoicing.model_account_invoice
+msgid "Invoice"
+msgstr ""
 
 #. module: purchase_batch_invoicing
 #: model:ir.actions.server,name:purchase_batch_invoicing.cron_ir_actions_server
@@ -101,6 +117,7 @@ msgstr "Ustvari po en račun za vsak..."
 
 #. module: purchase_batch_invoicing
 #: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:106
+#: code:addons/purchase_batch_invoicing/wizards/purchase_batch_invoicing.py:111
 #: model_terms:ir.ui.view,arch_db:purchase_batch_invoicing.wizard_purchase_batch_invoicing_view
 #, python-format
 msgid "No ready-to-invoice purchase orders selected."
