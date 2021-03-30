@@ -57,6 +57,23 @@ class PurchaseBatchInvoicingCase(SavepointCase):
                 }),
             ],
         })
+        cls.product2 = cls.env["product.product"].create({
+            "name": "Product 2",
+            "purchase_ok": True,
+            "type": "consu",
+            "list_price": 200,
+            "standard_price": 50,
+            "uom_id": cls.uom1.id,
+            "uom_po_id": cls.uom1.id,
+            "property_account_expense_id": cls.account1.id,
+            "seller_ids": [
+                (0, False, {
+                    "name": cls.vendor1.id,
+                    "min_qty": 1,
+                    "price": 50,
+                }),
+            ],
+        })
         cls.po1 = cls.env["purchase.order"].create({
             "partner_id": cls.vendor1.id,
             "order_line": [
@@ -80,6 +97,7 @@ class PurchaseBatchInvoicingCase(SavepointCase):
                 pl.qty_received = pl.product_qty
         cls.wizard = cls.env["purchase.batch_invoicing"].with_context(
             active_ids=cls.pos.ids).create(dict())
+        cls.expected_lines = False
 
     def check_created_invoices(self, result):
         """The invoices count and sum are OK."""
@@ -91,6 +109,9 @@ class PurchaseBatchInvoicingCase(SavepointCase):
         self.assertItemsEqual(
             self.expected_untaxed,
             invoices.mapped("amount_untaxed"))
+        if self.expected_lines:
+            self.assertEqual(len(invoices.mapped("invoice_line_ids")),
+                             self.expected_lines)
 
     @mock.patch(mock_ns + "._logger.debug")
     def check_cron(self, grouping, debug):
@@ -151,3 +172,52 @@ class PurchaseBatchInvoicingCase(SavepointCase):
     def test_wizard_creation_without_context(self):
         """Ensure default value for ``purchase_order_ids`` works."""
         self.env["purchase.batch_invoicing"].create({})
+
+    def invoice_line_partial_received(self, exclude_zero_qty=False):
+        po3 = self.env["purchase.order"].create({
+            "partner_id": self.vendor1.id,
+            "order_line": [
+                (0, False, {
+                    "product_id": self.product1.id,
+                    "name": self.product1.name,
+                    "product_qty": 1,
+                    "price_unit": 100,
+                    "product_uom": self.uom1.id,
+                    "date_planned": "2016-05-12",
+                }),
+                (0, False, {
+                    "product_id": self.product2.id,
+                    "name": self.product1.name,
+                    "product_qty": 10,
+                    "price_unit": 50,
+                    "product_uom": self.uom1.id,
+                    "date_planned": "2016-05-12",
+                }),
+            ],
+        })
+        po2 = self.po1.copy()
+        self.pos = self.po1 | po2 | po3
+        for po in self.pos:
+            # Confirm purchase order
+            po.button_confirm()
+            # Receive products
+            for pl in po.order_line.filtered(
+                lambda x: x.product_id == self.product1
+            ):
+                pl.qty_received = pl.product_qty
+        self.wizard = self.env["purchase.batch_invoicing"].with_context(
+            active_ids=self.pos.ids).create(dict())
+        self.expected_invoices = 1
+        self.expected_lines = 4
+        self.expected_untaxed = [300]
+        self.wizard.grouping = "partner_id"
+        self.wizard.exclude_zero_qty = exclude_zero_qty
+        if exclude_zero_qty:
+            self.expected_lines = 3
+        self.check_created_invoices(self.wizard.action_batch_invoice())
+
+    def test_invoice_line_partial_received_invoice_zero_qty(self):
+        self.invoice_line_partial_received()
+
+    def test_invoice_line_partial_received_not_invoice_zero_qty(self):
+        self.invoice_line_partial_received(exclude_zero_qty=True)
