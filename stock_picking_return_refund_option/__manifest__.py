@@ -11,8 +11,7 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["stock_account"],
+    "depends": ["stock_account", "purchase_stock", "sale_stock"],
     "data": ["views/stock_picking_view.xml"],
-    "pre_init_hook": "pre_init_hook",
     "maintainers": ["sergio-teruel"],
 }
