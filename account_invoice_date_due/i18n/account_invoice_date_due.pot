@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_date_due
+# 	* account_invoice_date_due
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,72 +19,16 @@ msgid "Allow to change due date"
 msgstr ""
 
 #. module: account_invoice_date_due
-#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.wizard_set_due_date
-msgid "Cancel"
+#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.view_move_form
+msgid "Due Date"
 msgstr ""
 
 #. module: account_invoice_date_due
-#: model:ir.actions.act_window,name:account_invoice_date_due.action_show_wizard_set_due_date
-msgid "Change due date"
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__invoice_date_due_payment_term
+msgid "Due Date Payment Term"
 msgstr ""
 
 #. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__create_uid
-msgid "Created by"
+#: model:ir.model,name:account_invoice_date_due.model_account_move
+msgid "Journal Entries"
 msgstr ""
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__create_date
-msgid "Created on"
-msgstr ""
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__id
-msgid "ID"
-msgstr ""
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__write_uid
-msgid "Last Updated by"
-msgstr ""
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__write_date
-msgid "Last Updated on"
-msgstr ""
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__date_due
-msgid "New Due Date"
-msgstr ""
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,help:account_invoice_date_due.field_account_invoice_set_due_date__date_due
-msgid "New date to be set to the invoice's due date."
-msgstr ""
-
-#. module: account_invoice_date_due
-#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.wizard_set_due_date
-msgid "Set Due Date"
-msgstr ""
-
-#. module: account_invoice_date_due
-#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.wizard_set_due_date
-msgid "Set a new due date on selected invoices."
-msgstr ""
-
-#. module: account_invoice_date_due
-#: model:ir.model,name:account_invoice_date_due.model_account_invoice_set_due_date
-msgid "Wizard to set due date"
-msgstr ""
-
