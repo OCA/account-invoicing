@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_date_due
+# 	* account_invoice_date_due
 #
 msgid ""
 msgstr ""
@@ -22,73 +22,60 @@ msgid "Allow to change due date"
 msgstr "Fälligkeitsdatum in Rechnungen ändern"
 
 #. module: account_invoice_date_due
-#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.wizard_set_due_date
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#. module: account_invoice_date_due
-#: model:ir.actions.act_window,name:account_invoice_date_due.action_show_wizard_set_due_date
-msgid "Change due date"
-msgstr "Fälligkeitsdatum ändern"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__create_uid
-msgid "Created by"
-msgstr "Erstellt von"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__create_date
-msgid "Created on"
-msgstr "Erstellt am"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__display_name
-msgid "Display Name"
-msgstr "Anzeigename"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__id
-msgid "ID"
-msgstr "ID"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date____last_update
-msgid "Last Modified on"
-msgstr "Zuletzt geändert am"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__write_uid
-msgid "Last Updated by"
-msgstr "Zuletzt aktualisiert von"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__write_date
-msgid "Last Updated on"
-msgstr "Zuletzt aktualisiert am"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__date_due
-msgid "New Due Date"
-msgstr "Neues Fälligkeitsdatum"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,help:account_invoice_date_due.field_account_invoice_set_due_date__date_due
-msgid "New date to be set to the invoice's due date."
+#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.view_move_form
+msgid "Due Date"
 msgstr ""
-"Dies ist das Datum, das als neues Fälligkeitsdatum der Rechnung gesetzt "
-"werden soll."
 
 #. module: account_invoice_date_due
-#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.wizard_set_due_date
-msgid "Set Due Date"
-msgstr "Fälligkeitsdatum ändern"
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__invoice_date_due_payment_term
+msgid "Due Date Payment Term"
+msgstr ""
 
 #. module: account_invoice_date_due
-#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.wizard_set_due_date
-msgid "Set a new due date on selected invoices."
-msgstr "Neues Fälligkeitsdatum bei den ausgewählten Rechnungen setzen."
+#: model:ir.model,name:account_invoice_date_due.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
-#. module: account_invoice_date_due
-#: model:ir.model,name:account_invoice_date_due.model_account_invoice_set_due_date
-msgid "Wizard to set due date"
-msgstr "Assistent für das Ändern des Fälligkeitsdatums"
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#~ msgid "Change due date"
+#~ msgstr "Fälligkeitsdatum ändern"
+
+#~ msgid "Created by"
+#~ msgstr "Erstellt von"
+
+#~ msgid "Created on"
+#~ msgstr "Erstellt am"
+
+#~ msgid "Display Name"
+#~ msgstr "Anzeigename"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Zuletzt geändert am"
+
+#~ msgid "Last Updated by"
+#~ msgstr "Zuletzt aktualisiert von"
+
+#~ msgid "Last Updated on"
+#~ msgstr "Zuletzt aktualisiert am"
+
+#~ msgid "New Due Date"
+#~ msgstr "Neues Fälligkeitsdatum"
+
+#~ msgid "New date to be set to the invoice's due date."
+#~ msgstr ""
+#~ "Dies ist das Datum, das als neues Fälligkeitsdatum der Rechnung gesetzt "
+#~ "werden soll."
+
+#~ msgid "Set Due Date"
+#~ msgstr "Fälligkeitsdatum ändern"
+
+#~ msgid "Set a new due date on selected invoices."
+#~ msgstr "Neues Fälligkeitsdatum bei den ausgewählten Rechnungen setzen."
+
+#~ msgid "Wizard to set due date"
+#~ msgstr "Assistent für das Ändern des Fälligkeitsdatums"
