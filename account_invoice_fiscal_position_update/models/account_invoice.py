@@ -51,6 +51,7 @@ class AccountMove(models.Model):
                 line.account_id = account.id
             else:
                 lines_without_product.append(line.name)
+        self._recompute_dynamic_lines(recompute_tax_base_amount=True)
 
         if lines_without_product:
             res["warning"] = {"title": _("Warning")}
