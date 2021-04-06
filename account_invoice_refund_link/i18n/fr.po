@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-11 02:41+0000\n"
-"PO-Revision-Date: 2021-03-25 18:46+0000\n"
+"PO-Revision-Date: 2021-04-06 23:46+0000\n"
 "Last-Translator: Yves Le Doeuff <yld@alliasys.fr>\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
 "Language: fr\n"
@@ -23,7 +23,7 @@ msgstr ""
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_move_reversal
 msgid "Account Move Reversal"
-msgstr "Annulation du mouvement de compte"
+msgstr "Contre passation d'écriture"
 
 #. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
@@ -38,12 +38,12 @@ msgstr ""
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_move_line
 msgid "Journal Item"
-msgstr "Article de journal"
+msgstr "Ecriture de journal"
 
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__origin_line_id
 msgid "Original invoice line"
-msgstr "Origine de cette ligne de facture"
+msgstr "Ligne de facture d'origine"
 
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__origin_line_id
