@@ -208,10 +208,20 @@ class TestAccountBilling(SavepointCase):
         self.assertEqual(bill2.invoice_related_count, 1)
 
     def test_6_check_billing_from_bills(self):
-        self.inv_1.move_type = "in_invoice"
-        self.inv_2.move_type = "in_invoice"
+        inv_1 = self.create_invoice(
+            amount=100,
+            currency_id=self.currency_eur_id,
+            partner=self.partner_id.id,
+            invoice_type="in_invoice",
+        )
+        if inv_1.state != "posted":
+            inv_1.action_post()
+        inv_2 = inv_1.copy()
+        if inv_2.state != "posted":
+            inv_2.action_post()
         ctx = {
-            "active_ids": [self.inv_1.id, self.inv_2.id],
+            "active_model": "account.move",
+            "active_ids": [inv_1.id, inv_2.id],
             "bill_type": "in_invoice",
         }
         vendor_billing = self.billing_model.with_context(ctx).create({})
