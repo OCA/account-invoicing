@@ -223,9 +223,11 @@ class TestAccountBilling(SavepointCase):
             partner=self.partner_id.id,
             invoice_type="in_invoice",
         )
-        inv_1.post()
+        if inv_1.state != "posted":
+            inv_1.post()
         inv_2 = inv_1.copy()
-        inv_2.post()
+        if inv_2.state != "posted":
+            inv_2.post()
         ctx = {
             "active_model": "account.move",
             "active_ids": [inv_1.id, inv_2.id],
