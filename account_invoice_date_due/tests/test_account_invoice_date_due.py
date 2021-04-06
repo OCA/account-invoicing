@@ -17,6 +17,7 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             {
                 "name": "Test User w/ access",
                 "login": "user_w_access",
+                "email": "somebody@somewhere.com",
                 "groups_id": [(6, 0, [group.id, acc_group.id])],
             }
         )
@@ -59,24 +60,47 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             line_form.account_id = account100
         self.move = move_form.save()
 
+    def _compare_records(self, rec1, rec2, ignore=None):
+        diff_fields = []
+        for field in rec1:
+            if field in ignore:
+                continue
+            if rec1[field] != rec2[field]:
+                diff_fields.append(field)
+        return set(diff_fields)
+
     def test_invoice_date_due_is_editable(self):
+        old_move_state = self.move.read()[0]
         move_edit_form = Form(self.move.with_user(self.user_w_access))
         ten_days_from_now = fields.Date.to_string(datetime.today() + timedelta(days=10))
         move_edit_form.invoice_date_due = ten_days_from_now
         self.move = move_edit_form.save()
-        self.assertEquals(
+        self.assertEqual(
+            self._compare_records(
+                old_move_state,
+                self.move.read()[0],
+                ignore={"write_uid", "message_is_follower"},
+            ),
+            # Assert only this field is changed
+            {"invoice_date_due_payment_term", "invoice_date_due"},
+        )
+        self.assertEqual(
             fields.Date.to_string(self.move.invoice_date_due), ten_days_from_now
         )
         # Post and should remain editable
         self.move.action_post()
+        old_move_state = self.move.read()[0]
         move_edit_form = Form(self.move.with_user(self.user_w_access))
         twenty_days_from_now = fields.Date.to_string(
             datetime.today() + timedelta(days=20)
         )
         move_edit_form.invoice_date_due = twenty_days_from_now
         self.move = move_edit_form.save()
+        self.assertEqual(
+            fields.Date.to_string(self.move.invoice_date_due), twenty_days_from_now
+        )
         # Check that the change has been propagated to the corresponding invoice line
-        self.assertEquals(
+        self.assertEqual(
             len(
                 self.move.line_ids.filtered(
                     lambda l: fields.Date.to_string(l.date_maturity)
@@ -85,6 +109,15 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
                 )
             ),
             1,
+        )
+        self.assertEqual(
+            self._compare_records(
+                old_move_state,
+                self.move.read()[0],
+                ignore={"write_uid", "message_is_follower", "message_ids"},
+            ),
+            # Assert only this field is changed
+            {"invoice_date_due_payment_term", "invoice_date_due"},
         )
 
     def test_invoice_date_due_is_editable_w_payment_term(self):
@@ -99,11 +132,12 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             datetime.today() + timedelta(days=20)
         )
         self.move.action_post()
+        old_move_state = self.move.read()[0]
         move_edit_form = Form(self.move.with_user(self.user_w_access))
         move_edit_form.invoice_date_due_payment_term = twenty_days_from_now
         self.move = move_edit_form.save()
         # Check that the change has been propagated to the corresponding invoice line
-        self.assertEquals(
+        self.assertEqual(
             len(
                 self.move.line_ids.filtered(
                     lambda l: fields.Date.to_string(l.date_maturity)
@@ -113,13 +147,22 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             ),
             1,
         )
+        self.assertEqual(
+            self._compare_records(
+                old_move_state,
+                self.move.read()[0],
+                ignore={"write_uid", "message_is_follower", "message_ids"},
+            ),
+            # Assert only this field is changed
+            {"invoice_date_due_payment_term", "invoice_date_due"},
+        )
 
     def test_invoice_date_due_is_not_editable_for_user_wo_access(self):
         move_edit_form = Form(self.move.with_user(self.user_wo_access))
         ten_days_from_now = fields.Date.to_string(datetime.today() + timedelta(days=10))
         move_edit_form.invoice_date_due = ten_days_from_now
         self.move = move_edit_form.save()
-        self.assertEquals(
+        self.assertEqual(
             fields.Date.to_string(self.move.invoice_date_due), ten_days_from_now
         )  # Should be editable while in draft
         # Post and should not be editable for this user
