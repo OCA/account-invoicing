@@ -5,6 +5,7 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
+from odoo import fields
 from odoo.exceptions import ValidationError
 from odoo.tests.common import SavepointCase
 
@@ -94,6 +95,7 @@ class TestAccountBilling(SavepointCase):
                 "partner_id": partner or self.partner_agrolait.id,
                 "currency_id": currency_id or self.currency_eur_id,
                 "move_type": invoice_type,
+                "invoice_date": fields.Date.today(),
                 "invoice_payment_term_id": self.payment_term.id,
                 "invoice_line_ids": [
                     [
@@ -217,6 +219,8 @@ class TestAccountBilling(SavepointCase):
         if inv_1.state != "posted":
             inv_1.action_post()
         inv_2 = inv_1.copy()
+        # Need to explicitly assign invoice date, not kept on copy
+        inv_2.invoice_date = fields.Date.today()
         if inv_2.state != "posted":
             inv_2.action_post()
         ctx = {
