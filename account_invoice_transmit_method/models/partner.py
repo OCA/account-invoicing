@@ -18,7 +18,6 @@ class ResPartner(models.Model):
     customer_invoice_transmit_method_code = fields.Char(
         related="customer_invoice_transmit_method_id.code",
         string="Customer Invoice Transmission Method Code",
-        readonly=True,
     )
     supplier_invoice_transmit_method_id = fields.Many2one(
         "transmit.method",
@@ -30,7 +29,6 @@ class ResPartner(models.Model):
     supplier_invoice_transmit_method_code = fields.Char(
         related="supplier_invoice_transmit_method_id.code",
         string="Vendor Invoice Reception Method Code",
-        readonly=True,
     )
 
     @api.model

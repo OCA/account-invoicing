@@ -22,13 +22,13 @@ class AccountMove(models.Model):
     # to show/display fields/buttons, add constraints, etc...
     transmit_method_code = fields.Char(related="transmit_method_id.code", store=True)
     transmit_method_domain_sale = fields.Boolean(
-        compute="_compute_transmit_method_domain", default=True
+        compute="_compute_transmit_method_domain"
     )
     transmit_method_domain_purchase = fields.Boolean(
-        compute="_compute_transmit_method_domain", default=True
+        compute="_compute_transmit_method_domain"
     )
 
-    @api.depends("type")
+    @api.depends("move_type")
     def _compute_transmit_method_domain(self):
         """Compute fields specific to the domain applied on transmit_method_id.
 
@@ -51,14 +51,14 @@ class AccountMove(models.Model):
 
     @api.onchange("partner_id", "company_id")
     def _transmit_method_partner_change(self):
-        if self.partner_id and self.type:
-            if self.type in ("out_invoice", "out_refund"):
+        if self.partner_id and self.move_type:
+            if self.move_type in ("out_invoice", "out_refund"):
                 self.transmit_method_id = (
-                    self.partner_id.customer_invoice_transmit_method_id.id or False
+                    self.partner_id.customer_invoice_transmit_method_id
                 )
             else:
                 self.transmit_method_id = (
-                    self.partner_id.supplier_invoice_transmit_method_id.id or False
+                    self.partner_id.supplier_invoice_transmit_method_id
                 )
         else:
             self.transmit_method_id = False
@@ -69,11 +69,11 @@ class AccountMove(models.Model):
         #       This override
         if (
             "transmit_method_id" not in vals
-            and vals.get("type")
+            and vals.get("move_type")
             and vals.get("partner_id")
         ):
             partner = self.env["res.partner"].browse(vals["partner_id"])
-            if vals["type"] in ("out_invoice", "out_refund"):
+            if vals["move_type"] in ("out_invoice", "out_refund"):
                 vals["transmit_method_id"] = (
                     partner.customer_invoice_transmit_method_id.id or False
                 )

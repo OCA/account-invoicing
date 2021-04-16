@@ -1,0 +1,4 @@
+odoo14-addon-base-view-inheritance-extension @ git+https://github.com/akretion/server-tools.git@14-mig-base_view_inheritance_extension#subdirectory=setup/base_view_inheritance_extension
+
+# Python Dependencies
+PyYAML
