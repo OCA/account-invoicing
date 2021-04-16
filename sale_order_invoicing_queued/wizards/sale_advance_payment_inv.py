@@ -27,10 +27,13 @@ class SaleAdvancePaymentInv(models.TransientModel):
             else:
                 # HACK: This is not exactly doing the same as upstream, as we
                 # apply fields over order, not invoice vals, but serves for
-                # standard case and most of the transferred fields
+                # standard case and most of the transferred fields mapping them.
+                # This is done this way for not needing to build 2 times the
+                # same vals dictionary.
+                field_mapping = {"partner_id": "partner_invoice_id"}
                 group_key = tuple(
                     [
-                        order[grouping_key]
+                        order[field_mapping.get(grouping_key, grouping_key)]
                         for grouping_key in order._get_invoice_grouping_keys()
                     ]
                 )
