@@ -41,7 +41,7 @@ addon | version | summary
 [purchase_batch_invoicing](purchase_batch_invoicing/) | 13.0.1.0.0 | Make invoices for all ready purchase orders
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 13.0.1.0.0 | Add an option to refund returned pickings
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 13.0.2.0.1 | Sales order invoicing grouping criteria
-[sale_order_invoicing_queued](sale_order_invoicing_queued/) | 13.0.2.0.0 | Enqueue sales order invoicing
+[sale_order_invoicing_queued](sale_order_invoicing_queued/) | 13.0.2.0.1 | Enqueue sales order invoicing
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 13.0.1.0.0 | Add timesheet details in invoice line
 
 [//]: # (end addons)
