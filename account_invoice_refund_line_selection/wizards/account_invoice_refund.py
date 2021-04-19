@@ -1,4 +1,5 @@
 # Copyright 2019 Creu Blanca
+# Copyright 2021 FactorLibre - César Castañón <cesar.castanon@factorlibre.com>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo import api, fields, models, _
@@ -12,15 +13,20 @@ class AccountInvoiceRefund(models.TransientModel):
 
     filter_refund = fields.Selection(selection_add=[('refund_lines',
                                                      "Refund specific lines")])
-    line_ids = fields.Many2many(string='Invoice lines to refund',
-                                comodel_name='account.invoice.line',
-                                column1='wiz_id',
-                                column2='line_id',
-                                relation='account_invoice_line_refund_rel',
-                                domain="[('id', 'in', "
-                                       "selectable_invoice_lines_ids)]")
+
+    line_ids = fields.Many2many(
+        string="Account Invoice Refund Line",
+        comodel_name='account.invoice.refund.line',
+        column1='wiz_id',
+        column2='line_id',
+        relation='account_invoice_refund_refund_line_rel',
+        domain="[('id', 'in', selectable_invoice_lines_ids)]"
+    )
+
     selectable_invoice_lines_ids = fields.Many2many(
-        'account.invoice.line', string='Invoice lines selectable')
+        comodel_name='account.invoice.refund.line',
+        string='Invoice lines selectable',
+    )
 
     @api.model
     def default_get(self, fields):
@@ -29,9 +35,35 @@ class AccountInvoiceRefund(models.TransientModel):
         active_id = context.get('active_id', False)
         if active_id:
             inv = self.env['account.invoice'].browse(active_id)
-            rec.update({'selectable_invoice_lines_ids':
-                        [(6, 0, inv.invoice_line_ids.ids)]})
+            if 'line_ids' in fields:
+                refund_line_model = self.env['account.invoice.refund.line']
+                vals = self._get_vals_from_account_invoice(inv)
+                line_ids = refund_line_model.create(vals)
+                rec.update({
+                    'selectable_invoice_lines_ids': [(6, 0, line_ids.ids)]
+                })
         return rec
+
+    def _get_vals_from_account_invoice(self, account_invoice):
+        invoice_lines = account_invoice.invoice_line_ids
+        lines_data = [
+            {
+                'name': line.name,
+                'invoice_id': line.invoice_id.id,
+                'product_id': line.product_id.id,
+                'quantity': line.quantity,
+                'price_unit': line.price_unit,
+                'discount': line.discount,
+                'invoice_line_tax_ids': [
+                    (6, 0, line.invoice_line_tax_ids.ids)
+                ],
+                'price_subtotal': line.price_subtotal,
+                'refund_invoice_id': self.id,
+                'origin_line_id': line.id
+            }
+            for line in invoice_lines
+        ]
+        return lines_data
 
     @api.multi
     def compute_refund(self, mode='refund'):
@@ -50,9 +82,13 @@ class AccountInvoiceRefund(models.TransientModel):
                                       'the draft/cancelled invoice.'))
                 date = form.date or False
                 description = form.description or inv.name
+                inv_line_ids = inv.invoice_line_ids.filtered(
+                    lambda l: l.id in form.line_ids.mapped(
+                        'origin_line_id').sorted('id').ids
+                )
                 refund = inv.refund_partial(form.date_invoice, date,
                                             description, inv.journal_id.id,
-                                            form.line_ids)
+                                            inv_line_ids, form.line_ids)
                 created_inv.append(refund.id)
 
                 xml_id = inv.type == \

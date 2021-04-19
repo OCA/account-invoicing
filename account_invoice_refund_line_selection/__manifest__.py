@@ -1,4 +1,5 @@
 # Copyright 2019 Creu Blanca
+# Copyright 2021 César Castañón <cesar.castanon@factorlibre.com>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {

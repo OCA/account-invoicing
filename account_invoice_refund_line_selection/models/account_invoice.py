@@ -1,4 +1,5 @@
 # Copyright 2019 Creu Blanca
+# Copyright 2021 FactorLibre - César Castañón <cesar.castanon@factorlibre.com>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo import api, fields, models, _
@@ -11,7 +12,7 @@ class AccountInvoice(models.Model):
     @api.multi
     @api.returns('self')
     def refund_partial(self, date_invoice=None, date=None, description=None,
-                       journal_id=None, lines_id=None):
+                       journal_id=None, lines_id=None, wizz_line_ids=None):
         new_invoices = self.browse()
         for invoice in self:
             # create the new invoice
@@ -21,6 +22,8 @@ class AccountInvoice(models.Model):
                                                   description=description,
                                                   journal_id=journal_id,
                                                   lines_id=lines_id)
+            values['invoice_line_ids'] = self._apply_changes_from_wizard(
+                values['invoice_line_ids'], wizz_line_ids)
             refund_invoice = self.create(values)
             refund_invoice.compute_taxes()
             invoice_type = {'out_invoice': 'customer invoices credit note',
@@ -69,3 +72,19 @@ class AccountInvoice(models.Model):
         if description:
             values['name'] = description
         return values
+
+    def _apply_changes_from_wizard(self, inv_lines_values, wizz_line_ids):
+        assert len(inv_lines_values) == len(wizz_line_ids)
+        for line, wizz_line in zip(inv_lines_values, wizz_line_ids):
+            line_vals = line[2]  # line is a tuple with (0, 0, {}) structure.
+            line_vals.update({
+                'name': wizz_line.name,
+                'product_id': wizz_line.product_id.id,
+                'quantity': wizz_line.quantity,
+                'price_unit': wizz_line.price_unit,
+                'discount': wizz_line.discount,
+                'invoice_line_tax_ids': [
+                    (6, 0, wizz_line.invoice_line_tax_ids.ids)
+                ],
+            })
+        return inv_lines_values
