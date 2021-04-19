@@ -63,14 +63,14 @@ addon | version | summary
 [account_payment_term_extension](account_payment_term_extension/) | 12.0.1.2.1 | Adds rounding, months, weeks and multiple payment days properties on payment term lines
 [account_portal_hide_invoice](account_portal_hide_invoice/) | 12.0.1.0.0 | Hide invoices on customer portal.
 [product_supplierinfo_for_customer_invoice](product_supplierinfo_for_customer_invoice/) | 12.0.1.0.0 | Based on product_customer_code, this module loads in every account invoice the customer code defined in the product
-[purchase_batch_invoicing](purchase_batch_invoicing/) | 12.0.1.1.0 | Make invoices for all ready purchase orders
+[purchase_batch_invoicing](purchase_batch_invoicing/) | 12.0.1.2.0 | Make invoices for all ready purchase orders
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 12.0.1.0.1 | Add an option to refund returned pickings
 [purchase_stock_picking_return_invoicing_force_invoiced](purchase_stock_picking_return_invoicing_force_invoiced/) | 12.0.1.0.0 | Glue module between purchase_force_invoiced and purchase_stock_picking_return_invoicing
 [sale_invoice_line_note](sale_invoice_line_note/) | 12.0.1.0.0 | Propagate sale order note lines to the invoice
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 12.0.1.0.0 | Sales order invoicing grouping criteria
 [sale_order_invoicing_queued](sale_order_invoicing_queued/) | 12.0.2.0.0 | Enqueue sales order invoicing
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 12.0.1.0.0 | Add timesheet details in invoice line
-[stock_picking_invoicing](stock_picking_invoicing/) | 12.0.2.1.4 | Stock Picking Invoicing
+[stock_picking_invoicing](stock_picking_invoicing/) | 12.0.3.1.0 | Stock Picking Invoicing
 [stock_picking_return_refund_option](stock_picking_return_refund_option/) | 12.0.1.0.0 | Update the refund options in pickings
 
 [//]: # (end addons)
