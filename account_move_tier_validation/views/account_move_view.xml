@@ -98,7 +98,7 @@
                 <filter
                     name="validation_not_started"
                     string="Validation Not Started"
-                    domain="[('reviewer_ids', 'in', []), ('state', 'not in', ['posted', 'cancel'])]"
+                    domain="[('reviewer_ids', '=', False), ('state', 'not in', ['posted', 'cancel'])]"
                     help="Invoices where validation has not started"
                 />
                 <filter
