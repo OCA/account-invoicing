@@ -43,6 +43,7 @@ addon | version | summary
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 13.0.2.0.1 | Sales order invoicing grouping criteria
 [sale_order_invoicing_queued](sale_order_invoicing_queued/) | 13.0.2.0.1 | Enqueue sales order invoicing
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 13.0.1.0.0 | Add timesheet details in invoice line
+[stock_picking_return_refund_option](stock_picking_return_refund_option/) | 13.0.1.0.0 | Update the refund options in pickings
 
 [//]: # (end addons)
 
