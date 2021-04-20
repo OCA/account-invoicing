@@ -262,6 +262,16 @@ class AccountMove(models.Model):
         for record in self:
             record._compute_amount_one()
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        """If we create the invoice with the discounts already set like from
+        a sales order, we must compute the global discounts as well"""
+        moves = super().create(vals_list)
+        move_with_global_discounts = moves.filtered("global_discount_ids")
+        for move in move_with_global_discounts:
+            move.with_context(check_move_validity=False)._onchange_invoice_line_ids()
+        return moves
+
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
