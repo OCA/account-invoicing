@@ -28,7 +28,10 @@ class AccountInvoice(models.Model):
             'product_id', 'account_id', 'account_analytic_id',
             'uom_id'
         ]
-        for field in ['sale_line_ids']:
+        for field in [
+                'sale_line_ids',        # odoo/sale
+                'purchase_price',       # OCA/account_invoice_margin
+        ]:
             if field in self.env['account.invoice.line']._fields:
                 fields.append(field)
         return fields
