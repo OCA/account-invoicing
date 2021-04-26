@@ -6,15 +6,15 @@ import datetime
 from odoo.tests.common import TransactionCase
 
 
-class TestAccountInvoiceRefundReason(TransactionCase):
+class TestAccountMoveRefundReason(TransactionCase):
     def setUp(self):
-        super(TestAccountInvoiceRefundReason, self).setUp()
+        super(TestAccountMoveRefundReason, self).setUp()
 
-        self.account_invoice_obj = self.env["account.invoice"]
+        self.account_move_obj = self.env["account.move"]
         self.account_obj = self.env["account.account"]
         self.journal_obj = self.env["account.journal"]
-        self.invoice_refund_obj = self.env["account.invoice.refund"]
-        self.reason_obj = self.env["account.invoice.refund.reason"]
+        self.invoice_refund_obj = self.env["account.move.reversal"]
+        self.reason_obj = self.env["account.move.refund.reason"]
 
         self.payment_term = self.env.ref("account.account_payment_term_advance")
         self.partner3 = self.env.ref("base.res_partner_3")
@@ -52,34 +52,32 @@ class TestAccountInvoiceRefundReason(TransactionCase):
             )
         ]
 
-        self.account_invoice_customer0 = self.account_invoice_obj.create(
+        self.account_invoice_customer0 = self.account_move_obj.create(
             dict(
                 name="Test Customer Invoice",
-                payment_term_id=self.payment_term.id,
+                invoice_payment_term_id=self.payment_term.id,
                 journal_id=self.journalrec.id,
                 partner_id=self.partner3.id,
-                account_id=self.account_rec1_id.id,
                 invoice_line_ids=invoice_line_data,
             )
         )
 
     def test_onchange_reason_id(self):
-        self.account_invoice_customer0.action_invoice_open()
 
         self.account_invoice_refund_0 = self.invoice_refund_obj.with_context(
             {"active_ids": self.account_invoice_customer0.ids}
         ).create(
             dict(
-                description="Credit Note",
+                reason="no reason",
                 date=datetime.date.today(),
-                filter_refund="refund",
+                refund_method="refund",
                 reason_id=self.reason_id.id,
             )
         )
         self.account_invoice_refund_0._onchange_reason_id()
         self.assertEqual(
-            self.account_invoice_refund_0.description,
+            self.account_invoice_refund_0.reason,
             self.account_invoice_refund_0.reason_id.name,
         )
-        self.account_invoice_refund_0.invoice_refund()
+        self.account_invoice_refund_0.reverse_moves()
         self.assertEqual(self.account_invoice_customer0.reason_id.id, self.reason_id.id)

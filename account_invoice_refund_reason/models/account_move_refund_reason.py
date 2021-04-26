@@ -4,8 +4,8 @@
 from odoo import fields, models
 
 
-class AccountInvoiceRefundReason(models.Model):
-    _name = "account.invoice.refund.reason"
-    _description = "Account Invoice refund Reasons"
+class AccountMoveRefundReason(models.Model):
+    _name = "account.move.refund.reason"
+    _description = "Account Move refund Reasons"
 
     name = fields.Char("Name", required=True, translate=True)
