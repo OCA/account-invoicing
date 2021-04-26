@@ -5,3 +5,4 @@
 * Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
 
   * Chanakya Soni <chanakya.soni@serpentcs.com>
+  * Freni Patel <fpatel@opensourceintegrators.com>
