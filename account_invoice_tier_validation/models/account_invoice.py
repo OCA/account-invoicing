@@ -17,7 +17,14 @@ class AccountInvoice(models.Model):
     def _get_under_validation_exceptions(self):
         res = super()._get_under_validation_exceptions()
         if self.env.context.get("invoice_tier_validation_allow_write"):
-            res += ["move_id", "date", "move_name", "date_due", "date_invoice"]
+            res += [
+                "move_id",
+                "date",
+                "move_name",
+                "date_due",
+                "date_invoice",
+                "reference"
+            ]
         return res
 
     @api.model
