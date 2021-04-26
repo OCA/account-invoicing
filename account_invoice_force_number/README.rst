@@ -23,7 +23,7 @@ Force Invoice Number
     :target: https://runbot.odoo-community.org/runbot/95/14.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This module allows to force the invoice numbering. It displays the move_name field.
 If user fills that field, the typed value will be used as invoice (and move) number.
