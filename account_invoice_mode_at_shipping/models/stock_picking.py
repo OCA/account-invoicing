@@ -1,7 +1,7 @@
 # Copyright 2020 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from odoo import models
+from odoo import _, models
 
 from odoo.addons.queue_job.job import job
 
@@ -45,7 +45,7 @@ class StockPicking(models.Model):
             invoices |= sales_many_invoice_per_order._create_invoices(grouped=False)
         for invoice in invoices:
             invoice.with_delay()._validate_invoice()
-        return invoices
+        return invoices or _("Nothing to invoice.")
 
     def _get_sales_order_to_invoice(self):
         return self.mapped("move_lines.sale_line_id.order_id").filtered(
