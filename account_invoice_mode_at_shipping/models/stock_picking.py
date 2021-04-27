@@ -28,7 +28,11 @@ class StockPicking(models.Model):
     @job(default_channel="root.invoice_at_shipping")
     def _invoicing_at_shipping(self):
         self.ensure_one()
-        sales = self._get_sales_order_to_invoice()
+        sales = self.env["sale.order"].browse()
+        # Filter out non invoicable sales order
+        for sale in self._get_sales_order_to_invoice():
+            if sale._get_invoiceable_lines():
+                sales |= sale
         # Split invoice creation on partner sales grouping on invoice settings
         sales_one_invoice_per_order = sales.filtered(
             "partner_invoice_id.one_invoice_per_order"
