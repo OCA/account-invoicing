@@ -28,9 +28,7 @@ class PurchaseBatchInvoicing(models.TransientModel):
         default="id",
         help="Make one invoice for each...",
     )
-    exclude_zero_qty = fields.Boolean(
-        help="Do not invoice lines with zero quantity."
-    )
+    exclude_zero_qty = fields.Boolean(help="Do not invoice lines with zero quantity.")
 
     @api.model
     def _default_purchase_order_ids(self):
@@ -110,7 +108,9 @@ class PurchaseBatchInvoicing(models.TransientModel):
             for po in pogroup:
                 invoice.currency_id = po.currency_id
                 invoice.purchase_id = po
-                invoice._onchange_purchase_auto_complete()
+                invoice.with_context(
+                    exclude_zero_qty=self.exclude_zero_qty
+                )._onchange_purchase_auto_complete()
             invoices |= invoices.create(invoice._convert_to_write(invoice._cache))
         if not invoices:
             raise UserError(_("No ready-to-invoice purchase orders selected."))
