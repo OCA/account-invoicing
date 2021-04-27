@@ -53,6 +53,20 @@ class PurchaseBatchInvoicingCase(SavepointCase):
                 ],
             }
         )
+        cls.product2 = cls.env["product.product"].create(
+            {
+                "name": "Product 2",
+                "purchase_ok": True,
+                "type": "consu",
+                "list_price": 200,
+                "standard_price": 50,
+                "uom_id": cls.uom1.id,
+                "uom_po_id": cls.uom1.id,
+                "seller_ids": [
+                    (0, False, {"name": cls.vendor1.id, "min_qty": 1, "price": 50}),
+                ],
+            }
+        )
         cls.po1 = cls.env["purchase.order"].create(
             {
                 "partner_id": cls.vendor1.id,
@@ -159,39 +173,50 @@ class PurchaseBatchInvoicingCase(SavepointCase):
         self.env["purchase.batch_invoicing"].create({})
 
     def invoice_line_partial_received(self, exclude_zero_qty=False):
-        po3 = self.env["purchase.order"].create({
-            "partner_id": self.vendor1.id,
-            "order_line": [
-                (0, False, {
-                    "product_id": self.product1.id,
-                    "name": self.product1.name,
-                    "product_qty": 1,
-                    "price_unit": 100,
-                    "product_uom": self.uom1.id,
-                    "date_planned": "2016-05-12",
-                }),
-                (0, False, {
-                    "product_id": self.product2.id,
-                    "name": self.product1.name,
-                    "product_qty": 10,
-                    "price_unit": 50,
-                    "product_uom": self.uom1.id,
-                    "date_planned": "2016-05-12",
-                }),
-            ],
-        })
+        po3 = self.env["purchase.order"].create(
+            {
+                "partner_id": self.vendor1.id,
+                "order_line": [
+                    (
+                        0,
+                        False,
+                        {
+                            "product_id": self.product1.id,
+                            "name": self.product1.name,
+                            "product_qty": 1,
+                            "price_unit": 100,
+                            "product_uom": self.uom1.id,
+                            "date_planned": "2016-05-12",
+                        },
+                    ),
+                    (
+                        0,
+                        False,
+                        {
+                            "product_id": self.product2.id,
+                            "name": self.product1.name,
+                            "product_qty": 10,
+                            "price_unit": 50,
+                            "product_uom": self.uom1.id,
+                            "date_planned": "2016-05-12",
+                        },
+                    ),
+                ],
+            }
+        )
         po2 = self.po1.copy()
         self.pos = self.po1 | po2 | po3
         for po in self.pos:
             # Confirm purchase order
             po.button_confirm()
             # Receive products
-            for pl in po.order_line.filtered(
-                lambda x: x.product_id == self.product1
-            ):
+            for pl in po.order_line.filtered(lambda x: x.product_id == self.product1):
                 pl.qty_received = pl.product_qty
-        self.wizard = self.env["purchase.batch_invoicing"].with_context(
-            active_ids=self.pos.ids).create(dict())
+        self.wizard = (
+            self.env["purchase.batch_invoicing"]
+            .with_context(active_ids=self.pos.ids)
+            .create(dict())
+        )
         self.expected_invoices = 1
         self.expected_lines = 4
         self.expected_untaxed = [300]
