@@ -26,6 +26,8 @@ setuptools.setup(
         'odoo13-addon-account_invoice_validation_queued',
         'odoo13-addon-account_invoice_warn_message',
         'odoo13-addon-account_menu_invoice_refund',
+        'odoo13-addon-account_move_exception',
+        'odoo13-addon-account_move_post_block',
         'odoo13-addon-account_move_tier_validation',
         'odoo13-addon-purchase_batch_invoicing',
         'odoo13-addon-purchase_stock_picking_return_invoicing',
