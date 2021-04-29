@@ -37,6 +37,8 @@ addon | version | summary
 [account_invoice_validation_queued](account_invoice_validation_queued/) | 13.0.2.0.0 | Enqueue account invoice validation
 [account_invoice_warn_message](account_invoice_warn_message/) | 13.0.1.0.0 | Add a popup warning on invoice to ensure warning is populated
 [account_menu_invoice_refund](account_menu_invoice_refund/) | 13.0.1.0.0 | New invoice menu that combine invoices and refunds
+[account_move_exception](account_move_exception/) | 13.0.1.0.0 | Custom exceptions on account move
+[account_move_post_block](account_move_post_block/) | 13.0.1.0.0 | Account Move Post Block
 [account_move_tier_validation](account_move_tier_validation/) | 13.0.1.0.3 | Extends the functionality of Account Moves to support a tier validation process.
 [purchase_batch_invoicing](purchase_batch_invoicing/) | 13.0.1.0.0 | Make invoices for all ready purchase orders
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 13.0.1.0.0 | Add an option to refund returned pickings
