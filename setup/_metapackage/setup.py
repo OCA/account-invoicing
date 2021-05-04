@@ -29,6 +29,7 @@ setuptools.setup(
         'odoo13-addon-account_move_exception',
         'odoo13-addon-account_move_post_block',
         'odoo13-addon-account_move_tier_validation',
+        'odoo13-addon-account_tax_group_widget_base_amount',
         'odoo13-addon-purchase_batch_invoicing',
         'odoo13-addon-purchase_stock_picking_return_invoicing',
         'odoo13-addon-sale_order_invoicing_grouping_criteria',
