@@ -38,6 +38,7 @@ class AccountInvoiceLine(models.Model):
         string="Original invoice line",
         help="Original invoice line to which this refund invoice line "
         "is referred to",
+        index=True,
         copy=False,
     )
     refund_line_ids = fields.One2many(
