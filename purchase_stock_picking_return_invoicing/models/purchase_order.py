@@ -1,5 +1,6 @@
 # Copyright 2017 Eficent Business and IT Consulting Services
 # Copyright 2018 Tecnativa - Pedro M. Baeza
+# Copyright 2021 Tecnativa - Carlos Dauden
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import collections
@@ -113,13 +114,20 @@ class PurchaseOrderLine(models.Model):
         store=True,
     )
 
-    @api.depends("invoice_lines.move_id.state", "invoice_lines.quantity")
+    @api.depends(
+        "invoice_lines.move_id.state",
+        "invoice_lines.move_id.avoid_compute_qty_invoiced",
+        "invoice_lines.quantity",
+    )
     def _compute_qty_refunded(self):
         for line in self:
             inv_lines = line.invoice_lines.filtered(
                 lambda x: (
-                    (x.move_id.type == "in_invoice" and x.quantity < 0.0)
-                    or (x.move_id.type == "in_refund" and x.quantity > 0.0)
+                    not x.move_id.avoid_compute_qty_invoiced
+                    and (
+                        (x.move_id.type == "in_invoice" and x.quantity < 0.0)
+                        or (x.move_id.type == "in_refund" and x.quantity > 0.0)
+                    )
                 )
             )
             line.qty_refunded = sum(
@@ -159,6 +167,24 @@ class PurchaseOrderLine(models.Model):
             line_qtys[line.id] += qty
         for line in self:
             line.qty_returned = line_qtys.get(line.id, 0)
+
+    @api.depends(
+        "invoice_lines.move_id.state",
+        "invoice_lines.move_id.avoid_compute_qty_invoiced",
+        "invoice_lines.quantity",
+    )
+    def _compute_qty_invoiced(self):
+        """ Overwrite to avoid compute qty_invoiced"""
+        res = super()._compute_qty_invoiced()
+        for line in self:
+            for inv_line in line.invoice_lines:
+                if not inv_line.move_id.avoid_compute_qty_invoiced:
+                    continue
+                if inv_line.move_id.type == "in_invoice":
+                    line.qty_invoiced -= inv_line.quantity
+                elif inv_line.move_id.type == "in_refund":
+                    line.qty_invoiced += inv_line.quantity
+        return res
 
     def _prepare_account_move_line(self, move):
         data = super()._prepare_account_move_line(move)

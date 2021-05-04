@@ -16,6 +16,10 @@
                     options="{'no_create': True, 'no_open': True}"
                 />
             </field>
+            <field name="invoice_source_email" position="after">
+                <field name="avoid_compute_qty_invoiced"
+                       attrs="{'invisible': [('type', 'not in', ('in_invoice', 'in_refund'))]}"/>
+                </field>
         </field>
     </record>
 </odoo>

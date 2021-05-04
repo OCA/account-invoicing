@@ -150,6 +150,10 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         self.assertEqual(action["res_id"], inv_1.id)
         action2 = self.po.action_view_invoice_refund()
         self.assertEqual(action2["res_id"], inv_2.id)
+        # Test avoid_compute_qty_invoiced
+        inv_2.avoid_compute_qty_invoiced = True
+        inv_2.flush()
+        self.check_values(self.po_line, 2, 3, 0, 5, "to invoice")
 
     def test_purchase_stock_return_2(self):
         """Test a PO with received and returned qty, and invoiced after.
