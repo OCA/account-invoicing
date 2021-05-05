@@ -48,11 +48,12 @@ class AccountMove(models.Model):
                     taxes = fp.map_tax(taxes)
 
                 line.tax_ids = [(6, 0, taxes.ids)]
+                line._onchange_mark_recompute_taxes()
 
                 line.account_id = account.id
             else:
                 lines_without_product.append(line.name)
-        self._recompute_dynamic_lines(recompute_tax_base_amount=True)
+        self.with_context(check_move_validity=False)._recompute_dynamic_lines()
 
         if lines_without_product:
             res["warning"] = {"title": _("Warning")}
