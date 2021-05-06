@@ -1,4 +1,5 @@
 # Copyright 2019-2020 Tecnativa - Pedro M. Baeza
+# Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import models
@@ -34,7 +35,9 @@ class SaleOrder(models.Model):
                 order_groups[group_key] += order
         moves = self.env["account.move"]
         for group in order_groups.values():
-            moves += super(SaleOrder, group)._create_invoices(
-                grouped=grouped, final=final
-            )
+            res = super(SaleOrder, group)._create_invoices(grouped=grouped, final=final)
+            # Be sure return account.move (it's possible to return MagicMock
+            # according test from other addons: sale_automatic_workflow)
+            if res._name == "account.move":
+                moves += res
         return moves
