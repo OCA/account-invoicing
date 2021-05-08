@@ -145,7 +145,13 @@ msgstr ""
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_move__global_discount_ids
+#: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
 msgid "Invoice Global Discounts"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move__global_discount_ids_readonly
+msgid "Invoice Global Discounts (readonly)"
 msgstr ""
 
 #. module: account_global_discount
