@@ -22,6 +22,7 @@ setuptools.setup(
         'odoo13-addon-account_invoice_section_sale_order',
         'odoo13-addon-account_invoice_supplier_ref_reuse',
         'odoo13-addon-account_invoice_supplier_ref_unique',
+        'odoo13-addon-account_invoice_tax_note',
         'odoo13-addon-account_invoice_transmit_method',
         'odoo13-addon-account_invoice_validation_queued',
         'odoo13-addon-account_invoice_warn_message',
