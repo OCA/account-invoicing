@@ -20,6 +20,7 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [account_billing](account_billing/) | 14.0.1.0.1 | Group invoice as billing before payment
+[account_invoice_check_total](account_invoice_check_total/) | 14.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_date_due](account_invoice_date_due/) | 14.0.1.0.0 | Update Invoice's Due Date
 [account_invoice_force_number](account_invoice_force_number/) | 14.0.1.0.0 | Allows to force invoice numbering on specific invoices
 [account_invoice_refund_link](account_invoice_refund_link/) | 14.0.1.0.0 | Show links between refunds and their originator invoices
