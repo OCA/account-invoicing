@@ -23,13 +23,14 @@
                         ('state', 'not in', ['draft'])]}"
                 />
             </xpath>
-            <xpath expr="//page[@id='other_tab']" position="inside">
-                <field
-                    name="post_block_id"
-                    attrs="{'readonly': [('state', 'not in', 'draft')],
-                            'invisible': [('post_block_id', '=', False)]}"
-                />
-                <field name="post_blocked" invisible="True" />
+            <xpath expr="//group[@name='payments_info_group']" position="after">
+                <group string="Post Block" name="post_block">
+                    <field
+                        name="post_block_id"
+                        attrs="{'readonly': [('state', 'not in', 'draft')]}"
+                    />
+                    <field name="post_blocked" invisible="True" />
+                </group>
             </xpath>
         </field>
     </record>
