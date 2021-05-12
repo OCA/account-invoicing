@@ -43,6 +43,11 @@ msgid "Active"
 msgstr ""
 
 #. module: account_move_post_block
+#: model_terms:ir.ui.view,arch_db:account_move_post_block.account_post_block_reason_form_view
+msgid "Archived"
+msgstr ""
+
+#. module: account_move_post_block
 #: model_terms:ir.ui.view,arch_db:account_move_post_block.view_account_move_filter
 msgid "Blocked for Post"
 msgstr ""
@@ -113,6 +118,11 @@ msgstr ""
 #. module: account_move_post_block
 #: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason__name
 msgid "Name"
+msgstr ""
+
+#. module: account_move_post_block
+#: model_terms:ir.ui.view,arch_db:account_move_post_block.view_move_form
+msgid "Post Block"
 msgstr ""
 
 #. module: account_move_post_block
