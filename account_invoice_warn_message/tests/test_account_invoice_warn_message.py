@@ -80,3 +80,30 @@ class TestAccountInvoiceWarnMessage(TransactionCase):
         self.assertEqual(
             invoice.invoice_warn_msg, self.warn_msg_parent + "\n" + self.warn_msg
         )
+
+    def test_compute_invoice_warn_msg_parent_but_not_partner(self):
+        self.partner.update({"invoice_warn": "no-message", "parent_id": self.parent.id})
+        invoice = (
+            self.env["account.move"]
+            .with_context(default_type="out_invoice")
+            .create(
+                {
+                    "type": "out_invoice",
+                    "partner_id": self.partner.id,
+                    "invoice_line_ids": [
+                        (
+                            0,
+                            0,
+                            {
+                                "product_id": self.env.ref(
+                                    "product.product_product_4"
+                                ).id,
+                                "quantity": 1,
+                                "price_unit": 42,
+                            },
+                        ),
+                    ],
+                }
+            )
+        )
+        self.assertEqual(invoice.invoice_warn_msg, self.warn_msg_parent)
