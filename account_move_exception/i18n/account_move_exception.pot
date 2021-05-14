@@ -73,7 +73,6 @@ msgstr ""
 
 #. module: account_move_exception
 #: model:ir.ui.menu,name:account_move_exception.menu_account_exception_parent
-#: model_terms:ir.ui.view,arch_db:account_move_exception.view_move_form
 msgid "Exceptions"
 msgstr ""
 
