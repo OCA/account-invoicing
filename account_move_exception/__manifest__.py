@@ -4,7 +4,7 @@
 {
     "name": "Account Move Exception",
     "summary": "Custom exceptions on account move",
-    "version": "13.0.1.0.0",
+    "version": "13.0.1.0.1",
     "category": "Generic Modules/Account",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
