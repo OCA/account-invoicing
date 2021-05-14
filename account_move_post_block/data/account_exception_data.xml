@@ -2,8 +2,9 @@
 <odoo>
     <record id="am_excep_post_block" model="exception.rule">
         <field name="name">Post Blocked</field>
-        <field name="description">The post has been blocked,
-                with a Blocking reason.</field>
+        <field
+            name="description"
+        >The post has been blocked with a Blocking reason</field>
         <field name="sequence">100</field>
         <!-- <field name="rule_group">account</field> -->
         <field name="model">account.move</field>
