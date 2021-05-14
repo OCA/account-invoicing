@@ -148,7 +148,5 @@ msgstr ""
 
 #. module: account_move_post_block
 #: model:exception.rule,description:account_move_post_block.am_excep_post_block
-msgid ""
-"The post has been blocked,\n"
-"                with a Blocking reason."
+msgid "The post has been blocked with a Blocking reason"
 msgstr ""
