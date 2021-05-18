@@ -11,5 +11,5 @@ def post_init_hook(cr, pool):
     Fetches all invoice and resets the sequence of their invoice line
     """
     env = Environment(cr, SUPERUSER_ID, {})
-    invoice = env['account.invoice'].search([])
+    invoice = env["account.invoice"].search([])
     invoice._reset_sequence()
