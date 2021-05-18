@@ -7,23 +7,28 @@ from odoo import api, fields, models
 
 
 class AccountInvoiceLine(models.Model):
-    _inherit = 'account.invoice.line'
+    _inherit = "account.invoice.line"
 
-    sequence = fields.Integer(help="Shows the sequence of this line in the "
-                              " invoice.", default=9999,
-                              string="original sequence")
+    sequence = fields.Integer(
+        help="Shows the sequence of this line in the " " invoice.",
+        default=9999,
+        string="original sequence",
+    )
 
     # shows sequence on the invoice line
-    sequence2 = fields.Integer(help="Shows the sequence of this line in the "
-                               " invoice.", related='sequence',
-                               string="Sequence", store=True)
+    sequence2 = fields.Integer(
+        help="Shows the sequence of this line in the " " invoice.",
+        related="sequence",
+        string="Sequence",
+        store=True,
+    )
 
 
 class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
+    _inherit = "account.invoice"
 
     @api.multi
-    @api.depends('invoice_line_ids')
+    @api.depends("invoice_line_ids")
     def _compute_max_line_sequence(self):
         """Allow to know the highest sequence entered in invoice lines.
         Then we add 1 to this value for the next sequence.
@@ -33,11 +38,12 @@ class AccountInvoice(models.Model):
         """
         for invoice in self:
             invoice.max_line_sequence = (
-                max(invoice.mapped('invoice_line_ids.sequence') or [0]) + 1)
+                max(invoice.mapped("invoice_line_ids.sequence") or [0]) + 1
+            )
 
-    max_line_sequence = fields.Integer(string='Max sequence in lines',
-                                       compute='_compute_max_line_sequence',
-                                       store=True)
+    max_line_sequence = fields.Integer(
+        string="Max sequence in lines", compute="_compute_max_line_sequence", store=True
+    )
 
     @api.multi
     def _reset_sequence(self):
