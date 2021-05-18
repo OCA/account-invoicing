@@ -6,8 +6,8 @@
 from odoo import api, fields, models
 
 
-class AccountInvoiceLine(models.Model):
-    _inherit = "account.invoice.line"
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
 
     sequence = fields.Integer(
         help="Shows the sequence of this line in the " " invoice.",
@@ -24,10 +24,9 @@ class AccountInvoiceLine(models.Model):
     )
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
-    @api.multi
     @api.depends("invoice_line_ids")
     def _compute_max_line_sequence(self):
         """Allow to know the highest sequence entered in invoice lines.
@@ -45,14 +44,15 @@ class AccountInvoice(models.Model):
         string="Max sequence in lines", compute="_compute_max_line_sequence", store=True
     )
 
-    @api.multi
     def _reset_sequence(self):
-        for rec in self:
-            for current_seq, line in enumerate(rec.invoice_line_ids, start=1):
+        # This part is just modifying sequences and so does not need a check
+        for rec in self.with_context(check_move_validity=False):
+            for current_seq, line in enumerate(
+                rec.invoice_line_ids.sorted("sequence"), start=1
+            ):
                 line.sequence = current_seq
 
-    @api.multi
     def write(self, values):
-        res = super(AccountInvoice, self).write(values)
+        res = super(AccountMove, self).write(values)
         self._reset_sequence()
         return res
