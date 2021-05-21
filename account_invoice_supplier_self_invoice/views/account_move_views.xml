@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="invoice_supplier_form" model="ir.ui.view">
-        <field name="name">account.invoice.supplier.form</field>
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_supplier_form" />
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
         <field name="priority">2</field>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
@@ -21,7 +21,7 @@
                     attrs="{'invisible':['|',('can_self_invoice','=',False),'|',('type','!=', 'in_invoice'), ('state','!=','draft')]}"
                 />
             </field>
-            <field name="reference" position="before">
+            <field name="invoice_payment_ref" position="before">
                 <field
                     name="self_invoice_number"
                     readonly="1"
