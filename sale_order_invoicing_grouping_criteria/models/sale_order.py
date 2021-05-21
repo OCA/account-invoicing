@@ -7,6 +7,16 @@ from odoo import models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    def _get_grouping_partner(self):
+        """
+        Get the partner who contains the grouping criteria.
+        On sale.order, the default should be the invoice address.
+        If not set, use the partner_id.
+        :return: res.partner recordset
+        """
+        self.ensure_one()
+        return self.partner_invoice_id or self.partner_id
+
     def _get_sale_invoicing_group_key(self):
         """Prepare extended grouping criteria for sales orders."""
         self.ensure_one()
@@ -15,8 +25,9 @@ class SaleOrder(models.Model):
             self.partner_invoice_id.id,
             self.currency_id.id,
         ]
+        partner = self._get_grouping_partner()
         criteria = (
-            self.partner_id.sale_invoicing_grouping_criteria_id
+            partner.sale_invoicing_grouping_criteria_id
             or self.company_id.default_sale_invoicing_grouping_criteria_id
         )
         for field in criteria.field_ids:
