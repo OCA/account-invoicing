@@ -11,7 +11,7 @@
     "depends": ["account"],
     "data": [
         "views/res_partner_views.xml",
-        "views/account_invoice_views.xml",
+        "views/account_move_views.xml",
         "views/report_self_invoice.xml",
     ],
     "installable": True,
