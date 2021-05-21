@@ -8,6 +8,7 @@ class TestSaleOrderInvoicingGroupingCriteria(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
         cls.partner2 = cls.env["res.partner"].create({"name": "Other partner"})
         cls.product = cls.env["product.product"].create(
