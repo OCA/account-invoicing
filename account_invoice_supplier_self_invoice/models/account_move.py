@@ -4,8 +4,8 @@
 from odoo import api, fields, models
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     self_invoice_number = fields.Char(readonly=True)
     set_self_invoice = fields.Boolean("Set self invoice")
@@ -13,13 +13,12 @@ class AccountInvoice(models.Model):
 
     @api.onchange("partner_id", "company_id")
     def _onchange_partner_id(self):
-        res = super(AccountInvoice, self)._onchange_partner_id()
+        res = super()._onchange_partner_id()
         self.set_self_invoice = self.partner_id.self_invoice
         return res
 
-    @api.multi
-    def invoice_validate(self):
-        res = super(AccountInvoice, self).invoice_validate()
+    def post(self):
+        res = super().post()
         for invoice in self:
             partner = invoice.partner_id
             if (
@@ -47,7 +46,7 @@ class AccountInvoice(models.Model):
                         vals[field] = invoice._fields[field].convert_to_write(
                             invoice[field], invoice
                         )
-        return super(AccountInvoice, self).create(vals)
+        return super().create(vals)
 
     def action_view_account_invoice_self(self):
         report = self.env["ir.actions.report"]._get_report_from_name(
