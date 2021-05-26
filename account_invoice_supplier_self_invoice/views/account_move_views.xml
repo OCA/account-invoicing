@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    type="object"
+                    name="action_view_account_invoice_self"
+                    string="Self Invoice"
+                    attrs="{'invisible':[('self_invoice_number','=',False)]}"
+                />
+            </xpath>
+            <field name="fiscal_position_id" position="after">
+                <field name="can_self_invoice" invisible="1" />
+                <field
+                    name="set_self_invoice"
+                    attrs="{'invisible':['|',('can_self_invoice','=',False),'|',('type','!=', 'in_invoice'), ('state','!=','draft')]}"
+                />
+            </field>
+            <field name="invoice_payment_ref" position="before">
+                <field
+                    name="self_invoice_number"
+                    readonly="1"
+                    attrs="{'invisible':[('state', '=', 'draft'), ('self_invoice_number', '=', False)]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
