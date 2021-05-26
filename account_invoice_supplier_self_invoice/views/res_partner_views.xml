@@ -16,13 +16,12 @@
                     readonly="1"
                     attrs="{'invisible': [('self_invoice', '=', False)]}"
                 />
-                <field name="supplier_rank" />
                 <button
                     string="Set Self invoice"
                     type="object"
                     name="set_self_invoice"
                     class="oe_highlight"
-                    attrs="{'readonly': [('supplier_rank', '=', 0)], 'invisible': [('self_invoice_sequence_id', '!=', False)]}"
+                    attrs="{'invisible': [('self_invoice_sequence_id', '!=', False)]}"
                 />
                 <field
                     name="self_invoice_report_footer"
