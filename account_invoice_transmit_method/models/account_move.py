@@ -24,10 +24,10 @@ class AccountMove(models.Model):
         related="transmit_method_id.code", store=True, string="Transmission Method Code"
     )
     transmit_method_domain_sale = fields.Boolean(
-        compute="_compute_transmit_method_domain", default=True
+        compute="_compute_transmit_method_domain",
     )
     transmit_method_domain_purchase = fields.Boolean(
-        compute="_compute_transmit_method_domain", default=True
+        compute="_compute_transmit_method_domain",
     )
 
     @api.depends("move_type")
