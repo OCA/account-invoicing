@@ -14,6 +14,7 @@ class ResPartner(models.Model):
         company_dependent=True,
         tracking=True,
         ondelete="restrict",
+        domain=[("customer_ok", "=", True)],
     )
     customer_invoice_transmit_method_code = fields.Char(
         related="customer_invoice_transmit_method_id.code",
@@ -25,6 +26,7 @@ class ResPartner(models.Model):
         company_dependent=True,
         tracking=True,
         ondelete="restrict",
+        domain=[("supplier_ok", "=", True)],
     )
     supplier_invoice_transmit_method_code = fields.Char(
         related="supplier_invoice_transmit_method_id.code",
