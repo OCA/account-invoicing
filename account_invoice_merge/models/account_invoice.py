@@ -99,6 +99,28 @@ class AccountInvoice(models.Model):
             list_key.sort()
             return tuple(list_key)
 
+        def link_lines(model):
+            invoice_line_obj = self.env['account.invoice.line']
+            if model in self.env.registry:
+                if model == "sale.order":
+                    order_field = 'invoice_line_ids.sale_line_ids.order_id'
+                elif model == "purchase.order":
+                    order_field = 'invoice_line_ids.purchase_line_id.order_id'
+                else:
+                    return
+
+                for new_invoice_id in invoices_info:
+                    order_todos = old_invoices.mapped(order_field)
+                    for original_order in order_todos:
+                        for order_line in original_order.order_line:
+                            invoice_lines = invoice_line_obj.search(
+                                [('id', 'in', order_line.invoice_lines.ids),
+                                 ('invoice_id', '=', new_invoice_id)])
+                            if invoice_lines:
+                                order_line.write(
+                                    {'invoice_lines': [
+                                        (6, 0, invoice_lines.ids)]})
+
         # compute what the new invoices should contain
         new_invoices = {}
         seen_origins = {}
@@ -189,21 +211,10 @@ class AccountInvoice(models.Model):
             old_invoices = self.env['account.invoice'].browse(old_ids)
             old_invoices.with_context(is_merge=True).action_invoice_cancel()
 
-        # Make link between original sale order
-        # None if sale is not installed
-        invoice_line_obj = self.env['account.invoice.line']
-        for new_invoice_id in invoices_info:
-            if 'sale.order' in self.env.registry:
-                sale_todos = old_invoices.mapped(
-                    'invoice_line_ids.sale_line_ids.order_id')
-                for org_so in sale_todos:
-                    for so_line in org_so.order_line:
-                        invoice_line = invoice_line_obj.search(
-                            [('id', 'in', so_line.invoice_lines.ids),
-                             ('invoice_id', '=', new_invoice_id)])
-                        if invoice_line:
-                            so_line.write(
-                                {'invoice_lines': [(6, 0, invoice_line.ids)]})
+        # Make link between original sale order and purchase order lines
+        # None if sale or purchase is not installed
+        link_lines("sale.order")
+        link_lines("purchase.order")
 
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
