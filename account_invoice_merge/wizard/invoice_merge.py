@@ -26,8 +26,8 @@ class InvoiceMerge(models.TransientModel):
         error_msg = {}
         if len(invoices) != len(invoices._get_draft_invoices()):
             error_msg['state'] = (
-                _('Megeable State (ex : %s)') %
-                (invoices and invoices[0].state or _('Draf')))
+                _('Mergeable State (ex : %s)') %
+                (invoices and invoices[0].state or _('Draft')))
         for field in key_fields:
             if len(set(invoices.mapped(field))) > 1:
                 error_msg[field] = invoices._fields[field].string
