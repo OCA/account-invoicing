@@ -32,7 +32,7 @@ class TestAccountInvoiceWarnMessage(TransactionCase):
             .with_context(default_type="out_invoice")
             .create(
                 {
-                    "type": "out_invoice",
+                    "move_type": "out_invoice",
                     "partner_id": self.partner.id,
                     "invoice_line_ids": [
                         (
@@ -59,7 +59,7 @@ class TestAccountInvoiceWarnMessage(TransactionCase):
             .with_context(default_type="out_invoice")
             .create(
                 {
-                    "type": "out_invoice",
+                    "move_type": "out_invoice",
                     "partner_id": self.partner.id,
                     "invoice_line_ids": [
                         (
