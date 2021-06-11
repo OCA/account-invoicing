@@ -19,7 +19,7 @@ class AccountMove(models.Model):
 
     def unlink(self):
         for move in self:
-            if move.move_name:
+            if move.move_name and not self.env.context.get("force_delete"):
                 raise UserError(
                     _(
                         """You cannot delete an invoice after it has been validated"""
