@@ -5,7 +5,7 @@ from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
+    _inherit = "account.invoice"
 
     @api.multi
     def _get_move_line(self):
@@ -15,13 +15,15 @@ class AccountInvoice(models.Model):
         :returns payable or receivable move line of the invoice
         """
         self.ensure_one()
-        type_receivable = self.env.ref('account.data_account_type_receivable')
-        type_payable = self.env.ref('account.data_account_type_payable')
+        type_receivable = self.env.ref("account.data_account_type_receivable")
+        type_payable = self.env.ref("account.data_account_type_payable")
         user_type_id_list = [type_receivable.id, type_payable.id]
-        return self.env['account.move.line'].search([
-            ('account_id.user_type_id', 'in', user_type_id_list),
-            ('invoice_id', '=', self.id)
-        ])
+        return self.env["account.move.line"].search(
+            [
+                ("account_id.user_type_id", "in", user_type_id_list),
+                ("invoice_id", "=", self.id),
+            ]
+        )
 
     @api.multi
     def _update_blocked(self, value):
@@ -33,7 +35,7 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         if self.move_id:
             move_line_ids = self._get_move_line()
-            move_line_ids.write({'blocked': value})
+            move_line_ids.write({"blocked": value})
 
     @api.multi
     def _inverse_move_blocked(self):
@@ -57,7 +59,7 @@ class AccountInvoice(models.Model):
             invoice._update_blocked(invoice.draft_blocked)
         return res
 
-    @api.depends('move_id')
+    @api.depends("move_id")
     def _compute_move_blocked(self):
         """
         This method set the value of the field 'invoice.blocked' to True
@@ -69,15 +71,15 @@ class AccountInvoice(models.Model):
                 continue
 
             move_lines = invoice._get_move_line()
-            invoice.blocked = all(
-                (line.blocked for line in move_lines)
-            ) if move_lines else False
+            invoice.blocked = (
+                all(line.blocked for line in move_lines) if move_lines else False
+            )
 
     blocked = fields.Boolean(
-        'No Follow-up',
-        states={'draft': [('readonly', True)]},
-        compute='_compute_move_blocked',
-        inverse='_inverse_move_blocked'
+        "No Follow-up",
+        states={"draft": [("readonly", True)]},
+        compute="_compute_move_blocked",
+        inverse="_inverse_move_blocked",
     )
 
     draft_blocked = fields.Boolean(
