@@ -5,9 +5,8 @@ from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+    _inherit = "account.move"
 
-    @api.multi
     def _get_move_line(self):
         """
         This method searches for payable or receivable move line
@@ -17,15 +16,9 @@ class AccountInvoice(models.Model):
         self.ensure_one()
         type_receivable = self.env.ref("account.data_account_type_receivable")
         type_payable = self.env.ref("account.data_account_type_payable")
-        user_type_id_list = [type_receivable.id, type_payable.id]
-        return self.env["account.move.line"].search(
-            [
-                ("account_id.user_type_id", "in", user_type_id_list),
-                ("invoice_id", "=", self.id),
-            ]
-        )
+        user_type = type_receivable | type_payable
+        return self.line_ids.filtered(lambda r: r.account_id.user_type_id in user_type)
 
-    @api.multi
     def _update_blocked(self, value):
         """
         This method updates the boolean field 'blocked' of the move line
@@ -33,11 +26,9 @@ class AccountInvoice(models.Model):
         :param value: value to set to the 'blocked' field of the move line
         """
         self.ensure_one()
-        if self.move_id:
-            move_line_ids = self._get_move_line()
-            move_line_ids.write({"blocked": value})
+        move_line_ids = self._get_move_line()
+        move_line_ids.write({"blocked": value})
 
-    @api.multi
     def _inverse_move_blocked(self):
         """
         Inverse method of the computed field 'blocked'
@@ -47,31 +38,15 @@ class AccountInvoice(models.Model):
         for invoice in self:
             invoice._update_blocked(invoice.blocked)
 
-    @api.multi
-    def action_move_create(self):
-        """
-        This method overrides the invoice's move line creation
-        This method calls the update of the invoice's move lines based on
-        the value of the field 'draft_blocked'
-        """
-        res = super(AccountInvoice, self).action_move_create()
-        for invoice in self:
-            invoice._update_blocked(invoice.draft_blocked)
-        return res
-
-    @api.depends("move_id")
+    @api.depends("line_ids", "line_ids.blocked")
     def _compute_move_blocked(self):
         """
-        This method set the value of the field 'invoice.blocked' to True
-        If every line of the invoice's move is actualy blocked
+        This method set the value of the field 'blocked' to True
+        If every line of the move is actually blocked
         """
-        for invoice in self:
-            if not invoice.move_id:
-                invoice.blocked = False
-                continue
-
-            move_lines = invoice._get_move_line()
-            invoice.blocked = (
+        for move in self:
+            move_lines = move._get_move_line()
+            move.blocked = (
                 all(line.blocked for line in move_lines) if move_lines else False
             )
 
@@ -80,8 +55,4 @@ class AccountInvoice(models.Model):
         states={"draft": [("readonly", True)]},
         compute="_compute_move_blocked",
         inverse="_inverse_move_blocked",
-    )
-
-    draft_blocked = fields.Boolean(
-        help="This flag facilitates the blocking of the invoice's move lines."
     )
