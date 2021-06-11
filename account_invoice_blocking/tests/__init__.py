@@ -1,1 +1,1 @@
-from . import test_account_invoice_blocking
+from . import test_account_move_blocking
