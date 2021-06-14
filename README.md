@@ -64,7 +64,7 @@ addon | version | summary
 [account_portal_hide_invoice](account_portal_hide_invoice/) | 12.0.1.0.0 | Hide invoices on customer portal.
 [product_supplierinfo_for_customer_invoice](product_supplierinfo_for_customer_invoice/) | 12.0.1.0.0 | Based on product_customer_code, this module loads in every account invoice the customer code defined in the product
 [purchase_batch_invoicing](purchase_batch_invoicing/) | 12.0.1.2.0 | Make invoices for all ready purchase orders
-[purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 12.0.1.0.1 | Add an option to refund returned pickings
+[purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 12.0.1.0.2 | Add an option to refund returned pickings
 [purchase_stock_picking_return_invoicing_force_invoiced](purchase_stock_picking_return_invoicing_force_invoiced/) | 12.0.1.0.0 | Glue module between purchase_force_invoiced and purchase_stock_picking_return_invoicing
 [sale_invoice_line_note](sale_invoice_line_note/) | 12.0.1.0.0 | Propagate sale order note lines to the invoice
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 12.0.1.0.0 | Sales order invoicing grouping criteria
