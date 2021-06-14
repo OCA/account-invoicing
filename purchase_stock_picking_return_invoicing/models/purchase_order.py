@@ -92,6 +92,8 @@ class PurchaseOrder(models.Model):
     def action_view_invoice(self):
         """Change super action for displaying only normal invoices."""
         result = super(PurchaseOrder, self).action_view_invoice()
+        if self.env.context.get("create_bill", False):
+            return result
         invoices = self.invoice_ids.filtered(
             lambda x: x.type == 'in_invoice'
         )
