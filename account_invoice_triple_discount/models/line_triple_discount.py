@@ -79,6 +79,14 @@ class LineTripleDiscount (models.AbstractModel):
         this method is called multiple times.
         Updating the cache provides consistency through recomputations."""
         prev_values = dict()
+
+        # The newly computed discount might have
+        # more digits than allowed from field's precision,
+        # so let's increase it just for saving it correctly in cache
+        discount_field = self._fields['discount']
+        discount_original_digits = discount_field._digits
+        discount_field._digits = (16, 10)
+
         for line in self:
             prev_values[line] = dict(
                 discount=line.discount,
@@ -90,6 +98,9 @@ class LineTripleDiscount (models.AbstractModel):
                 'discount2': 0.0,
                 'discount3': 0.0
             })
+
+        # Restore discount field's precision
+        discount_field._digits = discount_original_digits
         return prev_values
 
     @api.model

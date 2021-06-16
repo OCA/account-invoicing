@@ -103,3 +103,32 @@ class TestInvoiceTripleDiscount(SavepointCase):
             })],
         })
         self.assertEqual(invoice.invoice_line_ids.price_subtotal, 706.88)
+
+    def test_increased_precision(self):
+        """
+        Check that final discount is computed correctly
+        when final discount's precision exceeds
+        discount field's allowed precision.
+        """
+        invoice_line = self.invoice_line1
+        discount_field = invoice_line._fields['discount']
+        self.assertEqual(discount_field.digits[1], 2)
+        invoice_line.discount = 45.0
+        invoice_line.discount2 = 10.0
+        invoice_line.discount3 = 5.0
+
+        self.assertAlmostEqual(
+            invoice_line._get_final_discount(),
+            52.975,
+            places=3,
+        )
+        invoice_line.triple_discount_preprocess()
+
+        # Check that the line's discount still has all the 3 digits
+        self.assertAlmostEqual(
+            invoice_line.discount,
+            52.975,
+            places=3,
+        )
+        # Check that field's precision is not changed
+        self.assertEqual(discount_field.digits[1], 2)
