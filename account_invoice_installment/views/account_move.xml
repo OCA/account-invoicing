@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Eder Brito
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="installment_view_move_form">
+        <field name="name">installment.account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@id='aml_tab']" position="after">
+                <page
+                    name="installments_tab"
+                    string="Installments"
+                    attrs="{'invisible': [('receivable_move_line_ids','=',[]), ('payable_move_line_ids','=',[])]}"
+                >
+                    <group
+                        name="installment_receivables"
+                        attrs="{'invisible':[('receivable_move_line_ids','=',[])]}"
+                    >
+                        <field name="receivable_move_line_ids">
+                            <tree
+                                default_order="date_maturity"
+                                decoration-danger="date_maturity&lt;current_date and reconciled==False"
+                                decoration-muted="reconciled==True"
+                                nolabel="1"
+                            >
+                                <field name="date_maturity" />
+                                <field name="name" />
+                                <field name="ref" />
+                                <field name="debit" />
+                                <field name="credit" />
+                                <field name="reconciled" string="Received" />
+                            </tree>
+                        </field>
+                    </group>
+                    <group
+                        name="installment_payables"
+                        attrs="{'invisible':[('payable_move_line_ids','=',[])]}"
+                    >
+                        <field name="payable_move_line_ids">
+                            <tree
+                                default_order="date_maturity"
+                                decoration-danger="date_maturity&lt;current_date and reconciled==False"
+                                decoration-muted="reconciled==True"
+                                nolabel="1"
+                            >
+                                <field name="date_maturity" />
+                                <field name="name" />
+                                <field name="ref" />
+                                <field name="debit" />
+                                <field name="credit" />
+                                <field name="reconciled" string="Paid" />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
