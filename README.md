@@ -43,7 +43,7 @@ addon | version | summary
 [account_menu_invoice_refund](account_menu_invoice_refund/) | 13.0.1.0.0 | New invoice menu that combine invoices and refunds
 [account_move_exception](account_move_exception/) | 13.0.1.0.1 | Custom exceptions on account move
 [account_move_post_block](account_move_post_block/) | 13.0.1.0.2 | Account Move Post Block
-[account_move_tier_validation](account_move_tier_validation/) | 13.0.1.0.3 | Extends the functionality of Account Moves to support a tier validation process.
+[account_move_tier_validation](account_move_tier_validation/) | 13.0.1.0.4 | Extends the functionality of Account Moves to support a tier validation process.
 [account_tax_group_widget_base_amount](account_tax_group_widget_base_amount/) | 13.0.1.0.0 | Adds base to tax group widget as it's put in the report
 [purchase_batch_invoicing](purchase_batch_invoicing/) | 13.0.1.0.1 | Make invoices for all ready purchase orders
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 13.0.1.0.0 | Add an option to refund returned pickings
