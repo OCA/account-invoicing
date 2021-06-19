@@ -104,7 +104,6 @@ class TestAccountInvoiceInstallment(common.TransactionCase):
             }
         )
 
-        self.invoice_in.action_post()
         self.invoice_in._compute_receivable_move_line_ids()
 
         self.invoice_out = self.env["account.move"].create(
@@ -115,7 +114,6 @@ class TestAccountInvoiceInstallment(common.TransactionCase):
             }
         )
 
-        self.invoice_out.action_post()
         self.invoice_out._compute_payable_move_line_ids()
 
         self.assertTrue(self.invoice_out.receivable_move_line_ids)
