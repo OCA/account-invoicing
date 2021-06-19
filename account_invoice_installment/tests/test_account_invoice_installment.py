@@ -96,28 +96,30 @@ class TestAccountInvoiceInstallment(common.TransactionCase):
                 },
             ),
         ]
-        cls.invoice_in = cls.env["account.move"].create(
-            {
-                "partner_id": cls.partner.id,
-                "move_type": "in_invoice",
-                "invoice_line_ids": cls.in_move_lines,
-            }
-        )
-
-        cls.invoice_in.action_post()
-        cls.invoice_in._compute_receivable_move_line_ids()
-
-        cls.invoice_out = cls.env["account.move"].create(
-            {
-                "partner_id": cls.partner.id,
-                "move_type": "out_invoice",
-                "invoice_line_ids": cls.out_move_lines,
-            }
-        )
-
-        cls.invoice_out.action_post()
-        cls.invoice_out._compute_payable_move_line_ids()
 
     def _test_installment(self):
+
+        self.invoice_in = self.env["account.move"].create(
+            {
+                "partner_id": self.partner.id,
+                "move_type": "in_invoice",
+                "invoice_line_ids": self.in_move_lines,
+            }
+        )
+
+        self.invoice_in.action_post()
+        self.invoice_in._compute_receivable_move_line_ids()
+
+        self.invoice_out = self.env["account.move"].create(
+            {
+                "partner_id": self.partner.id,
+                "move_type": "out_invoice",
+                "invoice_line_ids": self.out_move_lines,
+            }
+        )
+
+        self.invoice_out.action_post()
+        self.invoice_out._compute_payable_move_line_ids()
+
         self.assertTrue(self.invoice_out.receivable_move_line_ids)
         self.assertTrue(self.invoice_in.payable_move_line_ids)
