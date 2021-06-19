@@ -4,51 +4,50 @@ from odoo.tests import common
 
 
 class TestAccountInvoiceInstallment(common.TransactionCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        account100 = cls.env["account.account"].create(
+    def test_installment(self):
+
+        account100 = self.env["account.account"].create(
             {
                 "code": "100",
                 "name": "Account 100",
-                "user_type_id": cls.env.ref("account.data_account_type_receivable").id,
+                "user_type_id": self.env.ref("account.data_account_type_receivable").id,
                 "reconcile": True,
             }
         )
-        account200 = cls.env["account.account"].create(
+        account200 = self.env["account.account"].create(
             {
                 "code": "200",
                 "name": "Account 200",
-                "user_type_id": cls.env.ref("account.data_account_type_payable").id,
+                "user_type_id": self.env.ref("account.data_account_type_payable").id,
                 "reconcile": True,
             }
         )
-        account300 = cls.env["account.account"].create(
+        account300 = self.env["account.account"].create(
             {
                 "code": "300",
                 "name": "Account 300",
-                "user_type_id": cls.env.ref("account.data_account_type_expenses").id,
+                "user_type_id": self.env.ref("account.data_account_type_expenses").id,
                 "reconcile": True,
             }
         )
-        account400 = cls.env["account.account"].create(
+        account400 = self.env["account.account"].create(
             {
                 "code": "400",
                 "name": "Account 400",
-                "user_type_id": cls.env.ref("account.data_account_type_revenue").id,
+                "user_type_id": self.env.ref("account.data_account_type_revenue").id,
                 "reconcile": True,
             }
         )
-        cls.partner_id = cls.env.ref("base.res_partner_12").id
-        cls.env["account.journal"].create(
+        self.partner_id = self.env.ref("base.res_partner_12").id
+        self.env["account.journal"].create(
             {
                 "name": "Journal 1",
                 "code": "J1",
                 "type": "sale",
-                "company_id": cls.env.user.company_id.id,
+                "company_id": self.env.user.company_id.id,
             }
         )
-        cls.in_move_lines = [
+        self.in_move_lines = [
             (
                 0,
                 False,
@@ -57,7 +56,7 @@ class TestAccountInvoiceInstallment(common.TransactionCase):
                     "account_id": account200.id,
                     "quantity": 1.0,
                     "credit": 100.0,
-                    "partner_id": cls.partner_id,
+                    "partner_id": self.partner_id,
                 },
             ),
             (
@@ -68,11 +67,11 @@ class TestAccountInvoiceInstallment(common.TransactionCase):
                     "account_id": account300.id,
                     "quantity": 1.0,
                     "debit": 100.0,
-                    "partner_id": cls.partner_id,
+                    "partner_id": self.partner_id,
                 },
             ),
         ]
-        cls.out_move_lines = [
+        self.out_move_lines = [
             (
                 0,
                 False,
@@ -81,7 +80,7 @@ class TestAccountInvoiceInstallment(common.TransactionCase):
                     "account_id": account100.id,
                     "quantity": 1.0,
                     "credit": 100.0,
-                    "partner_id": cls.partner_id,
+                    "partner_id": self.partner_id,
                 },
             ),
             (
@@ -92,12 +91,10 @@ class TestAccountInvoiceInstallment(common.TransactionCase):
                     "account_id": account400.id,
                     "quantity": 1.0,
                     "debit": 100.0,
-                    "partner_id": cls.partner_id,
+                    "partner_id": self.partner_id,
                 },
             ),
         ]
-
-    def test_installment(self):
 
         self.invoice_in = self.env["account.move"].create(
             {
