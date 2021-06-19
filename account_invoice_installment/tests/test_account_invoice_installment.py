@@ -98,7 +98,7 @@ class TestAccountInvoiceInstallment(common.TransactionCase):
 
         self.invoice_in = self.env["account.move"].create(
             {
-                "partner_id": self.partner.id,
+                "partner_id": self.partner_id,
                 "move_type": "in_invoice",
                 "invoice_line_ids": self.in_move_lines,
             }
@@ -109,7 +109,7 @@ class TestAccountInvoiceInstallment(common.TransactionCase):
 
         self.invoice_out = self.env["account.move"].create(
             {
-                "partner_id": self.partner.id,
+                "partner_id": self.partner_id,
                 "move_type": "out_invoice",
                 "invoice_line_ids": self.out_move_lines,
             }
