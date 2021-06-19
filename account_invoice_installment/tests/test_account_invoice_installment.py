@@ -97,7 +97,7 @@ class TestAccountInvoiceInstallment(common.TransactionCase):
             ),
         ]
 
-    def _test_installment(self):
+    def test_installment(self):
 
         self.invoice_in = self.env["account.move"].create(
             {
