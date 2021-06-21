@@ -1,362 +1,265 @@
 # Copyright 2018 Eficent Business and IT Consulting Services, S.L.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import fields
-from odoo.exceptions import ValidationError
-from odoo.tests.common import TransactionCase
+from odoo.tests import Form
+
+from odoo.addons.account.tests.account_test_savepoint import AccountTestInvoicingCommon
 
 
-class TestAccountInvoiceAlternateCommercialPartner(TransactionCase):
-    def setUp(self):
-        """
-        Setup test instances
-        """
-        super(TestAccountInvoiceAlternateCommercialPartner, self).setUp()
-        self.company = self.env.ref("base.main_company")
-        self.currency_usd_id = self.env.ref("base.USD").id
-        # Instance: account type (receivable)
-        self.type_recv = self.env.ref("account.data_account_type_receivable")
-        # Instance: account type (payable)
-        self.type_payable = self.env.ref("account.data_account_type_payable")
-        # Instance: account type (expense)
-        self.type_expense = self.env.ref("account.data_account_type_expenses")
-        # Instance: account type (revenue)
-        self.type_revenue = self.env.ref("account.data_account_type_revenue")
-        self.register_payments_model = self.env["account.register.payments"]
-        # account (receivable)
-        self.account_recv = self.env["account.account"].create(
+class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
+    @classmethod
+    def setUpClass(cls, chart_template_ref=None):
+        super().setUpClass(chart_template_ref=chart_template_ref)
+        cls.in_invoice = cls.init_invoice("in_invoice")
+        cls.out_invoice = cls.init_invoice("out_invoice")
+        cls.in_invoice_02 = cls.init_invoice("in_invoice")
+        cls.out_invoice_02 = cls.init_invoice("out_invoice")
+        cls.alternate_partner = cls.env["res.partner"].create(
+            {"name": "Alternate Payer"}
+        )
+        cls.payment_method_manual_out = cls.env.ref(
+            "account.account_payment_method_manual_out"
+        )
+        cls.payment_method_manual_in = cls.env.ref(
+            "account.account_payment_method_manual_in"
+        )
+        cls.bank_journal_euro = cls.env["account.journal"].create(
+            {"name": "Bank", "type": "bank", "code": "BNK67"}
+        )
+        cls.bank_account = cls.env["account.account"].create(
             {
-                "name": "test_account_receivable",
-                "code": "123",
-                "user_type_id": self.type_recv.id,
-                "company_id": self.company.id,
-                "reconcile": True,
-            }
-        )
-        # account (payable)
-        self.account_payable = self.env["account.account"].create(
-            {
-                "name": "test_account_payable",
-                "code": "321",
-                "user_type_id": self.type_payable.id,
-                "company_id": self.company.id,
-                "reconcile": True,
-            }
-        )
-        self.account_payable_2 = self.env["account.account"].create(
-            {
-                "name": "test_account_payable",
-                "code": "3211",
-                "user_type_id": self.type_payable.id,
-                "company_id": self.company.id,
-                "reconcile": True,
-            }
-        )
-        self.account_expense = self.env["account.account"].create(
-            {
-                "name": "test_account_expense",
-                "code": "expense",
-                "user_type_id": self.type_expense.id,
-                "company_id": self.company.id,
-                "reconcile": False,
-            }
-        )
-        self.account_revenue = self.env["account.account"].create(
-            {
-                "name": "test_account_revenue",
-                "code": "revenue",
-                "user_type_id": self.type_revenue.id,
-                "company_id": self.company.id,
-                "reconcile": False,
-            }
-        )
-        self.customer_commercial = self.env["res.partner"].create(
-            {
-                "name": "Customer commercial partner",
-                "property_account_receivable_id": self.account_recv.id,
-                "is_company": True,
-            }
-        )
-        self.customer = self.env["res.partner"].create(
-            {
-                "name": "Customer",
-                "property_account_receivable_id": self.account_recv.id,
-                "company_id": self.company.id,
-                "parent_id": self.customer_commercial.id,
-            }
-        )
-        self.vendor_commercial = self.env["res.partner"].create(
-            {
-                "name": "Vendor commercial partner",
-                "property_account_payable_id": self.account_payable.id,
-                "is_company": True,
-            }
-        )
-        self.vendor = self.env["res.partner"].create(
-            {
-                "name": "Vendor",
-                "property_account_payable_id": self.account_payable.id,
-                "company_id": self.company.id,
-                "parent_id": self.vendor_commercial.id,
-            }
-        )
-        self.payor = self.env["res.partner"].create(
-            {
-                "name": "Payor for customer",
-                "property_account_receivable_id": self.account_recv.id,
-                "company_id": self.company.id,
-            }
-        )
-        self.payee = self.env["res.partner"].create(
-            {
-                "name": "Payee for vendor",
-                "property_account_payable_id": self.account_payable_2.id,
-                "company_id": self.company.id,
-            }
-        )
-        self.payee_bank = self.env["res.partner.bank"].create(
-            {
-                "partner_id": self.payee.id,
-                "acc_number": "ES66 2100 0418 4012 3456 7891",
-                "company_id": self.company.id,
-            }
-        )
-        self.purchase_journal = self.env["account.journal"].create(
-            {
-                "name": "Purchase Journal - TST",
-                "code": "PJT",
-                "type": "purchase",
-                "company_id": self.company.id,
-            }
-        )
-        self.sale_journal = self.env["account.journal"].create(
-            {
-                "name": "Sale Journal - TST",
-                "code": "SJT",
-                "type": "sale",
-                "company_id": self.company.id,
-            }
-        )
-        self.bank_journal_usd = self.env["account.journal"].create(
-            {"name": "Bank US TEST", "type": "bank", "code": "BJT"}
-        )
-        self.product = self.env["product.product"].create(
-            {"type": "service", "name": "Sample product"}
-        )
-        self.invoice_line = self.env["account.invoice.line"].create(
-            {
-                "name": "test",
-                "account_id": self.account_expense.id,
-                "price_unit": 2000.00,
-                "quantity": 1,
-                "product_id": self.product.id,
-            }
-        )
-        # Instance: invoice
-        self.vendor_invoice = self.env["account.invoice"].create(
-            {
-                "partner_id": self.vendor.id,
-                "type": "in_invoice",
-                "account_id": self.account_payable.id,
-                "payment_term_id": False,
-                "journal_id": self.purchase_journal.id,
-                "company_id": self.company.id,
-                "currency_id": self.currency_usd_id,
-                "invoice_line_ids": [(4, self.invoice_line.id)],
-            }
-        )
-        invoice_line = self.env["account.invoice.line"].create(
-            {
-                "name": "test",
-                "account_id": self.account_revenue.id,
-                "price_unit": 2000.00,
-                "quantity": 1,
-                "product_id": self.product.id,
-            }
-        )
-        # Instance: invoice
-        self.customer_invoice = self.env["account.invoice"].create(
-            {
-                "partner_id": self.customer.id,
-                "type": "out_invoice",
-                "account_id": self.account_recv.id,
-                "payment_term_id": False,
-                "journal_id": self.sale_journal.id,
-                "company_id": self.company.id,
-                "currency_id": self.currency_usd_id,
-                "invoice_line_ids": [(4, invoice_line.id)],
+                "name": "Demo Bank account",
+                "code": "demo_bank_account",
+                "user_type_id": cls.env.ref("account.data_account_type_liquidity").id,
             }
         )
 
-    def test_01_onchange(self):
-        # Instance: invoice
-        supplier_invoice = self.env["account.invoice"].new(
-            {
-                "partner_id": self.vendor.id,
-                "type": "in_invoice",
-                "account_id": self.account_payable.id,
-                "payment_term_id": False,
-                "journal_id": self.purchase_journal.id,
-                "currency_id": self.currency_usd_id,
-                "company_id": self.company.id,
-                "invoice_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "test",
-                            "account_id": self.account_expense.id,
-                            "price_unit": 2000.00,
-                            "quantity": 1,
-                            "product_id": self.product.id,
-                        },
-                    )
-                ],
-            }
+    def test_01_onchange_out_invoice(self):
+        with Form(self.out_invoice) as form:
+            form.alternate_payer_id = self.alternate_partner
+        self.assertEqual(
+            self.out_invoice.line_ids.filtered(
+                lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
+            ).mapped("partner_id"),
+            self.alternate_partner,
         )
-        supplier_invoice.alternate_payer_id = self.payee
-        supplier_invoice._onchange_partner_id()
-        self.assertEqual(supplier_invoice.partner_bank_id, self.payee_bank)
-        self.assertEqual(supplier_invoice.account_id, self.account_payable_2)
+        self.assertEqual(
+            self.out_invoice.line_ids.filtered(
+                lambda r: r.account_id.user_type_id.type
+                not in ("receivable", "payable")
+            ).mapped("partner_id"),
+            self.out_invoice.partner_id,
+        )
+        self.assertEqual(
+            self.out_invoice.bank_partner_id, self.out_invoice.company_id.partner_id
+        )
 
-    def test_02_invoice(self):
-        """
-        Test Setting an alternate commercial partner
-        """
-        # Customer invoices
-        self.customer_invoice.alternate_payer_id = self.payor.id
-        self.customer_invoice._onchange_partner_id()
-        self.customer_invoice.action_invoice_open()
-        self.assertEqual(self.customer_invoice.state, "open")
-        line = self.customer_invoice.move_id.line_ids.filtered(
-            lambda li: li.account_id == self.account_recv
+    def test_02_onchange_in_invoice(self):
+        with Form(self.in_invoice) as form:
+            form.alternate_payer_id = self.alternate_partner
+        self.assertEqual(
+            self.in_invoice.line_ids.filtered(
+                lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
+            ).mapped("partner_id"),
+            self.alternate_partner,
         )
-        self.assertEqual(line.partner_id, self.payor)
-        ctx = {
-            "active_model": "account.invoice",
-            "active_ids": [self.customer_invoice.id],
-        }
-        register_payments = self.register_payments_model.with_context(ctx).create(
-            {
-                "payment_date": fields.Date.today(),
-                "journal_id": self.bank_journal_usd.id,
-                "payment_method_id": self.env.ref(
-                    "account.account_payment_method_manual_in"
-                ).id,
-            }
+        self.assertEqual(
+            self.in_invoice.line_ids.filtered(
+                lambda r: r.account_id.user_type_id.type
+                not in ("receivable", "payable")
+            ).mapped("partner_id"),
+            self.out_invoice.partner_id,
         )
-        register_payments.create_payments()
-        self.assertEqual(self.customer_invoice.state, "paid")
-        # Vendor bills
-        self.vendor_invoice.alternate_payer_id = self.payee
-        self.vendor_invoice._onchange_partner_id()
-        self.vendor_invoice.action_invoice_open()
-        self.assertEqual(self.vendor_invoice.state, "open")
-        line = self.vendor_invoice.move_id.line_ids.filtered(
-            lambda li: li.account_id == self.account_payable_2
-        )
-        self.assertEqual(line.partner_id, self.payee)
-        ctx = {
-            "active_model": "account.invoice",
-            "active_ids": [self.vendor_invoice.id],
-        }
-        register_payments = self.register_payments_model.with_context(ctx).create(
-            {
-                "payment_date": fields.Date.today(),
-                "journal_id": self.bank_journal_usd.id,
-                "payment_method_id": self.env.ref(
-                    "account.account_payment_method_manual_out"
-                ).id,
-            }
-        )
-        register_payments.create_payments()
-        self.assertEqual(self.vendor_invoice.state, "paid")
+        self.assertEqual(self.in_invoice.bank_partner_id, self.alternate_partner)
 
-    def test_03_payment_multiple_invoices(self):
-        """
-            Test selecting multiple invoices with different alternate payer
-        """
-        supplier_invoice_1 = self.env["account.invoice"].create(
-            {
-                "partner_id": self.customer.id,
-                "type": "in_invoice",
-                "account_id": self.account_payable.id,
-                "payment_term_id": False,
-                "journal_id": self.purchase_journal.id,
-                "currency_id": self.currency_usd_id,
-                "company_id": self.company.id,
-                "invoice_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "test",
-                            "account_id": self.account_expense.id,
-                            "price_unit": 2000.00,
-                            "quantity": 1,
-                            "product_id": self.product.id,
-                        },
-                    )
-                ],
-            }
+    def test_03_payment_out_invoice(self):
+        with Form(self.out_invoice) as form:
+            form.alternate_payer_id = self.alternate_partner
+        self.out_invoice.post()
+        records = self.out_invoice
+        action = (
+            self.env["account.payment"]
+            .with_context(active_model=records._name, active_ids=records.ids)
+            .action_register_payment()
         )
-        supplier_invoice_2 = supplier_invoice_1.copy()
-        supplier_invoice_2.alternate_payer_id = self.payee
-        supplier_invoice_3 = supplier_invoice_1.copy()
-        supplier_invoice_1._onchange_partner_id()
-        supplier_invoice_1.action_invoice_open()
-        supplier_invoice_2._onchange_partner_id()
-        supplier_invoice_2.action_invoice_open()
-        supplier_invoice_3._onchange_partner_id()
-        supplier_invoice_3.action_invoice_open()
-        ctx = {
-            "active_model": "account.invoice",
-            "active_ids": [
-                supplier_invoice_1.id,
-                supplier_invoice_2.id,
-                supplier_invoice_3.id,
-            ],
-        }
-        register_payments = self.register_payments_model.with_context(ctx).create(
-            {
-                "payment_date": fields.Date.today(),
-                "journal_id": self.bank_journal_usd.id,
-                "payment_method_id": self.env.ref(
-                    "account.account_payment_method_manual_out"
-                ).id,
-            }
-        )
-        res = register_payments.create_payments()
-        # ['domain'][('id', 'in', payments.ids), ('state', '=', 'posted')]
-        self.assertEqual(len(res["domain"][0][2]), 2)
-        self.assertEqual(supplier_invoice_1.state, "paid")
-        self.assertEqual(supplier_invoice_2.state, "paid")
-        self.assertEqual(supplier_invoice_3.state, "paid")
-
-    def test_constrains(self):
-        with self.assertRaises(ValidationError):
-            self.env["account.invoice"].create(
+        payment = (
+            self.env[action["res_model"]]
+            .with_context(action["context"])
+            .create(
                 {
-                    "partner_id": self.vendor.id,
-                    "type": "in_invoice",
-                    "account_id": self.account_payable.id,
-                    "payment_term_id": False,
-                    "journal_id": self.purchase_journal.id,
-                    "currency_id": self.currency_usd_id,
-                    "company_id": self.company.id,
-                    "partner_bank_id": self.payee_bank.id,
-                    "invoice_line_ids": [
-                        (
-                            0,
-                            0,
-                            {
-                                "name": "test",
-                                "account_id": self.account_expense.id,
-                                "price_unit": 2000.00,
-                                "quantity": 1,
-                                "product_id": self.product.id,
-                            },
-                        )
-                    ],
+                    "payment_method_id": self.payment_method_manual_out.id,
+                    "journal_id": self.bank_journal_euro.id,
                 }
             )
+        )
+        payment.post()
+        self.assertEqual(payment.partner_id, self.alternate_partner)
+
+    def test_04_payment_in_invoice(self):
+        with Form(self.in_invoice) as form:
+            form.alternate_payer_id = self.alternate_partner
+        self.in_invoice.post()
+        records = self.in_invoice
+        action = (
+            self.env["account.payment"]
+            .with_context(active_model=records._name, active_ids=records.ids)
+            .action_register_payment()
+        )
+        payment = (
+            self.env[action["res_model"]]
+            .with_context(action["context"])
+            .create(
+                {
+                    "payment_method_id": self.payment_method_manual_in.id,
+                    "journal_id": self.bank_journal_euro.id,
+                }
+            )
+        )
+        payment.post()
+        self.assertEqual(payment.partner_id, self.alternate_partner)
+
+    def test_05_payment_out_invoices(self):
+        with Form(self.out_invoice) as form:
+            form.alternate_payer_id = self.alternate_partner
+        self.out_invoice.post()
+        with Form(self.out_invoice_02) as form:
+            form.alternate_payer_id = self.alternate_partner
+        self.out_invoice_02.post()
+        records = self.out_invoice | self.out_invoice_02
+        action = (
+            self.env["account.payment"]
+            .with_context(active_model=records._name, active_ids=records.ids)
+            .action_register_payment()
+        )
+        action = (
+            self.env[action["res_model"]]
+            .with_context(action["context"])
+            .create(
+                {
+                    "payment_method_id": self.payment_method_manual_out.id,
+                    "journal_id": self.bank_journal_euro.id,
+                }
+            )
+            .create_payments()
+        )
+        payments = self.env[action["res_model"]]
+        if action.get("res_ids", False):
+            payments = payments.browse(action["res_id"])
+        else:
+            payments = payments.search(action["domain"])
+        for payment in payments:
+            self.assertEqual(payment.partner_id, self.alternate_partner)
+
+    def test_06_payment_in_invoices(self):
+        with Form(self.in_invoice) as form:
+            form.alternate_payer_id = self.alternate_partner
+        self.in_invoice.post()
+        with Form(self.in_invoice_02) as form:
+            form.alternate_payer_id = self.alternate_partner
+        self.in_invoice_02.post()
+        records = self.in_invoice | self.in_invoice_02
+        action = (
+            self.env["account.payment"]
+            .with_context(active_model=records._name, active_ids=records.ids)
+            .action_register_payment()
+        )
+        action = (
+            self.env[action["res_model"]]
+            .with_context(action["context"])
+            .create(
+                {
+                    "payment_method_id": self.payment_method_manual_out.id,
+                    "journal_id": self.bank_journal_euro.id,
+                }
+            )
+            .create_payments()
+        )
+        payments = self.env[action["res_model"]]
+        if action.get("res_ids", False):
+            payments = payments.browse(action["res_id"])
+        else:
+            payments = payments.search(action["domain"])
+        for payment in payments:
+            self.assertEqual(payment.partner_id, self.alternate_partner)
+
+    def test_07_payment_widget_in_invoices(self):
+        with Form(self.in_invoice) as form:
+            form.alternate_payer_id = self.alternate_partner
+        line = self.in_invoice.line_ids.filtered(
+            lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
+        )
+        payment_move = self.env["account.move"].create(
+            {
+                "journal_id": self.bank_journal_euro.id,
+                "line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "account_id": line.account_id.id,
+                            "partner_id": line.partner_id.id,
+                            "debit": line.credit,
+                            "credit": line.debit,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "account_id": self.bank_account.id,
+                            "debit": line.debit,
+                            "credit": line.credit,
+                        },
+                    ),
+                ],
+            }
+        )
+        payment_move.action_post()
+        self.assertFalse(self.in_invoice.invoice_has_outstanding)
+        self.in_invoice.post()
+        self.in_invoice.refresh()
+        self.assertTrue(self.in_invoice.invoice_has_outstanding)
+        self.in_invoice.write({"invoice_payment_state": "paid"})
+        self.in_invoice.refresh()
+        self.assertFalse(self.in_invoice.invoice_has_outstanding)
+
+    def test_08_payment_widget_out_invoices(self):
+        with Form(self.out_invoice) as form:
+            form.alternate_payer_id = self.alternate_partner
+        line = self.out_invoice.line_ids.filtered(
+            lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
+        )
+        payment_move = self.env["account.move"].create(
+            {
+                "journal_id": self.bank_journal_euro.id,
+                "line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "account_id": line.account_id.id,
+                            "partner_id": line.partner_id.id,
+                            "debit": line.credit,
+                            "credit": line.debit,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "account_id": self.bank_account.id,
+                            "debit": line.debit,
+                            "credit": line.credit,
+                        },
+                    ),
+                ],
+            }
+        )
+        payment_move.action_post()
+        self.assertFalse(self.out_invoice.invoice_has_outstanding)
+        self.out_invoice.post()
+        self.out_invoice.refresh()
+        self.assertTrue(self.out_invoice.invoice_has_outstanding)
+        self.out_invoice.write({"invoice_payment_state": "paid"})
+        self.out_invoice.refresh()
+        self.assertFalse(self.out_invoice.invoice_has_outstanding)
