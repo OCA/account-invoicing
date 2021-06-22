@@ -105,7 +105,8 @@ class AccountMove(models.Model):
         taxes_keys = {}
         # Perform a sanity check for discarding cases that will lead to
         # incorrect data in discounts
-        for inv_line in self.invoice_line_ids.filtered(lambda l: not l.display_type):
+        _self = self.filtered("global_discount_ids")
+        for inv_line in _self.invoice_line_ids.filtered(lambda l: not l.display_type):
             if not inv_line.tax_ids and (
                 not config["test_enable"]
                 or self.env.context.get("test_account_global_discount")
@@ -127,7 +128,7 @@ class AccountMove(models.Model):
                 taxes_keys[tuple(inv_line.tax_ids.ids)] = True
         self.invoice_global_discount_ids = False
         invoice_global_discounts = []
-        for tax_line in self.line_ids.filtered("tax_line_id"):
+        for tax_line in _self.line_ids.filtered("tax_line_id"):
             key = []
             to_create = True
             for key in taxes_keys:
@@ -144,7 +145,7 @@ class AccountMove(models.Model):
                 base = vals["base_discounted"]
         # Check all moves with defined taxes to check if there's any discount not
         # created (tax amount is zero and only one tax is applied)
-        for line in self.line_ids.filtered("tax_ids"):
+        for line in _self.line_ids.filtered("tax_ids"):
             key = tuple(line.tax_ids.ids)
             if taxes_keys.get(key):
                 base = line.price_subtotal
