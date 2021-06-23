@@ -215,6 +215,11 @@ class TestAccountMovePricelist(common.SavepointCase):
                             "price_unit": 100.00,
                         },
                     ),
+                    (
+                        0,
+                        0,
+                        {"display_type": "line_section", "name": "Test line section"},
+                    ),
                 ],
             }
         )
