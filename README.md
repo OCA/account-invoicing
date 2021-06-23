@@ -23,10 +23,10 @@ addon | version | summary
 [account_global_discount](account_global_discount/) | 13.0.1.1.0 | Account Global Discount
 [account_invoice_check_total](account_invoice_check_total/) | 13.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_date_due](account_invoice_date_due/) | 13.0.1.0.0 | Update Invoice's Due Date
-[account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 13.0.1.0.2 | Changing the fiscal position of an invoice will auto-update invoice lines
+[account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 13.0.1.0.3 | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 13.0.1.0.2 | Allows to apply fixed amount discounts in invoices.
 [account_invoice_force_number](account_invoice_force_number/) | 13.0.1.0.0 | Allows to force invoice numbering on specific invoices
-[account_invoice_pricelist](account_invoice_pricelist/) | 13.0.1.0.1 | Add partner pricelist on invoices
+[account_invoice_pricelist](account_invoice_pricelist/) | 13.0.1.0.2 | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 13.0.1.0.1 | Module to fill pricelist from sales order in invoice.
 [account_invoice_refund_link](account_invoice_refund_link/) | 13.0.1.1.0 | Show links between refunds and their originator invoices
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 13.0.1.0.0 | Account invoice search by reference
