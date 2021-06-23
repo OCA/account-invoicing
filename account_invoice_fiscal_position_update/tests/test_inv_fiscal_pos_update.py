@@ -4,10 +4,10 @@
 
 import time
 
-from odoo.addons.account.tests.account_test_classes import AccountingTestCase
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-class TestProductIdChange(AccountingTestCase):
+class TestProductIdChange(AccountTestInvoicingCommon):
     """Test that when an included tax is mapped by a fiscal position,
     when position fiscal change taxes and account wil be update on
     invoice lines.
@@ -93,8 +93,8 @@ class TestProductIdChange(AccountingTestCase):
         out_invoice = self.invoice_model.create(
             {
                 "partner_id": partner.id,
-                "invoice_payment_ref": "invoice to client",
-                "type": "out_invoice",
+                "ref": "invoice to client",
+                "move_type": "out_invoice",
                 "invoice_date": time.strftime("%Y") + "-04-01",
             }
         )
@@ -118,7 +118,9 @@ class TestProductIdChange(AccountingTestCase):
             "The sale tax off invoice line must be the same of product",
         )
         out_invoice.fiscal_position_id = fp
-        out_invoice.with_context(check_move_validity=False).fiscal_position_change()
+        out_invoice.with_context(
+            check_move_validity=False
+        )._onchange_fiscal_position_id_account_invoice_fiscal_position_invoice()
         self.assertEqual(
             out_line.tax_ids[0],
             fp_tax_sale.tax_dest_id,
@@ -129,3 +131,18 @@ class TestProductIdChange(AccountingTestCase):
             fp_account.account_dest_id,
             "The account revenue of invoice line must be changed by fiscal position",
         )
+        # Test warning due to lines without product
+        self.invoice_line_model.with_context(check_move_validity=False).create(
+            {
+                "name": "Line without product",
+                "price_unit": 100,
+                "quantity": 1,
+                "move_id": out_invoice.id,
+                "account_id": self.account_revenue.id,
+            }
+        )
+        onchange_result = out_invoice.with_context(
+            check_move_validity=False
+        )._onchange_fiscal_position_id_account_invoice_fiscal_position_invoice()
+        self.assertTrue(type(onchange_result) == dict)
+        self.assertEqual(list(onchange_result.keys()), ["warning"])
