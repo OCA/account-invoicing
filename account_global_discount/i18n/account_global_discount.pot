@@ -44,8 +44,13 @@ msgid "Analytic account"
 msgstr ""
 
 #. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base_discounted
+msgid "Base after discount"
+msgstr ""
+
+#. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base
-msgid "Base discounted"
+msgid "Base before discount"
 msgstr ""
 
 #. module: account_global_discount
@@ -86,11 +91,6 @@ msgstr ""
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__discount_amount
 msgid "Discounted Amount"
-msgstr ""
-
-#. module: account_global_discount
-#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base_discounted
-msgid "Discounted amount"
 msgstr ""
 
 #. module: account_global_discount
@@ -181,7 +181,7 @@ msgstr ""
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__tax_ids
-msgid "Tax"
+msgid "Taxes"
 msgstr ""
 
 #. module: account_global_discount

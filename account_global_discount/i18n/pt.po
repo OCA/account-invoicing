@@ -47,9 +47,14 @@ msgid "Analytic account"
 msgstr "Conta analítica"
 
 #. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base_discounted
+msgid "Base after discount"
+msgstr ""
+
+#. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base
-msgid "Base discounted"
-msgstr "Base com desconto"
+msgid "Base before discount"
+msgstr ""
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__company_id
@@ -90,11 +95,6 @@ msgstr "Nome do Desconto"
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__discount_amount
 msgid "Discounted Amount"
 msgstr "Valor Descontado"
-
-#. module: account_global_discount
-#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base_discounted
-msgid "Discounted amount"
-msgstr "Montante descontado"
 
 #. module: account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
@@ -184,8 +184,8 @@ msgstr "Atualizado pela última vez em"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__tax_ids
-msgid "Tax"
-msgstr "Imposto"
+msgid "Taxes"
+msgstr ""
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_move__amount_global_discount
@@ -202,6 +202,15 @@ msgstr "Montante sem Impostos antes de Desc."
 #, python-format
 msgid "With global discounts, taxes in lines are required."
 msgstr "Com descontos globais, são requeridos impostos nas linhas."
+
+#~ msgid "Base discounted"
+#~ msgstr "Base com desconto"
+
+#~ msgid "Discounted amount"
+#~ msgstr "Montante descontado"
+
+#~ msgid "Tax"
+#~ msgstr "Imposto"
 
 #~ msgid "<strong>Global Discounts</strong><br/>"
 #~ msgstr "<strong>Descontos Globais</strong><br/>"
