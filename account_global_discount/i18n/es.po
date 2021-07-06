@@ -50,9 +50,14 @@ msgid "Analytic account"
 msgstr "Cuenta analítica"
 
 #. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base_discounted
+msgid "Base after discount"
+msgstr ""
+
+#. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base
-msgid "Base discounted"
-msgstr "Base descontada"
+msgid "Base before discount"
+msgstr ""
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__company_id
@@ -92,11 +97,6 @@ msgstr "Nombre del descuento"
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__discount_amount
 msgid "Discounted Amount"
-msgstr "Importe Descontado"
-
-#. module: account_global_discount
-#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base_discounted
-msgid "Discounted amount"
 msgstr "Importe Descontado"
 
 #. module: account_global_discount
@@ -187,8 +187,8 @@ msgstr "Última actualización en"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__tax_ids
-msgid "Tax"
-msgstr "Impuesto"
+msgid "Taxes"
+msgstr ""
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_move__amount_global_discount
@@ -205,6 +205,15 @@ msgstr "Base Imponible Antes Desc."
 #, python-format
 msgid "With global discounts, taxes in lines are required."
 msgstr "Con descuentos globales, se requieren impuestos en las líneas."
+
+#~ msgid "Base discounted"
+#~ msgstr "Base descontada"
+
+#~ msgid "Discounted amount"
+#~ msgstr "Importe Descontado"
+
+#~ msgid "Tax"
+#~ msgstr "Impuesto"
 
 #~ msgid "<strong>Global Discounts</strong><br/>"
 #~ msgstr "<strong>Descuento Global</strong>"
