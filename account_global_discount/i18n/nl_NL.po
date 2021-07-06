@@ -49,9 +49,14 @@ msgid "Analytic account"
 msgstr "Kostenplaats"
 
 #. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base_discounted
+msgid "Base after discount"
+msgstr ""
+
+#. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base
-msgid "Base discounted"
-msgstr "Basis korting"
+msgid "Base before discount"
+msgstr ""
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__company_id
@@ -91,11 +96,6 @@ msgstr "Kortingsnaam"
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__discount_amount
 msgid "Discounted Amount"
-msgstr "Kortingsbedrag"
-
-#. module: account_global_discount
-#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base_discounted
-msgid "Discounted amount"
 msgstr "Kortingsbedrag"
 
 #. module: account_global_discount
@@ -186,8 +186,8 @@ msgstr "Laatst bijgewerkt op"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__tax_ids
-msgid "Tax"
-msgstr "Belasting"
+msgid "Taxes"
+msgstr ""
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_move__amount_global_discount
@@ -204,6 +204,15 @@ msgstr "Onbelast bedrag voor kort."
 #, python-format
 msgid "With global discounts, taxes in lines are required."
 msgstr "Met globale kortingen zijn belastingen in regels vereist."
+
+#~ msgid "Base discounted"
+#~ msgstr "Basis korting"
+
+#~ msgid "Discounted amount"
+#~ msgstr "Kortingsbedrag"
+
+#~ msgid "Tax"
+#~ msgstr "Belasting"
 
 #~ msgid "Company related to this journal"
 #~ msgstr "Bedrijf gerelateerd aan journaal"
