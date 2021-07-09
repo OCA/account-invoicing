@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+-->
+<odoo>
+    <record id="account_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <field name="currency_id" position="before">
+                <field name="show_currency_rate_amount" invisible="1" />
+                <field
+                    name="currency_rate_amount"
+                    groups="base.group_multi_currency"
+                    digits="[12,12]"
+                    attrs="{'invisible':[('show_currency_rate_amount', '=', False)]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
