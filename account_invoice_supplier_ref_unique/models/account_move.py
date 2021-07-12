@@ -28,7 +28,7 @@ class AccountMove(models.Model):
                 same_supplier_inv_num = rec.search(
                     [
                         ("commercial_partner_id", "=", rec.commercial_partner_id.id),
-                        ("type", "in", ("in_invoice", "in_refund")),
+                        ("move_type", "in", ("in_invoice", "in_refund")),
                         (
                             "supplier_invoice_number",
                             "=ilike",
