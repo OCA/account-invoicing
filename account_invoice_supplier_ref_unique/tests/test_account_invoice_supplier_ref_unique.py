@@ -6,7 +6,7 @@ from odoo import fields
 from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 
-from odoo.addons.account.tests.account_test_savepoint import AccountTestInvoicingCommon
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @tagged("post_install", "-at_install")
@@ -17,7 +17,7 @@ class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
 
         # ENVIRONMENTS
         cls.account_account = cls.env["account.account"]
-        cls.account_invoice = cls.env["account.move"].with_context(
+        cls.account_move = cls.env["account.move"].with_context(
             {"tracking_disable": True}
         )
 
@@ -35,29 +35,31 @@ class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
             limit=1,
         )
         # Invoice with unique reference 'ABC123'
-        cls.invoice = cls.account_invoice.create(
+        cls.invoice = cls.account_move.create(
             {
                 "partner_id": cls.partner.id,
-                "type": "in_invoice",
+                "invoice_date": fields.Date.today(),
+                "move_type": "in_invoice",
                 "supplier_invoice_number": "ABC123",
+                "invoice_line_ids": [(0, 0, {"partner_id": cls.partner.id})],
             }
         )
 
     def test_check_unique_supplier_invoice_number_insensitive(self):
         # A new invoice instance with an existing supplier_invoice_number
         with self.assertRaises(ValidationError):
-            self.account_invoice.create(
+            self.account_move.create(
                 {
                     "partner_id": self.partner.id,
-                    "type": "in_invoice",
+                    "move_type": "in_invoice",
                     "supplier_invoice_number": "ABC123",
                 }
             )
         # A new invoice instance with a new supplier_invoice_number
-        self.account_invoice.create(
+        self.account_move.create(
             {
                 "partner_id": self.partner.id,
-                "type": "in_invoice",
+                "move_type": "in_invoice",
                 "supplier_invoice_number": "ABC123bis",
             }
         )
@@ -76,6 +78,7 @@ class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
         self.assertEqual(invoice2.ref, "")
 
     def test_reverse_invoice(self):
+        self.invoice._post()
         move_reversal = (
             self.env["account.move.reversal"]
             .with_context(active_model="account.move", active_ids=self.invoice.ids)
