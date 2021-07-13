@@ -23,6 +23,16 @@ class AccountInvoice(models.Model):
         return result
 
     @api.multi
+    def action_invoice_draft(self):
+        result = super(AccountInvoice, self).action_invoice_draft()
+        pickings = self.filtered(
+            lambda i: i.picking_ids and
+            i.type in ['out_invoice', 'in_invoice']).mapped("picking_ids")
+        self.mapped("invoice_line_ids.move_line_ids")._set_as_invoiced()
+        pickings._set_as_invoiced()
+        return result
+
+    @api.multi
     def unlink(self):
         """
         Inherit the unlink to update related picking as "2binvoiced"
