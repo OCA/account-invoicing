@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_account_move_reversal" model="ir.ui.view">
+            <field name="name">account.move.reversal.form.inherit</field>
+            <field name="model">account.move.reversal</field>
+            <field name="inherit_id" ref="account.view_account_move_reversal" />
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="move_id" invisible="1" />
+                    <field
+                        name="sale_qty_not_to_reinvoice"
+                        attrs="{'invisible': [('move_id', '=', False)]}"
+                    />
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
