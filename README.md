@@ -48,6 +48,7 @@ addon | version | summary
 [account_tax_group_widget_base_amount](account_tax_group_widget_base_amount/) | 13.0.1.0.0 | Adds base to tax group widget as it's put in the report
 [purchase_batch_invoicing](purchase_batch_invoicing/) | 13.0.1.0.1 | Make invoices for all ready purchase orders
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 13.0.1.0.0 | Add an option to refund returned pickings
+[sale_line_refund_to_invoice_qty](sale_line_refund_to_invoice_qty/) | 13.0.1.0.0 | Allow deciding whether refunded quantity should be considered as quantity to reinvoice
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 13.0.2.0.2 | Sales order invoicing grouping criteria
 [sale_order_invoicing_queued](sale_order_invoicing_queued/) | 13.0.2.0.1 | Enqueue sales order invoicing
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 13.0.1.0.0 | Add timesheet details in invoice line
