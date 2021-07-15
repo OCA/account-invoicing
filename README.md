@@ -20,7 +20,7 @@ Available addons
 addon | version | summary
 --- | --- | ---
 [account_billing](account_billing/) | 13.0.1.0.3 | Group invoice as billing before payment
-[account_global_discount](account_global_discount/) | 13.0.1.1.1 | Account Global Discount
+[account_global_discount](account_global_discount/) | 13.0.2.0.0 | Account Global Discount
 [account_invoice_check_total](account_invoice_check_total/) | 13.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_date_due](account_invoice_date_due/) | 13.0.1.0.0 | Update Invoice's Due Date
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 13.0.1.0.3 | Changing the fiscal position of an invoice will auto-update invoice lines
