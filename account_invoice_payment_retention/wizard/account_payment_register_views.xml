@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_payment_register_form" model="ir.ui.view">
+        <field name="name">account.payment.register.form</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form" />
+        <field name="arch" type="xml">
+            <field name="payment_method_id" position="after">
+                <label
+                    for="retention_amount_currency"
+                    attrs="{'invisible': [('retention_amount_currency', '=', 0)]}"
+                />
+                <div
+                    class="d-flex"
+                    attrs="{'invisible': [('retention_amount_currency', '=', 0)]}"
+                >
+                    <field name="retention_amount_currency" />
+                    <span class="mx-3" />
+                    <field name="apply_payment_retention" widget="boolean_toggle" />
+                </div>
+                <field
+                    name="enforce_payment_retention"
+                    attrs="{'invisible': [('retention_amount_currency', '=', 0)]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
