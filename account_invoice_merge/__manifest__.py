@@ -15,6 +15,6 @@
     "website": "http://www.openerp.net.cn",
     "license": "AGPL-3",
     "depends": ["account"],
-    "data": ["wizard/invoice_merge_view.xml",],
+    "data": ["wizard/invoice_merge_view.xml"],
     "installable": True,
 }

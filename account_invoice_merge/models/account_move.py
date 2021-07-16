@@ -7,12 +7,11 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, models
-from odoo.osv.orm import browse_null, browse_record
 from odoo.tools import float_is_zero
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     @api.model
     def _get_invoice_key_cols(self):
@@ -20,57 +19,54 @@ class AccountInvoice(models.Model):
             "partner_id",
             "user_id",
             "type",
-            "account_id",
             "currency_id",
             "journal_id",
             "company_id",
-            "partner_bank_id",
+            "bank_partner_id",
         ]
 
     @api.model
     def _get_invoice_line_key_cols(self):
         fields = [
             "name",
-            "origin",
             "discount",
-            "invoice_line_tax_ids",
+            "tax_ids",
             "price_unit",
             "product_id",
             "account_id",
-            "account_analytic_id",
-            "uom_id",
+            "analytic_account_id",
+            "product_uom_id",
         ]
         for field in ["sale_line_ids"]:
-            if field in self.env["account.invoice.line"]._fields:
+            if field in self._fields:
                 fields.append(field)
         return fields
 
     @api.model
     def _get_first_invoice_fields(self, invoice):
         return {
-            "origin": "{}".format(invoice.origin or ""),
+            "invoice_origin": invoice.invoice_origin or "",
             "partner_id": invoice.partner_id.id,
             "journal_id": invoice.journal_id.id,
             "user_id": invoice.user_id.id,
             "currency_id": invoice.currency_id.id,
             "company_id": invoice.company_id.id,
             "type": invoice.type,
-            "account_id": invoice.account_id.id,
+            # "account_id": invoice.account_id.id,
             "state": "draft",
-            "reference": "{}".format(invoice.reference or ""),
-            "name": "{}".format(invoice.name or ""),
+            "ref": invoice.ref or "",
+            "name": invoice.name or "",
             "fiscal_position_id": invoice.fiscal_position_id.id,
-            "payment_term_id": invoice.payment_term_id.id,
+            "invoice_payment_term_id": invoice.invoice_payment_term_id.id,
             "invoice_line_ids": {},
-            "partner_bank_id": invoice.partner_bank_id.id,
+            "bank_partner_id": invoice.bank_partner_id.id,
         }
 
-    @api.multi
     def _get_draft_invoices(self):
         """Overridable function to return draft invoices to merge"""
         return self.filtered(lambda x: x.state == "draft")
 
-    @api.multi
+    # flake8: noqa: C901 (is too complex)
     def do_merge(
         self, keep_references=True, date_invoice=False, remove_empty_invoice_lines=True
     ):
@@ -94,24 +90,12 @@ class AccountInvoice(models.Model):
         def make_key(br, fields):
             list_key = []
             for field in fields:
-                field_val = getattr(br, field)
-                if field in ("product_id", "account_id"):
-                    if not field_val:
-                        field_val = False
-                if (
-                    isinstance(field_val, browse_record)
-                    and field != "invoice_line_tax_ids"
-                    and field != "sale_line_ids"
-                ):
-                    field_val = field_val.id
-                elif isinstance(field_val, browse_null):
-                    field_val = False
-                elif (
-                    isinstance(field_val, list)
-                    or field == "invoice_line_tax_ids"
-                    or field == "sale_line_ids"
-                ):
-                    field_val = ((6, 0, tuple([v.id for v in field_val])),)
+                field_val = br[field]
+                if isinstance(field_val, models.BaseModel):
+                    if br._fields.get(field).type in ("one2many", "many2many"):
+                        field_val = tuple([(6, 0, tuple(field_val.ids))])
+                    else:
+                        field_val = field_val.id
                 list_key.append((field, field_val))
             list_key.sort()
             return tuple(list_key)
@@ -130,8 +114,8 @@ class AccountInvoice(models.Model):
             invoice_infos = new_invoice[0]
             if not invoice_infos:
                 invoice_infos.update(self._get_first_invoice_fields(account_invoice))
-                origins.add(account_invoice.origin)
-                client_refs.add(account_invoice.reference)
+                origins.add(account_invoice.invoice_origin)
+                client_refs.add(account_invoice.ref)
                 if not keep_references:
                     invoice_infos.pop("name")
             else:
@@ -139,21 +123,21 @@ class AccountInvoice(models.Model):
                     invoice_infos["name"] = (
                         (invoice_infos["name"] or "") + " " + account_invoice.name
                     )
-                if account_invoice.origin and account_invoice.origin not in origins:
-                    invoice_infos["origin"] = (
-                        (invoice_infos["origin"] or "") + " " + account_invoice.origin
-                    )
-                    origins.add(account_invoice.origin)
                 if (
-                    account_invoice.reference
-                    and account_invoice.reference not in client_refs
+                    account_invoice.invoice_origin
+                    and account_invoice.invoice_origin not in origins
                 ):
-                    invoice_infos["reference"] = (
-                        (invoice_infos["reference"] or "")
+                    invoice_infos["invoice_origin"] = (
+                        (invoice_infos["invoice_origin"] or "")
                         + " "
-                        + account_invoice.reference
+                        + account_invoice.invoice_origin
                     )
-                    client_refs.add(account_invoice.reference)
+                    origins.add(account_invoice.invoice_origin)
+                if account_invoice.ref and account_invoice.ref not in client_refs:
+                    invoice_infos["ref"] = (
+                        (invoice_infos["ref"] or "") + " " + account_invoice.ref
+                    )
+                    client_refs.add(account_invoice.ref)
 
             for invoice_line in account_invoice.invoice_line_ids:
                 line_key = make_key(invoice_line, self._get_invoice_line_key_cols())
@@ -170,11 +154,11 @@ class AccountInvoice(models.Model):
         allinvoices = []
         allnewinvoices = []
         invoices_info = {}
-        old_invoices = self.env["account.invoice"]
+        old_invoices = self.browse()
         qty_prec = self.env["decimal.precision"].precision_get(
             "Product Unit of Measure"
         )
-        for invoice_key, (invoice_data, old_ids) in new_invoices.items():
+        for _invoice_key, (invoice_data, old_ids) in new_invoices.items():
             # skip merges with only one invoice
             if len(old_ids) < 2:
                 allinvoices += old_ids or []
@@ -195,7 +179,7 @@ class AccountInvoice(models.Model):
                 ]
 
             if date_invoice:
-                invoice_data["date_invoice"] = date_invoice
+                invoice_data["date"] = date_invoice
 
             # create the new invoice
             newinvoice = self.with_context(is_merge=True).create(invoice_data)
@@ -203,12 +187,12 @@ class AccountInvoice(models.Model):
             allinvoices.append(newinvoice.id)
             allnewinvoices.append(newinvoice)
             # cancel old invoices
-            old_invoices = self.env["account.invoice"].browse(old_ids)
-            old_invoices.with_context(is_merge=True).action_invoice_cancel()
+            old_invoices = self.browse(old_ids)
+            old_invoices.with_context(is_merge=True).button_cancel()
 
         # Make link between original sale order
         # None if sale is not installed
-        invoice_line_obj = self.env["account.invoice.line"]
+        invoice_line_obj = self.env["account.move.line"]
         for new_invoice_id in invoices_info:
             if "sale.order" in self.env.registry:
                 sale_todos = old_invoices.mapped(
@@ -236,6 +220,6 @@ class AccountInvoice(models.Model):
                 anal_todos.write({"invoice_id": new_invoice_id})
 
         for new_invoice in allnewinvoices:
-            new_invoice.compute_taxes()
+            new_invoice._compute_amount()
 
         return invoices_info
