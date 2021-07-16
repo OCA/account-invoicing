@@ -169,6 +169,7 @@ class AccountMoveLine(models.Model):
                     partner=self.move_id.partner_id.id,
                     quantity=self.quantity,
                     date_order=self.move_id.invoice_date,
+                    date=self.move_id.invoice_date,
                     pricelist=self.move_id.pricelist_id.id,
                     product_uom_id=self.product_uom_id.id,
                     fiscal_position=(
