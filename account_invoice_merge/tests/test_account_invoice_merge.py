@@ -11,60 +11,66 @@ class TestAccountInvoiceMerge(TransactionCase):
     """
 
     def setUp(self):
-        super(TestAccountInvoiceMerge, self).setUp()
+        super().setUp()
         self.par_model = self.env["res.partner"]
         self.context = self.env["res.users"].context_get()
         self.acc_model = self.env["account.account"]
-        self.inv_model = self.env["account.invoice"]
-        self.inv_line_model = self.env["account.invoice.line"]
+        self.inv_model = self.env["account.move"]
+        self.inv_line_model = self.env["account.move.line"]
         self.wiz = self.env["invoice.merge"]
-
+        self.product = self.env.ref("product.product_product_8")
+        self.account_receive = self.env.ref("account.data_account_type_receivable")
         self.partner1 = self._create_partner()
         self.partner2 = self._create_partner()
-
         self.invoice_account = self.acc_model.search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_receivable").id,
-                )
-            ],
-            limit=1,
+            [("user_type_id", "=", self.account_receive.id)], limit=1,
         )
+        self.journal = self.env["account.journal"].search(
+            [("type", "=", "sale")], limit=1
+        )
+        self.invoice1 = self._create_invoice(self.partner1, "A")
+        self.invoice2 = self._create_invoice(self.partner1, "B")
+        self.invoice3 = self._create_invoice(self.partner2, "C")
 
-        self.invoice_line1 = self._create_inv_line(self.invoice_account.id)
-        self.invoice_line2 = self.invoice_line1.copy()
-        self.invoice_line3 = self._create_inv_line(self.invoice_account.id)
-
-        self.invoice1 = self._create_invoice(self.partner1, "A", self.invoice_line1)
-        self.invoice2 = self._create_invoice(self.partner1, "B", self.invoice_line2)
-        self.invoice3 = self._create_invoice(self.partner2, "C", self.invoice_line3)
+        self.invoice_line1 = self._create_inv_line(self.invoice1)
+        self.invoice_line2 = self._create_inv_line(self.invoice2)
+        self.invoice_line3 = self._create_inv_line(self.invoice3)
 
     def _create_partner(self):
         partner = self.par_model.create(
-            {"name": "Test Partner", "supplier": True, "company_type": "company",}
+            {"name": "Test Partner", "supplier_rank": 1, "company_type": "company"}
         )
         return partner
 
-    def _create_inv_line(self, account_id):
-        inv_line = self.inv_line_model.create(
+    def _create_inv_line(self, invoice):
+        lines = invoice.invoice_line_ids
+        invoice.write(
             {
-                "name": "test invoice line",
-                "account_id": account_id,
-                "quantity": 1.0,
-                "price_unit": 3.0,
-                "product_id": self.env.ref("product.product_product_8").id,
+                "invoice_line_ids": [
+                    (
+                        0,
+                        False,
+                        {
+                            "name": "test invoice line",
+                            "quantity": 1.0,
+                            "price_unit": 3.0,
+                            "move_id": invoice.id,
+                            "product_id": self.product.id,
+                            "exclude_from_invoice_tab": False,
+                        },
+                    )
+                ]
             }
         )
-        return inv_line
+        return invoice.invoice_line_ids - lines
 
-    def _create_invoice(self, partner, name, inv_line):
+    def _create_invoice(self, partner, name):
         invoice = self.inv_model.create(
             {
                 "partner_id": partner.id,
                 "name": name,
-                "invoice_line_ids": [(4, inv_line.id)],
+                "type": "out_invoice",
+                "journal_id": self.journal.id,
             }
         )
         return invoice
@@ -76,10 +82,9 @@ class TestAccountInvoiceMerge(TransactionCase):
             [("state", "=", "draft"), ("partner_id", "=", self.partner1.id)]
         )
         self.assertEqual(len(start_inv), 2)
-
+        invoices = self.invoice1 | self.invoice2
         wiz_id = self.wiz.with_context(
-            active_ids=[self.invoice1.id, self.invoice2.id],
-            active_model="account.invoice",
+            active_ids=invoices.ids, active_model=invoices._name,
         ).create({})
         wiz_id.fields_view_get()
         action = wiz_id.merge_invoices()
@@ -87,8 +92,7 @@ class TestAccountInvoiceMerge(TransactionCase):
         self.assertDictContainsSubset(
             {
                 "type": "ir.actions.act_window",
-                "view_type": "form",
-                "xml_id": "account.action_invoice_tree1",
+                "xml_id": "account.action_move_out_invoice_type",
             },
             action,
             "There was an error and the two invoices were not merged.",
@@ -102,62 +106,60 @@ class TestAccountInvoiceMerge(TransactionCase):
         self.assertEqual(end_inv[0].invoice_line_ids[0].quantity, 2.0)
 
     def test_account_invoice_merge_2(self):
+        invoices = self.invoice1 | self.invoice3
         wiz_id = self.wiz.with_context(
-            active_ids=[self.invoice1.id, self.invoice3.id],
-            active_model="account.invoice",
+            active_ids=invoices.ids, active_model=invoices._name,
         ).create({})
         with self.assertRaises(UserError):
             wiz_id.fields_view_get()
 
     def test_dirty_check(self):
         """ Check  """
-        wiz_id = self.wiz.with_context(active_model="account.invoice")
+        wiz_id = self.wiz.with_context(active_model="account.move")
 
         # Check with only one invoice
         with self.assertRaises(UserError):
-            wiz_id.with_context(active_ids=[self.invoice1.id]).fields_view_get()
+            wiz_id.with_context(
+                active_ids=self.invoice1.ids, active_model=self.invoice1._name
+            ).fields_view_get()
 
         # Check with two different invoice type
         # Create the invoice 4 with a different account
-        new_account = self.acc_model.create(
-            {
-                "code": "TEST",
-                "name": "Test Account",
-                "reconcile": True,
-                "user_type_id": self.env.ref("account.data_account_type_receivable").id,
-            }
-        )
-        invoice_line4 = self._create_inv_line(new_account.id)
-        invoice4 = self._create_invoice(self.partner1, "D", invoice_line4)
-        invoice4.account_id = new_account.id
+        invoice4 = self._create_invoice(self.partner1, "D")
+        invoice4.write({"type": "out_refund"})
+        self._create_inv_line(invoice4)
+        invoices = self.invoice1 | invoice4
         with self.assertRaises(UserError):
             wiz_id.with_context(
-                active_ids=[self.invoice1.id, invoice4.id]
+                active_ids=invoices.ids, active_model=invoices._name,
             ).fields_view_get()
 
         # Check with a canceled invoice
         # Create and cancel the invoice 5
-        invoice_line5 = self._create_inv_line(self.invoice_account.id)
-        invoice5 = self._create_invoice(self.partner1, "E", invoice_line5)
-        invoice5.action_invoice_cancel()
+        invoice5 = self._create_invoice(self.partner1, "E")
+        self._create_inv_line(invoice5)
+        invoice5.button_cancel()
+        invoices = self.invoice1 | invoice5
         with self.assertRaises(UserError):
             wiz_id.with_context(
-                active_ids=[self.invoice1.id, invoice5.id]
+                active_ids=invoices.ids, active_model=invoices._name,
             ).fields_view_get()
 
         # Check with an another company
         # Create the invoice 6 and change the company
-        invoice_line6 = self._create_inv_line(self.invoice_account.id)
-        invoice6 = self._create_invoice(self.partner1, "E", invoice_line6)
+        invoice6 = self._create_invoice(self.partner1, "E")
+        self._create_inv_line(invoice6)
         new_company = self.env["res.company"].create({"name": "Hello World"})
         invoice6.company_id = new_company.id
+        invoices = self.invoice1 | invoice6
         with self.assertRaises(UserError):
             wiz_id.with_context(
-                active_ids=[self.invoice1.id, invoice6.id]
+                active_ids=invoices.ids, active_model=invoices._name,
             ).fields_view_get()
 
         # Check with two different partners
+        invoices = self.invoice1 | self.invoice3
         with self.assertRaises(UserError):
             wiz_id.with_context(
-                active_ids=[self.invoice1.id, self.invoice3.id]
+                active_ids=invoices.ids, active_model=invoices._name,
             ).fields_view_get()
