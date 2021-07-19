@@ -273,12 +273,13 @@ class AccountMove(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         """If we create the invoice with the discounts already set like from
-        a sales order, we must compute the global discounts as well"""
-        # TODO: Still needed for sale_global_discount with latest refactoring?
+        a sales order, we must compute the global discounts as well, as some data
+        like ``tax_ids`` is not set until the final step.
+        """
         moves = super().create(vals_list)
         move_with_global_discounts = moves.filtered("global_discount_ids")
         for move in move_with_global_discounts:
-            move.with_context(check_move_validity=False)._onchange_invoice_line_ids()
+            move.with_context(check_move_validity=False)._onchange_global_discount_ids()
         return moves
 
     def _check_balanced(self):
