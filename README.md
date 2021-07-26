@@ -36,7 +36,7 @@ addon | version | summary
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 13.0.1.0.3 | Checks that supplier invoices are not entered twice
 [account_invoice_supplier_self_invoice](account_invoice_supplier_self_invoice/) | 13.0.1.1.0 | Purchase Self Invoice
 [account_invoice_tax_note](account_invoice_tax_note/) | 13.0.1.0.0 | Print tax notes on customer invoices
-[account_invoice_tax_required](account_invoice_tax_required/) | 13.0.1.0.0 | This module adds functional a check on invoice to force user to set tax on invoice line.
+[account_invoice_tax_required](account_invoice_tax_required/) | 13.0.1.0.1 | This module adds functional a check on invoice to force user to set tax on invoice line.
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 13.0.1.1.0 | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_tree_currency](account_invoice_tree_currency/) | 13.0.1.0.0 | Show currencies in the invoice tree view
 [account_invoice_validation_queued](account_invoice_validation_queued/) | 13.0.2.0.0 | Enqueue account invoice validation
