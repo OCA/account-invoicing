@@ -39,7 +39,7 @@ class TestProductSupplierinfoForCustomerInvoice(SavepointCase):
                 .search([("type", "=", "sale")], limit=1)
                 .id,
                 "partner_id": customer.id,
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_line_ids": [
                     (
                         0,
