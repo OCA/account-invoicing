@@ -20,7 +20,8 @@ class AccountInvoiceLine(models.Model):
                 line.product_customer_code = ""
 
     product_customer_code = fields.Char(
-        compute="_compute_product_customer_code", string="Product Customer Code",
+        compute="_compute_product_customer_code",
+        string="Product Customer Code",
     )
     partner_show_customer_code = fields.Boolean(
         compute="_compute_partner_show_customer_code"
