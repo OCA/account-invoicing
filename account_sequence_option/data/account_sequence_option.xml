@@ -1,14 +1,9 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<odoo>
-    <data>
+<odoo noupdate="1">
 
-        <!-- Account Sequence Options -->
+    <record id="account_sequence" model="base.sequence.option">
+        <field name="name">Invoice / Bill / Refund / Payment</field>
+        <field name="model">account.move</field>
+        <field name="use_sequence_option" eval="False" />
+    </record>
 
-        <record id="account_sequence" model="base.sequence.option">
-            <field name="name">Invoice / Bill / Refund / Payment</field>
-            <field name="model">account.move</field>
-            <field name="use_sequence_option" eval="False" />
-        </record>
-
-    </data>
 </odoo>
