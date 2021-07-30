@@ -17,6 +17,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_search_by_reference',
         'odoo14-addon-account_invoice_section_sale_order',
         'odoo14-addon-account_invoice_tax_required',
+        'odoo14-addon-account_move_original_partner',
         'odoo14-addon-account_move_tier_validation',
     ],
     classifiers=[
