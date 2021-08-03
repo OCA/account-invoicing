@@ -17,12 +17,20 @@ class TestAccountInvoiceDateDue(common.SavepointCase):
         # Create new user allowed to change invoice due date
         group = cls.env.ref("account_invoice_date_due.allow_to_change_due_date")
         acc_group = cls.env.ref("account.group_account_manager")
+        # Loose dependency on stock to avoid perm issues.
+        # We don't really care about such permissions in this context!
+        # Eg:
+        # odoo.exceptions.AccessError:
+        # You are not allowed to access 'Stock Valuation Layer' (stock.valuation.layer) records.
+        stock_group = (
+            cls.env.ref("stock.group_stock_manager", False) or cls.env["res.groups"]
+        )
         cls.user_w_access = cls.env["res.users"].create(
             {
                 "name": "Test User w/ access",
                 "login": "user_w_access",
                 "email": "somebody@somewhere.com",
-                "groups_id": [(6, 0, [group.id, acc_group.id])],
+                "groups_id": [(6, 0, (group + acc_group + stock_group).ids)],
             }
         )
         # Create new user not allowed to change invoice due date
@@ -30,7 +38,7 @@ class TestAccountInvoiceDateDue(common.SavepointCase):
             {
                 "name": "Test User wo/ access",
                 "login": "user_wo_access",
-                "groups_id": [(6, 0, [acc_group.id])],
+                "groups_id": [(6, 0, (acc_group + stock_group).ids)],
             }
         )
         account100 = cls.env["account.account"].create(
