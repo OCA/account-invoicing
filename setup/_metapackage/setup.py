@@ -19,6 +19,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_tax_required',
         'odoo14-addon-account_move_original_partner',
         'odoo14-addon-account_move_tier_validation',
+        'odoo14-addon-product_supplierinfo_for_customer_invoice',
     ],
     classifiers=[
         'Programming Language :: Python',
