@@ -7,13 +7,17 @@ from odoo import fields
 from odoo.tests import Form, common
 
 
-class TestAccountInvoiceDateDue(common.TransactionCase):
-    def setUp(self):
-        super().setUp()
+class TestAccountInvoiceDateDue(common.SavepointCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(
+            context=dict(cls.env.context, tracking_disable=True, no_reset_password=True)
+        )
         # Create new user allowed to change invoice due date
-        group = self.env.ref("account_invoice_date_due.allow_to_change_due_date")
-        acc_group = self.env.ref("account.group_account_manager")
-        self.user_w_access = self.env["res.users"].create(
+        group = cls.env.ref("account_invoice_date_due.allow_to_change_due_date")
+        acc_group = cls.env.ref("account.group_account_manager")
+        cls.user_w_access = cls.env["res.users"].create(
             {
                 "name": "Test User w/ access",
                 "login": "user_w_access",
@@ -22,31 +26,31 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             }
         )
         # Create new user not allowed to change invoice due date
-        self.user_wo_access = self.env["res.users"].create(
+        cls.user_wo_access = cls.env["res.users"].create(
             {
                 "name": "Test User wo/ access",
                 "login": "user_wo_access",
                 "groups_id": [(6, 0, [acc_group.id])],
             }
         )
-        account100 = self.env["account.account"].create(
+        account100 = cls.env["account.account"].create(
             {
                 "code": "100",
                 "name": "Account 100",
-                "user_type_id": self.env.ref("account.data_account_type_receivable").id,
+                "user_type_id": cls.env.ref("account.data_account_type_receivable").id,
                 "reconcile": True,
             }
         )
-        account300 = self.env["account.account"].create(
+        account300 = cls.env["account.account"].create(
             {
                 "code": "300",
                 "name": "Account 300",
-                "user_type_id": self.env.ref(
+                "user_type_id": cls.env.ref(
                     "account.data_account_type_other_income"
                 ).id,
             }
         )
-        move_form = Form(self.env["account.move"])
+        move_form = Form(cls.env["account.move"])
         move_form.date = fields.Date.today()
         with move_form.invoice_line_ids.new() as line_form:
             line_form.name = "move test"
@@ -58,7 +62,7 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             line_form.debit = 1000.0
             line_form.credit = 0.0
             line_form.account_id = account100
-        self.move = move_form.save()
+        cls.move = move_form.save()
 
     def _compare_records(self, rec1, rec2, ignore=None):
         diff_fields = []
