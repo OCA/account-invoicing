@@ -6,13 +6,17 @@
             <field name="model">account.move.reversal</field>
             <field name="inherit_id" ref="account.view_account_move_reversal" />
             <field name="arch" type="xml">
-                <field name="date" position="after">
-                    <field name="move_id" invisible="1" />
-                    <field
-                        name="sale_qty_not_to_reinvoice"
-                        attrs="{'invisible': [('move_id', '=', False)]}"
-                    />
-                </field>
+                <xpath expr="//field[@name='journal_id']/.." position="after">
+                    <group
+                        name="sale_line_refund_qty"
+                        attrs="{'invisible': [('move_type', '!=', 'out_invoice')]}"
+                    >
+                        <field name="sale_qty_not_to_reinvoice" />
+                        <div class="oe_grey" colspan="4">
+                            If the credit note is created to reverse a wrong invoice, leave the checkbox empty.
+                        </div>
+                    </group>
+                </xpath>
             </field>
         </record>
     </data>
