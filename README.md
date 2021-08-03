@@ -21,11 +21,14 @@ addon | version | summary
 --- | --- | ---
 [account_billing](account_billing/) | 13.0.1.0.3 | Group invoice as billing before payment
 [account_global_discount](account_global_discount/) | 13.0.2.0.1 | Account Global Discount
+[account_invoice_base_invoicing_mode](account_invoice_base_invoicing_mode/) | 13.0.1.0.0 | Base module for handling multiple invoicing mode
 [account_invoice_check_total](account_invoice_check_total/) | 13.0.1.0.0 | Check if the verification total is equal to the bill's total
 [account_invoice_date_due](account_invoice_date_due/) | 13.0.1.0.1 | Update Invoice's Due Date
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 13.0.1.0.3 | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 13.0.1.0.2 | Allows to apply fixed amount discounts in invoices.
 [account_invoice_force_number](account_invoice_force_number/) | 13.0.1.0.0 | Allows to force invoice numbering on specific invoices
+[account_invoice_mode_at_shipping](account_invoice_mode_at_shipping/) | 13.0.1.0.0 | Create invoices automatically when goods are shipped.
+[account_invoice_mode_monthly](account_invoice_mode_monthly/) | 13.0.1.0.0 | Create invoices automatically on a monthly basis.
 [account_invoice_pricelist](account_invoice_pricelist/) | 13.0.1.0.2 | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 13.0.1.0.1 | Module to fill pricelist from sales order in invoice.
 [account_invoice_refund_line_selection](account_invoice_refund_line_selection/) | 13.0.1.0.0 | This module allows the user to refund specific lines in a invoice
