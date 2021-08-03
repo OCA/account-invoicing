@@ -30,6 +30,7 @@ addon | version | summary
 [account_invoice_tax_required](account_invoice_tax_required/) | 14.0.1.0.0 | This module adds functional a check on invoice to force user to set tax on invoice line.
 [account_move_original_partner](account_move_original_partner/) | 14.0.1.0.0 | Display original customers when creating invoices from multiple sale orders.
 [account_move_tier_validation](account_move_tier_validation/) | 14.0.1.0.1 | Extends the functionality of Account Moves to support a tier validation process.
+[product_supplierinfo_for_customer_invoice](product_supplierinfo_for_customer_invoice/) | 14.0.1.0.0 | Based on product_customer_code, this module loads in every account invoice the customer code defined in the product
 
 [//]: # (end addons)
 
