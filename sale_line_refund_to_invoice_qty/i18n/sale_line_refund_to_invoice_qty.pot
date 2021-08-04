@@ -33,6 +33,13 @@ msgid ""
 msgstr ""
 
 #. module: sale_line_refund_to_invoice_qty
+#: model_terms:ir.ui.view,arch_db:sale_line_refund_to_invoice_qty.view_account_move_reversal
+msgid ""
+"If the credit note is created to reverse a wrong invoice, leave the checkbox"
+" empty."
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
 #: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_move
 msgid "Journal Entries"
 msgstr ""
