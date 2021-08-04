@@ -1,0 +1,94 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_base_invoicing_mode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_base_invoicing_mode
+#: model:ir.model,name:account_invoice_base_invoicing_mode.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_queue_job__display_name
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner__display_name
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_sale_order__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: model:ir.model.fields,help:account_invoice_base_invoicing_mode.field_res_partner__one_invoice_per_order
+#: model:ir.model.fields,help:account_invoice_base_invoicing_mode.field_res_users__one_invoice_per_order
+msgid "Do not group sale order into one invoice."
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_queue_job__id
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner__id
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_sale_order__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner__invoicing_mode
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_users__invoicing_mode
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_sale_order__invoicing_mode
+msgid "Invoicing Mode"
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: model:ir.model,name:account_invoice_base_invoicing_mode.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_queue_job____last_update
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner____last_update
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_sale_order____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner__one_invoice_per_order
+#: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_users__one_invoice_per_order
+msgid "One invoice per order"
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: model:ir.model,name:account_invoice_base_invoicing_mode.model_queue_job
+msgid "Queue Job"
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: code:addons/account_invoice_base_invoicing_mode/models/queue_job.py:0
+#, python-format
+msgid "Related Record"
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: code:addons/account_invoice_base_invoicing_mode/models/queue_job.py:0
+#, python-format
+msgid "Related Records"
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: model:ir.model,name:account_invoice_base_invoicing_mode.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: account_invoice_base_invoicing_mode
+#: model:ir.model.fields.selection,name:account_invoice_base_invoicing_mode.selection__res_partner__invoicing_mode__standard
+msgid "Standard"
+msgstr ""
