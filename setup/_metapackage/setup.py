@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_force_number',
         'odoo14-addon-account_invoice_mode_at_shipping',
         'odoo14-addon-account_invoice_mode_monthly',
+        'odoo14-addon-account_invoice_mode_weekly',
         'odoo14-addon-account_invoice_payment_retention',
         'odoo14-addon-account_invoice_refund_link',
         'odoo14-addon-account_invoice_search_by_reference',
