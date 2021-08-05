@@ -7,4 +7,7 @@ from odoo import fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    invoicing_mode = fields.Selection(selection_add=([("at_shipping", "At Shipping")]))
+    invoicing_mode = fields.Selection(
+        selection_add=[("at_shipping", "At Shipping")],
+        ondelete={"at_shipping": "set default"},
+    )
