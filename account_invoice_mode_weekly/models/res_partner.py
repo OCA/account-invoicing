@@ -7,4 +7,7 @@ from odoo import fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    invoicing_mode = fields.Selection(selection_add=([("weekly", "Weekly")]))
+    invoicing_mode = fields.Selection(
+        selection_add=[("weekly", "Weekly")],
+        ondelete={"weekly": "set default"},
+    )
