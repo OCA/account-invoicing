@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Account Invoice Mode Weekly",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "summary": "Create invoices automatically on a weekly basis.",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
