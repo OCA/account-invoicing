@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2017-2020 Akretion France (http://www.akretion.com/)
+  @author: Alexis de Lattre <alexis.delattre@akretion.com>
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">Add Transmit Method on Invoice form view</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <!-- For customer invoices, the field transmit_method_id is displayed
+            at the top. For vendor bills, it is displayed in the 3rd tab.
+            -->
+            <div name="journal_div" position="after">
+                <field name="transmit_method_domain_sale" invisible="1" />
+                <field name="transmit_method_domain_purchase" invisible="1" />
+                <field
+                    name="transmit_method_id"
+                    widget="selection"
+                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}"
+                />
+                <field name="transmit_method_code" invisible="1" />
+            </div>
+            <button name="action_invoice_sent" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|', '|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', True), ('move_type', 'not in', ('out_invoice', 'out_refund')), ('transmit_method_code', 'not in', ('mail', False))]}</attribute>
+                <!-- Only show the "Send by Mail" button when the transmit method is E-mail or empty -->
+            </button>
+            <field name="invoice_source_email" position="after">
+                <field
+                    name="transmit_method_id"
+                    widget="selection"
+                    attrs="{'invisible': [('move_type', 'not in', ('in_invoice', 'in_refund'))]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

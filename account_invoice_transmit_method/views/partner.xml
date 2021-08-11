@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2017-2020 Akretion France (http://www.akretion.com/)
+  @author: Alexis de Lattre <alexis.delattre@akretion.com>
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field
+            name="name"
+        >Add Invoice Transmit Methods on partner form view (account tab)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <field name="property_payment_term_id" position="after">
+                <field name="customer_invoice_transmit_method_id" widget="selection" />
+            </field>
+            <field name="property_supplier_payment_term_id" position="after">
+                <field name="supplier_invoice_transmit_method_id" widget="selection" />
+            </field>
+            <xpath
+                expr="//page[@name='sales_purchases']//field[@name='company_id']"
+                position="after"
+            >
+                <field name="customer_invoice_transmit_method_code" invisible="1" />
+                <field name="supplier_invoice_transmit_method_code" invisible="1" />
+            </xpath>
+            <xpath
+                expr="//field[@name='child_ids']/form//field[@name='company_id']"
+                position="after"
+            >
+                <field name="customer_invoice_transmit_method_code" invisible="1" />
+                <field name="supplier_invoice_transmit_method_code" invisible="1" />
+            </xpath>
+            <field name="child_ids" position="attributes">
+                <attribute
+                    name="context"
+                    operation="python_dict"
+                    key="default_customer_invoice_transmit_method_code"
+                >customer_invoice_transmit_method_code</attribute>
+                <attribute
+                    name="context"
+                    operation="python_dict"
+                    key="default_supplier_invoice_transmit_method_code"
+                >supplier_invoice_transmit_method_code</attribute>
+            <xpath
+                    expr="//field[@name='child_ids']/form//field[@name='email']"
+                    position="attributes"
+                > <!-- TODO for some strange reasons, this attrs has no effect -->
+            <attribute
+                        name="attrs"
+                    >{'required': [('customer_invoice_transmit_method_code', '=', 'mail'), ('type', '=', 'invoice')]}</attribute>
+            </xpath>
+            </field>
+        </field>
+    </record>
+</odoo>
