@@ -9,7 +9,10 @@
             <form>
                 <sheet>
                     <group attrs="{'invisible': [('purchase_order_ids', '=', False)]}">
-                        <field name="purchase_order_ids" />
+                        <field
+                            name="purchase_order_ids"
+                            context="{'tree_view_ref':'purchase_batch_invoicing.purchase_batch_invoicing_tree_view'}"
+                        />
                         <field name="grouping" />
                         <field name="exclude_zero_qty" />
                     </group>

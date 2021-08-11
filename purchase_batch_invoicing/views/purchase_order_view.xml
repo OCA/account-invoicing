@@ -13,4 +13,24 @@
             </xpath>
         </field>
     </record>
+    <record id="purchase_batch_invoicing_tree_view" model="ir.ui.view">
+        <field name="name">purchase.order.tree (purchase_batch_invoicing)</field>
+        <field name="model">purchase.order</field>
+        <field eval="999" name="priority" />
+        <field name="arch" type="xml">
+            <tree>
+                <field name="state" invisible="1" />
+                <field name="currency_id" invisible="1" />
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="partner_ref" />
+                <field name="date_order" />
+                <field
+                    name="amount_total"
+                    widget="monetary"
+                    options="{'currency_field': 'currency_id'}"
+                />
+            </tree>
+        </field>
+    </record>
 </odoo>
