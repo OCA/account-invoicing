@@ -77,7 +77,7 @@ class TestInvoiceFixedDiscount(SavepointCase):
                     .search([("type", "=", "sale")], limit=1)
                     .id,
                     "partner_id": self.partner.id,
-                    "type": "out_invoice",
+                    "move_type": "out_invoice",
                     "invoice_line_ids": invoice_vals,
                 }
             )
