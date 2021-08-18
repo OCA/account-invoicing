@@ -1,4 +1,4 @@
-# Copyright 2017 Eficent Business and IT Consulting Services S.L.
+# Copyright 2017 ForgeFlow S.L.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
 from odoo import _, api, fields, models
@@ -75,12 +75,27 @@ class AccountMoveLine(models.Model):
 
     @api.model
     def _get_fields_onchange_balance_model(
-        self, quantity, discount, balance, move_type, currency, taxes, price_subtotal
+        self,
+        quantity,
+        discount,
+        balance,
+        move_type,
+        currency,
+        taxes,
+        price_subtotal,
+        force_computation=False,
     ):
         if self.discount_fixed != 0:
             discount = ((self.discount_fixed) / self.price_unit) * 100 or 0.00
         return super(AccountMoveLine, self)._get_fields_onchange_balance_model(
-            quantity, discount, balance, move_type, currency, taxes, price_subtotal
+            quantity,
+            discount,
+            balance,
+            move_type,
+            currency,
+            taxes,
+            price_subtotal,
+            force_computation=force_computation,
         )
 
     @api.model_create_multi

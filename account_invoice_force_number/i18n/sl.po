@@ -32,9 +32,6 @@ msgstr "Vsili številko"
 #. module: account_invoice_force_number
 #: model:ir.model.fields,help:account_invoice_force_number.field_account_move__move_name
 #, fuzzy
-#| msgid ""
-#| "Force invoice number. Use this field if you don't want to use the default "
-#| "numbering"
 msgid ""
 "Force invoice number. Use this field if\n"
 "        you don't want to use the default numbering."

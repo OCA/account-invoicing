@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-extend="AccountTaxGroupTemplate">
+        <t t-jquery="t[t-esc='line[0]']" t-operation="after">
+            <t t-if="lines.length > 1">
+                on <t t-esc="line[4]" />
+            </t>
+        </t>
+    </t>
+</templates>

@@ -1,0 +1,588 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_billing
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2020-12-18 17:43+0000\n"
+"Last-Translator: Cas Vissers <c.vissers@brahoo.nl>\n"
+"Language-Team: none\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__state
+msgid ""
+"\n"
+"            * The 'Draft' status is used when a user create a new billing\n"
+"\n"
+"            * The 'Billed' status is used when user confirmed billing,\n"
+"                billing number is generated\n"
+"\n"
+"            * The 'Cancelled' status is used when user billing is cancelled\n"
+"        "
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__invoice_related_count
+msgid "# of Invoices"
+msgstr "# facturen"
+
+#. module: account_billing
+#: model:ir.actions.report,print_report_name:account_billing.report_account_billing
+msgid ""
+"'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
+msgstr ""
+"'VERZAMELFACTUUR-%s%s' % (object.name, object.state == 'draft' and '-draft' "
+"or '')"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+msgid "<span>Due Date</span>"
+msgstr "<span>Vervaldatum</span>"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+msgid "<span>Invoice Date</span>"
+msgstr "<span>Factuurdatum</span>"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+msgid "<span>Invoice Number</span>"
+msgstr "<span>Factuurnummer</span>"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+msgid "<span>Notes :</span>"
+msgstr "<span>Notities :</span>"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+msgid "<span>Source Document</span>"
+msgstr "<span>Brondocument</span>"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+#, fuzzy
+msgid "<span>Status</span>"
+msgstr "<span>Status</span>"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+msgid "<span>Total</span>"
+msgstr "<span>Totaal</span>"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+msgid "<strong>Billing Date:</strong>"
+msgstr "<strong>Factuurdatum:</strong>"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+msgid "<strong>Currency:</strong>"
+msgstr "<strong>Valuta:</strong>"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+msgid "<strong>Due Date:</strong>"
+msgstr "<strong>Vervaldatum:</strong>"
+
+#. module: account_billing
+#: model:ir.model,name:account_billing.model_account_billing
+msgid "Account Billing"
+msgstr "Account verzamelfacturen"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_needaction
+msgid "Action Needed"
+msgstr "Actie nodig"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "Are you sure to cancel this document?"
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_attachment_count
+msgid "Attachment Count"
+msgstr "Aantal bijlages"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_move__billing_ids
+msgid "Biilings"
+msgstr "Verzamelfacturen"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__billing_line_ids
+msgid "Bill Lines"
+msgstr "Factuurregels"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__bill_type
+msgid "Bill Type"
+msgstr "Verzamelfactuur type"
+
+#. module: account_billing
+#: model:ir.model.fields.selection,name:account_billing.selection__account_billing__state__billed
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+msgid "Billed"
+msgstr "Verzamelfactuur gefactureerd"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+msgid "Billed Billing"
+msgstr "Gefactureerde verzamelfactuur"
+
+#. module: account_billing
+#: model:ir.actions.act_window,name:account_billing.action_customer_billing
+#: model:ir.actions.act_window,name:account_billing.action_supplier_billing
+#: model:ir.actions.report,name:account_billing.report_account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__billing_id
+#: model:ir.ui.menu,name:account_billing.menu_action_customer_billing
+#: model:ir.ui.menu,name:account_billing.menu_action_supplier_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+msgid "Billing"
+msgstr "Verzamelfactuur"
+
+#. module: account_billing
+#: code:addons/account_billing/models/account_billing.py:0
+#, python-format
+msgid "Billing %s is cancelled"
+msgstr "Factureer %s is geannuleerd"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__date
+msgid "Billing Date"
+msgstr "Factuurdatum"
+
+#. module: account_billing
+#: model:ir.model,name:account_billing.model_account_billing_line
+msgid "Billing Line"
+msgstr "Factuurlijn"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "Billing Lines"
+msgstr "Factuurregels"
+
+#. module: account_billing
+#: code:addons/account_billing/models/account_billing.py:0
+#, python-format
+msgid ""
+"Billing cannot be processed because\n"
+"                    some invoices are not in state Open"
+msgstr ""
+
+#. module: account_billing
+#: code:addons/account_billing/models/account_billing.py:0
+#, python-format
+msgid "Billing is billed."
+msgstr "Verzamelfactuur is gefactureerd."
+
+#. module: account_billing
+#: code:addons/account_billing/models/account_billing.py:0
+#, python-format
+msgid "Billing is reset to draft"
+msgstr "Verzamelfactuur wordt teruggezet naar concept"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "Cancel"
+msgstr "Annuleer"
+
+#. module: account_billing
+#: model:ir.model.fields.selection,name:account_billing.selection__account_billing__state__cancel
+msgid "Cancelled"
+msgstr "Geannuleerd"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+msgid "Cancelled Billing"
+msgstr "Geannuleerde verzamelfactuur"
+
+#. module: account_billing
+#: model_terms:ir.actions.act_window,help:account_billing.action_customer_billing
+#: model_terms:ir.actions.act_window,help:account_billing.action_supplier_billing
+msgid "Click to register a new billing."
+msgstr "Klik om een nieuwe verzamelfactuur te maken."
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__company_id
+msgid "Company"
+msgstr "Bedrijf"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__invoice_related_count
+msgid "Count invoice in billing"
+msgstr "Aantal facturen in verzamelfactuur"
+
+#. module: account_billing
+#: model:ir.actions.act_window,name:account_billing.action_account_invoice_billing
+msgid "Create Billing"
+msgstr "Verzamelfactuur maken"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__create_uid
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__create_date
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__create_date
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__currency_id
+#: model:ir.model.fields,help:account_billing.field_account_billing__currency_id
+msgid "Currency"
+msgstr "Valuta"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_tree
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+msgid "Customer"
+msgstr "Klant"
+
+#. module: account_billing
+#: model:ir.model.fields.selection,name:account_billing.selection__account_billing__bill_type__out_invoice
+msgid "Customer Invoice"
+msgstr "Klantfactuur"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__display_name
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__display_name
+msgid "Display Name"
+msgstr "Schermnaam"
+
+#. module: account_billing
+#: model:ir.model.fields.selection,name:account_billing.selection__account_billing__state__draft
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+msgid "Draft"
+msgstr "Concept"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+msgid "Draft Billing"
+msgstr "Ontwerp verzamelfactuur"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__threshold_date
+#: model:ir.model.fields.selection,name:account_billing.selection__account_billing__threshold_date_type__invoice_date_due
+msgid "Due Date"
+msgstr "Vervaldatum"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__date
+msgid "Effective date for accounting entries"
+msgstr "Effectieve datum voor boekingen"
+
+#. module: account_billing
+#: model_terms:ir.actions.act_window,help:account_billing.action_customer_billing
+msgid ""
+"Enter the customer the invoices expect to be paid by the customer for this\n"
+"            bill period. By default the pending invoices will be listed, automatically."
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_follower_ids
+msgid "Followers"
+msgstr "Volgers"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Volgers (kanalen)"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Volgers (relaties)"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+msgid "Group By"
+msgstr "Groepeer op"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__id
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__message_needaction
+#: model:ir.model.fields,help:account_billing.field_account_billing__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Wanneer aangevinkt, zijn er nieuwe berichten met acties."
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__message_has_error
+#: model:ir.model.fields,help:account_billing.field_account_billing__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Wanneer aangevinkt, zijn er berichten met een foutmelding."
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__invoice_id
+msgid "Invoice"
+msgstr "Factuur"
+
+#. module: account_billing
+#: model:ir.model.fields.selection,name:account_billing.selection__account_billing__threshold_date_type__invoice_date
+msgid "Invoice Date"
+msgstr "Factuur Datum"
+
+#. module: account_billing
+#: code:addons/account_billing/models/account_billing.py:0
+#, python-format
+msgid "Invoice paid already."
+msgstr "Factuur reeds betaald."
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__invoice_date
+msgid "Invoice/Bill Date"
+msgstr "Factuur/verzamelfactuur datum"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "Invoices"
+msgstr "Facturen"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_is_follower
+msgid "Is Follower"
+msgstr "Is volger"
+
+#. module: account_billing
+#: model:ir.model,name:account_billing.model_account_move
+msgid "Journal Entries"
+msgstr "Boekingen"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing____last_update
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line____last_update
+msgid "Last Modified on"
+msgstr "Laatst gewijzigd op"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__write_uid
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__write_date
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__write_date
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__company_id
+msgid ""
+"Leave this field empty if this route is shared             between all "
+"companies"
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Hoofd bijlage"
+
+#. module: account_billing
+#: model_terms:ir.actions.act_window,help:account_billing.action_supplier_billing
+msgid "Manage supplier billing you want to be used in the system."
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_has_error
+msgid "Message Delivery error"
+msgstr "Bericht leveringsfout"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_ids
+msgid "Messages"
+msgstr "Berichten"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__name
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+msgid "Name"
+msgstr "Naam"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__narration
+#: model:ir.model.fields,help:account_billing.field_account_billing__narration
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "Notes"
+msgstr "Notities"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__name
+msgid "Number"
+msgstr "Nummer"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Aantal acties"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__name
+msgid "Number of account.billing"
+msgstr "Aantal van account.billing"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_has_error_counter
+msgid "Number of errors"
+msgstr "Aantal fouten"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Aantal berichten die actie vereisen"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Aantal berichten met leveringsfout"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Aantal ongelezen berichten"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__origin
+msgid "Origin"
+msgstr "Oorsprong"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__partner_id
+msgid "Partner"
+msgstr "Relatie"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__partner_id
+msgid "Partner Information"
+msgstr "Partner Informatie"
+
+#. module: account_billing
+#: code:addons/account_billing/models/account_billing.py:0
+#, python-format
+msgid "Please select invoices with same currency"
+msgstr "Selecteer facturen met dezelfde valuta"
+
+#. module: account_billing
+#: code:addons/account_billing/models/account_billing.py:0
+#, python-format
+msgid "Please select invoices with same partner"
+msgstr "Selecteer facturen met dezelfde relatie"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_move__billing_ids
+msgid "Relationship between invoice and billing"
+msgstr "Relatie tussen factuur en verzamelfacturen"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS leverfout"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+msgid "Search Billings"
+msgstr "Zoek verzamelfacturen"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "Set to Draft"
+msgstr "Zet op concept"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__state
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__state
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+msgid "Status"
+msgstr "Status"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing_line__origin
+msgid "The document(s) that generated the invoice."
+msgstr "The document(en) welke de factuur hebben genereerd."
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__threshold_date
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "Threshold Date"
+msgstr "Drempelwaarde datum"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__threshold_date_type
+msgid "Threshold Date Type"
+msgstr "Drempelwaarde datum type"
+
+#. module: account_billing
+#: code:addons/account_billing/models/account_billing.py:0
+#, python-format
+msgid "Threshold Date cannot be later than the %s in lines"
+msgstr "Drempelwaarde datum kan niet later zijn dan de %s in regels"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__total
+msgid "Total"
+msgstr "Totaal"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "Total Amount"
+msgstr "Totaal bedrag"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__bill_type
+msgid "Type of invoice"
+msgstr "Type factuur"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_unread
+msgid "Unread Messages"
+msgstr "Ongelezen berichten"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Aantal ongelezen berichten"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "Validate"
+msgstr "Valideren"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_supplier_billing_tree
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+msgid "Vendor"
+msgstr "Leverancier"
+
+#. module: account_billing
+#: model:ir.model.fields.selection,name:account_billing.selection__account_billing__bill_type__in_invoice
+msgid "Vendor Bill"
+msgstr "Leveranciersfactuur"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__website_message_ids
+msgid "Website Messages"
+msgstr "Website berichten"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__website_message_ids
+msgid "Website communication history"
+msgstr "Website communicatie geschiedenis"

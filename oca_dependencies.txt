@@ -1,3 +1,6 @@
 queue
+server-tools
 server-ux
 web
+server-backend
+product-attribute
