@@ -1,5 +1,5 @@
 # Copyright 2021 ForgeFlow (http://www.forgeflow.com)
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
@@ -24,7 +24,7 @@ class TestAccountMoveTierValidationApprover(TransactionCase):
         self.vendor_bill = self.env["account.move"].create(
             [
                 {
-                    "type": "in_invoice",
+                    "move_type": "in_invoice",
                     "partner_id": self.res_partner_1.id,
                     "currency_id": self.currency_euro.id,
                     "approver_id": self.test_approver.id,
@@ -44,7 +44,7 @@ class TestAccountMoveTierValidationApprover(TransactionCase):
             ]
         )
         self.model_id = self.env["ir.model"].search(
-            [("name", "=", "Journal Entries")], limit=1
+            [("model", "=", "account.move")], limit=1
         )
         self.field_id = self.env["ir.model.fields"].search(
             [("name", "=", "approver_id")], limit=1
@@ -61,11 +61,13 @@ class TestAccountMoveTierValidationApprover(TransactionCase):
                 "review_type": "field",
                 "reviewer_field_id": self.field_id.id,
                 "definition_type": "domain",
-                "definition_domain": "[('type', '=', 'in_invoice')]",
+                "definition_domain": "[('move_type', '=', 'in_invoice')]",
             }
         )
         record = self.vendor_bill
-        record.write({"approver_id": self.test_approver.id})
+        record.write(
+            {"approver_id": self.test_approver.id, "invoice_date": record.date}
+        )
         record.with_user(self.test_user_1.id).request_validation()
         record.invalidate_cache()
         record.with_user(self.test_user_1.id).validate_tier()
