@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2021 ForgeFlow, S.L.
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
     <record id="view_move_form" model="ir.ui.view">
         <field name="name">account.move.form</field>
@@ -10,7 +10,7 @@
             <xpath expr='//field[@name="ref"]' position="after">
                 <field
                     name="approver_id"
-                    attrs="{'readonly': [('review_ids', '!=', [])], 'invisible': [('type', 'in', ['out_invoice', 'out_refund', 'entry'])]}"
+                    attrs="{'readonly': [('review_ids', '!=', [])], 'invisible': [('move_type', 'in', ['out_invoice', 'out_refund', 'entry'])]}"
                 />
             </xpath>
         </field>
