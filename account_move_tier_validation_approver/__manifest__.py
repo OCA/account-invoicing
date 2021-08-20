@@ -1,8 +1,8 @@
 # Copyright 2021 ForgeFlow, S.L.
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Account Move Tier Validation Approver",
-    "version": "13.0.2.0.0",
+    "version": "14.0.1.0.0",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "category": "Accounting",
     "license": "AGPL-3",

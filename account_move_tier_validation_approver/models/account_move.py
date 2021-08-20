@@ -1,5 +1,5 @@
 # Copyright 2021 ForgeFlow, S.L.
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
@@ -15,7 +15,7 @@ class AccountMove(models.Model):
         if self.partner_id:
             self.approver_id = self.partner_id.approver_id.id
 
-    def post(self):
+    def _post(self, soft=True):
         for move in self:
             require_approver_in_vendor_bills = (
                 move.company_id.require_approver_in_vendor_bills
@@ -26,6 +26,8 @@ class AccountMove(models.Model):
                 and not move.approver_id
             ):
                 raise UserError(
-                    _("It is mandatory to indicate a Responsible for Approval")
+                    _(
+                        "It is mandatory to indicate a Responsible for Approval (in {})"
+                    ).format(move.name)
                 )
-        return super(AccountMove, self).post()
+        return super()._post(soft)

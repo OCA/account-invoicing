@@ -1,5 +1,5 @@
 # Copyright 2020 ForgeFlow, S.L.
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import fields, models
 
@@ -28,7 +28,7 @@ class ResConfigSettings(models.TransientModel):
                     "review_type": "field",
                     "name": "Validation with Approver field",
                     "reviewer_field_id": field.id,
-                    "definition_domain": "[('type', '=', 'in_invoice')]",
+                    "definition_domain": "[('move_type', '=', 'in_invoice')]",
                     "approve_sequence": True,
                     "active": self.require_approver_in_vendor_bills,
                 }
