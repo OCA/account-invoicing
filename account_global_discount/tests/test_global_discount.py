@@ -108,7 +108,8 @@ class TestGlobalDiscount(common.SavepointCase):
         cls.invoice_line = cls.env["account.move.line"]
         invoice_form = Form(
             cls.env["account.move"].with_context(
-                default_type="in_invoice", test_account_global_discount=True,
+                default_move_type="in_invoice",
+                test_account_global_discount=True,
             )
         )
         invoice_form.partner_id = cls.partner_1
@@ -348,7 +349,8 @@ class TestGlobalDiscount(common.SavepointCase):
         )
         invoice_form = Form(
             self.env["account.move"].with_context(
-                default_type="out_invoice", test_account_global_discount=True,
+                default_move_type="out_invoice",
+                test_account_global_discount=True,
             )
         )
         invoice_form.partner_id = self.partner_1
