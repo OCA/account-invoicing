@@ -28,8 +28,10 @@ class AccountMove(models.Model):
         "    'out_refund': ['sale'], "
         "    'in_refund': ['purchase'], "
         "    'in_invoice': ['purchase']"
-        "}.get(type, [])), ('account_id', '!=', False), '|', "
+        "}.get(move_type, [])), ('account_id', '!=', False), '|', "
         "('company_id', '=', company_id), ('company_id', '=', False)]",
+        readonly=True,
+        states={"draft": [("readonly", False)]},
     )
     amount_global_discount = fields.Monetary(
         string="Total Global Discounts",
@@ -90,8 +92,8 @@ class AccountMove(models.Model):
             tax_line.debit = amount > 0.0 and amount or 0.0
             tax_line.credit = amount < 0.0 and -amount or 0.0
             # Apply onchanges
-            tax_line._onchange_amount_currency()
             tax_line._onchange_balance()
+            tax_line._onchange_amount_currency()
 
     def _prepare_global_discount_vals(self, global_discount, base, tax_ids):
         """Prepare the dictionary values for an invoice global discount
@@ -173,7 +175,7 @@ class AccountMove(models.Model):
         model = "account.move.line"
         create_method = in_draft_mode and self.env[model].new or self.env[model].create
         for discount in self.invoice_global_discount_ids.filtered("discount"):
-            sign = -1 if self.type in {"in_invoice", "out_refund"} else 1
+            sign = -1 if self.move_type in {"in_invoice", "out_refund"} else 1
             disc_amount = sign * discount.discount_amount
             create_method(
                 {
@@ -197,12 +199,12 @@ class AccountMove(models.Model):
         res = super()._onchange_partner_id()
         discounts = False
         if (
-            self.type in ["out_invoice", "out_refund"]
+            self.move_type in ["out_invoice", "out_refund"]
             and self.partner_id.customer_global_discount_ids
         ):
             discounts = self.partner_id.customer_global_discount_ids
         elif (
-            self.type in ["in_refund", "in_invoice"]
+            self.move_type in ["in_refund", "in_invoice"]
             and self.partner_id.supplier_global_discount_ids
         ):
             discounts = self.partner_id.supplier_global_discount_ids
@@ -234,7 +236,6 @@ class AccountMove(models.Model):
         self.amount_untaxed_before_global_discounts = self.amount_untaxed
         self.amount_untaxed = self.amount_untaxed + self.amount_global_discount
         self.amount_total = self.amount_untaxed + self.amount_tax
-        amount_total_company_signed = self.amount_total
         amount_untaxed_signed = self.amount_untaxed
         if (
             self.currency_id
@@ -242,18 +243,20 @@ class AccountMove(models.Model):
             and self.currency_id != self.company_id.currency_id
         ):
             date = self.invoice_date or fields.Date.today()
-            amount_total_company_signed = self.currency_id._convert(
-                self.amount_total, self.company_id.currency_id, self.company_id, date
-            )
             amount_untaxed_signed = self.currency_id._convert(
                 self.amount_untaxed, self.company_id.currency_id, self.company_id, date
             )
-        sign = self.type in ["in_refund", "out_refund"] and -1 or 1
-        self.amount_total_company_signed = amount_total_company_signed * sign
+        sign = self.move_type in ["in_refund", "out_refund"] and -1 or 1
         self.amount_total_signed = self.amount_total * sign
         self.amount_untaxed_signed = amount_untaxed_signed * sign
 
     @api.depends(
+        "line_ids.matched_debit_ids.debit_move_id.move_id.payment_id.is_matched",
+        "line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual",
+        "line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual_currency",
+        "line_ids.matched_credit_ids.credit_move_id.move_id.payment_id.is_matched",
+        "line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual",
+        "line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual_currency",
         "line_ids.debit",
         "line_ids.credit",
         "line_ids.currency_id",
@@ -261,6 +264,7 @@ class AccountMove(models.Model):
         "line_ids.amount_residual",
         "line_ids.amount_residual_currency",
         "line_ids.payment_id.state",
+        "line_ids.full_reconcile_id",
         "invoice_global_discount_ids",
         "global_discount_ids",
     )
@@ -316,9 +320,10 @@ class AccountMoveLine(models.Model):
         string="Invoice Global Discount",
     )
     base_before_global_discounts = fields.Monetary(
-        string="Amount Untaxed Before Discounts", readonly=True,
+        string="Amount Untaxed Before Discounts",
+        readonly=True,
     )
-    # TODO: To be removed on v14 if invoice_global_discount_id is properly filled
+    # TODO: To be removed on future versions if invoice_global_discount_id is properly filled
     # Provided for compatibility in stable branch
     global_discount_item = fields.Boolean()
 
@@ -335,15 +340,21 @@ class AccountInvoiceGlobalDiscount(models.Model):
         index=True,
         readonly=True,
         domain=[
-            ("type", "in", ["out_invoice", "out_refund", "in_invoice", "in_refund"])
+            (
+                "move_type",
+                "in",
+                ["out_invoice", "out_refund", "in_invoice", "in_refund"],
+            )
         ],
     )
     global_discount_id = fields.Many2one(
-        comodel_name="global.discount", string="Global Discount",
+        comodel_name="global.discount",
+        string="Global Discount",
     )
     discount = fields.Float(string="Discount (number)")
     discount_display = fields.Char(
-        compute="_compute_discount_display", string="Discount",
+        compute="_compute_discount_display",
+        string="Discount",
     )
     base = fields.Float(string="Base before discount", digits="Product Price")
     base_discounted = fields.Float(string="Base after discount", digits="Product Price")
@@ -362,7 +373,8 @@ class AccountInvoiceGlobalDiscount(models.Model):
         domain="[('user_type_id.type', 'not in', ['receivable', 'payable'])]",
     )
     account_analytic_id = fields.Many2one(
-        comodel_name="account.analytic.account", string="Analytic account",
+        comodel_name="account.analytic.account",
+        string="Analytic account",
     )
     company_id = fields.Many2one(related="invoice_id.company_id", readonly=True)
 
