@@ -12,7 +12,8 @@ class GlobalDiscount(models.Model):
         domain="[('user_type_id.type', 'not in', ['receivable', 'payable'])]",
     )
     account_analytic_id = fields.Many2one(
-        comodel_name="account.analytic.account", string="Analytic account",
+        comodel_name="account.analytic.account",
+        string="Analytic account",
     )
 
     def _get_global_discount_vals(self, base, account_id=False, **kwargs):
