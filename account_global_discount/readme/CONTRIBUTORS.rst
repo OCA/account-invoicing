@@ -6,3 +6,4 @@
   * Rafael Blasco
   * Ernesto Tejeda
   * Víctor Martínez
+* Omar Castiñeira <omar@comunitea.com>
