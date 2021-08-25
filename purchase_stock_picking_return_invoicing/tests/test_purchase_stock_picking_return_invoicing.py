@@ -1,15 +1,13 @@
-# Copyright 2019 Eficent Business and IT Consulting Services
+# Copyright 2019 ForgeFlow S.L. (https://www.forgeflow.com)
 # Copyright 2017-2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import fields
-from odoo.tests.common import Form, SavepointCase
+from odoo.tests.common import SavepointCase, tagged
 
 
+@tagged("post_install", "-at_install")
 class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
-    at_install = False
-    post_install = True
-
     @classmethod
     def setUpClass(cls):
         """Add some defaults to let the test run without an accounts chart."""
@@ -86,6 +84,7 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         )
         cls.po_line = cls.po.order_line
         cls.po.button_confirm()
+        cls.po.button_approve()
 
     def check_values(
         self,
@@ -118,13 +117,8 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         pick.button_validate()
         self.check_values(self.po_line, 0, 5, 0, 0, "to invoice")
         # Make invoice
-        ctx = self.po.action_view_invoice()["context"]
-        active_model = self.env["account.move"].with_context(ctx)
-        view_id = "account.view_move_form"
-        with Form(active_model, view=view_id) as f:
-            f.partner_id = self.partner
-            f.purchase_id = self.po
-        inv_1 = f.save()
+        action = self.po.action_create_invoice()
+        inv_1 = self.env["account.move"].browse(action["res_id"])
         self.check_values(self.po_line, 0, 5, 0, 5, "invoiced")
         self.assertAlmostEqual(inv_1.amount_untaxed_signed, -50, 2)
 
@@ -137,14 +131,12 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         return_pick.button_validate()
         self.check_values(self.po_line, 2, 3, 0, 5, "to invoice")
         # Make refund
-        ctx = self.po.action_view_invoice_refund()["context"]
-        active_model = self.env["account.move"].with_context(ctx)
-        view_id = "account.view_move_form"
-        with Form(active_model, view=view_id) as f:
-            f.partner_id = self.partner
-            f.purchase_id = self.po
-        inv_2 = f.save()
+        action2 = self.po.with_context(
+            default_move_type="in_refund"
+        ).action_create_invoice_refund()
+        inv_2 = self.env["account.move"].browse(action2["res_id"])
         self.check_values(self.po_line, 2, 3, 2, 3, "invoiced")
+
         self.assertAlmostEqual(inv_2.amount_untaxed_signed, 20, 2)
         action = self.po.action_view_invoice()
         self.assertEqual(action["res_id"], inv_1.id)
@@ -171,12 +163,7 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         return_pick.button_validate()
         self.check_values(self.po_line, 2, 3, 0, 0, "to invoice")
         # Make invoice
-        ctx = self.po.action_view_invoice()["context"]
-        active_model = self.env["account.move"].with_context(ctx)
-        view_id = "account.view_move_form"
-        with Form(active_model, view=view_id) as f:
-            f.partner_id = self.partner
-            f.purchase_id = self.po
-        inv_1 = f.save()
+        action = self.po.action_create_invoice()
+        inv_1 = self.env["account.move"].browse(action["res_id"])
         self.check_values(self.po_line, 2, 3, 0, 3, "invoiced")
         self.assertAlmostEqual(inv_1.amount_untaxed_signed, -30, 2)

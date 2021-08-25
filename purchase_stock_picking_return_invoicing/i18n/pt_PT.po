@@ -28,14 +28,13 @@ msgstr ""
 #. module: purchase_stock_picking_return_invoicing
 #: model_terms:ir.ui.view,arch_db:purchase_stock_picking_return_invoicing.purchase_order_view_form_inherit
 #, fuzzy
-#| msgid "Refunds"
 msgid "Create Refund"
 msgstr "Notas de crédito"
 
 #. module: purchase_stock_picking_return_invoicing
-#: model:ir.model,name:purchase_stock_picking_return_invoicing.model_account_invoice
-msgid "Invoice"
-msgstr "Fatura"
+#: model:ir.model,name:purchase_stock_picking_return_invoicing.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: purchase_stock_picking_return_invoicing
 #: model:ir.model,name:purchase_stock_picking_return_invoicing.model_purchase_order
@@ -71,3 +70,6 @@ msgstr ""
 #: model:ir.model.fields,help:purchase_stock_picking_return_invoicing.field_purchase_order_line__qty_returned
 msgid "This is ONLY the returned quantity that is refundable."
 msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Fatura"
