@@ -1,4 +1,4 @@
-# Copyright 2017 Eficent Business and IT Consulting Services
+# Copyright 2017 ForgeFlow S.L. (https://www.forgeflow.com)
 # Copyright 2017-2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 

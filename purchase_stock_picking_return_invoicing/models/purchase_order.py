@@ -1,4 +1,4 @@
-# Copyright 2017 Eficent Business and IT Consulting Services
+# Copyright 2017 ForgeFlow S.L. (https://www.forgeflow.com)
 # Copyright 2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -63,42 +63,65 @@ class PurchaseOrder(models.Model):
     def action_view_invoice_refund(self):
         """This function returns an action that display existing vendor refund
         bills of given purchase order id.
-        When only one found, show the vendor bill immediately.
-        """
+        When only one found, show the vendor bill immediately."""
+        # Mimic upstream code
+        # https://github.com/odoo/odoo/blob/13.0/addons/purchase/models/purchase.py#L430
         action = self.env.ref("account.action_move_in_refund_type")
         result = action.read()[0]
         create_refund = self.env.context.get("create_refund", False)
+        self.sudo()._read(["invoice_ids"])
         refunds = self.invoice_ids.filtered(lambda x: x.type == "in_refund")
         # override the context to get rid of the default filtering
         result["context"] = {
             "default_type": "in_refund",
             "default_company_id": self.company_id.id,
             "default_purchase_id": self.id,
+            "default_partner_id": self.partner_id.id,
         }
         # choose the view_mode accordingly
         if len(refunds) > 1 and not create_refund:
             result["domain"] = "[('id', 'in', " + str(refunds.ids) + ")]"
         else:
-            res = self.env.ref("account.invoice_supplier_form", False)
-            result["views"] = [(res and res.id or False, "form")]
+            res = self.env.ref("account.view_move_form", False)
+            form_view = [(res and res.id or False, "form")]
+            if "views" in result:
+                result["views"] = form_view + [
+                    (state, view) for state, view in action["views"] if view != "form"
+                ]
+            else:
+                result["views"] = form_view
             # Do not set an move_id if we want to create a new refund.
             if not create_refund:
                 result["res_id"] = refunds.id or False
-        result["context"]["default_origin"] = self.name
-        result["context"]["default_reference"] = self.partner_ref
+        result["context"]["default_invoice_origin"] = self.name
+        result["context"]["default_ref"] = self.partner_ref
         return result
 
     def action_view_invoice(self):
         """Change super action for displaying only normal invoices."""
+        # Same upstream code
+        # https://github.com/odoo/odoo/blob/13.0/addons/purchase/models/purchase.py#L430
         result = super(PurchaseOrder, self).action_view_invoice()
+        action = self.env.ref("account.action_move_in_invoice_type")
+        create_bill = self.env.context.get("create_bill", False)
         invoices = self.invoice_ids.filtered(lambda x: x.type == "in_invoice")
         # choose the view_mode accordingly
-        if len(invoices) != 1:
-            result["domain"] = [("id", "in", invoices.ids)]
-        elif len(invoices) == 1:
+        if len(invoices) > 1 and not create_bill:
+            result["domain"] = "[('id', 'in', " + str(invoices.ids) + ")]"
+        else:
             res = self.env.ref("account.view_move_form", False)
-            result["views"] = [(res and res.id or False, "form")]
-            result["res_id"] = invoices.id
+            form_view = [(res and res.id or False, "form")]
+            if "views" in result:
+                result["views"] = form_view + [
+                    (state, view) for state, view in action["views"] if view != "form"
+                ]
+            else:
+                result["views"] = form_view
+            # Do not set an invoice_id if we want to create a new bill.
+            if not create_bill:
+                result["res_id"] = invoices.id or False
+        result["context"]["default_invoice_origin"] = self.name
+        result["context"]["default_ref"] = self.partner_ref
         return result
 
 
