@@ -1,6 +1,6 @@
-* Eficent <http://www.eficent.com>:
+* Forgeflow <https://www.forgeflow.com>:
 
-  * Jordi Ballester Alomar <jordi.ballester@eficent.com>
+  * Jordi Ballester Alomar <jordi.ballester@forgeflow.com>
 
 * Tecnativa <https://www.tecnativa.com>
 

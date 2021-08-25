@@ -30,8 +30,8 @@ msgid "Create Refund"
 msgstr ""
 
 #. module: purchase_stock_picking_return_invoicing
-#: model:ir.model,name:purchase_stock_picking_return_invoicing.model_account_invoice
-msgid "Invoice"
+#: model:ir.model,name:purchase_stock_picking_return_invoicing.model_account_move
+msgid "Journal Entries"
 msgstr ""
 
 #. module: purchase_stock_picking_return_invoicing

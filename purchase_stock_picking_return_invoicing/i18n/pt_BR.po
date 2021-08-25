@@ -31,9 +31,9 @@ msgid "Create Refund"
 msgstr "Criar Restituições"
 
 #. module: purchase_stock_picking_return_invoicing
-#: model:ir.model,name:purchase_stock_picking_return_invoicing.model_account_invoice
-msgid "Invoice"
-msgstr "Fatura"
+#: model:ir.model,name:purchase_stock_picking_return_invoicing.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: purchase_stock_picking_return_invoicing
 #: model:ir.model,name:purchase_stock_picking_return_invoicing.model_purchase_order
@@ -69,3 +69,6 @@ msgstr "Selecione um pedido ou uma fatura antiga"
 #: model:ir.model.fields,help:purchase_stock_picking_return_invoicing.field_purchase_order_line__qty_returned
 msgid "This is ONLY the returned quantity that is refundable."
 msgstr "Esta é apenas a quantidade devolvida que é reembolsável."
+
+#~ msgid "Invoice"
+#~ msgstr "Fatura"
