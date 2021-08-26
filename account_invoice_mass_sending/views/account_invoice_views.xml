@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2019 ACSONE SA/NV
+     Copyright 2021 Julien Guenat
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 
 <odoo>
-
-    <record id="action_invoice_mass_send_print" model="ir.actions.server">
-        <field name="name">Send &amp; Print</field>
-        <field name="model_id" ref="account.model_account_invoice"/>
-        <field name="binding_model_id" ref="account.model_account_invoice"/>
-        <field name="state">code</field>
-        <field name="code">records.mass_send_print()</field>
-    </record>
 
     <record id="account_invoice_form" model="ir.ui.view">
         <field name="name">Account Invoice Form (in invoice_mass_sending)</field>
@@ -22,5 +15,25 @@
             </field>
         </field>
     </record>
+
+<record id="channel_prepare_send_print_invoice" model="queue.job.channel">
+    <field name="name">prepare_send_print_invoice</field>
+    <field name="parent_id" ref="queue_job.channel_root" />
+</record>
+<record id="job_function_account_invoice_do_prepare_send_print" model="queue.job.function">
+    <field name="model_id" ref="account.model_account_invoice"/>
+    <field name="method">do_prepare_send_print</field>
+    <field name="channel_id" ref="channel_prepare_send_print_invoice"/>
+</record>
+
+<record id="channel_send_print_invoice" model="queue.job.channel">
+    <field name="name">send_print_invoice</field>
+    <field name="parent_id" ref="queue_job.channel_root"/>
+</record>
+<record id="job_function_account_invoice_do_send_print" model="queue.job.function">
+    <field name="model_id" ref="account.model_account_invoice"/>
+    <field name="method">do_send_print</field>
+    <field name="channel_id" ref="channel_send_print_invoice"/>
+</record>
 
 </odoo>

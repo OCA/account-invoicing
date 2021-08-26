@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2021 Julien Guenat
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="mass_invoice_send_print_view" model="ir.ui.view">
+        <field name="name">Mass Invoice Send Print</field>
+        <field name="model">mass.send.print</field>
+        <field name="arch" type="xml">
+            <form string="Asynchronously send and/or print invoices">
+                <separator
+                    string="This mail template will be used if your default setting is to send invoice."
+                    colspan="4" />
+                <field name="template"
+                       options="{'no_create': True, 'no_edit': True}"/>
+                <footer>
+                    <button name="wizard_mass_send_print" 
+                            string="Send and or print invoices"
+                            type="object" class="oe_highlight" 
+                            context="{'default_template': template}"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window
+        name="Mass Send &amp; print"
+        id="mass_send_print"
+        multi="True"
+        key2="client_action_multi"
+        res_model="mass.send.print"
+        src_model="account.invoice"
+        view_mode="form"
+        target="new"
+        view_type="form"
+        context="{
+            'default_template_id': ref('account.email_template_edi_invoice'),
+        }"
+        groups="account.group_account_invoice"/>
+
+</odoo>
