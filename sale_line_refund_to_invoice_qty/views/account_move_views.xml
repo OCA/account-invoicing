@@ -10,7 +10,7 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
             <field name="arch" type="xml">
                 <field name="quantity" position="after">
                     <field
-                        name="sale_qty_not_to_reinvoice"
+                        name="sale_qty_to_reinvoice"
                         attrs="{'column_invisible': [('parent.type', '!=', 'out_refund')]}"
                         optional="show"
                     />

@@ -11,9 +11,9 @@
                         name="sale_line_refund_qty"
                         attrs="{'invisible': [('move_type', '!=', 'out_invoice')]}"
                     >
-                        <field name="sale_qty_not_to_reinvoice" />
+                        <field name="sale_qty_to_reinvoice" />
                         <div class="oe_grey" colspan="4">
-                            If the credit note is created to reverse a wrong invoice, leave the checkbox empty.
+                            Leave it marked when other customer invoices are expected for the quantities in the credit note.
                         </div>
                     </group>
                 </xpath>
