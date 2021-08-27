@@ -19,7 +19,7 @@ class SaleOrderLine(models.Model):
         "order_id.state",
         "invoice_lines.move_id.state",
         "invoice_lines.quantity",
-        "invoice_lines.sale_qty_not_to_reinvoice",
+        "invoice_lines.sale_qty_to_reinvoice",
     )
     def _get_to_invoice_qty(self):
         super()._get_to_invoice_qty()
@@ -29,7 +29,7 @@ class SaleOrderLine(models.Model):
                 if (
                     invoice_line.move_id.state != "cancel"
                     and invoice_line.move_id.type == "out_refund"
-                    and invoice_line.sale_qty_not_to_reinvoice
+                    and not invoice_line.sale_qty_to_reinvoice
                 ):
                     qty_to_invoice -= invoice_line.product_uom_id._compute_quantity(
                         invoice_line.quantity, line.product_uom
@@ -40,7 +40,7 @@ class SaleOrderLine(models.Model):
         "product_uom_qty",
         "invoice_lines.move_id.state",
         "invoice_lines.quantity",
-        "invoice_lines.sale_qty_not_to_reinvoice",
+        "invoice_lines.sale_qty_to_reinvoice",
     )
     def _compute_qty_refunded_not_invoiceable(self):
         for line in self:
@@ -49,7 +49,7 @@ class SaleOrderLine(models.Model):
                 if (
                     invoice_line.move_id.state != "cancel"
                     and invoice_line.move_id.type == "out_refund"
-                    and invoice_line.sale_qty_not_to_reinvoice
+                    and not invoice_line.sale_qty_to_reinvoice
                 ):
                     qty_ref_not_inv += invoice_line.product_uom_id._compute_quantity(
                         invoice_line.quantity, line.product_uom
