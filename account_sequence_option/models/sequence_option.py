@@ -4,8 +4,8 @@
 from odoo import fields, models
 
 
-class BaseSequenceOption(models.Model):
-    _inherit = "base.sequence.option"
+class IrSequenceOption(models.Model):
+    _inherit = "ir.sequence.option"
 
     model = fields.Selection(
         selection_add=[("account.move", "account.move")],
