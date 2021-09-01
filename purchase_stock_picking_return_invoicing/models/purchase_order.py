@@ -97,13 +97,15 @@ class PurchaseOrder(models.Model):
         invoices = self.invoice_ids.filtered(
             lambda x: x.type == 'in_invoice'
         )
+        create_bill = self.env.context.get('create_bill', False)
         # choose the view_mode accordingly
-        if len(invoices) != 1:
+        if len(invoices) != 1 and not create_bill:
             result['domain'] = [('id', 'in', invoices.ids)]
         elif len(invoices) == 1:
             res = self.env.ref('account.invoice_supplier_form', False)
             result['views'] = [(res and res.id or False, 'form')]
-            result['res_id'] = invoices.id
+            if not create_bill:
+                result['res_id'] = invoices.id
         return result
 
 
