@@ -105,6 +105,16 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
     def test_initial_state(self):
         self.check_values(self.po_line, 0, 0, 0, 0, "no")
 
+    def get_return_picking_wizard(self, picking):
+        stock_return_picking_form = Form(
+            self.env["stock.return.picking"].with_context(
+                active_ids=picking.ids,
+                active_id=picking.ids[0],
+                active_model="stock.picking",
+            )
+        )
+        return stock_return_picking_form.save()
+
     def test_purchase_stock_return_1(self):
         """Test a PO with received, invoiced, returned and refunded qty.
 
@@ -129,8 +139,7 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         self.assertAlmostEqual(inv_1.amount_untaxed_signed, -50, 2)
 
         # Return some items, after PO was invoiced
-        return_wizard = self.env["stock.return.picking"].create({"picking_id": pick.id})
-        return_wizard._onchange_picking_id()
+        return_wizard = self.get_return_picking_wizard(pick)
         return_wizard.product_return_moves.write({"quantity": 2, "to_refund": True})
         return_pick = pick.browse(return_wizard.create_returns()["res_id"])
         return_pick.move_lines.write({"quantity_done": 2})
@@ -163,8 +172,7 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         pick.move_lines.write({"quantity_done": 5})
         pick.button_validate()
         # Return some items before PO was invoiced
-        return_wizard = self.env["stock.return.picking"].create({"picking_id": pick.id})
-        return_wizard._onchange_picking_id()
+        return_wizard = self.get_return_picking_wizard(pick)
         return_wizard.product_return_moves.write({"quantity": 2, "to_refund": True})
         return_pick = pick.browse(return_wizard.create_returns()["res_id"])
         return_pick.move_lines.write({"quantity_done": 2})
