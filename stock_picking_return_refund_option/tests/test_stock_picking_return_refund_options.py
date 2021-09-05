@@ -1,7 +1,7 @@
 # Copyright 2018 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields
-from odoo.tests.common import SavepointCase, tagged
+from odoo.tests.common import Form, SavepointCase, tagged
 
 
 @tagged("post_install", "-at_install")
@@ -70,13 +70,18 @@ class TestSaleOrderLineInput(SavepointCase):
         cls.picking.action_done()
         cls.order._create_invoices()
 
-    def return_picking_wiz(self, picking):
-        wizard = (
-            self.env["stock.return.picking"]
-            .with_context(active_model="stock.picking", active_id=picking.id)
-            .create({})
+    def get_return_picking_wizard(self, picking):
+        stock_return_picking_form = Form(
+            self.env["stock.return.picking"].with_context(
+                active_ids=picking.ids,
+                active_id=picking.ids[0],
+                active_model="stock.picking",
+            )
         )
-        wizard._onchange_picking_id()
+        return stock_return_picking_form.save()
+
+    def return_picking_wiz(self, picking):
+        wizard = self.get_return_picking_wizard(picking)
         wizard.product_return_moves.write({"quantity": 1.0, "to_refund": False})
         return wizard
 
