@@ -38,6 +38,7 @@ setuptools.setup(
         'odoo13-addon-account_move_exception',
         'odoo13-addon-account_move_post_block',
         'odoo13-addon-account_move_tier_validation',
+        'odoo13-addon-account_move_tier_validation_approver',
         'odoo13-addon-account_tax_group_widget_base_amount',
         'odoo13-addon-product_supplierinfo_for_customer_invoice',
         'odoo13-addon-purchase_batch_invoicing',
