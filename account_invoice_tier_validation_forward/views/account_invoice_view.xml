@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Forgeflow S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="account_invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account_invoice_tier_validation.invoice_supplier_form" />
+        <field name="arch" type="xml">
+            <field name="can_review" position="after">
+                <field name="can_forward" invisible="1" />
+            </field>
+            <button name="reject_tier" position="after">
+                <button
+                    name="forward_tier"
+                    string="Forward"
+                    attrs="{'invisible': [('can_forward', '=', False)]}"
+                    type="object"
+                    class="oe_inline oe_button btn-warning"
+                    icon="fa-arrow-circle-right"
+                />
+            </button>
+        </field>
+    </record>
+</odoo>
