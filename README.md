@@ -29,6 +29,7 @@ addon | version | maintainers | summary
 [account_invoice_mode_weekly](account_invoice_mode_weekly/) | 14.0.1.1.0 |  | Create invoices automatically on a weekly basis.
 [account_invoice_payment_retention](account_invoice_payment_retention/) | 14.0.1.0.0 |  | Account Invoice Payment Retention
 [account_invoice_refund_link](account_invoice_refund_link/) | 14.0.1.0.0 |  | Show links between refunds and their originator invoices
+[account_invoice_restrict_linked_so](account_invoice_restrict_linked_so/) | 14.0.1.0.1 |  | Restricts editing the Product, Quantity and Unit Price columns for invoice lines that originated in Sales Orders.
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 14.0.1.0.0 |  | Account invoice search by reference
 [account_invoice_section_sale_order](account_invoice_section_sale_order/) | 14.0.1.0.0 |  | For invoices targetting multiple sale order addsections with sale order name.
 [account_invoice_tax_required](account_invoice_tax_required/) | 14.0.1.0.0 |  | This module adds functional a check on invoice to force user to set tax on invoice line.
