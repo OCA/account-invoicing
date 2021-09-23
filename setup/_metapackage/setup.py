@@ -18,6 +18,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_mode_weekly',
         'odoo14-addon-account_invoice_payment_retention',
         'odoo14-addon-account_invoice_refund_link',
+        'odoo14-addon-account_invoice_restrict_linked_so',
         'odoo14-addon-account_invoice_search_by_reference',
         'odoo14-addon-account_invoice_section_sale_order',
         'odoo14-addon-account_invoice_tax_required',
