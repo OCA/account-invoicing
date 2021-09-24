@@ -1,0 +1,101 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_check_picking_date
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_check_picking_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_check_picking_date.invoice_stock_picking_date_wizard
+msgid "Cancel"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_check_picking_date.invoice_stock_picking_date_wizard
+msgid "Continue"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_check_picking_date.invoice_stock_picking_date_wizard
+msgid "Dates does not match"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__exception_msg
+msgid "Exception Msg"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__invoice_id
+msgid "Invoice"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model:ir.model,name:account_invoice_check_picking_date.model_invoice_picking_date_check_wiz
+msgid "Invoice and picking date check wizard"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: code:addons/account_invoice_check_picking_date/wizards/invoice_stock_picking_date_wiz.py:0
+#: model_terms:ir.ui.view,arch_db:account_invoice_check_picking_date.invoice_stock_picking_date_wizard
+#, python-format
+msgid "Invoice date does not match with stock move dates"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: code:addons/account_invoice_check_picking_date/models/account_move.py:0
+#, python-format
+msgid ""
+"Invoice date: %s\n"
+"First stock move: %s   Last stock move: %s\n"
+"\n"
+"If dates are right and you have manager permissions you can use special action to post this invoice."
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model:ir.model,name:account_invoice_check_picking_date.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__write_date
+msgid "Last Updated on"
+msgstr ""
