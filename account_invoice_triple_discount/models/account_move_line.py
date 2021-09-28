@@ -11,8 +11,14 @@ class AccountMoveLine(models.Model):
 
     _inherit = "account.move.line"
 
-    discount2 = fields.Float(string="Discount 2 (%)", digits="Discount",)
-    discount3 = fields.Float(string="Discount 3 (%)", digits="Discount",)
+    discount2 = fields.Float(
+        string="Discount 2 (%)",
+        digits="Discount",
+    )
+    discount3 = fields.Float(
+        string="Discount 3 (%)",
+        digits="Discount",
+    )
 
     @api.model_create_multi
     def create(self, values_list):
@@ -49,7 +55,12 @@ class AccountMoveLine(models.Model):
         return records
 
     @api.onchange(
-        "discount", "price_unit", "tax_ids", "quantity", "discount2", "discount3",
+        "discount",
+        "price_unit",
+        "tax_ids",
+        "quantity",
+        "discount2",
+        "discount3",
     )
     def _onchange_price_subtotal(self):
         return super(AccountMoveLine, self)._onchange_price_subtotal()
