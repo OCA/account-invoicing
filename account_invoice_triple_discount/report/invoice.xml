@@ -15,7 +15,6 @@
                 t-att-class="discount_class"
             >
                 <span>Disc.2 %</span>
-                <t t-set="colspan" t-value="colspan+1" />
             </th>
             <th
                 name="th_discount3"
@@ -23,7 +22,6 @@
                 t-att-class="discount_class"
             >
                 <span>Disc.3 %</span>
-                <t t-set="colspan" t-value="colspan+1" />
             </th>
         </xpath>
         <xpath expr="//td[span[@t-field='line.discount']]" position="after">
