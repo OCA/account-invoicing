@@ -9,8 +9,10 @@ class TestAccountMove(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.currency_usd = cls.env.ref("base.USD")
-        cls.currency_eur = cls.env.ref("base.EUR")
+        usd = cls.env.ref("base.USD")
+        eur = cls.env.ref("base.EUR")
+        cls.currency = cls.env.ref("base.main_company").currency_id
+        cls.currency_extra = eur if cls.currency == usd else usd
         cls.account_tax = cls.env["account.tax"].create(
             {"name": "0%", "amount_type": "fixed", "type_tax_use": "sale", "amount": 0}
         )
@@ -43,15 +45,15 @@ class TestAccountMove(common.SavepointCase):
         cls.journal = cls.env["account.journal"].create(
             {"name": "Test sale journal", "type": "sale", "code": "TEST-SALE"}
         )
-        cls.pricelist_usd = cls.env["product.pricelist"].create(
-            {"name": "Pricelist USD", "currency_id": cls.currency_usd.id}
+        cls.pricelist_currency = cls.env["product.pricelist"].create(
+            {"name": "Pricelist Currency", "currency_id": cls.currency.id}
         )
-        cls.pricelist_eur = cls.env["product.pricelist"].create(
-            {"name": "Pricelist EUR", "currency_id": cls.currency_eur.id}
+        cls.pricelist_currency_extra = cls.env["product.pricelist"].create(
+            {"name": "Pricelist Currency Extra", "currency_id": cls.currency_extra.id}
         )
-        # Create custom rates to USD + EUR
-        cls._create_currency_rate(cls, cls.currency_usd, "2000-01-01", 1.0)
-        cls._create_currency_rate(cls, cls.currency_eur, "2000-01-01", 2.0)
+        # Create custom rates to currency + currency_extra
+        cls._create_currency_rate(cls, cls.currency, "2000-01-01", 1.0)
+        cls._create_currency_rate(cls, cls.currency_extra, "2000-01-01", 2.0)
 
     def _create_currency_rate(self, currency_id, name, rate):
         self.env["res.currency.rate"].create(
@@ -72,16 +74,16 @@ class TestAccountMove(common.SavepointCase):
         invoice.action_post()
         return invoice
 
-    def test_01_invoice_usd(self):
-        self.partner.property_product_pricelist = self.pricelist_usd
-        invoice = self._create_invoice(self.currency_usd)
+    def test_01_invoice_currency(self):
+        self.partner.property_product_pricelist = self.pricelist_currency
+        invoice = self._create_invoice(self.currency)
         self.assertEqual(invoice.currency_rate_amount, 1.0)
 
-    def test_02_invoice_eur(self):
-        self.partner.property_product_pricelist = self.pricelist_eur
-        invoice = self._create_invoice(self.currency_eur)
+    def test_02_invoice_currency_extra(self):
+        self.partner.property_product_pricelist = self.pricelist_currency_extra
+        invoice = self._create_invoice(self.currency_extra)
         self.assertEqual(invoice.currency_rate_amount, 2.0)
-        rate_custom = self.currency_eur.rate_ids.filtered(
+        rate_custom = self.currency_extra.rate_ids.filtered(
             lambda x: x.name == fields.Date.from_string("2000-01-01")
         )
         rate_custom.rate = 3.0
