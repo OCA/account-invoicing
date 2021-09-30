@@ -34,29 +34,25 @@ class TestAccountException(TransactionCase):
             "account_move_exception.aml_excep_qty_check"
         )
         self.am_vals = {
-            "type": "out_invoice",
+            "move_type": "out_invoice",
             "partner_id": self.partner_id.id,
-            "line_ids": [
+            "invoice_line_ids": [
                 (
                     0,
                     0,
                     {
-                        "name": self.product_id_1.name,
                         "product_id": self.product_id_1.id,
                         "quantity": 5.0,
                         "price_unit": 500.0,
-                        "account_id": self.account_receivable.id,
                     },
                 ),
                 (
                     0,
                     0,
                     {
-                        "name": self.product_id_2.name,
                         "product_id": self.product_id_2.id,
                         "quantity": 5.0,
                         "price_unit": 250.0,
-                        "account_id": self.account_receivable.id,
                     },
                 ),
             ],
@@ -64,7 +60,6 @@ class TestAccountException(TransactionCase):
 
     def test_account_move_exception(self):
         self.exception_noemail.active = True
-        self.exception_noemail.next_state = False
         self.exception_qtycheck.active = True
         self.partner_id.email = False
         self.am = self.AccountMove.create(self.am_vals.copy())
@@ -90,21 +85,11 @@ class TestAccountException(TransactionCase):
         self.am3New.state = "posted"
         self.am3New.onchange_ignore_exception()
         self.assertFalse(self.am3New.ignore_exception)
-        self.am.write(
+        self.am.line_ids.write(
             {
-                "line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": self.product_id_3.name,
-                            "product_id": self.product_id_3.id,
-                            "quantity": 2,
-                            "price_unit": 30,
-                            "account_id": self.account_receivable.id,
-                        },
-                    )
-                ]
+                "product_id": self.product_id_3.id,
+                "quantity": 2,
+                "price_unit": 30,
             }
         )
 
@@ -114,8 +99,6 @@ class TestAccountException(TransactionCase):
         self.am.button_draft()
         self.assertEqual(self.am.state, "draft")
         self.assertTrue(not self.am.ignore_exception)
-        # test next_state
-        self.exception_noemail.next_state = "posted"
         self.am.action_post()
         self.assertTrue(self.am.state, "posted")
 
