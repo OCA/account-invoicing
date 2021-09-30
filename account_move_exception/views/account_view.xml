@@ -28,27 +28,30 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-            <header position="after">
+            <sheet position="before">
                 <div
-                    groups="account.group_account_user"
                     class="alert alert-danger alert-dismissable"
                     role="alert"
                     style="margin-bottom:0px;"
-                    attrs="{'invisible':[('main_exception_id','=', False)]}"
+                    attrs="{'invisible':[('exceptions_summary','=', False)]}"
                 >
-                    <bold>You have an outstanding
-                    exception to manage:
-                    <field
-                            name="main_exception_id"
-                            options='{"no_open": True}'
-                        /></bold>
+                    <strong>You have an outstanding exception to manage:</strong>
+                    <field name="exceptions_summary" />
+                    <button
+                        name="action_ignore_exceptions"
+                        type="object"
+                        class="btn-danger"
+                        string="Ignore Exceptions"
+                        help="Click here to be able to post this entry regardless of the exceptions."
+                        groups="base_exception.group_exception_rule_manager"
+                    />
                 </div>
-            </header>
-            <field name="currency_id" position="after">
+            </sheet>
+            <xpath expr="//group/group[@id='header_right_group']" position="inside">
                 <field
                     name="ignore_exception"
                     states="draft"
-                    groups='base_exception.group_exception_rule_manager'
+                    groups="base_exception.group_exception_rule_manager"
                 />
                 <field
                     name="exception_ids"
@@ -56,7 +59,7 @@
                     readonly="True"
                     attrs="{'invisible': [('exception_ids', '=', [])]}"
                 />
-            </field>
+            </xpath>
         </field>
     </record>
     <record id="view_move_tree" model="ir.ui.view">
