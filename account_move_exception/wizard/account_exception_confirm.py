@@ -9,7 +9,9 @@ class AccountExceptionConfirm(models.TransientModel):
     _description = "Account exception wizard"
     _inherit = ["exception.rule.confirm"]
 
-    related_model_id = fields.Many2one("account.move", "Journal Entry")
+    related_model_id = fields.Many2one(
+        comodel_name="account.move", string="Journal Entry"
+    )
 
     def action_confirm(self):
         self.ensure_one()
