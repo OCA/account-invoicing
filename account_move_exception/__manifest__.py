@@ -12,6 +12,7 @@
     "license": "AGPL-3",
     "data": [
         "data/account_exception_data.xml",
+        "security/ir.model.access.csv",
         "wizard/account_exception_confirm_view.xml",
         "views/account_view.xml",
     ],
