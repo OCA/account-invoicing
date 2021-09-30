@@ -14,5 +14,9 @@ class ExceptionRule(models.Model):
         selection_add=[
             ("account.move", "Account move"),
             ("account.move.line", "Account move line"),
-        ]
+        ],
+        ondelete={
+            "account.move": "cascade",
+            "account.move.line": "cascade",
+        },
     )
