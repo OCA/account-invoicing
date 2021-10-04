@@ -24,8 +24,8 @@ class AccountInvoice(models.Model):
     def action_invoice_draft(self):
         result = super().action_invoice_draft()
         pickings = self.filtered(
-            lambda i: i.picking_ids and
-            i.type in ['out_invoice', 'in_invoice']).mapped("picking_ids")
+            lambda i: i.picking_ids and i.type in ["out_invoice", "in_invoice"]
+        ).mapped("picking_ids")
         self.mapped("invoice_line_ids.move_line_ids")._set_as_invoiced()
         pickings._set_as_invoiced()
         return result
