@@ -9,6 +9,7 @@
     "license": "AGPL-3",
     "depends": ["stock", "account", "stock_picking_invoice_link"],
     "data": [
+        "security/ir.model.access.csv",
         "wizards/stock_invoice_onshipping_view.xml",
         "wizards/stock_return_picking_view.xml",
         "views/stock_move.xml",
