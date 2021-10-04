@@ -13,7 +13,7 @@ class AccountInvoice(models.Model):
         cancelled (only for invoices, not refunds)
         :return: bool
         """
-        result = super(AccountInvoice, self).button_cancel()
+        result = super().button_cancel()
         pickings = self.filtered(
             lambda i: i.picking_ids and i.type in ["out_invoice", "in_invoice"]
         ).mapped("picking_ids")
@@ -21,9 +21,8 @@ class AccountInvoice(models.Model):
         pickings._set_as_2binvoiced()
         return result
 
-    @api.multi
     def action_invoice_draft(self):
-        result = super(AccountInvoice, self).action_invoice_draft()
+        result = super().action_invoice_draft()
         pickings = self.filtered(
             lambda i: i.picking_ids and
             i.type in ['out_invoice', 'in_invoice']).mapped("picking_ids")
@@ -31,7 +30,6 @@ class AccountInvoice(models.Model):
         pickings._set_as_invoiced()
         return result
 
-    @api.multi
     def unlink(self):
         """
         Inherit the unlink to update related picking as "2binvoiced"
@@ -43,7 +41,7 @@ class AccountInvoice(models.Model):
         ).mapped("picking_ids")
         self.mapped("invoice_line_ids.move_line_ids")._set_as_2binvoiced()
         pickings._set_as_2binvoiced()
-        return super(AccountInvoice, self).unlink()
+        return super().unlink()
 
     @api.model
     def _prepare_refund(
@@ -58,7 +56,7 @@ class AccountInvoice(models.Model):
         :param journal_id: int
         :return: dict
         """
-        result = super(AccountInvoice, self)._prepare_refund(
+        result = super()._prepare_refund(
             invoice=invoice,
             invoice_date=date_invoice,
             date=date,
