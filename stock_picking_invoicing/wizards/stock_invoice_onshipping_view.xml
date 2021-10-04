@@ -35,7 +35,6 @@
             </form>
         </field>
     </record>
-
     <record id="action_stock_invoice_onshipping" model="ir.actions.act_window">
         <field name="name">Create Draft Invoices</field>
         <field name="type">ir.actions.act_window</field>
@@ -45,5 +44,4 @@
         <field name="binding_view_types">list,form</field>
         <field name="target">new</field>
     </record>
-
 </odoo>
