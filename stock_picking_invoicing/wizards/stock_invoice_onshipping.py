@@ -373,7 +373,7 @@ class StockInvoiceOnshipping(models.TransientModel):
                 "user_id": self.env.user.id,
                 "partner_id": partner_id,
                 "invoice_payment_term_id": payment_term,
-                "type": inv_type,
+                "move_type": inv_type,
                 "fiscal_position_id": partner.property_account_position_id.id,
                 "company_id": company.id,
                 "currency_id": currency.id,
@@ -441,7 +441,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         )
         partner_id = self.env["res.partner"].browse(invoice_values["partner_id"])
         categ = product.categ_id
-        inv_type = invoice_values["type"]
+        inv_type = invoice_values["move_type"]
         if inv_type in ("out_invoice", "out_refund"):
             account = product.property_account_income_id
             if not account:
@@ -498,7 +498,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         return pickings._set_as_invoiced()
 
     def ungroup_moves(self, grouped_moves_list):
-        """ Ungrup your moves, split them again, grouping by
+        """Ungrup your moves, split them again, grouping by
         fiscal position, max itens per invoice and etc
         :param grouped_moves_list:
         :return: list of grouped moves list
@@ -506,7 +506,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         return [grouped_moves_list]
 
     def _create_invoice(self, invoice_values):
-        """ Overrite this metothod if you need to change any values of the
+        """Overrite this metothod if you need to change any values of the
         invoice and the lines before the invoice creation
         :param invoice_values: dict with the invoice and its lines
         :return: invoice
