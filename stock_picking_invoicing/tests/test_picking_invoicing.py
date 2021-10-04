@@ -127,7 +127,9 @@ class TestPickingInvoicing(SavepointCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -141,11 +143,11 @@ class TestPickingInvoicing(SavepointCase):
         self.assertIn(invoice, picking.invoice_ids)
         self.assertIn(picking, invoice.picking_ids)
         nb_invoice_after = self.invoice_model.search_count([])
-        self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoice))
+        self.assertEqual(nb_invoice_before, nb_invoice_after - len(invoice))
         assert invoice.invoice_line_ids, "Error to create invoice line."
         for inv_line in invoice.invoice_line_ids:
             for mv_line in inv_line.move_line_ids:
-                self.assertEquals(
+                self.assertEqual(
                     mv_line.id,
                     new_move.id,
                     "Error to link stock.move with invoice.line.",
@@ -183,18 +185,20 @@ class TestPickingInvoicing(SavepointCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
         with self.assertRaises(exceptions.UserError) as e:
-            wizard.action_generate()
+            wizard.with_context(lang="en_US").action_generate()
         msg = "No invoice created!"
-        self.assertIn(msg, e.exception.name)
+        self.assertIn(msg, e.exception.args[0])
         nb_invoice_after = self.invoice_model.search_count([])
-        self.assertEquals(nb_invoice_before, nb_invoice_after)
+        self.assertEqual(nb_invoice_before, nb_invoice_after)
 
     def test_2_picking_out_invoicing(self):
         nb_invoice_before = self.invoice_model.search_count([])
@@ -228,7 +232,9 @@ class TestPickingInvoicing(SavepointCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -244,11 +250,11 @@ class TestPickingInvoicing(SavepointCase):
         self.assertIn(invoice, picking.invoice_ids)
         self.assertIn(picking, invoice.picking_ids)
         nb_invoice_after = self.invoice_model.search_count([])
-        self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoice))
+        self.assertEqual(nb_invoice_before, nb_invoice_after - len(invoice))
         assert invoice.invoice_line_ids, "Error to create invoice line."
         for inv_line in invoice.invoice_line_ids:
             for mv_line in inv_line.move_line_ids:
-                self.assertEquals(
+                self.assertEqual(
                     mv_line.id,
                     new_move.id,
                     "Error to link stock.move with invoice.line.",
@@ -257,8 +263,8 @@ class TestPickingInvoicing(SavepointCase):
 
     def test_3_picking_out_invoicing(self):
         """
-         Test invoicing picking in to check if get the taxes
-         from supplier_taxes_id.
+        Test invoicing picking in to check if get the taxes
+        from supplier_taxes_id.
         """
         nb_invoice_before = self.invoice_model.search_count([])
         picking = self.picking_model.create(
@@ -290,7 +296,9 @@ class TestPickingInvoicing(SavepointCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -304,23 +312,24 @@ class TestPickingInvoicing(SavepointCase):
         self.assertIn(invoice, picking.invoice_ids)
         self.assertIn(picking, invoice.picking_ids)
         nb_invoice_after = self.invoice_model.search_count([])
-        self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoice))
+        self.assertEqual(nb_invoice_before, nb_invoice_after - len(invoice))
         assert invoice.invoice_line_ids, "Error to create invoice line."
         for inv_line in invoice.invoice_line_ids:
             for mv_line in inv_line.move_line_ids:
-                self.assertEquals(
+                self.assertEqual(
                     mv_line.id,
                     new_move.id,
                     "Error to link stock.move with invoice.line.",
                 )
             self.assertTrue(
-                inv_line.tax_ids, "Error to map Purchase Tax in invoice.line.",
+                inv_line.tax_ids,
+                "Error to map Purchase Tax in invoice.line.",
             )
 
     def test_4_picking_out_invoicing_backorder(self):
         """
-         Test invoicing picking out to check if backorder is create
-         with same invoice state.
+        Test invoicing picking out to check if backorder is create
+        with same invoice state.
         """
         nb_invoice_before = self.invoice_model.search_count([])
         self.partner.write({"type": "invoice"})
@@ -350,22 +359,24 @@ class TestPickingInvoicing(SavepointCase):
         # Force product availability
         for move in picking.move_ids_without_package:
             move.quantity_done = move.product_uom_qty / 2.0
-        picking.button_validate()
 
         backorder_action = picking.button_validate()
-        backorder_wizard = self.env[(backorder_action.get("res_model"))].browse(
-            backorder_action.get("res_id")
-        )
-        backorder_wizard.process()
+        Form(
+            self.env[(backorder_action.get("res_model"))].with_context(
+                backorder_action["context"]
+            )
+        ).save().process()
         backorder = self.env["stock.picking"].search(
             [("backorder_id", "=", picking.id)]
         )
-
+        backorder.action_assign()
         self.assertEqual(backorder.invoice_state, "2binvoiced")
 
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -379,11 +390,11 @@ class TestPickingInvoicing(SavepointCase):
         self.assertIn(invoice, picking.invoice_ids)
         self.assertIn(picking, invoice.picking_ids)
         nb_invoice_after = self.invoice_model.search_count([])
-        self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoice))
+        self.assertEqual(nb_invoice_before, nb_invoice_after - len(invoice))
         assert invoice.invoice_line_ids, "Error to create invoice line."
         for inv_line in invoice.invoice_line_ids:
             for mv_line in inv_line.move_line_ids:
-                self.assertEquals(
+                self.assertEqual(
                     mv_line.id,
                     new_move.id,
                     "Error to link stock.move with invoice.line.",
@@ -427,7 +438,9 @@ class TestPickingInvoicing(SavepointCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -446,7 +459,7 @@ class TestPickingInvoicing(SavepointCase):
         self.assertIn(invoice, picking.invoice_ids)
         self.assertIn(picking, invoice.picking_ids)
         nb_invoice_after = self.invoice_model.search_count([])
-        self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoice))
+        self.assertEqual(nb_invoice_before, nb_invoice_after - len(invoice))
 
     def test_picking_invoice_refund(self):
         """
@@ -484,7 +497,9 @@ class TestPickingInvoicing(SavepointCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -498,12 +513,12 @@ class TestPickingInvoicing(SavepointCase):
         self.assertEqual(invoice.partner_id, self.partner)
         self.assertIn(invoice, picking.invoice_ids)
         self.assertIn(picking, invoice.picking_ids)
+        invoice.action_post()
         refund = invoice._reverse_moves(cancel=True)
         self.assertEqual(picking.invoice_state, "invoiced")
-        self.assertIn(refund, picking.invoice_ids)
         self.assertIn(picking, refund.picking_ids)
         nb_invoice_after = self.invoice_model.search_count([])
-        self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoice | refund))
+        self.assertEqual(nb_invoice_before, nb_invoice_after - len(invoice | refund))
 
     def test_picking_invoicing_by_product1(self):
         """
@@ -553,7 +568,9 @@ class TestPickingInvoicing(SavepointCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -569,11 +586,11 @@ class TestPickingInvoicing(SavepointCase):
         self.assertIn(invoice, picking.invoice_ids)
         self.assertIn(picking, invoice.picking_ids)
         products = invoice.invoice_line_ids.mapped("product_id")
-        self.assertEquals(len(invoice.invoice_line_ids), 2)
+        self.assertEqual(len(invoice.invoice_line_ids), 2)
         self.assertIn(self.product_test_1, products)
         self.assertIn(self.product_test_2, products)
         nb_invoice_after = self.invoice_model.search_count([])
-        self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoice))
+        self.assertEqual(nb_invoice_before, nb_invoice_after - len(invoice))
 
     def test_picking_invoicing_by_product2(self):
         """
@@ -636,7 +653,8 @@ class TestPickingInvoicing(SavepointCase):
         self.assertEqual(picking2.state, "done")
         pickings = picking | picking2
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=pickings.ids, active_model=pickings._name,
+            active_ids=pickings.ids,
+            active_model=pickings._name,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -647,7 +665,7 @@ class TestPickingInvoicing(SavepointCase):
         wizard.action_generate()
         domain = [("picking_ids", "=", picking.id)]
         invoice = self.invoice_model.search(domain)
-        self.assertEquals(len(invoice), 1)
+        self.assertEqual(len(invoice), 1)
         self.assertEqual(picking.invoice_state, "invoiced")
         self.assertEqual(picking2.invoice_state, "invoiced")
         self.assertEqual(invoice.partner_id, self.partner)
@@ -664,10 +682,10 @@ class TestPickingInvoicing(SavepointCase):
         # Now test behaviour if the invoice is delete
         invoice.unlink()
         for picking in pickings:
-            self.assertEquals(picking.invoice_state, "2binvoiced")
+            self.assertEqual(picking.invoice_state, "2binvoiced")
         nb_invoice_after = self.invoice_model.search_count([])
         # Should be equals because we delete the invoice
-        self.assertEquals(nb_invoice_before, nb_invoice_after)
+        self.assertEqual(nb_invoice_before, nb_invoice_after)
 
     def test_picking_invoicing_by_product3(self):
         """
@@ -730,7 +748,8 @@ class TestPickingInvoicing(SavepointCase):
         self.assertEqual(picking2.state, "done")
         pickings = picking | picking2
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=pickings.ids, active_model=pickings._name,
+            active_ids=pickings.ids,
+            active_model=pickings._name,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -741,32 +760,33 @@ class TestPickingInvoicing(SavepointCase):
         wizard.action_generate()
         domain = [("picking_ids", "in", [picking.id, picking2.id])]
         invoices = self.invoice_model.search(domain)
-        self.assertEquals(len(invoices), 2)
+        self.assertEqual(len(invoices), 2)
         self.assertEqual(picking.invoice_state, "invoiced")
         self.assertEqual(picking2.invoice_state, "invoiced")
         self.assertIn(self.partner, invoices.mapped("partner_id"))
         self.assertIn(self.partner3, invoices.mapped("partner_id"))
         for invoice in invoices:
-            self.assertEquals(len(invoice.picking_ids), 1)
+            self.assertEqual(len(invoice.picking_ids), 1)
             picking = invoice.picking_ids
             self.assertIn(invoice, picking.invoice_ids)
             for inv_line in invoice.invoice_line_ids:
                 self.assertAlmostEqual(inv_line.quantity, 1)
                 self.assertTrue(
-                    inv_line.tax_ids, "Error to map Sale Tax in invoice.line.",
+                    inv_line.tax_ids,
+                    "Error to map Sale Tax in invoice.line.",
                 )
             # Test the behaviour when the invoice is cancelled
             # The picking invoice_status should be updated
             invoice.button_cancel()
-            self.assertEquals(picking.invoice_state, "2binvoiced")
+            self.assertEqual(picking.invoice_state, "2binvoiced")
         nb_invoice_after = self.invoice_model.search_count([])
-        self.assertEquals(nb_invoice_before, nb_invoice_after - len(invoices))
+        self.assertEqual(nb_invoice_before, nb_invoice_after - len(invoices))
 
     def test_0_counting_2binvoiced(self):
         """
-         Check method counting 2binvoice used in kanban view
+        Check method counting 2binvoice used in kanban view
         """
-        self.assertEquals(1, self.pick_type_in.count_picking_2binvoiced)
+        self.assertEqual(1, self.pick_type_in.count_picking_2binvoiced)
 
     def test_return_customer_picking(self):
         """
@@ -779,7 +799,9 @@ class TestPickingInvoicing(SavepointCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -790,10 +812,10 @@ class TestPickingInvoicing(SavepointCase):
         invoice = self.invoice_model.search(domain)
         # Confirm Invoice
         invoice.action_post()
-        self.assertEquals(invoice.state, "posted", "Invoice should be in state Posted")
+        self.assertEqual(invoice.state, "posted", "Invoice should be in state Posted")
         # Check Invoice Type
-        self.assertEquals(
-            invoice.type, "out_invoice", "Invoice Type should be Out Invoice"
+        self.assertEqual(
+            invoice.move_type, "out_invoice", "Invoice Type should be Out Invoice"
         )
 
         # Return Picking
@@ -821,7 +843,7 @@ class TestPickingInvoicing(SavepointCase):
         for move in picking_devolution.move_ids_without_package:
             move.quantity_done = move.product_uom_qty
         picking_devolution.button_validate()
-        self.assertEquals(picking_devolution.state, "done", "Change state fail.")
+        self.assertEqual(picking_devolution.state, "done", "Change state fail.")
         wizard_obj = self.invoice_wizard.with_context(
             active_ids=picking_devolution.ids,
             active_model=picking_devolution._name,
@@ -836,12 +858,14 @@ class TestPickingInvoicing(SavepointCase):
         invoice_devolution = self.invoice_model.search(domain)
         # Confirm Return Invoice
         invoice_devolution.action_post()
-        self.assertEquals(
+        self.assertEqual(
             invoice_devolution.state, "posted", "Invoice should be in state Posted"
         )
         # Check Invoice Type
-        self.assertEquals(
-            invoice_devolution.type, "out_refund", "Invoice Type should be Out Refund"
+        self.assertEqual(
+            invoice_devolution.move_type,
+            "out_refund",
+            "Invoice Type should be Out Refund",
         )
 
     def test_return_supplier_picking(self):
@@ -855,7 +879,7 @@ class TestPickingInvoicing(SavepointCase):
         picking.button_validate()
         self.assertEqual(picking.state, "done")
         wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids, active_model=picking._name, active_id=picking.id,
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
         )
         fields_list = wizard_obj.fields_get().keys()
         wizard_values = wizard_obj.default_get(fields_list)
@@ -866,10 +890,10 @@ class TestPickingInvoicing(SavepointCase):
         invoice = self.invoice_model.search(domain)
         # Confirm Invoice
         invoice.action_post()
-        self.assertEquals(invoice.state, "posted", "Invoice should be in state Posted")
+        self.assertEqual(invoice.state, "posted", "Invoice should be in state Posted")
         # Check Invoice Type
-        self.assertEquals(
-            invoice.type, "in_invoice", "Invoice Type should be In Invoice"
+        self.assertEqual(
+            invoice.move_type, "in_invoice", "Invoice Type should be In Invoice"
         )
 
         # Return Picking
@@ -897,7 +921,7 @@ class TestPickingInvoicing(SavepointCase):
         for move in picking_devolution.move_ids_without_package:
             move.quantity_done = move.product_uom_qty
         picking_devolution.button_validate()
-        self.assertEquals(picking_devolution.state, "done", "Change state fail.")
+        self.assertEqual(picking_devolution.state, "done", "Change state fail.")
         wizard_obj = self.invoice_wizard.with_context(
             active_ids=picking_devolution.ids,
             active_model=picking_devolution._name,
@@ -912,10 +936,12 @@ class TestPickingInvoicing(SavepointCase):
         invoice_devolution = self.invoice_model.search(domain)
         # Confirm Return Invoice
         invoice_devolution.action_post()
-        self.assertEquals(
+        self.assertEqual(
             invoice_devolution.state, "posted", "Invoice should be in state Posted"
         )
         # Check Invoice Type
-        self.assertEquals(
-            invoice_devolution.type, "in_refund", "Invoice Type should be In Refund"
+        self.assertEqual(
+            invoice_devolution.move_type,
+            "in_refund",
+            "Invoice Type should be In Refund",
         )
