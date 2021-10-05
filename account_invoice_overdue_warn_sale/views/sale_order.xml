@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2021 Akretion France (http://www.akretion.com/)
+  @author: Alexis de Lattre <alexis.delattre@akretion.com>
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+<data>
+
+
+<record id="view_order_form" model="ir.ui.view">
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form" />
+    <field name="arch" type="xml">
+        <xpath expr="/form/sheet" position="before">
+            <div
+                class="alert alert-warning"
+                role="alert"
+                attrs="{'invisible': [('overdue_invoice_count', '=', 0)]}"
+                >
+                The invoicing partner <field
+                    name="commercial_partner_invoicing_id" class="oe_inline"
+                /> has <field name="overdue_invoice_count" class="oe_inline"/> <button
+                    string="overdue invoice(s)"
+                    type="object"
+                    name="jump_to_overdue_invoices"
+                    class="oe_link"
+                        />for a total residual of <field name="overdue_invoice_amount" class="oe_inline" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+            </div>
+        </xpath>
+        <field name="currency_id" position="after">
+            <field name="company_currency_id" invisible="1" />
+        </field>
+    </field>
+</record>
+
+
+</data>
+</openerp>
