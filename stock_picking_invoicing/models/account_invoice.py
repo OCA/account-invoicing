@@ -21,8 +21,8 @@ class AccountInvoice(models.Model):
         pickings._set_as_2binvoiced()
         return result
 
-    def action_invoice_draft(self):
-        result = super().action_invoice_draft()
+    def button_draft(self):
+        result = super().button_draft()
         pickings = self.filtered(
             lambda i: i.picking_ids and i.type in ["out_invoice", "in_invoice"]
         ).mapped("picking_ids")

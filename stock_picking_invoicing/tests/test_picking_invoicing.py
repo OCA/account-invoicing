@@ -441,6 +441,8 @@ class TestPickingInvoicing(SavepointCase):
         self.assertEqual(invoice.partner_id, self.partner)
         invoice.button_cancel()
         self.assertEqual(picking.invoice_state, "2binvoiced")
+        invoice.button_draft()
+        self.assertEqual(picking.invoice_state, "invoiced")
         self.assertIn(invoice, picking.invoice_ids)
         self.assertIn(picking, invoice.picking_ids)
         nb_invoice_after = self.invoice_model.search_count([])
