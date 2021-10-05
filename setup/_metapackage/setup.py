@@ -47,6 +47,7 @@ setuptools.setup(
         'odoo13-addon-sale_order_invoicing_grouping_criteria',
         'odoo13-addon-sale_order_invoicing_queued',
         'odoo13-addon-sale_timesheet_invoice_description',
+        'odoo13-addon-stock_picking_invoicing',
         'odoo13-addon-stock_picking_return_refund_option',
     ],
     classifiers=[
