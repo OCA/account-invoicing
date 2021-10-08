@@ -1,0 +1,72 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * purchase_stock_picking_return_invoicing
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-24 18:04+0000\n"
+"PO-Revision-Date: 2017-03-24 18:04+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Language-Team: Macedonian (https://www.transifex.com/oca/teams/23907/mk/)\n"
+"Language: mk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
+
+#. module: purchase_stock_picking_return_invoicing
+#: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order__invoice_refund_count
+msgid "# of Invoice Refunds"
+msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
+#: model_terms:ir.ui.view,arch_db:purchase_stock_picking_return_invoicing.purchase_order_view_form_inherit
+msgid "Create Refund"
+msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
+#: model:ir.model,name:purchase_stock_picking_return_invoicing.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
+#: model:ir.model,name:purchase_stock_picking_return_invoicing.model_purchase_order
+msgid "Purchase Order"
+msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
+#: model:ir.model,name:purchase_stock_picking_return_invoicing.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
+#: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order_line__qty_refunded
+msgid "Refunded Qty"
+msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
+#: model_terms:ir.ui.view,arch_db:purchase_stock_picking_return_invoicing.purchase_order_view_form_inherit
+msgid "Refunds"
+msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
+#: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order_line__qty_returned
+msgid "Returned* Qty"
+msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
+#: model_terms:ir.ui.view,arch_db:purchase_stock_picking_return_invoicing.view_invoice_supplier_purchase_form
+msgid "Select a purchase order or an old bill"
+msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
+#: model:ir.model.fields,help:purchase_stock_picking_return_invoicing.field_purchase_order_line__qty_returned
+msgid "This is ONLY the returned quantity that is refundable."
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Фактура"
