@@ -3,7 +3,7 @@
 
 {
     "name": "Automatically select invoicing partner on invoice",
-    "summary": """Replace the partner by an invoice contact if found""",
+    "summary": "Replace the partner by an invoice contact if found",
     "author": "Therp BV,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Accounting & Finance",

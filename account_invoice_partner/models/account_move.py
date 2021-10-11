@@ -4,19 +4,19 @@
 from odoo import api, models
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     @api.onchange("partner_id", "company_id")
     def _onchange_partner_id(self):
         """
         Replace the selected partner with the preferred invoice contact
         """
-        partner_invoice_id = self.partner_id
+        partner_invoice = self.partner_id
         if self.partner_id:
             addr_ids = self.partner_id.address_get(adr_pref=["invoice"])
-            partner_invoice_id = self.env["res.partner"].browse(addr_ids["invoice"])
-        result = super(AccountInvoice, self)._onchange_partner_id()
-        if partner_invoice_id != self.partner_id:
-            self.partner_id = partner_invoice_id
+            partner_invoice = self.env["res.partner"].browse(addr_ids["invoice"])
+        result = super()._onchange_partner_id()
+        if partner_invoice != self.partner_id:
+            self.partner_id = partner_invoice
         return result
