@@ -50,7 +50,7 @@ class AccountInvoiceLine(models.Model):
             lang=self.invoice_id.partner_id.lang,
             partner=self.invoice_id.partner_id.id,
             quantity=self.quantity,
-            date_order=self.invoice_id.date_invoice,
+            date=self.invoice_id.date_invoice,
             pricelist=self.invoice_id.pricelist_id.id,
             uom=self.uom_id.id,
             fiscal_position=(
