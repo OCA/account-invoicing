@@ -14,11 +14,22 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     @api.model
-    def _get_invoice_key_cols(self):
+    def _get_invoice_key_cols_out(self):
         return [
             "partner_id",
             "user_id",
-            "type",
+            "move_type",
+            "currency_id",
+            "journal_id",
+            "company_id",
+            "bank_partner_id",
+        ]
+
+    @api.model
+    def _get_invoice_key_cols_in(self):
+        return [
+            "partner_id",
+            "move_type",
             "currency_id",
             "journal_id",
             "company_id",
@@ -38,7 +49,7 @@ class AccountMove(models.Model):
             "product_uom_id",
         ]
         for field in ["sale_line_ids"]:
-            if field in self._fields:
+            if field in self.env["account.move.line"]._fields:
                 fields.append(field)
         return fields
 
@@ -51,7 +62,7 @@ class AccountMove(models.Model):
             "user_id": invoice.user_id.id,
             "currency_id": invoice.currency_id.id,
             "company_id": invoice.company_id.id,
-            "type": invoice.type,
+            "move_type": invoice.move_type,
             # "account_id": invoice.account_id.id,
             "state": "draft",
             "ref": invoice.ref or "",
@@ -76,7 +87,7 @@ class AccountMove(models.Model):
         * Account invoices are in draft
         * Account invoices belong to the same partner
         * Account invoices are have same company, partner, address, currency,
-          journal, currency, salesman, account, type
+          journal, currency, salesman, account, move_type
         Lines will only be merged if:
         * Invoice lines are exactly the same except for the quantity and unit
 
@@ -106,7 +117,12 @@ class AccountMove(models.Model):
         seen_client_refs = {}
 
         for account_invoice in self._get_draft_invoices():
-            invoice_key = make_key(account_invoice, self._get_invoice_key_cols())
+            if account_invoice.move_type in ("in_invoice", "in_refund"):
+                invoice_key = make_key(account_invoice, self._get_invoice_key_cols_in())
+            else:
+                invoice_key = make_key(
+                    account_invoice, self._get_invoice_key_cols_out()
+                )
             new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
             origins = seen_origins.setdefault(invoice_key, set())
             client_refs = seen_client_refs.setdefault(invoice_key, set())
@@ -203,7 +219,7 @@ class AccountMove(models.Model):
                         invoice_line = invoice_line_obj.search(
                             [
                                 ("id", "in", so_line.invoice_lines.ids),
-                                ("invoice_id", "=", new_invoice_id),
+                                ("move_id", "=", new_invoice_id),
                             ]
                         )
                         if invoice_line:
@@ -212,12 +228,12 @@ class AccountMove(models.Model):
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
         anal_line_obj = self.env["account.analytic.line"]
-        if "invoice_id" in anal_line_obj._fields:
+        if "move_id" in anal_line_obj._fields:
             for new_invoice_id in invoices_info:
                 anal_todos = anal_line_obj.search(
-                    [("invoice_id", "in", invoices_info[new_invoice_id])]
+                    [("move_id", "in", invoices_info[new_invoice_id])]
                 )
-                anal_todos.write({"invoice_id": new_invoice_id})
+                anal_todos.write({"move_id": new_invoice_id})
 
         for new_invoice in allnewinvoices:
             new_invoice._compute_amount()

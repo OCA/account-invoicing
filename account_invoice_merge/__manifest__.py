@@ -15,6 +15,9 @@
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
     "depends": ["account"],
-    "data": ["wizard/invoice_merge_view.xml"],
+    "data": [
+        "wizard/invoice_merge_view.xml",
+        "security/ir.model.access.csv",
+    ],
     "installable": True,
 }

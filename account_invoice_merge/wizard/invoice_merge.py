@@ -22,10 +22,15 @@ class InvoiceMerge(models.TransientModel):
     @api.model
     def _get_not_mergeable_invoices_message(self, invoices):
         """Overridable function to custom error message"""
-        key_fields = invoices._get_invoice_key_cols()
+        move_type_set = set(invoices.mapped("move_type"))
+        if "in_invoice" in move_type_set or "in_refund" in move_type_set:
+            key_fields = invoices._get_invoice_key_cols_in()
+        else:
+            key_fields = invoices._get_invoice_key_cols_out()
+        # key_fields = invoices._get_invoice_key_cols_out()
         error_msg = {}
         if len(invoices) != len(invoices._get_draft_invoices()):
-            error_msg["state"] = _("Megeable State (ex : %s)") % (
+            error_msg["state"] = _("Mergeable State (ex : %s)") % (
                 invoices and fields.first(invoices).state or _("Draft")
             )
         for field in key_fields:
@@ -86,11 +91,12 @@ class InvoiceMerge(models.TransientModel):
             keep_references=self.keep_references, date_invoice=self.date_invoice
         )
         xid = {
-            "out_invoice": "action_move_out_invoice_type",
-            "out_refund": "action_move_out_refund_type",
-            "in_invoice": "action_move_in_invoice_type",
-            "in_refund": "action_move_in_refund_type",
-        }[fields.first(invoices).type]
-        action = aw_obj.for_xml_id("account", xid)
-        action.update({"domain": [("id", "in", ids + list(allinvoices.keys()))]})
-        return action
+            "out_invoice": "account.action_move_out_invoice_type",
+            "out_refund": "account.action_move_out_refund_type",
+            "in_invoice": "account.action_move_in_invoice_type",
+            "in_refund": "account.action_move_in_refund_type",
+        }[fields.first(invoices).move_type]
+
+        res = aw_obj._for_xml_id(xid)
+        res["domain"] = [("id", "in", ids + list(allinvoices.keys()))]
+        return res

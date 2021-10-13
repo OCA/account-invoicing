@@ -36,6 +36,12 @@ class TestAccountInvoiceMerge(TransactionCase):
         self.invoice_line1 = self._create_inv_line(self.invoice1)
         self.invoice_line2 = self._create_inv_line(self.invoice2)
         self.invoice_line3 = self._create_inv_line(self.invoice3)
+        self.user2 = self.env["res.users"].create(
+            {
+                "login": "test2",
+                "name": "test2",
+            }
+        )
 
     def _create_partner(self):
         partner = self.par_model.create(
@@ -65,13 +71,17 @@ class TestAccountInvoiceMerge(TransactionCase):
         )
         return invoice.invoice_line_ids - lines
 
-    def _create_invoice(self, partner, name):
+    def _create_invoice(self, partner, name, journal=False, move_type=False):
+        if not journal:
+            journal = self.journal
+        if not move_type:
+            move_type = "out_invoice"
         invoice = self.inv_model.create(
             {
                 "partner_id": partner.id,
                 "name": name,
-                "type": "out_invoice",
-                "journal_id": self.journal.id,
+                "move_type": move_type,
+                "journal_id": journal.id,
             }
         )
         return invoice
@@ -91,12 +101,14 @@ class TestAccountInvoiceMerge(TransactionCase):
         wiz_id.fields_view_get()
         action = wiz_id.merge_invoices()
 
-        self.assertDictContainsSubset(
-            {
-                "type": "ir.actions.act_window",
-                "xml_id": "account.action_move_out_invoice_type",
-            },
-            action,
+        self.assertEqual(
+            action["type"],
+            "ir.actions.act_window",
+            "There was an error and the two invoices were not merged.",
+        )
+        self.assertEqual(
+            action["xml_id"],
+            "account.action_move_out_invoice_type",
             "There was an error and the two invoices were not merged.",
         )
 
@@ -129,7 +141,7 @@ class TestAccountInvoiceMerge(TransactionCase):
         # Check with two different invoice type
         # Create the invoice 4 with a different account
         invoice4 = self._create_invoice(self.partner1, "D")
-        invoice4.write({"type": "out_refund"})
+        invoice4.write({"move_type": "out_refund"})
         self._create_inv_line(invoice4)
         invoices = self.invoice1 | invoice4
         with self.assertRaises(UserError):
@@ -152,10 +164,10 @@ class TestAccountInvoiceMerge(TransactionCase):
 
         # Check with an another company
         # Create the invoice 6 and change the company
-        invoice6 = self._create_invoice(self.partner1, "E")
-        self._create_inv_line(invoice6)
         new_company = self.env["res.company"].create({"name": "Hello World"})
-        invoice6.company_id = new_company.id
+        new_journal = self.journal.with_company(new_company).copy()
+        invoice6 = self._create_invoice(self.partner1, "E", new_journal)
+        self._create_inv_line(invoice6)
         invoices = self.invoice1 | invoice6
         with self.assertRaises(UserError):
             wiz_id.with_context(
@@ -170,3 +182,29 @@ class TestAccountInvoiceMerge(TransactionCase):
                 active_ids=invoices.ids,
                 active_model=invoices._name,
             ).fields_view_get()
+
+    def test_account_invoice_merge_3(self):
+
+        expenses_journal = self.env["account.journal"].create(
+            {
+                "name": "Vendor Bills - Test",
+                "code": "TEXJ",
+                "type": "purchase",
+                "refund_sequence": True,
+            }
+        )
+        inv_a = self._create_invoice(
+            self.partner1, "A", journal=expenses_journal, move_type="in_invoice"
+        )
+        inv_b = self._create_invoice(
+            self.partner1, "A", journal=expenses_journal, move_type="in_invoice"
+        )
+        inv_b.write({"user_id": self.user2.id})
+        self.assertNotEqual(inv_a.user_id, inv_b.user_id)
+        invoices = inv_a | inv_b
+        wiz_id = self.wiz.with_context(
+            active_ids=invoices.ids,
+            active_model=invoices._name,
+        ).create({})
+        wiz_id.fields_view_get()
+        wiz_id.merge_invoices()
