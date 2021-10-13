@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 
 class TestAccountInvoiceMerge(TransactionCase):
     """
-        Tests for Account Invoice Merge.
+    Tests for Account Invoice Merge.
     """
 
     def setUp(self):
@@ -23,7 +23,8 @@ class TestAccountInvoiceMerge(TransactionCase):
         self.partner1 = self._create_partner()
         self.partner2 = self._create_partner()
         self.invoice_account = self.acc_model.search(
-            [("user_type_id", "=", self.account_receive.id)], limit=1,
+            [("user_type_id", "=", self.account_receive.id)],
+            limit=1,
         )
         self.journal = self.env["account.journal"].search(
             [("type", "=", "sale")], limit=1
@@ -84,7 +85,8 @@ class TestAccountInvoiceMerge(TransactionCase):
         self.assertEqual(len(start_inv), 2)
         invoices = self.invoice1 | self.invoice2
         wiz_id = self.wiz.with_context(
-            active_ids=invoices.ids, active_model=invoices._name,
+            active_ids=invoices.ids,
+            active_model=invoices._name,
         ).create({})
         wiz_id.fields_view_get()
         action = wiz_id.merge_invoices()
@@ -108,7 +110,8 @@ class TestAccountInvoiceMerge(TransactionCase):
     def test_account_invoice_merge_2(self):
         invoices = self.invoice1 | self.invoice3
         wiz_id = self.wiz.with_context(
-            active_ids=invoices.ids, active_model=invoices._name,
+            active_ids=invoices.ids,
+            active_model=invoices._name,
         ).create({})
         with self.assertRaises(UserError):
             wiz_id.fields_view_get()
@@ -131,7 +134,8 @@ class TestAccountInvoiceMerge(TransactionCase):
         invoices = self.invoice1 | invoice4
         with self.assertRaises(UserError):
             wiz_id.with_context(
-                active_ids=invoices.ids, active_model=invoices._name,
+                active_ids=invoices.ids,
+                active_model=invoices._name,
             ).fields_view_get()
 
         # Check with a canceled invoice
@@ -142,7 +146,8 @@ class TestAccountInvoiceMerge(TransactionCase):
         invoices = self.invoice1 | invoice5
         with self.assertRaises(UserError):
             wiz_id.with_context(
-                active_ids=invoices.ids, active_model=invoices._name,
+                active_ids=invoices.ids,
+                active_model=invoices._name,
             ).fields_view_get()
 
         # Check with an another company
@@ -154,12 +159,14 @@ class TestAccountInvoiceMerge(TransactionCase):
         invoices = self.invoice1 | invoice6
         with self.assertRaises(UserError):
             wiz_id.with_context(
-                active_ids=invoices.ids, active_model=invoices._name,
+                active_ids=invoices.ids,
+                active_model=invoices._name,
             ).fields_view_get()
 
         # Check with two different partners
         invoices = self.invoice1 | self.invoice3
         with self.assertRaises(UserError):
             wiz_id.with_context(
-                active_ids=invoices.ids, active_model=invoices._name,
+                active_ids=invoices.ids,
+                active_model=invoices._name,
             ).fields_view_get()
