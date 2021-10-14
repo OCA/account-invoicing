@@ -7,12 +7,11 @@
     "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Invoicing & Payments",
-    "version": "10.0.1.0.0",
+    "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "depends": [
         "account_invoice_merge",
         "account_payment_partner",
     ],
-    "auto_install": True,
     "installable": True,
 }
