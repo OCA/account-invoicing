@@ -25,7 +25,7 @@ class StockPicking(models.Model):
         :return: bool
         """
         self.mapped("move_lines")._set_as_2binvoiced()
-        return super(StockPicking, self)._set_as_2binvoiced()
+        return super()._set_as_2binvoiced()
 
     def _set_as_invoiced(self):
         """
@@ -33,7 +33,7 @@ class StockPicking(models.Model):
         :return: bool
         """
         self.mapped("move_lines")._set_as_invoiced()
-        return super(StockPicking, self)._set_as_invoiced()
+        return super()._set_as_invoiced()
 
     def _get_partner_to_invoice(self):
         self.ensure_one()
