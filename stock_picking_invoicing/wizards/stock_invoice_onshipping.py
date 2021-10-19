@@ -305,7 +305,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param picking: stock.picking recordset
         :return: key (tuple,...)
         """
-        key = picking
+        key = (picking,)
         if self.group in ["partner", "partner_product"]:
             # Pickings with same Partner to create Invoice but the
             # Partner to Shipping is different should not be grouping.
@@ -389,11 +389,11 @@ class StockInvoiceOnshipping(models.TransientModel):
         """
         Get the key based on the given move
         :param move: stock.move recordset
-        :return: key
+        :return: (key,)
         """
-        key = move
+        key = (move,)
         if self.group == "partner_product":
-            key = move.product_id
+            key = (move.product_id,)
         return key
 
     def _group_moves(self, moves):
