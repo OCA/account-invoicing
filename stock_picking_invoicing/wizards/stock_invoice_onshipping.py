@@ -91,7 +91,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param fields_list: list of str
         :return: dict
         """
-        result = super(StockInvoiceOnshipping, self).default_get(fields_list)
+        result = super().default_get(fields_list)
         result.update({"invoice_date": fields.Date.today()})
         return result
 
