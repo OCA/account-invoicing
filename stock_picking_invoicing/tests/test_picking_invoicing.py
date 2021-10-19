@@ -9,7 +9,7 @@ from odoo.tests import Form, SavepointCase, tagged
 class TestPickingInvoicing(SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestPickingInvoicing, cls).setUpClass()
+        super().setUpClass()
         cls.picking_model = cls.env["stock.picking"]
         cls.move_model = cls.env["stock.move"]
         cls.invoice_wizard = cls.env["stock.invoice.onshipping"]
