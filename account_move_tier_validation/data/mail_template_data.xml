@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<odoo>
+
+  <record id="email_template_validation_invoice" model="mail.template">
+    <field name="name">Account Invoice Validation Request</field>
+    <field name="model_id" ref="account.model_account_move" />
+    <field name="email_from">${(object.company_id.email)}</field>
+    <field
+            name="partner_to"
+        >${object.user_validation_responsible_id.partner_id.id}</field>
+    <field name="subject">Invoice for Approval</field>
+    <!-- The body of the template has not been decided yet, except a button to open the invoice -->
+    <field name="body_html" type="html">
+      <div style="margin: 0px; padding: 0px;">
+        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+          Here is a new vendor invoice to review:
+        </p>
+
+          <table
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    style="background-color:#505050; border:1px solid #353535; border-radius:5px;"
+                >
+            <tr>
+              <td
+                            align="center"
+                            valign="middle"
+                            style="color:#FFFFFF; font-family:Helvetica, Arial, sans-serif; font-size:16px; font-weight:bold; letter-spacing:-.5px; line-height:150%; padding-top:15px; padding-right:30px; padding-bottom:15px; padding-left:30px;"
+                        >
+
+                <a
+                                href="${object.get_web_url()}"
+                                style="color:#FFFFFF; text-decoration:none;"
+                            >Invoice ${object.name}</a>
+              </td>
+            </tr>
+          </table>
+
+      </div>
+    </field>
+    <field name="lang">${object.partner_id.lang}</field>
+    <field name="auto_delete" eval="True" />
+  </record>
+
+</odoo>

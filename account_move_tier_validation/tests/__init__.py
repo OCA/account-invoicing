@@ -2,3 +2,4 @@
 
 from . import common
 from . import test_tier_validation
+from . import test_account_move_tier_validation

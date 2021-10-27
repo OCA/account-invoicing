@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="tier_definition_view_form_inherit" model="ir.ui.view">
+        <field name="name">tier.definition.view.form.inherit</field>
+        <field name="model">tier.definition</field>
+        <field name="inherit_id" ref="base_tier_validation.tier_definition_view_form" />
+        <field name="arch" type="xml">
+            <field name="has_comment" position="after">
+                <field
+                    name="open_mail_composer_wizard"
+                    attrs="{'invisible':[('model','!=','account.move')]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

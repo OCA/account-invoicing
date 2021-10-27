@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+  <record id="account_invoice_send_validation_form" model="ir.ui.view">
+    <field name="name">account.invoice.send.validation.form</field>
+    <field name="model">account.invoice.send.validation</field>
+    <field name="groups_id" eval="[(4,ref('base.group_user'))]" />
+    <field name="arch" type="xml">
+      <form string="Invoice send validation request">
+        <field name="composition_mode" invisible="1" />
+        <field name="invoice_id" invisible="1" />
+        <field name="email_from" invisible="1" />
+        <field name="mail_server_id" invisible="1" />
+        <field name="template_id" invisible="1" />
+        <div name="mail_form">
+          <div>
+            <group>
+              <field
+                                name="partner_ids"
+                                widget="many2many_tags_email"
+                                string="Recipients"
+                                placeholder="Add contacts to notify..."
+                            />
+              <field name="subject" placeholder="Subject..." />
+            </group>
+            <field name="body" style="border:none;" options="{'style-inline': true}" />
+          </div>
+          <group>
+            <field
+                            name="attachment_ids"
+                            widget="many2many_binary"
+                            string="Attach a file"
+                            nolabel="1"
+                            colspan="2"
+                        />
+          </group>
+        </div>
+        <footer>
+          <button
+                        string="Send"
+                        name="send_action"
+                        type="object"
+                        class="send btn-primary o_mail_send"
+                    />
+          <button string="Cancel" class="btn-secondary" special="cancel" />
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="invoice_send_validation_request" model="ir.actions.act_window">
+      <field name="name">Send Validation Request</field>
+      <field name="res_model">account.invoice.send.validation</field>
+      <field name="binding_model_id" ref="model_account_move" />
+      <field name="binding_view_types">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+      <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
+      <field
+            name="context"
+            eval="{
+        'default_template_id': ref('account_move_tier_validation.email_template_validation_invoice'),
+       }"
+        />
+  </record>
+
+</odoo>

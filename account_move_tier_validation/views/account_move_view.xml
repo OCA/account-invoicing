@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <button name="action_post" position="before">
                 <button
-                    name="request_validation"
+                    name="button_request_validation"
                     string="Request Validation"
                     attrs="{'invisible': ['|','|',('need_validation', '!=', True),('rejected','=',True),('state','not in',['draft'])]}"
                     type="object"
@@ -79,6 +79,15 @@
                     widget="tier_validation"
                     attrs="{'invisible':[('review_ids', '=', [])]}"
                 />
+            </xpath>
+            <xpath expr="//group[@id='other_tab_group']" position="inside">
+                <group
+                    string="Validation"
+                    name="tier_validation"
+                    attrs="{'invisible': [('move_type', 'not in', ('in_invoice', 'in_refund'))]}"
+                >
+                <field name="user_validation_responsible_id" />
+                </group>
             </xpath>
         </field>
     </record>
