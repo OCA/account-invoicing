@@ -22,7 +22,7 @@ class AccountBilling(models.Model):
         required=True,
         default=lambda self: self._get_partner_id(),
         help="Partner Information",
-        track_visibility="always",
+        tracking=True,
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
@@ -38,7 +38,7 @@ class AccountBilling(models.Model):
         states={"draft": [("readonly", False)]},
         default=fields.Date.context_today,
         help="Effective date for accounting entries",
-        track_visibility="always",
+        tracking=True,
     )
     threshold_date = fields.Date(
         readonly=True,
@@ -46,7 +46,7 @@ class AccountBilling(models.Model):
         string="Threshold Date",
         default=lambda self: fields.Date.context_today(self),
         required=True,
-        track_visibility="always",
+        tracking=True,
     )
     invoice_related_count = fields.Integer(
         string="# of Invoices",
