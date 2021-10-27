@@ -19,7 +19,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_billing](account_billing/) | 13.0.1.0.3 | [![Saran440](https://github.com/Saran440.png?size=30px)](https://github.com/Saran440) | Group invoice as billing before payment
+[account_billing](account_billing/) | 13.0.1.0.4 | [![Saran440](https://github.com/Saran440.png?size=30px)](https://github.com/Saran440) | Group invoice as billing before payment
 [account_global_discount](account_global_discount/) | 13.0.2.0.1 |  | Account Global Discount
 [account_invoice_base_invoicing_mode](account_invoice_base_invoicing_mode/) | 13.0.1.0.1 |  | Base module for handling multiple invoicing mode
 [account_invoice_check_picking_date](account_invoice_check_picking_date/) | 13.0.1.0.0 | [![carlosdauden](https://github.com/carlosdauden.png?size=30px)](https://github.com/carlosdauden) | Check if date of pickings match with invoice date
