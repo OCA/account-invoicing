@@ -30,6 +30,8 @@ class AccountMove(models.Model):
                 invoice.self_invoice_number = sequence.with_context(
                     ir_sequence_date=invoice.date
                 ).next_by_id()
+                if not invoice.ref:
+                    invoice.ref = invoice.self_invoice_number
         return res
 
     @api.model
