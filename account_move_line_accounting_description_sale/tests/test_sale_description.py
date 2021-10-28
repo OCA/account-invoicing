@@ -9,12 +9,12 @@ class TestSaleDescription(SavepointCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.partner_1 = cls.env.ref("base.res_partner_1")
-        cls.product_1 = cls.env.ref("product.product_product_1")
-        cls.product_2 = cls.env.ref("product.product_product_2")
-        cls.product_2.invoice_policy = "order"
+        cls.product_acc_desc = cls.env.ref("product.product_product_1")
+        cls.product_without_acc_desc = cls.env.ref("product.product_product_2")
+        cls.product_without_acc_desc.invoice_policy = "order"
 
-        cls.product_1.accounting_description = "Product1_acc_desc"
-        cls.product_1.invoice_policy = "order"
+        cls.product_acc_desc.accounting_description = "Product1_acc_desc"
+        cls.product_acc_desc.invoice_policy = "order"
         cls.order1_p1 = cls.env["sale.order"].create(
             {
                 "partner_id": cls.partner_1.id,
@@ -26,20 +26,20 @@ class TestSaleDescription(SavepointCase):
                         0,
                         0,
                         {
-                            "product_id": cls.product_1.id,
+                            "product_id": cls.product_acc_desc.id,
                             "price_unit": 20,
                             "product_uom_qty": 1,
-                            "product_uom": cls.product_1.uom_id.id,
+                            "product_uom": cls.product_acc_desc.uom_id.id,
                         },
                     ),
                     (
                         0,
                         0,
                         {
-                            "product_id": cls.product_1.id,
+                            "product_id": cls.product_acc_desc.id,
                             "price_unit": 20,
                             "product_uom_qty": 1,
-                            "product_uom": cls.product_1.uom_id.id,
+                            "product_uom": cls.product_acc_desc.uom_id.id,
                         },
                     ),
                 ],
@@ -57,20 +57,20 @@ class TestSaleDescription(SavepointCase):
                         0,
                         0,
                         {
-                            "product_id": cls.product_2.id,
+                            "product_id": cls.product_without_acc_desc.id,
                             "price_unit": 20,
                             "product_uom_qty": 1,
-                            "product_uom": cls.product_2.uom_id.id,
+                            "product_uom": cls.product_without_acc_desc.uom_id.id,
                         },
                     ),
                     (
                         0,
                         0,
                         {
-                            "product_id": cls.product_2.id,
+                            "product_id": cls.product_without_acc_desc.id,
                             "price_unit": 20,
                             "product_uom_qty": 1,
-                            "product_uom": cls.product_2.uom_id.id,
+                            "product_uom": cls.product_without_acc_desc.uom_id.id,
                         },
                     ),
                 ],
@@ -87,8 +87,8 @@ class TestSaleDescription(SavepointCase):
         )
 
         for line in lines:
-            self.assertEqual(line.name, self.product_1.accounting_description)
-            self.assertEqual(line.external_name, self.product_1.name)
+            self.assertEqual(line.name, self.product_acc_desc.accounting_description)
+            self.assertEqual(line.external_name, self.product_acc_desc.name)
 
         # For 2nd SO make sure invoice line name isn't set to product description
 
@@ -98,6 +98,8 @@ class TestSaleDescription(SavepointCase):
         )
 
         for line in lines:
-            self.assertNotEqual(line.name, self.product_2.accounting_description)
-            self.assertEqual(line.name, self.product_2.name)
+            self.assertNotEqual(
+                line.name, self.product_without_acc_desc.accounting_description
+            )
+            self.assertEqual(line.name, self.product_without_acc_desc.name)
             self.assertEqual(line.external_name, line.name)
