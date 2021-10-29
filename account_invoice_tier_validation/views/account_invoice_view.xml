@@ -12,7 +12,7 @@
             <xpath expr="//header" position="inside">
                 <button name="request_validation"
                     string="Request Validation"
-                    attrs="{'invisible': ['|',('need_validation', '!=', True),('rejected','=',True),('state','=', 'draft')]}"
+                    attrs="{'invisible': ['|','|',('need_validation', '!=', True),('rejected','=',True),('state','not in',['draft'])]}"
                     type="object"/>
                 <button name="restart_validation"
                     string="Restart Validation"
@@ -72,7 +72,7 @@
             <xpath expr="//header" position="inside">
                 <button name="request_validation"
                     string="Request Validation"
-                    attrs="{'invisible': ['|',('need_validation', '!=', True),('rejected','=',True),('state','=', 'draft')]}"
+                    attrs="{'invisible': ['|','|',('need_validation', '!=', True),('rejected','=',True),('state','not in',['draft'])]}"
                     type="object"/>
                 <button name="restart_validation"
                     string="Restart Validation"
