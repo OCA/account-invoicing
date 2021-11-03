@@ -1,0 +1,42 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_supplier_ref_unique
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-29 02:39+0000\n"
+"PO-Revision-Date: 2017-04-29 02:39+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Language-Team: Russian (https://www.transifex.com/oca/teams/23907/ru/)\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: account_invoice_supplier_ref_unique
+#: model:ir.model,name:account_invoice_supplier_ref_unique.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#. module: account_invoice_supplier_ref_unique
+#: code:addons/account_invoice_supplier_ref_unique/models/account_move.py:0
+#, python-format
+msgid ""
+"The invoice/refund with supplier invoice number '%s' already exists in Odoo "
+"under the number '%s' for supplier '%s'."
+msgstr ""
+
+#. module: account_invoice_supplier_ref_unique
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_move__supplier_invoice_number
+msgid "Vendor invoice number"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Счет"
