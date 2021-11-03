@@ -21,6 +21,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_restrict_linked_so',
         'odoo14-addon-account_invoice_search_by_reference',
         'odoo14-addon-account_invoice_section_sale_order',
+        'odoo14-addon-account_invoice_supplier_ref_unique',
         'odoo14-addon-account_invoice_tax_required',
         'odoo14-addon-account_invoice_transmit_method',
         'odoo14-addon-account_invoice_tree_currency',
