@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//t[@t-set='display_discount']" position="replace">
+            <t t-set="display_discount" t-value="o._has_discount()" />
+            <t
+                t-set="discount_class"
+                t-value="'text-right %s' % ('d-none d-md-table-cell' if report_type == 'html' else '')"
+            />
+        </xpath>
+        <xpath expr="//th[@name='th_price_unit']" position="after">
+            <th
+                name="th_discount2"
+                t-if="display_discount"
+                t-att-class="discount_class"
+            >
+                <span>Disc.2 %</span>
+            </th>
+            <th
+                name="th_discount3"
+                t-if="display_discount"
+                t-att-class="discount_class"
+            >
+                <span>Disc.3 %</span>
+            </th>
+        </xpath>
+        <xpath expr="//td[span[@t-field='line.discount']]" position="after">
+            <td t-if="display_discount" t-att-class="discount_class">
+                <span class="text-nowrap" t-field="line.discount2" />
+            </td>
+            <td t-if="display_discount" t-att-class="discount_class">
+                <span class="text-nowrap" t-field="line.discount3" />
+            </td>
+        </xpath>
+    </template>
+</odoo>
