@@ -193,6 +193,7 @@ class TestAccountMovePricelist(common.SavepointCase):
         cls.invoice = cls.AccountMove.create(
             {
                 "partner_id": cls.partner.id,
+                "fiscal_position_id": cls.fiscal_position.id,
                 "type": "out_invoice",
                 "invoice_line_ids": [
                     (
