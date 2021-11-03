@@ -41,7 +41,7 @@ class TestInvoiceTripleDiscount(SavepointCase):
     def create_simple_invoice(self, amount):
         invoice_form = Form(
             self.AccountMove.with_context(
-                default_type="out_invoice",
+                default_move_type="out_invoice",
                 default_journal_id=self.sale_journal.id,
             )
         )
