@@ -54,7 +54,7 @@ addon | version | maintainers | summary
 [account_invoice_supplierinfo_update_triple_discount](account_invoice_supplierinfo_update_triple_discount/) | 12.0.1.0.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | In the supplier invoice, automatically update all products whose discounts on the line is different from the supplier discounts
 [account_invoice_tax_note](account_invoice_tax_note/) | 12.0.1.0.0 |  | Print tax notes on customer invoices
 [account_invoice_tax_required](account_invoice_tax_required/) | 12.0.1.0.2 |  | This module adds functional a check on invoice to force user to set tax on invoice line.
-[account_invoice_tier_validation](account_invoice_tier_validation/) | 12.0.1.0.1 |  | Extends the functionality of Invoice to support a tier validation process.
+[account_invoice_tier_validation](account_invoice_tier_validation/) | 12.0.1.0.2 |  | Extends the functionality of Invoice to support a tier validation process.
 [account_invoice_tier_validation_approver](account_invoice_tier_validation_approver/) | 12.0.1.0.0 |  | Account Invoice Tier Validation Approver
 [account_invoice_tier_validation_forward](account_invoice_tier_validation_forward/) | 12.0.1.0.0 |  | Account Invoice Tier Validation - Forward Option
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 12.0.1.0.1 |  | Configure invoice transmit method (email, post, portal, ...)
