@@ -39,6 +39,16 @@ msgstr ""
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
+msgid "Invoices Pending to Validate"
+msgstr ""
+
+#. module: account_invoice_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
+msgid "Invoices rejected"
+msgstr ""
+
+#. module: account_invoice_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
 msgid "Invoices validated and ready to be confirmed"
 msgstr ""
 
@@ -61,6 +71,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_supplier_form
 msgid "Reject"
+msgstr ""
+
+#. module: account_invoice_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
+msgid "Rejected"
 msgstr ""
 
 #. module: account_invoice_tier_validation
@@ -89,5 +104,10 @@ msgstr ""
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
 msgid "Validated"
+msgstr ""
+
+#. module: account_invoice_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
+msgid "Validation In Progress"
 msgstr ""
 
