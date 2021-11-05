@@ -498,7 +498,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         return pickings._set_as_invoiced()
 
     def ungroup_moves(self, grouped_moves_list):
-        """Ungrup your moves, split them again, grouping by
+        """Ungroup your moves, split them again, grouping by
         fiscal position, max itens per invoice and etc
         :param grouped_moves_list:
         :return: list of grouped moves list
@@ -506,7 +506,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         return [grouped_moves_list]
 
     def _create_invoice(self, invoice_values):
-        """Overrite this metothod if you need to change any values of the
+        """Override this method if you need to change any values of the
         invoice and the lines before the invoice creation
         :param invoice_values: dict with the invoice and its lines
         :return: invoice
@@ -533,7 +533,6 @@ class StockInvoiceOnshipping(models.TransientModel):
                     pickings
                 )
                 lines = [(5, 0, {})]
-                # lines = []
                 line_values = False
                 for moves in moves_list:
                     line_values = self._get_invoice_line_values(
