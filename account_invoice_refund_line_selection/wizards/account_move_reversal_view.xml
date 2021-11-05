@@ -11,7 +11,10 @@
                 >
                     <page string="Invoice Lines">
                         <field name="selectable_invoice_lines_ids" invisible="1" />
-                        <field name="line_ids">
+                        <field
+                            name="line_ids"
+                            context="{'tree_view_ref': 'account.view_move_line_tree_grouped_sales_purchases'}"
+                        >
                             <tree string="Invoice Lines">
                                 <field name="sequence" widget="handle" readonly="1" />
                                 <field name="product_id" readonly="1" />
