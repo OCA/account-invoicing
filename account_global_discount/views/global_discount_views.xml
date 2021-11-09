@@ -7,9 +7,13 @@
         <field name="inherit_id" ref="base_global_discount.global_discount_view_tree" />
         <field name="arch" type="xml">
             <field name="company_id" position="before">
-                <field name="account_id" required="1" />
                 <field
+                    name="account_id"
+                    required="1"
                     domain="[('company_id', '=', company_id)]"
+                />
+                <field
+                    domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"
                     name="account_analytic_id"
                     groups="analytic.group_analytic_accounting"
                 />
@@ -21,9 +25,13 @@
         <field name="inherit_id" ref="base_global_discount.global_discount_view_form" />
         <field name="arch" type="xml">
             <field name="company_id" position="before">
-                <field name="account_id" required="1" />
                 <field
+                    name="account_id"
+                    required="1"
                     domain="[('company_id', '=', company_id)]"
+                />
+                <field
+                    domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"
                     name="account_analytic_id"
                     groups="analytic.group_analytic_accounting"
                 />
