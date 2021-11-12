@@ -31,6 +31,7 @@ setuptools.setup(
         'odoo14-addon-product_supplierinfo_for_customer_invoice',
         'odoo14-addon-purchase_stock_picking_return_invoicing',
         'odoo14-addon-sale_order_invoicing_grouping_criteria',
+        'odoo14-addon-stock_picking_invoicing',
     ],
     classifiers=[
         'Programming Language :: Python',
