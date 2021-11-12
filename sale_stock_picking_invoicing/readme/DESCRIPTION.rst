@@ -1,0 +1,1 @@
+This module extends Stock Picking Invoicing implementation to Sale, you can define the Sale Creation Invoice Policy, if the invoice should create from Sale Order or Stock Picking, in this case, the information used at invoice come from Sale Order e.g.: Price Unit, Payment Terms, and others fields.
