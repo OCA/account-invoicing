@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_picking_inherit_tree2" model="ir.ui.view">
+        <field name="name">stock.picking.tree.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree" />
+        <field name="arch" type="xml">
+            <field name="backorder_id" position="after">
+                <field name="invoice_state" groups="account.group_account_invoice" />
+            </field>
+        </field>
+    </record>
+    <record id="view_picking_invoicing_internal_search" model="ir.ui.view">
+        <field name="name">stock.picking.search.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="before">
+                <filter
+                    name="picking_to_invoice"
+                    string="Shipments to Invoice"
+                    domain="[('invoice_state', '=', '2binvoiced')]"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock_picking_invoice_link.view_picking_form" />
+        <field name="arch" type="xml">
+            <!-- The replace is needed because the tree view definition below change
+            also the field view defined in stock_picking_invoice_link -->
+            <field name="invoice_ids" position="replace" />
+            <notebook position="inside">
+                <page
+                    string="Invoicing"
+                    name="page_invoicing"
+                    groups="account.group_account_invoice"
+                    attrs="{'invisible': [('invoice_state', 'in', [False, 'none'])]}"
+                >
+                    <group colspan="2">
+                        <field name="invoice_ids" coslpan="2" nolabel="1">
+                            <tree>
+                                <field name="partner_id" />
+                                <field name="name" />
+                                <field name="ref" />
+                                <field name="invoice_date" />
+                                <field name="state" />
+                                <field name="amount_untaxed" sum="True" />
+                                <field name="amount_tax" />
+                                <field name="amount_total" sum="True" />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </notebook>
+            <button name="do_unreserve" position="after">
+                <button
+                    name="%(action_stock_invoice_onshipping)d"
+                    string="Create Invoice"
+                    attrs="{'invisible': ['|', ('state', '!=', 'done'), ('invoice_state', '!=', '2binvoiced')]}"
+                    type="action"
+                    class="oe_highlight"
+                    groups="base.group_user"
+                />
+            </button>
+            <field name="move_ids_without_package" position="attributes">
+                <attribute name="context">
+                    {'default_invoice_state': invoice_state,
+                    'address_in_id': partner_id,
+                    'form_view_ref':'stock.view_move_picking_form',
+                    'tree_view_ref':'stock.view_move_picking_tree',
+                    'default_picking_type_id': picking_type_id,
+                    'default_picking_id': id,
+                    'default_location_id': location_id,
+                    'default_location_dest_id': location_dest_id}
+                </attribute>
+            </field>
+            <field name="move_type" position="before">
+                <field name="invoice_state" groups="account.group_account_invoice" />
+            </field>
+            <xpath
+                expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']"
+                position="after"
+            >
+                <field name="invoice_state" groups="account.group_account_invoice" />
+            </xpath>
+            <button name="%(stock.act_stock_return_picking)d" position="after">
+                <button
+                    name="set_to_be_invoiced"
+                    type="object"
+                    string="Set to be invoiced"
+                    attrs="{'invisible':['|', '|',
+                         ('invoice_state', '=', 'invoiced'),
+                         ('invoice_ids', '=', True), ('state', '=', 'cancel')]}"
+                />
+            </button>
+        </field>
+    </record>
+</odoo>
