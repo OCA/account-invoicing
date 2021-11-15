@@ -23,6 +23,7 @@ setuptools.setup(
         'odoo13-addon-account_invoice_pricelist_sale',
         'odoo13-addon-account_invoice_refund_line_selection',
         'odoo13-addon-account_invoice_refund_link',
+        'odoo13-addon-account_invoice_refund_reinvoice',
         'odoo13-addon-account_invoice_search_by_reference',
         'odoo13-addon-account_invoice_section_sale_order',
         'odoo13-addon-account_invoice_show_currency_rate',
