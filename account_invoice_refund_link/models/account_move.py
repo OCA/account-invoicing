@@ -30,22 +30,3 @@ class AccountMove(models.Model):
                 if not line.exclude_from_invoice_tab:
                     refund_lines_vals[i][2]["origin_line_id"] = line.id
         return move_vals
-
-
-class AccountInvoiceLine(models.Model):
-    _inherit = "account.move.line"
-
-    origin_line_id = fields.Many2one(
-        comodel_name="account.move.line",
-        string="Original invoice line",
-        help="Original invoice line to which this refund invoice line "
-        "is referred to",
-        copy=False,
-    )
-    refund_line_ids = fields.One2many(
-        comodel_name="account.move.line",
-        inverse_name="origin_line_id",
-        string="Refund invoice lines",
-        help="Refund invoice lines created from this invoice line",
-        copy=False,
-    )
