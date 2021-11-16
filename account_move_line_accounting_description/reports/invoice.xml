@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath
+            expr="//td[@name='account_invoice_line_name']//span[@t-field='line.name']"
+            position="replace"
+        >
+            <span t-field="line.external_name" t-options="{'widget': 'text'}" />
+        </xpath>
+    </template>
+</odoo>
