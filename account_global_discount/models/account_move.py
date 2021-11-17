@@ -246,17 +246,11 @@ class AccountMove(models.Model):
             amount_untaxed_signed = self.currency_id._convert(
                 self.amount_untaxed, self.company_id.currency_id, self.company_id, date
             )
-        sign = self.move_type in ["in_refund", "out_refund"] and -1 or 1
+        sign = self.move_type in ["in_invoice", "out_refund"] and -1 or 1
         self.amount_total_signed = self.amount_total * sign
         self.amount_untaxed_signed = amount_untaxed_signed * sign
 
     @api.depends(
-        "line_ids.matched_debit_ids.debit_move_id.move_id.payment_id.is_matched",
-        "line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual",
-        "line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual_currency",
-        "line_ids.matched_credit_ids.credit_move_id.move_id.payment_id.is_matched",
-        "line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual",
-        "line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual_currency",
         "line_ids.debit",
         "line_ids.credit",
         "line_ids.currency_id",
@@ -264,7 +258,6 @@ class AccountMove(models.Model):
         "line_ids.amount_residual",
         "line_ids.amount_residual_currency",
         "line_ids.payment_id.state",
-        "line_ids.full_reconcile_id",
         "invoice_global_discount_ids",
         "global_discount_ids",
     )
