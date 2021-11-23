@@ -12,6 +12,7 @@ setuptools.setup(
         'odoo12-addon-account_debitnote',
         'odoo12-addon-account_global_discount',
         'odoo12-addon-account_group_invoice_line',
+        'odoo12-addon-account_invoice_alternate_payer',
         'odoo12-addon-account_invoice_analytic_search',
         'odoo12-addon-account_invoice_anglo_saxon_no_cogs_deferral',
         'odoo12-addon-account_invoice_blocking',
