@@ -54,19 +54,6 @@ msgstr ""
 
 #. module: account_invoice_check_total
 #: code:addons/account_invoice_check_total/models/account_move.py:0
-#, fuzzy, python-format
-msgid ""
-"Please verify the price of the invoice!\n"
-"The total amount (%s) does not match the Verification Total amount (%s)!\n"
-"There is a difference of %s"
-msgstr ""
-"Verificare l'importo della fattura!\n"
-"                        L'importo totale (%s) non "
-"corrisponde                        all'importo totale di verifica (%s)!\n"
-"La differenza è pari a %s"
-
-#. module: account_invoice_check_total
-#: code:addons/account_invoice_check_total/models/account_move.py:0
 #, python-format
 msgid ""
 "Please verify the price of the invoice!\n"
@@ -84,6 +71,17 @@ msgstr "Differenza sul totale"
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total
 msgid "Verification Total"
 msgstr "Totale di verifica"
+
+#, fuzzy
+#~ msgid ""
+#~ "Please verify the price of the invoice!\n"
+#~ "The total amount (%s) does not match the Verification Total amount (%s)!\n"
+#~ "There is a difference of %s"
+#~ msgstr ""
+#~ "Verificare l'importo della fattura!\n"
+#~ "                        L'importo totale (%s) non "
+#~ "corrisponde                        all'importo totale di verifica (%s)!\n"
+#~ "La differenza è pari a %s"
 
 #~ msgid "Invoice"
 #~ msgstr "Fattura"

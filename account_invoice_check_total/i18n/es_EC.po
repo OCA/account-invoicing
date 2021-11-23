@@ -54,15 +54,6 @@ msgstr ""
 #, python-format
 msgid ""
 "Please verify the price of the invoice!\n"
-"The total amount (%s) does not match the Verification Total amount (%s)!\n"
-"There is a difference of %s"
-msgstr ""
-
-#. module: account_invoice_check_total
-#: code:addons/account_invoice_check_total/models/account_move.py:0
-#, python-format
-msgid ""
-"Please verify the price of the invoice!\n"
 "The total amount ({total}) does not match the Verification Total amount "
 "({check_total})!\n"
 "There is a difference of {difference}"
