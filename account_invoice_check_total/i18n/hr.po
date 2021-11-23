@@ -61,6 +61,16 @@ msgstr ""
 "Upisani iznos ne odgovara izračunatom."
 
 #. module: account_invoice_check_total
+#: code:addons/account_invoice_check_total/models/account_move.py:0
+#, python-format
+msgid ""
+"Please verify the price of the invoice!\n"
+"The total amount ({total}) does not match the Verification Total amount "
+"({check_total})!\n"
+"There is a difference of {difference}"
+msgstr ""
+
+#. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total_display_difference
 msgid "Total Difference"
 msgstr ""
