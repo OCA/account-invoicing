@@ -23,6 +23,7 @@ addon | version | maintainers | summary
 [account_debitnote](account_debitnote/) | 12.0.1.0.0 |  | Create debit note from invoice and vendor bill
 [account_global_discount](account_global_discount/) | 12.0.1.2.0 |  | Account Global Discount
 [account_group_invoice_line](account_group_invoice_line/) | 12.0.1.0.0 |  | Add option to group invoice lines per account
+[account_invoice_alternate_payer](account_invoice_alternate_payer/) | 12.0.1.0.0 |  | Set a alternate payor/payee in invoices
 [account_invoice_analytic_search](account_invoice_analytic_search/) | 12.0.1.0.0 |  | Search invoices by analytic account or by project manager
 [account_invoice_anglo_saxon_no_cogs_deferral](account_invoice_anglo_saxon_no_cogs_deferral/) | 12.0.1.0.0 |  | Invalidates the COGS deferral introduced by the anglo saxon module
 [account_invoice_blocking](account_invoice_blocking/) | 12.0.1.0.0 |  | Set a blocking (No Follow-up) flag on invoices
