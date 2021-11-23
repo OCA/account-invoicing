@@ -38,7 +38,7 @@ addon | version | maintainers | summary
 [account_invoice_tree_currency](account_invoice_tree_currency/) | 14.0.1.0.0 |  | Show currencies in the invoice tree view
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 14.0.1.1.0 |  | Manage triple discount on invoice lines
 [account_move_exception](account_move_exception/) | 14.0.1.0.0 |  | Custom exceptions on account move
-[account_move_line_accounting_description](account_move_line_accounting_description/) | 14.0.1.0.0 |  | Adds an 'accounting description' on products
+[account_move_line_accounting_description](account_move_line_accounting_description/) | 14.0.1.0.1 |  | Adds an 'accounting description' on products
 [account_move_line_accounting_description_purchase](account_move_line_accounting_description_purchase/) | 14.0.1.0.0 |  | Consider accounting description when invoicing purchase order
 [account_move_line_accounting_description_sale](account_move_line_accounting_description_sale/) | 14.0.1.0.0 |  | Consider accounting description when invoicing sale order
 [account_move_original_partner](account_move_original_partner/) | 14.0.1.0.0 |  | Display original customers when creating invoices from multiple sale orders.
