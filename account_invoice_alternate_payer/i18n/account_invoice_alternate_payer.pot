@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -14,17 +14,17 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_alternate_payer
-#: model:ir.ui.view,arch_db:account_invoice_alternate_payer.invoice_supplier_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_alternate_payer.invoice_supplier_form
 msgid "Alternate Payee"
 msgstr ""
 
 #. module: account_invoice_alternate_payer
-#: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_invoice_alternate_payer_id
+#: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_invoice__alternate_payer_id
 msgid "Alternate Payer"
 msgstr ""
 
 #. module: account_invoice_alternate_payer
-#: model:ir.ui.view,arch_db:account_invoice_alternate_payer.invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_alternate_payer.invoice_form
 msgid "Alternate Payor"
 msgstr ""
 
@@ -36,13 +36,19 @@ msgid "Cannot find a chart of accounts for this company, You should configure it
 msgstr ""
 
 #. module: account_invoice_alternate_payer
+#: code:addons/account_invoice_alternate_payer/models/account_invoice.py:77
+#, python-format
+msgid "Commercial partner and vendor account owners must be identical."
+msgstr ""
+
+#. module: account_invoice_alternate_payer
 #: code:addons/account_invoice_alternate_payer/models/account_invoice.py:56
 #, python-format
 msgid "Go to the configuration panel"
 msgstr ""
 
 #. module: account_invoice_alternate_payer
-#: model:ir.model.fields,help:account_invoice_alternate_payer.field_account_invoice_alternate_payer_id
+#: model:ir.model.fields,help:account_invoice_alternate_payer.field_account_invoice__alternate_payer_id
 msgid "If set, this partner will be the that we expect to pay or to be paid by. If not set, the payor is by default the commercial"
 msgstr ""
 
@@ -53,6 +59,12 @@ msgstr ""
 
 #. module: account_invoice_alternate_payer
 #: model:ir.model,name:account_invoice_alternate_payer.model_account_register_payments
-msgid "Register payments on multiple invoices"
+msgid "Register Payments"
+msgstr ""
+
+#. module: account_invoice_alternate_payer
+#: code:addons/account_invoice_alternate_payer/models/account_invoice.py:83
+#, python-format
+msgid "The account selected for payment does not belong to the same company as this invoice."
 msgstr ""
 
