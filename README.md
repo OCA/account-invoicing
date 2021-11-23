@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [account_invoice_blocking](account_invoice_blocking/) | 10.0.1.0.1 |  | This module allows the user to set a blocking (No Follow-up) flag on invoices.
 [account_invoice_change_currency](account_invoice_change_currency/) | 10.0.1.0.0 |  | Allows to change currency of Invoice by wizard
 [account_invoice_check_total](account_invoice_check_total/) | 10.0.1.0.0 |  | Check if the verification total is equal to the bill's total
+[account_invoice_date_required](account_invoice_date_required/) | 10.0.1.1.0 | [![rousseldenis](https://github.com/rousseldenis.png?size=30px)](https://github.com/rousseldenis) | Requires invoice date before validation to avoid Odoo setting 'today' as default if not filled in.
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 10.0.1.0.1 |  | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 10.0.1.0.0 |  | Allows to apply fixed amount discounts in invoices.
 [account_invoice_force_number](account_invoice_force_number/) | 10.0.1.0.0 |  | Allows to force invoice numbering on specific invoices
