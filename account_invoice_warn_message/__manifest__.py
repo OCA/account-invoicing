@@ -5,7 +5,7 @@
     "name": "Account Invoice Warn Message",
     "summary": """
         Add a popup warning on invoice to ensure warning is populated""",
-    "version": "13.0.1.0.0",
+    "version": "13.0.1.0.1",
     "license": "AGPL-3",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
