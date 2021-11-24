@@ -9,10 +9,6 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_invoice_tree" />
         <field name="arch" type="xml">
-            <field name="currency_id" position="attributes">
-                <attribute name="invisible">0</attribute>
-                <attribute name="optional">hide</attribute>
-            </field>
             <field name="company_currency_id" position="attributes">
                 <attribute name="invisible">0</attribute>
                 <attribute name="optional">hide</attribute>
