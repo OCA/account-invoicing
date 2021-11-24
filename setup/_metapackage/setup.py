@@ -12,6 +12,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_base_invoicing_mode',
         'odoo14-addon-account_invoice_check_total',
         'odoo14-addon-account_invoice_date_due',
+        'odoo14-addon-account_invoice_fiscal_position_update',
         'odoo14-addon-account_invoice_force_number',
         'odoo14-addon-account_invoice_mode_at_shipping',
         'odoo14-addon-account_invoice_mode_monthly',
