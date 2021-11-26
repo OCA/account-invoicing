@@ -7,7 +7,7 @@ from odoo import fields
 from odoo.tests import Form, common
 
 
-class TestAccountInvoiceDateDue(common.SavepointCase):
+class TestAccountInvoiceDateDue(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
