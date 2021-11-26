@@ -35,6 +35,7 @@ class TestSaleLineRefundToInvoiceQty(SavepointCase):
         cls.order.order_line[0].write({"qty_delivered": 5.0})
         cls.order._create_invoices()
         cls.invoice = cls.order.invoice_ids[0]
+        cls.invoice.action_post()
 
     def move_reversal_wiz(self, move):
         wizard = (
