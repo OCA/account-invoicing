@@ -11,7 +11,7 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
                 <field name="quantity" position="after">
                     <field
                         name="sale_qty_to_reinvoice"
-                        attrs="{'column_invisible': [('parent.type', '!=', 'out_refund')]}"
+                        attrs="{'column_invisible': [('parent.move_type', '!=', 'out_refund')]}"
                         optional="show"
                     />
                 </field>
