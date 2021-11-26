@@ -28,7 +28,7 @@ class SaleOrderLine(models.Model):
             for invoice_line in line.invoice_lines:
                 if (
                     invoice_line.move_id.state != "cancel"
-                    and invoice_line.move_id.type == "out_refund"
+                    and invoice_line.move_id.move_type == "out_refund"
                     and not invoice_line.sale_qty_to_reinvoice
                 ):
                     qty_to_invoice -= invoice_line.product_uom_id._compute_quantity(
@@ -48,7 +48,7 @@ class SaleOrderLine(models.Model):
             for invoice_line in line.invoice_lines:
                 if (
                     invoice_line.move_id.state != "cancel"
-                    and invoice_line.move_id.type == "out_refund"
+                    and invoice_line.move_id.move_type == "out_refund"
                     and not invoice_line.sale_qty_to_reinvoice
                 ):
                     qty_ref_not_inv += invoice_line.product_uom_id._compute_quantity(
