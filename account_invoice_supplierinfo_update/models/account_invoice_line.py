@@ -22,9 +22,7 @@ class AccountInvoiceLine(models.Model):
         if not self.product_id:
             return self.price_unit
         uom = self.uom_id or self.product_id.uom_id
-        return self.invoice_id.currency_id.round(
-            uom._compute_price(
-                self.price_unit, self.product_id.uom_po_id))
+        return uom._compute_price(self.price_unit, self.product_id.uom_po_id)
 
     @api.multi
     def _is_correct_price(self, supplierinfo):
