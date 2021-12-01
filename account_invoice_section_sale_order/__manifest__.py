@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Acccount Invoice Section Sale Order",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.2",
     "summary": "For invoices targetting multiple sale order add"
     "sections with sale order name.",
     "author": "Camptocamp, Odoo Community Association (OCA)",
