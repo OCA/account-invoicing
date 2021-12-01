@@ -55,7 +55,7 @@ addon | version | maintainers | summary
 [account_tax_group_widget_base_amount](account_tax_group_widget_base_amount/) | 13.0.1.0.0 | [![chienandalu](https://github.com/chienandalu.png?size=30px)](https://github.com/chienandalu) | Adds base to tax group widget as it's put in the report
 [product_supplierinfo_for_customer_invoice](product_supplierinfo_for_customer_invoice/) | 13.0.1.0.0 |  | Based on product_customer_code, this module loads in every account invoice the customer code defined in the product
 [purchase_batch_invoicing](purchase_batch_invoicing/) | 13.0.1.0.1 |  | Make invoices for all ready purchase orders
-[purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 13.0.1.1.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Add an option to refund returned pickings
+[purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 13.0.1.2.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Add an option to refund returned pickings
 [sale_line_refund_to_invoice_qty](sale_line_refund_to_invoice_qty/) | 13.0.1.2.0 |  | Allow deciding whether refunded quantity should be considered as quantity to reinvoice
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 13.0.2.0.2 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Sales order invoicing grouping criteria
 [sale_order_invoicing_queued](sale_order_invoicing_queued/) | 13.0.2.0.1 |  | Enqueue sales order invoicing
