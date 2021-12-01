@@ -64,7 +64,7 @@ class TestAccountMovePostBlock(TransactionCase):
         return user.id
 
     def _create_account_move(self, line_products):
-        """ Create a account move.
+        """Create a account move.
         ``line_products`` is a list of tuple [(product, qty)]
         """
         lines = []

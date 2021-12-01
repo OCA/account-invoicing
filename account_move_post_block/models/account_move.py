@@ -8,9 +8,13 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     post_block_id = fields.Many2one(
-        comodel_name="account.post.block.reason", string="Post Block Reason",
+        comodel_name="account.post.block.reason",
+        string="Post Block Reason",
     )
-    post_blocked = fields.Boolean("Post Blocked", compute="_compute_post_blocked",)
+    post_blocked = fields.Boolean(
+        "Post Blocked",
+        compute="_compute_post_blocked",
+    )
 
     @api.depends("post_block_id")
     def _compute_post_blocked(self):
