@@ -34,6 +34,7 @@ setuptools.setup(
         'odoo14-addon-account_move_line_accounting_description_purchase',
         'odoo14-addon-account_move_line_accounting_description_sale',
         'odoo14-addon-account_move_original_partner',
+        'odoo14-addon-account_move_propagate_ref',
         'odoo14-addon-account_move_tier_validation',
         'odoo14-addon-product_supplierinfo_for_customer_invoice',
         'odoo14-addon-purchase_stock_picking_return_invoicing',
