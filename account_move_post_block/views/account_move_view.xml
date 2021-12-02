@@ -23,7 +23,7 @@
                         ('state', 'not in', ['draft'])]}"
                 />
             </xpath>
-            <xpath expr="//group[@name='payments_info_group']" position="after">
+            <xpath expr="//group[@name='accounting_info_group']" position="after">
                 <group string="Post Block" name="post_block">
                     <field
                         name="post_block_id"
