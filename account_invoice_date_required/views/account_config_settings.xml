@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <record id="view_account_config" model="ir.ui.view">
+        <field name="name">account settings (in account_invoice_date_required)</field>
+        <field name="model">account.config.settings</field>
+        <field name="inherit_id" ref="account.view_account_config_settings"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[div[@name='customer_payments']]" position="after">
+                <group>
+                        <label for="id" string="Date Required"/>
+                        <div name="date_required">
+                            <label for="invoice_date_required" string="Invoice Date Required"/>
+                            <field name="invoice_date_required"/>
+                        </div>
+                    </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Account Invoice Triple Discount',
-    'version': '10.0.1.0.1',
+    'version': '10.0.1.0.2',
     'category': 'Accounting & Finance',
     'author': 'Tecnativa, '
               'Odoo Community Association (OCA)',
