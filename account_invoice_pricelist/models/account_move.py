@@ -69,7 +69,7 @@ class AccountMoveLine(models.Model):
     @api.onchange("product_id", "quantity")
     def _onchange_product_id_account_invoice_pricelist(self):
         for sel in self:
-            if not sel.move_id.pricelist_id:
+            if not sel.move_id.pricelist_id or not sel.product_id:
                 return
             sel.with_context(check_move_validity=False).update(
                 {"price_unit": sel._get_price_with_pricelist()}
