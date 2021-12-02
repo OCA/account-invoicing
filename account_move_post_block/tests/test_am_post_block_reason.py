@@ -1,5 +1,5 @@
 # Copyright 2021 ForgeFlow (http://www.forgeflow.com)
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/AGPL.html).
 
 from .test_account_move_post_block import TestAccountMovePostBlock
 
@@ -32,7 +32,7 @@ class TestAmPostBlockReason(TestAccountMovePostBlock):
         )
 
         account_move.post_block_id = self.am_post_block_reason.id
-        self.assertEquals(account_move.state, "draft")
+        self.assertEqual(account_move.state, "draft")
 
         # Simulation the opening of the wizard account_exception_confirm and
         # set ignore_exception to True

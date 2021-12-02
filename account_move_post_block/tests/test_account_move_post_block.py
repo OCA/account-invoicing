@@ -1,5 +1,5 @@
 # Copyright 2021 ForgeFlow (http://www.forgeflow.com)
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/AGPL.html).
 
 from odoo.tests.common import TransactionCase
 
@@ -48,7 +48,7 @@ class TestAccountMovePostBlock(TransactionCase):
         )
 
     def _create_user(self, login, groups, company):
-        """ Create a user."""
+        """Create a user."""
         group_ids = [group.id for group in groups]
         user = self.users_obj.with_context({"no_reset_password": True}).create(
             {
@@ -79,7 +79,7 @@ class TestAccountMovePostBlock(TransactionCase):
             lines.append((0, 0, line_values))
         account_move = self.am_obj.create(
             {
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "partner_id": self.partner1.id,
                 "line_ids": lines,
                 "company_id": self.company1.id,

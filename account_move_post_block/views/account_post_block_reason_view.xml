@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2021 ForgeFlow S.L. (http://www.forgeflow.com)
-     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/AGPL).
 -->
 <odoo>
     <record id="account_post_block_reason_tree_view" model="ir.ui.view">
