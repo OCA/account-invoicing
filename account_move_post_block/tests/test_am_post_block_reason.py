@@ -32,7 +32,7 @@ class TestAmPostBlockReason(TestAccountMovePostBlock):
         )
 
         account_move.post_block_id = self.am_post_block_reason.id
-        self.assertEquals(account_move.state, "draft")
+        self.assertEqual(account_move.state, "draft")
 
         # Simulation the opening of the wizard account_exception_confirm and
         # set ignore_exception to True

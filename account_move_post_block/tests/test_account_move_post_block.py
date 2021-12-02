@@ -79,7 +79,7 @@ class TestAccountMovePostBlock(TransactionCase):
             lines.append((0, 0, line_values))
         account_move = self.am_obj.create(
             {
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "partner_id": self.partner1.id,
                 "line_ids": lines,
                 "company_id": self.company1.id,
