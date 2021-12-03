@@ -118,7 +118,7 @@ class AccountMoveLine(models.Model):
             ):
                 price, rule_id = pricelist_item.base_pricelist_id.with_context(
                     uom=uom.id
-                ).get_product_price_rule(product, qty, self.order_id.partner_id)
+                ).get_product_price_rule(product, qty, self.move_id.partner_id)
                 pricelist_item = PricelistItem.browse(rule_id)
 
             if pricelist_item.base == "standard_price":
