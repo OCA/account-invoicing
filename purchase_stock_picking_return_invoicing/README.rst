@@ -112,15 +112,15 @@ Credits
 Authors
 ~~~~~~~
 
-* Eficent
+* ForgeFlow
 * Tecnativa
 
 Contributors
 ~~~~~~~~~~~~
 
-* Eficent <http://www.eficent.com>:
+* ForgeFlow <http://www.forgeflow.com>:
 
-  * Jordi Ballester Alomar <jordi.ballester@eficent.com>
+  * Jordi Ballester Alomar <jordi.ballester@forgeflow.com>
 
 * Tecnativa <https://www.tecnativa.com>
 
@@ -146,10 +146,13 @@ promote its widespread use.
 .. |maintainer-pedrobaeza| image:: https://github.com/pedrobaeza.png?size=40px
     :target: https://github.com/pedrobaeza
     :alt: pedrobaeza
+.. |maintainer-MiquelRForgeFlow| image:: https://github.com/MiquelRForgeFlow.png?size=40px
+    :target: https://github.com/MiquelRForgeFlow
+    :alt: MiquelRForgeFlow
 
-Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
+Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-pedrobaeza| 
+|maintainer-pedrobaeza| |maintainer-MiquelRForgeFlow| 
 
 This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/13.0/purchase_stock_picking_return_invoicing>`_ project on GitHub.
 
