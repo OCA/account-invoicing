@@ -3,7 +3,7 @@
 {
     "name": "Purchase Batch Invoicing",
     "summary": "Make invoices for all ready purchase orders",
-    "version": "13.0.1.0.1",
+    "version": "13.0.1.1.0",
     "category": "Purchases",
     "website": "https://www.github.com/OCA/account-invoicing",
     "author": "Tecnativa, Odoo Community Association (OCA)",
