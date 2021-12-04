@@ -13,7 +13,6 @@
                     name="action_view_invoice_refund"
                     string="Create Refund"
                     type="object"
-                    class="oe_stat_button"
                     context="{'create_refund':True}"
                     attrs="{'invisible': ['|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced'))]}"
                 />

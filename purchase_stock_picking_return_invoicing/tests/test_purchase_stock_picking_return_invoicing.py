@@ -1,4 +1,4 @@
-# Copyright 2019 Eficent Business and IT Consulting Services
+# Copyright 2019 ForgeFlow S.L. (https://www.forgeflow.com)
 # Copyright 2017-2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -86,6 +86,7 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         )
         cls.po_line = cls.po.order_line
         cls.po.button_confirm()
+        cls.po.button_approve()
 
     def check_values(
         self,
@@ -128,7 +129,7 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         pick.button_validate()
         self.check_values(self.po_line, 0, 5, 0, 0, "to invoice")
         # Make invoice
-        ctx = self.po.action_view_invoice()["context"]
+        ctx = self.po.with_context(create_bill=True).action_view_invoice()["context"]
         active_model = self.env["account.move"].with_context(ctx)
         view_id = "account.view_move_form"
         with Form(active_model, view=view_id) as f:
@@ -146,7 +147,9 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         return_pick.button_validate()
         self.check_values(self.po_line, 2, 3, 0, 5, "to invoice")
         # Make refund
-        ctx = self.po.action_view_invoice_refund()["context"]
+        ctx = self.po.with_context(create_refund=True).action_view_invoice_refund()[
+            "context"
+        ]
         active_model = self.env["account.move"].with_context(ctx)
         view_id = "account.view_move_form"
         with Form(active_model, view=view_id) as f:
@@ -179,7 +182,7 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         return_pick.button_validate()
         self.check_values(self.po_line, 2, 3, 0, 0, "to invoice")
         # Make invoice
-        ctx = self.po.action_view_invoice()["context"]
+        ctx = self.po.with_context(create_bill=True).action_view_invoice()["context"]
         active_model = self.env["account.move"].with_context(ctx)
         view_id = "account.view_move_form"
         with Form(active_model, view=view_id) as f:
