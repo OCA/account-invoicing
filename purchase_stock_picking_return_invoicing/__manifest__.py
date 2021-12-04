@@ -22,6 +22,6 @@
         "views/purchase_view.xml",
     ],
     "maintainers": [
-        'pedrobaeza',
+        'pedrobaeza', 'MiquelRForgeFlow',
     ],
 }

@@ -7,14 +7,14 @@
         <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
         <field name="arch" type="xml">
             <button name="action_view_invoice" position="after">
-                <button name="action_view_invoice_refund" string="Create Refund" type="object" class="oe_stat_button"
+                <button name="action_view_invoice_refund" string="Create Refund" type="object"
                         context="{'create_refund':True}"
                         attrs="{'invisible': ['|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced'))]}"/>
             </button>
             <xpath expr="//div[hasclass('oe_button_box')]/button[@name='action_view_invoice']" position="after">
                 <button type="object"  name="action_view_invoice_refund"
                         class="oe_stat_button"
-                        icon="fa-pencil-square-o" attrs="{'invisible':['|', ('invoice_count', '=', 0), ('state', 'in', ('draft','sent','to approve'))]}">
+                        icon="fa-pencil-square-o" attrs="{'invisible':['|', ('invoice_refund_count', '=', 0), ('state', 'in', ('draft','sent','to approve'))]}">
                         <field name="invoice_refund_count" widget="statinfo" string="Refunds"/>
                         <field name='invoice_ids' invisible="1"/>
                     </button>
