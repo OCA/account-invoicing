@@ -57,13 +57,13 @@ msgstr ""
 #, fuzzy, python-format
 msgid ""
 "Please verify the price of the invoice!\n"
-"The total amount (%s) does not match the Verification Total amount (%s)!\n"
-"There is a difference of %s"
+"The total amount (%(amount_total)s) does not match the Verification Total amount (%(check_total)s)!\n"
+"There is a difference of %(diff)s"
 msgstr ""
 "Preverite prosim zneske na računu!\n"
-"                        Skupni znesek (%s) se ne "
-"ujema                        z verifikacijskim zneskom (%s)!\n"
-"Obstaja razlika %s"
+"                        Skupni znesek (%(amount_total)s) se ne "
+"ujema                        z verifikacijskim zneskom (%(check_total)s)!\n"
+"Obstaja razlika %(diff)s"
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total_display_difference
