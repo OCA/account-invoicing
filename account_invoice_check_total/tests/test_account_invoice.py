@@ -2,12 +2,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.exceptions import ValidationError
-from odoo.tests import Form, SavepointCase
+from odoo.tests import Form, TransactionCase
 
 from ..models.account_move import GROUP_AICT
 
 
-class TestAccountInvoice(SavepointCase):
+class TestAccountInvoice(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -33,4 +33,4 @@ class TestAccountInvoice(SavepointCase):
         self.assertEqual(self.invoice.check_total, 1.19)
         self.assertEqual(self.invoice.check_total_display_difference, -1.80)
         with self.assertRaises(ValidationError):
-            self.invoice.post()
+            self.invoice.action_post()
