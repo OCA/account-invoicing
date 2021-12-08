@@ -51,14 +51,14 @@ class AccountPaymentRegister(models.TransientModel):
         "apply_payment_retention",
     )
     def _compute_amount(self):
+        res = super()._compute_amount()
         for rec in self:
             if rec.apply_payment_retention:
                 rec.amount -= rec.retention_amount_currency
                 rec.payment_difference_handling = "reconcile"
                 rec.writeoff_account_id = rec.env.company.retention_account_id
                 rec.writeoff_label = rec.env.company.retention_account_id.name
-            else:
-                super()._compute_amount()
+        return res
 
     def _validate_payment_retention(self):
         """If this payment enforce_payment_retention, after reconciliation
