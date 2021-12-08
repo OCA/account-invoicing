@@ -54,11 +54,12 @@ msgstr ""
 #, fuzzy, python-format
 msgid ""
 "Please verify the price of the invoice!\n"
-"The total amount (%s) does not match the Verification Total amount (%s)!\n"
-"There is a difference of %s"
+"The total amount (%(amount_total)s) does not match the Verification Total amount (%(check_total)s)!\n"
+"There is a difference of %(diff)s"
 msgstr ""
 "Controleer de prijs op de factuur!\n"
-"Het genoemde totaal komt niet overeen met het berekende totaal."
+"Het genoemde totaal (%(amount_total)s) komt niet overeen met het berekende totaal (%(check_total)s)!\n"
+"Er is een verschil van %(diff)s"
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total_display_difference
