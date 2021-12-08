@@ -58,12 +58,12 @@ msgstr "Asientos contables"
 #, python-format
 msgid ""
 "Please verify the price of the invoice!\n"
-"The total amount (%s) does not match the Verification Total amount (%s)!\n"
-"There is a difference of %s"
+"The total amount (%(amount_total)s) does not match the Verification Total amount (%(check_total)s)!\n"
+"There is a difference of %(diff)s"
 msgstr ""
 "Por favor, verifique el total de la factura.\n"
-"El total introducido (%s) no corresponde con el total calculado (%s)!\n"
-"Hay una diferencia de %s"
+"El total introducido (%(amount_total)s) no corresponde con el total calculado (%(check_total)s)!\n"
+"Hay una diferencia de %(diff)s"
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total_display_difference

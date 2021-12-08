@@ -23,7 +23,7 @@ Account Invoice Check Total
     :target: https://runbot.odoo-community.org/runbot/95/14.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 Add a Verification Total field on vendor bills.
 
@@ -73,6 +73,7 @@ Contributors
 * `Tecnativa <https://www.tecnativa.com>`_:
 
   * Ernesto Tejeda
+* Koen Loodts <koen.loodts@dynapps.be>
 
 Maintainers
 ~~~~~~~~~~~
