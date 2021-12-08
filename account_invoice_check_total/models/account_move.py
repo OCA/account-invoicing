@@ -44,15 +44,15 @@ class AccountMove(models.Model):
                 raise ValidationError(
                     _(
                         "Please verify the price of the invoice!\n"
-                        "The total amount (%s) does not match "
-                        "the Verification Total amount (%s)!\n"
-                        "There is a difference of %s"
+                        "The total amount (%(amount_total)s) does not match "
+                        "the Verification Total amount (%(check_total)s)!\n"
+                        "There is a difference of %(diff)s"
                     )
-                    % (
-                        inv.amount_total,
-                        inv.check_total,
-                        inv.check_total_display_difference,
-                    )
+                    % {
+                        "amount_total": inv.amount_total,
+                        "check_total": inv.check_total,
+                        "diff": inv.check_total_display_difference,
+                    }
                 )
         return super().action_post()
 
