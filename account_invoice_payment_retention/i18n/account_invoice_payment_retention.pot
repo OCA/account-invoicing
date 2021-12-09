@@ -175,7 +175,7 @@ msgid "Return Retention"
 msgstr ""
 
 #. module: account_invoice_payment_retention
-#: code:addons/account_invoice_payment_retention/models/account_payment.py:0
+#: code:addons/account_invoice_payment_retention/wizard/account_payment_register.py:0
 #, python-format
 msgid ""
 "Selected invoice(s) require payment retentions, multi invoices payment is "
@@ -203,7 +203,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_payment_retention
-#: code:addons/account_invoice_payment_retention/models/account_payment.py:0
+#: code:addons/account_invoice_payment_retention/wizard/account_payment_register.py:0
 #, python-format
 msgid ""
 "This payment has retention, please make sure you fill in valid retaintion "
