@@ -6,24 +6,31 @@
 -->
 <odoo>
     <record id="transmit_method_form" model="ir.ui.view">
-        <field name="name">Transmit Method Form view</field>
         <field name="model">transmit.method</field>
         <field name="arch" type="xml">
-            <form string="Transmit Method">
-                <group name="main">
-                    <field name="name" />
-                    <field name="code" />
-                    <field name="customer_ok" />
-                    <field name="supplier_ok" />
-                </group>
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group name="main">
+                        <group name="info">
+                            <field name="code" />
+                        </group>
+                        <group name="options">
+                            <field name="customer_ok" />
+                            <field name="supplier_ok" />
+                        </group>
+                    </group>
+                </sheet>
             </form>
         </field>
     </record>
     <record id="transmit_method_tree" model="ir.ui.view">
-        <field name="name">Transmit Method Tree view</field>
         <field name="model">transmit.method</field>
         <field name="arch" type="xml">
-            <tree string="Transmit Methods">
+            <tree>
                 <field name="name" />
                 <field name="code" />
                 <field name="customer_ok" />
@@ -32,10 +39,9 @@
         </field>
     </record>
     <record id="transmit_method_search" model="ir.ui.view">
-        <field name="name">Transmit Method Search view</field>
         <field name="model">transmit.method</field>
         <field name="arch" type="xml">
-            <search string="Search Transmit Methods">
+            <search>
                 <field
                     name="name"
                     filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"
