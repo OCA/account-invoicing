@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2017-2020 Akretion France (http://www.akretion.com/)
+    @author: Alexis de Lattre <alexis.delattre@akretion.com>
+    Copyright 2021 Camptocamp SA (https://www.camptocamp.com).
+    @author: Iván Todorovich <ivan.todorovich@camptocamp.com>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <field name="property_payment_term_id" position="after">
+                <field name="customer_invoice_transmit_method_id" widget="selection" />
+                <field name="customer_invoice_transmit_method_code" invisible="1" />
+            </field>
+            <field name="property_supplier_payment_term_id" position="after">
+                <field name="supplier_invoice_transmit_method_id" widget="selection" />
+                <field name="supplier_invoice_transmit_method_code" invisible="1" />
+            </field>
+            <xpath
+                expr="//field[@name='child_ids']/form//field[@name='company_id']"
+                position="after"
+            >
+                <field name="customer_invoice_transmit_method_code" invisible="1" />
+                <field name="supplier_invoice_transmit_method_code" invisible="1" />
+            </xpath>
+            <field name="child_ids" position="attributes">
+                <attribute name="context" operation="update">
+                    {
+                        "default_customer_invoice_transmit_method_code": customer_invoice_transmit_method_code,
+                        "default_supplier_invoice_transmit_method_code": supplier_invoice_transmit_method_code,
+                    }
+                </attribute>
+            </field>
+            <xpath
+                expr="//field[@name='child_ids']/form//field[@name='email']"
+                position="attributes"
+            >
+                <attribute name="attrs" operation="update">
+                    {
+                        'required': [
+                            ('customer_invoice_transmit_method_code', '=', 'mail'),
+                            ('type', '=', 'invoice'),
+                        ],
+                    }
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
