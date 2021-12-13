@@ -3,8 +3,6 @@
 
 from odoo import fields, models
 
-from odoo.addons.queue_job.job import job
-
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
@@ -17,6 +15,5 @@ class SaleOrder(models.Model):
         copy=False,
     )
 
-    @job(default_channel="root.sale_order_invoicing_queued")
     def create_invoices_job(self, final):
         self._create_invoices(final=final)
