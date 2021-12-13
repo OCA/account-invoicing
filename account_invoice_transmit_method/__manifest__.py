@@ -4,7 +4,7 @@
 
 {
     "name": "Invoice Transmit Method",
-    "version": "14.0.1.0.1",
+    "version": "15.0.1.0.0",
     "category": "Accounting/Accounting",
     "license": "AGPL-3",
     "summary": "Configure invoice transmit method (email, post, portal, ...)",
@@ -14,9 +14,9 @@
     "depends": ["account", "base_view_inheritance_extension"],
     "data": [
         "security/ir.model.access.csv",
-        "views/transmit_method.xml",
         "views/account_move.xml",
-        "views/partner.xml",
+        "views/res_partner.xml",
+        "views/transmit_method.xml",
         "data/transmit_method.xml",
     ],
     "demo": ["demo/partner.xml"],
