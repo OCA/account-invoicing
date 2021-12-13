@@ -26,7 +26,7 @@ class AccountMove(models.Model):
                 _("%s\n%s") % (_("No Taxes Defined!"), "\n".join(x for x in errors))
             )
 
-    def action_post(self):
+    def post(self):
         # Always test if it is required by context
         force_test = self.env.context.get("test_tax_required")
         skip_test = any(
@@ -48,4 +48,4 @@ class AccountMove(models.Model):
             for record in self:
                 if record.is_invoice():
                     record._test_invoice_line_tax()
-        return super().action_post()
+        return super().post()
