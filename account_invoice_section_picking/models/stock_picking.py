@@ -13,8 +13,8 @@ class StockPicking(models.Model):
         section_names = []
         for pick in self:
             naming_scheme = (
-                self.partner_id.invoice_section_name_scheme
-                or self.company_id.invoice_section_name_scheme
+                pick.partner_id.invoice_section_name_scheme
+                or pick.company_id.invoice_section_name_scheme
             )
             if naming_scheme:
                 section_names.append(
