@@ -8,7 +8,8 @@
     <record id="view_partner_property_form" model="ir.ui.view">
         <field
             name="name"
-        >Add Invoice Transmit Methods on partner form view (account tab)</field>
+        >Add Invoice Transmit Methods on partner form view (account tab)
+        </field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_partner_property_form" />
         <field name="arch" type="xml">
@@ -33,24 +34,25 @@
                 <field name="supplier_invoice_transmit_method_code" invisible="1" />
             </xpath>
             <field name="child_ids" position="attributes">
-                <attribute
-                    name="context"
-                    operation="python_dict"
-                    key="default_customer_invoice_transmit_method_code"
-                >customer_invoice_transmit_method_code</attribute>
-                <attribute
-                    name="context"
-                    operation="python_dict"
-                    key="default_supplier_invoice_transmit_method_code"
-                >supplier_invoice_transmit_method_code</attribute>
-            <xpath
+                <attribute name="context" operation="update">
+                    {
+                    "default_customer_invoice_transmit_method_code": "customer_invoice_transmit_method_code",
+                    }
+                </attribute>
+                <attribute name="context" operation="update">
+                    {
+                    "default_supplier_invoice_transmit_method_code": "supplier_invoice_transmit_method_code",
+                    }
+                </attribute>
+                <xpath
                     expr="//field[@name='child_ids']/form//field[@name='email']"
                     position="attributes"
                 > <!-- TODO for some strange reasons, this attrs has no effect -->
-            <attribute
+                    <attribute
                         name="attrs"
-                    >{'required': [('customer_invoice_transmit_method_code', '=', 'mail'), ('type', '=', 'invoice')]}</attribute>
-            </xpath>
+                    >{'required': [('customer_invoice_transmit_method_code', '=', 'mail'), ('type', '=', 'invoice')]}
+                    </attribute>
+                </xpath>
             </field>
         </field>
     </record>
