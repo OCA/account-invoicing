@@ -1,0 +1,56 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_order_invoicing_queued
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2019-12-13 09:05+0000\n"
+"Last-Translator: 黎伟杰 <674416404@qq.com>\n"
+"Language-Team: none\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+#. module: sale_order_invoicing_queued
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_queue_job_sale_order_invoicing
+msgid "Cancel"
+msgstr "取消"
+
+#. module: sale_order_invoicing_queued
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_sale_advance_payment_inv
+msgid "Enqueue Invoicing"
+msgstr "排队开票"
+
+#. module: sale_order_invoicing_queued
+#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__invoicing_job_ids
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_order_form
+msgid "Invoicing Jobs"
+msgstr "开票作业"
+
+#. module: sale_order_invoicing_queued
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_queue_job_sale_order_invoicing
+msgid "Requeue"
+msgstr "重新排队"
+
+#. module: sale_order_invoicing_queued
+#: model:ir.model,name:sale_order_invoicing_queued.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "销售预付款发票"
+
+#. module: sale_order_invoicing_queued
+#: model:ir.model,name:sale_order_invoicing_queued.model_sale_order
+msgid "Sales Order"
+msgstr "销售订单"
+
+#. module: sale_order_invoicing_queued
+#: code:addons/sale_order_invoicing_queued/wizards/sale_advance_payment_inv.py:0
+#, python-format
+msgid ""
+"There's already an enqueued job for invoicing the sales order %s. Please "
+"wait until it's finished or remove it from the selection."
+msgstr "已经有一个用于为%s销售订单开具发票的排队作业。请等待该作业完成或将其从所选内容中删除。"
