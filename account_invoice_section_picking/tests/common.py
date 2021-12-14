@@ -7,6 +7,7 @@ class TestAccountInvoiceSectionPickingCommon(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.env.company.invoice_section_grouping = "delivery_picking"
         cls.partner_1 = cls.env.ref("base.res_partner_1")
         cls.product_1 = cls.env.ref("product.product_delivery_01")
