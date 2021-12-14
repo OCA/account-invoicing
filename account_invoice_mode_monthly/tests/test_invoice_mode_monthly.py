@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
 from odoo import tools
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestInvoiceModeMonthly(SavepointCase):
+class TestInvoiceModeMonthly(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -64,28 +64,6 @@ class TestInvoiceModeMonthly(SavepointCase):
             }
         )
         cls.company = cls.so1.company_id
-
-        stock_location = cls.env.ref("stock.stock_location_stock")
-        inventory = cls.env["stock.inventory"].create(
-            {
-                "name": "Test Inventory",
-                "product_ids": [(6, 0, cls.product.ids)],
-                "state": "confirm",
-                "line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "product_qty": 100,
-                            "location_id": stock_location.id,
-                            "product_id": cls.product.id,
-                            "product_uom_id": cls.product.uom_id.id,
-                        },
-                    )
-                ],
-            }
-        )
-        inventory.action_validate()
 
     def deliver_invoice(self, sale_order):
         sale_order.action_confirm()
