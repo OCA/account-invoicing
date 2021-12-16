@@ -1,4 +1,4 @@
-# Copyright 2017-2020 Akretion France (http://www.akretion.com)
+# Copyright 2017-2021 Akretion France (http://www.akretion.com)
 # @author: Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
@@ -10,6 +10,9 @@ class AccountMove(models.Model):
 
     transmit_method_id = fields.Many2one(
         "transmit.method",
+        compute="_compute_transmit_method_id",
+        readonly=False,
+        store=True,
         string="Transmission Method",
         tracking=True,
         ondelete="restrict",
@@ -51,39 +54,14 @@ class AccountMove(models.Model):
                 record.transmit_method_domain_sale = True
                 record.transmit_method_domain_purchase = True
 
-    @api.onchange("partner_id")
-    def _transmit_method_partner_change(self):
-        if self.partner_id and self.move_type:
-            if self.is_sale_document():
-                self.transmit_method_id = (
-                    self.partner_id.customer_invoice_transmit_method_id.id or False
-                )
-            elif self.is_purchase_document():
-                self.transmit_method_id = (
-                    self.partner_id.supplier_invoice_transmit_method_id.id or False
-                )
-            else:
-                self.transmit_method_id = False
-        else:
-            self.transmit_method_id = False
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        # TODO: Improvement make it computed and writeable instead, and drop
-        #       This override
-        for vals in vals_list:
-            if (
-                "transmit_method_id" not in vals
-                and vals.get("move_type")
-                and vals.get("partner_id")
-            ):
-                partner = self.env["res.partner"].browse(vals["partner_id"])
-                if vals["move_type"] in ("out_invoice", "out_refund"):
-                    vals["transmit_method_id"] = (
-                        partner.customer_invoice_transmit_method_id.id or False
-                    )
-                elif vals["move_type"] in ("in_invoice", "in_refund"):
-                    vals["transmit_method_id"] = (
-                        partner.supplier_invoice_transmit_method_id.id or False
-                    )
-        return super().create(vals_list)
+    @api.depends("move_type", "partner_id", "company_id")
+    def _compute_transmit_method_id(self):
+        for move in self:
+            tmethod_id = False
+            if move.partner_id and move.move_type and move.company_id:
+                partner = move.partner_id.with_company(move.company_id.id)
+                if move.is_sale_document():
+                    tmethod_id = partner.customer_invoice_transmit_method_id.id or False
+                elif move.is_purchase_document():
+                    tmethod_id = partner.supplier_invoice_transmit_method_id.id or False
+            move.transmit_method_id = tmethod_id

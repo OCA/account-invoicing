@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-  Copyright 2017-2020 Akretion France (http://www.akretion.com/)
+  Copyright 2017-2021 Akretion France (http://www.akretion.com/)
   @author: Alexis de Lattre <alexis.delattre@akretion.com>
   License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
@@ -9,7 +9,7 @@
         <field name="name">Transmit Method Form view</field>
         <field name="model">transmit.method</field>
         <field name="arch" type="xml">
-            <form string="Transmit Method">
+            <form>
                 <group name="main">
                     <field name="name" />
                     <field name="code" />
@@ -23,11 +23,11 @@
         <field name="name">Transmit Method Tree view</field>
         <field name="model">transmit.method</field>
         <field name="arch" type="xml">
-            <tree string="Transmit Methods">
+            <tree>
                 <field name="name" />
                 <field name="code" />
-                <field name="customer_ok" />
-                <field name="supplier_ok" />
+                <field name="customer_ok" optional="show" />
+                <field name="supplier_ok" optional="show" />
             </tree>
         </field>
     </record>
@@ -35,7 +35,7 @@
         <field name="name">Transmit Method Search view</field>
         <field name="model">transmit.method</field>
         <field name="arch" type="xml">
-            <search string="Search Transmit Methods">
+            <search>
                 <field
                     name="name"
                     filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"
