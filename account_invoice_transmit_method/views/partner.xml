@@ -43,15 +43,15 @@
                     operation="python_dict"
                     key="default_supplier_invoice_transmit_method_code"
                 >supplier_invoice_transmit_method_code</attribute>
-            <xpath
-                    expr="//field[@name='child_ids']/form//field[@name='email']"
-                    position="attributes"
-                > <!-- TODO for some strange reasons, this attrs has no effect -->
-            <attribute
-                        name="attrs"
-                    >{'required': [('customer_invoice_transmit_method_code', '=', 'mail'), ('type', '=', 'invoice')]}</attribute>
-            </xpath>
             </field>
+            <xpath
+                expr="//field[@name='child_ids']/form//field[@name='email']"
+                position="attributes"
+            >
+            <attribute
+                    name="attrs"
+                >{'required': [('customer_invoice_transmit_method_code', '=', 'mail'), ('type', '=', 'invoice')]}</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>
