@@ -25,14 +25,13 @@ def match_origin_lines(refund):
 
 
 def post_init_hook(cr, registry):
-    with api.Environment.manage():
-        env = api.Environment(cr, SUPERUSER_ID, {})
-        # Linking all refund invoices to its original invoices
-        refunds = env["account.move"].search(
-            [
-                ("move_type", "in", ("out_refund", "in_refund")),
-                ("reversed_entry_id", "!=", False),
-            ]
-        )
-        for refund in refunds:
-            match_origin_lines(refund)
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    # Linking all refund invoices to its original invoices
+    refunds = env["account.move"].search(
+        [
+            ("move_type", "in", ("out_refund", "in_refund")),
+            ("reversed_entry_id", "!=", False),
+        ]
+    )
+    for refund in refunds:
+        match_origin_lines(refund)
