@@ -2,12 +2,12 @@
 # Copyright 2014-2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 from .. import post_init_hook
 
 
-class TestInvoiceRefundLinkBase(SavepointCase):
+class TestInvoiceRefundLinkBase(TransactionCase):
     refund_method = "refund"
 
     @classmethod
@@ -25,7 +25,7 @@ class TestInvoiceRefundLinkBase(SavepointCase):
                 "company_id": cls.env.user.company_id.id,
             }
         )
-        cls.env["account.journal"].create(
+        cls.journal = cls.env["account.journal"].create(
             {
                 "name": "Journal 1",
                 "code": "J1",
@@ -67,7 +67,11 @@ class TestInvoiceRefundLinkBase(SavepointCase):
         cls.env["account.move.reversal"].with_context(
             active_ids=cls.invoice.ids, active_model="account.move"
         ).create(
-            {"refund_method": cls.refund_method, "reason": cls.refund_reason}
+            {
+                "refund_method": cls.refund_method,
+                "reason": cls.refund_reason,
+                "journal_id": cls.journal.id,
+            }
         ).reverse_moves()
 
     def _test_refund_link(self):
