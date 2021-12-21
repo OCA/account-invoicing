@@ -204,12 +204,16 @@ class AccountMove(models.Model):
             self.move_type in ["out_invoice", "out_refund"]
             and self.partner_id.customer_global_discount_ids
         ):
-            discounts = self.partner_id.customer_global_discount_ids
+            discounts = self.partner_id.customer_global_discount_ids.filtered(
+                lambda d: d.company_id == self.company_id
+            )
         elif (
             self.move_type in ["in_refund", "in_invoice"]
             and self.partner_id.supplier_global_discount_ids
         ):
-            discounts = self.partner_id.supplier_global_discount_ids
+            discounts = self.partner_id.supplier_global_discount_ids.filtered(
+                lambda d: d.company_id == self.company_id
+            )
         if discounts:
             self.global_discount_ids = discounts
             # We need to manually launch the onchange, as the recursivity is explicitly
