@@ -39,6 +39,7 @@ class AccountMove(models.Model):
         currency_field="currency_id",
         readonly=True,
         compute_sudo=True,
+        store=True,
     )
     amount_untaxed_before_global_discounts = fields.Monetary(
         string="Amount Untaxed Before Discounts",
@@ -46,6 +47,7 @@ class AccountMove(models.Model):
         currency_field="currency_id",
         readonly=True,
         compute_sudo=True,
+        store=True,
     )
     invoice_global_discount_ids = fields.One2many(
         comodel_name="account.invoice.global.discount",
