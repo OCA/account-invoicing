@@ -23,7 +23,7 @@ class AccountMoveLine(models.Model):
             last_invoice_line = self.search(
                 [
                     ("sale_line_ids", "in", self.sale_line_ids.ids),
-                    ("id", "not in", self.ids),
+                    ("id", "!=", self.id),
                 ],
                 order="create_date",
                 limit=1,

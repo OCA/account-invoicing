@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 {
     "name": "Acccount Invoice Section Picking",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.0",
     "summary": "Extension of Acccount Invoice Section Sale Order to allow "
     "grouping of invoice lines according to delivery picking.",
     "author": "Camptocamp, Odoo Community Association (OCA)",
