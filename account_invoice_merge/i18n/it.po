@@ -9,25 +9,26 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2017-11-23 13:51+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"PO-Revision-Date: 2021-12-23 19:39+0000\n"
+"Last-Translator: Mario Riva <mario.riva@agilebg.com>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
-#, fuzzy, python-format
+#, python-format
 msgid "All invoices must have the same: \n"
-msgstr "Non tutte le fatture usano lo stesso conto!"
+msgstr "Tutte le fatture devono avere lo stesso: \n"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Are you sure you want to merge these invoices?"
-msgstr ""
+msgstr "Sei sicuro di voler unire queste fatture?"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -53,7 +54,7 @@ msgstr "Nome da visualizzare"
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:30
 #, python-format
 msgid "Draf"
-msgstr ""
+msgstr "Bozza"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__id
@@ -94,7 +95,7 @@ msgstr "Last Updated on"
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
 #, python-format
 msgid "Megeable State (ex : %s)"
-msgstr ""
+msgstr "Stato unificabile (es : %s)"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -122,12 +123,24 @@ msgid ""
 "                        * Invoice lines are exactly the same except for the\n"
 "                        product, quantity and unit.<br/>"
 msgstr ""
+"Notare che :<br/><br/>\n"
+"                        Le fatture saranno unite se:<br/>\n"
+"                        * Le fatture sono in stato 'bozza'.<br/>\n"
+"                        * Le fatture appartengono allo stesso partner.<br/>\n"
+"                        * Le fattura hanno la stessa azienda, partner, "
+"indirizzo,\n"
+"                        valuta, registro, resposabile vendite, conto e tipo.<"
+"br/><br/>\n"
+"                        Le righe saranno unite se:<br/>\n"
+"                        * Le righe fattura sono esattamente le stesse ad "
+"eccezione di\n"
+"                        prodotto, quantità e unità.<br/>"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
-msgstr ""
+msgstr "Per favore seleziona più fatture da unire nella vista lista."
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
