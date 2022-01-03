@@ -1,1 +1,1 @@
-This module adds a clickable link to "Source Documents" in Invoices.
+This module adds a clickable link to the "Source Document" in Invoices.

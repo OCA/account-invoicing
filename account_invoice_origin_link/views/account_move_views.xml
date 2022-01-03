@@ -7,16 +7,16 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-            <field name="invoice_origin" position="replace">
-                <field
-                    name="invoice_origin"
-                    string="Source Document"
-                    attrs="{'invisible': ['|',('invoice_origin', '=', False),('origin_reference', '!=', False)]}"
-                />
+            <field name="invoice_origin" position="after">
                 <field
                     name="origin_reference"
                     attrs="{'invisible': [('origin_reference', '=', False)]}"
                 />
+            </field>
+            <field name="invoice_origin" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|',('invoice_origin', '=', False),('origin_reference', '!=', False)]}</attribute>
             </field>
         </field>
     </record>

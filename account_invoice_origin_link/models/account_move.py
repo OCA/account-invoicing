@@ -17,7 +17,11 @@ class AccountMove(models.Model):
     def _selection_reference_model(self):
         return []
 
-    @api.depends("invoice_origin")
+    @api.model
+    def _get_depends_compute_source_doc_ref(self):
+        return ["invoice_origin"]
+
+    @api.depends(lambda x: x._get_depends_compute_source_doc_ref())
     def _compute_source_doc_ref(self):
         for rec in self:
             rec.origin_reference = False
