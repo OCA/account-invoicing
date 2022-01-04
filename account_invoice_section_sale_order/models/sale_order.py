@@ -37,6 +37,9 @@ class SaleOrder(models.Model):
                         )
                     )
                     sequence += 10
+                if line.display_type == "line_section":
+                    # add extra indent for existing SO Sections
+                    line.name = f"- {line.name}"
                 line.sequence = sequence
                 sequence += 10
             invoice.line_ids = section_lines
