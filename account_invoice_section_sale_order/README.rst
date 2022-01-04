@@ -23,7 +23,7 @@ Acccount Invoice Section Sale Order
     :target: https://runbot.odoo-community.org/runbot/95/14.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 When invoicing multiple sale orders at the same time, sale orders may be grouped
 by customer into a single invoice. Unfortunately when this happens, it is hard
@@ -63,6 +63,7 @@ Contributors
 
   * Thierry Ducrest <thierry.ducrest@camptocamp.com>
   * Hiep Nguyen Hoang <hiepnh@trobz.com>
+  * Jeroen Evens <jeroen.evens@dynapps.be>
 
 Other credits
 ~~~~~~~~~~~~~
