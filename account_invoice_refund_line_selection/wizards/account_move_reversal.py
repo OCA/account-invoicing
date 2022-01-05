@@ -9,7 +9,8 @@ class AccountInvoiceRefund(models.TransientModel):
     _inherit = "account.move.reversal"
 
     refund_method = fields.Selection(
-        selection_add=[("refund_lines", "Refund specific lines")]
+        selection_add=[("refund_lines", "Refund specific lines")],
+        ondelete={"refund_lines": "cascade"},
     )
     line_ids = fields.Many2many(
         string="Invoice lines to refund",
@@ -40,8 +41,8 @@ class AccountInvoiceRefund(models.TransientModel):
         if self.refund_method == "refund_lines":
             vals = res.copy()
             vals["line_ids"] = [
-                (0, 0, l)
-                for l in self.line_ids.copy_data(
+                (0, 0, line)
+                for line in self.line_ids.copy_data(
                     {"move_id": False, "recompute_tax_line": True}
                 )
             ]
