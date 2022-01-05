@@ -1,17 +1,20 @@
 # Copyright 2019 Creu Blanca
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-
-from odoo.addons.account.tests.account_test_savepoint import AccountTestInvoicingCommon
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 class TestInvoiceRefundLine(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref=None):
         super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.in_invoice = cls.init_invoice("in_invoice")
-        cls.in_invoice.post()
-        cls.out_invoice = cls.init_invoice("out_invoice")
-        cls.out_invoice.post()
+        cls.in_invoice = cls.init_invoice(
+            "in_invoice", products=cls.product_a + cls.product_b
+        )
+        cls.in_invoice._post()
+        cls.out_invoice = cls.init_invoice(
+            "out_invoice", products=cls.product_a + cls.product_b
+        )
+        cls.out_invoice._post()
 
     def test_partial_refund_in_invoice(self):
         reversal = (
