@@ -75,7 +75,7 @@ class TestAccountInvoice(TransactionCase):
         self.invoice1 = invoice_obj.create(
             {
                 "partner_id": customer.id,
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_date": fields.Date.today(),
                 "invoice_line_ids": invoice_lines1,
                 "invoice_origin": "Unit test",
@@ -114,7 +114,7 @@ class TestAccountInvoice(TransactionCase):
         self.invoice2 = invoice_obj.create(
             {
                 "partner_id": customer.id,
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_date": fields.Date.today(),
                 "invoice_line_ids": invoice_lines2,
                 "invoice_origin": "Unit test",
@@ -132,9 +132,9 @@ class TestAccountInvoice(TransactionCase):
         """
         tax_group = self.invoice1.mapped("invoice_line_ids.tax_ids.tax_group_id")
         # We need only 1 tax group for this test
-        self.assertEquals(len(tax_group), 1)
+        self.assertEqual(len(tax_group), 1)
         tax_group_result = self.invoice1._get_account_tax_groups_with_notes()
-        self.assertEquals(set(tax_group.ids), set(tax_group_result.ids))
+        self.assertEqual(set(tax_group.ids), set(tax_group_result.ids))
         return True
 
     def test_get_account_tax_groups_with_notes2(self):
@@ -149,7 +149,7 @@ class TestAccountInvoice(TransactionCase):
         # We need more than 1 tax group for this test
         self.assertGreater(len(tax_group), 1)
         tax_group_result = self.invoice2._get_account_tax_groups_with_notes()
-        self.assertEquals(set(tax_group.ids), set(tax_group_result.ids))
+        self.assertEqual(set(tax_group.ids), set(tax_group_result.ids))
         return True
 
     def test_get_account_tax_groups_with_notes3(self):
