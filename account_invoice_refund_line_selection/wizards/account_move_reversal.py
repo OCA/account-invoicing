@@ -19,7 +19,9 @@ class AccountInvoiceRefund(models.TransientModel):
         relation="account_invoice_line_refund_rel",
         domain="[('id', 'in', selectable_invoice_lines_ids)]",
     )
-    selectable_invoice_lines_ids = fields.Many2many("account.move.line",)
+    selectable_invoice_lines_ids = fields.Many2many(
+        "account.move.line",
+    )
 
     @api.model
     def default_get(self, fields):
@@ -72,5 +74,8 @@ class AccountInvoiceRefund(models.TransientModel):
     def reverse_moves(self):
         # We can uncheck the move, as it is checked by default at the end
         return super(
-            AccountInvoiceRefund, self.with_context(check_move_validity=False,),
+            AccountInvoiceRefund,
+            self.with_context(
+                check_move_validity=False,
+            ),
         ).reverse_moves()

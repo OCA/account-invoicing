@@ -24,7 +24,8 @@ class TestInvoiceRefundLine(AccountTestInvoicingCommon):
             .create({})
         )
         self.assertEqual(
-            reversal.selectable_invoice_lines_ids, self.in_invoice.invoice_line_ids,
+            reversal.selectable_invoice_lines_ids,
+            self.in_invoice.invoice_line_ids,
         )
         line = self.in_invoice.invoice_line_ids[0]
         reversal.write({"refund_method": "refund_lines", "line_ids": [(4, line.id)]})
@@ -69,7 +70,8 @@ class TestInvoiceRefundLine(AccountTestInvoicingCommon):
             .create({})
         )
         self.assertEqual(
-            reversal.selectable_invoice_lines_ids, self.out_invoice.invoice_line_ids,
+            reversal.selectable_invoice_lines_ids,
+            self.out_invoice.invoice_line_ids,
         )
         line = self.out_invoice.invoice_line_ids[0]
         reversal.write({"refund_method": "refund_lines", "line_ids": [(4, line.id)]})
