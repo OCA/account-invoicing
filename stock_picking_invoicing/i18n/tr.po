@@ -6,24 +6,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-06 15:40+0000\n"
+"Last-Translator: Yavuz Avci <yavuzavci@gmail.com>\n"
 "Language-Team: none\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: stock_picking_invoicing
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:515
 #, python-format
 msgid "All pickings are not related to your company!"
-msgstr ""
+msgstr "Tüm toplamalar şirketinizle ilgili değildir!"
 
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking_type__count_picking_2binvoiced
@@ -33,91 +35,97 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "Create"
-msgstr ""
+msgstr "Oluştur"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.onshipping,journal_type:0
 msgid "Create Customer Invoice"
-msgstr ""
+msgstr "Müşteri Faturası Oluştur"
 
 #. module: stock_picking_invoicing
 #: model:ir.actions.act_window,name:stock_picking_invoicing.action_stock_invoice_onshipping
 msgid "Create Draft Invoices"
-msgstr ""
+msgstr "Taslak Faturalar Oluştur"
 
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_form
 msgid "Create Invoice"
-msgstr ""
+msgstr "Fatura Oluştur"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.onshipping,journal_type:0
 msgid "Create Supplier Invoice"
-msgstr ""
+msgstr "Tedarikçi Faturası Oluştur"
 
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "Create invoice"
-msgstr ""
+msgstr "Fatura oluştur"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Oluşturan"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Oluşturulma"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__display_name
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_state_mixin__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Görünüm Adı"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__group
 msgid "Group"
-msgstr ""
+msgstr "Grup"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_invoice_onshipping__group
+#, fuzzy
 msgid "Group pickings/moves to create invoice(s):\n"
 "Picking: One invoice per picking;\n"
 "Partner: One invoice for each picking's partner;\n"
 "Partner/Product: One invoice per picking's partner and group product into a single invoice line."
 msgstr ""
+"Fatura(lar) oluşturmak için transferleri/hareketleri grupla:\n"
+"Transfer: Transfer başına bir fatura;\n"
+"İş Ortağı: Her transferin iş ortağı için birer fatura;\n"
+"İş Ortağı/Ürün: Her transferin iş ortağı için birer fatura ve ürünü tek "
+"fatura satırında grupla."
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__id
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_state_mixin__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Fatura"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__invoice_date
 msgid "Invoice Date"
-msgstr ""
+msgstr "Fatura Tarihi"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_state_mixin__invoice_state
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_move__invoice_state
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking__invoice_state
 msgid "Invoice Status"
-msgstr ""
+msgstr "Fatura Durumu"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
 #: selection:stock.move,invoice_state:0
 #: selection:stock.picking,invoice_state:0
 msgid "Invoiced"
-msgstr ""
+msgstr "Faturalanan"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_invoice_state_mixin__invoice_state
@@ -127,6 +135,9 @@ msgid "Invoiced: an invoice already exists\n"
 "To Be Invoiced: need to be invoiced\n"
 "Not Applicable: no invoice to create"
 msgstr ""
+"Faturalanan: bir fatura zaten var\n"
+"Faturalanacak: faturalanması gerekiyor\n"
+"Uygun Değil: oluşturulacak fatura yok"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_return_picking__invoice_state
@@ -138,29 +149,29 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__journal_type
 msgid "Journal Type"
-msgstr ""
+msgstr "Yevmiye Türü"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping____last_update
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_state_mixin____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Son Düzenleme"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Son Güncelleyen"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Son Güncellenme"
 
 #. module: stock_picking_invoicing
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:203
 #, python-format
 msgid "No invoice created!"
-msgstr ""
+msgstr "Fatura oluşturulmadı!"
 
 #. module: stock_picking_invoicing
 #: selection:stock.return.picking,invoice_state:0
@@ -172,37 +183,38 @@ msgstr ""
 #: selection:stock.move,invoice_state:0
 #: selection:stock.picking,invoice_state:0
 msgid "Not Applicable"
-msgstr ""
+msgstr "Uygun Değil"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.onshipping,group:0
 msgid "Partner"
-msgstr ""
+msgstr "İş Ortağı"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.onshipping,group:0
 msgid "Partner/Product"
-msgstr ""
+msgstr "İş Ortağı/Ürün"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.onshipping,group:0
 msgid "Picking"
-msgstr ""
+msgstr "Transfer"
 
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_picking_type
 msgid "Picking Type"
-msgstr ""
+msgstr "Toplama Türü"
 
 #. module: stock_picking_invoicing
 #: model:ir.actions.act_window,name:stock_picking_invoicing.2binvoiced_action_picking_dashboard
+#, fuzzy
 msgid "Picking to Invoice"
-msgstr ""
+msgstr "Faturalanacak Teslimat"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__purchase_journal
 msgid "Purchase Journal"
-msgstr ""
+msgstr "Satınalma Yevmiyesi"
 
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_return_picking
@@ -212,27 +224,28 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__sale_journal
 msgid "Sale Journal"
-msgstr ""
+msgstr "Satış Yevmiyesi"
 
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_form
+#, fuzzy
 msgid "Set to be invoiced"
-msgstr ""
+msgstr "Faturalanacak olarak ayarla"
 
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_invoicing_internal_search
 msgid "Shipments to Invoice"
-msgstr ""
+msgstr "Faturalanacak Sevkiyatlar"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__show_purchase_journal
 msgid "Show Purchase Journal"
-msgstr ""
+msgstr "Satınalma Yevmiyesini Göster"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__show_sale_journal
 msgid "Show Sale Journal"
-msgstr ""
+msgstr "Satış Yevmiyesini Göster"
 
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_invoice_onshipping
@@ -247,36 +260,36 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_move
 msgid "Stock Move"
-msgstr ""
+msgstr "Stok Hareketi"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
 #: selection:stock.move,invoice_state:0
 #: selection:stock.picking,invoice_state:0
 msgid "To Be Invoiced"
-msgstr ""
+msgstr "Faturalanacak"
 
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.stock_picking_type_kanban
 msgid "To be Invoiced"
-msgstr ""
+msgstr "Faturalanacak"
 
 #. module: stock_picking_invoicing
 #: selection:stock.return.picking,invoice_state:0
 msgid "To be refunded/invoiced"
-msgstr ""
+msgstr "İade edilecek/faturalanacak"
 
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "Transfer"
 
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_form
 msgid "True"
-msgstr ""
+msgstr "Doğru"
 
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "or"
-msgstr ""
+msgstr "veya"
