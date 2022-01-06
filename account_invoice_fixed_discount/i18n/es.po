@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_fixed_discount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2021-03-10 10:46+0000\n"
+"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: account_invoice_fixed_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
+msgid "<span>Disc. Fixed Amount</span>"
+msgstr "<span>Cantidad Fija Descuento</span>"
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_move_line__discount_fixed
+msgid "Discount (Fixed)"
+msgstr "Descuento (Fijo)"
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model.fields,help:account_invoice_fixed_discount.field_account_move_line__discount_fixed
+msgid "Fixed amount discount."
+msgstr "Cantidad fija de descuento."
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model,name:account_invoice_fixed_discount.model_account_move
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model,name:account_invoice_fixed_discount.model_account_move_line
+msgid "Journal Item"
+msgstr "Apuntes contables"
+
+#. module: account_invoice_fixed_discount
+#: code:addons/account_invoice_fixed_discount/models/account_move.py:0
+#, python-format
+msgid "You can only set one type of discount per line."
+msgstr "Solo puede establecer un tipo de descuento por línea."
