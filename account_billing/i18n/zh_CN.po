@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-07 11:39+0000\n"
+"Last-Translator: 黎伟杰 <674416404@qq.com>\n"
 "Language-Team: none\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing__state
@@ -26,6 +28,14 @@ msgid ""
 "            * The 'Cancelled' status is used when user billing is cancelled\n"
 "        "
 msgstr ""
+"\n"
+"            * “草稿”状态:用户创建新账单时\n"
+"\n"
+"            * “确认”状态:用户已经确认账单,\n"
+"                 账单编号产生\n"
+"\n"
+"            * “取消”状态:账单被用户取消\n"
+"        "
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__invoice_related_count
