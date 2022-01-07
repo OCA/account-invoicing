@@ -15,4 +15,5 @@
     "depends": ["account"],
     "license": "AGPL-3",
     "data": ["views/account_invoice_view.xml"],
+    "development_status": "Mature",
 }
