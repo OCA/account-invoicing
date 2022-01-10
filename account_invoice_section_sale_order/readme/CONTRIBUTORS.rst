@@ -2,3 +2,4 @@
 
   * Thierry Ducrest <thierry.ducrest@camptocamp.com>
   * Hiep Nguyen Hoang <hiepnh@trobz.com>
+  * Akim Juillerat <akim.juillerat@camptocamp.com>
