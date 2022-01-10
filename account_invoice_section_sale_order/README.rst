@@ -31,6 +31,9 @@ to know which invoice line belongs to which sale order.
 
 This module helps by grouping invoicing lines into sections with the name of the
 targeted sale order.
+
+The name of the section can be customized by company and partner.
+
 This is only done when an invoice targets multiple sale order.
 
 **Table of contents**
@@ -63,6 +66,7 @@ Contributors
 
   * Thierry Ducrest <thierry.ducrest@camptocamp.com>
   * Hiep Nguyen Hoang <hiepnh@trobz.com>
+  * Akim Juillerat <akim.juillerat@camptocamp.com>
 
 Other credits
 ~~~~~~~~~~~~~
