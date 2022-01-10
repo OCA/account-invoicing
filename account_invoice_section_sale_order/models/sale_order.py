@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
         the sale order name.
         Only do this for invoices targetting multiple sale order
         """
-        invoice_ids = super()._create_invoices(grouped=grouped, final=final, date=date)
+        invoice_ids = super()._create_invoices(grouped=grouped, final=final)
         for invoice in invoice_ids:
             if len(invoice.line_ids.mapped("sale_line_ids.order_id.id")) == 1:
                 continue
