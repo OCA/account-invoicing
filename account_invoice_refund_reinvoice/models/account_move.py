@@ -18,10 +18,10 @@ class AccountMove(models.Model):
 
     def _reverse_move_vals(self, default_values, cancel=True):
         if self.env.context.get("reinvoice_refund"):
-            if self.type == "out_refund":
-                default_values["type"] = "out_invoice"
-            elif self.type == "in_refund":
-                default_values["type"] = "in_invoice"
+            if self.move_type == "out_refund":
+                default_values["move_type"] = "out_invoice"
+            elif self.move_type == "in_refund":
+                default_values["move_type"] = "in_invoice"
         return super(AccountMove, self)._reverse_move_vals(
             default_values, cancel=cancel
         )
