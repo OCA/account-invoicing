@@ -17,13 +17,13 @@ class AccountMove(models.Model):
         self.set_self_invoice = self.partner_id.self_invoice
         return res
 
-    def post(self):
-        res = super().post()
+    def action_post(self):
+        res = super().action_post()
         for invoice in self:
             partner = invoice.partner_id
             if (
                 partner.self_invoice
-                and invoice.type in "in_invoice"
+                and invoice.move_type in "in_invoice"
                 and invoice.set_self_invoice
             ):
                 sequence = partner.self_invoice_sequence_id
