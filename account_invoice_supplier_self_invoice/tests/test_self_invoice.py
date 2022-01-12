@@ -21,10 +21,11 @@ class TestSelfInvoice(common.TransactionCase):
             {
                 "company_id": main_company.id,
                 "partner_id": self.simple_partner.id,
-                "type": "in_invoice",
+                "move_type": "in_invoice",
+                "invoice_date": "2016-03-12",
             }
         )
-        product = self.browse_ref("product.product_product_5")
+        product = self.env["product.product"].create({"name": "Lemonade"})
         account = self.env["account.account"].create(
             {
                 "company_id": main_company.id,
