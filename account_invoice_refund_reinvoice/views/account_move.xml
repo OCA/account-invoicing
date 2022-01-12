@@ -15,7 +15,7 @@
                     string='Restore Credit Note'
                     type='object'
                     groups="account.group_account_invoice"
-                    attrs="{'invisible': ['|', ('type', 'not in', ('out_refund', 'in_refund')), ('state', '!=', 'posted')]}"
+                    attrs="{'invisible': ['|', ('move_type', 'not in', ('out_refund', 'in_refund')), ('state', '!=', 'posted')]}"
                 />
             </button>
         </field>
