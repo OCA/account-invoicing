@@ -1,0 +1,54 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_line_description
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-23 02:38+0000\n"
+"PO-Revision-Date: 2019-09-23 14:24+0000\n"
+"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
+"23907/pt_BR/)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
+
+#. module: account_invoice_line_description
+#: model:ir.model.fields,field_description:account_invoice_line_description.field_res_config_settings__group_use_product_description_per_inv_line
+msgid ""
+"Allow using only the product description on the\n"
+"        invoice lines"
+msgstr ""
+"Permita usar apenas a descrição do produto no\n"
+"         linhas de fatura"
+
+#. module: account_invoice_line_description
+#: model:ir.model.fields,help:account_invoice_line_description.field_res_config_settings__group_use_product_description_per_inv_line
+msgid ""
+"Allows you to use only product description on the\n"
+"        invoice lines."
+msgstr ""
+"Permite usar apenas a descrição do produto no\n"
+"         linhas de fatura."
+
+#. module: account_invoice_line_description
+#: model:ir.model,name:account_invoice_line_description.model_res_config_settings
+msgid "Config Settings"
+msgstr "Definições de configuração"
+
+#. module: account_invoice_line_description
+#: model:ir.model,name:account_invoice_line_description.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Linha da Fatura"
+
+#. module: account_invoice_line_description
+#: model:res.groups,name:account_invoice_line_description.group_use_product_description_per_inv_line
+msgid "Use only product description on invoice lines"
+msgstr "Use apenas a descrição do produto nas linhas da fatura"
