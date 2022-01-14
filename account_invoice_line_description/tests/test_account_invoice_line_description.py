@@ -57,7 +57,7 @@ class TestAccountInvoiceLineDescription(SavepointCase):
             {
                 "partner_id": cls.partner.id,
                 "journal_id": cls.journal_sale.id,
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_line_ids": cls.invoice_sale_vals,
             }
         )
@@ -90,7 +90,7 @@ class TestAccountInvoiceLineDescription(SavepointCase):
             {
                 "partner_id": cls.partner.id,
                 "journal_id": cls.journal_purchase.id,
-                "type": "in_invoice",
+                "move_type": "in_invoice",
                 "invoice_line_ids": cls.invoice_purchase_vals,
             }
         )
