@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_fiscal_position_update',
         'odoo14-addon-account_invoice_fixed_discount',
         'odoo14-addon-account_invoice_force_number',
+        'odoo14-addon-account_invoice_line_description',
         'odoo14-addon-account_invoice_mode_at_shipping',
         'odoo14-addon-account_invoice_mode_monthly',
         'odoo14-addon-account_invoice_mode_weekly',
