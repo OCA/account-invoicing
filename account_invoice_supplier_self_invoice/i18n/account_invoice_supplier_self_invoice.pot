@@ -15,11 +15,6 @@ msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
-msgid "&amp;bull;"
-msgstr ""
-
-#. module: account_invoice_supplier_self_invoice
-#: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
 msgid "<strong>Comment:</strong>"
 msgstr ""
 
@@ -101,11 +96,6 @@ msgid "Disc.(%)"
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
-#: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
-msgid "Email:"
-msgstr ""
-
-#. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_report_footer
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_users__self_invoice_report_footer
 msgid "Footer text displayed at the bottom of the self invoice reports."
@@ -119,17 +109,17 @@ msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Mail:"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
 msgid "PRO-FORMA"
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
-msgid "Page:"
-msgstr ""
-
-#. module: account_invoice_supplier_self_invoice
-#: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
-msgid "Phone:"
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
@@ -197,12 +187,17 @@ msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
+msgid "Tel:"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
 msgid "Unit Price"
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_self_document
-msgid "Website:"
+msgid "Web:"
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
