@@ -8,7 +8,7 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     self_invoice_number = fields.Char(
-        readonly=True
+        readonly=True, copy=False
     )
     set_self_invoice = fields.Boolean('Set self invoice')
     can_self_invoice = fields.Boolean(related='partner_id.self_invoice')
