@@ -39,7 +39,6 @@ class AccountMove(models.Model):
     @api.model
     def _get_invoice_line_key_cols(self):
         fields = [
-            "name",
             "discount",
             "tax_ids",
             "price_unit",
@@ -66,7 +65,6 @@ class AccountMove(models.Model):
             # "account_id": invoice.account_id.id,
             "state": "draft",
             "ref": invoice.ref or "",
-            "name": invoice.name or "",
             "fiscal_position_id": invoice.fiscal_position_id.id,
             "invoice_payment_term_id": invoice.invoice_payment_term_id.id,
             "invoice_line_ids": {},
@@ -132,13 +130,7 @@ class AccountMove(models.Model):
                 invoice_infos.update(self._get_first_invoice_fields(account_invoice))
                 origins.add(account_invoice.invoice_origin)
                 client_refs.add(account_invoice.ref)
-                if not keep_references:
-                    invoice_infos.pop("name")
             else:
-                if account_invoice.name and keep_references:
-                    invoice_infos["name"] = (
-                        (invoice_infos["name"] or "") + " " + account_invoice.name
-                    )
                 if (
                     account_invoice.invoice_origin
                     and account_invoice.invoice_origin not in origins

@@ -118,6 +118,7 @@ class TestAccountInvoiceMerge(TransactionCase):
         self.assertEqual(len(end_inv), 1)
         self.assertEqual(len(end_inv[0].invoice_line_ids), 1)
         self.assertEqual(end_inv[0].invoice_line_ids[0].quantity, 2.0)
+        self.assertEqual(end_inv.name, "/")
 
     def test_account_invoice_merge_2(self):
         invoices = self.invoice1 | self.invoice3
@@ -129,7 +130,7 @@ class TestAccountInvoiceMerge(TransactionCase):
             wiz_id.fields_view_get()
 
     def test_dirty_check(self):
-        """ Check  """
+        """Check"""
         wiz_id = self.wiz.with_context(active_model="account.move")
 
         # Check with only one invoice
