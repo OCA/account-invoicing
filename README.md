@@ -38,7 +38,7 @@ addon | version | maintainers | summary
 [account_invoice_refund_reinvoice](account_invoice_refund_reinvoice/) | 13.0.1.0.0 |  | Allow to Reinvoice a Refund
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 13.0.1.0.0 |  | Account invoice search by reference
 [account_invoice_section_sale_order](account_invoice_section_sale_order/) | 13.0.1.1.0 |  | For invoices targetting multiple sale order addsections with sale order name.
-[account_invoice_show_currency_rate](account_invoice_show_currency_rate/) | 13.0.1.0.1 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Show currency rate in invoices.
+[account_invoice_show_currency_rate](account_invoice_show_currency_rate/) | 13.0.1.0.2 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Show currency rate in invoices.
 [account_invoice_supplier_ref_reuse](account_invoice_supplier_ref_reuse/) | 13.0.1.0.0 |  | Makes it possible to reuse supplier invoice references
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 13.0.1.0.3 |  | Checks that supplier invoices are not entered twice
 [account_invoice_supplier_self_invoice](account_invoice_supplier_self_invoice/) | 13.0.1.1.1 |  | Purchase Self Invoice
