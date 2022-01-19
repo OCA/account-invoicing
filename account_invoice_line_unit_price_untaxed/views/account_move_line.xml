@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field
+            name="name"
+        >account.move.form (in account_move_line_unit_price_untaxed)</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='invoice_line_ids']//tree//field[@name='price_unit']"
+                position="before"
+            >
+                <field name="price_unit_untaxed" readonly="1" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
