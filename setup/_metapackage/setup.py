@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo13-addon-account_billing',
         'odoo13-addon-account_global_discount',
+        'odoo13-addon-account_invoice_alternate_payer',
         'odoo13-addon-account_invoice_base_invoicing_mode',
         'odoo13-addon-account_invoice_blocking',
         'odoo13-addon-account_invoice_check_picking_date',
