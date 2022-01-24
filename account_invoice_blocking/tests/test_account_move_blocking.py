@@ -1,15 +1,21 @@
 # Copyright 2016 Acsone SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo.addons.account.tests.account_test_savepoint import AccountTestInvoicingCommon
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 class TestAccountMoveBlocking(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref=None):
         super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.in_invoice = cls.init_invoice("in_invoice")
-        cls.out_invoice = cls.init_invoice("out_invoice")
+        cls.in_invoice = cls.init_invoice(
+            "in_invoice", products=cls.product_a + cls.product_b
+        )
+        cls.in_invoice._post()
+        cls.out_invoice = cls.init_invoice(
+            "out_invoice", products=cls.product_a + cls.product_b
+        )
+        cls.out_invoice._post()
 
     def test_in_invoice_blocking(self):
         self.assertFalse(self.in_invoice.blocked)
