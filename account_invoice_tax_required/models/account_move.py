@@ -23,7 +23,11 @@ class AccountMove(models.Model):
                 errors.append(error_string)
         if errors:
             raise UserError(
-                _("%s\n%s") % (_("No Taxes Defined!"), "\n".join(x for x in errors))
+                _(
+                    "%(message)s\n%(errors)s",
+                    message="No Taxes Defined!",
+                    errors=("\n".join(x for x in errors)),
+                )
             )
 
     def action_post(self):
