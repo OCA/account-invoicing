@@ -1,4 +1,4 @@
-# Copyright 2018 Eficent Business and IT Consulting Services, S.L.
+# Copyright 2018 ForgeFlow, S.L.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import json
@@ -17,7 +17,7 @@ class AccountMove(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
         help="If set, this will be the partner that we expect to pay or to "
-        "be paid by. If not set, the payor is by default the "
+        "be paid by. If not set, the payer is by default the "
         "commercial",
     )
 
@@ -33,7 +33,10 @@ class AccountMove(models.Model):
 
     @api.onchange("partner_id", "alternate_payer_id")
     def _onchange_partner_id(self):
-        return super()._onchange_partner_id()
+        res = super()._onchange_partner_id()
+        if self.partner_id.alternate_payer_id and not self.alternate_payer_id:
+            self.alternate_payer_id = self.partner_id.alternate_payer_id.id
+        return res
 
     def _recompute_payment_terms_lines(self):
         super()._recompute_payment_terms_lines()
@@ -55,7 +58,7 @@ class AccountMove(models.Model):
             move.invoice_has_outstanding = False
             if (
                 move.state != "posted"
-                or move.invoice_payment_state != "not_paid"
+                or move.payment_state != "not_paid"
                 or not move.is_invoice(include_receipts=True)
             ):
                 continue
@@ -70,7 +73,6 @@ class AccountMove(models.Model):
                 ("move_id.state", "=", "posted"),
                 "&",
                 ("move_id.state", "=", "draft"),
-                ("journal_id.post_at", "=", "bank_rec"),
                 ("partner_id", "=", move.alternate_payer_id.id),
                 ("reconciled", "=", False),
                 "|",
