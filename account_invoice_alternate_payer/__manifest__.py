@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "category": "Accounting",
     "author": "Eficent,Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/account-invoicing/",
+    "website": "https://github.com/OCA/account-invoicing",
     "depends": ["account"],
     "data": ["views/account_move_views.xml"],
 }
