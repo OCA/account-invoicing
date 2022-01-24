@@ -31,9 +31,9 @@ class AccountMove(models.Model):
             if move.is_outbound() and move.alternate_payer_id:
                 move.bank_partner_id = move.alternate_payer_id
 
-    @api.onchange("partner_id", "alternate_payer_id")
-    def _onchange_partner_id(self):
-        return super()._onchange_partner_id()
+    @api.onchange("alternate_payer_id")
+    def _onchange_alternate_payer_id(self):
+        return self._onchange_partner_id()
 
     def _recompute_payment_terms_lines(self):
         super()._recompute_payment_terms_lines()
@@ -55,7 +55,7 @@ class AccountMove(models.Model):
             move.invoice_has_outstanding = False
             if (
                 move.state != "posted"
-                or move.invoice_payment_state != "not_paid"
+                or move.payment_state != "not_paid"
                 or not move.is_invoice(include_receipts=True)
             ):
                 continue
@@ -70,7 +70,6 @@ class AccountMove(models.Model):
                 ("move_id.state", "=", "posted"),
                 "&",
                 ("move_id.state", "=", "draft"),
-                ("journal_id.post_at", "=", "bank_rec"),
                 ("partner_id", "=", move.alternate_payer_id.id),
                 ("reconciled", "=", False),
                 "|",
