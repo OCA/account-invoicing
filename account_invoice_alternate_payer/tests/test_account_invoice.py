@@ -1,19 +1,20 @@
 # Copyright 2018 Eficent Business and IT Consulting Services, S.L.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo.tests import Form
+from odoo.tests import Form, tagged
 
-from odoo.addons.account.tests.account_test_savepoint import AccountTestInvoicingCommon
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
+@tagged("post_install", "-at_install")
 class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref=None):
         super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.in_invoice = cls.init_invoice("in_invoice")
-        cls.out_invoice = cls.init_invoice("out_invoice")
-        cls.in_invoice_02 = cls.init_invoice("in_invoice")
-        cls.out_invoice_02 = cls.init_invoice("out_invoice")
+        cls.in_invoice = cls.init_invoice("in_invoice", products=cls.product_b)
+        cls.out_invoice = cls.init_invoice("out_invoice", products=cls.product_a)
+        cls.in_invoice_02 = cls.init_invoice("in_invoice", products=cls.product_a)
+        cls.out_invoice_02 = cls.init_invoice("out_invoice", products=cls.product_b)
         cls.alternate_partner = cls.env["res.partner"].create(
             {"name": "Alternate Payer"}
         )
@@ -75,16 +76,12 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
     def test_03_payment_out_invoice(self):
         with Form(self.out_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
-        self.out_invoice.post()
+        self.out_invoice._post()
         records = self.out_invoice
-        action = (
-            self.env["account.payment"]
-            .with_context(active_model=records._name, active_ids=records.ids)
-            .action_register_payment()
-        )
+        ctx = {"active_model": records._name, "active_ids": records.ids}
         payment = (
-            self.env[action["res_model"]]
-            .with_context(action["context"])
+            self.env["account.payment"]
+            .with_context(ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_out.id,
@@ -92,22 +89,17 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
                 }
             )
         )
-        payment.post()
         self.assertEqual(payment.partner_id, self.alternate_partner)
 
     def test_04_payment_in_invoice(self):
         with Form(self.in_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
-        self.in_invoice.post()
+        self.in_invoice._post()
         records = self.in_invoice
-        action = (
-            self.env["account.payment"]
-            .with_context(active_model=records._name, active_ids=records.ids)
-            .action_register_payment()
-        )
+        ctx = {"active_model": records._name, "active_ids": records.ids}
         payment = (
-            self.env[action["res_model"]]
-            .with_context(action["context"])
+            self.env["account.payment"]
+            .with_context(ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_in.id,
@@ -115,70 +107,49 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
                 }
             )
         )
-        payment.post()
         self.assertEqual(payment.partner_id, self.alternate_partner)
 
     def test_05_payment_out_invoices(self):
         with Form(self.out_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
-        self.out_invoice.post()
+        self.out_invoice._post()
         with Form(self.out_invoice_02) as form:
             form.alternate_payer_id = self.alternate_partner
-        self.out_invoice_02.post()
+        self.out_invoice_02._post()
         records = self.out_invoice | self.out_invoice_02
-        action = (
+        ctx = {"active_model": records._name, "active_ids": records.ids}
+        payments = (
             self.env["account.payment"]
-            .with_context(active_model=records._name, active_ids=records.ids)
-            .action_register_payment()
-        )
-        action = (
-            self.env[action["res_model"]]
-            .with_context(action["context"])
+            .with_context(ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_out.id,
                     "journal_id": self.bank_journal_euro.id,
                 }
             )
-            .create_payments()
         )
-        payments = self.env[action["res_model"]]
-        if action.get("res_ids", False):
-            payments = payments.browse(action["res_id"])
-        else:
-            payments = payments.search(action["domain"])
         for payment in payments:
             self.assertEqual(payment.partner_id, self.alternate_partner)
 
     def test_06_payment_in_invoices(self):
         with Form(self.in_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
-        self.in_invoice.post()
+        self.in_invoice._post()
         with Form(self.in_invoice_02) as form:
             form.alternate_payer_id = self.alternate_partner
-        self.in_invoice_02.post()
+        self.in_invoice_02._post()
         records = self.in_invoice | self.in_invoice_02
-        action = (
+        ctx = {"active_model": records._name, "active_ids": records.ids}
+        payments = (
             self.env["account.payment"]
-            .with_context(active_model=records._name, active_ids=records.ids)
-            .action_register_payment()
-        )
-        action = (
-            self.env[action["res_model"]]
-            .with_context(action["context"])
+            .with_context(ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_out.id,
                     "journal_id": self.bank_journal_euro.id,
                 }
             )
-            .create_payments()
         )
-        payments = self.env[action["res_model"]]
-        if action.get("res_ids", False):
-            payments = payments.browse(action["res_id"])
-        else:
-            payments = payments.search(action["domain"])
         for payment in payments:
             self.assertEqual(payment.partner_id, self.alternate_partner)
 
@@ -216,10 +187,10 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         )
         payment_move.action_post()
         self.assertFalse(self.in_invoice.invoice_has_outstanding)
-        self.in_invoice.post()
+        self.in_invoice._post()
         self.in_invoice.refresh()
         self.assertTrue(self.in_invoice.invoice_has_outstanding)
-        self.in_invoice.write({"invoice_payment_state": "paid"})
+        self.in_invoice.write({"payment_state": "paid"})
         self.in_invoice.refresh()
         self.assertFalse(self.in_invoice.invoice_has_outstanding)
 
@@ -257,9 +228,9 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         )
         payment_move.action_post()
         self.assertFalse(self.out_invoice.invoice_has_outstanding)
-        self.out_invoice.post()
+        self.out_invoice._post()
         self.out_invoice.refresh()
         self.assertTrue(self.out_invoice.invoice_has_outstanding)
-        self.out_invoice.write({"invoice_payment_state": "paid"})
+        self.out_invoice.write({"payment_state": "paid"})
         self.out_invoice.refresh()
         self.assertFalse(self.out_invoice.invoice_has_outstanding)
