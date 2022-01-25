@@ -14,13 +14,13 @@ Enqueue account invoice validation
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/13.0/account_invoice_validation_queued
+    :target: https://github.com/OCA/account-invoicing/tree/14.0/account_invoice_validation_queued
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-13-0/account-invoicing-13-0-account_invoice_validation_queued
+    :target: https://translation.odoo-community.org/projects/account-invoicing-14-0/account-invoicing-14-0-account_invoice_validation_queued
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/95/13.0
+    :target: https://runbot.odoo-community.org/runbot/95/14.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
@@ -49,9 +49,9 @@ If you are migrating from version 13.0.1.0.0 to 13.0.2.0.0, you need
 Configuration
 =============
 
-#. Jobs are enqueued in the channel ``root.invoice_open_job``,
+#. Jobs are enqueued in the channel ``root.account_invoice_validation_queued``,
    so you must adjust your
-   `Odoo configuration <https://github.com/OCA/queue/tree/14.0/queue_job#configuration>`_
+   `Odoo configuration <https://github.com/OCA/queue/tree/13.0/queue_job#configuration>`_
    according this.
 #. If you want to see queued jobs, you need "Job Queue / Job Queue Manager"
    permission in your user.
@@ -61,14 +61,12 @@ Configuration
 Usage
 =====
 
-#. Go to *Invoicing> Customers >Invoices* or
-   *Invoicing > Vendors > Invoices*.
+#. Go to *Invoicing > Sales > Documents > Customer Invoices* or
+   *Invoicing > Purchases > Documents > Vendor Bills*.
 #. Mark at least one check on the left part of one draft invoice line in the
    list view.
-#. Click on *Action > Post Entries*.
-#. On the dialog popup that appears, click on "Post Journal Entries".
-#. If any of the selected invoices are not in draft state, you will receive
-   an error.
+#. Click on *Action > Confirm Draft Invoice*.
+#. On the dialog popup that appears, click on "Enqueue Validation".
 #. If any of the invoices is already enqueued, there will be a message saying
    so and avoiding to perform the process.
 #. Once enqueued, and having the "Job Queue Manager" permission, you can go to
@@ -89,7 +87,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_validation_queued%0Aversion:%2013.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_validation_queued%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -130,6 +128,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-pedrobaeza| 
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/13.0/account_invoice_validation_queued>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/14.0/account_invoice_validation_queued>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
