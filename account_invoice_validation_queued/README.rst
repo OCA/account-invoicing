@@ -49,9 +49,9 @@ If you are migrating from version 13.0.1.0.0 to 13.0.2.0.0, you need
 Configuration
 =============
 
-#. Jobs are enqueued in the channel ``root.account_invoice_validation_queued``,
+#. Jobs are enqueued in the channel ``root.invoice_open_job``,
    so you must adjust your
-   `Odoo configuration <https://github.com/OCA/queue/tree/13.0/queue_job#configuration>`_
+   `Odoo configuration <https://github.com/OCA/queue/tree/14.0/queue_job#configuration>`_
    according this.
 #. If you want to see queued jobs, you need "Job Queue / Job Queue Manager"
    permission in your user.
@@ -61,12 +61,12 @@ Configuration
 Usage
 =====
 
-#. Go to *Invoicing > Sales > Documents > Customer Invoices* or
-   *Invoicing > Purchases > Documents > Vendor Bills*.
+#. Go to *Invoicing> Customers >Invoices* or
+   *Invoicing > Vendors > Invoices*.
 #. Mark at least one check on the left part of one draft invoice line in the
    list view.
-#. Click on *Action > Confirm Draft Invoice*.
-#. On the dialog popup that appears, click on "Enqueue Validation".
+#. Click on *Action > Post Entries*.
+#. On the dialog popup that appears, click on "Post Journal Entries".
 #. If any of the selected invoices are not in draft state, you will receive
    an error.
 #. If any of the invoices is already enqueued, there will be a message saying
