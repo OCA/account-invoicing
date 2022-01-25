@@ -26,7 +26,7 @@ class TestAccountInvoiceValidationQueued(SavepointCase):
         cls.invoice = cls.env["account.move"].create(
             {
                 "partner_id": cls.partner.id,
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "invoice_line_ids": [
                     (
                         0,
@@ -34,8 +34,8 @@ class TestAccountInvoiceValidationQueued(SavepointCase):
                         {
                             "name": "Test product",
                             "account_id": cls.account.id,
-                            "price_unit": 20,
-                            "quantity": 1,
+                            "price_unit": 20.0,
+                            "quantity": 1.0,
                         },
                     ),
                 ],
@@ -43,7 +43,9 @@ class TestAccountInvoiceValidationQueued(SavepointCase):
         )
 
     def test_queue_validation(self):
-        wizard = self.wizard_obj.with_context(active_ids=self.invoice.ids,).create({})
+        wizard = self.wizard_obj.with_context(
+            active_ids=self.invoice.ids,
+        ).create({})
         prev_jobs = self.queue_obj.search([])
         wizard.enqueue_invoice_confirm()
         current_jobs = self.queue_obj.search([])
