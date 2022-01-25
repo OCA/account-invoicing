@@ -4,8 +4,6 @@
 
 from odoo import fields, models
 
-from odoo.addons.queue_job.job import job
-
 
 class AccountMove(models.Model):
     _inherit = "account.move"
@@ -19,9 +17,8 @@ class AccountMove(models.Model):
         copy=False,
     )
 
-    @job(default_channel="root.account_invoice_validation_queued")
     def action_invoice_open_job(self):
         self.ensure_one()
         if self.state not in {"draft", "sent"}:
             return
-        self.post()
+        self._post()
