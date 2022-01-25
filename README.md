@@ -43,6 +43,7 @@ addon | version | maintainers | summary
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 14.0.1.0.1 | [![alexis-via](https://github.com/alexis-via.png?size=30px)](https://github.com/alexis-via) | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_tree_currency](account_invoice_tree_currency/) | 14.0.1.0.0 |  | Show currencies in the invoice tree view
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 14.0.1.1.0 |  | Manage triple discount on invoice lines
+[account_invoice_validation_queued](account_invoice_validation_queued/) | 14.0.1.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Enqueue account invoice validation
 [account_mail_autosubscribe](account_mail_autosubscribe/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Automatically subscribe partners to their company's invoices
 [account_move_exception](account_move_exception/) | 14.0.1.0.0 |  | Custom exceptions on account move
 [account_move_line_accounting_description](account_move_line_accounting_description/) | 14.0.1.0.1 |  | Adds an 'accounting description' on products
