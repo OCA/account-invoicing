@@ -62,7 +62,7 @@ class TestProductIdChange(AccountTestInvoicingCommon):
         product_tmpl = self.product_tmpl_model.create(
             {
                 "name": "Car",
-                "lst_price": "15000",
+                "list_price": "15000",
                 "taxes_id": [(6, 0, [tax_sale.id])],
                 "property_account_income_id": self.account_revenue.id,
             }
@@ -73,6 +73,10 @@ class TestProductIdChange(AccountTestInvoicingCommon):
         fp = self.fiscal_position_model.create(
             {"name": "fiscal position export", "sequence": 1}
         )
+        fp2 = self.fiscal_position_model.create(
+            {"name": "fiscal position import", "sequence": 1}
+        )
+        partner.write({"property_account_position_id": fp.id})
 
         fp_tax_sale = self.fiscal_position_tax_model.create(
             {
@@ -117,10 +121,9 @@ class TestProductIdChange(AccountTestInvoicingCommon):
             tax_sale,
             "The sale tax off invoice line must be the same of product",
         )
-        out_invoice.fiscal_position_id = fp
-        out_invoice.with_context(
-            check_move_validity=False
-        )._onchange_fiscal_position_id_account_invoice_fiscal_position_invoice()
+        out_invoice.fiscal_position_id = fp2
+        # change the partner with other FP
+        out_invoice.with_context(check_move_validity=False)._onchange_partner_id()
         self.assertEqual(
             out_line.tax_ids[0],
             fp_tax_sale.tax_dest_id,
@@ -142,6 +145,31 @@ class TestProductIdChange(AccountTestInvoicingCommon):
             }
         )
         onchange_result = out_invoice.with_context(
+            check_move_validity=False
+        )._onchange_fiscal_position_id_account_invoice_fiscal_position_invoice()
+        self.assertTrue(type(onchange_result) == dict)
+        self.assertEqual(list(onchange_result.keys()), ["warning"])
+
+        # for all lines without product
+        out_invoice_without_prd = self.invoice_model.create(
+            {
+                "partner_id": partner.id,
+                "ref": "invoice to client",
+                "move_type": "out_invoice",
+                "invoice_date": time.strftime("%Y") + "-04-01",
+            }
+        )
+        # Test warning due to lines without product
+        self.invoice_line_model.with_context(check_move_validity=False).create(
+            {
+                "name": "Line without product",
+                "price_unit": 100,
+                "quantity": 1,
+                "move_id": out_invoice_without_prd.id,
+                "account_id": self.account_revenue.id,
+            }
+        )
+        onchange_result = out_invoice_without_prd.with_context(
             check_move_validity=False
         )._onchange_fiscal_position_id_account_invoice_fiscal_position_invoice()
         self.assertTrue(type(onchange_result) == dict)
