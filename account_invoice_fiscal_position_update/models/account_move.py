@@ -29,9 +29,7 @@ class AccountMove(models.Model):
                 line.account_id = line._get_computed_account()
                 taxes = line._get_computed_taxes()
                 if taxes and line.move_id.fiscal_position_id:
-                    taxes = line.move_id.fiscal_position_id.map_tax(
-                        taxes, partner=line.partner_id
-                    )
+                    taxes = line.move_id.fiscal_position_id.map_tax(taxes)
                 line.tax_ids = taxes
                 line._onchange_price_subtotal()
                 line._onchange_mark_recompute_taxes()
