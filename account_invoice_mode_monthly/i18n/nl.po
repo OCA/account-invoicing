@@ -6,33 +6,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-01-28 00:48+0000\n"
+"Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
 "Language-Team: none\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_mode_monthly
 #: model_terms:ir.ui.view,arch_db:account_invoice_mode_monthly.res_config_settings_view_form
 msgid "<span class=\"o_form_label\">Monthly Invoicing Options</span>"
-msgstr ""
+msgstr "<span class=\"o_form_label\">Maandelijkse Facturatie Opties</span>"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model,name:account_invoice_mode_monthly.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Bedrijven"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model,name:account_invoice_mode_monthly.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Instellingen"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model,name:account_invoice_mode_monthly.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,help:account_invoice_mode_monthly.field_res_company__invoicing_mode_monthly_day_todo
@@ -49,14 +51,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_partner__display_name
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_sale_order__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Weergavenaam"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.actions.server,name:account_invoice_mode_monthly.ir_cron_generate_monthly_invoice_ir_actions_server
 #: model:ir.cron,cron_name:account_invoice_mode_monthly.ir_cron_generate_monthly_invoice
 #: model:ir.cron,name:account_invoice_mode_monthly.ir_cron_generate_monthly_invoice
 msgid "Generate Monthly Invoices"
-msgstr ""
+msgstr "Genereer maandelijkse facturen"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_company__id
@@ -64,25 +66,25 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_partner__id
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_sale_order__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_company__invoicing_mode_monthly_day_todo
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_config_settings__res_invoicing_mode_monthly_day_todo
 msgid "Invoicing Day"
-msgstr ""
+msgstr "Facturatie dag"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_partner__invoicing_mode
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_users__invoicing_mode
 #: model_terms:ir.ui.view,arch_db:account_invoice_mode_monthly.res_config_settings_view_form
 msgid "Invoicing Mode"
-msgstr ""
+msgstr "Factuur mode"
 
 #. module: account_invoice_mode_monthly
 #: model_terms:ir.ui.view,arch_db:account_invoice_mode_monthly.res_config_settings_view_form
 msgid "Invoicing day"
-msgstr ""
+msgstr "Facturatie dag"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_company____last_update
@@ -90,31 +92,31 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_partner____last_update
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_sale_order____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Laatst bijgewerkt op"
 
 #. module: account_invoice_mode_monthly
 #: model_terms:ir.ui.view,arch_db:account_invoice_mode_monthly.res_config_settings_view_form
 msgid "Last executed on"
-msgstr ""
+msgstr "Laatst uitgevoerd op"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_config_settings__invoicing_mode_monthly_last_execution
 msgid "Last execution"
-msgstr ""
+msgstr "Laatste uitvoering"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,help:account_invoice_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
 #: model:ir.model.fields,help:account_invoice_mode_monthly.field_res_config_settings__invoicing_mode_monthly_last_execution
 msgid "Last execution of monthly invoicing."
-msgstr ""
+msgstr "Maandelijkse facturatie voor het laatst uitgevoerd."
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields.selection,name:account_invoice_mode_monthly.selection__res_partner__invoicing_mode__monthly
 msgid "Monthly"
-msgstr ""
+msgstr "Maandelijks"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model,name:account_invoice_mode_monthly.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Verkooporder"
