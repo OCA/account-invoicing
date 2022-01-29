@@ -10,7 +10,8 @@
                     name="global_discount_amount"
                     widget="monetary"
                     options="{'currency_field': 'currency_id'}"
-                    attrs="{'readonly': [('state', '!=', 'draft')], 'invisible': [('amount_total', '=', 0)]}"
+                    attrs="{'readonly': [('state', '!=', 'draft')]}"
+                    string="Global Discount"
                 />
             </xpath>
             <xpath
