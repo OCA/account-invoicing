@@ -14,3 +14,5 @@ class AccountMove(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = ["account.move.line", "discount.line.mixin"]
     _name = "account.move.line"
+
+    _gd_parent_field = "move_id"

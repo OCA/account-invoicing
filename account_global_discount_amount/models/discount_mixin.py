@@ -74,15 +74,22 @@ class DiscountMixin(models.AbstractModel):
     )
     def _compute_global_discount_ok(self):
         for record in self:
-            total_field = record._get_total_field()
-            amount = -1 * sum(record.get_discount_lines().mapped(total_field))
-            record.global_discount_ok = not bool(
-                float_compare(
-                    record.global_discount_amount,
-                    amount,
-                    precision_rounding=record.currency_id.rounding,
-                )
-            )
+            tax2amount = record._get_tax_to_amount()
+            lines = record.get_discount_lines()
+            if len(tax2amount) != len(lines):
+                record.global_discount_ok = False
+            else:
+                ok = True
+                dp = self.env["decimal.precision"].precision_get("Product Price")
+                for line in lines:
+                    if float_compare(
+                        tax2amount[line[self._gd_tax_field]],
+                        -line.price_unit,
+                        precision_digits=dp,
+                    ):
+                        ok = False
+                        break
+                record.global_discount_ok = ok
 
     @api.constrains("global_discount_amount")
     def _check_global_discount_amount(self):
@@ -134,9 +141,9 @@ class DiscountMixin(models.AbstractModel):
         lines = self[self._gd_lines_field].filtered(lambda s: not s.is_discount_line)
         total = sum(lines.mapped(total_field))
         for line in lines:
-            res[line[self._gd_tax_field]] += (
-                line[total_field] / total * self.global_discount_amount
-            )
+            amount = line[total_field] / total * self.global_discount_amount
+            if amount:
+                res[line[self._gd_tax_field]] += amount
         return self._round_tax_to_amount(res)
 
     def _prepare_discount_line_vals(self, taxes, amount):
@@ -167,13 +174,15 @@ class DiscountMixin(models.AbstractModel):
 
     @api.model_create_multi
     def create(self, list_vals):
+        self = self.with_context(edit_discount_from_parent=True)
         records = super().create(list_vals)
         records.filtered(
             lambda s: not s.global_discount_ok
         )._post_process_discount_line()
-        return records
+        return records.with_context(edit_discount_from_parent=False)
 
     def write(self, vals):
+        self = self.with_context(edit_discount_from_parent=True)
         super().write(vals)
         if not self._context.get("skip_post_process"):
             self.filtered(
@@ -185,5 +194,23 @@ class DiscountMixin(models.AbstractModel):
 class DiscountLineMixin(models.AbstractModel):
     _name = "discount.line.mixin"
     _description = "Discount Line Mixin"
+    _gd_parent_field = None
 
     is_discount_line = fields.Boolean(string="Is Discount Line")
+
+    def _post_process_discount_line(self):
+        if not self._context.get("edit_discount_from_parent"):
+            self[self._gd_parent_field].filtered(
+                lambda s: not s.global_discount_ok
+            )._post_process_discount_line()
+
+    @api.model_create_multi
+    def create(self, list_vals):
+        records = super().create(list_vals)
+        records._post_process_discount_line()
+        return records
+
+    def write(self, vals):
+        super().write(vals)
+        self._post_process_discount_line()
+        return True

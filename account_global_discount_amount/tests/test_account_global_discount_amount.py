@@ -35,3 +35,18 @@ class TestAccountGlobalDiscountAmount(CommonGlobalDiscount, CommonCaseGlobalDisc
 
     def _check_discount_line(self, invoice, expected):
         self._check_invoice_discount_line(invoice, expected)
+
+    def test_change_qty_on_line(self):
+        lines = [
+            # price, qty, vat, discount
+            (10, 3, self.vat20, 0),
+            (10, 1, self.vat10, 0),
+        ]
+        record = self._create_record(lines, 10)
+        record.with_context(check_move_validity=False).invoice_line_ids[1].quantity = 0
+        self._check_discount_line(
+            record,
+            [
+                (self.vat20, -10),
+            ],
+        )
