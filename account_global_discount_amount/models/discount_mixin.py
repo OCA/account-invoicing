@@ -33,7 +33,10 @@ class DiscountMixin(models.AbstractModel):
         store=True,
     )
 
-    @api.depends("invoice_line_ids", "global_discount_amount")
+    def _compute_global_discount_base_on_depends(self):
+        return [self._gd_lines_field, "global_discount_amount"]
+
+    @api.depends(lambda self: self._compute_global_discount_base_on_depends())
     def _compute_global_discount_base_on(self):
         for record in self:
             if record.global_discount_amount:
