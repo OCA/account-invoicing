@@ -227,11 +227,10 @@ class StockInvoiceOnshipping(models.TransientModel):
 
         inv_type = self._get_invoice_type()
         if inv_type in ["out_invoice", "out_refund"]:
-            action = self.env.ref("account.action_move_out_invoice_type")
+            xmlid = "account.action_move_out_invoice_type"
         else:
-            action = self.env.ref("account.action_move_in_invoice_type")
-
-        action_dict = action.read()[0]
+            xmlid = "account.action_move_in_invoice_type"
+        action_dict = self.env["ir.actions.act_window"]._for_xml_id(xmlid)
 
         if len(invoices) > 1:
             action_dict["domain"] = [("id", "in", invoices.ids)]
@@ -242,7 +241,9 @@ class StockInvoiceOnshipping(models.TransientModel):
                 form_view = [(self.env.ref("account.view_move_form").id, "form")]
             if "views" in action_dict:
                 action_dict["views"] = form_view + [
-                    (state, view) for state, view in action["views"] if view != "form"
+                    (state, view)
+                    for state, view in action_dict["views"]
+                    if view != "form"
                 ]
             else:
                 action_dict["views"] = form_view
