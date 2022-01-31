@@ -50,3 +50,26 @@ class TestAccountGlobalDiscountAmount(CommonGlobalDiscount, CommonCaseGlobalDisc
                 (self.vat20, -10),
             ],
         )
+
+    def test_refund(self):
+        lines = [
+            # price, qty, vat, discount
+            (10, 3, self.vat20, 0),
+            (10, 1, self.vat10, 0),
+        ]
+        record = self._create_record(lines, 10)
+        wizard = self.env["account.move.reversal"].create(
+            {
+                "refund_method": "refund",
+                "move_ids": [(6, 0, record.ids)],
+            }
+        )
+        action = wizard.reverse_moves()
+        refund = self.env["account.move"].browse(action["res_id"])
+        self._check_discount_line(
+            refund,
+            [
+                (self.vat20, -7.5),
+                (self.vat10, -2.5),
+            ],
+        )
