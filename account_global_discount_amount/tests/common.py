@@ -257,3 +257,26 @@ class CommonCaseGlobalDiscount:
                 (self.vat10, -0.20),
             ],
         )
+
+    def test_create_empty(self):
+        record = self._create_record([], 10)
+        self._check_discount_line(
+            record,
+            [
+                (self.env["account.tax"], -10),
+            ],
+        )
+
+    def test_create_zero(self):
+        lines = [
+            # price, qty, vat, discount
+            (0, 3, self.vat20, 0),
+            (0, 1, self.vat10, 0),
+        ]
+        record = self._create_record(lines, 10)
+        self._check_discount_line(
+            record,
+            [
+                (self.env["account.tax"], -10),
+            ],
+        )

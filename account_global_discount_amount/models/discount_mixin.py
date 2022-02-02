@@ -140,11 +140,14 @@ class DiscountMixin(models.AbstractModel):
         res = defaultdict(float)
         lines = self[self._gd_lines_field].filtered(lambda s: not s.is_discount_line)
         total = sum(lines.mapped(total_field))
-        for line in lines:
-            amount = line[total_field] / total * self.global_discount_amount
-            if amount:
-                res[line[self._gd_tax_field]] += amount
-        return self._round_tax_to_amount(res)
+        if total == 0:
+            return {self.env["account.tax"]: self.global_discount_amount}
+        else:
+            for line in lines:
+                amount = line[total_field] / total * self.global_discount_amount
+                if amount:
+                    res[line[self._gd_tax_field]] += amount
+            return self._round_tax_to_amount(res)
 
     def _prepare_discount_line_vals(self, taxes, amount):
         discount_product = self.env.ref(
