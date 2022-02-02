@@ -10,7 +10,7 @@ from odoo import api, models
 from odoo.tools import float_is_zero
 
 
-class AccountInvoice(models.Model):
+class AccountMove(models.Model):
     _inherit = "account.move"
 
     @api.model
