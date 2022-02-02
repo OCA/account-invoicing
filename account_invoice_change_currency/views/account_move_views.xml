@@ -7,25 +7,30 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='currency_id']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='currency_id']" position="after">
-                <label for="currency_id" groups="base.group_multi_currency" />
+            <xpath expr="//div[@name='journal_div']" position="after">
+                <label for="custom_rate" groups="base.group_multi_currency" />
                 <div groups="base.group_multi_currency">
+                    <field name="is_original_currency" invisible="1" />
                     <field
-                        name="currency_id"
-                        options="{'no_create': True, 'no_open': True}"
-                        class="oe_inline"
-                    />
-                    - <field
                         name="custom_rate"
+                        string="Custom Rate"
                         placeholder="Custom Rate"
                         class="oe_inline"
-                        attrs="{'invisible': [('custom_rate', '=', 0)], 'readonly': [('state', '!=', 'draft')]}"
+                        attrs="{
+                            'invisible': [
+                                '|',
+                                ('custom_rate', '=', 0),
+                                ('is_original_currency', '=', True),
+                            ],
+                            'readonly': [
+                                '|',
+                                ('state', '!=', 'draft'),
+                                ('is_original_currency', '=', True),
+                            ]
+                        }"
                     />
                     <button
-                        aria-label="Opened"
+                        aria-label="Update Currency"
                         type="object"
                         name="action_account_change_currency"
                         class="btn-link"
