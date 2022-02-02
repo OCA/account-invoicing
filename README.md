@@ -57,7 +57,7 @@ addon | version | maintainers | summary
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 14.0.1.2.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) [![MiquelRForgeFlow](https://github.com/MiquelRForgeFlow.png?size=30px)](https://github.com/MiquelRForgeFlow) | Add an option to refund returned pickings
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 14.0.1.0.1 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Sales order invoicing grouping criteria
 [sale_order_invoicing_queued](sale_order_invoicing_queued/) | 14.0.1.0.0 |  | Enqueue sales order invoicing
-[stock_picking_invoicing](stock_picking_invoicing/) | 14.0.1.0.0 |  | Stock Picking Invoicing
+[stock_picking_invoicing](stock_picking_invoicing/) | 14.0.1.0.1 |  | Stock Picking Invoicing
 
 [//]: # (end addons)
 
