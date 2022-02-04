@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo-addon-account_invoice_refund_link>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_search_by_reference>=15.0dev,<15.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
