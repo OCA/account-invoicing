@@ -20,6 +20,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_invoice_refund_link](account_invoice_refund_link/) | 15.0.1.0.0 |  | Show links between refunds and their originator invoices
+[account_invoice_search_by_reference](account_invoice_search_by_reference/) | 15.0.1.0.0 |  | Account invoice search by reference
 
 [//]: # (end addons)
 
