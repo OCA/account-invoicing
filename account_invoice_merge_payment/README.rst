@@ -25,7 +25,7 @@ Account Invoice Merge Payment
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-his module was written to extend the functionality of Account Invoice Merge
+This module was written to extend the functionality of Account Invoice Merge
 module to support fields added in Account Payment Partner from OCA/bank-payment
 
 **Table of contents**
