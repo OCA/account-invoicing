@@ -38,7 +38,7 @@ addon | version | maintainers | summary
 [account_invoice_line_sequence](account_invoice_line_sequence/) | 12.0.1.1.0 |  | Adds sequence field on invoice lines to manage its order.
 [account_invoice_mass_sending](account_invoice_mass_sending/) | 12.0.1.0.0 |  | Account Invoice Mass Sending
 [account_invoice_merge](account_invoice_merge/) | 12.0.1.0.2 |  | Merge invoices in draft
-[account_invoice_pricelist](account_invoice_pricelist/) | 12.0.1.0.5 |  | Add partner pricelist on invoices
+[account_invoice_pricelist](account_invoice_pricelist/) | 12.0.1.0.6 |  | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 12.0.1.0.0 |  | Module to fill pricelist from sales order in invoice.
 [account_invoice_refund_line_selection](account_invoice_refund_line_selection/) | 12.0.1.0.0 |  | This module allows the user to refund specific lines in a invoice
 [account_invoice_refund_link](account_invoice_refund_link/) | 12.0.1.0.0 |  | Link refund invoice with its original invoice
