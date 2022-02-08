@@ -8,7 +8,7 @@ from odoo.tests.common import Form
 class TestInvoiceTripleDiscount(SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestInvoiceTripleDiscount, cls).setUpClass()
+        super().setUpClass()
         cls.Account = cls.env["account.account"]
         cls.AccountMove = cls.env["account.move"]
         cls.AccountTax = cls.env["account.tax"]

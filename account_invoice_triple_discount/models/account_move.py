@@ -13,26 +13,20 @@ class AccountMove(models.Model):
 
     _inherit = "account.move"
 
-    def _recompute_tax_lines(self, **kwargs):
-        """
-        As the taxes are recalculated based on a single discount, we need to
-        simulate a multiple discount by changing the unit price. Values are
-        restored after the original process is done
-        """
-        old_values_by_line_id = {}
-        for line in self.line_ids:
+    def _recompute_tax_lines(self, recompute_tax_base_amount=False):
+        vals = {}
+        for line in self.invoice_line_ids.filtered(
+            lambda l: l.discount2 or l.discount3
+        ):
+            vals[line] = {"price_unit": line.price_unit, "discount": line.discount}
             aggregated_discount = line._compute_aggregated_discount(line.discount)
-            old_values_by_line_id[line.id] = {
-                "price_unit": line.price_unit,
-                "discount": line.discount,
-            }
             price_unit = line.price_unit * (1 - aggregated_discount / 100)
             line.update({"price_unit": price_unit, "discount": 0})
-        res = super(AccountMove, self)._recompute_tax_lines(**kwargs)
-        for line in self.line_ids:
-            if line.id not in old_values_by_line_id:
-                continue
-            line.update(old_values_by_line_id[line.id])
+        res = super()._recompute_tax_lines(
+            recompute_tax_base_amount=recompute_tax_base_amount
+        )
+        for line in vals.keys():
+            line.update(vals[line])
         return res
 
     def _has_discount(self):
@@ -79,7 +73,7 @@ class AccountMoveLine(models.Model):
                 values["discount"] = new_discount
                 tmp_values["discount"] = old_discount
             old_values.append(tmp_values)
-        records = super(AccountMoveLine, self).create(values_list)
+        records = super().create(values_list)
         for index, record in enumerate(records):
             values = old_values[index]
             if values:
@@ -90,21 +84,21 @@ class AccountMoveLine(models.Model):
         "discount", "price_unit", "tax_ids", "quantity", "discount2", "discount3",
     )
     def _onchange_price_subtotal(self):
-        return super(AccountMoveLine, self)._onchange_price_subtotal()
+        return super()._onchange_price_subtotal()
 
     def _get_price_total_and_subtotal(self, **kwargs):
         self.ensure_one()
         kwargs["discount"] = self._compute_aggregated_discount(
             kwargs.get("discount") or self.discount
         )
-        return super(AccountMoveLine, self)._get_price_total_and_subtotal(**kwargs)
+        return super()._get_price_total_and_subtotal(**kwargs)
 
     def _get_fields_onchange_balance(self, **kwargs):
         self.ensure_one()
         kwargs["discount"] = self._compute_aggregated_discount(
             kwargs.get("discount") or self.discount
         )
-        return super(AccountMoveLine, self)._get_fields_onchange_balance(**kwargs)
+        return super()._get_fields_onchange_balance(**kwargs)
 
     def _compute_aggregated_discount(self, base_discount):
         self.ensure_one()
