@@ -66,27 +66,7 @@ class AccountMove(models.Model):
         """Overridable function to return draft invoices to merge"""
         return self.filtered(lambda x: x.state == "draft")
 
-    # flake8: noqa: C901 (is too complex)
-    def do_merge(
-        self, keep_references=True, date_invoice=False, remove_empty_invoice_lines=True
-    ):
-        """
-        To merge similar type of account invoices.
-        Invoices will only be merged if:
-        * Account invoices are in draft
-        * Account invoices belong to the same partner
-        * Account invoices are have same company, partner, address, currency,
-          journal, currency, salesman, account, type
-        Lines will only be merged if:
-        * Invoice lines are exactly the same except for the quantity and unit
-
-         @param self: The object pointer.
-         @param keep_references: If True, keep reference of original invoices
-
-         @return: new account invoice id
-
-        """
-
+    def _get_new_invoices(self, keep_references):
         def make_key(br, fields):
             list_key = []
             for field in fields:
@@ -150,7 +130,30 @@ class AccountMove(models.Model):
                 else:
                     # append a new "standalone" line
                     o_line["quantity"] = invoice_line.quantity
+        return new_invoices
 
+    def do_merge(
+        self, keep_references=True, date_invoice=False, remove_empty_invoice_lines=True
+    ):
+        """
+        To merge similar type of account invoices.
+        Invoices will only be merged if:
+        * Account invoices are in draft
+        * Account invoices belong to the same partner
+        * Account invoices are have same company, partner, address, currency,
+          journal, currency, salesman, account, type
+        Lines will only be merged if:
+        * Invoice lines are exactly the same except for the quantity and unit
+
+         @param self: The object pointer.
+         @param keep_references: If True, keep reference of original invoices
+
+         @return: new account invoice id
+
+        """
+
+        # First, we get all data
+        new_invoices = self._get_new_invoices(keep_references)
         allinvoices = []
         allnewinvoices = []
         invoices_info = {}
@@ -221,5 +224,8 @@ class AccountMove(models.Model):
 
         for new_invoice in allnewinvoices:
             new_invoice._compute_amount()
-
+            if "/ /" in new_invoice.name:
+                new_invoice.name = "/"
+            if not keep_references and new_invoice.name == "/":
+                new_invoice.restrict_mode_hash_table = True
         return invoices_info
