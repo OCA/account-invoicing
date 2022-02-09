@@ -10,7 +10,7 @@
         <field name="view_mode">tree,form</field>
         <field eval="False" name="view_id"/>
         <field name="domain">[('type', 'in', ('out_invoice', 'out_refund'))]</field>
-        <field name="context">{'type':'out_invoice', 'journal_type': 'sale'}</field>
+        <field name="context">{'field_type': True, 'default_type': False}</field>
         <field name="search_view_id" ref="account.view_account_invoice_filter"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -45,7 +45,7 @@
         <field name="view_mode">tree,form</field>
         <field eval="False" name="view_id"/>
         <field name="domain">[('type', 'in', ('in_invoice', 'in_refund'))]</field>
-        <field name="context">{'type':'in_invoice', 'journal_type': 'purchase'}</field>
+        <field name="context">{'field_type': True, 'default_type': False}</field>
         <field name="search_view_id" ref="account.view_account_invoice_filter"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -71,5 +71,21 @@
     </record>
 
     <menuitem action="action_invoice_in_tree" id="menu_action_invoice_in_tree" parent="account.menu_finance_payables" sequence="6"/>
+
+    <!-- Inherit invoice form views to show or not the invoice.type field -->
+
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.invoice.form.inherit.view.billing</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="type" 
+                        readonly="context.get('field_type') != True" 
+                        required="context.get('field_type')"/>
+            </field>
+        </field>
+    </record>
+
 
 </odoo>
