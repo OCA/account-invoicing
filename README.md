@@ -58,7 +58,7 @@ addon | version | maintainers | summary
 [account_invoice_tier_validation](account_invoice_tier_validation/) | 12.0.1.0.2 |  | Extends the functionality of Invoice to support a tier validation process.
 [account_invoice_tier_validation_approver](account_invoice_tier_validation_approver/) | 12.0.1.0.0 |  | Account Invoice Tier Validation Approver
 [account_invoice_tier_validation_forward](account_invoice_tier_validation_forward/) | 12.0.1.0.0 |  | Account Invoice Tier Validation - Forward Option
-[account_invoice_transmit_method](account_invoice_transmit_method/) | 12.0.1.0.1 |  | Configure invoice transmit method (email, post, portal, ...)
+[account_invoice_transmit_method](account_invoice_transmit_method/) | 12.0.2.0.0 |  | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_transmit_method_substitution_rule](account_invoice_transmit_method_substitution_rule/) | 12.0.1.0.0 |  | This addon allow to set substitution rules for transmit method
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 12.0.1.0.0 |  | Manage triple discount on invoice lines
 [account_invoice_validation_queued](account_invoice_validation_queued/) | 12.0.1.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Enqueue account invoice validation
