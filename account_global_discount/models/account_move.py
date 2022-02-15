@@ -189,6 +189,8 @@ class AccountMove(models.Model):
                     % (discount.name, ", ".join(discount.tax_ids.mapped("name"))),
                     "debit": disc_amount > 0.0 and disc_amount or 0.0,
                     "credit": disc_amount < 0.0 and -disc_amount or 0.0,
+                    "amount_currency": (disc_amount > 0.0 and disc_amount or 0.0)
+                    - (disc_amount < 0.0 and -disc_amount or 0.0),
                     "account_id": discount.account_id.id,
                     "analytic_account_id": discount.account_analytic_id.id,
                     "exclude_from_invoice_tab": True,
