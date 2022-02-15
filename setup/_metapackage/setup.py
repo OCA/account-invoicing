@@ -37,6 +37,7 @@ setuptools.setup(
         'odoo13-addon-account_invoice_tax_required',
         'odoo13-addon-account_invoice_transmit_method',
         'odoo13-addon-account_invoice_tree_currency',
+        'odoo13-addon-account_invoice_triple_discount',
         'odoo13-addon-account_invoice_validation_queued',
         'odoo13-addon-account_invoice_warn_message',
         'odoo13-addon-account_menu_invoice_refund',
