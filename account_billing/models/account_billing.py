@@ -171,7 +171,7 @@ class AccountBilling(models.Model):
         )
         if len(currency_ids) > 1:
             raise ValidationError(_("Please select invoices with same currency"))
-        return currency_ids or self.env.user.company_id.currency_id
+        return currency_ids or self.env.company.currency_id
 
     def _compute_invoice_related_count(self):
         self.invoice_related_count = len(self.billing_line_ids)
