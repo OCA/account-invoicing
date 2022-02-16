@@ -24,7 +24,7 @@ class StockMove(models.Model):
             taxes = product.taxes_id
         else:
             taxes = product.supplier_taxes_id
-        company_id = self.env.context.get("force_company", self.env.user.company_id.id)
+        company_id = self.env.context.get("force_company", self.env.company.id)
         my_taxes = taxes.filtered(lambda r: r.company_id.id == company_id)
         return fiscal_position.map_tax(my_taxes)
 

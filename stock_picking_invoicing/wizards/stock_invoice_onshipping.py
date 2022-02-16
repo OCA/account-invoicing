@@ -206,7 +206,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         default_journal = self.env["account.journal"].search(
             [
                 ("type", "=", journal_type),
-                ("company_id", "=", self.env.user.company_id.id),
+                ("company_id", "=", self.env.company.id),
             ],
             limit=1,
         )
@@ -359,7 +359,7 @@ class StockInvoiceOnshipping(models.TransientModel):
             payment_term = partner.property_payment_term_id.id
         else:
             payment_term = partner.property_supplier_payment_term_id.id
-        company = self.env.user.company_id
+        company = self.env.company
         currency = company.currency_id
         if partner:
             code = picking.picking_type_id.code
@@ -521,7 +521,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         """
         pickings = self._load_pickings()
         company = pickings.mapped("company_id")
-        if company and company != self.env.user.company_id:
+        if company and company != self.env.company:
             raise UserError(_("All pickings are not related to your company!"))
         pick_list = self._group_pickings(pickings)
         invoices = self.env["account.move"].browse()
