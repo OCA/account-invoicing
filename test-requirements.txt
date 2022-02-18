@@ -1,0 +1,1 @@
+git+https://github.com/OCA/account-invoicing@refs/pull/1061/head#subdirectory=setup/account_invoice_base_invoicing_mode
