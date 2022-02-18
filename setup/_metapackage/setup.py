@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo14-addon-account_billing',
+        'odoo14-addon-account_global_discount',
         'odoo14-addon-account_invoice_base_invoicing_mode',
         'odoo14-addon-account_invoice_check_total',
         'odoo14-addon-account_invoice_date_due',
