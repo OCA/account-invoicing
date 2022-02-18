@@ -1,0 +1,219 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_global_discount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2020-09-17 13:00+0000\n"
+"Last-Translator: Pedro Castro Silva <pedrocs@exo.pt>\n"
+"Language-Team: none\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.10\n"
+
+#. module: account_global_discount
+#: model_terms:ir.ui.view,arch_db:account_global_discount.report_invoice_document
+msgid ""
+"<strong>Global Discounts</strong>\n"
+"                        <br/>"
+msgstr ""
+
+#. module: account_global_discount
+#: model_terms:ir.ui.view,arch_db:account_global_discount.report_invoice_document
+msgid "<strong>Subtotal w/o disc.</strong>"
+msgstr "<strong>Subtotal s/ Desc.</strong>"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__account_id
+#: model:ir.model.fields,field_description:account_global_discount.field_global_discount__account_id
+msgid "Account"
+msgstr "Conta"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move__amount_untaxed_before_global_discounts
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move_line__base_before_global_discounts
+msgid "Amount Untaxed Before Discounts"
+msgstr "Montante sem Impostos antes de Descontos"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__account_analytic_id
+#: model:ir.model.fields,field_description:account_global_discount.field_global_discount__account_analytic_id
+msgid "Analytic account"
+msgstr "Conta analítica"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base_discounted
+msgid "Base after discount"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base
+msgid "Base before discount"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__create_uid
+msgid "Created by"
+msgstr "Criado por"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__create_date
+msgid "Created on"
+msgstr "Criado em"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__currency_id
+msgid "Currency"
+msgstr "Moeda"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__discount_display
+msgid "Discount"
+msgstr "Desconto"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__discount
+msgid "Discount (number)"
+msgstr "Desconto (número)"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__name
+msgid "Discount Name"
+msgstr "Nome do Desconto"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__discount_amount
+msgid "Discounted Amount"
+msgstr "Valor Descontado"
+
+#. module: account_global_discount
+#: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
+msgid "Discounts..."
+msgstr "Descontos..."
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__display_name
+msgid "Display Name"
+msgstr "Nome a Apresentar"
+
+#. module: account_global_discount
+#: model:ir.model,name:account_global_discount.model_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__global_discount_id
+msgid "Global Discount"
+msgstr "Desconto Global"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move_line__global_discount_item
+msgid "Global Discount Item"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.ui.menu,name:account_global_discount.menu_account_global_discount
+#: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
+msgid "Global Discounts"
+msgstr "Descontos Globais"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_global_discount
+#: code:addons/account_global_discount/models/account_move.py:0
+#, python-format
+msgid "Incompatible taxes found for global discounts."
+msgstr "Foram encontrados impostos incompatíveis nos descontos globais."
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__invoice_id
+msgid "Invoice"
+msgstr "Fatura"
+
+#. module: account_global_discount
+#: model:ir.model,name:account_global_discount.model_account_invoice_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move__invoice_global_discount_ids
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move_line__invoice_global_discount_id
+msgid "Invoice Global Discount"
+msgstr "Desconto Global de Fatura"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move__global_discount_ids
+#: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
+msgid "Invoice Global Discounts"
+msgstr "Descontos Globais de Fatura"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move__global_discount_ids_readonly
+msgid "Invoice Global Discounts (readonly)"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.model,name:account_global_discount.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.model,name:account_global_discount.model_account_move_line
+msgid "Journal Item"
+msgstr "Item do Diário"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount____last_update
+msgid "Last Modified on"
+msgstr "Última Modificação Em"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__write_uid
+msgid "Last Updated by"
+msgstr "Atualizado pela última vez por"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__write_date
+msgid "Last Updated on"
+msgstr "Atualizado pela última vez em"
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__tax_ids
+msgid "Taxes"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move__amount_global_discount
+msgid "Total Global Discounts"
+msgstr "Descontos Globais Totais"
+
+#. module: account_global_discount
+#: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
+msgid "Untaxed Amount Before Disc."
+msgstr "Montante sem Impostos antes de Desc."
+
+#. module: account_global_discount
+#: code:addons/account_global_discount/models/account_move.py:0
+#, python-format
+msgid "With global discounts, taxes in lines are required."
+msgstr "Com descontos globais, são requeridos impostos nas linhas."
+
+#~ msgid "Base discounted"
+#~ msgstr "Base com desconto"
+
+#~ msgid "Discounted amount"
+#~ msgstr "Montante descontado"
+
+#~ msgid "Tax"
+#~ msgstr "Imposto"
+
+#~ msgid "<strong>Global Discounts</strong><br/>"
+#~ msgstr "<strong>Descontos Globais</strong><br/>"
+
+#~ msgid "Invoice Tax"
+#~ msgstr "Imposto de Fatura"
