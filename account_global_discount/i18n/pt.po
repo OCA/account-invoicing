@@ -158,6 +158,11 @@ msgid "Invoice Global Discounts (readonly)"
 msgstr ""
 
 #. module: account_global_discount
+#: model:ir.model,name:account_global_discount.model_account_invoice_report
+msgid "Invoices Statistics"
+msgstr ""
+
+#. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_move
 msgid "Journal Entries"
 msgstr ""
