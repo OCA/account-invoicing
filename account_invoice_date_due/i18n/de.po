@@ -1,0 +1,81 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_date_due
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2020-06-12 13:19+0000\n"
+"Last-Translator: Maria Sparenberg <maria.sparenberg@gmx.net>\n"
+"Language-Team: none\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
+
+#. module: account_invoice_date_due
+#: model:res.groups,name:account_invoice_date_due.allow_to_change_due_date
+msgid "Allow to change due date"
+msgstr "Fälligkeitsdatum in Rechnungen ändern"
+
+#. module: account_invoice_date_due
+#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.view_move_form
+msgid "Due Date"
+msgstr ""
+
+#. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__invoice_date_due_payment_term
+msgid "Due Date Payment Term"
+msgstr ""
+
+#. module: account_invoice_date_due
+#: model:ir.model,name:account_invoice_date_due.model_account_move
+msgid "Journal Entries"
+msgstr ""
+
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
+
+#~ msgid "Change due date"
+#~ msgstr "Fälligkeitsdatum ändern"
+
+#~ msgid "Created by"
+#~ msgstr "Erstellt von"
+
+#~ msgid "Created on"
+#~ msgstr "Erstellt am"
+
+#~ msgid "Display Name"
+#~ msgstr "Anzeigename"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Zuletzt geändert am"
+
+#~ msgid "Last Updated by"
+#~ msgstr "Zuletzt aktualisiert von"
+
+#~ msgid "Last Updated on"
+#~ msgstr "Zuletzt aktualisiert am"
+
+#~ msgid "New Due Date"
+#~ msgstr "Neues Fälligkeitsdatum"
+
+#~ msgid "New date to be set to the invoice's due date."
+#~ msgstr ""
+#~ "Dies ist das Datum, das als neues Fälligkeitsdatum der Rechnung gesetzt "
+#~ "werden soll."
+
+#~ msgid "Set Due Date"
+#~ msgstr "Fälligkeitsdatum ändern"
+
+#~ msgid "Set a new due date on selected invoices."
+#~ msgstr "Neues Fälligkeitsdatum bei den ausgewählten Rechnungen setzen."
+
+#~ msgid "Wizard to set due date"
+#~ msgstr "Assistent für das Ändern des Fälligkeitsdatums"
