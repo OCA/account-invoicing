@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Acsone SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form (in account_invoice_check_total)</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='journal_div']" position="after">
+                <field
+                    name="check_total"
+                    groups="account_invoice_check_total.group_supplier_inv_check_total"
+                    attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])]}"
+                />
+            </xpath>
+            <xpath expr="//field[@name='amount_residual']" position="after">
+                <field
+                    name="check_total_display_difference"
+                    groups="account_invoice_check_total.group_supplier_inv_check_total"
+                    attrs="{'invisible': ['|', ('move_type', 'not in', ['in_invoice', 'in_refund']), ('check_total_display_difference', '=', 0)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
