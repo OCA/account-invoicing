@@ -7,16 +7,16 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Account Invoice Merge',
-    'version': '12.0.1.0.2',
-    'category': 'Finance',
-    'summary': "Merge invoices in draft",
-    'author': "Elico Corp,Odoo Community Association (OCA)",
-    'website': 'http://www.openerp.net.cn',
-    'license': 'AGPL-3',
-    'depends': ['account'],
-    'data': [
-        'wizard/invoice_merge_view.xml',
+    "name": "Account Invoice Merge",
+    "version": "12.0.1.0.2",
+    "category": "Finance",
+    "summary": "Merge invoices in draft",
+    "author": "Elico Corp,Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/account-invoicing",
+    "license": "AGPL-3",
+    "depends": ["account"],
+    "data": [
+        "wizard/invoice_merge_view.xml",
     ],
-    'installable': True,
+    "installable": True,
 }
