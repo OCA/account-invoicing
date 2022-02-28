@@ -15,9 +15,10 @@ class InvoiceMerge(models.TransientModel):
     _name = "invoice.merge"
     _description = "Merge Partner Invoice"
 
-    keep_references = fields.Boolean('Keep references from original invoices',
-                                     default=True)
-    date_invoice = fields.Date('Invoice Date')
+    keep_references = fields.Boolean(
+        "Keep references from original invoices", default=True
+    )
+    date_invoice = fields.Date("Invoice Date")
 
     @api.model
     def _get_not_mergeable_invoices_message(self, invoices):
@@ -25,9 +26,9 @@ class InvoiceMerge(models.TransientModel):
         key_fields = invoices._get_invoice_key_cols()
         error_msg = {}
         if len(invoices) != len(invoices._get_draft_invoices()):
-            error_msg['state'] = (
-                _('Megeable State (ex : %s)') %
-                (invoices and invoices[0].state or _('Draf')))
+            error_msg["state"] = _("Megeable State (ex : %s)") % (
+                invoices and invoices[0].state or _("Draf")
+            )
         for field in key_fields:
             if len(set(invoices.mapped(field))) > 1:
                 error_msg[field] = invoices._fields[field].string
@@ -35,34 +36,35 @@ class InvoiceMerge(models.TransientModel):
 
     @api.model
     def _dirty_check(self):
-        if self.env.context.get('active_model', '') == 'account.invoice':
-            ids = self.env.context['active_ids']
+        if self.env.context.get("active_model", "") == "account.invoice":
+            ids = self.env.context["active_ids"]
             if len(ids) < 2:
                 raise UserError(
-                    _('Please select multiple invoices to merge in the list '
-                      'view.'))
+                    _("Please select multiple invoices to merge in the list " "view.")
+                )
 
-            invs = self.env['account.invoice'].browse(ids)
+            invs = self.env["account.invoice"].browse(ids)
             error_msg = self._get_not_mergeable_invoices_message(invs)
             if error_msg:
                 all_msg = _("All invoices must have the same: \n")
-                all_msg += '\n'.join([value for value in error_msg.values()])
+                all_msg += "\n".join([value for value in error_msg.values()])
                 raise UserError(all_msg)
         return {}
 
     @api.model
-    def fields_view_get(self, view_id=None, view_type='form', toolbar=False,
-                        submenu=False):
+    def fields_view_get(
+        self, view_id=None, view_type="form", toolbar=False, submenu=False
+    ):
         """Changes the view dynamically
-         @param self: The object pointer.
-         @param cr: A database cursor
-         @param uid: ID of the user currently logged in
-         @param context: A standard dictionary
-         @return: New arch of view.
+        @param self: The object pointer.
+        @param cr: A database cursor
+        @param uid: ID of the user currently logged in
+        @param context: A standard dictionary
+        @return: New arch of view.
         """
         res = super(InvoiceMerge, self).fields_view_get(
-            view_id=view_id, view_type=view_type, toolbar=toolbar,
-            submenu=False)
+            view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=False
+        )
         self._dirty_check()
         return res
 
@@ -70,28 +72,31 @@ class InvoiceMerge(models.TransientModel):
     def merge_invoices(self):
         """To merge similar type of account invoices.
 
-             @param self: The object pointer.
-             @param cr: A database cursor
-             @param uid: ID of the user currently logged in
-             @param ids: the ID or list of IDs
-             @param context: A standard dictionary
+        @param self: The object pointer.
+        @param cr: A database cursor
+        @param uid: ID of the user currently logged in
+        @param ids: the ID or list of IDs
+        @param context: A standard dictionary
 
-             @return: account invoice action
+        @return: account invoice action
         """
-        inv_obj = self.env['account.invoice']
-        aw_obj = self.env['ir.actions.act_window']
-        ids = self.env.context.get('active_ids', [])
+        inv_obj = self.env["account.invoice"]
+        aw_obj = self.env["ir.actions.act_window"]
+        ids = self.env.context.get("active_ids", [])
         invoices = inv_obj.browse(ids)
-        allinvoices = invoices.do_merge(keep_references=self.keep_references,
-                                        date_invoice=self.date_invoice)
+        allinvoices = invoices.do_merge(
+            keep_references=self.keep_references, date_invoice=self.date_invoice
+        )
         xid = {
-            'out_invoice': 'action_invoice_tree1',
-            'out_refund': 'action_invoice_tree1',
-            'in_invoice': 'action_invoice_tree2',
-            'in_refund': 'action_invoice_tree2',
+            "out_invoice": "action_invoice_tree1",
+            "out_refund": "action_invoice_tree1",
+            "in_invoice": "action_invoice_tree2",
+            "in_refund": "action_invoice_tree2",
         }[invoices[0].type]
-        action = aw_obj.for_xml_id('account', xid)
-        action.update({
-            'domain': [('id', 'in', ids + list(allinvoices.keys()))],
-        })
+        action = aw_obj.for_xml_id("account", xid)
+        action.update(
+            {
+                "domain": [("id", "in", ids + list(allinvoices.keys()))],
+            }
+        )
         return action
