@@ -15,6 +15,8 @@ class AccountMove(models.Model):
         simulate a multiple discount by changing the unit price. Values are
         restored after the original process is done
         """
+        original_digits = self.line_ids._fields["price_unit"]._digits
+        self.line_ids._fields["price_unit"]._digits = (16, 8)
         old_values_by_line_id = {}
         for line in self.line_ids:
             aggregated_discount = line._compute_aggregated_discount(line.discount)
@@ -24,6 +26,7 @@ class AccountMove(models.Model):
             }
             price_unit = line.price_unit * (1 - aggregated_discount / 100)
             line.update({"price_unit": price_unit, "discount": 0})
+        self.line_ids._fields["price_unit"]._digits = original_digits
         res = super(AccountMove, self)._recompute_tax_lines(**kwargs)
         for line in self.line_ids:
             if line.id not in old_values_by_line_id:
