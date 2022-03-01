@@ -26,8 +26,8 @@ class InvoiceMerge(models.TransientModel):
         key_fields = invoices._get_invoice_key_cols()
         error_msg = {}
         if len(invoices) != len(invoices._get_draft_invoices()):
-            error_msg["state"] = _("Megeable State (ex : %s)") % (
-                invoices and invoices[0].state or _("Draf")
+            error_msg["state"] = _("Merge-able State (ex : %s)") % (
+                invoices and invoices[0].state or _("Draft")
             )
         for field in key_fields:
             if len(set(invoices.mapped(field))) > 1:
@@ -36,14 +36,14 @@ class InvoiceMerge(models.TransientModel):
 
     @api.model
     def _dirty_check(self):
-        if self.env.context.get("active_model", "") == "account.invoice":
+        if self.env.context.get("active_model", "") == "account.move":
             ids = self.env.context["active_ids"]
             if len(ids) < 2:
                 raise UserError(
                     _("Please select multiple invoices to merge in the list " "view.")
                 )
 
-            invs = self.env["account.invoice"].browse(ids)
+            invs = self.env["account.move"].browse(ids)
             error_msg = self._get_not_mergeable_invoices_message(invs)
             if error_msg:
                 all_msg = _("All invoices must have the same: \n")
@@ -57,9 +57,6 @@ class InvoiceMerge(models.TransientModel):
     ):
         """Changes the view dynamically
         @param self: The object pointer.
-        @param cr: A database cursor
-        @param uid: ID of the user currently logged in
-        @param context: A standard dictionary
         @return: New arch of view.
         """
         res = super(InvoiceMerge, self).fields_view_get(
@@ -68,19 +65,12 @@ class InvoiceMerge(models.TransientModel):
         self._dirty_check()
         return res
 
-    @api.multi
     def merge_invoices(self):
         """To merge similar type of account invoices.
-
         @param self: The object pointer.
-        @param cr: A database cursor
-        @param uid: ID of the user currently logged in
-        @param ids: the ID or list of IDs
-        @param context: A standard dictionary
-
         @return: account invoice action
         """
-        inv_obj = self.env["account.invoice"]
+        inv_obj = self.env["account.move"]
         aw_obj = self.env["ir.actions.act_window"]
         ids = self.env.context.get("active_ids", [])
         invoices = inv_obj.browse(ids)
@@ -88,12 +78,12 @@ class InvoiceMerge(models.TransientModel):
             keep_references=self.keep_references, date_invoice=self.date_invoice
         )
         xid = {
-            "out_invoice": "action_invoice_tree1",
-            "out_refund": "action_invoice_tree1",
-            "in_invoice": "action_invoice_tree2",
-            "in_refund": "action_invoice_tree2",
-        }[invoices[0].type]
-        action = aw_obj.for_xml_id("account", xid)
+            "out_invoice": "action_move_out_invoice_type",
+            "out_refund": "action_move_out_refund_type",
+            "in_invoice": "action_move_in_invoice_type",
+            "in_refund": "action_move_in_refund_type",
+        }[invoices[0].move_type]
+        action = aw_obj._for_xml_id("account.{}".format(xid))
         action.update(
             {
                 "domain": [("id", "in", ids + list(allinvoices.keys()))],
