@@ -36,7 +36,7 @@ addon | version | maintainers | summary
 [account_invoice_pricelist](account_invoice_pricelist/) | 13.0.1.0.4 |  | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 13.0.1.0.1 |  | Module to fill pricelist from sales order in invoice.
 [account_invoice_refund_line_selection](account_invoice_refund_line_selection/) | 13.0.1.0.1 |  | This module allows the user to refund specific lines in a invoice
-[account_invoice_refund_link](account_invoice_refund_link/) | 13.0.1.1.0 |  | Show links between refunds and their originator invoices
+[account_invoice_refund_link](account_invoice_refund_link/) | 13.0.1.1.1 |  | Show links between refunds and their originator invoices
 [account_invoice_refund_reinvoice](account_invoice_refund_reinvoice/) | 13.0.1.0.0 |  | Allow to Reinvoice a Refund
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 13.0.1.0.0 |  | Account invoice search by reference
 [account_invoice_section_sale_order](account_invoice_section_sale_order/) | 13.0.1.1.0 |  | For invoices targetting multiple sale order addsections with sale order name.
