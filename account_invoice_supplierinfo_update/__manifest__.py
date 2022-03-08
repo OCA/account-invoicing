@@ -4,25 +4,20 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Account Invoice - Supplier Info Update',
-    'summary': 'In the supplier invoice, automatically updates all products '
-               'whose unit price on the line is different from '
-               'the supplier price',
-    'version': '12.0.1.0.2',
-    'category': 'Accounting & Finance',
-    'website': 'https://github.com/OCA/account-invoicing',
-    'author':
-        'Akretion,'
-        'GRAP,'
-        'Odoo Community Association (OCA)',
-    'license': 'AGPL-3',
-    'installable': True,
-    'depends': [
-        'account',
+    "name": "Account Invoice - Supplier Info Update",
+    "summary": "In the supplier invoice, automatically updates all products "
+    "whose unit price on the line is different from "
+    "the supplier price",
+    "version": "12.0.1.0.2",
+    "category": "Accounting & Finance",
+    "website": "https://github.com/OCA/account-invoicing",
+    "author": "Akretion," "GRAP," "Odoo Community Association (OCA)",
+    "license": "AGPL-3",
+    "installable": True,
+    "depends": ["account",],
+    "data": [
+        "views/account_invoice_view.xml",
+        "wizard/wizard_update_invoice_supplierinfo.xml",
     ],
-    'data': [
-        'views/account_invoice_view.xml',
-        'wizard/wizard_update_invoice_supplierinfo.xml'
-    ],
-    'images': ['static/description/main_screenshot.png'],
+    "images": ["static/description/main_screenshot.png"],
 }
