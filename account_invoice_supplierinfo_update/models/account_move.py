@@ -1,13 +1,13 @@
-# © 2016 Chafique DELLI @ Akretion
-# Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# Copyright 2016 Chafique DELLI @ Akretion
+# Copyright 2016-Today: GRAP (http://www.grap.coop)
+# Copyright Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 
 
-class AccountInvoice(models.Model):
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     # Column Section
     supplier_partner_id = fields.Many2one(
@@ -25,7 +25,6 @@ class AccountInvoice(models.Model):
     )
 
     # Compute Section
-    @api.multi
     def _compute_supplier_partner_id(self):
         for invoice in self:
             invoice.supplier_partner_id = (
@@ -33,7 +32,6 @@ class AccountInvoice(models.Model):
             )
 
     # Custom Section
-    @api.multi
     def _get_update_supplierinfo_lines(self):
         self.ensure_one()
         lines = []
@@ -60,7 +58,6 @@ class AccountInvoice(models.Model):
         return lines
 
     # View Section
-    @api.multi
     def check_supplierinfo(self):
         self.ensure_one()
         lines_for_update = self._get_update_supplierinfo_lines()
