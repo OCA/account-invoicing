@@ -5,7 +5,7 @@ from odoo import api, models
 
 
 class AccountInvoiceLine(models.Model):
-    _inherit = 'account.invoice.line'
+    _inherit = "account.invoice.line"
 
     @api.multi
     def _get_supplierinfo(self):
@@ -13,7 +13,8 @@ class AccountInvoiceLine(models.Model):
         with product and supplier, if exist"""
         self.ensure_one()
         supplierinfos = self.product_id.seller_ids.filtered(
-            lambda seller: seller.name == self.invoice_id.supplier_partner_id)
+            lambda seller: seller.name == self.invoice_id.supplier_partner_id
+        )
         return supplierinfos and supplierinfos[0] or False
 
     @api.multi
@@ -44,18 +45,17 @@ class AccountInvoiceLine(models.Model):
         if supplierinfo:
             # Compute price variation
             if supplierinfo.price:
-                price_variation = 100 *\
-                    (price_unit - supplierinfo.price) / supplierinfo.price
+                price_variation = (
+                    100 * (price_unit - supplierinfo.price) / supplierinfo.price
+                )
             else:
                 price_variation = False
         return {
-            'product_id': self.product_id.id,
-            'supplierinfo_id': supplierinfo and supplierinfo.id or False,
-            'current_price': supplierinfo and supplierinfo.price or False,
-            'new_price': price_unit,
-            'current_min_quantity':
-                supplierinfo and supplierinfo.min_qty or False,
-            'new_min_quantity':
-                supplierinfo and supplierinfo.min_qty or False,
-            'price_variation': price_variation,
+            "product_id": self.product_id.id,
+            "supplierinfo_id": supplierinfo and supplierinfo.id or False,
+            "current_price": supplierinfo and supplierinfo.price or False,
+            "new_price": price_unit,
+            "current_min_quantity": supplierinfo and supplierinfo.min_qty or False,
+            "new_min_quantity": supplierinfo and supplierinfo.min_qty or False,
+            "price_variation": price_variation,
         }
