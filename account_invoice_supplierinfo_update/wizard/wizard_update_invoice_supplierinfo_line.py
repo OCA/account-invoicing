@@ -1,11 +1,9 @@
-# © 2016 Chafique DELLI @ Akretion
-# Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# Copyright 2016 Chafique DELLI @ Akretion
+# Copyright 2016-Today: GRAP (http://www.grap.coop)
+# Copyright Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
-
-import odoo.addons.decimal_precision as dp
 
 
 class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
@@ -29,23 +27,20 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
     new_min_quantity = fields.Float(string="New Min Quantity", required=True)
 
     current_price = fields.Float(
-        related="supplierinfo_id.price",
-        digits=dp.get_precision("Product Price"),
-        readonly=True,
+        related="supplierinfo_id.price", digits="Product Price", readonly=True,
     )
 
     new_price = fields.Float(
-        string="New Unit Price", digits=dp.get_precision("Product Price"), required=True
+        string="New Unit Price", digits="Product Price", required=True,
     )
 
     price_variation = fields.Float(
         string="Price Variation (%)",
         compute="_compute_price_variation",
-        digits=dp.get_precision("Discount"),
+        digits="Discount",
     )
 
     @api.depends("current_price", "new_price")
-    @api.multi
     def _compute_price_variation(self):
         self.write({"price_variation": False})
         for line in self.filtered("current_price"):
@@ -54,7 +49,6 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
             )
 
     # Custom Section
-    @api.multi
     def _prepare_supplierinfo(self):
         self.ensure_one()
         vals = {
