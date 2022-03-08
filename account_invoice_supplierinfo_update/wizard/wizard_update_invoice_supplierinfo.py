@@ -1,9 +1,9 @@
-# © 2016 Chafique DELLI @ Akretion
-# Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# Copyright 2016 Chafique DELLI @ Akretion
+# Copyright 2016-Today: GRAP (http://www.grap.coop)
+# Copyright Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
@@ -17,7 +17,7 @@ class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
     )
 
     invoice_id = fields.Many2one(
-        comodel_name="account.invoice", required=True, readonly=True, ondelete="cascade"
+        comodel_name="account.move", required=True, readonly=True, ondelete="cascade",
     )
 
     state = fields.Selection(related="invoice_id.state", readonly=True)
@@ -29,7 +29,6 @@ class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
         readonly=True,
     )
 
-    @api.multi
     def update_supplierinfo(self):
         self.ensure_one()
         supplierinfo_obj = self.env["product.supplierinfo"]
@@ -44,12 +43,10 @@ class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
         # Mark the invoice as checked
         self.invoice_id.write({"supplierinfo_ok": True})
 
-    @api.multi
     def set_supplierinfo_ok(self):
         self.invoice_id.write({"supplierinfo_ok": True})
 
-    @api.multi
     def update_supplierinfo_validate(self):
         self.update_supplierinfo()
-        invoice = self.env["account.invoice"].browse(self._context["active_id"])
-        invoice.action_invoice_open()
+        invoice = self.env["account.move"].browse(self._context["active_id"])
+        invoice.post()

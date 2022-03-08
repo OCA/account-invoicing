@@ -1,9 +1,6 @@
-# © 2016 Chafique DELLI @ Akretion
+# Copyright 2016 Chafique DELLI @ Akretion
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
-from datetime import datetime
-
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import Form, TransactionCase
 
 
 class Tests(TransactionCase):
@@ -11,63 +8,34 @@ class Tests(TransactionCase):
         super(Tests, self).setUp()
         self.wizard_obj = self.env["wizard.update.invoice.supplierinfo"]
         self.supplierinfo_obj = self.env["product.supplierinfo"]
-        self.invoice_model = self.env["account.invoice"]
+        self.invoice_model = self.env["account.move"]
         journal_model = self.env["account.journal"]
-        self.journal = journal_model.search([("type", "=", "sale")], limit=1)
+        self.journal = journal_model.search([("type", "=", "purchase")], limit=1)
         self.product1 = self.env.ref("product.product_product_4b")
         self.product2 = self.env.ref("product.product_delivery_01")
-        self.prod_account = self.env.ref("account.demo_coffee_machine_account")
         unit = self.env.ref("uom.product_uom_unit")
         self.currency = self.env.ref("base.GBP")
         self.journal.write({"currency_id": self.currency.id})
 
-        self.invoice = self.invoice_model.create(
-            {
-                "journal_id": self.journal.id,
-                "partner_id": self.env.ref("base.res_partner_12").id,
-                "account_id": self.env["account.account"]
-                .search([("user_type_id.type", "=", "payable")], limit=1)
-                .id,
-                "date_invoice": "%s-01-01" % datetime.now().year,
-                "invoice_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "product_id": self.product1.id,
-                            "name": "iPad Retina Display",
-                            "quantity": 10.0,
-                            "price_unit": 400.0,
-                            "uom_id": unit.id,
-                            "account_id": self.prod_account.id,
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "line without product",
-                            "quantity": 1.0,
-                            "price_unit": 35.0,
-                            "uom_id": unit.id,
-                            "account_id": self.prod_account.id,
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "product_id": self.product2.id,
-                            "name": "product supplier info" " to update",
-                            "quantity": 1.0,
-                            "price_unit": 10.0,
-                            "uom_id": unit.id,
-                            "account_id": self.prod_account.id,
-                        },
-                    ),
-                ],
-            }
-        )
+        invoice_form = Form(self.invoice_model.with_context(default_type="in_invoice"))
+        invoice_form.partner_id = self.env.ref("base.res_partner_12")
+        invoice_form.journal_id = self.journal
+        with invoice_form.invoice_line_ids.new() as line_form:
+            line_form.product_id = self.product1
+            line_form.quantity = 10.0
+            line_form.product_uom_id = unit
+            line_form.price_unit = 400.0
+        with invoice_form.invoice_line_ids.new() as line_form:
+            line_form.name = "line without product"
+            line_form.quantity = 1.0
+            line_form.product_uom_id = unit
+            line_form.price_unit = 35.0
+        with invoice_form.invoice_line_ids.new() as line_form:
+            line_form.product_id = self.product2
+            line_form.quantity = 1.0
+            line_form.product_uom_id = unit
+            line_form.price_unit = 10.0
+        self.invoice = invoice_form.save()
 
     def test_with_update_pricelist_supplierinfo_on_product_template(self):
         # supplier invoice with pricelist supplierinfo to update and
@@ -84,7 +52,7 @@ class Tests(TransactionCase):
 
         # Create and launch update process
         wizard = self.wizard_obj.create(
-            {"line_ids": line_ids, "invoice_id": invoice_id,}
+            {"line_ids": line_ids, "invoice_id": invoice_id}
         )
         self.assertEquals(wizard.line_ids[1].new_price, 10.0)
         wizard.update_supplierinfo()
@@ -119,12 +87,14 @@ class Tests(TransactionCase):
         self.assertEquals(supplierinfos2.price, 10.0)
 
     def test_update_pricelist_supplierinfo_uom_conversion(self):
-        """ Price is converted to the product's purchase UOM """
+        """Price is converted to the product's purchase UOM"""
         self.product1.uom_po_id = self.env.ref("uom.product_uom_dozen")
         invoice_line = self.invoice.invoice_line_ids.filtered(
             lambda ail: ail.product_id == self.product1
         )
-        invoice_line.write({"price_unit": 33.0})
+        with Form(self.invoice) as invoice_form:
+            with invoice_form.invoice_line_ids.edit(0) as line_form:
+                line_form.price_unit = 33.0
         wizard = self.wizard_obj.with_context(
             self.invoice.check_supplierinfo()["context"]
         ).create({})
