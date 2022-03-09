@@ -6,7 +6,7 @@ from odoo import api, models
 
 
 class AccountInvoiceLine(models.Model):
-    _inherit = 'account.invoice.line'
+    _inherit = "account.invoice.line"
 
     @api.multi
     def _is_correct_price(self, supplierinfo):
@@ -16,6 +16,6 @@ class AccountInvoiceLine(models.Model):
     @api.multi
     def _prepare_supplier_wizard_line(self, supplierinfo):
         res = super()._prepare_supplier_wizard_line(supplierinfo)
-        res['current_discount'] = supplierinfo and supplierinfo.discount
-        res['new_discount'] = self.discount
+        res["current_discount"] = supplierinfo and supplierinfo.discount
+        res["new_discount"] = self.discount
         return res
