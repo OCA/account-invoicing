@@ -75,31 +75,31 @@ class AccountMoveLine(models.Model):
 
     @api.onchange("product_uom_id")
     def _onchange_uom_id(self):
-        for sel in self:
-            if (
-                sel.move_id.is_invoice()
-                and sel.move_id.state == "draft"
-                and sel.move_id.pricelist_id
-            ):
-                price_unit = sel._get_computed_price_unit()
-                taxes = sel._get_computed_taxes()
-                if taxes and sel.move_id.fiscal_position_id:
-                    price_subtotal = sel._get_price_total_and_subtotal(
-                        price_unit=price_unit, taxes=taxes
-                    )["price_subtotal"]
-                    accounting_vals = sel._get_fields_onchange_subtotal(
-                        price_subtotal=price_subtotal,
-                        currency=self.move_id.company_currency_id,
-                    )
-                    amount_currency = accounting_vals["amount_currency"]
-                    price_unit = sel._get_fields_onchange_balance(
-                        amount_currency=amount_currency
-                    ).get("price_unit", price_unit)
-                sel.with_context(check_move_validity=False).update(
-                    {"price_unit": price_unit}
+        if (
+            self.move_id.is_invoice()
+            and self.move_id.state == "draft"
+            and self.move_id.pricelist_id
+        ):
+            price_unit = self._get_computed_price_unit()
+            taxes = self._get_computed_taxes()
+            if taxes and self.move_id.fiscal_position_id:
+                price_subtotal = self._get_price_total_and_subtotal(
+                    price_unit=price_unit, taxes=taxes
+                )["price_subtotal"]
+                accounting_vals = self._get_fields_onchange_subtotal(
+                    price_subtotal=price_subtotal,
+                    currency=self.move_id.company_currency_id,
                 )
-            else:
-                super(AccountMoveLine, self)._onchange_uom_id()
+                amount_currency = accounting_vals["amount_currency"]
+                price_unit = self._get_fields_onchange_balance(
+                    amount_currency=amount_currency
+                ).get("price_unit", price_unit)
+            self.with_context(check_move_validity=False).update(
+                {"price_unit": price_unit}
+            )
+            return
+        else:
+            return super(AccountMoveLine, self)._onchange_uom_id()
 
     def _get_real_price_currency(self, product, rule_id, qty, uom, pricelist_id):
         PricelistItem = self.env["product.pricelist.item"]
@@ -188,19 +188,17 @@ class AccountMoveLine(models.Model):
                 )
                 self.with_context(check_move_validity=False).discount = 0.0
             else:
-                product_context = dict(
-                    self.env.context,
+                final_price, rule_id = self.move_id.pricelist_id.with_context(
                     partner_id=self.move_id.partner_id.id,
                     date=self.move_id.invoice_date or fields.Date.today(),
                     uom=self.product_uom_id.id,
-                )
-                final_price, rule_id = self.move_id.pricelist_id.with_context(
-                    product_context
                 ).get_product_price_rule(
                     self.product_id, self.quantity or 1.0, self.move_id.partner_id
                 )
                 base_price, currency = self.with_context(
-                    product_context
+                    partner_id=self.move_id.partner_id.id,
+                    date=self.move_id.invoice_date or fields.Date.today(),
+                    uom=self.product_uom_id.id,
                 )._get_real_price_currency(
                     self.product_id,
                     rule_id,
