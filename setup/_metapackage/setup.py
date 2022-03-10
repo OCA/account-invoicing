@@ -34,6 +34,7 @@ setuptools.setup(
         'odoo13-addon-account_invoice_supplier_ref_unique',
         'odoo13-addon-account_invoice_supplier_self_invoice',
         'odoo13-addon-account_invoice_supplierinfo_update',
+        'odoo13-addon-account_invoice_supplierinfo_update_discount',
         'odoo13-addon-account_invoice_tax_note',
         'odoo13-addon-account_invoice_tax_required',
         'odoo13-addon-account_invoice_transmit_method',
