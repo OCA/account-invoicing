@@ -3,6 +3,7 @@
 import hashlib
 import inspect
 
+from odoo.exceptions import UserError
 from odoo.tests import common
 
 from odoo.addons.sale.models.sale import SaleOrderLine as upstream
@@ -125,6 +126,7 @@ class TestAccountMovePricelist(common.SavepointCase):
             }
         )
         cls.euro_currency = cls.env["res.currency"].search([("name", "=", "EUR")])
+        cls.usd_currency = cls.env["res.currency"].search([("name", "=", "USD")])
         cls.sale_pricelist_with_discount_in_euros = cls.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist - 4",
@@ -316,3 +318,10 @@ class TestAccountMovePricelist(common.SavepointCase):
         func = inspect.getsource(upstream._get_real_price_currency).encode()
         func_hash = hashlib.md5(func).hexdigest()
         self.assertIn(func_hash, VALID_HASHES)
+
+    def test_check_currency(self):
+        with self.assertRaises(UserError):
+            self.invoice.currency_id = self.usd_currency.id
+            self.invoice.write(
+                {"pricelist_id": self.sale_pricelist_with_discount_in_euros.id}
+            )

@@ -21,7 +21,7 @@ msgstr ""
 
 #. module: account_invoice_pricelist
 #: model:ir.model,name:account_invoice_pricelist.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_pricelist
@@ -30,7 +30,9 @@ msgid "Journal Item"
 msgstr ""
 
 #. module: account_invoice_pricelist
+#: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_bank_statement_line__pricelist_id
 #: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_move__pricelist_id
+#: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_payment__pricelist_id
 #: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.account_invoice_filter_inherit_account_pricelist
 msgid "Pricelist"
 msgstr "Liste de prix"
