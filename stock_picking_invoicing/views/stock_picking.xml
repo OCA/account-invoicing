@@ -93,7 +93,7 @@
                     string="Set to be invoiced"
                     attrs="{'invisible':['|', '|',
                          ('invoice_state', '=', 'invoiced'),
-                         ('invoice_ids', '=', True), ('state', '=', 'cancel')]}"
+                         ('invoice_ids', '!=', False), ('state', '=', 'cancel')]}"
                 />
             </button>
         </field>
