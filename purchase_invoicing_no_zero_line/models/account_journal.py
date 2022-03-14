@@ -10,5 +10,5 @@ class AccountJournal(models.Model):
     avoid_zero_lines = fields.Boolean(
         string="Avoid zero lines?",
         help="If this option is checked, the purchase invoices in this journal"
-             " will have no lines with zero quantity"
+        " will have no lines with zero quantity",
     )
