@@ -8,7 +8,7 @@ from odoo.tools import float_is_zero
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    @api.onchange('purchase_id')
+    @api.onchange("purchase_id")
     def purchase_order_change(self):
         """
         after the creation of the lines, delete the zero qty lines
@@ -20,6 +20,7 @@ class AccountInvoice(models.Model):
             self.invoice_line_ids -= self.invoice_line_ids.filtered(
                 lambda x: float_is_zero(
                     x.quantity, precision_rounding=x.uom_id.rounding,
-                ) and x.purchase_id == purchase
+                )
+                and x.purchase_id == purchase
             )
         return res

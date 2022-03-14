@@ -8,10 +8,6 @@
     "author": "Digital5 S.L., Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "installable": True,
-    "depends": [
-        "purchase",
-    ],
-    'data': [
-        'views/account_view.xml',
-    ],
+    "depends": ["purchase"],
+    "data": ["views/account_view.xml"],
 }
