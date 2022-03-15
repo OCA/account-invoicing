@@ -42,6 +42,10 @@ class SaleOrder(models.Model):
                                 "name": group._get_invoice_section_name(),
                                 "display_type": "line_section",
                                 "sequence": sequence,
+                                # see test: test_create_invoice_with_default_journal
+                                # forcing the account_id is needed to avoid
+                                # incorrect default value
+                                "account_id": False,
                             },
                         )
                     )
