@@ -6,10 +6,7 @@
             <field name="model">account.journal</field>
             <field name="inherit_id" ref="account.view_account_journal_form" />
             <field name="arch" type="xml">
-                <xpath
-                    expr="//page[@name='advanced_settings']//field[@name='group_invoice_lines']"
-                    position="after"
-                >
+                <xpath expr="//field[@name='type']" position="after">
                     <field
                         name="avoid_zero_lines"
                         attrs="{'invisible': [('type', '!=', 'purchase')]}"
