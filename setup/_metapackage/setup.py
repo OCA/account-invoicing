@@ -12,6 +12,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_date_due>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_refund_link>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_search_by_reference>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_tax_required>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_tree_currency>=15.0dev,<15.1dev',
     ],
     classifiers=[
