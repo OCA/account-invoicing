@@ -19,8 +19,8 @@ msgstr ""
 
 #. module: purchase_invoicing_no_zero_line
 #: model:ir.model.fields,field_description:purchase_invoicing_no_zero_line.field_account_journal_avoid_zero_lines
-msgid "Avoid zero lines?"
-msgstr "Evitar líneas a cero?"
+msgid "Avoid zero lines"
+msgstr "Evitar líneas a cero"
 
 #. module: purchase_invoicing_no_zero_line
 #: model:ir.model.fields,help:purchase_invoicing_no_zero_line.field_account_journal_avoid_zero_lines
