@@ -50,6 +50,7 @@ setuptools.setup(
         'odoo13-addon-account_tax_group_widget_base_amount',
         'odoo13-addon-product_supplierinfo_for_customer_invoice',
         'odoo13-addon-purchase_batch_invoicing',
+        'odoo13-addon-purchase_invoicing_no_zero_line',
         'odoo13-addon-purchase_stock_picking_return_invoicing',
         'odoo13-addon-sale_line_refund_to_invoice_qty',
         'odoo13-addon-sale_order_invoicing_grouping_criteria',
