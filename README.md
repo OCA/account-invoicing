@@ -21,30 +21,36 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_billing](account_billing/) | 13.0.1.0.4 | [![Saran440](https://github.com/Saran440.png?size=30px)](https://github.com/Saran440) | Group invoice as billing before payment
 [account_global_discount](account_global_discount/) | 13.0.2.0.1 |  | Account Global Discount
+[account_invoice_alternate_payer](account_invoice_alternate_payer/) | 13.0.1.0.0 |  | Set a alternate payor/payee in invoices
 [account_invoice_base_invoicing_mode](account_invoice_base_invoicing_mode/) | 13.0.1.0.1 |  | Base module for handling multiple invoicing mode
+[account_invoice_blocking](account_invoice_blocking/) | 13.0.1.0.0 |  | Set a blocking (No Follow-up) flag on invoices
 [account_invoice_check_picking_date](account_invoice_check_picking_date/) | 13.0.1.0.0 | [![carlosdauden](https://github.com/carlosdauden.png?size=30px)](https://github.com/carlosdauden) | Check if date of pickings match with invoice date
 [account_invoice_check_total](account_invoice_check_total/) | 13.0.1.0.1 |  | Check if the verification total is equal to the bill's total
 [account_invoice_date_due](account_invoice_date_due/) | 13.0.1.0.1 | [![luisg123v](https://github.com/luisg123v.png?size=30px)](https://github.com/luisg123v) [![joao-p-marques](https://github.com/joao-p-marques.png?size=30px)](https://github.com/joao-p-marques) | Update Invoice's Due Date
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 13.0.1.0.4 |  | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 13.0.1.0.2 |  | Allows to apply fixed amount discounts in invoices.
 [account_invoice_force_number](account_invoice_force_number/) | 13.0.1.0.0 |  | Allows to force invoice numbering on specific invoices
+[account_invoice_line_description](account_invoice_line_description/) | 13.0.1.0.0 |  | Account invoice line description
 [account_invoice_mode_at_shipping](account_invoice_mode_at_shipping/) | 13.0.1.0.1 |  | Create invoices automatically when goods are shipped.
 [account_invoice_mode_monthly](account_invoice_mode_monthly/) | 13.0.1.0.1 |  | Create invoices automatically on a monthly basis.
 [account_invoice_pricelist](account_invoice_pricelist/) | 13.0.1.0.4 |  | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 13.0.1.0.1 |  | Module to fill pricelist from sales order in invoice.
-[account_invoice_refund_line_selection](account_invoice_refund_line_selection/) | 13.0.1.0.1 |  | This module allows the user to refund specific lines in a invoice
-[account_invoice_refund_link](account_invoice_refund_link/) | 13.0.1.1.0 |  | Show links between refunds and their originator invoices
+[account_invoice_refund_line_selection](account_invoice_refund_line_selection/) | 13.0.1.0.2 |  | This module allows the user to refund specific lines in a invoice
+[account_invoice_refund_link](account_invoice_refund_link/) | 13.0.1.1.1 |  | Show links between refunds and their originator invoices
 [account_invoice_refund_reinvoice](account_invoice_refund_reinvoice/) | 13.0.1.0.0 |  | Allow to Reinvoice a Refund
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 13.0.1.0.0 |  | Account invoice search by reference
 [account_invoice_section_sale_order](account_invoice_section_sale_order/) | 13.0.1.1.0 |  | For invoices targetting multiple sale order addsections with sale order name.
-[account_invoice_show_currency_rate](account_invoice_show_currency_rate/) | 13.0.1.0.1 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Show currency rate in invoices.
+[account_invoice_show_currency_rate](account_invoice_show_currency_rate/) | 13.0.1.0.2 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Show currency rate in invoices.
 [account_invoice_supplier_ref_reuse](account_invoice_supplier_ref_reuse/) | 13.0.1.0.0 |  | Makes it possible to reuse supplier invoice references
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 13.0.1.0.3 |  | Checks that supplier invoices are not entered twice
 [account_invoice_supplier_self_invoice](account_invoice_supplier_self_invoice/) | 13.0.1.1.1 |  | Purchase Self Invoice
+[account_invoice_supplierinfo_update](account_invoice_supplierinfo_update/) | 13.0.1.0.0 |  | In the supplier invoice, automatically updates all products whose unit price on the line is different from the supplier price
+[account_invoice_supplierinfo_update_discount](account_invoice_supplierinfo_update_discount/) | 13.0.1.0.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | In the supplier invoice, automatically update all products whose discount on the line is different from the supplier discount
 [account_invoice_tax_note](account_invoice_tax_note/) | 13.0.1.0.0 |  | Print tax notes on customer invoices
 [account_invoice_tax_required](account_invoice_tax_required/) | 13.0.1.0.2 |  | This module adds functional a check on invoice to force user to set tax on invoice line.
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 13.0.1.1.0 | [![alexis-via](https://github.com/alexis-via.png?size=30px)](https://github.com/alexis-via) | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_tree_currency](account_invoice_tree_currency/) | 13.0.1.0.0 |  | Show currencies in the invoice tree view
+[account_invoice_triple_discount](account_invoice_triple_discount/) | 13.0.1.0.0 |  | Manage triple discount on invoice lines
 [account_invoice_validation_queued](account_invoice_validation_queued/) | 13.0.2.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Enqueue account invoice validation
 [account_invoice_warn_message](account_invoice_warn_message/) | 13.0.1.0.1 |  | Add a popup warning on invoice to ensure warning is populated
 [account_menu_invoice_refund](account_menu_invoice_refund/) | 13.0.1.0.0 | [![kittiu](https://github.com/kittiu.png?size=30px)](https://github.com/kittiu) | New invoice menu that combine invoices and refunds
@@ -55,12 +61,13 @@ addon | version | maintainers | summary
 [account_tax_group_widget_base_amount](account_tax_group_widget_base_amount/) | 13.0.1.0.0 | [![chienandalu](https://github.com/chienandalu.png?size=30px)](https://github.com/chienandalu) | Adds base to tax group widget as it's put in the report
 [product_supplierinfo_for_customer_invoice](product_supplierinfo_for_customer_invoice/) | 13.0.1.0.0 |  | Based on product_customer_code, this module loads in every account invoice the customer code defined in the product
 [purchase_batch_invoicing](purchase_batch_invoicing/) | 13.0.1.1.0 |  | Make invoices for all ready purchase orders
+[purchase_invoicing_no_zero_line](purchase_invoicing_no_zero_line/) | 13.0.1.0.0 |  | Avoid creation of zero quantity invoice lines from purchase
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 13.0.1.2.1 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) [![MiquelRForgeFlow](https://github.com/MiquelRForgeFlow.png?size=30px)](https://github.com/MiquelRForgeFlow) | Add an option to refund returned pickings
 [sale_line_refund_to_invoice_qty](sale_line_refund_to_invoice_qty/) | 13.0.1.2.0 |  | Allow deciding whether refunded quantity should be considered as quantity to reinvoice
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 13.0.2.0.2 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Sales order invoicing grouping criteria
 [sale_order_invoicing_queued](sale_order_invoicing_queued/) | 13.0.2.0.1 |  | Enqueue sales order invoicing
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 13.0.1.0.0 |  | Add timesheet details in invoice line
-[stock_picking_invoicing](stock_picking_invoicing/) | 13.0.3.1.0 |  | Stock Picking Invoicing
+[stock_picking_invoicing](stock_picking_invoicing/) | 13.0.3.1.1 |  | Stock Picking Invoicing
 [stock_picking_return_refund_option](stock_picking_return_refund_option/) | 13.0.1.0.0 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Update the refund options in pickings
 
 [//]: # (end addons)

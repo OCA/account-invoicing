@@ -37,6 +37,7 @@ class AccountMove(models.Model):
         currency_field="currency_id",
         readonly=True,
         compute_sudo=True,
+        store=True,
     )
     amount_untaxed_before_global_discounts = fields.Monetary(
         string="Amount Untaxed Before Discounts",
@@ -44,6 +45,7 @@ class AccountMove(models.Model):
         currency_field="currency_id",
         readonly=True,
         compute_sudo=True,
+        store=True,
     )
     invoice_global_discount_ids = fields.One2many(
         comodel_name="account.invoice.global.discount",
@@ -185,10 +187,13 @@ class AccountMove(models.Model):
                     % (discount.name, ", ".join(discount.tax_ids.mapped("name"))),
                     "debit": disc_amount > 0.0 and disc_amount or 0.0,
                     "credit": disc_amount < 0.0 and -disc_amount or 0.0,
+                    "amount_currency": (disc_amount > 0.0 and disc_amount or 0.0)
+                    - (disc_amount < 0.0 and -disc_amount or 0.0),
                     "account_id": discount.account_id.id,
                     "analytic_account_id": discount.account_analytic_id.id,
                     "exclude_from_invoice_tab": True,
                     "tax_ids": [(4, x.id) for x in discount.tax_ids],
+                    "partner_id": self.commercial_partner_id.id,
                 }
             )
 
@@ -200,12 +205,16 @@ class AccountMove(models.Model):
             self.type in ["out_invoice", "out_refund"]
             and self.partner_id.customer_global_discount_ids
         ):
-            discounts = self.partner_id.customer_global_discount_ids
+            discounts = self.partner_id.customer_global_discount_ids.filtered(
+                lambda d: d.company_id == self.company_id
+            )
         elif (
             self.type in ["in_refund", "in_invoice"]
             and self.partner_id.supplier_global_discount_ids
         ):
-            discounts = self.partner_id.supplier_global_discount_ids
+            discounts = self.partner_id.supplier_global_discount_ids.filtered(
+                lambda d: d.company_id == self.company_id
+            )
         if discounts:
             self.global_discount_ids = discounts
             # We need to manually launch the onchange, as the recursivity is explicitly
@@ -248,7 +257,7 @@ class AccountMove(models.Model):
             amount_untaxed_signed = self.currency_id._convert(
                 self.amount_untaxed, self.company_id.currency_id, self.company_id, date
             )
-        sign = self.type in ["in_refund", "out_refund"] and -1 or 1
+        sign = self.type in ["in_invoice", "out_refund"] and -1 or 1
         self.amount_total_company_signed = amount_total_company_signed * sign
         self.amount_total_signed = self.amount_total * sign
         self.amount_untaxed_signed = amount_untaxed_signed * sign

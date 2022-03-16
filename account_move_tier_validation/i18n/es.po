@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-03-10 10:46+0000\n"
-"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
+"PO-Revision-Date: 2022-02-03 12:33+0000\n"
+"Last-Translator: Olga Marco Puértolas <olga.marco@creublanca.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,7 @@ msgstr "<i class=\"fa fa-thumbs-up\"/> La operaciçon ha sido <b>validada</b>!"
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Invoices Pending to Validate"
-msgstr ""
+msgstr "Facturas Pendientes de Validar"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -49,7 +49,7 @@ msgstr "Facturas validadas y listas para ser confirmadas"
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Invoices where validation has not started"
-msgstr ""
+msgstr "Facturas donde la validación no ha comenzado"
 
 #. module: account_move_tier_validation
 #: model:ir.model,name:account_move_tier_validation.model_account_move
@@ -99,9 +99,9 @@ msgstr "Validado"
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Validation In Progress"
-msgstr ""
+msgstr "Validación en curso"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Validation Not Started"
-msgstr ""
+msgstr "Validación no iniciada"
