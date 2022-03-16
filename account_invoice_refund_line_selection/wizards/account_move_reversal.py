@@ -40,7 +40,7 @@ class AccountInvoiceRefund(models.TransientModel):
             vals["line_ids"] = [
                 (0, 0, l.copy_data({
                     "move_id": False, "recompute_tax_line": True,
-                })[0]) for l in self.line_ids
+                })[0]) for l in self.line_ids]
             move = self.env["account.move"].new(vals)
             lines = []
             for line in move._move_autocomplete_invoice_lines_values()["line_ids"]:
