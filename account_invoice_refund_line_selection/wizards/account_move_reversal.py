@@ -41,10 +41,8 @@ class AccountInvoiceRefund(models.TransientModel):
         if self.refund_method == "refund_lines":
             vals = res.copy()
             vals["line_ids"] = [
-                (0, 0, line)
-                for line in self.line_ids.copy_data(
-                    {"move_id": False, "recompute_tax_line": True}
-                )
+                (0, 0, li.copy_data({"move_id": False, "recompute_tax_line": True})[0])
+                for li in self.line_ids
             ]
             move = self.env["account.move"].new(vals)
             lines = []
