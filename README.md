@@ -30,6 +30,7 @@ addon | version | maintainers | summary
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 13.0.1.0.4 |  | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 13.0.1.0.2 |  | Allows to apply fixed amount discounts in invoices.
 [account_invoice_force_number](account_invoice_force_number/) | 13.0.1.0.0 |  | Allows to force invoice numbering on specific invoices
+[account_invoice_force_origin](account_invoice_force_origin/) | 13.0.1.0.0 |  | Allows to force invoice origin on specific invoices
 [account_invoice_line_description](account_invoice_line_description/) | 13.0.1.0.0 |  | Account invoice line description
 [account_invoice_mode_at_shipping](account_invoice_mode_at_shipping/) | 13.0.1.0.1 |  | Create invoices automatically when goods are shipped.
 [account_invoice_mode_monthly](account_invoice_mode_monthly/) | 13.0.1.0.1 |  | Create invoices automatically on a monthly basis.
