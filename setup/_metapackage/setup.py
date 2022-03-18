@@ -19,6 +19,7 @@ setuptools.setup(
         'odoo13-addon-account_invoice_fiscal_position_update',
         'odoo13-addon-account_invoice_fixed_discount',
         'odoo13-addon-account_invoice_force_number',
+        'odoo13-addon-account_invoice_force_origin',
         'odoo13-addon-account_invoice_line_description',
         'odoo13-addon-account_invoice_mode_at_shipping',
         'odoo13-addon-account_invoice_mode_monthly',
