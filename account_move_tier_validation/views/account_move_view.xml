@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright <2020> PESOL <info@pesol.es>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl) -->
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form - test</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <button name="action_post" position="before">
+                <button
+                    name="request_validation"
+                    string="Request Validation"
+                    attrs="{'invisible': ['|','|',('need_validation', '!=', True),('rejected','=',True),('state','not in',['draft'])]}"
+                    type="object"
+                />
+                <button
+                    name="restart_validation"
+                    string="Restart Validation"
+                    attrs="{'invisible': ['|',('review_ids', '=', []),('state','not in',['draft'])]}"
+                    type="object"
+                />
+            </button>
+            <header position="after">
+                <field name="need_validation" invisible="1" />
+                <field name="validated" invisible="1" />
+                <field name="rejected" invisible="1" />
+                <div
+                    class="alert alert-warning"
+                    role="alert"
+                    attrs="{'invisible': ['|', '|', '|',
+                     ('validated', '=', True), ('state', 'not in', ['draft']),
+                     ('rejected', '=', True), ('review_ids', '=', [])]}"
+                    style="margin-bottom:0px;"
+                >
+                    <p><i class="fa fa-info-circle" />This Invoice needs to be
+                        validated.
+                        <field name="can_review" invisible="1" />
+                        <button
+                            name="validate_tier"
+                            string="Validate"
+                            attrs="{'invisible': [('can_review', '=', False)]}"
+                            type="object"
+                            class="oe_inline oe_button btn-success"
+                            icon="fa-thumbs-up"
+                        />
+                        <button
+                            name="reject_tier"
+                            string="Reject"
+                            attrs="{'invisible': [('can_review', '=', False)]}"
+                            type="object"
+                            class="btn-icon btn-danger"
+                            icon="fa-thumbs-down"
+                        />
+                    </p>
+                </div>
+                <div
+                    class="alert alert-success"
+                    role="alert"
+                    attrs="{'invisible': ['|', '|', ('validated', '!=', True), ('state', 'not in', ['draft']), ('review_ids', '=', [])]}"
+                    style="margin-bottom:0px;"
+                >
+                    <p><i class="fa fa-thumbs-up" /> Operation has been <b
+                        >validated</b>!</p>
+                </div>
+                <div
+                    class="alert alert-danger"
+                    role="alert"
+                    attrs="{'invisible': ['|', '|', ('rejected', '!=', True), ('state', 'not in', ['draft']), ('review_ids', '=', [])]}"
+                    style="margin-bottom:0px;"
+                >
+                    <p><i class="fa fa-thumbs-down" /> Operation has been <b
+                        >rejected</b>.</p>
+                </div>
+            </header>
+            <xpath expr="//form/div[hasclass('oe_chatter')]" position="before">
+                <field
+                    name="review_ids"
+                    widget="tier_validation"
+                    attrs="{'invisible':[('review_ids', '=', [])]}"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">account.move.select - account_move_tier_validation</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <filter name="duedate" position="after">
+                <separator />
+                <filter
+                    name="needs_review"
+                    string="Needs my Review"
+                    domain="[('reviewer_ids','in',uid), ('state', 'not in', ['posted', 'cancel'])]"
+                    help="My Accounts to review"
+                />
+                <filter
+                    name="validation_not_started"
+                    string="Validation Not Started"
+                    domain="[('reviewer_ids', '=', False), ('state', 'not in', ['posted', 'cancel']), ('validated', '=', False), ('rejected', '=', False)]"
+                    help="Invoices where validation has not started"
+                />
+                <filter
+                    name="validation_in_progress"
+                    string="Validation In Progress"
+                    domain="[('reviewer_ids', '!=', False), ('state', 'not in', ['posted', 'cancel'])]"
+                    help="Invoices Pending to Validate"
+                />
+                <filter
+                    name="tier_validated"
+                    string="Validated"
+                    domain="[('validated', '=', True)]"
+                    help="Invoices validated and ready to be confirmed"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>
