@@ -16,5 +16,5 @@
             <field name="method">_generate_invoices_by_partner</field>
             <field name="channel_id" ref="invoice_weekly" />
         </record>
-    <data>
+    </data>
 </odoo>
