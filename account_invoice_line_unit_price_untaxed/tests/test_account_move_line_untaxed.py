@@ -140,3 +140,41 @@ class TestInvoicePriceUntaxed(SavepointCase):
         invoice_line = first(self.invoice.invoice_line_ids)
         self.assertEqual(invoice_line.price_unit, 115)
         self.assertEqual(invoice_line.price_unit_untaxed, 100)
+
+    def test_invoice_with_decimal_precision(self):
+        """
+        Set tax with price include False
+        Set the product price to 118.573
+        Set product price precision to 3
+        Check prices are equivalent (price_unit == price_unit_untaxed) with
+        same
+        """
+        self.tax2.price_include = False
+        self.user_demo.write(
+            {
+                "company_id": self.company_2.id,
+            }
+        )
+        self.invoice = (
+            self.env["account.move"]
+            .with_user(self.user_demo)
+            .with_company(self.company_2)
+            .create(
+                {
+                    "partner_id": self.partner.id,
+                    "journal_id": self.journal_sale_2.id,
+                    "move_type": "out_invoice",
+                }
+            )
+        )
+        precision = self.env["decimal.precision"].search(
+            [("name", "=", "Product Price")]
+        )
+        precision.write({"digits": 3})
+        self.product.list_price = 118.573
+        with Form(self.invoice) as invoice_form:
+            with invoice_form.invoice_line_ids.new() as invoice_line:
+                invoice_line.product_id = self.product
+        invoice_line = first(self.invoice.invoice_line_ids)
+        self.assertEqual(invoice_line.price_unit, 118.573)
+        self.assertEqual(invoice_line.price_unit_untaxed, 118.573)
