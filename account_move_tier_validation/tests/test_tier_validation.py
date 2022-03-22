@@ -56,7 +56,7 @@ class TestAccountTierValidation(common.SavepointCase):
     @classmethod
     def tearDownClass(cls):
         teardown_test_model(cls.env, [TierValidationTester])
-        super(TestAccountTierValidation, cls).tearDownClass()
+        return super(TestAccountTierValidation, cls).tearDownClass()
 
     def test_01_tier_definition_models(self):
         """When the user can validate all future reviews, it is not needed
