@@ -56,6 +56,7 @@ addon | version | maintainers | summary
 [account_move_tier_validation](account_move_tier_validation/) | 14.0.1.0.2 |  | Extends the functionality of Account Moves to support a tier validation process.
 [product_supplierinfo_for_customer_invoice](product_supplierinfo_for_customer_invoice/) | 14.0.1.0.0 |  | Based on product_customer_code, this module loads in every account invoice the customer code defined in the product
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 14.0.1.2.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) [![MiquelRForgeFlow](https://github.com/MiquelRForgeFlow.png?size=30px)](https://github.com/MiquelRForgeFlow) | Add an option to refund returned pickings
+[sale_line_refund_to_invoice_qty](sale_line_refund_to_invoice_qty/) | 14.0.1.0.0 |  | Allow deciding whether refunded quantity should be considered as quantity to reinvoice
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 14.0.1.0.1 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Sales order invoicing grouping criteria
 [sale_order_invoicing_queued](sale_order_invoicing_queued/) | 14.0.1.0.0 |  | Enqueue sales order invoicing
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 14.0.1.0.0 |  | Add timesheet details in invoice line
