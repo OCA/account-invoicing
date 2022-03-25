@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-03-26 01:17+0000\n"
+"Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
 "Language-Team: none\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model,name:account_invoice_refund_line_selection.model_account_move_reversal
@@ -29,46 +31,46 @@ msgstr ""
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__refund_method
 msgid "Credit Method"
-msgstr ""
+msgstr "Crediterings methode"
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Weergavenaam"
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_refund_line_selection
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
 msgid "Invoice Lines"
-msgstr ""
+msgstr "Factuur regels"
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__line_ids
 msgid "Invoice lines to refund"
-msgstr ""
+msgstr "Factuur regels te crediteren"
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Laatst gewijzigd op"
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields.selection,name:account_invoice_refund_line_selection.selection__account_move_reversal__refund_method__refund_lines
 msgid "Refund specific lines"
-msgstr ""
+msgstr "Crediteer specifieke regels"
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__selectable_invoice_lines_ids
 msgid "Selectable Invoice Lines"
-msgstr ""
+msgstr "Selecteerbare factuur regels"
 
 #. module: account_invoice_refund_line_selection
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
 msgid ""
 "Use this option if you want to refund only some specific lines in an "
 "invoice."
-msgstr ""
+msgstr "Gebruik deze optie om specifieke factuur refels te crediteren."
