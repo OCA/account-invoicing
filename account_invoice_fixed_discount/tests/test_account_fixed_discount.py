@@ -85,7 +85,7 @@ class TestInvoiceFixedDiscount(SavepointCase):
         return invoice
 
     def test_01_discounts_fixed(self):
-        """ Tests multiple discounts in line with taxes."""
+        """Tests multiple discounts in line with taxes."""
         invoice = self._create_invoice(discount_fixed=57)
         with self.assertRaises(ValidationError):
             invoice.invoice_line_ids.discount = 50
