@@ -58,7 +58,7 @@ class TestInvoiceTripleDiscount(SavepointCase):
         return invoice
 
     def test_01_discounts(self):
-        """ Tests multiple discounts in line with taxes """
+        """Tests multiple discounts in line with taxes"""
         invoice = self.create_simple_invoice(200)
 
         invoice_form = Form(invoice)
