@@ -68,7 +68,7 @@ class AccountMove(models.Model):
 
     @api.model
     def _move_lines_retained_moves(self, retained_moves):
-        """ Get move_lines from selected retained moves in list of dict """
+        """Get move_lines from selected retained moves in list of dict"""
         retained_move_lines = []
         retention_account = self.env.company.retention_account_id
         move_lines = retained_moves.mapped("line_ids").filtered(
@@ -103,7 +103,7 @@ class AccountMove(models.Model):
 
     @api.depends("payment_retention", "amount_retention", "amount_untaxed")
     def _compute_retention_amount_currency(self):
-        """ Compute retention based on untaxed amount """
+        """Compute retention based on untaxed amount"""
         for rec in self:
             amount = 0.0
             if rec.payment_retention == "amount":
@@ -132,7 +132,7 @@ class AccountMove(models.Model):
 
     @api.depends("line_ids.matched_debit_ids", "line_ids.matched_credit_ids")
     def _compute_retention_residual_currency(self):
-        """ Expected retention amount minus payment retention """
+        """Expected retention amount minus payment retention"""
         for rec in self:
             if not rec.payment_retention:
                 rec.retention_residual_currency = 0.0
