@@ -129,7 +129,7 @@ class TestInvoicePaymentRetention(SavepointCase):
         )
 
     def test_retention_account(self):
-        """ Retention account must be set as allow reconciliation """
+        """Retention account must be set as allow reconciliation"""
         self.env.company.retention_account_id = False
         self.account_retention.reconcile = False
         with self.assertRaises(ValidationError):
