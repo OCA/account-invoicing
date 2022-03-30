@@ -28,6 +28,7 @@
         <field name="name">stock.picking.form.inherit</field>
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock_picking_invoice_link.view_picking_form" />
+        <field name="priority" eval="999" />
         <field name="arch" type="xml">
             <!-- The replace is needed because the tree view definition below change
             also the field view defined in stock_picking_invoice_link -->
