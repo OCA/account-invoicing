@@ -89,7 +89,7 @@ class TestAccountBilling(SavepointCase):
         partner=None,
         account_id=None,
     ):
-        """ Returns an open invoice """
+        """Returns an open invoice"""
         invoice = self.invoice_model.create(
             {
                 "partner_id": partner or self.partner_agrolait.id,
@@ -149,7 +149,7 @@ class TestAccountBilling(SavepointCase):
             self.billing_model.with_context(ctx).create({})
 
     def test_4_create_billing_from_selected_invoices(self):
-        """ Create two invoices, post it and send context to Billing """
+        """Create two invoices, post it and send context to Billing"""
         ctx = {
             "active_model": "account.move",
             "active_ids": [self.inv_1.id, self.inv_2.id],
