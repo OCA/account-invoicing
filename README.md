@@ -23,6 +23,7 @@ addon | version | maintainers | summary
 [account_billing](account_billing/) | 14.0.1.0.2 | [![Saran440](https://github.com/Saran440.png?size=30px)](https://github.com/Saran440) | Group invoice as billing before payment
 [account_global_discount](account_global_discount/) | 14.0.1.0.0 |  | Account Global Discount
 [account_invoice_base_invoicing_mode](account_invoice_base_invoicing_mode/) | 14.0.1.1.0 |  | Base module for handling multiple invoicing mode
+[account_invoice_blocking](account_invoice_blocking/) | 14.0.1.0.0 |  | Set a blocking (No Follow-up) flag on invoices
 [account_invoice_check_total](account_invoice_check_total/) | 14.0.1.0.1 |  | Check if the verification total is equal to the bill's total
 [account_invoice_date_due](account_invoice_date_due/) | 14.0.1.0.1 | [![luisg123v](https://github.com/luisg123v.png?size=30px)](https://github.com/luisg123v) [![joao-p-marques](https://github.com/joao-p-marques.png?size=30px)](https://github.com/joao-p-marques) | Update Invoice's Due Date
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 14.0.1.0.0 | [![alexis-via](https://github.com/alexis-via.png?size=30px)](https://github.com/alexis-via) | Changing the fiscal position of an invoice will auto-update invoice lines
