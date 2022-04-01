@@ -32,10 +32,8 @@ class SaleAdvancePaymentInv(models.TransientModel):
                 # same vals dictionary.
                 field_mapping = {"partner_id": "partner_invoice_id"}
                 group_key = tuple(
-                    
-                        order[field_mapping.get(grouping_key, grouping_key)]
-                        for grouping_key in order._get_invoice_grouping_keys()
-                    
+                    order[field_mapping.get(grouping_key, grouping_key)]
+                    for grouping_key in order._get_invoice_grouping_keys()
                 )
             if order.invoicing_job_ids.filtered(
                 lambda x: x.state in {"pending", "enqueued", "started"}
