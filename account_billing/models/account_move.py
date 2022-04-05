@@ -9,7 +9,7 @@ class AccountMove(models.Model):
 
     billing_ids = fields.Many2many(
         comodel_name="account.billing",
-        string="Biilings",
+        string="Billings",
         compute="_compute_billing_ids",
         help="Relationship between invoice and billing",
     )
