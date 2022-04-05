@@ -1,8 +1,7 @@
 # Copyright 2019 Creu Blanca
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models, _
-from odoo.addons.account.models.account_invoice import TYPE2REFUND
+from odoo import api, models, _
 
 
 class AccountInvoice(models.Model):
@@ -36,38 +35,12 @@ class AccountInvoice(models.Model):
     def _prepare_refund_partial(self, invoice, date_invoice=None,
                                 date=None, description=None, journal_id=None,
                                 lines_id=None):
-        values = {}
-        for field in self._get_refund_copy_fields():
-            if invoice._fields[field].type == 'many2one':
-                values[field] = invoice[field].id
-            else:
-                values[field] = invoice[field] or False
-
+        values = self._prepare_refund(
+            invoice,
+            date_invoice=date_invoice,
+            date=date,
+            description=description,
+            journal_id=journal_id
+        )
         values['invoice_line_ids'] = self._refund_cleanup_lines(lines_id)
-        if journal_id:
-            journal = self.env['account.journal'].browse(journal_id)
-        elif invoice['type'] == 'in_invoice':
-            journal = self.env['account.journal'].search(
-                [('type', '=', 'purchase')], limit=1)
-        else:
-            journal = self.env['account.journal'].search(
-                [('type', '=', 'sale')], limit=1)
-
-        values.update({
-            'journal_id': journal.id,
-            'type': TYPE2REFUND[invoice['type']],
-            'date_invoice': date_invoice or fields.Date.context_today(
-                invoice
-            ),
-            'state': 'draft',
-            'number': False,
-            'origin': invoice.number,
-            'payment_term_id': False,
-            'refund_invoice_id': invoice.id,
-        })
-
-        if date:
-            values['date'] = date
-        if description:
-            values['name'] = description
         return values
