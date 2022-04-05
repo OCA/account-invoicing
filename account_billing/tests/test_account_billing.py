@@ -150,7 +150,7 @@ class TestAccountBilling(SavepointCase):
         self.billing_model.create({"partner_id": self.partner_agrolait.id})
 
     def test_3_validate_billing_state_not_open(self):
-        ctx = {"active_model": "account.invoice", "active_ids": [self.inv_1.id]}
+        ctx = {"active_model": "account.move", "active_ids": [self.inv_1.id]}
         self.create_payment(ctx)
         with self.assertRaises(ValidationError):
             self.billing_model.with_context(ctx).create({})
