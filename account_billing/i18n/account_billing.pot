@@ -116,13 +116,6 @@ msgid "Attachment Count"
 msgstr ""
 
 #. module: account_billing
-#: model:ir.model.fields,field_description:account_billing.field_account_bank_statement_line__billing_ids
-#: model:ir.model.fields,field_description:account_billing.field_account_move__billing_ids
-#: model:ir.model.fields,field_description:account_billing.field_account_payment__billing_ids
-msgid "Biilings"
-msgstr ""
-
-#. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__billing_line_ids
 msgid "Bill Lines"
 msgstr ""
@@ -192,6 +185,13 @@ msgstr ""
 #: code:addons/account_billing/models/account_billing.py:0
 #, python-format
 msgid "Billing is reset to draft"
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_bank_statement_line__billing_ids
+#: model:ir.model.fields,field_description:account_billing.field_account_move__billing_ids
+#: model:ir.model.fields,field_description:account_billing.field_account_payment__billing_ids
+msgid "Billings"
 msgstr ""
 
 #. module: account_billing
