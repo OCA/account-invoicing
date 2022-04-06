@@ -1,0 +1,19 @@
+diff a/.pre-commit-config.yaml b/.pre-commit-config.yaml	(rejected hunks)
+@@ -6,4 +4,2 @@ exclude: |
+   ^setup/|/static/description/index\.html$|
+-  # We don't want to mess with tool-generated files
+-  .svg$|/tests/([^/]+/)?cassettes/|^.copier-answers.yml$|
+   # Maybe reactivate this when all README files include prettier ignore tags?
+@@ -51,4 +20,10 @@ repos:
+       - id: black
+-  - repo: https://github.com/pre-commit/mirrors-prettier
+-    rev: v1.19.1
++  - repo: https://github.com/prettier/pre-commit
++    rev: "v1.19.1"
++    hooks:
++      - id: prettier
++  # TODO Avoid awebdeveloper/pre-commit-prettier if possible
++  # HACK https://github.com/prettier/prettier/issues/7407
++  - repo: https://github.com/awebdeveloper/pre-commit-prettier
++    rev: v0.0.1
+     hooks:
