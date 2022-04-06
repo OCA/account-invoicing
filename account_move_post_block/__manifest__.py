@@ -4,7 +4,7 @@
 {
     "name": "Account Move Post Block",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
-    "version": "13.0.1.0.2",
+    "version": "13.0.2.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "depends": ["account_move_exception"],
@@ -15,6 +15,6 @@
         "views/account_post_block_reason_view.xml",
         "views/account_move_view.xml",
     ],
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "installable": True,
 }
