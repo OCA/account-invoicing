@@ -36,8 +36,7 @@ msgstr "# de facturas"
 
 #. module: account_billing
 #: model:ir.actions.report,print_report_name:account_billing.report_account_billing
-msgid ""
-"'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
+msgid "'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
 msgstr ""
 "'FACTURA-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
 
@@ -110,11 +109,6 @@ msgstr "¿Está seguro de cancelar este documento?"
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__message_attachment_count
 msgid "Attachment Count"
 msgstr "Recuento de archivos adjuntos"
-
-#. module: account_billing
-#: model:ir.model.fields,field_description:account_billing.field_account_move__billing_ids
-msgid "Biilings"
-msgstr "Facturación"
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__billing_line_ids
@@ -190,6 +184,11 @@ msgstr "La facturación está facturada."
 #, python-format
 msgid "Billing is reset to draft"
 msgstr "La facturación se ha reestablecido a borrador"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_move__billing_ids
+msgid "Billings"
+msgstr ""
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
@@ -290,7 +289,8 @@ msgstr "Fecha efectiva para entradas contables"
 #: model_terms:ir.actions.act_window,help:account_billing.action_customer_billing
 msgid ""
 "Enter the customer the invoices expect to be paid by the customer for this\n"
-"            bill period. By default the pending invoices will be listed, automatically."
+"            bill period. By default the pending invoices will be listed, "
+"automatically."
 msgstr ""
 
 #. module: account_billing
@@ -588,3 +588,6 @@ msgstr ""
 #: model:ir.model.fields,help:account_billing.field_account_billing__website_message_ids
 msgid "Website communication history"
 msgstr ""
+
+#~ msgid "Biilings"
+#~ msgstr "Facturación"
