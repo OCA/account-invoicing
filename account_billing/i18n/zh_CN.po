@@ -44,8 +44,7 @@ msgstr ""
 
 #. module: account_billing
 #: model:ir.actions.report,print_report_name:account_billing.report_account_billing
-msgid ""
-"'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
+msgid "'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
 msgstr ""
 
 #. module: account_billing
@@ -127,13 +126,6 @@ msgid "Attachment Count"
 msgstr ""
 
 #. module: account_billing
-#: model:ir.model.fields,field_description:account_billing.field_account_bank_statement_line__billing_ids
-#: model:ir.model.fields,field_description:account_billing.field_account_move__billing_ids
-#: model:ir.model.fields,field_description:account_billing.field_account_payment__billing_ids
-msgid "Biilings"
-msgstr ""
-
-#. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__billing_line_ids
 msgid "Bill Lines"
 msgstr ""
@@ -189,8 +181,7 @@ msgstr ""
 #. module: account_billing
 #: code:addons/account_billing/models/account_billing.py:0
 #, python-format
-msgid ""
-"Billing cannot be processed because some invoices are not in state Open"
+msgid "Billing cannot be processed because some invoices are not in state Open"
 msgstr ""
 
 #. module: account_billing
@@ -203,6 +194,13 @@ msgstr ""
 #: code:addons/account_billing/models/account_billing.py:0
 #, python-format
 msgid "Billing is reset to draft"
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_bank_statement_line__billing_ids
+#: model:ir.model.fields,field_description:account_billing.field_account_move__billing_ids
+#: model:ir.model.fields,field_description:account_billing.field_account_payment__billing_ids
+msgid "Billings"
 msgstr ""
 
 #. module: account_billing
@@ -305,7 +303,8 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:account_billing.action_customer_billing
 msgid ""
 "Enter the customer the invoices expect to be paid by the customer for this\n"
-"            bill period. By default the pending invoices will be listed, automatically."
+"            bill period. By default the pending invoices will be listed, "
+"automatically."
 msgstr ""
 
 #. module: account_billing
