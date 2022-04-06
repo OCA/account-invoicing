@@ -2,10 +2,10 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
     "name": "Account Move Tier Validation Approver",
-    "version": "13.0.1.0.1",
+    "version": "13.0.2.0.0",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "category": "Accounting",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "depends": ["account_move_tier_validation"],
     "data": [
         "views/account_move_views.xml",
