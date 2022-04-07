@@ -10,6 +10,9 @@
     "website": "https://github.com/OCA/account-invoicing",
     "license": "LGPL-3",
     "depends": ["account"],
-    "data": ["wizards/account_move_reversal_view.xml"],
+    "data": [
+        "views/account_move_line_views.xml",
+        "wizards/account_move_reversal_view.xml",
+    ],
     "installable": True,
 }
