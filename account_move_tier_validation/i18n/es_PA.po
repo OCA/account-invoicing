@@ -15,20 +15,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid ""
-"<i class=\"fa fa-info-circle\"/>This Invoice needs to be\n"
-"                        validated."
-msgstr ""
-
-#. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid "<i class=\"fa fa-thumbs-down\"/> Operation has been <b>rejected</b>."
-msgstr ""
-
-#. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid "<i class=\"fa fa-thumbs-up\"/> Operation has been <b>validated</b>!"
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Bill"
 msgstr ""
 
 #. module: account_move_tier_validation
@@ -37,8 +26,20 @@ msgid "Can Review"
 msgstr ""
 
 #. module: account_move_tier_validation
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Credit Note"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__has_comment
 msgid "Has Comment"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Invoice"
 msgstr ""
 
 #. module: account_move_tier_validation
@@ -79,6 +80,12 @@ msgstr ""
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__next_review
 msgid "Next Review"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Refund"
 msgstr ""
 
 #. module: account_move_tier_validation

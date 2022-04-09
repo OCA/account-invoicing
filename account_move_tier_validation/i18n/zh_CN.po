@@ -17,21 +17,10 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid ""
-"<i class=\"fa fa-info-circle\"/>This Invoice needs to be\n"
-"                        validated."
-msgstr "<i class=\"fa fa-info-circle\"/>这个单据需要审批。"
-
-#. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid "<i class=\"fa fa-thumbs-down\"/> Operation has been <b>rejected</b>."
-msgstr "<i class=\"fa fa-thumbs-down\"/>操作已被<b>驳回</b>。"
-
-#. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid "<i class=\"fa fa-thumbs-up\"/> Operation has been <b>validated</b>!"
-msgstr "<i class=\"fa fa-thumbs-up\"/> 操作已 <b>批准</b>！"
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Bill"
+msgstr ""
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__can_review
@@ -39,8 +28,20 @@ msgid "Can Review"
 msgstr ""
 
 #. module: account_move_tier_validation
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Credit Note"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__has_comment
 msgid "Has Comment"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Invoice"
 msgstr ""
 
 #. module: account_move_tier_validation
@@ -81,6 +82,12 @@ msgstr "需要我审核"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__next_review
 msgid "Next Review"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Refund"
 msgstr ""
 
 #. module: account_move_tier_validation
@@ -153,6 +160,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
 msgid "Validations"
 msgstr ""
+
+#~ msgid ""
+#~ "<i class=\"fa fa-info-circle\"/>This Invoice needs to be\n"
+#~ "                        validated."
+#~ msgstr "<i class=\"fa fa-info-circle\"/>这个单据需要审批。"
+
+#~ msgid "<i class=\"fa fa-thumbs-down\"/> Operation has been <b>rejected</b>."
+#~ msgstr "<i class=\"fa fa-thumbs-down\"/>操作已被<b>驳回</b>。"
+
+#~ msgid "<i class=\"fa fa-thumbs-up\"/> Operation has been <b>validated</b>!"
+#~ msgstr "<i class=\"fa fa-thumbs-up\"/> 操作已 <b>批准</b>！"
 
 #~ msgid "Journal Entries"
 #~ msgstr "会计分录"
