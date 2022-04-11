@@ -20,11 +20,16 @@ class TestInvoiceGroupBySaleOrder(TransactionCase):
         cls.product_2 = cls.env.ref("product.product_product_2")
         cls.product_1.invoice_policy = "order"
         cls.product_2.invoice_policy = "order"
+        eur = cls.env.ref("base.EUR")
+        cls.pricelist = cls.env["product.pricelist"].create(
+            {"name": "Europe pricelist", "currency_id": eur.id}
+        )
         cls.order1_p1 = cls.env["sale.order"].create(
             {
                 "partner_id": cls.partner_1.id,
                 "partner_shipping_id": cls.partner_1.id,
                 "partner_invoice_id": cls.partner_1.id,
+                "pricelist_id": cls.pricelist.id,
                 "client_order_ref": "ref123",
                 "order_line": [
                     (
@@ -58,6 +63,7 @@ class TestInvoiceGroupBySaleOrder(TransactionCase):
                 "partner_id": cls.partner_1.id,
                 "partner_shipping_id": cls.partner_1.id,
                 "partner_invoice_id": cls.partner_1.id,
+                "pricelist_id": cls.pricelist.id,
                 "order_line": [
                     (
                         0,
@@ -122,6 +128,12 @@ class TestInvoiceGroupBySaleOrder(TransactionCase):
         for line in lines:
             self.assertEqual(line.name, result[line.sequence][0])
             self.assertEqual(line.display_type, result[line.sequence][1])
+
+    def test_create_invoice_with_currency(self):
+        """Check invoice is generated with a correct total amount"""
+        orders = self.order1_p1 | self.order2_p1
+        invoices = orders._create_invoices()
+        self.assertEqual(invoices.amount_total, 80)
 
     def test_create_invoice_with_default_journal(self):
         """Using a specific journal for the invoice should not be broken"""
