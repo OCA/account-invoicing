@@ -46,6 +46,11 @@ class SaleOrder(models.Model):
                                 # forcing the account_id is needed to avoid
                                 # incorrect default value
                                 "account_id": False,
+                                # see test: test_create_invoice_with_currency
+                                # if the currency is not set with the right value
+                                # the total amount will be wrong
+                                # because all line do not have the same currency
+                                "currency_id": invoice.currency_id.id,
                             },
                         )
                     )
