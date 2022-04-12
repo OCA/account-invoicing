@@ -44,6 +44,7 @@ msgstr ""
 
 #. module: account_invoice_payment_retention
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment_register__display_name
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_company__display_name
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_config_settings__display_name
@@ -79,6 +80,7 @@ msgstr ""
 
 #. module: account_invoice_payment_retention
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move_line__id
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment_register__id
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_company__id
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_config_settings__id
@@ -91,7 +93,13 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_payment_retention
+#: model:ir.model,name:account_invoice_payment_retention.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_payment_retention
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move_line____last_update
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment_register____last_update
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_company____last_update
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_config_settings____last_update
@@ -199,8 +207,7 @@ msgstr ""
 
 #. module: account_invoice_payment_retention
 #: model_terms:ir.ui.view,arch_db:account_invoice_payment_retention.res_config_settings_view_form
-msgid ""
-"This enable retention option in invoice, to be retained on its payment."
+msgid "This enable retention option in invoice, to be retained on its payment."
 msgstr ""
 
 #. module: account_invoice_payment_retention
