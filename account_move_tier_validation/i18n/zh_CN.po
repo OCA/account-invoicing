@@ -112,6 +112,11 @@ msgid "Rejected"
 msgstr ""
 
 #. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected_message
+msgid "Rejected Message"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
 msgid "Request Validation"
 msgstr "请求审批"
@@ -132,6 +137,11 @@ msgid "Tier Definition"
 msgstr "层级定义"
 
 #. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__to_validate_message
+msgid "To Validate Message"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
 msgid "Validate"
 msgstr "批准"
@@ -141,6 +151,11 @@ msgstr "批准"
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Validated"
 msgstr "已批准"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated_message
+msgid "Validated Message"
+msgstr ""
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
