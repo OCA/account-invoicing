@@ -69,25 +69,13 @@ class AccountMove(models.Model):
     @api.model
     def _move_lines_retained_moves(self, retained_moves):
         """Get move_lines from selected retained moves in list of dict"""
-        retained_move_lines = []
         retention_account = self.env.company.retention_account_id
         move_lines = retained_moves.mapped("line_ids").filtered(
             lambda l: l.account_id == retention_account and not l.reconciled
         )
-        for line in move_lines:
-            copied_vals = line.copy_data()[0]
-            debit = copied_vals["debit"]
-            credit = copied_vals["credit"]
-            copied_vals["debit"] = credit
-            copied_vals["credit"] = debit
-            copied_vals["amount_currency"] = False
-            copied_vals["currency_id"] = False
-            copied_vals["move_id"] = self.id
-            copied_vals["price_unit"] = credit + debit
-            copied_vals["price_subtotal"] = (
-                copied_vals["quantity"] * copied_vals["price_unit"]
-            )
-            retained_move_lines.append(copied_vals)
+        retained_move_lines = [
+            line._prepare_retained_move_lines(self) for line in move_lines
+        ]
         return retained_move_lines
 
     @api.onchange("retained_move_ids")
@@ -175,3 +163,25 @@ class AccountMove(models.Model):
                 move_lines = retained_move_lines + return_move_lines
                 move_lines.filtered(lambda line: not line.reconciled).reconcile()
         return res
+
+
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
+
+    def _prepare_retained_move_lines(self, move):
+        self.ensure_one()
+        copied_vals = self.copy_data()[0]
+        debit = copied_vals["debit"]
+        credit = copied_vals["credit"]
+        copied_vals.update(
+            {
+                "debit": credit,
+                "credit": debit,
+                "amount_currency": False,
+                "currency_id": False,
+                "move_id": move.id,
+                "price_unit": credit + debit,
+                "price_subtotal": copied_vals["quantity"] * copied_vals["price_unit"],
+            }
+        )
+        return copied_vals
