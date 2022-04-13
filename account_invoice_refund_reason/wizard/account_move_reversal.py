@@ -5,8 +5,8 @@
 from odoo import api, fields, models
 
 
-class AccountInvoiceRefund(models.TransientModel):
-    _inherit = "account.invoice.refund"
+class AccountMoveReversal(models.TransientModel):
+    _inherit = "account.move.reversal"
 
     reason_id = fields.Many2one(
         "account.invoice.refund.reason", string="Reason to credit"
@@ -15,12 +15,11 @@ class AccountInvoiceRefund(models.TransientModel):
     @api.onchange("reason_id")
     def _onchange_reason_id(self):
         if self.reason_id:
-            self.description = self.reason_id.name
+            self.reason = self.reason_id.name
 
-    @api.multi
-    def compute_refund(self, mode="refund"):
-        res = super().compute_refund(mode)
-        inv_obj = self.env["account.invoice"]
+    def reverse_moves(self):
+        res = super().reverse_moves()
+        inv_obj = self.env["account.move"]
         context = dict(self._context or {})
         for inv in inv_obj.browse(context.get("active_ids")):
             inv.reason_id = self.reason_id.id
