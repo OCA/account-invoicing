@@ -8,13 +8,13 @@
             <xpath expr="//field[@name='ref']" position="after">
                 <label
                     for="payment_retention"
-                    attrs="{'invisible': ['|', ('retained_move_ids', '!=', []), ('move_type', '=', 'entry')]}"
+                    attrs="{'invisible': ['|', ('retained_move_ids', '!=', []), ('type', '=', 'entry')]}"
                     groups="account_invoice_payment_retention.group_payment_retention"
                 />
                 <div
                     class="d-flex"
                     groups="account_invoice_payment_retention.group_payment_retention"
-                    attrs="{'invisible': [('move_type', '=', 'entry')]}"
+                    attrs="{'invisible': [('type', '=', 'entry')]}"
                 >
                     <field
                         name="payment_retention"
@@ -41,7 +41,7 @@
                     name="retained_move_ids"
                     widget="many2many_tags"
                     options="{'no_create': True, 'no_edit': True, 'no_open': True}"
-                    attrs="{'invisible': ['|', ('payment_retention', '!=', False), ('move_type', '=', 'entry')]}"
+                    attrs="{'invisible': ['|', ('payment_retention', '!=', False), ('type', '=', 'entry')]}"
                     groups="account_invoice_payment_retention.group_payment_retention"
                 />
             </xpath>

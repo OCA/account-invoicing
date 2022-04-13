@@ -13,8 +13,7 @@ class TestInvoicePaymentRetention(SavepointCase):
 
         cls.invoice_model = cls.env["account.move"]
         cls.payment_model = cls.env["account.payment"]
-        cls.payment_register_model = cls.env["account.payment.register"]
-        cls.register_view_id = "account.view_account_payment_register_form"
+        cls.payment_view_id = "account.view_account_payment_form"
         cls.partner = cls.env.ref("base.res_partner_12")
         cls.product_3 = cls.env.ref("product.product_product_3")
         cls.account_receivable = cls.partner.property_account_receivable_id
@@ -68,7 +67,7 @@ class TestInvoicePaymentRetention(SavepointCase):
         cls.cust_invoice = cls.invoice_model.create(
             {
                 "name": "Test Customer Invoice",
-                "move_type": "out_invoice",
+                "type": "out_invoice",
                 "journal_id": cls.sale_journal.id,
                 "partner_id": cls.partner.id,
                 "invoice_date": fields.Date.today(),
@@ -90,7 +89,7 @@ class TestInvoicePaymentRetention(SavepointCase):
         cls.vendor_bill = cls.invoice_model.create(
             {
                 "name": "Test Vendor Bill",
-                "move_type": "in_invoice",
+                "type": "in_invoice",
                 "journal_id": cls.purchase_journal.id,
                 "partner_id": cls.partner.id,
                 "invoice_date": fields.Date.today(),
@@ -160,14 +159,12 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_model": "account.move",
             "default_enforce_payment_retention": False,
         }
-        with Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
-        ) as f:
+        with Form(self.payment_model.with_context(ctx), view=self.payment_view_id) as f:
             f.enforce_payment_retention = True
         payment_register = f.save()
         # Test enforce retention warning when retention amount/account not valid
         with self.assertRaises(ValidationError):
-            payment_register.action_create_payments()
+            payment_register.post()
 
     def test_cust_invoice_payment_retention_normal(self):
         """Test 2 invoice retention and 1 retetnion return invoice"""
@@ -189,18 +186,15 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_id": self.cust_invoice.id,
             "active_model": "account.move",
         }
-        with Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
-        ) as f:
+        with Form(self.payment_model.with_context(ctx), view=self.payment_view_id) as f:
             f.enforce_payment_retention = True
             f.apply_payment_retention = True
         payment_register = f.save()
         self.assertEqual(payment_register.retention_amount_currency, 50.0)
         # Test enforce retention warning when retention amount/account not valid
-        payment_dict = payment_register.action_create_payments()
-        payment = self.payment_model.browse(payment_dict.get("res_id", False))
-        self.assertEqual(payment.reconciled_invoice_ids, self.cust_invoice)
-        payment_moves = payment.line_ids.mapped("move_id")
+        payment_register.post()
+        self.assertEqual(payment_register.reconciled_invoice_ids, self.cust_invoice)
+        payment_moves = payment_register.move_line_ids.mapped("move_id")
 
         # Invoice 2 register payment
         ctx = {
@@ -208,18 +202,15 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_id": self.cust_invoice2.id,
             "active_model": "account.move",
         }
-        with Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
-        ) as f:
+        with Form(self.payment_model.with_context(ctx), view=self.payment_view_id) as f:
             f.enforce_payment_retention = True
             f.apply_payment_retention = True
         payment_register = f.save()
         self.assertEqual(payment_register.retention_amount_currency, 100.0)
         # Test enforce retention warning when retention amount/account not valid
-        payment_dict = payment_register.action_create_payments()
-        payment = self.payment_model.browse(payment_dict.get("res_id", False))
-        self.assertEqual(payment.reconciled_invoice_ids, self.cust_invoice2)
-        payment_moves += payment.line_ids.mapped("move_id")
+        payment_register.post()
+        self.assertEqual(payment_register.reconciled_invoice_ids, self.cust_invoice2)
+        payment_moves += payment_register.move_line_ids.mapped("move_id")
 
         # invoice 3, return retention
         ctx = {"default_type": "out_invoice"}
@@ -262,14 +253,16 @@ class TestInvoicePaymentRetention(SavepointCase):
 
     def test_vendor_bill_payment_retention_currency(self):
         """Test 2 invoice retention and 1 retetnion return invoice"""
-        self.vendor_bill2 = self.vendor_bill.copy({"name": "Test Bill 2"})
+        self.vendor_bill2 = self.vendor_bill.copy(
+            {"name": "Test Bill 2", "currency_id": self.currency_2x.id}
+        )
         # Invoice 1, 10% = 50.0
         self.vendor_bill.payment_retention = "percent"
         self.vendor_bill.amount_retention = 10.0
         self.assertEqual(self.vendor_bill.retention_amount_currency, 50.0)
         self.vendor_bill.action_post()
         # Invoice 2, 100.0
-        self.vendor_bill2.currency_id = self.currency_2x
+        self.vendor_bill2.with_context(check_move_validity=False)._onchange_currency()
         self.vendor_bill2.payment_retention = "amount"
         self.vendor_bill2.amount_retention = 100.0
         self.assertEqual(self.vendor_bill2.retention_amount_currency, 100.0)
@@ -282,9 +275,7 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_id": self.vendor_bill.id,
             "active_model": "account.move",
         }
-        with Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
-        ) as f:
+        with Form(self.payment_model.with_context(ctx), view=self.payment_view_id) as f:
             f.currency_id = self.currency_2x  # --> Change to 2x currency
             f.enforce_payment_retention = True
             f.apply_payment_retention = True
@@ -292,10 +283,9 @@ class TestInvoicePaymentRetention(SavepointCase):
         self.assertEqual(payment_register.retention_amount_currency, 100)
 
         # Test enforce retention warning when retention amount/account not valid
-        payment_dict = payment_register.action_create_payments()
-        payment = self.payment_model.browse(payment_dict.get("res_id", False))
-        self.assertEqual(payment.reconciled_bill_ids, self.vendor_bill)
-        payment_moves = payment.line_ids.mapped("move_id")
+        payment_register.post()
+        self.assertEqual(payment_register.reconciled_invoice_ids, self.vendor_bill)
+        payment_moves = payment_register.move_line_ids.mapped("move_id")
 
         # Invoice 2 register payment
         ctx = {
@@ -303,26 +293,24 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_id": self.vendor_bill2.id,
             "active_model": "account.move",
         }
-        with Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
-        ) as f:
+        with Form(self.payment_model.with_context(ctx), view=self.payment_view_id) as f:
             f.currency_id = self.currency_2x  # --> Change to 2x currency
             f.enforce_payment_retention = True
             f.apply_payment_retention = True
         payment_register = f.save()
+        payment_register.onchange_apply_payment_retention()
         self.assertEqual(payment_register.retention_amount_currency, 100)
 
         # Test enforce retention warning when retention amount/account not valid
-        payment_dict = payment_register.action_create_payments()
-        payment = self.payment_model.browse(payment_dict.get("res_id", False))
-        self.assertEqual(payment.reconciled_bill_ids, self.vendor_bill2)
-        payment_moves += payment.line_ids.mapped("move_id")
+        payment_register.post()
+        self.assertEqual(payment_register.reconciled_invoice_ids, self.vendor_bill2)
+        payment_moves += payment_register.move_line_ids.mapped("move_id")
 
         # invoice 3, return retention
         ctx = {"default_type": "in_invoice"}
         view_id = "account.view_move_form"
         with Form(self.invoice_model.with_context(ctx), view=view_id) as f:
-            f.journal_id = self.sale_journal
+            f.journal_id = self.purchase_journal
             f.partner_id = self.partner
         vendor_bill3 = f.save()
         res = vendor_bill3._onchange_domain_retained_move_ids()
@@ -338,13 +326,13 @@ class TestInvoicePaymentRetention(SavepointCase):
         total = sum(vendor_bill3.invoice_line_ids.mapped("price_unit"))
         vendor_bill3.write(
             {
-                "line_ids": [
+                "invoice_line_ids": [
                     (
                         0,
                         0,
                         {
                             "name": "/",
-                            "credit": total,
+                            "price_unit": total,
                             "account_id": self.account_receivable.id,
                         },
                     )
@@ -368,11 +356,9 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_ids": [self.invoice_normal1.id, self.invoice_normal2.id],
             "active_model": "account.move",
         }
-        f = Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
-        )
+        f = Form(self.payment_model.with_context(ctx), view=self.payment_view_id)
         payment_register = f.save()
-        payment_register.action_create_payments()
+        payment_register.post()
 
         # Test multi invoice payment, with some retention, not allowed
         self.cust_invoice2 = self.cust_invoice.copy({"name": "Test Invoice 2"})
@@ -386,9 +372,7 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_ids": [self.cust_invoice.id, self.cust_invoice2.id],
             "active_model": "account.move",
         }
-        f = Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
-        )
+        f = Form(self.payment_model.with_context(ctx), view=self.payment_view_id)
         payment_register = f.save()
         with self.assertRaises(UserError):
-            payment_register.action_create_payments()
+            payment_register.post()
