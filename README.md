@@ -34,6 +34,7 @@ addon | version | maintainers | summary
 [account_invoice_force_number](account_invoice_force_number/) | 13.0.1.0.0 |  | Allows to force invoice numbering on specific invoices
 [account_invoice_force_origin](account_invoice_force_origin/) | 13.0.1.0.0 |  | Allows to force invoice origin on specific invoices
 [account_invoice_line_description](account_invoice_line_description/) | 13.0.1.0.0 |  | Account invoice line description
+[account_invoice_line_sequence](account_invoice_line_sequence/) | 13.0.1.0.0 |  | Adds sequence field on invoice lines to manage its order.
 [account_invoice_mode_at_shipping](account_invoice_mode_at_shipping/) | 13.0.1.0.1 |  | Create invoices automatically when goods are shipped.
 [account_invoice_mode_monthly](account_invoice_mode_monthly/) | 13.0.1.0.1 |  | Create invoices automatically on a monthly basis.
 [account_invoice_pricelist](account_invoice_pricelist/) | 13.0.1.0.4 |  | Add partner pricelist on invoices
