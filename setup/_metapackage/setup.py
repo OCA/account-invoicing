@@ -21,6 +21,7 @@ setuptools.setup(
         'odoo13-addon-account_invoice_force_number',
         'odoo13-addon-account_invoice_force_origin',
         'odoo13-addon-account_invoice_line_description',
+        'odoo13-addon-account_invoice_line_sequence',
         'odoo13-addon-account_invoice_mode_at_shipping',
         'odoo13-addon-account_invoice_mode_monthly',
         'odoo13-addon-account_invoice_pricelist',
