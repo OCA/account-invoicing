@@ -41,21 +41,9 @@ msgid "Can Review"
 msgstr "Kan granska"
 
 #. module: account_move_tier_validation
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__display_name
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_tier_definition__display_name
-msgid "Display Name"
-msgstr "Visningsnamn"
-
-#. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__has_comment
 msgid "Has Comment"
 msgstr "Har kommentar"
-
-#. module: account_move_tier_validation
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__id
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_tier_definition__id
-msgid "ID"
-msgstr "ID"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -76,12 +64,6 @@ msgstr "Fakturor vars attestering inte har påbörjats"
 #: model:ir.model,name:account_move_tier_validation.model_account_move
 msgid "Journal Entry"
 msgstr "Verifikat"
-
-#. module: account_move_tier_validation
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move____last_update
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_tier_definition____last_update
-msgid "Last Modified on"
-msgstr "Senast ändrad den"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -114,6 +96,11 @@ msgid "Rejected"
 msgstr "Nekad"
 
 #. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected_message
+msgid "Rejected Message"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
 msgid "Request Validation"
 msgstr "Begär attestering"
@@ -134,6 +121,11 @@ msgid "Tier Definition"
 msgstr "Attestdefinition"
 
 #. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__to_validate_message
+msgid "To Validate Message"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
 msgid "Validate"
 msgstr "Attestera"
@@ -143,6 +135,11 @@ msgstr "Attestera"
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Validated"
 msgstr "Attesterad"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated_message
+msgid "Validated Message"
+msgstr ""
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -158,3 +155,12 @@ msgstr "Attestering ej påbörjad"
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
 msgid "Validations"
 msgstr "Attesteringar"
+
+#~ msgid "Display Name"
+#~ msgstr "Visningsnamn"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Senast ändrad den"

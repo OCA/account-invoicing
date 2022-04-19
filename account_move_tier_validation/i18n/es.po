@@ -42,21 +42,9 @@ msgid "Can Review"
 msgstr "Puede Revisar"
 
 #. module: account_move_tier_validation
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__display_name
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_tier_definition__display_name
-msgid "Display Name"
-msgstr "Nombre para Mostrar"
-
-#. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__has_comment
 msgid "Has Comment"
 msgstr "Tiene Comentario"
-
-#. module: account_move_tier_validation
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__id
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_tier_definition__id
-msgid "ID"
-msgstr "ID"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -77,12 +65,6 @@ msgstr ""
 #: model:ir.model,name:account_move_tier_validation.model_account_move
 msgid "Journal Entry"
 msgstr "Entrada de Diario"
-
-#. module: account_move_tier_validation
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move____last_update
-#: model:ir.model.fields,field_description:account_move_tier_validation.field_tier_definition____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -115,6 +97,11 @@ msgid "Rejected"
 msgstr "Rechazada"
 
 #. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected_message
+msgid "Rejected Message"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
 msgid "Request Validation"
 msgstr "Solicitar Validación"
@@ -135,6 +122,11 @@ msgid "Tier Definition"
 msgstr "Definición de nivel"
 
 #. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__to_validate_message
+msgid "To Validate Message"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
 msgid "Validate"
 msgstr "Validar"
@@ -144,6 +136,11 @@ msgstr "Validar"
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Validated"
 msgstr "Validado"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated_message
+msgid "Validated Message"
+msgstr ""
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -159,3 +156,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
 msgid "Validations"
 msgstr "Validaciones"
+
+#~ msgid "Display Name"
+#~ msgstr "Nombre para Mostrar"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última modificación el"
