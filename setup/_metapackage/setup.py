@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo-addon-account_invoice_check_total>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_date_due>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_fiscal_position_update>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_refund_link>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_search_by_reference>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_tax_required>=15.0dev,<15.1dev',
