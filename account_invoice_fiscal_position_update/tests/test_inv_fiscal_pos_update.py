@@ -4,9 +4,12 @@
 
 import time
 
+from odoo.tests import tagged
+
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
+@tagged("post_install", "-at_install")
 class TestProductIdChange(AccountTestInvoicingCommon):
     """Test that when an included tax is mapped by a fiscal position,
     when position fiscal change taxes and account wil be update on
