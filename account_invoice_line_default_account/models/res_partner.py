@@ -1,28 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright 2012 Therp BV (<http://therp.nl>)
 # Copyright 2013-2018 BCIM SPRL (<http://www.bcim.be>)
+# Copyright 2022 Simone Rubino - TAKOBI
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import models, fields, api
-
-
-class AccountAccountType(models.Model):
-    _inherit = 'account.account.type'
-
-    @api.model
-    def name_search(self, name='', args=None, operator='ilike', limit=100):
-        # Support xmlid in domain
-        res = []
-        if operator == '=':
-            try:
-                o = self.env.ref(name)
-                if o._name == self._name:
-                    res += o.name_get()
-            except:
-                pass
-        if not res:
-            res = super(AccountAccountType, self).name_search(
-                name=name, args=args, operator=operator, limit=limit)
-        return res
+from odoo import models, fields
 
 
 class ResPartner(models.Model):
@@ -31,22 +12,28 @@ class ResPartner(models.Model):
     property_account_income = fields.Many2one(
         'account.account',
         string='Default Income Account',
-        domain="[('user_type_id', '=', 'account.data_account_type_revenue')]",
+        domain=lambda model: [
+            ('user_type_id', '=',
+             model.env.ref('account.data_account_type_revenue').id),
+        ],
         help='Default counterpart account for sales on invoice lines',
         company_dependent=True)
     auto_update_account_income = fields.Boolean(
-        'Autosave Selection on Invoice Line',
+        'Autosave Selection for Income Account on Invoice Line',
         help='When an account is selected on an invoice line, '
              'automatically assign it as default income account',
         default=True)
     property_account_expense = fields.Many2one(
         'account.account',
         string='Default Expense Account',
-        domain="[('user_type_id', '=', 'account.data_account_type_expenses')]",
+        domain=lambda model: [
+            ('user_type_id', '=',
+             model.env.ref('account.data_account_type_expenses').id),
+        ],
         help='Default counterpart account for purchases on invoice lines',
         company_dependent=True)
     auto_update_account_expense = fields.Boolean(
-        'Autosave Selection on Invoice Line',
+        'Autosave Selection for Expense Account on Invoice Line',
         help='When an account is selected on an invoice line, '
              'automatically assign it as default expense account',
         default=True)
