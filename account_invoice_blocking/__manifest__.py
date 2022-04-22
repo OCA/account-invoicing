@@ -4,7 +4,7 @@
 {
     "name": "Account Invoice Blocking",
     "summary": "Set a blocking (No Follow-up) flag on invoices",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "license": "AGPL-3",
     "category": "Accounting",
     "author": "Acsone SA/NV,Odoo Community Association (OCA)",
