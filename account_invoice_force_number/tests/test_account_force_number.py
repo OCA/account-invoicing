@@ -4,10 +4,12 @@
 
 
 from odoo.exceptions import UserError
+from odoo.tests import tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
+@tagged("post_install", "-at_install")
 class TestAccountForceNumber(AccountTestInvoicingCommon):
     def create_invoice(self, move_name=None):
         partner_id = self.env.ref("base.res_partner_12").id
