@@ -2,10 +2,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import exceptions
+from odoo.tests import tagged
 
 from odoo.addons.account.tests.common import TestAccountReconciliationCommon
 
 
+@tagged("post_install", "-at_install")
 class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
     def setUp(self):
         super(TestAccountInvoiceTaxRequired, self).setUp()
