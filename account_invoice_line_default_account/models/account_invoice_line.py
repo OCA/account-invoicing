@@ -3,30 +3,25 @@
 # Copyright 2022 Simone Rubino - TAKOBI
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
+from odoo import api, models, _
 
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
-    def _account_id_default(self):
-        partner_id = self.env.context.get('partner_id')
-        if not partner_id:
-            return self._default_account()
-        assert isinstance(partner_id, int), (
-            _('No valid id for context partner_id %d') % partner_id)
-        invoice_type = self.env.context.get('type')
-        if invoice_type in ['in_invoice', 'in_refund']:
-            partner = self.env['res.partner'].browse(partner_id)
-            if partner.property_account_expense:
-                return partner.property_account_expense.id
-        elif invoice_type in ['out_invoice', 'out_refund']:
-            partner = self.env['res.partner'].browse(partner_id)
-            if partner.property_account_income:
-                return partner.property_account_income.id
-        return self._default_account()
-
-    account_id = fields.Many2one(default=_account_id_default)
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        res = super(AccountInvoiceLine, self)._onchange_product_id()
+        partner = self.invoice_id.partner_id
+        invoice_type = self.invoice_id.type
+        if partner and invoice_type:
+            if invoice_type in ['in_invoice', 'in_refund']:
+                if partner.property_account_expense:
+                    self.account_id = partner.property_account_expense.id
+            elif invoice_type in ['out_invoice', 'out_refund']:
+                if partner.property_account_income:
+                    self.account_id = partner.property_account_income.id
+        return res
 
     @api.onchange('account_id')
     def _onchange_default_partner_account(self):

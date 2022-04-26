@@ -9,15 +9,11 @@
     'depends': [
         'account'
     ],
-    'excludes': [
-        'account_invoice_line_sequence',
-    ],
     'author': 'Therp BV,BCIM,Odoo Community Association (OCA)',
     'license': 'AGPL-3',
     'category': 'Accounting',
     'data': [
         'views/res_partner.xml',
-        'views/account_invoice.xml',
     ],
     'installable': True,
 }
