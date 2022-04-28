@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Fix invoice tax rounding",
-    "version": "12.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Accounting & Finance",
     "license": "AGPL-3",
     "summary": "Fix invoice tax rounding globally",
