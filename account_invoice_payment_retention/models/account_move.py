@@ -161,7 +161,9 @@ class AccountMove(models.Model):
                     lambda l: l.account_id == retention_account
                 )
                 move_lines = retained_move_lines + return_move_lines
-                move_lines.filtered(lambda line: not line.reconciled).reconcile()
+                move_lines.filtered(lambda line: not line.reconciled).with_context(
+                    skip_account_move_synchronization=True
+                ).reconcile()
         return res
 
 
