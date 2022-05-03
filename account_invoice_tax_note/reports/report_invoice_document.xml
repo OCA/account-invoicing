@@ -5,7 +5,7 @@
         id="report_invoice_document_inherit"
         inherit_id="account.report_invoice_document"
     >
-        <p t-if="o.fiscal_position_id.note" position="after">
+        <span t-field="o.fiscal_position_id.note" position="after">
             <t
                 t-set="account_tax_groups"
                 t-value="o._get_account_tax_groups_with_notes()"
@@ -15,6 +15,6 @@
                     <p t-field="account_tax_group.report_note" />
                 </t>
             </t>
-        </p>
+        </span>
     </template>
 </odoo>
