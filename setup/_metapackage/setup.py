@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_fiscal_position_update>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_refund_link>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_search_by_reference>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_tax_note>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_tax_required>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_tree_currency>=15.0dev,<15.1dev',
         'odoo-addon-account_move_tier_validation>=15.0dev,<15.1dev',
