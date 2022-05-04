@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 15.0.1.0.1 | [![alexis-via](https://github.com/alexis-via.png?size=30px)](https://github.com/alexis-via) | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_refund_link](account_invoice_refund_link/) | 15.0.1.0.0 |  | Show links between refunds and their originator invoices.
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 15.0.1.0.0 |  | Account invoice search by reference
+[account_invoice_tax_note](account_invoice_tax_note/) | 15.0.1.0.0 |  | Print tax notes on customer invoices
 [account_invoice_tax_required](account_invoice_tax_required/) | 15.0.1.0.1 |  | This module adds functional a check on invoice to force user to set tax on invoice line.
 [account_invoice_tree_currency](account_invoice_tree_currency/) | 15.0.1.0.0 |  | Show currencies in the invoice tree view
 [account_move_tier_validation](account_move_tier_validation/) | 15.0.1.0.0 |  | Extends the functionality of Account Moves to support a tier validation process.
