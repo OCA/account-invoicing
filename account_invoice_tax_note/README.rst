@@ -23,7 +23,7 @@ Account invoice tax note
     :target: https://runbot.odoo-community.org/runbot/95/15.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 In some situations, a mention must be displayed on invoices when a specific tax is used.
 This module lets you define such a mention on Tax Groups.
