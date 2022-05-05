@@ -1,6 +1,7 @@
 
 [![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=14.0)
-[![Build Status](https://travis-ci.com/OCA/account-invoicing.svg?branch=14.0)](https://travis-ci.com/OCA/account-invoicing)
+[![Pre-commit Status](https://github.com/OCA/account-invoicing/actions/workflows/pre-commit.yml/badge.svg?branch=14.0)](https://github.com/OCA/account-invoicing/actions/workflows/pre-commit.yml?query=branch%3A14.0)
+[![Build Status](https://github.com/OCA/account-invoicing/actions/workflows/test.yml/badge.svg?branch=14.0)](https://github.com/OCA/account-invoicing/actions/workflows/test.yml?query=branch%3A14.0)
 [![codecov](https://codecov.io/gh/OCA/account-invoicing/branch/14.0/graph/badge.svg)](https://codecov.io/gh/OCA/account-invoicing)
 [![Translation Status](https://translation.odoo-community.org/widgets/account-invoicing-14-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/account-invoicing-14-0/?utm_source=widget)
 
@@ -8,7 +9,7 @@
 
 # account-invoicing
 
-TODO: add repo description.
+This project aims to deal with modules related to account invoicing
 
 <!-- /!\ do not modify below this line -->
 
