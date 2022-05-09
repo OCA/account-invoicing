@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_export_invoice_statuses,access_export_invoice_statuses,model_export_invoice_statuses,,1,1,1,1
+access_export_invoice_pdf_zip,access_export_invoice_pdf_zip,model_export_invoice_pdf_zip,,1,1,1,1
