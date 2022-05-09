@@ -14,30 +14,46 @@ class TestGlobalDiscount(common.SavepointCase):
             'name': 'Test',
             'type': 'receivable',
         })
+        cls.account_type_other = cls.env['account.account.type'].create({
+            'name': 'Test other',
+            'type': 'other',
+        })
         cls.account = cls.env['account.account'].create({
             'name': 'Test account',
             'code': 'TEST',
             'user_type_id': cls.account_type.id,
             'reconcile': True,
         })
+        cls.product_account = cls.env['account.account'].create({
+            'name': 'product account',
+            'code': 'PRODUCT',
+            'user_type_id': cls.account_type_other.id,
+            'reconcile': False,
+        })
+        cls.tax_account = cls.env['account.account'].create({
+            'name': 'Tax account',
+            'code': 'TAX',
+            'user_type_id': cls.account_type_other.id,
+            'reconcile': False,
+        })
         cls.global_discount_obj = cls.env['global.discount']
         cls.global_discount_1 = cls.global_discount_obj.create({
             'name': 'Test Discount 1',
             'discount_scope': 'sale',
             'discount': 20,
-            'account_id': cls.account.id,
+            'account_id': cls.product_account.id,
         })
         cls.global_discount_2 = cls.global_discount_obj.create({
             'name': 'Test Discount 2',
             'discount_scope': 'purchase',
             'discount': 30,
-            'account_id': cls.account.id,
+            'account_id': cls.product_account.id,
         })
         cls.global_discount_3 = cls.global_discount_obj.create({
             'name': 'Test Discount 3',
             'discount_scope': 'purchase',
             'discount': 50,
-            'account_id': cls.account.id,
+            'account_id': cls.product_account.id,
         })
         cls.partner_1 = cls.env['res.partner'].create({
             'name': 'Mr. Odoo',
@@ -51,6 +67,8 @@ class TestGlobalDiscount(common.SavepointCase):
             'amount_type': 'percent',
             'type_tax_use': 'purchase',
             'amount': 15.0,
+            'account_id': cls.tax_account.id,
+            'refund_account_id': cls.tax_account.id,
         })
         cls.journal = cls.env["account.journal"].create({
             "name": "Test purchase journal",
@@ -69,7 +87,7 @@ class TestGlobalDiscount(common.SavepointCase):
             'invoice_id': cls.invoice.id,
             'name': 'Line 1',
             'price_unit': 200.0,
-            'account_id': cls.account.id,
+            'account_id': cls.product_account.id,
             'invoice_line_tax_ids': [(6, 0, [cls.tax.id])],
             'quantity': 1,
         })
@@ -242,3 +260,19 @@ class TestGlobalDiscount(common.SavepointCase):
         self.invoice.global_discount_ids = self.global_discount_1
         with self.assertRaises(exceptions.UserError):
             self.invoice._onchange_global_discount_ids()
+
+    def test_07_refund_invoice(self):
+        self.invoice.global_discount_ids = self.global_discount_1
+        self.invoice._onchange_global_discount_ids()
+        self.invoice.action_invoice_open()
+        refund_wizard = self.env['account.invoice.refund'].create({
+            'date_invoice': self.invoice.date_invoice,
+            'description': 'test global discounts refund',
+            'filter_refund': 'cancel'
+        })
+        refund_wizard.with_context(
+            active_ids=[self.invoice.id]).invoice_refund()
+        self.assertEqual(self.invoice.state, 'paid')
+        refunds = self.invoice.refund_invoice_ids
+        self.assertEqual(
+            len(refunds), len(refunds.filtered(lambda r: r.state == 'paid')))

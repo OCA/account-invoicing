@@ -212,6 +212,27 @@ class AccountInvoice(models.Model):
             res.append(discount_dict)
         return res
 
+    @api.model
+    def _prepare_refund(
+        self, invoice, date_invoice=None, date=None, description=None,
+        journal_id=None
+    ):
+        vals = super()._prepare_refund(
+            invoice, date_invoice, date, description, journal_id
+        )
+        if invoice.global_discount_ids:
+            vals["global_discount_ids"] = [(6, 0, invoice.global_discount_ids._ids)]
+        return vals
+
+    @api.multi
+    @api.returns("self")
+    def refund(
+        self, date_invoice=None, date=None, description=None, journal_id=None
+    ):
+        res = super().refund(date_invoice, date, description, journal_id)
+        res._onchange_global_discount_ids()
+        return res
+
 
 class AccountInvoiceTax(models.Model):
     _inherit = "account.invoice.tax"
