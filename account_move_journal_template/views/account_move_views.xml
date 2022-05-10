@@ -12,7 +12,7 @@
                     string="Automatic Journal Entries"
                     class="oe_stat_button"
                     icon="fa-file-text-o"
-                    attrs="{'invisible': ['|',('state', '=', 'draft'),('type','!=', 'out_invoice')]}"
+                    attrs="{'invisible': ['|',('state', '=', 'draft'),('type','not in', ['out_invoice','out_refund'])]}"
                     groups="account.group_account_user"
                 >
                 </button>
