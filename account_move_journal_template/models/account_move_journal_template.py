@@ -8,12 +8,19 @@ class AccountMoveJournalTemplate(models.Model):
     _name = "account.move.journal.template"
     _description = "Template for additional journal entries/items"
 
+    _sql_constraints = [
+        (
+            "product_tmpl_id",
+            "UNIQUE (product_tmpl_id)",
+            _("Template for this product already exists"),
+        ),
+    ]
+
     name = fields.Char(required=True, copy=False, default="New")
-    product_tmpl_line_ids = fields.One2many(
-        comodel_name="account.move.journal.template.product.line",
-        inverse_name="journal_template_id",
-        string="Product lines",
-        help="Journal items will be created for these products",
+    product_tmpl_id = fields.Many2one(
+        comodel_name="product.template",
+        string="Product",
+        help="Journal items will be created for this product",
     )
     journal_item_ids = fields.One2many(
         comodel_name="account.move.journal.template.item.line",
@@ -75,45 +82,24 @@ class AccountMoveJournalTemplate(models.Model):
         res = super().write(vals)
         for this in self:
             this._check_balanced()
+            this.product_tmpl_id.journal_tmpl_id = this
         return res
 
     @api.model_create_multi
     def create(self, vals_list):
         records = super().create(vals_list)
         records._check_balanced()
+        for this in records:
+            this.product_tmpl_id.journal_tmpl_id = this
         return records
 
 
-class AccountMoveJournalTemplateProductLine(models.Model):
-    _name = "account.move.journal.template.product.line"
-    _description = "Lines for product configuration"
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
 
-    _sql_constraints = [
-        (
-            "product_tmpl_id",
-            "UNIQUE (product_tmpl_id)",
-            _("Line for this product already exists"),
-        ),
-    ]
-
-    product_tmpl_id = fields.Many2one(
-        comodel_name="product.template", string="Product",
+    journal_tmpl_id = fields.Many2one(
+        comodel_name="account.move.journal.template", string="Journal Template",
     )
-    default_code = fields.Char(related="product_tmpl_id.default_code", readonly=True)
-    journal_template_id = fields.Many2one(comodel_name="account.move.journal.template")
-
-    def name_get(self):
-        names = []
-        for this in self:
-            names.append(
-                (
-                    this.id,
-                    "%s" % this.product_tmpl_id.name
-                    + " - "
-                    + (this.product_tmpl_id.default_code or ""),
-                )
-            )
-        return names
 
 
 class AccountMoveJournalTemplateItemLine(models.Model):

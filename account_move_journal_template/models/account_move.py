@@ -34,40 +34,34 @@ class AccountMove(models.Model):
             "domain": [("id", "in", self.journal_entry_ids.ids)],
         }
 
-    def action_post(self):
-        res = super().action_post()
-        if self.type != "out_invoice":
-            return res
-        # Remove previous lines
-        self.journal_entry_ids.line_ids.unlink()
-        account_auto_model = self.env["account.move.journal.template"]
-        product_tmpl_ids = self.mapped("invoice_line_ids.product_id.product_tmpl_id")
+    def post(self):
+        res = super().post()
         all_journals = self.env["account.move"]
-        for tmpl in product_tmpl_ids:
-            # This is either a singleton, or an empty recordset
-            # because of a UNIQUE constraint in product_tmpl_id
-            account_auto = account_auto_model.search(
-                [("product_tmpl_line_ids.product_tmpl_id", "=", tmpl.id)]
-            )
-            if not account_auto:
+        for move in self:
+            if move.type not in ["out_invoice", "out_refund"]:
                 continue
-            quantity_in_invoice_lines = self._get_quantity_in_invoice_line(tmpl)
-            for item in account_auto.journal_item_ids:
-                journal = self._get_or_create_journal(item)
-                self._create_journal_entry_item(
-                    quantity_in_invoice_lines, journal, item
-                )
-                # TODO: revisit this
-                # I expected that recordsets will behave like sets
-                # This is not the case here: If I do all_journals+=journal,
-                # where journal is id 18, then all_journals becomes
-                # something like account.move(18,18,18,...)
-                if journal in all_journals:
+            # Remove previous lines
+            move.journal_entry_ids.line_ids.unlink()
+            product_tmpl_ids = move.mapped(
+                "invoice_line_ids.product_id.product_tmpl_id"
+            )
+            for tmpl in product_tmpl_ids:
+                template = tmpl.journal_tmpl_id
+                if not template:
                     continue
-                all_journals += journal
-        for journal in all_journals:
-            journal.action_post()
-        return res
+                quantity_in_invoice_lines = self._get_quantity_in_invoice_line(tmpl)
+                for item in template.journal_item_ids:
+                    journal = move._get_or_create_journal(item)
+                    move._create_journal_entry_item(
+                        quantity_in_invoice_lines, journal, item
+                    )
+                    # TODO: revisit this
+                    if journal in all_journals:
+                        continue
+                    all_journals += journal
+            for journal in all_journals:
+                journal.action_post()
+            return res
 
     def _get_or_create_journal(self, item):
         journal_model = self.env["account.move"]
@@ -97,13 +91,15 @@ class AccountMove(models.Model):
         line_model = self.env["account.move.line"].with_context(
             check_move_validity=False
         )
+        credit = item.credit if self.type == "out_invoice" else item.debit
+        debit = item.debit if self.type == "out_invoice" else item.credit
         line_model.create(
             {
                 "move_id": journal.id,
                 "account_id": item.account_id.id,
                 "currency_id": item.currency_id.id,
-                "credit": item.credit * quantity,
-                "debit": item.debit * quantity,
+                "credit": credit * quantity,
+                "debit": debit * quantity,
             }
         )
 
