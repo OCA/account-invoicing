@@ -7,9 +7,16 @@
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
         <field eval="False" name="view_id" />
-        <field name="domain">[('type', 'in', ('out_invoice', 'out_refund'))]</field>
-        <field name="context">{'type':'out_invoice', 'journal_type': 'sale'}</field>
-        <field name="search_view_id" ref="account.view_account_invoice_filter" />
+        <field
+      name="domain"
+    >[('type', 'in', ('out_invoice', 'out_refund'))]</field>
+        <field
+      name="context"
+    >{'type':'out_invoice', 'journal_type': 'sale'}</field>
+        <field
+      name="search_view_id"
+      ref="account.view_account_invoice_filter"
+    />
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
               Create a customer invoice
@@ -32,20 +39,27 @@
         <field name="act_window_id" ref="action_invoice_out_tree" />
     </record>
     <menuitem
-        action="action_invoice_out_tree"
-        id="menu_action_invoice_out_tree"
-        parent="account.menu_finance_receivables"
-        sequence="3"
-    />
+    action="action_invoice_out_tree"
+    id="menu_action_invoice_out_tree"
+    parent="account.menu_finance_receivables"
+    sequence="3"
+  />
     <!-- Vendor Bill / Refund -->
     <record id="action_invoice_in_tree" model="ir.actions.act_window">
         <field name="name">Bills / Refunds</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
         <field eval="False" name="view_id" />
-        <field name="domain">[('type', 'in', ('in_invoice', 'in_refund'))]</field>
-        <field name="context">{'type':'in_invoice', 'journal_type': 'purchase'}</field>
-        <field name="search_view_id" ref="account.view_account_invoice_filter" />
+        <field
+      name="domain"
+    >[('type', 'in', ('in_invoice', 'in_refund'))]</field>
+        <field
+      name="context"
+    >{'type':'in_invoice', 'journal_type': 'purchase'}</field>
+        <field
+      name="search_view_id"
+      ref="account.view_account_invoice_filter"
+    />
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
               Create a vendor bill
@@ -68,9 +82,9 @@
         <field name="act_window_id" ref="action_invoice_in_tree" />
     </record>
     <menuitem
-        action="action_invoice_in_tree"
-        id="menu_action_invoice_in_tree"
-        parent="account.menu_finance_payables"
-        sequence="6"
-    />
+    action="action_invoice_in_tree"
+    id="menu_action_invoice_in_tree"
+    parent="account.menu_finance_payables"
+    sequence="6"
+  />
 </odoo>
