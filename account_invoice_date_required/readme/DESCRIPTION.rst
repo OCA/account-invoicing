@@ -1,0 +1,1 @@
+- Makes date_invoice field required in account.invoice_form and account.invoice_supplier_form

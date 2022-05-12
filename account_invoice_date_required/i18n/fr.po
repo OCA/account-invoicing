@@ -1,0 +1,50 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_date_required
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-28 07:45+0000\n"
+"PO-Revision-Date: 2020-09-28 07:45+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#~ msgid "Allow validating an invoice with a negative total amount"
+#~ msgstr "Autoriser la validation d'une facture avec un montant total négatif"
+
+#~ msgid "Allows you to validate an invoice with a negative total amount"
+#~ msgstr "Permet de valider une facture avec un montant total négatif"
+
+#~ msgid "Config Settings"
+#~ msgstr "Paramètres de configuration"
+
+#~ msgid "Invoice"
+#~ msgstr "Facture"
+
+#~ msgid "Invoice must be in draft state in order to validate it."
+#~ msgstr ""
+#~ "Pour pouvoir être validée, la facture doit être à l'état de brouillon."
+
+#~ msgid ""
+#~ "No account was found to create the invoice, be sure you have installed a "
+#~ "chart of account."
+#~ msgstr ""
+#~ "Aucun compte n'a été trouvé pour créer la facture, vérifiez que vous avez "
+#~ "bien installé un plan comptable."
+
+#~ msgid ""
+#~ "The field Vendor is required, please complete it to validate the Vendor "
+#~ "Bill."
+#~ msgstr ""
+#~ "Le champ Vendeur est requis, veuillez le compléter pour valider cette "
+#~ "facture d'achat."
+
+#~ msgid "Validate an invoice with a negative total amount"
+#~ msgstr "Valider une facture avec un montant total négatif"
