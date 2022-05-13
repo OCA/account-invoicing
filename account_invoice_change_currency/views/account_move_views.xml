@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2017 Komit <http://komit-consulting.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='journal_div']" position="after">
+                <label for="custom_rate" groups="base.group_multi_currency" />
+                <div groups="base.group_multi_currency">
+                    <field name="is_original_currency" invisible="1" />
+                    <field
+                        name="custom_rate"
+                        string="Custom Rate"
+                        placeholder="Custom Rate"
+                        class="oe_inline"
+                        attrs="{
+                            'invisible': [
+                                '|',
+                                ('custom_rate', '=', 0),
+                                ('is_original_currency', '=', True),
+                            ],
+                            'readonly': [
+                                '|',
+                                ('state', '!=', 'draft'),
+                                ('is_original_currency', '=', True),
+                            ]
+                        }"
+                    />
+                    <button
+                        aria-label="Update Currency"
+                        type="object"
+                        name="action_account_change_currency"
+                        class="btn-link"
+                        states="draft"
+                        groups="account.group_account_manager"
+                    >
+                        <i
+                            title="Update Currency: Will convert the amount lines to the new currency set"
+                            class="fa fa-fw fa-refresh"
+                        />
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
