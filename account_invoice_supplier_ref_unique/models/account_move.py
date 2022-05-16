@@ -34,6 +34,7 @@ class AccountMove(models.Model):
                             "=ilike",
                             rec.supplier_invoice_number,
                         ),
+                        ("invoice_date", "=", rec.invoice_date),
                         ("id", "!=", rec.id),
                     ],
                     limit=1,
