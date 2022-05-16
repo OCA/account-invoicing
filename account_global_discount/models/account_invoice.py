@@ -180,7 +180,7 @@ class AccountInvoice(models.Model):
                 amount = discount._get_global_discount_vals(
                     amount)['base_discounted']
             tax_grouped[key]['base'] = round_curr(base)
-            tax_grouped[key]['amount'] = round_curr(amount)
+            tax_grouped[key]['amount'] = amount
         return tax_grouped
 
     @api.model
