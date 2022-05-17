@@ -3,7 +3,7 @@
 # Copyright 2022 Simone Rubino - TAKOBI
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, _
+from odoo import api, models
 
 
 class AccountInvoiceLine(models.Model):
@@ -12,6 +12,11 @@ class AccountInvoiceLine(models.Model):
     @api.onchange('product_id')
     def _onchange_product_id(self):
         res = super(AccountInvoiceLine, self)._onchange_product_id()
+        # Return early if line's account does not have to be updated
+        if self.product_id:
+            # There is a product that might have set the accounts
+            return res
+
         partner = self.invoice_id.partner_id
         invoice_type = self.invoice_id.type
         if partner and invoice_type:
