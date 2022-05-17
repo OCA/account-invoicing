@@ -13,7 +13,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
         res_users_account_manager = self.env.ref("account.group_account_manager")
         self.manager = (
             self.env["res.users"]
-            .with_context({"no_reset_password": True})
+            .with_context(no_reset_password=True)
             .create(
                 dict(
                     name="Adviser",
