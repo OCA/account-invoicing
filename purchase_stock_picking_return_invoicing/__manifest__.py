@@ -14,5 +14,5 @@
     "development_status": "Mature",
     "depends": ["purchase_stock"],
     "data": ["views/account_invoice_view.xml", "views/purchase_view.xml"],
-    "maintainers": ["pedrobaeza", "MiquelRForgeFlow"],
+    "maintainers": ["pedrobaeza", "MiquelRForgeFlow", "26hpredraglazarevic"],
 }
