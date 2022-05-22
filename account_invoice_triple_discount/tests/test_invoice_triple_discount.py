@@ -1,11 +1,11 @@
 # Copyright 2017 Tecnativa - David Vidal
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import SavepointCase
+from odoo.tests import TransactionCase
 from odoo.tests.common import Form
 
 
-class TestInvoiceTripleDiscount(SavepointCase):
+class TestInvoiceTripleDiscount(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestInvoiceTripleDiscount, cls).setUpClass()
@@ -23,6 +23,7 @@ class TestInvoiceTripleDiscount(SavepointCase):
                 "amount_type": "percent",
                 "type_tax_use": "purchase",
                 "amount": 15.0,
+                "country_id": cls.env.ref("base.us").id,
             }
         )
         cls.account_type = cls.AccountType.create(
