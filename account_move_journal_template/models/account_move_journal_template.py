@@ -52,10 +52,6 @@ class AccountMoveJournalTemplate(models.Model):
             FROM account_move_journal_template_item_line line
             JOIN account_move_journal_template move ON
                 move.id = line.journal_template_id
-            JOIN account_journal journal ON
-                journal.id = line.journal_id
-            JOIN res_company company ON
-                company.id = journal.company_id
             JOIN res_currency currency ON
                 currency.id = company.currency_id
             WHERE
@@ -81,14 +77,14 @@ class AccountMoveJournalTemplate(models.Model):
     def write(self, vals):
         res = super().write(vals)
         for this in self:
-            this._check_balanced()
+            # this._check_balanced()
             this.product_tmpl_id.journal_tmpl_id = this
         return res
 
     @api.model_create_multi
     def create(self, vals_list):
         records = super().create(vals_list)
-        records._check_balanced()
+        # records._check_balanced()
         for this in records:
             this.product_tmpl_id.journal_tmpl_id = this
         return records
@@ -111,6 +107,5 @@ class AccountMoveJournalTemplateItemLine(models.Model):
     account_id = fields.Many2one(
         comodel_name="account.account", ondelete="cascade", required=True
     )
-    journal_id = fields.Many2one(comodel_name="account.journal", required=True)
-    currency_id = fields.Many2one(related="journal_id.currency_id")
+    currency_id = fields.Many2one("res.currency")
     journal_template_id = fields.Many2one(comodel_name="account.move.journal.template")

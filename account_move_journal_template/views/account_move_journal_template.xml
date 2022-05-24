@@ -31,7 +31,6 @@
                                 />
                                 <field name="debit" />
                                 <field name="credit" />
-                                <field name="journal_id" />
                                 <field
                                     name="currency_id"
                                     options="{'no_create_edit': True, 'no_open': True}"
