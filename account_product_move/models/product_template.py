@@ -7,7 +7,5 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     journal_tmpl_id = fields.Many2one(
-        comodel_name="account.move.journal.template",
-        string="Journal Template",
-        readonly=True,
+        comodel_name="account.product.move", string="Product Journal", readonly=True,
     )
