@@ -1,9 +1,9 @@
 <?xml version="1.0" ?>
 <odoo>
     <!-- Form and tree -->
-    <record model="ir.ui.view" id="account_move_journal_template_form_view">
-        <field name="name">account.move.journal.template.form</field>
-        <field name="model">account.move.journal.template</field>
+    <record model="ir.ui.view" id="account_product_move_form_view">
+        <field name="name">account.product.move.form</field>
+        <field name="model">account.product.move</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -22,7 +22,11 @@
                         <field name="name" class="oe_inline" />
                     </h1>
                     <group name="config" colspan="4" col="4">
-                        <field name="product_tmpl_id" colspan="4" options="{'no_create_edit': True, 'no_open': True}"/>
+                        <field
+                            name="product_tmpl_id"
+                            colspan="4"
+                            options="{'no_create_edit': True, 'no_open': True}"
+                        />
                         <field name="journal_item_ids" colspan="4">
                             <tree editable="bottom">
                                 <field
@@ -44,24 +48,21 @@
             </form>
         </field>
     </record>
-    <record model="ir.ui.view" id="account_move_journal_template_tree_view">
-        <field name="name">account.move.journal.template.tree</field>
-        <field name="model">account.move.journal.template</field>
+    <record model="ir.ui.view" id="account_product_move_tree_view">
+        <field name="name">account.product.move.tree</field>
+        <field name="model">account.product.move</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
-                <field
-                    name="product_tmpl_id"
-                    string="Product"
-                />
+                <field name="product_tmpl_id" string="Product" />
                 <field name="journal_item_ids" />
             </tree>
         </field>
     </record>
     <!-- Search -->
-    <record model="ir.ui.view" id="account_move_journal_template_search_view">
-        <field name="name">account.move.journal.template.search</field>
-        <field name="model">account.move.journal.template</field>
+    <record model="ir.ui.view" id="account_product_move_search_view">
+        <field name="name">account.product.move.search</field>
+        <field name="model">account.product.move</field>
         <field name="arch" type="xml">
             <search string="Search">
                 <field name="name" />
@@ -79,15 +80,15 @@
         </field>
     </record>
     <!-- Action and menu -->
-    <record model="ir.actions.act_window" id="account_move_journal_template_act_window">
-        <field name="name">Account Move Journal Template</field>
-        <field name="res_model">account.move.journal.template</field>
+    <record model="ir.actions.act_window" id="account_product_move_act_window">
+        <field name="name">Account Product Move</field>
+        <field name="res_model">account.product.move</field>
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem
-        id="menu_journal_template"
-        name="Journal Templates"
-        action="account_move_journal_template_act_window"
+        id="menu_product_move"
+        name="Extra Product Moves"
+        action="account_product_move_act_window"
         parent="account.menu_finance_entries_accounting_journals"
         groups="account.group_account_user"
         sequence="100"

@@ -4,8 +4,8 @@ from odoo import _, api, fields, models
 from odoo.tools import UserError
 
 
-class AccountMoveJournalTemplate(models.Model):
-    _name = "account.move.journal.template"
+class AccountProductMove(models.Model):
+    _name = "account.product.move"
     _description = "Template for additional journal entries/items"
 
     _sql_constraints = [
@@ -23,10 +23,10 @@ class AccountMoveJournalTemplate(models.Model):
         help="Journal items will be created for this product",
     )
     journal_item_ids = fields.One2many(
-        comodel_name="account.move.journal.template.item.line",
+        comodel_name="account.product.move.line",
         inverse_name="journal_template_id",
         copy=True,
-        string="Journal Items",
+        string="Extra Journal Items",
         help="Journal items to be added in new journal entry",
     )
     active = fields.Boolean(default=True)
@@ -40,8 +40,8 @@ class AccountMoveJournalTemplate(models.Model):
         moves = self.filtered(lambda move: move.journal_item_ids)
         if not moves:
             return
-        self.env["account.move.journal.template.item.line"].flush(
-            self.env["account.move.journal.template.item.line"]._fields
+        self.env["account.product.move.line"].flush(
+            self.env["account.product.move.line"]._fields
         )
         self._cr.execute(
             """
@@ -49,8 +49,8 @@ class AccountMoveJournalTemplate(models.Model):
                 line.journal_template_id,
                 ROUND(SUM(line.debit - line.credit),
                 currency.decimal_places)
-            FROM account_move_journal_template_item_line line
-            JOIN account_move_journal_template move ON
+            FROM account_product_move_line line
+            JOIN account_product_move move ON
                 move.id = line.journal_template_id
             JOIN account_journal journal ON
                 journal.id = line.journal_id
@@ -79,6 +79,11 @@ class AccountMoveJournalTemplate(models.Model):
             )
 
     def write(self, vals):
+        if "product_tmpl_id" in vals:
+            for this in self:
+                if not this.product_tmpl_id:
+                    continue
+                this.product_tmpl_id.journal_tmpl_id = False
         res = super().write(vals)
         for this in self:
             this._check_balanced()
@@ -92,25 +97,3 @@ class AccountMoveJournalTemplate(models.Model):
         for this in records:
             this.product_tmpl_id.journal_tmpl_id = this
         return records
-
-
-class ProductTemplate(models.Model):
-    _inherit = "product.template"
-
-    journal_tmpl_id = fields.Many2one(
-        comodel_name="account.move.journal.template", string="Journal Template",
-    )
-
-
-class AccountMoveJournalTemplateItemLine(models.Model):
-    _name = "account.move.journal.template.item.line"
-    _description = "Items for journal entry for given products"
-
-    debit = fields.Monetary(default=0.0)
-    credit = fields.Monetary(default=0.0)
-    account_id = fields.Many2one(
-        comodel_name="account.account", ondelete="cascade", required=True
-    )
-    journal_id = fields.Many2one(comodel_name="account.journal", required=True)
-    currency_id = fields.Many2one(related="journal_id.currency_id")
-    journal_template_id = fields.Many2one(comodel_name="account.move.journal.template")
