@@ -36,7 +36,7 @@ class AccountMove(models.Model):
 
     def post(self):
         res = super().post()
-        all_journals = self.env["account.move"]
+        extra_moves = self.env["account.move"]
         for move in self:
             if move.type not in ["out_invoice", "out_refund"]:
                 continue
@@ -51,20 +51,20 @@ class AccountMove(models.Model):
                     continue
                 quantity_in_invoice_lines = self._get_quantity_in_invoice_line(tmpl)
                 for item in template.journal_item_ids:
-                    journal = move._get_or_create_journal(item)
+                    extra_move = move._get_or_create_extra_move(item)
                     move._create_journal_entry_item(
-                        quantity_in_invoice_lines, journal, item
+                        quantity_in_invoice_lines, extra_move, item
                     )
                     # TODO: revisit this
-                    if journal in all_journals:
+                    if extra_move in extra_moves:
                         continue
-                    all_journals += journal
-            for journal in all_journals:
-                journal.action_post()
+                    extra_moves += extra_move
+            for extra_move in extra_moves:
+                extra_move.action_post()
             return res
 
-    def _get_or_create_journal(self, item):
-        journal_model = self.env["account.move"]
+    def _get_or_create_extra_move(self, item):
+        move_model = self.env["account.move"]
         vals = {
             "type": "entry",
             "ref": self.name,
@@ -72,7 +72,7 @@ class AccountMove(models.Model):
             "date": self.invoice_date,
             "journal_entry_id": self.id,
         }
-        return journal_model.search(
+        return move_model.search(
             [
                 ("type", "=", vals["type"]),
                 ("ref", "=", vals["ref"]),
@@ -81,7 +81,7 @@ class AccountMove(models.Model):
                 ("journal_entry_id", "=", vals["journal_entry_id"]),
             ],
             limit=1,
-        ) or journal_model.create(vals)
+        ) or move_model.create(vals)
 
     def _create_journal_entry_item(self, quantity, journal, item):
         # We need check_move_validity to False
