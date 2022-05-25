@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="account_product_move_01" model="account.product.move">
+        <field name="name">Demo</field>
+    </record>
+</odoo>
