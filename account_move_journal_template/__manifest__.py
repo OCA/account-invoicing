@@ -13,6 +13,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/account_move_journal_template.xml",
+        "views/account_move_views.xml",
         "views/product_views.xml",
     ],
     "demo": ["demo/account_move_journal_template.xml"],
