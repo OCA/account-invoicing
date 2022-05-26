@@ -5,7 +5,10 @@
         <field name="model">res.config.settings</field>
         <field name="arch" type="xml">
             <div id="account_vendor_bills" position="inside">
-                <div class="col-12 col-lg-6 o_setting_box">
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="group_payment_retention_setting"
+                >
                     <div class="o_setting_left_pane">
                         <field name="group_payment_retention" />
                     </div>
@@ -27,6 +30,28 @@
                                 <field
                                     name="retention_account_id"
                                     attrs="{'required': [('group_payment_retention', '=', True)]}"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="retention_method_setting"
+                >
+                    <div class="o_setting_left_pane">
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="retention_method" string="Retention Method" />
+                        <div class="text-muted">
+                            Default your retention method
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <field
+                                    name="retention_method"
+                                    class="o_light_label"
+                                    widget="radio"
                                 />
                             </div>
                         </div>
