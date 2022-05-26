@@ -144,12 +144,18 @@ class TestInvoicePaymentRetention(SavepointCase):
         # Test invoice retention amount calculation
         with self.assertRaises(ValidationError):
             self.cust_invoice.payment_retention = "percent"
+            self.cust_invoice.retention_method = "untax"
+            self.cust_invoice.amount_retention = 101.0
+        with self.assertRaises(ValidationError):
+            self.cust_invoice.payment_retention = "percent"
+            self.cust_invoice.retention_method = "total"
             self.cust_invoice.amount_retention = 101.0
         with self.assertRaises(ValidationError):
             self.cust_invoice.payment_retention = "amount"
             self.cust_invoice.amount_retention = 501.0
         # Now setup valid amount equal to 50
         self.cust_invoice.payment_retention = "percent"
+        self.cust_invoice.retention_method = "untax"
         self.cust_invoice.amount_retention = 10
         self.assertEqual(self.cust_invoice.retention_amount_currency, 50.0)
         self.cust_invoice.action_post()
@@ -174,6 +180,7 @@ class TestInvoicePaymentRetention(SavepointCase):
         self.cust_invoice2 = self.cust_invoice.copy({"name": "Test Invoice 2"})
         # Invoice 1, 10% = 50.0
         self.cust_invoice.payment_retention = "percent"
+        self.cust_invoice.retention_method = "untax"
         self.cust_invoice.amount_retention = 10.0
         self.assertEqual(self.cust_invoice.retention_amount_currency, 50.0)
         self.cust_invoice.action_post()
@@ -265,6 +272,7 @@ class TestInvoicePaymentRetention(SavepointCase):
         self.vendor_bill2 = self.vendor_bill.copy({"name": "Test Bill 2"})
         # Invoice 1, 10% = 50.0
         self.vendor_bill.payment_retention = "percent"
+        self.cust_invoice.retention_method = "untax"
         self.vendor_bill.amount_retention = 10.0
         self.assertEqual(self.vendor_bill.retention_amount_currency, 50.0)
         self.vendor_bill.action_post()
@@ -364,6 +372,8 @@ class TestInvoicePaymentRetention(SavepointCase):
         self.invoice_normal1.action_post()
         self.invoice_normal2 = self.cust_invoice.copy({"name": "Normal 2"})
         self.invoice_normal2.action_post()
+        self.invoice_normal3 = self.cust_invoice.copy({"name": "Normal 3"})
+        self.invoice_normal3.action_post()
         ctx = {
             "active_ids": [self.invoice_normal1.id, self.invoice_normal2.id],
             "active_model": "account.move",
@@ -376,14 +386,26 @@ class TestInvoicePaymentRetention(SavepointCase):
 
         # Test multi invoice payment, with some retention, not allowed
         self.cust_invoice2 = self.cust_invoice.copy({"name": "Test Invoice 2"})
+        self.cust_invoice3 = self.cust_invoice.copy({"name": "Test Invoice 3"})
         # Invoice 1, 10% = 50.0
         self.cust_invoice.payment_retention = "percent"
+        self.cust_invoice.retention_method = "untax"
         self.cust_invoice.amount_retention = 10.0
         self.assertEqual(self.cust_invoice.retention_amount_currency, 50.0)
         self.cust_invoice.action_post()
+        # Invoice 2, 5% = 25.0
+        self.cust_invoice2.payment_retention = "percent"
+        self.cust_invoice2.retention_method = "total"
+        self.cust_invoice2.amount_retention = 5.0
+        self.assertEqual(self.cust_invoice2.retention_amount_currency, 25.0)
         self.cust_invoice2.action_post()
+        self.cust_invoice3.action_post()
         ctx = {
-            "active_ids": [self.cust_invoice.id, self.cust_invoice2.id],
+            "active_ids": [
+                self.cust_invoice.id,
+                self.cust_invoice2.id,
+                self.cust_invoice3.id,
+            ],
             "active_model": "account.move",
         }
         f = Form(
