@@ -23,6 +23,11 @@
                     />
                     <field
                         class="oe_edit_only"
+                        name="retention_method"
+                        attrs="{'invisible': [('payment_retention', '!=', 'percent')], 'required': [('payment_retention', '=', 'percent')]}"
+                    />
+                    <field
+                        class="oe_edit_only"
                         name="amount_retention"
                         placeholder="Amount"
                         attrs="{'invisible': [('payment_retention', '=', False)]}"
