@@ -18,3 +18,12 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
         help="Retention account used for case payment retention",
     )
+    retention_method = fields.Selection(
+        selection=[("untax", "Untaxed Amount"), ("total", "Total")],
+        related="company_id.retention_method",
+        string="Retention Method",
+        readonly=False,
+        help="Method for computing the retention\n"
+        "- Untaxed Amount: The retention compute from the untaxed amount\n"
+        "- Total: The retention compute from the total amount",
+    )
