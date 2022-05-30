@@ -6,21 +6,27 @@ from odoo import _, fields, models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    journal_entry_ids = fields.One2many(
-        comodel_name="account.move", inverse_name="journal_entry_id",
+    product_move_ids = fields.One2many(
+        comodel_name="account.move",
+        inverse_name="invoice_move_id",
+        help="Extra moves generated for invoice lines that hold "
+        "a product connected to an account.product.move record",
     )
-    journal_entry_id = fields.Many2one(comodel_name="account.move")
+    invoice_move_id = fields.Many2one(
+        comodel_name="account.move",
+        help="Identifier connecting extra moves to the original invoice",
+    )
 
     def button_draft(self):
         res = super().button_draft()
-        if self.journal_entry_ids:
-            self.journal_entry_ids.button_draft()
+        if self.product_move_ids and self.state == "draft":
+            self.product_move_ids.button_draft()
         return res
 
     def button_cancel(self):
         res = super().button_cancel()
-        if self.journal_entry_ids:
-            self.journal_entry_ids.button_cancel()
+        if self.product_move_ids and self.state == "cancel":
+            self.product_move_ids.button_cancel()
         return res
 
     def action_view_journal_entries(self):
@@ -31,7 +37,7 @@ class AccountMove(models.Model):
             "res_model": "account.move",
             "view_mode": "tree,form",
             "target": "current",
-            "domain": [("id", "in", self.journal_entry_ids.ids)],
+            "domain": [("id", "in", self.product_move_ids.ids)],
         }
 
     def post(self):
@@ -41,19 +47,17 @@ class AccountMove(models.Model):
             if move.type not in ["out_invoice", "out_refund"]:
                 continue
             # Remove previous lines
-            move.journal_entry_ids.line_ids.unlink()
-            product_tmpl_ids = move.mapped(
-                "invoice_line_ids.product_id.product_tmpl_id"
-            )
-            for tmpl in product_tmpl_ids:
-                template = tmpl.journal_tmpl_id
-                if not template:
+            move.product_move_ids.line_ids.unlink()
+            # Remove previous journal entries
+            move.product_move_ids.with_context(force_delete=True).unlink()
+            for invoice_line in move.invoice_line_ids:
+                product_move = invoice_line.product_id.product_tmpl_id.journal_tmpl_id
+                if not product_move:
                     continue
-                quantity_in_invoice_lines = self._get_quantity_in_invoice_line(tmpl)
-                for item in template.journal_item_ids:
+                for item in product_move.journal_item_ids:
                     extra_move = move._get_or_create_extra_move(item)
                     move._create_journal_entry_item(
-                        quantity_in_invoice_lines, extra_move, item
+                        invoice_line.quantity, extra_move, item
                     )
                     # TODO: revisit this
                     if extra_move in extra_moves:
@@ -70,7 +74,7 @@ class AccountMove(models.Model):
             "ref": self.name,
             "journal_id": item.journal_id.id,
             "date": self.invoice_date,
-            "journal_entry_id": self.id,
+            "invoice_move_id": self.id,
         }
         return move_model.search(
             [
@@ -78,7 +82,7 @@ class AccountMove(models.Model):
                 ("ref", "=", vals["ref"]),
                 ("journal_id", "=", vals["journal_id"]),
                 ("date", "=", vals["date"]),
-                ("journal_entry_id", "=", vals["journal_entry_id"]),
+                ("invoice_move_id", "=", vals["invoice_move_id"]),
             ],
             limit=1,
         ) or move_model.create(vals)
@@ -101,16 +105,4 @@ class AccountMove(models.Model):
                 "credit": credit * quantity,
                 "debit": debit * quantity,
             }
-        )
-
-    def _get_quantity_in_invoice_line(self, template):
-        return sum(
-            self.env["account.move.line"]
-            .search(
-                [
-                    ("move_id", "=", self.id),
-                    ("product_id.product_tmpl_id", "=", template.id),
-                ]
-            )
-            .mapped("quantity")
         )

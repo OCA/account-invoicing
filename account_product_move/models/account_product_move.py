@@ -24,7 +24,7 @@ class AccountProductMove(models.Model):
     )
     journal_item_ids = fields.One2many(
         comodel_name="account.product.move.line",
-        inverse_name="journal_template_id",
+        inverse_name="product_move_id",
         copy=True,
         string="Extra Journal Items",
         help="Journal items to be added in new journal entry",
@@ -46,12 +46,12 @@ class AccountProductMove(models.Model):
         self._cr.execute(
             """
             SELECT
-                line.journal_template_id,
+                line.product_move_id,
                 ROUND(SUM(line.debit - line.credit),
                 currency.decimal_places)
             FROM account_product_move_line line
             JOIN account_product_move move ON
-                move.id = line.journal_template_id
+                move.id = line.product_move_id
             JOIN account_journal journal ON
                 journal.id = line.journal_id
             JOIN res_company company ON
@@ -59,8 +59,8 @@ class AccountProductMove(models.Model):
             JOIN res_currency currency ON
                 currency.id = company.currency_id
             WHERE
-                line.journal_template_id IN %s
-            GROUP BY line.journal_template_id, currency.decimal_places
+                line.product_move_id IN %s
+            GROUP BY line.product_move_id, currency.decimal_places
             HAVING ROUND(SUM(line.debit - line.credit), currency.decimal_places) != 0.0;
         """,
             [tuple(self.ids)],
