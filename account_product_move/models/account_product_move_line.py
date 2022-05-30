@@ -14,4 +14,4 @@ class AccountProductMoveLine(models.Model):
     )
     journal_id = fields.Many2one(comodel_name="account.journal", required=True)
     currency_id = fields.Many2one(related="journal_id.currency_id")
-    journal_template_id = fields.Many2one(comodel_name="account.product.move")
+    product_move_id = fields.Many2one(comodel_name="account.product.move")
