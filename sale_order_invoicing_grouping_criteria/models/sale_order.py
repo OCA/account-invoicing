@@ -30,7 +30,7 @@ class SaleOrder(models.Model):
             partner.sale_invoicing_grouping_criteria_id
             or self.company_id.default_sale_invoicing_grouping_criteria_id
         )
-        for field in criteria.field_ids:
+        for field in criteria.field_ids.sudo():
             group_key.append(self[field.name])
         return tuple(group_key)
 
