@@ -3,11 +3,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import fields
-from odoo.tests.common import SavepointCase, tagged
+from odoo.tests.common import TransactionCase, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
+class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
     @classmethod
     def setUpClass(cls):
         """Add some defaults to let the test run without an accounts chart."""
