@@ -41,11 +41,10 @@ class AccountMove(models.Model):
                 if same_supplier_inv_num:
                     raise ValidationError(
                         _(
-                            "The invoice/refund with supplier invoice number '%s' "
-                            "already exists in Odoo under the number '%s' "
-                            "for supplier '%s'."
-                        )
-                        % (
+                            "The invoice/refund with supplier invoice number {} "
+                            "already exists in Odoo under the number {} "
+                            "for supplier {}."
+                        ).format(
                             same_supplier_inv_num.supplier_invoice_number,
                             same_supplier_inv_num.name or "-",
                             same_supplier_inv_num.partner_id.display_name,
@@ -59,15 +58,14 @@ class AccountMove(models.Model):
 
     def _reverse_moves(self, default_values_list=None, cancel=False):
         # OVERRIDE
-        if not default_values_list:
-            default_values_list = [{} for move in self]
-        for move, default_values in zip(self, default_values_list):
-            if (
-                move
-                and move.is_purchase_document(include_receipts=True)
-                and default_values.get("ref")
-            ):
-                default_values.update({"ref": ""})
+        if default_values_list:
+            for move, default_values in zip(self, default_values_list):
+                if (
+                    move
+                    and move.is_purchase_document(include_receipts=True)
+                    and default_values.get("ref")
+                ):
+                    default_values.update({"ref": ""})
         return super()._reverse_moves(
             default_values_list=default_values_list, cancel=cancel
         )
