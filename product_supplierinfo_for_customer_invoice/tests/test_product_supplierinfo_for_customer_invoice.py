@@ -1,10 +1,10 @@
 # Copyright 2021 ForgeFlow
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestProductSupplierinfoForCustomerInvoice(SavepointCase):
+class TestProductSupplierinfoForCustomerInvoice(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
