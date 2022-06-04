@@ -18,7 +18,7 @@ class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
         # ENVIRONMENTS
         cls.account_account = cls.env["account.account"]
         cls.account_move = cls.env["account.move"].with_context(
-            {"tracking_disable": True}
+            **{"tracking_disable": True}
         )
 
         # INSTANCES
@@ -87,6 +87,7 @@ class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
                     "date": fields.Date.today(),
                     "reason": "no reason",
                     "refund_method": "refund",
+                    "journal_id": self.invoice.journal_id.id,
                 }
             )
         )
