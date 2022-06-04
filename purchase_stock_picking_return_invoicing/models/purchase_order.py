@@ -38,10 +38,11 @@ class PurchaseOrder(models.Model):
         It's only needed to modify the method for resetting state to
         "to invoice", as the rest of the states are already handled by super.
         """
-        super(PurchaseOrder, self)._get_invoiced()
+        res = super(PurchaseOrder, self)._get_invoiced()
         for order in self.filtered(lambda x: x.state in ("purchase", "done")):
             if order._check_invoice_status_to_invoice():
                 order.invoice_status = "to invoice"
+        return res
 
     @api.depends("order_line.invoice_lines.move_id.state")
     def _compute_invoice_refund_count(self):
@@ -58,9 +59,10 @@ class PurchaseOrder(models.Model):
         Make this compatible with other extensions, only subtracting refunds
         from the number obtained in super.
         """
-        super()._compute_invoice()
+        res = super()._compute_invoice()
         for order in self:
             order.invoice_count -= order.invoice_refund_count
+        return res
 
     def action_create_invoice_refund(self):
         """Create the refund associated to the PO."""
