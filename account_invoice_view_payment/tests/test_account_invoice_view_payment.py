@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 
 class TestAccountInvoiceViewPayment(TransactionCase):
     """
-        Tests for Account Invoice View Payment.
+    Tests for Account Invoice View Payment.
     """
 
     def setUp(self):
