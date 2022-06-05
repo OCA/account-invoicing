@@ -118,9 +118,8 @@ class AccountInvoice(models.Model):
                 self)
             currency = self.currency_id.with_context(
                 date=date)
-            if not (self.get('currency_id') and self.get('amount_currency')):
-                amount_currency = currency.round(price)
-                price = currency.compute(price, company_currency)
+            amount_currency = currency.round(price)
+            price = currency.compute(price, company_currency)
         else:
             amount_currency = False
             price = self.currency_id.round(price)
@@ -197,6 +196,14 @@ class AccountInvoiceReimbursable(models.Model):
     @api.multi
     def _invoice_reimbursable_move_line_get(self):
         self.ensure_one()
+        amount = False
+        currency_id = False
+        amount_currency = False
+        if self.currency_id != self.company_id.currency_id:
+            amount = self.currency_id.compute(
+                self.amount, self.company_id.currency_id)
+            currency_id = self.currency_id.id
+            amount_currency = self.amount
         return {
             'reimbursable_id': self.id,
             'type': 'reimbursable',
@@ -204,7 +211,9 @@ class AccountInvoiceReimbursable(models.Model):
             'name': self.name.split('\n')[0][:64],
             'price_unit': self.amount,
             'quantity': 1,
-            'price': self.amount,
+            'price': amount or self.amount,
+            'currency_id': currency_id or False,
+            'amount_currency': amount_currency or False,
             'account_id': self.account_id.id,
             'product_id': self.product_id.id,
             'uom_id': self.product_id.uom_id.id,
