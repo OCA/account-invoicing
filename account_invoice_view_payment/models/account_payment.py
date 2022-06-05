@@ -9,7 +9,7 @@ class AccountPayment(models.Model):
     _inherit = "account.payment"
 
     def post_and_open_payment(self):
-        self.post()
+        self.action_post()
         res = {
             "name": _("Payments"),
             "views": [(False, "form")],
@@ -26,11 +26,15 @@ class AccountPaymentRegister(models.TransientModel):
     _inherit = "account.payment.register"
 
     def create_payment_and_open(self):
+        account_move_model = self.env["account.move"]
         payment_model = self.env["account.payment"]
         payments = payment_model
-        for payment_vals in self.get_payments_vals():
-            payments += payment_model.create(payment_vals)
-        payments.post()
+        for _payment_vals in account_move_model.search(
+            [("id", "in", self.env.context.get("active_ids", False))]
+        ):
+            vals = self._create_payment_vals_from_wizard()
+            payments += payment_model.create(vals)
+        payments.action_post()
         res = {
             "domain": [("id", "in", payments.ids), ("state", "=", "posted")],
             "name": _("Payments"),
