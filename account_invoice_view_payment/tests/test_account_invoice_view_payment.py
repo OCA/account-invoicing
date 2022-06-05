@@ -2,6 +2,7 @@
 #        (https://www.eficent.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
+from odoo import fields
 from odoo.tests.common import TransactionCase
 
 
@@ -42,6 +43,7 @@ class TestAccountInvoiceViewPayment(TransactionCase):
         self.invoice1 = self._create_invoice(self.partner1, "out_invoice")
         self.invoice2 = self._create_invoice(self.partner1, "in_invoice")
         self.invoice3 = self._create_invoice(self.partner1, "in_invoice")
+        self.invoice2.invoice_date = self.invoice3.invoice_date = fields.Date.today()
 
     def _create_partner(self):
         partner = self.par_model.create(
@@ -66,14 +68,14 @@ class TestAccountInvoiceViewPayment(TransactionCase):
         invoice = self.inv_model.create(
             {
                 "partner_id": partner.id,
-                "type": invoice_type,
+                "move_type": invoice_type,
                 "invoice_line_ids": inv_line,
             }
         )
         return invoice
 
     def test_account_move_view_payment_out_invoice(self):
-        self.invoice1.post()
+        self.invoice1.action_post()
         wiz = self.pay_model.with_context(
             active_id=[self.invoice1.id], active_model="account.move"
         ).create(
@@ -87,22 +89,24 @@ class TestAccountInvoiceViewPayment(TransactionCase):
 
         res = wiz.post_and_open_payment()
 
-        self.assertDictContainsSubset(
-            {"type": "ir.actions.act_window", "res_model": "account.payment"},
-            res,
+        expect = {"type": "ir.actions.act_window", "res_model": "account.payment"}
+        self.assertDictEqual(
+            expect,
+            {k: v for k, v in res.items() if k in expect},
             "There was an error and the view couldn't be opened.",
         )
 
         view_payment = self.invoice1.action_view_payments()
 
-        self.assertDictContainsSubset(
-            {"type": "ir.actions.act_window", "res_model": "account.payment"},
-            view_payment,
+        expect1 = {"type": "ir.actions.act_window", "res_model": "account.payment"}
+        self.assertDictEqual(
+            expect1,
+            {k: v for k, v in view_payment.items() if k in expect1},
             "There was an error and the invoice couldn't be paid.",
         )
 
     def test_account_move_view_payment_in_invoice(self):
-        self.invoice2.post()
+        self.invoice2.action_post()
         wiz = self.pay_model.with_context(
             active_id=[self.invoice2.id], active_model="account.move"
         ).create(
@@ -116,23 +120,24 @@ class TestAccountInvoiceViewPayment(TransactionCase):
 
         res = wiz.post_and_open_payment()
 
-        self.assertDictContainsSubset(
-            {"type": "ir.actions.act_window", "res_model": "account.payment"},
-            res,
+        expect = {"type": "ir.actions.act_window", "res_model": "account.payment"}
+        self.assertDictEqual(
+            expect,
+            {k: v for k, v in res.items() if k in expect},
             "There was an error and the view couldn't be opened.",
         )
 
         view_payment = self.invoice2.action_view_payments()
-
-        self.assertDictContainsSubset(
-            {"type": "ir.actions.act_window", "res_model": "account.payment"},
-            view_payment,
-            "There was an error and the invoice couldn't be paid.",
+        expect1 = {"type": "ir.actions.act_window", "res_model": "account.payment"}
+        self.assertDictEqual(
+            expect1,
+            {k: v for k, v in view_payment.items() if k in expect1},
+            "There was an error and the view couldn't be opened.",
         )
 
-    def test_account_invoice_view_payment_multi(self):
-        self.invoice2.post()
-        self.invoice3.post()
+    def test_view_account_payment_register_form(self):
+        self.invoice2.action_post()
+        self.invoice3.action_post()
         wiz = self.reg_pay_model.with_context(
             active_ids=[self.invoice2.id, self.invoice3.id], active_model="account.move"
         ).create(
@@ -144,8 +149,9 @@ class TestAccountInvoiceViewPayment(TransactionCase):
 
         res = wiz.create_payment_and_open()
 
-        self.assertDictContainsSubset(
-            {"type": "ir.actions.act_window", "res_model": "account.payment"},
-            res,
+        expect = {"type": "ir.actions.act_window", "res_model": "account.payment"}
+        self.assertDictEqual(
+            expect,
+            {k: v for k, v in res.items() if k in expect},
             "There was an error and the two invoices were not merged.",
         )
