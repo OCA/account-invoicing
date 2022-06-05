@@ -17,6 +17,7 @@ msgstr ""
 "X-Generator: Weblate 3.1.1\n"
 
 #. module: account_invoice_reimbursable
+#: code:addons/account_invoice_reimbursable/models/account_invoice.py:193
 #: code:addons/account_invoice_reimbursable/models/account_invoice.py:194
 #, python-format
 msgid "%s from %s"
