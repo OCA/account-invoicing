@@ -105,7 +105,7 @@ class TestAccountException(TransactionCase):
         # Simulation the opening of the wizard account_exception_confirm and
         # set ignore_exception to True
         am_except_confirm = self.account_exception_confirm.with_context(
-            {
+            **{
                 "active_id": self.am.id,
                 "active_ids": [self.am.id],
                 "active_model": self.am._name,
