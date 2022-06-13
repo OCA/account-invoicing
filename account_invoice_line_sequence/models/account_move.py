@@ -10,14 +10,14 @@ class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
     sequence = fields.Integer(
-        help="Shows the sequence of this line in the " " invoice.",
+        help="Shows the sequence of this line in the invoice.",
         default=9999,
         string="original sequence",
     )
 
     # shows sequence on the invoice line
     sequence2 = fields.Integer(
-        help="Shows the sequence of this line in the " " invoice.",
+        help="Shows the sequence of this line in the invoice.",
         related="sequence",
         string="Sequence",
         store=True,
