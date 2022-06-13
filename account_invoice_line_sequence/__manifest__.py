@@ -1,15 +1,15 @@
 # Copyright 2017 Camptocamp SA - Damien Crier, Alexandre Fayolle
-# Copyright 2017 Eficent Business and IT Consulting Services S.L.
+# Copyright 2017 ForgeFlow S.L.
 # Copyright 2017 Serpent Consulting Services Pvt. Ltd.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
     "name": "Account Invoice line with sequence number",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "summary": "Adds sequence field on invoice lines to manage its order.",
     "category": "Accounting",
     "author": "Camptocamp, "
-    "Eficent, "
+    "ForgeFlow, "
     "Serpent CS, "
     "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
