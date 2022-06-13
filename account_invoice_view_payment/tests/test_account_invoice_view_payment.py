@@ -1,5 +1,5 @@
-# Copyright 2017 Eficent Business and IT Consulting Services S.L.
-#        (https://www.eficent.com)
+# Copyright 2017 ForgeFlow S.L.
+#        (https://www.forgeflow.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
 from odoo import fields
@@ -143,7 +143,6 @@ class TestAccountInvoiceViewPayment(TransactionCase):
         ).create(
             {
                 "journal_id": self.cash.id,
-                "payment_method_id": self.payment_method_manual_in.id,
             }
         )
 
