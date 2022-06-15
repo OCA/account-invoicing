@@ -6,6 +6,6 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    journal_tmpl_id = fields.Many2one(
-        comodel_name="account.product.move", string="Product Journal", readonly=True,
+    product_move_id = fields.Many2one(
+        comodel_name="account.product.move", string="Product Journal",
     )
