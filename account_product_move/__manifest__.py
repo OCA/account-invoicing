@@ -1,6 +1,5 @@
 # Copyright 2022 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-
 {
     "name": "Account Product Move",
     "summary": "Extra Journal Entries and Items, per product.",
@@ -16,5 +15,4 @@
         "views/account_move_views.xml",
         "views/product_views.xml",
     ],
-    "demo": ["demo/account_product_move.xml"],
 }

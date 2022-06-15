@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="product.product_template_only_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='property_account_expense_id']" position="after">
-                <field name="journal_tmpl_id" readonly="1" />
+                <field name="product_move_id" />
             </xpath>
         </field>
     </record>
