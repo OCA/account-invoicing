@@ -6,6 +6,24 @@
         <field name="model">account.product.move</field>
         <field name="arch" type="xml">
             <form>
+                <field name="company_id" invisible="1" />
+                <header>
+                    <button
+                        name="button_complete"
+                        string="Complete"
+                        type="object"
+                        class="oe_highlight"
+                        states="new"
+                    />
+                    <button
+                        name="button_reset"
+                        string="Reset"
+                        type="object"
+                        class="oe_highlight"
+                        states="complete"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="new,complete"/>
+                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button
@@ -21,26 +39,25 @@
                     <h1>
                         <field name="name" class="oe_inline" />
                     </h1>
+                    <group name="general" colspan="4" col="2">
+                        <field name="journal_id" />
+                    </group>
                     <group name="config" colspan="4" col="4">
-                        <field
-                            name="product_tmpl_id"
-                            colspan="4"
-                            options="{'no_create_edit': True, 'no_open': True}"
-                        />
-                        <field name="journal_item_ids" colspan="4">
+                        <field name="line_ids" colspan="4">
                             <tree editable="bottom">
+                                <field name="company_id" invisible="1" />
+                                <field name="move_id" invisible="1" />
                                 <field
                                     name="account_id"
                                     options="{'no_create_edit': True, 'no_open': True}"
                                 />
-                                <field name="debit" />
-                                <field name="credit" />
-                                <field name="journal_id" />
+                                <field name="amount_currency" />
                                 <field
                                     name="currency_id"
                                     options="{'no_create_edit': True, 'no_open': True}"
                                 />
-                                <field name="product_move_id" invisible="1" />
+                                <field name="debit" />
+                                <field name="credit" />
                             </tree>
                         </field>
                     </group>
@@ -54,8 +71,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
-                <field name="product_tmpl_id" string="Product" />
-                <field name="journal_item_ids" />
+                <field name="journal_id" />
             </tree>
         </field>
     </record>
@@ -66,16 +82,7 @@
         <field name="arch" type="xml">
             <search string="Search">
                 <field name="name" />
-                <field
-                    name="product_tmpl_id"
-                    string="Product Default Code"
-                    filter_domain="[('product_tmpl_id.default_code', 'ilike', self)]"
-                />
-                <field
-                    name="product_tmpl_id"
-                    string="Product Name"
-                    filter_domain="[('product_tmpl_id.name', 'ilike', self)]"
-                />
+                <field name="journal_id" />
             </search>
         </field>
     </record>
