@@ -8,36 +8,55 @@ class AccountProductMove(models.Model):
     _name = "account.product.move"
     _description = "Template for additional journal entries/items"
 
-    _sql_constraints = [
-        (
-            "product_tmpl_id",
-            "UNIQUE (product_tmpl_id)",
-            _("Template for this product already exists"),
-        ),
-    ]
+    @api.depends("journal_id")
+    def _compute_company_id(self):
+        """Company must correspond to journal."""
+        for move in self:
+            move.company_id = (
+                move.journal_id.company_id or move.company_id or self.env.company
+            )
 
     name = fields.Char(required=True, copy=False, default="New")
-    product_tmpl_id = fields.Many2one(
-        comodel_name="product.template",
-        string="Product",
-        help="Journal items will be created for this product",
+    state = fields.Selection(
+        selection=[("new", "New"), ("complete", "Complete")],
+        default="new",
+        required=True,
     )
-    journal_item_ids = fields.One2many(
+    journal_id = fields.Many2one(comodel_name="account.journal", required=True)
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        string="Company",
+        store=True,
+        readonly=True,
+        compute="_compute_company_id",
+    )
+    line_ids = fields.One2many(
         comodel_name="account.product.move.line",
-        inverse_name="product_move_id",
+        inverse_name="move_id",
         copy=True,
         string="Extra Journal Items",
         help="Journal items to be added in new journal entry",
     )
     active = fields.Boolean(default=True)
 
+    def button_complete(self):
+        """Setting move to complete."""
+        self.ensure_one()
+        self._check_balanced()
+        self.state = "complete"
+
+    def button_reset(self):
+        """Setting move to new."""
+        self.ensure_one()
+        self.state = "new"
+
     def action_toggle_active(self):
         self.ensure_one()
         self.active = not self.active
 
     def _check_balanced(self):
-        """ An adaptation of account.move._check_balanced()"""
-        moves = self.filtered(lambda move: move.journal_item_ids)
+        """An adaptation of account.move._check_balanced()"""
+        moves = self.filtered(lambda move: move.line_ids)
         if not moves:
             return
         self.env["account.product.move.line"].flush(
@@ -46,21 +65,19 @@ class AccountProductMove(models.Model):
         self._cr.execute(
             """
             SELECT
-                line.product_move_id,
+                line.move_id,
                 ROUND(SUM(line.debit - line.credit),
                 currency.decimal_places)
             FROM account_product_move_line line
             JOIN account_product_move move ON
-                move.id = line.product_move_id
-            JOIN account_journal journal ON
-                journal.id = line.journal_id
+                move.id = line.move_id
             JOIN res_company company ON
-                company.id = journal.company_id
+                company.id = move.company_id
             JOIN res_currency currency ON
                 currency.id = company.currency_id
             WHERE
-                line.product_move_id IN %s
-            GROUP BY line.product_move_id, currency.decimal_places
+                line.move_id IN %s
+            GROUP BY line.move_id, currency.decimal_places
             HAVING ROUND(SUM(line.debit - line.credit), currency.decimal_places) != 0.0;
         """,
             [tuple(self.ids)],
@@ -77,23 +94,3 @@ class AccountProductMove(models.Model):
                 )
                 % (ids, sums)
             )
-
-    def write(self, vals):
-        if "product_tmpl_id" in vals:
-            for this in self:
-                if not this.product_tmpl_id:
-                    continue
-                this.product_tmpl_id.journal_tmpl_id = False
-        res = super().write(vals)
-        for this in self:
-            this._check_balanced()
-            this.product_tmpl_id.journal_tmpl_id = this
-        return res
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        records = super().create(vals_list)
-        records._check_balanced()
-        for this in records:
-            this.product_tmpl_id.journal_tmpl_id = this
-        return records
