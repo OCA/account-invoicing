@@ -13,5 +13,6 @@
     "data": [
         "views/account_move_views.xml",
     ],
+    "pre_init_hook": "pre_init_hook",
     "installable": True,
 }
