@@ -9,7 +9,6 @@ class TestSaleOrderLineInput(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.warehouse = cls.env.ref("stock.warehouse0")
         cls.partner = cls.env["res.partner"].create(
             {"name": "Test", "customer_rank": 1, "supplier_rank": 1}
         )
@@ -19,54 +18,23 @@ class TestSaleOrderLineInput(SavepointCase):
         cls.product2 = cls.env["product.product"].create(
             {"name": "test_product_2", "type": "product", "invoice_policy": "delivery"}
         )
-        cls.env["stock.quant"].create(
-            {
-                "product_id": cls.product.id,
-                "location_id": cls.warehouse.lot_stock_id.id,
-                "quantity": 12.0,
-            }
-        )
-        cls.env["stock.quant"].create(
-            {
-                "product_id": cls.product2.id,
-                "location_id": cls.warehouse.lot_stock_id.id,
-                "quantity": 12.0,
-            }
-        )
-        cls.order = cls.env["sale.order"].create(
-            {
-                "partner_id": cls.partner.id,
-                "order_line": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": cls.product.name,
-                            "product_id": cls.product.id,
-                            "product_uom_qty": 1,
-                            "product_uom": cls.product.uom_id.id,
-                            "price_unit": 1000.00,
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "name": cls.product2.name,
-                            "product_id": cls.product2.id,
-                            "product_uom_qty": 1,
-                            "product_uom": cls.product2.uom_id.id,
-                            "price_unit": 1000.00,
-                        },
-                    ),
-                ],
-                "pricelist_id": cls.env.ref("product.list0").id,
-            }
-        )
+        with Form(cls.env["sale.order"]) as order_form:
+            order_form.partner_id = cls.partner
+            with order_form.order_line.new() as line_form:
+                line_form.product_id = cls.product
+                line_form.product_uom_qty = 1
+            with order_form.order_line.new() as line_form:
+                line_form.product_id = cls.product2
+                line_form.product_uom_qty = 1
+        cls.order = order_form.save()
         cls.order.action_confirm()
         cls.picking = cls.order.picking_ids
-        cls.picking.action_assign()
-        cls.picking.move_line_ids.write({"qty_done": 1.0})
+        move_line_vals_list = []
+        for move in cls.picking.move_lines:
+            move_line_vals = move._prepare_move_line_vals()
+            move_line_vals["qty_done"] = 1
+            move_line_vals_list.append(move_line_vals)
+        cls.env["stock.move.line"].create(move_line_vals_list)
         cls.picking.action_done()
         cls.order._create_invoices()
 
@@ -142,14 +110,16 @@ class TestSaleOrderLineInput(SavepointCase):
         picking.move_line_ids.write({"qty_done": 1.0})
         picking.action_done()
         self.assertEqual(po_order.invoice_status, "to invoice")
-
+        # Return the picking without refund
         return_wizard = self.return_picking_wiz(picking)
         return_pick = self.picking.browse(return_wizard.create_returns()["res_id"])
-        return_pick.move_line_ids.write({"qty_done": 1.0})
+        move_line_vals = return_pick.move_lines._prepare_move_line_vals()
+        move_line_vals["qty_done"] = 1
+        self.env["stock.move.line"].create(move_line_vals)
         return_pick.action_done()
-
+        # Now set to be refunded
         return_pick.to_refund_lines = "to_refund"
         self.assertEqual(po_order.invoice_status, "no")
-
+        # And again to not be refunded
         return_pick.to_refund_lines = "no_refund"
         self.assertEqual(po_order.invoice_status, "to invoice")
