@@ -1,6 +1,7 @@
 # Copyright 2017 - Tecnativa, S.L. - Luis M. Ontalba
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
+from odoo.tests import Form
 from odoo.tests.common import SavepointCase, tagged
 
 
@@ -41,26 +42,6 @@ class TestAccountInvoiceLineDescription(SavepointCase):
                 "user_type_id": cls.account_type_regular.id,
             }
         )
-        cls.invoice_sale_vals = [
-            (
-                0,
-                0,
-                {
-                    "product_id": cls.product_sale.id,
-                    "name": "Test Invoice Line",
-                    "account_id": cls.account.id,
-                    "price_unit": 500.00,
-                },
-            )
-        ]
-        cls.invoice_sale = cls.env["account.move"].create(
-            {
-                "partner_id": cls.partner.id,
-                "journal_id": cls.journal_sale.id,
-                "type": "out_invoice",
-                "invoice_line_ids": cls.invoice_sale_vals,
-            }
-        )
         cls.journal_purchase = cls.env["account.journal"].create(
             {"name": "Test Purchase Journal", "code": "TPJ", "type": "purchase"}
         )
@@ -74,26 +55,31 @@ class TestAccountInvoiceLineDescription(SavepointCase):
                 "lst_price": 0,
             }
         )
-        cls.invoice_purchase_vals = [
-            (
-                0,
-                0,
-                {
-                    "product_id": cls.product_purchase.id,
-                    "name": "Test Invoice Line",
-                    "account_id": cls.account.id,
-                    "price_unit": 500.00,
-                },
-            )
-        ]
-        cls.invoice_purchase = cls.env["account.move"].create(
-            {
-                "partner_id": cls.partner.id,
-                "journal_id": cls.journal_purchase.id,
-                "type": "in_invoice",
-                "invoice_line_ids": cls.invoice_purchase_vals,
-            }
+        invoice_sale = Form(
+            cls.env["account.move"].with_context(default_type="out_invoice")
         )
+        invoice_sale.partner_id = cls.partner
+        invoice_sale.journal_id = cls.journal_sale
+        with invoice_sale.invoice_line_ids.new() as line_form:
+            line_form.name = "Test Invoice Line"
+            line_form.price_unit = 500.0
+            line_form.quantity = 1
+            line_form.product_id = cls.product_sale
+            line_form.account_id = cls.account
+        cls.invoice_sale = invoice_sale.save()
+
+        invoice_purchase = Form(
+            cls.env["account.move"].with_context(default_type="in_invoice")
+        )
+        invoice_purchase.partner_id = cls.partner
+        invoice_purchase.journal_id = cls.journal_purchase
+        with invoice_purchase.invoice_line_ids.new() as line_form:
+            line_form.name = "Test Invoice Line"
+            line_form.price_unit = 500.0
+            line_form.quantity = 1
+            line_form.product_id = cls.product_purchase
+            line_form.account_id = cls.account
+        cls.invoice_purchase = invoice_purchase.save()
 
     def test_onchange_product_id_sale(self):
         self.invoice_sale.invoice_line_ids._onchange_product_id()
