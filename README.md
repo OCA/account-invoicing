@@ -33,7 +33,7 @@ addon | version | maintainers | summary
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 13.0.1.0.2 |  | Allows to apply fixed amount discounts in invoices.
 [account_invoice_force_number](account_invoice_force_number/) | 13.0.1.0.0 |  | Allows to force invoice numbering on specific invoices
 [account_invoice_force_origin](account_invoice_force_origin/) | 13.0.1.0.0 |  | Allows to force invoice origin on specific invoices
-[account_invoice_line_description](account_invoice_line_description/) | 13.0.1.0.0 |  | Account invoice line description
+[account_invoice_line_description](account_invoice_line_description/) | 13.0.1.0.1 |  | Account invoice line description
 [account_invoice_line_sequence](account_invoice_line_sequence/) | 13.0.1.0.0 |  | Adds sequence field on invoice lines to manage its order.
 [account_invoice_mode_at_shipping](account_invoice_mode_at_shipping/) | 13.0.1.0.1 |  | Create invoices automatically when goods are shipped.
 [account_invoice_mode_monthly](account_invoice_mode_monthly/) | 13.0.1.0.1 |  | Create invoices automatically on a monthly basis.
@@ -72,7 +72,7 @@ addon | version | maintainers | summary
 [sale_order_invoicing_queued](sale_order_invoicing_queued/) | 13.0.2.0.1 |  | Enqueue sales order invoicing
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 13.0.1.0.0 |  | Add timesheet details in invoice line
 [stock_picking_invoicing](stock_picking_invoicing/) | 13.0.3.1.1 |  | Stock Picking Invoicing
-[stock_picking_return_refund_option](stock_picking_return_refund_option/) | 13.0.1.0.0 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Update the refund options in pickings
+[stock_picking_return_refund_option](stock_picking_return_refund_option/) | 13.0.1.0.1 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Update the refund options in pickings
 
 [//]: # (end addons)
 
