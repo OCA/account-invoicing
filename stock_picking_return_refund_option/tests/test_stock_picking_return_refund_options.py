@@ -1,6 +1,5 @@
 # Copyright 2018 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import fields
 from odoo.tests.common import Form, SavepointCase, tagged
 
 
@@ -86,28 +85,17 @@ class TestSaleOrderLineInput(SavepointCase):
     def test_return_po_wo_to_refund(self):
         if not self.env.registry.models.get("purchase.order", False):
             return True
-        po_order = self.env["purchase.order"].create(
-            {
-                "partner_id": self.partner.id,
-                "order_line": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": self.product.name,
-                            "product_id": self.product.id,
-                            "product_qty": 1.0,
-                            "product_uom": self.product.uom_po_id.id,
-                            "price_unit": 1000.00,
-                            "date_planned": fields.Datetime.now(),
-                        },
-                    )
-                ],
-            }
-        )
+        order_form = Form(self.env["purchase.order"])
+        order_form.partner_id = self.partner
+        with order_form.order_line.new() as line_form:
+            line_form.product_id = self.product
+            line_form.product_qty = 1
+        po_order = order_form.save()
         po_order.button_confirm()
         picking = po_order.picking_ids[:]
-        picking.move_line_ids.write({"qty_done": 1.0})
+        move_line_vals = picking.move_lines._prepare_move_line_vals()
+        move_line_vals["qty_done"] = 1
+        self.env["stock.move.line"].create(move_line_vals)
         picking.action_done()
         self.assertEqual(po_order.invoice_status, "to invoice")
         # Return the picking without refund
