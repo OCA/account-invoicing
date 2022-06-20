@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Account Invoice - Change Currency",
-    "version": "14.0.1.0.0",
+    "version": "14.0.2.0.0",
     "category": "Accounting & Finance",
     "summary": "Allows to change currency of Invoice by wizard",
     "author": "Vauxoo, Komit Consulting, Odoo Community Association (OCA)",
