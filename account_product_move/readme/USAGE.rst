@@ -1,9 +1,10 @@
 To use this module, you need to:
 
-#. Go to *Accounting > Accounting > Journals > Journal Templates*.
+#. Go to *Accounting > Accounting > Journals > Extra Product Moves*.
 #. Create a new Account Product Move record and give it a name.
-#. Create product template lines.
-#. Create Product Move Lines for these products.
-#. Create a new out invoice with product lines.
+#. Create Product Move Lines.
+#. Update one or more product to link them to the Extra Product Move.
+#. Create a new out invoice with lines referring to these products.
 #. Post the out invoice.
-#. If any of the products in invoice lines has an Account Product Move record set-up, exist a new journal entry will be added per line in Account Product Move Lines of Account Product Move, holding these Account Product Move Lines.
+#. If any of the products in invoice lines has an Extra Product Move record set-up,
+   a new automatic journal entry will be added per line that refers to extra moves.
