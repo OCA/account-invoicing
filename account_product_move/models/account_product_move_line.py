@@ -15,8 +15,6 @@ class AccountProductMoveLine(models.Model):
         related="company_id.currency_id",
         string="Company Currency",
         readonly=True,
-        required=True,
-        store=True,
         help="Utility field to express amount currency",
     )
     debit = fields.Monetary(default=0.0, currency_field="company_currency_id")
@@ -56,12 +54,17 @@ class AccountProductMoveLine(models.Model):
     def _recompute_debit_credit_from_amount_currency(self):
         """Recompute the debit/credit based on amount_currency/currency_id and date."""
         for line in self:
-            if not line.currency_id or line.currency_id == line.company_currency_id:
+            company_currency = line.company_id.currency_id
+            if (
+                not company_currency
+                or not line.currency_id
+                or line.currency_id == company_currency
+            ):
                 # if no specific currency, leave debit and credit as is.
                 continue
             balance = line.currency_id._convert(
                 line.amount_currency,
-                line.company_currency_id,
+                company_currency,
                 line.company_id,
                 fields.Date.today(),
             )
