@@ -70,7 +70,7 @@ class TestInvoiceFixedDiscount(SavepointCase):
         ]
         invoice = (
             self.env["account.move"]
-            .with_context({"check_move_validity": False})
+            .with_context(**{"check_move_validity": False})
             .create(
                 {
                     "journal_id": self.env["account.journal"]
