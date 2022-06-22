@@ -40,6 +40,12 @@
                         <field name="name" class="oe_inline" />
                     </h1>
                     <group name="general" colspan="4" col="2">
+                        <field
+                            name="product_tmpl_ids"
+                            widget="many2many_tags"
+                            options="{'no_create_edit': True, 'no_open': True}"
+                            string="Products"
+                        />
                         <field name="journal_id" />
                     </group>
                     <group name="config" colspan="4" col="4">

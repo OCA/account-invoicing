@@ -22,6 +22,11 @@ class AccountProductMove(models.Model):
         default="new",
         required=True,
     )
+    product_tmpl_ids = fields.One2many(
+        comodel_name="product.template",
+        inverse_name="product_move_id",
+        help="Journal items will be created for these products",
+    )
     journal_id = fields.Many2one(comodel_name="account.journal", required=True)
     company_id = fields.Many2one(
         comodel_name="res.company",
