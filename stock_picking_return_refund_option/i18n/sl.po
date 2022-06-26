@@ -6,7 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-06-26 10:05+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: none\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -14,35 +15,42 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: stock_picking_return_refund_option
 #: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking__is_return
 msgid "Is Return"
-msgstr ""
+msgstr "Je vračilo"
 
 #. module: stock_picking_return_refund_option
 #: selection:stock.picking,to_refund_lines:0
 msgid "No Refund"
-msgstr ""
+msgstr "Brez dobropisa"
 
 #. module: stock_picking_return_refund_option
 #: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking__to_refund_lines
 #: model_terms:ir.ui.view,arch_db:stock_picking_return_refund_option.view_picking_form
 msgid "Refund Options"
-msgstr ""
+msgstr "Opcije za dobropis"
 
 #. module: stock_picking_return_refund_option
 #: model:ir.model.fields,help:stock_picking_return_refund_option.field_stock_picking__to_refund_lines
 msgid "This field allow modify 'to_refund' field value in all stock moves from this picking after it has been confirmed.to_refund: set all stock moves to True value and recompute delivered quantities in sale order.\n"
 "no_refund: set all stock moves to False value and recompute delivered quantities in sale/purchase order."
 msgstr ""
+"To polje omogoča spreminjanje vrednosti polja 'to_refund' v vseh premikih "
+"zalog na tej dobavnici, po tem, ko je potrjena. \n"
+"to_refund: nastavi vse premike zalog na True in ponovno preračuna dobavljene "
+"količine v prodajnem nalogu.\n"
+"no_refund: nastavi vse premike zalog na False in ponovno preračuna "
+"dobavljene količine v prodajnem/nabavnem nalogu."
 
 #. module: stock_picking_return_refund_option
 #: selection:stock.picking,to_refund_lines:0
 msgid "To Refund"
-msgstr ""
+msgstr "Z dobropisom"
 
 #. module: stock_picking_return_refund_option
 #: model:ir.model,name:stock_picking_return_refund_option.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "Premestitev"
