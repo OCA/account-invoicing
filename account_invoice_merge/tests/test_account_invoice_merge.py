@@ -109,13 +109,13 @@ class TestAccountInvoiceMerge(TransactionCase):
         wiz_id.fields_view_get()
         action = wiz_id.merge_invoices()
 
-        self.assertDictContainsSubset(
+        self.assertLessEqual(
             {
                 "type": "ir.actions.act_window",
                 "binding_view_types": "list,form",
                 "xml_id": "account.action_move_out_invoice_type",
-            },
-            action,
+            }.items(),
+            action.items(),
             "There was an error and the two invoices were not merged.",
         )
 
