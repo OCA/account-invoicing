@@ -44,6 +44,7 @@ Contributors
 * Lois Rilo <lois.rilo@eficent.com>
 * Miquel Raïch <miquel.raich@eficent.com>
 * Sylvain Van Hoof <sylvain@okia.be>
+* Freni Patel <fpatel@opensourceintegrators.com>
 
 Maintainer
 ----------

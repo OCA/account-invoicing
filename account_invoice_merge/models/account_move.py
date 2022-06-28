@@ -107,7 +107,7 @@ class AccountMove(models.Model):
                     or field == "tax_ids"
                     or field == "sale_line_ids"
                 ):
-                    field_val = ((6, 0, tuple([v.id for v in field_val])),)
+                    field_val = ((6, 0, tuple(v.id for v in field_val)),)
                 list_key.append((field, field_val))
             list_key.sort()
             return tuple(list_key)
@@ -209,7 +209,6 @@ class AccountMove(models.Model):
 
         # Make link between original sale order
         # None if sale is not installed
-        invoice_line_obj = self.env["account.move.line"]
         for new_invoice_id in invoices_info:
             if "sale.order" in self.env.registry:
                 sale_todos = old_invoices.mapped(
@@ -217,7 +216,7 @@ class AccountMove(models.Model):
                 )
                 for org_so in sale_todos:
                     for so_line in org_so.order_line:
-                        invoice_line = invoice_line_obj.search(
+                        invoice_line = self.env["account.move.line"].search(
                             [
                                 ("id", "in", so_line.invoice_lines.ids),
                                 ("move_id", "=", new_invoice_id),
