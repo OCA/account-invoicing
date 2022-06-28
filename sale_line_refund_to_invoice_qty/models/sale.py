@@ -22,7 +22,7 @@ class SaleOrderLine(models.Model):
         "invoice_lines.sale_qty_to_reinvoice",
     )
     def _get_to_invoice_qty(self):
-        super()._get_to_invoice_qty()
+        res = super()._get_to_invoice_qty()
         for line in self:
             qty_to_invoice = line.qty_to_invoice
             for invoice_line in line.invoice_lines:
@@ -35,6 +35,7 @@ class SaleOrderLine(models.Model):
                         invoice_line.quantity, line.product_uom
                     )
             line.qty_to_invoice = qty_to_invoice
+        return res
 
     @api.depends(
         "product_uom_qty",

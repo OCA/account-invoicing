@@ -1,10 +1,10 @@
 # Copyright 2021 ForgeFlow (http://www.forgeflow.com)
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from odoo.tests.common import SavepointCase, tagged
+from odoo.tests.common import TransactionCase, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestSaleLineRefundToInvoiceQty(SavepointCase):
+class TestSaleLineRefundToInvoiceQty(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -41,7 +41,7 @@ class TestSaleLineRefundToInvoiceQty(SavepointCase):
         wizard = (
             self.env["account.move.reversal"]
             .with_context(active_model="account.move", active_ids=[move.id])
-            .create({})
+            .create({"journal_id": move.journal_id.id})
         )
         return wizard
 

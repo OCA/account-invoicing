@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
         <record id="view_account_move_reversal" model="ir.ui.view">
             <field name="name">account.move.reversal.form.inherit</field>
             <field name="model">account.move.reversal</field>
@@ -8,9 +7,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='journal_id']/.." position="after">
                     <group
-                        name="sale_line_refund_qty"
-                        attrs="{'invisible': [('move_type', '!=', 'out_invoice')]}"
-                    >
+                    name="sale_line_refund_qty"
+                    attrs="{'invisible': [('move_type', '!=', 'out_invoice')]}"
+                >
                         <field name="sale_qty_to_reinvoice" />
                         <div class="oe_grey" colspan="4">
                             Leave it marked when other customer invoices are expected for the quantities in the credit note.
@@ -19,5 +18,4 @@
                 </xpath>
             </field>
         </record>
-    </data>
 </odoo>
