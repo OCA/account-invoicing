@@ -70,10 +70,10 @@ class InvoiceMerge(models.TransientModel):
         @param self: The object pointer.
         @return: account invoice action
         """
-        inv_obj = self.env["account.move"]
-        aw_obj = self.env["ir.actions.act_window"]
         ids = self.env.context.get("active_ids", [])
-        invoices = inv_obj.browse(ids)
+        invoices = self.env["account.move"].browse(
+            self.env.context.get("active_ids", [])
+        )
         allinvoices = invoices.do_merge(
             keep_references=self.keep_references, date_invoice=self.date_invoice
         )
@@ -83,7 +83,7 @@ class InvoiceMerge(models.TransientModel):
             "in_invoice": "action_move_in_invoice_type",
             "in_refund": "action_move_in_refund_type",
         }[invoices[0].move_type]
-        action = aw_obj._for_xml_id("account.{}".format(xid))
+        action = self.env["ir.actions.act_window"]._for_xml_id("account.{}".format(xid))
         action.update(
             {
                 "domain": [("id", "in", ids + list(allinvoices.keys()))],
