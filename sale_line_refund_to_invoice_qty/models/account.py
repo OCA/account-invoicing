@@ -22,6 +22,5 @@ class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
     sale_qty_to_reinvoice = fields.Boolean(
-        string="Sale qty to reinvoice",
         help="Leave it marked if you will reinvoice the same sale order line",
     )
