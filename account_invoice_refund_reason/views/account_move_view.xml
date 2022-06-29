@@ -5,26 +5,12 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-            <xpath
-                expr="//page[@name='other_info']/group/group[2]/field[@name='fiscal_position_id']"
-                position="after"
-            >
-                <field
-                    name="reason_id"
-                    attrs="{'invisible': [('reason_id', '=', False)]}"
-                    readonly="1"
-                />
-            </xpath>
-            <xpath
-                expr="//page[@id='other_tab_entry']/group/group[1]/field[@name='to_check']"
-                position="after"
-            >
-                <field
-                    name="reason_id"
-                    attrs="{'invisible': [('reason_id', '=', False)]}"
-                    readonly="1"
-                />
-            </xpath>
+            <group name="sale_info_group" position="inside">
+                <field name="reason_id" attrs="{'invisible': [('reason_id', '=', False)]}" />
+            </group>
+            <group name="accounting_info_group" position="inside">
+                <field name="reason_id" attrs="{'invisible': [('reason_id', '=', False)]}" />
+            </group>
         </field>
     </record>
 
