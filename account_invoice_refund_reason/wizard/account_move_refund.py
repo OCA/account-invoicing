@@ -18,6 +18,6 @@ class AccountMoveReversal(models.TransientModel):
         res = super().reverse_moves()
         mv_obj = self.env["account.move"]
         context = dict(self._context or {})
-        for inv in mv_obj.browse(context.get("active_ids")):
+        for inv in mv_obj.browse(context.get("account_move_id")):
             inv.reason_id = self.reason_id.id
         return res
