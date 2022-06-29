@@ -70,9 +70,8 @@ class TestProductIdChange(AccountTestInvoicingCommon):
                 "property_account_income_id": self.account_revenue.id,
             }
         )
-        product = self.product_model.create(
-            {"product_tmpl_id": product_tmpl.id, "standard_price": "12000"}
-        )
+        product = product_tmpl.product_variant_id
+        product.standard_price = 12000
         fp = self.fiscal_position_model.create(
             {"name": "fiscal position export", "sequence": 1}
         )
