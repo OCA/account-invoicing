@@ -6,10 +6,16 @@
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
             <group name="sale_info_group" position="inside">
-                <field name="reason_id" attrs="{'invisible': [('reason_id', '=', False)]}" />
+                <field
+                    name="reason_id"
+                    attrs="{'invisible': [('reason_id', '=', False)]}"
+                />
             </group>
             <group name="accounting_info_group" position="inside">
-                <field name="reason_id" attrs="{'invisible': [('reason_id', '=', False)]}" />
+                <field
+                    name="reason_id"
+                    attrs="{'invisible': [('reason_id', '=', False)]}"
+                />
             </group>
         </field>
     </record>
