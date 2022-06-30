@@ -16,6 +16,5 @@ class AccountMoveReversal(models.TransientModel):
 
     def reverse_moves(self):
         res = super().reverse_moves()
-        for move in self.move_ids:
-            move.reason_id.id = self.reason_id.id
+        self.move_ids.write({"reason_id": self.reason_id.id})
         return res
