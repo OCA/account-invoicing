@@ -109,6 +109,17 @@ class TestInvoiceGroupBySaleOrder(SavepointCase):
             self.assertEqual(line.name, result[line.sequence][0])
             self.assertEqual(line.display_type, result[line.sequence][1])
 
+    def test_create_invoice_with_currency(self):
+        """Check invoice is generated with a correct total amount"""
+        eur = self.env.ref("base.EUR")
+        pricelist = self.env["product.pricelist"].create(
+            {"name": "Europe pricelist", "currency_id": eur.id}
+        )
+        orders = self.order1_p1 | self.order2_p1
+        orders.write({"pricelist_id": pricelist.id})
+        invoices = orders._create_invoices()
+        self.assertEqual(invoices.amount_total, 80)
+
     def test_create_invoice_with_default_journal(self):
         """Using a specific journal for the invoice should not be broken"""
         journal = self.env["account.journal"].search([("type", "=", "sale")], limit=1)
