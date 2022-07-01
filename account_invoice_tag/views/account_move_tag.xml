@@ -1,0 +1,61 @@
+<!-- Copyright 2022 Darío Cruz
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+<odoo>
+    <record id="account_move_tag_list_view" model="ir.ui.view">
+        <field name="name">account.move.tag.list</field>
+        <field name="model">account.move.tag</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="description" />
+                <field name="company_id" />
+            </tree>
+        </field>
+    </record>
+    <record id="account_move_tag_form_view" model="ir.ui.view">
+        <field name="name">account.move.tag.form</field>
+        <field name="model">account.move.tag</field>
+        <field name="arch" type="xml">
+            <form string="Account Move Tags">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="toggle_active"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-archive"
+                        >
+                            <field
+                                name="active"
+                                widget="boolean_button"
+                                options='{"terminology": "archive"}'
+                            />
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" string="Name" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="description" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="account_move_tag_action" model="ir.actions.act_window">
+        <field name="name">Account Move Tags</field>
+        <field name="res_model">account.move.tag</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        name="Tags"
+        id="account_move_tag_menu"
+        parent="account.menu_account_config"
+        action="account_move_tag_action"
+        sequence="20"
+    />
+</odoo>
