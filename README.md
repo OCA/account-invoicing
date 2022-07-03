@@ -22,7 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_billing](account_billing/) | 13.0.1.0.5 | [![Saran440](https://github.com/Saran440.png?size=30px)](https://github.com/Saran440) | Group invoice as billing before payment
-[account_global_discount](account_global_discount/) | 13.0.2.0.1 |  | Account Global Discount
+[account_global_discount](account_global_discount/) | 13.0.2.0.2 |  | Account Global Discount
 [account_invoice_alternate_payer](account_invoice_alternate_payer/) | 13.0.1.0.0 |  | Set a alternate payor/payee in invoices
 [account_invoice_base_invoicing_mode](account_invoice_base_invoicing_mode/) | 13.0.1.0.1 |  | Base module for handling multiple invoicing mode
 [account_invoice_blocking](account_invoice_blocking/) | 13.0.1.0.0 |  | Set a blocking (No Follow-up) flag on invoices
@@ -30,7 +30,7 @@ addon | version | maintainers | summary
 [account_invoice_check_total](account_invoice_check_total/) | 13.0.1.0.1 |  | Check if the verification total is equal to the bill's total
 [account_invoice_date_due](account_invoice_date_due/) | 13.0.1.0.1 | [![luisg123v](https://github.com/luisg123v.png?size=30px)](https://github.com/luisg123v) [![joao-p-marques](https://github.com/joao-p-marques.png?size=30px)](https://github.com/joao-p-marques) | Update Invoice's Due Date
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 13.0.1.0.4 |  | Changing the fiscal position of an invoice will auto-update invoice lines
-[account_invoice_fixed_discount](account_invoice_fixed_discount/) | 13.0.1.0.2 |  | Allows to apply fixed amount discounts in invoices.
+[account_invoice_fixed_discount](account_invoice_fixed_discount/) | 13.0.1.0.3 |  | Allows to apply fixed amount discounts in invoices.
 [account_invoice_force_number](account_invoice_force_number/) | 13.0.1.0.0 |  | Allows to force invoice numbering on specific invoices
 [account_invoice_force_origin](account_invoice_force_origin/) | 13.0.1.0.0 |  | Allows to force invoice origin on specific invoices
 [account_invoice_line_description](account_invoice_line_description/) | 13.0.1.0.1 |  | Account invoice line description
@@ -54,7 +54,7 @@ addon | version | maintainers | summary
 [account_invoice_tax_required](account_invoice_tax_required/) | 13.0.1.0.2 |  | This module adds functional a check on invoice to force user to set tax on invoice line.
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 13.0.1.1.0 | [![alexis-via](https://github.com/alexis-via.png?size=30px)](https://github.com/alexis-via) | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_tree_currency](account_invoice_tree_currency/) | 13.0.1.0.0 |  | Show currencies in the invoice tree view
-[account_invoice_triple_discount](account_invoice_triple_discount/) | 13.0.1.0.0 |  | Manage triple discount on invoice lines
+[account_invoice_triple_discount](account_invoice_triple_discount/) | 13.0.1.0.1 |  | Manage triple discount on invoice lines
 [account_invoice_validation_queued](account_invoice_validation_queued/) | 13.0.2.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Enqueue account invoice validation
 [account_invoice_warn_message](account_invoice_warn_message/) | 13.0.1.0.1 |  | Add a popup warning on invoice to ensure warning is populated
 [account_menu_invoice_refund](account_menu_invoice_refund/) | 13.0.1.0.0 | [![kittiu](https://github.com/kittiu.png?size=30px)](https://github.com/kittiu) | New invoice menu that combine invoices and refunds
