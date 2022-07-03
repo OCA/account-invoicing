@@ -13,7 +13,9 @@ class AccountMove(models.Model):
 
     _inherit = "account.move"
 
-    def _recompute_tax_lines(self, recompute_tax_base_amount=False):
+    def _recompute_tax_lines(
+        self, recompute_tax_base_amount=False, tax_rep_lines_to_recompute=None
+    ):
         vals = {}
         for line in self.invoice_line_ids.filtered(
             lambda l: l.discount2 or l.discount3
@@ -23,7 +25,8 @@ class AccountMove(models.Model):
             price_unit = line.price_unit * (1 - aggregated_discount / 100)
             line.update({"price_unit": price_unit, "discount": 0})
         res = super()._recompute_tax_lines(
-            recompute_tax_base_amount=recompute_tax_base_amount
+            recompute_tax_base_amount=recompute_tax_base_amount,
+            tax_rep_lines_to_recompute=tax_rep_lines_to_recompute,
         )
         for line in vals.keys():
             line.update(vals[line])
