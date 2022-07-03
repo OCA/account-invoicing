@@ -55,7 +55,9 @@ class AccountMove(models.Model):
         readonly=True,
     )
 
-    def _recompute_tax_lines(self, recompute_tax_base_amount=False):
+    def _recompute_tax_lines(
+        self, recompute_tax_base_amount=False, tax_rep_lines_to_recompute=None
+    ):
         """Inject the global discounts recomputation if recompute_tax_base_amount is
         false, as on contrary, only the tax_base_amount field is recalculated, not
         affecting global discount computation.
@@ -65,7 +67,10 @@ class AccountMove(models.Model):
         if not recompute_tax_base_amount:
             # TODO: To be changed to invoice_global_discount_id when properly filled
             self.line_ids -= self.line_ids.filtered("global_discount_item")
-        res = super()._recompute_tax_lines(recompute_tax_base_amount)
+        res = super()._recompute_tax_lines(
+            recompute_tax_base_amount,
+            tax_rep_lines_to_recompute=tax_rep_lines_to_recompute,
+        )
         if not recompute_tax_base_amount:
             self._update_tax_lines_for_global_discount()
             self._set_global_discounts_by_tax()
