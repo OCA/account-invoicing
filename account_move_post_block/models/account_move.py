@@ -12,7 +12,6 @@ class AccountMove(models.Model):
         string="Post Block Reason",
     )
     post_blocked = fields.Boolean(
-        "Post Blocked",
         compute="_compute_post_blocked",
     )
 
@@ -26,8 +25,9 @@ class AccountMove(models.Model):
         am = super().create(vals)
         if "post_block_id" in vals and vals["post_block_id"]:
             am.message_post(
-                body=_('Entry "%s" blocked with reason' ' "%s"')
-                % (am.name, am.post_block_id.name)
+                body=_('Entry "{}" blocked with reason' "{}").format(
+                    am.name, am.post_block_id.name
+                )
             )
         return am
 
@@ -36,8 +36,9 @@ class AccountMove(models.Model):
         for am in self:
             if "post_block_id" in vals and vals["post_block_id"]:
                 am.message_post(
-                    body=_('Entry "%s" blocked with reason "%s"')
-                    % (am.name, am.post_block_id.name)
+                    body=_("Entry {} blocked with reason {}").format(
+                        am.name, am.post_block_id.name
+                    )
                 )
             elif "post_block_id" in vals and not vals["post_block_id"]:
                 am.message_post(body=_('Entry "%s" post block released.') % am.name)

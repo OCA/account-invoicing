@@ -36,15 +36,14 @@ class TestAmPostBlockReason(TestAccountMovePostBlock):
 
         # Simulation the opening of the wizard account_exception_confirm and
         # set ignore_exception to True
+        ctx = {
+            "active_id": account_move.id,
+            "active_ids": [account_move.id],
+            "active_model": account_move._name,
+        }
         am_except_confirm = (
             self.env["account.exception.confirm"]
-            .with_context(
-                {
-                    "active_id": account_move.id,
-                    "active_ids": [account_move.id],
-                    "active_model": account_move._name,
-                }
-            )
+            .with_context(**ctx)
             .create({"ignore": True})
         )
         am_except_confirm.action_confirm()
