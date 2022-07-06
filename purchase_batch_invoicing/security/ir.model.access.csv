@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_batch_invoicing,access_purchase_batch_invoicing user,model_purchase_batch_invoicing,account.group_account_invoice,1,1,1,1

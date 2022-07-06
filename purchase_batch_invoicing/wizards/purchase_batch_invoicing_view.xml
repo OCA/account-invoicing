@@ -33,12 +33,11 @@
             </form>
         </field>
     </record>
-    <act_window
-        id="wizard_purchase_batch_invoicing_action"
-        name="Batch Invoice"
-        binding_model="purchase.order"
-        res_model="purchase.batch_invoicing"
-        target="new"
-        view_mode="form"
-    />
+    <record id="wizard_purchase_batch_invoicing_action" model="ir.actions.act_window">
+        <field name="name">Batch Invoice</field>
+        <field name="res_model">purchase.batch_invoicing</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+        <field name="binding_model_id" ref="purchase.model_purchase_order" />
+    </record>
 </odoo>

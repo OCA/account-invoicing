@@ -71,7 +71,7 @@ class PurchaseBatchInvoicing(models.TransientModel):
         """Allow to override the invoice defaults by a third module.
         i.e.: set invoice type to in_refund.
         """
-        Move = self.env["account.move"].with_context(default_type="in_invoice")
+        Move = self.env["account.move"].with_context(default_move_type="in_invoice")
         vals = Move.default_get(Move._fields.keys())
         vals.update({"partner_id": partner.id})
         return vals
@@ -142,5 +142,5 @@ class PurchaseBatchInvoicing(models.TransientModel):
             _logger.info("Finished invoicing all pending purchase orders.")
             _logger.debug("Result: %r", result)
         except UserError as error:
-            _logger.info(error.name)
+            _logger.info(error)
             _logger.debug("Traceback:", exc_info=True)
