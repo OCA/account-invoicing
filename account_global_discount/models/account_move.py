@@ -182,6 +182,9 @@ class AccountMove(models.Model):
         for discount in self.invoice_global_discount_ids.filtered("discount"):
             sign = -1 if self.type in {"in_invoice", "out_refund"} else 1
             disc_amount = sign * discount.discount_amount
+            amount_currency = 0.0
+            if self.currency_id != self.company_id.currency_id:
+                amount_currency = disc_amount
             create_method(
                 {
                     "global_discount_item": True,
@@ -192,8 +195,7 @@ class AccountMove(models.Model):
                     % (discount.name, ", ".join(discount.tax_ids.mapped("name"))),
                     "debit": disc_amount > 0.0 and disc_amount or 0.0,
                     "credit": disc_amount < 0.0 and -disc_amount or 0.0,
-                    "amount_currency": (disc_amount > 0.0 and disc_amount or 0.0)
-                    - (disc_amount < 0.0 and -disc_amount or 0.0),
+                    "amount_currency": amount_currency,
                     "account_id": discount.account_id.id,
                     "analytic_account_id": discount.account_analytic_id.id,
                     "exclude_from_invoice_tab": True,
