@@ -11,22 +11,10 @@
                 >
                     <page string="Invoice Lines">
                         <field name="selectable_invoice_lines_ids" invisible="1" />
-                        <field name="line_ids">
-                            <tree string="Invoice Lines">
-                                <field name="sequence" widget="handle" readonly="1" />
-                                <field name="product_id" readonly="1" />
-                                <field name="name" readonly="1" />
-                                <field name="quantity" readonly="1" />
-                                <field name="discount" readonly="1" />
-                                <field
-                                    name="tax_ids"
-                                    widget="many2many_tags"
-                                    readonly="1"
-                                />
-                                <field name="price_unit" readonly="1" />
-                                <field name="price_subtotal" readonly="1" />
-                            </tree>
-                        </field>
+                        <field
+                            name="line_ids"
+                            context="{'tree_view_ref': 'account_invoice_refund_line_selection.view_move_line_tree_grouped_sales_purchases'}"
+                        />
                     </page>
                 </notebook>
             </xpath>
