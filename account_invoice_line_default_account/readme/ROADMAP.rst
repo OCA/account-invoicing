@@ -1,0 +1,2 @@
+- Remove the `write` from `account.invoice.line._onchange_account_id`
+- Retrieve the real `default` attribute for field `account.invoice.line.account_id`
