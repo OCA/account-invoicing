@@ -45,10 +45,9 @@ class StockPicking(models.Model):
 
     def _compute_is_return(self):
         for picking in self:
-            if any(x.origin_returned_move_id for x in picking.move_lines):
-                picking.is_return = True
-            else:
-                picking.is_return = False
+            picking.is_return = any(
+                x.origin_returned_move_id for x in picking.move_lines
+            )
 
     def _update_stock_moves(self):
         for pick in self.filtered("to_refund_lines"):
