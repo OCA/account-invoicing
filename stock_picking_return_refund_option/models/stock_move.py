@@ -10,6 +10,7 @@ class StockMove(models.Model):
         res = super().write(vals)
         if "to_refund" in vals:
             for move in self:
-                move.picking_id.set_delivered_qty()
-                move.picking_id.set_received_qty()
+                if move.picking_id:
+                    move.picking_id.set_delivered_qty()
+                    move.picking_id.set_received_qty()
         return res

@@ -34,7 +34,7 @@ class TestSaleOrderLineInput(SavepointCase):
             move_line_vals["qty_done"] = 1
             move_line_vals_list.append(move_line_vals)
         cls.env["stock.move.line"].create(move_line_vals_list)
-        cls.picking.action_done()
+        cls.picking.button_validate()
         cls.order._create_invoices()
 
     def get_return_picking_wizard(self, picking):
@@ -56,7 +56,7 @@ class TestSaleOrderLineInput(SavepointCase):
         return_wizard = self.return_picking_wiz(self.picking)
         return_pick = self.picking.browse(return_wizard.create_returns()["res_id"])
         return_pick.move_line_ids.write({"qty_done": 1.0})
-        return_pick.action_done()
+        return_pick.button_validate()
         self.assertEqual(return_pick.to_refund_lines, "no_refund")
         return_pick.move_lines.write({"to_refund": True})
         self.assertEqual(return_pick.to_refund_lines, "to_refund")
@@ -68,7 +68,7 @@ class TestSaleOrderLineInput(SavepointCase):
         return_wizard = self.return_picking_wiz(self.picking)
         return_pick = self.picking.browse(return_wizard.create_returns()["res_id"])
         return_pick.move_line_ids.write({"qty_done": 1.0})
-        return_pick.action_done()
+        return_pick.button_validate()
         self.assertEqual(self.order.invoice_status, "invoiced")
 
         return_pick.to_refund_lines = "to_refund"
@@ -96,7 +96,7 @@ class TestSaleOrderLineInput(SavepointCase):
         move_line_vals = picking.move_lines._prepare_move_line_vals()
         move_line_vals["qty_done"] = 1
         self.env["stock.move.line"].create(move_line_vals)
-        picking.action_done()
+        picking.button_validate()
         self.assertEqual(po_order.invoice_status, "to invoice")
         # Return the picking without refund
         return_wizard = self.return_picking_wiz(picking)
@@ -104,7 +104,7 @@ class TestSaleOrderLineInput(SavepointCase):
         move_line_vals = return_pick.move_lines._prepare_move_line_vals()
         move_line_vals["qty_done"] = 1
         self.env["stock.move.line"].create(move_line_vals)
-        return_pick.action_done()
+        return_pick.button_validate()
         # Now set to be refunded
         return_pick.to_refund_lines = "to_refund"
         self.assertEqual(po_order.invoice_status, "no")
