@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
     "name": "Account Invoice Tier Validation Approver",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "category": "Accounting",
     "license": "LGPL-3",
