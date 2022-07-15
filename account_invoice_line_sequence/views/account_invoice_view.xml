@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']" position="before">
+                <field name="max_line_sequence" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']" position="attributes">
+                <attribute
+                    name="context"
+                    operation="python_dict"
+                    key="default_sequence"
+                >
+                    max_line_sequence
+                </attribute>
+            </xpath>
+            <xpath
+                expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']"
+                position="before"
+            >
+                <field name="sequence2" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
