@@ -52,9 +52,7 @@ class TestAccountInvoiceTierValidationApprover(TransactionCase):
                 "invoice_line_ids": [(4, self.invoice_line.id)],
             }
         )
-        self.model_id = self.env["ir.model"].search(
-            [("name", "=", "Invoice")], limit=1
-        )
+        self.model_id = self.env["ir.model"].search([("name", "=", "Invoice")], limit=1)
         self.field_id = self.env["ir.model.fields"].search(
             [("name", "=", "approver_id")], limit=1
         )

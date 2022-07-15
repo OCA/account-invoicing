@@ -11,7 +11,7 @@ class ResConfigSettings(models.TransientModel):
         string="Require Approver In Vendor Bills",
         help="Requires adding an approver before a vendor bill can be posted.",
         related="company_id.require_approver_in_vendor_bills",
-        readonly=False
+        readonly=False,
     )
 
     def set_values(self):
