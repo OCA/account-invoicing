@@ -34,6 +34,7 @@ addon | version | maintainers | summary
 [account_move_tier_validation](account_move_tier_validation/) | 15.0.1.0.0 |  | Extends the functionality of Account Moves to support a tier validation process.
 [sale_line_refund_to_invoice_qty](sale_line_refund_to_invoice_qty/) | 15.0.1.0.0 |  | Allow deciding whether refunded quantity should be considered as quantity to reinvoice
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 15.0.1.0.1 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Sales order invoicing grouping criteria
+[stock_picking_return_refund_option](stock_picking_return_refund_option/) | 15.0.1.0.0 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Update the refund options in pickings
 
 [//]: # (end addons)
 
