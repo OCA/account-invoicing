@@ -23,7 +23,7 @@ Account Invoice line with sequence number
     :target: https://runbot.odoo-community.org/runbot/95/14.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 Provides a new sequence field on invoice lines which helps to manage the order of the invoice lines.
 
@@ -59,7 +59,7 @@ Contributors
 
 * Alexandre Fayolle <alexandre.fayolle@camptocamp.com>
 * Damien Crier <damien.crier@camptocamp.com>
-* Eficent Business and IT Consulting Services S.L. <contact@eficent.com>
+* Forgeflow S.L. <contact@forgeflow.com>
 * Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
 * Alberto Martín <alberto.martin@guadaltech.es>
 * Juany Davila <juany.davila@forgeflow.com>
