@@ -5,7 +5,7 @@
 {
     "name": "Purchase Stock Picking Return Invoicing",
     "summary": "Add an option to refund returned pickings",
-    "version": "13.0.1.2.1",
+    "version": "13.0.1.2.2",
     "category": "Purchases",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "ForgeFlow, Tecnativa, Odoo Community Association (OCA)",
