@@ -122,6 +122,7 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         Receive and invoice the PO, then do a return of the picking.
         Check that the invoicing status of the purchase, and quantities
         received and billed are correct throughout the process.
+        Modify return piking, create new invoice and recheck.
         """
         # receive completely
         pick = self.po.picking_ids
@@ -162,6 +163,14 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         self.assertEqual(action["res_id"], inv_1.id)
         action2 = self.po.action_view_invoice_refund()
         self.assertEqual(action2["res_id"], inv_2.id)
+        # Modify return piking and create new invoice
+        return_pick.move_lines.write({"quantity_done": 0})
+        with Form(active_model, view=view_id) as f:
+            f.partner_id = self.partner
+            f.purchase_id = self.po
+        inv_3 = f.save()
+        self.check_values(self.po_line, 0, 5, 2, 5, "invoiced")
+        self.assertAlmostEqual(inv_3.amount_untaxed_signed, -20, 2)
 
     def test_purchase_stock_return_2(self):
         """Test a PO with received and returned qty, and invoiced after.
@@ -170,6 +179,7 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         Create a new invoice to get the bill for the remaining qty.
         Check that the invoicing status of the purchase, and quantities
         received and billed are correct throughout the process.
+        Modify return piking, create new invoice and recheck.
         """
         pick = self.po.picking_ids
         pick.move_lines.write({"quantity_done": 5})
@@ -191,3 +201,11 @@ class TestPurchaseStockPickingReturnInvoicing(SavepointCase):
         inv_1 = f.save()
         self.check_values(self.po_line, 2, 3, 0, 3, "invoiced")
         self.assertAlmostEqual(inv_1.amount_untaxed_signed, -30, 2)
+        # Modify return piking and create new invoice
+        return_pick.move_lines.write({"quantity_done": 0})
+        with Form(active_model, view=view_id) as f:
+            f.partner_id = self.partner
+            f.purchase_id = self.po
+        inv_2 = f.save()
+        self.check_values(self.po_line, 0, 5, 0, 5, "invoiced")
+        self.assertAlmostEqual(inv_2.amount_untaxed_signed, -20, 2)
