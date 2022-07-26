@@ -23,13 +23,13 @@ class AccountInvoice(models.Model):
                 "move_name",
                 "date_due",
                 "date_invoice",
-                "reference"
+                "reference",
             ]
         return res
 
     @api.model
     def _skip_tier_validation(self):
-        testing = getattr(threading.current_thread(), 'testing', False)
+        testing = getattr(threading.current_thread(), "testing", False)
         force_check = self.env.context.get("force_check_tier_validation")
         return testing and not force_check
 
@@ -45,8 +45,9 @@ class AccountInvoice(models.Model):
         allow_write = all([invoice.state == "draft" for invoice in self])
         ctx = self.env.context.copy()
         ctx["invoice_tier_validation_allow_write"] = allow_write
-        res = super(AccountInvoice, self.with_context(ctx))\
-            ._check_allow_write_under_validation(vals)
+        res = super(
+            AccountInvoice, self.with_context(ctx)
+        )._check_allow_write_under_validation(vals)
         return res
 
     def _check_state_conditions(self, vals):

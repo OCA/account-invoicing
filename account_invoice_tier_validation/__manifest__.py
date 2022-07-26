@@ -10,14 +10,7 @@
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "installable": True,
-    "depends": [
-        "account",
-        "base_tier_validation",
-    ],
-    "data": [
-        "views/account_invoice_view.xml",
-    ],
-    "demo": [
-        "demo/account_invoice_tier_definition.xml",
-    ],
+    "depends": ["account", "base_tier_validation"],
+    "data": ["views/account_invoice_view.xml"],
+    "demo": ["demo/account_invoice_tier_definition.xml"],
 }
