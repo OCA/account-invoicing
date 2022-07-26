@@ -33,7 +33,7 @@ msgid "<i class=\"fa fa-thumbs-up\"/> Operation has been <b>validated</b>!"
 msgstr ""
 
 #. module: account_invoice_tier_validation
-#: model:ir.model,name:account_invoice_tier_validation.model_account_invoice
+#: model:ir.model,name:account_invoice_tier_validation.model_account_move
 msgid "Invoice"
 msgstr ""
 

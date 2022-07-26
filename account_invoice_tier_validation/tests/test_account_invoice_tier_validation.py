@@ -27,7 +27,7 @@ class TestInvoiceTierValidation(AccountingTestCase):
         self.account_revenue = self.env["account.account"].search(
             [("user_type_id", "=", type_revenue.id)], limit=1
         )
-        self.invoice = self.env["account.invoice"].create(
+        self.invoice = self.env["account.move"].create(
             {
                 "partner_id": self.env.ref("base.res_partner_2").id,
                 "currency_id": self.env.ref("base.EUR").id,
@@ -36,7 +36,7 @@ class TestInvoiceTierValidation(AccountingTestCase):
                 "type": "out_invoice",
             }
         )
-        self.env["account.invoice.line"].create(
+        self.env["account.move.line"].create(
             {
                 "product_id": self.env.ref("product.product_product_4").id,
                 "quantity": 1,
@@ -51,7 +51,7 @@ class TestInvoiceTierValidation(AccountingTestCase):
 
     def test_get_tier_validation_model_names(self):
         self.assertIn(
-            "account.invoice", self.tier_definition._get_tier_validation_model_names()
+            "account.move", self.tier_definition._get_tier_validation_model_names()
         )
 
     def test_account_invoice_tier_validation(self):

@@ -7,9 +7,9 @@ import threading
 from odoo import api, models
 
 
-class AccountInvoice(models.Model):
-    _name = "account.invoice"
-    _inherit = ["account.invoice", "tier.validation"]
+class AccountMove(models.Model):
+    _name = "account.move"
+    _inherit = ["account.move", "tier.validation"]
     _state_from = ["draft"]
     _state_to = ["open", "paid"]
 
@@ -33,7 +33,6 @@ class AccountInvoice(models.Model):
         force_check = self.env.context.get("force_check_tier_validation")
         return testing and not force_check
 
-    @api.multi
     def _check_allow_write_under_validation(self, vals):
         # disable tier validation when running tests
         # to avoid that tests in other modules would be blocked
@@ -46,7 +45,7 @@ class AccountInvoice(models.Model):
         ctx = self.env.context.copy()
         ctx["invoice_tier_validation_allow_write"] = allow_write
         res = super(
-            AccountInvoice, self.with_context(ctx)
+            AccountMove, self.with_context(ctx)
         )._check_allow_write_under_validation(vals)
         return res
 

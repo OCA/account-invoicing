@@ -1,2 +1,2 @@
-* Aaron Henriquez <ahenriquez@ForgeFlow.com>
+* Aaron Henriquez <ahenriquez@forgeflow.com>
 * Andrea Stirpe <a.stirpe@onestein.nl>

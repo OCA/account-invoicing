@@ -4,11 +4,11 @@
     "name": "Invoice Tier Validation",
     "summary": "Extends the functionality of Invoice to "
     "support a tier validation process.",
-    "version": "12.0.1.0.2",
+    "version": "13.0.1.0.2",
     "category": "Invoices",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "installable": True,
     "depends": ["account", "base_tier_validation"],
     "data": ["views/account_invoice_view.xml"],

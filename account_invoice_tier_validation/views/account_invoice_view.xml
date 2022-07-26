@@ -3,9 +3,9 @@
      License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
 <odoo>
     <record id="invoice_supplier_form" model="ir.ui.view">
-        <field name="name">account.invoice.supplier.form</field>
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_supplier_form" />
+        <field name="name">account.move.supplier.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
         <field name="priority">2</field>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
@@ -84,9 +84,9 @@
         </field>
     </record>
     <record id="invoice_form" model="ir.ui.view">
-        <field name="name">account.invoice.form</field>
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
         <field name="priority">2</field>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
@@ -165,10 +165,10 @@
         </field>
     </record>
     <record id="view_account_invoice_search" model="ir.ui.view">
-        <field name="model">account.invoice</field>
+        <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_account_invoice_filter" />
         <field name="arch" type="xml">
-            <filter name="activities_my" position="after">
+            <filter name="activities_overdue" position="before">
                 <separator />
                 <filter
                     name="needs_review"
