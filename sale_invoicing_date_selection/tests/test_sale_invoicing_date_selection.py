@@ -33,9 +33,9 @@ class TestSaleInvoicingDateSelection(SavepointCase):
                 active_model="sale.order", active_ids=orders.ids, open_invoices=True
             )
         ) as wiz_invoice_form:
-            wiz_invoice_form.invoice_date = fields.Date.today()
+            wiz_invoice_form.invoice_date = "2022-11-01"
         wiz = wiz_invoice_form.save()
         action = wiz.create_invoices()
         invoices = self.env["account.move"].search(action["domain"])
-        self.assertTrue(invoices[0].invoice_date)
-        self.assertTrue(invoices[1].invoice_date)
+        self.assertEqual(fields.Date.to_string(invoices[0].invoice_date), "2022-11-01")
+        self.assertEqual(fields.Date.to_string(invoices[1].invoice_date), "2022-11-01")
