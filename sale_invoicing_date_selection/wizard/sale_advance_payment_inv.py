@@ -13,7 +13,12 @@ class SaleAdvancePaymentInv(models.TransientModel):
         """
         Add date to crate all invoices into user context
         """
-        return super(
-            SaleAdvancePaymentInv,
-            self.with_context(default_invoice_date=self.invoice_date),
-        ).create_invoices()
+        ctx = self.env.context.copy()
+        if self.invoice_date:
+            ctx.update(
+                {
+                    "default_invoice_date": self.invoice_date,
+                    "default_date": self.invoice_date,
+                }
+            )
+        return super(SaleAdvancePaymentInv, self.with_context(ctx)).create_invoices()
