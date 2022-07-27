@@ -54,6 +54,7 @@ setuptools.setup(
         'odoo13-addon-purchase_batch_invoicing',
         'odoo13-addon-purchase_invoicing_no_zero_line',
         'odoo13-addon-purchase_stock_picking_return_invoicing',
+        'odoo13-addon-sale_invoicing_date_selection',
         'odoo13-addon-sale_line_refund_to_invoice_qty',
         'odoo13-addon-sale_order_invoicing_grouping_criteria',
         'odoo13-addon-sale_order_invoicing_queued',
