@@ -22,7 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_billing](account_billing/) | 13.0.1.0.5 | [![Saran440](https://github.com/Saran440.png?size=30px)](https://github.com/Saran440) | Group invoice as billing before payment
-[account_global_discount](account_global_discount/) | 13.0.2.0.2 |  | Account Global Discount
+[account_global_discount](account_global_discount/) | 13.0.2.0.3 |  | Account Global Discount
 [account_invoice_alternate_payer](account_invoice_alternate_payer/) | 13.0.1.0.0 |  | Set a alternate payor/payee in invoices
 [account_invoice_base_invoicing_mode](account_invoice_base_invoicing_mode/) | 13.0.1.0.1 |  | Base module for handling multiple invoicing mode
 [account_invoice_blocking](account_invoice_blocking/) | 13.0.1.0.0 |  | Set a blocking (No Follow-up) flag on invoices
