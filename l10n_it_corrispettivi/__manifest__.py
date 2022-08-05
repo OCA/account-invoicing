@@ -9,7 +9,7 @@
     'category': 'Accounting & Finance',
     'author': 'Odoo Italian Community, Agile Business Group, '
               'Odoo Community Association (OCA)',
-    'website': 'https://github.com/OCA/l10n-italy/tree/12.0/'
+    'website': 'https://github.com/OCA/l10n-italy'
                'l10n_it_corrispettivi',
     'license': 'LGPL-3',
     'depends': ['account'],
