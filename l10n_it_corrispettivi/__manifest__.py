@@ -10,7 +10,7 @@
     'author': 'Odoo Italian Community, Agile Business Group, '
               'Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/l10n-italy'
-               'l10n_it_corrispettivi',
+               '/tree/12.0/l10n_it_corrispettivi',
     'license': 'LGPL-3',
     'depends': ['account'],
     'data': [
