@@ -9,7 +9,7 @@
                'con gli ordini di vendita.',
     'author': 'Agile Business Group, '
               'Odoo Community Association (OCA)',
-    'website': 'https://github.com/OCA/l10n-italy/tree/12.0/'
+    'website': 'https://github.com/OCA/l10n-italy'
                'l10n_it_corrispettivi_sale',
     'license': 'AGPL-3',
     'depends': [
