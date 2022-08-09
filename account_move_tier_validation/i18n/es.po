@@ -17,19 +17,19 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_move_tier_validation
-#: code:addons/account_move_tier_validation/models/tier_validation.py:0
+#: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Bill"
 msgstr ""
 
 #. module: account_move_tier_validation
-#: code:addons/account_move_tier_validation/models/tier_validation.py:0
+#: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Credit Note"
 msgstr ""
 
 #. module: account_move_tier_validation
-#: code:addons/account_move_tier_validation/models/tier_validation.py:0
+#: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Invoice"
 msgstr ""
@@ -65,7 +65,7 @@ msgid "Needs my Review"
 msgstr "Necesita mi revisión"
 
 #. module: account_move_tier_validation
-#: code:addons/account_move_tier_validation/models/tier_validation.py:0
+#: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Refund"
 msgstr ""
@@ -89,11 +89,6 @@ msgstr "Reiniciar validación"
 #: model:ir.model,name:account_move_tier_validation.model_tier_definition
 msgid "Tier Definition"
 msgstr "Definición de nivel"
-
-#. module: account_move_tier_validation
-#: model:ir.model,name:account_move_tier_validation.model_tier_validation
-msgid "Tier Validation (abstract)"
-msgstr ""
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
