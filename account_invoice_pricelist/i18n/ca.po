@@ -11,24 +11,25 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-02 02:43+0000\n"
-"PO-Revision-Date: 2017-04-02 02:43+0000\n"
-"Last-Translator: Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2017\n"
+"PO-Revision-Date: 2022-08-09 10:07+0000\n"
+"Last-Translator: jabelchi <jabelchi@gmail.com>\n"
 "Language-Team: Catalan (https://www.transifex.com/oca/teams/23907/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_pricelist
 #: model:ir.model,name:account_invoice_pricelist.model_account_move
 msgid "Journal Entries"
-msgstr ""
+msgstr "Assentaments comptables"
 
 #. module: account_invoice_pricelist
 #: model:ir.model,name:account_invoice_pricelist.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Apunt comptable"
 
 #. module: account_invoice_pricelist
 #: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_move__pricelist_id
@@ -40,17 +41,17 @@ msgstr "Tarifa de venda"
 #: code:addons/account_invoice_pricelist/models/account_move.py:0
 #, python-format
 msgid "Pricelist and Invoice need to use the same currency."
-msgstr ""
+msgstr "La tarifa i la factura han de tenir la mateixa divisa."
 
 #. module: account_invoice_pricelist
 #: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_move_customer_form
 msgid "Update price in lines from the pricelist"
-msgstr ""
+msgstr "Actualitza preus a les línies a partir de la tarifa"
 
 #. module: account_invoice_pricelist
 #: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_move_customer_form
 msgid "Update prices"
-msgstr ""
+msgstr "Actualitza preus"
 
 #~ msgid "Invoice"
 #~ msgstr "Factura"
