@@ -17,24 +17,22 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid ""
-"<i class=\"fa fa-info-circle\"/>This Invoice needs to be\n"
-"                        validated."
+#: code:addons/account_move_tier_validation/models/tier_validation.py:0
+#, python-format
+msgid "Bill"
 msgstr ""
-"<i class=\"fa fa-info-circle\"/>Esta factura necesita ser\n"
-"                        validada."
 
 #. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid "<i class=\"fa fa-thumbs-down\"/> Operation has been <b>rejected</b>."
+#: code:addons/account_move_tier_validation/models/tier_validation.py:0
+#, python-format
+msgid "Credit Note"
 msgstr ""
-"<i class=\"fa fa-thumbs-down\"/> La operación ha sido <b>rechazada</b>."
 
 #. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid "<i class=\"fa fa-thumbs-up\"/> Operation has been <b>validated</b>!"
-msgstr "<i class=\"fa fa-thumbs-up\"/> La operaciçon ha sido <b>validada</b>!"
+#: code:addons/account_move_tier_validation/models/tier_validation.py:0
+#, python-format
+msgid "Invoice"
+msgstr ""
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -67,6 +65,12 @@ msgid "Needs my Review"
 msgstr "Necesita mi revisión"
 
 #. module: account_move_tier_validation
+#: code:addons/account_move_tier_validation/models/tier_validation.py:0
+#, python-format
+msgid "Refund"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
 msgid "Reject"
 msgstr "Rechazar"
@@ -87,6 +91,11 @@ msgid "Tier Definition"
 msgstr "Definición de nivel"
 
 #. module: account_move_tier_validation
+#: model:ir.model,name:account_move_tier_validation.model_tier_validation
+msgid "Tier Validation (abstract)"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
 msgid "Validate"
 msgstr "Validar"
@@ -105,3 +114,18 @@ msgstr "Validación en curso"
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Validation Not Started"
 msgstr "Validación no iniciada"
+
+#~ msgid ""
+#~ "<i class=\"fa fa-info-circle\"/>This Invoice needs to be\n"
+#~ "                        validated."
+#~ msgstr ""
+#~ "<i class=\"fa fa-info-circle\"/>Esta factura necesita ser\n"
+#~ "                        validada."
+
+#~ msgid "<i class=\"fa fa-thumbs-down\"/> Operation has been <b>rejected</b>."
+#~ msgstr ""
+#~ "<i class=\"fa fa-thumbs-down\"/> La operación ha sido <b>rechazada</b>."
+
+#~ msgid "<i class=\"fa fa-thumbs-up\"/> Operation has been <b>validated</b>!"
+#~ msgstr ""
+#~ "<i class=\"fa fa-thumbs-up\"/> La operaciçon ha sido <b>validada</b>!"
