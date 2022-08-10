@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 Le Filament
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+    <record model="ir.ui.view" id="account_invoice_form">
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="name">account.invoice.form - confirm_popup</field>
+        <field name="model">account.invoice</field>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_invoice_open']" position="attributes">
+                <attribute name="confirm">Do you want to confirm this invoice ?</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.form - confirm_popup</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_invoice_open']" position="attributes">
+                <attribute name="confirm">Do you want to confirm this invoice ?</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
