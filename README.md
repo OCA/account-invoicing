@@ -29,6 +29,7 @@ addon | version | maintainers | summary
 [account_invoice_blocking](account_invoice_blocking/) | 12.0.1.0.0 |  | Set a blocking (No Follow-up) flag on invoices
 [account_invoice_change_currency](account_invoice_change_currency/) | 12.0.1.1.0 |  | Allows to change currency of Invoice by wizard
 [account_invoice_check_total](account_invoice_check_total/) | 12.0.1.1.0 |  | Check if the verification total is equal to the bill's total
+[account_invoice_confirm_popup](account_invoice_confirm_popup/) | 12.0.1.0.0 |  | Adds a confirmation popup before validation
 [account_invoice_date_due](account_invoice_date_due/) | 12.0.1.1.0 | [![luisg123v](https://github.com/luisg123v.png?size=30px)](https://github.com/luisg123v) | Update Invoice's Due Date
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 12.0.1.0.2 |  | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_fix_tax_rounding](account_invoice_fix_tax_rounding/) | 12.0.1.0.0 |  | Fix invoice tax rounding globally
