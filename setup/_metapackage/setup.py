@@ -16,6 +16,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_search_by_reference>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_tax_note>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_tax_required>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_transmit_method>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_tree_currency>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_triple_discount>=15.0dev,<15.1dev',
         'odoo-addon-account_move_exception>=15.0dev,<15.1dev',
