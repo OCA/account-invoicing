@@ -27,6 +27,7 @@ class PurchaseOrder(models.Model):
                 else line.qty_received,
                 precision_digits=precision,
             )
+            == 1
             for line in self.order_line
         )
 
