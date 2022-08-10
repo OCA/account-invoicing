@@ -17,29 +17,21 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid ""
-"<i class=\"fa fa-info-circle\"/>This Invoice needs to be\n"
-"                        validated."
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Bill"
 msgstr ""
-"<i class=\"fa fa-info-circle\"/>Esta factura necesita ser\n"
-"                        validada."
-
-#. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid "<i class=\"fa fa-thumbs-down\"/> Operation has been <b>rejected</b>."
-msgstr ""
-"<i class=\"fa fa-thumbs-down\"/> La operación ha sido <b>rechazada</b>."
-
-#. module: account_move_tier_validation
-#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
-msgid "<i class=\"fa fa-thumbs-up\"/> Operation has been <b>validated</b>!"
-msgstr "<i class=\"fa fa-thumbs-up\"/> La operación ha sido <b>validada</b>!"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__can_review
 msgid "Can Review"
 msgstr "Puede Revisar"
+
+#. module: account_move_tier_validation
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Credit Note"
+msgstr ""
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__display_name
@@ -57,6 +49,12 @@ msgstr "Tiene Comentario"
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_tier_definition__id
 msgid "ID"
 msgstr "ID"
+
+#. module: account_move_tier_validation
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Invoice"
+msgstr ""
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -102,6 +100,12 @@ msgstr "Necesita mi revisión"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__next_review
 msgid "Next Review"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Refund"
 msgstr ""
 
 #. module: account_move_tier_validation
@@ -174,3 +178,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
 msgid "Validations"
 msgstr "Validaciones"
+
+#~ msgid ""
+#~ "<i class=\"fa fa-info-circle\"/>This Invoice needs to be\n"
+#~ "                        validated."
+#~ msgstr ""
+#~ "<i class=\"fa fa-info-circle\"/>Esta factura necesita ser\n"
+#~ "                        validada."
+
+#~ msgid "<i class=\"fa fa-thumbs-down\"/> Operation has been <b>rejected</b>."
+#~ msgstr ""
+#~ "<i class=\"fa fa-thumbs-down\"/> La operación ha sido <b>rechazada</b>."
+
+#~ msgid "<i class=\"fa fa-thumbs-up\"/> Operation has been <b>validated</b>!"
+#~ msgstr ""
+#~ "<i class=\"fa fa-thumbs-up\"/> La operación ha sido <b>validada</b>!"
