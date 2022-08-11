@@ -3,7 +3,7 @@
 {
     "name": "Account Tax Group Widget Base Amount",
     "summary": "Adds base to tax group widget as it's put in the report",
-    "version": "13.0.1.0.0",
+    "version": "15.0.1.0.0",
     "development_status": "Beta",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
@@ -11,5 +11,9 @@
     "maintainers": ["chienandalu"],
     "license": "AGPL-3",
     "depends": ["account"],
-    "qweb": ["static/src/xml/tax_group.xml"],
+    "assets": {
+        "web.assets_qweb": [
+            "account_tax_group_widget_base_amount/static/src/xml/tax_group.xml",
+        ],
+    },
 }
