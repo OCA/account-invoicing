@@ -28,6 +28,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_partner',
         'odoo14-addon-account_invoice_payment_retention',
         'odoo14-addon-account_invoice_pricelist',
+        'odoo14-addon-account_invoice_pricelist_sale',
         'odoo14-addon-account_invoice_refund_line_selection',
         'odoo14-addon-account_invoice_refund_link',
         'odoo14-addon-account_invoice_refund_reinvoice',
