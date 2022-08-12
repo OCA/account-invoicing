@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-08-12 22:07+0000\n"
+"Last-Translator: Douglas Custódio <douglascstd@yahoo.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_form
@@ -20,94 +22,96 @@ msgstr ""
 msgid "<i class=\"fa fa-info-circle\"/>This Invoice needs to be\n"
 "                        validated."
 msgstr ""
+"<i class=\"fa fa-info-circle\"/>Esta Fatura precisa ser\n"
+"                        validada."
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_supplier_form
 msgid "<i class=\"fa fa-thumbs-down\"/> Operation has been <b>rejected</b>."
-msgstr ""
+msgstr "<i class=\"fa fa-thumbs-down\"/> Operação foi <b>rejeitada</b>."
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_supplier_form
 msgid "<i class=\"fa fa-thumbs-up\"/> Operation has been <b>validated</b>!"
-msgstr ""
+msgstr "<i class=\"fa fa-thumbs-up\"/> Operação foi <b>validada</b>!"
 
 #. module: account_invoice_tier_validation
 #: model:ir.model,name:account_invoice_tier_validation.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Fatura"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
 msgid "Invoices Pending to Validate"
-msgstr ""
+msgstr "Faturas Pendentes de Validação"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
 msgid "Invoices rejected"
-msgstr ""
+msgstr "Faturas rejeitadas"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
 msgid "Invoices validated and ready to be confirmed"
-msgstr ""
+msgstr "Faturas validadas e prontas para serem confirmadas"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
 msgid "My Invoices to review"
-msgstr ""
+msgstr "Minhas faturas para revisão"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
 msgid "Needs my Review"
-msgstr ""
+msgstr "Precisam da minha Revisão"
 
 #. module: account_invoice_tier_validation
 #: model:tier.definition,name:account_invoice_tier_validation.account_invoice_default_tier_definition
 msgid "New Tier Validation"
-msgstr ""
+msgstr "Novo Nível de Validação"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_supplier_form
 msgid "Reject"
-msgstr ""
+msgstr "Rejeitar"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
 msgid "Rejected"
-msgstr ""
+msgstr "Rejeitado"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_supplier_form
 msgid "Request Validation"
-msgstr ""
+msgstr "Requisitar Validação"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_supplier_form
 msgid "Restart Validation"
-msgstr ""
+msgstr "Reiniciar Validação"
 
 #. module: account_invoice_tier_validation
 #: model:ir.model,name:account_invoice_tier_validation.model_tier_definition
 msgid "Tier Definition"
-msgstr ""
+msgstr "Definição de Nível"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_supplier_form
 msgid "Validate"
-msgstr ""
+msgstr "Validar"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
 msgid "Validated"
-msgstr ""
+msgstr "Validado"
 
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.view_account_invoice_search
 msgid "Validation In Progress"
-msgstr ""
+msgstr "Validação em Progresso"
