@@ -17,7 +17,10 @@ class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
     )
 
     invoice_id = fields.Many2one(
-        comodel_name="account.move", required=True, readonly=True, ondelete="cascade",
+        comodel_name="account.move",
+        required=True,
+        readonly=True,
+        ondelete="cascade",
     )
 
     state = fields.Selection(related="invoice_id.state", readonly=True)

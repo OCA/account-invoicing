@@ -27,11 +27,15 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
     new_min_quantity = fields.Float(string="New Min Quantity", required=True)
 
     current_price = fields.Float(
-        related="supplierinfo_id.price", digits="Product Price", readonly=True,
+        related="supplierinfo_id.price",
+        digits="Product Price",
+        readonly=True,
     )
 
     new_price = fields.Float(
-        string="New Unit Price", digits="Product Price", required=True,
+        string="New Unit Price",
+        digits="Product Price",
+        required=True,
     )
 
     price_variation = fields.Float(
