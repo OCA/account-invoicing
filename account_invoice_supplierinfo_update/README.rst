@@ -14,20 +14,23 @@ Account Invoice - Supplier Info Update
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/13.0/account_invoice_supplierinfo_update
+    :target: https://github.com/OCA/account-invoicing/tree/14.0/account_invoice_supplierinfo_update
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-13-0/account-invoicing-13-0-account_invoice_supplierinfo_update
+    :target: https://translation.odoo-community.org/projects/account-invoicing-14-0/account-invoicing-14-0-account_invoice_supplierinfo_update
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/95/13.0
+    :target: https://runbot.odoo-community.org/runbot/95/14.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module allows to automatically update all products information in vendor bill for which the purchase information on the line are different from the supplier information defined in the product form.
+This module allows to automatically update all products information in a vendor
+bill for which the purchase information on the line is different from the
+vendor information defined in the product form.
 
-It creates a new supplier information line if there is not any or it updates the first one in the list.
+It creates a new vendor information line if there isn't any, or it updates the
+first one in the list.
 
 **Table of contents**
 
@@ -40,13 +43,13 @@ Usage
 This module adds a new button 'Check Supplier Info' in supplier
 invoice form.
 
-.. image:: https://raw.githubusercontent.com/OCA/account-invoicing/13.0/account_invoice_supplierinfo_update/static/description/supplier_invoice_form.png
+.. image:: https://raw.githubusercontent.com/OCA/account-invoicing/14.0/account_invoice_supplierinfo_update/static/description/supplier_invoice_form.png
 
+When the user clicks on it, they can see the changes that will apply to the
+vendor information. Optionally, they can remove some temporary changes,
+specially, if, for example, a vendor applied an exceptional price change.
 
-When the user clicks on it, he can see the supplier information changes that will apply. Optionally, he can remove some temporary changes, specially, if,
-for example, a supplier applied an exceptional price change.
-
-.. image:: https://raw.githubusercontent.com/OCA/account-invoicing/13.0/account_invoice_supplierinfo_update/static/description/main_screenshot.png
+.. image:: https://raw.githubusercontent.com/OCA/account-invoicing/14.0/account_invoice_supplierinfo_update/static/description/main_screenshot.png
 
 * blue: Creates a full new supplier info line
 * brown: Updates current settings, displaying price variation (%)
@@ -56,17 +59,16 @@ This module adds an extra boolean field 'Supplier Informations Checked' in the
 This field indicates that the prices have been checked and
 supplierinfo updated (or eventually that the changes have been ignored).
 
-.. image:: https://raw.githubusercontent.com/OCA/account-invoicing/13.0/account_invoice_supplierinfo_update/static/description/supplier_invoice_form_other_info_tab.png
+.. image:: https://raw.githubusercontent.com/OCA/account-invoicing/14.0/account_invoice_supplierinfo_update/static/description/supplier_invoice_form_other_info_tab.png
 
 Known issues / Roadmap
 ======================
 
-This module does not manage correctly difference if
+* This module does not manage correctly the difference if invoice line taxes
+  are not the same as products taxes. (If one is marked as tax included in the
+  price and the other is marked as tax excluded in the price.)
 
-* invoice line taxes are not the same as products taxes. (If one is
-  marked as tax included in the price and the other is marked as
-  tax excluded in the price)
-* Refactor that module to share algorithm with similar module
+* Refactor this module to share algorithm with the similar module
   `purchase_order_supplierinfo_update`
 
 Bug Tracker
@@ -75,7 +77,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_supplierinfo_update%0Aversion:%2013.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_supplierinfo_update%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -98,6 +100,7 @@ Contributors
 * `Tecnativa <https://www.tecnativa.com>`_:
 
   * Ernesto Tejeda
+  * Luis D. Lafaurie
 
 Maintainers
 ~~~~~~~~~~~
@@ -112,6 +115,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/13.0/account_invoice_supplierinfo_update>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/14.0/account_invoice_supplierinfo_update>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
