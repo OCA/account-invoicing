@@ -3,9 +3,9 @@ invoice form.
 
 .. image:: ../static/description/supplier_invoice_form.png
 
-
-When the user clicks on it, he can see the supplier information changes that will apply. Optionally, he can remove some temporary changes, specially, if,
-for example, a supplier applied an exceptional price change.
+When the user clicks on it, they can see the changes that will apply to the
+vendor information. Optionally, they can remove some temporary changes,
+specially, if, for example, a vendor applied an exceptional price change.
 
 .. image:: ../static/description/main_screenshot.png
 
