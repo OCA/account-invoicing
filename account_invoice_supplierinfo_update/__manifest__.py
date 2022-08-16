@@ -8,7 +8,7 @@
     "summary": "In the supplier invoice, automatically updates all products "
     "whose unit price on the line is different from "
     "the supplier price",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Akretion, GRAP, Odoo Community Association (OCA)",
@@ -16,8 +16,8 @@
     "installable": True,
     "depends": ["account"],
     "data": [
+        "security/ir.model.access.csv",
         "views/account_invoice_view.xml",
         "wizard/wizard_update_invoice_supplierinfo.xml",
     ],
-    "images": ["static/description/main_screenshot.png"],
 }
