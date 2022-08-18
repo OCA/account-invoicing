@@ -14,6 +14,10 @@ class AccountMoveLine(models.Model):
 
     def _prepare_supplier_wizard_line(self, supplierinfo):
         res = super()._prepare_supplier_wizard_line(supplierinfo)
-        res["current_discount"] = supplierinfo and supplierinfo.discount
-        res["new_discount"] = self.discount
+        res.update(
+            {
+                "current_discount": supplierinfo and supplierinfo.discount,
+                "new_discount": self.discount,
+            }
+        )
         return res
