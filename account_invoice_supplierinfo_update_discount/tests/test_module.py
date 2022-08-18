@@ -26,7 +26,8 @@ class TestModule(TransactionCase):
         # Launch and confirm Wizard
         lines_for_update = self.invoice._get_update_supplierinfo_lines()
         wizard = self.WizardUpdate.with_context(
-            default_line_ids=lines_for_update, default_invoice_id=self.invoice.id,
+            default_line_ids=lines_for_update,
+            default_invoice_id=self.invoice.id,
         ).create({})
         wizard.update_supplierinfo()
 
