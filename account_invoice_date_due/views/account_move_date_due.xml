@@ -28,4 +28,29 @@
             </field>
         </field>
     </record>
+
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="name">account.invoice.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="multi_edit">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_date_due']" position="attributes">
+                <attribute
+                    name="groups"
+                >!account_invoice_date_due.allow_to_change_due_date</attribute>
+            </xpath>
+            <field name="invoice_date_due" position="after">
+                <field
+                    name="invoice_date_due"
+                    string="Due Date"
+                    optional="show"
+                    groups="account_invoice_date_due.allow_to_change_due_date"
+                    attrs="{'readonly': [('state', 'not in', ['posted', 'draft'])]}"
+                />
+            </field>
+        </field>
+    </record>
 </odoo>

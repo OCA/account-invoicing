@@ -37,10 +37,13 @@ class AccountMove(models.Model):
         res = super().write(vals)
         # Propagate due date to move lines
         # that correspont to the receivable/payable account
-        if "invoice_date_due" in vals and self.state == "posted":
-            payment_term_lines = self.line_ids.filtered(
+        if "invoice_date_due" in vals:
+            payment_term_lines = self.filtered(
+                lambda move: move.state == "posted"
+            ).line_ids.filtered(
                 lambda line: line.account_id.user_type_id.type
                 in ("receivable", "payable")
             )
-            payment_term_lines.write({"date_maturity": vals["invoice_date_due"]})
+            if payment_term_lines:
+                payment_term_lines.write({"date_maturity": vals["invoice_date_due"]})
         return res
