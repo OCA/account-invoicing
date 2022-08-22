@@ -37,6 +37,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_section_sale_order',
         'odoo14-addon-account_invoice_supplier_ref_unique',
         'odoo14-addon-account_invoice_supplier_self_invoice',
+        'odoo14-addon-account_invoice_supplierinfo_update',
         'odoo14-addon-account_invoice_tax_note',
         'odoo14-addon-account_invoice_tax_required',
         'odoo14-addon-account_invoice_transmit_method',
