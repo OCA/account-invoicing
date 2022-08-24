@@ -6,7 +6,7 @@
 
 {
     "name": "Show links between refunds and their originator invoices",
-    "version": "14.0.1.0.2",
+    "version": "14.0.1.0.3",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Pexego, Tecnativa, Odoo Community Association (OCA)",
