@@ -1,6 +1,6 @@
 # Copyright 2004-2011 Pexego Sistemas Informáticos. (http://pexego.es)
 # Copyright 2016 Antonio Espinosa <antonio.espinosa@tecnativa.com>
-# Copyright 2014-2018 Pedro M. Baeza <pedro.baeza@tecnativa.com>
+# Copyright 2014-2022 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
@@ -20,13 +20,13 @@ class AccountMove(models.Model):
             "out_refund",
             "in_refund",
         ):
-            refund_lines_vals = move_vals.get("line_ids", [])
-            for i, line in enumerate(self.line_ids):
-                if i + 1 > len(refund_lines_vals):  # pragma: no cover
-                    # Avoid error if someone manipulate the original method
-                    break
-                if not line.exclude_from_invoice_tab:
-                    refund_lines_vals[i][2]["origin_line_id"] = line.id
+            refund_lines_vals = [
+                x[2]
+                for x in move_vals.get("line_ids", [])
+                if not x[2].get("exclude_from_invoice_tab", True)
+            ]
+            for i, line in enumerate(self.invoice_line_ids):
+                refund_lines_vals[i]["origin_line_id"] = line.id
         return move_vals
 
 
