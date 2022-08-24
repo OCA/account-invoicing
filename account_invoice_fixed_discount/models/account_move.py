@@ -23,7 +23,7 @@ class AccountMove(models.Model):
         for line in vals.keys():
             line.update(vals[line])
         return res
-    
+
     @api.model
     def create(self, vals):
         res = super().create(vals)
