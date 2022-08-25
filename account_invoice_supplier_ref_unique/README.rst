@@ -64,7 +64,6 @@ Contributors
 * Miguel Gandia <miguel@studio73.es>
 * Juany Davila <juany.davila@forgeflow.com>
 
-
 Maintainers
 ~~~~~~~~~~~
 
