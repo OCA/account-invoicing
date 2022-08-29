@@ -15,6 +15,7 @@ class TransmitMethod(models.Model):
         help="Do not modify the code of an existing Transmit Method "
         "because it may be used to identify a particular transmit method.",
     )
+    active = fields.Boolean("active", default=True)
     customer_ok = fields.Boolean(string="Selectable on Customers", default=True)
     supplier_ok = fields.Boolean(string="Selectable on Vendors", default=True)
 

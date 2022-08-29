@@ -17,6 +17,7 @@
                     <group name="main">
                         <group name="info">
                             <field name="code" />
+                            <field name="active" invisible="True" />
                         </group>
                         <group name="options">
                             <field name="customer_ok" />
@@ -35,6 +36,7 @@
                 <field name="code" />
                 <field name="customer_ok" />
                 <field name="supplier_ok" />
+                <field name="active" invisible="True" />
             </tree>
         </field>
     </record>
@@ -56,6 +58,11 @@
                     name="supplier_ok"
                     string="Selectable on Vendors"
                     domain="[('supplier_ok', '=', True)]"
+                />
+                <filter
+                    name="active"
+                    string="Archived"
+                    domain="[('active', '=' ,False)]"
                 />
             </search>
         </field>
