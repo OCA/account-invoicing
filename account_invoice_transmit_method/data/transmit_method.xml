@@ -8,13 +8,16 @@
     <record id="mail" model="transmit.method">
         <field name="code">mail</field>
         <field name="name">E-Mail</field>
+        <field name="active">True</field>
     </record>
     <record id="post" model="transmit.method">
         <field name="code">post</field>
         <field name="name">Post</field>
+        <field name="active">True</field>
     </record>
     <record id="portal" model="transmit.method">
         <field name="code">portal</field>
         <field name="name">Customer Portal</field>
+        <field name="active">True</field>
     </record>
 </odoo>
