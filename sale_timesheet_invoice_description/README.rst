@@ -14,13 +14,13 @@ Timesheet details invoice
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/14.0/sale_timesheet_invoice_description
+    :target: https://github.com/OCA/account-invoicing/tree/15.0/sale_timesheet_invoice_description
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-14-0/account-invoicing-14-0-sale_timesheet_invoice_description
+    :target: https://translation.odoo-community.org/projects/account-invoicing-15-0/account-invoicing-15-0-sale_timesheet_invoice_description
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/95/14.0
+    :target: https://runbot.odoo-community.org/runbot/95/15.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
@@ -37,28 +37,34 @@ Configuration
 
 To configure this module, you need to:
 
-#. Go to *Timesheets -> Configuration -> Settings -> Billing* and set
-   Default Timesheet Invoice Description.
+#. Go to **Timesheets > Configuration > Settings** and select an option from
+   **Timesheet Invoice Description** under **Billing** section.
 
 Usage
 =====
 
 To use this module, you need to:
 
-#. Go to *Sales -> Orders -> Orders* and create a new Sale Order.
-#. Add line selecting a product with
+#. Create or modify a product and set the following options under
+   'General Information' tab:
 
-   - *Product Type* -> **Service**
-   - *Service Invoicing Policy* -> **Timesheets on tasks**
-   - *Service Tracking* -> **Create a task in sales order's project**
+   - **Product Type** > 'Service'
+   - **Invoicing Policy** > 'Based on Timesheets'
+   - **Create on Order** > 'Project & Task'
+   - **Unit of Measure** > 'Hours' (or any other time unit)
+#. Go to *Sales > Orders > Orders*, select a Sale Order or create a new one,
+   add a product (service) under 'Order Lines' tab.
+#. Go to 'Other Info' tab (wihthin the same Sale Order) and:
 
-   and link the Sale Order with a project.
-#. Confirm Sale
-#. Go to *Timesheets -> Timesheet -> My Timesheets* and create a timesheet line in a task related to the Sale Order's project and your specific Sale Order's line.
-#. Go to the Sale Order and select *Other Information* -> **Timesheet invoice
-   description**
-#. Check "Split Order lines by timesheets" if you want to create one invoice line for each Sale Order line's timesheet.
-#. *Create Invoice*
+   - Select an option from **Timesheet Invoice Description**.
+   - Tick off **Split Order lines by timesheets**, if you want to create an
+     invoice line per each Sale Order timesheet's line.
+   - Link the Sale Order with a project from **Project** field.
+#. Confirm Sale.
+#. Go to *Timesheets > Timesheets > My Timesheets*, create a record
+   (timesheet line) and select a task related to the Sale Order's project
+   (and to your specific Sale Order's line). Remember to add the time spent.
+#. Go to the Sale Order and create its invoice (clic on 'Create Invoice').
 
 Bug Tracker
 ===========
@@ -66,7 +72,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20sale_timesheet_invoice_description%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20sale_timesheet_invoice_description%0Aversion:%2015.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -87,6 +93,7 @@ Contributors
   * Pedro M. Baeza
   * Ernesto Tejeda
   * Manuel Calero
+  * Luis D. Lafaurie
 
 * `Akretion <https://www.akretion.com>`_:
 
@@ -105,6 +112,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/14.0/sale_timesheet_invoice_description>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/15.0/sale_timesheet_invoice_description>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
