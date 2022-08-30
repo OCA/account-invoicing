@@ -9,7 +9,7 @@ class TransmitMethod(models.Model):
     _name = "transmit.method"
     _description = "Transmit Method of a document"
 
-    name = fields.Char(required=True)
+    name = fields.Char(required=True, translate=True)
     code = fields.Char(
         copy=False,
         help="Do not modify the code of an existing Transmit Method "
