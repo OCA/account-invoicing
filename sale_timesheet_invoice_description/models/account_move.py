@@ -53,7 +53,7 @@ class AccountMoveLine(models.Model):
     )
 
     # Filled by sale order line's _prepare_invoice_line()
-    timesheet_invoice_description = fields.Char("Timesheet Invoice Description")
+    timesheet_invoice_description = fields.Char()
     timesheet_invoice_split = fields.Boolean("Split Order lines by timesheets")
 
     def _get_sale_line_delivery(self):
