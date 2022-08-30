@@ -219,7 +219,7 @@ class TestSaleTimesheetDescription(common.SavepointCase):
 
         # Invoice lines total must equal the expected order line's delivered and
         # invoiced quantities
-        aml_sum = sum([aml.quantity for aml in aml_ids[1:]])
+        aml_sum = sum(aml.quantity for aml in aml_ids[1:])
         pr = self.so_line.product_uom.rounding
         self.assertTrue(
             float_compare(aml_sum, self.so_line.qty_delivered, precision_rounding=pr)
