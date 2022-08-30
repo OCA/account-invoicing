@@ -8,12 +8,11 @@ from odoo.tests import common
 from odoo.tools.float_utils import float_compare
 
 
-class TestSaleTimesheetDescription(common.SavepointCase):
+class TestSaleTimesheetDescription(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestSaleTimesheetDescription, cls).setUpClass()
         # Make sure user is in English
-        cls.env["res.lang"].load_lang("en_US")
         cls.env.user.lang = "en_US"
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
         cls.analytic_account = cls.env["account.analytic.account"].create(

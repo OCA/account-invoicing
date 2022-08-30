@@ -4,6 +4,7 @@
   * Pedro M. Baeza
   * Ernesto Tejeda
   * Manuel Calero
+  * Luis D. Lafaurie
 
 * `Akretion <https://www.akretion.com>`_:
 
