@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -74,15 +74,20 @@ msgstr ""
 
 #. module: account_move_post_block
 #: code:addons/account_move_post_block/models/account_move.py:0
-#: code:addons/account_move_post_block/models/account_move.py:0
 #, python-format
-msgid "Entry \"%s\" blocked with reason \"%s\""
+msgid "Entry \"%s\" post block released."
 msgstr ""
 
 #. module: account_move_post_block
 #: code:addons/account_move_post_block/models/account_move.py:0
 #, python-format
-msgid "Entry \"%s\" post block released."
+msgid "Entry \"{}\" blocked with reason{}"
+msgstr ""
+
+#. module: account_move_post_block
+#: code:addons/account_move_post_block/models/account_move.py:0
+#, python-format
+msgid "Entry {} blocked with reason {}"
 msgstr ""
 
 #. module: account_move_post_block
@@ -92,12 +97,7 @@ msgstr ""
 
 #. module: account_move_post_block
 #: model:ir.model,name:account_move_post_block.model_account_move
-msgid "Journal Entries"
-msgstr ""
-
-#. module: account_move_post_block
-#: model_terms:ir.ui.view,arch_db:account_move_post_block.account_post_block_reason_tree_view
-msgid "Journal Entry Approval Block Reasons"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_move_post_block
@@ -126,13 +126,17 @@ msgid "Post Block"
 msgstr ""
 
 #. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_bank_statement_line__post_block_id
 #: model:ir.model.fields,field_description:account_move_post_block.field_account_move__post_block_id
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_payment__post_block_id
 msgid "Post Block Reason"
 msgstr ""
 
 #. module: account_move_post_block
 #: model:exception.rule,name:account_move_post_block.am_excep_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_bank_statement_line__post_blocked
 #: model:ir.model.fields,field_description:account_move_post_block.field_account_move__post_blocked
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_payment__post_blocked
 msgid "Post Blocked"
 msgstr ""
 
