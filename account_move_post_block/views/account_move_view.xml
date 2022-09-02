@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2021 ForgeFlow S.L. (http://www.forgeflow.com)
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+-->
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form.block.reason</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account_move_exception.view_move_form" />
+        <field name="arch" type="xml">
+            <button name="button_draft" position="attributes">
+                <attribute name="states">cancel</attribute>
+            </button>
+            <xpath expr="//header/button[@name='action_post']" position="before">
+                <button
+                    name="button_release_post_block"
+                    string="Release Post Block"
+                    type="object"
+                    class="btn-primary"
+                    groups="account_move_post_block.group_journal_entry_post_block"
+                    attrs="{'invisible': ['|',('post_block_id', '=', False),
+                        ('state', 'not in', ['draft'])]}"
+                />
+            </xpath>
+            <xpath expr="//group[@name='accounting_info_group']" position="after">
+                <group string="Post Block" name="post_block">
+                    <field
+                        name="post_block_id"
+                        attrs="{'readonly': [('state', 'not in', 'draft')]}"
+                    />
+                    <field name="post_blocked" invisible="True" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_move_filter" model="ir.ui.view">
+        <field name="name">account.move.select.block.reason</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter" />
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="post_block_id" />
+            </field>
+            <filter name="posted" position="after">
+                <filter
+                    string="Blocked for Post"
+                    name="blocked_am"
+                    domain="[('post_block_id', '!=', False)]"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>
