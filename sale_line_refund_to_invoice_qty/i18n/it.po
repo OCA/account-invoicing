@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-06 15:07+0000\n"
-"PO-Revision-Date: 2022-09-06 15:07+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2022-09-06 15:06+0000\n"
+"PO-Revision-Date: 2022-09-06 15:06+0000\n"
+"Last-Translator: Simone Rubino <sir@takobi.online>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,60 +18,60 @@ msgstr ""
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_invoice_refund
 msgid "Credit Note"
-msgstr ""
+msgstr "Nota di credito"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_invoice
 msgid "Invoice"
-msgstr ""
+msgstr "Fattura"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_invoice_line
 msgid "Invoice Line"
-msgstr ""
+msgstr "Riga fattura"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,help:sale_line_refund_to_invoice_qty.field_account_invoice_line__sale_qty_to_reinvoice
 msgid "Leave it marked if you will reinvoice the same sale order line"
-msgstr ""
+msgstr "Lasciare abilitato se si vuole rifatturare la stessa riga dell'ordine di vendita"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,help:sale_line_refund_to_invoice_qty.field_account_invoice_refund__sale_qty_to_reinvoice
 msgid "Leave it marked if you will reinvoice the same sale order line (standard behaviour)"
-msgstr ""
+msgstr "Lasciare abilitato se si vuole rifatturare la stessa riga dell'ordine di vendita (comportamento standard)"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model_terms:ir.ui.view,arch_db:sale_line_refund_to_invoice_qty.view_account_invoice_refund
 msgid "Leave it marked when other customer invoices are expected for the quantities in the credit note."
-msgstr ""
+msgstr "Lasciare abilitato quando altre fatture cliente sono attese per le quantità nella nota di credito."
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__qty_refunded_not_invoiceable
 msgid "Quantity Refunded Not Invoiceable"
-msgstr ""
+msgstr "Quantità rimborsata non fatturabile"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__refund_invoice_line_ids
 msgid "Refund Lines linked to this Sale Order Line"
-msgstr ""
+msgstr "Righe di nota di credito per questa riga di ordine di vendita"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_invoice_line__refund_sale_line_ids
 msgid "Sale Order Lines linked to this Refund Line"
-msgstr ""
+msgstr "Righe di ordine di vendita per questa riga di nota di credito"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_invoice_line__sale_qty_to_reinvoice
 msgid "Sale qty to reinvoice"
-msgstr ""
+msgstr "Quantità venduta da rifatturare"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model,name:sale_line_refund_to_invoice_qty.model_sale_order_line
 msgid "Sales Order Line"
-msgstr ""
+msgstr "Riga ordine di vendita"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_invoice_refund__sale_qty_to_reinvoice
 msgid "This credit note will be reinvoiced"
-msgstr ""
+msgstr "Questa nota di credito sarà rifatturata"
 

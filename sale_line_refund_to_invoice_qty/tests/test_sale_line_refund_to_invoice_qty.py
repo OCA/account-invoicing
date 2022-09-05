@@ -1,4 +1,5 @@
 # Copyright 2021 ForgeFlow (http://www.forgeflow.com)
+# Copyright 2022 Simone Rubino - TAKOBI
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 from odoo.tests.common import SavepointCase, tagged
 
@@ -33,13 +34,14 @@ class TestSaleLineRefundToInvoiceQty(SavepointCase):
         )
         cls.order.action_confirm()
         cls.order.order_line[0].write({"qty_delivered": 5.0})
-        cls.order._create_invoices()
+        cls.order.action_invoice_create()
         cls.invoice = cls.order.invoice_ids[0]
+        cls.invoice.action_invoice_open()
 
     def move_reversal_wiz(self, move):
         wizard = (
-            self.env["account.move.reversal"]
-            .with_context(active_model="account.move", active_ids=[move.id])
+            self.env["account.invoice.refund"]
+            .with_context(active_model="account.invoice", active_ids=[move.id])
             .create({})
         )
         return wizard
@@ -51,13 +53,16 @@ class TestSaleLineRefundToInvoiceQty(SavepointCase):
         """
         reversal_wizard = self.move_reversal_wiz(self.invoice)
         reversal_wizard.write({"sale_qty_to_reinvoice": False})
-        credit_note = self.env["account.move"].browse(
-            reversal_wizard.reverse_moves()["res_id"]
+        credit_note = self.env["account.invoice"].browse(
+            reversal_wizard.invoice_refund()["res_id"]
         )
-        for line in credit_note.line_ids:
+        for line in credit_note.invoice_line_ids:
             self.assertFalse(line.sale_qty_to_reinvoice)
         self.assertEqual(self.order.order_line[0].qty_to_invoice, 0.0)
-        self.assertEqual(self.order.order_line[0].qty_refunded_not_invoiceable, 5.0)
+        self.assertEqual(
+            self.order.order_line[0].qty_refunded_not_invoiceable,
+            5.0,
+        )
 
     def test_refund_qty_to_reinvoice(self):
         """
@@ -65,10 +70,13 @@ class TestSaleLineRefundToInvoiceQty(SavepointCase):
         reinvoice in the sales order line, when the boolean is left unchecked.
         """
         reversal_wizard = self.move_reversal_wiz(self.invoice)
-        credit_note = self.env["account.move"].browse(
-            reversal_wizard.reverse_moves()["res_id"]
+        credit_note = self.env["account.invoice"].browse(
+            reversal_wizard.invoice_refund()["res_id"]
         )
-        for line in credit_note.line_ids:
+        for line in credit_note.invoice_line_ids:
             self.assertTrue(line.sale_qty_to_reinvoice)
         self.assertEqual(self.order.order_line[0].qty_to_invoice, 5.0)
-        self.assertEqual(self.order.order_line[0].qty_refunded_not_invoiceable, 0.0)
+        self.assertEqual(
+            self.order.order_line[0].qty_refunded_not_invoiceable,
+            0.0,
+        )

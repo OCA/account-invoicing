@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 ForgeFlow (http://www.forgeflow.com)
+Copyright 2022 Simone Rubino - TAKOBI
+License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+    <record id="invoice_form" model="ir.ui.view">
+        <field name="name">account.move.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="arch" type="xml">
+            <field name="quantity" position="after">
+                <field
+                    name="sale_qty_to_reinvoice"
+                    attrs="{'column_invisible': [('parent.type', '!=', 'out_refund')]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

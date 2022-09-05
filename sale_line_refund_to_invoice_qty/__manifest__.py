@@ -4,7 +4,7 @@
     "name": "Sale Line Refund To Invoice Qty",
     "summary": """Allow deciding whether refunded quantity should be considered
                 as quantity to reinvoice""",
-    "version": "13.0.1.2.0",
+    "version": "12.0.1.0.0",
     "category": "Sales",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
@@ -13,8 +13,8 @@
     "installable": True,
     "depends": ["sale_management"],
     "data": [
-        "views/account_move_views.xml",
+        "views/account_invoice_views.xml",
         "views/sale_order_views.xml",
-        "wizards/account_move_reversal_view.xml",
+        "wizards/account_invoice_refund_views.xml",
     ],
 }
