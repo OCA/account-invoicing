@@ -55,6 +55,29 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
             self.out_invoice.bank_partner_id, self.out_invoice.company_id.partner_id
         )
 
+    def test_01_1_post_out_invoice(self):
+        with Form(self.out_invoice) as form:
+            form.alternate_payer_id = self.alternate_partner
+            self.out_invoice_posted = form.save()
+        self.out_invoice_posted.action_post()
+        self.assertEqual(
+            self.out_invoice_posted.line_ids.filtered(
+                lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
+            ).mapped("partner_id"),
+            self.alternate_partner,
+        )
+        self.assertEqual(
+            self.out_invoice_posted.line_ids.filtered(
+                lambda r: r.account_id.user_type_id.type
+                not in ("receivable", "payable")
+            ).mapped("partner_id"),
+            self.out_invoice_posted.partner_id,
+        )
+        self.assertEqual(
+            self.out_invoice_posted.bank_partner_id,
+            self.out_invoice_posted.company_id.partner_id,
+        )
+
     def test_02_onchange_in_invoice(self):
         with Form(self.in_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
@@ -72,6 +95,26 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
             self.out_invoice.partner_id,
         )
         self.assertEqual(self.in_invoice.bank_partner_id, self.alternate_partner)
+
+    def test_02_1_post_in_invoice(self):
+        with Form(self.in_invoice) as form:
+            form.alternate_payer_id = self.alternate_partner
+            self.in_invoice_posted = form.save()
+        self.in_invoice_posted.action_post()
+        self.assertEqual(
+            self.in_invoice_posted.line_ids.filtered(
+                lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
+            ).mapped("partner_id"),
+            self.alternate_partner,
+        )
+        self.assertEqual(
+            self.in_invoice_posted.line_ids.filtered(
+                lambda r: r.account_id.user_type_id.type
+                not in ("receivable", "payable")
+            ).mapped("partner_id"),
+            self.out_invoice.partner_id,
+        )
+        self.assertEqual(self.in_invoice_posted.bank_partner_id, self.alternate_partner)
 
     def test_03_payment_out_invoice(self):
         with Form(self.out_invoice) as form:
