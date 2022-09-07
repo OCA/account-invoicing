@@ -4,7 +4,7 @@
 {
     "name": "Account Invoice Alternate Payer",
     "summary": "Set a alternate payor/payee in invoices",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "license": "AGPL-3",
     "category": "Accounting",
     "author": "Eficent,Odoo Community Association (OCA)",

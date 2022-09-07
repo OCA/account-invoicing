@@ -117,3 +117,16 @@ class AccountMove(models.Model):
                 info["title"] = type_payment
                 move.invoice_outstanding_credits_debits_widget = json.dumps(info)
                 move.invoice_has_outstanding = True
+
+
+class AccountMoveLine(models.Model):
+
+    _inherit = "account.move.line"
+
+    def write(self, values):
+        # CHECK ME: this change to commercial partner when find difference between main partner
+        # https://github.com/odoo/odoo/blob/0f90852818a334d66ed8a6781f5abdc022f76ff7/addons/account/models/account_move.py#L2695 # noqa: B950
+        if "partner_id" in values and len(values.keys()) == 1:
+            lines_to_skip = self.filtered(lambda x: x.move_id.alternate_payer_id)
+            return super(AccountMoveLine, self - lines_to_skip).write(values)
+        return super(AccountMoveLine, self).write(values)
