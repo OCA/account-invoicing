@@ -28,21 +28,21 @@ class SaleOrderLine(models.Model):
         "refund_invoice_line_ids.quantity",
         "product_uom",
     )
-    def _get_to_invoice_qty(self):
-        super()._get_to_invoice_qty()
+    def _get_invoice_qty(self):
+        super()._get_invoice_qty()
         for line in self:
-            qty_to_invoice = line.qty_to_invoice
+            qty_invoiced = line.qty_invoiced
             for invoice_line in line.refund_invoice_line_ids:
                 if (
                     invoice_line.invoice_id.state != "cancel"
                     and invoice_line.invoice_id.type == "out_refund"
                     and invoice_line.sale_qty_to_reinvoice
                 ):
-                    qty_to_invoice += invoice_line.uom_id \
+                    qty_invoiced -= invoice_line.uom_id \
                         ._compute_quantity(
                             invoice_line.quantity, line.product_uom
                         )
-            line.qty_to_invoice = qty_to_invoice
+            line.qty_invoiced = qty_invoiced
 
     @api.depends(
         "refund_invoice_line_ids.invoice_id.state",
