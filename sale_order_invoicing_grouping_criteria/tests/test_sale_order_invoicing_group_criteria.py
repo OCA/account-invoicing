@@ -77,11 +77,11 @@ class TestSaleOrderInvoicingGroupingCriteria(TransactionCase):
     def test_invoicing_grouping_partner_criteria_as_demo(self):
         self.order2.partner_shipping_id = self.partner2.id
         self.partner.sale_invoicing_grouping_criteria_id = self.grouping_criteria.id
-        invoice_ids = (
-            (self.order + self.order2)
-            .with_user(self.env.ref("base.user_demo"))
-            ._create_invoices()
-        )
+        user_demo = self.env.ref("base.user_demo")
+        user_demo.groups_id = [
+            (4, self.env.ref("sales_team.group_sale_salesman_all_leads").id)
+        ]
+        invoice_ids = (self.order + self.order2).with_user(user_demo)._create_invoices()
         self.assertEqual(len(invoice_ids), 2)
         self.assertNotEqual(self.order.invoice_ids, self.order2.invoice_ids)
 
