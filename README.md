@@ -35,12 +35,12 @@ addon | version | maintainers | summary
 [account_invoice_tree_currency](account_invoice_tree_currency/) | 15.0.1.0.0 |  | Show currencies in the invoice tree view
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 15.0.1.0.0 |  | Manage triple discount on invoice lines
 [account_move_exception](account_move_exception/) | 15.0.1.0.0 |  | Custom exceptions on account move
-[account_move_post_block](account_move_post_block/) | 15.0.1.0.0 |  | Account Move Post Block
+[account_move_post_block](account_move_post_block/) | 15.0.1.0.1 |  | Account Move Post Block
 [account_move_tier_validation](account_move_tier_validation/) | 15.0.1.1.0 |  | Extends the functionality of Account Moves to support a tier validation process.
 [account_tax_group_widget_base_amount](account_tax_group_widget_base_amount/) | 15.0.1.0.0 | [![chienandalu](https://github.com/chienandalu.png?size=30px)](https://github.com/chienandalu) | Adds base to tax group widget as it's put in the report
 [sale_line_refund_to_invoice_qty](sale_line_refund_to_invoice_qty/) | 15.0.1.0.0 |  | Allow deciding whether refunded quantity should be considered as quantity to reinvoice
-[sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 15.0.1.0.1 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Sales order invoicing grouping criteria
-[stock_picking_return_refund_option](stock_picking_return_refund_option/) | 15.0.1.0.0 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Update the refund options in pickings
+[sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 15.0.1.0.2 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Sales order invoicing grouping criteria
+[stock_picking_return_refund_option](stock_picking_return_refund_option/) | 15.0.1.0.1 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Update the refund options in pickings
 
 [//]: # (end addons)
 
