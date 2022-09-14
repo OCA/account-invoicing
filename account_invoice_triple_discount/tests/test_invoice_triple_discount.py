@@ -56,6 +56,33 @@ class TestInvoiceTripleDiscount(SavepointCase):
         invoice = invoice_form.save()
         return invoice
 
+    def create_advanced_invoice(self):
+        invoice_line_ids = [
+            (
+                0,
+                0,
+                {
+                    "quantity": 1,
+                    "price_unit": 60.0,
+                    "name": "Product",
+                    "discount": 20,
+                    "discount2": 10,
+                    "discount3": 0,
+                    "tax_ids": [(6, 0, [self.tax.id],)],
+                },
+            )
+        ]
+
+        invoice = (
+            self.env["account.move"]
+            .with_context(default_type="out_invoice")
+            .create(
+                {"partner_id": self.partner.id, "invoice_line_ids": invoice_line_ids}
+            )
+        )
+
+        return invoice
+
     def test_01_discounts(self):
         """ Tests multiple discounts in line with taxes """
         invoice = self.create_simple_invoice(200)
@@ -118,3 +145,19 @@ class TestInvoiceTripleDiscount(SavepointCase):
             line_form.discount = 50.0
         invoice_form.save()
         self.assertEqual(invoice.amount_total, 365.0)
+
+    def test_03_discounts_advanced_invoice(self):
+        invoice = self.create_advanced_invoice()
+
+        theoretical_amount = 0
+        for line in invoice.invoice_line_ids:
+            line_amount = 0
+            line_amount += (
+                line.price_unit
+                * (1 - line.discount / 100)
+                * (1 - line.discount2 / 100)
+                * (1 - line.discount3 / 100)
+            )
+            line_amount *= 1 + (self.tax.amount / 100)
+            theoretical_amount += line_amount
+        self.assertEqual(invoice.amount_total, theoretical_amount)

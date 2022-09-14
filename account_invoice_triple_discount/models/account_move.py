@@ -13,23 +13,26 @@ class AccountMove(models.Model):
 
     _inherit = "account.move"
 
-    def _recompute_tax_lines(
-        self, recompute_tax_base_amount=False, tax_rep_lines_to_recompute=None
-    ):
-        vals = {}
-        for line in self.invoice_line_ids.filtered(
-            lambda l: l.discount2 or l.discount3
-        ):
-            vals[line] = {"price_unit": line.price_unit, "discount": line.discount}
+    def _recompute_tax_lines(self, **kwargs):
+        """
+        As the taxes are recalculated based on a single discount, we need to
+        simulate a multiple discount by changing the unit price. Values are
+        restored after the original process is done
+        """
+        old_values_by_line_id = {}
+        for line in self.line_ids:
             aggregated_discount = line._compute_aggregated_discount(line.discount)
+            old_values_by_line_id[line.id] = {
+                "price_unit": line.price_unit,
+                "discount": line.discount,
+            }
             price_unit = line.price_unit * (1 - aggregated_discount / 100)
             line.update({"price_unit": price_unit, "discount": 0})
-        res = super()._recompute_tax_lines(
-            recompute_tax_base_amount=recompute_tax_base_amount,
-            tax_rep_lines_to_recompute=tax_rep_lines_to_recompute,
-        )
-        for line in vals.keys():
-            line.update(vals[line])
+        res = super()._recompute_tax_lines(**kwargs)
+        for line in self.line_ids:
+            if line.id not in old_values_by_line_id:
+                continue
+            line.update(old_values_by_line_id[line.id])
         return res
 
     def _has_discount(self):
