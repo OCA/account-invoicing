@@ -98,6 +98,12 @@
                     help="My Accounts to review"
                 />
                 <filter
+                    name="no_validation_requested"
+                    string="No Validation Requested"
+                    domain="[('review_ids', '=', False), ('state', 'not in', ['posted', 'cancel'])]"
+                    help="Invoices where no validation has been requested"
+                />
+                <filter
                     name="validation_not_started"
                     string="Validation Not Started"
                     domain="[('reviewer_ids', '=', False), ('state', 'not in', ['posted', 'cancel']), ('validated', '=', False), ('rejected', '=', False)]"
