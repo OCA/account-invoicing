@@ -8,7 +8,7 @@
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
     "category": "Accounting & Finance",
-    "depends": ["account", "queue_job", "sale"],
+    "depends": ["account", "queue_job", "sale_stock"],
     "data": [
         "data/queue_job_data.xml",
         "views/res_partner.xml",

@@ -2,9 +2,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
 from odoo import tools
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import SavepointCase, tagged
 
 
+@tagged("post_install", "-at_install")
 class TestInvoiceModedaily(SavepointCase):
     @classmethod
     def setUpClass(cls):
