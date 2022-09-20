@@ -46,6 +46,11 @@ msgid "Customer Invoice Transmission Method Code"
 msgstr ""
 
 #. module: account_invoice_transmit_method
+#: model:transmit.method,name:account_invoice_transmit_method.portal
+msgid "Customer Portal"
+msgstr ""
+
+#. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__display_name
 msgid "Display Name"
 msgstr ""
@@ -59,6 +64,11 @@ msgstr ""
 msgid ""
 "Do not modify the code of an existing Transmit Method because it may be used"
 " to identify a particular transmit method."
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:transmit.method,name:account_invoice_transmit_method.mail
+msgid "E-Mail"
 msgstr ""
 
 #. module: account_invoice_transmit_method
@@ -94,6 +104,11 @@ msgstr ""
 #. module: account_invoice_transmit_method
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
 msgid "Name or Code"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:transmit.method,name:account_invoice_transmit_method.post
+msgid "Post"
 msgstr ""
 
 #. module: account_invoice_transmit_method
