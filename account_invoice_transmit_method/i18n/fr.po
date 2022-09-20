@@ -20,7 +20,6 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__code
 msgid "Code"
 msgstr "Code"
@@ -53,12 +52,16 @@ msgid "Customer Invoice Transmission Method Code"
 msgstr "Code Méthode de transmission facture client"
 
 #. module: account_invoice_transmit_method
+#: model:transmit.method,name:account_invoice_transmit_method.portal
+msgid "Customer Portal"
+msgstr ""
+
+#. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_code
@@ -72,14 +75,19 @@ msgstr ""
 "être déjà utilisé pour identifier une méthode de transmission particulière."
 
 #. module: account_invoice_transmit_method
+#: model:transmit.method,name:account_invoice_transmit_method.mail
+msgid "E-Mail"
+msgstr ""
+
+#. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__id
 msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_account_move
-msgid "Journal Entries"
-msgstr "Pièces Comptables"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method____last_update
@@ -107,9 +115,9 @@ msgid "Name or Code"
 msgstr "Nom ou Code"
 
 #. module: account_invoice_transmit_method
-#: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
-msgid "Search Transmit Methods"
-msgstr "Recherche Méthode de Transmission"
+#: model:transmit.method,name:account_invoice_transmit_method.post
+msgid "Post"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__customer_ok
@@ -124,29 +132,30 @@ msgid "Selectable on Vendors"
 msgstr "Sélectionable sur les fournisseurs"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_move__transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_payment__transmit_method_code
+msgid "Technical field used for UX purposes"
+msgstr ""
+
+#. module: account_invoice_transmit_method
 #: model:ir.model.constraint,message:account_invoice_transmit_method.constraint_transmit_method_code_unique
 msgid "This transmit method code already exists!"
 msgstr "Cette méthode de tranmission existe déjà !"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_id
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_id
 msgid "Transmission Method"
 msgstr "Méthode de Transmission"
 
 #. module: account_invoice_transmit_method
-#: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_form
-msgid "Transmit Method"
-msgstr "Méthode de Transmission"
-
-#. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_purchase
-msgid "Transmit Method Domain Purchase"
-msgstr "Domaine Méthode de Transmission Achats"
-
-#. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_sale
-msgid "Transmit Method Domain Sale"
-msgstr "Domaine Méthode de Transmission Ventes"
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_code
+msgid "Transmission Method Code"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_transmit_method
@@ -156,7 +165,6 @@ msgstr "Méthode de Tranmission d'un document"
 #. module: account_invoice_transmit_method
 #: model:ir.actions.act_window,name:account_invoice_transmit_method.transmit_method_action
 #: model:ir.ui.menu,name:account_invoice_transmit_method.transmit_method_menu
-#: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_tree
 msgid "Transmit Methods"
 msgstr "Méthodes de tranmission"
 
@@ -171,6 +179,21 @@ msgstr "Méthode de réception de facture fournisseur"
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
 msgstr "Code Méthode de réception facture fournisseur"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Pièces Comptables"
+
+#~ msgid "Search Transmit Methods"
+#~ msgstr "Recherche Méthode de Transmission"
+
+#~ msgid "Transmit Method"
+#~ msgstr "Méthode de Transmission"
+
+#~ msgid "Transmit Method Domain Purchase"
+#~ msgstr "Domaine Méthode de Transmission Achats"
+
+#~ msgid "Transmit Method Domain Sale"
+#~ msgstr "Domaine Méthode de Transmission Ventes"
 
 #~ msgid "Invoice"
 #~ msgstr "Facture"
