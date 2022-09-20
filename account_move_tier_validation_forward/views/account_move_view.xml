@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ForgeFlow, S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account_move_tier_validation.view_move_form" />
+        <field name="arch" type="xml">
+            <field name="can_review" position="after">
+                <field name="can_forward" invisible="1" />
+            </field>
+            <button name="reject_tier" position="after">
+                <button
+                    name="forward_tier"
+                    string="Forward"
+                    attrs="{'invisible': [('can_forward', '=', False)]}"
+                    type="object"
+                    class="oe_inline oe_button btn-warning"
+                    icon="fa-arrow-circle-right"
+                />
+            </button>
+        </field>
+    </record>
+</odoo>
