@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-09-21 10:07+0000\n"
+"Last-Translator: DS-Landoo <ds@landoo.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: account_move_exception
 #: model_terms:ir.ui.view,arch_db:account_move_exception.view_move_form
@@ -28,17 +30,17 @@ msgstr ""
 #. module: account_move_exception
 #: model:ir.model,name:account_move_exception.model_account_exception_confirm
 msgid "Account exception wizard"
-msgstr ""
+msgstr "Wizard de excepción contable"
 
 #. module: account_move_exception
 #: model:ir.model.fields.selection,name:account_move_exception.selection__exception_rule__model__account_move
 msgid "Account move"
-msgstr ""
+msgstr "Asiento contable"
 
 #. module: account_move_exception
 #: model:ir.model.fields.selection,name:account_move_exception.selection__exception_rule__model__account_move_line
 msgid "Account move line"
-msgstr ""
+msgstr "Apunte contable"
 
 #. module: account_move_exception
 #: model:ir.actions.server,name:account_move_exception.ir_cron_test_acc_move_except_ir_actions_server
@@ -50,58 +52,59 @@ msgstr ""
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_exception_rule__model
 msgid "Apply on"
-msgstr ""
+msgstr "Aplicar en"
 
 #. module: account_move_exception
 #: model_terms:ir.ui.view,arch_db:account_move_exception.view_account_move_filter
 msgid "Blocked in Draft"
-msgstr ""
+msgstr "Bloqueado en Borrador"
 
 #. module: account_move_exception
 #: model_terms:ir.ui.view,arch_db:account_move_exception.view_move_form
 msgid "Click here to be able to post this entry regardless of the exceptions."
 msgstr ""
+"Pulse aquí para poder validar este asiento sin importar las excepciones."
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creado el"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nombre a mostrar"
 
 #. module: account_move_exception
 #: model:ir.model,name:account_move_exception.model_exception_rule
 msgid "Exception Rule"
-msgstr ""
+msgstr "Norma de excepción"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_move__exception_ids
 #: model:ir.ui.menu,name:account_move_exception.menu_account_exception_parent
 msgid "Exceptions"
-msgstr ""
+msgstr "Excepciones"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_move__exceptions_summary
 msgid "Exceptions Summary"
-msgstr ""
+msgstr "Resumen de excepciones"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm__exception_ids
 msgid "Exceptions to resolve"
-msgstr ""
+msgstr "Excepciones para resolver"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm__ignore
@@ -109,43 +112,43 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_move_exception.field_account_move_line__ignore_exception
 #: model_terms:ir.ui.view,arch_db:account_move_exception.view_move_form
 msgid "Ignore Exceptions"
-msgstr ""
+msgstr "Ignorar excepciones"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_exception_rule__account_move_ids
 msgid "Journal Entries"
-msgstr ""
+msgstr "Entradas en diario"
 
 #. module: account_move_exception
 #: model:ir.model,name:account_move_exception.model_account_move
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm__related_model_id
 msgid "Journal Entry"
-msgstr ""
+msgstr "Entrada en diario"
 
 #. module: account_move_exception
 #: model:ir.model,name:account_move_exception.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Elemento de diario"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modificación en"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultima actualización por"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultima actualización el"
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_move__main_exception_id
 msgid "Main Exception"
-msgstr ""
+msgstr "Excepción principal"
 
 #. module: account_move_exception
 #: model:exception.rule,description:account_move_exception.aml_excep_qty_check
@@ -170,4 +173,4 @@ msgstr ""
 #. module: account_move_exception
 #: model:exception.rule,name:account_move_exception.aml_excep_qty_check
 msgid "Quantity not positive"
-msgstr ""
+msgstr "Cantidad no positiva"
