@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Queue Job Channel -->
+    <record id="invoice_validation" model="queue.job.channel">
+        <field name="name">invoice_validation</field>
+        <field name="parent_id" ref="queue_job.channel_root" />
+    </record>
+
+    <!-- Queue Job Function -->
+    <record id="job_function_validate_invoice" model="queue.job.function">
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="method">_validate_invoice</field>
+        <field name="channel_id" ref="invoice_validation" />
+        <field
+            name="related_action"
+            eval='{"func_name": "related_action_open_invoice"}'
+        />
+    </record>
+</odoo>
