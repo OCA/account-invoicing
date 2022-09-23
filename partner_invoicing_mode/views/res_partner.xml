@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="account.view_partner_property_form" />
         <field name="arch" type="xml">
             <xpath expr="//page[@name='accounting']/group" position="inside">
-                <group name="invoicing_mode">
+                <group name="invoicing_mode" string="Invoicing Mode">
                     <field name="invoicing_mode" />
                     <field name="one_invoice_per_order" />
                 </group>

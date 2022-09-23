@@ -5,5 +5,5 @@ But it serves no purpose installed on its own.
 
 The following modules use it to install specific invoicing mode :
 
-    * `account_invoice_mode_at_shipping`
-    * `account_invoice_mode_monthly`
+    * `partner_invoicing_mode_at_shipping`
+    * `partner_invoicing_mode_monthly`
