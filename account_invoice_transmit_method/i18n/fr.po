@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2022-08-25 15:07+0000\n"
+"PO-Revision-Date: 2022-09-26 11:07+0000\n"
 "Last-Translator: ClementChaumienneC2C <clement.chaumienne@camptocamp.com>\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
 "Language: fr\n"
@@ -117,7 +117,7 @@ msgstr "Nom ou Code"
 #. module: account_invoice_transmit_method
 #: model:transmit.method,name:account_invoice_transmit_method.post
 msgid "Post"
-msgstr ""
+msgstr "Courrier"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__customer_ok
@@ -136,7 +136,7 @@ msgstr "Sélectionable sur les fournisseurs"
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_account_payment__transmit_method_code
 msgid "Technical field used for UX purposes"
-msgstr ""
+msgstr "Champ technique utilisé pour l'UX"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.constraint,message:account_invoice_transmit_method.constraint_transmit_method_code_unique
@@ -155,7 +155,7 @@ msgstr "Méthode de Transmission"
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_code
 msgid "Transmission Method Code"
-msgstr ""
+msgstr "Code Méthode de Transmission"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_transmit_method
