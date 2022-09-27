@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2022-09-26 11:07+0000\n"
+"PO-Revision-Date: 2022-09-27 11:07+0000\n"
 "Last-Translator: ClementChaumienneC2C <clement.chaumienne@camptocamp.com>\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
 "Language: fr\n"
@@ -22,7 +22,7 @@ msgstr ""
 #. module: account_invoice_transmit_method
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
 msgid "Archived"
-msgstr ""
+msgstr "Archivé"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__code
@@ -59,7 +59,7 @@ msgstr "Code Méthode de transmission facture client"
 #. module: account_invoice_transmit_method
 #: model:transmit.method,name:account_invoice_transmit_method.portal
 msgid "Customer Portal"
-msgstr ""
+msgstr "Portail Client"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__display_name
@@ -82,7 +82,7 @@ msgstr ""
 #. module: account_invoice_transmit_method
 #: model:transmit.method,name:account_invoice_transmit_method.mail
 msgid "E-Mail"
-msgstr ""
+msgstr "E-mail"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__id
@@ -92,7 +92,7 @@ msgstr "ID"
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Pièces comptables"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method____last_update
@@ -188,7 +188,7 @@ msgstr "Code Méthode de réception facture fournisseur"
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__active
 msgid "active"
-msgstr ""
+msgstr "Actif"
 
 #~ msgid "Journal Entries"
 #~ msgstr "Pièces Comptables"
