@@ -1,7 +1,7 @@
 # Copyright 2020 Camptocamp
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
-    "name": "Account Invoice Mode At Shipping",
+    "name": "Partner Invoicing Mode At Shipping",
     "version": "15.0.1.0.0",
     "summary": "Create invoices automatically when goods are shipped.",
     "author": "Camptocamp, Odoo Community Association (OCA)",
@@ -11,5 +11,5 @@
     "data": [
         "data/queue_job_data.xml",
     ],
-    "depends": ["account", "account_invoice_base_invoicing_mode", "queue_job", "stock"],
+    "depends": ["account", "partner_invoicing_mode", "queue_job", "stock"],
 }
