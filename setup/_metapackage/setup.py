@@ -25,6 +25,7 @@ setuptools.setup(
         'odoo-addon-account_move_exception>=15.0dev,<15.1dev',
         'odoo-addon-account_move_post_block>=15.0dev,<15.1dev',
         'odoo-addon-account_move_tier_validation>=15.0dev,<15.1dev',
+        'odoo-addon-account_move_tier_validation_forward>=15.0dev,<15.1dev',
         'odoo-addon-account_tax_group_widget_base_amount>=15.0dev,<15.1dev',
         'odoo-addon-sale_line_refund_to_invoice_qty>=15.0dev,<15.1dev',
         'odoo-addon-sale_order_invoicing_grouping_criteria>=15.0dev,<15.1dev',
