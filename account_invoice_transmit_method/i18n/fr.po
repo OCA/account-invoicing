@@ -20,6 +20,11 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_transmit_method
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
+msgid "Archived"
+msgstr ""
+
+#. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__code
 msgid "Code"
 msgstr "Code"
@@ -179,6 +184,11 @@ msgstr "Méthode de réception de facture fournisseur"
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
 msgstr "Code Méthode de réception facture fournisseur"
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__active
+msgid "active"
+msgstr ""
 
 #~ msgid "Journal Entries"
 #~ msgstr "Pièces Comptables"
