@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_move_reversal" model="ir.ui.view">
+        <field name="inherit_id" ref="account.view_account_move_reversal" />
+        <field name="model">account.move.reversal</field>
+        <field name="arch" type="xml">
+            <field name="refund_method" position="after">
+                <field
+                    name="keep_invoiced_quantities"
+                    attrs="{'invisible': [('refund_method', 'not in', ('refund', 'cancel'))]}"
+                    string="Keep invoiced quantities on related sales or purchase"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
