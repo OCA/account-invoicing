@@ -19,6 +19,9 @@ class TestInvoicePriceUntaxed(SavepointCase):
         cls.prod_obj = cls.env["product.product"]
         cls.company_obj = cls.env["res.company"]
         cls.account_move_line_obj = cls.env["account.move.line"]
+        cls.precision = cls.env["decimal.precision"].precision_get(
+            cls.account_move_line_obj._fields["price_unit"]._digits
+        )
         cls.company = cls.env.ref("base.main_company")
         vals = {
             "name": "Company 2",
@@ -176,5 +179,7 @@ class TestInvoicePriceUntaxed(SavepointCase):
             with invoice_form.invoice_line_ids.new() as invoice_line:
                 invoice_line.product_id = self.product
         invoice_line = first(self.invoice.invoice_line_ids)
-        self.assertEqual(invoice_line.price_unit, 118.573)
-        self.assertEqual(invoice_line.price_unit_untaxed, 118.573)
+        self.assertAlmostEquals(invoice_line.price_unit, 118.573, places=self.precision)
+        self.assertAlmostEquals(
+            invoice_line.price_unit_untaxed, 118.573, places=self.precision
+        )
