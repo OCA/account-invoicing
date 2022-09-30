@@ -46,6 +46,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_tree_currency',
         'odoo14-addon-account_invoice_triple_discount',
         'odoo14-addon-account_invoice_validation_queued',
+        'odoo14-addon-account_invoice_view_payment',
         'odoo14-addon-account_mail_autosubscribe',
         'odoo14-addon-account_move_exception',
         'odoo14-addon-account_move_line_accounting_description',
