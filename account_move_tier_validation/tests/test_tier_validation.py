@@ -63,3 +63,10 @@ class TestAccountTierValidation(common.SavepointCase):
         to request a validation, the action can be done straight forward."""
         res = self.tier_def_obj._get_tier_validation_model_names()
         self.assertIn("account.move", res)
+
+    def test_01_account_move_get_under_validation_exceptions(self):
+        move = self.env['account.move']
+        self.assertIn(
+            'name',
+            move._get_under_validation_exceptions()
+        )
