@@ -6,7 +6,6 @@ from odoo import models
 
 
 class AccountMove(models.Model):
-
     _inherit = "account.move"
 
     def _recompute_tax_lines(self, **kwargs):
@@ -23,7 +22,9 @@ class AccountMove(models.Model):
                 "discount": line.discount,
             }
             price_unit = line.price_unit * (1 - aggregated_discount / 100)
-            line.update({"price_unit": price_unit, "discount": 0})
+            line.with_context(with_precision=16).update(
+                {"price_unit": price_unit, "discount": 0}
+            )
         res = super(AccountMove, self)._recompute_tax_lines(**kwargs)
         for line in self.line_ids:
             if line.id not in old_values_by_line_id:
