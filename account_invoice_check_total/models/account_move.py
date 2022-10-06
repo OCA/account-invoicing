@@ -3,7 +3,7 @@
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-from odoo.tools.float_utils import float_compare, float_round
+from odoo.tools.float_utils import float_compare
 
 GROUP_AICT = "account_invoice_check_total.group_supplier_inv_check_total"
 
@@ -24,9 +24,8 @@ class AccountMove(models.Model):
     @api.depends("check_total", "amount_total")
     def _compute_total_display_difference(self):
         for invoice in self:
-            invoice.check_total_display_difference = float_round(
-                invoice.check_total - invoice.amount_total,
-                precision_rounding=invoice.currency_id.rounding,
+            invoice.check_total_display_difference = invoice.currency_id.round(
+                invoice.check_total - invoice.amount_total
             )
 
     def action_post(self):
