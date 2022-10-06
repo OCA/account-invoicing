@@ -30,7 +30,7 @@ class TestAccountInvoice(TransactionCase):
 
     def test_post(self):
         # wrong check_total rise a ValidationError
-        self.assertEqual(self.invoice.check_total, 1.19)
-        self.assertEqual(self.invoice.check_total_display_difference, -1.80)
+        self.assertAlmostEqual(self.invoice.check_total, 1.19)
+        self.assertAlmostEqual(self.invoice.check_total_display_difference, -1.80)
         with self.assertRaises(ValidationError):
             self.invoice.action_post()
