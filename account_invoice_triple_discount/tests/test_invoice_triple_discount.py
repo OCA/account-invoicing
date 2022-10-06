@@ -83,3 +83,39 @@ class TestInvoiceTripleDiscount(SavepointCase):
         self.invoice_line1.discount = 50.0
         self.invoice._onchange_invoice_line_ids()
         self.assertEqual(self.invoice.amount_total, 365.0)
+
+    def test_03_discounts_decimals_price(self):
+        """
+        Tests discount with decimals price
+        causing a round up after discount
+        """
+        self.invoice_line2 = self.invoice_line.create({
+            'invoice_id': self.invoice.id,
+            'name': 'Line Decimals',
+            'price_unit': 0.14,
+            'account_id': self.account.id,
+            'quantity': 9950,
+            'tax_ids': False
+        })
+
+        self.assertEqual(self.invoice_line2.price_subtotal, 1393.0)
+
+        self.invoice_line2.discount = 15.0
+        self.invoice._onchange_invoice_line_ids()
+
+        self.assertEqual(self.invoice_line2.price_subtotal, 1184.05)
+
+    def test_04_discounts_decimals_tax(self):
+        """
+        Tests amount tax with discount
+        """
+        self.invoice_line1.quantity = 9950
+        self.invoice_line1.price_unit = 0.14
+        self.invoice._onchange_invoice_line_ids()
+
+        self.assertEqual(self.invoice.amount_tax, 208.95)
+
+        self.invoice_line1.discount = 15.0
+        self.invoice._onchange_invoice_line_ids()
+
+        self.assertEqual(self.invoice.amount_tax, 177.61)
