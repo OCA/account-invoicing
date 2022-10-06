@@ -120,3 +120,48 @@ class TestInvoiceTripleDiscount(TransactionCase):
             line_form.discount = 50.0
         invoice_form.save()
         self.assertEqual(invoice.amount_total, 365.0)
+
+    def test_03_discounts_decimals_price(self):
+        """
+        Tests discount with decimals price
+        causing a round up after discount
+        """
+        invoice = self.create_simple_invoice(0)
+        invoice_form = Form(invoice)
+        with invoice_form.invoice_line_ids.edit(0) as line_form:
+            line_form.name = "Line Decimals"
+            line_form.quantity = 9950
+            line_form.price_unit = 0.14
+            line_form.tax_ids.clear()
+        invoice_form.save()
+
+        invoice_line1 = invoice.invoice_line_ids[0]
+
+        self.assertEqual(invoice_line1.price_subtotal, 1393.0)
+
+        with invoice_form.invoice_line_ids.edit(0) as line_form:
+            line_form.discount = 15.0
+        invoice_form.save()
+
+        self.assertEqual(invoice_line1.price_subtotal, 1184.05)
+
+    def test_04_discounts_decimals_tax(self):
+        """
+        Tests amount tax with discount
+        """
+        invoice = self.create_simple_invoice(0)
+        invoice_form = Form(invoice)
+        with invoice_form.invoice_line_ids.edit(0) as line_form:
+            line_form.name = "Line Decimals"
+            line_form.quantity = 9950
+            line_form.price_unit = 0.14
+            line_form.discount = 0
+            line_form.discount2 = 0
+        invoice_form.save()
+
+        self.assertEqual(invoice.amount_tax, 208.95)
+        with invoice_form.invoice_line_ids.edit(0) as line_form:
+            line_form.discount = 15.0
+        invoice_form.save()
+
+        self.assertEqual(invoice.amount_tax, 177.61)
