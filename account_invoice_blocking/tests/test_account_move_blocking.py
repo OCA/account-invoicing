@@ -23,8 +23,7 @@ class TestAccountMoveBlocking(AccountTestInvoicingCommon):
     def test_in_invoice_blocking(self):
         self.assertFalse(self.in_invoice.blocked)
         line = self.in_invoice.line_ids.filtered(
-            lambda r: r.account_id.user_type_id
-            == self.env.ref("account.data_account_type_payable")
+            lambda r: r.account_id.account_type == "liability_payable"
         )
         self.assertTrue(line)
         self.assertFalse(line.blocked)
@@ -36,8 +35,7 @@ class TestAccountMoveBlocking(AccountTestInvoicingCommon):
     def test_out_invoice_blocking(self):
         self.assertFalse(self.out_invoice.blocked)
         line = self.out_invoice.line_ids.filtered(
-            lambda r: r.account_id.user_type_id
-            == self.env.ref("account.data_account_type_receivable")
+            lambda r: r.account_id.account_type == "asset_receivable"
         )
         self.assertTrue(line)
         self.assertFalse(line.blocked)

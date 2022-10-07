@@ -14,10 +14,8 @@ class AccountInvoice(models.Model):
         :returns payable or receivable move line of the invoice
         """
         self.ensure_one()
-        type_receivable = self.env.ref("account.data_account_type_receivable")
-        type_payable = self.env.ref("account.data_account_type_payable")
-        user_type = type_receivable | type_payable
-        return self.line_ids.filtered(lambda r: r.account_id.user_type_id in user_type)
+        types = ("asset_receivable", "liability_payable")
+        return self.line_ids.filtered(lambda r: r.account_id.account_type in types)
 
     def _update_blocked(self, value):
         """
