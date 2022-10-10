@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="sale_receipts_journal" model="account.journal">
+        <field name="name">Sale Receipts Journal</field>
+        <field name="code">S-REC</field>
+        <field name="type">sale</field>
+        <field name="receipts" eval="True" />
+        <!-- Avoid being selected as default journal -->
+        <field name="sequence">99</field>
+    </record>
+    <record id="purchase_receipts_journal" model="account.journal">
+        <field name="name">Purchase Receipts Journal</field>
+        <field name="code">P-REC</field>
+        <field name="type">purchase</field>
+        <field name="receipts" eval="True" />
+        <field name="sequence">99</field>
+    </record>
+</odoo>
