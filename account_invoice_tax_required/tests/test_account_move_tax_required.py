@@ -18,14 +18,13 @@ class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
             {"code": "test", "name": "test", "type": "sale"}
         )
         self.partner = self.env.ref("base.res_partner_3")
-        account_user_type = self.env.ref("account.data_account_type_receivable")
 
         self.account_account = self.env["account.account"]
         self.account_rec1_id = self.account_account.create(
             dict(
-                code="cust_acc",
+                code="20000",
                 name="customer account",
-                user_type_id=account_user_type.id,
+                account_type="asset_receivable",
                 reconcile=True,
             )
         )
@@ -53,15 +52,16 @@ class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
                     "account_id": self.account_account.search(
                         [
                             (
-                                "user_type_id",
+                                "account_type",
                                 "=",
-                                self.env.ref("account.data_account_type_revenue").id,
+                                "income",
                             )
                         ],
                         limit=1,
                     ).id,
                     "name": "product test 5",
                     "price_unit": 100.00,
+                    "tax_ids": False,
                 },
             )
         ]

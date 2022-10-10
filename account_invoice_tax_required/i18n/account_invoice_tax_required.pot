@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,6 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_tax_required
+#. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
 msgid ""
@@ -22,6 +23,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_tax_required
+#. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
 msgid "Invoice has a line with product %s with no taxes"
