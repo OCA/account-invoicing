@@ -25,11 +25,6 @@ msgstr ""
 
 #. module: account_receipt_print
 #: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
-msgid "<strong>Receipt Date:</strong>"
-msgstr ""
-
-#. module: account_receipt_print
-#: model_terms:ir.ui.view,arch_db:account_receipt_print.report_receipt_document
 msgid "Cancelled Receipt"
 msgstr ""
 
