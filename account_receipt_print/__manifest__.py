@@ -3,7 +3,7 @@
 
 {
     "name": "Receipt Printing",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Accounting & Finance",
     "summary": "Enable printing in sale and purchase receipts",
     "author": "Sergio Zanchetta, Odoo Community Association (OCA)",

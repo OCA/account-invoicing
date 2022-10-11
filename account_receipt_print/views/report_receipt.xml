@@ -22,10 +22,6 @@
                 </h2>
             </xpath>
 
-            <xpath expr="//div[@name='invoice_date']/strong" position="replace">
-                <strong>Receipt Date:</strong>
-            </xpath>
-
             <div name="due_date" position="attributes">
                 <attribute name="style">display: none;</attribute>
             </div>
