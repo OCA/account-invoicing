@@ -2,40 +2,29 @@
 # Copyright 2014-2020 Akretion France (http://www.akretion.com)
 # @author Mathieu Vatel <mathieu _at_ julius.fr>
 # @author Alexis de Lattre <alexis.delattre@akretion.com>
+# Copyright 2022 FactorLibre - Luis J. Salvatierra <luis.salvatierra@factorlibre.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
-from odoo import _, api, models
+from odoo import _, api, fields, models
 
 
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    @api.onchange("partner_id")
-    def _onchange_partner_id(self):
-        fiscal_position = self.fiscal_position_id
-        res = super()._onchange_partner_id()
-        if fiscal_position != self.fiscal_position_id:
-            self._onchange_fiscal_position_id_account_invoice_fiscal_position_invoice()
-        return res
+    fiscal_position_id = fields.Many2one(tracking=True)
 
     @api.onchange("fiscal_position_id")
     def _onchange_fiscal_position_id_account_invoice_fiscal_position_invoice(self):
-        """Updates taxes and accounts on all invoice lines"""
         res = {}
-        lines_without_product = []
-        invoice_lines = self.invoice_line_ids.filtered(lambda l: not l.display_type)
+        lines_without_product = self.env["account.move.line"]
+        invoice_lines = self.invoice_line_ids.filtered(
+            lambda l: "product" == l.display_type
+        )
         for line in invoice_lines:
-            if line.product_id:
-                line.account_id = line._get_computed_account()
-                taxes = line._get_computed_taxes()
-                if taxes and line.move_id.fiscal_position_id:
-                    taxes = line.move_id.fiscal_position_id.map_tax(taxes)
-                line.tax_ids = taxes
-                line._onchange_price_subtotal()
-                line._onchange_mark_recompute_taxes()
+            if not line.product_id:
+                lines_without_product |= line
             else:
-                lines_without_product.append(line.name)
-        self._onchange_invoice_line_ids()
+                line._compute_tax_ids()
+                line._compute_account_id()
         if lines_without_product:
             res["warning"] = {"title": _("Warning")}
             if len(lines_without_product) == len(invoice_lines):
@@ -51,5 +40,5 @@ class AccountMove(models.Model):
                     "to the new Fiscal Position because they don't have a "
                     "Product:\n - %s\nYou should update the Account and the "
                     "Taxes of these invoice lines manually."
-                ) % ("\n- ".join(lines_without_product))
+                ) % ("\n- ".join(lines_without_product.mapped("name")))
         return res

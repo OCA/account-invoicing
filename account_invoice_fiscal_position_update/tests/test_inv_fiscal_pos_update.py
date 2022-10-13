@@ -29,28 +29,20 @@ class TestProductIdChange(AccountTestInvoicingCommon):
         self.product_tmpl_model = self.env["product.template"]
         self.product_model = self.env["product.product"]
         self.invoice_line_model = self.env["account.move.line"]
-        self.account_user_type = self.env.ref("account.data_account_type_revenue")
         self.account_receivable = self.env["account.account"].search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_receivable").id,
-                )
-            ],
-            limit=1,
+            [("account_type", "=", "asset_receivable")], limit=1
         )
         self.account_revenue = self.env["account.account"].search(
-            [("user_type_id", "=", self.account_user_type.id)], limit=1
+            [("account_type", "=", "income")], limit=1
         )
 
     def test_fiscal_position_id_change(self):
         partner = self.res_partner_model.create(dict(name="George"))
         account_export_id = self.account_model.sudo().create(
             {
-                "code": "710000-account_invoice_fiscal_position_update",
+                "code": "710000AccountInvoiceFiscalPositionUpdate",
                 "name": "customer export account",
-                "user_type_id": self.account_user_type.id,
+                "account_type": "income",
                 "reconcile": True,
             }
         )
@@ -78,7 +70,7 @@ class TestProductIdChange(AccountTestInvoicingCommon):
         fp2 = self.fiscal_position_model.create(
             {"name": "fiscal position import", "sequence": 1}
         )
-        partner.write({"property_account_position_id": fp.id})
+        partner.write({"property_account_position_id": fp2.id})
 
         fp_tax_sale = self.fiscal_position_tax_model.create(
             {
@@ -116,16 +108,15 @@ class TestProductIdChange(AccountTestInvoicingCommon):
                 "account_id": self.account_revenue.id,
             }
         )
-
-        out_line._onchange_product_id()
         self.assertEqual(
             out_line.tax_ids[0],
             tax_sale,
             "The sale tax off invoice line must be the same of product",
         )
-        out_invoice.fiscal_position_id = fp2
-        # change the partner with other FP
-        out_invoice.with_context(check_move_validity=False)._onchange_partner_id()
+        out_invoice.fiscal_position_id = fp
+        out_invoice.with_context(
+            check_move_validity=False
+        )._onchange_fiscal_position_id_account_invoice_fiscal_position_invoice()
         self.assertEqual(
             out_line.tax_ids[0],
             fp_tax_sale.tax_dest_id,
