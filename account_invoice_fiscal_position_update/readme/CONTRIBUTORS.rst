@@ -5,3 +5,7 @@
 * `Tecnativa <https://www.tecnativa.com>`_:
 
     * Ernesto Tejeda
+
+* `Factor Libre <https://factorlibre.com>`_:
+
+    * Luis J. Salvatierra <luis.salvatierra@factorlibre.com>
