@@ -18,9 +18,7 @@ class TestInvoiceRefundLinkBase(TransactionCase):
             {
                 "name": "TESTACC",
                 "code": "TESTACC",
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_other_income"
-                ).id,
+                "account_type": "income",
                 "deprecated": False,
                 "company_id": cls.env.user.company_id.id,
             }
