@@ -34,6 +34,18 @@
                             <field name="amount_total" string="Total" />
                             <field name="state" string="Status" />
                         </tree>
+                        <form>
+                            <group>
+                                <field name="partner_id" />
+                                <field name="move_type" invisible="1" />
+                                <field name="invoice_date" />
+                                <field name="name" />
+                                <field name="invoice_origin" />
+                                <field name="ref" />
+                                <field name="amount_total" string="Total" />
+                                <field name="state" string="Status" />
+                            </group>
+                        </form>
                     </field>
                 </page>
             </notebook>

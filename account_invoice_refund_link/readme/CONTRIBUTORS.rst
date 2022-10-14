@@ -7,3 +7,7 @@
   * Luis M. Ontalba
   * Ernesto Tejeda
   * João Marques
+
+* `Factor Libre <https://factorlibre.com>`_:
+
+    * Luis J. Salvatierra <luis.salvatierra@factorlibre.com>
