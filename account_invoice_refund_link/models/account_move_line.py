@@ -12,8 +12,7 @@ class AccountInvoiceLine(models.Model):
     origin_line_id = fields.Many2one(
         comodel_name="account.move.line",
         string="Original invoice line",
-        help="Original invoice line to which this refund invoice line "
-        "is referred to",
+        help="Original invoice line to which this refund invoice line is referred to",
         copy=False,
         index=True,
     )
