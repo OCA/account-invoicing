@@ -6,7 +6,7 @@
     "name": "Purchase Stock Picking Return Invoicing Force Invoiced",
     "summary": "Glue module between purchase_force_invoiced "
     "and purchase_stock_picking_return_invoicing",
-    "version": "12.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Purchases",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Eficent," "Odoo Community Association (OCA)",
