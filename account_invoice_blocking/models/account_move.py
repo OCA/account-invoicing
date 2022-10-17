@@ -4,8 +4,15 @@
 from odoo import api, fields, models
 
 
-class AccountInvoice(models.Model):
+class AccountMove(models.Model):
     _inherit = "account.move"
+
+    blocked = fields.Boolean(
+        "No Follow-up",
+        states={"draft": [("readonly", True)]},
+        compute="_compute_move_blocked",
+        inverse="_inverse_move_blocked",
+    )
 
     def _get_move_line(self):
         """
@@ -49,10 +56,3 @@ class AccountInvoice(models.Model):
             move.blocked = (
                 all(line.blocked for line in move_lines) if move_lines else False
             )
-
-    blocked = fields.Boolean(
-        "No Follow-up",
-        states={"draft": [("readonly", True)]},
-        compute="_compute_move_blocked",
-        inverse="_inverse_move_blocked",
-    )
