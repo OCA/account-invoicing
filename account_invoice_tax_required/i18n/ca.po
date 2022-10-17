@@ -20,28 +20,35 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_tax_required
-#: code:addons/account_invoice_tax_required/models/account_invoice.py:24
+#: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
 msgid ""
-"%s\n"
-"%s"
+"%(message)s\n"
+"%(errors)s"
 msgstr ""
-"%s\n"
-"%s"
 
 #. module: account_invoice_tax_required
-#: model:ir.model,name:account_invoice_tax_required.model_account_invoice
-msgid "Invoice"
-msgstr "Factura"
-
-#. module: account_invoice_tax_required
-#: code:addons/account_invoice_tax_required/models/account_invoice.py:17
+#: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
 msgid "Invoice has a line with product %s with no taxes"
 msgstr "La factura té una línia amb el producte %s que no té impostos"
 
 #. module: account_invoice_tax_required
-#: code:addons/account_invoice_tax_required/models/account_invoice.py:24
+#: model:ir.model,name:account_invoice_tax_required.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
 #, python-format
-msgid "No Taxes Defined!"
-msgstr "No s'han definit impostos"
+#~ msgid ""
+#~ "%s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s\n"
+#~ "%s"
+
+#~ msgid "Invoice"
+#~ msgstr "Factura"
+
+#, python-format
+#~ msgid "No Taxes Defined!"
+#~ msgstr "No s'han definit impostos"
