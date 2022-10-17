@@ -20,26 +20,27 @@ msgstr ""
 "%100==4 ? 2 : 3);\n"
 
 #. module: account_invoice_tax_required
-#: code:addons/account_invoice_tax_required/models/account_invoice.py:24
+#: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
 msgid ""
-"%s\n"
-"%s"
+"%(message)s\n"
+"%(errors)s"
 msgstr ""
 
 #. module: account_invoice_tax_required
-#: model:ir.model,name:account_invoice_tax_required.model_account_invoice
-msgid "Invoice"
-msgstr "Račun"
-
-#. module: account_invoice_tax_required
-#: code:addons/account_invoice_tax_required/models/account_invoice.py:17
+#: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
 msgid "Invoice has a line with product %s with no taxes"
 msgstr "Račun vsebuje postavko s proizvodom %s brez davkov"
 
 #. module: account_invoice_tax_required
-#: code:addons/account_invoice_tax_required/models/account_invoice.py:24
+#: model:ir.model,name:account_invoice_tax_required.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Račun"
+
 #, python-format
-msgid "No Taxes Defined!"
-msgstr "Davki niso določeni!"
+#~ msgid "No Taxes Defined!"
+#~ msgstr "Davki niso določeni!"
