@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Order -->
+
+    <record id="view_order_form_receipts" model="ir.ui.view">
+        <field name="name">sale.order.form.receipts</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <group name="sale_info" position="inside">
+                <field name="receipts"/>
+            </group>
+        </field>
+    </record>
+</odoo>
