@@ -1,118 +1,125 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_refund_reason
+# 	* account_invoice_refund_reason
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-03-11 13:45+0000\n"
-"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
-"Language-Team: none\n"
-"Language: es\n"
+"POT-Creation-Date: 2022-04-13 10:26+0000\n"
+"PO-Revision-Date: 2022-04-13 10:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"Plural-Forms: \n"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model,name:account_invoice_refund_reason.model_account_invoice_refund_reason
+#: model:ir.model,name:account_invoice_refund_reason.model_account_move_refund_reason
 msgid "Account Invoice refund Reasons"
 msgstr "Motivo de Reembolso de la Factura de Cuenta"
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_cancellation
+#: model:ir.model,name:account_invoice_refund_reason.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr "Reversión de asiento"
+
+#. module: account_invoice_refund_reason
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_cancellation
 msgid "Cancellation"
 msgstr "Cancelación"
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_agreement
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_agreement
 msgid "Commercial and/or Collection Agreement"
 msgstr "Acuerdo comercial y / o de cobranza"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__create_uid
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__create_date
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__create_date
 msgid "Created on"
 msgstr "Creado en"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model,name:account_invoice_refund_reason.model_account_invoice_refund
-msgid "Credit Note"
-msgstr "Nota de Crédito"
-
-#. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_correction
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_correction
 msgid "Data Correction"
 msgstr "Corrección de Datos"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__display_name
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__display_name
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__display_name
 msgid "Display Name"
-msgstr "Nombre para Mostrar"
+msgstr "Nombre mostrado"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model,name:account_invoice_refund_reason.model_account_invoice
-msgid "Invoice"
-msgstr "Factura"
-
-#. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_noref
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_noref
 msgid "Invoice without reference"
 msgstr "Factura sin referencia"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason____last_update
+#: model:ir.model,name:account_invoice_refund_reason.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason____last_update
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal____last_update
 msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__write_uid
+msgid "Last Updated by"
 msgstr "Última modificación el"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__write_uid
-msgid "Last Updated by"
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__write_date
+msgid "Last Updated on"
 msgstr "Última Actualización por"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__write_date
-msgid "Last Updated on"
-msgstr "Ultima Actualización en"
-
-#. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_error
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_error
 msgid "Lease and/or Minimum Charge Error"
 msgstr "Arrendamiento y / o error de carga mínima"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__name
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__name
 msgid "Name"
 msgstr "Nombre"
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_others
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_others
 msgid "Others"
 msgstr "Otros"
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_difference
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_difference
 msgid "Price Difference"
 msgstr "Diferencia de Precio"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice__reason_id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_bank_statement_line__reason_id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move__reason_id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_payment__reason_id
 msgid "Reason"
 msgstr "Razón"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund__reason_id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__reason_id
 msgid "Reason to credit"
 msgstr "Motivo para acreditar"
 
