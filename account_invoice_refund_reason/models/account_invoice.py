@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
+    _inherit = "account.invoice"
 
-    reason_id = fields.Many2one('account.invoice.refund.reason',
-                                string="Reason")
+    reason_id = fields.Many2one("account.invoice.refund.reason", string="Reason")
