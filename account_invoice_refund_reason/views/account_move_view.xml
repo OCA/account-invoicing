@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="extended_view_account_invoice" model="ir.ui.view">
+        <field name="name">extended.account.invoice.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <field
+                    name="reason_id"
+                    attrs="{'invisible': [('reason_id', '=', False)]}"
+                    readonly="1"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
