@@ -23,9 +23,10 @@
     "data": [
         "views/partner_views.xml",
         "views/account_fiscal_position_views.xml",
-        "sale_views.xml",
+        "views/sale_views.xml",
     ],
     "pre_init_hook": "rename_old_italian_module",
+    "post_init_hook": "migrate_corrispettivi_data",
     "external_dependencies": {
         "python": [
             "openupgradelib",
