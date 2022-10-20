@@ -24,6 +24,17 @@ msgid "Account Move Reversal"
 msgstr ""
 
 #. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__active
+msgid "Active"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.account_invoice_refund_reasons_search
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.view_account_invoice_refund_reason
+msgid "Archived"
+msgstr ""
+
+#. module: account_invoice_refund_reason
 #: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_cancellation
 msgid "Cancellation"
 msgstr ""
@@ -46,6 +57,11 @@ msgstr ""
 #. module: account_invoice_refund_reason
 #: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_correction
 msgid "Data Correction"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__description
+msgid "Description"
 msgstr ""
 
 #. module: account_invoice_refund_reason
@@ -101,6 +117,11 @@ msgstr ""
 #. module: account_invoice_refund_reason
 #: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_difference
 msgid "Price Difference"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.view_account_invoice_refund_reason
+msgid "Reason Name"
 msgstr ""
 
 #. module: account_invoice_refund_reason
