@@ -9,3 +9,5 @@ class AccountInvoiceRefundReason(models.Model):
     _description = "Account Invoice refund Reasons"
 
     name = fields.Char("Name", required=True, translate=True)
+    active = fields.Boolean(default=True)
+    description = fields.Char()
