@@ -36,6 +36,30 @@ def rename_old_italian_module(cr):
             "WHERE corrispettivi = true",
         )
 
+    if not openupgrade.is_module_installed(cr, "l10n_it_corrispettivi_sale"):
+        return
+
+    openupgrade.update_module_names(
+        cr,
+        [
+            ("l10n_it_corrispettivi_sale", "account_receipt_sale"),
+        ],
+        merge_modules=True,
+    )
+
+
+def migrate_corrispettivi_data(cr, registry):
+    """
+    Populate the new columns with data from corrispettivi modules.
+    """
+    if openupgrade.column_exists(cr, "sale_order", "corrispettivi"):
+        openupgrade.logged_query(
+            cr,
+            "UPDATE sale_order "
+            "SET receipts = true "
+            "WHERE corrispettivi = true",
+        )
+
     if openupgrade.column_exists(cr, "account_fiscal_position", "corrispettivi"):
         openupgrade.logged_query(
             cr,
@@ -50,23 +74,4 @@ def rename_old_italian_module(cr):
             "UPDATE res_partner "
             "SET use_receipts = true "
             "WHERE use_corrispettivi = true",
-        )
-
-    if not openupgrade.is_module_installed(cr, "l10n_it_corrispettivi_sale"):
-        return
-
-    openupgrade.update_module_names(
-        cr,
-        [
-            ("l10n_it_corrispettivi_sale", "account_receipt_sale"),
-        ],
-        merge_modules=True,
-    )
-
-    if openupgrade.column_exists(cr, "sale_order", "corrispettivi"):
-        openupgrade.logged_query(
-            cr,
-            "UPDATE sale_order "
-            "SET receipts = true "
-            "WHERE corrispettivi = true",
         )
