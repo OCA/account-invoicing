@@ -277,9 +277,10 @@ class AccountMove(models.Model):
     )
     def _compute_amount(self):
         """Modify totals computation for including global discounts."""
-        super()._compute_amount()
+        __ = super()._compute_amount()
         for record in self:
             record._compute_amount_one()
+        return __
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -295,7 +296,7 @@ class AccountMove(models.Model):
 
     def _check_balanced(self):
         """Add the check of proper taxes for global discounts."""
-        super()._check_balanced()
+        __ = super()._check_balanced()
         test_condition = not config["test_enable"] or self.env.context.get(
             "test_account_global_discount"
         )
@@ -317,6 +318,7 @@ class AccountMove(models.Model):
                         )
                 else:
                     taxes_keys[tuple(inv_line.tax_ids.ids)] = True
+        return __
 
 
 class AccountMoveLine(models.Model):
