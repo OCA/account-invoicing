@@ -6,7 +6,7 @@ from odoo import exceptions
 from odoo.tests import Form, common
 
 
-class TestGlobalDiscount(common.SavepointCase):
+class TestGlobalDiscount(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
