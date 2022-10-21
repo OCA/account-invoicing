@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_refund_reason
+# 	* account_invoice_refund_reason
 #
 msgid ""
 msgstr ""
@@ -19,6 +19,22 @@ msgstr ""
 #. module: account_invoice_refund_reason
 #: model:ir.model,name:account_invoice_refund_reason.model_account_invoice_refund_reason
 msgid "Account Invoice refund Reasons"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.model,name:account_invoice_refund_reason.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__active
+msgid "Active"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.account_invoice_refund_reasons_search
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.view_account_invoice_refund_reason
+msgid "Archived"
 msgstr ""
 
 #. module: account_invoice_refund_reason
@@ -42,13 +58,13 @@ msgid "Created on"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model,name:account_invoice_refund_reason.model_account_invoice_refund
-msgid "Credit Note"
+#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_correction
+msgid "Data Correction"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_correction
-msgid "Data Correction"
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__description
+msgid "Description"
 msgstr ""
 
 #. module: account_invoice_refund_reason
@@ -62,13 +78,13 @@ msgid "ID"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model,name:account_invoice_refund_reason.model_account_invoice
-msgid "Invoice"
-msgstr "Rechnung"
-
-#. module: account_invoice_refund_reason
 #: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_noref
 msgid "Invoice without reference"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.model,name:account_invoice_refund_reason.model_account_move
+msgid "Journal Entries"
 msgstr ""
 
 #. module: account_invoice_refund_reason
@@ -107,13 +123,14 @@ msgid "Price Difference"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice__reason_id
-msgid "Reason"
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.view_account_invoice_refund_reason
+msgid "Reason Name"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund__reason_id
-msgid "Reason to credit"
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move__reason_id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__reason_id
+msgid "Refund Reason"
 msgstr ""
 
 #. module: account_invoice_refund_reason
@@ -121,3 +138,6 @@ msgstr ""
 #: model:ir.ui.menu,name:account_invoice_refund_reason.refund_reasons_menu
 msgid "Refund Reasons"
 msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Rechnung"
