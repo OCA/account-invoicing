@@ -430,3 +430,88 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         self.assertEqual(
             float_compare(5.0, line.qty_invoiced, precision_rounding=pr), 0
         )
+
+    def test_three_plus_two_timesheets_split_by_task(self):
+        self.sale_order_2.timesheet_invoice_split = "task"
+        self.sale_order_2.timesheet_invoice_description = "001"
+        # Set a different UoM on sale order line / invoice line from
+        # timesheet's UoM, but only for the first line = first product / task.
+        self._change_uom_on_line(self.so_2_line_1)
+
+        # Add two new timesheets to the first invoiced sale order line
+        self.timesheet_2_1.write({"name": "Description 1"})
+        self.timesheet_2_1.copy(
+            {
+                "name": "Description 2",
+                "date": datetime.strptime("2017-08-05", "%Y-%m-%d"),
+            }
+        )
+        self.timesheet_2_1.copy(
+            {
+                "name": "Description 3",
+                "date": datetime.strptime("2017-08-06", "%Y-%m-%d"),
+            }
+        )
+        # Add one new timesheet to the second invoiced sale order line
+        self.timesheet_2_2.write({"name": "Description 11"})
+        self.timesheet_2_2.copy(
+            {
+                "name": "Description 12",
+                "date": datetime.strptime("2017-08-05", "%Y-%m-%d"),
+            }
+        )
+
+        invoice = self.sale_order_2.with_context(
+            test_timesheet_description=True
+        )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
+
+        self.assertEqual(len(invoice.invoice_line_ids), 4)
+
+        # === First product, i.e. first task ===
+        # First line is a section with product's name
+        aml_ids = invoice.invoice_line_ids.sorted(key=lambda aml: aml.sequence)
+        self.assertEqual(aml_ids[0].display_type, "line_section")
+        self.assertEqual(aml_ids[0].name, "Test product")
+        # Next line refers to first task
+        descs = [
+            "Description 1",
+            "Description 2",
+            "Description 3",
+        ]
+        self.assertEqual(aml_ids[1].name, "\n".join(descs))
+        self.assertEqual(aml_ids[1].quantity, 3.94)
+
+        # Invoice lines total must equal the expected order line's delivered
+        # and invoiced quantities
+        line = self.so_2_line_1
+        pr = line.product_uom.rounding
+        self.assertEqual(
+            float_compare(3.94, line.qty_delivered, precision_rounding=pr), 0
+        )
+        self.assertEqual(
+            float_compare(3.94, line.qty_invoiced, precision_rounding=pr), 0
+        )
+
+        # === Second product, i.e. second task ===
+        # Next line is a section with product's name
+        aml_ids = invoice.invoice_line_ids.sorted(key=lambda aml: aml.sequence)
+        self.assertEqual(aml_ids[2].display_type, "line_section")
+        self.assertEqual(aml_ids[2].name, "Test product 2")
+        # Next line refer to second timesheet
+        descs = [
+            "Description 11",
+            "Description 12",
+        ]
+        self.assertEqual(aml_ids[3].name, "\n".join(descs))
+        self.assertEqual(aml_ids[3].quantity, 5.0)
+
+        # Invoice lines total must equal the expected order line's delivered
+        # and invoiced quantities
+        line = self.so_2_line_2
+        pr = line.product_uom.rounding
+        self.assertEqual(
+            float_compare(5.0, line.qty_delivered, precision_rounding=pr), 0
+        )
+        self.assertEqual(
+            float_compare(5.0, line.qty_invoiced, precision_rounding=pr), 0
+        )
