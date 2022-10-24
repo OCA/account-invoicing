@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_account_invoice_refund_reason" model="ir.ui.view">
+        <field name="name">account.move.refund.reason.form</field>
+        <field name="model">account.move.refund.reason</field>
+        <field
+            name="inherit_id"
+            ref="account_invoice_refund_reason.view_account_invoice_refund_reason"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description']" position="before">
+                <field name="skip_anglo_saxon_entries" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_refund_reason_tree" model="ir.ui.view">
+        <field name="name">account.move.refund.reason.tree</field>
+        <field name="model">account.move.refund.reason</field>
+        <field
+            name="inherit_id"
+            ref="account_invoice_refund_reason.view_account_invoice_refund_reason_tree"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="skip_anglo_saxon_entries" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
