@@ -73,7 +73,8 @@ class TestAccountInvoiceRefundReason(TransactionCase):
         )
         self.account_invoice_refund_0._onchange_reason_id()
         self.assertEqual(
-            self.reason_id.name, self.account_invoice_refund_0.reason_id.name,
+            self.reason_id.name,
+            self.account_invoice_refund_0.reason_id.name,
         )
         self.account_invoice_refund_0.reverse_moves()
         reversal_move = self.account_invoice_customer0.reversal_move_id
