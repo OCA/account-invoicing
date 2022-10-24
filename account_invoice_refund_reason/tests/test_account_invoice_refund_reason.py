@@ -52,7 +52,7 @@ class TestAccountInvoiceRefundReason(TransactionCase):
         self.account_invoice_customer0 = self.account_invoice_obj.create(
             dict(
                 name="Test Customer Invoice",
-                type="out_invoice",
+                move_type="out_invoice",
                 invoice_payment_term_id=self.payment_term.id,
                 journal_id=self.journalrec.id,
                 partner_id=self.partner3.id,
