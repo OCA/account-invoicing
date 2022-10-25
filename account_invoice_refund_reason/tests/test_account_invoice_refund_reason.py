@@ -3,36 +3,41 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import datetime
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 
 
-class TestAccountInvoiceRefundReason(TransactionCase):
-    def setUp(self):
-        super(TestAccountInvoiceRefundReason, self).setUp()
-        self.account_invoice_obj = self.env["account.move"]
-        self.account_obj = self.env["account.account"]
-        self.journal_obj = self.env["account.journal"]
-        self.invoice_refund_obj = self.env["account.move.reversal"]
-        self.reason_obj = self.env["account.invoice.refund.reason"]
-        self.payment_term = self.env.ref("account.account_payment_term_advance")
-        self.partner3 = self.env.ref("base.res_partner_3")
-        self.account_user_type = self.env.ref("account.data_account_type_receivable")
-        self.product_id = self.env.ref("product.product_product_5")
-        self.account_revenue = self.env.ref("account.data_account_type_revenue")
-        self.journalrec = self.journal_obj.search([("type", "=", "sale")])
-        if self.journalrec:
-            self.journalrec = self.journalrec[0]
-        self.account_id = self.account_obj.search(
-            [("user_type_id", "=", self.account_revenue.id)], limit=1
+class TestAccountInvoiceRefundReason(SavepointCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.account_move_obj = cls.env["account.move"]
+        cls.account_obj = cls.env["account.account"]
+        cls.journal_obj = cls.env["account.journal"]
+        cls.invoice_refund_obj = cls.env["account.move.reversal"]
+        cls.reason_obj = cls.env["account.move.refund.reason"]
+
+        cls.payment_term = cls.env.ref("account.account_payment_term_advance")
+        cls.partner3 = cls.env.ref("base.res_partner_3")
+        cls.account_user_type = cls.env.ref("account.data_account_type_receivable")
+        cls.product_id = cls.env.ref("product.product_product_5")
+        cls.account_revenue = cls.env.ref("account.data_account_type_revenue")
+
+        cls.journal = cls.journal_obj.search([("type", "=", "sale")])
+        if cls.journal:
+            cls.journal = cls.journal[0]
+        cls.account_id = cls.account_obj.search(
+            [("user_type_id", "=", cls.account_revenue.id)], limit=1
         )
-        self.reason_id = self.env["account.invoice.refund.reason"].create(
+        cls.reason_id = cls.env["account.move.refund.reason"].create(
             {"name": "Cancellation"}
         )
-        self.account_rec1_id = self.account_obj.create(
+
+        cls.account_rec1_id = cls.account_obj.create(
             dict(
                 code="cust_acc",
                 name="customer account",
-                user_type_id=self.account_user_type.id,
+                user_type_id=cls.account_user_type.id,
                 reconcile=True,
             )
         )
@@ -41,21 +46,22 @@ class TestAccountInvoiceRefundReason(TransactionCase):
                 0,
                 0,
                 {
-                    "product_id": self.product_id.id,
+                    "product_id": cls.product_id.id,
                     "quantity": 10.0,
-                    "account_id": self.account_id.id,
+                    "account_id": cls.account_id.id,
                     "name": "product test 5",
                     "price_unit": 100.00,
                 },
             )
         ]
-        self.account_invoice_customer0 = self.account_invoice_obj.create(
+
+        cls.account_invoice_customer0 = cls.account_move_obj.create(
             dict(
                 name="Test Customer Invoice",
                 move_type="out_invoice",
-                invoice_payment_term_id=self.payment_term.id,
-                journal_id=self.journalrec.id,
-                partner_id=self.partner3.id,
+                invoice_payment_term_id=cls.payment_term.id,
+                journal_id=cls.journal.id,
+                partner_id=cls.partner3.id,
                 invoice_line_ids=invoice_line_data,
             )
         )
@@ -73,7 +79,7 @@ class TestAccountInvoiceRefundReason(TransactionCase):
         )
         self.account_invoice_refund_0._onchange_reason_id()
         self.assertEqual(
-            self.reason_id.name,
+            self.account_invoice_refund_0.reason,
             self.account_invoice_refund_0.reason_id.name,
         )
         self.account_invoice_refund_0.reverse_moves()
