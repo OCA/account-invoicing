@@ -17,8 +17,8 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model,name:account_invoice_refund_reason.model_account_invoice_refund_reason
-msgid "Account Invoice refund Reasons"
+#: model:ir.model,name:account_invoice_refund_reason.model_account_move_refund_reason
+msgid "Account Move Refund Reason"
 msgstr ""
 
 #. module: account_invoice_refund_reason
@@ -27,7 +27,7 @@ msgid "Account Move Reversal"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__active
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__active
 msgid "Active"
 msgstr ""
 
@@ -38,87 +38,93 @@ msgid "Archived"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_cancellation
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_cancellation
 msgid "Cancellation"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_agreement
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_agreement
 msgid "Commercial and/or Collection Agreement"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__create_uid
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__create_date
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_correction
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_correction
 msgid "Data Correction"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__description
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__description
 msgid "Description"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__display_name
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__display_name
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__id
 msgid "ID"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_noref
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_noref
 msgid "Invoice without reference"
 msgstr ""
 
 #. module: account_invoice_refund_reason
 #: model:ir.model,name:account_invoice_refund_reason.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason____last_update
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason____last_update
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__write_uid
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__write_date
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_error
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_error
 msgid "Lease and/or Minimum Charge Error"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_invoice_refund_reason__name
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__name
 msgid "Name"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_others
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_others
 msgid "Others"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:account.invoice.refund.reason,name:account_invoice_refund_reason.refund_reason_difference
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_difference
 msgid "Price Difference"
 msgstr ""
 
@@ -128,8 +134,10 @@ msgid "Reason Name"
 msgstr ""
 
 #. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_bank_statement_line__reason_id
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move__reason_id
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__reason_id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_payment__reason_id
 msgid "Refund Reason"
 msgstr ""
 
