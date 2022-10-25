@@ -13,9 +13,9 @@
     "website": "https://github.com/OCA/account-invoicing",
     "data": [
         "security/ir.model.access.csv",
-        "data/account.invoice.refund.reason.csv",
+        "data/account.move.refund.reason.csv",
         "views/account_move_view.xml",
-        "views/account_invoice_refund_reason_view.xml",
+        "views/account_move_refund_reason_view.xml",
         "wizard/account_move_reversal_view.xml",
     ],
     "depends": ["account"],
