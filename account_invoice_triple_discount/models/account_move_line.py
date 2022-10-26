@@ -47,37 +47,80 @@ class AccountMoveLine(models.Model):
                 values["discount"] = new_discount
                 tmp_values["discount"] = old_discount
             old_values.append(tmp_values)
-        records = super(AccountMoveLine, self).create(values_list)
+        records = super().create(values_list)
         for index, record in enumerate(records):
             values = old_values[index]
             if values:
                 record.write(old_values[index])
         return records
 
-    @api.onchange(
+    @api.depends(
+        "quantity",
         "discount",
         "price_unit",
         "tax_ids",
-        "quantity",
+        "currency_id",
         "discount2",
         "discount3",
     )
-    def _onchange_price_subtotal(self):
-        return super(AccountMoveLine, self)._onchange_price_subtotal()
+    def _compute_totals(self):
+        """
+        As the totals are recalculated based on a single discount, we need to
+        simulate a multiple discount by changing the discount value. Values are
+        restored after the original process is done
+        """
+        old_values_by_line_id = {}
+        digits = self._fields["discount"]._digits
+        self._fields["discount"]._digits = (16, 16)
+        for line in self:
+            aggregated_discount = line._compute_aggregated_discount(line.discount)
+            old_values_by_line_id[line.id] = {"discount": line.discount}
+            line.update({"discount": aggregated_discount})
+        res = super()._compute_totals()
+        self._fields["discount"]._digits = digits
+        for line in self:
+            if line.id not in old_values_by_line_id:
+                continue
+            line.update(old_values_by_line_id[line.id])
+        return res
 
-    def _get_price_total_and_subtotal(self, **kwargs):
-        self.ensure_one()
-        kwargs["discount"] = self._compute_aggregated_discount(
-            kwargs.get("discount") or self.discount
-        )
-        return super(AccountMoveLine, self)._get_price_total_and_subtotal(**kwargs)
+    @api.depends(
+        "tax_ids",
+        "currency_id",
+        "partner_id",
+        "analytic_distribution",
+        "balance",
+        "partner_id",
+        "move_id.partner_id",
+        "price_unit",
+        "discount2",
+        "discount3",
+    )
+    def _compute_all_tax(self):
+        """
+        As the taxes are recalculated based on a single discount, we need to
+        simulate a multiple discount by changing discount value. Values are
+        restored after the original process is done
+        """
+        digits = self._fields["discount"]._digits
+        self._fields["discount"]._digits = (16, 16)
+        old_values_by_line_id = {}
+        for line in self:
+            aggregated_discount = line._compute_aggregated_discount(line.discount)
+            old_values_by_line_id[line.id] = {"discount": line.discount}
+            line.update({"discount": aggregated_discount})
+        res = super()._compute_all_tax()
+        self._fields["discount"]._digits = digits
+        for line in self:
+            if line.id not in old_values_by_line_id:
+                continue
+            line.update(old_values_by_line_id[line.id])
+        return res
 
-    def _get_fields_onchange_balance(self, **kwargs):
-        self.ensure_one()
-        kwargs["discount"] = self._compute_aggregated_discount(
-            kwargs.get("discount") or self.discount
-        )
-        return super(AccountMoveLine, self)._get_fields_onchange_balance(**kwargs)
+    def _convert_to_tax_base_line_dict(self):
+        res = super()._convert_to_tax_base_line_dict()
+        res["discount"] = self._compute_aggregated_discount(res["discount"])
+        return res
 
     def _compute_aggregated_discount(self, base_discount):
         self.ensure_one()

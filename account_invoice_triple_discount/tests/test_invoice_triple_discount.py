@@ -9,10 +9,10 @@ class TestInvoiceTripleDiscount(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestInvoiceTripleDiscount, cls).setUpClass()
+        cls.env.user.groups_id += cls.env.ref("product.group_discount_per_so_line")
         cls.Account = cls.env["account.account"]
         cls.AccountMove = cls.env["account.move"]
         cls.AccountTax = cls.env["account.tax"]
-        cls.AccountType = cls.env["account.account.type"]
         cls.Partner = cls.env["res.partner"]
         cls.Journal = cls.env["account.journal"]
 
@@ -26,14 +26,11 @@ class TestInvoiceTripleDiscount(TransactionCase):
                 "country_id": cls.env.ref("base.us").id,
             }
         )
-        cls.account_type = cls.AccountType.create(
-            {"name": "Test", "type": "receivable", "internal_group": "income"}
-        )
         cls.account = cls.Account.create(
             {
                 "name": "Test account",
                 "code": "TEST",
-                "user_type_id": cls.account_type.id,
+                "account_type": "asset_receivable",
                 "reconcile": True,
             }
         )
