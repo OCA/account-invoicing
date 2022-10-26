@@ -46,12 +46,11 @@ class SaleOrder(models.Model):
             desc_list.append(" - ".join(map(lambda x: str(x) or "", details)))
         return desc_list
 
-    def _split_aml_by_timesheets(self, aml, ts_ids, desc_list):
+    def _split_aml_by_timesheets(self, aml, ts_ids, desc_list, aml_seq):
         """Split an invoice line in as many lines as there is related timesheets,
         taking care to convert timesheets quantities in the invoice line's UoM"""
         aml_total = aml.quantity
         aml_uom_id = aml.product_uom_id
-        aml_seq = aml.sequence
         aml_sum = 0
         ts_ids = ts_ids.sorted(lambda t: t.date)
 
@@ -59,11 +58,12 @@ class SaleOrder(models.Model):
         self.env["account.move.line"].create(
             {
                 "name": aml.name,
-                "sequence": aml_seq - 1,
+                "sequence": aml_seq,
                 "display_type": "line_section",
                 "move_id": aml.move_id.id,
             }
         )
+        aml_seq += 1
 
         # Override the original aml values with first timesheet
         init_ts_uom_id = ts_ids[0].product_uom_id
@@ -74,9 +74,11 @@ class SaleOrder(models.Model):
         aml.with_context(split_aml_by_timesheets=True).write(
             {
                 "name": desc_list[0],
+                "sequence": aml_seq,
                 "quantity": init_qty,
             }
         )
+        aml_seq += 1
 
         # Create one invoice line for each timesheet except the last one
         for index, ts_id in enumerate(ts_ids[1:-1]):
@@ -87,11 +89,12 @@ class SaleOrder(models.Model):
             new_aml.with_context(split_aml_by_timesheets=True).write(
                 {
                     "name": desc_list[index + 1],
-                    "sequence": aml_seq + index + 1,
+                    "sequence": aml_seq,
                     "quantity": qty,
                     "sale_line_ids": aml.sale_line_ids.ids,
                 }
             )
+            aml_seq += 1
             aml_sum += qty
         # Last new invoice line get the rest
         if ts_ids[-1] != ts_ids[0]:
@@ -100,11 +103,14 @@ class SaleOrder(models.Model):
             last_aml.write(
                 {
                     "name": desc_list[-1],
-                    "sequence": aml_seq + len(ts_ids) - 1,
+                    "sequence": aml_seq,
                     "quantity": last_qty,
                     "sale_line_ids": aml.sale_line_ids.ids,
                 }
             )
+            aml_seq += 1
+
+        return aml_seq
 
     def _create_invoices(
         self, grouped=False, final=False, start_date=None, end_date=None
@@ -134,6 +140,7 @@ class SaleOrder(models.Model):
         moves._link_timesheets_to_invoice_line(start_date=start_date, end_date=end_date)
 
         for move_id in moves:
+            aml_seq = 0
             for aml in move_id.invoice_line_ids:
                 ts_ids = aml.timesheet_ids
                 desc_rule = aml.timesheet_invoice_description
@@ -146,11 +153,20 @@ class SaleOrder(models.Model):
                     and not is_third_party_test
                 ):
                     if inv_split:
-                        self._split_aml_by_timesheets(aml, ts_ids, desc_list)
+                        aml_seq = self._split_aml_by_timesheets(
+                            aml, ts_ids, desc_list, aml_seq
+                        )
                     else:
                         desc = "\n".join(map(lambda x: str(x) or "", desc_list))
                         new_name = aml.name + "\n" + desc
                         aml.write({"name": new_name})
+                        # keep sequence of invoice lines
+                        aml.write({"sequence": aml_seq})
+                        aml_seq += 1
+                else:
+                    # keep sequence of invoice lines
+                    aml.write({"sequence": aml_seq})
+                    aml_seq += 1
 
         return moves
 
