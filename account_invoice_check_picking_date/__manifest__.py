@@ -3,7 +3,7 @@
 {
     "name": "Account Invoice Check Picking Date",
     "summary": "Check if date of pickings match with invoice date",
-    "version": "13.0.1.0.0",
+    "version": "14.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Accounting",
     "website": "https://github.com/OCA/account-invoicing",
@@ -13,5 +13,8 @@
     "installable": True,
     "depends": ["stock_account"],
     "maintainers": ["carlosdauden"],
-    "data": ["wizards/invoice_stock_picking_date_wiz.xml"],
+    "data": [
+        "security/ir.model.access.csv",
+        "wizards/invoice_stock_picking_date_wiz.xml",
+    ],
 }
