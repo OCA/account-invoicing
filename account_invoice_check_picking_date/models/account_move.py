@@ -43,7 +43,7 @@ class AccountMove(models.Model):
             .split(",")
         )
         for invoice in self:
-            if invoice.invoice_date and invoice.type in invoice_types:
+            if invoice.invoice_date and invoice.move_type in invoice_types:
                 min_date, max_date = invoice._get_min_max_stock_move_dates()
                 if invoice._match_invoice_and_stock_move_dates(min_date, max_date):
                     continue

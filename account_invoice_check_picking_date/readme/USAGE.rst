@@ -1,5 +1,5 @@
 #. Go to *Purchases > Purchase Orders > Create*.
-#. Choose a customer and add a stockable product.
+#. Choose a supplier and add a stockable product.
 #. Confirm the purchase order.
 #. Go to *Receptions > Validate > Apply*.
 #. Return to the purchase order.
