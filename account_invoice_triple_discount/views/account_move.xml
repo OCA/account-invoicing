@@ -9,30 +9,15 @@
                 expr="//field[@name='invoice_line_ids']//tree//field[@name='discount']"
                 position="after"
             >
-                <field
-                    name="discount2"
-                    groups="product.group_discount_per_so_line"
-                    optional="show"
-                />
-                <field
-                    name="discount3"
-                    groups="product.group_discount_per_so_line"
-                    optional="show"
-                />
+                <field name="discount2" optional="hide" string="Disc.2%" />
+                <field name="discount3" optional="hide" string="Disc.3%" />
             </xpath>
             <xpath
                 expr="//field[@name='invoice_line_ids']//form//field[@name='discount']"
                 position="after"
             >
-                <field name="discount2" groups="product.group_discount_per_so_line" />
-                <field name="discount3" groups="product.group_discount_per_so_line" />
-            </xpath>
-            <xpath
-                expr="//field[@name='line_ids']//tree//field[@name='discount']"
-                position="after"
-            >
-                <field name="discount2" invisible="1" />
-                <field name="discount3" invisible="1" />
+                <field name="discount2" string="Disc.2%" />
+                <field name="discount3" string="Disc.3%" />
             </xpath>
         </field>
     </record>
