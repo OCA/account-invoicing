@@ -280,7 +280,7 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         self.assertEqual(invoice.invoice_line_ids[0].name, expected)
 
     def test_three_timesheets_same_date_split(self):
-        self.sale_order.timesheet_invoice_split = True
+        self.sale_order.timesheet_invoice_split = "timesheet"
         self.sale_order.timesheet_invoice_description = "001"
         # Set a different UoM on SO line/Invoice line from Timesheets UoM
         self._change_uom_on_line(self.so_line)
@@ -345,7 +345,7 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         )
 
     def test_three_plus_two_timesheets_split(self):
-        self.sale_order_2.timesheet_invoice_split = True
+        self.sale_order_2.timesheet_invoice_split = "timesheet"
         self.sale_order_2.timesheet_invoice_description = "001"
         # Set a different UoM on sale order line / invoice line from
         # timesheet's UoM, but only for the first line = first product / task.

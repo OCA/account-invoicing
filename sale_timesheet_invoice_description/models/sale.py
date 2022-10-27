@@ -1,6 +1,7 @@
 # Copyright 2016 Carlos Dauden <carlos.dauden@tecnativa.com>
 # Copyright 2020 Tecnativa - Manuel Calero
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from collections import defaultdict
 
 from odoo import _, api, fields, models
 from odoo.tools import config, format_date
@@ -14,7 +15,11 @@ class SaleOrder(models.Model):
         default="000",
         required=True,
     )
-    timesheet_invoice_split = fields.Boolean("Split Order lines by timesheets")
+    timesheet_invoice_split = fields.Selection(
+        "_get_timesheet_invoice_split",
+        string="Split Order lines by",
+        help="How to split the order lines - by timesheet, by task, or not at all.",
+    )
 
     @api.model
     def _get_timesheet_invoice_description(self):
@@ -24,6 +29,13 @@ class SaleOrder(models.Model):
             ("101", _("Date - Description")),
             ("001", _("Description")),
             ("011", _("Time spent - Description")),
+        ]
+
+    @api.model
+    def _get_timesheet_invoice_split(self):
+        return [
+            ("timesheet", _("Timesheet")),
+            ("task", _("Task")),
         ]
 
     def _get_timesheet_details(self, account_move_line, timesheet):
@@ -51,9 +63,26 @@ class SaleOrder(models.Model):
             desc_dict[timesheet_id] = " - ".join(details)
         return desc_dict
 
-    def _split_aml_by_timesheets(self, aml, ts_ids, desc_dict, aml_seq):
-        """Split an invoice line in as many lines as there is related timesheets,
-        taking care to convert timesheets quantities in the invoice line's UoM"""
+    def _split_aml_accumulate_qty_of_group(self, group, aml_uom_id):
+        """The total quantity for a group of timesheets"""
+        result = 0
+        for ts_id in group:
+            ts_uom_id = ts_id.product_uom_id
+            ts_qty = ts_id.unit_amount
+            result += ts_uom_id._compute_quantity(ts_qty, aml_uom_id)
+        return result
+
+    def _split_aml_compile_group_description(self, group, desc_dict):
+        """The invoice line's label"""
+        group_desc = [desc_dict[ts_id] for ts_id in group if ts_id in desc_dict]
+        return "\n".join(group_desc).strip()
+
+    def _split_aml_by_timesheets(self, inv_split, aml, ts_ids, desc_dict, aml_seq):
+        """
+        Split an invoice line in as many lines as there are related timesheets
+        or tasks (depending on the type of split);
+        taking care to convert timesheets quantities in the invoice line's UoM
+        """
         aml_total = aml.quantity
         aml_uom_id = aml.product_uom_id
         aml_sum = 0
@@ -66,6 +95,16 @@ class SaleOrder(models.Model):
         # Then, at the end, the taxes are recomputed, so that the invoice is
         # balanced again. See below.
 
+        # group the timesheets
+        # .... either by task, or individually
+        if inv_split == "task":
+            groups = defaultdict(ts_ids.browse)
+            for ts in ts_ids:
+                groups[ts.task_id] |= ts
+            groups = list(groups.values())
+        else:  # i.e., inv_split == "timesheet"
+            groups = list(ts_ids)
+
         # Add a line section on top before the original aml
         self.env["account.move.line"].create(
             {
@@ -77,36 +116,35 @@ class SaleOrder(models.Model):
         )
         aml_seq += 1
 
-        # Override the original aml values with first timesheet
-        init_ts_uom_id = ts_ids[0].product_uom_id
-        init_ts_qty = ts_ids[0].unit_amount
-        if ts_ids[-1] != ts_ids[0]:
+        # Override the original aml values with first timesheet/task
+        group = groups[0]
+        if group != groups[-1]:
             # first one is not the last one, hence compute normally
-            init_qty = init_ts_uom_id._compute_quantity(init_ts_qty, aml_uom_id)
+            init_qty = self._split_aml_accumulate_qty_of_group(group, aml_uom_id)
         else:
             # first one is the last one, hence assign the rest (see also below)
             init_qty = aml_total - aml_sum  # note that here, aml_sum == 0
+        desc = self._split_aml_compile_group_description(group, desc_dict)
         aml_sum += init_qty
         aml.with_context(split_aml_by_timesheets=True).write(
             {
-                "name": desc_dict[ts_ids[0]],
+                "name": desc or aml.name,
                 "sequence": aml_seq,
                 "quantity": init_qty,
             }
         )
         aml_seq += 1
-        # note: updating invoice line on timesheet should not be necessary
-        ts_ids[0].write({"timesheet_invoice_line_id": aml.id})
+        # note: updating invoice line on timesheets should not be necessary
+        group.write({"timesheet_invoice_line_id": aml.id})
 
-        # Create one invoice line for each timesheet except the last one
-        for ts_id in ts_ids[1:-1]:
-            ts_uom_id = ts_id.product_uom_id
-            ts_qty = ts_id.unit_amount
-            qty = ts_uom_id._compute_quantity(ts_qty, aml_uom_id)
+        # Create one invoice line for each timesheet/task except the last one
+        for group in groups[1:-1]:
+            qty = self._split_aml_accumulate_qty_of_group(group, aml_uom_id)
+            desc = self._split_aml_compile_group_description(group, desc_dict)
             new_aml = aml.with_context(split_aml_by_timesheets=True).copy()
             new_aml.with_context(split_aml_by_timesheets=True).write(
                 {
-                    "name": desc_dict[ts_id],
+                    "name": desc or new_aml.name,
                     "sequence": aml_seq,
                     "quantity": qty,
                     "sale_line_ids": aml.sale_line_ids.ids,
@@ -114,24 +152,26 @@ class SaleOrder(models.Model):
             )
             aml_seq += 1
             aml_sum += qty
-            # update invoice line on timesheet
-            ts_id.write({"timesheet_invoice_line_id": new_aml.id})
+            # update invoice line on timesheets
+            group.write({"timesheet_invoice_line_id": new_aml.id})
 
         # Last new invoice line get the rest
-        if ts_ids[-1] != ts_ids[0]:
+        group = groups[-1]
+        if group != groups[0]:
             last_qty = aml_total - aml_sum
+            desc = self._split_aml_compile_group_description(group, desc_dict)
             last_aml = aml.with_context(split_aml_by_timesheets=True).copy()
             last_aml.write(
                 {
-                    "name": desc_dict[ts_ids[-1]],
+                    "name": desc or last_aml.name,
                     "sequence": aml_seq,
                     "quantity": last_qty,
                     "sale_line_ids": aml.sale_line_ids.ids,
                 }
             )
             aml_seq += 1
-            # update invoice line on timesheet
-            ts_ids[-1].write({"timesheet_invoice_line_id": last_aml.id})
+            # update invoice line on timesheets
+            group.write({"timesheet_invoice_line_id": last_aml.id})
 
         # Finally, recompute the (sub)total and taxes so that they all are
         # still correct.
@@ -193,7 +233,7 @@ class SaleOrder(models.Model):
                 ):
                     if inv_split:
                         aml_seq = self._split_aml_by_timesheets(
-                            aml, ts_ids, desc_dict, aml_seq
+                            inv_split, aml, ts_ids, desc_dict, aml_seq
                         )
                     else:
                         desc_list = desc_dict.values()

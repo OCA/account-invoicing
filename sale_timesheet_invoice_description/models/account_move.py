@@ -62,7 +62,10 @@ class AccountMoveLine(models.Model):
     timesheet_invoice_description = fields.Char(
         readonly=True,
     )
-    timesheet_invoice_split = fields.Boolean("Split Order lines by timesheets")
+    timesheet_invoice_split = fields.Char(
+        string="Split Order lines by",
+        readonly=True,
+    )
 
     def _get_sale_line_delivery(self):
         return self.sale_line_ids.filtered(
