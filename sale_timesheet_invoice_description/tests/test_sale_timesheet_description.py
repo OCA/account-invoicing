@@ -12,6 +12,7 @@ class TestSaleTimesheetDescription(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestSaleTimesheetDescription, cls).setUpClass()
+
         # Make sure user is in English
         cls.env.user.lang = "en_US"
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
@@ -60,6 +61,21 @@ class TestSaleTimesheetDescription(common.TransactionCase):
                 "project_id": cls.project.id,
             }
         )
+        # For some reason, using `copy()` does copy the product template, but
+        # seemingly not the variant. Hence, we use `create()` again.
+        cls.product_two = cls.env["product.product"].create(
+            {
+                "name": "Test product 2",
+                "type": "service",
+                "uom_id": cls.product_uom_hour.id,
+                "uom_po_id": cls.product_uom_hour.id,
+                "service_type": "timesheet",
+                "invoice_policy": "delivery",
+                # Task created on cls.project when the cls.product is ordered
+                "service_tracking": "task_global_project",
+                "project_id": cls.project.id,
+            }
+        )
 
         cls.sale_order = cls.env["sale.order"].create(
             {
@@ -71,6 +87,9 @@ class TestSaleTimesheetDescription(common.TransactionCase):
             }
         )
         cls.sale_order.timesheet_invoice_split = False
+
+        cls.sale_order_2 = cls.sale_order.copy()
+
         cls.so_line = cls.env["sale.order.line"].create(
             {
                 "name": cls.product.name,
@@ -82,12 +101,40 @@ class TestSaleTimesheetDescription(common.TransactionCase):
             },
         )
         cls.so_line.product_id_change()
-        # confirm SO, task is created
+
+        cls.so_2_line_1 = cls.so_line.copy(
+            {
+                "order_id": cls.sale_order_2.id,
+            }
+        )
+        cls.so_2_line_1.product_id_change()
+        cls.so_2_line_2 = cls.so_line.copy(
+            {
+                "name": cls.product_two.name,
+                "product_id": cls.product_two.id,
+                "product_uom_qty": 2.5,
+                # "product_uom": cls.product_uom_hour.id,
+                # "price_unit": cls.product.list_price,
+                "order_id": cls.sale_order_2.id,
+            },
+        )
+        cls.so_2_line_2.product_id_change()
+
+        # Confirm sales orders, tasks are created
         cls.sale_order.action_confirm()
+        cls.sale_order_2.action_confirm()
+
         cls.task = cls.env["project.task"].search(
             [("sale_line_id", "=", cls.so_line.id)]
         )
-        # Add cls.timesheet to this task
+        cls.task_2_1 = cls.env["project.task"].search(
+            [("sale_line_id", "=", cls.so_2_line_1.id)]
+        )
+        cls.task_2_2 = cls.env["project.task"].search(
+            [("sale_line_id", "=", cls.so_2_line_2.id)]
+        )
+
+        # Add a timesheet to each tasks
         cls.timesheet = cls.env["account.analytic.line"].create(
             {
                 "project_id": cls.project.id,
@@ -99,6 +146,25 @@ class TestSaleTimesheetDescription(common.TransactionCase):
                 "user_id": cls.env.user.id,
             }
         )
+        # Note that for copies, we need to explicitly assign the correct
+        # sale.order.line, namely the one from the 'task_id', as copying just
+        # copies the value from the original, i.e. the one from the original's
+        # 'task_id'. This could be done by simply calling `_compute_so_line()`.
+        cls.timesheet_2_1 = cls.timesheet.copy(
+            {
+                "task_id": cls.task_2_1.id,
+                "name": "Test description 2.1",
+            }
+        )
+        cls.timesheet_2_1._compute_so_line()
+        cls.timesheet_2_2 = cls.timesheet.copy(
+            {
+                "task_id": cls.task_2_2.id,
+                "name": "Test description 2.2",
+                "unit_amount": 2.5,
+            }
+        )
+        cls.timesheet_2_2._compute_so_line()
 
     def _test_sale_time_description(self, desc_option, expected):
         self.sale_order.timesheet_invoice_description = desc_option
@@ -261,4 +327,97 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         self.assertTrue(
             float_compare(aml_sum, self.so_line.qty_invoiced, precision_rounding=pr)
             == 0
+        )
+
+    def test_three_plus_two_timesheets_split(self):
+        self.sale_order_2.timesheet_invoice_split = True
+        self.sale_order_2.timesheet_invoice_description = "001"
+        # Set a different UoM on sale order line / invoice line from
+        # timesheet's UoM, but only for the first line = first product / task.
+        new_uom = self.product_uom_day
+        new_qty = self.so_2_line_1.product_uom._compute_quantity(
+            self.so_2_line_1.product_uom_qty, new_uom
+        )
+        self.so_2_line_1.product_uom = new_uom.id
+        self.so_2_line_1.product_uom_qty = new_qty
+        self.so_2_line_1.product_uom_change()  # to adjust the unit price
+
+        # Add two new timesheets to the first invoiced sale order line
+        self.timesheet_2_1.write({"name": "Description 1"})
+        self.timesheet_2_1.copy(
+            {
+                "name": "Description 2",
+                "date": datetime.strptime("2017-08-05", "%Y-%m-%d"),
+            }
+        )
+        self.timesheet_2_1.copy(
+            {
+                "name": "Description 3",
+                "date": datetime.strptime("2017-08-06", "%Y-%m-%d"),
+            }
+        )
+        # Add one new timesheet to the second invoiced sale order line
+        self.timesheet_2_2.write({"name": "Description 11"})
+        self.timesheet_2_2.copy(
+            {
+                "name": "Description 12",
+                "date": datetime.strptime("2017-08-05", "%Y-%m-%d"),
+            }
+        )
+
+        invoice = self.sale_order_2.with_context(
+            test_timesheet_description=True
+        )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
+
+        self.assertEqual(len(invoice.invoice_line_ids), 7)
+
+        # === First product, i.e. first task ===
+        # First line is a section with product's name
+        aml_ids = invoice.invoice_line_ids.sorted(key=lambda aml: aml.sequence)
+        self.assertEqual(aml_ids[0].display_type, "line_section")
+        self.assertEqual(aml_ids[0].name, "Test product")
+        # Next line refers to first timesheet
+        self.assertEqual(aml_ids[1].name, "Description 1")
+        self.assertEqual(aml_ids[1].quantity, 1.32)
+        # Next line refers to first timesheet's first copy
+        self.assertEqual(aml_ids[2].name, "Description 2")
+        self.assertEqual(aml_ids[2].quantity, 1.32)
+        # Next line refers to first timesheet's second copy, and its quantity
+        # is calculated as the rest to equal the original line's quantity
+        self.assertEqual(aml_ids[3].name, "Description 3")
+        self.assertEqual(aml_ids[3].quantity, 1.3)
+
+        # Invoice lines total must equal the expected order line's delivered and
+        # invoiced quantities
+        line = self.so_2_line_1
+        pr = line.product_uom.rounding
+        self.assertEqual(
+            float_compare(3.94, line.qty_delivered, precision_rounding=pr), 0
+        )
+        self.assertEqual(
+            float_compare(3.94, line.qty_invoiced, precision_rounding=pr), 0
+        )
+
+        # === Second product, i.e. second task ===
+        # Next line is a section with product's name
+        # aml_ids = invoice.invoice_line_ids.sorted(key=lambda aml: aml.sequence)
+        self.assertEqual(aml_ids[4].display_type, "line_section")
+        self.assertEqual(aml_ids[4].name, "Test product 2")
+        # Next line refer to second timesheet
+        self.assertEqual(aml_ids[5].name, "Description 11")
+        self.assertEqual(aml_ids[5].quantity, 2.5)
+        # Next line refers to second timesheet's copy, and its quantity is
+        # calculated as the rest to equal the original line's quantity
+        self.assertEqual(aml_ids[6].name, "Description 12")
+        self.assertEqual(aml_ids[6].quantity, 2.5)
+
+        # Invoice lines total must equal the expected order line's delivered
+        # and invoiced quantities
+        line = self.so_2_line_2
+        pr = line.product_uom.rounding
+        self.assertEqual(
+            float_compare(5.0, line.qty_delivered, precision_rounding=pr), 0
+        )
+        self.assertEqual(
+            float_compare(5.0, line.qty_invoiced, precision_rounding=pr), 0
         )
