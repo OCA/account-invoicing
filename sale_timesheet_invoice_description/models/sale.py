@@ -68,7 +68,12 @@ class SaleOrder(models.Model):
         # Override the original aml values with first timesheet
         init_ts_uom_id = ts_ids[0].product_uom_id
         init_ts_qty = ts_ids[0].unit_amount
-        init_qty = init_ts_uom_id._compute_quantity(init_ts_qty, aml_uom_id)
+        if ts_ids[-1] != ts_ids[0]:
+            # first one is not the last one, hence compute normally
+            init_qty = init_ts_uom_id._compute_quantity(init_ts_qty, aml_uom_id)
+        else:
+            # first one is the last one, hence assign the rest (see also below)
+            init_qty = aml_total - aml_sum  # note that here, aml_sum == 0
         aml_sum += init_qty
 
         aml.with_context(split_aml_by_timesheets=True).write(
