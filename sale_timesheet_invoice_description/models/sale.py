@@ -52,7 +52,7 @@ class SaleOrder(models.Model):
         aml_total = aml.quantity
         aml_uom_id = aml.product_uom_id
         aml_sum = 0
-        ts_ids = ts_ids.sorted(lambda t: t.date)
+        ts_ids = ts_ids.sorted(lambda t: (t.date, t.task_id.id or 0))
 
         # Add a line section on top before the original aml
         self.env["account.move.line"].create(
