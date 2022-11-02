@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_fiscal_position_update
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_fiscal_position_update
+#: model:ir.model,name:account_invoice_fiscal_position_update.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
+#, python-format
+msgid ""
+"The following invoice lines were not updated to the new Fiscal Position because they don't have a Product:\n"
+" - %s\n"
+"You should update the Account and the Taxes of these invoice lines manually."
+msgstr ""
+
+#. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
+#, python-format
+msgid ""
+"The invoice lines were not updated to the new Fiscal Position because they "
+"don't have products. You should update the Account and the Taxes of each "
+"invoice line manually."
+msgstr ""
+
+#. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
+#, python-format
+msgid "Warning"
+msgstr ""
