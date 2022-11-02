@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo-addon-account_invoice_blocking>=16.0dev,<16.1dev',
+        'odoo-addon-account_invoice_fiscal_position_update>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_tax_required>=16.0dev,<16.1dev',
     ],
     classifiers=[
