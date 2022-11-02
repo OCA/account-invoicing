@@ -43,7 +43,7 @@ class SaleOrder(models.Model):
         desc_list = []
         for timesheet_id in timesheet_ids.sorted(lambda t: t.date):
             details = self._get_timesheet_details(timesheet_id, desc_rule)
-            desc_list.append(" - ".join(map(lambda x: str(x) or "", details)))
+            desc_list.append(" - ".join(details))
         return desc_list
 
     def _split_aml_by_timesheets(self, aml, ts_ids, desc_list, aml_seq):
@@ -185,9 +185,10 @@ class SaleOrder(models.Model):
                             aml, ts_ids, desc_list, aml_seq
                         )
                     else:
-                        desc = "\n".join(map(lambda x: str(x) or "", desc_list))
-                        new_name = aml.name + "\n" + desc
-                        aml.write({"name": new_name})
+                        desc = "\n".join(desc_list)
+                        if desc:
+                            new_name = aml.name + "\n" + desc
+                            aml.write({"name": new_name.strip()})
                         # keep sequence of invoice lines
                         aml.write({"sequence": aml_seq})
                         aml_seq += 1
