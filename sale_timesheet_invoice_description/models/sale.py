@@ -237,7 +237,7 @@ class SaleOrder(models.Model):
                 if (
                     desc_dict
                     and desc_rule
-                    and desc_rule != "000"
+                    and (desc_rule != "000" or inv_split == "task")
                     and not is_third_party_test
                 ):
                     if inv_split:
