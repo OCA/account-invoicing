@@ -473,7 +473,9 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         self.assertEqual(aml_ids[0].display_type, "line_section")
         self.assertEqual(aml_ids[0].name, "Test product")
         # Next line refers to first task
+        task_name = "%s: Test product" % (self.sale_order_2.name,)
         descs = [
+            task_name,
             "Description 1",
             "Description 2",
             "Description 3",
@@ -498,7 +500,9 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         self.assertEqual(aml_ids[2].display_type, "line_section")
         self.assertEqual(aml_ids[2].name, "Test product 2")
         # Next line refer to second timesheet
+        task_name = "%s: Test product 2" % (self.sale_order_2.name,)
         descs = [
+            task_name,
             "Description 11",
             "Description 12",
         ]

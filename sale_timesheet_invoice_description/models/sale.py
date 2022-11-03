@@ -72,9 +72,14 @@ class SaleOrder(models.Model):
             result += ts_uom_id._compute_quantity(ts_qty, aml_uom_id)
         return result
 
-    def _split_aml_compile_group_description(self, group, desc_dict):
+    def _split_aml_compile_group_description(self, group, desc_dict, inv_split):
         """The invoice line's label"""
-        group_desc = [desc_dict[ts_id] for ts_id in group if ts_id in desc_dict]
+        group_desc = []
+        if inv_split == "task":
+            task = group[0].task_id if group else None
+            if task:
+                group_desc += [task.name]
+        group_desc += [desc_dict[ts_id] for ts_id in group if ts_id in desc_dict]
         return "\n".join(group_desc).strip()
 
     def _split_aml_by_timesheets(self, inv_split, aml, ts_ids, desc_dict, aml_seq):
@@ -124,7 +129,7 @@ class SaleOrder(models.Model):
         else:
             # first one is the last one, hence assign the rest (see also below)
             init_qty = aml_total - aml_sum  # note that here, aml_sum == 0
-        desc = self._split_aml_compile_group_description(group, desc_dict)
+        desc = self._split_aml_compile_group_description(group, desc_dict, inv_split)
         aml_sum += init_qty
         aml.with_context(split_aml_by_timesheets=True).write(
             {
@@ -140,7 +145,9 @@ class SaleOrder(models.Model):
         # Create one invoice line for each timesheet/task except the last one
         for group in groups[1:-1]:
             qty = self._split_aml_accumulate_qty_of_group(group, aml_uom_id)
-            desc = self._split_aml_compile_group_description(group, desc_dict)
+            desc = self._split_aml_compile_group_description(
+                group, desc_dict, inv_split
+            )
             new_aml = aml.with_context(split_aml_by_timesheets=True).copy()
             new_aml.with_context(split_aml_by_timesheets=True).write(
                 {
@@ -159,7 +166,9 @@ class SaleOrder(models.Model):
         group = groups[-1]
         if group != groups[0]:
             last_qty = aml_total - aml_sum
-            desc = self._split_aml_compile_group_description(group, desc_dict)
+            desc = self._split_aml_compile_group_description(
+                group, desc_dict, inv_split
+            )
             last_aml = aml.with_context(split_aml_by_timesheets=True).copy()
             last_aml.write(
                 {
