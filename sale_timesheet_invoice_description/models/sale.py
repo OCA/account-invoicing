@@ -38,15 +38,15 @@ class SaleOrder(models.Model):
             details.append(timesheet.name)
         return details
 
-    def _get_timesheet_description_list(self, timesheet_ids, desc_rule):
-        """Returns a list of timesheets description"""
-        desc_list = []
-        for timesheet_id in timesheet_ids.sorted(lambda t: t.date):
+    def _get_timesheet_descriptions(self, timesheet_ids, desc_rule):
+        """Returns a dict of timesheets' descriptions"""
+        desc_dict = {}
+        for timesheet_id in timesheet_ids:
             details = self._get_timesheet_details(timesheet_id, desc_rule)
-            desc_list.append(" - ".join(details))
-        return desc_list
+            desc_dict[timesheet_id] = " - ".join(details)
+        return desc_dict
 
-    def _split_aml_by_timesheets(self, aml, ts_ids, desc_list, aml_seq):
+    def _split_aml_by_timesheets(self, aml, ts_ids, desc_dict, aml_seq):
         """Split an invoice line in as many lines as there is related timesheets,
         taking care to convert timesheets quantities in the invoice line's UoM"""
         aml_total = aml.quantity
@@ -82,10 +82,9 @@ class SaleOrder(models.Model):
             # first one is the last one, hence assign the rest (see also below)
             init_qty = aml_total - aml_sum  # note that here, aml_sum == 0
         aml_sum += init_qty
-
         aml.with_context(split_aml_by_timesheets=True).write(
             {
-                "name": desc_list[0],
+                "name": desc_dict[ts_ids[0]],
                 "sequence": aml_seq,
                 "quantity": init_qty,
             }
@@ -93,14 +92,14 @@ class SaleOrder(models.Model):
         aml_seq += 1
 
         # Create one invoice line for each timesheet except the last one
-        for index, ts_id in enumerate(ts_ids[1:-1]):
+        for ts_id in ts_ids[1:-1]:
             ts_uom_id = ts_id.product_uom_id
             ts_qty = ts_id.unit_amount
             qty = ts_uom_id._compute_quantity(ts_qty, aml_uom_id)
             new_aml = aml.with_context(split_aml_by_timesheets=True).copy()
             new_aml.with_context(split_aml_by_timesheets=True).write(
                 {
-                    "name": desc_list[index + 1],
+                    "name": desc_dict[ts_id],
                     "sequence": aml_seq,
                     "quantity": qty,
                     "sale_line_ids": aml.sale_line_ids.ids,
@@ -108,13 +107,14 @@ class SaleOrder(models.Model):
             )
             aml_seq += 1
             aml_sum += qty
+
         # Last new invoice line get the rest
         if ts_ids[-1] != ts_ids[0]:
             last_qty = aml_total - aml_sum
             last_aml = aml.with_context(split_aml_by_timesheets=True).copy()
             last_aml.write(
                 {
-                    "name": desc_list[-1],
+                    "name": desc_dict[ts_ids[-1]],
                     "sequence": aml_seq,
                     "quantity": last_qty,
                     "sale_line_ids": aml.sale_line_ids.ids,
@@ -173,18 +173,19 @@ class SaleOrder(models.Model):
                 ts_ids = aml.timesheet_ids
                 desc_rule = aml.timesheet_invoice_description
                 inv_split = aml.timesheet_invoice_split
-                desc_list = self._get_timesheet_description_list(ts_ids, desc_rule)
+                desc_dict = self._get_timesheet_descriptions(ts_ids, desc_rule)
                 if (
-                    desc_list
+                    desc_dict
                     and desc_rule
                     and desc_rule != "000"
                     and not is_third_party_test
                 ):
                     if inv_split:
                         aml_seq = self._split_aml_by_timesheets(
-                            aml, ts_ids, desc_list, aml_seq
+                            aml, ts_ids, desc_dict, aml_seq
                         )
                     else:
+                        desc_list = desc_dict.values()
                         desc = "\n".join(desc_list)
                         if desc:
                             new_name = aml.name + "\n" + desc
