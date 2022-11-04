@@ -2,8 +2,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
-from odoo.addons.queue_job.job import job
 from odoo.exceptions import UserError
+
+from odoo.addons.queue_job.job import job
 
 JOB_QUEUE_CHANNEL = "root.PREPARE_SEND_PRINT_INVOICE"
 SEND_QUEUE_CHANNEL = "root.SEND_PRINT_INVOICE"
@@ -15,7 +16,8 @@ class AccountInvoice(models.Model):
     sending_in_progress = fields.Boolean(
         default=False,
         help="If checked, the invoice is already being processed, "
-             "and it will prevent the sending of a duplicated mail.")
+        "and it will prevent the sending of a duplicated mail.",
+    )
 
     @api.multi
     def mass_send_print(self):
@@ -52,11 +54,11 @@ class AccountInvoice(models.Model):
     def do_send_print(self):
         for rec in self:
             if not rec.partner_id.email:
-                raise UserError(_(
-                    "Missing email address on customer " "'{customer_name}'."
-                ).format(
-                    customer_name=rec.partner_id.display_name
-                ))
+                raise UserError(
+                    _("Missing email address on customer " "'{customer_name}'.").format(
+                        customer_name=rec.partner_id.display_name
+                    )
+                )
             action_invoice_wizard = rec.action_invoice_sent()
             ctx = action_invoice_wizard["context"]
             ctx.update(
