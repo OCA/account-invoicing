@@ -42,7 +42,7 @@ msgstr "Falta la dirección de email en el cliente '{customer_name}'."
 
 #. module: account_invoice_mass_sending
 #: model:ir.actions.server,name:account_invoice_mass_sending.action_invoice_mass_send_print
-msgid "Send & Print"
+msgid "Mass Send & Print"
 msgstr "Enviar & Imprimir"
 
 #. module: account_invoice_mass_sending

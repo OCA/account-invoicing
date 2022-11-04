@@ -44,8 +44,8 @@ msgstr "Courriel manquant pour le client '{customer_name}'."
 
 #. module: account_invoice_mass_sending
 #: model:ir.actions.server,name:account_invoice_mass_sending.action_invoice_mass_send_print
-msgid "Send & Print"
-msgstr "Envoyer & Imprimer"
+msgid "Mass Send & Print"
+msgstr "Mass Envoyer & Imprimer"
 
 #. module: account_invoice_mass_sending
 #: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_invoice__sending_in_progress
