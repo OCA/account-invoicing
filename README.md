@@ -7,7 +7,7 @@
 
 <!-- /!\ do not modify above this line -->
 
-# account-invoicing
+# Account invoicing
 
 This project aims to deal with modules related to account invoicing
 

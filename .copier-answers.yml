@@ -1,9 +1,14 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.7.0
+_commit: v1.11.0
 _src_path: https://github.com/OCA/oca-addons-repo-template.git
 ci: GitHub
 dependency_installation_mode: PIP
 generate_requirements_txt: true
+github_check_license: true
+github_enable_codecov: true
+github_enable_makepot: true
+github_enable_stale_action: true
+github_enforce_dev_status_compatibility: true
 include_wkhtmltopdf: false
 odoo_version: 14.0
 org_name: Odoo Community Association (OCA)
@@ -11,8 +16,9 @@ org_slug: OCA
 rebel_module_groups:
 - account_invoice_line_sequence
 repo_description: This project aims to deal with modules related to account invoicing
-repo_name: account-invoicing
+repo_name: Account invoicing
 repo_slug: account-invoicing
 repo_website: https://github.com/OCA/account-invoicing
 travis_apt_packages: []
 travis_apt_sources: []
+
