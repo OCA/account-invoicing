@@ -49,15 +49,15 @@ class AccountMove(models.Model):
                     continue
                 DateField = self.env["ir.qweb.field.date"]
                 exception_msg = _(
-                    "Invoice date: %s\n"
-                    "First stock move: %s   Last stock move: %s\n\n"
+                    "Invoice date: %(invoice_date)s\n"
+                    "First stock move: %(min_date)s   Last stock move: %(max_date)s\n\n"
                     "If dates are right and you have manager permissions you can use "
                     "special action to post this invoice."
-                ) % (
-                    DateField.value_to_html(invoice.invoice_date, {}),
-                    DateField.value_to_html(min_date, {}),
-                    DateField.value_to_html(max_date, {}),
-                )
+                ) % {
+                    "invoice_date": DateField.value_to_html(invoice.invoice_date, {}),
+                    "min_date": DateField.value_to_html(min_date, {}),
+                    "max_date": DateField.value_to_html(max_date, {}),
+                }
                 exception_wizard = self.env["invoice.picking.date.check.wiz"].create(
                     {"exception_msg": exception_msg, "invoice_id": invoice.id}
                 )
