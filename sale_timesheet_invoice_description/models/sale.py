@@ -24,7 +24,8 @@ class SaleOrder(models.Model):
             ("011", _("Time spent - Description")),
         ]
 
-    def _get_timesheet_details(self, timesheet, desc_rule):
+    def _get_timesheet_details(self, account_move_line, timesheet):
+        desc_rule = account_move_line.timesheet_invoice_description
         details = []
         if not desc_rule:
             return details
@@ -38,11 +39,11 @@ class SaleOrder(models.Model):
             details.append(timesheet.name)
         return details
 
-    def _get_timesheet_descriptions(self, timesheet_ids, desc_rule):
-        """Returns a dict of timesheets' descriptions"""
+    def _get_timesheet_descriptions(self, account_move_line):
+        """Returns a dict of an invoice line's timesheets' descriptions"""
         desc_dict = {}
-        for timesheet_id in timesheet_ids:
-            details = self._get_timesheet_details(timesheet_id, desc_rule)
+        for timesheet_id in account_move_line.timesheet_ids:
+            details = self._get_timesheet_details(account_move_line, timesheet_id)
             desc_dict[timesheet_id] = " - ".join(details)
         return desc_dict
 
@@ -173,7 +174,7 @@ class SaleOrder(models.Model):
                 ts_ids = aml.timesheet_ids
                 desc_rule = aml.timesheet_invoice_description
                 inv_split = aml.timesheet_invoice_split
-                desc_dict = self._get_timesheet_descriptions(ts_ids, desc_rule)
+                desc_dict = self._get_timesheet_descriptions(aml)
                 if (
                     desc_dict
                     and desc_rule
