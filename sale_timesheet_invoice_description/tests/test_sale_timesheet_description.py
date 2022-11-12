@@ -5,6 +5,7 @@
 from datetime import datetime
 
 from odoo.tests import common
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools.float_utils import float_compare
 
 
@@ -15,7 +16,17 @@ class TestSaleTimesheetDescription(common.TransactionCase):
 
         # Make sure user is in English
         cls.env.user.lang = "en_US"
-        cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
+        cls.partner = cls.env["res.partner"].create(
+            {
+                "name": "Test partner",
+                "lang": "en_US",
+            }
+        )
+        # make sure to use the default date format, such as used in the tests
+        # below in the verbatim description strings
+        lang = cls.env["res.lang"].search([("code", "=", "en_US")], limit=1)
+        lang.date_format = DEFAULT_SERVER_DATE_FORMAT
+
         cls.analytic_account = cls.env["account.analytic.account"].create(
             {"name": "Test analytic account"}
         )

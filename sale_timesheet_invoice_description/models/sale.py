@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
-from odoo.tools import config
+from odoo.tools import config, format_date
 
 
 class SaleOrder(models.Model):
@@ -30,7 +30,9 @@ class SaleOrder(models.Model):
         if not desc_rule:
             return details
         if desc_rule[0] == "1":
-            details.append(fields.Date.to_string(timesheet.date))
+            lang = account_move_line.move_id.partner_id.lang
+            date = format_date(self.env, timesheet.date, lang_code=lang)
+            details.append(date)
         if desc_rule[1] == "1":
             details.append(
                 "{} {}".format(timesheet.unit_amount, timesheet.product_uom_id.name)
