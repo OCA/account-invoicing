@@ -10,6 +10,7 @@
         'account'
     ],
     'author': 'Therp BV,BCIM,Odoo Community Association (OCA)',
+    'website': 'https://github.com/OCA/account-invoicing',
     'license': 'AGPL-3',
     'category': 'Accounting',
     'data': [
