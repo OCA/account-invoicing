@@ -6,7 +6,7 @@
     "version": "12.0.1.0.0",
     "author": "Eficent, Odoo Community Association (OCA)",
     "category": "Invoicing",
-    "website": "http://www.eficent.com/",
+    "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
     "depends": [
         "account"

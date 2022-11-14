@@ -9,7 +9,7 @@
     'author': 'Ecosoft, '
               'Odoo Community Association (OCA)',
     'license': 'AGPL-3',
-    'website': 'https://github.com/OCA/account-invoicing/',
+    'website': 'https://github.com/OCA/account-invoicing',
     'depends': [
         'account',
     ],

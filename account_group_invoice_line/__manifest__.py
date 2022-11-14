@@ -13,7 +13,7 @@
     'summary': 'Add option to group invoice lines per account',
     'author': 'SYLEAM,Akretion,Odoo Community Association (OCA)',
     'license': 'AGPL-3',
-    'website': 'http://www.syleam.fr/',
+    'website': 'https://github.com/OCA/account-invoicing',
     'depends': ['account'],
     'data': ['views/account_journal.xml'],
     'installable': True,
