@@ -9,6 +9,7 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
+    "development_status": "Alpha",
     "auto_install": True,
     "depends": ["base_tier_validation_forward", "account_invoice_tier_validation"],
     "data": ["views/account_invoice_view.xml"],

@@ -59,8 +59,6 @@ msgid ""
 "match                        the Verification Total amount (%s)!\n"
 "There is a difference of %s"
 msgstr ""
-"Molimo ovjerite iznos računa.\n"
-"Izračunati total ne odgovara unešenom."
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_invoice__check_total_display_difference
