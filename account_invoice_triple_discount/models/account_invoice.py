@@ -11,6 +11,8 @@ class AccountInvoice(models.Model):
 
     def get_taxes_values(self):
         vals = {}
+        digits = self.invoice_line_ids._fields['price_unit']._digits
+        self.invoice_line_ids._fields['price_unit']._digits = (16, 16)
         for line in self.invoice_line_ids:
             vals[line] = {
                 'price_unit': line.price_unit,
@@ -23,6 +25,7 @@ class AccountInvoice(models.Model):
                 'price_unit': price_unit,
                 'discount': 0.0,
             })
+        self.invoice_line_ids._fields['price_unit']._digits = digits
         tax_grouped = super(AccountInvoice, self).get_taxes_values()
         for line in self.invoice_line_ids:
             line.update(vals[line])
@@ -44,16 +47,19 @@ class AccountInvoiceLine(models.Model):
     @api.multi
     @api.depends('discount2', 'discount3')
     def _compute_price(self):
+        digits = self._fields['price_unit']._digits
         for line in self:
             prev_price_unit = line.price_unit
             prev_discount = line.discount
             price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
             price_unit *= (1 - (line.discount2 or 0.0) / 100.0)
             price_unit *= (1 - (line.discount3 or 0.0) / 100.0)
+            line._fields['price_unit']._digits = (16, 16)
             line.update({
                 'price_unit': price_unit,
                 'discount': 0.0,
             })
+            line._fields['price_unit']._digits = digits
             super(AccountInvoiceLine, line)._compute_price()
             line.update({
                 'price_unit': prev_price_unit,
