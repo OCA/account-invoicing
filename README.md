@@ -64,7 +64,7 @@ addon | version | maintainers | summary
 [account_invoice_tier_validation_forward](account_invoice_tier_validation_forward/) | 12.0.1.0.1 |  | Account Invoice Tier Validation - Forward Option
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 12.0.2.0.0 |  | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_transmit_method_substitution_rule](account_invoice_transmit_method_substitution_rule/) | 12.0.1.0.0 |  | This addon allow to set substitution rules for transmit method
-[account_invoice_triple_discount](account_invoice_triple_discount/) | 12.0.1.0.0 |  | Manage triple discount on invoice lines
+[account_invoice_triple_discount](account_invoice_triple_discount/) | 12.0.1.0.1 |  | Manage triple discount on invoice lines
 [account_invoice_validation_queued](account_invoice_validation_queued/) | 12.0.1.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Enqueue account invoice validation
 [account_invoice_view_payment](account_invoice_view_payment/) | 12.0.1.0.1 |  | Access to the payment from an invoice
 [account_menu_invoice_refund](account_menu_invoice_refund/) | 12.0.2.0.1 | [![kittiu](https://github.com/kittiu.png?size=30px)](https://github.com/kittiu) | New invoice menu that combine invoices and refunds
