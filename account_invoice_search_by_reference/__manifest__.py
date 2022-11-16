@@ -3,7 +3,7 @@
 
 {
     "name": "Account invoice search by reference",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "author": "Eficent, Odoo Community Association (OCA)",
     "category": "Invoicing",
     "website": "https://github.com/OCA/account-invoicing",
