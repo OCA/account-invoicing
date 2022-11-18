@@ -66,8 +66,6 @@ class AccountPaymentRegister(models.TransientModel):
         self.ensure_one()
         if self.enforce_payment_retention:
             invoices = self.line_ids.move_id
-            if not invoices:
-                return
             residual = sum(invoices.mapped("retention_residual_currency"))
             if not float_is_zero(residual, precision_digits=2):
                 raise ValidationError(

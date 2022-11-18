@@ -3,10 +3,10 @@
 
 from odoo import fields
 from odoo.exceptions import UserError, ValidationError
-from odoo.tests.common import Form, SavepointCase
+from odoo.tests.common import Form, TransactionCase
 
 
-class TestInvoicePaymentRetention(SavepointCase):
+class TestInvoicePaymentRetention(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestInvoicePaymentRetention, cls).setUpClass()
@@ -63,8 +63,6 @@ class TestInvoicePaymentRetention(SavepointCase):
             [("type", "=", "purchase"), ("company_id", "=", cls.env.company.id)],
             limit=1,
         )
-        # cls.partner.company_id = cls.sale_journal.company_id
-        # cls.product_3.company_id = cls.sale_journal.company_id
         cls.cust_invoice = cls.invoice_model.create(
             {
                 "name": "Test Customer Invoice",
@@ -111,6 +109,20 @@ class TestInvoicePaymentRetention(SavepointCase):
         )
         # New currency, 2X lower
         cls.company_currency = cls.cust_invoice.currency_id
+        cls.company_currency.write(
+            {
+                "rate_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": fields.Date.today(),
+                            "rate": 1,
+                        },
+                    )
+                ]
+            }
+        )
         cls.currency_2x = cls.env["res.currency"].create(
             {
                 "name": "2X",  # Foreign currency, 2 time
@@ -161,7 +173,7 @@ class TestInvoicePaymentRetention(SavepointCase):
             "default_enforce_payment_retention": False,
         }
         with Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
+            self.payment_register_model.with_context(**ctx), view=self.register_view_id
         ) as f:
             f.enforce_payment_retention = True
         payment_register = f.save()
@@ -190,7 +202,7 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_model": "account.move",
         }
         with Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
+            self.payment_register_model.with_context(**ctx), view=self.register_view_id
         ) as f:
             f.enforce_payment_retention = True
             f.apply_payment_retention = True
@@ -209,7 +221,7 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_model": "account.move",
         }
         with Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
+            self.payment_register_model.with_context(**ctx), view=self.register_view_id
         ) as f:
             f.enforce_payment_retention = True
             f.apply_payment_retention = True
@@ -222,9 +234,11 @@ class TestInvoicePaymentRetention(SavepointCase):
         payment_moves += payment.line_ids.mapped("move_id")
 
         # invoice 3, return retention
-        ctx = {"default_type": "out_invoice"}
         view_id = "account.view_move_form"
-        with Form(self.invoice_model.with_context(ctx), view=view_id) as f:
+        with Form(
+            self.invoice_model.with_context(default_move_type="out_invoice"),
+            view=view_id,
+        ) as f:
             f.journal_id = self.sale_journal
             f.partner_id = self.partner
         cust_invoice3 = f.save()
@@ -283,7 +297,7 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_model": "account.move",
         }
         with Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
+            self.payment_register_model.with_context(**ctx), view=self.register_view_id
         ) as f:
             f.currency_id = self.currency_2x  # --> Change to 2x currency
             f.enforce_payment_retention = True
@@ -304,7 +318,7 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_model": "account.move",
         }
         with Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
+            self.payment_register_model.with_context(**ctx), view=self.register_view_id
         ) as f:
             f.currency_id = self.currency_2x  # --> Change to 2x currency
             f.enforce_payment_retention = True
@@ -319,10 +333,12 @@ class TestInvoicePaymentRetention(SavepointCase):
         payment_moves += payment.line_ids.mapped("move_id")
 
         # invoice 3, return retention
-        ctx = {"default_type": "in_invoice"}
         view_id = "account.view_move_form"
-        with Form(self.invoice_model.with_context(ctx), view=view_id) as f:
-            f.journal_id = self.sale_journal
+        with Form(
+            self.invoice_model.with_context(default_move_type="in_invoice"),
+            view=view_id,
+        ) as f:
+            # f.journal_id = self.purchase_journal
             f.partner_id = self.partner
         vendor_bill3 = f.save()
         res = vendor_bill3._onchange_domain_retained_move_ids()
@@ -335,20 +351,9 @@ class TestInvoicePaymentRetention(SavepointCase):
             for move in payment_moves:
                 inv.retained_move_ids.add(move)
         vendor_bill3 = inv.save()
-        total = sum(vendor_bill3.invoice_line_ids.mapped("price_unit"))
         vendor_bill3.write(
             {
-                "line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "/",
-                            "credit": total,
-                            "account_id": self.account_receivable.id,
-                        },
-                    )
-                ]
+                "invoice_date": fields.Date.today(),
             }
         )
         vendor_bill3.action_post()
@@ -369,7 +374,7 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_model": "account.move",
         }
         f = Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
+            self.payment_register_model.with_context(**ctx), view=self.register_view_id
         )
         payment_register = f.save()
         payment_register.action_create_payments()
@@ -387,7 +392,7 @@ class TestInvoicePaymentRetention(SavepointCase):
             "active_model": "account.move",
         }
         f = Form(
-            self.payment_register_model.with_context(ctx), view=self.register_view_id
+            self.payment_register_model.with_context(**ctx), view=self.register_view_id
         )
         payment_register = f.save()
         with self.assertRaises(UserError):
