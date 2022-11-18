@@ -10,7 +10,6 @@ class AccountMove(models.Model):
 
     payment_retention = fields.Selection(
         [("percent", "Percent"), ("amount", "Amount")],
-        string="Payment Retention",
         readonly=True,
         states={"draft": [("readonly", False)]},
         help="Suggested retention amount to be withheld on payment.\n"

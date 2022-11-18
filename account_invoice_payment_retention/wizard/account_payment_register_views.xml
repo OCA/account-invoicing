@@ -5,7 +5,7 @@
         <field name="model">account.payment.register</field>
         <field name="inherit_id" ref="account.view_account_payment_register_form" />
         <field name="arch" type="xml">
-            <field name="payment_method_id" position="after">
+            <field name="payment_method_line_id" position="after">
                 <label
                     for="retention_amount_currency"
                     attrs="{'invisible': [('retention_amount_currency', '=', 0)]}"
