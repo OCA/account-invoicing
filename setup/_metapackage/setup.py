@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo-addon-account_invoice_blocking>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_change_currency>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_check_picking_date>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_check_total>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_date_due>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_fiscal_position_update>=15.0dev,<15.1dev',
