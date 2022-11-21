@@ -25,20 +25,8 @@ msgid "Discount (Fixed)"
 msgstr ""
 
 #. module: account_invoice_fixed_discount
-#: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_move__display_name
-#: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_move_line__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: account_invoice_fixed_discount
 #: model:ir.model.fields,help:account_invoice_fixed_discount.field_account_move_line__discount_fixed
 msgid "Fixed amount discount."
-msgstr ""
-
-#. module: account_invoice_fixed_discount
-#: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_move__id
-#: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_move_line__id
-msgid "ID"
 msgstr ""
 
 #. module: account_invoice_fixed_discount
@@ -49,12 +37,6 @@ msgstr ""
 #. module: account_invoice_fixed_discount
 #: model:ir.model,name:account_invoice_fixed_discount.model_account_move_line
 msgid "Journal Item"
-msgstr ""
-
-#. module: account_invoice_fixed_discount
-#: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_move____last_update
-#: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_move_line____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: account_invoice_fixed_discount
