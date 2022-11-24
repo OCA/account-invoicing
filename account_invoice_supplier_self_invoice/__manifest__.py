@@ -3,7 +3,7 @@
 
 {
     "name": "Purchase Self Invoice",
-    "version": "14.0.1.0.1",
+    "version": "15.0.1.0.0",
     "author": "Creu Blanca, " "Odoo Community Association (OCA)",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
