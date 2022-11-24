@@ -20,6 +20,7 @@ class ResPartner(models.Model):
         comodel_name="ir.sequence",
         string="Self Billing sequence",
         ondelete="restrict",
+        groups="base.group_no_one",
         copy=False,
         company_dependent=True,
     )
@@ -32,27 +33,32 @@ class ResPartner(models.Model):
         company_dependent=True,
     )
 
-    def set_self_invoice(self):
-        for record in self:
-            record.self_invoice = not record.self_invoice
-            if record.self_invoice_sequence_id:
-                continue
-            if record.self_invoice:
-                record.self_invoice_sequence_id = (
-                    self.env["ir.sequence"]
-                    .sudo()
-                    .create(
-                        {
-                            "name": record.name + " Self invoice sequence",
-                            "implementation": "no_gap",
-                            "number_increment": 1,
-                            "padding": 4,
-                            "prefix": record._self_invoice_sequence_prefix(),
-                            "use_date_range": True,
-                            "number_next": 1,
-                        }
-                    )
+    def _get_self_invoice_number(self, date):
+        sequence = self.self_invoice_sequence_id
+        if not sequence:
+            sequence = self._set_self_invoice()
+        return sequence.sudo().with_context(ir_sequence_date=date).next_by_id()
+
+    def _set_self_invoice(self):
+        if not self.self_invoice:
+            return False
+        if not self.self_invoice_sequence_id:
+            self.self_invoice_sequence_id = (
+                self.env["ir.sequence"]
+                .sudo()
+                .create(
+                    {
+                        "name": self.name + " Self invoice sequence",
+                        "implementation": "no_gap",
+                        "number_increment": 1,
+                        "padding": 4,
+                        "prefix": self._self_invoice_sequence_prefix(),
+                        "use_date_range": True,
+                        "number_next": 1,
+                    }
                 )
+            )
+        return self.self_invoice_sequence_id
 
     def _self_invoice_sequence_prefix(self):
         self.ensure_one()
