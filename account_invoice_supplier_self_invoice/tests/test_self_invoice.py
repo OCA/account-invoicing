@@ -51,15 +51,12 @@ class TestSelfInvoice(common.TransactionCase):
 
     def test_check_set_self_invoice(self):
         self.assertFalse(self.partner.self_invoice)
-        self.partner.set_self_invoice()
-        self.assertTrue(self.partner.self_invoice)
-        self.assertNotEqual(self.partner.self_invoice_sequence_id, False)
-        sequence_id = self.partner.self_invoice_sequence_id.id
-        self.partner.set_self_invoice()
-        self.assertFalse(self.partner.self_invoice)
-        self.partner.set_self_invoice()
-        self.assertTrue(self.partner.self_invoice)
-        self.assertEqual(sequence_id, self.partner.self_invoice_sequence_id.id)
+        self.partner.self_invoice = True
+        self.assertFalse(self.partner.self_invoice_sequence_id)
+        self.invoice.partner_id = self.partner
+        self.invoice._onchange_partner_id()
+        self.invoice.action_post()
+        self.assertTrue(self.partner.self_invoice_sequence_id)
 
     def test_none_self_invoice(self):
         self.assertFalse(self.invoice.self_invoice_number)
@@ -67,7 +64,7 @@ class TestSelfInvoice(common.TransactionCase):
         self.assertFalse(self.invoice.self_invoice_number)
 
     def test_self_invoice(self):
-        self.partner.set_self_invoice()
+        self.partner.self_invoice = True
         self.assertFalse(self.simple_partner.self_invoice)
         self.assertFalse(self.invoice.can_self_invoice)
         self.invoice.partner_id = self.partner

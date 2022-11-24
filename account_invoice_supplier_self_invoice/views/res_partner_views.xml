@@ -7,18 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='accounting']/group" position="inside">
                 <group name="group_self_invoice" string="Self Billing">
-                    <button
-                        string="Supplier Approves Self Billing"
-                        type="object"
-                        name="set_self_invoice"
-                        class="oe_highlight mb-2"
-                        colspan="2"
-                        attrs="{'invisible': [('self_invoice_sequence_id', '!=', False)]}"
-                    />
-                    <field
-                        name="self_invoice"
-                        attrs="{'invisible': [('self_invoice_sequence_id', '=', False)]}"
-                    />
+                    <field name="self_invoice" />
                     <field
                         name="self_invoice_sequence_id"
                         readonly="1"
