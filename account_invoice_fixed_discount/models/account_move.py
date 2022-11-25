@@ -27,9 +27,9 @@ class AccountMove(models.Model):
     @api.model
     def create(self, vals):
         res = super().create(vals)
-        if any([move_line.discount_fixed for move_line in res.invoice_line_ids]):
-            res.with_context(check_move_validity=False)._recompute_tax_lines()
-            res.with_context(check_move_validity=False)._onchange_invoice_line_ids()
+        #todo impact in perf? 
+        res.with_context(check_move_validity=False)._recompute_tax_lines()
+        res.with_context(check_move_validity=False)._onchange_invoice_line_ids()
         return res
 
 
@@ -79,7 +79,11 @@ class AccountMoveLine(models.Model):
         move_type,
     ):
         if self.discount_fixed != 0:
-            discount = ((self.discount_fixed) / price_unit) * 100 or 0.00
+            if price_unit >0.00:
+                discount = ((self.discount_fixed) / price_unit) * 100 or 0.00
+            elif price_unit==0 :
+                price_unit = abs(self.discount_fixed)
+                discount = 0.00
         return super(AccountMoveLine, self)._get_price_total_and_subtotal_model(
             price_unit, quantity, discount, currency, product, partner, taxes, move_type
         )
@@ -97,7 +101,11 @@ class AccountMoveLine(models.Model):
         force_computation=False,
     ):
         if self.discount_fixed != 0:
-            discount = ((self.discount_fixed) / self.price_unit) * 100 or 0.00
+            if self.price_unit!=0 :
+                discount = ((self.discount_fixed) / self.price_unit) * 100 or 0.00
+            elif self.price_unit==0 :
+                self.price_unit = abs(self.discount_fixed)
+                self.discount_fixed = 0.00
         return super(AccountMoveLine, self)._get_fields_onchange_balance_model(
             quantity,
             discount,
@@ -115,13 +123,20 @@ class AccountMoveLine(models.Model):
         for vals in vals_list:
             if vals.get("discount_fixed"):
                 prev_discount.append(
-                    {"discount_fixed": vals.get("discount_fixed"), "discount": 0.00}
+                    {"discount_fixed": vals.get("discount_fixed"), "discount": 0.00, "price_unit":vals.get("price_unit")}
                 )
-                fixed_discount = (
-                    vals.get("discount_fixed") / vals.get("price_unit")
-                ) * 100
-                vals.update({"discount": fixed_discount, "discount_fixed": 0.00})
-            elif vals.get("discount"):
+                fixed_discount=vals.get("discount_fixed")
+                price_unit=vals.get("price_unit")
+                if price_unit!=0:
+                    fixed_discount = (
+                        vals.get("discount_fixed") / vals.get("price_unit")
+                    ) * 100
+                elif price_unit ==0:
+                    price_unit=-fixed_discount
+                    fixed_discount = 0
+                    
+                vals.update({"discount": fixed_discount, "discount_fixed": 0.00,"price_unit":price_unit})
+            elif vals.get("discount") or vals.get("price_unit") != vals.get("price_unit"):
                 prev_discount.append({"discount": vals.get("discount")})
         res = super(AccountMoveLine, self).create(vals_list)
         i = 0
