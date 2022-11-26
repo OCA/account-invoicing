@@ -1,0 +1,15 @@
+{
+    "name": "Sale order partner no autofollow",
+    "summary": "Sale order partner no autofollow",
+    "author": "Cetmix,Odoo Community Association (OCA)",
+    "version": "13.0.1.0.0",
+    "website": "https://github.com/OCA/account-invoicing",
+    "category": "Sale",
+    "depends": ["sale"],
+    "maintainers": ["dessanhemrayev", "CetmixGitDrone"],
+    "data": ["views/res_config_settings.xml"],
+    "license": "AGPL-3",
+    "installable": True,
+    "auto_install": False,
+    "application": False,
+}
