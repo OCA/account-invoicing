@@ -24,16 +24,12 @@ class StockPicking(models.Model):
 
     def _invoicing_at_shipping(self):
         self.ensure_one()
-        sales = self.env["sale.order"].browse()
-        # Filter out non invoicable sales order
-        for sale in self._get_sales_order_to_invoice():
-            if sale._get_invoiceable_lines():
-                sales |= sale
+        sales = self._get_sales_order_to_invoice()
         # Split invoice creation on partner sales grouping on invoice settings
         sales_one_invoice_per_order = sales.filtered(
             "partner_invoice_id.one_invoice_per_order"
         )
-        invoices = self.env["account.move"].browse()
+        invoices = self.env["account.move"]
         if sales_one_invoice_per_order:
             invoices |= sales_one_invoice_per_order._create_invoices(grouped=True)
         sales_many_invoice_per_order = sales - sales_one_invoice_per_order
@@ -44,6 +40,6 @@ class StockPicking(models.Model):
         return invoices or _("Nothing to invoice.")
 
     def _get_sales_order_to_invoice(self):
-        return self.mapped("move_lines.sale_line_id.order_id").filtered(
+        return self.move_ids.sale_line_id.order_id.filtered(
             lambda r: r._get_invoiceable_lines()
         )
