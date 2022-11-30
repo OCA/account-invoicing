@@ -12,7 +12,7 @@ class StockMove(models.Model):
         related to this stock move.
         """
         invoices = super()._get_related_invoices()
-        line_invoices = self.mapped("sale_line_id.order_id.invoice_ids").filtered(
+        line_invoices = self.sale_line_id.order_id.invoice_ids.filtered(
             lambda x: x.state == "posted"
         )
         invoices |= line_invoices
