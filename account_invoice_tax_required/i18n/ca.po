@@ -20,6 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_tax_required
+#. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
 msgid ""
@@ -28,6 +29,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_tax_required
+#. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
 msgid "Invoice has a line with product %s with no taxes"
