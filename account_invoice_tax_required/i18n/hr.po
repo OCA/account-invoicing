@@ -20,6 +20,7 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: account_invoice_tax_required
+#. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
 msgid ""
@@ -28,6 +29,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_tax_required
+#. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
 msgid "Invoice has a line with product %s with no taxes"
