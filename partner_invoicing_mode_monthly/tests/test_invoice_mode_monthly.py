@@ -1,8 +1,12 @@
 # Copyright 2020 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from odoo import tools
+from unittest import mock
+
 from odoo.tests.common import TransactionCase
+from odoo.tools import mute_logger
+
+from odoo.addons.partner_invoicing_mode_monthly.models.sale_order import SaleOrder
 
 
 class TestInvoiceModeMonthly(TransactionCase):
@@ -68,10 +72,40 @@ class TestInvoiceModeMonthly(TransactionCase):
     def deliver_invoice(self, sale_order):
         sale_order.action_confirm()
         for picking in sale_order.picking_ids:
-            for line in picking.move_lines:
-                line.quantity_done = line.product_uom_qty
+            for move in picking.move_ids:
+                move.quantity_done = move.product_uom_qty
             picking.action_assign()
-            picking.button_validate()
+            picking.with_context(test_queue_job_no_delay=True).button_validate()
+
+    def test_invoice_mode_monthly(self):
+        self.so1.payment_term_id = self.pt1.id
+        self.deliver_invoice(self.so1)
+        self.assertFalse(self.so1.invoice_ids)
+        with mute_logger("odoo.addons.queue_job.delay"):
+            self.SaleOrder.with_context(
+                test_queue_job_no_delay=True
+            ).generate_monthly_invoices()
+        self.assertTrue(self.so1.invoice_ids)
+        # No errors are raised when called without anything to invoice
+        with mute_logger("odoo.addons.queue_job.delay"):
+            self.SaleOrder.with_context(
+                test_queue_job_no_delay=True
+            ).generate_monthly_invoices()
+
+    def test_invoice_mode_monthly_cron(self):
+        cron = self.env.ref(
+            "partner_invoicing_mode_monthly.ir_cron_generate_monthly_invoice"
+        )
+        self.so1.payment_term_id = self.pt1.id
+        self.deliver_invoice(self.so1)
+        self.assertFalse(self.so1.invoice_ids)
+        with mute_logger("odoo.addons.queue_job.delay"), mock.patch.object(
+            SaleOrder,
+            "_company_monthly_invoicing_today",
+            return_value=self.so1.company_id,
+        ):
+            cron.with_context(test_queue_job_no_delay=True).ir_actions_server_id.run()
+        self.assertTrue(self.so1.invoice_ids)
 
     def test_saleorder_with_different_mode_term(self):
         """Check multiple sale order one partner diverse terms."""
@@ -79,7 +113,7 @@ class TestInvoiceModeMonthly(TransactionCase):
         self.deliver_invoice(self.so1)
         self.so2.payment_term_id = self.pt2.id
         self.deliver_invoice(self.so2)
-        with tools.mute_logger("odoo.addons.queue_job.models.base"):
+        with mute_logger("odoo.addons.queue_job.delay"):
             self.SaleOrder.with_context(
                 test_queue_job_no_delay=True
             ).generate_monthly_invoices(self.company)
@@ -93,7 +127,7 @@ class TestInvoiceModeMonthly(TransactionCase):
         """Check multiple sale order grouped in one invoice"""
         self.deliver_invoice(self.so1)
         self.deliver_invoice(self.so2)
-        with tools.mute_logger("odoo.addons.queue_job.models.base"):
+        with mute_logger("odoo.addons.queue_job.delay"):
             self.SaleOrder.with_context(
                 test_queue_job_no_delay=True
             ).generate_monthly_invoices(self.company)
@@ -109,7 +143,7 @@ class TestInvoiceModeMonthly(TransactionCase):
         self.partner.one_invoice_per_order = True
         self.deliver_invoice(self.so1)
         self.deliver_invoice(self.so2)
-        with tools.mute_logger("odoo.addons.queue_job.models.base"):
+        with mute_logger("odoo.addons.queue_job.delay"):
             self.SaleOrder.with_context(
                 test_queue_job_no_delay=True
             ).generate_monthly_invoices(self.company)
@@ -128,7 +162,7 @@ class TestInvoiceModeMonthly(TransactionCase):
         self.so2.partner_shipping_id = self.partner2
         self.deliver_invoice(self.so1)
         self.deliver_invoice(self.so2)
-        with tools.mute_logger("odoo.addons.queue_job.models.base"):
+        with mute_logger("odoo.addons.queue_job.delay"):
             self.SaleOrder.with_context(
                 test_queue_job_no_delay=True
             ).generate_monthly_invoices(self.company)
