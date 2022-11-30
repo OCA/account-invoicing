@@ -1,7 +1,7 @@
 # Copyright 2020 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from odoo import _, models
+from odoo import models
 
 
 class QueueJob(models.Model):
@@ -9,27 +9,7 @@ class QueueJob(models.Model):
 
     def related_action_open_invoice(self):
         """Open a form view with the invoice related to the job."""
-        self.ensure_one()
-        model_name = self.model_name
-        records = self.env[model_name].browse(self.record_ids).exists()
-        if not records:
-            return None
-        action = {
-            "name": _("Related Record"),
-            "type": "ir.actions.act_window",
-            "view_type": "form",
-            "view_mode": "form",
-            "res_model": records._name,
-        }
-        if len(records) == 1:
-            action["res_id"] = records.id
-        else:
-            action.update(
-                {
-                    "name": _("Related Records"),
-                    "view_mode": "tree,form",
-                    "view_id": "account.view_invoice_tree",
-                    "domain": [("id", "in", records.ids)],
-                }
-            )
+        action = self.related_action_open_record()
+        if len(self.records.exists()) > 1:
+            action["view_id"] = self.env.ref("account.view_out_invoice_tree").id
         return action
