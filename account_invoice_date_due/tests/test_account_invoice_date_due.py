@@ -87,10 +87,12 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
         ten_days_from_now = fields.Date.to_string(datetime.today() + timedelta(days=10))
         move_edit_form.invoice_date_due = ten_days_from_now
         self.move = move_edit_form.save()
+        # Read all fields as sudo to get them independently of the user.
+        # Other modules can add security groups in account.move fields
         self.assertEqual(
             self._compare_records(
                 old_move_state,
-                self.move.read()[0],
+                self.move.sudo().read()[0],
                 ignore={"write_uid", "message_is_follower"},
             ),
             # Assert only this field is changed
@@ -125,7 +127,7 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
         self.assertEqual(
             self._compare_records(
                 old_move_state,
-                self.move.read()[0],
+                self.move.sudo().read()[0],
                 ignore={"write_uid", "message_is_follower", "message_ids"},
             ),
             # Assert only this field is changed
@@ -162,7 +164,7 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
         self.assertEqual(
             self._compare_records(
                 old_move_state,
-                self.move.read()[0],
+                self.move.sudo().read()[0],
                 ignore={"write_uid", "message_is_follower", "message_ids"},
             ),
             # Assert only this field is changed
