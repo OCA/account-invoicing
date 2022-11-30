@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
-    <record forcecreate="True" id="ir_cron_generate_monthly_invoice" model="ir.cron">
+    <record id="ir_cron_generate_monthly_invoice" model="ir.cron">
         <field name="name">Generate Monthly Invoices</field>
         <field eval="True" name="active" />
         <field name="user_id" ref="base.user_root" />
