@@ -36,6 +36,7 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_fiscal_position_update
+#. odoo-python
 #: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid ""
@@ -45,6 +46,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_fiscal_position_update
+#. odoo-python
 #: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid ""
@@ -54,6 +56,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_fiscal_position_update
+#. odoo-python
 #: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid "Warning"
