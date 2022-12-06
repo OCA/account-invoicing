@@ -1,0 +1,159 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* contract_invoicing_grouping_criteria
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-06 11:04+0000\n"
+"PO-Revision-Date: 2022-12-06 11:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model,name:contract_invoicing_grouping_criteria.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model,name:contract_invoicing_grouping_criteria.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de config"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model,name:contract_invoicing_grouping_criteria.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model,name:contract_invoicing_grouping_criteria.model_contract_contract
+msgid "Contract"
+msgstr "Contrat"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria__field_ids
+msgid "Contract Grouping Fields"
+msgstr "Champs de regroupement du contrat"
+
+#. module: contract_invoicing_grouping_criteria
+#: model_terms:ir.ui.view,arch_db:contract_invoicing_grouping_criteria.res_config_settings_view_form
+msgid "Contract Invoicing"
+msgstr "Facturation de contrat"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria__line_field_ids
+msgid "Contract Line Grouping Fields"
+msgstr "Champs de regroupement de ligne du contrat"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.actions.act_window,name:contract_invoicing_grouping_criteria.action_contract_invoice_grouping_criteria
+#: model:ir.model,name:contract_invoicing_grouping_criteria.model_contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_fsm_location__contract_invoicing_grouping_criteria_id
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_fsm_person__contract_invoicing_grouping_criteria_id
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_brand__contract_invoicing_grouping_criteria_id
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_partner__contract_invoicing_grouping_criteria_id
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_users__contract_invoicing_grouping_criteria_id
+#: model:ir.ui.menu,name:contract_invoicing_grouping_criteria.menu_contract_invoice_grouping_criteria
+#: model_terms:ir.ui.view,arch_db:contract_invoicing_grouping_criteria.view_partner_property_form
+msgid "Contracts Invoicing Grouping Criteria"
+msgstr "Critères de regroupement de facturation de contrat"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: contract_invoicing_grouping_criteria
+#: model_terms:ir.ui.view,arch_db:contract_invoicing_grouping_criteria.res_config_settings_view_form
+msgid "Default Contract Grouping Criteria"
+msgstr "Critères de regroupement de contrat par défaut"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_company__default_contract_invoicing_grouping_criteria_id
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_config_settings__res_default_contract_invoicing_grouping_criteria_id
+msgid "Default Contracts Invoicing Grouping Criteria"
+msgstr "Critères de regroupement de facturation de contrat par défaut"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_contract__display_name
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria__display_name
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_company__display_name
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,help:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria__line_field_ids
+msgid "Fields used for grouping contracts when invoicing. "
+msgstr "Champs utilisés pour regrouper les contrats lors de la facturation."
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,help:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria__field_ids
+msgid ""
+"Fields used for grouping contracts when invoicing. Invoicing address, "
+"company and currency will always be applied."
+msgstr ""
+"Champs utilisés pour regrouper les contrats lors de la facturation. "
+"L'adresse de facturation, la société et la devise seront toujours appliqués."
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_contract__id
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria__id
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_company__id
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_config_settings__id
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,help:contract_invoicing_grouping_criteria.field_fsm_location__contract_invoicing_grouping_criteria_id
+#: model:ir.model.fields,help:contract_invoicing_grouping_criteria.field_fsm_person__contract_invoicing_grouping_criteria_id
+#: model:ir.model.fields,help:contract_invoicing_grouping_criteria.field_res_brand__contract_invoicing_grouping_criteria_id
+#: model:ir.model.fields,help:contract_invoicing_grouping_criteria.field_res_partner__contract_invoicing_grouping_criteria_id
+#: model:ir.model.fields,help:contract_invoicing_grouping_criteria.field_res_users__contract_invoicing_grouping_criteria_id
+msgid "If empty, company default (if any) or default will be applied."
+msgstr ""
+"Si laissé vide, la valeur par défaut sur la société (si elle existe) ou la "
+"valeur par défaut sera appliquée."
+
+#. module: contract_invoicing_grouping_criteria
+#: model_terms:ir.ui.view,arch_db:contract_invoicing_grouping_criteria.res_config_settings_view_form
+msgid "If empty, invoicing address, company and currency will be applied."
+msgstr ""
+"Si laissé vide, l'adresse de facturation, la société et la devise seront "
+"appliqués."
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_contract____last_update
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria____last_update
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_company____last_update
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria__write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria__write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: contract_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:contract_invoicing_grouping_criteria.field_contract_invoicing_grouping_criteria__name
+msgid "Name"
+msgstr "Nom"

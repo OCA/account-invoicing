@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Contract invoicing grouping criteria",
+    "name": "Contract Invoicing Grouping Criteria",
     "version": "14.0.1.0.1",
     "category": "Contract",
     "license": "AGPL-3",

@@ -16,5 +16,5 @@ class ResPartner(models.Model):
         to children.
         """
         return super()._commercial_fields() + [
-            "contract_invoicing_grouping_criteria_id"
+            "contract_invoicing_grouping_criteria_id",
         ]

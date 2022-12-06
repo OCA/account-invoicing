@@ -10,6 +10,7 @@
                     </h1>
                     <group>
                         <field name="field_ids" widget="many2many_tags" />
+                        <field name="line_field_ids" widget="many2many_tags" />
                     </group>
                 </sheet>
             </form>
@@ -21,6 +22,7 @@
             <tree>
                 <field name="name" />
                 <field name="field_ids" widget="many2many_tags" />
+                <field name="line_field_ids" widget="many2many_tags" />
             </tree>
         </field>
     </record>
@@ -44,8 +46,8 @@
     <menuitem
         id="menu_contract_invoice_grouping_criteria"
         action="action_contract_invoice_grouping_criteria"
-        name="Invoicing Grouping Criteria"
+        name="Contracts Invoicing Grouping Criteria"
         parent="account.account_management_menu"
-        sequence="100"
+        sequence="101"
     />
 </odoo>

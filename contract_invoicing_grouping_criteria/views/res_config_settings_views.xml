@@ -14,7 +14,7 @@
                         <div class="o_setting_left_pane" />
                         <div class="o_setting_right_pane">
                             <label
-                                string="Default Grouping Criteria"
+                                string="Default Contract Grouping Criteria"
                                 for="res_default_contract_invoicing_grouping_criteria_id"
                             />
                             <div
