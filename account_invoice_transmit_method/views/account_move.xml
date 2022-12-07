@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-    Copyright 2017-2020 Akretion France (http://www.akretion.com/)
+    Copyright 2017-2022 Akretion France (http://www.akretion.com/)
     @author: Alexis de Lattre <alexis.delattre@akretion.com>
-    Copyright 2021 Camptocamp SA (https://www.camptocamp.com).
+    Copyright 2021-2022 Camptocamp SA (https://www.camptocamp.com).
     @author: Iván Todorovich <ivan.todorovich@camptocamp.com>
     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 -->
@@ -30,12 +30,16 @@
                 />
             </field>
             <!--
-                Only show the "Send by Mail" button when the transmit method is E-mail or empty
+            button name="action_invoice_sent" string="Send and Print"
+            is used twice in the view:
+            one with class="oe_highlight" and a second one without highlight
+            The buttons should only be shown when the transmit method is
+            E-mail or empty
             -->
-            <field name="invoice_filter_type_domain" position="after">
-                <field name="transmit_method_code" invisible="1" />
-            </field>
-            <button name="action_invoice_sent" position="attributes">
+            <xpath
+                expr="//button[@name='action_invoice_sent' and hasclass('oe_highlight')]"
+                position="attributes"
+            >
                 <attribute name="attrs" operation="update">
                     {
                         'invisible': [
@@ -47,7 +51,25 @@
                         ],
                     }
                 </attribute>
-            </button>
+            </xpath>
+            <xpath
+                expr="//button[@name='action_invoice_sent' and not(hasclass('oe_highlight'))]"
+                position="attributes"
+            >
+            <attribute name="attrs" operation="update">{
+                        'invisible': [
+                            '|', '|', '|',
+                            ('state', '!=', 'posted'),
+                            ('is_move_sent', '=', False),
+                            ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')),
+                            ('transmit_method_code', 'not in', ('mail', False)),
+                        ],
+                    }</attribute>
+            </xpath>
+            <field name="invoice_filter_type_domain" position="after">
+                <field name="transmit_method_code" invisible="1" />
+            </field>
         </field>
     </record>
+
 </odoo>
