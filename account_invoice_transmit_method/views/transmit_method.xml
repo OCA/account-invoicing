@@ -10,6 +10,12 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
                     <div class="oe_title">
                         <label for="name" />
                         <h1><field name="name" /></h1>
@@ -20,8 +26,8 @@
                             <field name="active" invisible="True" />
                         </group>
                         <group name="options">
-                            <field name="customer_ok" />
-                            <field name="supplier_ok" />
+                            <field name="customer_ok" widget="boolean_toggle" />
+                            <field name="supplier_ok" widget="boolean_toggle" />
                         </group>
                     </group>
                 </sheet>
@@ -32,10 +38,11 @@
         <field name="model">transmit.method</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="sequence" widget="handle" />
                 <field name="name" />
                 <field name="code" />
-                <field name="customer_ok" />
-                <field name="supplier_ok" />
+                <field name="customer_ok" widget="boolean_toggle" />
+                <field name="supplier_ok" widget="boolean_toggle" />
                 <field name="active" invisible="True" />
             </tree>
         </field>
@@ -59,6 +66,7 @@
                     string="Selectable on Vendors"
                     domain="[('supplier_ok', '=', True)]"
                 />
+                <separator />
                 <filter
                     name="active"
                     string="Archived"
