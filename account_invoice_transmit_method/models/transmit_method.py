@@ -8,6 +8,7 @@ from odoo import fields, models
 class TransmitMethod(models.Model):
     _name = "transmit.method"
     _description = "Transmit Method of a document"
+    _order = "sequence, id"
 
     name = fields.Char(required=True, translate=True)
     code = fields.Char(
@@ -15,7 +16,8 @@ class TransmitMethod(models.Model):
         help="Do not modify the code of an existing Transmit Method "
         "because it may be used to identify a particular transmit method.",
     )
-    active = fields.Boolean("active", default=True)
+    active = fields.Boolean(default=True)
+    sequence = fields.Integer(default=10)
     customer_ok = fields.Boolean(string="Selectable on Customers", default=True)
     supplier_ok = fields.Boolean(string="Selectable on Vendors", default=True)
 
