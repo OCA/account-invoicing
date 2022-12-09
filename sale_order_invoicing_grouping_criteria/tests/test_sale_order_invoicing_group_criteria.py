@@ -5,47 +5,58 @@ from odoo.tests import TransactionCase
 
 
 class TestSaleOrderInvoicingGroupingCriteria(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.env = self.env(context=dict(self.env.context, tracking_disable=True))
-        self.partner = self.env["res.partner"].create({"name": "Test partner"})
-        self.partner2 = self.env["res.partner"].create({"name": "Other partner"})
-        self.product = self.env["product.product"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                mail_create_nolog=True,
+                mail_create_nosubscribe=True,
+                mail_notrack=True,
+                no_reset_password=True,
+                tracking_disable=True,
+            )
+        )
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
+        cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
+        cls.partner2 = cls.env["res.partner"].create({"name": "Other partner"})
+        cls.product = cls.env["product.product"].create(
             {"name": "Test product", "type": "service", "invoice_policy": "order"}
         )
-        self.GroupingCriteria = self.env["sale.invoicing.grouping.criteria"]
-        self.grouping_criteria = self.GroupingCriteria.create(
+        cls.GroupingCriteria = cls.env["sale.invoicing.grouping.criteria"]
+        cls.grouping_criteria = cls.GroupingCriteria.create(
             {
                 "name": "Delivery Address",
                 "field_ids": [
-                    (4, self.env.ref("sale.field_sale_order__partner_shipping_id").id)
+                    (4, cls.env.ref("sale.field_sale_order__partner_shipping_id").id)
                 ],
             }
         )
-        self.order = self.env["sale.order"].create(
+        cls.order = cls.env["sale.order"].create(
             {
-                "partner_id": self.partner.id,
-                "partner_shipping_id": self.partner.id,
-                "partner_invoice_id": self.partner.id,
-                "pricelist_id": self.partner.property_product_pricelist.id,
+                "partner_id": cls.partner.id,
+                "partner_shipping_id": cls.partner.id,
+                "partner_invoice_id": cls.partner.id,
+                "pricelist_id": cls.partner.property_product_pricelist.id,
                 "order_line": [
                     (
                         0,
                         0,
                         {
-                            "name": self.product.name,
-                            "product_id": self.product.id,
+                            "name": cls.product.name,
+                            "product_id": cls.product.id,
                             "price_unit": 20,
                             "product_uom_qty": 1,
-                            "product_uom": self.product.uom_id.id,
+                            "product_uom": cls.product.uom_id.id,
                         },
                     )
                 ],
             }
         )
-        self.order.action_confirm()
-        self.order2 = self.order.copy()
-        self.order2.action_confirm()
+        cls.order.action_confirm()
+        cls.order2 = cls.order.copy()
+        cls.order2.action_confirm()
 
     def test_invoicing_same_data(self):
         invoice_ids = (self.order + self.order2)._create_invoices()
