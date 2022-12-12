@@ -23,7 +23,7 @@ Purchase Self Invoice
     :target: https://runbot.odoo-community.org/runbot/95/15.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This module allows the configuration of the suppliers in order to define self invoices.
 Self invoices are created by the customer in the name of the provider.
@@ -37,10 +37,11 @@ The provider must allow the customer to create them.
 Usage
 =====
 
-#. Go to 'Accounting/Invoicing > Settings > Vendor Bills > Default Self Billing prefix'
-   and define a new prefix for Self Billing Invoices
+#. Go to 'Accounting/Invoicing > Settings > Vendor Bills > Self Billing' and define a new
+   prefix for Self Billing Invoices
 #. Go to 'Accounting/Invoicing > Vendors > Vendors'
-#. Modify a Provider and click 'Set Self Invoice' inside the page 'Invoicing'
+#. Modify a Provider and click 'Set Self Invoice' inside the page 'Sales &
+   Purchases'
 #. Go to 'Accounting/Invoicing > Vendors > Bills'
 #. Create an invoice for the provider and validate it
 #. The self invoice is accessible through the normal print button
@@ -65,7 +66,7 @@ Credits
 Authors
 ~~~~~~~
 
-* Creu Blanca
+* CreuBlanca
 * Moduon
 
 Contributors
