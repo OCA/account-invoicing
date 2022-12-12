@@ -20,6 +20,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_search_by_reference>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_section_sale_order>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_supplier_ref_unique>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_supplier_self_invoice>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_tax_note>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_tax_required>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_transmit_method>=15.0dev,<15.1dev',
