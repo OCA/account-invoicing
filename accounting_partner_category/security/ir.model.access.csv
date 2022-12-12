@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_accounting_partner_category_rw_accountant,Read/write access account.partner.category,model_accounting_partner_category,account.group_account_invoice,1,1,1,1
+access_accounting_partner_category_r_account_ro,Read access account.partner.category,model_accounting_partner_category,account.group_account_readonly,1,0,0,0
