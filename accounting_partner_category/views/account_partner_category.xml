@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_accounting_partner_category_list" model="ir.ui.view">
+            <field name="name">Accounting contact Tags</field>
+            <field name="model">accounting.partner.category</field>
+            <field eval="6" name="priority" />
+            <field name="arch" type="xml">
+                <tree string="Contact Tags" editable="top">
+                    <field name="name" />
+                    <field name="color" widget="color_picker" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="accounting_partner_category_view_search" model="ir.ui.view">
+            <field name="name">accounting.partner.category.view.search</field>
+            <field name="model">accounting.partner.category</field>
+            <field name="arch" type="xml">
+                <search string="Search Partner Category">
+                    <field name="name" />
+                    <separator />
+                    <filter
+                        string="Archived"
+                        name="inactive"
+                        domain="[('active', '=', False)]"
+                    />
+                </search>
+            </field>
+        </record>
+
+        <record id="action_accounting_partner_category" model="ir.actions.act_window">
+            <field name="name">Accounting contact Tags</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">accounting.partner.category</field>
+            <field
+                name="search_view_id"
+                ref="accounting_partner_category_view_search"
+            />
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new accounting partner tag
+              </p><p>
+                Manage accounting contact tags to better classify them for tracking, filter and analysis purposes.
+              </p>
+            </field>
+        </record>
+
+
+
+        <menuitem
+            name="Accounting contact Tags"
+            id="menu_accounting_partner_category"
+            sequence="90"
+            action="action_accounting_partner_category"
+            parent="account.account_account_menu"
+        />
+    </data>
+</odoo>

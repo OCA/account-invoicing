@@ -1,0 +1,169 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* accounting_partner_category
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: accounting_partner_category
+#: model:ir.actions.act_window,name:accounting_partner_category.action_accounting_partner_category
+#: model:ir.ui.menu,name:accounting_partner_category.menu_accounting_partner_category
+msgid "Accounting contact Tags"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_res_partner__accounting_category_ids
+#: model:ir.model.fields,field_description:accounting_partner_category.field_res_users__accounting_category_ids
+msgid "Accounting tags"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__active
+msgid "Active"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.accounting_partner_category_view_search
+msgid "Archived"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__color
+msgid "Color Index"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model,name:accounting_partner_category.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.view_accounting_partner_category_list
+msgid "Contact Tags"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model_terms:ir.actions.act_window,help:accounting_partner_category.action_accounting_partner_category
+msgid "Create a new accounting partner tag"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_move__display_name
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__display_name
+#: model:ir.model.fields,field_description:accounting_partner_category.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_move__id
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__id
+#: model:ir.model.fields,field_description:accounting_partner_category.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model,name:accounting_partner_category.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_move____last_update
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category____last_update
+#: model:ir.model.fields,field_description:accounting_partner_category.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model_terms:ir.actions.act_window,help:accounting_partner_category.action_accounting_partner_category
+msgid ""
+"Manage accounting contact tags to better classify them for tracking, filter "
+"and analysis purposes."
+msgstr ""
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.partner_view_accounting_category
+msgid "Misc"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model,name:accounting_partner_category.model_accounting_partner_category
+msgid "Partner accounting Tags"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.accounting_partner_category_view_search
+msgid "Search Partner Category"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__name
+msgid "Tag Name"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.view_account_invoice_filter
+msgid "Tag absent"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.view_account_invoice_filter
+msgid "Tag present"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_bank_statement_line__category_ids
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_move__category_ids
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_payment__category_ids
+msgid "Tags"
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,help:accounting_partner_category.field_account_bank_statement_line__category_ids
+#: model:ir.model.fields,help:accounting_partner_category.field_account_move__category_ids
+#: model:ir.model.fields,help:accounting_partner_category.field_account_payment__category_ids
+msgid "Tags when partner was added to the invoice."
+msgstr ""
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.partner_view_accounting_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.view_move_form
+msgid "Tags..."
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,help:accounting_partner_category.field_accounting_partner_category__active
+msgid "The active field allows you to hide the category without removing it."
+msgstr ""
+
+#. module: accounting_partner_category
+#: model:ir.model.constraint,message:accounting_partner_category.constraint_accounting_partner_category_name_uniq
+msgid "The name must be unique!"
+msgstr ""
