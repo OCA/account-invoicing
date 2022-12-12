@@ -54,14 +54,14 @@ class AccountMove(models.Model):
             move.set_self_invoice = partner_self_invoice
             move.can_self_invoice = partner_self_invoice
 
-    def action_post(self):
+    def _post(self, soft=True):
         # Set today for invoice date in self invoices
         self.filtered(
             lambda inv: inv.is_purchase_document(False)
             and inv.set_self_invoice
             and not inv.invoice_date
         ).invoice_date = fields.Date.today()
-        res = super().action_post()
+        res = super()._post(soft=soft)
         for invoice in self:
             partner = invoice.with_company(
                 invoice.company_id or self.env.company,
