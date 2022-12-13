@@ -60,6 +60,7 @@ setuptools.setup(
         'odoo14-addon-account_move_tier_validation',
         'odoo14-addon-account_move_tier_validation_forward',
         'odoo14-addon-account_receipt_print',
+        'odoo14-addon-account_refund_payment_term',
         'odoo14-addon-product_supplierinfo_for_customer_invoice',
         'odoo14-addon-purchase_stock_picking_return_invoicing',
         'odoo14-addon-sale_line_refund_to_invoice_qty',
