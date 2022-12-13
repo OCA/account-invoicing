@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!-- Copyright (C) 2022 Foodles (<http://www.foodles.com>).
+     @author Pierre Verkest <pierreverkest84@gmail.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field name="name">res.partner.property.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="priority">3</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <field name="property_payment_term_id" position="after">
+                <field
+                    string="Refund payment Terms"
+                    name="property_refund_payment_term_id"
+                    widget="selection"
+                    groups="account.group_account_invoice,account.group_account_readonly"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
