@@ -2,46 +2,49 @@
 <odoo>
     <!-- Self invoice layout view -->
     <template
-        id="external_layout_striped_self_invoice"
-        inherit_id="web.external_layout_striped"
+        id="external_layout_clean_self_invoice"
+        inherit_id="web.external_layout_clean"
         primary="True"
         priority="99"
     >
         <!-- HEADER -->
         <xpath
-            expr="//div[contains(@t-attf-class,'header')]/div[hasclass('o_background_header')]"
+            expr="//div[contains(@t-attf-class,'header')]/div[hasclass('o_clean_header')]"
             position="replace"
         >
-            <div class="o_background_header container-fluid">
-                <t
-                    t-set="image_offset"
-                    t-value="o.partner_id.image_1024 and 'offset-2' or ''"
-                />
-                <img
-                    t-if="o.partner_id.image_1024"
-                    t-att-src="image_data_uri(o.partner_id.image_1024)"
-                    class="float-left p-0"
-                    alt="Logo"
-                />
-                <div t-if="o.partner_id" t-attf-class="'col-5 ' + {{image_offset}}">
-                    <span
-                        t-field="o.partner_id"
-                        t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'
+            <div class="row">
+                <div class="col-6">
+                    <img
+                        t-if="o.partner_id.image_1024"
+                        t-att-src="image_data_uri(o.partner_id.image_1024)"
+                        alt="Logo"
                     />
-                    <t t-if="o.partner_id.vat">
-                        <t
-                            t-if="company.account_fiscal_country_id.vat_label"
-                            t-esc="company.account_fiscal_country_id.vat_label"
-                        />
-                        <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat" />
-                    </t>
                 </div>
-                <div class="clearfix mb8" />
+                <div class="col-5 offset-1" name="company_address">
+                    <ul class="list-unstyled">
+                        <strong><li t-if="o.partner_id.name"><span
+                                    t-field="o.partner_id.name"
+                                /></li></strong>
+                        <li t-if="o.partner_id.vat"><t
+                                t-esc="o.partner_id.country_id.vat_label or 'Tax ID'"
+                            />: <span t-field="o.partner_id.vat" /></li>
+                        <li t-if="o.partner_id.phone">Tel: <span
+                                class="o_force_ltr"
+                                t-field="o.partner_id.phone"
+                            /></li>
+                        <li t-if="o.partner_id.email"><span
+                                t-field="o.partner_id.email"
+                            /></li>
+                        <li t-if="o.partner_id.website"><span
+                                t-field="o.partner_id.website"
+                            /></li>
+                    </ul>
+                </div>
             </div>
         </xpath>
         <!-- FOOTER -->
         <xpath
-            expr="//div[contains(@t-attf-class,'footer')]/div/ul/div"
+            expr="//div[contains(@t-attf-class,'footer')]/div/div/span"
             position="replace"
         >
             <div t-field="o.partner_id.self_invoice_report_footer" />
@@ -58,12 +61,15 @@
             <t t-if="company.external_report_layout_id">
                 <t
                     t-if="is_self_invoice"
-                    t-call="account_invoice_supplier_self_invoice.external_layout_striped_self_invoice"
+                    t-call="account_invoice_supplier_self_invoice.external_layout_clean_self_invoice"
                 >
-                    <t t-out="0" />
+                    <t t-raw="0" />
                 </t>
-                <t t-else="" t-call="{{company.external_report_layout_id.sudo().key}}">
-                    <t t-out="0" />
+                <t
+                    t-elif="company.external_report_layout_id"
+                    t-call="{{company.external_report_layout_id.sudo().key}}"
+                >
+                    <t t-raw="0" />
                 </t>
             </t>
         </xpath>
@@ -71,12 +77,12 @@
             <t t-else="else">
                 <t
                     t-if="is_self_invoice"
-                    t-call="account_invoice_supplier_self_invoice.external_layout_striped_self_invoice"
+                    t-call="account_invoice_supplier_self_invoice.external_layout_clean_self_invoice"
                 >
-                    <t t-out="0" />
+                    <t t-raw="0" />
                 </t>
                 <t t-else="" t-call="web.external_layout_standard">
-                    <t t-out="0" />
+                    <t t-raw="0" />
                 </t>
             </t>
         </xpath>
