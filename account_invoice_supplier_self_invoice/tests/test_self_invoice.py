@@ -8,6 +8,7 @@ from odoo.tests import common
 class TestSelfInvoice(common.TransactionCase):
     def setUp(self):
         res = super(TestSelfInvoice, self).setUp()
+        self.user = self.env.ref("base.user_admin")
         self.partner = self.env["res.partner"].create(
             {"name": "Partner", "supplier_rank": 1}
         )
@@ -72,6 +73,6 @@ class TestSelfInvoice(common.TransactionCase):
         self.assertTrue(self.invoice.can_self_invoice)
         self.assertTrue(self.invoice.set_self_invoice)
         self.invoice.invoice_date = None
-        self.invoice.action_post()
+        self.invoice.with_user(self.user.id).action_post()
         self.assertTrue(self.invoice.invoice_date)
         self.assertTrue(self.invoice.self_invoice_number)
