@@ -43,7 +43,7 @@ class ResPartner(models.Model):
         if not self.self_invoice:
             return False
         if not self.self_invoice_sequence_id:
-            self.self_invoice_sequence_id = (
+            self.sudo().self_invoice_sequence_id = (
                 self.env["ir.sequence"]
                 .sudo()
                 .create(
