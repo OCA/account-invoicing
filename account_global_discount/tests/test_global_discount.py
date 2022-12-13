@@ -373,3 +373,105 @@ class TestGlobalDiscount(common.TransactionCase):
         lines = invoice.line_ids
         line_15 = lines.filtered(lambda x: x.global_discount_item and x.tax_ids == tax)
         self.assertAlmostEqual(line_15.debit, 100)
+
+    def test_10_customer_invoice_currency(self):
+        """Multi-currency"""
+        eur = self.env.ref("base.EUR")
+        usd = self.env.ref("base.USD")
+        self.assertEqual(self.env.user.company_id.currency_id, usd)
+        with Form(self.invoice) as invoice_form:
+            invoice_form.currency_id = eur
+        invoice = invoice_form.save()
+        self.assertAlmostEqual(invoice.amount_total, 230.0)
+        self.assertAlmostEqual(invoice.amount_untaxed, 200.0)
+        self.assertAlmostEqual(invoice.amount_global_discount, 0)
+        base_line = invoice.line_ids.filtered(
+            lambda l: l.tax_ids and not l.global_discount_item
+        )
+        self.assertEqual(len(base_line), 1)
+        self.assertAlmostEqual(
+            base_line.balance,
+            eur._convert(
+                invoice.amount_untaxed, usd, self.env.user.company_id, invoice.date
+            ),
+        )
+        tax_line = invoice.line_ids.filtered(
+            lambda l: l.tax_line_id and not l.global_discount_item
+        )
+        self.assertEqual(len(tax_line), 1)
+        tax_line_balance_before_discount = tax_line.balance
+        self.assertAlmostEqual(
+            tax_line_balance_before_discount,
+            eur._convert(
+                invoice.amount_untaxed * (self.tax.amount / 100),
+                usd,
+                self.env.user.company_id,
+                invoice.date,
+            ),
+        )
+        self.assertAlmostEqual(
+            tax_line.tax_base_amount,
+            eur._convert(
+                invoice.amount_untaxed,
+                usd,
+                self.env.user.company_id,
+                invoice.date,
+            ),
+        )
+        discount_line = invoice.line_ids.filtered("global_discount_item")
+        self.assertFalse(discount_line)
+        with Form(self.invoice) as invoice_form:
+            invoice_form.global_discount_ids.add(self.global_discount_1)
+        invoice = invoice_form.save()
+        # Check that when we add a global discount it will be based on the
+        # correct currency
+        self.assertAlmostEqual(invoice.amount_total, 184)
+        self.assertAlmostEqual(invoice.amount_untaxed, 160.0)
+        self.assertAlmostEqual(invoice.amount_global_discount, -40.0)
+        base_line = invoice.line_ids.filtered(
+            lambda l: l.tax_ids and not l.global_discount_item
+        )
+        self.assertEqual(len(base_line), 1)
+        self.assertAlmostEqual(
+            base_line.balance,
+            eur._convert(
+                invoice.amount_untaxed_before_global_discounts,
+                usd,
+                self.env.user.company_id,
+                invoice.date,
+            ),
+        )
+        tax_line = invoice.line_ids.filtered(
+            lambda l: l.tax_line_id and not l.global_discount_item
+        )
+        self.assertEqual(len(tax_line), 1)
+        self.assertAlmostEqual(
+            tax_line.tax_base_amount,
+            eur._convert(
+                invoice.amount_untaxed,
+                usd,
+                self.env.user.company_id,
+                invoice.date,
+            ),
+        )
+        self.assertAlmostEqual(
+            tax_line.balance,
+            eur._convert(
+                invoice.amount_untaxed * (self.tax.amount / 100),
+                usd,
+                self.env.user.company_id,
+                invoice.date,
+            ),
+        )
+        self.assertLess(tax_line.balance, tax_line_balance_before_discount)
+        discount_line = invoice.line_ids.filtered("global_discount_item")
+        self.assertEqual(len(discount_line), 1)
+        self.assertAlmostEqual(
+            discount_line.balance,
+            eur._convert(
+                invoice.amount_global_discount,
+                usd,
+                self.env.user.company_id,
+                invoice.date,
+            ),
+        )

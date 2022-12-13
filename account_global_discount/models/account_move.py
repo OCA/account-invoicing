@@ -90,7 +90,17 @@ class AccountMove(models.Model):
         )
         for tax_line in tax_lines:
             base = tax_line.tax_base_amount
-            tax_line.base_before_global_discounts = base
+            if tax_line.currency_id != tax_line.company_currency_id:
+                tax_line.base_before_global_discounts = (
+                    tax_line.company_currency_id._convert(
+                        base,
+                        tax_line.currency_id,
+                        tax_line.company_id,
+                        tax_line.date or fields.Date.context_today(self),
+                    )
+                )
+            else:
+                tax_line.base_before_global_discounts = base
             amount = tax_line.balance
             for discount in self.global_discount_ids:
                 base = discount._get_global_discount_vals(base)["base_discounted"]
@@ -100,6 +110,13 @@ class AccountMove(models.Model):
             tax_line.credit = amount < 0.0 and -amount or 0.0
             # Apply onchanges
             tax_line._onchange_balance()
+            if tax_line.currency_id != tax_line.company_currency_id:
+                tax_line.amount_currency = tax_line.company_currency_id._convert(
+                    tax_line.balance,
+                    tax_line.currency_id,
+                    tax_line.company_id,
+                    tax_line.date or fields.Date.context_today(self),
+                )
             tax_line._onchange_amount_currency()
 
     def _prepare_global_discount_vals(self, global_discount, base, tax_ids):
@@ -184,6 +201,14 @@ class AccountMove(models.Model):
         for discount in self.invoice_global_discount_ids.filtered("discount"):
             sign = -1 if self.move_type in {"in_invoice", "out_refund"} else 1
             disc_amount = sign * discount.discount_amount
+            disc_amount_company_currency = disc_amount
+            if self.currency_id != self.company_id.currency_id:
+                disc_amount_company_currency = self.currency_id._convert(
+                    disc_amount,
+                    self.company_id.currency_id,
+                    self.company_id,
+                    self.date or fields.Date.context_today(self),
+                )
             create_method(
                 {
                     "global_discount_item": True,
@@ -192,8 +217,12 @@ class AccountMove(models.Model):
                     "move_id": self.id,
                     "name": "%s - %s"
                     % (discount.name, ", ".join(discount.tax_ids.mapped("name"))),
-                    "debit": disc_amount > 0.0 and disc_amount or 0.0,
-                    "credit": disc_amount < 0.0 and -disc_amount or 0.0,
+                    "debit": disc_amount_company_currency > 0.0
+                    and disc_amount_company_currency
+                    or 0.0,
+                    "credit": disc_amount_company_currency < 0.0
+                    and -disc_amount_company_currency
+                    or 0.0,
                     "amount_currency": (disc_amount > 0.0 and disc_amount or 0.0)
                     - (disc_amount < 0.0 and -disc_amount or 0.0),
                     "account_id": discount.account_id.id,
@@ -201,6 +230,7 @@ class AccountMove(models.Model):
                     "exclude_from_invoice_tab": True,
                     "tax_ids": [(4, x.id) for x in discount.tax_ids],
                     "partner_id": self.commercial_partner_id.id,
+                    "currency_id": self.currency_id.id,
                 }
             )
 
