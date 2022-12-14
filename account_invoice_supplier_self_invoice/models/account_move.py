@@ -21,6 +21,7 @@ class AccountMove(models.Model):
     set_self_invoice = fields.Boolean(
         help="If enabled, create a Self-Bill Invoice when validating.",
         compute="_compute_self_invoice",
+        readonly=False,
         store=True,
     )
     can_self_invoice = fields.Boolean(
@@ -49,7 +50,7 @@ class AccountMove(models.Model):
                 move.is_purchase_document(False)
                 and move.with_company(
                     move.company_id or self.env.company,
-                ).partner_id.self_invoice
+                ).partner_id.commercial_partner_id.self_invoice
             )
             move.set_self_invoice = partner_self_invoice
             move.can_self_invoice = partner_self_invoice
@@ -65,7 +66,7 @@ class AccountMove(models.Model):
         for invoice in self:
             partner = invoice.with_company(
                 invoice.company_id or self.env.company,
-            ).partner_id
+            ).partner_id.commercial_partner_id
             if (
                 partner.self_invoice
                 and invoice.is_purchase_document(False)
