@@ -72,7 +72,7 @@ class AccountMove(models.Model):
                 and invoice.set_self_invoice
                 and not invoice.self_invoice_number
             ):
-                self_invoice_number = partner._get_self_invoice_number(invoice.date)
+                self_invoice_number = partner._get_self_invoice_number(invoice)
                 invoice.ref = self_invoice_number
                 invoice.self_invoice_number = self_invoice_number
         return res

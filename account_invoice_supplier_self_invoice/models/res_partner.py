@@ -24,6 +24,14 @@ class ResPartner(models.Model):
         copy=False,
         company_dependent=True,
     )
+    self_invoice_refund_sequence_id = fields.Many2one(
+        comodel_name="ir.sequence",
+        string="Self Billing Refund sequence",
+        ondelete="restrict",
+        groups="base.group_no_one",
+        copy=False,
+        company_dependent=True,
+    )
     self_invoice_report_footer = fields.Text(
         string="Self Billing footer",
         default="Invoiced by the recipient",
@@ -33,34 +41,49 @@ class ResPartner(models.Model):
         company_dependent=True,
     )
 
-    def _get_self_invoice_number(self, date):
-        sequence = self.self_invoice_sequence_id
+    def _get_self_invoice_number(self, invoice):
+        is_refund = invoice.move_type == "in_refund"
+        sequence = (
+            self.self_invoice_sequence_id
+            if not is_refund
+            else self.self_invoice_refund_sequence_id
+        )
         if not sequence:
-            sequence = self._set_self_invoice()
-        return sequence.sudo().with_context(ir_sequence_date=date).next_by_id()
+            sequence = self._set_self_invoice(refund=is_refund)
+        return (
+            sequence.sudo()
+            .with_context(ir_sequence_date=invoice.invoice_date)
+            .next_by_id()
+        )
 
-    def _set_self_invoice(self):
+    def _set_self_invoice(self, refund=False):
         if not self.self_invoice:
             return False
-        if not self.self_invoice_sequence_id:
-            self.sudo().self_invoice_sequence_id = (
+        field = (
+            "self_invoice_refund_sequence_id" if refund else "self_invoice_sequence_id"
+        )
+        if not self[field]:
+            self.sudo()[field] = (
                 self.env["ir.sequence"]
                 .sudo()
                 .create(
                     {
-                        "name": self.name + " Self invoice sequence",
+                        "name": self.name
+                        + " Self invoice "
+                        + ("refund " if refund else "")
+                        + "sequence",
                         "implementation": "no_gap",
                         "number_increment": 1,
                         "padding": 4,
-                        "prefix": self._self_invoice_sequence_prefix(),
+                        "prefix": self._self_invoice_sequence_prefix(refund=refund),
                         "use_date_range": True,
                         "number_next": 1,
                     }
                 )
             )
-        return self.self_invoice_sequence_id
+        return self[field]
 
-    def _self_invoice_sequence_prefix(self):
+    def _self_invoice_sequence_prefix(self, refund=False):
         self.ensure_one()
         if not self.env.company.self_invoice_prefix:
             raise exceptions.UserError(
@@ -68,4 +91,5 @@ class ResPartner(models.Model):
             )
         first_prefix = self.env.company.self_invoice_prefix
         second_prefix = (self.ref or "").strip().upper() or "SI"
-        return f"{first_prefix}/{second_prefix}/INV/%(range_year)s/"
+        ref = "RINV" if refund else "INV"
+        return f"{first_prefix}/{second_prefix}/{ref}/%(range_year)s/"
