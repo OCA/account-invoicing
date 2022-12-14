@@ -216,6 +216,12 @@ msgid "Self Billing"
 msgstr "Auto Facturación"
 
 #. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_refund_sequence_id
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users__self_invoice_refund_sequence_id
+msgid "Self Billing Refund sequence"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_report_footer
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users__self_invoice_report_footer
 msgid "Self Billing footer"
