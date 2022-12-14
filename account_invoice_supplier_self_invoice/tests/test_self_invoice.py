@@ -28,6 +28,14 @@ class TestSelfInvoice(common.TransactionCase):
                 "invoice_date": "2016-03-12",
             }
         )
+        self.refund = self.env["account.move"].create(
+            {
+                "company_id": main_company.id,
+                "partner_id": self.simple_partner.id,
+                "move_type": "in_refund",
+                "invoice_date": "2016-03-12",
+            }
+        )
         product = self.env["product.product"].create({"name": "Lemonade"})
         account = self.env["account.account"].create(
             {
@@ -47,7 +55,18 @@ class TestSelfInvoice(common.TransactionCase):
                 # "price_unit": 20,
             }
         )
+        self.env["account.move.line"].create(
+            {
+                "move_id": self.refund.id,
+                "product_id": product.id,
+                "quantity": 1,
+                "account_id": account.id,
+                "name": "Test product",
+                # "price_unit": 20,
+            }
+        )
         self.invoice._onchange_invoice_line_ids()
+        self.refund._onchange_invoice_line_ids()
         return res
 
     def test_check_set_self_invoice(self):
@@ -58,6 +77,19 @@ class TestSelfInvoice(common.TransactionCase):
         self.invoice._onchange_partner_id()
         self.invoice.action_post()
         self.assertTrue(self.partner.self_invoice_sequence_id)
+        self.assertRegex(self.invoice.ref, r"/INV/")
+        self.assertFalse(self.partner.self_invoice_refund_sequence_id)
+
+    def test_check_set_self_invoice_refund(self):
+        self.assertFalse(self.partner.self_invoice)
+        self.partner.self_invoice = True
+        self.assertFalse(self.partner.self_invoice_sequence_id)
+        self.refund.partner_id = self.partner
+        self.refund._onchange_partner_id()
+        self.refund.action_post()
+        self.assertFalse(self.partner.self_invoice_sequence_id)
+        self.assertRegex(self.refund.ref, r"/RINV/")
+        self.assertTrue(self.partner.self_invoice_refund_sequence_id)
 
     def test_none_self_invoice(self):
         self.assertFalse(self.invoice.self_invoice_number)
