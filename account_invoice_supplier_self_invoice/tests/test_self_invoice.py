@@ -12,6 +12,12 @@ class TestSelfInvoice(common.TransactionCase):
         self.partner = self.env["res.partner"].create(
             {"name": "Partner", "supplier_rank": 1}
         )
+        self.child_partner = self.env["res.partner"].create(
+            {
+                "name": "Partner",
+                "parent_id": self.partner.id,
+            }
+        )
         self.simple_partner = self.env["res.partner"].create(
             {"name": "Partner", "supplier_rank": 1}
         )
@@ -101,6 +107,19 @@ class TestSelfInvoice(common.TransactionCase):
         self.assertFalse(self.simple_partner.self_invoice)
         self.assertFalse(self.invoice.can_self_invoice)
         self.invoice.partner_id = self.partner
+        self.invoice._onchange_partner_id()
+        self.assertTrue(self.invoice.can_self_invoice)
+        self.assertTrue(self.invoice.set_self_invoice)
+        self.invoice.invoice_date = None
+        self.invoice.with_user(self.user.id).action_post()
+        self.assertTrue(self.invoice.invoice_date)
+        self.assertTrue(self.invoice.self_invoice_number)
+
+    def test_self_invoice_child(self):
+        self.partner.self_invoice = True
+        self.assertFalse(self.simple_partner.self_invoice)
+        self.assertFalse(self.invoice.can_self_invoice)
+        self.invoice.partner_id = self.child_partner
         self.invoice._onchange_partner_id()
         self.assertTrue(self.invoice.can_self_invoice)
         self.assertTrue(self.invoice.set_self_invoice)
