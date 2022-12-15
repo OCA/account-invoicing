@@ -5,9 +5,7 @@
     "name": "Invoice Analytic Search",
     "summary": "Search invoices by analytic account or by project manager",
     "version": "12.0.1.0.0",
-    "author": "Project Expert Team,"
-    "Eficent,"
-    "Odoo Community Association (OCA)",
+    "author": "Project Expert Team," "Eficent," "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
     "category": "Project Management",
