@@ -9,16 +9,12 @@ class TestAccountInvoice(TransactionCase):
         super(TestAccountInvoice, self).setUp()
         self.account_invoice = self.env["account.invoice"]
         self.account_model = self.env["account.account"]
-        self.account_invoice_line = self.env['account.invoice.line']
+        self.account_invoice_line = self.env["account.invoice.line"]
         self.analytic_account = self.env["account.analytic.account"]
         self.partner_2 = self.env.ref("base.res_partner_2").id
         self.product_4 = self.env.ref("product.product_product_4").id
-        self.type_receivable = self.env.ref(
-            "account.data_account_type_receivable"
-        )
-        self.type_expenses = self.env.ref(
-            "account.data_account_type_expenses"
-        )
+        self.type_receivable = self.env.ref("account.data_account_type_receivable")
+        self.type_expenses = self.env.ref("account.data_account_type_expenses")
         self.invoice_account = self.account_model.search(
             [("user_type_id", "=", self.type_receivable.id)], limit=1
         ).id
@@ -62,9 +58,5 @@ class TestAccountInvoice(TransactionCase):
         self.invoice_search = self.account_invoice._search_analytic_accounts(
             "ilike", "Test Account"
         )
-        invoice_id = self.account_invoice.search(
-            self.invoice_search
-        )
-        self.assertEquals(
-            invoice_id.invoice_line_ids, self.invoice.invoice_line_ids
-        )
+        invoice_id = self.account_invoice.search(self.invoice_search)
+        self.assertEquals(invoice_id.invoice_line_ids, self.invoice.invoice_line_ids)
