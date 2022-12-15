@@ -4,23 +4,20 @@
 from odoo import api, fields, models
 
 
-class AccountInvoice(models.Model):
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
-    _inherit = "account.invoice"
-
-    @api.multi
-    @api.depends("invoice_line_ids.account_analytic_id")
+    @api.depends("invoice_line_ids.analytic_account_id")
     def _compute_analytic_accounts(self):
         for invoice in self:
-            invoice.account_analytic_ids = invoice.mapped(
-                "invoice_line_ids.account_analytic_id.id"
+            invoice.analytic_account_ids = invoice.mapped(
+                "invoice_line_ids.analytic_account_id.id"
             )
 
-    @api.multi
     def _search_analytic_accounts(self, operator, value):
-        return [("invoice_line_ids.account_analytic_id", operator, value)]
+        return [("invoice_line_ids.analytic_account_id", operator, value)]
 
-    account_analytic_ids = fields.Many2many(
+    analytic_account_ids = fields.Many2many(
         comodel_name="account.analytic.account",
         compute="_compute_analytic_accounts",
         search="_search_analytic_accounts",
