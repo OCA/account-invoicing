@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-23 10:26+0000\n"
-"PO-Revision-Date: 2022-11-23 11:34+0100\n"
+"POT-Creation-Date: 2022-12-20 09:26+0000\n"
+"PO-Revision-Date: 2022-12-20 10:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -85,8 +85,8 @@ msgstr ""
 "            (con referencia: <t t-out=\"object.invoice_origin or "
 "''\">SUB003</t>)\n"
 "        </t>\n"
-"        por el importe de <strong t-out=\"format_amount(object.amount_total, "
-"object.currency_id) or ''\">$ 143,750.00</strong>\n"
+"        por el importe de <strong t-out=\"format_amount(object."
+"amount_total, object.currency_id) or ''\">$ 143,750.00</strong>\n"
 "        a <t t-out=\"object.company_id.name or ''\">YourCompany</t>.\n"
 "        <t t-if=\"object.payment_state in ('paid', 'in_payment')\">\n"
 "            Ésta Factura de Auto-Factura ya está pagada.\n"
@@ -109,6 +109,9 @@ msgid ""
 "specific.\" aria-label=\"Values set here are company-specific.\" groups="
 "\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Los valores establecidos "
+"aquí son específicos de la empresa.\" aria-label=\"Los valores establecidos "
+"aquí son específicos de la empresa.\" role=\"img\"/> "
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.invoice_supplier_form
@@ -139,6 +142,11 @@ msgid "<strong>Receipt Date:</strong>"
 msgstr "<strong>Fecha del recibo:</strong>"
 
 #. module: account_invoice_supplier_self_invoice
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.external_layout_striped_self_invoice
+msgid "<strong>This Self-bill is not valid</strong>"
+msgstr "<strong>Ésta Auto-Factura no es válida</strong>"
+
+#. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_bank_statement_line__can_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_move__can_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_payment__can_self_invoice
@@ -150,12 +158,12 @@ msgstr "Aprueba la AutoFactura"
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Compañías"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Opciones de configuración"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_res_partner
@@ -163,15 +171,21 @@ msgid "Contact"
 msgstr "Contacto"
 
 #. module: account_invoice_supplier_self_invoice
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.view_partner_selfinvoice_form
+msgid "Create missing Self Billing sequences"
+msgstr "Crear secuencias de Auto-Factura restantes"
+
+#. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_company__self_invoice_prefix
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_config_settings__self_invoice_prefix
 msgid "Default Self Billing prefix"
-msgstr ""
+msgstr "Prefijo de Auto-Factura por defecto"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.res_config_settings_view_form
 msgid "Default prefix when generating a new sequence for Self Billing"
 msgstr ""
+"Prefijo por defecto cuando se genera una nueva secuencia de Auto-Factura"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_bank_statement_line__is_self_invoice_number_different
@@ -193,8 +207,8 @@ msgstr ""
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_users__self_invoice_report_footer
 msgid "Footer text displayed at the bottom of the self invoice reports."
 msgstr ""
-"Texto de pie de página mostrado en la parte inferior de los informes de Auto-"
-"Factura."
+"Texto de pie de página mostrado en la parte inferior de los informes de "
+"Auto-Factura."
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_move__id
@@ -210,6 +224,21 @@ msgstr ""
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_account_payment__set_self_invoice
 msgid "If enabled, create a Self-Bill Invoice when validating."
 msgstr "Si está activo, crea una Auto-Factura cuando se valida."
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_partner_prefix
+#: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_users__self_invoice_partner_prefix
+msgid ""
+"If set, Self Billing Partner Prefix will be added after the company prefix "
+"when the sequence is created for the first time. Eg.:\n"
+"With partner prefix: <COMP_PREFIX>/<PARTNER_PREFIX>/INV/<year>\n"
+"Without partner prefix: <COMP_PREFIX>/INV/<year>"
+msgstr ""
+"Si está establecido, el prefijo de Auto-Factura del Contacto se añadirá "
+"después del prefijo de la compañía cuando la secuencia se crea por primera "
+"vez. Ej.:\n"
+"Con prefijo de Contacto: <PREFIJO_EMP>/<PREFJO_CONTACTO>/INV/<año>\n"
+"Sin prefijo de Contacto: <PREFIJO_EMP>/INV/<año>"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_account_move
@@ -238,7 +267,7 @@ msgstr "Auto Facturación"
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_refund_sequence_id
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users__self_invoice_refund_sequence_id
 msgid "Self Billing Refund sequence"
-msgstr ""
+msgstr "Secuencia Rectificativa de Auto Facturación"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_report_footer
@@ -247,10 +276,16 @@ msgid "Self Billing footer"
 msgstr "Pie de página de Auto Facturación"
 
 #. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_partner_prefix
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users__self_invoice_partner_prefix
+msgid "Self Billing partner prefix"
+msgstr "Prefijo de Contacto en Auto Facturación"
+
+#. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_company__self_invoice_prefix
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_config_settings__self_invoice_prefix
 msgid "Self Billing prefix for Bills generated by this company"
-msgstr ""
+msgstr "Prefijo de Auto Facturación para Facturas generadas por ésta compañía"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_sequence_id
@@ -294,8 +329,8 @@ msgid ""
 "Self_bill_invoice_{{ (object.ref or object.name or '').replace('/','_') }}"
 "{{ object.state == 'draft' and '_draft' or '' }}"
 msgstr ""
-"Factura_auto_factura_{{ (object.ref or object.name or '').replace('/','_') }}"
-"{{ object.state == 'draft' and '_draft' or '' }}"
+"Factura_auto_factura_{{ (object.ref or object.name or '')."
+"replace('/','_') }}{{ object.state == 'draft' and '_draft' or '' }}"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_bank_statement_line__set_self_invoice
@@ -331,14 +366,16 @@ msgid ""
 "When checked, all vendor Bills will generate by default a Self-Bill Invoice "
 "on confirmation."
 msgstr ""
-"Cuando está marcado, todas las Facturas de proveedores generarán por defecto "
-"una Auto-Factura en la confirmación."
+"Cuando está marcado, todas las Facturas de proveedores generarán por "
+"defecto una Auto-Factura en la confirmación."
 
 #. module: account_invoice_supplier_self_invoice
 #: code:addons/account_invoice_supplier_self_invoice/models/res_partner.py:0
 #, python-format
 msgid "You must set a Self Billing prefix in Account Settings."
 msgstr ""
+"Debes establecer un Prefijo de Auto Facturación en los Ajustes de "
+"Facturación/Contabilidad."
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.invoice_supplier_form
@@ -353,9 +390,3 @@ msgid ""
 msgstr ""
 "{{ object.company_id.name }} Factura de Auto-Factura (Ref {{ object.ref or "
 "object.name or 'n/a' }})"
-
-#~ msgid "Purchase Self-Bill Invoice: Send by email"
-#~ msgstr "Auto-Factura de Compra: Enviar por Email"
-
-#~ msgid "Supplier Approves Self Billing"
-#~ msgstr "El Proveedor aprueba la Auto Facturación"

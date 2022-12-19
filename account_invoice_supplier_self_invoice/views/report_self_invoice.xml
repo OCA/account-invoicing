@@ -48,6 +48,9 @@
             position="replace"
         >
             <div t-field="o.partner_id.self_invoice_report_footer" />
+            <span t-if="o.state != 'posted'">
+                <strong>This Self-bill is not valid</strong>
+            </span>
         </xpath>
     </template>
 
