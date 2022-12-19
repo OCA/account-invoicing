@@ -1,7 +1,8 @@
 # © 2017 Creu Blanca
+# Copyright 2022 - Moduon
 # License AGPL-3.0 or later (https://www.gnuorg/licenses/agpl.html).
 
-from odoo import _, exceptions, fields, models
+from odoo import _, api, exceptions, fields, models
 
 
 class ResPartner(models.Model):
@@ -30,6 +31,16 @@ class ResPartner(models.Model):
         ondelete="restrict",
         groups="base.group_no_one",
         copy=False,
+        company_dependent=True,
+    )
+    self_invoice_partner_prefix = fields.Char(
+        string="Self Billing partner prefix",
+        help="If set, Self Billing Partner Prefix will be added after the company "
+        "prefix when the sequence is created for the first time. Eg.:\n"
+        "With partner prefix: <COMP_PREFIX>/<PARTNER_PREFIX>/INV/<year>\n"
+        "Without partner prefix: <COMP_PREFIX>/INV/<year>",
+        copy=False,
+        tracking=True,
         company_dependent=True,
     )
     self_invoice_report_footer = fields.Text(
@@ -90,6 +101,22 @@ class ResPartner(models.Model):
                 _("You must set a Self Billing prefix in Account Settings.")
             )
         first_prefix = self.env.company.self_invoice_prefix
-        second_prefix = (self.ref or "").strip().upper() or "SI"
+        second_prefix = ""
+        if self.self_invoice_partner_prefix:
+            second_prefix = "/" + self.self_invoice_partner_prefix.strip().upper()
         ref = "RINV" if refund else "INV"
-        return f"{first_prefix}/{second_prefix}/{ref}/%(range_year)s/"
+        return f"{first_prefix}{second_prefix}/{ref}/%(range_year)s/"
+
+    def action_set_self_invoice(self):
+        for partner in self:
+            if not partner.self_invoice_sequence_id:
+                partner._set_self_invoice()
+            if not partner.self_invoice_refund_sequence_id:
+                partner._set_self_invoice(refund=True)
+
+    @api.onchange("self_invoice")
+    def onchange_self_invoice(self):
+        if self.self_invoice and not self.self_invoice_report_footer:
+            self.self_invoice_report_footer = self._fields[
+                "self_invoice_report_footer"
+            ].args["default"]

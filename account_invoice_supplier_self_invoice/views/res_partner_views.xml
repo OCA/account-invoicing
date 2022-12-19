@@ -7,16 +7,28 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='accounting']/group" position="inside">
                 <group name="group_self_invoice" string="Self Billing">
-                    <field name="self_invoice" />
+                    <field name="self_invoice" widget="boolean_toggle" />
+                    <field
+                        name="self_invoice_partner_prefix"
+                        attrs="{'invisible': [('self_invoice', '=', False)], 'readonly': [('self_invoice_sequence_id', '!=', False), ('self_invoice_refund_sequence_id', '!=', False)]}"
+                    />
+                    <button
+                        name="action_set_self_invoice"
+                        string="Create missing Self Billing sequences"
+                        type="object"
+                        class="oe_highlight mb-2"
+                        attrs="{'invisible': ['|', ('self_invoice', '=', False), '&amp;', ('self_invoice_sequence_id', '!=', False), ('self_invoice_refund_sequence_id', '!=', False)]}"
+                        colspan="2"
+                    />
                     <field
                         name="self_invoice_sequence_id"
                         readonly="1"
-                        attrs="{'invisible': [('self_invoice', '=', False)]}"
+                        attrs="{'invisible': ['|', ('self_invoice', '=', False), '&amp;', ('self_invoice_sequence_id', '=', False), ('self_invoice_refund_sequence_id', '=', False)]}"
                     />
                     <field
                         name="self_invoice_refund_sequence_id"
                         readonly="1"
-                        attrs="{'invisible': [('self_invoice', '=', False)]}"
+                        attrs="{'invisible': ['|', ('self_invoice', '=', False), '&amp;', ('self_invoice_sequence_id', '=', False), ('self_invoice_refund_sequence_id', '=', False)]}"
                     />
                     <field
                         name="self_invoice_report_footer"
