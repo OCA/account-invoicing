@@ -44,6 +44,7 @@ Usage
    Purchases'
 #. Go to 'Accounting/Invoicing > Vendors > Bills'
 #. Create an invoice for the provider and validate it
+#. You can send the invoice before validation to ensure the vendor accepts it
 #. The self invoice is accessible through the normal print button
 #. You can create an invoice for the provider without the self invoice if you
    uncheck 'Set self invoice'
