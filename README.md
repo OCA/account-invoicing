@@ -33,7 +33,7 @@ addon | version | maintainers | summary
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 15.0.1.0.0 |  | Account invoice search by reference
 [account_invoice_section_sale_order](account_invoice_section_sale_order/) | 15.0.1.0.2 |  | For invoices targetting multiple sale order addsections with sale order name.
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 15.0.1.0.0 |  | Checks that supplier invoices are not entered twice
-[account_invoice_supplier_self_invoice](account_invoice_supplier_self_invoice/) | 15.0.1.1.0 |  | Purchase Self Invoice
+[account_invoice_supplier_self_invoice](account_invoice_supplier_self_invoice/) | 15.0.1.2.0 |  | Purchase Self Invoice
 [account_invoice_tax_note](account_invoice_tax_note/) | 15.0.1.0.1 |  | Print tax notes on customer invoices
 [account_invoice_tax_required](account_invoice_tax_required/) | 15.0.1.0.1 |  | This module adds functional a check on invoice to force user to set tax on invoice line.
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 15.0.1.1.0 | [![alexis-via](https://github.com/alexis-via.png?size=30px)](https://github.com/alexis-via) | Configure invoice transmit method (email, post, portal, ...)
