@@ -52,7 +52,7 @@
             >
                 <attribute
                     name="attrs"
-                >{'invisible':['|', ('state', '!=', 'posted'), '|', ('is_move_sent', '=', True), '|', ('move_type', 'in', ('entry', 'out_receipt', 'in_receipt')), '&amp;', ('move_type', 'in', ('in_invoice', 'in_refund')), ('set_self_invoice', '=', False)]}</attribute>
+                >{'invisible':['|', ('state', '==', 'cancel'), '|', ('is_move_sent', '=', True), '|', ('move_type', 'in', ('entry', 'out_receipt', 'in_receipt')), '&amp;', ('move_type', 'in', ('in_invoice', 'in_refund')), ('set_self_invoice', '=', False)]}</attribute>
             </xpath>
             <xpath
                 expr="//button[@name='action_invoice_sent'][2]"
@@ -60,7 +60,7 @@
             >
                 <attribute
                     name="attrs"
-                >{'invisible':['|', ('state', '!=', 'posted'), '|', ('is_move_sent', '=', False), '|', ('move_type', 'in', ('entry', 'out_receipt', 'in_receipt')), '&amp;', ('move_type', 'in', ('in_invoice', 'in_refund')), ('set_self_invoice', '=', False)]}</attribute>
+                >{'invisible':['|', ('state', '==', 'cancel'), '|', ('is_move_sent', '=', False), '|', ('move_type', 'in', ('entry', 'out_receipt', 'in_receipt')), '&amp;', ('move_type', 'in', ('in_invoice', 'in_refund')), ('set_self_invoice', '=', False)]}</attribute>
             </xpath>
         </field>
     </record>
