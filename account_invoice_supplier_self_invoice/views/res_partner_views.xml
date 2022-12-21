@@ -10,7 +10,7 @@
                     <field name="self_invoice" widget="boolean_toggle" />
                     <field
                         name="self_invoice_partner_prefix"
-                        attrs="{'invisible': [('self_invoice', '=', False)], 'readonly': [('self_invoice_sequence_id', '!=', False), ('self_invoice_refund_sequence_id', '!=', False)]}"
+                        attrs="{'invisible': [('self_invoice', '=', False)]}"
                     />
                     <button
                         name="action_set_self_invoice"
