@@ -21,7 +21,6 @@ class ResPartner(models.Model):
         comodel_name="ir.sequence",
         string="Self Billing sequence",
         ondelete="restrict",
-        groups="base.group_no_one",
         copy=False,
         company_dependent=True,
     )
@@ -29,7 +28,6 @@ class ResPartner(models.Model):
         comodel_name="ir.sequence",
         string="Self Billing Refund sequence",
         ondelete="restrict",
-        groups="base.group_no_one",
         copy=False,
         company_dependent=True,
     )
