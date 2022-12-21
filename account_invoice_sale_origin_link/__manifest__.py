@@ -4,7 +4,7 @@
 {
     "name": "Account Invoice Sale Origin Link",
     "summary": "Add link to the Sale Order in invoice source document.",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "license": "LGPL-3",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
