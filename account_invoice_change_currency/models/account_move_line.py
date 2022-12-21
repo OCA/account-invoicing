@@ -16,7 +16,8 @@ class AccountMoveLine(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            vals.setdefault("original_price_unit", vals.get("price_unit"))
+            if "price_unit" in vals:
+                vals["original_price_unit"] = vals["price_unit"]
         return super().create(vals_list)
 
     def _set_original_price_unit(self):
