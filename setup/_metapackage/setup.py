@@ -16,6 +16,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_fiscal_position_update>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_fixed_discount>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_payment_term_date_due>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_pricelist>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_refund_link>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_search_by_reference>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_section_sale_order>=15.0dev,<15.1dev',
