@@ -23,11 +23,13 @@
                     <field
                         name="self_invoice_sequence_id"
                         readonly="1"
+                        groups="base.group_no_one"
                         attrs="{'invisible': ['|', ('self_invoice', '=', False), '&amp;', ('self_invoice_sequence_id', '=', False), ('self_invoice_refund_sequence_id', '=', False)]}"
                     />
                     <field
                         name="self_invoice_refund_sequence_id"
                         readonly="1"
+                        groups="base.group_no_one"
                         attrs="{'invisible': ['|', ('self_invoice', '=', False), '&amp;', ('self_invoice_sequence_id', '=', False), ('self_invoice_refund_sequence_id', '=', False)]}"
                     />
                     <field
