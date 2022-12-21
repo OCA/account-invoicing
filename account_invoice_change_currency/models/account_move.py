@@ -28,10 +28,12 @@ class AccountMove(models.Model):
         "This is used to hide custom rate field in the form view.",
     )
 
-    @api.model
-    def create(self, values):
-        values.setdefault("original_currency_id", values.get("currency_id"))
-        return super().create(values)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if "currency_id" in vals and not vals.get("original_currency_id", False):
+                vals["original_currency_id"] = vals["currency_id"]
+        return super().create(vals_list)
 
     def action_account_change_currency(self):
         """
@@ -58,7 +60,6 @@ class AccountMove(models.Model):
                     invoice.company_id,
                     invoice_date,
                 )
-            invoice._recompute_dynamic_lines(recompute_all_taxes=True)
 
     @api.depends("company_id", "currency_id", "invoice_date")
     def _compute_currency_change_rate(self):
