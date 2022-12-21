@@ -20,7 +20,7 @@ class AccountMove(models.Model):
     @api.depends(lambda x: x._get_depends_compute_source_doc_ref())
     def _compute_source_doc_ref(self):
         super()._compute_source_doc_ref()
-        for rec in self.filtered(lambda line: line.type == "out_invoice"):
+        for rec in self.filtered(lambda line: line.move_type == "out_invoice"):
             so = rec.line_ids.mapped("sale_line_ids.order_id")
             if len(so) == 1:
                 rec.origin_reference = "{},{}".format(so._name, so.id or 0)
