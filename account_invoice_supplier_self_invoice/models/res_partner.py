@@ -43,12 +43,15 @@ class ResPartner(models.Model):
     )
     self_invoice_report_footer = fields.Text(
         string="Self Billing footer",
-        default="Invoiced by the recipient",
         help="Footer text displayed at the bottom of the self invoice reports.",
         copy=False,
         tracking=True,
         company_dependent=True,
     )
+
+    @api.model
+    def _default_self_invoice_report_footer(self):
+        return _("Invoiced by the recipent")
 
     def _get_self_invoice_number(self, invoice):
         is_refund = invoice.move_type == "in_refund"
@@ -115,6 +118,6 @@ class ResPartner(models.Model):
     @api.onchange("self_invoice")
     def onchange_self_invoice(self):
         if self.self_invoice and not self.self_invoice_report_footer:
-            self.self_invoice_report_footer = self._fields[
-                "self_invoice_report_footer"
-            ].args["default"]
+            self.self_invoice_report_footer = self.with_context(
+                lang=self.lang or self.env.user.lang
+            )._default_self_invoice_report_footer()

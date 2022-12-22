@@ -2,7 +2,7 @@
 # Copyright 2022 - Moduon
 # License AGPL-3.0 or later (https://www.gnuorg/licenses/agpl.html).
 
-from odoo.tests import common
+from odoo.tests import Form, common
 
 
 class TestSelfInvoice(common.TransactionCase):
@@ -77,8 +77,11 @@ class TestSelfInvoice(common.TransactionCase):
 
     def test_check_set_self_invoice(self):
         self.assertFalse(self.partner.self_invoice)
-        self.partner.self_invoice = True
+        self.assertFalse(self.partner.self_invoice_report_footer)
+        with Form(self.partner) as f:
+            f.self_invoice = True
         self.assertFalse(self.partner.self_invoice_sequence_id)
+        self.assertTrue(self.partner.self_invoice_report_footer)
         self.invoice.partner_id = self.partner
         self.invoice._onchange_partner_id()
         self.invoice.action_post()
@@ -88,7 +91,8 @@ class TestSelfInvoice(common.TransactionCase):
 
     def test_check_set_self_invoice_refund(self):
         self.assertFalse(self.partner.self_invoice)
-        self.partner.self_invoice = True
+        with Form(self.partner) as f:
+            f.self_invoice = True
         self.assertFalse(self.partner.self_invoice_sequence_id)
         self.refund.partner_id = self.partner
         self.refund._onchange_partner_id()
@@ -103,7 +107,8 @@ class TestSelfInvoice(common.TransactionCase):
         self.assertFalse(self.invoice.self_invoice_number)
 
     def test_self_invoice(self):
-        self.partner.self_invoice = True
+        with Form(self.partner) as f:
+            f.self_invoice = True
         self.assertFalse(self.simple_partner.self_invoice)
         self.assertFalse(self.invoice.can_self_invoice)
         self.invoice.partner_id = self.partner
@@ -116,7 +121,8 @@ class TestSelfInvoice(common.TransactionCase):
         self.assertTrue(self.invoice.self_invoice_number)
 
     def test_self_invoice_child(self):
-        self.partner.self_invoice = True
+        with Form(self.partner) as f:
+            f.self_invoice = True
         self.assertFalse(self.simple_partner.self_invoice)
         self.assertFalse(self.invoice.can_self_invoice)
         self.invoice.partner_id = self.child_partner
