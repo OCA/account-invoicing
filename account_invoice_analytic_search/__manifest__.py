@@ -5,11 +5,11 @@
     "name": "Invoice Analytic Search",
     "summary": "Search invoices by analytic account or by project manager",
     "version": "14.0.1.0.0",
-    "author": "Project Expert Team, Eficent, Odoo Community Association (OCA)",
+    "author": "Project Expert Team, ForgeFlow, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
     "category": "Project Management",
     "depends": ["analytic", "account"],
-    "data": ["views/account_invoice_view.xml"],
+    "data": ["views/account_move_view.xml"],
     "installable": True,
 }
