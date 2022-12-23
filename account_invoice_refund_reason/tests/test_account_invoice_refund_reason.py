@@ -75,6 +75,7 @@ class TestAccountInvoiceRefundReason(SavepointCase):
                 refund_method="refund",
                 date=datetime.date.today(),
                 reason_id=self.reason_id.id,
+                journal_id=self.account_invoice_customer0.journal_id.id,
             )
         )
         self.account_invoice_refund_0._onchange_reason_id()
