@@ -85,8 +85,8 @@ msgstr ""
 "            (con referencia: <t t-out=\"object.invoice_origin or "
 "''\">SUB003</t>)\n"
 "        </t>\n"
-"        por el importe de <strong t-out=\"format_amount(object."
-"amount_total, object.currency_id) or ''\">$ 143,750.00</strong>\n"
+"        por el importe de <strong t-out=\"format_amount(object.amount_total, "
+"object.currency_id) or ''\">$ 143,750.00</strong>\n"
 "        a <t t-out=\"object.company_id.name or ''\">YourCompany</t>.\n"
 "        <t t-if=\"object.payment_state in ('paid', 'in_payment')\">\n"
 "            Ésta Factura de Auto-Factura ya está pagada.\n"
@@ -109,9 +109,9 @@ msgid ""
 "specific.\" aria-label=\"Values set here are company-specific.\" groups="
 "\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Los valores establecidos "
-"aquí son específicos de la empresa.\" aria-label=\"Los valores establecidos "
-"aquí son específicos de la empresa.\" role=\"img\"/> "
+"<span class=\"fa fa-lg fa-building-o\" title=\"Los valores establecidos aquí "
+"son específicos de la empresa.\" aria-label=\"Los valores establecidos aquí "
+"son específicos de la empresa.\" role=\"img\"/> "
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.invoice_supplier_form
@@ -142,7 +142,7 @@ msgid "<strong>Receipt Date:</strong>"
 msgstr "<strong>Fecha del recibo:</strong>"
 
 #. module: account_invoice_supplier_self_invoice
-#: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.external_layout_striped_self_invoice
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.external_layout_clean_self_invoice
 msgid "<strong>This Self-bill is not valid</strong>"
 msgstr "<strong>Ésta Auto-Factura no es válida</strong>"
 
@@ -207,8 +207,8 @@ msgstr ""
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_users__self_invoice_report_footer
 msgid "Footer text displayed at the bottom of the self invoice reports."
 msgstr ""
-"Texto de pie de página mostrado en la parte inferior de los informes de "
-"Auto-Factura."
+"Texto de pie de página mostrado en la parte inferior de los informes de Auto-"
+"Factura."
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_move__id
@@ -329,8 +329,8 @@ msgid ""
 "Self_bill_invoice_{{ (object.ref or object.name or '').replace('/','_') }}"
 "{{ object.state == 'draft' and '_draft' or '' }}"
 msgstr ""
-"Factura_auto_factura_{{ (object.ref or object.name or '')."
-"replace('/','_') }}{{ object.state == 'draft' and '_draft' or '' }}"
+"Factura_auto_factura_{{ (object.ref or object.name or '').replace('/','_') }}"
+"{{ object.state == 'draft' and '_draft' or '' }}"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_bank_statement_line__set_self_invoice
@@ -366,8 +366,8 @@ msgid ""
 "When checked, all vendor Bills will generate by default a Self-Bill Invoice "
 "on confirmation."
 msgstr ""
-"Cuando está marcado, todas las Facturas de proveedores generarán por "
-"defecto una Auto-Factura en la confirmación."
+"Cuando está marcado, todas las Facturas de proveedores generarán por defecto "
+"una Auto-Factura en la confirmación."
 
 #. module: account_invoice_supplier_self_invoice
 #: code:addons/account_invoice_supplier_self_invoice/models/res_partner.py:0

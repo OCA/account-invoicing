@@ -98,6 +98,11 @@ msgid "<strong>Receipt Date:</strong>"
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.external_layout_clean_self_invoice
+msgid "<strong>This Self-bill is not valid</strong>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_bank_statement_line__can_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_move__can_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_payment__can_self_invoice
@@ -120,6 +125,11 @@ msgstr ""
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_res_partner
 msgid "Contact"
 msgstr "Kontakt"
+
+#. module: account_invoice_supplier_self_invoice
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.view_partner_selfinvoice_form
+msgid "Create missing Self Billing sequences"
+msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_company__self_invoice_prefix
@@ -169,6 +179,16 @@ msgid "If enabled, create a Self-Bill Invoice when validating."
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_partner_prefix
+#: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_users__self_invoice_partner_prefix
+msgid ""
+"If set, Self Billing Partner Prefix will be added after the company prefix "
+"when the sequence is created for the first time. Eg.:\n"
+"With partner prefix: <COMP_PREFIX>/<PARTNER_PREFIX>/INV/<year>\n"
+"Without partner prefix: <COMP_PREFIX>/INV/<year>"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_account_move
 msgid "Journal Entry"
 msgstr ""
@@ -201,6 +221,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_report_footer
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users__self_invoice_report_footer
 msgid "Self Billing footer"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_partner_prefix
+#: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users__self_invoice_partner_prefix
+msgid "Self Billing partner prefix"
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
