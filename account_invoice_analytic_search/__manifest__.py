@@ -10,6 +10,6 @@
     "license": "AGPL-3",
     "category": "Project Management",
     "depends": ["analytic", "account"],
-    "data": ["views/account_invoice_view.xml"],
+    "data": ["views/account_move_view.xml"],
     "installable": True,
 }
