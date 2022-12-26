@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 Tecnativa - Pedro M. Baeza
+     Copyright 2022 Tecnativa - Sergio Teruel
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <group name="banks" position="after">
+                <group name="purchase_invoicing">
+                    <field
+                        name="purchase_invoicing_grouping_criteria_id"
+                        string="Purchases Invoicing Grouping Criteria"
+                    />
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
