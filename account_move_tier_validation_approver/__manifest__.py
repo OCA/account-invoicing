@@ -7,6 +7,7 @@
     "category": "Accounting",
     "license": "AGPL-3",
     "depends": ["account_move_tier_validation"],
+    "website": "https://github.com/OCA/account-invoicing",
     "data": [
         "views/account_move_views.xml",
         "views/res_partner_views.xml",
