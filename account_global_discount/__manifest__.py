@@ -6,7 +6,7 @@
     "version": "13.0.2.0.3",
     "category": "Accounting",
     "author": "Tecnativa, Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/server-backend",
+    "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
     "depends": ["account", "base_global_discount"],
     "data": [
