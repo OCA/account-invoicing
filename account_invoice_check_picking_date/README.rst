@@ -25,7 +25,7 @@ Account Invoice Check Picking Date
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module checks if date of pickings match with invoice date
+This module checks if date of pickings match with accounting date
 
 **Table of contents**
 
@@ -47,7 +47,7 @@ Usage
 #. Go to *Receptions > Validate > Apply*.
 #. Return to the purchase order.
 #. Press the button *Create Bill* to create the vendor bill.
-#. Set invoice date with other month date
+#. Set accounting date with other month date
 #. Press the button *Post* to view warning message.
 
 Bug Tracker

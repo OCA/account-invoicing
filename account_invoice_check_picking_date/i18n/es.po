@@ -71,7 +71,7 @@ msgstr "Asistente de comprobación de fecha de fac tura y albarán"
 #: code:addons/account_invoice_check_picking_date/wizards/invoice_stock_picking_date_wiz.py:0
 #: model_terms:ir.ui.view,arch_db:account_invoice_check_picking_date.invoice_stock_picking_date_wizard
 #, python-format
-msgid "Invoice date does not match with stock move dates"
+msgid "Accounting date does not match with stock move dates"
 msgstr ""
 "El mes de la fecha de la factura no coincide con la fecha del albarán"
 
@@ -79,13 +79,13 @@ msgstr ""
 #: code:addons/account_invoice_check_picking_date/models/account_move.py:0
 #, python-format
 msgid ""
-"Invoice date: %s\n"
+"Accounting date: %s\n"
 "First stock move: %s   Last stock move: %s\n"
 "\n"
 "If dates are right and you have manager permissions you can use special "
 "action to post this invoice."
 msgstr ""
-"Fecha factura: %s\n"
+"Fecha contable: %s\n"
 "Primer movimiento de stock: %s   Último movimiento de stock: %s\n"
 "\n"
 "Si las fechas son correctas y tiene permisos de Administrador de "
