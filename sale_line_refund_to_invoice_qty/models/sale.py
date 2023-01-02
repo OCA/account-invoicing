@@ -13,28 +13,27 @@ class SaleOrderLine(models.Model):
     )
 
     @api.depends(
-        "qty_invoiced",
-        "qty_delivered",
-        "product_uom_qty",
-        "order_id.state",
         "invoice_lines.move_id.state",
         "invoice_lines.quantity",
         "invoice_lines.sale_qty_to_reinvoice",
     )
-    def _get_to_invoice_qty(self):
-        super()._get_to_invoice_qty()
+    def _get_invoice_qty(self):
+        res = super()._get_invoice_qty()
+        # Revert effect of refunds in invoice_qty when `sale_qty_to_reinvoice`
+        # is not set.
         for line in self:
-            qty_to_invoice = line.qty_to_invoice
+            qty_invoiced = line.qty_invoiced
             for invoice_line in line.invoice_lines:
                 if (
                     invoice_line.move_id.state != "cancel"
                     and invoice_line.move_id.move_type == "out_refund"
                     and not invoice_line.sale_qty_to_reinvoice
                 ):
-                    qty_to_invoice -= invoice_line.product_uom_id._compute_quantity(
+                    qty_invoiced += invoice_line.product_uom_id._compute_quantity(
                         invoice_line.quantity, line.product_uom
                     )
-            line.qty_to_invoice = qty_to_invoice
+            line.qty_invoiced = qty_invoiced
+        return res
 
     @api.depends(
         "product_uom_qty",
