@@ -72,7 +72,7 @@ addon | version | maintainers | summary
 [purchase_invoicing_no_zero_line](purchase_invoicing_no_zero_line/) | 13.0.1.0.0 |  | Avoid creation of zero quantity invoice lines from purchase
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 13.0.1.2.2 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) [![MiquelRForgeFlow](https://github.com/MiquelRForgeFlow.png?size=30px)](https://github.com/MiquelRForgeFlow) | Add an option to refund returned pickings
 [sale_invoicing_date_selection](sale_invoicing_date_selection/) | 13.0.1.0.0 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Set date invoice when you create invoices
-[sale_line_refund_to_invoice_qty](sale_line_refund_to_invoice_qty/) | 13.0.1.2.0 |  | Allow deciding whether refunded quantity should be considered as quantity to reinvoice
+[sale_line_refund_to_invoice_qty](sale_line_refund_to_invoice_qty/) | 13.0.1.2.1 |  | Allow deciding whether refunded quantity should be considered as quantity to reinvoice
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 13.0.2.0.2 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Sales order invoicing grouping criteria
 [sale_order_invoicing_queued](sale_order_invoicing_queued/) | 13.0.2.0.1 |  | Enqueue sales order invoicing
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 13.0.1.0.0 |  | Add timesheet details in invoice line
