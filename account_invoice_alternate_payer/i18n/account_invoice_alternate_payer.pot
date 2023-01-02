@@ -23,6 +23,7 @@ msgstr ""
 
 #. module: account_invoice_alternate_payer
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_payment__display_name
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_payment_register__display_name
 msgid "Display Name"
@@ -30,6 +31,7 @@ msgstr ""
 
 #. module: account_invoice_alternate_payer
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_move_line__id
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_payment__id
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_payment_register__id
 msgid "ID"
@@ -50,7 +52,13 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_alternate_payer
+#: model:ir.model,name:account_invoice_alternate_payer.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_alternate_payer
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_move_line____last_update
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_payment____last_update
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_payment_register____last_update
 msgid "Last Modified on"
