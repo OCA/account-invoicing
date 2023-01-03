@@ -1,21 +1,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import hashlib
-import inspect
-
 from odoo.exceptions import UserError
 from odoo.tests import common
 
-from odoo.addons.sale.models.sale import SaleOrderLine as upstream
 
-# if this hash fails then the original function it was copied from
-# needs to be checked to see if there are any major changes that
-# need to be updated in this module's _get_real_price_currency
-
-VALID_HASHES = ["7c0bb27c20598327008f81aee58cdfb4"]
-
-
-class TestAccountMovePricelist(common.SavepointCase):
+class TestAccountMovePricelist(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -35,18 +24,11 @@ class TestAccountMovePricelist(common.SavepointCase):
             "UPDATE res_company SET currency_id = %s WHERE id = %s",
             (cls.env.ref("base.USD").id, cls.company.id),
         )
-        cls.at_receivable = cls.env["account.account.type"].create(
-            {
-                "name": "Test receivable account",
-                "type": "receivable",
-                "internal_group": "income",
-            }
-        )
         cls.a_receivable = cls.env["account.account"].create(
             {
                 "name": "Test receivable account",
-                "code": "TEST_RA",
-                "user_type_id": cls.at_receivable.id,
+                "code": "TESTRA",
+                "account_type": "asset_receivable",
                 "reconcile": True,
             }
         )
@@ -316,12 +298,6 @@ class TestAccountMovePricelist(common.SavepointCase):
         invoice_line = self.invoice.invoice_line_ids[:1]
         self.assertAlmostEqual(invoice_line.price_unit, 65.41)
         self.assertEqual(invoice_line.discount, 8.27)
-
-    def test_upstream_file_hash(self):
-        """Test that copied upstream function hasn't received fixes"""
-        func = inspect.getsource(upstream._get_real_price_currency).encode()
-        func_hash = hashlib.md5(func).hexdigest()
-        self.assertIn(func_hash, VALID_HASHES)
 
     def test_check_currency(self):
         with self.assertRaises(UserError):
