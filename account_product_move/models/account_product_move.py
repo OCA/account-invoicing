@@ -22,9 +22,8 @@ class AccountProductMove(models.Model):
         default="new",
         required=True,
     )
-    product_tmpl_ids = fields.One2many(
+    product_tmpl_ids = fields.Many2many(
         comodel_name="product.template",
-        inverse_name="product_move_id",
         help="Journal items will be created for these products",
     )
     journal_id = fields.Many2one(comodel_name="account.journal", required=True)
@@ -41,6 +40,11 @@ class AccountProductMove(models.Model):
         copy=True,
         string="Extra Journal Items",
         help="Journal items to be added in new journal entry",
+    )
+    filter_id = fields.Many2one(
+        comodel_name="ir.filters",
+        string="Filter to apply on moves",
+        domain=[("model_id", "=", "account.move"), ("user_id", "=", False)],
     )
     active = fields.Boolean(default=True)
 
