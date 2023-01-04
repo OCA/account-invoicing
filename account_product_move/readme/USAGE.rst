@@ -8,3 +8,7 @@ To use this module, you need to:
 #. Post the out invoice.
 #. If any of the products in invoice lines has an Extra Product Move record set-up,
    a new automatic journal entry will be added per line that refers to extra moves.
+
+It is possible to apply an Account Product Move record only on invoices / moves that
+meet certain criteria. To do this, filter your moves, and store the filter with sharing
+set. Then select this filter on the Account Product Move record.
