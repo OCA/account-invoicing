@@ -160,6 +160,7 @@ class AccountMove(models.Model):
         self.invoice_global_discount_ids -= self.invoice_global_discount_ids
         model = "account.invoice.global.discount"
         create_method = in_draft_mode and self.env[model].new or self.env[model].create
+        account_tax_obj = self.env["account.tax"]
         for tax_line in _self.line_ids.filtered("tax_line_id"):
             key = []
             to_create = True
@@ -168,6 +169,17 @@ class AccountMove(models.Model):
                     to_create = taxes_keys[key]
                     taxes_keys[key] = False  # mark for not duplicating
                     break  # we leave in key variable the proper taxes value
+
+                # didn't break, then we check if the tax computation is 'group'
+                for tax_id in key:
+                    tax = account_tax_obj.browse(tax_id)
+                    if (
+                        tax.amount_type == "group"
+                        and tax_line.tax_line_id.id in tax.children_tax_ids.ids
+                    ):
+                        to_create = taxes_keys[key]
+                        taxes_keys[key] = False  # mark for not duplicating
+                        break
             if not to_create:
                 continue
             base = tax_line.base_before_global_discounts or tax_line.tax_base_amount
