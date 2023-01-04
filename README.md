@@ -30,6 +30,7 @@ addon | version | maintainers | summary
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 15.0.1.0.0 |  | Allows to apply fixed amount discounts in invoices.
 [account_invoice_payment_term_date_due](account_invoice_payment_term_date_due/) | 15.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Display invoices date due when using payment terms
 [account_invoice_pricelist](account_invoice_pricelist/) | 15.0.1.0.0 |  | Add partner pricelist on invoices
+[account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 15.0.1.0.0 |  | Module to fill pricelist from sales order in invoice.
 [account_invoice_refund_link](account_invoice_refund_link/) | 15.0.1.0.1 |  | Show links between refunds and their originator invoices.
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 15.0.1.0.0 |  | Account invoice search by reference
 [account_invoice_section_sale_order](account_invoice_section_sale_order/) | 15.0.1.0.2 |  | For invoices targetting multiple sale order addsections with sale order name.
