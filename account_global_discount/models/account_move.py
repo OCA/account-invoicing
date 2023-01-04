@@ -55,70 +55,6 @@ class AccountMove(models.Model):
         readonly=True,
     )
 
-    def _recompute_tax_lines(
-        self, recompute_tax_base_amount=False, tax_rep_lines_to_recompute=None
-    ):
-        """Inject the global discounts recomputation if recompute_tax_base_amount is
-        false, as on contrary, only the tax_base_amount field is recalculated, not
-        affecting global discount computation.
-        """
-        # Remove first existing previous global discount move lines for not altering
-        # tax computation
-        if not recompute_tax_base_amount:
-            # TODO: To be changed to invoice_global_discount_id when properly filled
-            self.line_ids -= self.line_ids.filtered("global_discount_item")
-        res = super()._recompute_tax_lines(
-            recompute_tax_base_amount,
-            tax_rep_lines_to_recompute=tax_rep_lines_to_recompute,
-        )
-        if not recompute_tax_base_amount:
-            self._update_tax_lines_for_global_discount()
-            self._set_global_discounts_by_tax()
-            self._recompute_global_discount_lines()
-        return res
-
-    def _update_tax_lines_for_global_discount(self):
-        """Update tax_base_amount and taxes debits on tax move lines using global
-        discounts.
-
-        We are altering the recently recreated tax move lines got calling super on
-        ``_recompute_tax_lines``.
-        """
-        round_curr = self.currency_id.round
-        tax_lines = self.line_ids.filtered(
-            lambda r: r.tax_line_id.amount_type in ("percent", "division")
-        )
-        for tax_line in tax_lines:
-            base = tax_line.tax_base_amount
-            if tax_line.currency_id != tax_line.company_currency_id:
-                tax_line.base_before_global_discounts = (
-                    tax_line.company_currency_id._convert(
-                        base,
-                        tax_line.currency_id,
-                        tax_line.company_id,
-                        tax_line.date or fields.Date.context_today(self),
-                    )
-                )
-            else:
-                tax_line.base_before_global_discounts = base
-            amount = tax_line.balance
-            for discount in self.global_discount_ids:
-                base = discount._get_global_discount_vals(base)["base_discounted"]
-                amount = discount._get_global_discount_vals(amount)["base_discounted"]
-            tax_line.tax_base_amount = round_curr(base)
-            tax_line.debit = amount > 0.0 and amount or 0.0
-            tax_line.credit = amount < 0.0 and -amount or 0.0
-            # Apply onchanges
-            tax_line._onchange_balance()
-            if tax_line.currency_id != tax_line.company_currency_id:
-                tax_line.amount_currency = tax_line.company_currency_id._convert(
-                    tax_line.balance,
-                    tax_line.currency_id,
-                    tax_line.company_id,
-                    tax_line.date or fields.Date.context_today(self),
-                )
-            tax_line._onchange_amount_currency()
-
     def _prepare_global_discount_vals(self, global_discount, base, tax_ids):
         """Prepare the dictionary values for an invoice global discount
         line.
@@ -150,7 +86,9 @@ class AccountMove(models.Model):
         # Perform a sanity check for discarding cases that will lead to
         # incorrect data in discounts
         _self = self.filtered("global_discount_ids")
-        for inv_line in _self.invoice_line_ids.filtered(lambda l: not l.display_type):
+        for inv_line in _self.invoice_line_ids.filtered(
+            lambda l: l.display_type not in ["line_section", "line_note"]
+        ):
             for key in taxes_keys:
                 if key == tuple(inv_line.tax_ids.ids):
                     break
@@ -211,8 +149,6 @@ class AccountMove(models.Model):
                 )
             create_method(
                 {
-                    "global_discount_item": True,
-                    # TODO: This field is not properly saved, probably due to ORM glitch
                     "invoice_global_discount_id": discount.id,
                     "move_id": self.id,
                     "name": "%s - %s"
@@ -226,11 +162,10 @@ class AccountMove(models.Model):
                     "amount_currency": (disc_amount > 0.0 and disc_amount or 0.0)
                     - (disc_amount < 0.0 and -disc_amount or 0.0),
                     "account_id": discount.account_id.id,
-                    "analytic_account_id": discount.account_analytic_id.id,
-                    "exclude_from_invoice_tab": True,
                     "tax_ids": [(4, x.id) for x in discount.tax_ids],
                     "partner_id": self.commercial_partner_id.id,
                     "currency_id": self.currency_id.id,
+                    "price_unit": -1 * abs(disc_amount_company_currency),
                 }
             )
 
@@ -254,17 +189,7 @@ class AccountMove(models.Model):
             )
         if discounts:
             self.global_discount_ids = discounts
-            # We need to manually launch the onchange, as the recursivity is explicitly
-            # disabled in this model:
-            # https://github.com/odoo/odoo/blob/a8d3f466dfffca08214acecf08ec298e3ace6272
-            # /addons/account/models/account_move.py#L1021-L1025
-            self._onchange_global_discount_ids()
         return res
-
-    @api.onchange("global_discount_ids")
-    def _onchange_global_discount_ids(self):
-        """Trigger move lines recomputation."""
-        return self._recompute_dynamic_lines(recompute_all_taxes=True)
 
     def _compute_amount_one(self):
         """Perform totals computation of a move with global discounts."""
@@ -277,40 +202,33 @@ class AccountMove(models.Model):
             round_curr(discount.discount_amount) * -1
             for discount in self.invoice_global_discount_ids
         )
-        self.amount_untaxed_before_global_discounts = self.amount_untaxed
-        self.amount_untaxed = self.amount_untaxed + self.amount_global_discount
-        self.amount_total = self.amount_untaxed + self.amount_tax
-        amount_untaxed_signed = self.amount_untaxed
-        if (
-            self.currency_id
-            and self.company_id
-            and self.currency_id != self.company_id.currency_id
-        ):
-            date = self.invoice_date or fields.Date.today()
-            amount_untaxed_signed = self.currency_id._convert(
-                self.amount_untaxed, self.company_id.currency_id, self.company_id, date
-            )
-        sign = self.move_type in ["in_invoice", "out_refund"] and -1 or 1
-        self.amount_total_signed = self.amount_total * sign
-        self.amount_untaxed_signed = amount_untaxed_signed * sign
+        self.amount_untaxed_before_global_discounts = (
+            self.amount_untaxed - self.amount_global_discount
+        )
 
     @api.depends(
-        "line_ids.debit",
-        "line_ids.credit",
+        "line_ids.matched_debit_ids.debit_move_id.move_id.payment_id.is_matched",
+        "line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual",
+        "line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual_currency",
+        "line_ids.matched_credit_ids.credit_move_id.move_id.payment_id.is_matched",
+        "line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual",
+        "line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual_currency",
+        "line_ids.balance",
         "line_ids.currency_id",
         "line_ids.amount_currency",
         "line_ids.amount_residual",
         "line_ids.amount_residual_currency",
         "line_ids.payment_id.state",
+        "line_ids.full_reconcile_id",
         "invoice_global_discount_ids",
         "global_discount_ids",
     )
     def _compute_amount(self):
         """Modify totals computation for including global discounts."""
-        __ = super()._compute_amount()
+        res = super()._compute_amount()
         for record in self:
             record._compute_amount_one()
-        return __
+        return res
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -319,22 +237,46 @@ class AccountMove(models.Model):
         like ``tax_ids`` is not set until the final step.
         """
         moves = super().create(vals_list)
-        move_with_global_discounts = moves.filtered("global_discount_ids")
-        for move in move_with_global_discounts:
-            move.with_context(check_move_validity=False)._onchange_global_discount_ids()
+        for move in moves:
+            move._set_global_discounts_by_tax()
+            move._recompute_global_discount_lines()
         return moves
 
-    def _check_balanced(self):
-        """Add the check of proper taxes for global discounts."""
-        __ = super()._check_balanced()
+    def write(self, vals):
+        res = super().write(vals)
+        if "invoice_line_ids" in vals or "global_discount_ids" in vals:
+            for move in self:
+                gbl_disc_lines = self.env["account.move.line"].search(
+                    [
+                        ("move_id", "=", move.id),
+                        "|",
+                        ("global_discount_item", "=", True),
+                        ("invoice_global_discount_id", "!=", False),
+                    ]
+                )
+                if gbl_disc_lines:
+                    move_container = {"records": move}
+                    with self._check_balanced(move_container), self._sync_dynamic_lines(
+                        move_container
+                    ):
+                        gbl_disc_lines.unlink()
+                move._set_global_discounts_by_tax()
+                move._recompute_global_discount_lines()
+            move_container = {"records": self}
+            self._global_discount_check(move_container)
+        return res
+
+    def _global_discount_check(self, container):
         test_condition = not config["test_enable"] or self.env.context.get(
             "test_account_global_discount"
         )
-        for move in self.filtered(lambda x: x.is_invoice() and x.global_discount_ids):
+        for move in container["records"]:
+            if not move.is_invoice() or not move.global_discount_ids:
+                continue
             taxes_keys = {}
-            for inv_line in move.invoice_line_ids.filtered(
-                lambda l: not l.display_type
-            ):
+            for inv_line in move.invoice_line_ids:
+                if inv_line.display_type != "product":
+                    continue
                 if not inv_line.tax_ids and test_condition:
                     raise exceptions.UserError(
                         _("With global discounts, taxes in lines are required.")
@@ -348,7 +290,7 @@ class AccountMove(models.Model):
                         )
                 else:
                     taxes_keys[tuple(inv_line.tax_ids.ids)] = True
-        return __
+        return True
 
 
 class AccountMoveLine(models.Model):
@@ -364,6 +306,7 @@ class AccountMoveLine(models.Model):
     )
     # TODO: To be removed on future versions if invoice_global_discount_id is properly filled
     # Provided for compatibility in stable branch
+    # UPD: can be removed past version 16.0
     global_discount_item = fields.Boolean()
 
 
@@ -409,7 +352,7 @@ class AccountInvoiceGlobalDiscount(models.Model):
         comodel_name="account.account",
         required=True,
         string="Account",
-        domain="[('user_type_id.type', 'not in', ['receivable', 'payable'])]",
+        domain="[('account_type', 'not in', ['asset_receivable', 'liability_payable'])]",
     )
     account_analytic_id = fields.Many2one(
         comodel_name="account.analytic.account",
