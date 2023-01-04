@@ -26,19 +26,33 @@
                     groups="!base_global_discount.group_global_discount"
                 />
             </xpath>
-            <field name="tax_totals_json" position="before">
+            <field name="tax_totals" position="before">
                 <field
                     name="amount_untaxed_before_global_discounts"
                     string="Untaxed Amount Before Disc."
                     attrs="{'invisible': [('global_discount_ids', '=', [])]}"
+                    groups="base_global_discount.group_global_discount"
+                />
+                <field
+                    name="amount_untaxed_before_global_discounts"
+                    string="Untaxed Amount Before Disc."
+                    attrs="{'invisible': [('global_discount_ids_readonly', '=', [])]}"
+                    groups="!base_global_discount.group_global_discount"
                 />
                 <field
                     name="amount_global_discount"
                     string="Global Discounts"
                     attrs="{'invisible': [('global_discount_ids', '=', [])]}"
+                    groups="base_global_discount.group_global_discount"
+                />
+                <field
+                    name="amount_global_discount"
+                    string="Global Discounts"
+                    attrs="{'invisible': [('global_discount_ids_readonly', '=', [])]}"
+                    groups="!base_global_discount.group_global_discount"
                 />
             </field>
-            <field name="tax_totals_json" position="attributes">
+            <field name="tax_totals" position="attributes">
                 <attribute
                     name="class"
                     add="oe_subtotal_footer_separator"
@@ -46,42 +60,77 @@
                 />
             </field>
             <page id="other_tab" position="inside">
-                <group string="Global Discounts">
-                    <field
-                        name="invoice_global_discount_ids"
-                        nolabel="1"
-                        readonly="1"
-                        attrs="{'invisible': [('global_discount_ids', '=', [])]}"
-                        force_save="1"
-                    >
-                        <tree create="0" delete="0">
-                            <field name="name" />
-                            <field name="currency_id" invisible="1" />
-                            <field name="global_discount_id" invisible="1" />
-                            <field name="discount" invisible="1" />
-                            <field
-                                name="base"
-                                widget="monetary"
-                                options="{'currency_field': 'currency_id'}"
-                            />
-                            <field name="discount_display" />
-                            <field name="discount_amount" />
-                            <field
-                                name="base_discounted"
-                                widget="monetary"
-                                options="{'currency_field': 'currency_id'}"
-                            />
-                            <field name="account_id" />
-                            <field name="tax_ids" widget="many2many_tags" />
-                            <field name="company_id" invisible="1" />
-                            <field
-                                domain="[('company_id', '=', company_id)]"
-                                name="account_analytic_id"
-                                groups="analytic.group_analytic_accounting"
-                            />
-                        </tree>
-                    </field>
-                </group>
+                <separator string="Global Discounts" />
+                <field
+                    name="invoice_global_discount_ids"
+                    nolabel="1"
+                    readonly="1"
+                    attrs="{'invisible': [('global_discount_ids', '=', [])]}"
+                    force_save="1"
+                    groups="base_global_discount.group_global_discount"
+                >
+                    <tree create="0" delete="0">
+                        <field name="name" />
+                        <field name="currency_id" invisible="1" />
+                        <field name="global_discount_id" invisible="1" />
+                        <field name="discount" invisible="1" />
+                        <field
+                            name="base"
+                            widget="monetary"
+                            options="{'currency_field': 'currency_id'}"
+                        />
+                        <field name="discount_display" />
+                        <field name="discount_amount" />
+                        <field
+                            name="base_discounted"
+                            widget="monetary"
+                            options="{'currency_field': 'currency_id'}"
+                        />
+                        <field name="account_id" />
+                        <field name="tax_ids" widget="many2many_tags" />
+                        <field name="company_id" invisible="1" />
+                        <field
+                            domain="[('company_id', '=', company_id)]"
+                            name="account_analytic_id"
+                            groups="analytic.group_analytic_accounting"
+                        />
+                    </tree>
+                </field>
+                <field
+                    name="invoice_global_discount_ids"
+                    nolabel="1"
+                    readonly="1"
+                    attrs="{'invisible': [('global_discount_ids_readonly', '=', [])]}"
+                    force_save="1"
+                    groups="!base_global_discount.group_global_discount"
+                >
+                    <tree create="0" delete="0">
+                        <field name="name" />
+                        <field name="currency_id" invisible="1" />
+                        <field name="global_discount_id" invisible="1" />
+                        <field name="discount" invisible="1" />
+                        <field
+                            name="base"
+                            widget="monetary"
+                            options="{'currency_field': 'currency_id'}"
+                        />
+                        <field name="discount_display" />
+                        <field name="discount_amount" />
+                        <field
+                            name="base_discounted"
+                            widget="monetary"
+                            options="{'currency_field': 'currency_id'}"
+                        />
+                        <field name="account_id" />
+                        <field name="tax_ids" widget="many2many_tags" />
+                        <field name="company_id" invisible="1" />
+                        <field
+                            domain="[('company_id', '=', company_id)]"
+                            name="account_analytic_id"
+                            groups="analytic.group_analytic_accounting"
+                        />
+                    </tree>
+                </field>
             </page>
         </field>
     </record>
