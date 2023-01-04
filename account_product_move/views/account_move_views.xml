@@ -9,12 +9,17 @@
                 <button
                     type="object"
                     name="action_view_journal_entries"
-                    string="Automatic Journal Entries"
                     class="oe_stat_button"
                     icon="fa-file-text-o"
-                    attrs="{'invisible': ['|',('state', '=', 'draft'),('type','not in', ['out_invoice','out_refund'])]}"
+                    style="width: 18em;"
+                    attrs="{'invisible': [('product_move_count', '=', 0)]}"
                     groups="account.group_account_user"
                 >
+                    <field
+                        name="product_move_count"
+                        widget="statinfo"
+                        string="Automatic Journal Entries"
+                    />
                 </button>
             </xpath>
         </field>

@@ -6,11 +6,19 @@ from odoo import _, fields, models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
+    def _compute_product_move_count(self):
+        """Compute number of extra product moves generated."""
+        for this in self:
+            this.product_move_count = len(this.product_move_ids)
+
     product_move_ids = fields.One2many(
         comodel_name="account.move",
         inverse_name="invoice_move_id",
         help="Extra moves generated for invoice lines that hold "
         "a product connected to an account.product.move record",
+    )
+    product_move_count = fields.Float(
+        string="Number of extra moves", compute="_compute_product_move_count",
     )
     invoice_move_id = fields.Many2one(
         comodel_name="account.move",
