@@ -10,6 +10,6 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["account"],
+    "depends": ["purchase", "sale"],
     "data": ["wizards/account_move_reversal_views.xml"],
 }

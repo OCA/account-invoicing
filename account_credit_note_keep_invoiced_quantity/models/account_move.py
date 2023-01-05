@@ -1,26 +1,41 @@
-# Copyright 2022 Opener B.V. <stefan@opener.amsterdam>
+# Copyright 2023 Opener B.V. <stefan@opener.amsterdam>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models
+from odoo import _, api, models
+from odoo.exceptions import ValidationError
 
 
-class AccountMoveLine(models.Model):
-    _inherit = "account.move.line"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
-    def copy_data(self, default=None):
-        """Circumvent the inclusion of business fields depending on the context.
+    def _reverse_moves(self, default_values_list=None, cancel=False):
+        """Update purchase order's invoice_ids with the reversals.
 
-        This is used to allow the creation of credit notes without resetting the
-        invoiced quantities on sales or purchases.
+        It is a stored computed field and has to be triggered explicitely
+        because we cannot add a recursive `api.depends`.
         """
-        avoid_include_business_fields = self.env.context.get(
-            "avoid_include_business_fields"
-        ) and self.env.context.get("include_business_fields")
-        if avoid_include_business_fields:
-            self = self.with_context(include_business_fields=False)
-        res = super().copy_data(default=default)
-        if avoid_include_business_fields and "purchase_line_id" in self._fields:
-            # purchase_line_id is copied by default
-            for _line, values in zip(self, res):
-                if values.get("purchase_line_id"):
-                    values.pop("purchase_line_id")
+        res = super()._reverse_moves(
+            default_values_list=default_values_list, cancel=cancel
+        )
+        purchases = self.mapped("line_ids.purchase_order_id")
+        moves = self
+        while moves.mapped("reversed_entry_id"):
+            moves = moves.mapped("reversed_entry_id")
+            purchases |= moves.mapped("line_ids.purchase_order_id")
+        purchases._compute_invoice()
         return res
+
+    @api.constrains("reversed_entry_id")
+    def _check_reversed_move_id_recursion(self):
+        """Prevent the creation of recursion in the set of reversals.
+
+        This would be quite disasterous in combination with the recursive
+        queries in the sale and purchase compute methods.
+        """
+        for move in self:
+            start = move
+            while move.reversed_entry_id:
+                if move.reversed_entry_id == start:
+                    raise ValidationError(
+                        _("You cannot create a recursive set of reversals")
+                    )
+                move = move.reversed_entry_id
