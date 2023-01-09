@@ -204,15 +204,3 @@ msgstr "Onbelast bedrag voor kort."
 #, python-format
 msgid "With global discounts, taxes in lines are required."
 msgstr "Met globale kortingen zijn belastingen in regels vereist."
-
-#~ msgid "Base discounted"
-#~ msgstr "Basis korting"
-
-#~ msgid "Discounted amount"
-#~ msgstr "Kortingsbedrag"
-
-#~ msgid "Tax"
-#~ msgstr "Belasting"
-
-#~ msgid "Company related to this journal"
-#~ msgstr "Bedrijf gerelateerd aan journaal"
