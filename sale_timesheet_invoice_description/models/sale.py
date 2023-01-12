@@ -63,12 +63,12 @@ class SaleOrder(models.Model):
             desc_dict[timesheet_id] = " - ".join(details)
         return desc_dict
 
-    def _split_aml_accumulate_qty_of_group(self, group, aml_uom_id):
+    def _split_aml_accumulate_qty_of_group(self, group, aml_uom_id, invoiced):
         """The total quantity for a group of timesheets"""
         result = 0
         for ts_id in group:
             ts_uom_id = ts_id.product_uom_id
-            ts_qty = ts_id.unit_amount
+            ts_qty = ts_id.unit_amount - invoiced[ts_id.id]
             result += ts_uom_id._compute_quantity(ts_qty, aml_uom_id)
         return result
 
@@ -82,7 +82,9 @@ class SaleOrder(models.Model):
         group_desc += [desc_dict[ts_id] for ts_id in group if ts_id in desc_dict]
         return "\n".join(group_desc).strip()
 
-    def _split_aml_by_timesheets(self, inv_split, aml, ts_ids, desc_dict, aml_seq):
+    def _split_aml_by_timesheets(
+        self, inv_split, aml, ts_ids, desc_dict, aml_seq, invoiced
+    ):
         """
         Split an invoice line in as many lines as there are related timesheets
         or tasks (depending on the type of split);
@@ -125,7 +127,9 @@ class SaleOrder(models.Model):
         group = groups[0]
         if group != groups[-1]:
             # first one is not the last one, hence compute normally
-            init_qty = self._split_aml_accumulate_qty_of_group(group, aml_uom_id)
+            init_qty = self._split_aml_accumulate_qty_of_group(
+                group, aml_uom_id, invoiced
+            )
         else:
             # first one is the last one, hence assign the rest (see also below)
             init_qty = aml_total - aml_sum  # note that here, aml_sum == 0
@@ -144,7 +148,7 @@ class SaleOrder(models.Model):
 
         # Create one invoice line for each timesheet/task except the last one
         for group in groups[1:-1]:
-            qty = self._split_aml_accumulate_qty_of_group(group, aml_uom_id)
+            qty = self._split_aml_accumulate_qty_of_group(group, aml_uom_id, invoiced)
             desc = self._split_aml_compile_group_description(
                 group, desc_dict, inv_split
             )
@@ -225,12 +229,19 @@ class SaleOrder(models.Model):
         end_date = end_date or self.env.context.get("timesheet_end_date")
 
         moves = super()._create_invoices(grouped=grouped, final=final)
-        moves._link_timesheets_to_invoice_line(start_date=start_date, end_date=end_date)
+        invoiced = moves._link_timesheets_to_invoice_line(
+            start_date=start_date, end_date=end_date
+        )
 
         for move_id in moves:
             aml_seq = 0
             for aml in move_id.invoice_line_ids:
                 ts_ids = aml.timesheet_ids
+
+                # don't invoice the timesheets that are already fully invoiced
+                # note: should already be filtered by `_link_timesheets_to_invoice_line`
+                ts_ids = ts_ids.filtered(lambda ts: invoiced[ts.id] < ts.unit_amount)
+
                 desc_rule = aml.timesheet_invoice_description
                 inv_split = aml.timesheet_invoice_split
                 desc_dict = self._get_timesheet_descriptions(aml)
@@ -242,7 +253,7 @@ class SaleOrder(models.Model):
                 ):
                     if inv_split:
                         aml_seq = self._split_aml_by_timesheets(
-                            inv_split, aml, ts_ids, desc_dict, aml_seq
+                            inv_split, aml, ts_ids, desc_dict, aml_seq, invoiced
                         )
                     else:
                         desc_list = desc_dict.values()
