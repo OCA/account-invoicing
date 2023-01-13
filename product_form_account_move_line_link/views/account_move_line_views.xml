@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ForgeFlow S.L.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3.0) -->
+<odoo>
+    <record model="ir.actions.act_window" id="action_account_move_line_product_tree">
+        <field name="context">{'search_default_posted':1}</field>
+        <field name="domain">[('product_id.product_tmpl_id','in',active_ids)]</field>
+        <field name="name">Journal Items</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_id" ref="account.view_move_line_tree" />
+    </record>
+    <record
+        model="ir.actions.act_window"
+        id="action_account_move_line_product_product_tree"
+    >
+        <field name="context">{'search_default_posted':1}</field>
+        <field name="domain">[('product_id','in',active_ids)]</field>
+        <field name="name">Journal Items</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_id" ref="account.view_move_line_tree" />
+    </record>
+</odoo>
