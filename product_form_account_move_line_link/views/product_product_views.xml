@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ForgeFlow S.L.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3.0) -->
+<odoo>
+    <record id="product_normal_form_view_inherit" model="ir.ui.view">
+        <field
+            name="name"
+        >product.product.form (in product_form_account_move_line_link)</field>
+        <field name="model">product.product</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+                    class="oe_stat_button"
+                    name="%(product_form_account_move_line_link.action_account_move_line_product_product_tree)d"
+                    type="action"
+                    icon="fa-list"
+                >
+                    <field
+                        string="Journal Items"
+                        name="account_move_lines_count"
+                        widget="statinfo"
+                    />
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>
