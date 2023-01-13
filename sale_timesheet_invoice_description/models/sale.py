@@ -20,6 +20,16 @@ class SaleOrder(models.Model):
         string="Split Order lines by",
         help="How to split the order lines - by timesheet, by task, or not at all.",
     )
+    timesheet_invoice_consecutive = fields.Selection(
+        "_get_timesheet_invoice_consecutive",
+        string="Timesheets for consecutive Invoices",
+        default="not_fully_invoiced",
+        required=True,
+        help="Which timesheets are to be invoiced on consecutive invoices - "
+        "only the yet completely uninvoiced (i.e., to ignore the already "
+        "partially or fully invoiced), or also the already partially invoiced "
+        "(i.e., to ignore only the already fully invoiced).",
+    )
 
     @api.model
     def _get_timesheet_invoice_description(self):
@@ -36,6 +46,13 @@ class SaleOrder(models.Model):
         return [
             ("timesheet", _("Timesheet")),
             ("task", _("Task")),
+        ]
+
+    @api.model
+    def _get_timesheet_invoice_consecutive(self):
+        return [
+            ("uninvoiced", _("Only uninvoiced")),
+            ("not_fully_invoiced", _("Uninvoiced and partially invoiced")),
         ]
 
     def _get_timesheet_details(self, account_move_line, timesheet):
@@ -256,9 +273,12 @@ class SaleOrder(models.Model):
             for aml in move_id.invoice_line_ids:
                 ts_ids = aml.timesheet_ids
 
-                # don't invoice the timesheets that are already fully invoiced
-                # note: should already be filtered by `_link_timesheets_to_invoice_line`
-                ts_ids = ts_ids.filtered(lambda ts: invoiced[ts.id] < ts.unit_amount)
+                # Note that the method `_link_timesheets_to_invoice_line` of
+                # account.move.line already filtered out the desired timesheets
+                # (account.analytic.line), as there the timesheets' many2one
+                # field 'timesheet_invoice_line_id' is set accordingly, and
+                # this is the counterpart of the account.move.line's one2many
+                # field 'timesheet_ids'.
 
                 desc_rule = aml.timesheet_invoice_description
                 inv_split = aml.timesheet_invoice_split
@@ -297,10 +317,12 @@ class SaleOrderLine(models.Model):
         res = super(SaleOrderLine, self)._prepare_invoice_line(**optional_values)
         desc_rule = self.order_id.timesheet_invoice_description
         inv_split = self.order_id.timesheet_invoice_split
+        inv_consecutive = self.order_id.timesheet_invoice_consecutive
         res.update(
             {
                 "timesheet_invoice_description": desc_rule,
                 "timesheet_invoice_split": inv_split,
+                "timesheet_invoice_consecutive": inv_consecutive,
             }
         )
         return res

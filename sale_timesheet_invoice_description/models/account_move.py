@@ -31,7 +31,7 @@ class AccountMove(models.Model):
                     # invoice, as that will miss the ones that are only
                     # partially invoiced yet, e.g. through a manual change of
                     # their invoice line's quantity. Instead, we will filter
-                    # out the fully invoiced timesheets below.
+                    # for the desired timesheets below.
                     # ("timesheet_invoice_id", "=", aml.move_id.id),
                 ]
                 if start_date:
@@ -69,11 +69,15 @@ class AccountMove(models.Model):
                         # this single timesheet, but unclear if multiple.
                         invoiced[ts.id] = ts.unit_amount * qty / qty_sum
 
-                # Filter out fully invoiced timesheets; take only the ones that
-                # are just partially invoiced or not yet invoiced at all.
-                timesheets = timesheets.filtered(
-                    lambda ts: invoiced[ts.id] < ts.unit_amount
-                )
+                # Filter out fully and/or partially invoiced timesheets,
+                # depending on the according configuration option.
+                def _to_be_invoiced(timesheet):
+                    if aml.timesheet_invoice_consecutive == "uninvoiced":
+                        return timesheet.id not in invoiced
+                    # else: i.e., "not_fully_invoiced"
+                    return invoiced[timesheet.id] < timesheet.unit_amount
+
+                timesheets = timesheets.filtered(_to_be_invoiced)
                 timesheets.write({"timesheet_invoice_line_id": aml.id})
 
         return invoiced
@@ -108,6 +112,10 @@ class AccountMoveLine(models.Model):
     )
     timesheet_invoice_split = fields.Char(
         string="Split Order lines by",
+        readonly=True,
+    )
+    timesheet_invoice_consecutive = fields.Char(
+        string="Timesheets for consecutive Invoices",
         readonly=True,
     )
 

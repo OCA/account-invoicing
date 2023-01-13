@@ -38,8 +38,8 @@ Configuration
 To configure this module, you need to:
 
 #. Go to **Timesheets > Configuration > Settings** and select an option from
-   **Timesheet Invoice Description** and from **Spit Order lines by**
-   under **Billing** section.
+   **Timesheet Invoice Description**, **Spit Order lines by** and
+   **Timesheets for consecutive Invoices** under **Billing** section.
 
 Usage
 =====
@@ -61,6 +61,20 @@ To use this module, you need to:
    - For **Split Order lines by** select "Timesheet" if you want to create one
      invoice line for each Sale Order line's timesheet, or select "Task" if you
      want to create one invoice line for each Sale Order line's task.
+   - For **Timesheets for consecutive Invoices** select "Only uninvoiced" if
+     you want to ignore all already fully or partially invoiced timesheets when
+     creating consecutive invoices, or select "Uninvoiced and partially
+     invoiced" if you want to ignore only the already fully invoiced
+     timesheets.
+
+     - Caveat: Since a timesheet can be linked to only a single invoice line
+       (by its fields "Invoice Line"), the option "Uninvoiced and partially
+       invoiced" works for partially invoiced timesheets only on a second
+       invoice. The timesheet will then be linked to (only) its new invoice
+       line, and thus any further invoices are unable to determine the not yet
+       invoiced amount of that timesheet, because the link to the line on the
+       first invoice is no longer known.
+
    - Link the Sale Order with a project from **Project** field.
 #. Confirm Sale.
 #. Go to *Timesheets > Timesheets > My Timesheets*, create a record
