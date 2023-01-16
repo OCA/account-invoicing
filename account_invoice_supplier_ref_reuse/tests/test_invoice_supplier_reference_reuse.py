@@ -28,8 +28,9 @@ class TestInvoiceSupplierReferenceReuse(SavepointCase):
             .create(
                 {
                     "partner_id": self.env.ref("base.res_partner_2").id,
-                    "type": "in_invoice",
+                    "move_type": "in_invoice",
                     "ref": reference,
+                    "invoice_date": "2023-01-01",
                 }
             )
         )
