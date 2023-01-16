@@ -47,6 +47,6 @@ class TestInvoiceSupplierReferenceReuse(SavepointCase):
         return invoice
 
     def test_01_reference_reuse(self):
-        """ Check that reusing the reference number is possible """
+        """Check that reusing the reference number is possible"""
         invoice2 = self._create_invoice_with_reference(self.invoice.ref)
         self.assertEqual(invoice2.ref, self.invoice.ref)

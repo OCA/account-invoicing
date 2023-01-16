@@ -10,6 +10,6 @@ class AccountInvoice(models.Model):
 
     @api.constrains("ref")
     def _check_duplicate_supplier_reference(self):
-        """ Do nothing instead of checking if the reference number already exists. """
+        """Do nothing instead of checking if the reference number already exists."""
         if config["test_enable"] and not self.env.context.get("test_no_refuse_ref"):
             super()._check_duplicate_supplier_reference()
