@@ -54,6 +54,7 @@ setuptools.setup(
         'odoo13-addon-account_move_tier_validation_approver',
         'odoo13-addon-account_move_tier_validation_forward',
         'odoo13-addon-account_tax_group_widget_base_amount',
+        'odoo13-addon-product_form_account_move_line_link',
         'odoo13-addon-product_supplierinfo_for_customer_invoice',
         'odoo13-addon-purchase_batch_invoicing',
         'odoo13-addon-purchase_invoicing_no_zero_line',
