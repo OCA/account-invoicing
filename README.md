@@ -67,6 +67,7 @@ addon | version | maintainers | summary
 [account_move_tier_validation_approver](account_move_tier_validation_approver/) | 13.0.2.0.0 |  | Account Move Tier Validation Approver
 [account_move_tier_validation_forward](account_move_tier_validation_forward/) | 13.0.1.0.0 |  | Account Move Tier Validation - Forward Option
 [account_tax_group_widget_base_amount](account_tax_group_widget_base_amount/) | 13.0.1.0.0 | [![chienandalu](https://github.com/chienandalu.png?size=30px)](https://github.com/chienandalu) | Adds base to tax group widget as it's put in the report
+[product_form_account_move_line_link](product_form_account_move_line_link/) | 13.0.1.0.0 |  | Adds a button on product forms to access Journal Items
 [product_supplierinfo_for_customer_invoice](product_supplierinfo_for_customer_invoice/) | 13.0.1.0.0 |  | Based on product_customer_code, this module loads in every account invoice the customer code defined in the product
 [purchase_batch_invoicing](purchase_batch_invoicing/) | 13.0.1.1.0 |  | Make invoices for all ready purchase orders
 [purchase_invoicing_no_zero_line](purchase_invoicing_no_zero_line/) | 13.0.1.0.0 |  | Avoid creation of zero quantity invoice lines from purchase
