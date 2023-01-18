@@ -117,6 +117,17 @@ class SaleOrder(models.Model):
             "test_timesheet_description"
         )
 
+        # The wizard "sale.advance.payment.inv" method `create_invoices()` does
+        # provide the start and end date in the context rather than the kwargs.
+        # Note that they are read from there in the super method in module
+        # "sale_timesheet". Which is overwritten here without a super call.
+        # Also note that the unit tests do use the kwarg.
+        # Therefore, this method does accept the kwargs (for use with the unit
+        # tests), but falls back to the context in case values for the kwargs
+        # are not provided (as by the wizard).
+        start_date = start_date or self.env.context.get("timesheet_start_date")
+        end_date = end_date or self.env.context.get("timesheet_end_date")
+
         moves = super()._create_invoices(grouped=grouped, final=final)
         moves._link_timesheets_to_invoice_line(start_date=start_date, end_date=end_date)
 
