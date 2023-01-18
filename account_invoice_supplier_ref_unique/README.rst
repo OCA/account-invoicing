@@ -62,6 +62,7 @@ Contributors
 * Thomas Binsfeld <thomas.binsfeld@acsone.eu>
 * Andrea Stirpe <a.stirpe@onestein.nl>
 * Miguel Gandia <miguel@studio73.es>
+* Ángel Tornero Hernández <angel.tornero@braintec.com>
 
 Maintainers
 ~~~~~~~~~~~
