@@ -2,6 +2,8 @@
 
 from odoo import api, fields, models
 
+from .sale import SaleOrder
+
 
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
@@ -10,6 +12,8 @@ class ResConfigSettings(models.TransientModel):
         selection="_get_timesheet_invoice_description",
         string="Timesheet Invoice Description",
         default_model="sale.order",
+        default=SaleOrder.timesheet_invoice_description.default,
+        required=SaleOrder.timesheet_invoice_description.required,
     )
 
     @api.model

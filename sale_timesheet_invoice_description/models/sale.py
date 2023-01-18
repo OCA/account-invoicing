@@ -10,7 +10,9 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     timesheet_invoice_description = fields.Selection(
-        "_get_timesheet_invoice_description", default="000"
+        "_get_timesheet_invoice_description",
+        default="000",
+        required=True,
     )
     timesheet_invoice_split = fields.Boolean("Split Order lines by timesheets")
 
