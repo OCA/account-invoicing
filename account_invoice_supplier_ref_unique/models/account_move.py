@@ -18,7 +18,7 @@ class AccountMove(models.Model):
     @api.constrains("supplier_invoice_number")
     def _check_unique_supplier_invoice_number_insensitive(self):
         """
-        Check if an other vendor bill has the same supplier_invoice_number
+        Check if another vendor bill has the same supplier_invoice_number
         and the same commercial_partner_id than the current instance
         """
         for rec in self:
@@ -41,14 +41,15 @@ class AccountMove(models.Model):
                 if same_supplier_inv_num:
                     raise ValidationError(
                         _(
-                            "The invoice/refund with supplier invoice number '%s' "
-                            "already exists in Odoo under the number '%s' "
-                            "for supplier '%s'."
-                        )
-                        % (
-                            same_supplier_inv_num.supplier_invoice_number,
-                            same_supplier_inv_num.name or "-",
-                            same_supplier_inv_num.partner_id.display_name,
+                            "The invoice/refund with supplier invoice number "
+                            "'%(supplier_invoice_number)s' "
+                            "already exists in Odoo under the number '%(name)s' "
+                            "for supplier '%(display_name)s'.",
+                            supplier_invoice_number=(
+                                same_supplier_inv_num.supplier_invoice_number
+                            ),
+                            name=same_supplier_inv_num.name or "-",
+                            display_name=same_supplier_inv_num.partner_id.display_name,
                         )
                     )
 
