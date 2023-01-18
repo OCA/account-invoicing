@@ -23,7 +23,7 @@ Unique Supplier Invoice Number in Invoice
     :target: https://runbot.odoo-community.org/runbot/95/14.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module checks that a supplier invoice/refund is not entered twice. This is important because if you enter twice the same supplier invoice, there is also a risk that you pay it twice !
 
