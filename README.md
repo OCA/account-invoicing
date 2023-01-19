@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[account_invoice_block_payment](account_invoice_block_payment/) | 15.0.1.0.0 |  | Module to block payment of invoices
 [account_invoice_blocking](account_invoice_blocking/) | 15.0.1.0.1 |  | Set a blocking (No Follow-up) flag on invoices
 [account_invoice_change_currency](account_invoice_change_currency/) | 15.0.2.0.0 | [![luisg123v](https://github.com/luisg123v.png?size=30px)](https://github.com/luisg123v) [![rolandojduartem](https://github.com/rolandojduartem.png?size=30px)](https://github.com/rolandojduartem) | Allows to change currency of Invoice by wizard
 [account_invoice_check_picking_date](account_invoice_check_picking_date/) | 15.0.1.0.0 | [![carlosdauden](https://github.com/carlosdauden.png?size=30px)](https://github.com/carlosdauden) | Check if date of pickings match with invoice date
