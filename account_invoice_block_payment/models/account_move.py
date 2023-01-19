@@ -19,6 +19,6 @@ class AccountMove(models.Model):
                 error_msg += (
                     _("The payment on invoice {} is blocked.").format(move.name) + "\n"
                 )
-        if len(error_msg):
+        if error_msg:
             raise UserError(error_msg)
         return super().action_register_payment()
