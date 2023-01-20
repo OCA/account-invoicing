@@ -4,7 +4,7 @@
         id="invoice_discount_display_amount_document"
         inherit_id="account.report_invoice_document"
     >
-        <xpath expr="//tr[hasclass('o_total')]" position="before">
+        <xpath expr="//t[@t-call='account.document_tax_totals']" position="after">
             <tr t-if="display_discount" class="border-black">
                 <td name="td_discount_total_label"><strong>Discount</strong></td>
                 <td name="td_discount_total" class="text-right">

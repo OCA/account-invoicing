@@ -5,7 +5,7 @@ from odoo.tests.common import TransactionCase
 
 
 class TestInvoiceDiscountDisplayAmount(TransactionCase):
-    def test_sale_discount_value(self):
+    def test_invoice_discount_value(self):
         invoice = self.env["account.move"].create(
             {
                 "partner_id": self.env.ref("base.res_partner_1").id,
