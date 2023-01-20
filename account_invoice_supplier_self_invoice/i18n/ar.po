@@ -172,6 +172,12 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
+#: code:addons/account_invoice_supplier_self_invoice/models/res_partner.py:0
+#, python-format
+msgid "Invoiced by the recipent"
+msgstr ""
+
+#. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_account_move
 msgid "Journal Entry"
 msgstr ""
