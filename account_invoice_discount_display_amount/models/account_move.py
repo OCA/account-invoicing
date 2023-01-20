@@ -9,7 +9,6 @@ class AccountMove(models.Model):
 
     discount_total = fields.Monetary(
         compute="_compute_discount_total",
-        string="Discount Total",
         currency_field="currency_id",
         store=True,
     )
