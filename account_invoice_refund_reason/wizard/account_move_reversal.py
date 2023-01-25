@@ -16,6 +16,5 @@ class AccountMoveReversal(models.TransientModel):
 
     def reverse_moves(self):
         res = super().reverse_moves()
-        credit_note = self.env["account.move"].browse(res["res_id"])
-        credit_note.write({"reason_id": self.reason_id.id})
+        self.move_ids.mapped("reversal_move_id").write({"reason_id": self.reason_id})
         return res
