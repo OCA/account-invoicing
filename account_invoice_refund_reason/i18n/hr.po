@@ -69,16 +69,12 @@ msgid "Description"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move__display_name
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__display_name
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__display_name
 msgid "Display Name"
 msgstr "Naziv"
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move__id
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__id
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__id
 msgid "ID"
 msgstr "ID"
 
@@ -93,9 +89,7 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_refund_reason
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move____last_update
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason____last_update
-#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal____last_update
 msgid "Last Modified on"
 msgstr "Zadnje modificirano"
 
