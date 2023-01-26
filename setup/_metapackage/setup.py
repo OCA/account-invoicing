@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_blocking>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_check_total>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_fiscal_position_update>=16.0dev,<16.1dev',
+        'odoo-addon-account_invoice_refund_link>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_tax_required>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_triple_discount>=16.0dev,<16.1dev',
     ],
