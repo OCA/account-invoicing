@@ -5,12 +5,12 @@
     "name": "Product From Account Move Line Link",
     "summary": """
         Adds a button on product forms to access Journal Items""",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Account",
     "license": "AGPL-3",
-    "depends": ["account", "product"],
+    "depends": ["account"],
     "data": [
         "views/account_move_line_views.xml",
         "views/product_product_views.xml",

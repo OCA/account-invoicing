@@ -16,8 +16,6 @@ class ProductTemplate(models.Model):
     def _compute_account_move_lines_count(self):
         for product in self:
             product.account_move_lines_count = sum(
-                
-                    p.account_move_lines_count
-                    for p in product.with_context(active_test=False).product_variant_ids
-                
+                p.account_move_lines_count
+                for p in product.with_context(active_test=False).product_variant_ids
             )
