@@ -1,0 +1,1 @@
+odoo-addon-base_global_discount @ git+https://github.com/OCA/server-backend.git@refs/pull/221/head#subdirectory=setup/base_global_discount
