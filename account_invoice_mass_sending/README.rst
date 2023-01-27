@@ -40,9 +40,9 @@ queue_job module needs to be configured, see the module `documentation <https://
 Usage
 =====
 
-On the invoices list view, select the invoices to send and click on 'Action > Mass Send & print'.
+On the invoices list view, select the invoices to send and click on 'Action > Send & print'.
 
-It will use the existing 'SEND & PRINT' action on the invoice with the default value.
+In the wizard select the 'Email' checkbox and a template then click on 'Email mass sending (Job Queue)'
 
 Bug Tracker
 ===========
@@ -61,12 +61,14 @@ Authors
 ~~~~~~~
 
 * ACSONE SA/NV
+* Open Net Sàrl
 
 Contributors
 ~~~~~~~~~~~~
 
 * Thomas Binsfeld <thomas.binsfeld@acsone.eu>
 * Denis Robinet <denis.robinet@acsone.eu>
+* Julien Guenat <jgu@open-net.ch>
 
 Maintainers
 ~~~~~~~~~~~
