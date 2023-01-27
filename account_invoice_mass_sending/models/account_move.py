@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, fields, models
-from odoo.exceptions import UserError
 
 
 class AccountInvoice(models.Model):
@@ -14,56 +13,51 @@ class AccountInvoice(models.Model):
         "and it will prevent the sending of a duplicated mail.",
     )
 
-    def mass_send_print(self):
+    def mass_sending(self, template=None):
         """
-        This method triggers the asynchronous "Send & Print" for the selected
-        invoices for which there is no asynchronous sending in progress.
+        This method triggers the asynchronous sending for the selected
+        invoices for which there is no asynchronous sending in progress
+        and an email address is defined.
         """
-        invoices_to_send = self.filtered(lambda i: not i.sending_in_progress)
-        in_progress_invoices_count = len(self) - len(invoices_to_send)
-        title = _("Invoices: Send & Print")
-        if in_progress_invoices_count > 0:
-            warn_msg = _(
-                "The sending of {in_progress_invoices_count} invoices is "
-                "already in progress."
-            ).format(in_progress_invoices_count=in_progress_invoices_count)
-            self.env.user.notify_info(title=title, message=warn_msg)
+        invoices_to_send = self.filtered(
+            lambda i: not i.sending_in_progress and i.partner_id.email
+        )
         if invoices_to_send:
-            msg = _(
-                "The sending of {invoices_count} invoices will be processed "
-                "in background."
-            ).format(invoices_count=len(invoices_to_send))
-            self.env.user.notify_info(title=title, message=msg)
-            invoices_to_send.write({"sending_in_progress": True})
-            invoices_to_send.with_delay().do_prepare_send_print()
-
-    def do_prepare_send_print(self):
-        for rec in self:
-            rec.with_delay().do_send_print()
-
-    def do_send_print(self):
-        for rec in self:
-            if not rec.partner_id.email:
-                raise UserError(
-                    _("Missing email address on customer {customer_name}.").format(
-                        customer_name=rec.partner_id.display_name
-                    )
-                )
-            action_invoice_wizard = rec.action_invoice_sent()
-            ctx = action_invoice_wizard["context"]
-            ctx.update(
+            invoices_to_send.write(
                 {
-                    "active_id": rec.id,
-                    "active_ids": rec.ids,
-                    "active_model": "account.invoice",
+                    "sending_in_progress": True,
                 }
             )
-            invoice_wizard = (
-                self.env[action_invoice_wizard["res_model"]]
-                .with_context(ctx)
-                .create({})
-            )
-            invoice_wizard._compute_composition_mode()
-            invoice_wizard.onchange_template_id()
-            invoice_wizard.send_and_print_action()
-        self.write({"sending_in_progress": False})
+            for invoice in invoices_to_send:
+                description = _("Send invoice %(name)s by email", name=invoice.name)
+                invoice.with_delay(description=description)._send_invoice_individually(
+                    template=template
+                )
+        return invoices_to_send
+
+    def _send_invoice_individually(self, template=None):
+        self.ensure_one()
+        res = self.action_invoice_sent()
+        wiz_ctx = res["context"] or {}
+        wiz_ctx.update(
+            {
+                "active_model": self._name,
+                "active_ids": self.ids,
+            }
+        )
+        wiz = self.env["account.invoice.send"].with_context(**wiz_ctx).create({})
+        wiz.write(
+            {
+                "is_print": False,
+                "is_email": True,
+                "template_id": template.id,
+                "composition_mode": "comment",
+            }
+        )
+        wiz.onchange_template_id()
+        self.write(
+            {
+                "sending_in_progress": False,
+            }
+        )
+        return wiz.send_and_print_action()
