@@ -14,11 +14,23 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_mass_sending
+#: model:ir.model,name:account_invoice_mass_sending.model_account_invoice_send
+msgid "Account Invoice Send"
+msgstr ""
+
+#. module: account_invoice_mass_sending
+#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_invoice_send__display_name
 #: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_move__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: account_invoice_mass_sending
+#: model_terms:ir.ui.view,arch_db:account_invoice_mass_sending.account_invoice_send_wizard_form
+msgid "Email mass sending (Job Queue)"
+msgstr ""
+
+#. module: account_invoice_mass_sending
+#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_invoice_send__id
 #: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_move__id
 msgid "ID"
 msgstr ""
@@ -33,9 +45,17 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_mass_sending
-#: code:addons/account_invoice_mass_sending/models/account_move.py:0
+#: code:addons/account_invoice_mass_sending/wizards/account_invoice_send.py:0
 #, python-format
-msgid "Invoices: Send & Print"
+msgid ""
+"Invoices %(ineligible_invoices)s were already in processing or do not have "
+"an email address defined."
+msgstr ""
+
+#. module: account_invoice_mass_sending
+#: code:addons/account_invoice_mass_sending/wizards/account_invoice_send.py:0
+#, python-format
+msgid "Invoices: Mass sending"
 msgstr ""
 
 #. module: account_invoice_mass_sending
@@ -44,19 +64,15 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_mass_sending
+#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_invoice_send____last_update
 #: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_move____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: account_invoice_mass_sending
-#: model:ir.actions.server,name:account_invoice_mass_sending.action_invoice_mass_send_print
-msgid "Mass Send & Print"
-msgstr ""
-
-#. module: account_invoice_mass_sending
 #: code:addons/account_invoice_mass_sending/models/account_move.py:0
 #, python-format
-msgid "Missing email address on customer {customer_name}."
+msgid "Send invoice %(name)s by email"
 msgstr ""
 
 #. module: account_invoice_mass_sending
@@ -67,15 +83,8 @@ msgid "Sending In Progress"
 msgstr ""
 
 #. module: account_invoice_mass_sending
-#: code:addons/account_invoice_mass_sending/models/account_move.py:0
+#: code:addons/account_invoice_mass_sending/wizards/account_invoice_send.py:0
 #, python-format
 msgid ""
-"The sending of {in_progress_invoices_count} invoices is already in progress."
-msgstr ""
-
-#. module: account_invoice_mass_sending
-#: code:addons/account_invoice_mass_sending/models/account_move.py:0
-#, python-format
-msgid ""
-"The sending of {invoices_count} invoices will be processed in background."
+"The sending of %(invoices_count)d invoices will be processed in background."
 msgstr ""
