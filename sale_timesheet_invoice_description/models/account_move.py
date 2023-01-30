@@ -53,7 +53,15 @@ class AccountMoveLine(models.Model):
     )
 
     # Filled by sale order line's _prepare_invoice_line()
-    timesheet_invoice_description = fields.Char()
+    # Technical hint: We keep `Selection` fields as `Char`. This is
+    # intentionally done, in order to avoid code duplication (e.g., the need to
+    # specify their `selection` parameter). Note that they are not available to
+    # the Odoo users, but rather used just "internally" in the code. And there,
+    # on code as well as database level, the values of `Selection` and `Char`
+    # fields are just the same, namely strings. Hence, this works just fine.
+    timesheet_invoice_description = fields.Char(
+        readonly=True,
+    )
     timesheet_invoice_split = fields.Boolean("Split Order lines by timesheets")
 
     def _get_sale_line_delivery(self):
