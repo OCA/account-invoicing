@@ -107,8 +107,8 @@
                     />
                     <div t-if="o.company_id.partner_id.vat" class="mt16">
                         <t
-                            t-if="o.company_id.account_fiscal_country_id.vat_label"
-                            t-esc="o.company_id.account_fiscal_country_id.vat_label"
+                            t-if="o.company_id.country_id.vat_label"
+                            t-esc="o.company_id.country_id.vat_label"
                             id="inv_tax_id_label"
                         />
                         <t t-else="">Tax ID</t>: <span
