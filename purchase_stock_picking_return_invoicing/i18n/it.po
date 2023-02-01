@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-24 18:04+0000\n"
-"PO-Revision-Date: 2023-01-02 11:54+0000\n"
+"PO-Revision-Date: 2023-02-01 09:40+0000\n"
 "Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -54,7 +54,7 @@ msgstr "Ordine di acquisto"
 #. module: purchase_stock_picking_return_invoicing
 #: model:ir.model,name:purchase_stock_picking_return_invoicing.model_purchase_order_line
 msgid "Purchase Order Line"
-msgstr "Riga Ordine d'Acquisto"
+msgstr "Riga ordine di acquisto"
 
 #. module: purchase_stock_picking_return_invoicing
 #: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_stock_return_picking_line_purchase_line_id
