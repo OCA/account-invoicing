@@ -52,7 +52,7 @@ addon | version | maintainers | summary
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 14.0.1.0.0 |  | Account invoice search by reference
 [account_invoice_section_sale_order](account_invoice_section_sale_order/) | 14.0.1.2.0 |  | For invoices targetting multiple sale order addsections with sale order name.
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 14.0.1.0.0 |  | Checks that supplier invoices are not entered twice
-[account_invoice_supplier_self_invoice](account_invoice_supplier_self_invoice/) | 14.0.2.0.2 |  | Purchase Self Invoice
+[account_invoice_supplier_self_invoice](account_invoice_supplier_self_invoice/) | 14.0.2.0.3 |  | Purchase Self Invoice
 [account_invoice_supplierinfo_update](account_invoice_supplierinfo_update/) | 14.0.1.0.0 |  | In the supplier invoice, automatically updates all products whose unit price on the line is different from the supplier price
 [account_invoice_supplierinfo_update_discount](account_invoice_supplierinfo_update_discount/) | 14.0.1.0.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | In the supplier invoice, automatically update all products whose discount on the line is different from the supplier discount
 [account_invoice_tax_note](account_invoice_tax_note/) | 14.0.1.0.0 |  | Print tax notes on customer invoices
