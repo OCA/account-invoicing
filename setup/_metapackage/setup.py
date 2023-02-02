@@ -59,6 +59,7 @@ setuptools.setup(
         'odoo14-addon-account_move_propagate_ref',
         'odoo14-addon-account_move_tier_validation',
         'odoo14-addon-account_move_tier_validation_forward',
+        'odoo14-addon-account_receipt_journal',
         'odoo14-addon-account_receipt_print',
         'odoo14-addon-account_refund_payment_term',
         'odoo14-addon-product_supplierinfo_for_customer_invoice',
