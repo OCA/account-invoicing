@@ -20,6 +20,10 @@
                         attrs="{'invisible': ['|', ('self_invoice', '=', False), '&amp;', ('self_invoice_sequence_id', '!=', False), ('self_invoice_refund_sequence_id', '!=', False)]}"
                         colspan="2"
                     />
+                    <!-- We add these fields also as invisible fields, because they are used in the invisible domains above.
+                    They should be available to every group, not only to base.group_no_one-->
+                    <field name="self_invoice_sequence_id" invisible="1" />
+                    <field name="self_invoice_refund_sequence_id" invisible="1" />
                     <field
                         name="self_invoice_sequence_id"
                         readonly="1"

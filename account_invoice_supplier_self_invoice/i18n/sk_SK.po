@@ -32,7 +32,7 @@ msgid ""
 "        <t t-else=\"\">\n"
 "            <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t>,\n"
 "        </t>\n"
-"        <br/><br/>\n"
+"        <br><br>\n"
 "        Here is your Self-Bill Invoice\n"
 "        <t t-if=\"object.name and object.ref\">\n"
 "            <strong><t t-out=\"object.ref or ''\">INVREF/2021/05/0005</t></"
@@ -52,12 +52,12 @@ msgid ""
 "        <t t-if=\"object.payment_state in ('paid', 'in_payment')\">\n"
 "            This Self-Bill Invoice is already paid.\n"
 "        </t>\n"
-"        <br/><br/>\n"
+"        <br><br>\n"
 "        Do not hesitate to contact us if you have any questions.\n"
 "        <t t-if=\"object.invoice_user_id.signature\">\n"
-"            <br/>\n"
-"            <t t-out=\"object.invoice_user_id.signature or ''\">--<br/"
-">Mitchell Admin</t>\n"
+"            <br>\n"
+"            <t t-out=\"object.invoice_user_id.signature or ''\">--"
+"<br>Mitchell Admin</t>\n"
 "        </t>\n"
 "    </p>\n"
 "</div>\n"
@@ -172,6 +172,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
+#. odoo-python
 #: code:addons/account_invoice_supplier_self_invoice/models/res_partner.py:0
 #, python-format
 msgid "Invoiced by the recipent"
@@ -296,6 +297,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_supplier_self_invoice
+#. odoo-python
 #: code:addons/account_invoice_supplier_self_invoice/models/res_partner.py:0
 #, python-format
 msgid "You must set a Self Billing prefix in Account Settings."
