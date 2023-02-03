@@ -47,8 +47,8 @@ class TestSelfInvoice(common.TransactionCase):
             {
                 "company_id": main_company.id,
                 "name": "Testing Product account",
-                "code": "test_product",
-                "user_type_id": self.env.ref("account.data_account_type_revenue").id,
+                "code": "test.product",
+                "account_type": "income",
             }
         )
         self.env["account.move.line"].create(
@@ -71,8 +71,6 @@ class TestSelfInvoice(common.TransactionCase):
                 # "price_unit": 20,
             }
         )
-        self.invoice._onchange_invoice_line_ids()
-        self.refund._onchange_invoice_line_ids()
         return res
 
     def test_check_set_self_invoice(self):
