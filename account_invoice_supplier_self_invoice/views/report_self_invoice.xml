@@ -15,8 +15,8 @@
             <div class="row">
                 <div class="col-6">
                     <img
-                        t-if="o.partner_id.image_1024"
-                        t-att-src="image_data_uri(o.partner_id.image_1024)"
+                        t-if="o.partner_id.image_128"
+                        t-att-src="image_data_uri(o.partner_id.image_128)"
                         alt="Logo"
                     />
                 </div>
