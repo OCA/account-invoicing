@@ -20,31 +20,13 @@ msgid "Cancel"
 msgstr ""
 
 #. module: account_invoice_validation_queued
-#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_account_move__display_name
-#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_validate_account_move__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: account_invoice_validation_queued
 #: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.validate_account_move_view
 msgid "Enqueue Validation"
 msgstr ""
 
 #. module: account_invoice_validation_queued
-#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_account_move__id
-#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_validate_account_move__id
-msgid "ID"
-msgstr ""
-
-#. module: account_invoice_validation_queued
 #: model:ir.model,name:account_invoice_validation_queued.model_account_move
 msgid "Journal Entry"
-msgstr ""
-
-#. module: account_invoice_validation_queued
-#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_account_move____last_update
-#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_validate_account_move____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: account_invoice_validation_queued
