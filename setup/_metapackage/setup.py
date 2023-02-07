@@ -30,6 +30,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_transmit_method>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_tree_currency>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_triple_discount>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_validation_queued>=15.0dev,<15.1dev',
         'odoo-addon-account_move_exception>=15.0dev,<15.1dev',
         'odoo-addon-account_move_post_block>=15.0dev,<15.1dev',
         'odoo-addon-account_move_tier_validation>=15.0dev,<15.1dev',
