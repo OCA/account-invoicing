@@ -19,31 +19,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: account_invoice_view_payment
-#: model:ir.model,name:account_invoice_view_payment.model_account_invoice
-msgid "Invoice"
-msgstr "Facture"
+#: model:ir.model,name:account_invoice_view_payment.model_account_move
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_view_payment
-#: code:addons/account_invoice_view_payment/models/account_payment.py:16
-#: code:addons/account_invoice_view_payment/wizards/account_register_payments.py:21
+#: code:addons/account_invoice_view_payment/models/account_payment.py:0
 #: model:ir.model,name:account_invoice_view_payment.model_account_payment
 #, python-format
 msgid "Payments"
 msgstr ""
 
 #. module: account_invoice_view_payment
-#: model:ir.model,name:account_invoice_view_payment.model_account_register_payments
-msgid "Register Payments"
+#: model:ir.model,name:account_invoice_view_payment.model_account_payment_register
+msgid "Register Payment"
 msgstr ""
 
 #. module: account_invoice_view_payment
-#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_from_invoices
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_form_multi
 #: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_invoice_form
 msgid "Validate & View Payment"
 msgstr ""
 
 #. module: account_invoice_view_payment
-#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.invoice_form
-#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.invoice_supplier_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_move_form
 msgid "View Payments"
 msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Facture"
