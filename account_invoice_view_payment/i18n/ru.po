@@ -1,0 +1,57 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_view_payment
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+# nek, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-17 01:09+0000\n"
+"PO-Revision-Date: 2018-03-17 01:09+0000\n"
+"Last-Translator: nek, 2018\n"
+"Language-Team: Russian (https://www.transifex.com/oca/teams/23907/ru/)\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: account_invoice_view_payment
+#: model:ir.model,name:account_invoice_view_payment.model_account_invoice
+msgid "Invoice"
+msgstr "Счет"
+
+#. module: account_invoice_view_payment
+#: code:addons/account_invoice_view_payment/models/account_payment.py:16
+#: code:addons/account_invoice_view_payment/wizards/account_register_payments.py:21
+#: model:ir.model,name:account_invoice_view_payment.model_account_payment
+#, python-format
+msgid "Payments"
+msgstr "Платежи"
+
+#. module: account_invoice_view_payment
+#: model:ir.model,name:account_invoice_view_payment.model_account_register_payments
+#, fuzzy
+#| msgid "View Payments"
+msgid "Register Payments"
+msgstr "Просмотр Платежей"
+
+#. module: account_invoice_view_payment
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_from_invoices
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_invoice_form
+msgid "Validate & View Payment"
+msgstr "Проверка и Просмотр Платежа"
+
+#. module: account_invoice_view_payment
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.invoice_supplier_form
+msgid "View Payments"
+msgstr "Просмотр Платежей"
+
+#~ msgid "Register payments on multiple invoices"
+#~ msgstr "Зарегистрировать платежи по нескольким счетам"
