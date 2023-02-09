@@ -44,6 +44,7 @@ addon | version | maintainers | summary
 [account_invoice_tree_currency](account_invoice_tree_currency/) | 15.0.1.0.0 |  | Show currencies in the invoice tree view
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 15.0.1.0.0 |  | Manage triple discount on invoice lines
 [account_invoice_validation_queued](account_invoice_validation_queued/) | 15.0.1.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Enqueue account invoice validation
+[account_invoice_view_payment](account_invoice_view_payment/) | 15.0.1.0.0 |  | Access to the payment from an invoice
 [account_move_exception](account_move_exception/) | 15.0.1.0.0 |  | Custom exceptions on account move
 [account_move_post_block](account_move_post_block/) | 15.0.1.0.1 |  | Account Move Post Block
 [account_move_tier_validation](account_move_tier_validation/) | 15.0.1.1.1 |  | Extends the functionality of Account Moves to support a tier validation process.
