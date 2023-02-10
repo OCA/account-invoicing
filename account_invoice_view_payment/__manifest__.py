@@ -5,7 +5,7 @@
 {
     "name": "Account Invoice View Payment",
     "summary": "Access to the payment from an invoice",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.2",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "ForgeFlow, " "Odoo Community Association (OCA)",
