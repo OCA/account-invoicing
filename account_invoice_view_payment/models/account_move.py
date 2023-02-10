@@ -15,10 +15,13 @@ class AccountMove(models.Model):
         When only one found, show the payment immediately.
         """
         if self.move_type in ("in_invoice", "in_refund"):
-            action = self.env.ref("account.action_account_payments_payable")
+            result = self.env["ir.actions.act_window"]._for_xml_id(
+                "account.action_account_payments_payable"
+            )
         else:
-            action = self.env.ref("account.action_account_payments")
-        result = action.read()[0]
+            result = self.env["ir.actions.act_window"]._for_xml_id(
+                "account.action_account_payments"
+            )
         reconciles = self._get_reconciled_info_JSON_values()
         payment = []
         for rec in reconciles:
