@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- © 2023 Factor Libre - Javier Iniesta <javier.iniesta@factorlibre.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<odoo>
+
+     <template id="tax_groups_totals" inherit_id="account.tax_groups_totals">
+          <xpath
+            expr="//t[@t-as='amount_by_group']/tr/t/td[last()]/span"
+            position="after"
+        >
+               <t t-if="tax_totals.get('display_company_currency_taxes')">
+                    (<span
+                    t-esc="amount_by_group['formatted_tax_group_amount_company_currency']"
+                />)
+               </t>
+          </xpath>
+
+          <xpath
+            expr="//t[@t-as='amount_by_group']/tr/t[@t-else='']/td[last()]/span"
+            position="after"
+        >
+               <t t-if="tax_totals.get('display_company_currency_taxes')">
+                    (<span
+                    t-esc="amount_by_group['formatted_tax_group_amount_company_currency']"
+                />)
+               </t>
+          </xpath>
+     </template>
+
+</odoo>
