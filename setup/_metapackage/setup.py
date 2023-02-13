@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_refund_link>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_tax_required>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_triple_discount>=16.0dev,<16.1dev',
+        'odoo-addon-account_menu_invoice_refund>=16.0dev,<16.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
