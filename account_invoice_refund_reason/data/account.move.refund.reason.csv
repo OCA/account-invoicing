@@ -1,0 +1,8 @@
+id,name
+refund_reason_cancellation,Cancellation
+refund_reason_noref,Invoice without reference
+refund_reason_error,Lease and/or Minimum Charge Error
+refund_reason_agreement,Commercial and/or Collection Agreement
+refund_reason_difference,Price Difference
+refund_reason_correction,Data Correction
+refund_reason_others,Others
