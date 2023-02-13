@@ -27,6 +27,7 @@ addon | version | maintainers | summary
 [account_invoice_refund_link](account_invoice_refund_link/) | 16.0.1.0.1 |  | Show links between refunds and their originator invoices.
 [account_invoice_tax_required](account_invoice_tax_required/) | 16.0.1.0.0 |  | This module adds functional a check on invoice to force user to set tax on invoice line.
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 16.0.1.0.0 |  | Manage triple discount on invoice lines
+[account_menu_invoice_refund](account_menu_invoice_refund/) | 16.0.1.0.0 | [![kittiu](https://github.com/kittiu.png?size=30px)](https://github.com/kittiu) | New invoice menu that combine invoices and refunds
 
 [//]: # (end addons)
 
