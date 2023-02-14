@@ -9,7 +9,7 @@
             <t t-set="display_discount" t-value="o._has_discount()" />
             <t
                 t-set="discount_class"
-                t-value="'text-right %s' % ('d-none d-md-table-cell' if report_type == 'html' else '')"
+                t-value="'text-end %s' % ('d-none d-md-table-cell' if report_type == 'html' else '')"
             />
         </xpath>
         <xpath expr="//th[@name='th_price_unit']" position="after">
