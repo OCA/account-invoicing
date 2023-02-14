@@ -22,6 +22,16 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.2 %</span>"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.3 %</span>"
+msgstr ""
+
+#. module: account_invoice_triple_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.invoice_triple_discount_form_view
 msgid "Disc.2%"
 msgstr "Скидка 2 (%)"
@@ -32,21 +42,27 @@ msgid "Disc.3%"
 msgstr "Скидка 3 (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount2
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount2
 msgid "Discount 2 (%)"
 msgstr "Скидка 2 (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount3
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount3
 msgid "Discount 3 (%)"
 msgstr "Скидка 3 (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model,name:account_invoice_triple_discount.model_account_invoice
-msgid "Invoice"
-msgstr "Счет"
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_triple_discount
-#: model:ir.model,name:account_invoice_triple_discount.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Позиция счета"
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Счет"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Позиция счета"

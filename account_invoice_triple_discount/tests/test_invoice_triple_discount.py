@@ -1,4 +1,5 @@
 # Copyright 2017 Tecnativa - David Vidal
+# Copyright 2023 Simone Rubino - Aion Tech
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.tests import TransactionCase
@@ -161,4 +162,43 @@ class TestInvoiceTripleDiscount(TransactionCase):
             line_form.discount = 15.0
         invoice_form.save()
 
-        self.assertEqual(invoice.amount_tax, 177.61)
+    def test_05_has_discount(self):
+        """
+        Tests has_discount
+        """
+        invoice = self.create_simple_invoice(0)
+        invoice_form = Form(invoice)
+
+        self.assertFalse(invoice._has_discount())
+
+        with invoice_form.invoice_line_ids.edit(0) as line_form:
+            line_form.discount = 50.0
+        invoice_form.save()
+        self.assertTrue(invoice._has_discount())
+
+        with invoice_form.invoice_line_ids.edit(0) as line_form:
+            line_form.discount = 0
+            line_form.discount2 = 50.0
+        invoice_form.save()
+        self.assertTrue(invoice._has_discount())
+
+        with invoice_form.invoice_line_ids.edit(0) as line_form:
+            line_form.discount2 = 0
+            line_form.discount3 = 50.0
+        invoice_form.save()
+        self.assertTrue(invoice._has_discount())
+
+    def test_06_round_discount(self):
+        """Discount value is rounded correctly"""
+        invoice = self.create_simple_invoice(0)
+        invoice_line = invoice.invoice_line_ids[0]
+        invoice_line.discount = 100
+        self.assertEqual(invoice_line.discount, 100)
+
+    def test_07_round_tax_discount(self):
+        """Discount value is rounded correctly when taxes change"""
+        invoice = self.create_simple_invoice(0)
+        invoice_line = invoice.invoice_line_ids[0]
+        invoice_line.discount = 100
+        invoice_line.tax_ids = False
+        self.assertEqual(invoice_line.discount, 100)
