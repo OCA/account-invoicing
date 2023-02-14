@@ -11,11 +11,7 @@
             <xpath expr="//field[@name='invoice_line_ids']" position="attributes">
                 <attribute
                     name="context"
-                    operation="python_dict"
-                    key="default_sequence"
-                >
-                    max_line_sequence
-                </attribute>
+                >{'default_sequence': max_line_sequence}</attribute>
             </xpath>
             <xpath
                 expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']"

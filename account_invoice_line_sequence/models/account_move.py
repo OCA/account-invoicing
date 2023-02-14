@@ -9,7 +9,7 @@ from odoo import api, fields, models
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    sequence = fields.Integer(
+    sequence3 = fields.Integer(
         help="Shows the sequence of this line in the invoice.",
         default=9999,
         string="original sequence",
@@ -37,7 +37,7 @@ class AccountMove(models.Model):
         """
         for invoice in self:
             invoice.max_line_sequence = (
-                max(invoice.mapped("invoice_line_ids.sequence") or [0]) + 1
+                max(invoice.mapped("invoice_line_ids.sequence3") or [0]) + 1
             )
 
     max_line_sequence = fields.Integer(
@@ -48,7 +48,7 @@ class AccountMove(models.Model):
         # This part is just modifying sequences and so does not need a check
         for rec in self.with_context(check_move_validity=False):
             for current_seq, line in enumerate(
-                rec.invoice_line_ids.sorted("sequence"), start=1
+                rec.invoice_line_ids.sorted("sequence3"), start=1
             ):
                 line.sequence = current_seq
 
