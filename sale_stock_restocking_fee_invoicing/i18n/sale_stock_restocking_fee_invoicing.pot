@@ -22,12 +22,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_stock_restocking_fee_invoicing.field_stock_return_picking__charge_restocking_fee
 #: model:ir.model.fields,field_description:sale_stock_restocking_fee_invoicing.field_stock_return_picking_line__charge_restocking_fee
 msgid "Charge Restocking Fee"
-msgstr "Facturer les frais de retour"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model,name:sale_stock_restocking_fee_invoicing.model_res_company
 msgid "Companies"
-msgstr "Sociétés"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model,name:sale_stock_restocking_fee_invoicing.model_res_config_settings
@@ -47,7 +47,7 @@ msgstr ""
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model.fields,field_description:sale_stock_restocking_fee_invoicing.field_stock_picking__is_customer_out
 msgid "Is Customer Out"
-msgstr "Est une livraison client"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model.fields,field_description:sale_stock_restocking_fee_invoicing.field_stock_move__is_customer_return
@@ -55,12 +55,12 @@ msgstr "Est une livraison client"
 #: model:ir.model.fields,field_description:sale_stock_restocking_fee_invoicing.field_stock_return_picking__is_customer_return
 #: model:ir.model.fields,field_description:sale_stock_restocking_fee_invoicing.field_stock_return_picking_line__is_customer_return
 msgid "Is Customer Return"
-msgstr "Est un retour client"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model.fields,field_description:sale_stock_restocking_fee_invoicing.field_sale_order_line__is_restocking_fee
 msgid "Is Restocking Fee"
-msgstr "Sont des frais de retour"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model.fields,help:sale_stock_restocking_fee_invoicing.field_res_config_settings__restocking_fee_product_id
@@ -69,10 +69,6 @@ msgid ""
 "returning goods. In the case where fees are to be applied, the product "
 "specified here is added to the sale order to charge these fees."
 msgstr ""
-"Il est possible de spécifier sur un client si des frais de retour doivent "
-"être facturés en cas de retour de marchandise. Dans le cas où des frais "
-"doivent être facturés, le produit spécifié ici sea ajouter à la commande "
-"pour appliquer ces frais de retour."
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model.fields,help:sale_stock_restocking_fee_invoicing.field_res_company__restocking_fee_product_id
@@ -82,10 +78,6 @@ msgid ""
 "product specified here is added to the sale order to charge these restocking"
 " fee."
 msgstr ""
-"Il est possible de spécifier sur un client si des frais de retour doivent être "
-"facturés en cas de retour de marchandise. Dans le cas où des frais doivent être "
-"facturés, le produit spécifié ici sea ajouter à la commande pour appliquer ces "
-"frais de retour."
 
 #. module: sale_stock_restocking_fee_invoicing
 #. odoo-python
@@ -95,30 +87,27 @@ msgid ""
 "No product configured for restocking fee. Please fix the configuration into "
 "stock settings or contact you administrator."
 msgstr ""
-"Aucun produit configuré pour permettre la facturation des frais de retour. "
-"Veuillez modifier les paramètres de configuration dans "
-"Inventaire/Configuration/configuration ou contacter l'administrateur Odoo."
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model_terms:ir.ui.view,arch_db:sale_stock_restocking_fee_invoicing.res_config_settings_view_form
 msgid "Product which is the fee for restocking returned goods"
-msgstr "Produit représentant les frais en cas retour de biens"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model.fields,field_description:sale_stock_restocking_fee_invoicing.field_res_company__restocking_fee_product_id
 #: model:ir.model.fields,field_description:sale_stock_restocking_fee_invoicing.field_res_config_settings__restocking_fee_product_id
 msgid "Restocking Fee Product"
-msgstr "Produit 'Frais de retour'"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:product.template,name:sale_stock_restocking_fee_invoicing.product_restocking_fee_product_template
 msgid "Restocking fee"
-msgstr "Frais de retour"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model,name:sale_stock_restocking_fee_invoicing.model_stock_return_picking
 msgid "Return Picking"
-msgstr "Retour de marchandise"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model,name:sale_stock_restocking_fee_invoicing.model_stock_return_picking_line
@@ -128,17 +117,17 @@ msgstr ""
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model,name:sale_stock_restocking_fee_invoicing.model_sale_order
 msgid "Sales Order"
-msgstr "Bon de commande"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model,name:sale_stock_restocking_fee_invoicing.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Ligne de bons de commande"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model,name:sale_stock_restocking_fee_invoicing.model_stock_move
 msgid "Stock Move"
-msgstr "Mouvement de stock"
+msgstr ""
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model.fields,help:sale_stock_restocking_fee_invoicing.field_res_partner__charge_restocking_fee
@@ -148,8 +137,6 @@ msgid ""
 "Tick this box if you wish to charge your customer a fee in case of return of"
 " goods"
 msgstr ""
-"Sélectionner si vous voulez facturer des frais de retour à votre client pour le "
-"traitement de ce retour de marchandise."
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model.fields,help:sale_stock_restocking_fee_invoicing.field_stock_return_picking__charge_restocking_fee
@@ -157,11 +144,8 @@ msgid ""
 "Tick this box if you wish to charge your customer a fee in case of return of"
 " goods. Default value comes from the customer info."
 msgstr ""
-"Sélectionner si vous voulez facturer des frais de retour à votre client pour le "
-"traitement de ce retour de marchandise. La valuer par défaut est fournie par la "
-"fiche client."
 
 #. module: sale_stock_restocking_fee_invoicing
 #: model:ir.model,name:sale_stock_restocking_fee_invoicing.model_stock_picking
 msgid "Transfer"
-msgstr "Transfert"
+msgstr ""

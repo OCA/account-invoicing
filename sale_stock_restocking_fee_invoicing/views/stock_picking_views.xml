@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2020 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="stock_picking_form_view">
@@ -9,7 +8,7 @@
             sale_stock_restocking_fee_invoicing)
         </field>
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="inherit_id" ref="stock.view_picking_form" />
         <field name="arch" type="xml">
             <!-- In order to be able to conditionally display the 'charge_restocking_fee'
             into the product_return_moves tree of the stock.return.picking form we declare into
@@ -18,10 +17,12 @@
             a tree according to value of the parent record. In Odoo 12, this hack should be
             replace by using the column_invisible attribute -->
             <button name="%(stock.act_stock_return_picking)d" position="before">
-                 <field name="is_customer_out" invisible="1"/>
+                 <field name="is_customer_out" invisible="1" />
             </button>
             <button name="%(stock.act_stock_return_picking)d" position="attributes">
-                <attribute name="context">{"is_customer_return": is_customer_out}</attribute>
+                <attribute
+                    name="context"
+                >{"is_customer_return": is_customer_out}</attribute>
             </button>
         </field>
     </record>

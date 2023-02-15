@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2020 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <record model="ir.ui.view" id="stock_return_picking_form_view">
@@ -9,18 +8,20 @@
             sale_stock_restocking_fee_invoicing)
         </field>
         <field name="model">stock.return.picking</field>
-        <field name="inherit_id" ref="stock.view_stock_return_picking_form"/>
+        <field name="inherit_id" ref="stock.view_stock_return_picking_form" />
         <field name="arch" type="xml">
-            <xpath expr="//group[1]" position="after">
-                <field name="is_customer_return" invisible="1"/>
-                <group
-                    attrs="{'invisible':[('is_customer_return','=',False)]}">
-                    <field name="charge_restocking_fee"/>
+            <field name="product_return_moves" position="after">
+                <field name="is_customer_return" invisible="1" />
+                <group attrs="{'invisible':[('is_customer_return','=',False)]}">
+                    <field name="charge_restocking_fee" />
                 </group>
-            </xpath>
+            </field>
             <field name="quantity" position="after">
-                <field name="move_id" invisible="1"/>
-                <field name="charge_restocking_fee" invisible="context.get('is_customer_return') == False"/>
+                <field name="move_id" invisible="1" />
+                <field
+                    name="charge_restocking_fee"
+                    invisible="context.get('is_customer_return') == False"
+                />
             </field>
         </field>
     </record>

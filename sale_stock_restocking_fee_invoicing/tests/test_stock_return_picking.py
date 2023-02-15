@@ -1,15 +1,15 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import Form, TransactionCase
 
 
-class TestStockReturnPicking(SavepointCase):
+class TestStockReturnPicking(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestStockReturnPicking, cls).setUpClass()
+        super().setUpClass()
 
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.partner = cls.env["res.partner"].create(
             {"name": "Partner", "charge_restocking_fee": False}
         )
@@ -58,38 +58,25 @@ class TestStockReturnPicking(SavepointCase):
 
     @staticmethod
     def _process_picking(picking):
-        picking.force_assign()
-        for pack in picking.pack_operation_product_ids:
-            pack.qty_done = pack.product_qty
-        picking.do_transfer()
+        picking.action_assign()
+        for move in picking.move_ids:
+            move.quantity_done = move.product_qty
+        picking.button_validate()
 
     def _create_return_wizard(self):
-        default_data = (
-            self.env["stock.return.picking"]
-            .with_context(
-                active_ids=self.picking.ids, active_id=self.picking.ids[0]
-            )
-            .default_get(
-                [
-                    "move_dest_exists",
-                    "original_location_id",
-                    "product_return_moves",
-                    "parent_location_id",
-                    "location_id",
-                    "charge_restocking_fee",
-                ]
+        return_wizard = Form(
+            self.env["stock.return.picking"].with_context(
+                active_ids=self.picking.ids,
+                active_id=self.picking.ids[0],
+                active_model="stock.picking",
             )
         )
-        return (
-            self.env["stock.return.picking"]
-            .with_context(
-                active_ids=self.picking.ids, active_id=self.picking.ids[0]
-            )
-            .create(default_data)
-        )
+        res = return_wizard.save()
+        return res
 
     def _create_return_picking(self):
-        res = self._create_return_wizard().create_returns()
+        wizard = self._create_return_wizard()
+        res = wizard.create_returns()
         return self.env["stock.picking"].browse(res["res_id"])
 
     def test_00(self):

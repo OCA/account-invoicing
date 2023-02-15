@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -24,8 +23,7 @@ class ResCompany(models.Model):
     @api.model
     def _default_restocking_fee_product_id(self):
         product = self.env.ref(
-            "sale_stock_restocking_fee_invoicing."
-            "product_restocking_fee",
+            "sale_stock_restocking_fee_invoicing." "product_restocking_fee",
             raise_if_not_found=False,
         )
         if product:

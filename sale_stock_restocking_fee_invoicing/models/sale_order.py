@@ -1,29 +1,27 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, _
+from odoo import _, models
 from odoo.exceptions import UserError
+from odoo.fields import Command
 
 
 class SaleOrder(models.Model):
 
     _inherit = "sale.order"
 
-    @api.multi
     def _get_restocking_fee_line_name(self, stock_move):
-        """ Return the de name for the so line. This method should be called
+        """Return the de name for the so line. This method should be called
         with the customer lang into the context to get the description into
         the right language
         """
         lang = self.partner_id.lang
-        return _("Restocking fee for %s %s %s") % (
-            stock_move.product_uom_qty,
-            stock_move.product_uom.with_context(lang=lang).name,
-            stock_move.procurement_id.sale_line_id.name,
+        return _(
+            f"Restocking fee for {stock_move.product_uom_qty} "
+            f"{stock_move.product_uom.with_context(lang=lang).name} "
+            f"{stock_move.sale_line_id.name}"
         )
 
-    @api.multi
     def _get_restocking_fee_line_value(self, stock_move):
         self.ensure_one()
         product_id = self.company_id.restocking_fee_product_id
@@ -51,7 +49,6 @@ class SaleOrder(models.Model):
             values["sequence"] = self.order_line[-1].sequence + 1
         return values
 
-    @api.multi
     def _get_restocking_fee_lines_values(self, stock_moves):
         self.ensure_one()
         vals = []
@@ -65,5 +62,5 @@ class SaleOrder(models.Model):
 
     def _charge_restocking_fee(self, stock_moves):
         lines = self._get_restocking_fee_lines_values(stock_moves)
-        values = [(0, 0, l) for l in lines]
+        values = [Command.create(line) for line in lines]
         self.sudo().write({"order_line": values})
