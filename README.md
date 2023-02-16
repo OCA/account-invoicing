@@ -41,7 +41,7 @@ addon | version | maintainers | summary
 [account_invoice_mode_monthly](account_invoice_mode_monthly/) | 14.0.1.1.0 |  | Create invoices automatically on a monthly basis.
 [account_invoice_mode_weekly](account_invoice_mode_weekly/) | 14.0.1.1.0 |  | Create invoices automatically on a weekly basis.
 [account_invoice_partner](account_invoice_partner/) | 14.0.1.0.0 |  | Replace the partner by an invoice contact if found
-[account_invoice_payment_retention](account_invoice_payment_retention/) | 14.0.1.1.1 |  | Account Invoice Payment Retention
+[account_invoice_payment_retention](account_invoice_payment_retention/) | 14.0.1.2.0 |  | Account Invoice Payment Retention
 [account_invoice_pricelist](account_invoice_pricelist/) | 14.0.1.0.1 |  | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 14.0.1.0.0 |  | Module to fill pricelist from sales order in invoice.
 [account_invoice_refund_line_selection](account_invoice_refund_line_selection/) | 14.0.1.0.2 |  | This module allows the user to refund specific lines in a invoice
