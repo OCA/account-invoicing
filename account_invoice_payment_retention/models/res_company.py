@@ -14,6 +14,14 @@ class ResCompany(models.Model):
         domain=[("user_type_id.type", "=", "other")],
         help="Retention account used for case payment retention",
     )
+    retention_method = fields.Selection(
+        selection=[("untax", "Untaxed Amount"), ("total", "Total")],
+        default="untax",
+        string="Retention Method",
+        help="Method for computing the retention\n"
+        "- Untaxed Amount: The retention compute from the untaxed amount\n"
+        "- Total: The retention compute from the total amount",
+    )
 
     @api.constrains("retention_account_id")
     def _check_retention_account_id(self):

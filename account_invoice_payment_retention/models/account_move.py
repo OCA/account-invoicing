@@ -9,12 +9,22 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     payment_retention = fields.Selection(
-        [("percent", "Percent"), ("amount", "Amount")],
+        selection=[("percent", "Percent"), ("amount", "Amount")],
         string="Payment Retention",
         readonly=True,
         states={"draft": [("readonly", False)]},
         help="Suggested retention amount to be withheld on payment.\n"
         "Note: as a suggestiong, during payment, user can ignore it.",
+    )
+    retention_method = fields.Selection(
+        selection=[("untax", "Untaxed Amount"), ("total", "Total")],
+        default=lambda self: self.env.company.retention_method,
+        string="Retention Method",
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+        help="Method for computing the retention\n"
+        "- Untaxed Amount: The retention compute from the untaxed amount\n"
+        "- Total: The retention compute from the total amount",
     )
     amount_retention = fields.Float(
         string="Retention",
@@ -89,23 +99,40 @@ class AccountMove(models.Model):
         self.currency_id = self.env.company.currency_id
         self._recompute_dynamic_lines()
 
-    @api.depends("payment_retention", "amount_retention", "amount_untaxed")
+    @api.depends(
+        "payment_retention",
+        "retention_method",
+        "amount_retention",
+        "amount_untaxed",
+        "amount_total",
+    )
     def _compute_retention_amount_currency(self):
-        """Compute retention based on untaxed amount"""
         for rec in self:
-            amount = 0.0
+            retention_amount = 0.0
             if rec.payment_retention == "amount":
-                amount = rec.amount_retention
+                retention_amount = rec.amount_retention
             elif rec.payment_retention == "percent":
-                # Ensure working with purchase deposit, sum only positive qty lines
-                amount_untaxed = sum(
-                    rec.invoice_line_ids.filtered(lambda l: l.quantity > 0).mapped(
-                        "amount_currency"
+                amount = 0.0
+                if rec.retention_method == "untax":
+                    # Ensure working with purchase deposit, sum only positive qty lines
+                    amount = sum(
+                        rec.invoice_line_ids.filtered(lambda l: l.quantity > 0).mapped(
+                            "amount_currency"
+                        )
                     )
-                )
+                elif rec.retention_method == "total":
+                    # Ensure working with purchase deposit, sum only positive qty lines
+                    # and not Payable or Receivable account
+                    amount = sum(
+                        rec.line_ids.filtered(
+                            lambda l: l.quantity > 0
+                            and l.account_id.internal_type
+                            not in ["payable", "receivable"]
+                        ).mapped("amount_currency")
+                    )
                 sign = 1 if rec.move_type in ["in_invoice", "out_refund"] else -1
-                amount = sign * (amount_untaxed * rec.amount_retention / 100)
-            rec.retention_amount_currency = amount
+                retention_amount = sign * (amount * rec.amount_retention / 100)
+            rec.retention_amount_currency = retention_amount
 
     def _get_retained_move_lines(self, retained_invoice):
         move_lines = retained_invoice.line_ids
