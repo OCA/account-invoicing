@@ -40,6 +40,14 @@ class AccountMove(models.Model):
         string="Retention Residual",
         compute="_compute_retention_residual_currency",
     )
+    domain_retained_move_ids = fields.Many2many(
+        comodel_name="account.move",
+        relation="account_move_domain_retained_rel",
+        column1="move_id",
+        column2="retained_id",
+        readonly=True,
+        copy=False,
+    )
     retained_move_ids = fields.Many2many(
         comodel_name="account.move",
         relation="account_invoice_move_rel",
@@ -58,26 +66,34 @@ class AccountMove(models.Model):
 
     @api.onchange("partner_id")
     def _onchange_domain_retained_move_ids(self):
-        self.retained_move_ids = False
-        domain = []
+        """Get all account move (retention) to domain_retained_move_ids
+        for filter return retention"""
+        self.domain_retained_move_ids = False
         if self.env.user.has_group(
             "account_invoice_payment_retention.group_payment_retention"
         ):
+            retention_account = (
+                self.env.company.retention_account_id
+                if self.move_type == "in_invoice"
+                else self.env.company.retention_receivable_account_id
+            )
             dom = [
                 ("parent_state", "=", "posted"),
-                ("account_id", "=", self.env.company.retention_account_id.id),
+                ("account_id", "=", retention_account.id),
                 ("reconciled", "=", False),
                 ("partner_id", "=", self.partner_id.id),
             ]
             move_lines = self.env["account.move.line"].search(dom)
-            move_ids = move_lines.mapped("move_id").ids
-            domain = [("id", "in", move_ids)]
-        return {"domain": {"retained_move_ids": domain}}
+            self.domain_retained_move_ids = [(6, 0, move_lines.mapped("move_id").ids)]
 
     @api.model
     def _move_lines_retained_moves(self, retained_moves):
         """Get move_lines from selected retained moves in list of dict"""
-        retention_account = self.env.company.retention_account_id
+        retention_account = (
+            self.env.company.retention_account_id
+            if self.move_type == "in_invoice"
+            else self.env.company.retention_receivable_account_id
+        )
         move_lines = retained_moves.mapped("line_ids").filtered(
             lambda l: l.account_id == retention_account and not l.reconciled
         )
@@ -137,7 +153,11 @@ class AccountMove(models.Model):
         reconciled_moves = move_lines.mapped(
             "matched_debit_ids.debit_move_id.move_id"
         ) + move_lines.mapped("matched_credit_ids.credit_move_id.move_id")
-        retention_account = self.env.company.retention_account_id
+        retention_account = (
+            self.env.company.retention_account_id
+            if retained_invoice.move_type == "in_invoice"
+            else self.env.company.retention_receivable_account_id
+        )
         retained_move_lines = reconciled_moves.mapped("line_ids").filtered(
             lambda l: l.account_id == retention_account
         )
@@ -174,21 +194,22 @@ class AccountMove(models.Model):
 
     def action_post(self):
         res = super().action_post()
-        for rec in self:
-            if self.retained_move_ids:
-                retention_account = self.env.company.retention_account_id
-                retained_move_lines = self.retained_move_ids.mapped(
-                    "line_ids"
-                ).filtered(
-                    lambda l: l.account_id == retention_account and not l.reconciled
-                )
-                return_move_lines = rec.line_ids.filtered(
-                    lambda l: l.account_id == retention_account
-                )
-                move_lines = retained_move_lines + return_move_lines
-                move_lines.filtered(lambda line: not line.reconciled).with_context(
-                    skip_account_move_synchronization=True
-                ).reconcile()
+        for rec in self.filtered(lambda l: l.retained_move_ids):
+            retention_account = (
+                self.env.company.retention_account_id
+                if rec.move_type == "in_invoice"
+                else self.env.company.retention_receivable_account_id
+            )
+            retained_move_lines = rec.retained_move_ids.mapped("line_ids").filtered(
+                lambda l: l.account_id == retention_account and not l.reconciled
+            )
+            return_move_lines = rec.line_ids.filtered(
+                lambda l: l.account_id == retention_account
+            )
+            move_lines = retained_move_lines + return_move_lines
+            move_lines.filtered(lambda line: not line.reconciled).with_context(
+                skip_account_move_synchronization=True
+            ).reconcile()
         return res
 
 
