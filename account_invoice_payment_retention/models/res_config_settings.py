@@ -14,12 +14,16 @@ class ResConfigSettings(models.TransientModel):
     retention_account_id = fields.Many2one(
         comodel_name="account.account",
         related="company_id.retention_account_id",
-        string="Retention Account",
         readonly=False,
         help="Retention account used for case payment retention",
     )
+    retention_receivable_account_id = fields.Many2one(
+        comodel_name="account.account",
+        related="company_id.retention_receivable_account_id",
+        readonly=False,
+        help="Retention receivable account used for case payment retention",
+    )
     retention_method = fields.Selection(
-        selection=[("untax", "Untaxed Amount"), ("total", "Total")],
         related="company_id.retention_method",
         string="Retention Method",
         readonly=False,

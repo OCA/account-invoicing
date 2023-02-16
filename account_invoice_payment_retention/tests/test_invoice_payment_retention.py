@@ -28,11 +28,24 @@ class TestInvoicePaymentRetention(TransactionCase):
                 "reconcile": True,
             }
         )
+        cls.account_receivable_retention = cls.env["account.account"].create(
+            {
+                "code": "RE2",
+                "name": "Retention Receivable Account",
+                "user_type_id": cls.env.ref(
+                    "account.data_account_type_current_liabilities"
+                ).id,
+                "reconcile": True,
+            }
+        )
         # Enable retention feature
         cls.env.user.groups_id += cls.env.ref(
             "account_invoice_payment_retention.group_payment_retention"
         )
         cls.env.company.retention_account_id = cls.account_retention
+        cls.env.company.retention_receivable_account_id = (
+            cls.account_receivable_retention
+        )
 
         cls.account_revenue = cls.env["account.account"].search(
             [
@@ -140,7 +153,7 @@ class TestInvoicePaymentRetention(TransactionCase):
             }
         )
 
-    def test_retention_account(self):
+    def test_01_retention_account(self):
         """Retention account must be set as allow reconciliation"""
         self.env.company.retention_account_id = False
         self.account_retention.reconcile = False
@@ -148,8 +161,19 @@ class TestInvoicePaymentRetention(TransactionCase):
             self.env.company.retention_account_id = self.account_retention
         self.account_retention.reconcile = True
         self.env.company.retention_account_id = self.account_retention
+        # Receivable
+        self.env.company.retention_receivable_account_id = False
+        self.account_receivable_retention.reconcile = False
+        with self.assertRaises(ValidationError):
+            self.env.company.retention_receivable_account_id = (
+                self.account_receivable_retention
+            )
+        self.account_receivable_retention.reconcile = True
+        self.env.company.retention_receivable_account_id = (
+            self.account_receivable_retention
+        )
 
-    def test_invoice_payment_retention_errors(self):
+    def test_02_invoice_payment_retention_errors(self):
         """Test invoice retention amount warning
         Test enforce retention warning when no valid retention
         """
@@ -187,7 +211,7 @@ class TestInvoicePaymentRetention(TransactionCase):
         with self.assertRaises(ValidationError):
             payment_register.action_create_payments()
 
-    def test_cust_invoice_payment_retention_normal(self):
+    def test_03_cust_invoice_payment_retention_normal(self):
         """Test 2 invoice retention and 1 retetnion return invoice"""
         self.cust_invoice2 = self.cust_invoice.copy({"name": "Test Invoice 2"})
         # Invoice 1, 10% = 50.0
@@ -249,9 +273,7 @@ class TestInvoicePaymentRetention(TransactionCase):
             f.journal_id = self.sale_journal
             f.partner_id = self.partner
         cust_invoice3 = f.save()
-        res = cust_invoice3._onchange_domain_retained_move_ids()
-        retained_move_ids = res["domain"]["retained_move_ids"][0][2]
-        self.assertEqual(sorted(retained_move_ids), sorted(payment_moves.ids))
+        self.assertEqual(cust_invoice3.domain_retained_move_ids, payment_moves)
         #  Select retained moves
         with Form(
             cust_invoice3.with_context(check_move_validity=False), view=view_id
@@ -277,11 +299,10 @@ class TestInvoicePaymentRetention(TransactionCase):
         )
         cust_invoice3.action_post()
         # After validate invoice, all retention is cleared
-        res = cust_invoice3._onchange_domain_retained_move_ids()
-        retained_move_ids = res["domain"]["retained_move_ids"][0][2]
-        self.assertFalse(retained_move_ids)
+        cust_invoice3._onchange_domain_retained_move_ids()
+        self.assertFalse(cust_invoice3.domain_retained_move_ids)
 
-    def test_vendor_bill_payment_retention_currency(self):
+    def test_04_vendor_bill_payment_retention_currency(self):
         """Test 2 invoice retention and 1 retetnion return invoice"""
         self.vendor_bill2 = self.vendor_bill.copy({"name": "Test Bill 2"})
         # Invoice 1, 10% = 50.0
@@ -349,9 +370,7 @@ class TestInvoicePaymentRetention(TransactionCase):
             # f.journal_id = self.purchase_journal
             f.partner_id = self.partner
         vendor_bill3 = f.save()
-        res = vendor_bill3._onchange_domain_retained_move_ids()
-        retained_move_ids = res["domain"]["retained_move_ids"][0][2]
-        self.assertEqual(sorted(retained_move_ids), sorted(payment_moves.ids))
+        self.assertEqual(vendor_bill3.domain_retained_move_ids, payment_moves)
         #  Select retained moves
         with Form(
             vendor_bill3.with_context(check_move_validity=False), view=view_id
@@ -366,11 +385,10 @@ class TestInvoicePaymentRetention(TransactionCase):
         )
         vendor_bill3.action_post()
         # After validate invoice, all retention is cleared
-        res = vendor_bill3._onchange_domain_retained_move_ids()
-        retained_move_ids = res["domain"]["retained_move_ids"][0][2]
-        self.assertFalse(retained_move_ids)
+        vendor_bill3._onchange_domain_retained_move_ids()
+        self.assertFalse(vendor_bill3.domain_retained_move_ids)
 
-    def test_multi_invoice_payment(self):
+    def test_05_multi_invoice_payment(self):
         """Test multi invoice payment. Not allowed if retention"""
         # Test multi invoice payment, no retention
         self.invoice_normal1 = self.cust_invoice.copy({"name": "Normal 1"})
