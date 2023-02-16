@@ -25,10 +25,21 @@
                                 <label
                                     for="retention_account_id"
                                     class="oe_edit_only"
-                                    string="Retention Account"
+                                    string="Retention Payable Account"
                                 />
                                 <field
                                     name="retention_account_id"
+                                    attrs="{'required': [('group_payment_retention', '=', True)]}"
+                                />
+                            </div>
+                            <div class="mt16">
+                                <label
+                                    for="retention_receivable_account_id"
+                                    class="oe_edit_only"
+                                    string="Retention Receivable Account"
+                                />
+                                <field
+                                    name="retention_receivable_account_id"
                                     attrs="{'required': [('group_payment_retention', '=', True)]}"
                                 />
                             </div>

@@ -56,8 +56,11 @@ class AccountPaymentRegister(models.TransientModel):
             if rec.apply_payment_retention:
                 rec.amount -= rec.retention_amount_currency
                 rec.payment_difference_handling = "reconcile"
-                rec.writeoff_account_id = rec.env.company.retention_account_id
-                rec.writeoff_label = rec.env.company.retention_account_id.name
+                account = rec.env.company.retention_account_id
+                if rec.payment_type == "inbound":
+                    account = rec.env.company.retention_receivable_account_id
+                rec.writeoff_account_id = account
+                rec.writeoff_label = account.name
         return res
 
     def _validate_payment_retention(self):
