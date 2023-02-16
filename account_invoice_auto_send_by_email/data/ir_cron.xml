@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Camptocamp SA
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+
+  <record model="ir.cron" id="cron_send_email_invoice">
+    <field name='name'>Account Invoice: Send email invoice</field>
+    <field name='interval_number'>1</field>
+    <field name='interval_type'>days</field>
+    <field name="numbercall">-1</field>
+    <field name="active" eval="True" />
+    <field name="nextcall" eval="datetime.now().replace(hour=23, minute=0, second=0)" />
+    <field name="model_id" ref="account.model_account_move" />
+    <field name="state">code</field>
+    <field name="code">model.cron_send_email_invoice()</field>
+  </record>
+
+</odoo>
