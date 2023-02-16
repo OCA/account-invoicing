@@ -12,9 +12,9 @@ class AccountMove(models.Model):
         move_vals = super(AccountMove, self)._reverse_move_vals(
             default_values, cancel=cancel
         )
-        if self.env.context.get("sale_qty_to_reinvoice", False):
-            for vals in move_vals["line_ids"]:
-                vals[2].update({"sale_qty_to_reinvoice": True})
+        sale_qty_to_reinvoice = self.env.context.get("sale_qty_to_reinvoice", False)
+        for vals in move_vals["line_ids"]:
+            vals[2].update({"sale_qty_to_reinvoice": sale_qty_to_reinvoice})
         return move_vals
 
 
@@ -23,5 +23,6 @@ class AccountMoveLine(models.Model):
 
     sale_qty_to_reinvoice = fields.Boolean(
         string="Sale qty to reinvoice",
+        default=True,
         help="Leave it marked if you will reinvoice the same sale order line",
     )
