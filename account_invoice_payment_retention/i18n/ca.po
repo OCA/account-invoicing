@@ -43,6 +43,11 @@ msgid "Config Settings"
 msgstr ""
 
 #. module: account_invoice_payment_retention
+#: model_terms:ir.ui.view,arch_db:account_invoice_payment_retention.res_config_settings_view_form
+msgid "Default your retention method"
+msgstr ""
+
+#. module: account_invoice_payment_retention
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__display_name
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment_register__display_name
@@ -107,6 +112,18 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: account_invoice_payment_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_bank_statement_line__retention_method
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_move__retention_method
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_payment__retention_method
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_res_company__retention_method
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_res_config_settings__retention_method
+msgid ""
+"Method for computing the retention\n"
+"- Untaxed Amount: The retention compute from the untaxed amount\n"
+"- Total: The retention compute from the total amount"
+msgstr ""
+
+#. module: account_invoice_payment_retention
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_bank_statement_line__payment_retention
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__payment_retention
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment__payment_retention
@@ -142,6 +159,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__retention_amount_currency
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment__retention_amount_currency
 msgid "Retention Amount"
+msgstr ""
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_bank_statement_line__retention_method
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__retention_method
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment__retention_method
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_company__retention_method
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_config_settings__retention_method
+#: model_terms:ir.ui.view,arch_db:account_invoice_payment_retention.res_config_settings_view_form
+msgid "Retention Method"
 msgstr ""
 
 #. module: account_invoice_payment_retention
@@ -216,4 +243,16 @@ msgstr ""
 msgid ""
 "This payment has retention, please make sure you fill in valid retaintion "
 "amount and retention account"
+msgstr ""
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__account_move__retention_method__total
+#: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__res_company__retention_method__total
+msgid "Total"
+msgstr ""
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__account_move__retention_method__untax
+#: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__res_company__retention_method__untax
+msgid "Untaxed Amount"
 msgstr ""
