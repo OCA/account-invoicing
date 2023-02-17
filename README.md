@@ -63,6 +63,7 @@ addon | version | maintainers | summary
 [account_invoice_validation_queued](account_invoice_validation_queued/) | 14.0.1.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Enqueue account invoice validation
 [account_invoice_view_payment](account_invoice_view_payment/) | 14.0.1.0.2 |  | Access to the payment from an invoice
 [account_mail_autosubscribe](account_mail_autosubscribe/) | 14.0.1.0.0 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Automatically subscribe partners to their company's invoices
+[account_menu_invoice_refund](account_menu_invoice_refund/) | 14.0.1.0.0 | [![kittiu](https://github.com/kittiu.png?size=30px)](https://github.com/kittiu) | New invoice menu that combine invoices and refunds
 [account_move_exception](account_move_exception/) | 14.0.1.0.0 |  | Custom exceptions on account move
 [account_move_line_accounting_description](account_move_line_accounting_description/) | 14.0.1.0.1 |  | Adds an 'accounting description' on products
 [account_move_line_accounting_description_purchase](account_move_line_accounting_description_purchase/) | 14.0.1.0.0 |  | Consider accounting description when invoicing purchase order
