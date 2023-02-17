@@ -1,0 +1,189 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_transmit_method
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-23 13:51+0000\n"
+"PO-Revision-Date: 2017-11-23 13:51+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Language-Team: Spanish (Paraguay) (https://www.transifex.com/oca/teams/23907/"
+"es_PY/)\n"
+"Language: es_PY\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: account_invoice_transmit_method
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
+msgid "Archived"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__code
+msgid "Code"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model,name:account_invoice_transmit_method.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_id
+msgid "Customer Invoice Transmission Method"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_code
+msgid "Customer Invoice Transmission Method Code"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:transmit.method,name:account_invoice_transmit_method.portal
+msgid "Customer Portal"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_transmit_method__code
+msgid ""
+"Do not modify the code of an existing Transmit Method because it may be used "
+"to identify a particular transmit method."
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:transmit.method,name:account_invoice_transmit_method.mail
+msgid "E-Mail"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_transmit_method
+#: model:ir.model,name:account_invoice_transmit_method.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__write_uid
+msgid "Last Updated by"
+msgstr "Ultima actualización por"
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización en"
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__name
+msgid "Name"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
+msgid "Name or Code"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:transmit.method,name:account_invoice_transmit_method.post
+msgid "Post"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__customer_ok
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
+msgid "Selectable on Customers"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__supplier_ok
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
+msgid "Selectable on Vendors"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_move__transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_payment__transmit_method_code
+msgid "Technical field used for UX purposes"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.constraint,message:account_invoice_transmit_method.constraint_transmit_method_code_unique
+msgid "This transmit method code already exists!"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_id
+msgid "Transmission Method"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_code
+msgid "Transmission Method Code"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model,name:account_invoice_transmit_method.model_transmit_method
+msgid "Transmit Method of a document"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.actions.act_window,name:account_invoice_transmit_method.transmit_method_action
+#: model:ir.ui.menu,name:account_invoice_transmit_method.transmit_method_menu
+msgid "Transmit Methods"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_id
+msgid "Vendor Invoice Reception Method"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
+msgid "Vendor Invoice Reception Method Code"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__active
+msgid "active"
+msgstr ""
