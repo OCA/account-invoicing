@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2023 Tecnativa - Pedro M. Baeza
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_sale_invoice_grouping_criteria_form" model="ir.ui.view">
+        <field name="name">Invoice Orders - Add quantity percentage</field>
+        <field name="model">sale.advance.payment.inv</field>
+        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv" />
+        <field name="arch" type="xml">
+            <field name="has_down_payments" position="after">
+                <field
+                    name="qty_percentage"
+                    attrs="{'invisible': [('advance_payment_method', '!=', 'qty_percentage')]}"
+                    widget="percentage"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
