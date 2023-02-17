@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_menu_invoice_refund
+# 	* account_menu_invoice_refund
 #
 msgid ""
 msgstr ""
@@ -32,12 +32,16 @@ msgstr ""
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_out_tree
-msgid "Create invoices, register payments and keep track of the discussions with your customers."
+msgid ""
+"Create invoices, register payments and keep track of the discussions with "
+"your customers."
 msgstr ""
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_in_tree
-msgid "Create vendor bills, register payments and keep track of the discussions with your customers."
+msgid ""
+"Create vendor bills, register payments and keep track of the discussions "
+"with your customers."
 msgstr ""
 
 #. module: account_menu_invoice_refund
