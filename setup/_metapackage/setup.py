@@ -50,6 +50,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_validation_queued',
         'odoo14-addon-account_invoice_view_payment',
         'odoo14-addon-account_mail_autosubscribe',
+        'odoo14-addon-account_menu_invoice_refund',
         'odoo14-addon-account_move_exception',
         'odoo14-addon-account_move_line_accounting_description',
         'odoo14-addon-account_move_line_accounting_description_purchase',
