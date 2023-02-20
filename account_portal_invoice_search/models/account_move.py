@@ -24,6 +24,6 @@ class AccountMove(models.Model):
         if portal_invoice_filter:
             portal_search_domain = self._get_portal_search_domain(portal_invoice_filter)
             args = expression.AND([args, portal_search_domain])
-        return super().search(
+        return super(AccountMove, self).search(
             args, offset=offset, limit=limit, order=order, count=count
         )

@@ -64,7 +64,9 @@ Contributors
 
 * `Tecnativa <https://www.tecnativa.com>`_:
 
-  * Carlos Roca
+* Carlos Roca
+
+* Abir Mokaddem <amokaddem@archeti.com>
 
 Maintainers
 ~~~~~~~~~~~

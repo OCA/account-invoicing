@@ -19,7 +19,7 @@ class PortalAccount(PortalAccount):
             context = dict(request.env.context)
             context.update({"portal_invoice_filter": kw.get("search", "")})
             request.env.context = context
-        response = super().portal_my_invoices(
+        response = super(PortalAccount, self).portal_my_invoices(
             page=page, date_begin=date_begin, date_end=date_end, sortby=sortby, **kw
         )
         response.qcontext.setdefault("searchbar_inputs", {})
