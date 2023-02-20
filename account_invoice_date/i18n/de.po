@@ -1,0 +1,125 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_date
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-27 07:13+0000\n"
+"PO-Revision-Date: 2023-02-27 07:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_date
+#: model:ir.model,name:account_invoice_date.model_account_voucher_proforma_date
+msgid "Account Voucher Proforma Date"
+msgstr ""
+
+#. module: account_invoice_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_date.view_account_voucher_proforma_date
+msgid "Bill date"
+msgstr "Rechnungsdatum"
+
+#. module: account_invoice_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_date.view_account_voucher_proforma_date
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: account_invoice_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_date.view_account_voucher_proforma_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_date.view_move_form
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#. module: account_invoice_date
+#: code:addons/account_invoice_date/models/account_move.py:0
+#, python-format
+msgid "Confirm Bill"
+msgstr "Rechnung bestätigen"
+
+#. module: account_invoice_date
+#: code:addons/account_invoice_date/models/account_move.py:0
+#, python-format
+msgid "Confirm Credit Note"
+msgstr "Gutschrift bestätigen"
+
+#. module: account_invoice_date
+#: code:addons/account_invoice_date/models/account_move.py:0
+#, python-format
+msgid "Confirm Invoice"
+msgstr "Rechnung bestätigen"
+
+#. module: account_invoice_date
+#: model:ir.model.fields,field_description:account_invoice_date.field_account_voucher_proforma_date__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_invoice_date
+#: model:ir.model.fields,field_description:account_invoice_date.field_account_voucher_proforma_date__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_invoice_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_date.view_account_voucher_proforma_date
+msgid "Credit Note date"
+msgstr ""
+
+#. module: account_invoice_date
+#: model:ir.model.fields,field_description:account_invoice_date.field_account_voucher_proforma_date__date
+msgid "Date of invoice"
+msgstr ""
+
+#. module: account_invoice_date
+#: model:ir.model.fields,field_description:account_invoice_date.field_account_voucher_proforma_date__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_date
+#: model:ir.model.fields,field_description:account_invoice_date.field_account_voucher_proforma_date__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_date
+#: model:ir.model.fields,field_description:account_invoice_date.field_account_voucher_proforma_date__invoice_type
+msgid "Invoice Type"
+msgstr ""
+
+#. module: account_invoice_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_date.view_account_voucher_proforma_date
+msgid "Invoice date"
+msgstr "Rechnungsdatum"
+
+#. module: account_invoice_date
+#: model:ir.model,name:account_invoice_date.model_account_move
+msgid "Journal Entry"
+msgstr "Buchungssatz"
+
+#. module: account_invoice_date
+#: model:ir.model.fields,field_description:account_invoice_date.field_account_voucher_proforma_date____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_date
+#: model:ir.model.fields,field_description:account_invoice_date.field_account_voucher_proforma_date__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_invoice_date
+#: model:ir.model.fields,field_description:account_invoice_date.field_account_voucher_proforma_date__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_invoice_date
+#: model:ir.actions.act_window,name:account_invoice_date.action_invoice_customer
+msgid "Open invoice"
+msgstr ""
+
+#. module: account_invoice_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_date.view_account_voucher_proforma_date
+msgid "or"
+msgstr "oder"

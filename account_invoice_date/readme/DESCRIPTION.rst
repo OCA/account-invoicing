@@ -1,0 +1,1 @@
+When an invoice is validated from Draft to Open automatically, the invoice date is set to current date.If an invoice is validated from Draft to Open manually, a window is displayed to query the invoice date from the user.
