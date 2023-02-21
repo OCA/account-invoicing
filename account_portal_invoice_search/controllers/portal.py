@@ -25,7 +25,7 @@ class PortalAccount(PortalAccount):
         response.qcontext.setdefault("searchbar_inputs", {})
         label_search = _("Search in Invoices & Bills")
         pager = portal_pager(
-            url="/my/orders",
+            url="/my/invoices",
             url_args={
                 "date_begin": date_begin,
                 "date_end": date_end,
