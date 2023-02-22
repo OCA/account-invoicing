@@ -53,10 +53,11 @@ def migrate(cr, version):
         env.cr.execute(query, (reference_date, reference_date))
         lines_with_problems = [data[0] for data in env.cr.fetchall()]
         if lines_with_problems:
-            _logger.debug("total lines to reprocess: %s", str(len(lines_with_problems)))
-            sol_model.search(
+            sol_lines = sol_model.search(
                 [
                     ("id", "in", lines_with_problems),
                     ("product_id.type", "!=", "service"),
                 ]
-            )._get_invoice_qty()
+            )
+            _logger.debug("total lines to reprocess: %s", str(len(sol_lines)))
+            sol_lines._get_invoice_qty()
