@@ -3,7 +3,7 @@
 {
     "name": "Sale Invoicing Date Selection",
     "summary": "Set date invoice when you create invoices",
-    "version": "13.0.1.0.0",
+    "version": "15.0.1.0.0",
     "development_status": "Beta",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
