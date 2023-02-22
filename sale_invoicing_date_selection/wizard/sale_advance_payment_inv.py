@@ -7,7 +7,7 @@ from odoo import fields, models
 class SaleAdvancePaymentInv(models.TransientModel):
     _inherit = "sale.advance.payment.inv"
 
-    invoice_date = fields.Date(string="Invoice Date")
+    invoice_date = fields.Date()
 
     def create_invoices(self):
         """
@@ -21,4 +21,4 @@ class SaleAdvancePaymentInv(models.TransientModel):
                     "default_date": self.invoice_date,
                 }
             )
-        return super(SaleAdvancePaymentInv, self.with_context(ctx)).create_invoices()
+        return super(SaleAdvancePaymentInv, self.with_context(**ctx)).create_invoices()
