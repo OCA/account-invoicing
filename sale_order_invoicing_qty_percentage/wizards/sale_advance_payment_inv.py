@@ -10,7 +10,6 @@ class SaleAdvancePaymentInv(models.TransientModel):
             ("qty_percentage", "Percentage of the quantity"),
             ("percentage",),
         ],
-        ondelete={"qty_percentage": "set default"},
     )
     qty_percentage = fields.Float(string="Quantity percentage")
 
