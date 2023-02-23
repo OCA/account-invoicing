@@ -63,6 +63,7 @@ setuptools.setup(
         'odoo13-addon-sale_invoicing_date_selection',
         'odoo13-addon-sale_line_refund_to_invoice_qty',
         'odoo13-addon-sale_order_invoicing_grouping_criteria',
+        'odoo13-addon-sale_order_invoicing_qty_percentage',
         'odoo13-addon-sale_order_invoicing_queued',
         'odoo13-addon-sale_timesheet_invoice_description',
         'odoo13-addon-stock_picking_invoicing',
