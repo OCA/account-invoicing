@@ -6,12 +6,13 @@
         <field name="model">invoice.merge</field>
         <field name="arch" type="xml">
             <form string="Merge Partner Invoice">
-                <group>
-                    <separator
-                        string="Are you sure you want to merge these invoices?"
-                        colspan="4"
-                    />
-                    <p>
+                <group attrs="{'invisible': [('error_message', '!=', False)]}">
+                    <group>
+                        <separator
+                            string="Are you sure you want to merge these invoices?"
+                            colspan="4"
+                        />
+                        <p colspan="4">
                         Please note that:<br /><br />
                         Invoices will only be merged if:<br />
                         * Invoices are in state 'draft'.<br />
@@ -21,20 +22,32 @@
                         Lines will only be merged if:<br />
                         * Invoice lines are exactly the same except for the
                         product, quantity and unit.<br />
-                    </p>
+                        </p>
+                        <group name="options" colspan="4">
+                            <field name="keep_references" />
+                            <field name="date_invoice" />
+                        </group>
+                    </group>
                 </group>
-                <group name="options">
-                    <field name="keep_references" />
-                    <field name="date_invoice" />
+                <group attrs="{'invisible': [('error_message', '=', False)]}">
+                    <field
+                        name="error_message"
+                        readonly="1"
+                        force_save="1"
+                        nolabel="1"
+                        class="text-danger"
+                        colspan="4"
+                    />
                 </group>
+
                 <footer>
                     <button
                         name="merge_invoices"
                         string="Merge Invoices"
                         type="object"
                         class="oe_highlight"
+                        attrs="{'invisible': [('error_message', '!=', False)]}"
                     />
-                    or
                     <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>
             </form>

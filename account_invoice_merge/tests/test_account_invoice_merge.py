@@ -1,113 +1,88 @@
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo.exceptions import UserError
-from odoo.tests.common import TransactionCase
+from odoo import Command, fields
+from odoo.tests import tagged
+
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-class TestAccountInvoiceMerge(TransactionCase):
+@tagged("post_install", "-at_install")
+class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
     """
     Tests for Account Invoice Merge.
     """
 
-    def setUp(self):
-        super(TestAccountInvoiceMerge, self).setUp()
-        self.company_model = self.env["res.company"]
-        self.par_model = self.env["res.partner"]
-        self.context = self.env["res.users"].context_get()
-        self.acc_model = self.env["account.account"]
-        self.inv_model = self.env["account.move"]
-        self.journal_model = self.env["account.journal"]
-        self.inv_line_model = self.env["account.move.line"]
-        self.wiz = self.env["invoice.merge"]
-
-        self.partner1 = self._create_partner()
-        self.partner2 = self._create_partner()
-
-        self.invoice_account = self.acc_model.search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_revenue").id,
-                )
-            ],
-            limit=1,
+    @classmethod
+    def setUpClass(cls, chart_template_ref=None):
+        super().setUpClass(chart_template_ref=chart_template_ref)
+        cls.company = cls.company_data_2["company"]
+        invoice_date = fields.Date.today()
+        cls.invoice1 = cls.init_invoice(
+            "out_invoice",
+            partner=cls.partner_a,
+            invoice_date=invoice_date,
+            products=cls.product_a,
         )
-        line_values = self._get_inv_line_values(self.invoice_account)
-
-        self.invoice1 = self._create_invoice(self.partner1, "A", line_values)
-        self.invoice2 = self._create_invoice(self.partner1, "B", line_values)
-        self.invoice3 = self._create_invoice(self.partner2, "C", line_values)
-
-    def _create_partner(self):
-        partner = self.par_model.create(
-            {
-                "name": "Test Partner",
-                "company_type": "company",
-            }
+        cls.now = cls.invoice1.create_date
+        cls.invoice2 = cls.init_invoice(
+            "out_invoice",
+            partner=cls.partner_a,
+            invoice_date=invoice_date,
+            products=cls.product_a,
         )
-        return partner
-
-    def _get_inv_line_values(self, account_id):
-        line_values = [
-            (
-                0,
-                0,
-                {
-                    "name": "test invoice line",
-                    "account_id": account_id.id,
-                    "quantity": 1.0,
-                    "price_unit": 3.0,
-                    "product_id": self.env.ref("product.product_product_8").id,
-                },
-            )
-        ]
-        return line_values
-
-    def _create_invoice(
-        self,
-        partner,
-        name,
-        line_values,
-        move_type="out_invoice",
-        journal_type="sale",
-        journal=False,
-    ):
-        journal = journal or self.journal_model.search(
-            [("type", "=", journal_type)], limit=1
+        cls.invoice3 = cls.init_invoice(
+            "out_invoice",
+            partner=cls.partner_b,
+            invoice_date=invoice_date,
+            products=cls.product_a,
         )
-        invoice = self.inv_model.with_company(journal.company_id).create(
-            {
-                "move_type": move_type,
-                "partner_id": partner.id,
-                "name": name,
-                "invoice_line_ids": line_values,
-                "journal_id": journal.id,
-            }
+        cls.invoice4 = cls.init_invoice(
+            "in_invoice",
+            partner=cls.partner_a,
+            invoice_date=invoice_date,
+            products=cls.product_a,
         )
-        return invoice
+        cls.invoice5 = cls.init_invoice(
+            "out_invoice",
+            partner=cls.partner_a,
+            invoice_date=invoice_date,
+            products=cls.product_a,
+        )
+        cls.invoice6 = cls.init_invoice(
+            "out_invoice",
+            partner=cls.partner_a,
+            products=cls.product_a,
+            invoice_date=invoice_date,
+            company=cls.company,
+        )
+
+        cls.inv_model = cls.env["account.move"]
+        cls.wiz = cls.env["invoice.merge"]
 
     def _get_wizard(self, active_ids, create=False):
-        wiz_id = self.wiz.with_context(
+        wiz = self.wiz.with_context(
             active_ids=active_ids,
             active_model="account.move",
         )
         if create:
-            wiz_id = wiz_id.create({})
-        return wiz_id
+            wiz = wiz.create({})
+        return wiz
 
-    def test_account_invoice_merge_1(self):
+    def test_invoice_merge(self):
+
         self.assertEqual(len(self.invoice1.invoice_line_ids), 1)
         self.assertEqual(len(self.invoice2.invoice_line_ids), 1)
-        start_inv = self.inv_model.search(
-            [("state", "=", "draft"), ("partner_id", "=", self.partner1.id)]
-        )
-        self.assertEqual(len(start_inv), 2)
+        invoice_len_args = [
+            ("create_date", ">=", self.now),
+            ("partner_id", "=", self.partner_a.id),
+            ("state", "=", "draft"),
+        ]
+        start_inv = self.inv_model.search(invoice_len_args)
+        self.assertEqual(len(start_inv), 5)
 
-        wiz_id = self._get_wizard([self.invoice1.id, self.invoice2.id], create=True)
-        wiz_id.fields_view_get()
-        action = wiz_id.merge_invoices()
+        wiz = self._get_wizard([self.invoice1.id, self.invoice2.id], create=True)
+        action = wiz.merge_invoices()
 
         self.assertLessEqual(
             {
@@ -119,81 +94,132 @@ class TestAccountInvoiceMerge(TransactionCase):
             "There was an error and the two invoices were not merged.",
         )
 
-        end_inv = self.inv_model.search(
-            [("state", "=", "draft"), ("partner_id", "=", self.partner1.id)]
-        )
-        self.assertEqual(len(end_inv), 1)
+        end_inv = self.inv_model.search(invoice_len_args)
+        self.assertEqual(len(end_inv), 4)
         self.assertEqual(len(end_inv[0].invoice_line_ids), 1)
         self.assertEqual(end_inv[0].invoice_line_ids[0].quantity, 2.0)
 
-    def test_account_invoice_merge_2(self):
-        with self.assertRaises(UserError):
-            self._get_wizard(
-                [self.invoice1.id, self.invoice3.id], create=True
-            ).fields_view_get()
-
-    def test_dirty_check(self):
+    def test_error_check(self):
         """Check"""
+        # Different partner
+        wiz = self._get_wizard([self.invoice1.id, self.invoice3.id], create=True)
+        self.assertEqual(
+            wiz.error_message, "All invoices must have the same: \n- Partner"
+        )
+
         # Check with only one invoice
-        with self.assertRaises(UserError):
-            self._get_wizard([self.invoice1.id]).fields_view_get()
+        wiz = self._get_wizard([self.invoice1.id], create=True)
+        self.assertEqual(
+            wiz.error_message,
+            "Please select multiple invoices to merge in the list view.",
+        )
 
         # Check with two different invoice type
-        # Create the invoice 4 with a different account
-        new_account = self.acc_model.create(
-            {
-                "code": "TEST",
-                "name": "Test Account",
-                "reconcile": True,
-                "user_type_id": self.env.ref("account.data_account_type_receivable").id,
-            }
+        wiz = self._get_wizard([self.invoice1.id, self.invoice4.id], create=True)
+        self.assertEqual(
+            wiz.error_message, "All invoices must have the same: \n- Type\n- Journal"
         )
-        line_values = self._get_inv_line_values(new_account)
-        invoice4 = self._create_invoice(
-            self.partner1,
-            "D",
-            line_values,
-            move_type="in_invoice",
-            journal_type="purchase",
-        )
-        with self.assertRaises(UserError):
-            self._get_wizard([self.invoice1.id, invoice4.id]).fields_view_get()
 
         # Check with a canceled invoice
-        # Create and cancel the invoice 5
-        line_values = self._get_inv_line_values(self.invoice_account)
-        invoice5 = self._create_invoice(self.partner1, "E", line_values)
-        invoice5.button_cancel()
-        with self.assertRaises(UserError):
-            self._get_wizard([self.invoice1.id, invoice5.id]).fields_view_get()
+        self.invoice5.button_cancel()
+        wiz = self._get_wizard([self.invoice1.id, self.invoice5.id], create=True)
+        self.assertEqual(
+            wiz.error_message,
+            "All invoices must have the same: \n- Merge-able State (ex : Draft)",
+        )
 
         # Check with another company
-        # Create the invoice 6 in new company
-        new_company = self.company_model.create({"name": "Hello World"})
-        new_account = self.acc_model.create(
-            {
-                "name": "New Account",
-                "code": "AAABBB",
-                "user_type_id": self.env.ref("account.data_account_type_receivable").id,
-                "reconcile": True,
-                "company_id": new_company.id,
-            }
+        wiz = self._get_wizard([self.invoice1.id, self.invoice6.id], create=True)
+        self.assertEqual(
+            wiz.error_message, "All invoices must have the same: \n- Journal\n- Company"
         )
-        line_values = self._get_inv_line_values(new_account)
-        new_journal = self.journal_model.create(
-            {
-                "name": "Test Journal",
-                "company_id": new_company.id,
-                "type": "sale",
-                "code": "AAABBB",
-            }
-        )
-        invoice6 = self._create_invoice(
-            self.partner1, "E", line_values, journal=new_journal
-        )
-        with self.assertRaises(UserError):
-            self._get_wizard([self.invoice1.id, invoice6.id]).fields_view_get()
 
-        # Check with two different partners
-        with self.assertRaises(UserError):
-            self._get_wizard([self.invoice1.id, self.invoice3.id]).fields_view_get()
+    def test_callback(self):
+        if "sale.order" not in self.env.registry:
+            return True
+        product_1, product_2 = self.env["product.product"].create(
+            [
+                {
+                    "name": "product 1",
+                    "list_price": 5.0,
+                },
+                {
+                    "name": "product 2",
+                    "list_price": 10.0,
+                },
+            ]
+        )
+        # Test pre-computes of lines with order
+        sale_order = self.env["sale.order"].create(
+            {
+                "partner_id": self.partner_a.id,
+                "order_line": [
+                    Command.create(
+                        {
+                            "display_type": "line_section",
+                            "name": "Dummy section",
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "display_type": "line_section",
+                            "name": "Dummy section",
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "product_id": product_1.id,
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "product_id": product_2.id,
+                        }
+                    ),
+                ],
+            }
+        )
+        sale_order_2 = self.env["sale.order"].create(
+            {
+                "partner_id": self.partner_a.id,
+                "order_line": [
+                    Command.create(
+                        {
+                            "display_type": "line_section",
+                            "name": "Dummy section",
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "display_type": "line_section",
+                            "name": "Dummy section",
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "product_id": product_1.id,
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "product_id": product_2.id,
+                        }
+                    ),
+                ],
+            }
+        )
+        sale_order.action_confirm()
+        sale_order._create_invoices(final=True)
+        sale_order_2.action_confirm()
+        sale_order_2._create_invoices(final=True)
+        invoices = (sale_order | sale_order_2).mapped(
+            "order_line.invoice_lines.move_id"
+        )
+        invoices_info = invoices.do_merge(
+            keep_references=False, date_invoice=fields.Date.today()
+        )
+        invoices_2 = (sale_order | sale_order_2).mapped(
+            "order_line.invoice_lines.move_id"
+        )
+        invoices_2 = invoices_2.filtered(lambda i: i.state == "draft")
+        self.assertEqual(sorted(invoices_2.ids), sorted(list(invoices_info.keys())))

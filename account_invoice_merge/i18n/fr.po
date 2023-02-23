@@ -23,7 +23,7 @@ msgstr ""
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
 #, fuzzy, python-format
 msgid "All invoices must have the same: \n"
-msgstr "Toutes les factures n'utilisent pas le même compte !"
+msgstr "Toutes les factures n'utilisent pas le même compte ! \n"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -117,8 +117,7 @@ msgid ""
 "                        * Invoices are in state 'draft'.<br/>\n"
 "                        * Invoices belong to the same partner.<br/>\n"
 "                        * Invoices have the same company, partner, address,\n"
-"                        currency, journal, salesman, account and type.<br/"
-"><br/>\n"
+"                        currency, journal, salesman, account and type.<br/><br/>\n"
 "                        Lines will only be merged if:<br/>\n"
 "                        * Invoice lines are exactly the same except for the\n"
 "                        product, quantity and unit.<br/>"
