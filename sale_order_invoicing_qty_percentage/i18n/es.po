@@ -34,24 +34,6 @@ msgid "Create Invoice"
 msgstr "Crear Factura"
 
 #. module: sale_order_invoicing_qty_percentage
-#: model:ir.model.fields,field_description:sale_order_invoicing_qty_percentage.field_sale_advance_payment_inv__display_name
-#: model:ir.model.fields,field_description:sale_order_invoicing_qty_percentage.field_sale_order_line__display_name
-msgid "Display Name"
-msgstr "Nombre mostrado"
-
-#. module: sale_order_invoicing_qty_percentage
-#: model:ir.model.fields,field_description:sale_order_invoicing_qty_percentage.field_sale_advance_payment_inv__id
-#: model:ir.model.fields,field_description:sale_order_invoicing_qty_percentage.field_sale_order_line__id
-msgid "ID"
-msgstr "ID"
-
-#. module: sale_order_invoicing_qty_percentage
-#: model:ir.model.fields,field_description:sale_order_invoicing_qty_percentage.field_sale_advance_payment_inv____last_update
-#: model:ir.model.fields,field_description:sale_order_invoicing_qty_percentage.field_sale_order_line____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
-
-#. module: sale_order_invoicing_qty_percentage
 #: model:ir.model.fields.selection,name:sale_order_invoicing_qty_percentage.selection__sale_advance_payment_inv__advance_payment_method__qty_percentage
 msgid "Percentage of the quantity"
 msgstr "Porcentaje de la cantidad"
@@ -70,3 +52,12 @@ msgstr "Ventas. Anticipo pago factura"
 #: model:ir.model,name:sale_order_invoicing_qty_percentage.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
+
+#~ msgid "Display Name"
+#~ msgstr "Nombre mostrado"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última modificación el"
