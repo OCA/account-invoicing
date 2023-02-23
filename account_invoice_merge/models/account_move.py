@@ -6,6 +6,8 @@
 # Copyright 2019 Okia SPRL
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import numbers
+
 from odoo import api, models
 from odoo.tools import float_is_zero
 
@@ -34,7 +36,7 @@ class AccountMove(models.Model):
             "price_unit",
             "product_id",
             "account_id",
-            "analytic_account_id",
+            "analytic_distribution",
             "product_uom_id",
         ]
         for field in [
@@ -64,9 +66,38 @@ class AccountMove(models.Model):
             "partner_bank_id": invoice.partner_bank_id.id,
         }
 
+    @api.model
+    def _get_sum_fields(self):
+        return ["quantity"]
+
+    @api.model
+    def _get_invoice_line_vals(self, line):
+        field_names = self._get_invoice_line_key_cols() + self._get_sum_fields()
+        vals = {}
+        origin_vals = line._convert_to_write(line._cache)
+        for field_name, val in origin_vals.items():
+            if field_name in field_names:
+                vals[field_name] = val
+        return vals
+
     def _get_draft_invoices(self):
         """Overridable function to return draft invoices to merge"""
         return self.filtered(lambda x: x.state == "draft")
+
+    def make_key(self, br, fields):
+        """
+        Return a hashable key
+        """
+        list_key = []
+        for field in fields:
+            field_val = getattr(br, field)
+            if isinstance(field_val, dict):
+                field_val = str(field_val)
+            elif isinstance(field_val, models.Model):
+                field_val = tuple(sorted(field_val.ids))
+            list_key.append((field, field_val))
+        list_key.sort()
+        return tuple(list_key)
 
     # flake8: noqa: C901
     def do_merge(
@@ -89,36 +120,14 @@ class AccountMove(models.Model):
 
         """
 
-        def make_key(br, fields):
-            list_key = []
-            for field in fields:
-                field_val = getattr(br, field)
-                if field in ("product_id", "account_id"):
-                    if not field_val:
-                        field_val = False
-                if (
-                    isinstance(field_val, models.Model)
-                    and field != "tax_ids"
-                    and field != "sale_line_ids"
-                ):
-                    field_val = field_val.id
-                elif (
-                    isinstance(field_val, list)
-                    or field == "tax_ids"
-                    or field == "sale_line_ids"
-                ):
-                    field_val = ((6, 0, tuple(v.id for v in field_val)),)
-                list_key.append((field, field_val))
-            list_key.sort()
-            return tuple(list_key)
-
         # compute what the new invoices should contain
         new_invoices = {}
         seen_origins = {}
         seen_client_refs = {}
+        sum_fields = self._get_sum_fields()
 
         for account_invoice in self._get_draft_invoices():
-            invoice_key = make_key(account_invoice, self._get_invoice_key_cols())
+            invoice_key = self.make_key(account_invoice, self._get_invoice_key_cols())
             new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
             origins = seen_origins.setdefault(invoice_key, set())
             client_refs = seen_client_refs.setdefault(invoice_key, set())
@@ -131,7 +140,11 @@ class AccountMove(models.Model):
                 if not keep_references:
                     invoice_infos.pop("name")
             else:
-                if account_invoice.name and keep_references:
+                if (
+                    account_invoice.name
+                    and keep_references
+                    and invoice_infos.get("name") != account_invoice.name
+                ):
                     invoice_infos["name"] = (
                         (invoice_infos["name"] or "") + " " + account_invoice.name
                     )
@@ -157,16 +170,21 @@ class AccountMove(models.Model):
                     client_refs.add(account_invoice.payment_reference)
 
             for invoice_line in account_invoice.invoice_line_ids:
-                line_key = make_key(invoice_line, self._get_invoice_line_key_cols())
-
+                line_key = self.make_key(
+                    invoice_line, self._get_invoice_line_key_cols()
+                )
                 o_line = invoice_infos["invoice_line_ids"].setdefault(line_key, {})
 
                 if o_line:
                     # merge the line with an existing line
-                    o_line["quantity"] += invoice_line.quantity
+                    for sum_field in sum_fields:
+                        if sum_field in invoice_line._fields:
+                            sum_val = invoice_line[sum_field]
+                            if isinstance(sum_val, numbers.Number):
+                                o_line[sum_field] += sum_val
                 else:
                     # append a new "standalone" line
-                    o_line["quantity"] = invoice_line.quantity
+                    o_line.update(self._get_invoice_line_vals(invoice_line))
 
         allinvoices = []
         allnewinvoices = []
@@ -180,9 +198,6 @@ class AccountMove(models.Model):
             if len(old_ids) < 2:
                 allinvoices += old_ids or []
                 continue
-            # cleanup invoice line data
-            for key, value in invoice_data["invoice_line_ids"].items():
-                value.update(dict(key))
 
             if remove_empty_invoice_lines:
                 invoice_data["invoice_line_ids"] = [
@@ -206,7 +221,11 @@ class AccountMove(models.Model):
             # cancel old invoices
             old_invoices = self.env["account.move"].browse(old_ids)
             old_invoices.with_context(is_merge=True).button_cancel()
+        self.merge_callback(invoices_info, old_invoices)
+        return invoices_info
 
+    @api.model
+    def merge_callback(self, invoices_info, old_invoices):
         # Make link between original sale order
         # None if sale is not installed
         for new_invoice_id in invoices_info:
@@ -227,12 +246,5 @@ class AccountMove(models.Model):
 
         # recreate link (if any) between original analytic account line
         # (invoice time sheet for example) and this new invoice
-        anal_line_obj = self.env["account.analytic.line"]
-        if "timesheet_invoice_id" in anal_line_obj._fields:
-            for new_invoice_id in invoices_info:
-                anal_todos = anal_line_obj.search(
-                    [("timesheet_invoice_id", "in", invoices_info[new_invoice_id])]
-                )
-                anal_todos.write({"timesheet_invoice_id": new_invoice_id})
-
-        return invoices_info
+        # Analytic account line is only created when confirming the invoice
+        # We don't need to check it anymore.
