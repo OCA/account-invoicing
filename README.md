@@ -76,6 +76,7 @@ addon | version | maintainers | summary
 [sale_invoicing_date_selection](sale_invoicing_date_selection/) | 13.0.1.0.0 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Set date invoice when you create invoices
 [sale_line_refund_to_invoice_qty](sale_line_refund_to_invoice_qty/) | 13.0.1.2.1 |  | Allow deciding whether refunded quantity should be considered as quantity to reinvoice
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 13.0.2.0.2 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Sales order invoicing grouping criteria
+[sale_order_invoicing_qty_percentage](sale_order_invoicing_qty_percentage/) | 13.0.1.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Sales order invoicing by percentage of the quantity
 [sale_order_invoicing_queued](sale_order_invoicing_queued/) | 13.0.2.0.1 |  | Enqueue sales order invoicing
 [sale_timesheet_invoice_description](sale_timesheet_invoice_description/) | 13.0.1.0.0 |  | Add timesheet details in invoice line
 [stock_picking_invoicing](stock_picking_invoicing/) | 13.0.3.1.1 |  | Stock Picking Invoicing
