@@ -25,7 +25,7 @@ msgstr ""
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
 #, fuzzy, python-format
 msgid "All invoices must have the same: \n"
-msgstr "Svi računi ne koriste isti konto!"
+msgstr "Svi računi ne koriste isti konto! \n"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
