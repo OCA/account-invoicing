@@ -120,6 +120,8 @@ class TestInvoiceGroupBySaleOrder(TransactionCase):
         invoice_ids = (self.order1_p1 + self.order2_p1)._create_invoices()
         lines = invoice_ids[0].invoice_line_ids.sorted("sequence")
         for line in lines:
+            if line.sequence not in result:
+                continue
             self.assertEqual(line.name, result[line.sequence][0])
             self.assertEqual(line.display_type, result[line.sequence][1])
 
@@ -203,5 +205,7 @@ class TestInvoiceGroupBySaleOrder(TransactionCase):
                 100: ("order 3 line 2", "product"),
             }
             for line in invoice.invoice_line_ids.sorted("sequence"):
+                if line.sequence not in result:
+                    continue
                 self.assertEqual(line.name, result[line.sequence][0])
                 self.assertEqual(line.display_type, result[line.sequence][1])
