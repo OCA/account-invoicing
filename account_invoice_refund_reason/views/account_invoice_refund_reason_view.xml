@@ -5,6 +5,8 @@
         <field name="model">account.invoice.refund.reason</field>
         <field name="arch" type="xml">
             <search>
+                <field name="name" />
+                <field name="description" />
                 <filter
                     string="Archived"
                     domain="[('active','=',False)]"
