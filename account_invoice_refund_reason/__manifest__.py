@@ -4,7 +4,7 @@
 
 {
     "name": "Account Invoice Refund Reason",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "summary": "Account Invoice Refund Reason.",
     "category": "Accounting",
     "author": "Open Source Integrators, "
