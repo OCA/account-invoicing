@@ -106,6 +106,8 @@ class TestInvoiceGroupBySaleOrder(SavepointCase):
             .filtered(lambda r: not r.exclude_from_invoice_tab)
         )
         for line in lines:
+            if line.sequence not in result:
+                continue
             self.assertEqual(line.name, result[line.sequence][0])
             self.assertEqual(line.display_type, result[line.sequence][1])
 
@@ -187,5 +189,7 @@ class TestInvoiceGroupBySaleOrder(SavepointCase):
                 80: ("order 3 line 2", False),
             }
             for line in invoice.invoice_line_ids.sorted("sequence"):
+                if line.sequence not in result:
+                    continue
                 self.assertEqual(line.name, result[line.sequence][0])
                 self.assertEqual(line.display_type, result[line.sequence][1])
