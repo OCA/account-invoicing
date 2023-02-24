@@ -17,6 +17,104 @@ msgstr ""
 "X-Generator: Weblate 5.6.2\n"
 
 #. module: account_invoice_section_sale_order
+#: model:res.groups,name:account_invoice_section_sale_order.group_sale_order_invoice_section_name
+msgid "Allow customization of invoice section name from sale order"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model:ir.model,name:account_invoice_section_sale_order.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model:ir.model,name:account_invoice_section_sale_order.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model:ir.model,name:account_invoice_section_sale_order.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model_terms:ir.ui.view,arch_db:account_invoice_section_sale_order.view_partner_property_form
+msgid "Custom section name on invoice"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model_terms:ir.ui.view,arch_db:account_invoice_section_sale_order.res_config_settings_view_form
+msgid "Customize section names when invoicing from sale orders"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model:ir.model.fields,help:account_invoice_section_sale_order.field_res_company__invoice_section_grouping
+#: model:ir.model.fields,help:account_invoice_section_sale_order.field_res_config_settings__invoice_section_grouping
+msgid "Defines object used to group invoice lines"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model:ir.model.fields.selection,name:account_invoice_section_sale_order.selection__res_company__invoice_section_grouping__sale_order
+msgid "Group by sale Order"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model_terms:ir.ui.view,arch_db:account_invoice_section_sale_order.res_config_settings_view_form
+msgid "Grouping object"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model:ir.model.fields,field_description:account_invoice_section_sale_order.field_res_company__invoice_section_grouping
+#: model:ir.model.fields,field_description:account_invoice_section_sale_order.field_res_config_settings__invoice_section_grouping
+msgid "Invoice Section Grouping"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model:ir.model.fields,field_description:account_invoice_section_sale_order.field_res_company__invoice_section_name_scheme
+#: model:ir.model.fields,field_description:account_invoice_section_sale_order.field_res_config_settings__invoice_section_name_scheme
+#: model:ir.model.fields,field_description:account_invoice_section_sale_order.field_res_partner__invoice_section_name_scheme
+#: model:ir.model.fields,field_description:account_invoice_section_sale_order.field_res_users__invoice_section_name_scheme
+msgid "Invoice Section Name Scheme"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model:ir.model,name:account_invoice_section_sale_order.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model:ir.model,name:account_invoice_section_sale_order.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model_terms:ir.ui.view,arch_db:account_invoice_section_sale_order.res_config_settings_view_form
+msgid "Naming scheme"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
 #: model:ir.model,name:account_invoice_section_sale_order.model_sale_order
 msgid "Sales Order"
 msgstr "Ordine di vendita"
+
+#. module: account_invoice_section_sale_order
+#: model_terms:ir.ui.view,arch_db:account_invoice_section_sale_order.res_config_settings_view_form
+msgid "Section names"
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#: model:ir.model.fields,help:account_invoice_section_sale_order.field_res_company__invoice_section_name_scheme
+#: model:ir.model.fields,help:account_invoice_section_sale_order.field_res_config_settings__invoice_section_name_scheme
+#: model:ir.model.fields,help:account_invoice_section_sale_order.field_res_partner__invoice_section_name_scheme
+#: model:ir.model.fields,help:account_invoice_section_sale_order.field_res_users__invoice_section_name_scheme
+msgid ""
+"This is the name of the sections on invoices when generated from sales "
+"orders. Keep empty to use default. You can use a python expression with the "
+"'object' (representing sale order) and 'time' variables."
+msgstr ""
+
+#. module: account_invoice_section_sale_order
+#. odoo-python
+#: code:addons/account_invoice_section_sale_order/models/account_move.py:0
+#, python-format
+msgid "Unrecognized invoice_section_grouping"
+msgstr ""
