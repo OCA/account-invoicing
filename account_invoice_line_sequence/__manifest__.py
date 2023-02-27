@@ -5,7 +5,7 @@
 
 {
     "name": "Account Invoice line with sequence number",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "summary": "Adds sequence field on invoice lines to manage its order.",
     "category": "Accounting",
     "author": "Camptocamp, "
