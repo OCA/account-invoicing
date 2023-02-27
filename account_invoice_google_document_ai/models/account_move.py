@@ -65,9 +65,15 @@ class AccountMove(models.Model):
         return self._parse_ocr_entities(entities)
 
     def _parse_ocr_float(self, entity):
-        if entity.normalized_value.float_value:
+        if (
+            hasattr(entity.normalized_value, "float_value")
+            and entity.normalized_value.float_value
+        ):
             return entity.normalized_value.float_value
-        if entity.normalized_value.integer_value:
+        if (
+            hasattr(entity.normalized_value, "integer_value")
+            and entity.normalized_value.integer_value
+        ):
             return float(entity.normalized_value.integer_value)
         if entity.normalized_value.text:
             return float(entity.normalized_value.text)
