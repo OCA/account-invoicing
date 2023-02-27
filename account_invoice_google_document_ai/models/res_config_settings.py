@@ -24,6 +24,6 @@ class ResConfigSettings(models.TransientModel):
     ocr_google_authentication = fields.Binary(
         related="company_id.ocr_google_authentication", readonly=False
     )
-    ocr_google_authentication_name = fields.Binary(
+    ocr_google_authentication_name = fields.Char(
         related="company_id.ocr_google_authentication_name", readonly=False
     )

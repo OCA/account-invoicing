@@ -12,5 +12,5 @@ class ResCompany(models.Model):
     ocr_google_location = fields.Selection([("eu", "Europe"), ("us", "United States")])
     ocr_google_processor = fields.Char()
     ocr_google_authentication = fields.Binary()
-    ocr_google_authentication_name = fields.Binary()
+    ocr_google_authentication_name = fields.Char()
     ocr_google_enabled = fields.Boolean()
