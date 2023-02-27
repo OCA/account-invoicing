@@ -18,7 +18,7 @@ class ResConfigSettings(models.TransientModel):
     ocr_google_processor = fields.Char(
         related="company_id.ocr_google_processor", readonly=False
     )
-    ocr_google_enabled = fields.Boolean(
+    ocr_google_enabled = fields.Selection(
         related="company_id.ocr_google_enabled", readonly=False
     )
     ocr_google_authentication = fields.Binary(
