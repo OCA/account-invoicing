@@ -6,7 +6,7 @@
 
 {
     "name": "Show links between refunds and their originator invoices.",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.0.2",
     "development_status": "Mature",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
