@@ -11,7 +11,7 @@
     "author": "CreuBlanca,ForgeFlow,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "depends": ["account"],
-    "external_dependencies": {"python": ["google-cloud-documentai"]},
+    "external_dependencies": {"python": ["google-cloud-documentai==2.13.0"]},
     "data": [
         "views/res_config_settings.xml",
         "views/account_move.xml",
