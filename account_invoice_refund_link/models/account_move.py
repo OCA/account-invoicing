@@ -23,7 +23,11 @@ class AccountMove(models.Model):
                     refund_lines = move.line_ids.filtered(
                         lambda x: x.display_type == "product"
                     )
-                    for i, line in enumerate(self.invoice_line_ids):
+                    for i, line in enumerate(
+                        self.invoice_line_ids.filtered(
+                            lambda x: x.display_type == "product"
+                        )
+                    ):
                         if i < len(refund_lines):
                             refund_lines[i].origin_line_id = line.id
         return reverse_moves
