@@ -90,12 +90,14 @@ class AccountMove(models.Model):
         line_item_data = {}
         for prop in entity.properties:
             if prop.type_ == "line_item/description":
-                line_item_data["name"] = prop.mention_text
+                line_item_data["name"] = self._parse_ocr_text(prop)
             elif prop.type_ == "line_item/quantity":
                 line_item_data["quantity"] = self._parse_ocr_float(prop)
             elif prop.type_ == "line_item/unit_price":
                 line_item_data["price_unit"] = self._parse_ocr_float(prop)
-        return (0, 0, line_item_data)
+            elif prop.type_ == "line_item/purchase_order":
+                line_item_data["purchase_order"] = self._parse_ocr_text(prop)
+        return line_item_data
 
     def _control_amount(self, field, value):
         if (
@@ -185,7 +187,17 @@ class AccountMove(models.Model):
 
     def _prostprocess_ocr_data(self, result):
         for key, value in result.get("lines", {}).items():
-            result["write"][key] = value
+            if key == "invoice_line_ids":
+                result["write"]["invoice_line_ids"] = []
+                line_fields = self.env["account.move.line"]._fields
+                for line in value:
+                    line_vals = line.copy()
+                    for key in line:
+                        if key not in line_fields:
+                            line_vals.pop(key)
+                    result["write"]["invoice_line_ids"].append((0, 0, line_vals))
+            else:
+                result["write"][key] = value
         if result.get("partner"):
             partner = self._get_ocr_partner(result.get("partner"))
             if partner:
