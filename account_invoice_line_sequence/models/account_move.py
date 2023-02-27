@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
+from odoo.tools import config
 
 
 class AccountMoveLine(models.Model):
@@ -54,5 +55,8 @@ class AccountMove(models.Model):
 
     def write(self, values):
         res = super(AccountMove, self).write(values)
-        self._reset_sequence()
+        if not config["test_enable"] or self.env.context.get(
+            "test_account_invoice_line_sequence"
+        ):
+            self._reset_sequence()
         return res
