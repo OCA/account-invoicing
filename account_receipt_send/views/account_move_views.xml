@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_receipt_send_form" model="ir.ui.view">
+        <field name="name">account.move.receipt.send.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//header/button[@name='action_register_payment']"
+                position="before"
+            >
+                <button
+                    name="action_invoice_sent"
+                    type="object"
+                    string="Send &amp; Print"
+                    attrs="{'invisible':['|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', True), ('move_type', 'not in', ('out_receipt', 'in_receipt'))]}"
+                    class="oe_highlight"
+                    data-hotkey="y"
+                />
+                <button
+                    name="action_invoice_sent"
+                    type="object"
+                    string="Send &amp; Print"
+                    attrs="{'invisible':['|', '|', ('state', '!=', 'posted'), ('is_move_sent', '=', False), ('move_type', 'not in', ('out_receipt', 'in_receipt'))]}"
+                    data-hotkey="y"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
