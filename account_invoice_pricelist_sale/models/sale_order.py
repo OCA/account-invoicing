@@ -9,7 +9,7 @@ class SaleOrder(models.Model):
     def _prepare_invoice(self):
         """Pricelist_id is set on invoice."""
         self.ensure_one()
-        val = super(SaleOrder, self)._prepare_invoice()
+        val = super()._prepare_invoice()
         if self.pricelist_id:
             val.update({"pricelist_id": self.pricelist_id.id})
         return val

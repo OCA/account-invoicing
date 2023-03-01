@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 
 class TestModule(TransactionCase):
     def setUp(self):
-        super(TestModule, self).setUp()
+        super().setUp()
         self.partner = self.env.ref("base.res_partner_12")
         self.product = self.env.ref("product.consu_delivery_01")
         self.product.invoice_policy = "order"
