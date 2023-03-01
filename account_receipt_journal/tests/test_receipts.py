@@ -1,3 +1,4 @@
+from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -6,31 +7,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged("post_install", "-at_install")
 class TestReceipts(AccountTestInvoicingCommon):
     def setUp(self):
-        super(TestReceipts, self).setUp()
-        self.move_model = self.env["account.move"]
-        self.tax_model = self.env["account.tax"]
-        self.journal_model = self.env["account.journal"]
-        self.a_sale = self.env["account.account"].search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_revenue").id,
-                )
-            ],
-            limit=1,
-        )
-        self.tax22inc = self.tax_model.create(
-            {
-                "name": "Tax 22 INC",
-                "amount": 22,
-                "price_include": True,
-            }
-        )
-        self.receipt_journal = self.create_receipt_journal()
-
-    def create_receipt_journal(self):
-        return self.journal_model.create(
+        super().setUp()
+        self.out_receipt_journal = self.env["account.journal"].create(
             {
                 "name": "Sale Receipts Journal",
                 "code": "S-REC",
@@ -39,29 +17,44 @@ class TestReceipts(AccountTestInvoicingCommon):
                 "sequence": 99,
             }
         )
-
-    def create_receipt(self):
-        receipt = self.move_model.with_context(default_move_type="out_receipt").create(
+        self.in_receipt_journal = self.env["account.journal"].create(
             {
-                "invoice_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "account_id": self.a_sale.id,
-                            "product_id": self.env.ref("product.product_product_5").id,
-                            "name": "Receipt",
-                            "quantity": 1,
-                            "price_unit": 10,
-                            "tax_ids": [(6, 0, {self.tax22inc.id})],
-                        },
-                    ),
-                ]
+                "name": "Purchase Receipts Journal",
+                "code": "P-REC",
+                "type": "purchase",
+                "receipts": True,
+                "sequence": 99,
             }
         )
-        return receipt
 
-    def test_receipt_journal_default(self):
+    def test_receipt_journal_sequence(self):
+        with self.assertRaises(ValidationError):
+            self.out_receipt_journal.write({"sequence": 1})
+        with self.assertRaises(ValidationError):
+            self.in_receipt_journal.write({"sequence": 1})
+
+    def test_receipt_default_journal(self):
         """Test default values for receipt."""
-        receipt = self.create_receipt()
-        self.assertEqual(receipt.journal_id.id, self.receipt_journal.id)
+        for move_type in {"out_receipt", "in_receipt"}:
+            with self.subTest(move_type=move_type):
+                receipt = self.init_invoice(
+                    move_type, products=self.product_a + self.product_b
+                )
+                self.assertTrue(receipt.journal_id.receipts)
+
+    def test_receipt_exclusive_journal(self):
+        """Test exclusivity constraint for receipt journals."""
+        for move_type in {"out_receipt", "in_receipt"}:
+            with self.subTest(move_type=move_type):
+                receipt = self.init_invoice(
+                    move_type, products=self.product_a + self.product_b
+                )
+                non_receipt_journals = self.env["account.journal"].search(
+                    [
+                        ("type", "=", receipt.journal_id.type),
+                        ("company_id", "=", receipt.journal_id.company_id.id),
+                        ("receipts", "=", False),
+                    ]
+                )
+                with self.assertRaises(ValidationError):
+                    receipt.write({"journal_id": non_receipt_journals.ids[0]})
