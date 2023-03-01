@@ -1,36 +1,47 @@
-from odoo import api, models
+from odoo import _, api, exceptions, models
 
 
-class Move(models.Model):
+class AccountMove(models.Model):
     _inherit = "account.move"
+
+    @api.depends("company_id", "invoice_filter_type_domain", "move_type")
+    def _compute_suitable_journal_ids(self):
+        res = super()._compute_suitable_journal_ids()
+        for m in self:
+            dedicated_journals = m.suitable_journal_ids.filtered(
+                lambda j: j.receipts == m.move_type in {"out_receipt", "in_receipt"}
+            )
+            # Suitable journals dedicated to receipts if exists
+            m.suitable_journal_ids = dedicated_journals or m.suitable_journal_ids
+        return res
 
     @api.model
     def _search_default_receipt_journal(self, journal_types):
-        company_id = self._context.get("default_company_id", self.env.company.id)
+        company_id = self.env.context.get("default_company_id", self.env.company.id)
+        currency_id = self.env.context.get("default_currency_id")
         domain = [
             ("company_id", "=", company_id),
             ("type", "in", journal_types),
             ("receipts", "=", True),
         ]
         journal = None
-        if self._context.get("default_currency_id"):
-            currency_domain = domain + [
-                ("currency_id", "=", self._context["default_currency_id"])
-            ]
-            journal = self.env["account.journal"].search(currency_domain, limit=1)
+        if currency_id:
+            journal = self.env["account.journal"].search(
+                domain + [("currency_id", "=", currency_id)], limit=1
+            )
         if not journal:
             journal = self.env["account.journal"].search(domain, limit=1)
         return journal
 
     @api.model
     def _search_default_journal(self, journal_types):
-        journal = super(Move, self)._search_default_journal(journal_types)
-        default_move_type = self.env.context.get("default_move_type")
-        if not journal.receipts and default_move_type in ("in_receipt", "out_receipt"):
-            receipt_journal = self._search_default_receipt_journal(journal_types)
-            if receipt_journal:
-                journal = receipt_journal
-        return journal
+        journal = super()._search_default_journal(journal_types)
+        move_type = self.env.context.get("default_move_type")
+        # We can assume that if move_type is not in receipts, a journal without
+        # receipts it's coming because of the Journal constraint
+        if move_type not in {"in_receipt", "out_receipt"} or journal.receipts:
+            return journal
+        return self._search_default_receipt_journal(journal_types) or journal
 
     def _get_journal_types(self, move_type):
         if move_type in self.get_sale_types(include_receipts=True):
@@ -74,3 +85,32 @@ class Move(models.Model):
     def create(self, vals_list):
         self._update_receipts_journal(vals_list)
         return super().create(vals_list)
+
+    @api.constrains("move_type", "journal_id")
+    def _check_receipts_journal(self):
+        """Ensure that Receipt Journal is only used in Receipts
+        if exists Receipt Journals for its type"""
+        aj_model = self.env["account.journal"]
+        receipt_domain = [("receipts", "=", True)]
+        has_in_rjournals = aj_model.search([("type", "=", "purchase")] + receipt_domain)
+        has_out_rjournals = aj_model.search([("type", "=", "sale")] + receipt_domain)
+        for move in self:
+            is_rj = move.journal_id.receipts
+            if move.move_type not in {"in_receipt", "out_receipt"} and is_rj:
+                raise exceptions.ValidationError(
+                    _("Receipt Journal is restricted to Receipts")
+                )
+            elif move.move_type == "in_receipt" and not is_rj and has_in_rjournals:
+                raise exceptions.ValidationError(
+                    _(
+                        "Purchase Receipt must use a Receipt Journal because "
+                        "there is already a Receipt Journal for Purchases"
+                    )
+                )
+            elif move.move_type == "out_receipt" and not is_rj and has_out_rjournals:
+                raise exceptions.ValidationError(
+                    _(
+                        "Sale Receipt must use a Receipt Journal because "
+                        "there is already a Receipt Journal for Sales"
+                    )
+                )
