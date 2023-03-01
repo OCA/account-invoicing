@@ -3,7 +3,7 @@
 
 {
     "name": "Account invoice line description",
-    "version": "14.0.1.0.1",
+    "version": "15.0.1.0.0",
     "category": "Generic Modules/Accounting",
     "author": "Agile Business Group, Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
