@@ -154,9 +154,11 @@ class AccountMove(models.Model):
 
                 if o_line:
                     # merge the line with an existing line
+                    o_line["name"] += "\n" + invoice_line.name
                     o_line["quantity"] += invoice_line.quantity
                 else:
                     # append a new "standalone" line
+                    o_line["name"] = invoice_line.name
                     o_line["quantity"] = invoice_line.quantity
 
         allinvoices = []
