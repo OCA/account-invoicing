@@ -26,6 +26,15 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
 
     new_min_quantity = fields.Float(required=True)
 
+    current_uom_id = fields.Many2one(
+        string="UoM",
+        comodel_name="uom.uom",
+        related="supplierinfo_id.product_uom",
+        readonly=True,
+    )
+
+    new_uom_id = fields.Many2one(comodel_name="uom.uom", string="New UoM")
+
     current_price = fields.Float(
         related="supplierinfo_id.price",
         digits="Product Price",
@@ -65,8 +74,11 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
 
     def _prepare_supplierinfo_update(self):
         self.ensure_one()
-        return {
+        res = {
             "min_qty": 0.0,
             "price": self.new_price,
             "currency_id": self.wizard_id.invoice_id.currency_id.id,
         }
+        if self.new_uom_id:
+            res["product_uom"] = self.new_uom_id.id
+        return res
