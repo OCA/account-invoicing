@@ -29,6 +29,12 @@
                         />
                         <field name="new_price" />
                         <field
+                            name="current_uom_id"
+                            attrs="{'invisible': [('supplierinfo_id', '=', False)]}"
+                            groups="uom.group_uom"
+                        />
+                        <field name="new_uom_id" groups="uom.group_uom" />
+                        <field
                             name="price_variation"
                             attrs="{'invisible': [('price_variation', '=', 0.0)]}"
                         />
