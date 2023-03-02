@@ -35,7 +35,7 @@ class TestAccountMoveBlocking(AccountTestInvoicingCommon):
             {"quantity": 10.0, "price_unit": 400.0, "product_uom_id": cls.uom_unit.id}
         )
         cls.line_b.write(
-            {"quantity": 1.0, "price_unit": 10.0, "product_uom_id": cls.uom_unit.id}
+            {"quantity": 1.0, "price_unit": 10.0, "product_uom_id": cls.uom_dozen.id}
         )
         cls.line_without_product.write({"quantity": 1.0, "price_unit": 35.0})
 
@@ -53,8 +53,12 @@ class TestAccountMoveBlocking(AccountTestInvoicingCommon):
         self.assertEqual(len(line_ids), 2)
         self.assertEqual(line_ids[0][2]["current_price"], False)
         self.assertEqual(line_ids[0][2]["new_price"], 400.0)
+        self.assertEqual(line_ids[0][2]["current_uom_id"], False)
+        self.assertEqual(line_ids[0][2]["new_uom_id"], self.uom_unit.id)
         self.assertEqual(line_ids[1][2]["current_price"], False)
-        self.assertEqual(line_ids[1][2]["new_price"], 10.0 * 12.0)
+        self.assertEqual(line_ids[1][2]["new_price"], 10.0)
+        self.assertEqual(line_ids[1][2]["current_uom_id"], False)
+        self.assertEqual(line_ids[1][2]["new_uom_id"], self.uom_dozen.id)
 
         # Create and launch update process
         wizard = self.WizardUpdateSupplierinfo.create(
@@ -63,7 +67,7 @@ class TestAccountMoveBlocking(AccountTestInvoicingCommon):
         line_a = wizard.line_ids.filtered(lambda x: x.product_id == self.product_a)
         line_b = wizard.line_ids.filtered(lambda x: x.product_id == self.product_b)
         self.assertEqual(line_a.new_price, 400.0)
-        self.assertEqual(line_b.new_price, 10.0 * 12.0)
+        self.assertEqual(line_b.new_price, 10.0)
 
         wizard.update_supplierinfo()
 
@@ -75,6 +79,7 @@ class TestAccountMoveBlocking(AccountTestInvoicingCommon):
         )
         self.assertEqual(len(supplierinfo_a), 1)
         self.assertEqual(supplierinfo_a.price, 400.0)
+        self.assertEqual(supplierinfo_a.product_uom, self.uom_unit)
 
         supplierinfo_b = self.ProductSupplierinfo.search(
             [
@@ -83,4 +88,27 @@ class TestAccountMoveBlocking(AccountTestInvoicingCommon):
             ]
         )
         self.assertEqual(len(supplierinfo_b), 1)
-        self.assertEqual(supplierinfo_b.price, 10.0 * 12.0)
+        self.assertEqual(supplierinfo_b.price, 10.0)
+        self.assertEqual(supplierinfo_b.product_uom, self.uom_dozen)
+
+        # change values 400 / Unit -> 5400 / Dozen.
+        # Price variation : +12.5%
+        self.line_a.write({"price_unit": 5400.0, "product_uom_id": self.uom_dozen.id})
+        vals_wizard = self.invoice.check_supplierinfo().get("context", {})
+
+        line_ids = vals_wizard.get("default_line_ids", {})
+
+        self.assertEqual(len(line_ids), 1)
+        self.assertEqual(line_ids[0][2]["current_price"], 400)
+        self.assertEqual(line_ids[0][2]["new_price"], 5400.0)
+        self.assertEqual(line_ids[0][2]["current_uom_id"], self.uom_unit.id)
+        self.assertEqual(line_ids[0][2]["new_uom_id"], self.uom_dozen.id)
+
+        # Create and launch update process
+        wizard = self.WizardUpdateSupplierinfo.create(
+            {"line_ids": line_ids, "invoice_id": self.invoice.id}
+        )
+        wizard.update_supplierinfo()
+
+        self.assertEqual(supplierinfo_a.price, 5400.0)
+        self.assertEqual(supplierinfo_a.product_uom, self.uom_dozen)
