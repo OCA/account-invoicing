@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, models
+from odoo.tools import float_compare
 
 
 class AccountInvoiceLine(models.Model):
@@ -31,7 +32,11 @@ class AccountInvoiceLine(models.Model):
             are added in supplierinfo. (discount for exemple)
         """
         self.ensure_one()
-        return self._get_unit_price_in_purchase_uom() == supplierinfo.price
+        return not float_compare(
+            self._get_unit_price_in_purchase_uom(),
+            supplierinfo.price,
+            precision_rounding=self.invoice_id.currency_id.rounding,
+        )
 
     @api.multi
     def _prepare_supplier_wizard_line(self, supplierinfo):
