@@ -61,7 +61,7 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
     def _prepare_supplierinfo_update(self):
         self.ensure_one()
         return {
-            'min_qty': 0.0,
+            'min_qty': self.new_min_quantity,
             'price': self.new_price,
             'currency_id': self.wizard_id.invoice_id.currency_id.id,
         }
