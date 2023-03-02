@@ -17,7 +17,9 @@
                         <field name="current_min_quantity" attrs="{'invisible': [('supplierinfo_id', '=', False)]}"/>
                         <field name="new_min_quantity"/>
                         <field name="current_price" attrs="{'invisible': [('supplierinfo_id', '=', False)]}"/>
+                        <field name="current_uom_id" attrs="{'invisible': [('supplierinfo_id', '=', False)]}" groups="uom.group_uom"/>
                         <field name="new_price"/>
+                        <field name="new_uom_id" groups="uom.group_uom"/>
                         <field name="price_variation" attrs="{'invisible': [('price_variation', '=', 0.0)]}"/>
                     </tree>
                 </field>
