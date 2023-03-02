@@ -55,10 +55,14 @@ class TestAccountMoveBlocking(AccountTestInvoicingCommon):
         self.assertEqual(line_ids[0][2]["new_price"], 400.0)
         self.assertEqual(line_ids[0][2]["current_uom_id"], False)
         self.assertEqual(line_ids[0][2]["new_uom_id"], self.uom_unit.id)
+        self.assertEqual(line_ids[0][2]["current_min_quantity"], 0.0)
         self.assertEqual(line_ids[1][2]["current_price"], False)
         self.assertEqual(line_ids[1][2]["new_price"], 10.0)
         self.assertEqual(line_ids[1][2]["current_uom_id"], False)
         self.assertEqual(line_ids[1][2]["new_uom_id"], self.uom_dozen.id)
+
+        # Change values
+        line_ids[0][2]["new_min_quantity"] = 6.0
 
         # Create and launch update process
         wizard = self.WizardUpdateSupplierinfo.create(
@@ -80,6 +84,7 @@ class TestAccountMoveBlocking(AccountTestInvoicingCommon):
         self.assertEqual(len(supplierinfo_a), 1)
         self.assertEqual(supplierinfo_a.price, 400.0)
         self.assertEqual(supplierinfo_a.product_uom, self.uom_unit)
+        self.assertEqual(supplierinfo_a.min_qty, 6.0)
 
         supplierinfo_b = self.ProductSupplierinfo.search(
             [
