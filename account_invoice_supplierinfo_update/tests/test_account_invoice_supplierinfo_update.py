@@ -87,8 +87,7 @@ class Tests(TransactionCase):
         ])
         self.assertEquals(len(supplierinfos1), 1)
         self.assertEqual(supplierinfos1.currency_id, self.currency)
-        self.assertEqual(supplierinfos1.min_qty, 6.0)
-
+        self.assertEquals(supplierinfos1.min_qty, 6.0)
         self.assertEquals(supplierinfos1.price, 400.0)
 
         supplierinfos2 = self.supplierinfo_obj.search([
