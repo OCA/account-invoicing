@@ -36,6 +36,14 @@ class TestInvoiceRefundLinkBase(TransactionCase):
                 0,
                 False,
                 {
+                    "name": "Test section",
+                    "display_type": "line_section",
+                },
+            ),
+            (
+                0,
+                False,
+                {
                     "name": "Test description #1",
                     "account_id": default_line_account.id,
                     "quantity": 1.0,
@@ -79,13 +87,14 @@ class TestInvoiceRefundLinkBase(TransactionCase):
         self.assertEqual(refund.ref, ref)
         self.assertEqual(len(self.invoice.invoice_line_ids), len(self.invoice_lines))
         self.assertEqual(len(refund.invoice_line_ids), len(self.invoice_lines))
-        self.assertTrue(refund.invoice_line_ids[0].origin_line_id)
-        self.assertEqual(
-            self.invoice.invoice_line_ids[0], refund.invoice_line_ids[0].origin_line_id
-        )
+        # We're checking only the 2nd and 3rd lines because the first is a line section
         self.assertTrue(refund.invoice_line_ids[1].origin_line_id)
         self.assertEqual(
             self.invoice.invoice_line_ids[1], refund.invoice_line_ids[1].origin_line_id
+        )
+        self.assertTrue(refund.invoice_line_ids[2].origin_line_id)
+        self.assertEqual(
+            self.invoice.invoice_line_ids[2], refund.invoice_line_ids[2].origin_line_id
         )
 
 
@@ -111,15 +120,19 @@ class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
         self.invoice.copy()
         self.assertEqual(
             refund.invoice_line_ids.mapped("origin_line_id"),
-            self.invoice.invoice_line_ids,
+            self.invoice.invoice_line_ids.filtered(
+                lambda x: x.display_type == "product"
+            ),
         )
 
     def test_refund_copy(self):
         refund = self.invoice.refund_invoice_ids[0]
         refund.copy()
         self.assertEqual(
-            self.invoice.invoice_line_ids.mapped("refund_line_ids"),
-            refund.invoice_line_ids,
+            self.invoice.invoice_line_ids.filtered(
+                lambda x: x.display_type == "product"
+            ),
+            refund.invoice_line_ids.mapped("origin_line_id"),
         )
 
 
