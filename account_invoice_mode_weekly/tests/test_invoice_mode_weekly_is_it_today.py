@@ -3,10 +3,10 @@
 
 from freezegun import freeze_time
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestInvoiceModeWeekly(SavepointCase):
+class TestInvoiceModeWeekly(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

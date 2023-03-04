@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
 from odoo import tools
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestInvoiceModeWeekly(SavepointCase):
+class TestInvoiceModeWeekly(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -64,7 +64,6 @@ class TestInvoiceModeWeekly(SavepointCase):
             }
         )
         cls.company = cls.so1.company_id
-
         stock_location = cls.env.ref("stock.stock_location_stock")
         inventory = cls.env["stock.inventory"].create(
             {
