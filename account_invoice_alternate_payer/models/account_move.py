@@ -23,29 +23,31 @@ class AccountMove(models.Model):
 
     @api.depends("commercial_partner_id", "alternate_payer_id")
     def _compute_bank_partner_id(self):
-        super(
+        res = super(
             AccountMove,
             self.filtered(lambda r: not r.alternate_payer_id or not r.is_outbound()),
         )._compute_bank_partner_id()
         for move in self:
             if move.is_outbound() and move.alternate_payer_id:
                 move.bank_partner_id = move.alternate_payer_id
+        return res
 
     @api.onchange("alternate_payer_id")
     def _onchange_alternate_payer_id(self):
         return self._onchange_partner_id()
 
     def _recompute_payment_terms_lines(self):
-        super()._recompute_payment_terms_lines()
+        res = super()._recompute_payment_terms_lines()
         for invoice in self:
             if invoice.alternate_payer_id:
                 invoice.line_ids.filtered(
                     lambda r: r.account_id.user_type_id.type
                     in ("receivable", "payable")
                 ).update({"partner_id": invoice.alternate_payer_id.id})
+        return res
 
     def _compute_payments_widget_to_reconcile_info(self):
-        super(
+        res = super(
             AccountMove, self.filtered(lambda r: not r.alternate_payer_id)
         )._compute_payments_widget_to_reconcile_info()
         for move in self:
@@ -117,6 +119,7 @@ class AccountMove(models.Model):
                 info["title"] = type_payment
                 move.invoice_outstanding_credits_debits_widget = json.dumps(info)
                 move.invoice_has_outstanding = True
+        return res
 
 
 class AccountMoveLine(models.Model):

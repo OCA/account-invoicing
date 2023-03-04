@@ -124,7 +124,7 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         ctx = {"active_model": records._name, "active_ids": records.ids}
         payment = (
             self.env["account.payment"]
-            .with_context(ctx)
+            .with_context(**ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_out.id,
@@ -142,7 +142,7 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         ctx = {"active_model": records._name, "active_ids": records.ids}
         payment = (
             self.env["account.payment"]
-            .with_context(ctx)
+            .with_context(**ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_in.id,
@@ -163,7 +163,7 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         ctx = {"active_model": records._name, "active_ids": records.ids}
         payments = (
             self.env["account.payment"]
-            .with_context(ctx)
+            .with_context(**ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_out.id,
@@ -185,7 +185,7 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         ctx = {"active_model": records._name, "active_ids": records.ids}
         payments = (
             self.env["account.payment"]
-            .with_context(ctx)
+            .with_context(**ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_out.id,
