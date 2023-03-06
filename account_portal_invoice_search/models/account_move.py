@@ -13,7 +13,7 @@ class AccountMove(models.Model):
         return (
             "|",
             ("name", "ilike", portal_invoice_filter),
-            ("ref", "ilike", portal_invoice_filter),
+            ("payment_reference", "ilike", portal_invoice_filter),
         )
 
     @api.model
