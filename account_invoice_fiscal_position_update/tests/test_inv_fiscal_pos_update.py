@@ -129,3 +129,86 @@ class TestProductIdChange(AccountingTestCase):
             fp_account.account_dest_id,
             "The account revenue of invoice line must be changed by fiscal position",
         )
+
+        # We test it the same but using taxes with price included
+
+        # Step 1: create two taxes with price included
+        tax_sale_ip = self.tax_model.create(
+            {
+                "name": "Sale tax Included",
+                "type_tax_use": "sale",
+                "amount": "20.00",
+                "price_include": True,
+                "amount_type": "division",
+            }
+        )
+        tax_export_sale_ip = self.tax_model.create(
+            {
+                "name": "Export tax Included",
+                "type_tax_use": "sale",
+                "amount": "50.00",
+                "price_include": True,
+                "amount_type": "division",
+            }
+        )
+
+        # Step 2: Create a new fiscal position that do the mapping between this
+        # new two taxes with price include
+        fp_ip = self.fiscal_position_model.create(
+            {"name": "fiscal position export", "sequence": 1}
+        )
+        fp_tax_sale_ip = self.fiscal_position_tax_model.create(
+            {
+                "position_id": fp_ip.id,
+                "tax_src_id": tax_sale_ip.id,
+                "tax_dest_id": tax_export_sale_ip.id,
+            }
+        )
+
+        # Step 3: Configure the Sale Tax Included as the default value of the
+        # product
+        product_tmpl.write({"taxes_id": [(6, 0, [tax_sale_ip.id])]})
+
+        # Step 4: Create a Invoice in roder to indentify that was created
+        # normaly with the product configured tax of type price included
+        out_invoice = self.invoice_model.create(
+            {
+                "partner_id": partner.id,
+                "invoice_payment_ref": "invoice to client",
+                "type": "out_invoice",
+                "invoice_date": time.strftime("%Y") + "-04-01",
+            }
+        )
+        out_line = self.invoice_line_model.with_context(
+            check_move_validity=False
+        ).create(
+            {
+                "product_id": product.id,
+                "move_id": out_invoice.id,
+                "account_id": self.account_revenue.id,
+            }
+        )
+        out_line._onchange_product_id()
+        self.assertEqual(
+            out_line.tax_ids[0],
+            tax_sale_ip,
+            "The sale tax off invoice line must be the same of product",
+        )
+
+        # Step 5: We modify the invoice to add the new fiscal position with
+        # taxes included
+        out_invoice.fiscal_position_id = fp_ip
+        out_invoice.with_context(check_move_validity=False).fiscal_position_change()
+        self.assertEqual(
+            out_line.tax_ids[0],
+            fp_tax_sale_ip.tax_dest_id,
+            "The sale tax of invoice line must be changed by fiscal position",
+        )
+
+        # Step 6: Check that the price unit and subtotal do actually proper
+        # change to the correct amounts
+        self.assertEqual(
+            out_line.price_subtotal,
+            7500.0,
+            "The subtotal should be the price unit minus the dest tax amount",
+        )

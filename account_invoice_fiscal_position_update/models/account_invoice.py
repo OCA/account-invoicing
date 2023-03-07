@@ -47,7 +47,15 @@ class AccountMove(models.Model):
                 if fp:
                     taxes = fp.map_tax(taxes)
 
+                # if we are replacing or adding a tax with "price_include" we
+                # should recompute price_subtotal
+                recompute_subtotal = any(
+                    x.price_include for x in (taxes + line.tax_ids)
+                )
+
                 line.tax_ids = [(6, 0, taxes.ids)]
+                if recompute_subtotal:
+                    line._onchange_price_subtotal()
                 line._onchange_mark_recompute_taxes()
 
                 line.account_id = account.id
