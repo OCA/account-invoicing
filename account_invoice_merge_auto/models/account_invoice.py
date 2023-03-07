@@ -16,14 +16,6 @@ class AccountInvoice(models.Model):
         help="Merge automatically at partner's next merge date",
     )
 
-    @api.onchange('partner_id')
-    def _onchange_partner_id(self):
-        result = super(AccountInvoice, self)._onchange_partner_id()
-        if self.partner_id and self.type == 'out_invoice' \
-                and self.partner_id.auto_merge_invoice:
-            self.auto_merge = self.partner_id.auto_merge_invoice
-        return result
-
     @api.model
     def _invoice_merge_candidates(self, merge_date):
         invoices = self.search([

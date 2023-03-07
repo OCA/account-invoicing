@@ -10,11 +10,6 @@ _logger = logging.getLogger(__name__)
 class InvoiceMergeAutoPartner(models.Model):
     _inherit = 'res.partner'
 
-    auto_merge_invoice = fields.Boolean(
-        default=False,
-        string='Merge invoice automatically',
-        help="Merge automatically at partner's next merge date",
-    )
     invoice_merge_recurring_rule_type = fields.Selection(
         [('daily', 'Day(s)'),
          ('weekly', 'Week(s)'),

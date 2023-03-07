@@ -8,16 +8,15 @@
         <field name="arch" type="xml">
           <xpath expr="//group[@name='sale']" position="after">
             <group string="Payment preferences" name="payment_preferences">
-              <field name="auto_merge_invoice"/>
-              <field name="invoice_merge_recurring_rule_type"
-                  attrs="{'required': [('auto_merge_invoice', '=', True)],
-                 'ivisible': [('auto_merge_invoice', '=', False)], }"/>
-              <field name="invoice_merge_recurring_interval"
-                  attrs="{'required': [('auto_merge_invoice', '=', True)],
-                 'ivisible': [('auto_merge_invoice', '=', False)], }"/>
-              <field name="invoice_merge_next_date"
-                  attrs="{'required': [('auto_merge_invoice', '=', True)],
-                 'ivisible': [('auto_merge_invoice', '=', False)], }"/>
+              <field name="invoice_merge_next_date"/>
+              <field
+                name="invoice_merge_recurring_rule_type"
+                attrs="{'required': [('invoice_merge_next_date', '!=', False)]}"
+                />
+	      <field
+                name="invoice_merge_recurring_interval"
+                attrs="{'required': [('invoice_merge_next_date', '!=', False)]}"
+                />
             </group>
           </xpath>
         </field>
