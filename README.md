@@ -50,7 +50,7 @@ addon | version | maintainers | summary
 [account_move_post_block](account_move_post_block/) | 15.0.1.0.1 |  | Account Move Post Block
 [account_move_tier_validation](account_move_tier_validation/) | 15.0.1.1.1 |  | Extends the functionality of Account Moves to support a tier validation process.
 [account_move_tier_validation_forward](account_move_tier_validation_forward/) | 15.0.1.0.0 |  | Account Move Tier Validation - Forward Option
-[account_receipt_journal](account_receipt_journal/) | 15.0.1.0.0 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) | Define and use journals dedicated to receipts
+[account_receipt_journal](account_receipt_journal/) | 15.0.1.0.1 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) | Define and use journals dedicated to receipts
 [account_receipt_send](account_receipt_send/) | 15.0.1.0.1 | [![Shide](https://github.com/Shide.png?size=30px)](https://github.com/Shide) | Send receipts
 [account_tax_group_widget_base_amount](account_tax_group_widget_base_amount/) | 15.0.1.0.0 | [![chienandalu](https://github.com/chienandalu.png?size=30px)](https://github.com/chienandalu) | Adds base to tax group widget as it's put in the report
 [portal_account_personal_data_only](portal_account_personal_data_only/) | 15.0.1.0.0 |  | Portal Accounting Personal Data Only
