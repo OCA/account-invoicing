@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.14.0
+_commit: v1.14.2
 _src_path: https://github.com/OCA/oca-addons-repo-template.git
 ci: GitHub
 dependency_installation_mode: PIP
@@ -14,7 +14,8 @@ include_wkhtmltopdf: false
 odoo_version: 12.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
-rebel_module_groups: []
+rebel_module_groups:
+- account_invoice_date_required
 repo_description: Account invoicing modules for Odoo
 repo_name: Account Invoicing
 repo_slug: account-invoicing
