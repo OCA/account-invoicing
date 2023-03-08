@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * account_invoice_supplierinfo_update_qty_multiplier
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-08 15:17+0000\n"
+"PO-Revision-Date: 2023-03-08 15:17+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_supplierinfo_update_qty_multiplier
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_qty_multiplier.field_wizard_update_invoice_supplierinfo_line__current_multiplier_qty
+msgid "Current Multiplier Qty"
+msgstr "Conditionnement"
+
+#. module: account_invoice_supplierinfo_update_qty_multiplier
+#: model:ir.model,name:account_invoice_supplierinfo_update_qty_multiplier.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Ligne de facture"
+
+#. module: account_invoice_supplierinfo_update_qty_multiplier
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_qty_multiplier.field_wizard_update_invoice_supplierinfo_line__new_multiplier_qty
+msgid "New Multiplier Qty"
+msgstr "Nouveau conditionnement"
+
+#. module: account_invoice_supplierinfo_update_qty_multiplier
+#: model:ir.model,name:account_invoice_supplierinfo_update_qty_multiplier.model_wizard_update_invoice_supplierinfo_line
+msgid "Wizard Line to update supplierinfo"
+msgstr ""
+
