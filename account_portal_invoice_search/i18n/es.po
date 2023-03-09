@@ -19,11 +19,14 @@ msgstr ""
 
 #. module: account_portal_invoice_search
 #: model:ir.model,name:account_portal_invoice_search.model_account_move
-msgid "Journal Entries"
-msgstr "Asientos contables"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_portal_invoice_search
 #: code:addons/account_portal_invoice_search/controllers/portal.py:0
 #, python-format
 msgid "Search in Invoices & Bills"
 msgstr "Buscar en facturas"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Asientos contables"
