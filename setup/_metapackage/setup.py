@@ -37,6 +37,7 @@ setuptools.setup(
         'odoo-addon-account_move_post_block>=15.0dev,<15.1dev',
         'odoo-addon-account_move_tier_validation>=15.0dev,<15.1dev',
         'odoo-addon-account_move_tier_validation_forward>=15.0dev,<15.1dev',
+        'odoo-addon-account_portal_invoice_search>=15.0dev,<15.1dev',
         'odoo-addon-account_receipt_journal>=15.0dev,<15.1dev',
         'odoo-addon-account_receipt_send>=15.0dev,<15.1dev',
         'odoo-addon-account_tax_group_widget_base_amount>=15.0dev,<15.1dev',
