@@ -1,17 +1,21 @@
 # Copyright 2023 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import Form, SavepointCase
+from odoo.tests import Form, TransactionCase
 
 
-class TestSaleOrderInvoicingQtyPercentage(SavepointCase):
+class TestSaleOrderInvoicingQtyPercentage(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
         cls.product = cls.env["product.product"].create(
-            {"name": "Test product", "type": "service", "invoice_policy": "order"}
+            {
+                "name": "Test product",
+                "detailed_type": "service",
+                "invoice_policy": "order",
+            }
         )
         order_form = Form(cls.env["sale.order"])
         order_form.partner_id = cls.partner
