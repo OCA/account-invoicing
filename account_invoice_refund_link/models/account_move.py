@@ -26,6 +26,10 @@ class AccountMove(models.Model):
                 if not x[2].get("exclude_from_invoice_tab", True)
             ]
             for i, line in enumerate(self.invoice_line_ids):
+                # Avoid index overflow in case of partial refund made by
+                # module account_invoice_refund_link_selection
+                if i + 1 >= len(refund_lines_vals):
+                    break
                 refund_lines_vals[i]["origin_line_id"] = line.id
         return move_vals
 
