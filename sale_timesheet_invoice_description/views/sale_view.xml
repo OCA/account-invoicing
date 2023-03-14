@@ -7,10 +7,13 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
-            <field name="fiscal_position_id" position="after">
+            <xpath
+                expr="//group[@name='sale_info']/div[@class='o_row']"
+                position="after"
+            >
                 <field name="timesheet_invoice_description" />
                 <field name="timesheet_invoice_split" />
-            </field>
+            </xpath>
         </field>
     </record>
 </odoo>

@@ -99,6 +99,10 @@ Contributors
 
   * Clément Mombereau <clement.mombereau@akretion.com.br>
 
+* `Codeforward <https://www.codeforward.nl>`_:
+  
+  * Jasper Jumelet <jasper.jumelet@codeforward.nl>
+
 Maintainers
 ~~~~~~~~~~~
 
