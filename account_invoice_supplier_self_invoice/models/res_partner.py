@@ -117,4 +117,4 @@ class ResPartner(models.Model):
         if self.self_invoice and not self.self_invoice_report_footer:
             self.self_invoice_report_footer = self._fields[
                 "self_invoice_report_footer"
-            ].args["default"]
+            ].args.get("default")
