@@ -28,7 +28,6 @@ class AccountMove(models.Model):
         string="Approves Self Billing",
         compute="_compute_self_invoice",
         store=True,
-        readonly=True,
     )
 
     def _compute_is_self_invoice_number_different(self):

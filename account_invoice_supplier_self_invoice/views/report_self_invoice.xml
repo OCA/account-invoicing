@@ -98,8 +98,9 @@
         priority="99"
     >
         <!-- Address switcher -->
-        <xpath expr="//t[@t-set='address']" position="replace">
+        <xpath expr="//t[@t-set='address']" position="after">
             <t t-if="o.set_self_invoice">
+                <t t-set="information_block" />
                 <t t-set="address">
                     <address
                         t-field="o.company_id.partner_id"
@@ -114,22 +115,6 @@
                         <t t-else="">Tax ID</t>: <span
                             t-field="o.company_id.partner_id.vat"
                         />
-                    </div>
-                </t>
-            </t>
-            <t t-else="">
-                <t t-set="address">
-                    <address
-                        t-field="o.partner_id"
-                        t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'
-                    />
-                    <div t-if="o.partner_id.vat" class="mt16">
-                        <t
-                            t-if="o.company_id.country_id.vat_label"
-                            t-esc="o.company_id.country_id.vat_label"
-                            id="inv_tax_id_label"
-                        />
-                        <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat" />
                     </div>
                 </t>
             </t>
