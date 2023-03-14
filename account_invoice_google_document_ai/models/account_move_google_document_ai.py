@@ -221,8 +221,12 @@ class AccountMoveGoogleDocumentAi(models.AbstractModel):
 
     def _get_invoice_company(self, invoice_data):
         if invoice_data["company"]:
-            # TODO: Add some code to detect your company
-            pass
+            if invoice_data["company"].get("vat"):
+                company = self.env["res.company"].search(
+                    [("vat", "like", invoice_data["company"].get("vat"))]
+                )
+                if company:
+                    return company
         return self.env.company
 
     def _get_invoice(self, invoice_data):
