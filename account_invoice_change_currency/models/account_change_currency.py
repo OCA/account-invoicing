@@ -99,10 +99,12 @@ class AccountInvoice(models.Model):
         today = fields.Date.today()
         ctx = {'company_id': self.company_id.id,
                'date': self.date_invoice or today}
-        self.custom_rate = last_currency.with_context(
-            **ctx)._get_conversion_rate(
-                last_currency, self.currency_id, self.company_id,
-                self.date_invoice or today)
+
+        if last_currency and self.currency_id:
+            self.custom_rate = last_currency.with_context(
+                **ctx)._get_conversion_rate(
+                    last_currency, self.currency_id, self.company_id,
+                    self.date_invoice or today)
 
     @api.multi
     def get_last_currency_id(self, skip_update_currency=False):
