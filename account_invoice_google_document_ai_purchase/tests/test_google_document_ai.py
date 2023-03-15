@@ -39,11 +39,13 @@ class TestGoogleDocumentAi(AccountTestInvoicingCommon):
             .read()
             .encode("UTF-8")
         )
-        cls.product = cls.env["product.product"].create({"name": "test product"})
+        cls.product = cls.env["product.product"].create(
+            {"name": "test product", "type": "service"}
+        )
         cls.purchase = cls.env["purchase.order"].create(
             {
                 "name": "TESTPO",
-                "partner_id": cls.env.user.id,
+                "partner_id": cls.env.user.partner_id.id,
                 "order_line": [(0, 0, {"product_id": cls.product.id})],
             }
         )

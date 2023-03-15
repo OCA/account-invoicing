@@ -36,37 +36,58 @@ class AccountMoveGoogleDocumentAi(models.AbstractModel):
             ("invoice_status", "=", "to invoice"),
         ]
         if invoice_data.get("write", {}).get("partner_id"):
+            partner = self.env["res.partner"].browse(
+                invoice_data.get("write", {}).get("partner_id")
+            )
             domain.append(
-                ("partner_id", "=", invoice_data.get("write", {}).get("partner_id"))
+                (
+                    "partner_id.commercial_partner_id",
+                    "=",
+                    partner.commercial_partner_id.id,
+                )
             )
         return domain
 
-    def _process_purchase_invoice(
-        self, invoice, invoice_data, purchase_orders, messages
-    ):
-        invoice_data["write"]["invoice_line_ids"] = []
-        with Form(invoice) as f:
-            for purchase_order in purchase_orders:
-                f.purchase_id = purchase_order
-
-    def _process_invoice(self, invoice, invoice_data, messages):
+    def _postprocess_ocr_data(self, result):
+        new_result = super()._postprocess_ocr_data(result)
         purchase_orders = set()
-        if invoice_data.get("purchase_order"):
-            purchase_orders.add(invoice_data["purchase_order"]["purchase_order"])
-        for line in invoice_data.get("lines", {}).get("invoice_line_ids", []):
+        messages = []
+        if new_result.get("purchase_order"):
+            purchase_orders.add(new_result["purchase_order"]["purchase_order"])
+        for line in new_result.get("lines", {}).get("invoice_line_ids", []):
             if line.get("purchase_order"):
                 purchase_orders.add(line.get("purchase_order"))
         if purchase_orders:
             po = self.env["purchase.order"]
             for purchase_order in purchase_orders:
                 new_po = self.env["purchase.order"].search(
-                    self._purchase_order_domain(purchase_order, invoice_data)
+                    self._purchase_order_domain(purchase_order, new_result)
                 )
                 if not new_po:
                     messages.append(
                         _("Purchase Order %s cannot be processed") % purchase_order
                     )
                 po |= new_po
-            if po:
-                self._process_purchase_invoice(invoice, invoice_data, po, messages)
+            new_result["purchase_order_ids"] = po
+            new_result["purchase_order_errors"] = messages
+        return new_result
+
+    def _get_invoice_company(self, invoice_data):
+        company = super()._get_invoice_company(invoice_data)
+        if not company and invoice_data["purchase_order_ids"]:
+            new_company = invoice_data["purchase_order_ids"].mapped("company_id")
+            if len(new_company) == 1:
+                return new_company
+        return company
+
+    def _process_purchase_invoice(self, invoice, invoice_data, purchase_orders):
+        with Form(invoice) as f:
+            for purchase_order in purchase_orders:
+                f.purchase_id = purchase_order
+
+    def _process_invoice(self, invoice, invoice_data, messages):
+        messages += invoice_data.get("purchase_order_errors", [])
+        for po in invoice_data.get("purchase_order_ids", []):
+            invoice_data["write"]["invoice_line_ids"] = []
+            self._process_purchase_invoice(invoice, invoice_data, po)
         return super()._process_invoice(invoice, invoice_data, messages)
