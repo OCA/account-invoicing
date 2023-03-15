@@ -227,14 +227,14 @@ class AccountMoveGoogleDocumentAi(models.AbstractModel):
                 )
                 if company:
                     return company
-        return self.env.company
+        return False
 
     def _get_invoice(self, invoice_data):
         """
         We want to maintain a hook because it might be interesting for
         contracts, an existent invoice in draft, with but not the number.
         """
-        company = self._get_invoice_company(invoice_data)
+        company = self._get_invoice_company(invoice_data) or self.env.company
         context = {}
         if invoice_data["context"]:
             context.update(invoice_data["context"])
