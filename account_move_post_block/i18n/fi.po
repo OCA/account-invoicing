@@ -1,0 +1,163 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_post_block
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: account_move_post_block
+#: model:res.groups,comment:account_move_post_block.group_journal_entry_post_block
+msgid ""
+"\n"
+"            The user will be able to release a Journal Entry blocked for post.\n"
+"        "
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model,name:account_move_post_block.model_account_post_block_reason
+msgid "Account Post Block Reason"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.actions.act_window,name:account_move_post_block.action_account_post_block_reason
+#: model:ir.ui.menu,name:account_move_post_block.menu_account_post_block_reason
+msgid "Account Post Block Reasons"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model,name:account_move_post_block.model_account_exception_confirm
+msgid "Account exception wizard"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason__active
+msgid "Active"
+msgstr ""
+
+#. module: account_move_post_block
+#: model_terms:ir.ui.view,arch_db:account_move_post_block.account_post_block_reason_form_view
+msgid "Archived"
+msgstr ""
+
+#. module: account_move_post_block
+#: model_terms:ir.ui.view,arch_db:account_move_post_block.view_account_move_filter
+msgid "Blocked for Post"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason__description
+msgid "Description"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_exception_confirm__display_name
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_move_post_block
+#: code:addons/account_move_post_block/models/account_move.py:0
+#: code:addons/account_move_post_block/models/account_move.py:0
+#, python-format
+msgid "Entry \"%s\" blocked with reason \"%s\""
+msgstr ""
+
+#. module: account_move_post_block
+#: code:addons/account_move_post_block/models/account_move.py:0
+#, python-format
+msgid "Entry \"%s\" post block released."
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_exception_confirm__id
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_move__id
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason__id
+msgid "ID"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model,name:account_move_post_block.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_move_post_block
+#: model_terms:ir.ui.view,arch_db:account_move_post_block.account_post_block_reason_tree_view
+msgid "Journal Entry Approval Block Reasons"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_exception_confirm____last_update
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason__name
+msgid "Name"
+msgstr ""
+
+#. module: account_move_post_block
+#: model_terms:ir.ui.view,arch_db:account_move_post_block.view_move_form
+msgid "Post Block"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_bank_statement_line__post_block_id
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_move__post_block_id
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_payment__post_block_id
+msgid "Post Block Reason"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:exception.rule,name:account_move_post_block.am_excep_post_block
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_bank_statement_line__post_blocked
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_move__post_blocked
+#: model:ir.model.fields,field_description:account_move_post_block.field_account_payment__post_blocked
+msgid "Post Blocked"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:res.groups,name:account_move_post_block.group_journal_entry_post_block
+msgid "Release Journal Entry with post block"
+msgstr ""
+
+#. module: account_move_post_block
+#: model_terms:ir.ui.view,arch_db:account_move_post_block.view_move_form
+msgid "Release Post Block"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:exception.rule,description:account_move_post_block.am_excep_post_block
+msgid "The post has been blocked with a Blocking reason"
+msgstr ""
