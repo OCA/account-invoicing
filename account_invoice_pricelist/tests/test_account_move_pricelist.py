@@ -3,7 +3,7 @@
 import hashlib
 import inspect
 
-from odoo.tests import common
+from odoo.tests import Form, common
 
 from odoo.addons.sale.models.sale import SaleOrderLine as upstream
 
@@ -51,6 +51,9 @@ class TestAccountMovePricelist(common.SavepointCase):
         )
         cls.product = cls.env["product.template"].create(
             {"name": "Product Test", "list_price": 100.00}
+        )
+        cls.product_0 = cls.env["product.template"].create(
+            {"name": "Product Test 2", "list_price": 0.00}
         )
         cls.sale_pricelist = cls.ProductPricelist.create(
             {
@@ -320,3 +323,9 @@ class TestAccountMovePricelist(common.SavepointCase):
         func = inspect.getsource(upstream._get_real_price_currency).encode()
         func_hash = hashlib.md5(func).hexdigest()
         self.assertIn(func_hash, VALID_HASHES)
+
+    def test_add_line_price_0(self):
+        inv_form = Form(self.invoice)
+        with inv_form.invoice_line_ids.new() as inv_line:
+            inv_line.product_id = self.product_0.product_variant_ids[0]
+            self.assertEqual(inv_line.discount, 0.0)
