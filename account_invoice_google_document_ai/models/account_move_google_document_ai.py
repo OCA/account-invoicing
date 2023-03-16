@@ -23,6 +23,8 @@ class AccountMoveGoogleDocumentAi(models.AbstractModel):
     _description = "Account Move Google Document Ai Functions"
 
     def _get_ocr_data(self, attachment):
+        if attachment.mimetype != "application/pdf":
+            return
         company = self.env.company
         client_options = ClientOptions(
             api_endpoint="{}-documentai.googleapis.com".format(
