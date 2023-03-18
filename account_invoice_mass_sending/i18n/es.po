@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_mass_sending
+# 	* account_invoice_mass_sending
 #
 msgid ""
 msgstr ""
@@ -17,28 +17,41 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_mass_sending
-#: model:ir.model.fields,help:account_invoice_mass_sending.field_account_invoice__sending_in_progress
-msgid "If checked, the invoice is already being processed, and it will prevent the sending of a duplicated mail."
+#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_move__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_mass_sending
+#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_mass_sending
+#: model:ir.model.fields,help:account_invoice_mass_sending.field_account_bank_statement_line__sending_in_progress
+#: model:ir.model.fields,help:account_invoice_mass_sending.field_account_move__sending_in_progress
+#: model:ir.model.fields,help:account_invoice_mass_sending.field_account_payment__sending_in_progress
+msgid ""
+"If checked, the invoice is already being processed, and it will prevent the "
+"sending of a duplicated mail."
 msgstr ""
 "Si está marcado, la factura ya se está procesando, y evitará el envío de un "
 "email duplicado."
 
 #. module: account_invoice_mass_sending
-#: model:ir.model,name:account_invoice_mass_sending.model_account_invoice
-msgid "Invoice"
-msgstr "Factura"
-
-#. module: account_invoice_mass_sending
-#: code:addons/account_invoice_mass_sending/models/account_invoice.py:28
+#: code:addons/account_invoice_mass_sending/models/account_move.py:0
 #, python-format
 msgid "Invoices: Send & Print"
 msgstr "Facturas: Enviar & Imprimir"
 
 #. module: account_invoice_mass_sending
-#: code:addons/account_invoice_mass_sending/models/account_invoice.py:55
-#, python-format
-msgid "Missing email address on customer '{customer_name}'."
-msgstr "Falta la dirección de email en el cliente '{customer_name}'."
+#: model:ir.model,name:account_invoice_mass_sending.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_mass_sending
+#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_move____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: account_invoice_mass_sending
 #: model:ir.actions.server,name:account_invoice_mass_sending.action_invoice_mass_send_print
@@ -46,18 +59,35 @@ msgid "Mass Send & Print"
 msgstr "Enviar & Imprimir"
 
 #. module: account_invoice_mass_sending
-#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_invoice__sending_in_progress
+#: code:addons/account_invoice_mass_sending/models/account_move.py:0
+#, python-format
+msgid "Missing email address on customer {customer_name}."
+msgstr ""
+
+#. module: account_invoice_mass_sending
+#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_bank_statement_line__sending_in_progress
+#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_move__sending_in_progress
+#: model:ir.model.fields,field_description:account_invoice_mass_sending.field_account_payment__sending_in_progress
 msgid "Sending In Progress"
 msgstr "Envío en progreso"
 
 #. module: account_invoice_mass_sending
-#: code:addons/account_invoice_mass_sending/models/account_invoice.py:30
+#: code:addons/account_invoice_mass_sending/models/account_move.py:0
 #, python-format
-msgid "The sending of {in_progress_invoices_count} invoices is already in progress."
+msgid ""
+"The sending of {in_progress_invoices_count} invoices is already in progress."
 msgstr "El envío de {in_progress_invoices_count} facturas ya está en progreso."
 
 #. module: account_invoice_mass_sending
-#: code:addons/account_invoice_mass_sending/models/account_invoice.py:36
+#: code:addons/account_invoice_mass_sending/models/account_move.py:0
 #, python-format
-msgid "The sending of {invoices_count} invoices will be processed in background."
+msgid ""
+"The sending of {invoices_count} invoices will be processed in background."
 msgstr "El envío de {invoices_count} facturas se procesará en segundo plano."
+
+#~ msgid "Invoice"
+#~ msgstr "Factura"
+
+#, python-format
+#~ msgid "Missing email address on customer '{customer_name}'."
+#~ msgstr "Falta la dirección de email en el cliente '{customer_name}'."
