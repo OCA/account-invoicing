@@ -118,6 +118,25 @@ class SaleOrder(models.Model):
             self.env["account.move"]._update_receipts_journal([invoice_values])
         return invoice_values
 
+    @api.model
+    def create(self, values):
+        order = super().create(values)
+        if "partner_id" in values and "receipts" not in values:
+            order._onchange_partner_receipts_sale()
+        if "fiscal_position_id" in values and "receipts" not in values:
+            order._onchange_fiscal_position_id_receipts()
+        return order
+
+    def write(self, values):
+        res = super().write(values)
+        if "partner_id" in values and "receipts" not in values:
+            for order in self:
+                order._onchange_partner_receipts_sale()
+        if "fiscal_position_id" in values and "receipts" not in values:
+            for order in self:
+                order._onchange_fiscal_position_id_receipts()
+        return res
+
 
 class OrderLine(models.Model):
     _inherit = "sale.order.line"

@@ -13,6 +13,7 @@ class TestReceiptsSale(TestReceipts):
         super(TestReceiptsSale, self).setUp()
         partner_model = self.env['res.partner']
         self.fiscal_pos_model = self.env['account.fiscal.position']
+        self.sale_model = self.env['sale.order']
         self.receipts_fiscal_position = self.fiscal_pos_model.create({
             'name': 'receipts fiscal position',
             'receipts': True,
@@ -66,3 +67,19 @@ class TestReceiptsSale(TestReceipts):
         self.assertEqual(
             self.no_receipts_partner.property_account_position_id,
             self.no_receipts_fiscal_position)
+
+    def test_order_creation(self):
+        order_no_receipts = self.sale_model.create({
+            "partner_id": self.no_receipts_partner.id,
+            "fiscal_position_id": self.no_receipts_fiscal_position.id,
+        })
+        self.assertFalse(order_no_receipts.receipts)
+        order_receipts = self.sale_model.create({
+            "partner_id": self.no_receipts_partner.id,
+            "fiscal_position_id": self.receipts_fiscal_position.id,
+        })
+        self.assertTrue(order_receipts.receipts)
+
+        # testing write
+        order_no_receipts.fiscal_position_id = self.receipts_fiscal_position.id
+        self.assertTrue(order_no_receipts.receipts)
