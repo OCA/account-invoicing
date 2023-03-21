@@ -1,9 +1,9 @@
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class Position(models.Model):
     _inherit = "account.fiscal.position"
-    receipts = fields.Boolean(string='Receipts')
+    receipts = fields.Boolean(string="Receipts")
 
     @api.model
     def get_receipts_fiscal_pos(self, company_id=None):
@@ -11,19 +11,19 @@ class Position(models.Model):
             company_id = self.env.user.company_id
         receipt_fiscal_pos = self.search(
             [
-                ('company_id', '=', company_id.id),
-                ('receipts', '=', True),
+                ("company_id", "=", company_id.id),
+                ("receipts", "=", True),
             ],
-            limit=1
+            limit=1,
         )
         if not receipt_fiscal_pos:
             # Fall back to fiscal positions without company
             receipt_fiscal_pos = self.search(
                 [
-                    ('company_id', '=', False),
-                    ('receipts', '=', True),
+                    ("company_id", "=", False),
+                    ("receipts", "=", True),
                 ],
-                limit=1
+                limit=1,
             )
 
         return receipt_fiscal_pos
