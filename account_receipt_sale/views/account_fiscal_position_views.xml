@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_account_position_form" model="ir.ui.view">
         <field name="name">account.fiscal.position.form.receipts</field>
         <field name="model">account.fiscal.position</field>
         <field name="type">form</field>
-        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="inherit_id" ref="account.view_account_position_form" />
         <field name="arch" type="xml">
             <field name="company_id" position="after">
-                <field name="receipts"/>
+                <field name="receipts" />
             </field>
         </field>
     </record>

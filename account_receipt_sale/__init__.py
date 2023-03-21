@@ -55,9 +55,7 @@ def migrate_corrispettivi_data(cr, registry):
     if openupgrade.column_exists(cr, "sale_order", "corrispettivi"):
         openupgrade.logged_query(
             cr,
-            "UPDATE sale_order "
-            "SET receipts = true "
-            "WHERE corrispettivi = true",
+            "UPDATE sale_order " "SET receipts = true " "WHERE corrispettivi = true",
         )
 
     if openupgrade.column_exists(cr, "account_fiscal_position", "corrispettivi"):
