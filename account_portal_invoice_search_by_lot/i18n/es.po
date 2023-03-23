@@ -19,10 +19,15 @@ msgstr ""
 
 #. module: account_portal_invoice_search_by_lot
 #: model:ir.model,name:account_portal_invoice_search_by_lot.model_account_move
-msgid "Journal Entries"
-msgstr "Asientos contables"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_portal_invoice_search_by_lot
+#: model:ir.model.fields,field_description:account_portal_invoice_search_by_lot.field_account_bank_statement_line__lot_name_search
 #: model:ir.model.fields,field_description:account_portal_invoice_search_by_lot.field_account_move__lot_name_search
+#: model:ir.model.fields,field_description:account_portal_invoice_search_by_lot.field_account_payment__lot_name_search
 msgid "Lot Name Search"
 msgstr "Buscar nombre de lote"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Asientos contables"
