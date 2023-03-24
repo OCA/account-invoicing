@@ -22,6 +22,7 @@ class AccountMove(models.Model):
         """Computed field used for custom widget's rendering.
         Only set on invoices.
         """
+        res = super()._compute_tax_totals_json()
         for move in self:
             if not move.is_invoice(include_receipts=True):
                 # Non-invoice moves don't support that field (because of multicurrency:
@@ -47,3 +48,4 @@ class AccountMove(models.Model):
                     and move.state == "draft",
                 }
             )
+        return res
