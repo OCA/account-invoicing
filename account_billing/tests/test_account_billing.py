@@ -7,10 +7,10 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import fields
 from odoo.exceptions import ValidationError
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestAccountBilling(SavepointCase):
+class TestAccountBilling(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -25,6 +25,8 @@ class TestAccountBilling(SavepointCase):
         cls.partner_agrolait = cls.env.ref("base.res_partner_2")
         cls.partner_china_exp = cls.env.ref("base.res_partner_3")
         cls.product = cls.env.ref("product.product_product_4")
+        cls.currency_eur = cls.env["res.currency"].browse(1)
+        cls.currency_eur.active = True
         cls.currency_usd_id = cls.env.ref("base.USD").id
         cls.currency_eur_id = cls.env.ref("base.EUR").id
         cls.account_receivable = cls.env["account.account"].search(
@@ -116,10 +118,10 @@ class TestAccountBilling(SavepointCase):
         return invoice
 
     def create_payment(self, ctx):
-        register_payments = self.register_payments_model.with_context(ctx).create(
+        register_payments = self.register_payments_model.with_context(**ctx).create(
             {
                 "journal_id": self.journal_bank.id,
-                "payment_method_id": self.payment_method_manual_in.id,
+                "payment_method_line_id": self.payment_method_manual_in.id,
             }
         )
         return register_payments.action_create_payments()
@@ -130,7 +132,7 @@ class TestAccountBilling(SavepointCase):
             "bill_type": "out_invoice",
         }
         with self.assertRaises(ValidationError):
-            self.billing_model.with_context(ctx).create({})
+            self.billing_model.with_context(**ctx).create({})
 
     def test_2_invoice_currency(self):
         ctx1 = {
@@ -138,7 +140,7 @@ class TestAccountBilling(SavepointCase):
             "bill_type": "out_invoice",
         }
         with self.assertRaises(ValidationError):
-            self.billing_model.with_context(ctx1).create({})
+            self.billing_model.with_context(**ctx1).create({})
         # create billing directly
         self.billing_model.create({"partner_id": self.partner_agrolait.id})
 
@@ -146,7 +148,7 @@ class TestAccountBilling(SavepointCase):
         ctx = {"active_model": "account.move", "active_ids": [self.inv_1.id]}
         self.create_payment(ctx)
         with self.assertRaises(ValidationError):
-            self.billing_model.with_context(ctx).create({})
+            self.billing_model.with_context(**ctx).create({})
 
     def test_4_create_billing_from_selected_invoices(self):
         """Create two invoices, post it and send context to Billing"""
@@ -155,9 +157,9 @@ class TestAccountBilling(SavepointCase):
             "active_ids": [self.inv_1.id, self.inv_2.id],
             "bill_type": "out_invoice",
         }
-        customer_billing1 = self.billing_model.with_context(ctx).create({})
+        customer_billing1 = self.billing_model.with_context(**ctx).create({})
         self.assertEqual(customer_billing1.state, "draft")
-        customer_billing1.with_context(ctx)._onchange_invoice_list()
+        customer_billing1.with_context(**ctx)._onchange_invoice_list()
         with self.assertRaises(ValidationError):
             customer_billing1.validate_billing()
         threshold_date_1 = customer_billing1.threshold_date + relativedelta(years=1)
@@ -169,8 +171,8 @@ class TestAccountBilling(SavepointCase):
         customer_billing1.action_cancel()
         customer_billing1.action_cancel_draft()
 
-        customer_billing2 = self.billing_model.with_context(ctx).create({})
-        customer_billing2.with_context(ctx)._onchange_invoice_list()
+        customer_billing2 = self.billing_model.with_context(**ctx).create({})
+        customer_billing2.with_context(**ctx)._onchange_invoice_list()
         threshold_date_2 = customer_billing2.threshold_date + relativedelta(years=1)
         customer_billing2.threshold_date = threshold_date_2
         customer_billing2.validate_billing()
@@ -228,5 +230,5 @@ class TestAccountBilling(SavepointCase):
             "active_ids": [inv_1.id, inv_2.id],
             "bill_type": "in_invoice",
         }
-        vendor_billing = self.billing_model.with_context(ctx).create({})
-        vendor_billing.with_context(ctx)._onchange_invoice_list()
+        vendor_billing = self.billing_model.with_context(**ctx).create({})
+        vendor_billing.with_context(**ctx)._onchange_invoice_list()

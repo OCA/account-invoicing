@@ -47,7 +47,6 @@ class AccountBilling(models.Model):
     threshold_date = fields.Date(
         readonly=True,
         states={"draft": [("readonly", False)]},
-        string="Threshold Date",
         default=lambda self: fields.Date.context_today(self),
         required=True,
         tracking=True,
@@ -234,7 +233,7 @@ class AccountBilling(models.Model):
     def invoice_relate_billing_tree_view(self):
         name = self.bill_type == "out_invoice" and "Invoices" or "Bills"
         return {
-            "name": _("%s" % name),
+            "name": _("%s") % (name),
             "view_mode": "tree,form",
             "res_model": "account.move",
             "view_id": False,
