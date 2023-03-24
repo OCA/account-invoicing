@@ -18,7 +18,7 @@
                     t-translation="off"
                 >
                     <i class="fa fa-arrow-right mx-3" />
-                    <field name="invoice_date_due" force_save="1" readonly="1" />
+                    <field name="invoice_date_due" />
                 </span>
             </field>
         </field>
