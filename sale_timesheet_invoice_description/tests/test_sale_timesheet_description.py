@@ -15,8 +15,15 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         # Make sure user is in English
         cls.env.user.lang = "en_US"
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
+        cls.default_plan = cls.env["account.analytic.plan"].create(
+            {"name": "Default", "company_id": False}
+        )
         cls.analytic_account = cls.env["account.analytic.account"].create(
-            {"name": "Test analytic account"}
+            {
+                "name": "Test analytic account",
+                "plan_id": cls.default_plan.id,
+                "company_id": False,
+            }
         )
         cls.project = cls.env["project.project"].create(
             {
@@ -41,7 +48,6 @@ class TestSaleTimesheetDescription(common.TransactionCase):
                 "project_id": cls.project.id,
             }
         )
-
         cls.sale_order = cls.env["sale.order"].create(
             {
                 "partner_id": cls.partner.id,
@@ -62,13 +68,14 @@ class TestSaleTimesheetDescription(common.TransactionCase):
                 "order_id": cls.sale_order.id,
             },
         )
-        cls.so_line.product_id_change()
+        cls.so_line._compute_name()
         # confirm SO, task is created
         cls.sale_order.action_confirm()
         cls.task = cls.env["project.task"].search(
             [("sale_line_id", "=", cls.so_line.id)]
         )
         # Add cls.timesheet to this task
+        cls.env.user.action_create_employee()
         cls.timesheet = cls.env["account.analytic.line"].create(
             {
                 "project_id": cls.project.id,
@@ -154,8 +161,10 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         )
 
         invoice = self.sale_order.with_context(
-            test_timesheet_description=True
-        )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
+            test_timesheet_description=True,
+            timesheet_start_date="2017-01-01",
+            timesheet_end_date="2018-01-01",
+        )._create_invoices()
 
         self.assertEqual(invoice.invoice_line_ids[0].name, expected)
 
@@ -168,8 +177,10 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         self.timesheet2 = self.timesheet.copy()
 
         invoice = self.sale_order.with_context(
-            test_timesheet_description=True
-        )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
+            test_timesheet_description=True,
+            timesheet_start_date="2017-01-01",
+            timesheet_end_date="2018-01-01",
+        )._create_invoices()
 
         self.assertEqual(invoice.invoice_line_ids[0].name, expected)
 
@@ -195,8 +206,10 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         )
 
         invoice = self.sale_order.with_context(
-            test_timesheet_description=True
-        )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
+            test_timesheet_description=True,
+            timesheet_start_date="2017-01-01",
+            timesheet_end_date="2018-01-01",
+        )._create_invoices()
 
         self.assertEqual(len(invoice.invoice_line_ids), 4)
 

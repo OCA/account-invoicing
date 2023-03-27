@@ -20,17 +20,24 @@ msgstr ""
 "%100==4 ? 2 : 3);\n"
 
 #. module: sale_timesheet_invoice_description
+#: model:ir.model,name:sale_timesheet_invoice_description.model_account_analytic_line
+msgid "Analytic Line"
+msgstr ""
+
+#. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_res_config_settings
 msgid "Config Settings"
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
+#. odoo-python
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Date - Description"
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
+#. odoo-python
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Date - Time spent - Description"
@@ -42,12 +49,34 @@ msgid "Default timesheet details on invoice lines"
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
+#. odoo-python
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Description"
 msgstr "Opis"
 
 #. module: sale_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_analytic_line__timesheet_invoice_line_id
+msgid "Invoice Line"
+msgstr ""
+
+#. module: sale_timesheet_invoice_description
+#: model:ir.model.fields,help:sale_timesheet_invoice_description.field_account_analytic_line__timesheet_invoice_line_id
+msgid "Invoice line created from the timesheet"
+msgstr ""
+
+#. module: sale_timesheet_invoice_description
+#: model:ir.model,name:sale_timesheet_invoice_description.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: sale_timesheet_invoice_description
+#: model:ir.model,name:sale_timesheet_invoice_description.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: sale_timesheet_invoice_description
+#. odoo-python
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "None"
@@ -65,13 +94,26 @@ msgid "Sales Order Line"
 msgstr "Postavka prodajnega naloga"
 
 #. module: sale_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_invoice_split
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order__timesheet_invoice_split
+msgid "Split Order lines by timesheets"
+msgstr ""
+
+#. module: sale_timesheet_invoice_description
+#. odoo-python
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Time spent - Description"
 msgstr ""
 
 #. module: sale_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_res_config_settings__default_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order__timesheet_invoice_description
 msgid "Timesheet Invoice Description"
+msgstr ""
+
+#. module: sale_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_ids
+msgid "Timesheets"
 msgstr ""
