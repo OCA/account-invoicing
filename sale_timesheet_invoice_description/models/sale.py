@@ -69,7 +69,7 @@ class SaleOrder(models.Model):
         init_qty = init_ts_uom_id._compute_quantity(init_ts_qty, aml_uom_id)
         aml_sum += init_qty
 
-        aml.with_context(split_aml_by_timesheets=True).write(
+        aml.write(
             {
                 "name": desc_list[0],
                 "quantity": init_qty,
@@ -81,8 +81,8 @@ class SaleOrder(models.Model):
             ts_uom_id = ts_id.product_uom_id
             ts_qty = ts_id.unit_amount
             qty = ts_uom_id._compute_quantity(ts_qty, aml_uom_id)
-            new_aml = aml.with_context(split_aml_by_timesheets=True).copy()
-            new_aml.with_context(split_aml_by_timesheets=True).write(
+            new_aml = aml.copy()
+            new_aml.write(
                 {
                     "name": desc_list[index + 1],
                     "sequence": aml_seq + index + 1,
@@ -94,7 +94,7 @@ class SaleOrder(models.Model):
         # Last new invoice line get the rest
         if ts_ids[-1] != ts_ids[0]:
             last_qty = aml_total - aml_sum
-            last_aml = aml.with_context(split_aml_by_timesheets=True).copy()
+            last_aml = aml.copy()
             last_aml.write(
                 {
                     "name": desc_list[-1],
@@ -104,9 +104,7 @@ class SaleOrder(models.Model):
                 }
             )
 
-    def _create_invoices(
-        self, grouped=False, final=False, start_date=None, end_date=None
-    ):
+    def _create_invoices(self, grouped=False, final=False, date=None):
         """Override the native _create_invoice method in order to :
         1. link the new invoices lines with their related timesheets
         2. change their names consequently
@@ -117,8 +115,15 @@ class SaleOrder(models.Model):
             "test_timesheet_description"
         )
 
-        moves = super()._create_invoices(grouped=grouped, final=final)
-        moves._link_timesheets_to_invoice_line(start_date=start_date, end_date=end_date)
+        moves = super()._create_invoices(grouped=grouped, final=final, date=date)
+        # Link timesheets to the created invoice lines. Date interval is
+        # injected in the context in sale_make_invoice_advance_inv wizard.
+        # Compare the super method in module "sale_timesheet" for linking the
+        # timesheets to the invoice itself.
+        moves._link_timesheets_to_invoice_line(
+            start_date=self.env.context.get("timesheet_start_date"),
+            end_date=self.env.context.get("timesheet_end_date"),
+        )
 
         for move_id in moves:
             for aml in move_id.invoice_line_ids:
