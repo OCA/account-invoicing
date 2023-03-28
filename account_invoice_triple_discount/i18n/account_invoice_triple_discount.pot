@@ -44,6 +44,11 @@ msgid "Discount 3 (%)"
 msgstr ""
 
 #. module: account_invoice_triple_discount
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_triple_discount
 #: model:ir.model,name:account_invoice_triple_discount.model_account_move_line
 msgid "Journal Item"
 msgstr ""
