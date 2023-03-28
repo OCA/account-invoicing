@@ -23,7 +23,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_billing](account_billing/) | 12.0.1.0.1 | [![Saran440](https://github.com/Saran440.png?size=30px)](https://github.com/Saran440) | Group invoice as billing before payment
 [account_debitnote](account_debitnote/) | 12.0.1.0.0 |  | Create debit note from invoice and vendor bill
-[account_global_discount](account_global_discount/) | 12.0.1.2.1 |  | Account Global Discount
+[account_global_discount](account_global_discount/) | 12.0.1.2.2 |  | Account Global Discount
 [account_group_invoice_line](account_group_invoice_line/) | 12.0.1.0.1 |  | Add option to group invoice lines per account
 [account_invoice_alternate_payer](account_invoice_alternate_payer/) | 12.0.1.0.1 |  | Set a alternate payor/payee in invoices
 [account_invoice_analytic_search](account_invoice_analytic_search/) | 12.0.1.0.0 |  | Search invoices by analytic account or by project manager
