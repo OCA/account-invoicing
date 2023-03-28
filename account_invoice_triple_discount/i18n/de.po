@@ -20,6 +20,16 @@ msgstr ""
 "X-Generator: Weblate 3.1.1\n"
 
 #. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.2 %</span>"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.3 %</span>"
+msgstr ""
+
+#. module: account_invoice_triple_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.invoice_triple_discount_form_view
 msgid "Disc.2%"
 msgstr "2. Rabatt (%)"
@@ -30,21 +40,27 @@ msgid "Disc.3%"
 msgstr "3. Rabatt (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount2
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount2
 msgid "Discount 2 (%)"
 msgstr "2. Rabatt (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount3
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount3
 msgid "Discount 3 (%)"
 msgstr "3. Rabatt (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model,name:account_invoice_triple_discount.model_account_invoice
-msgid "Invoice"
-msgstr "Rechnung"
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_triple_discount
-#: model:ir.model,name:account_invoice_triple_discount.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Rechnungsposition"
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Rechnung"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Rechnungsposition"
