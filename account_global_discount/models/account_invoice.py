@@ -54,6 +54,8 @@ class AccountInvoice(models.Model):
         """
         self.ensure_one()
         if not self.global_discount_ids:
+            self.amount_global_discount = 0.0
+            self.amount_untaxed_before_global_discounts = 0.0
             return
         invoice_global_discounts = self.env['account.invoice.global.discount']
         taxes_keys = {}
@@ -131,7 +133,9 @@ class AccountInvoice(models.Model):
         return self._onchange_invoice_line_ids()
 
     def _compute_amount_one(self):
-        if not self.invoice_global_discount_ids:
+        if not self.global_discount_ids:
+            self.amount_global_discount = 0.0
+            self.amount_untaxed_before_global_discounts = 0.0
             return
         round_curr = self.currency_id.round
         self.amount_global_discount = sum(
