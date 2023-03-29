@@ -1,7 +1,7 @@
 #  Copyright 2023 Simone Rubino - TAKOBI
 #  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 from odoo.osv import expression
 from odoo.tools.convert import safe_eval
 
@@ -9,6 +9,7 @@ from odoo.tools.convert import safe_eval
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    use_receipts = fields.Boolean()
     total_receipts_invoiced = fields.Monetary(
         compute="_compute_total_receipts_invoiced",
         string="Total Receipts Invoiced",
@@ -73,3 +74,18 @@ class ResPartner(models.Model):
             )
         )
         return action
+
+    @api.onchange("use_receipts")
+    def onchange_use_receipts(self):
+        if self.use_receipts:
+            # Partner is receipts, assign a receipts
+            # fiscal position only if there is none
+            if not self.property_account_position_id:
+                company = self.company_id or self.env.company
+                self.property_account_position_id = self.env[
+                    "account.fiscal.position"
+                ].get_receipts_fiscal_pos(company)
+        else:
+            # Unset the fiscal position only if it was receipts
+            if self.property_account_position_id.receipts:
+                self.property_account_position_id = False

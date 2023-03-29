@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  ~ Copyright 2023 Simone Rubino - TAKOBI
+  ~ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+  -->
+<odoo>
+    <record id="view_account_position_form" model="ir.ui.view">
+        <field name="name">Add Receipts to Account Fiscal Position Form View</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="receipts" />
+            </field>
+        </field>
+    </record>
+</odoo>
