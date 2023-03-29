@@ -1,0 +1,236 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_customer_budget
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-29 14:19+0000\n"
+"PO-Revision-Date: 2023-03-29 14:19+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_consumption_line_ids
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_consumption_line_ids
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_consumption_line_ids
+msgid "Budget Consumption Lines"
+msgstr "Lignes de consommation de budget"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move_line__budget_invoice_id
+msgid "Budget"
+msgstr "Budget"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
+msgid "Budget consumption"
+msgstr "Consommation de Budget"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_invoice_consumption_ids
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_invoice_consumption_ids
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_invoice_consumption_ids
+msgid "Budget consumption invoices"
+msgstr "Factures de Consommation de Budget"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_consumption_invoice_count
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_consumption_invoice_count
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_consumption_invoice_count
+msgid "Budget invoices consumption Count"
+msgstr "Nb factures Consommation de Budget"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_residual
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_residual
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_residual
+msgid "Budget residual"
+msgstr "Budget restant"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_total_consumption
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_total_consumption
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_total_consumption
+msgid "Budget total consumption"
+msgstr "Consomation totla de budget"
+
+#. module: account_invoice_customer_budget
+#: model:ir.actions.act_window,name:account_invoice_customer_budget.action_move_out_invoice_budget_type
+#: model:ir.ui.menu,name:account_invoice_customer_budget.menu_action_move_out_refund_type
+msgid "Budgets"
+msgstr "Budgets"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,help:account_invoice_customer_budget.field_account_bank_statement_line__is_budget
+#: model:ir.model.fields,help:account_invoice_customer_budget.field_account_journal__is_budget
+#: model:ir.model.fields,help:account_invoice_customer_budget.field_account_move__is_budget
+#: model:ir.model.fields,help:account_invoice_customer_budget.field_account_payment__is_budget
+msgid ""
+"Check this box if the journal is used for manage customer budget.\n"
+"The journal must have a sale type"
+msgstr ""
+"Cochez cette case pour le journal de vente permettant la gestion du budget client"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.actions.act_window,help:account_invoice_customer_budget.action_move_out_invoice_budget_type
+msgid ""
+"Create Budget, register payments and keep track of the discussions with your"
+" customers."
+msgstr ""
+"Créer un budget client, enregistrer un paiement de ce budget et garde une trace des échanges avec votre client"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.actions.act_window,help:account_invoice_customer_budget.action_move_out_invoice_budget_type
+msgid "Create a customer Budget"
+msgstr "Créer un budget client"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
+msgid "Description"
+msgstr "Description"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
+msgid "Disc.%"
+msgstr "Rem. %"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__is_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__is_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__is_budget
+msgid "Is a budget"
+msgstr "Est un Budget ?"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_journal__is_budget
+msgid "Is a customer budget"
+msgstr "Est un Budget  Client ? "
+
+#. module: account_invoice_customer_budget
+#: model:ir.model,name:account_invoice_customer_budget.model_account_journal
+msgid "Journal"
+msgstr "Journal"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model,name:account_invoice_customer_budget.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_customer_budget
+#: model:ir.model,name:account_invoice_customer_budget.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
+msgid "Note"
+msgstr ""
+
+#. module: account_invoice_customer_budget
+#. odoo-python
+#: code:addons/account_invoice_customer_budget/models/account_move.py:0
+#, python-format
+msgid ""
+"Please check the amount avalaible of budget:\n"
+"Consumption amount (%(consumption_amount)s)!:\n"
+"Avalaible amount (%(avalaible_amount)s)!:\n"
+"This amount are taxed:\n"
+msgstr ""
+"Merci de vérifier le montant disponible sur ce budget:\n"
+"Montant de la consommation (%(consumption_amount)s)!:\n"
+" Montant disponible (%(avalaible_amount)s)!:\n"
+"Ces montant peuvent inclut les TVA:\n"
+
+#. module: account_invoice_customer_budget
+#. odoo-python
+#: code:addons/account_invoice_customer_budget/models/account_move.py:0
+#, python-format
+msgid ""
+"Please check your the budget journla advenced setting!\n"
+"You may define allowed accounts for budget account journal: (%(budget_name)s)!\n"
+"Allowed account must contain prepaid revenue account with a receivable account and vat account.\n"
+msgstr ""
+"Merci de vérifier les paramètres avancés du journal de budget!\n"
+"Vous devez définir des comptes autorisés sur le budget: (%(budget_name)s)!\n"
+"Les comptes autorisés doivent inclure un compte de produit constaté d’avance, un compte client et un compte tva au minimum.\n"
+
+#. module: account_invoice_customer_budget
+#. odoo-python
+#: code:addons/account_invoice_customer_budget/models/account_move.py:0
+#, python-format
+msgid ""
+"Please verify the account of budget consumption line!\n"
+"You can use only the following accounts in budget consumption line.\n"
+"Authorized accounts (%(authorized_accounts)s)!\n"
+msgstr ""
+"Merci de vérifier le compte comptable de la ligne de consommation de budget:\n"
+"Vous pouvez utiliser uniquement les comptes suivants :\n"
+"Comptes autorisés (%(authorized_accounts)s)!:\n"
+
+#. module: account_invoice_customer_budget
+#. odoo-python
+#: code:addons/account_invoice_customer_budget/models/account_move.py:0
+#, python-format
+msgid ""
+"Please verify the budget consumption of the invoice!\n"
+"You can use budget consumption only for Customer invoice\n"
+"Used budgets are (%(budget_numbers)s)!\n"
+msgstr ""
+"Merci de vérifier la consommation de budget:\n"
+"Vous pouvez  utiliser la consommation de budget uniquement sur les factures clients :\n"
+"Budget utilisé (%(budget_numbers)s)!:\n"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
+msgid "Price"
+msgstr "Prix"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
+msgid "Section"
+msgstr "Section"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
+msgid "Subtotal"
+msgstr "Sous total"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,help:account_invoice_customer_budget.field_account_bank_statement_line__budget_account_ids
+#: model:ir.model.fields,help:account_invoice_customer_budget.field_account_move__budget_account_ids
+#: model:ir.model.fields,help:account_invoice_customer_budget.field_account_payment__budget_account_ids
+msgid "Technical field used to validate line budget consumption account"
+msgstr ""
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
+msgid "Total"
+msgstr "Total"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
+msgid "UoM"
+msgstr ""
+
+#. module: account_invoice_customer_budget
+#. odoo-python
+#: code:addons/account_invoice_customer_budget/models/account_move_line.py:0
+#, python-format
+msgid ""
+"You can not consume a budget of an other customer. Please select the right "
+"budget"
+msgstr ""
+"Vous ne pouvez pas consommer un budget d’un autre client. Merci de choisir le bon budget"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_account_ids
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_account_ids
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_account_ids
+msgid "budget account"
+msgstr "Compte du budget"
