@@ -13,4 +13,7 @@
     "depends": [
         "account",
     ],
+    "data": [
+        "reports/account_invoice_report_views.xml",
+    ],
 }
