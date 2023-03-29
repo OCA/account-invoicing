@@ -32,6 +32,11 @@ Base fields and methods for better Receipts Management.
 .. contents::
    :local:
 
+Configuration
+=============
+
+If needed, create "receipts" fiscal positions and partners.
+
 Bug Tracker
 ===========
 
