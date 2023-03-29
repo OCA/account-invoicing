@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-29 14:25+0000\n"
-"PO-Revision-Date: 2023-03-29 14:25+0000\n"
+"POT-Creation-Date: 2023-03-29 15:03+0000\n"
+"PO-Revision-Date: 2023-03-29 15:03+0000\n"
 "Last-Translator: Simone Rubino <sir@takobi.online>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,14 +16,26 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_receipt_base
+#: model_terms:ir.ui.view,arch_db:account_receipt_base.view_partner_form
+msgid "<span class=\"o_stat_text\">Receipts</span>"
+msgstr "<span class=\"o_stat_text\">Ricevute</span>"
+
+#. module: account_receipt_base
+#: model:ir.model,name:account_receipt_base.model_res_partner
+msgid "Contact"
+msgstr "Contatto"
+
+#. module: account_receipt_base
 #: model:ir.model.fields,field_description:account_receipt_base.field_account_invoice_report__display_name
 #: model:ir.model.fields,field_description:account_receipt_base.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_partner__display_name
 msgid "Display Name"
 msgstr "Nome visualizzato"
 
 #. module: account_receipt_base
 #: model:ir.model.fields,field_description:account_receipt_base.field_account_invoice_report__id
 #: model:ir.model.fields,field_description:account_receipt_base.field_account_move__id
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_partner__id
 msgid "ID"
 msgstr ""
 
@@ -40,6 +52,7 @@ msgstr "Registrazione contabile"
 #. module: account_receipt_base
 #: model:ir.model.fields,field_description:account_receipt_base.field_account_invoice_report____last_update
 #: model:ir.model.fields,field_description:account_receipt_base.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr "Ultima modifica il"
 
@@ -67,3 +80,9 @@ msgstr "Ricevuta di vendita"
 #: model_terms:ir.ui.view,arch_db:account_receipt_base.view_account_invoice_report_search
 msgid "Sales Receipts"
 msgstr "Ricevute di vendita"
+
+#. module: account_receipt_base
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_partner__total_receipts_invoiced
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_users__total_receipts_invoiced
+msgid "Total Receipts Invoiced"
+msgstr "Totale ricevute fatturate"

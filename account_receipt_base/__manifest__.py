@@ -14,6 +14,7 @@
         "account",
     ],
     "data": [
+        "views/res_partner_views.xml",
         "reports/account_invoice_report_views.xml",
     ],
 }
