@@ -1,1 +1,2 @@
-If needed, create "receipts" fiscal positions and partners.
+ - Add your users to "Sale Receipt" group
+ - Go to Invoicing > Customers > Receipts
