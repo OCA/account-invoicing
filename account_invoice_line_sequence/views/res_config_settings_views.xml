@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <div id="smallest_coinage_currency" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" id="invoice_line_sequence">
+                    <div class="o_setting_left_pane">
+                        <field name="invoice_line_sequence_recompute" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="invoice_line_sequence_recompute" />
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            aria-label="Values set here are company-specific."
+                            role="img"
+                        />
+                        <div class="text-muted">
+                            Enable if you want the invoice line sequence to recompute automatically.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
