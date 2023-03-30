@@ -1,5 +1,6 @@
 from . import models
 from . import wizard
+from odoo import api, SUPERUSER_ID
 from openupgradelib import openupgrade
 
 
@@ -48,6 +49,20 @@ def rename_old_italian_module(cr):
     )
 
 
+def invert_receipt_refund_quantity(env):
+    """Receipt Refunds are the same as normal Receipts
+    but with inverted Quantities."""
+    refund_receipts = env["account.move"].search(
+        [
+            ("move_type", "in", ["out_receipt", "in_receipt"]),
+            ("amount_total_signed", "<", 0),
+        ]
+    )
+    refund_receipts_lines = refund_receipts.mapped("invoice_line_ids")
+    for refund_receipts_line in refund_receipts_lines:
+        refund_receipts_line.quantity = -refund_receipts_line.quantity
+
+
 def migrate_corrispettivi_data(cr, registry):
     """
     Populate the new columns with data from corrispettivi modules.
@@ -73,3 +88,7 @@ def migrate_corrispettivi_data(cr, registry):
             "SET use_receipts = true "
             "WHERE use_corrispettivi = true",
         )
+
+    with api.Environment.manage():
+        env = api.Environment(cr, SUPERUSER_ID, {})
+        invert_receipt_refund_quantity(env)
