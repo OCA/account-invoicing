@@ -52,15 +52,19 @@ def rename_old_italian_module(cr):
 def invert_receipt_refund_quantity(env):
     """Receipt Refunds are the same as normal Receipts
     but with inverted Quantities."""
-    refund_receipts = env["account.move"].search(
-        [
-            ("move_type", "in", ["out_receipt", "in_receipt"]),
-            ("amount_total_signed", "<", 0),
-        ]
+    openupgrade.logged_query(
+        env.cr,
+        "UPDATE account_move_line l "
+        "SET quantity = -quantity "
+        "FROM account_move m "
+        "WHERE m.id = l.move_id "
+        "AND m.move_type IN ('out_receipt', 'in_receipt') "
+        "AND m.amount_total_signed < 0 "
+        "AND l.exclude_from_invoice_tab = false "
+        "AND (l.display_type NOT IN ('line_section', 'line_note') "
+        "   OR display_type IS NULL) "
+        "AND l.quantity > 0",
     )
-    refund_receipts_lines = refund_receipts.mapped("invoice_line_ids")
-    for refund_receipts_line in refund_receipts_lines:
-        refund_receipts_line.quantity = -refund_receipts_line.quantity
 
 
 def migrate_corrispettivi_data(cr, registry):
