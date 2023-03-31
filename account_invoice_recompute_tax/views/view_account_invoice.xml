@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2021 - Today: GRAP (http://www.grap.coop)
+    @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="view_account_invoice_form_supplier" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="tax_line_ids" position="after">
+                <button name="button_reset_tax_line_ids" type="object" string="Reset Taxes Computation"
+                    attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
