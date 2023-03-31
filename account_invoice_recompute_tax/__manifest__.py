@@ -4,7 +4,7 @@
 
 {
     "name": "Account Invoice - Recompute Tax Lines",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Accounting",
     "summary": "Reset Tax Lines Values",
     "author": "GRAP,Odoo Community Association (OCA)",
