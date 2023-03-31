@@ -44,7 +44,7 @@ addon | version | maintainers | summary
 [account_invoice_merge](account_invoice_merge/) | 12.0.1.0.3 |  | Merge invoices in draft
 [account_invoice_pricelist](account_invoice_pricelist/) | 12.0.1.0.6 |  | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 12.0.1.0.0 |  | Module to fill pricelist from sales order in invoice.
-[account_invoice_recompute_tax](account_invoice_recompute_tax/) | 12.0.1.0.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Reset Tax Lines Values
+[account_invoice_recompute_tax](account_invoice_recompute_tax/) | 12.0.1.0.1 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Reset Tax Lines Values
 [account_invoice_refund_line_selection](account_invoice_refund_line_selection/) | 12.0.1.0.0 |  | This module allows the user to refund specific lines in a invoice
 [account_invoice_refund_link](account_invoice_refund_link/) | 12.0.1.0.0 |  | Link refund invoice with its original invoice
 [account_invoice_refund_reason](account_invoice_refund_reason/) | 12.0.1.0.1 | [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Account Invoice Refund Reason.
