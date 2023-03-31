@@ -31,6 +31,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_merge',
         'odoo12-addon-account_invoice_pricelist',
         'odoo12-addon-account_invoice_pricelist_sale',
+        'odoo12-addon-account_invoice_recompute_tax',
         'odoo12-addon-account_invoice_refund_line_selection',
         'odoo12-addon-account_invoice_refund_link',
         'odoo12-addon-account_invoice_refund_reason',
