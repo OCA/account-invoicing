@@ -15,7 +15,7 @@ class InvoicePickingDateCheckWiz(models.TransientModel):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": _("Invoice date does not match with stock move dates"),
+            "name": _("Accounting date does not match with stock move dates"),
             "res_model": self._name,
             "res_id": self.id,
             "view_mode": "form",

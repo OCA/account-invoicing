@@ -2,8 +2,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Account Invoice Check Picking Date",
-    "summary": "Check if date of pickings match with invoice date",
-    "version": "15.0.1.0.0",
+    "summary": "Check if date of pickings match with accounting date",
+    "version": "15.0.1.1.0",
     "development_status": "Production/Stable",
     "category": "Accounting",
     "website": "https://github.com/OCA/account-invoicing",
