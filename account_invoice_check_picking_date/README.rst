@@ -19,13 +19,13 @@ Account Invoice Check Picking Date
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
     :target: https://translation.odoo-community.org/projects/account-invoicing-15-0/account-invoicing-15-0-account_invoice_check_picking_date
     :alt: Translate me on Weblate
-.. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/95/15.0
-    :alt: Try me on Runbot
+.. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
+    :target: https://runboat.odoo-community.org/webui/builds.html?repo=OCA/account-invoicing&target_branch=15.0
+    :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module checks if date of pickings match with invoice date
+This module checks if date of pickings match with accounting date
 
 **Table of contents**
 
@@ -47,7 +47,7 @@ Usage
 #. Go to *Receptions > Validate > Apply*.
 #. Return to the purchase order.
 #. Press the button *Create Bill* to create the vendor bill.
-#. Set invoice date with other month date
+#. Set accounting date with other month date
 #. Press the button *Post* to view warning message.
 
 Bug Tracker
