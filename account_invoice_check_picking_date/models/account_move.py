@@ -24,7 +24,7 @@ class AccountMove(models.Model):
         self.ensure_one()
         if not max_date:
             return True
-        return self.invoice_date.month == max_date.month
+        return self.date.month == max_date.month
 
     def action_post(self):
         if config["test_enable"] or self.env.context.get(
@@ -43,18 +43,18 @@ class AccountMove(models.Model):
             .split(",")
         )
         for invoice in self:
-            if invoice.invoice_date and invoice.move_type in invoice_types:
+            if invoice.date and invoice.move_type in invoice_types:
                 min_date, max_date = invoice._get_min_max_stock_move_dates()
                 if invoice._match_invoice_and_stock_move_dates(min_date, max_date):
                     continue
                 DateField = self.env["ir.qweb.field.date"]
                 exception_msg = _(
-                    "Invoice date: %(invoice_date)s\n"
+                    "Accounting date: %(accounting_date)s\n"
                     "First stock move: %(min_date)s   Last stock move: %(max_date)s\n\n"
                     "If dates are right and you have manager permissions you can use "
                     "special action to post this invoice."
                 ) % {
-                    "invoice_date": DateField.value_to_html(invoice.invoice_date, {}),
+                    "accounting_date": DateField.value_to_html(invoice.date, {}),
                     "min_date": DateField.value_to_html(min_date, {}),
                     "max_date": DateField.value_to_html(max_date, {}),
                 }
