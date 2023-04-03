@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-03 01:13+0000\n"
-"PO-Revision-Date: 2018-02-03 01:13+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"PO-Revision-Date: 2023-04-03 13:23+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>\n"
 "Language-Team: Croatian (https://www.transifex.com/oca/teams/23907/hr/)\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -19,13 +19,14 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #. module: account_invoice_merge
 #. odoo-python
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "All invoices must have the same: \n"
-msgstr "Svi računi ne koriste isti konto! \n"
+msgstr "Svi računi moraju imati iste: \n"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -57,12 +58,12 @@ msgstr "Naziv"
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Draft"
-msgstr ""
+msgstr "Nacrt"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__error_message
 msgid "Error Message"
-msgstr ""
+msgstr "Poruka greške"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__id
@@ -77,7 +78,7 @@ msgstr "Datum računa"
 #. module: account_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Stavka dnevnika"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__keep_references
@@ -116,7 +117,7 @@ msgstr "Spoji račune partnera"
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Merge-able State (ex : %s)"
-msgstr ""
+msgstr "Spojivi status (npr: %s)"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -132,13 +133,23 @@ msgid ""
 "                        * Invoice lines are exactly the same except for the\n"
 "                        product, quantity and unit.<br/>"
 msgstr ""
+"Primite na znanje:<br/><br/>\n"
+"                        Računi će biti spojeni jedino ako:<br/>\n"
+"                        * su u statusu 'Nacrt'.<br/>\n"
+"                        * su naslovljeni na istog partnera.<br/>\n"
+"                        * pripadaju istoj tvrtci, galse na istog partnera, "
+"adresu,\n"
+"                        valutu, dnevnik, prodavača, konto i tip.<br/><br/>\n"
+"                        Stavke će biti spojene jedino ako:<br/>\n"
+"                        * su apsolutno identične osim količine i jedinice\n"
+"                        proizvoida.<br/>"
 
 #. module: account_invoice_merge
 #. odoo-python
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
-msgstr "Molimo odaberite nekoliko računa za spajanje u popisnom prikazu"
+msgstr "Molimo odaberite nekoliko računa za spajanje u popisnom prikazu."
 
 #~ msgid "Invoice"
 #~ msgstr "Račun"
