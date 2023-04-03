@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Camptocamp SA
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+  <record id="account_tax_change_view_form" model="ir.ui.view">
+    <field name="name">account.tax.change.form</field>
+    <field name="model">account.tax.change</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <group>
+              <field name="name" />
+              <field name="date" />
+            </group>
+            <group>
+              <field name="active" widget="boolean_toggle" />
+              <field name="company_id" groups="base.group_multi_company" />
+            </group>
+          </group>
+          <field name="change_line_ids">
+            <tree editable="bottom">
+              <field name="tax_src_id" />
+              <field name="type_tax_use" invisible="1" />
+              <field name="tax_dest_id" />
+              <field name="company_id" invisible="1" />
+            </tree>
+          </field>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="account_tax_change_view_tree" model="ir.ui.view">
+    <field name="name">account.tax.change.tree</field>
+    <field name="model">account.tax.change</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name" />
+        <field name="date" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="account_tax_change_view_search" model="ir.ui.view">
+    <field name="name">account.tax.change.search</field>
+    <field name="model">account.tax.change</field>
+    <field name="type">search</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name" />
+        <field name="date" />
+        <filter string="Archived" name="inactive" domain="[('active','=',False)]" />
+      </search>
+    </field>
+  </record>
+
+  <record id="account_tax_change_action" model="ir.actions.act_window">
+    <field name="name">Tax changes</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.tax.change</field>
+    <field name="view_id" ref="account_tax_change_view_tree" />
+  </record>
+
+  <menuitem
+        id="account_tax_change_menu"
+        parent="account.account_account_menu"
+        action="account_tax_change_action"
+        sequence="2"
+    />
+
+</odoo>
