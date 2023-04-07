@@ -14,12 +14,19 @@ class AccountInvoiceLine(models.Model):
         string="Budget",
         readonly=False,
         index=True,
-        domain="['|', '|', ('partner_id', '=', partner_id), ('partner_id', 'child_of', partner_id), ('partner_id', 'parent_of', partner_id), ('is_budget', '=', True)]",
+        domain="['|', '|', ('partner_id', '=', partner_id), "
+        "('partner_id', 'child_of', partner_id), ('partner_id', 'parent_of', partner_id), "
+        "('is_budget', '=', True)]",
     )
 
-    @api.constrains('partner_id', 'budget_invoice_id')
+    @api.constrains("partner_id", "budget_invoice_id")
     def _check_budget_invoice_partner(self):
         for line in self:
             budget_partner = line.budget_invoice_id.partner_id.commercial_partner_id
             if budget_partner and line.partner_id != budget_partner:
-                    raise UserError(_("You can not consume a budget of an other customer. Please select the right budget"))
+                raise UserError(
+                    _(
+                        "You can not consume a budget of an other customer. "
+                        "Please select the right budget"
+                    )
+                )
