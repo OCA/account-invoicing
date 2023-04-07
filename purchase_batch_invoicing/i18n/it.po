@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-02 02:43+0000\n"
-"PO-Revision-Date: 2023-01-02 12:47+0000\n"
+"PO-Revision-Date: 2023-04-07 18:27+0000\n"
 "Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -38,7 +38,7 @@ msgstr "Cancella"
 #. module: purchase_batch_invoicing
 #: model:ir.ui.view,arch_db:purchase_batch_invoicing.purchase_order_form
 msgid "Create Invoice"
-msgstr "Crea Fattura"
+msgstr "Crea fattura"
 
 #. module: purchase_batch_invoicing
 #: model:ir.model.fields,field_description:purchase_batch_invoicing.field_purchase_batch_invoicing_create_uid
