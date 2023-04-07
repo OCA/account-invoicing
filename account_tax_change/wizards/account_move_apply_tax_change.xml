@@ -36,15 +36,13 @@
     </field>
   </record>
 
-  <record id="account_move_apply_tax_change_action" model="ir.actions.act_window">
-    <field name="name">Apply tax changes</field>
-    <field name="type">ir.actions.act_window</field>
-    <field name="res_model">account.move.apply.tax.change</field>
-    <field name="view_mode">form</field>
-    <field name="target">new</field>
-    <field name="groups_id" eval="[(4,ref('account.group_account_invoice'))]" />
-    <field name="binding_model_id" ref="account.model_account_move" />
-    <field name="binding_view_types">list,form</field>
-  </record>
+  <act_window id="account_move_apply_tax_change_action"
+      multi="False"
+      name="Apply tax changes"
+      src_model="account.invoice"
+      res_model="account.move.apply.tax.change"
+      view_type="form" view_mode="form"
+      key2="client_action_multi" target="new"
+      groups="account.group_account_invoice"/>
 
 </odoo>

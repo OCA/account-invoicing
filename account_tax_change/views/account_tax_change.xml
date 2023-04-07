@@ -9,21 +9,29 @@
     <field name="arch" type="xml">
       <form>
         <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button name="toggle_active" type="object"
+                    class="oe_stat_button" icon="fa-archive">
+              <field name="active" widget="boolean_button"
+                  options='{"terminology": "archive"}'/>
+            </button>
+          </div>
           <group>
             <group>
               <field name="name" />
               <field name="date" />
             </group>
             <group>
-              <field name="active" widget="boolean_toggle" />
               <field name="company_id" groups="base.group_multi_company" />
             </group>
           </group>
           <field name="change_line_ids">
             <tree editable="bottom">
-              <field name="tax_src_id" />
+              <field name="tax_src_id"
+                domain="['|', ('company_id', '=', parent.company_id), ('company_id', '=', False)]" />
               <field name="type_tax_use" invisible="1" />
-              <field name="tax_dest_id" />
+              <field name="tax_dest_id"
+                domain="[('id', '!=', tax_src_id), ('type_tax_use', '=', type_tax_use), '|', ('company_id', '=', parent.company_id), ('company_id', '=', False),]" />
               <field name="company_id" invisible="1" />
             </tree>
           </field>
@@ -60,6 +68,7 @@
     <field name="name">Tax changes</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">account.tax.change</field>
+    <field name="view_type">form</field>
     <field name="view_id" ref="account_tax_change_view_tree" />
   </record>
 
