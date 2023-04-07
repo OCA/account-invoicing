@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-30 13:22+0000\n"
-"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"PO-Revision-Date: 2023-04-07 13:24+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr "Rimetti in coda"
 #. module: sale_order_invoicing_queued
 #: model:ir.model,name:sale_order_invoicing_queued.model_sale_advance_payment_inv
 msgid "Sales Advance Payment Invoice"
-msgstr "Fattura Acconto Vendita"
+msgstr "Fattura di vendita con pagamento anticipato"
 
 #. module: sale_order_invoicing_queued
 #: model:ir.model,name:sale_order_invoicing_queued.model_sale_order
