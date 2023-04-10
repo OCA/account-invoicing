@@ -9,9 +9,9 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     self_invoice_number = fields.Char(
-        readonly=True
+        readonly=True, copy=False
     )
-    set_self_invoice = fields.Boolean(string='Set self invoice')
+    set_self_invoice = fields.Boolean(string='Set self invoice', copy=False)
     can_self_invoice = fields.Boolean(related='partner_id.self_invoice')
 
     @api.onchange('partner_id', 'company_id')
@@ -26,7 +26,7 @@ class AccountInvoice(models.Model):
         for invoice in self:
             partner = invoice.partner_id
             if partner.self_invoice and invoice.type in 'in_invoice' and \
-                    invoice.set_self_invoice:
+                    invoice.set_self_invoice and not invoice.self_invoice_number:
                 sequence = partner.self_invoice_sequence_id
                 invoice.self_invoice_number = sequence.with_context(
                     ir_sequence_date=invoice.date

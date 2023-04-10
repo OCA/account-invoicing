@@ -19,7 +19,8 @@
                        attrs="{'invisible':['|',('can_self_invoice','=',False),'|',('type','!=', 'in_invoice'), ('state','!=','draft')]}"/>
             </field>
             <field name="reference" position="before">
-                <field name="self_invoice_number" readonly="1" attrs="{'invisible':[('state', '=', 'draft'), ('self_invoice_number', '=', False)]}"/>
+                <field name="self_invoice_number" readonly="1"
+                       attrs="{'invisible':['|',('self_invoice_number','=',False),'|',('type','!=', 'in_invoice'), ('state','=','draft')]}"/>
             </field>
         </field>
     </record>

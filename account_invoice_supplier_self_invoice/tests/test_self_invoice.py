@@ -69,3 +69,12 @@ class TestSelfInvoice(common.TransactionCase):
         self.assertTrue(self.invoice.set_self_invoice)
         self.invoice.action_invoice_open()
         self.assertTrue(self.invoice.self_invoice_number)
+
+    def test_invoice_copy(self):
+        self.partner.set_self_invoice()
+        self.invoice.partner_id = self.partner
+        self.invoice._onchange_partner_id()
+        self.invoice.action_invoice_open()
+        self.assertTrue(self.invoice.self_invoice_number)
+        new_invoice = self.invoice.copy()
+        self.assertFalse(new_invoice.self_invoice_number)
