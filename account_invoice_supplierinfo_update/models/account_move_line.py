@@ -12,7 +12,7 @@ class AccountMoveLine(models.Model):
         with product and supplier, if exist"""
         self.ensure_one()
         supplierinfos = self.product_id.seller_ids.filtered(
-            lambda seller: seller.name == self.move_id.supplier_partner_id
+            lambda seller: seller.partner_id == self.move_id.supplier_partner_id
         )
         return supplierinfos and supplierinfos[0] or False
 
