@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import models
+from odoo.tools import float_compare
 
 
 class AccountMoveLine(models.Model):
@@ -29,7 +30,11 @@ class AccountMoveLine(models.Model):
         are added in supplierinfo. (discount for exemple)
         """
         self.ensure_one()
-        return self._get_unit_price_in_purchase_uom() == supplierinfo.price
+        return not float_compare(
+            self._get_unit_price_in_purchase_uom(),
+            supplierinfo.price,
+            precision_rounding=self.move_id.currency_id.rounding,
+        )
 
     def _prepare_supplier_wizard_line(self, supplierinfo):
         """Prepare the value that will proposed to user in the wizard
