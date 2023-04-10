@@ -14,8 +14,11 @@
                     attrs="{'invisible': ['|', ('supplierinfo_ok', '=', True), ('partner_id', '=', False)]}"
                 />
             </xpath>
-            <field name="invoice_payment_term_id" position="after">
-                <field name="supplierinfo_ok" />
+            <field name="to_check" position="before">
+                <field
+                    name="supplierinfo_ok"
+                    attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])]}"
+                />
             </field>
         </field>
     </record>

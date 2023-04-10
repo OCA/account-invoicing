@@ -24,7 +24,7 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
         related="supplierinfo_id.min_qty", readonly=True
     )
 
-    new_min_quantity = fields.Float(string="New Min Quantity", required=True)
+    new_min_quantity = fields.Float(required=True)
 
     current_price = fields.Float(
         related="supplierinfo_id.price",
@@ -57,7 +57,7 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
         self.ensure_one()
         vals = {
             "product_tmpl_id": self.product_id.product_tmpl_id.id,
-            "name": self.wizard_id.invoice_id.supplier_partner_id.id,
+            "partner_id": self.wizard_id.invoice_id.supplier_partner_id.id,
             "delay": 1,
         }
         vals.update(self._prepare_supplierinfo_update())
