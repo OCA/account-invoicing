@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Moduon Team S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="action_invoice_clearing" model="ir.actions.server">
+        <field name="name">Invoice Clearing</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field
+            name="code"
+        >action = records.action_open_invoice_clearing_wizard()</field>
+    </record>
+
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside">
+                <button
+                    name="action_open_invoice_clearing_wizard"
+                    string="Invoice clearing"
+                    class="oe_highlight"
+                    type="object"
+                    groups="account.group_account_invoice"
+                    attrs="{'invisible': ['|', '|', ('state', '!=', 'posted'), ('move_type', '=', 'entry'), ('payment_state', '=', 'paid')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+</data>
