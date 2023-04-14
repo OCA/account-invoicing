@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-02 03:40+0000\n"
-"PO-Revision-Date: 2018-02-02 03:40+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
-"teams/23907/pt_BR/)\n"
+"PO-Revision-Date: 2023-04-14 21:34+0000\n"
+"Last-Translator: Douglas Custódio <douglascstd@yahoo.com>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
+"23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:mail.template,body_html:account_invoice_supplier_self_invoice.email_template_self_invoice
@@ -285,7 +286,7 @@ msgstr ""
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_document_self_invoice
 msgid "Vendor Credit Note"
-msgstr ""
+msgstr "Nota de Crédito de Fornecedor"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_partner__self_invoice
