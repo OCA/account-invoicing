@@ -23,7 +23,7 @@ msgid "Is Return"
 msgstr "Es devolución"
 
 #. module: stock_picking_return_refund_option
-#: selection:stock.picking,to_refund_lines:0
+#: model:ir.model.fields.selection,name:stock_picking_return_refund_option.selection__stock_picking__to_refund_lines__no_refund
 msgid "No Refund"
 msgstr "No abonar"
 
@@ -32,6 +32,11 @@ msgstr "No abonar"
 #: model_terms:ir.ui.view,arch_db:stock_picking_return_refund_option.view_picking_form
 msgid "Refund Options"
 msgstr "Opciones de devolución"
+
+#. module: stock_picking_return_refund_option
+#: model:ir.model,name:stock_picking_return_refund_option.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de stock"
 
 #. module: stock_picking_return_refund_option
 #: model:ir.model.fields,help:stock_picking_return_refund_option.field_stock_picking__to_refund_lines
@@ -52,7 +57,7 @@ msgstr ""
 "valor a 'falso' y recalcula las unidades entregadas del pedido de venta."
 
 #. module: stock_picking_return_refund_option
-#: selection:stock.picking,to_refund_lines:0
+#: model:ir.model.fields.selection,name:stock_picking_return_refund_option.selection__stock_picking__to_refund_lines__to_refund
 msgid "To Refund"
 msgstr "Para abonar"
 
@@ -63,6 +68,3 @@ msgstr "Transferir"
 
 #~ msgid "Return Picking"
 #~ msgstr "Albarán de devolución"
-
-#~ msgid "Stock Move"
-#~ msgstr "Movimiento de stock"

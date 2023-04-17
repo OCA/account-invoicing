@@ -29,7 +29,7 @@ class TestSaleOrderLineInput(TransactionCase):
         cls.order.action_confirm()
         cls.picking = cls.order.picking_ids
         move_line_vals_list = []
-        for move in cls.picking.move_lines:
+        for move in cls.picking.move_ids:
             move_line_vals = move._prepare_move_line_vals()
             move_line_vals["qty_done"] = 1
             move_line_vals_list.append(move_line_vals)
@@ -58,9 +58,9 @@ class TestSaleOrderLineInput(TransactionCase):
         return_pick.move_line_ids.write({"qty_done": 1.0})
         return_pick.button_validate()
         self.assertEqual(return_pick.to_refund_lines, "no_refund")
-        return_pick.move_lines.write({"to_refund": True})
+        return_pick.move_ids.write({"to_refund": True})
         self.assertEqual(return_pick.to_refund_lines, "to_refund")
-        return_pick.move_lines[:1].write({"to_refund": False})
+        return_pick.move_ids[:1].write({"to_refund": False})
         self.assertFalse(return_pick.to_refund_lines)
 
     def test_return_so_wo_to_refund(self):
@@ -93,7 +93,7 @@ class TestSaleOrderLineInput(TransactionCase):
         po_order = order_form.save()
         po_order.button_confirm()
         picking = po_order.picking_ids[:]
-        move_line_vals = picking.move_lines._prepare_move_line_vals()
+        move_line_vals = picking.move_ids._prepare_move_line_vals()
         move_line_vals["qty_done"] = 1
         self.env["stock.move.line"].create(move_line_vals)
         picking.button_validate()
@@ -101,7 +101,7 @@ class TestSaleOrderLineInput(TransactionCase):
         # Return the picking without refund
         return_wizard = self.return_picking_wiz(picking)
         return_pick = self.picking.browse(return_wizard.create_returns()["res_id"])
-        move_line_vals = return_pick.move_lines._prepare_move_line_vals()
+        move_line_vals = return_pick.move_ids._prepare_move_line_vals()
         move_line_vals["qty_done"] = 1
         self.env["stock.move.line"].create(move_line_vals)
         return_pick.button_validate()
