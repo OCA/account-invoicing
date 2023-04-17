@@ -20,13 +20,13 @@ class StockPicking(models.Model):
     )
     is_return = fields.Boolean(compute="_compute_is_return")
 
-    @api.depends("move_lines.to_refund")
+    @api.depends("move_ids.to_refund")
     def _compute_to_refund_lines(self):
         for picking in self:
-            moves_to_refund = picking.move_lines.filtered(lambda mv: mv.to_refund)
+            moves_to_refund = picking.move_ids.filtered(lambda mv: mv.to_refund)
             if not moves_to_refund:
                 picking.to_refund_lines = "no_refund"
-            elif len(moves_to_refund) == len(picking.move_lines):
+            elif len(moves_to_refund) == len(picking.move_ids):
                 picking.to_refund_lines = "to_refund"
             else:
                 picking.to_refund_lines = False
@@ -45,11 +45,11 @@ class StockPicking(models.Model):
 
     def _compute_is_return(self):
         for picking in self:
-            picking.is_return = any(x.origin_returned_move_id for x in picking.move_lines)
+            picking.is_return = any(x.origin_returned_move_id for x in picking.move_ids)
 
     def _update_stock_moves(self):
         for pick in self.filtered("to_refund_lines"):
-            pick.move_lines.write({"to_refund": pick.to_refund_lines == "to_refund"})
+            pick.move_ids.write({"to_refund": pick.to_refund_lines == "to_refund"})
 
     def set_delivered_qty(self):
         """
@@ -59,7 +59,7 @@ class StockPicking(models.Model):
         """
         if hasattr(self.env["stock.move"], "sale_line_id") and self.sale_id:
             # The sale_stock module is installed
-            so_lines = self.mapped("move_lines.sale_line_id").filtered(
+            so_lines = self.mapped("move_ids.sale_line_id").filtered(
                 lambda x: x.product_id.invoice_policy in ("order", "delivery")
             )
             so_lines._compute_qty_delivered()
@@ -72,7 +72,7 @@ class StockPicking(models.Model):
         """
         if hasattr(self.env["stock.move"], "purchase_line_id") and self.purchase_id:
             # The purchase module is installed
-            po_lines = self.mapped("move_lines.purchase_line_id").filtered(
+            po_lines = self.mapped("move_ids.purchase_line_id").filtered(
                 lambda x: x.product_id.invoice_policy in ("order", "delivery")
             )
             po_lines._compute_qty_received()
