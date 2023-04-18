@@ -23,7 +23,7 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
     supplierinfo_id = fields.Many2one(comodel_name="product.supplierinfo")
 
     current_min_quantity = fields.Float(
-        related="supplierinfo_id.min_qty", readonly=True
+        string="current Min quantity", related="supplierinfo_id.min_qty", readonly=True
     )
 
     new_min_quantity = fields.Float(required=True)
