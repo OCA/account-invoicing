@@ -8,14 +8,15 @@
         />
         <field name="arch" type="xml">
             <xpath
-                expr="//field[@name='line_ids']/tree/field[@name='price_variation']"
-                position="after"
+                expr="//field[@name='line_ids']/tree/field[@name='cost_variation']"
+                position="before"
             >
                 <field
                     name="current_discount"
                     attrs="{'invisible': [('supplierinfo_id', '=', False)]}"
+                    optional="show"
                 />
-                <field name="new_discount" />
+                <field name="new_discount" optional="show" />
             </xpath>
         </field>
     </record>

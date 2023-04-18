@@ -8,8 +8,8 @@ from odoo import models
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    def _is_correct_price(self, supplierinfo):
-        res = super()._is_correct_price(supplierinfo)
+    def _is_matching_supplierinfo(self, supplierinfo):
+        res = super()._is_matching_supplierinfo(supplierinfo)
         return res and (self.discount == supplierinfo.discount)
 
     def _prepare_supplier_wizard_line(self, supplierinfo):

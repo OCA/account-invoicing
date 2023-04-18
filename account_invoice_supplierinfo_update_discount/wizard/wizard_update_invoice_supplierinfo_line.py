@@ -9,13 +9,11 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
     _inherit = "wizard.update.invoice.supplierinfo.line"
 
     current_discount = fields.Float(
-        string="Current Discount",
         digits="Discount",
         readonly=True,
     )
 
     new_discount = fields.Float(
-        string="New Discount",
         digits="Discount",
         required=True,
     )
@@ -24,3 +22,25 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
         res = super()._prepare_supplierinfo_update()
         res["discount"] = self.new_discount
         return res
+
+    def _get_fields_depend_current_cost(self):
+        res = super()._get_fields_depend_current_cost()
+        res.append("current_discount")
+        return res
+
+    def _get_fields_depend_new_cost(self):
+        res = super()._get_fields_depend_new_cost()
+        res.append("new_discount")
+        return res
+
+    def _compute_current_cost(self):
+        super()._compute_current_cost()
+        for line in self.filtered(lambda x: x.supplierinfo_id and x.current_discount):
+            line.current_cost = line.current_cost * (100 - line.current_discount) / 100
+        return
+
+    def _compute_new_cost(self):
+        super()._compute_new_cost()
+        for line in self:
+            line.new_cost = line.new_cost * (100 - line.new_discount) / 100
+        return
