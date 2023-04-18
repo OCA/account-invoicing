@@ -18,6 +18,8 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
 
     product_id = fields.Many2one("product.product", string="Product")
 
+    product_uom_id = fields.Many2one("uom.uom", related="product_id.uom_id")
+
     supplierinfo_id = fields.Many2one(comodel_name="product.supplierinfo")
 
     current_min_quantity = fields.Float(
@@ -47,18 +49,52 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
         required=True,
     )
 
-    price_variation = fields.Float(
-        string="Price Variation (%)",
-        compute="_compute_price_variation",
+    current_cost = fields.Float(
+        string="Cost",
+        compute="_compute_current_cost",
+        digits="Product Price",
+        readonly=True,
+    )
+
+    new_cost = fields.Float(
+        compute="_compute_new_cost",
+        digits="Product Price",
+        readonly=True,
+    )
+
+    cost_variation = fields.Float(
+        string="Cost Variation (%)",
+        compute="_compute_cost_variation",
         digits="Discount",
     )
 
-    @api.depends("current_price", "new_price")
-    def _compute_price_variation(self):
-        self.write({"price_variation": False})
-        for line in self.filtered("current_price"):
-            line.price_variation = (
-                100 * (line.new_price - line.current_price) / line.current_price
+    def _get_fields_depend_current_cost(self):
+        return ["supplierinfo_id", "product_uom_id", "current_price", "current_uom_id"]
+
+    def _get_fields_depend_new_cost(self):
+        return ["supplierinfo_id", "product_uom_id", "new_price", "new_uom_id"]
+
+    @api.depends(lambda self: self._get_fields_depend_current_cost())
+    def _compute_current_cost(self):
+        self.write({"current_cost": False})
+        for line in self.filtered(lambda x: x.supplierinfo_id):
+            line.current_cost = line.current_uom_id._compute_price(
+                line.current_price, line.product_uom_id
+            )
+
+    @api.depends(lambda self: self._get_fields_depend_new_cost())
+    def _compute_new_cost(self):
+        for line in self:
+            line.new_cost = line.new_uom_id._compute_price(
+                line.new_price, line.product_uom_id
+            )
+
+    @api.depends("current_cost", "new_cost")
+    def _compute_cost_variation(self):
+        self.write({"cost_variation": False})
+        for line in self.filtered("current_cost"):
+            line.cost_variation = (
+                100 * (line.new_cost - line.current_cost) / line.current_cost
             )
 
     # Custom Section
