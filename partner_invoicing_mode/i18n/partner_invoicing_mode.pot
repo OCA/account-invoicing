@@ -1,0 +1,71 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_invoicing_mode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_partner__one_invoice_per_order
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_users__one_invoice_per_order
+msgid "Do not group sale order into one invoice."
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_users__invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_sale_order__invoicing_mode
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.view_partner_property_form
+msgid "Invoicing Mode"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__one_invoice_per_order
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_users__one_invoice_per_order
+msgid "One Invoice Per Order"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_queue_job
+msgid "Queue Job"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: code:addons/partner_invoicing_mode/models/queue_job.py:0
+#, python-format
+msgid "Related Record"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: code:addons/partner_invoicing_mode/models/queue_job.py:0
+#, python-format
+msgid "Related Records"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields.selection,name:partner_invoicing_mode.selection__res_partner__invoicing_mode__standard
+msgid "Standard"
+msgstr ""
