@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-02 03:40+0000\n"
-"PO-Revision-Date: 2018-07-13 08:50+0000\n"
-"Last-Translator: Enric Tobella <etobella@creublanca.es>\n"
+"PO-Revision-Date: 2023-04-18 10:55+0000\n"
+"Last-Translator: gelo joga Rodríguez <gelo.joga@factorlibre.com>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.0.1\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #. module: account_invoice_tax_required
 #. odoo-python
@@ -27,6 +27,8 @@ msgid ""
 "%(message)s\n"
 "%(errors)s"
 msgstr ""
+"%(message)s\n"
+"%(errors)s"
 
 #. module: account_invoice_tax_required
 #. odoo-python
@@ -39,7 +41,7 @@ msgstr ""
 #. module: account_invoice_tax_required
 #: model:ir.model,name:account_invoice_tax_required.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Asiento Contable"
 
 #, python-format
 #~ msgid ""
