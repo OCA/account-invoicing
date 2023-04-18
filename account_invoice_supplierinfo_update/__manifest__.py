@@ -12,6 +12,7 @@
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Akretion, GRAP, Odoo Community Association (OCA)",
+    "maintainers": ["legalsylvain"],
     "license": "AGPL-3",
     "installable": True,
     "depends": ["account"],
