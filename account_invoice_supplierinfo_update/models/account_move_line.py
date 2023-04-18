@@ -17,15 +17,8 @@ class AccountMoveLine(models.Model):
         )
         return supplierinfos and supplierinfos[0] or False
 
-    def _get_unit_price_in_purchase_uom(self):
-        self.ensure_one()
-        if not self.product_id:
-            return self.price_unit
-        uom = self.product_uom_id or self.product_id.uom_id
-        return uom._compute_price(self.price_unit, self.product_id.uom_po_id)
-
-    def _is_correct_price(self, supplierinfo):
-        """Return True if the partner information matche with line info
+    def _is_matching_supplierinfo(self, supplierinfo):
+        """Return True if the partner information matches with line information
         Overload this function in custom module if extra fields
         are added in supplierinfo. (discount for exemple)
         """
@@ -33,7 +26,7 @@ class AccountMoveLine(models.Model):
         return (
             not self.product_uom_id or self.product_uom_id == supplierinfo.product_uom
         ) and not float_compare(
-            self._get_unit_price_in_purchase_uom(),
+            self.price_unit,
             supplierinfo.price,
             precision_rounding=self.move_id.currency_id.rounding,
         )

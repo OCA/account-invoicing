@@ -42,15 +42,15 @@ class AccountMove(models.Model):
             # the computation will be based only on the first line.
             if line.product_id.id in product_ids:
                 continue
-            else:
-                product_ids.append(line.product_id.id)
+
+            product_ids.append(line.product_id.id)
 
             # Get supplierinfo if exist
             supplierinfo = line._get_supplierinfo()
 
-            # Test if supplierinfo price  matches with line info
+            # Test if supplierinfo matches with line info
             if supplierinfo:
-                if line._is_correct_price(supplierinfo):
+                if line._is_matching_supplierinfo(supplierinfo):
                     continue
 
             # Propose updating, if needed
