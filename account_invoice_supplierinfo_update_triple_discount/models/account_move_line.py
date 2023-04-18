@@ -2,22 +2,20 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, models
+from odoo import models
 
 
-class AccountInvoiceLine(models.Model):
-    _inherit = "account.invoice.line"
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
 
-    @api.multi
-    def _is_correct_price(self, supplierinfo):
-        res = super()._is_correct_price(supplierinfo)
+    def _is_matching_supplierinfo(self, supplierinfo):
+        res = super()._is_matching_supplierinfo(supplierinfo)
         return (
             res
             and self.discount2 == supplierinfo.discount2
             and self.discount3 == supplierinfo.discount3
         )
 
-    @api.multi
     def _prepare_supplier_wizard_line(self, supplierinfo):
         res = super()._prepare_supplier_wizard_line(supplierinfo)
         res["current_discount2"] = supplierinfo and supplierinfo.discount2
