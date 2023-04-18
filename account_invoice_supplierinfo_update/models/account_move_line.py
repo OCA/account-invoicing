@@ -42,25 +42,13 @@ class AccountMoveLine(models.Model):
         """Prepare the value that will proposed to user in the wizard
         to update supplierinfo"""
         self.ensure_one()
-        price_unit = self._get_unit_price_in_purchase_uom()
-        price_variation = False
-
-        if supplierinfo:
-            # Compute price variation
-            if supplierinfo.price:
-                price_variation = (
-                    100 * (price_unit - supplierinfo.price) / supplierinfo.price
-                )
-            else:
-                price_variation = False
         return {
             "product_id": self.product_id.id,
             "supplierinfo_id": supplierinfo and supplierinfo.id or False,
             "current_price": supplierinfo and supplierinfo.price or False,
             "new_price": self.price_unit,
             "current_uom_id": supplierinfo and supplierinfo.product_uom.id or False,
-            "new_uom_id": self.product_uom_id.id,
+            "new_uom_id": self.product_uom_id.id or self.product_id.uom_po_id.id,
             "current_min_quantity": supplierinfo and supplierinfo.min_qty or False,
             "new_min_quantity": supplierinfo and supplierinfo.min_qty or False,
-            "price_variation": price_variation,
         }
