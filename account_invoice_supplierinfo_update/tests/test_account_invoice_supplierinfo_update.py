@@ -108,6 +108,8 @@ class TestAccountMoveBlocking(AccountTestInvoicingCommon):
         wizard = self.WizardUpdateSupplierinfo.create(
             {"line_ids": line_ids, "invoice_id": self.invoice.id}
         )
+        line_a = wizard.line_ids.filtered(lambda x: x.product_id == self.product_a)
+        self.assertEqual(line_a.cost_variation, 12.5)
         wizard.update_supplierinfo()
 
         self.assertEqual(supplierinfo_a.price, 5400.0)

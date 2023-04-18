@@ -17,6 +17,7 @@
                         decoration-info="supplierinfo_id == False"
                     >
                         <field name="product_id" />
+                        <field name="product_uom_id" invisible="1" />
                         <field name="supplierinfo_id" invisible="1" />
                         <field
                             name="current_min_quantity"
@@ -34,9 +35,11 @@
                             groups="uom.group_uom"
                         />
                         <field name="new_uom_id" groups="uom.group_uom" />
+                        <field name="current_cost" invisible="1" />
+                        <field name="new_cost" invisible="1" />
                         <field
-                            name="price_variation"
-                            attrs="{'invisible': [('price_variation', '=', 0.0)]}"
+                            name="cost_variation"
+                            attrs="{'invisible': [('cost_variation', '=', 0.0)]}"
                         />
                     </tree>
                 </field>
