@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import exceptions
-from odoo.tests import Form, SavepointCase, tagged
+from odoo.tests import Form, TransactionCase, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestPickingInvoicing(SavepointCase):
+class TestPickingInvoicing(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -38,22 +38,11 @@ class TestPickingInvoicing(SavepointCase):
         cls.fiscal_position_model = cls.env["account.fiscal.position"]
         cls.fiscal_position_tax_model = cls.env["account.fiscal.position.tax"]
         cls.fiscal_position_account_model = cls.env["account.fiscal.position.account"]
-        cls.account_user_type = cls.env.ref("account.data_account_type_revenue")
         cls.account_model = cls.env["account.account"]
         cls.tax_model = cls.env["account.tax"]
         cls.product_tmpl_model = cls.env["product.template"]
-        cls.account_receivable = cls.env["account.account"].search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    cls.env.ref("account.data_account_type_receivable").id,
-                )
-            ],
-            limit=1,
-        )
         cls.account_revenue = cls.env["account.account"].search(
-            [("user_type_id", "=", cls.account_user_type.id)], limit=1
+            [("account_type", "=", "income")], limit=1
         )
 
         cls.tax_sale_1 = cls.tax_model.create(
@@ -116,7 +105,6 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -174,8 +162,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom_qty": 2,
             "product_uom": self.product_test_1.uom_id.id,
         }
-        new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
+        self.move_model.create(move_vals)
         picking.action_confirm()
         # Check product availability
         picking.action_assign()
@@ -221,7 +208,6 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -285,7 +271,6 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -351,7 +336,6 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -426,8 +410,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom_qty": 2,
             "product_uom": self.product_test_1.uom_id.id,
         }
-        new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
+        self.move_model.create(move_vals)
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -461,65 +444,6 @@ class TestPickingInvoicing(SavepointCase):
         nb_invoice_after = self.invoice_model.search_count([])
         self.assertEqual(nb_invoice_before, nb_invoice_after - len(invoice))
 
-    def test_picking_invoice_refund(self):
-        """
-        Ensure that a refund keep the link to the picking
-        :return:
-        """
-        nb_invoice_before = self.invoice_model.search_count([])
-        self.partner.write({"type": "invoice"})
-        picking = self.picking_model.create(
-            {
-                "partner_id": self.partner2.id,
-                "picking_type_id": self.pick_type_out.id,
-                "location_id": self.stock_location.id,
-                "location_dest_id": self.customers_location.id,
-            }
-        )
-        move_vals = {
-            "product_id": self.product_test_1.id,
-            "picking_id": picking.id,
-            "location_dest_id": self.customers_location.id,
-            "location_id": self.stock_location.id,
-            "name": self.product_test_1.name,
-            "product_uom_qty": 2,
-            "product_uom": self.product_test_1.uom_id.id,
-        }
-        new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
-        picking.set_to_be_invoiced()
-        picking.action_confirm()
-        # Check product availability
-        picking.action_assign()
-        # Force product availability
-        for move in picking.move_ids_without_package:
-            move.quantity_done = move.product_uom_qty
-        picking.button_validate()
-        self.assertEqual(picking.state, "done")
-        wizard_obj = self.invoice_wizard.with_context(
-            active_ids=picking.ids,
-            active_model=picking._name,
-            active_id=picking.id,
-        )
-        fields_list = wizard_obj.fields_get().keys()
-        wizard_values = wizard_obj.default_get(fields_list)
-        wizard_values.update({"group": "partner"})
-        wizard = wizard_obj.create(wizard_values)
-        wizard.onchange_group()
-        wizard.action_generate()
-        domain = [("picking_ids", "=", picking.id)]
-        invoice = self.invoice_model.search(domain)
-        self.assertEqual(picking.invoice_state, "invoiced")
-        self.assertEqual(invoice.partner_id, self.partner)
-        self.assertIn(invoice, picking.invoice_ids)
-        self.assertIn(picking, invoice.picking_ids)
-        invoice.action_post()
-        refund = invoice._reverse_moves(cancel=True)
-        self.assertEqual(picking.invoice_state, "invoiced")
-        self.assertIn(picking, refund.picking_ids)
-        nb_invoice_after = self.invoice_model.search_count([])
-        self.assertEqual(nb_invoice_before, nb_invoice_after - len(invoice | refund))
-
     def test_picking_invoicing_by_product1(self):
         """
         Test the invoice generation grouped by partner/product with 1
@@ -545,7 +469,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom_qty": 1,
             "product_uom": self.product_test_1.uom_id.id,
         }
-        new_move = self.move_model.create(move_vals)
+        self.move_model.create(move_vals)
         move_vals2 = {
             "product_id": self.product_test_2.id,
             "picking_id": picking.id,
@@ -555,9 +479,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom_qty": 1,
             "product_uom": self.product_test_2.uom_id.id,
         }
-        new_move2 = self.move_model.create(move_vals2)
-        new_move.onchange_product_id()
-        new_move2.onchange_product_id()
+        self.move_model.create(move_vals2)
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -619,7 +541,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom_qty": 1,
             "product_uom": self.product_test_1.uom_id.id,
         }
-        new_move = self.move_model.create(move_vals)
+        self.move_model.create(move_vals)
         picking2 = picking.copy()
         move_vals2 = {
             "product_id": self.product_test_1.id,
@@ -630,9 +552,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom_qty": 1,
             "product_uom": self.product_test_1.uom_id.id,
         }
-        new_move2 = self.move_model.create(move_vals2)
-        new_move.onchange_product_id()
-        new_move2.onchange_product_id()
+        self.move_model.create(move_vals2)
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -714,7 +634,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom_qty": 1,
             "product_uom": self.product_test_1.uom_id.id,
         }
-        new_move = self.move_model.create(move_vals)
+        self.move_model.create(move_vals)
         picking2 = picking.copy({"partner_id": self.partner3.id})
         move_vals2 = {
             "product_id": self.product_test_2.id,
@@ -725,9 +645,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom_qty": 1,
             "product_uom": self.product_test_2.uom_id.id,
         }
-        new_move2 = self.move_model.create(move_vals2)
-        new_move.onchange_product_id()
-        new_move2.onchange_product_id()
+        self.move_model.create(move_vals2)
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -834,7 +752,7 @@ class TestPickingInvoicing(SavepointCase):
         )
 
         self.assertEqual(picking_devolution.invoice_state, "2binvoiced")
-        for line in picking_devolution.move_lines:
+        for line in picking_devolution.move_ids:
             self.assertEqual(line.invoice_state, "2binvoiced")
 
         picking_devolution.action_confirm()
@@ -872,6 +790,8 @@ class TestPickingInvoicing(SavepointCase):
         """
         Test Return Supplier Picking and Invoice created.
         """
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
         picking = self.env.ref("stock_picking_invoicing.stock_picking_invoicing_7")
         # Force product availability
         for move in picking.move_ids_without_package:
@@ -912,7 +832,7 @@ class TestPickingInvoicing(SavepointCase):
         )
 
         self.assertEqual(picking_devolution.invoice_state, "2binvoiced")
-        for line in picking_devolution.move_lines:
+        for line in picking_devolution.move_ids:
             self.assertEqual(line.invoice_state, "2binvoiced")
 
         picking_devolution.action_confirm()

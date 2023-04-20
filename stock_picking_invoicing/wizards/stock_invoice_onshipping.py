@@ -36,10 +36,10 @@ class StockInvoiceOnshipping(models.TransientModel):
             active_ids = active_ids[0]
         pick_obj = self.env["stock.picking"]
         picking = pick_obj.browse(active_ids)
-        if not picking or not picking.move_lines:
+        if not picking or not picking.move_ids:
             return "sale"
         pick_type_code = picking.picking_type_id.code
-        line = fields.first(picking.move_lines)
+        line = fields.first(picking.move_ids)
         if pick_type_code == "incoming":
             usage = line.location_id.usage
         else:
@@ -111,7 +111,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == picking_type and x.partner_id == partner
         )
-        lines = pickings.mapped("move_lines")
+        lines = pickings.mapped("move_ids")
         if picking_type == "outgoing":
             moves = lines.filtered(lambda x: x.location_dest_id.usage == usage)
         else:
@@ -174,19 +174,19 @@ class StockInvoiceOnshipping(models.TransientModel):
         first = fields.first
         sale_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "outgoing"
-            and first(x.move_lines).location_dest_id.usage == "customer"
+            and first(x.move_ids).location_dest_id.usage == "customer"
         )
         sale_refund_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "incoming"
-            and first(x.move_lines).location_id.usage == "customer"
+            and first(x.move_ids).location_id.usage == "customer"
         )
         purchase_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "incoming"
-            and first(x.move_lines).location_id.usage == "supplier"
+            and first(x.move_ids).location_id.usage == "supplier"
         )
         purchase_refund_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "outgoing"
-            and first(x.move_lines).location_dest_id.usage == "supplier"
+            and first(x.move_ids).location_dest_id.usage == "supplier"
         )
 
         return (
@@ -355,10 +355,10 @@ class StockInvoiceOnshipping(models.TransientModel):
         partner_id = picking._get_partner_to_invoice()
         partner = self.env["res.partner"].browse(partner_id)
         inv_type = self._get_invoice_type()
-        if inv_type in ("out_invoice", "out_refund"):
-            payment_term = partner.property_payment_term_id.id
-        else:
-            payment_term = partner.property_supplier_payment_term_id.id
+        # if inv_type in ("out_invoice", "out_refund"):
+        #     payment_term = partner.property_payment_term_id.id
+        # else:
+        #     payment_term = partner.property_supplier_payment_term_id.id
         company = self.env.company
         currency = company.currency_id
         if partner:
@@ -366,25 +366,38 @@ class StockInvoiceOnshipping(models.TransientModel):
             if partner.property_product_pricelist and code == "outgoing":
                 currency = partner.property_product_pricelist.currency_id
         journal = self._get_journal()
-        invoice_obj = self.env["account.move"]
-        values = invoice_obj.default_get(invoice_obj.fields_get().keys())
-        values.update(
-            {
-                "invoice_origin": ", ".join(pickings.mapped("name")),
-                "user_id": self.env.user.id,
-                "partner_id": partner_id,
-                "invoice_payment_term_id": payment_term,
-                "move_type": inv_type,
-                "fiscal_position_id": partner.property_account_position_id.id,
-                "company_id": company.id,
-                "currency_id": currency.id,
-                "journal_id": journal.id,
-                "picking_ids": [(4, p.id, False) for p in pickings],
-            }
-        )
+        # invoice_obj = self.env["account.move"]
+        # values = invoice_obj.default_get(invoice_obj.fields_get().keys())
+        # values.update(
+        #     {
+        #         "invoice_origin": ", ".join(pickings.mapped("name")),
+        #         "user_id": self.env.user.id,
+        #         "partner_id": partner_id,
+        #         # "invoice_payment_term_id": payment_term,
+        #         "move_type": inv_type,
+        #         # "fiscal_position_id": partner.property_account_position_id.id,
+        #         "company_id": company.id,
+        #         "currency_id": currency.id,
+        #         "journal_id": journal.id,
+        #         "picking_ids": [(4, p.id, False) for p in pickings],
+        #     }
+        # )
+        values = {
+            "invoice_origin": ", ".join(pickings.mapped("name")),
+            "user_id": self.env.user.id,
+            "partner_id": partner_id,
+            # "invoice_payment_term_id": payment_term,
+            "move_type": inv_type,
+            # "fiscal_position_id": partner.property_account_position_id.id,
+            "company_id": company.id,
+            "currency_id": currency.id,
+            "journal_id": journal.id,
+            "picking_ids": [(4, p.id, False) for p in pickings],
+        }
 
-        invoice, values = self._simulate_invoice_onchange(values)
-        return invoice, values
+        # invoice, values = self._simulate_invoice_onchange(values)
+        # return invoice, values
+        return values
 
     def _get_move_key(self, move):
         """
@@ -412,22 +425,23 @@ class StockInvoiceOnshipping(models.TransientModel):
             grouped_moves.update({key: move_grouped})
         return grouped_moves.values()
 
-    def _simulate_invoice_line_onchange(self, values, price_unit=None):
-        """
-        Simulate onchange for invoice line
-        :param values: dict
-        :return: dict
-        """
-        line = self.env["account.move.line"].new(values.copy())
-        line._onchange_product_id()
-        new_values = line._convert_to_write(line._cache)
-        if price_unit:
-            new_values["price_unit"] = price_unit
-        # Ensure basic values are not updated
-        values.update(new_values)
-        return values
+    # def _simulate_invoice_line_onchange(self, values, price_unit=None):
+    #     """
+    #     Simulate onchange for invoice line
+    #     :param values: dict
+    #     :return: dict
+    #     """
+    #     line = self.env["account.move.line"].new(values.copy())
+    #     # TODO : investigate
+    #     # line._onchange_product_id()
+    #     new_values = line._convert_to_write(line._cache)
+    #     if price_unit:
+    #         new_values["price_unit"] = price_unit
+    #     # Ensure basic values are not updated
+    #     values.update(new_values)
+    #     return values
 
-    def _get_invoice_line_values(self, moves, invoice_values, invoice):
+    def _get_invoice_line_values(self, moves, invoice_values):
         """
         Create invoice line values from given moves
         :param moves: stock.move
@@ -437,21 +451,21 @@ class StockInvoiceOnshipping(models.TransientModel):
         name = ", ".join(moves.mapped("name"))
         move = fields.first(moves)
         product = move.product_id
-        fiscal_position = self.env["account.fiscal.position"].browse(
-            invoice_values["fiscal_position_id"]
-        )
-        partner_id = self.env["res.partner"].browse(invoice_values["partner_id"])
-        categ = product.categ_id
+        # fiscal_position = self.env["account.fiscal.position"].browse(
+        #     invoice_values["fiscal_position_id"]
+        # )
+        # partner_id = self.env["res.partner"].browse(invoice_values["partner_id"])
+        # categ = product.categ_id
         inv_type = invoice_values["move_type"]
-        if inv_type in ("out_invoice", "out_refund"):
-            account = product.property_account_income_id
-            if not account:
-                account = categ.property_account_income_categ_id
-        else:
-            account = product.property_account_expense_id
-            if not account:
-                account = categ.property_account_expense_categ_id
-        account = move._get_account(fiscal_position, account)
+        # if inv_type in ("out_invoice", "out_refund"):
+        #     account = product.property_account_income_id
+        #     if not account:
+        #         account = categ.property_account_income_categ_id
+        # else:
+        #     account = product.property_account_expense_id
+        #     if not account:
+        #         account = categ.property_account_expense_categ_id
+        # account = move._get_account(fiscal_position, account)
         quantity = 0
         move_line_ids = []
         for move in moves:
@@ -469,25 +483,25 @@ class StockInvoiceOnshipping(models.TransientModel):
                 qty *= -1
             quantity += qty
             move_line_ids.append((4, move.id, False))
-        taxes = moves._get_taxes(fiscal_position, inv_type)
-        price = moves._get_price_unit_invoice(inv_type, partner_id, quantity)
+        # taxes = moves._get_taxes(fiscal_position, inv_type)
+        # price = moves._get_price_unit_invoice(inv_type, partner_id, quantity)
         line_obj = self.env["account.move.line"]
         values = line_obj.default_get(line_obj.fields_get().keys())
         values.update(
             {
                 "name": name,
-                "account_id": account.id,
+                # "account_id": account.id,
                 "product_id": product.id,
-                "product_uom_id": product.uom_id.id,
+                # "product_uom_id": product.uom_id.id,
                 "quantity": quantity,
-                "price_unit": price,
-                "tax_ids": [(6, 0, taxes.ids)],
+                # "price_unit": price,
+                # "tax_ids": [(6, 0, taxes.ids)],
                 "move_line_ids": move_line_ids,
-                "move_id": invoice.id,
+                # "move_id": invoice.id,
             }
         )
-        values = self._simulate_invoice_line_onchange(values, price_unit=price)
-        values.update({"name": name})
+        # values = self._simulate_invoice_line_onchange(values, price_unit=price)
+        # values.update({"name": name})
         return values
 
     def _update_picking_invoice_status(self, pickings):
@@ -526,30 +540,29 @@ class StockInvoiceOnshipping(models.TransientModel):
         pick_list = self._group_pickings(pickings)
         invoices = self.env["account.move"].browse()
         for pickings in pick_list:
-            moves = pickings.mapped("move_lines")
+            moves = pickings.mapped("move_ids")
             grouped_moves_list = self._group_moves(moves)
             parts = self.ungroup_moves(grouped_moves_list)
             for moves_list in parts:
-                invoice, invoice_values = self._build_invoice_values_from_pickings(
+                # invoice, invoice_values = self._build_invoice_values_from_pickings(
+                #     pickings
+                # )
+                invoice_values = self._build_invoice_values_from_pickings(
                     pickings
                 )
                 lines = [(5, 0, {})]
                 line_values = False
                 for moves in moves_list:
                     line_values = self._get_invoice_line_values(
-                        moves, invoice_values, invoice
+                        moves, invoice_values
                     )
                     if line_values:
                         lines.append((0, 0, line_values))
                 if line_values:  # Only create the invoice if it has lines
                     invoice_values["invoice_line_ids"] = lines
                     invoice_values["invoice_date"] = self.invoice_date
-                    # this is needed otherwise invoice_line_ids are removed
-                    # in _move_autocomplete_invoice_lines_create
-                    # and no invoice line is created
-                    invoice_values.pop("line_ids")
                     invoice = self._create_invoice(invoice_values)
-                    invoice._onchange_invoice_line_ids()
-                    invoice._compute_amount()
+                    # invoice._compute_amount()
                     invoices |= invoice
+        invoices.filtered(lambda m: m.amount_total < 0).action_switch_invoice_into_refund_credit_note()
         return invoices

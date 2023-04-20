@@ -22,13 +22,11 @@
             </field>
             <xpath expr="//div[hasclass('o_kanban_primary_right')]" position="inside">
                 <div t-if="record.count_picking_2binvoiced.raw_value > 0" class="row">
-                    <div class="col-9">
+                    <div class="col-12">
                         <a name="%(2binvoiced_action_picking_dashboard)d" type="action">
+                            <field name="count_picking_2binvoiced" />
                             To be Invoiced
                         </a>
-                    </div>
-                    <div class="col-3">
-                        <field name="count_picking_2binvoiced" />
                     </div>
                 </div>
             </xpath>

@@ -11,22 +11,22 @@ class StockMove(models.Model):
         "stock.invoice.state.mixin",
     ]
 
-    def _get_taxes(self, fiscal_position, inv_type):
-        """
-        Map product taxes based on given fiscal position
-        :param fiscal_position: account.fiscal.position recordset
-        :param inv_type: string
-        :return: account.tax recordset
-        """
-        product = self.mapped("product_id")
-        product.ensure_one()
-        if inv_type in ("out_invoice", "out_refund"):
-            taxes = product.taxes_id
-        else:
-            taxes = product.supplier_taxes_id
-        company_id = self.env.context.get("force_company", self.env.company.id)
-        my_taxes = taxes.filtered(lambda r: r.company_id.id == company_id)
-        return fiscal_position.map_tax(my_taxes)
+    # def _get_taxes(self, fiscal_position, inv_type):
+    #     """
+    #     Map product taxes based on given fiscal position
+    #     :param fiscal_position: account.fiscal.position recordset
+    #     :param inv_type: string
+    #     :return: account.tax recordset
+    #     """
+    #     product = self.mapped("product_id")
+    #     product.ensure_one()
+    #     if inv_type in ("out_invoice", "out_refund"):
+    #         taxes = product.taxes_id
+    #     else:
+    #         taxes = product.supplier_taxes_id
+    #     company_id = self.env.context.get("force_company", self.env.company.id)
+    #     my_taxes = taxes.filtered(lambda r: r.company_id.id == company_id)
+    #     return fiscal_position.map_tax(my_taxes)
 
     @api.model
     def _get_account(self, fiscal_position, account):
@@ -49,9 +49,10 @@ class StockMove(models.Model):
         product = self.mapped("product_id")
         product.ensure_one()
         if inv_type in ("in_invoice", "in_refund"):
-            result = product.price
+            # TODO get supplier price
+            result = product.standard_price
         else:
-            # If partner given, search price in its sale pricelist
+            # TODO refactor If partner given, search price in its sale pricelist
             if partner and partner.property_product_pricelist:
                 product = product.with_context(
                     partner=partner.id,
@@ -59,7 +60,7 @@ class StockMove(models.Model):
                     pricelist=partner.property_product_pricelist.id,
                     uom=fields.first(self).product_uom.id,
                 )
-                result = product.price
+                result = product.lst_price
             else:
                 result = product.lst_price
         return result
