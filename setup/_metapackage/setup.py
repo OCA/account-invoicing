@@ -43,6 +43,7 @@ setuptools.setup(
         'odoo-addon-account_receipt_send>=15.0dev,<15.1dev',
         'odoo-addon-account_tax_group_widget_base_amount>=15.0dev,<15.1dev',
         'odoo-addon-partner_invoicing_mode>=15.0dev,<15.1dev',
+        'odoo-addon-partner_invoicing_mode_at_shipping>=15.0dev,<15.1dev',
         'odoo-addon-portal_account_personal_data_only>=15.0dev,<15.1dev',
         'odoo-addon-product_form_account_move_line_link>=15.0dev,<15.1dev',
         'odoo-addon-product_supplierinfo_for_customer_invoice>=15.0dev,<15.1dev',
