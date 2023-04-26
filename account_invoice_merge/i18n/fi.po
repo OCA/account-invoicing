@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, fuzzy, python-format
 msgid "All invoices must have the same: \n"
 msgstr "Kaikki laskut eivät käytä samaa kirjanpidon tiliä!"
@@ -51,9 +51,9 @@ msgid "Display Name"
 msgstr "Nimi"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:30
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
-msgid "Draf"
+msgid "Draft"
 msgstr ""
 
 #. module: account_invoice_merge
@@ -62,14 +62,14 @@ msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_merge
-#: model:ir.model,name:account_invoice_merge.model_account_invoice
-msgid "Invoice"
-msgstr "Lasku"
-
-#. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__date_invoice
 msgid "Invoice Date"
 msgstr "Laskun päivä"
+
+#. module: account_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_account_move
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__keep_references
@@ -92,12 +92,6 @@ msgid "Last Updated on"
 msgstr "Viimeksi päivitetty"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
-#, python-format
-msgid "Megeable State (ex : %s)"
-msgstr ""
-
-#. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
 msgstr "Yhdistä laskut"
@@ -108,6 +102,12 @@ msgstr "Yhdistä laskut"
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Partner Invoice"
 msgstr "Yhdistä kumppanin lasku"
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Merge-able State (ex : %s)"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -135,7 +135,7 @@ msgstr ""
 "                        tuote, määrä ja mittayksikkö.<br/>"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
 msgstr "Ole hyvä ja valitse listanäkymästä useita laskuja yhdistettäväksi."
@@ -144,6 +144,9 @@ msgstr "Ole hyvä ja valitse listanäkymästä useita laskuja yhdistettäväksi.
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "or"
 msgstr "tai"
+
+#~ msgid "Invoice"
+#~ msgstr "Lasku"
 
 #~ msgid "At least one of the selected invoices is %s!"
 #~ msgstr "Ainakin yksi laskuista on %s!"

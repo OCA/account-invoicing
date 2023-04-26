@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "All invoices must have the same: \n"
 msgstr ""
@@ -52,9 +52,9 @@ msgid "Display Name"
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:30
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
-msgid "Draf"
+msgid "Draft"
 msgstr ""
 
 #. module: account_invoice_merge
@@ -63,14 +63,14 @@ msgid "ID"
 msgstr "Κωδικός"
 
 #. module: account_invoice_merge
-#: model:ir.model,name:account_invoice_merge.model_account_invoice
-msgid "Invoice"
-msgstr "Τιμολόγιο"
-
-#. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__date_invoice
 msgid "Invoice Date"
 msgstr "Ημερομηνία Παραστατικού"
+
+#. module: account_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_account_move
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__keep_references
@@ -93,12 +93,6 @@ msgid "Last Updated on"
 msgstr "Τελευταία ενημέρωση στις"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
-#, python-format
-msgid "Megeable State (ex : %s)"
-msgstr ""
-
-#. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
 msgstr ""
@@ -108,6 +102,12 @@ msgstr ""
 #: model:ir.model,name:account_invoice_merge.model_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Partner Invoice"
+msgstr ""
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Merge-able State (ex : %s)"
 msgstr ""
 
 #. module: account_invoice_merge
@@ -126,7 +126,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
 msgstr ""
@@ -135,3 +135,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "or"
 msgstr "ή"
+
+#~ msgid "Invoice"
+#~ msgstr "Τιμολόγιο"

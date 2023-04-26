@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "All invoices must have the same: \n"
 msgstr ""
@@ -52,9 +52,9 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:30
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
-msgid "Draf"
+msgid "Draft"
 msgstr ""
 
 #. module: account_invoice_merge
@@ -63,13 +63,13 @@ msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_merge
-#: model:ir.model,name:account_invoice_merge.model_account_invoice
-msgid "Invoice"
-msgstr "发票"
-
-#. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__date_invoice
 msgid "Invoice Date"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_account_move
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_merge
@@ -93,12 +93,6 @@ msgid "Last Updated on"
 msgstr "最后更新时间"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
-#, python-format
-msgid "Megeable State (ex : %s)"
-msgstr ""
-
-#. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
 msgstr "合并发票"
@@ -109,6 +103,12 @@ msgstr "合并发票"
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Partner Invoice"
 msgstr "合并合作伙伴发票"
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Merge-able State (ex : %s)"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -126,7 +126,7 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
 msgstr ""
@@ -135,3 +135,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "or"
 msgstr "或"
+
+#~ msgid "Invoice"
+#~ msgstr "发票"

@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "All invoices must have the same: \n"
 msgstr "Tutte le fatture devono avere lo stesso: \n"
@@ -51,10 +51,10 @@ msgid "Display Name"
 msgstr "Nome da visualizzare"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:30
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
-msgid "Draf"
-msgstr "Bozza"
+msgid "Draft"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__id
@@ -62,14 +62,14 @@ msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_merge
-#: model:ir.model,name:account_invoice_merge.model_account_invoice
-msgid "Invoice"
-msgstr "Fattura"
-
-#. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__date_invoice
 msgid "Invoice Date"
 msgstr "Data fattura"
+
+#. module: account_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_account_move
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__keep_references
@@ -92,12 +92,6 @@ msgid "Last Updated on"
 msgstr "Last Updated on"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
-#, python-format
-msgid "Megeable State (ex : %s)"
-msgstr "Stato unificabile (es : %s)"
-
-#. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
 msgstr "Unisci fatture"
@@ -108,6 +102,12 @@ msgstr "Unisci fatture"
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Partner Invoice"
 msgstr "Unisci fatture"
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Merge-able State (ex : %s)"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -129,15 +129,15 @@ msgstr ""
 "                        * Le fatture appartengono allo stesso partner.<br/>\n"
 "                        * Le fattura hanno la stessa azienda, partner, "
 "indirizzo,\n"
-"                        valuta, registro, resposabile vendite, conto e tipo.<"
-"br/><br/>\n"
+"                        valuta, registro, resposabile vendite, conto e tipo."
+"<br/><br/>\n"
 "                        Le righe saranno unite se:<br/>\n"
 "                        * Le righe fattura sono esattamente le stesse ad "
 "eccezione di\n"
 "                        prodotto, quantità e unità.<br/>"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
 msgstr "Per favore seleziona più fatture da unire nella vista lista."
@@ -146,6 +146,17 @@ msgstr "Per favore seleziona più fatture da unire nella vista lista."
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "or"
 msgstr "o"
+
+#, python-format
+#~ msgid "Draf"
+#~ msgstr "Bozza"
+
+#~ msgid "Invoice"
+#~ msgstr "Fattura"
+
+#, python-format
+#~ msgid "Megeable State (ex : %s)"
+#~ msgstr "Stato unificabile (es : %s)"
 
 #~ msgid "At least one of the selected invoices is %s!"
 #~ msgstr "Almeno una delle fatture selezionate è %s!"

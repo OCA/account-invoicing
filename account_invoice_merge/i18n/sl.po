@@ -16,12 +16,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3;\n"
 "X-Generator: Weblate 3.10\n"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "All invoices must have the same: \n"
 msgstr "Vsi računi morajo imeti iste: \n"
@@ -52,10 +52,10 @@ msgid "Display Name"
 msgstr "Prikazni naziv"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:30
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
-msgid "Draf"
-msgstr "Osnutek"
+msgid "Draft"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__id
@@ -63,14 +63,14 @@ msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_merge
-#: model:ir.model,name:account_invoice_merge.model_account_invoice
-msgid "Invoice"
-msgstr "Račun"
-
-#. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__date_invoice
 msgid "Invoice Date"
 msgstr "Datum računa"
+
+#. module: account_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_account_move
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__keep_references
@@ -93,12 +93,6 @@ msgid "Last Updated on"
 msgstr "Zadnjič posodobljeno"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
-#, python-format
-msgid "Megeable State (ex : %s)"
-msgstr "Stanje spojitve (npr : %s)"
-
-#. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
 msgstr "Spoji račune"
@@ -109,6 +103,12 @@ msgstr "Spoji račune"
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Partner Invoice"
 msgstr "Spoji partnerjev račun"
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Merge-able State (ex : %s)"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -130,14 +130,14 @@ msgstr ""
 "                        * računi pripadajo istemu partnerju.<br/>\n"
 "                        * računi vsebujejo isto družbo (izdajatelja), "
 "partnerja, naslov,\n"
-"                        valuto, dnevnik, prodajalca, konto in tip.<br/><br/>"
-"\n"
+"                        valuto, dnevnik, prodajalca, konto in tip.<br/><br/"
+">\n"
 "                        Postavke bodo spojene le, če:<br/>\n"
 "                        * so popolnoma enake razen glede proizvoda,\n"
 "                        količine in enote.<br/>"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
 msgstr "Izberite več računov za spajanje v seznamskem prikazu."
@@ -146,6 +146,17 @@ msgstr "Izberite več računov za spajanje v seznamskem prikazu."
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "or"
 msgstr "ali"
+
+#, python-format
+#~ msgid "Draf"
+#~ msgstr "Osnutek"
+
+#~ msgid "Invoice"
+#~ msgstr "Račun"
+
+#, python-format
+#~ msgid "Megeable State (ex : %s)"
+#~ msgstr "Stanje spojitve (npr : %s)"
 
 #~ msgid "At least one of the selected invoices is %s!"
 #~ msgstr "Vsaj eden izmed izbranih računov je %s!"

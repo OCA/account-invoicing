@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:48
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "All invoices must have the same: \n"
 msgstr "Birleştirilecek faturaların aynı olması gereken alanlar: \n"
@@ -52,10 +52,10 @@ msgid "Display Name"
 msgstr "Görünen İsim"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:30
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
-msgid "Draf"
-msgstr "Taslak"
+msgid "Draft"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__id
@@ -63,14 +63,14 @@ msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_merge
-#: model:ir.model,name:account_invoice_merge.model_account_invoice
-msgid "Invoice"
-msgstr "Fatura"
-
-#. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__date_invoice
 msgid "Invoice Date"
 msgstr "Fatura Tarihi"
+
+#. module: account_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_account_move
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__keep_references
@@ -93,12 +93,6 @@ msgid "Last Updated on"
 msgstr "Son güncelleme"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
-#, python-format
-msgid "Megeable State (ex : %s)"
-msgstr "Birleştirilebilme Durumu (ör : %s)"
-
-#. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
 msgstr "Faturaları Birleştir"
@@ -109,6 +103,12 @@ msgstr "Faturaları Birleştir"
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Partner Invoice"
 msgstr "İş Ortağı Fatura Birleştirme"
+
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Merge-able State (ex : %s)"
+msgstr ""
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -130,14 +130,14 @@ msgstr ""
 "                        * iş ortağının aynı.<br/>\n"
 "                        * Aynı şirket, iş ortağı, Adresi, Para birimi, "
 "Muhasebe Günlüğü,\n"
-"                           Satış Temsilcisi, Muhasebe hesabı ve tipi olmalı.<"
-"br/><br/>\n"
+"                           Satış Temsilcisi, Muhasebe hesabı ve tipi olmalı."
+"<br/><br/>\n"
 "                        Fatura kalemlerinin birleştirilme şartı:<br/>\n"
 "                        * Fatura satırlarının ürün miktarı ve birimi "
 "haricinde tamamen aynı olması gerekmektedir.<br/>"
 
 #. module: account_invoice_merge
-#: code:addons/account_invoice_merge/wizard/invoice_merge.py:42
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
 msgstr "Lütfen listeden birleştirilmesini istediğiniz faturaları seçin."
@@ -146,6 +146,17 @@ msgstr "Lütfen listeden birleştirilmesini istediğiniz faturaları seçin."
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "or"
 msgstr "ya da"
+
+#, python-format
+#~ msgid "Draf"
+#~ msgstr "Taslak"
+
+#~ msgid "Invoice"
+#~ msgstr "Fatura"
+
+#, python-format
+#~ msgid "Megeable State (ex : %s)"
+#~ msgstr "Birleştirilebilme Durumu (ör : %s)"
 
 #~ msgid "At least one of the selected invoices is %s!"
 #~ msgstr "Seçilen faturalardan en az bir tanesi %s!"
