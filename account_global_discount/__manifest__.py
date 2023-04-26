@@ -18,4 +18,5 @@
     ],
     "application": False,
     "installable": True,
+    "pre_init_hook": "_pre_init_global_discount_fields",
 }
