@@ -57,8 +57,8 @@ msgstr "Budget restant"
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_total_consumption
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_total_consumption
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_total_consumption
-msgid "Budget total consumption"
-msgstr "Consomation totla de budget"
+msgid "Budget consumption"
+msgstr "Consomation budget"
 
 #. module: account_invoice_customer_budget
 #: model:ir.actions.act_window,name:account_invoice_customer_budget.action_move_out_invoice_budget_type
