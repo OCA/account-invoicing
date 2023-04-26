@@ -34,7 +34,7 @@ class AccountMove(models.Model):
         copy=False,
     )
     budget_total_consumption = fields.Monetary(
-        string="Budget total consumption",
+        string="Budget consumption",
         compute="_compute_budget_total_consumptions",
         store=False,
         currency_field="currency_id",
