@@ -30,6 +30,7 @@ addon | version | maintainers | summary
 [account_invoice_date_due](account_invoice_date_due/) | 15.0.1.0.1 | [![luisg123v](https://github.com/luisg123v.png?size=30px)](https://github.com/luisg123v) [![joao-p-marques](https://github.com/joao-p-marques.png?size=30px)](https://github.com/joao-p-marques) | Update Invoice's Due Date
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 15.0.1.0.2 | [![alexis-via](https://github.com/alexis-via.png?size=30px)](https://github.com/alexis-via) | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 15.0.1.0.0 |  | Allows to apply fixed amount discounts in invoices.
+[account_invoice_merge](account_invoice_merge/) | 15.0.1.0.0 |  | Merge invoices in draft
 [account_invoice_payment_term_date_due](account_invoice_payment_term_date_due/) | 15.0.1.0.1 | [![ivantodorovich](https://github.com/ivantodorovich.png?size=30px)](https://github.com/ivantodorovich) | Display invoices date due when using payment terms
 [account_invoice_pricelist](account_invoice_pricelist/) | 15.0.1.0.1 |  | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 15.0.1.0.0 |  | Module to fill pricelist from sales order in invoice.
