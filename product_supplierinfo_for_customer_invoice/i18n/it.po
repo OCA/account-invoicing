@@ -7,15 +7,16 @@ msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-15 14:23+0000\n"
-"PO-Revision-Date: 2014-06-21 01:02+0000\n"
-"Last-Translator: Raphaël Valyi - http://www.akretion.com <Unknown>\n"
+"PO-Revision-Date: 2023-04-27 14:34+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1\n"
 "X-Launchpad-Export-Date: 2014-06-22 05:58+0000\n"
-"X-Generator: Launchpad (build 17058)\n"
 
 #. module: product_supplierinfo_for_customer_invoice
 #: model:ir.model.fields,help:product_supplierinfo_for_customer_invoice.field_account_invoice_line__partner_is_customer
@@ -27,7 +28,7 @@ msgstr ""
 #. module: product_supplierinfo_for_customer_invoice
 #: model:ir.model,name:product_supplierinfo_for_customer_invoice.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Righe Fattura"
+msgstr "Riga fattura"
 
 #. module: product_supplierinfo_for_customer_invoice
 #: model:ir.model.fields,field_description:product_supplierinfo_for_customer_invoice.field_account_invoice_line__partner_is_customer
