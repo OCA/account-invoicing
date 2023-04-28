@@ -2,4 +2,7 @@
 
   * Thierry Ducrest <thierry.ducrest@camptocamp.com>
   * Hiep Nguyen Hoang <hiepnh@trobz.com>
-  * Jeroen Evens <jeroen.evens@dynapps.be>
+* `Dynapps <https://www.dynapps.eu>`_
+
+  * Jeroen Evens
+  * Raf Ven

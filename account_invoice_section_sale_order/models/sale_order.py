@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
         the sale order name.
         Only do this for invoices targetting multiple sale order
         """
-        invoice_ids = super()._create_invoices(grouped=grouped, final=final)
+        invoice_ids = super()._create_invoices(grouped=grouped, final=final, date=date)
         for invoice in invoice_ids:
             if len(invoice.line_ids.mapped("sale_line_ids.order_id.id")) == 1:
                 continue
@@ -47,9 +47,9 @@ class SaleOrder(models.Model):
         return invoice_ids
 
     def _get_ordered_invoice_lines(self, invoice):
-        return invoice.line_ids.sorted(
+        return invoice.invoice_line_ids.sorted(
             key=lambda r: r.sale_line_ids.order_id.id
-        ).filtered(lambda r: not r.exclude_from_invoice_tab)
+        )
 
     def _get_saleorder_section_name(self):
         """Returns the text for the section name."""
