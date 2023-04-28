@@ -2,11 +2,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import exceptions
-from odoo.tests import Form, SavepointCase, tagged
+from odoo.tests import Form, TransactionCase
 
 
-@tagged("post_install", "-at_install")
-class TestPickingInvoicing(SavepointCase):
+class TestPickingInvoicing(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -116,7 +115,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
+        new_move._onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -175,7 +174,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
+        new_move._onchange_product_id()
         picking.action_confirm()
         # Check product availability
         picking.action_assign()
@@ -221,7 +220,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
+        new_move._onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -285,7 +284,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
+        new_move._onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -351,7 +350,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
+        new_move._onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -363,7 +362,7 @@ class TestPickingInvoicing(SavepointCase):
         backorder_action = picking.button_validate()
         Form(
             self.env[(backorder_action.get("res_model"))].with_context(
-                backorder_action["context"]
+                **backorder_action["context"]
             )
         ).save().process()
         backorder = self.env["stock.picking"].search(
@@ -427,7 +426,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
+        new_move._onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -486,7 +485,7 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move.onchange_product_id()
+        new_move._onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -556,8 +555,8 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_2.uom_id.id,
         }
         new_move2 = self.move_model.create(move_vals2)
-        new_move.onchange_product_id()
-        new_move2.onchange_product_id()
+        new_move._onchange_product_id()
+        new_move2._onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -631,8 +630,8 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move2 = self.move_model.create(move_vals2)
-        new_move.onchange_product_id()
-        new_move2.onchange_product_id()
+        new_move._onchange_product_id()
+        new_move2._onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -726,8 +725,8 @@ class TestPickingInvoicing(SavepointCase):
             "product_uom": self.product_test_2.uom_id.id,
         }
         new_move2 = self.move_model.create(move_vals2)
-        new_move.onchange_product_id()
-        new_move2.onchange_product_id()
+        new_move._onchange_product_id()
+        new_move2._onchange_product_id()
         picking.set_to_be_invoiced()
         picking.action_confirm()
         # Check product availability
@@ -821,7 +820,7 @@ class TestPickingInvoicing(SavepointCase):
         # Return Picking
         return_wizard_form = Form(
             self.stock_return_picking.with_context(
-                dict(active_id=picking.id, active_model="stock.picking")
+                **dict(active_id=picking.id, active_model="stock.picking")
             )
         )
         return_wizard_form.invoice_state = "2binvoiced"
@@ -899,7 +898,7 @@ class TestPickingInvoicing(SavepointCase):
         # Return Picking
         return_wizard_form = Form(
             self.stock_return_picking.with_context(
-                dict(active_id=picking.id, active_model="stock.picking")
+                **dict(active_id=picking.id, active_model="stock.picking")
             )
         )
         return_wizard_form.invoice_state = "2binvoiced"
