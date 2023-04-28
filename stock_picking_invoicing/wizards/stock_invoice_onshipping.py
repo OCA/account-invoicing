@@ -117,13 +117,11 @@ class StockInvoiceOnshipping(models.TransientModel):
         else:
             moves = lines.filtered(lambda x: x.location_id.usage == usage)
         total = sum(
-            [
-                (
-                    m._get_price_unit_invoice(inv_type, m.picking_id.partner_id)
-                    * m.product_uom_qty
-                )
-                for m in moves
-            ]
+            (
+                m._get_price_unit_invoice(inv_type, m.picking_id.partner_id)
+                * m.product_uom_qty
+            )
+            for m in moves
         )
         return total, moves.mapped("picking_id")
 
