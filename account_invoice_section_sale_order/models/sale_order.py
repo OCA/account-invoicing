@@ -47,9 +47,9 @@ class SaleOrder(models.Model):
         return invoice_ids
 
     def _get_ordered_invoice_lines(self, invoice):
-        return invoice.line_ids.sorted(
+        return invoice.invoice_line_ids.sorted(
             key=lambda r: r.sale_line_ids.order_id.id
-        ).filtered(lambda r: not r.exclude_from_invoice_tab)
+        )
 
     def _get_saleorder_section_name(self):
         """Returns the text for the section name."""

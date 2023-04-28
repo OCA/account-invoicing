@@ -88,11 +88,7 @@ class TestInvoiceGroupBySaleOrder(TransactionCase):
             5: "order 2 line 2",
         }
         invoice_ids = (self.order1_p1 + self.order2_p1)._create_invoices()
-        lines = (
-            invoice_ids[0]
-            .line_ids.sorted("sequence")
-            .filtered(lambda r: not r.exclude_from_invoice_tab)
-        )
+        lines = invoice_ids[0].invoice_line_ids.sorted("sequence")
         for idx, line in enumerate(lines):
             self.assertEqual(line.name, result[idx])
 
