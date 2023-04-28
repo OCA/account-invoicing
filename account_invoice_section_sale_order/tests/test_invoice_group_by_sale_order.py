@@ -54,11 +54,27 @@ class TestInvoiceGroupBySaleOrder(TransactionCase):
                         0,
                         0,
                         {
+                            "name": "order 2 section 1",
+                            "display_type": "line_section",
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
                             "name": "order 2 line 1",
                             "product_id": cls.product_1.id,
                             "price_unit": 20,
                             "product_uom_qty": 1,
                             "product_uom": cls.product_1.uom_id.id,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "order 2 section 2",
+                            "display_type": "line_section",
                         },
                     ),
                     (
@@ -84,15 +100,13 @@ class TestInvoiceGroupBySaleOrder(TransactionCase):
             1: "order 1 line 1",
             2: "order 1 line 2",
             3: self.order2_p1.name,
-            4: "order 2 line 1",
-            5: "order 2 line 2",
+            4: "- order 2 section 1",
+            5: "order 2 line 1",
+            6: "- order 2 section 2",
+            7: "order 2 line 2",
         }
         invoice_ids = (self.order1_p1 + self.order2_p1)._create_invoices()
-        lines = (
-            invoice_ids[0]
-            .line_ids.sorted("sequence")
-            .filtered(lambda r: not r.exclude_from_invoice_tab)
-        )
+        lines = invoice_ids[0].invoice_line_ids.sorted("sequence")
         for idx, line in enumerate(lines):
             self.assertEqual(line.name, result[idx])
 
