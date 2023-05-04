@@ -41,6 +41,7 @@ class AccountMove(models.Model):
         ]
         for field in [
             "sale_line_ids",  # odoo/sale
+            "purchase_line_id",  # odoo/purchase
             "purchase_price",  # OCA/account_invoice_margin
         ]:
             if field in self.env["account.move.line"]._fields:
@@ -224,27 +225,31 @@ class AccountMove(models.Model):
         self.merge_callback(invoices_info, old_invoices)
         return invoices_info
 
+    @staticmethod
+    def order_line_update_invoice_lines(todos, all_old_inv_line):
+        for todo in todos:
+            for line in todo.order_line:
+                invoice_line = line.invoice_lines.filtered(
+                    lambda x: x.parent_state != "cancel" or x.id not in all_old_inv_line
+                )
+                if invoice_line:
+                    line.write({"invoice_lines": [(6, 0, invoice_line.ids)]})
+
     @api.model
     def merge_callback(self, invoices_info, old_invoices):
         # Make link between original sale order
         # None if sale is not installed
-        for new_invoice_id in invoices_info:
+        # None if purchase is not installed
+        if invoices_info:
+            all_old_inv_line = old_invoices.mapped("invoice_line_ids").ids
             if "sale.order" in self.env.registry:
                 sale_todos = old_invoices.mapped(
                     "invoice_line_ids.sale_line_ids.order_id"
                 )
-                for org_so in sale_todos:
-                    for so_line in org_so.order_line:
-                        invoice_line = self.env["account.move.line"].search(
-                            [
-                                ("id", "in", so_line.invoice_lines.ids),
-                                ("move_id", "=", new_invoice_id),
-                            ]
-                        )
-                        if invoice_line:
-                            so_line.write({"invoice_lines": [(6, 0, invoice_line.ids)]})
+                self.order_line_update_invoice_lines(sale_todos, all_old_inv_line)
 
-        # recreate link (if any) between original analytic account line
-        # (invoice time sheet for example) and this new invoice
-        # Analytic account line is only created when confirming the invoice
-        # We don't need to check it anymore.
+            if "purchase.order" in self.env.registry:
+                purchase_todos = old_invoices.mapped(
+                    "invoice_line_ids.purchase_line_id.order_id"
+                )
+                self.order_line_update_invoice_lines(purchase_todos, all_old_inv_line)
