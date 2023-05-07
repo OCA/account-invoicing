@@ -15,25 +15,11 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
         cls.journal = cls.env["account.journal"].create(
             {"name": "Test journal", "type": "purchase", "code": "TEST_J"}
         )
-        cls.account_payable_type = cls.env["account.account.type"].create(
-            {
-                "name": "Payable account type",
-                "type": "payable",
-                "internal_group": "liability",
-            }
-        )
-        cls.account_expense_type = cls.env["account.account.type"].create(
-            {
-                "name": "Expense account type",
-                "type": "other",
-                "internal_group": "expense",
-            }
-        )
         cls.payable_account = cls.env["account.account"].create(
             {
                 "name": "Payable Account",
                 "code": "PAY",
-                "user_type_id": cls.account_payable_type.id,
+                "account_type": "liability_payable",
                 "reconcile": True,
             }
         )
@@ -41,7 +27,7 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
             {
                 "name": "Expense Account",
                 "code": "EXP",
-                "user_type_id": cls.account_expense_type.id,
+                "account_type": "expense",
                 "reconcile": False,
             }
         )
@@ -113,7 +99,7 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
         """
         # receive completely
         pick = self.po.picking_ids
-        pick.move_lines.write({"quantity_done": 5})
+        pick.move_ids.write({"quantity_done": 5})
         pick.button_validate()
         self.check_values(self.po_line, 0, 5, 0, 0, "to invoice")
         # Make invoice
@@ -127,7 +113,7 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
         return_wizard._onchange_picking_id()
         return_wizard.product_return_moves.write({"quantity": 2, "to_refund": True})
         return_pick = pick.browse(return_wizard.create_returns()["res_id"])
-        return_pick.move_lines.write({"quantity_done": 2})
+        return_pick.move_ids.write({"quantity_done": 2})
         return_pick.button_validate()
         self.check_values(self.po_line, 2, 3, 0, 5, "to invoice")
         # Make refund
@@ -152,14 +138,14 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
         received and billed are correct throughout the process.
         """
         pick = self.po.picking_ids
-        pick.move_lines.write({"quantity_done": 5})
+        pick.move_ids.write({"quantity_done": 5})
         pick.button_validate()
         # Return some items before PO was invoiced
         return_wizard = self.env["stock.return.picking"].create({"picking_id": pick.id})
         return_wizard._onchange_picking_id()
         return_wizard.product_return_moves.write({"quantity": 2, "to_refund": True})
         return_pick = pick.browse(return_wizard.create_returns()["res_id"])
-        return_pick.move_lines.write({"quantity_done": 2})
+        return_pick.move_ids.write({"quantity_done": 2})
         return_pick.button_validate()
         self.check_values(self.po_line, 2, 3, 0, 0, "to invoice")
         # Make invoice
