@@ -18,6 +18,32 @@ class AccountInvoiceLine(models.Model):
         "('partner_id', 'child_of', partner_id), ('partner_id', 'parent_of', partner_id), "
         "('is_budget', '=', True)]",
     )
+    budget_analytic_account_ids = fields.Many2many(
+        "account.analytic.account",
+        "account_move_budget_analytic_account",
+        "invoice_id",
+        "analytic_line_id",
+        compute="_compute_budget_analytic_account_ids",
+        string="Budget Analytic Account",
+        copy=False,
+        store=True,
+    )
+
+    @api.depends("budget_invoice_id")
+    def _compute_budget_analytic_account_ids(self):
+        for line in self:
+            if line.budget_invoice_id:
+                move = line.move_id
+                budget_analytic_account_ids = line.env["account.analytic.account"]
+                for not_budget_line in move.invoice_line_ids.filtered(
+                    lambda l: not l.budget_invoice_id
+                ):
+                    budget_analytic_account_ids |= not_budget_line.mapped(
+                        "analytic_line_ids.account_id"
+                    )
+                line.budget_analytic_account_ids = budget_analytic_account_ids
+            else:
+                line.budget_analytic_account_ids = line.env["account.analytic.account"]
 
     @api.constrains("partner_id", "budget_invoice_id")
     def _check_budget_invoice_partner(self):

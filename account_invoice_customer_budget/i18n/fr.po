@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-13 10:42+0000\n"
-"PO-Revision-Date: 2023-04-13 10:42+0000\n"
+"POT-Creation-Date: 2023-05-09 12:51+0000\n"
+"PO-Revision-Date: 2023-05-09 12:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Lignes de consommation de budget"
 #. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Budget consumption"
-msgstr "Consommation de Budget"
+msgstr "Consommation de Budget TTC"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_invoice_consumption_ids
@@ -47,24 +47,32 @@ msgid "Budget invoices consumption Count"
 msgstr "Nb factures Consommation de Budget"
 
 #. module: account_invoice_customer_budget
-#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_residual
-#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_residual
-#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_residual
-msgid "Budget residual"
-msgstr "Budget restant"
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_total_residual
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_total_residual
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_total_residual
+msgid "Budget residual total"
+msgstr "Budget restant total"
 
 #. module: account_invoice_customer_budget
-#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_total_consumption
-#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_total_consumption
-#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_total_consumption
-msgid "Budget consumption"
-msgstr "Consomation budget"
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_untaxed_consumption
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_untaxed_consumption
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_untaxed_consumption
+msgid "Budget untaxed consumption"
+msgstr "Consommation de Budget HT"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_untaxed_residual
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_untaxed_residual
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_untaxed_residual
+msgid "Budget untaxed residual"
+msgstr "Budget restant HT"
 
 #. module: account_invoice_customer_budget
 #: model:ir.actions.act_window,name:account_invoice_customer_budget.action_move_out_invoice_budget_type
 #: model:ir.ui.menu,name:account_invoice_customer_budget.menu_action_move_out_refund_type
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
 msgid "Budgets"
-msgstr ""
+msgstr "Budgets"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,help:account_invoice_customer_budget.field_account_bank_statement_line__is_budget
@@ -95,7 +103,7 @@ msgstr "Créer un budget client"
 #. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
@@ -117,7 +125,7 @@ msgstr "Est un Budget  Client ? "
 #. module: account_invoice_customer_budget
 #: model:ir.model,name:account_invoice_customer_budget.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Journal"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model,name:account_invoice_customer_budget.model_account_move
@@ -132,7 +140,7 @@ msgstr "Imputation comptable"
 #. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Note"
-msgstr ""
+msgstr "Note"
 
 #. module: account_invoice_customer_budget
 #. odoo-python
@@ -196,7 +204,7 @@ msgstr "Prix"
 #. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Section"
-msgstr ""
+msgstr "Section"
 
 #. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
