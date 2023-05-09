@@ -328,14 +328,24 @@
                 />
                 <field name="is_budget" invisible="1" />
                 <field
-                    name="budget_total_consumption"
-                    sum="Total Consumption Budget"
+                    name="budget_untaxed_consumption"
+                    sum="Total Consumption Budget untaxed"
                     optional="show"
                 />
                 <field
+                    name="budget_total_consumption"
+                    sum="Total Consumption Budget"
+                    optional="hide"
+                />
+                <field
                     name="budget_untaxed_residual"
-                    sum="Total Residual Budget"
+                    sum="Total Residual Budget untaxed"
                     optional="show"
+                />
+                <field
+                    name="budget_total_residual"
+                    sum="Total Residual Budget"
+                    optional="hide"
                 />
                 <field
                     name="currency_id"
