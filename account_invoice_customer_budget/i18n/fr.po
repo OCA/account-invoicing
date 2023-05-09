@@ -25,26 +25,26 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_consumption_line_ids
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_consumption_line_ids
 msgid "Budget Consumption Lines"
-msgstr "Lignes de consommation de budget"
+msgstr "Lignes de consommation du budget"
 
 #. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Budget consumption"
-msgstr "Consommation de Budget TTC"
+msgstr "Consommation du Budget TTC"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_invoice_consumption_ids
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_invoice_consumption_ids
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_invoice_consumption_ids
 msgid "Budget consumption invoices"
-msgstr "Factures de Consommation de Budget"
+msgstr "Factures de Consommation du Budget"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_consumption_invoice_count
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_consumption_invoice_count
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_consumption_invoice_count
 msgid "Budget invoices consumption Count"
-msgstr "Nb factures Consommation de Budget"
+msgstr "Nb factures Consommation du Budget"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_total_residual
@@ -58,7 +58,7 @@ msgstr "Budget restant total"
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_untaxed_consumption
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_untaxed_consumption
 msgid "Budget untaxed consumption"
-msgstr "Consommation de Budget HT"
+msgstr "Consommation du Budget HT"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_untaxed_residual
