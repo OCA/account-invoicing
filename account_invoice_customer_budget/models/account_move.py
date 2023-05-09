@@ -198,9 +198,12 @@ class AccountMove(models.Model):
                         )
             for budget, _price_total in budget_amounts.items():
                 if budget.budget_total_residual < 0:
-                    consumption_amount = round(_price_total["price_total"], 2)
+                    consumption_amount = round(_price_total["price_subtotal"], 2)
                     avalaible_amount = round(
-                        abs(budget.budget_total_residual - _price_total["price_total"]),
+                        abs(
+                            budget.budget_untaxed_residual
+                            - _price_total["price_subtotal"]
+                        ),
                         2,
                     )
                     raise ValidationError(
