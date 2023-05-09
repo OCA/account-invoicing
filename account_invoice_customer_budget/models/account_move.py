@@ -39,8 +39,20 @@ class AccountMove(models.Model):
         store=False,
         currency_field="currency_id",
     )
-    budget_residual = fields.Monetary(
-        string="Budget residual",
+    budget_total_residual = fields.Monetary(
+        string="Budget residual total",
+        compute="_compute_budget_total_consumptions",
+        store=False,
+        currency_field="currency_id",
+    )
+    budget_untaxed_consumption = fields.Monetary(
+        string="Budget untaxed consumption",
+        compute="_compute_budget_total_consumptions",
+        store=False,
+        currency_field="currency_id",
+    )
+    budget_untaxed_residual = fields.Monetary(
+        string="Budget untaxed residual",
         compute="_compute_budget_total_consumptions",
         store=False,
         currency_field="currency_id",
@@ -57,6 +69,15 @@ class AccountMove(models.Model):
         store=True,
         help="Technical field used to validate line budget consumption account",
     )
+    analytic_line_count = fields.Integer(
+        string="Analytic Lines Count", compute="_compute_used_analytic_line_ids"
+    )
+    analytic_line_ids = fields.Many2many(
+        comodel_name="account.analytic.line",
+        string="Analytic Lines",
+        compute="_compute_used_analytic_line_ids",
+        copy=False,
+    )
 
     @api.depends(
         "budget_consumption_line_ids.price_total",
@@ -65,7 +86,7 @@ class AccountMove(models.Model):
     def _compute_budget_total_consumptions(self):
         for move in self:
             budget_total_consumption = 0.0
-            move.budget_residual = 0.0
+            budget_untaxed_consumption = 0.0
             for line in move.budget_consumption_line_ids.filtered(
                 lambda l: l.parent_state != "cancel"
             ):
@@ -73,12 +94,18 @@ class AccountMove(models.Model):
                     # === Invoices ===
                     # budget_total_consumption amount.
                     budget_total_consumption += line.price_total
+                    budget_untaxed_consumption += line.price_subtotal
                 else:
                     # === Miscellaneous journal entry ===
                     if line.debit:
                         budget_total_consumption += line.balance
+                        budget_untaxed_consumption += line.balance
             move.budget_total_consumption = budget_total_consumption
-            move.budget_residual = move.amount_total - (-budget_total_consumption)
+            move.budget_untaxed_consumption = budget_untaxed_consumption
+            move.budget_total_residual = move.amount_total - (-budget_total_consumption)
+            move.budget_untaxed_residual = move.amount_untaxed - (
+                -budget_untaxed_consumption
+            )
 
     @api.depends(
         "journal_id",
@@ -101,6 +128,14 @@ class AccountMove(models.Model):
             invoices = move.mapped("invoice_line_ids.budget_invoice_id")
             move.budget_invoice_consumption_ids = invoices
             move.budget_consumption_invoice_count = len(invoices)
+
+    @api.depends("invoice_line_ids.analytic_line_ids")
+    def _compute_used_analytic_line_ids(self):
+        # The analytic_line_ids are obtained thanks to the invoice lines
+        for move in self:
+            analytic_line_ids = move.mapped("invoice_line_ids.analytic_line_ids")
+            move.analytic_line_ids = analytic_line_ids
+            move.analytic_line_count = len(analytic_line_ids)
 
     def action_post(self):
         for inv in self:
@@ -162,10 +197,11 @@ class AccountMove(models.Model):
                             }
                         )
             for budget, _price_total in budget_amounts.items():
-                if budget.budget_residual < 0:
+                if budget.budget_total_residual < 0:
                     consumption_amount = round(_price_total["price_total"], 2)
                     avalaible_amount = round(
-                        abs(budget.budget_residual - _price_total["price_total"]), 2
+                        abs(budget.budget_total_residual - _price_total["price_total"]),
+                        2,
                     )
                     raise ValidationError(
                         _(

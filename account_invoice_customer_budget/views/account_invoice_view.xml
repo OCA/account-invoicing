@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2004-2011 Pexego Sistemas Informáticos. (http://pexego.es)
-     Copyright 2014 Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
-     Copyright 2016 Antonio Espinosa <antonio.espinosa@tecnativa.com>
+<!-- Copyright Akretion 2023 Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
     <record
@@ -45,8 +43,14 @@
                                 widget="section_and_note_text"
                                 optional="show"
                             />
-                            <field name="partner_id" />
-                            <field name="move_id" />
+                            <field name="partner_id" optional="hide" />
+                            <field name="move_id" widget="many2one" reasonly="1" />
+                            <field
+                                name="budget_analytic_account_ids"
+                                widget="many2many_tags"
+                                options="{'no_create': True}"
+                                optional="show"
+                            />
                             <field
                                 name="account_id"
                                 context="{'partner_id': partner_id, 'move_type': parent.move_type}"
@@ -60,6 +64,7 @@
                                 widget="analytic_distribution"
                                 groups="analytic.group_analytic_accounting"
                                 optional="show"
+                                invisible="1"
                                 options="{'product_field': 'product_id', 'account_field': 'account_id'}"
                                 business_domain_compute="parent.move_type in ['out_invoice', 'out_refund', 'out_receipt'] and 'invoice' or parent.move_type in ['in_invoice', 'in_refund', 'in_receipt'] and 'bill' or 'general'"
                             />
@@ -81,8 +86,12 @@
                                 options="{'no_create': True}"
                                 optional="show"
                             />
-                            <field name="price_subtotal" string="Subtotal" />
-                            <field name="price_total" string="Total" />
+                            <field
+                                name="price_subtotal"
+                                string="Subtotal"
+                                sum="Price subtotal"
+                            />
+                            <field name="price_total" string="Total" sum="Total" />
                             <field name="parent_state" />
                             <!-- Others fields -->
                             <field name="currency_id" invisible="1" />
@@ -113,6 +122,17 @@
                                     <field name="discount" string="Disc.%" />
                                 </group>
                                 <group>
+                                    <field
+                                        name="move_id"
+                                        widget="many2one"
+                                        reasonly="1"
+                                    />
+                                    <field
+                                        name="budget_analytic_account_ids"
+                                        widget="many2many_tags"
+                                        options="{'no_create': True}"
+                                        optional="show"
+                                    />
                                     <field
                                         name="account_id"
                                         options="{'no_create': True}"
@@ -186,15 +206,13 @@
                     class="oe_subtotal_footer oe_right"
                     attrs="{'invisible':[('is_budget', '=', False)]}"
                 >
-
                     <field
-                        name="budget_total_consumption"
+                        name="budget_untaxed_consumption"
                         class="oe_subtotal_footer_separator"
                         attrs="{'invisible': [('state', '=', 'draft')]}"
                     />
-
                     <field
-                        name="budget_residual"
+                        name="budget_untaxed_residual"
                         class="oe_subtotal_footer_separator"
                         attrs="{'invisible': [('state', '=', 'draft')]}"
                     />
@@ -328,7 +346,7 @@
                     optional="show"
                 />
                 <field
-                    name="budget_residual"
+                    name="budget_untaxed_residual"
                     sum="Total Residual Budget"
                     optional="show"
                 />

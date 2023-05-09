@@ -87,7 +87,7 @@ class TestBudgetInvoice(AccountTestInvoicingCommon):
         self.invoice.action_post()
         self.assertEqual(1, len(self.b_invoice.budget_consumption_line_ids))
         self.assertEqual(
-            self.b_invoice.budget_residual,
+            self.b_invoice.budget_total_residual,
             self.b_invoice.amount_total + self.invoice.invoice_line_ids[1].price_total,
         )
         self.assertEqual(
