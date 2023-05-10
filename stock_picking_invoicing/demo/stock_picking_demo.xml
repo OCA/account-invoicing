@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+
+    <!-- Fiscal Position -->
+    <record id="fiscal_position_demo" model="account.fiscal.position">
+        <field name="name">Test - Stock Picking Invocing</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="auto_apply">1</field>
+    </record>
+
     <!-- Customer -->
     <!-- Stocking Picking - To be Invoiced - State Draft-->
     <record id="stock_picking_invoicing_1" model="stock.picking">
