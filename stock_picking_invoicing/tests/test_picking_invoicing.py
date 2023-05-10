@@ -143,15 +143,21 @@ class TestPickingInvoicing(TransactionCase):
         self.assertIn(picking, invoice.picking_ids)
         nb_invoice_after = self.invoice_model.search_count([])
         self.assertEqual(nb_invoice_before, nb_invoice_after - len(invoice))
+        assert invoice.invoice_user_id, "Error to map User in Invoice."
+        assert invoice.invoice_payment_term_id, "Error to map Payment Term in Invoice."
+        assert invoice.fiscal_position_id, "Error to map Fiscal Position in Invoice."
+        assert invoice.company_id, "Error to map Company in Invoice."
         assert invoice.invoice_line_ids, "Error to create invoice line."
         for inv_line in invoice.invoice_line_ids:
+            assert inv_line.account_id, "Error to map Account in Invoice Line."
+            assert inv_line.tax_ids, "Error to map Sale Tax in Invoice Line."
+            assert inv_line.product_uom_id, "Error to map Product UOM in Invoice Line."
             for mv_line in inv_line.move_line_ids:
                 self.assertEqual(
                     mv_line.id,
                     new_move.id,
                     "Error to link stock.move with invoice.line.",
                 )
-            self.assertTrue(inv_line.tax_ids, "Error to map Sale Tax in invoice.line.")
 
     def test_1_picking_out_invoicing(self):
         nb_invoice_before = self.invoice_model.search_count([])

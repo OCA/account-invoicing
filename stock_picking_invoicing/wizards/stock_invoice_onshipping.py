@@ -353,12 +353,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         partner_id = picking._get_partner_to_invoice()
         partner = self.env["res.partner"].browse(partner_id)
         inv_type = self._get_invoice_type()
-        if inv_type in ("out_invoice", "out_refund"):
-            payment_term = partner.property_payment_term_id.id
-        else:
-            payment_term = partner.property_supplier_payment_term_id.id
-        company = self.env.company
-        currency = company.currency_id
+        currency = self.env.company.currency_id
         if partner:
             code = picking.picking_type_id.code
             if partner.property_product_pricelist and code == "outgoing":
@@ -369,12 +364,8 @@ class StockInvoiceOnshipping(models.TransientModel):
         values.update(
             {
                 "invoice_origin": ", ".join(pickings.mapped("name")),
-                "user_id": self.env.user.id,
                 "partner_id": partner_id,
-                "invoice_payment_term_id": payment_term,
                 "move_type": inv_type,
-                "fiscal_position_id": partner.property_account_position_id.id,
-                "company_id": company.id,
                 "currency_id": currency.id,
                 "journal_id": journal.id,
                 "picking_ids": [(4, p.id, False) for p in pickings],
@@ -435,21 +426,8 @@ class StockInvoiceOnshipping(models.TransientModel):
         name = ", ".join(moves.mapped("name"))
         move = fields.first(moves)
         product = move.product_id
-        fiscal_position = self.env["account.fiscal.position"].browse(
-            invoice_values["fiscal_position_id"]
-        )
         partner_id = self.env["res.partner"].browse(invoice_values["partner_id"])
-        categ = product.categ_id
         inv_type = invoice_values["move_type"]
-        if inv_type in ("out_invoice", "out_refund"):
-            account = product.property_account_income_id
-            if not account:
-                account = categ.property_account_income_categ_id
-        else:
-            account = product.property_account_expense_id
-            if not account:
-                account = categ.property_account_expense_categ_id
-        account = move._get_account(fiscal_position, account)
         quantity = 0
         move_line_ids = []
         for move in moves:
@@ -467,19 +445,15 @@ class StockInvoiceOnshipping(models.TransientModel):
                 qty *= -1
             quantity += qty
             move_line_ids.append((4, move.id, False))
-        taxes = moves._get_taxes(fiscal_position, inv_type)
         price = moves._get_price_unit_invoice(inv_type, partner_id, quantity)
         line_obj = self.env["account.move.line"]
         values = line_obj.default_get(line_obj.fields_get().keys())
         values.update(
             {
                 "name": name,
-                "account_id": account.id,
                 "product_id": product.id,
-                "product_uom_id": product.uom_id.id,
                 "quantity": quantity,
                 "price_unit": price,
-                "tax_ids": [(6, 0, taxes.ids)],
                 "move_line_ids": move_line_ids,
                 "move_id": invoice.id,
             }
