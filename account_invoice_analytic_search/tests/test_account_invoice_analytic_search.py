@@ -57,4 +57,4 @@ class TestAccountMove(TransactionCase):
             "ilike", "Test Account"
         )
         invoice_id = self.account_invoice.search(self.invoice_search)
-        self.assertEquals(invoice_id.invoice_line_ids, self.invoice.invoice_line_ids)
+        self.assertEqual(invoice_id.invoice_line_ids, self.invoice.invoice_line_ids)
