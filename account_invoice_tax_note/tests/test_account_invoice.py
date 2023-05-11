@@ -18,7 +18,6 @@ class TestAccountInvoice(TransactionCase):
         invoice_obj = self.env["account.move"]
         self.product1 = self.env.ref("product.product_product_7")
         self.product2 = self.env.ref("product.product_product_8")
-        account_type = self.env.ref("account.data_account_type_revenue")
         customer = self.env.ref("base.res_partner_2")
         self.tax_group1 = tax_group_obj.create(
             {"name": "Secret Taxes", "sequence": 20, "report_note": str(uuid4())}
@@ -50,7 +49,7 @@ class TestAccountInvoice(TransactionCase):
         self.product1.write({"taxes_id": [(6, False, self.tax1.ids)]})
         self.product2.write({"taxes_id": [(6, False, self.tax2.ids)]})
         account = self.env["account.account"].search(
-            [("user_type_id", "=", account_type.id)], limit=1
+            [("account_type", "=", "income")], limit=1
         )
         account.write({"tax_ids": [(4, self.tax1.id, False), (4, self.tax2.id, False)]})
         journal = self.env["account.journal"].create(

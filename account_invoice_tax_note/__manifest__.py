@@ -10,6 +10,6 @@
     "category": "Localization / Accounting",
     "license": "AGPL-3",
     "depends": ["account"],
-    "data": ["reports/report_invoice_document.xml"],
+    "data": ["reports/report_invoice_document.xml", "views/account_tax_views.xml"],
     "installable": True,
 }
