@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-09 12:51+0000\n"
-"PO-Revision-Date: 2023-05-09 12:51+0000\n"
+"POT-Creation-Date: 2023-05-11 14:24+0000\n"
+"PO-Revision-Date: 2023-05-11 14:24+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,38 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Accounting Date"
+msgstr "Date de la facture"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Amount Due"
+msgstr "Montant dû"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__analytic_line_ids
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__analytic_line_ids
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__analytic_line_ids
+msgid "Analytic Lines"
+msgstr "Lingne analytiques"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__analytic_line_count
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__analytic_line_count
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__analytic_line_count
+msgid "Analytic Lines Count"
+msgstr "Nb Lingne analytiques"
+
+#. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move_line__budget_invoice_id
 msgid "Budget"
-msgstr ""
+msgstr "Budget"
+
+#. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move_line__budget_analytic_account_ids
+msgid "Budget Analytic Account"
+msgstr "NB Lingne analytiques du budget"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_consumption_line_ids
@@ -28,6 +57,9 @@ msgid "Budget Consumption Lines"
 msgstr "Lignes de consommation du budget"
 
 #. module: account_invoice_customer_budget
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_total_consumption
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_total_consumption
+#: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_total_consumption
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Budget consumption"
 msgstr "Consommation du Budget TTC"
@@ -51,7 +83,7 @@ msgstr "Nb factures Consommation du Budget"
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__budget_total_residual
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_total_residual
 msgid "Budget residual total"
-msgstr "Budget restant total"
+msgstr "Budget restant total TTC"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_untaxed_consumption
@@ -70,7 +102,6 @@ msgstr "Budget restant HT"
 #. module: account_invoice_customer_budget
 #: model:ir.actions.act_window,name:account_invoice_customer_budget.action_move_out_invoice_budget_type
 #: model:ir.ui.menu,name:account_invoice_customer_budget.menu_action_move_out_refund_type
-#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
 msgid "Budgets"
 msgstr "Budgets"
 
@@ -108,19 +139,24 @@ msgstr "Description"
 #. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Disc.%"
-msgstr "Rem. %"
+msgstr "Rem.%"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Invoice Date"
+msgstr "Date facture"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__is_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__is_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__is_budget
 msgid "Is a budget"
-msgstr "Est un Budget ?"
+msgstr "Est un Budget ?"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_journal__is_budget
 msgid "Is a customer budget"
-msgstr "Est un Budget  Client ? "
+msgstr "Est un Budget Client ? "
 
 #. module: account_invoice_customer_budget
 #: model:ir.model,name:account_invoice_customer_budget.model_account_journal
@@ -147,15 +183,17 @@ msgstr "Note"
 #: code:addons/account_invoice_customer_budget/models/account_move.py:0
 #, python-format
 msgid ""
-"Please check the amount avalaible of budget %(budget_name)s:\n"
-"Consumption amount: %(consumption_amount)s !\n"
-"Avalaible amount: %(avalaible_amount)s !\n"
-"This amount are taxed !\n"
+"Please check the amount available of budget %(budget_name)s:\n"
+"Consumption amount untaxed: %(consumption_amount)s !\n"
+"Available amount untaxed : %(available_amount)s !\n"
+"Even the consumption and available budget are displayed as untaxed amount,\n"
+"budget validation are based on taxed amounts !\n"
 msgstr ""
-"Le montant que vous essayez de consommer est supérieur au montant disponible sur ce budget %(budget_name)s:\n"
-"- Le montant de la consommation est de: %(consumption_amount)s €\n"
-"- Le montant disponible est de: %(avalaible_amount)s) €\n"
-"Attention, ces montants sont TTC !"
+"Le montant du budget saisi est invalide ! Il est supérieur au montant disponible sur ce budget %(budget_name)s:\n"
+"- Le montant HT de la consommation est de: %(consumption_amount)s €\n"
+"- Le montant HT disponible est de: %(available_amount)s €\n"
+"Attention, même si ces montants sont affichées en HT,\n"
+"la validation est bassé sur les montants TTC (Pour inclure la TVA)!"
 
 #. module: account_invoice_customer_budget
 #. odoo-python
@@ -163,11 +201,11 @@ msgstr ""
 #, python-format
 msgid ""
 "Please check your the budget journla advenced setting!\n"
-"You may define allowed accounts for budget account journal: (%(budget_name)s)!\n"
+"You may define allowed accounts for budget account journal: (%(budget_name)s !\n"
 "Allowed account must contain prepaid revenue account with a receivable account and vat account.\n"
 msgstr ""
 "Merci de vérifier les paramètres avancés du journal de budget!\n"
-"Vous devez définir des comptes autorisés sur le budget: (%(budget_name)s)!\n"
+"Vous devez définir des comptes autorisés sur le budget: (%(budget_name)s !\n"
 "Les comptes autorisés doivent inclure un compte de produit constaté d’avance, un compte client et un compte tva au minimum.\n"
 
 #. module: account_invoice_customer_budget
@@ -177,11 +215,11 @@ msgstr ""
 msgid ""
 "Please verify the account of budget consumption line!\n"
 "You can use only the following accounts in budget consumption line.\n"
-"Authorized accounts (%(authorized_accounts)s)!\n"
+"Authorized accounts (%(authorized_accounts)s !\n"
 msgstr ""
 "Merci de vérifier le compte comptable de la ligne de consommation de budget:\n"
 "Vous pouvez utiliser uniquement les comptes suivants :\n"
-"Comptes autorisés (%(authorized_accounts)s)!:\n"
+"Comptes autorisés (%(authorized_accounts)s !:\n"
 
 #. module: account_invoice_customer_budget
 #. odoo-python
@@ -190,11 +228,11 @@ msgstr ""
 msgid ""
 "Please verify the budget consumption of the invoice!\n"
 "You can use budget consumption only for Customer invoice\n"
-"Used budgets are (%(budget_numbers)s)!\n"
+"Used budgets are (%(budget_numbers)s !\n"
 msgstr ""
 "Merci de vérifier la consommation de budget:\n"
 "Vous pouvez  utiliser la consommation de budget uniquement sur les factures clients :\n"
-"Budget utilisé (%(budget_numbers)s)!:\n"
+"Budget utilisé (%(budget_numbers)s !:\n"
 
 #. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
@@ -203,13 +241,43 @@ msgstr "Prix"
 
 #. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
+msgid "Price subtotal"
+msgstr "Total HT"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Register Payment"
+msgstr "Enregistrer un paiement"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Salesperson"
+msgstr ""
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Section"
 msgstr "Section"
 
 #. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Source Document"
+msgstr "Document d'origine"
+
+#. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Subtotal"
-msgstr "Sous total"
+msgstr "Total HT"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Tax"
+msgstr "TVA"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Tax Excluded"
+msgstr "HT"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,help:account_invoice_customer_budget.field_account_bank_statement_line__budget_account_ids
@@ -219,14 +287,45 @@ msgid "Technical field used to validate line budget consumption account"
 msgstr ""
 
 #. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Total"
-msgstr ""
+msgstr "Total TTC"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Total Consumption Budget"
+msgstr "Consommation Totale du Budget TTC"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Total Consumption Budget untaxed"
+msgstr "Consommation Totale du Budget HT"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Total Residual Budget"
+msgstr "Budget restant TTC"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Total Residual Budget untaxed"
+msgstr "Budget restant HT"
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Total in Currency"
+msgstr "Total dans la devise"
 
 #. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "UoM"
 msgstr ""
+
+#. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Vendor"
+msgstr "Vendeur"
 
 #. module: account_invoice_customer_budget
 #. odoo-python

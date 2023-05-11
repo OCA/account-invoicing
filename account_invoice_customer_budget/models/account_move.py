@@ -88,7 +88,7 @@ class AccountMove(models.Model):
             budget_total_consumption = 0.0
             budget_untaxed_consumption = 0.0
             for line in move.budget_consumption_line_ids.filtered(
-                lambda l: l.parent_state != "cancel"
+                lambda l: l.parent_state not in ("cancel", "draft")
             ):
                 if move.is_invoice(True):
                     # === Invoices ===
@@ -144,7 +144,7 @@ class AccountMove(models.Model):
                     _(
                         "Please check your the budget journla advenced setting!\n"
                         "You may define allowed accounts for budget account journal: "
-                        "(%(budget_name)s)!\n"
+                        "(%(budget_name)s !\n"
                         "Allowed account must contain prepaid revenue account with a "
                         "receivable account and vat account.\n"
                     )
@@ -158,7 +158,7 @@ class AccountMove(models.Model):
                     _(
                         "Please verify the budget consumption of the invoice!\n"
                         "You can use budget consumption only for Customer invoice\n"
-                        "Used budgets are (%(budget_numbers)s)!\n"
+                        "Used budgets are (%(budget_numbers)s !\n"
                     )
                     % {
                         "budget_numbers": ",".join(
@@ -176,11 +176,11 @@ class AccountMove(models.Model):
             for line in invoice_lines:
                 if line.budget_invoice_id:
                     budget_amounts.setdefault(
-                        line.budget_invoice_id, {"price_total": 0.0}
+                        line.budget_invoice_id, {"price_subtotal": 0.0}
                     )
                     budget_amounts[line.budget_invoice_id][
-                        "price_total"
-                    ] += line.price_total
+                        "price_subtotal"
+                    ] += line.price_subtotal
                     authorized_accounts = line.budget_invoice_id.budget_account_ids
                     if line.account_id not in authorized_accounts:
                         raise ValidationError(
@@ -188,7 +188,7 @@ class AccountMove(models.Model):
                                 "Please verify the account of budget consumption line!\n"
                                 "You can use only the following accounts in budget "
                                 "consumption line.\n"
-                                "Authorized accounts (%(authorized_accounts)s)!\n"
+                                "Authorized accounts (%(authorized_accounts)s !\n"
                             )
                             % {
                                 "authorized_accounts": ",".join(
@@ -197,26 +197,22 @@ class AccountMove(models.Model):
                             }
                         )
             for budget, _price_total in budget_amounts.items():
-                if budget.budget_total_residual < 0:
+                if round(budget.budget_total_residual, 2) <= 0:
                     consumption_amount = round(_price_total["price_subtotal"], 2)
-                    avalaible_amount = round(
-                        abs(
-                            budget.budget_untaxed_residual
-                            - _price_total["price_subtotal"]
-                        ),
-                        2,
-                    )
+                    available_amount = budget.budget_untaxed_residual
                     raise ValidationError(
                         _(
-                            "Please check the amount avalaible of budget %(budget_name)s:\n"
-                            "Consumption amount: %(consumption_amount)s !\n"
-                            "Avalaible amount: %(avalaible_amount)s !\n"
-                            "This amount are taxed !\n"
+                            "Please check the amount available of budget %(budget_name)s:\n"
+                            "Consumption amount untaxed: %(consumption_amount)s !\n"
+                            "Available amount untaxed : %(available_amount)s !\n"
+                            "Even the consumption and available budget are displayed"
+                            " as untaxed amount,\n"
+                            "budget validation are based on taxed amounts !\n"
                         )
                         % {
                             "budget_name": f"{budget.name}",
                             "consumption_amount": f"{consumption_amount}",
-                            "avalaible_amount": f"{avalaible_amount}",
+                            "available_amount": f"{available_amount}",
                         }
                     )
 
