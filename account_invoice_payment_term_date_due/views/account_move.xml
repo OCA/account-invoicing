@@ -13,12 +13,15 @@
             <field name="invoice_payment_term_id" position="after">
                 <span
                     name="invoice_payment_term_date_due"
-                    class="text-muted oe_read_only"
+                    class="text-muted o_readonly_modifier d-flex align-self-center justify-content-center ME-3"
                     attrs="{'invisible': ['|', ('invoice_payment_term_id', '=', False), ('invoice_date_due', '=', False)]}"
                     t-translation="off"
                 >
-                    <i class="fa fa-arrow-right mx-3" />
-                    <field name="invoice_date_due" />
+                    <i class="fa fa-arrow-right mx-3" title="arrow" />
+                    <field
+                        name="invoice_date_due"
+                        attrs="{'readonly': [('state', '=', 'posted')]}"
+                    />
                 </span>
             </field>
         </field>
