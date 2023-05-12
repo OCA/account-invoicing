@@ -62,7 +62,7 @@ msgstr "Lignes de consommation du budget"
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__budget_total_consumption
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Budget consumption"
-msgstr "Consommation du Budget TTC"
+msgstr "Consommation du Budget"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_invoice_consumption_ids
@@ -184,14 +184,15 @@ msgstr "Note"
 #, python-format
 msgid ""
 "Please check the amount available of budget %(budget_name)s:\n"
-"Consumption amount untaxed: %(consumption_amount)s !\n"
-"Available amount untaxed : %(available_amount)s !\n"
-"Even the consumption and available budget are displayed as untaxed amount,\n"
+"Consumption amount untaxed: %(consumption_untaxed_amount)s !\n"
+"Available amount untaxed : %(available_untaxed_amount)s !\n"
+"Even the consumption and available budget are displayed"
+" as untaxed amount,\n"
 "budget validation are based on taxed amounts !\n"
 msgstr ""
 "Le montant du budget saisi est invalide ! Il est supérieur au montant disponible sur ce budget %(budget_name)s:\n"
-"- Le montant HT de la consommation est de: %(consumption_amount)s €\n"
-"- Le montant HT disponible est de: %(available_amount)s €\n"
+"- Le montant HT de la consommation est de: %(consumption_untaxed_amount)s €\n"
+"- Le montant HT disponible est de: %(available_untaxed_amount)s €\n"
 "Attention, même si ces montants sont affichées en HT,\n"
 "la validation est bassé sur les montants TTC (Pour inclure la TVA)!"
 

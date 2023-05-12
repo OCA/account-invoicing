@@ -36,25 +36,25 @@ class AccountMove(models.Model):
     budget_total_consumption = fields.Monetary(
         string="Budget consumption",
         compute="_compute_budget_total_consumptions",
-        store=False,
+        store=True,
         currency_field="currency_id",
     )
     budget_total_residual = fields.Monetary(
         string="Budget residual total",
         compute="_compute_budget_total_consumptions",
-        store=False,
+        store=True,
         currency_field="currency_id",
     )
     budget_untaxed_consumption = fields.Monetary(
         string="Budget untaxed consumption",
         compute="_compute_budget_total_consumptions",
-        store=False,
+        store=True,
         currency_field="currency_id",
     )
     budget_untaxed_residual = fields.Monetary(
         string="Budget untaxed residual",
         compute="_compute_budget_total_consumptions",
-        store=False,
+        store=True,
         currency_field="currency_id",
     )
     is_budget = fields.Boolean("Is a budget", related="journal_id.is_budget")
@@ -70,13 +70,16 @@ class AccountMove(models.Model):
         help="Technical field used to validate line budget consumption account",
     )
     analytic_line_count = fields.Integer(
-        string="Analytic Lines Count", compute="_compute_used_analytic_line_ids"
+        string="Analytic Lines Count",
+        compute="_compute_used_analytic_line_ids",
+        store=True,
     )
     analytic_line_ids = fields.Many2many(
         comodel_name="account.analytic.line",
         string="Analytic Lines",
         compute="_compute_used_analytic_line_ids",
         copy=False,
+        store=True,
     )
 
     @api.depends(
@@ -87,6 +90,12 @@ class AccountMove(models.Model):
         for move in self:
             budget_total_consumption = 0.0
             budget_untaxed_consumption = 0.0
+            if not move.is_budget:
+                move.budget_total_consumption = 0.0
+                move.budget_untaxed_consumption = 0.0
+                move.budget_total_residual = 0.0
+                move.budget_untaxed_residual = 0.0
+                continue
             for line in move.budget_consumption_line_ids.filtered(
                 lambda l: l.parent_state not in ("cancel", "draft")
             ):
@@ -176,11 +185,15 @@ class AccountMove(models.Model):
             for line in invoice_lines:
                 if line.budget_invoice_id:
                     budget_amounts.setdefault(
-                        line.budget_invoice_id, {"price_subtotal": 0.0}
+                        line.budget_invoice_id,
+                        {"price_subtotal": 0.0, "price_total": 0.0},
                     )
                     budget_amounts[line.budget_invoice_id][
                         "price_subtotal"
                     ] += line.price_subtotal
+                    budget_amounts[line.budget_invoice_id][
+                        "price_total"
+                    ] += line.price_total
                     authorized_accounts = line.budget_invoice_id.budget_account_ids
                     if line.account_id not in authorized_accounts:
                         raise ValidationError(
@@ -197,22 +210,28 @@ class AccountMove(models.Model):
                             }
                         )
             for budget, _price_total in budget_amounts.items():
-                if round(budget.budget_total_residual, 2) <= 0:
-                    consumption_amount = round(_price_total["price_subtotal"], 2)
-                    available_amount = budget.budget_untaxed_residual
+                consumption_untaxed_amount = round(_price_total["price_subtotal"], 2)
+                consumption_total_amount = round(_price_total["price_total"], 2)
+                available_untaxed_amount = budget.budget_untaxed_residual
+                # consumption_total_amount is negative #
+                # and budget.budget_total_residual is positif
+                if (
+                    round(consumption_total_amount + budget.budget_total_residual, 2)
+                    <= 0
+                ):
                     raise ValidationError(
                         _(
                             "Please check the amount available of budget %(budget_name)s:\n"
-                            "Consumption amount untaxed: %(consumption_amount)s !\n"
-                            "Available amount untaxed : %(available_amount)s !\n"
+                            "Consumption amount untaxed: %(consumption_untaxed_amount)s !\n"
+                            "Available amount untaxed : %(available_untaxed_amount)s !\n"
                             "Even the consumption and available budget are displayed"
                             " as untaxed amount,\n"
                             "budget validation are based on taxed amounts !\n"
                         )
                         % {
                             "budget_name": f"{budget.name}",
-                            "consumption_amount": f"{consumption_amount}",
-                            "available_amount": f"{available_amount}",
+                            "consumption_untaxed_amount": f"{consumption_untaxed_amount}",
+                            "available_untaxed_amount": f"{available_untaxed_amount}",
                         }
                     )
 
