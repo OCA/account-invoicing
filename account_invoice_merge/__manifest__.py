@@ -8,7 +8,7 @@
 
 {
     "name": "Account Invoice Merge",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "category": "Finance",
     "summary": "Merge invoices in draft",
     "author": "Elico Corp,Odoo Community Association (OCA)",
