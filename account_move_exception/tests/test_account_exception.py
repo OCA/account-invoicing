@@ -19,9 +19,9 @@ class TestAccountException(TransactionCase):
         self.account_receivable = self.env["account.account"].search(
             [
                 (
-                    "user_type_id",
+                    "account_type",
                     "=",
-                    self.env.ref("account.data_account_type_receivable").id,
+                    "asset_receivable",
                 )
             ],
             limit=1,
@@ -44,6 +44,7 @@ class TestAccountException(TransactionCase):
                         "product_id": self.product_id_1.id,
                         "quantity": 5.0,
                         "price_unit": 500.0,
+                        "tax_ids": [],
                     },
                 ),
                 (
@@ -53,6 +54,7 @@ class TestAccountException(TransactionCase):
                         "product_id": self.product_id_2.id,
                         "quantity": 5.0,
                         "price_unit": 250.0,
+                        "tax_ids": [],
                     },
                 ),
             ],
@@ -78,7 +80,7 @@ class TestAccountException(TransactionCase):
         # Add an account move to test after AM is confirmed
         # set ignore_exception = False  (Done by onchange of line_ids)
         field_onchange = self.AccountMove._onchange_spec()
-        self.assertEqual(field_onchange.get("line_ids"), "1")
+        self.assertEqual(field_onchange.get("invoice_line_ids"), "1")
         self.env.cache.invalidate()
         self.am3New = self.AccountMove.new(self.am_vals.copy())
         self.am3New.ignore_exception = True
