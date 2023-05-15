@@ -33,6 +33,7 @@ addon | version | maintainers | summary
 [partner_invoicing_mode](partner_invoicing_mode/) | 16.0.1.0.1 |  | Base module for handling multiple partner invoicing mode
 [partner_invoicing_mode_at_shipping](partner_invoicing_mode_at_shipping/) | 16.0.1.0.1 |  | Create invoices automatically when goods are shipped.
 [partner_invoicing_mode_monthly](partner_invoicing_mode_monthly/) | 16.0.1.0.1 |  | Create invoices automatically on a monthly basis.
+[purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 16.0.1.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) [![MiquelRForgeFlow](https://github.com/MiquelRForgeFlow.png?size=30px)](https://github.com/MiquelRForgeFlow) | Add an option to refund returned pickings
 [stock_picking_return_refund_option](stock_picking_return_refund_option/) | 16.0.1.0.0 | [![sergio-teruel](https://github.com/sergio-teruel.png?size=30px)](https://github.com/sergio-teruel) | Update the refund options in pickings
 
 [//]: # (end addons)
