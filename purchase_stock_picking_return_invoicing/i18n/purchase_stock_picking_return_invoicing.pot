@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,20 +21,6 @@ msgstr ""
 #. module: purchase_stock_picking_return_invoicing
 #: model_terms:ir.ui.view,arch_db:purchase_stock_picking_return_invoicing.purchase_order_view_form_inherit
 msgid "Create Refund"
-msgstr ""
-
-#. module: purchase_stock_picking_return_invoicing
-#: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_account_move__display_name
-#: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order__display_name
-#: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order_line__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: purchase_stock_picking_return_invoicing
-#: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_account_move__id
-#: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order__id
-#: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order_line__id
-msgid "ID"
 msgstr ""
 
 #. module: purchase_stock_picking_return_invoicing
@@ -73,6 +59,7 @@ msgid "Select a purchase order or an old bill"
 msgstr ""
 
 #. module: purchase_stock_picking_return_invoicing
+#. odoo-python
 #: code:addons/purchase_stock_picking_return_invoicing/models/purchase_order.py:0
 #, python-format
 msgid ""
