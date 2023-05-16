@@ -2,3 +2,5 @@
 
   * David Vidal
   * Víctor Martínez
+
+* Dhara Solanki <dhara.solanki@initos.com>

@@ -14,7 +14,7 @@ Account Tax Group Widget Base Amount
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/15.0/account_tax_group_widget_base_amount
+    :target: https://github.com/OCA/account-invoicing/tree/16.0/account_tax_group_widget_base_amount
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
     :target: https://translation.odoo-community.org/projects/account-invoicing-15-0/account-invoicing-15-0-account_tax_group_widget_base_amount
@@ -25,8 +25,8 @@ Account Tax Group Widget Base Amount
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module adds the base amount to the tax group widget used in invoices and receipts
-as it's shown in reports:
+This module adds the base amount to the tax group widget used in invoices.
+as it's shown in image:
 
 .. image:: https://raw.githubusercontent.com/OCA/account-invoicing/15.0/account_tax_group_widget_base_amount/static/description/account_tax_group_widget_base_amount.png
    :width: 800 px
@@ -62,6 +62,8 @@ Contributors
   * David Vidal
   * Víctor Martínez
 
+* Dhara Solanki <dhara.solanki@initos.com>
+
 Maintainers
 ~~~~~~~~~~~
 
@@ -83,6 +85,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-chienandalu| 
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/15.0/account_tax_group_widget_base_amount>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/account_tax_group_widget_base_amount>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
