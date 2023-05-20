@@ -54,6 +54,7 @@ setuptools.setup(
         'odoo-addon-sale_order_invoicing_grouping_criteria>=15.0dev,<15.1dev',
         'odoo-addon-sale_order_invoicing_qty_percentage>=15.0dev,<15.1dev',
         'odoo-addon-sale_timesheet_invoice_description>=15.0dev,<15.1dev',
+        'odoo-addon-stock_picking_invoicing>=15.0dev,<15.1dev',
         'odoo-addon-stock_picking_invoicing_incoterm>=15.0dev,<15.1dev',
         'odoo-addon-stock_picking_return_refund_option>=15.0dev,<15.1dev',
     ],
