@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_invoice_onshipping" model="ir.ui.view">
+        <field name="name">Stock Invoice Onshipping</field>
+        <field name="model">stock.invoice.onshipping</field>
+        <field name="arch" type="xml">
+            <form string="Create invoice">
+                <h1>
+                    <field name="journal_type" readonly="1" />
+                </h1>
+                <group>
+                    <field name="show_sale_journal" invisible="1" />
+                    <field name="show_purchase_journal" invisible="1" />
+                    <field
+                        name="sale_journal"
+                        attrs="{'invisible':[('show_sale_journal', '=', False)], 'required':[('show_sale_journal', '=', True)]}"
+                    />
+                    <field
+                        name="purchase_journal"
+                        attrs="{'invisible':[('show_purchase_journal', '=', False)], 'required':[('show_purchase_journal', '=', True)]}"
+                    />
+                    <field name="group" />
+                    <field name="invoice_date" />
+                </group>
+                <footer>
+                    <button
+                        name="action_generate"
+                        string="Create"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_stock_invoice_onshipping" model="ir.actions.act_window">
+        <field name="name">Create Draft Invoices</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.invoice.onshipping</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking" />
+        <field name="view_id" ref="view_stock_invoice_onshipping" />
+        <field name="binding_view_types">list,form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
