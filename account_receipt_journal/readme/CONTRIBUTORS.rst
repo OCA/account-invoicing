@@ -6,3 +6,4 @@
 
   * Eduardo de Miguel
   * Rafael Blasco
+  * Andrea Cattalani

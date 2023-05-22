@@ -34,9 +34,10 @@ class AccountMove(models.Model):
         return journal
 
     @api.model
-    def _search_default_journal(self, journal_types):
-        journal = super()._search_default_journal(journal_types)
+    def _search_default_journal(self):
+        journal = super()._search_default_journal()
         move_type = self.env.context.get("default_move_type")
+        journal_types = self._get_journal_types(move_type)
         # We can assume that if move_type is not in receipts, a journal without
         # receipts it's coming because of the Journal constraint
         if move_type not in {"in_receipt", "out_receipt"} or journal.receipts:
