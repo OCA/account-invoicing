@@ -23,17 +23,7 @@ class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
 
         # INSTANCES
         cls.partner = cls.env.ref("base.res_partner_2")
-        # Account for invoice
-        cls.account = cls.account_account.search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    cls.env.ref("account.data_account_type_receivable").id,
-                )
-            ],
-            limit=1,
-        )
+
         # Invoice with unique reference 'ABC123'
         cls.invoice = cls.account_move.create(
             {
@@ -87,6 +77,7 @@ class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
                     "date": fields.Date.today(),
                     "reason": "no reason",
                     "refund_method": "refund",
+                    "journal_id": self.invoice.journal_id.id,
                 }
             )
         )

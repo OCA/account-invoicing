@@ -5,3 +5,4 @@
 * Andrea Stirpe <a.stirpe@onestein.nl>
 * Miguel Gandia <miguel@studio73.es>
 * Ángel Tornero Hernández <angel.tornero@braintec.com>
+* Carlos Serrano <serranobarretocarlosluis@gmail.com>
