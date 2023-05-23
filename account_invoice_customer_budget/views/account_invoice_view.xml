@@ -257,9 +257,9 @@
                 />
                 <field
                     name="invoice_partner_display_name"
-                    invisible="context.get('default_move_type') not in ('in_invoice', 'in_refund','in_receipt')"
+                    invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund','out_receipt')"
                     groups="base.group_user"
-                    string="Vendor"
+                    string="Customer"
                 />
                 <field
                     name="invoice_date"

@@ -85,6 +85,7 @@ class AccountMove(models.Model):
     @api.depends(
         "budget_consumption_line_ids.price_total",
         "budget_consumption_line_ids.parent_state",
+        "amount_total",
     )
     def _compute_budget_total_consumptions(self):
         for move in self:
@@ -119,6 +120,7 @@ class AccountMove(models.Model):
     @api.depends(
         "journal_id",
         "journal_id.is_budget",
+        "invoice_line_ids.account_id",
     )
     def _compute_budget_account(self):
         for move in self:
@@ -217,7 +219,7 @@ class AccountMove(models.Model):
                 # and budget.budget_total_residual is positif
                 if (
                     round(consumption_total_amount + budget.budget_total_residual, 2)
-                    <= 0
+                    < 0
                 ):
                     raise ValidationError(
                         _(
