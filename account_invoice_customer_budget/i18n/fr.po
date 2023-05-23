@@ -132,6 +132,11 @@ msgid "Create a customer Budget"
 msgstr "Créer un budget client"
 
 #. module: account_invoice_customer_budget
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_budget_invoice_tree
+msgid "Customer"
+msgstr "Client"
+
+#. module: account_invoice_customer_budget
 #: model_terms:ir.ui.view,arch_db:account_invoice_customer_budget.view_customer_account_invoice_add_refunds_details_form
 msgid "Description"
 msgstr "Description"
