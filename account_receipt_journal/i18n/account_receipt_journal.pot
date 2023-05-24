@@ -1,0 +1,77 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_receipt_journal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_receipt_journal
+#: code:addons/account_receipt_journal/models/account_journal.py:0
+#, python-format
+msgid "Create receipt"
+msgstr ""
+
+#. module: account_receipt_journal
+#: model:ir.model.fields,field_description:account_receipt_journal.field_account_journal__receipts
+msgid "Exclusive to Receipts"
+msgstr ""
+
+#. module: account_receipt_journal
+#: model:ir.model.fields,help:account_receipt_journal.field_account_journal__receipts
+msgid ""
+"If checked, this journal will be used by default for receipts and only can "
+"be used for receipts."
+msgstr ""
+
+#. module: account_receipt_journal
+#: model:ir.model,name:account_receipt_journal.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: account_receipt_journal
+#: model:ir.model,name:account_receipt_journal.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_receipt_journal
+#: code:addons/account_receipt_journal/models/account_move.py:0
+#, python-format
+msgid ""
+"Purchase Receipt must use a Receipt Journal because there is already a "
+"Receipt Journal for Purchases"
+msgstr ""
+
+#. module: account_receipt_journal
+#: code:addons/account_receipt_journal/models/account_move.py:0
+#, python-format
+msgid "Receipt Journal is restricted to Receipts"
+msgstr ""
+
+#. module: account_receipt_journal
+#: model_terms:ir.ui.view,arch_db:account_receipt_journal.view_account_journal_form_receipts
+msgid "Receipts"
+msgstr ""
+
+#. module: account_receipt_journal
+#: code:addons/account_receipt_journal/models/account_move.py:0
+#, python-format
+msgid ""
+"Sale Receipt must use a Receipt Journal because there is already a Receipt "
+"Journal for Sales"
+msgstr ""
+
+#. module: account_receipt_journal
+#: code:addons/account_receipt_journal/models/account_journal.py:0
+#, python-format
+msgid ""
+"The sequence of the journal '%s' must be higher than the sequence of the "
+"other journals of the same type."
+msgstr ""
