@@ -3,7 +3,7 @@
 {
     "name": "Receipts Journals",
     "summary": "Define and use journals dedicated to receipts",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.0.2",
     "development_status": "Beta",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
