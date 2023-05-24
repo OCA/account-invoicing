@@ -11,10 +11,10 @@ from odoo.addons.portal.controllers.portal import pager as portal_pager
 class PortalAccount(PortalAccount):
     def get_account_invoice_domain(self, response, kw, name):
         return [
-                ('id', 'in', response.qcontext[name].ids),
-                '|',
-                ('number', 'ilike', kw['search']),
-                ('state', 'ilike', kw['search'])
+            ('id', 'in', response.qcontext[name].ids),
+            '|',
+            ('number', 'ilike', kw['search']),
+            ('state', 'ilike', kw['search'])
 
         ]
 
@@ -47,7 +47,7 @@ class PortalAccount(PortalAccount):
                 "search": kw.get("search"),
                 "search_in": "portal_invoice_filter",
             },
-            total = len(response.qcontext.get('invoices', 0)),
+            total=len(response.qcontext.get('invoices', 0)),
             page=page,
             step=self._items_per_page,
         )
