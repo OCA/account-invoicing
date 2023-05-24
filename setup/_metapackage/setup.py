@@ -17,6 +17,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_transmit_method>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_triple_discount>=16.0dev,<16.1dev',
         'odoo-addon-account_menu_invoice_refund>=16.0dev,<16.1dev',
+        'odoo-addon-account_receipt_journal>=16.0dev,<16.1dev',
         'odoo-addon-account_tax_change>=16.0dev,<16.1dev',
         'odoo-addon-partner_invoicing_mode>=16.0dev,<16.1dev',
         'odoo-addon-partner_invoicing_mode_at_shipping>=16.0dev,<16.1dev',
