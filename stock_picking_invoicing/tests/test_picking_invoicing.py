@@ -37,22 +37,20 @@ class TestPickingInvoicing(TransactionCase):
         cls.fiscal_position_model = cls.env["account.fiscal.position"]
         cls.fiscal_position_tax_model = cls.env["account.fiscal.position.tax"]
         cls.fiscal_position_account_model = cls.env["account.fiscal.position.account"]
-        cls.account_user_type = cls.env.ref("account.data_account_type_revenue")
-        cls.account_model = cls.env["account.account"]
         cls.tax_model = cls.env["account.tax"]
         cls.product_tmpl_model = cls.env["product.template"]
         cls.account_receivable = cls.env["account.account"].search(
             [
                 (
-                    "user_type_id",
+                    "account_type",
                     "=",
-                    cls.env.ref("account.data_account_type_receivable").id,
+                    "asset_receivable",
                 )
             ],
             limit=1,
         )
         cls.account_revenue = cls.env["account.account"].search(
-            [("user_type_id", "=", cls.account_user_type.id)], limit=1
+            [("account_type", "=", "expense_direct_cost")], limit=1
         )
 
         cls.tax_sale_1 = cls.tax_model.create(
@@ -839,7 +837,7 @@ class TestPickingInvoicing(TransactionCase):
         )
 
         self.assertEqual(picking_devolution.invoice_state, "2binvoiced")
-        for line in picking_devolution.move_lines:
+        for line in picking_devolution.move_ids:
             self.assertEqual(line.invoice_state, "2binvoiced")
 
         picking_devolution.action_confirm()
@@ -917,7 +915,7 @@ class TestPickingInvoicing(TransactionCase):
         )
 
         self.assertEqual(picking_devolution.invoice_state, "2binvoiced")
-        for line in picking_devolution.move_lines:
+        for line in picking_devolution.move_ids:
             self.assertEqual(line.invoice_state, "2binvoiced")
 
         picking_devolution.action_confirm()

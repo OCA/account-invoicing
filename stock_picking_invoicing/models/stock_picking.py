@@ -24,7 +24,7 @@ class StockPicking(models.Model):
         Inherit to also update related moves.
         :return: bool
         """
-        self.mapped("move_lines")._set_as_2binvoiced()
+        self.mapped("move_ids")._set_as_2binvoiced()
         return super()._set_as_2binvoiced()
 
     def _set_as_invoiced(self):
@@ -32,7 +32,7 @@ class StockPicking(models.Model):
         Inherit to also update related moves.
         :return: bool
         """
-        self.mapped("move_lines")._set_as_invoiced()
+        self.mapped("move_ids")._set_as_invoiced()
         return super()._set_as_invoiced()
 
     def _get_partner_to_invoice(self):
@@ -42,6 +42,6 @@ class StockPicking(models.Model):
 
     def action_assign(self):
         """If any stock move is to be invoiced, picking status is updated"""
-        if any(m.invoice_state == "2binvoiced" for m in self.mapped("move_lines")):
+        if any(m.invoice_state == "2binvoiced" for m in self.mapped("move_ids")):
             self.write({"invoice_state": "2binvoiced"})
         return super().action_assign()

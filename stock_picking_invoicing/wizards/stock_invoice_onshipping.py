@@ -17,8 +17,10 @@ INVOICE_TYPE_MAP = {
     # Picking Type Code | Local Origin Usage | Local Dest Usage
     ("outgoing", "internal", "customer"): "out_invoice",
     ("incoming", "customer", "internal"): "out_refund",
+    ("incoming", "customer", "customer"): "out_refund",
     ("incoming", "supplier", "internal"): "in_invoice",
     ("outgoing", "internal", "supplier"): "in_refund",
+    ("outgoing", "internal", "internal"): "in_refund",
     ("incoming", "transit", "internal"): "in_invoice",
     ("outgoing", "transit", "supplier"): "in_refund",
     ("outgoing", "transit", "customer"): "out_invoice",
@@ -36,10 +38,10 @@ class StockInvoiceOnshipping(models.TransientModel):
             active_ids = active_ids[0]
         pick_obj = self.env["stock.picking"]
         picking = pick_obj.browse(active_ids)
-        if not picking or not picking.move_lines:
+        if not picking or not picking.move_ids:
             return "sale"
         pick_type_code = picking.picking_type_id.code
-        line = fields.first(picking.move_lines)
+        line = fields.first(picking.move_ids)
         if pick_type_code == "incoming":
             usage = line.location_id.usage
         else:
@@ -111,7 +113,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == picking_type and x.partner_id == partner
         )
-        lines = pickings.mapped("move_lines")
+        lines = pickings.mapped("move_ids")
         if picking_type == "outgoing":
             moves = lines.filtered(lambda x: x.location_dest_id.usage == usage)
         else:
@@ -172,19 +174,19 @@ class StockInvoiceOnshipping(models.TransientModel):
         first = fields.first
         sale_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "outgoing"
-            and first(x.move_lines).location_dest_id.usage == "customer"
+            and first(x.move_ids).location_dest_id.usage == "customer"
         )
         sale_refund_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "incoming"
-            and first(x.move_lines).location_id.usage == "customer"
+            and first(x.move_ids).location_id.usage == "customer"
         )
         purchase_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "incoming"
-            and first(x.move_lines).location_id.usage == "supplier"
+            and first(x.move_ids).location_id.usage == "supplier"
         )
         purchase_refund_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "outgoing"
-            and first(x.move_lines).location_dest_id.usage == "supplier"
+            and first(x.move_ids).location_dest_id.usage == "supplier"
         )
 
         return (
@@ -338,6 +340,9 @@ class StockInvoiceOnshipping(models.TransientModel):
         """
         invoice = self.env["account.move"].new(values.copy())
         invoice._onchange_partner_id()
+        invoice._inverse_company_id()
+        invoice._inverse_currency_id()
+        invoice._onchange_date()
         new_values = invoice._convert_to_write(invoice._cache)
         # Ensure basic values are not updated
         values.update(new_values)
@@ -368,7 +373,6 @@ class StockInvoiceOnshipping(models.TransientModel):
                 "move_type": inv_type,
                 "currency_id": currency.id,
                 "journal_id": journal.id,
-                "picking_ids": [(4, p.id, False) for p in pickings],
             }
         )
 
@@ -408,7 +412,10 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return: dict
         """
         line = self.env["account.move.line"].new(values.copy())
-        line._onchange_product_id()
+        line._inverse_partner_id()
+        line._inverse_product_id()
+        line._inverse_account_id()
+        line._inverse_amount_currency()
         new_values = line._convert_to_write(line._cache)
         if price_unit:
             new_values["price_unit"] = price_unit
@@ -444,7 +451,7 @@ class StockInvoiceOnshipping(models.TransientModel):
             elif inv_type == "in_refund" and loc.usage == "supplier":
                 qty *= -1
             quantity += qty
-            move_line_ids.append((4, move.id, False))
+            move_line_ids.append((4, move.id))
         price = moves._get_price_unit_invoice(inv_type, partner_id, quantity)
         line_obj = self.env["account.move.line"]
         values = line_obj.default_get(line_obj.fields_get().keys())
@@ -498,7 +505,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         pick_list = self._group_pickings(pickings)
         invoices = self.env["account.move"].browse()
         for pickings in pick_list:
-            moves = pickings.mapped("move_lines")
+            moves = pickings.mapped("move_ids")
             grouped_moves_list = self._group_moves(moves)
             parts = self.ungroup_moves(grouped_moves_list)
             for moves_list in parts:
@@ -515,13 +522,13 @@ class StockInvoiceOnshipping(models.TransientModel):
                         lines.append((0, 0, line_values))
                 if line_values:  # Only create the invoice if it has lines
                     invoice_values["invoice_line_ids"] = lines
+                    # Necessary inform line_ids with empty list to avoid error
+                    # addons/account/models/account_move.py", line 2251,
+                    # in _sanitize_vals
+                    # assert command not in (Command.SET, Command.CLEAR)
+                    invoice_values["line_ids"] = []
                     invoice_values["invoice_date"] = self.invoice_date
-                    # this is needed otherwise invoice_line_ids are removed
-                    # in _move_autocomplete_invoice_lines_create
-                    # and no invoice line is created
-                    invoice_values.pop("line_ids")
                     invoice = self._create_invoice(invoice_values)
-                    invoice._onchange_invoice_line_ids()
                     invoice._compute_amount()
                     invoices |= invoice
         return invoices
