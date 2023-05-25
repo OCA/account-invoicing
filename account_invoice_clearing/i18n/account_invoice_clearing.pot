@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-12 10:57+0000\n"
-"PO-Revision-Date: 2023-04-12 10:57+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,12 +15,16 @@ msgstr ""
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "<span class=\"o_form_label\" style=\"font-weight:bolder;\">Actions:</span>"
+msgid ""
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
+"invisible=\"1\">Actions:</span>"
 msgstr ""
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "<span class=\"o_form_label\" style=\"font-weight:bolder;\">Sort by:</span>"
+msgid ""
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
+"invisible=\"1\">Sort by:</span>"
 msgstr ""
 
 #. module: account_invoice_clearing
