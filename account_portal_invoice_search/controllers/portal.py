@@ -15,7 +15,6 @@ class PortalAccount(PortalAccount):
             '|',
             ('number', 'ilike', kw['search']),
             ('state', 'ilike', kw['search'])
-
         ]
 
     @route()
