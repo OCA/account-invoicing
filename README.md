@@ -71,6 +71,7 @@ addon | version | maintainers | summary
 [account_menu_invoice_refund](account_menu_invoice_refund/) | 12.0.2.0.1 | [![kittiu](https://github.com/kittiu.png?size=30px)](https://github.com/kittiu) | New invoice menu that combine invoices and refunds
 [account_payment_term_extension](account_payment_term_extension/) | 12.0.1.2.2 |  | Adds rounding, months, weeks and multiple payment days properties on payment term lines
 [account_portal_hide_invoice](account_portal_hide_invoice/) | 12.0.1.0.0 | [![Khalid-SerpentCS](https://github.com/Khalid-SerpentCS.png?size=30px)](https://github.com/Khalid-SerpentCS) | Hide invoices on customer portal.
+[account_portal_invoice_search](account_portal_invoice_search/) | 12.0.1.0.0 |  | Account Portal Invoice Search
 [product_supplierinfo_for_customer_invoice](product_supplierinfo_for_customer_invoice/) | 12.0.1.0.0 |  | Based on product_customer_code, this module loads in every account invoice the customer code defined in the product
 [purchase_batch_invoicing](purchase_batch_invoicing/) | 12.0.1.2.1 |  | Make invoices for all ready purchase orders
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 12.0.1.1.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) [![MiquelRForgeFlow](https://github.com/MiquelRForgeFlow.png?size=30px)](https://github.com/MiquelRForgeFlow) | Add an option to refund returned pickings
