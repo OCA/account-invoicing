@@ -4,7 +4,7 @@
 from odoo import models
 
 
-class AccountInvoice(models.Model):
+class AccountMove(models.Model):
     _inherit = "account.move"
 
     def button_cancel(self):
@@ -42,3 +42,16 @@ class AccountInvoice(models.Model):
         self.mapped("invoice_line_ids.move_line_ids")._set_as_2binvoiced()
         pickings._set_as_2binvoiced()
         return super().unlink()
+
+    def _reverse_moves(self, default_values_list=None, cancel=False):
+        reverse_moves = super()._reverse_moves(
+            default_values_list=default_values_list, cancel=cancel
+        )
+        for move, reverse_move in zip(self, reverse_moves):
+            for line in move.invoice_line_ids:
+                reverse_line = reverse_move.invoice_line_ids.filtered(
+                    lambda l: l.product_id == line.product_id
+                )
+                reverse_line.move_line_ids = line.move_line_ids.ids
+
+        return reverse_moves
