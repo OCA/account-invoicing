@@ -10,16 +10,26 @@
                     name="button_update_prices_from_pricelist"
                     groups="product.group_product_pricelist"
                     string="Update prices"
-                    attrs="{'invisible': ['|', '|', ('pricelist_id', '=', False), ('state', 'not in', ['draft']), ('move_type', 'not in', ['out_invoice', 'out_refund', 'in_invoice', 'in_refund'])]}"
+                    attrs="{'invisible': ['|', '|', ('pricelist_id', '=', False), ('state', 'not in', ['draft']), ('move_type', 'not in', ['out_invoice', 'out_refund'])]}"
                     help="Update price in lines from the pricelist"
                 />
             </button>
-            <field name="currency_id" position="attributes">
-                <attribute name="force_save">1</attribute>
+            <xpath
+                expr="//group[@id='header_right_group']//field[@name='currency_id']"
+                position="attributes"
+            >
                 <attribute
                     name="attrs"
                 >{'readonly': [('pricelist_id', '!=', False)]}</attribute>
-            </field>
+            </xpath>
+            <xpath
+                expr="//group[@id='header_right_group']/field[@name='currency_id']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'readonly': [('pricelist_id', '!=', False)]}</attribute>
+            </xpath>
             <xpath expr="//div[field[@name='journal_id']]" position="after">
                 <field
                     name="pricelist_id"
@@ -29,7 +39,7 @@
                 <field
                     name="pricelist_id"
                     groups="product.group_product_pricelist"
-                    attrs="{'invisible': [('move_type', 'not in', ['out_invoice', 'out_refund', 'in_invoice', 'in_refund'])]}"
+                    attrs="{'invisible': [('move_type', 'not in', ['out_invoice', 'out_refund'])]}"
                 />
             </xpath>
         </field>
@@ -50,4 +60,12 @@
             </xpath>
         </field>
     </record>
+    <menuitem
+        id="menu_product_pricelist_main"
+        parent="account.menu_finance_receivables"
+        name="Pricelists"
+        action="product.product_pricelist_action2"
+        groups="product.group_product_pricelist"
+        sequence="105"
+    />
 </odoo>
