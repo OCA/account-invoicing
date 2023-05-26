@@ -35,14 +35,20 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_bank_statement_line__pricelist_id
 #: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_move__pricelist_id
 #: model:ir.model.fields,field_description:account_invoice_pricelist.field_account_payment__pricelist_id
-#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.account_invoice_filter_inherit_account_pricelist
+#: model_terms:ir.ui.view,arch_db:account_invoice_pricelist.view_account_invoice_filter
 msgid "Pricelist"
 msgstr "Cjenik"
 
 #. module: account_invoice_pricelist
+#. odoo-python
 #: code:addons/account_invoice_pricelist/models/account_move.py:0
 #, python-format
 msgid "Pricelist and Invoice need to use the same currency."
+msgstr ""
+
+#. module: account_invoice_pricelist
+#: model:ir.ui.menu,name:account_invoice_pricelist.menu_product_pricelist_main
+msgid "Pricelists"
 msgstr ""
 
 #. module: account_invoice_pricelist

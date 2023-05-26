@@ -8,6 +8,16 @@ class TestAccountMovePricelist(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                mail_create_nolog=True,
+                mail_create_nosubscribe=True,
+                mail_notrack=True,
+                no_reset_password=True,
+                tracking_disable=True,
+            )
+        )
         cls.AccountMove = cls.env["account.move"]
         cls.ProductPricelist = cls.env["product.pricelist"]
         cls.FiscalPosition = cls.env["account.fiscal.position"]
@@ -236,7 +246,6 @@ class TestAccountMovePricelist(common.TransactionCase):
         )
 
     def test_account_invoice_pricelist(self):
-        self.invoice._onchange_partner_id_account_invoice_pricelist()
         self.assertEqual(self.invoice.pricelist_id, self.sale_pricelist)
 
     def test_account_invoice_change_pricelist(self):
@@ -268,7 +277,6 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 10.00)
 
     def test_account_invoice_pricelist_with_discount_secondary_currency(self):
-        self.invoice.currency_id = self.euro_currency.id
         self.invoice.pricelist_id = self.sale_pricelist_with_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -276,7 +284,6 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_account_invoice_pricelist_without_discount_secondary_currency(self):
-        self.invoice.currency_id = self.euro_currency.id
         self.invoice.pricelist_id = self.sale_pricelist_without_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -284,7 +291,6 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 10.00)
 
     def test_account_invoice_fixed_pricelist_with_discount_secondary_currency(self):
-        self.invoice.currency_id = self.euro_currency.id
         self.invoice.pricelist_id = self.sale_pricelist_fixed_with_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -292,7 +298,6 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_account_invoice_fixed_pricelist_without_discount_secondary_currency(self):
-        self.invoice.currency_id = self.euro_currency.id
         self.invoice.pricelist_id = self.sale_pricelist_fixed_wo_disc_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -301,7 +306,9 @@ class TestAccountMovePricelist(common.TransactionCase):
 
     def test_check_currency(self):
         with self.assertRaises(UserError):
-            self.invoice.currency_id = self.usd_currency.id
-            self.invoice.write(
+            self.invoice.with_context(force_check_currecy=True).write(
                 {"pricelist_id": self.sale_pricelist_with_discount_in_euros.id}
+            )
+            self.invoice.with_context(force_check_currecy=True).write(
+                {"currency_id": self.usd_currency.id}
             )
