@@ -84,7 +84,8 @@ msgstr "Preu unitari original"
 #: model:ir.model.fields,help:account_invoice_change_currency.field_account_payment__custom_rate
 msgid ""
 "Set new currency rate to apply on the invoice.\n"
-"This rate will be taken in order to convert amounts between the currency on the invoice and last currency"
+"This rate will be taken in order to convert amounts between the currency on "
+"the invoice and last currency"
 msgstr ""
 "Estableix nova taxa de canvi a aplicar a la factura.\n"
 "Aquesta taxa es farà servir per a convertir imports entre la divisa de la "
@@ -103,8 +104,8 @@ msgstr ""
 #: model:ir.model.fields,help:account_invoice_change_currency.field_account_move__original_currency_id
 #: model:ir.model.fields,help:account_invoice_change_currency.field_account_payment__original_currency_id
 msgid ""
-"Store the original currency when the invoice is created or the conversion is"
-" called for the first time. This is used to calculate conversion from this "
+"Store the original currency when the invoice is created or the conversion is "
+"called for the first time. This is used to calculate conversion from this "
 "currency."
 msgstr ""
 
