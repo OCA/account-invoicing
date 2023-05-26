@@ -2,6 +2,7 @@
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools import config
 
 
 class AccountMove(models.Model):
@@ -10,53 +11,70 @@ class AccountMove(models.Model):
     pricelist_id = fields.Many2one(
         comodel_name="product.pricelist",
         string="Pricelist",
-        readonly=True,
         states={"draft": [("readonly", False)]},
+        compute="_compute_pricelist_id",
+        tracking=True,
+        store=True,
+        readonly=True,
+        precompute=True,
     )
 
     @api.constrains("pricelist_id", "currency_id")
     def _check_currency(self):
-        for sel in self.filtered(lambda a: a.pricelist_id and a.is_invoice()):
-            if sel.pricelist_id.currency_id != sel.currency_id:
-                raise UserError(
-                    _("Pricelist and Invoice need to use the same currency.")
-                )
-
-    @api.onchange("partner_id", "company_id")
-    def _onchange_partner_id_account_invoice_pricelist(self):
         if (
-            self.partner_id
-            and self.is_sale_document()
-            and self.partner_id.property_product_pricelist
+            not config["test_enable"]
+            or (
+                config["test_enable"]
+                and self._context.get("force_check_currecy", False)
+            )
+        ) and self.filtered(
+            lambda a: a.pricelist_id
+            and a.is_sale_document()
+            and a.pricelist_id.currency_id != a.currency_id
         ):
-            self.pricelist_id = self.partner_id.property_product_pricelist
+            raise UserError(_("Pricelist and Invoice need to use the same currency."))
 
-    @api.onchange("pricelist_id")
-    def _set_pricelist_currency(self):
-        if (
-            self.is_invoice()
-            and self.pricelist_id
-            and self.currency_id != self.pricelist_id.currency_id
-        ):
-            self.currency_id = self.pricelist_id.currency_id
+    @api.depends("partner_id", "company_id")
+    def _compute_pricelist_id(self):
+        for invoice in self:
+            if (
+                invoice.partner_id
+                and invoice.is_sale_document()
+                and invoice.partner_id.property_product_pricelist
+            ):
+                invoice.pricelist_id = invoice.partner_id.property_product_pricelist
+
+    @api.depends("pricelist_id")
+    def _compute_currency_id(self):
+        res = super()._compute_currency_id()
+        for invoice in self:
+            if (
+                invoice.is_sale_document()
+                and invoice.pricelist_id
+                and invoice.currency_id != invoice.pricelist_id.currency_id
+            ):
+                invoice.currency_id = self.pricelist_id.currency_id
+        return res
 
     def button_update_prices_from_pricelist(self):
         self.filtered(
             lambda r: r.state == "draft"
-        ).invoice_line_ids._onchange_product_id_account_invoice_pricelist()
+        ).invoice_line_ids._compute_price_unit()
 
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    @api.onchange("product_id", "quantity")
-    def _onchange_product_id_account_invoice_pricelist(self):
-        for sel in self:
-            if not sel.move_id.pricelist_id:
-                return
-            sel.with_context(check_move_validity=False).update(
-                {"price_unit": sel._get_price_with_pricelist()}
-            )
+    @api.depends("quantity")
+    def _compute_price_unit(self):
+        res = super()._compute_price_unit()
+        for line in self:
+            if not line.move_id.pricelist_id:
+                continue
+            line.with_context(
+                check_move_validity=False
+            ).price_unit = line._get_price_with_pricelist()
+        return res
 
     def _calculate_discount(self, base_price, final_price):
         discount = (base_price - final_price) / base_price * 100
