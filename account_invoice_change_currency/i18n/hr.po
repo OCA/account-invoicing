@@ -1,0 +1,123 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_change_currency
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2020-03-05 16:13+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>\n"
+"Language-Team: none\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.10\n"
+
+#. module: account_invoice_change_currency
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.view_move_form
+msgid ""
+"<i title=\"Update Currency: Will convert the amount lines to the new "
+"currency set\" class=\"fa fa-fw fa-refresh\"/>"
+msgstr ""
+"<i title=\"Ažuriraj valutu: Mijenja iznose na stavkama prema novoj valuti\" "
+"class=\"fa fa-fw fa-refresh\"/>"
+
+#. module: account_invoice_change_currency
+#: model:ir.model.fields,help:account_invoice_change_currency.field_account_bank_statement_line__is_original_currency
+#: model:ir.model.fields,help:account_invoice_change_currency.field_account_move__is_original_currency
+#: model:ir.model.fields,help:account_invoice_change_currency.field_account_payment__is_original_currency
+msgid ""
+"Check if current currency is the original currency. This is used to hide "
+"custom rate field in the form view."
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model,name:account_invoice_change_currency.model_res_currency
+msgid "Currency"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_bank_statement_line__custom_rate
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_move__custom_rate
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_payment__custom_rate
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.view_move_form
+msgid "Custom Rate"
+msgstr "Prilagođeni tečaj"
+
+#. module: account_invoice_change_currency
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_bank_statement_line__is_original_currency
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_move__is_original_currency
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_payment__is_original_currency
+msgid "Is Original Currency"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model,name:account_invoice_change_currency.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model,name:account_invoice_change_currency.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_bank_statement_line__original_currency_id
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_move__original_currency_id
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_payment__original_currency_id
+msgid "Original Currency"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_move_line__original_price_unit
+msgid "Original Price Unit"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model.fields,help:account_invoice_change_currency.field_account_bank_statement_line__custom_rate
+#: model:ir.model.fields,help:account_invoice_change_currency.field_account_move__custom_rate
+#: model:ir.model.fields,help:account_invoice_change_currency.field_account_payment__custom_rate
+msgid ""
+"Set new currency rate to apply on the invoice.\n"
+"This rate will be taken in order to convert amounts between the currency on "
+"the invoice and last currency"
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model.fields,help:account_invoice_change_currency.field_account_move_line__original_price_unit
+msgid ""
+"Store price unit from every line when the invoice is created or the "
+"conversion is called for the first time to use it to convert the amount in "
+"the new currency."
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model:ir.model.fields,help:account_invoice_change_currency.field_account_bank_statement_line__original_currency_id
+#: model:ir.model.fields,help:account_invoice_change_currency.field_account_move__original_currency_id
+#: model:ir.model.fields,help:account_invoice_change_currency.field_account_payment__original_currency_id
+msgid ""
+"Store the original currency when the invoice is created or the conversion is "
+"called for the first time. This is used to calculate conversion from this "
+"currency."
+msgstr ""
+
+#. module: account_invoice_change_currency
+#: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.view_move_form
+msgid "Update Currency"
+msgstr ""
+
+#~ msgid "Currency Updated"
+#~ msgstr "Valuta ažurirana"
+
+#~ msgid "Forced Rate"
+#~ msgstr "Prisili tečaj"
+
+#~ msgid "Invoice"
+#~ msgstr "Račun"
+
+#~ msgid "Opened"
+#~ msgstr "Otvoren"
