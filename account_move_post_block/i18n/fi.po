@@ -20,7 +20,8 @@ msgstr ""
 #: model:res.groups,comment:account_move_post_block.group_journal_entry_post_block
 msgid ""
 "\n"
-"            The user will be able to release a Journal Entry blocked for post.\n"
+"            The user will be able to release a Journal Entry blocked for "
+"post.\n"
 "        "
 msgstr ""
 "\n"
@@ -33,10 +34,14 @@ msgid "Account Post Block Reason"
 msgstr "Vahvistamisen eston syy"
 
 #. module: account_move_post_block
-#: model:ir.actions.act_window,name:account_move_post_block.action_account_post_block_reason
 #: model:ir.ui.menu,name:account_move_post_block.menu_account_post_block_reason
 msgid "Account Post Block Reasons"
 msgstr "Vahvistamisen eston syyt"
+
+#. module: account_move_post_block
+#: model:ir.actions.act_window,name:account_move_post_block.action_account_post_block_reason
+msgid "Account Post Block Reasons\""
+msgstr ""
 
 #. module: account_move_post_block
 #: model:ir.model,name:account_move_post_block.model_account_exception_confirm
@@ -81,7 +86,6 @@ msgid "Display Name"
 msgstr "Näyttönimi"
 
 #. module: account_move_post_block
-#: code:addons/account_move_post_block/models/account_move.py:0
 #: code:addons/account_move_post_block/models/account_move.py:0
 #, python-format
 msgid "Entry \"%s\" blocked with reason \"%s\""
