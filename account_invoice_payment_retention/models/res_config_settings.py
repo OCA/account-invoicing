@@ -19,7 +19,6 @@ class ResConfigSettings(models.TransientModel):
         help="Retention account used for case payment retention",
     )
     retention_method = fields.Selection(
-        selection=[("untax", "Untaxed Amount"), ("total", "Total")],
         related="company_id.retention_method",
         string="Retention Method",
         readonly=False,
