@@ -74,6 +74,7 @@ addon | version | maintainers | summary
 [account_move_post_block](account_move_post_block/) | 14.0.1.0.1 |  | Account Move Post Block
 [account_move_propagate_ref](account_move_propagate_ref/) | 14.0.1.0.1 |  | Propagate ref when reversing and recreating an accounting move
 [account_move_tier_validation](account_move_tier_validation/) | 14.0.1.1.0 |  | Extends the functionality of Account Moves to support a tier validation process.
+[account_move_tier_validation_approver](account_move_tier_validation_approver/) | 14.0.1.0.0 |  | Account Move Tier Validation Approver
 [account_move_tier_validation_forward](account_move_tier_validation_forward/) | 14.0.1.0.0 |  | Account Move Tier Validation - Forward Option
 [account_receipt_journal](account_receipt_journal/) | 14.0.1.0.0 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) | Define and use journals dedicated to receipts
 [account_receipt_print](account_receipt_print/) | 14.0.1.0.1 |  | Enable printing in sale and purchase receipts
