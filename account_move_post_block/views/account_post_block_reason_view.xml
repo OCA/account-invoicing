@@ -35,12 +35,11 @@
             </form>
         </field>
     </record>
-    <act_window
-        id="action_account_post_block_reason"
-        name="Account Post Block Reasons"
-        res_model="account.post.block.reason"
-        view_mode="tree,form"
-    />
+    <record id="action_account_post_block_reason" model="ir.actions.act_window">
+        <field name="name">Account Post Block Reasons"</field>
+        <field name="res_model">account.post.block.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
     <menuitem
         id="menu_account_post_block_reason"
         name="Account Post Block Reasons"
