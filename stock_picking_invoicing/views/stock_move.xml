@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <field name="date_deadline" position="after">
                 <field name="invoice_state" groups="account.group_account_invoice" />
+                <field name="invoice_state" invisible="1" />
             </field>
             <group name="linked_group" position="after">
                 <group
@@ -28,6 +29,7 @@
         <field name="arch" type="xml">
             <field name="date" position="after">
                 <field name="invoice_state" groups="account.group_account_invoice" />
+                <field name="invoice_state" invisible="1" />
             </field>
             <field name="invoice_line_ids" position="attributes">
                 <attribute
