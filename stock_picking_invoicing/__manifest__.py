@@ -7,7 +7,12 @@
     "author": "Agile Business Group,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
-    "depends": ["stock", "account", "stock_picking_invoice_link"],
+    "depends": [
+        "stock",
+        "account",
+        "stock_picking_invoice_link",
+        "base_view_inheritance_extension",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "wizards/stock_invoice_onshipping_view.xml",
