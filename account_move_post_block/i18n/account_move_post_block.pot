@@ -27,9 +27,13 @@ msgid "Account Post Block Reason"
 msgstr ""
 
 #. module: account_move_post_block
-#: model:ir.actions.act_window,name:account_move_post_block.action_account_post_block_reason
 #: model:ir.ui.menu,name:account_move_post_block.menu_account_post_block_reason
 msgid "Account Post Block Reasons"
+msgstr ""
+
+#. module: account_move_post_block
+#: model:ir.actions.act_window,name:account_move_post_block.action_account_post_block_reason
+msgid "Account Post Block Reasons\""
 msgstr ""
 
 #. module: account_move_post_block
