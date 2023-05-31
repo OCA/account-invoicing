@@ -86,6 +86,7 @@ class AccountMove(models.Model):
         "budget_consumption_line_ids.price_total",
         "budget_consumption_line_ids.parent_state",
         "amount_total",
+        "reversal_move_id",
     )
     def _compute_budget_total_consumptions(self):
         for move in self:
@@ -116,6 +117,13 @@ class AccountMove(models.Model):
             move.budget_untaxed_residual = move.amount_untaxed - (
                 -budget_untaxed_consumption
             )
+            # Take account move reversal moves in budget amounts
+            for reversal_move in move.reversal_move_id.filtered(
+                lambda m: m.state not in ("cancel", "draft")
+                and m.journal_id == move.journal_id
+            ):
+                move.budget_total_residual -= reversal_move.amount_total
+                move.budget_untaxed_residual -= reversal_move.amount_untaxed
 
     @api.depends(
         "journal_id",
