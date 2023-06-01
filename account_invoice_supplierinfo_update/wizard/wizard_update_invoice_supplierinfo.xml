@@ -14,7 +14,8 @@
                     <tree
                         create="false"
                         editable="0"
-                        colors="blue: supplierinfo_id == False; brown: supplierinfo_id != False"
+                        decoration-info="supplierinfo_id == False"
+                        decoration-warning="supplierinfo_id != False"
                     >
                         <field name="product_id" />
                         <field name="supplierinfo_id" invisible="1" />

@@ -117,7 +117,7 @@ class Tests(TransactionCase):
             with invoice_form.invoice_line_ids.edit(0) as line_form:
                 line_form.price_unit = 33.0
         wizard = self.wizard_obj.with_context(
-            self.invoice.check_supplierinfo()["context"]
+            **self.invoice.check_supplierinfo()["context"]
         ).create({})
         line = wizard.line_ids.filtered(lambda line: line.product_id == self.product1)
 
