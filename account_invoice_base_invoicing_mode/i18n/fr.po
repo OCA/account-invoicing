@@ -6,20 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-15 09:50+0000\n"
-"Last-Translator: Yves Le Doeuff <yld@alliasys.fr>\n"
+"PO-Revision-Date: 2023-06-01 16:58+0000\n"
+"Last-Translator: Claude R Perrin <claude@perrin.it>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model,name:account_invoice_base_invoicing_mode.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_account_move__display_name
@@ -41,7 +41,7 @@ msgstr "Ne pas regrouper les commandes de vente en une seule facture."
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner__id
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_sale_order__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner__invoicing_mode
@@ -53,7 +53,7 @@ msgstr "Mode de facturation"
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model,name:account_invoice_base_invoicing_mode.model_account_move
 msgid "Journal Entry"
-msgstr "Pièce comptable"
+msgstr "Entrée du journal"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_account_move____last_update
@@ -61,7 +61,7 @@ msgstr "Pièce comptable"
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner____last_update
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_sale_order____last_update
 msgid "Last Modified on"
-msgstr "Modifié le"
+msgstr "Dernière Modification le"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner__one_invoice_per_order
@@ -72,19 +72,19 @@ msgstr "Une facture par commande"
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model,name:account_invoice_base_invoicing_mode.model_queue_job
 msgid "Queue Job"
-msgstr ""
+msgstr "Travail de file d’attente"
 
 #. module: account_invoice_base_invoicing_mode
 #: code:addons/account_invoice_base_invoicing_mode/models/queue_job.py:0
 #, python-format
 msgid "Related Record"
-msgstr "Enregistrement connexe"
+msgstr "Enregistrement lié"
 
 #. module: account_invoice_base_invoicing_mode
 #: code:addons/account_invoice_base_invoicing_mode/models/queue_job.py:0
 #, python-format
 msgid "Related Records"
-msgstr "Enregistrements connexes"
+msgstr "Enregistrements liés"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model,name:account_invoice_base_invoicing_mode.model_sale_order
@@ -94,4 +94,4 @@ msgstr "Commandes"
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model.fields.selection,name:account_invoice_base_invoicing_mode.selection__res_partner__invoicing_mode__standard
 msgid "Standard"
-msgstr ""
+msgstr "Par défaut"
