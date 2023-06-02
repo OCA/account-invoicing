@@ -32,6 +32,7 @@ addon | version | maintainers | summary
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 16.0.1.0.1 |  | Manage triple discount on invoice lines
 [account_menu_invoice_refund](account_menu_invoice_refund/) | 16.0.1.0.1 | [![kittiu](https://github.com/kittiu.png?size=30px)](https://github.com/kittiu) | New invoice menu that combine invoices and refunds
 [account_receipt_journal](account_receipt_journal/) | 16.0.1.1.0 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) [![anddago78](https://github.com/anddago78.png?size=30px)](https://github.com/anddago78) | Define and use journals dedicated to receipts
+[account_receipt_send](account_receipt_send/) | 16.0.1.0.1 | [![Shide](https://github.com/Shide.png?size=30px)](https://github.com/Shide) | Send receipts
 [account_tax_change](account_tax_change/) | 16.0.1.0.1 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) | Configure your tax changes starting from a date.
 [partner_invoicing_mode](partner_invoicing_mode/) | 16.0.1.0.1 |  | Base module for handling multiple partner invoicing mode
 [partner_invoicing_mode_at_shipping](partner_invoicing_mode_at_shipping/) | 16.0.1.0.1 |  | Create invoices automatically when goods are shipped.
