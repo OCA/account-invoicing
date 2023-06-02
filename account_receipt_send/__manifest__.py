@@ -3,7 +3,7 @@
 {
     "name": "Receipts Print and Send",
     "summary": "Send receipts",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.0.2",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Moduon, Odoo Community Association (OCA)",
