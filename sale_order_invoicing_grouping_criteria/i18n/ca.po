@@ -53,11 +53,7 @@ msgid "Default Sales Invoicing Grouping Criteria"
 msgstr "Criteri d'agrupació per defecte de factures de venda"
 
 #. module: sale_order_invoicing_grouping_criteria
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company__display_name
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_config_settings__display_name
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_partner__display_name
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__display_name
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_order__display_name
 msgid "Display Name"
 msgstr "Nom a mostrar"
 
@@ -76,11 +72,7 @@ msgid "Grouping Fields"
 msgstr "Camps d'agrupació"
 
 #. module: sale_order_invoicing_grouping_criteria
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company__id
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_config_settings__id
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_partner__id
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__id
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_order__id
 msgid "ID"
 msgstr "ID"
 
@@ -103,11 +95,7 @@ msgid "Invoicing Grouping Criteria"
 msgstr "Criteri d'agrupació de facturació"
 
 #. module: sale_order_invoicing_grouping_criteria
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company____last_update
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_config_settings____last_update
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_partner____last_update
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria____last_update
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_order____last_update
 msgid "Last Modified on"
 msgstr "Darrera modificació el"
 
