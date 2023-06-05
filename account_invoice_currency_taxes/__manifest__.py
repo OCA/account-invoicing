@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Taxes in company currency in invoice report",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "depends": ["account"],
     "category": "Accounting",
     "author": "FactorLibre, Odoo Community Association (OCA)",
