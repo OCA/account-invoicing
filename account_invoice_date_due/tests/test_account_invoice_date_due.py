@@ -53,9 +53,7 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             {
                 "code": "300",
                 "name": "Account 300",
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_other_income"
-                ).id,
+                "account_type": "income_other",
             }
         )
         move_form = Form(cls.env["account.move"])
@@ -119,7 +117,8 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
                 self.move.line_ids.filtered(
                     lambda l: fields.Date.to_string(l.date_maturity)
                     == twenty_days_from_now
-                    and l.account_id.user_type_id.type in ("receivable", "payable")
+                    and l.account_id.account_type
+                    in ("asset_receivable", "liability_payable")
                 )
             ),
             1,
@@ -156,7 +155,8 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
                 self.move.line_ids.filtered(
                     lambda l: fields.Date.to_string(l.date_maturity)
                     == twenty_days_from_now
-                    and l.account_id.user_type_id.type in ("receivable", "payable")
+                    and l.account_id.account_type
+                    in ("asset_receivable", "liability_payable")
                 )
             ),
             1,
