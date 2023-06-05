@@ -3,7 +3,7 @@
 
 {
     "name": "Account invoice refund line",
-    "version": "14.0.1.0.3",
+    "version": "15.0.1.0.0",
     "category": "Accounting & Finance",
     "summary": "This module allows the user to refund specific lines in a invoice",
     "author": "Creu Blanca, Odoo Community Association (OCA)",
