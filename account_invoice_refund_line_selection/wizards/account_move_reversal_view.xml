@@ -15,7 +15,7 @@
                             name="line_ids"
                             context="{'tree_view_ref': 'account.view_move_line_tree_grouped_sales_purchases'}"
                         >
-                            <tree>
+                            <tree no_open="True">
                                 <field name="sequence" widget="handle" readonly="1" />
                                 <field name="product_id" readonly="1" />
                                 <field name="name" readonly="1" />
@@ -33,11 +33,11 @@
                     </page>
                 </notebook>
             </xpath>
-            <xpath expr="//group/div[2]" position="after">
+            <xpath expr="//group//group/div" position="after">
                 <div
                     attrs="{'invisible':[('refund_method','!=','refund_lines')]}"
                     class="oe_grey"
-                    colspan="4"
+                    colspan="2"
                 >
                     Use this option if you want to refund only some specific lines in an invoice.
                 </div>
