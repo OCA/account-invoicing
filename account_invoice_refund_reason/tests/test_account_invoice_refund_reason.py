@@ -3,10 +3,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import datetime
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestAccountInvoiceRefundReason(SavepointCase):
+class TestAccountInvoiceRefundReason(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
