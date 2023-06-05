@@ -5,7 +5,6 @@ from odoo import api, fields, models
 
 
 class AccountInvoiceRefund(models.TransientModel):
-
     _inherit = "account.move.reversal"
 
     refund_method = fields.Selection(
@@ -26,7 +25,7 @@ class AccountInvoiceRefund(models.TransientModel):
 
     @api.model
     def default_get(self, fields):
-        rec = super(AccountInvoiceRefund, self).default_get(fields)
+        rec = super().default_get(fields)
         context = dict(self._context or {})
         active_id = context.get("active_id", False)
         if active_id:
@@ -45,42 +44,15 @@ class AccountInvoiceRefund(models.TransientModel):
                     0,
                     0,
                     li.with_context(include_business_fields=True).copy_data(
-                        {"move_id": False, "recompute_tax_line": True}
+                        {"move_id": False}
                     )[0],
                 )
                 for li in self.line_ids
             ]
-            move = self.env["account.move"].new(vals)
+            reversal_inv = self.env["account.move"].new(vals)
             lines = []
-            for line in move._move_autocomplete_invoice_lines_values()["line_ids"]:
-                if line[0] != 0:
-                    continue
-                for field_name, field_obj in self.env[
-                    "account.move.line"
-                ]._fields.items():
-                    if (
-                        isinstance(field_obj, fields.Boolean)
-                        and field_obj.store
-                        and field_name not in line[2]
-                    ):
-                        line[2][field_name] = False
-                lines.append(
-                    (
-                        line[0],
-                        line[1],
-                        self.env["account.move.line"]._add_missing_default_values(
-                            line[2]
-                        ),
-                    )
-                )
+            for line in reversal_inv.line_ids:
+                dict_line = line._convert_to_write(line._cache)
+                lines.append((0, 0, dict_line))
             res["line_ids"] = lines
         return res
-
-    def reverse_moves(self):
-        # We can uncheck the move, as it is checked by default at the end
-        return super(
-            AccountInvoiceRefund,
-            self.with_context(
-                check_move_validity=False,
-            ),
-        ).reverse_moves()
