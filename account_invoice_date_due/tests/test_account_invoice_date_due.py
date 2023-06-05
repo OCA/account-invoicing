@@ -60,13 +60,11 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
         move_form.date = fields.Date.today()
         with move_form.invoice_line_ids.new() as line_form:
             line_form.name = "move test"
-            line_form.debit = 0.0
-            line_form.credit = 1000.0
+            line_form.amount_currency = -1200.0
             line_form.account_id = account300
         with move_form.invoice_line_ids.new() as line_form:
             line_form.name = "move test"
-            line_form.debit = 1000.0
-            line_form.credit = 0.0
+            line_form.amount_currency = 1200.0
             line_form.account_id = account100
         cls.move = move_form.save()
 
