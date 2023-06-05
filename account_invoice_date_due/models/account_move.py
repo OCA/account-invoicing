@@ -41,8 +41,8 @@ class AccountMove(models.Model):
             payment_term_lines = self.filtered(
                 lambda r: r.state == "posted"
             ).line_ids.filtered(
-                lambda line: line.account_id.user_type_id.type
-                in ("receivable", "payable")
+                lambda line: line.account_id.account_type
+                in ("asset_receivable", "liability_payable")
             )
             payment_term_lines.date_maturity = vals["invoice_date_due"]
         return res
