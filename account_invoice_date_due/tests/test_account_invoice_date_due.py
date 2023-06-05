@@ -45,7 +45,7 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             {
                 "code": "100",
                 "name": "Account 100",
-                "user_type_id": cls.env.ref("account.data_account_type_receivable").id,
+                "account_type": "asset_receivable",
                 "reconcile": True,
             }
         )
