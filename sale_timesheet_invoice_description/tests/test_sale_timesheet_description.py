@@ -199,7 +199,14 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
 
         self.assertEqual(len(invoice.invoice_line_ids), 4)
-        self.assertEqual(sum(self.sale_order.mapped("order_line.qty_delivered")), 3.93)
+        # Initially this test was added in order to adapt to this
+        # change in Odoo:
+        # https://github.com/odoo/odoo/pull/115907
+        # self.assertEqual(
+        #     sum(self.sale_order.mapped("order_line.qty_delivered")), 3.93)
+        # However, the change was reverted, because unknown reason:
+        # https://github.com/odoo/odoo/pull/122431
+        # Decide to comment the test just for the record.
 
         # First line is a section with product's name
         aml_ids = invoice.invoice_line_ids.sorted(key=lambda aml: aml.sequence)
@@ -215,7 +222,8 @@ class TestSaleTimesheetDescription(common.TransactionCase):
 
         # Last aml quantity is calculated as the rest to equal the original aml quantity
         self.assertEqual(aml_ids[-1].name, "Description 3")
-        self.assertEqual(aml_ids[-1].quantity, 1.29)
+        # Reason of change above
+        self.assertEqual(aml_ids[-1].quantity, 1.3)
 
         # Invoice lines total must equal the expected order line's delivered and
         # invoiced quantities
