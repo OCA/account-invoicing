@@ -27,7 +27,11 @@ class TestInvoiceRefundLine(AccountTestInvoicingCommon):
                 active_model=self.in_invoice._name,
                 active_ids=self.in_invoice.ids,
             )
-            .create({})
+            .create(
+                {
+                    "journal_id": self.in_invoice.journal_id.id,
+                }
+            )
         )
         self.assertEqual(
             reversal.selectable_invoice_lines_ids,
@@ -56,7 +60,11 @@ class TestInvoiceRefundLine(AccountTestInvoicingCommon):
                 active_model=self.in_invoice._name,
                 active_ids=self.in_invoice.ids,
             )
-            .create({})
+            .create(
+                {
+                    "journal_id": self.in_invoice.journal_id.id,
+                }
+            )
         )
         action = reversal.reverse_moves()
         refund = self.env[action["res_model"]].browse(action["res_id"])
@@ -73,7 +81,11 @@ class TestInvoiceRefundLine(AccountTestInvoicingCommon):
                 active_model=self.out_invoice._name,
                 active_ids=self.out_invoice.ids,
             )
-            .create({})
+            .create(
+                {
+                    "journal_id": self.out_invoice.journal_id.id,
+                }
+            )
         )
         self.assertEqual(
             reversal.selectable_invoice_lines_ids,
@@ -102,7 +114,11 @@ class TestInvoiceRefundLine(AccountTestInvoicingCommon):
                 active_model=self.out_invoice._name,
                 active_ids=self.out_invoice.ids,
             )
-            .create({})
+            .create(
+                {
+                    "journal_id": self.out_invoice.journal_id.id,
+                }
+            )
         )
         action = reversal.reverse_moves()
         refund = self.env[action["res_model"]].browse(action["res_id"])
