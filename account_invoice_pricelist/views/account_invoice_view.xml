@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_move_customer_form" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <button name="action_invoice_sent" position="before">
+                <button
+                    type="object"
+                    name="button_update_prices_from_pricelist"
+                    groups="product.group_product_pricelist"
+                    string="Update prices"
+                    attrs="{'invisible': ['|', '|', ('pricelist_id', '=', False), ('state', 'not in', ['draft']), ('move_type', 'not in', ['out_invoice', 'out_refund'])]}"
+                    help="Update price in lines from the pricelist"
+                />
+            </button>
+            <xpath
+                expr="//group[@id='header_right_group']//field[@name='currency_id']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'readonly': [('pricelist_id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath
+                expr="//group[@id='header_right_group']/field[@name='currency_id']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'readonly': [('pricelist_id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//div[field[@name='journal_id']]" position="after">
+                <field
+                    name="pricelist_id"
+                    invisible="1"
+                    groups="!product.group_product_pricelist"
+                />
+                <field
+                    name="pricelist_id"
+                    groups="product.group_product_pricelist"
+                    attrs="{'invisible': [('move_type', 'not in', ['out_invoice', 'out_refund'])]}"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">account.invoice.select.account_pricelist</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//group/filter[@name='status']" position="after">
+                <filter
+                    string="Pricelist"
+                    name="pricelist"
+                    groups="product.group_product_pricelist"
+                    context="{'group_by':'pricelist_id'}"
+                    invisible="context.get('default_move_type', '') not in ['out_invoice', 'out_refund']"
+                />
+            </xpath>
+        </field>
+    </record>
+    <menuitem
+        id="menu_product_pricelist_main"
+        parent="account.menu_finance_receivables"
+        name="Pricelists"
+        action="product.product_pricelist_action2"
+        groups="product.group_product_pricelist"
+        sequence="105"
+    />
+</odoo>
