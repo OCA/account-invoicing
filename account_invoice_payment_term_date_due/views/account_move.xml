@@ -11,9 +11,9 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='invoice_payment_term_id']" position="after">
                 <i
-                    class="fa fa-arrow-right mx-3 text-muted pl-4 pt-1"
+                    class="fa fa-arrow-right mx-3 text-muted"
                     attrs="{'invisible': ['|', ('invoice_payment_term_id', '=', False), ('invoice_date_due', '=', False)]}"
-                    title="Arrow icon"
+                    style="padding-left: 30px;padding-top: 2px;"
                 />
                 <field
                     class="text-muted"
