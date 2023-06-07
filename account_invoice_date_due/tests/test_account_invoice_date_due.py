@@ -4,10 +4,20 @@
 from datetime import datetime, timedelta
 
 from odoo import fields
-from odoo.tests import Form, common
+from odoo.tests import tagged
+from odoo.tests.common import Form
+
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+
+# from dateutil.relativedelta import relativedelta
+# from freezegun import freeze_time
+# from collections import defaultdict
+
+# from odoo import fields
 
 
-class TestAccountInvoiceDateDue(common.TransactionCase):
+@tagged("post_install", "-at_install")
+class TestAccountInvoiceDateDue(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -56,15 +66,18 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
                 "account_type": "income_other",
             }
         )
+
         move_form = Form(cls.env["account.move"])
-        move_form.date = fields.Date.today()
+        move_form.invoice_date = fields.Date.today()
         with move_form.invoice_line_ids.new() as line_form:
             line_form.name = "move test"
-            line_form.amount_currency = -1200.0
+            line_form.debit = 0
+            line_form.credit = 1200
             line_form.account_id = account300
         with move_form.invoice_line_ids.new() as line_form:
             line_form.name = "move test"
-            line_form.amount_currency = 1200.0
+            line_form.debit = 1200
+            line_form.credit = 0
             line_form.account_id = account100
         cls.move = move_form.save()
 
