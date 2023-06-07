@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_currency_taxes>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_fiscal_position_update>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_merge>=16.0dev,<16.1dev',
+        'odoo-addon-account_invoice_pricelist>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_refund_link>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_tax_required>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_transmit_method>=16.0dev,<16.1dev',
