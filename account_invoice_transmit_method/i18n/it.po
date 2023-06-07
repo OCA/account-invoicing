@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-21 02:58+0000\n"
-"PO-Revision-Date: 2023-05-25 12:10+0000\n"
+"PO-Revision-Date: 2023-06-07 17:12+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -77,7 +77,7 @@ msgstr "Ultima modifica il"
 #. module: account_invoice_transmit_method
 #: field:transmit.method,write_uid:0
 msgid "Last Updated by"
-msgstr "Last Updated by"
+msgstr "Ultimo aggiornamento di"
 
 #. module: account_invoice_transmit_method
 #: field:transmit.method,write_date:0
