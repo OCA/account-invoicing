@@ -41,9 +41,7 @@ class TestInvoiceTripleDiscount(SavepointCase):
     @classmethod
     def _create_refund(cls, tax=False, date=False, in_type=False):
         refund_form = Form(
-            cls.env["account.move"].with_context(
-                default_move_type="in_refund"
-            )
+            cls.env["account.move"].with_context(default_move_type="in_refund")
         )
         # refund_form.partner_id = partner
         refund_form.name = "Test Refund for Triple Discount"
@@ -188,7 +186,7 @@ class TestInvoiceTripleDiscount(SavepointCase):
 
     def test_05_refund_negative_taxes(self):
         """
-        Tests refund negative taxes 
+        Tests refund negative taxes
         """
         invoice = self._create_refund(0)
         invoice_form = Form(invoice)
