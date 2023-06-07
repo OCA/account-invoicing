@@ -1,0 +1,73 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_refund_line_selection
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model,name:account_invoice_refund_line_selection.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields,help:account_invoice_refund_line_selection.field_account_move_reversal__refund_method
+msgid ""
+"Choose how you want to credit this invoice. You cannot \"modify\" nor "
+"\"cancel\" if the invoice is already reconciled."
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__refund_method
+msgid "Credit Method"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
+msgid "Invoice Lines"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__line_ids
+msgid "Invoice lines to refund"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields.selection,name:account_invoice_refund_line_selection.selection__account_move_reversal__refund_method__refund_lines
+msgid "Refund specific lines"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__selectable_invoice_lines_ids
+msgid "Selectable Invoice Lines"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
+msgid ""
+"Use this option if you want to refund only some specific lines in an "
+"invoice."
+msgstr ""

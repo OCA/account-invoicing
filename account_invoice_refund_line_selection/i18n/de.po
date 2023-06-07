@@ -1,0 +1,96 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_refund_line_selection
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2019-07-17 12:43+0000\n"
+"Last-Translator: Maria Sparenberg <maria.sparenberg@gmx.net>\n"
+"Language-Team: none\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.7.1\n"
+
+#. module: account_invoice_refund_line_selection
+#: selection:account.invoice.refund,filter_refund:0
+msgid "Cancel: create credit note and reconcile"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: code:addons/account_invoice_refund_line_selection/wizards/account_invoice_refund.py:48
+#, python-format
+msgid "Cannot create credit note for the draft/cancelled invoice."
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields,help:account_invoice_refund_line_selection.field_account_invoice_refund__filter_refund
+msgid ""
+"Choose how you want to credit this invoice. You cannot Modify and Cancel if "
+"the invoice is already reconciled"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: selection:account.invoice.refund,filter_refund:0
+msgid "Create a draft credit note"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_invoice_refund__filter_refund
+msgid "Credit Method"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: code:addons/account_invoice_refund_line_selection/wizards/account_invoice_refund.py:63
+#: model:ir.model,name:account_invoice_refund_line_selection.model_account_invoice_refund
+#, python-format
+msgid "Credit Note"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model,name:account_invoice_refund_line_selection.model_account_invoice
+msgid "Invoice"
+msgstr "Rechnung"
+
+#. module: account_invoice_refund_line_selection
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
+msgid "Invoice Lines"
+msgstr "Rechnungspositionen"
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_invoice_refund__selectable_invoice_lines_ids
+msgid "Invoice lines selectable"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_invoice_refund__line_ids
+msgid "Invoice lines to refund"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: selection:account.invoice.refund,filter_refund:0
+msgid "Modify: create credit note, reconcile and create a new draft invoice"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: selection:account.invoice.refund,filter_refund:0
+msgid "Refund specific lines"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: code:addons/account_invoice_refund_line_selection/models/account_invoice.py:27
+#, python-format
+msgid ""
+"This %s has been created from: <a href=# data-oe-model=account.invoice data-"
+"oe-id=%d>%s</a>"
+msgstr ""
+
+#. module: account_invoice_refund_line_selection
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
+msgid ""
+"Use this option if you want to refund only some specific lines in an invoice."
+msgstr ""
