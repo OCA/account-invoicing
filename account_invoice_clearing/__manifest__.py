@@ -4,7 +4,7 @@
 {
     "name": "Account Invoice Clearing",
     "summary": "Account invoice clearing wizard",
-    "version": "15.0.0.1.1",
+    "version": "15.0.0.1.2",
     "development_status": "Alpha",
     "category": "Accounting/Accounting",
     "website": "https://github.com/OCA/account-invoicing",
