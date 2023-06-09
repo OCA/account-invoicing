@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2021 ForgeFlow S.L. (http://www.forgeflow.com)
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+-->
+<odoo>
+    <record id="account_post_block_reason_tree_view" model="ir.ui.view">
+        <field name="name">account.post.block.reason.tree</field>
+        <field name="model">account.post.block.reason</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+    <record id="account_post_block_reason_form_view" model="ir.ui.view">
+        <field name="name">account.post.block.reason.form</field>
+        <field name="model">account.post.block.reason</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <group name="top" colspan="2" col="2">
+                        <field name="name" />
+                        <field name="description" />
+                        <field name="active" invisible="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_account_post_block_reason" model="ir.actions.act_window">
+        <field name="name">Account Post Block Reasons</field>
+        <field name="res_model">account.post.block.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_account_post_block_reason"
+        name="Account Post Block Reasons"
+        parent="account.account_invoicing_menu"
+        action="action_account_post_block_reason"
+    />
+</odoo>
