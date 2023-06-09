@@ -16,8 +16,10 @@ class AccountMove(models.Model):
         )
         wizard._compute_initial_data()
         wizard._onchange_move_type()
-        action = self.env.ref(
-            "account_invoice_clearing.action_account_invoice_clearing_wizard"
-        ).read()[0]
+        action = (
+            self.sudo()
+            .env.ref("account_invoice_clearing.action_account_invoice_clearing_wizard")
+            .read()[0]
+        )
         action["res_id"] = wizard.id
         return action
