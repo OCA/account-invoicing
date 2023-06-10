@@ -15,13 +15,13 @@ class AccountMove(models.Model):
         for line in self.invoice_line_ids.filtered("discount_fixed"):
             vals[line] = {"price_unit": line.price_unit}
             price_unit = line.price_unit - line.discount_fixed
-            line.update({"price_unit": price_unit})
-        res = super(AccountMove, self)._recompute_tax_lines(
+            line.write({"price_unit": price_unit})
+        res = super()._recompute_tax_lines(
             recompute_tax_base_amount=recompute_tax_base_amount,
             tax_rep_lines_to_recompute=tax_rep_lines_to_recompute,
         )
         for line in vals.keys():
-            line.update(vals[line])
+            line.write(vals[line])
         return res
 
 
@@ -48,15 +48,10 @@ class AccountMoveLine(models.Model):
     @api.constrains("discount", "discount_fixed")
     def _check_only_one_discount(self):
         for rec in self:
-            for line in rec:
-                if line.discount and line.discount_fixed:
-                    raise ValidationError(
-                        _("You can only set one type of discount per line.")
-                    )
-
-    @api.onchange("quantity", "discount", "price_unit", "tax_ids", "discount_fixed")
-    def _onchange_price_subtotal(self):
-        return super(AccountMoveLine, self)._onchange_price_subtotal()
+            if rec.discount and rec.discount_fixed:
+                raise ValidationError(
+                    _("You can only set one type of discount per line.")
+                )
 
     @api.model
     def _get_price_total_and_subtotal_model(
@@ -71,8 +66,8 @@ class AccountMoveLine(models.Model):
         move_type,
     ):
         if self.discount_fixed != 0:
-            discount = ((self.discount_fixed) / price_unit) * 100 or 0.00
-        return super(AccountMoveLine, self)._get_price_total_and_subtotal_model(
+            discount = (self.discount_fixed / price_unit) * 100 or 0.00
+        return super()._get_price_total_and_subtotal_model(
             price_unit, quantity, discount, currency, product, partner, taxes, move_type
         )
 
@@ -89,8 +84,8 @@ class AccountMoveLine(models.Model):
         force_computation=False,
     ):
         if self.discount_fixed != 0:
-            discount = ((self.discount_fixed) / self.price_unit) * 100 or 0.00
-        return super(AccountMoveLine, self)._get_fields_onchange_balance_model(
+            discount = (self.discount_fixed / self.price_unit) * 100 or 0.00
+        return super()._get_fields_onchange_balance_model(
             quantity,
             discount,
             amount_currency,
@@ -115,7 +110,7 @@ class AccountMoveLine(models.Model):
                 vals.update({"discount": fixed_discount, "discount_fixed": 0.00})
             elif vals.get("discount"):
                 prev_discount.append({"discount": vals.get("discount")})
-        res = super(AccountMoveLine, self).create(vals_list)
+        res = super().create(vals_list)
         i = 0
         for rec in res:
             if rec.discount and prev_discount:
