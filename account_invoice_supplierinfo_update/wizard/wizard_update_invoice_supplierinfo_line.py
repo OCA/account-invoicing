@@ -35,7 +35,9 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
         readonly=True,
     )
 
-    new_uom_id = fields.Many2one(comodel_name="uom.uom", string="New UoM")
+    new_uom_id = fields.Many2one(
+        comodel_name="uom.uom", string="New UoM", required=True
+    )
 
     current_price = fields.Float(
         related="supplierinfo_id.price",
@@ -84,10 +86,12 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
 
     @api.depends(lambda self: self._get_fields_depend_new_cost())
     def _compute_new_cost(self):
-        for line in self:
+        for line in self.filtered(lambda x: x.new_uom_id):
             line.new_cost = line.new_uom_id._compute_price(
                 line.new_price, line.product_uom_id
             )
+        for line in self.filtered(lambda x: not x.new_uom_id):
+            line.new_cost = 0.0
 
     @api.depends("current_cost", "new_cost")
     def _compute_cost_variation(self):
