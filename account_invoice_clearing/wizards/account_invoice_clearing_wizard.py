@@ -222,9 +222,11 @@ class AccountInvoiceClearingWizard(models.TransientModel):
     def action_reopen_wizard(self):
         """Reopen the wizard."""
         self.ensure_one()
-        action = self.env.ref(
-            "account_invoice_clearing.action_account_invoice_clearing_wizard"
-        ).read()[0]
+        action = (
+            self.sudo()
+            .env.ref("account_invoice_clearing.action_account_invoice_clearing_wizard")
+            .read()[0]
+        )
         action["res_id"] = self.id
         return action
 
