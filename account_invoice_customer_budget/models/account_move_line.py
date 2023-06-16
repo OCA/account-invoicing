@@ -14,9 +14,13 @@ class AccountInvoiceLine(models.Model):
         string="Budget",
         readonly=False,
         index=True,
-        domain="['|', '|', ('partner_id', '=', partner_id), "
+        domain="["
+        "('is_budget', '=', True),"
+        "('move_type', '=', 'out_invoice'),"
+        "('budget_total_residual', '>', 0.0),"
+        "'|', '|', ('partner_id', '=', partner_id), "
         "('partner_id', 'child_of', partner_id), ('partner_id', 'parent_of', partner_id), "
-        "('is_budget', '=', True)]",
+        "],",
     )
     budget_analytic_account_ids = fields.Many2many(
         "account.analytic.account",
