@@ -92,7 +92,7 @@ class AccountMove(models.Model):
         for move in self:
             budget_total_consumption = 0.0
             budget_untaxed_consumption = 0.0
-            if not move.is_budget:
+            if not move.is_budget or move.move_type != "out_invoice":
                 move.budget_total_consumption = 0.0
                 move.budget_untaxed_consumption = 0.0
                 move.budget_total_residual = 0.0
@@ -246,3 +246,16 @@ class AccountMove(models.Model):
                     )
 
         return super().action_post()
+
+    def name_get(self):
+        res = []
+        for move in self:
+            name = move.name
+            if move.is_budget and move.move_type == "out_invoice":
+                name = "%s (%s %s)" % (
+                    name,
+                    move.budget_untaxed_residual,
+                    move.currency_id.symbol,
+                )
+            res += [(move.id, name)]
+        return res
