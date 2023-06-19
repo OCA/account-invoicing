@@ -1,31 +1,24 @@
 # Copyright 2017 Tecnativa - David Vidal
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
-from odoo.exceptions import ValidationError
 from odoo.tests import TransactionCase
+from odoo.tests.common import Form
 
 
 class TestInvoiceFixedDiscount(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestInvoiceFixedDiscount, cls).setUpClass()
+
+        cls.env.user.groups_id |= cls.env.ref("account.group_account_invoice")
         cls.partner = cls.env["res.partner"].create({"name": "Test"})
         cls.product = cls.env.ref("product.product_product_3")
         cls.account = cls.env["account.account"].search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    cls.env.ref("account.data_account_type_revenue").id,
-                )
-            ],
+            [("account_type", "=", "income")],
             limit=1,
         )
-        type_current_liability = cls.env.ref(
-            "account.data_account_type_current_liabilities"
-        )
         cls.output_vat_acct = cls.env["account.account"].create(
-            {"name": "10", "code": "10", "user_type_id": type_current_liability.id}
+            {"name": "10", "code": "10", "account_type": "liability_current"}
         )
         cls.tax_group_vat = cls.env["account.tax.group"].create({"name": "VAT"})
         cls.vat = cls.env["account.tax"].create(
@@ -50,33 +43,35 @@ class TestInvoiceFixedDiscount(TransactionCase):
                 ],
             }
         )
+        cls.invoice = cls._create_invoice()
 
-    def _create_invoice(self, discount=0.00, discount_fixed=0.00):
+    @classmethod
+    def _create_invoice(cls, discount=0.00, discount_fixed=0.00):
         invoice_vals = [
             (
                 0,
                 0,
                 {
-                    "product_id": self.product.id,
+                    "product_id": cls.product.id,
                     "quantity": 1.0,
-                    "account_id": self.account.id,
+                    "account_id": cls.account.id,
                     "name": "Line 1",
                     "price_unit": 200.00,
                     "discount_fixed": discount_fixed,
                     "discount": discount,
-                    "tax_ids": [(6, 0, [self.vat.id])],
+                    "tax_ids": [(6, 0, [cls.vat.id])],
                 },
             )
         ]
         invoice = (
-            self.env["account.move"]
+            cls.env["account.move"]
             .with_context(check_move_validity=False)
             .create(
                 {
-                    "journal_id": self.env["account.journal"]
+                    "journal_id": cls.env["account.journal"]
                     .search([("type", "=", "sale")], limit=1)
                     .id,
-                    "partner_id": self.partner.id,
+                    "partner_id": cls.partner.id,
                     "move_type": "out_invoice",
                     "invoice_line_ids": invoice_vals,
                 }
@@ -84,24 +79,61 @@ class TestInvoiceFixedDiscount(TransactionCase):
         )
         return invoice
 
-    def test_01_discounts_fixed(self):
+    def test_01_discounts_fixed_single_unit(self):
         """Tests multiple discounts in line with taxes."""
-        invoice = self._create_invoice(discount_fixed=57)
-        with self.assertRaises(ValidationError):
-            invoice.invoice_line_ids.discount = 50
-        invoice.invoice_line_ids._onchange_discount_fixed()
-        self.assertEqual(invoice.invoice_line_ids.discount, 0.00)
-        invoice.invoice_line_ids._onchange_price_subtotal()
-        invoice.line_ids.write({"recompute_tax_line": True})
-        invoice._onchange_invoice_line_ids()
-        # compute amount total (200 - 57) * 10%
-        self.assertEqual(invoice.amount_total, 157.3)
-        self.assertEqual(invoice.invoice_line_ids.price_unit, 200.00)
-        self.assertEqual(invoice.invoice_line_ids.price_subtotal, 143.00)
 
-    def test_02_discounts(self):
-        invoice = self._create_invoice(discount=50)
-        invoice.invoice_line_ids._onchange_discount()
-        self.assertEqual(invoice.invoice_line_ids.discount_fixed, 0.00)
-        self.assertEqual(invoice.invoice_line_ids.price_unit, 200.00)
-        self.assertEqual(invoice.invoice_line_ids.price_subtotal, 100.00)
+        # Fixed discount 1.0 unit at 57.00
+        with Form(self.invoice) as invoice_form:
+            with invoice_form.invoice_line_ids.edit(0) as line:
+                line.discount_fixed = 57.00
+
+        # compute discount (57 / 200) * 100
+        self.assertEqual(self.invoice.invoice_line_ids.discount, 28.5)
+        # compute amount total (200 - 57) * 10%
+        self.assertEqual(self.invoice.amount_total, 157.3)
+        self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
+        self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143.00)
+
+        # Reset to regular discount at 20.00%
+        with Form(self.invoice) as invoice_form:
+            with invoice_form.invoice_line_ids.edit(0) as line:
+                # Force the fixed discount as the onchange does not
+                # handle the context properly
+                line.discount_fixed = 0.0
+                line.discount = 20.0
+
+        self.assertEqual(self.invoice.invoice_line_ids.discount_fixed, 0.0)
+        self.assertEqual(self.invoice.invoice_line_ids.discount, 20.0)
+        self.assertEqual(self.invoice.amount_total, 176.0)
+        self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
+        self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 160.00)
+
+    def test_02_discounts_fixed_multiple_units(self):
+        """Tests multiple discounts in line with taxes."""
+
+        # Fixed discount 2.0 units at 50.00
+        with Form(self.invoice) as invoice_form:
+            with invoice_form.invoice_line_ids.edit(0) as line:
+                line.discount_fixed = 25.00
+                line.quantity = 2.0
+
+        # compute discount ((50 / 2) / 200) * 100
+        self.assertEqual(self.invoice.invoice_line_ids.discount, 12.5)
+        self.assertEqual(self.invoice.amount_total, 385.0)
+        self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
+        self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 350)
+
+    def test_03_discount_fixed_no_tax(self):
+        """Tests fixed discount with no taxes."""
+
+        # Fixed discount 1.0 unit at 57.00
+        with Form(self.invoice) as invoice_form:
+            with invoice_form.invoice_line_ids.edit(0) as line:
+                line.tax_ids.clear()
+                line.discount_fixed = 57.00
+
+        # compute discount (57 / 200) * 100
+        self.assertEqual(self.invoice.invoice_line_ids.discount, 28.5)
+        self.assertEqual(self.invoice.amount_total, 143)
+        self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
+        self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143)
