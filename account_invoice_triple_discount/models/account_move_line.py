@@ -72,20 +72,24 @@ class AccountMoveLine(models.Model):
         """
         old_values_by_line_id = {}
         digits = self._fields["discount"]._digits
-        self._fields["discount"]._digits = (16, 16)
-        for line in self:
-            aggregated_discount = line._compute_aggregated_discount(line.discount)
-            old_values_by_line_id[line.id] = {"discount": line.discount}
-            line.update({"discount": aggregated_discount})
-        res = super()._compute_totals()
-        self._fields["discount"]._digits = digits
-        for line in self:
-            if line.id not in old_values_by_line_id:
-                continue
-            line.with_context(
-                restoring_triple_discount=True,
-            ).update(old_values_by_line_id[line.id])
-        return res
+        try:
+            self._fields["discount"]._digits = (16, 16)
+            for line in self:
+                aggregated_discount = line._compute_aggregated_discount(line.discount)
+                old_values_by_line_id[line.id] = {"discount": line.discount}
+                line.update({"discount": aggregated_discount})
+            res = super()._compute_totals()
+            self._fields["discount"]._digits = digits
+            for line in self:
+                if line.id not in old_values_by_line_id:
+                    continue
+                line.with_context(
+                    restoring_triple_discount=True,
+                ).update(old_values_by_line_id[line.id])
+            return res
+        except Exception:
+            self._fields["discount"]._digits = digits
+            raise
 
     @api.depends(
         "tax_ids",
@@ -106,21 +110,25 @@ class AccountMoveLine(models.Model):
         restored after the original process is done
         """
         digits = self._fields["discount"]._digits
-        self._fields["discount"]._digits = (16, 16)
-        old_values_by_line_id = {}
-        for line in self:
-            aggregated_discount = line._compute_aggregated_discount(line.discount)
-            old_values_by_line_id[line.id] = {"discount": line.discount}
-            line.update({"discount": aggregated_discount})
-        res = super()._compute_all_tax()
-        self._fields["discount"]._digits = digits
-        for line in self:
-            if line.id not in old_values_by_line_id:
-                continue
-            line.with_context(
-                restoring_triple_discount=True,
-            ).update(old_values_by_line_id[line.id])
-        return res
+        try:
+            self._fields["discount"]._digits = (16, 16)
+            old_values_by_line_id = {}
+            for line in self:
+                aggregated_discount = line._compute_aggregated_discount(line.discount)
+                old_values_by_line_id[line.id] = {"discount": line.discount}
+                line.update({"discount": aggregated_discount})
+            res = super()._compute_all_tax()
+            self._fields["discount"]._digits = digits
+            for line in self:
+                if line.id not in old_values_by_line_id:
+                    continue
+                line.with_context(
+                    restoring_triple_discount=True,
+                ).update(old_values_by_line_id[line.id])
+            return res
+        except Exception:
+            self._fields["discount"]._digits = digits
+            raise
 
     def _convert_to_tax_base_line_dict(self):
         res = super()._convert_to_tax_base_line_dict()
