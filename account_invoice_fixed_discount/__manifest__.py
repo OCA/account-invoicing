@@ -4,7 +4,7 @@
 {
     "name": "Account Fixed Discount",
     "summary": "Allows to apply fixed amount discounts in invoices.",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
@@ -12,5 +12,9 @@
     "application": False,
     "installable": True,
     "depends": ["account"],
-    "data": ["views/account_move_view.xml", "reports/report_account_invoice.xml"],
+    "data": [
+        "security/res_groups.xml",
+        "views/account_move_view.xml",
+        "reports/report_account_invoice.xml",
+    ],
 }

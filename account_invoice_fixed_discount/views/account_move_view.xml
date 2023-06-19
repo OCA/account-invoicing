@@ -12,7 +12,7 @@
             >
                 <field
                     name="discount_fixed"
-                    groups="base.group_no_one"
+                    groups="account_invoice_fixed_discount.group_fixed_discount"
                     optional="show"
                 />
             </xpath>
@@ -20,13 +20,10 @@
                 expr="//field[@name='invoice_line_ids']/form/sheet/group/field[@name='discount']"
                 position="before"
             >
-                <field name="discount_fixed" groups="base.group_no_one" />
-            </xpath>
-            <xpath
-                expr="//field[@name='line_ids']/tree/field[@name='discount']"
-                position="before"
-            >
-                <field name="discount_fixed" invisible="1" />
+                <field
+                    name="discount_fixed"
+                    groups="account_invoice_fixed_discount.group_fixed_discount"
+                />
             </xpath>
         </field>
     </record>
