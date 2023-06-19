@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,7 +15,24 @@ msgstr ""
 
 #. module: account_invoice_fixed_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
-msgid "<span>Disc. Fixed Amount</span>"
+msgid "(or"
+msgstr ""
+
+#. module: account_invoice_fixed_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
+msgid "<span>Disc. %</span>"
+msgstr ""
+
+#. module: account_invoice_fixed_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
+msgid "<span>Discount Amount (%)</span>"
+msgstr ""
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model.fields,help:account_invoice_fixed_discount.field_account_move_line__discount_fixed
+msgid ""
+"Apply a fixed amount discount to this line. The amount is multiplied by the "
+"quantity of the product."
 msgstr ""
 
 #. module: account_invoice_fixed_discount
@@ -24,13 +41,8 @@ msgid "Discount (Fixed)"
 msgstr ""
 
 #. module: account_invoice_fixed_discount
-#: model:ir.model.fields,help:account_invoice_fixed_discount.field_account_move_line__discount_fixed
-msgid "Fixed amount discount."
-msgstr ""
-
-#. module: account_invoice_fixed_discount
-#: model:ir.model,name:account_invoice_fixed_discount.model_account_move
-msgid "Journal Entry"
+#: model:res.groups,name:account_invoice_fixed_discount.group_fixed_discount
+msgid "Fixed Discount"
 msgstr ""
 
 #. module: account_invoice_fixed_discount
@@ -39,7 +51,6 @@ msgid "Journal Item"
 msgstr ""
 
 #. module: account_invoice_fixed_discount
-#: code:addons/account_invoice_fixed_discount/models/account_move.py:0
-#, python-format
-msgid "You can only set one type of discount per line."
+#: model:ir.model,name:account_invoice_fixed_discount.model_account_tax
+msgid "Tax"
 msgstr ""
