@@ -87,6 +87,7 @@ class AccountMove(models.Model):
         "budget_consumption_line_ids.parent_state",
         "amount_total",
         "reversal_move_id",
+        "reversal_move_id.state",
     )
     def _compute_budget_total_consumptions(self):
         for move in self:
