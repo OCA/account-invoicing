@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="group_fixed_discount" model="res.groups">
+            <field name="name">Fixed Discount</field>
+        </record>
+
+    </data>
+
+    <data noupdate="1">
+        <record id="account.group_account_invoice" model="res.groups">
+            <field
+                name="implied_ids"
+                eval="[(4, ref('account_invoice_fixed_discount.group_fixed_discount'))]"
+            />
+        </record>
+    </data>
+
+
+</odoo>
