@@ -89,42 +89,51 @@ class AccountMove(models.Model):
         for inv_line in _self.invoice_line_ids.filtered(
             lambda l: l.display_type not in ["line_section", "line_note"]
         ):
-            for key in taxes_keys:
-                if key == tuple(inv_line.tax_ids.ids):
-                    break
-            else:
-                taxes_keys[tuple(inv_line.tax_ids.ids)] = True
+            if not inv_line.product_id or inv_line.product_id.apply_global_discount:
+                taxes_keys.setdefault(tuple(inv_line.tax_ids.ids), 0)
+                taxes_keys[tuple(inv_line.tax_ids.ids)] += inv_line.price_subtotal
         # Reset previous global discounts
         self.invoice_global_discount_ids -= self.invoice_global_discount_ids
         model = "account.invoice.global.discount"
         create_method = in_draft_mode and self.env[model].new or self.env[model].create
         for tax_line in _self.line_ids.filtered("tax_line_id"):
-            key = []
-            to_create = True
-            for key in taxes_keys:
-                if tax_line.tax_line_id.id in key:
-                    to_create = taxes_keys[key]
-                    taxes_keys[key] = False  # mark for not duplicating
-                    break  # we leave in key variable the proper taxes value
-            if not to_create:
-                continue
-            base = tax_line.base_before_global_discounts or tax_line.tax_base_amount
-            for global_discount in self.global_discount_ids:
-                vals = self._prepare_global_discount_vals(global_discount, base, key)
-                create_method(vals)
-                base = vals["base_discounted"]
-        # Check all moves with defined taxes to check if there's any discount not
-        # created (tax amount is zero and only one tax is applied)
-        for line in _self.line_ids.filtered("tax_ids"):
-            key = tuple(line.tax_ids.ids)
-            if taxes_keys.get(key):
-                base = line.price_subtotal
+            if not tax_line.product_id or tax_line.product_id.apply_global_discount:
+                key = []
+                discount_line_base = 0
+                for key in taxes_keys:
+                    if tax_line.tax_line_id.id in key:
+                        discount_line_base = taxes_keys[key]
+                        taxes_keys[key] = 0  # mark for not duplicating
+                        break  # we leave in key variable the proper taxes value
+                if not discount_line_base:
+                    continue
                 for global_discount in self.global_discount_ids:
                     vals = self._prepare_global_discount_vals(
-                        global_discount, base, key
+                        global_discount, discount_line_base, key
                     )
                     create_method(vals)
-                    base = vals["base_discounted"]
+                    discount_line_base = vals["base_discounted"]
+        _self._set_global_discounts_by_zero_tax(taxes_keys, create_method)
+
+    def _set_global_discounts_by_zero_tax(self, taxes_keys, create_method):
+        # Check all moves with defined taxes to check if there's any discount not
+        # created (tax amount is zero and only one tax is applied)
+        base_total = 0
+        zero_taxes = self.env["account.tax"]
+        for line in self.line_ids.filtered("tax_ids"):
+            if not line.product_id or line.product_id.apply_global_discount:
+                key = tuple(line.tax_ids.ids)
+                if taxes_keys.get(key):
+                    base_total += line.price_subtotal
+                    zero_taxes |= line.tax_ids
+        for global_discount in self.global_discount_ids:
+            if not base_total:
+                break
+            vals = self._prepare_global_discount_vals(
+                global_discount, base_total, zero_taxes.ids
+            )
+            create_method(vals)
+            base_total = vals["base_discounted"]
 
     def _recompute_global_discount_lines(self):
         """Append global discounts move lines.
@@ -230,6 +239,23 @@ class AccountMove(models.Model):
             record._compute_amount_one()
         return res
 
+    def _clean_global_discount_lines(self):
+        self.ensure_one()
+        gbl_disc_lines = self.env["account.move.line"].search(
+            [
+                ("move_id", "=", self.id),
+                "|",
+                ("global_discount_item", "=", True),
+                ("invoice_global_discount_id", "!=", False),
+            ]
+        )
+        if gbl_disc_lines:
+            move_container = {"records": self}
+            with self._check_balanced(move_container), self._sync_dynamic_lines(
+                move_container
+            ):
+                gbl_disc_lines.unlink()
+
     @api.model_create_multi
     def create(self, vals_list):
         """If we create the invoice with the discounts already set like from
@@ -238,6 +264,8 @@ class AccountMove(models.Model):
         """
         moves = super().create(vals_list)
         for move in moves:
+            if move.move_type in ["out_refund", "in_refund"]:
+                move._clean_global_discount_lines()
             move._set_global_discounts_by_tax()
             move._recompute_global_discount_lines()
         return moves
@@ -246,20 +274,7 @@ class AccountMove(models.Model):
         res = super().write(vals)
         if "invoice_line_ids" in vals or "global_discount_ids" in vals:
             for move in self:
-                gbl_disc_lines = self.env["account.move.line"].search(
-                    [
-                        ("move_id", "=", move.id),
-                        "|",
-                        ("global_discount_item", "=", True),
-                        ("invoice_global_discount_id", "!=", False),
-                    ]
-                )
-                if gbl_disc_lines:
-                    move_container = {"records": move}
-                    with self._check_balanced(move_container), self._sync_dynamic_lines(
-                        move_container
-                    ):
-                        gbl_disc_lines.unlink()
+                move._clean_global_discount_lines()
                 move._set_global_discounts_by_tax()
                 move._recompute_global_discount_lines()
             move_container = {"records": self}

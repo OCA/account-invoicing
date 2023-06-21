@@ -30,25 +30,25 @@
                 <field
                     name="amount_untaxed_before_global_discounts"
                     string="Untaxed Amount Before Disc."
-                    attrs="{'invisible': [('global_discount_ids', '=', [])]}"
+                    attrs="{'invisible': ['|',('global_discount_ids', '=', []),('invoice_global_discount_ids','=',[])]}"
                     groups="base_global_discount.group_global_discount"
                 />
                 <field
                     name="amount_untaxed_before_global_discounts"
                     string="Untaxed Amount Before Disc."
-                    attrs="{'invisible': [('global_discount_ids_readonly', '=', [])]}"
+                    attrs="{'invisible': ['|',('global_discount_ids_readonly', '=', []),('invoice_global_discount_ids','=',[])]}"
                     groups="!base_global_discount.group_global_discount"
                 />
                 <field
                     name="amount_global_discount"
                     string="Global Discounts"
-                    attrs="{'invisible': [('global_discount_ids', '=', [])]}"
+                    attrs="{'invisible': ['|',('global_discount_ids', '=', []),('invoice_global_discount_ids','=',[])]}"
                     groups="base_global_discount.group_global_discount"
                 />
                 <field
                     name="amount_global_discount"
                     string="Global Discounts"
-                    attrs="{'invisible': [('global_discount_ids_readonly', '=', [])]}"
+                    attrs="{'invisible': ['|',('global_discount_ids_readonly', '=', []),('invoice_global_discount_ids','=',[])]}"
                     groups="!base_global_discount.group_global_discount"
                 />
             </field>
