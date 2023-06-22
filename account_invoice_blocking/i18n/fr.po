@@ -1,0 +1,42 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_blocking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#. module: account_invoice_blocking
+#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_move__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_blocking
+#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_blocking
+#: model:ir.model,name:account_invoice_blocking.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_blocking
+#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_move____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_blocking
+#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_bank_statement_line__blocked
+#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_move__blocked
+#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_payment__blocked
+msgid "No Follow-up"
+msgstr ""
