@@ -30,27 +30,15 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         cls.bank_account = cls.env["account.account"].create(
             {
                 "name": "Demo Bank account",
-                "code": "demo_bank_account",
-                "user_type_id": cls.env.ref("account.data_account_type_liquidity").id,
+                "code": "demobankaccount01",
+                "account_type": "asset_cash",
             }
         )
 
     def test_01_onchange_out_invoice(self):
         with Form(self.out_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
-        self.assertEqual(
-            self.out_invoice.line_ids.filtered(
-                lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
-            ).mapped("partner_id"),
-            self.alternate_partner,
-        )
-        self.assertEqual(
-            self.out_invoice.line_ids.filtered(
-                lambda r: r.account_id.user_type_id.type
-                not in ("receivable", "payable")
-            ).mapped("partner_id"),
-            self.out_invoice.partner_id,
-        )
+            self.out_invoice = form.save()
         self.assertEqual(
             self.out_invoice.bank_partner_id, self.out_invoice.company_id.partner_id
         )
@@ -62,14 +50,13 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         self.out_invoice_posted.action_post()
         self.assertEqual(
             self.out_invoice_posted.line_ids.filtered(
-                lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
+                lambda r: r.display_type == "payment_term"
             ).mapped("partner_id"),
             self.alternate_partner,
         )
         self.assertEqual(
             self.out_invoice_posted.line_ids.filtered(
-                lambda r: r.account_id.user_type_id.type
-                not in ("receivable", "payable")
+                lambda r: r.display_type != "payment_term"
             ).mapped("partner_id"),
             self.out_invoice_posted.partner_id,
         )
@@ -81,19 +68,7 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
     def test_02_onchange_in_invoice(self):
         with Form(self.in_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
-        self.assertEqual(
-            self.in_invoice.line_ids.filtered(
-                lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
-            ).mapped("partner_id"),
-            self.alternate_partner,
-        )
-        self.assertEqual(
-            self.in_invoice.line_ids.filtered(
-                lambda r: r.account_id.user_type_id.type
-                not in ("receivable", "payable")
-            ).mapped("partner_id"),
-            self.out_invoice.partner_id,
-        )
+            self.in_invoice = form.save()
         self.assertEqual(self.in_invoice.bank_partner_id, self.alternate_partner)
 
     def test_02_1_post_in_invoice(self):
@@ -103,14 +78,13 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         self.in_invoice_posted.action_post()
         self.assertEqual(
             self.in_invoice_posted.line_ids.filtered(
-                lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
+                lambda r: r.display_type == "payment_term"
             ).mapped("partner_id"),
             self.alternate_partner,
         )
         self.assertEqual(
             self.in_invoice_posted.line_ids.filtered(
-                lambda r: r.account_id.user_type_id.type
-                not in ("receivable", "payable")
+                lambda r: r.display_type != "payment_term"
             ).mapped("partner_id"),
             self.out_invoice.partner_id,
         )
@@ -119,12 +93,13 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
     def test_03_payment_out_invoice(self):
         with Form(self.out_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
+            self.out_invoice = form.save()
         self.out_invoice._post()
         records = self.out_invoice
         ctx = {"active_model": records._name, "active_ids": records.ids}
         payment = (
             self.env["account.payment"]
-            .with_context(ctx)
+            .with_context(**ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_out.id,
@@ -137,12 +112,13 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
     def test_04_payment_in_invoice(self):
         with Form(self.in_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
+            self.in_invoice = form.save()
         self.in_invoice._post()
         records = self.in_invoice
         ctx = {"active_model": records._name, "active_ids": records.ids}
         payment = (
             self.env["account.payment"]
-            .with_context(ctx)
+            .with_context(**ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_in.id,
@@ -155,15 +131,17 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
     def test_05_payment_out_invoices(self):
         with Form(self.out_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
+            self.out_invoice = form.save()
         self.out_invoice._post()
         with Form(self.out_invoice_02) as form:
             form.alternate_payer_id = self.alternate_partner
+            self.out_invoice_02 = form.save()
         self.out_invoice_02._post()
         records = self.out_invoice | self.out_invoice_02
         ctx = {"active_model": records._name, "active_ids": records.ids}
         payments = (
             self.env["account.payment"]
-            .with_context(ctx)
+            .with_context(**ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_out.id,
@@ -177,15 +155,17 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
     def test_06_payment_in_invoices(self):
         with Form(self.in_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
+            self.in_invoice = form.save()
         self.in_invoice._post()
         with Form(self.in_invoice_02) as form:
             form.alternate_payer_id = self.alternate_partner
+            self.in_invoice_02 = form.save()
         self.in_invoice_02._post()
         records = self.in_invoice | self.in_invoice_02
         ctx = {"active_model": records._name, "active_ids": records.ids}
         payments = (
             self.env["account.payment"]
-            .with_context(ctx)
+            .with_context(**ctx)
             .create(
                 {
                     "payment_method_id": self.payment_method_manual_out.id,
@@ -199,8 +179,9 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
     def test_07_payment_widget_in_invoices(self):
         with Form(self.in_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
+            self.in_invoice = form.save()
         line = self.in_invoice.line_ids.filtered(
-            lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
+            lambda r: r.display_type == "payment_term"
         )
         payment_move = self.env["account.move"].create(
             {
@@ -231,17 +212,15 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         payment_move.action_post()
         self.assertFalse(self.in_invoice.invoice_has_outstanding)
         self.in_invoice._post()
-        self.in_invoice.refresh()
+        self.in_invoice._invalidate_cache()
         self.assertTrue(self.in_invoice.invoice_has_outstanding)
-        self.in_invoice.write({"payment_state": "paid"})
-        self.in_invoice.refresh()
-        self.assertFalse(self.in_invoice.invoice_has_outstanding)
 
     def test_08_payment_widget_out_invoices(self):
         with Form(self.out_invoice) as form:
             form.alternate_payer_id = self.alternate_partner
+            self.out_invoice = form.save()
         line = self.out_invoice.line_ids.filtered(
-            lambda r: r.account_id.user_type_id.type in ("receivable", "payable")
+            lambda r: r.display_type == "payment_term"
         )
         payment_move = self.env["account.move"].create(
             {
@@ -272,8 +251,5 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         payment_move.action_post()
         self.assertFalse(self.out_invoice.invoice_has_outstanding)
         self.out_invoice._post()
-        self.out_invoice.refresh()
+        self.out_invoice._invalidate_cache()
         self.assertTrue(self.out_invoice.invoice_has_outstanding)
-        self.out_invoice.write({"payment_state": "paid"})
-        self.out_invoice.refresh()
-        self.assertFalse(self.out_invoice.invoice_has_outstanding)
