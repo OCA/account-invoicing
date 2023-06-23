@@ -5,7 +5,7 @@
     "name": "Restrict Invoice created from SO",
     "summary": "Restricts editing the Product, Quantity and Unit Price "
     "columns for invoice lines that originated in Sales Orders.",
-    "version": "14.0.1.0.1",
+    "version": "15.0.1.0.1",
     "category": "Accounting",
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
