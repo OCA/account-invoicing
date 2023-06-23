@@ -3,10 +3,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import datetime
 
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestAccountInvoiceRefundReason(SavepointCase):
+class TestAccountInvoiceRefundReason(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -19,15 +19,13 @@ class TestAccountInvoiceRefundReason(SavepointCase):
 
         cls.payment_term = cls.env.ref("account.account_payment_term_advance")
         cls.partner3 = cls.env.ref("base.res_partner_3")
-        cls.account_user_type = cls.env.ref("account.data_account_type_receivable")
         cls.product_id = cls.env.ref("product.product_product_5")
-        cls.account_revenue = cls.env.ref("account.data_account_type_revenue")
 
         cls.journal = cls.journal_obj.search([("type", "=", "sale")])
         if cls.journal:
             cls.journal = cls.journal[0]
         cls.account_id = cls.account_obj.search(
-            [("user_type_id", "=", cls.account_revenue.id)], limit=1
+            [("account_type", "=", "income")], limit=1
         )
         cls.reason_id = cls.env["account.move.refund.reason"].create(
             {"name": "Cancellation"}
@@ -35,10 +33,9 @@ class TestAccountInvoiceRefundReason(SavepointCase):
 
         cls.account_rec1_id = cls.account_obj.create(
             dict(
-                code="cust_acc",
+                code="custacc",
                 name="customer account",
-                user_type_id=cls.account_user_type.id,
-                reconcile=True,
+                account_type="asset_receivable",
             )
         )
         invoice_line_data = [
@@ -75,6 +72,7 @@ class TestAccountInvoiceRefundReason(SavepointCase):
                 refund_method="refund",
                 date=datetime.date.today(),
                 reason_id=self.reason_id.id,
+                journal_id=self.account_invoice_customer0.journal_id.id,
             )
         )
         self.account_invoice_refund_0._onchange_reason_id()
