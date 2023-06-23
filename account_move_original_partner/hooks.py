@@ -9,9 +9,8 @@ _logger = getLogger(__name__)
 
 
 def post_init_hook(cr, registry):
-    with api.Environment.manage():
-        env = api.Environment(cr, SUPERUSER_ID, {})
-        force_compute_original_partners(env)
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    force_compute_original_partners(env)
 
 
 def force_compute_original_partners(env):

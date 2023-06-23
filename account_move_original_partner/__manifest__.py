@@ -3,7 +3,7 @@
 
 {
     "name": "Acccount Move Original Partners",
-    "version": "14.0.1.0.0",
+    "version": "15.0.1.0.0",
     "summary": "Display original customers when creating invoices from"
     " multiple sale orders.",
     "author": "Camptocamp, Odoo Community Association (OCA)",
