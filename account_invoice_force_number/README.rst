@@ -78,7 +78,6 @@ Contributors
 * Simone Vanin <simone.vanin@agilebg.com> (https://www.agilebg.com/)
 * Juany Davila <juany.davila@forgeflow.com>
 
-
 Maintainers
 ~~~~~~~~~~~
 
