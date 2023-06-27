@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="account_move_note_form_view">
+        <field
+            name="name"
+        >account_move_note.form (in account_invoice_validation)</field>
+        <field name="model">account.move.note</field>
+        <field name="arch" type="xml">
+            <form string="note">
+                <sheet>
+                    <group>
+                        <field
+                            name="date"
+                            widget="date"
+                            string="Date"
+                            invisible="context.get('movingToState', 'blocked') != 'blocked'"
+                        />
+                        <field name="note" string="Message" />
+                    </group>
+                </sheet>
+                <footer>
+                <button
+                        name="action_send_note"
+                        string="Continue"
+                        type="object"
+                        class="btn-info"
+                    />
+            </footer>
+            </form>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="account_move_note_act_window">
+        <field name="name">Account move note</field>
+        <field name="res_model">account.move.note</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="account_move_note_form_view" />
+    </record>
+</odoo>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="account_invoice_form_view">
+        <field name="name">Account.move.form (in account_invoice_validation)</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="priority" eval="120" />
+        <field name="arch" type="xml">
+
+            <widget name="web_ribbon" position="after">
+                <widget
+                    name="web_ribbon"
+                    title="Waiting approval"
+                    bg_color="bg-primary"
+                    attrs="{'invisible': [('validation_state', '!=', 'wait_approval')]}"
+                />
+                <widget
+                    name="web_ribbon"
+                    title="Accepted"
+                    bg_color="bg-success"
+                    attrs="{'invisible': [('validation_state', '!=', 'accepted')]}"
+                />
+                <widget
+                    name="web_ribbon"
+                    title="Refused"
+                    bg_color="bg-danger"
+                    attrs="{'invisible': [('validation_state', '!=', 'refused')]}"
+                />
+                <widget
+                    name="web_ribbon"
+                    title="Waiting/Blocked"
+                    bg_color="bg-danger"
+                    attrs="{'invisible': [('validation_state', '!=', 'locked')]}"
+                />
+            </widget>
+
+            <group name="accounting_info_group" position="after">
+                <group
+                    string="Invoice Validation"
+                    name="invoice_validation_group"
+                    attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])]}"
+                >
+                    <field name="can_edit_validation_user" invisible="1" />
+                    <field
+                        name="validation_user_id"
+                        attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])], 'readonly': [('can_edit_validation_user','=',False)]}"
+                    />
+                    <field
+                        name="validation_state"
+                        attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])]}"
+                    />
+                    <field
+                        name="pending_date"
+                        attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])]}"
+                    />
+                    <field name="date_assignation" groups="base.group_no_one" />
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_invoice_tree_view">
+        <field name="name">Account.move.tree (in account_invoice_validation)</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_in_invoice_bill_tree" />
+        <field name="priority" eval="90" />
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="validation_state" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_invoice_search_view">
+        <field name="name">Account.move.search (in account_invoice_validation)</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="priority" eval="90" />
+        <field name="arch" type="xml">
+            <filter name="due_date" position="after">
+                <separator />
+                <filter
+                    string="Is Waiting Approval"
+                    name="waiting_approval_filter"
+                    domain="[('validation_state', '=', 'wait_approval')]"
+                />
+                <filter
+                    string="Is Accepted"
+                    name="accepted_filter"
+                    domain="[('validation_state', '=', 'accepted')]"
+                />
+                <filter
+                    string="Is Refused"
+                    name="refused_filter"
+                    domain="[('validation_state', '=', 'refused')]"
+                />
+                <filter
+                    string="Is Waiting/Blocked"
+                    name="is_locked_filter"
+                    domain="[('validation_state', '=', 'locked'),('pending_date','&gt;',current_date)]"
+                />
+                <filter
+                    string="Was Waiting/Blocked"
+                    name="was_locked_filter"
+                    domain="[('validation_state', '=', 'locked'),('pending_date','&lt;=',current_date)]"
+                />
+            </filter>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_invoice_validation_form_view">
+        <field
+            name="name"
+        >Invoice Validation Form (in account_invoice_validation)</field>
+        <field name="model">account.move</field>
+        <field name="priority" eval="90" />
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <field name="state" invisible="1" />
+                    <field name="validation_state" invisible="1" />
+                    <widget
+                        name="web_ribbon"
+                        title="Waiting approval"
+                        bg_color="bg-primary"
+                        attrs="{'invisible': [('validation_state', '!=', 'wait_approval')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        title="Accepted"
+                        bg_color="bg-success"
+                        attrs="{'invisible': [('validation_state', '!=', 'accepted')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        title="Refused"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('validation_state', '!=', 'refused')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        title="Waiting/Blocked"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('validation_state', '!=', 'locked')]}"
+                    />
+                    <group string="Invoice">
+
+                        <!-- Invoice -->
+                        <button
+                            name="action_open_invoice"
+                            string="Display invoice"
+                            type="object"
+                            class="btn-info"
+                            colspan="2"
+                        />
+                        <field name="move_type" />
+                        <field name="company_id" invisible="1" />
+                        <field name="partner_id" string="Vendor" />
+                        <field name="amount_total" />
+                    </group>
+                    <group string="Assign">
+
+                        <!-- Assign -->
+                        <field name="ref" />
+                        <field name="invoice_date" />
+                        <field name="can_edit_validation_user" invisible="1" />
+                        <field
+                            name="validation_user_id"
+                            attrs="{'readonly': [('can_edit_validation_user','=',False)]}"
+                        />
+                    </group>
+                    <group>
+                        <div class="o_row">
+                            <button
+                                name="action_accept_state"
+                                string="Accept"
+                                type="object"
+                                class="btn-success"
+                            />
+                            <button
+                                name="action_refuse_state"
+                                string="Refuse"
+                                type="object"
+                                class="btn-danger"
+                            />
+                            <button
+                                name="action_block_state"
+                                string="Block"
+                                type="object"
+                                class="btn-warning"
+                            />
+                            <button
+                                name="action_assign"
+                                string="Assign"
+                                type="object"
+                                class="btn-primary"
+                            />
+                        </div>
+                    </group>
+                </sheet>
+
+                <div class="o_attachment_preview" />
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_move_search_view">
+        <field
+            name="name"
+        >Invoice Validation Search (in account_invoice_validation)</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <filter
+                    string="Is Waiting Approval"
+                    name="waiting_approval_filter"
+                    domain="[('validation_state', '=', 'wait_approval')]"
+                />
+                <filter
+                    string="Is Accepted"
+                    name="accepted_filter"
+                    domain="[('validation_state', '=', 'accepted')]"
+                />
+                <filter
+                    string="Is Refused"
+                    name="refused_filter"
+                    domain="[('validation_state', '=', 'refused')]"
+                />
+                <filter
+                    string="Is Waiting/Blocked"
+                    name="is_locked_filter"
+                    domain="[('validation_state', '=', 'locked'),('pending_date','&gt;',current_date)]"
+                />
+                <filter
+                    string="Was Waiting/Blocked"
+                    name="was_locked_filter"
+                    domain="[('validation_state', '=', 'locked'),('pending_date','&lt;=',current_date)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="account_invoice_validation_tree_view">
+        <field
+            name="name"
+        >Invoice Validation Tree (in account_invoice_validation)</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="state" />
+                <field name="validation_state" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="account_move_act_window">
+        <field name="name">Invoice validation</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('validation_user_id', '=', uid),('move_type',
+            'in', ('in_invoice', 'in_refund'))]</field>
+        <field name="context">{'create':
+            0,'search_default_waiting_approval_filter':1,'search_default_was_locked_filter':1}</field>
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('account_invoice_validation_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('account_invoice_validation_form_view')}),
+                ]"
+        />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Nothing to validate
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.ui.menu" id="validation_menu">
+        <field name="name">Invoice validation </field>
+        <field name="action" ref="account_move_act_window" />
+        <field name="sequence" eval="16" />
+        <field name="groups_id" eval="[(4,ref('group_account_invoice_validation'))]" />
+    </record>
+
+
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="account_config_settings_form_view">
+        <field
+            name="name"
+        >Account.config.settings.form (in account_invoice_validation)</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="priority" eval="90" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//div[hasclass('app_settings_block')]//div[@id='quick_edit_mode']"
+                position="after"
+            >
+                <h2>Invoice Validation</h2>
+                <div
+                    class="row mt16 o_settings_container"
+                    name="invoice_validation_setting_container"
+                >
+                    <div class="col-12 col-lg-12 o_setting_box" id="invoice_validation">
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="validation_user_id" />
+                                    <div>
+                                        <field name="validation_user_id" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

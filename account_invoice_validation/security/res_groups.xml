@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="res.groups" id="group_account_invoice_validation">
+        <field name="name">Invoice validation</field>
+    </record>
+    <record model="ir.model.access" id="model_access_account_move_validation">
+        <field name="name">account.move invoice validation flow access</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="group_id" ref="group_account_invoice_validation" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+    <record model="ir.model.access" id="model_access_account_move_line_validation">
+        <field name="name">account.move.line invoice validation access</field>
+        <field name="model_id" ref="account.model_account_move_line" />
+        <field name="group_id" ref="group_account_invoice_validation" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+    <record id="ir_rule_account_move_validation" model="ir.rule">
+        <field name="name">account.move invoice validation access</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="groups" eval="[(4, ref('group_account_invoice_validation'))]" />
+        <field name="domain_force">
+            [('validation_user_id', '=', user.id), ('move_type', 'in', ('in_invoice', 'in_refund'))]
+        </field>
+    </record>
+    <record id="ir_rule_account_move_line_validation" model="ir.rule">
+        <field name="name">account.move.line invoice validation access</field>
+        <field name="model_id" ref="account.model_account_move_line" />
+        <field name="groups" eval="[(4, ref('group_account_invoice_validation'))]" />
+        <field name="domain_force">
+            [('move_id.validation_user_id', '=', user.id), ('move_id.move_type', 'in', ('in_invoice', 'in_refund'))]
+        </field>
+    </record>
+    <record model="ir.model.access" id="model_access_account_root_validation">
+        <field name="name">account.root invoice validation access</field>
+        <field name="model_id" ref="account.model_account_root" />
+        <field name="group_id" ref="group_account_invoice_validation" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="0" />
+        <field name="perm_write" eval="0" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+</odoo>
