@@ -26,6 +26,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_pricelist_sale>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_refund_link>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_refund_reason>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_restrict_linked_so>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_search_by_reference>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_section_sale_order>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_supplier_ref_unique>=15.0dev,<15.1dev',
