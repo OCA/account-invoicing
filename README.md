@@ -39,6 +39,7 @@ addon | version | maintainers | summary
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 15.0.1.0.0 |  | Module to fill pricelist from sales order in invoice.
 [account_invoice_refund_link](account_invoice_refund_link/) | 15.0.1.0.1 |  | Show links between refunds and their originator invoices.
 [account_invoice_refund_reason](account_invoice_refund_reason/) | 15.0.1.0.3 | [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Account Invoice Refund Reason.
+[account_invoice_restrict_linked_so](account_invoice_restrict_linked_so/) | 15.0.1.0.1 |  | Restricts editing the Product, Quantity and Unit Price columns for invoice lines that originated in Sales Orders.
 [account_invoice_search_by_reference](account_invoice_search_by_reference/) | 15.0.1.0.0 |  | Account invoice search by reference
 [account_invoice_section_sale_order](account_invoice_section_sale_order/) | 15.0.1.0.2 |  | For invoices targetting multiple sale order addsections with sale order name.
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 15.0.1.0.0 |  | Checks that supplier invoices are not entered twice
