@@ -9,23 +9,23 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2019-09-17 17:24+0000\n"
-"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
-"teams/23907/pt_BR/)\n"
+"PO-Revision-Date: 2023-07-01 22:12+0000\n"
+"Last-Translator: Adriano Prado <adrianojprado@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
+"23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.8\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_fiscal_position_update
 #: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_bank_statement_line__fiscal_position_id
 #: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_move__fiscal_position_id
 #: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_payment__fiscal_position_id
 msgid "Fiscal Position"
-msgstr ""
+msgstr "Posição Fiscal"
 
 #. module: account_invoice_fiscal_position_update
 #: model:ir.model.fields,help:account_invoice_fiscal_position_update.field_account_bank_statement_line__fiscal_position_id
@@ -36,11 +36,13 @@ msgid ""
 "customers or sales orders/invoices. The default value comes from the "
 "customer."
 msgstr ""
+"Posições fiscais são usadas para adaptar impostos e contas para determinados "
+"clientes ou ordens de venda/faturas. O valor padrão vem do cliente."
 
 #. module: account_invoice_fiscal_position_update
 #: model:ir.model,name:account_invoice_fiscal_position_update.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Entrada Diário"
 
 #. module: account_invoice_fiscal_position_update
 #. odoo-python
@@ -52,6 +54,11 @@ msgid ""
 " - %s\n"
 "You should update the Account and the Taxes of these invoice lines manually."
 msgstr ""
+"As seguintes linhas da fatura não foram atualizadas para a nova posição "
+"fiscal porque não possuem um produto:\n"
+"\t- %s\n"
+"Você deve atualizar a Conta e os Impostos dessas linhas da fatura "
+"manualmente."
 
 #. module: account_invoice_fiscal_position_update
 #. odoo-python
