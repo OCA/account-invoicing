@@ -10,5 +10,4 @@ class ResCompany(models.Model):
         comodel_name="res.users",
         string="Default invoice validation user",
         help="Default validation user for purchase invoice/refunds",
-        readonly=False,
     )

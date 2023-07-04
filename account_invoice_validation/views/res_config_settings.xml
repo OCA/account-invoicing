@@ -20,15 +20,30 @@
                     name="invoice_validation_setting_container"
                 >
                     <div class="col-12 col-lg-12 o_setting_box" id="invoice_validation">
+                        <div class="o_setting_left_pane">
+                            <field name="use_invoice_first_approval" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="use_invoice_first_approval" />
+                            <div class="text-muted">
+                                Use Partner's Approver As First Approval On Invoices
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-12 o_setting_box" id="invoice_validation">
                         <div class="o_setting_left_pane" />
                         <div class="o_setting_right_pane">
-                            <div class="content-group">
-                                <div class="row mt16">
-                                    <label for="validation_user_id" />
-                                    <div>
-                                        <field name="validation_user_id" />
-                                    </div>
-                                </div>
+                            <label for="validation_user_id" />
+                            <span
+                                class="fa fa-lg fa-building-o"
+                                title="Values set here are company-specific."
+                                aria-label="Values set here are company-specific."
+                                groups="base.group_multi_company"
+                                role="img"
+                            />
+
+                            <div>
+                                <field name="validation_user_id" />
                             </div>
                         </div>
                     </div>

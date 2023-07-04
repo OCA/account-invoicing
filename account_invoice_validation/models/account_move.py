@@ -19,18 +19,20 @@ class AccountMove(models.Model):
         compute="_compute_validation_user_id",
         store=True,
         readonly=False,
+        copy=False,
     )
 
     date_assignation = fields.Date(
         help="Date of last assignation to this user",
         compute="_compute_date_assignation",
         store=True,
-        readonly=False,
+        copy=False,
     )
 
     validation_state = fields.Selection(
         [
             ("wait_approval", "Waiting approval"),
+            ("first_approval", "First approval"),
             ("accepted", "Accepted"),
             ("refused", "Refused"),
             ("locked", "Waiting/Blocked"),
@@ -43,6 +45,7 @@ class AccountMove(models.Model):
         tracking=True,
         store=True,
         compute="_compute_validation_state",
+        copy=False,
     )
 
     pending_date = fields.Date(
@@ -60,34 +63,78 @@ class AccountMove(models.Model):
         compute="_compute_can_edit_validation_user",
     )
 
+    approved_once = fields.Boolean(
+        help="Technical field: when using 2 approbations, set to true after first approbation",
+        compute="_compute_validation_user_id",
+        store=True,
+        copy=False,
+    )
+
     @api.depends("move_type")
     def _compute_validation_user_id(self):
+        use_invoice_first_approval = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("account_invoice_validation.use_invoice_first_approval")
+        )
 
         for rec in self:
-            # if validation user is not set and move typ is in concerned types
+            # if validation user is not set and move type is in concerned types
             if (
                 rec.move_type in rec.get_concerned_types()
                 and not rec.validation_user_id
             ):
-                rec.validation_user_id = rec.company_id.validation_user_id
+                val_user_id = self.env["res.partner"]
+                approved_once = False
+                # try to take approver on partner
+                if use_invoice_first_approval:
+                    val_user_id = rec.partner_id.validation_user_id
+
+                # no approver set
+                # only one approbation is needed
+                # 2 cases:
+                #  - validation user is not set
+                #  - parameter not activated
+                if not val_user_id:
+                    approved_once = True
+
+                val_user_id = val_user_id or rec.company_id.validation_user_id
+
+                rec.write(
+                    {
+                        "validation_user_id": val_user_id,
+                        "approved_once": approved_once,
+                    }
+                )
 
     @api.depends_context("uid")
-    def _compute_can_edit_validation_user(self):
+    def _compute_can_edit_validation_user(self) -> None:
         self.can_edit_validation_user = self.env.user.has_group(
-            "account.group_account_manager"
+            "account_invoice_validation.group_account_invoice_validation_assign"
         )
 
     @api.depends("validation_user_id")
     def _compute_validation_state(self) -> None:
-        self.filtered(lambda rec: rec.validation_user_id).update(
-            {"validation_state": "wait_approval"}
-        )
+        self.filtered(
+            lambda rec: rec.validation_user_id and not rec.validation_state
+        ).update({"validation_state": "wait_approval"})
 
     @api.depends("validation_user_id")
     def _compute_date_assignation(self) -> None:
         self.filtered(lambda rec: rec.validation_user_id).update(
             {"date_assignation": fields.Date.today()}
         )
+
+    def _ensure_current_user_is_validation_user(self) -> None:
+        self.ensure_one()
+
+        if self.env.user != self.validation_user_id:
+            raise UserError(
+                _(
+                    "You are not the approver of invoice: %(invoice_id)d",
+                    invoice_id=self.id,
+                )
+            )
 
     def action_open_invoice(self) -> str:
         """
@@ -138,34 +185,46 @@ class AccountMove(models.Model):
         supplier_id: int,
         reference: str,
         date_invoice: str,
-    ) -> dict:
+    ) -> None:
         """
         Update the validation state to accepted
         :param supplier_id: int
         :param date_invoice: str
-        :return: dict
         """
-        validation_state = "accepted"
+        self.ensure_one()
+        self._ensure_current_user_is_validation_user()
+
+        values = {}
+
+        if self.approved_once:
+            validation_state = "accepted"
+        else:
+            validation_state = "first_approval"
+            values["approved_once"] = True
+            # set next approbator
+            values["validation_user_id"] = self.company_id.validation_user_id.id
+
         line = first(self.invoice_line_ids)
-        values = {
-            "invoice_line_ids": [
-                (
-                    1,
-                    line.id,
-                    {
-                        "company_id": line.company_id.id,
-                    },
-                ),
-            ],
-            "partner_id": supplier_id,
-            "validation_state": validation_state,
-            "invoice_date": date_invoice,
-            "pending_date": False,
-            "ref": reference,
-        }
+        values.update(
+            {
+                "invoice_line_ids": [
+                    (
+                        1,
+                        line.id,
+                        {
+                            "company_id": line.company_id.id,
+                        },
+                    ),
+                ],
+                "partner_id": supplier_id,
+                "validation_state": validation_state,
+                "invoice_date": date_invoice,
+                "pending_date": False,
+                "ref": reference,
+            }
+        )
         self._check_before_update_validation_state(validation_state)
         self.write(values)
-        return {}
 
     def action_refuse_state(self):
         """

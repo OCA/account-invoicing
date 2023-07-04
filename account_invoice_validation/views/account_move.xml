@@ -151,12 +151,14 @@
                     <group string="Invoice">
 
                         <!-- Invoice -->
+                        <!-- only group account invoice can display entire invoice -->
                         <button
                             name="action_open_invoice"
                             string="Display invoice"
                             type="object"
                             class="btn-info"
                             colspan="2"
+                            groups="account.group_account_invoice"
                         />
                         <field name="move_type" />
                         <field name="company_id" invisible="1" />

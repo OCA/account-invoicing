@@ -50,6 +50,9 @@ class TestAccountMove(TransactionCase):
         account_obj = self.account_obj
         supplier = self.supplier
         company = self.env.company
+        # set main validation user to odoo bot for tests
+        company.validation_user_id = self.env.user
+
         account_user_group = self.account_user_group
         account_payable = self.env["account.account"].search(
             [
@@ -99,7 +102,13 @@ class TestAccountMove(TransactionCase):
                 "login": "account_invoice_validation3",
                 "email": "test3@acsone.eu",
                 "groups_id": [
-                    (6, 0, self.env.ref("account.group_account_manager").ids)
+                    (
+                        6,
+                        0,
+                        self.env.ref(
+                            "account_invoice_validation.group_account_invoice_validation_assign"
+                        ).ids,
+                    )
                 ],
             }
         )
@@ -173,6 +182,31 @@ class TestAccountMove(TransactionCase):
         ).can_edit_validation_user
         self.assertTrue(edit_validation_user)
 
+    def test_update_validation_state_error(self):
+        """
+        Test to accept invoice using other user
+        should raise an error
+        :return: bool
+        """
+        supplier_refund = self.supplier_refund
+        pending_date = self.pending_date_tomorrow
+        message = "Message test"
+        reference = str(uuid4())
+        today = fields.Date.today()
+        supplier_refund.validation_state_wait_approval()
+        self.assertEqual(supplier_refund.validation_state, "wait_approval")
+
+        with self.assertRaises(exceptions.UserError):
+            supplier_refund.with_user(self.user2).validation_state_accepted(
+                supplier_refund.partner_id.id, reference, today
+            )
+
+        supplier_refund.action_block_state_continue(message, pending_date)
+        self.assertEqual(supplier_refund.validation_state, "locked")
+        supplier_refund.action_refuse_state_continue("I refuse")
+        self.assertEqual(supplier_refund.validation_state, "refused")
+        return True
+
     def test_update_validation_state1(self):
         """
         Test some validation_state function.
@@ -241,17 +275,11 @@ class TestAccountMove(TransactionCase):
         """
         customer_invoice1 = self.customer_invoice
         pending_date = self.pending_date_tomorrow
-        customer_invoice2 = customer_invoice1.copy()
         customer_invoice3 = customer_invoice1.copy()
         customer_invoice4 = customer_invoice1.copy()
-        reference = str(uuid4())
-        today = fields.Date.today()
+
         with self.assertRaises(exceptions.ValidationError):
             customer_invoice1.validation_state_wait_approval()
-        with self.assertRaises(exceptions.ValidationError):
-            customer_invoice2.validation_state_accepted(
-                customer_invoice2.partner_id.id, reference, today
-            )
         with self.assertRaises(exceptions.ValidationError):
             customer_invoice3.action_block_state_continue("Test", pending_date)
         with self.assertRaises(exceptions.ValidationError):
@@ -283,7 +311,6 @@ class TestAccountMove(TransactionCase):
         )
         invoices.action_assign_continue(note)
         for invoice in invoices:
-
             self.assertEqual(invoice.validation_user_id, user)
             self.assertEqual(invoice.date_assignation, today)
             self.assertEqual(invoice.partner_id, self.supplier2)
@@ -492,4 +519,61 @@ class TestAccountMove(TransactionCase):
             bodies = invoice.message_ids.mapped("body")
             is_inside = any(note in bdy for bdy in bodies)
             self.assertTrue(is_inside)
+        return True
+
+    def test_update_validation_state_two_approval_1(self):
+        """
+        Test some validation_state function.
+        These function must update the validation_state for
+        supplier invoice/refund only.
+        With 2 approvals
+        No error should be raised.
+        :return: bool
+        """
+        # set parameter 2 approvals
+        self.env["ir.config_parameter"].sudo().set_param(
+            "account_invoice_validation.use_invoice_first_approval", True
+        )
+
+        # create new invoice
+        supplier_refund_values = {
+            "move_type": "in_refund",
+            "validation_state": "wait_approval",
+            "partner_id": self.supplier.id,
+            "invoice_line_ids": [
+                (
+                    0,
+                    False,
+                    {
+                        "name": "Line 2 refunded",
+                        "account_id": self.account_payable.id,
+                        "quantity": 3,
+                        "price_unit": 300.68,
+                    },
+                ),
+            ],
+        }
+        # set validation user for partner
+        self.supplier.validation_user_id = self.user1
+
+        supplier_refund = self.invoice_obj.create(supplier_refund_values)
+
+        pending_date = self.pending_date_tomorrow
+        message = "Message test"
+        reference = str(uuid4())
+        today = fields.Date.today()
+        supplier_refund.validation_state_wait_approval()
+        self.assertEqual(supplier_refund.validation_state, "wait_approval")
+        supplier_refund.with_user(self.user1).validation_state_accepted(
+            supplier_refund.partner_id.id, reference, today
+        )
+        self.assertEqual(supplier_refund.validation_state, "first_approval")
+        supplier_refund.validation_state_accepted(
+            supplier_refund.partner_id.id, reference, today
+        )
+        self.assertEqual(supplier_refund.validation_state, "accepted")
+        supplier_refund.action_block_state_continue(message, pending_date)
+        self.assertEqual(supplier_refund.validation_state, "locked")
+        supplier_refund.action_refuse_state_continue("I refuse")
+        self.assertEqual(supplier_refund.validation_state, "refused")
         return True

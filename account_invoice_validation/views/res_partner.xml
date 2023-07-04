@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_form_view">
+        <field name="name">res.partner.form (in account_invoice_validation)</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <group name="purchase">
+                <field name="validation_user_id_domain" invisible="1" />
+                <field name="use_invoice_first_approval" invisible="1" />
+                <!--Visible only if the partner is a supplier-->
+                <field
+                    name="validation_user_id"
+                    attrs="{'invisible': [('use_invoice_first_approval','=',False)]}"
+                    domain="validation_user_id_domain"
+                />
+            </group>
+        </field>
+    </record>
+
+
+</odoo>

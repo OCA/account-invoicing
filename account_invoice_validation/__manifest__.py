@@ -13,6 +13,7 @@
         "account",
     ],
     "data": [
+        "views/res_partner.xml",
         "security/res_groups.xml",
         "security/account_move_note.xml",
         "views/account_move.xml",

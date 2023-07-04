@@ -8,8 +8,13 @@ class ResConfigSettings(models.TransientModel):
 
     validation_user_id = fields.Many2one(
         comodel_name="res.users",
-        string="Default invoice validation user",
+        string="Main Invoice Validation User",
         related="company_id.validation_user_id",
         help="Default validation user for purchase invoice/refunds",
         readonly=False,
+    )
+
+    use_invoice_first_approval = fields.Boolean(
+        help="Use a first level of approbation: approver can be set on vendors",
+        config_parameter="account_invoice_validation.use_invoice_first_approval",
     )
