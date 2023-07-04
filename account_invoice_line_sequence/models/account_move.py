@@ -10,18 +10,12 @@ from odoo.tools import config
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    sequence3 = fields.Integer(
-        help="Shows the sequence of this line in the invoice.",
-        default=9999,
-        string="original sequence",
-    )
-
     # shows sequence on the invoice line
     sequence2 = fields.Integer(
         help="Shows the sequence of this line in the invoice.",
-        related="sequence",
         string="Sequence",
         store=True,
+        default=False,
     )
 
 
@@ -37,9 +31,8 @@ class AccountMove(models.Model):
         added as :  max_sequence + 1
         """
         for invoice in self:
-            invoice.max_line_sequence = (
-                max(invoice.mapped("invoice_line_ids.sequence3") or [0]) + 1
-            )
+            count = len(invoice.invoice_line_ids.filtered(lambda x: x.product_id))
+            invoice.max_line_sequence = count + 1
 
     max_line_sequence = fields.Integer(
         string="Max sequence in lines", compute="_compute_max_line_sequence", store=True
@@ -48,10 +41,14 @@ class AccountMove(models.Model):
     def _reset_sequence(self):
         # This part is just modifying sequences and so does not need a check
         for rec in self.with_context(check_move_validity=False):
-            for current_seq, line in enumerate(
-                rec.invoice_line_ids.sorted("sequence3"), start=1
+            current_sequence = 1
+            for rec in sorted(
+                rec.invoice_line_ids.filtered(lambda x: x.product_id),
+                key=lambda x: (x.sequence, x.id),
             ):
-                line.sequence = current_seq
+                if rec.sequence2 != current_sequence:
+                    rec.sequence2 = current_sequence
+                current_sequence += 1
 
     def write(self, values):
         res = super(AccountMove, self).write(values)
