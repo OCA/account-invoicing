@@ -9,12 +9,20 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     def _recompute_tax_lines(self, **kwargs):
+        # If another module of this repo inherited this function do not execute
+        # following code in order to avoid conflict
+        if self.env.context.get("avoid_inherit", False) or not any(
+            line.discount_fixed for line in self.line_ids
+        ):
+            return super(AccountMove, self)._recompute_tax_lines(**kwargs)
         old_values_by_line_id = {}
         for line in self.line_ids:
             old_values_by_line_id[line.id] = {"price_unit": line.price_unit}
             price_unit = line.price_unit - line.discount_fixed
             line.update({"price_unit": price_unit})
-        res = super(AccountMove, self)._recompute_tax_lines(**kwargs)
+        res = super(
+            AccountMove, self.with_context(avoid_inherit=True)
+        )._recompute_tax_lines(**kwargs)
         for line in self.line_ids:
             if line.id not in old_values_by_line_id:
                 continue
