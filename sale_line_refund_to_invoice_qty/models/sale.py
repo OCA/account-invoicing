@@ -33,7 +33,8 @@ class SaleOrderLine(models.Model):
                     qty_invoiced += invoice_line.product_uom_id._compute_quantity(
                         invoice_line.quantity, line.product_uom
                     )
-            line.qty_invoiced = qty_invoiced
+            if line.qty_invoiced != qty_invoiced:
+                line.qty_invoiced = qty_invoiced
         return res
 
     @api.depends(
