@@ -8,7 +8,7 @@
                 <xpath expr="//field[@name='journal_id']/.." position="after">
                     <group
                     name="sale_line_refund_qty"
-                    attrs="{'invisible': [('move_type', '!=', 'out_invoice')]}"
+                    attrs="{'invisible': ['|', ('move_type', '!=', 'out_invoice'), ('refund_method', '=', 'modify')]}"
                 >
                         <field name="sale_qty_to_reinvoice" />
                         <div class="oe_grey" colspan="4">

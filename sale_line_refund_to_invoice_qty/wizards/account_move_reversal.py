@@ -14,7 +14,10 @@ class AccountMoveReversal(models.TransientModel):
     )
 
     def reverse_moves(self):
+        sale_qty_to_reinvoice = (
+            True if self.refund_method == "modify" else self.sale_qty_to_reinvoice
+        )
         return super(
             AccountMoveReversal,
-            self.with_context(sale_qty_to_reinvoice=self.sale_qty_to_reinvoice),
+            self.with_context(sale_qty_to_reinvoice=sale_qty_to_reinvoice),
         ).reverse_moves()
