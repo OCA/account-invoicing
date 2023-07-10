@@ -30,7 +30,7 @@ def match_origin_lines(refund, invoice):
             )
             if match:
                 invoice_lines -= invoice_line
-                invoice_line.origin_line_ids = [(6, 0, refund_line.ids)]
+                invoice_line.refund_line_ids = [(6, 0, refund_line.ids)]
                 break
         if not invoice_lines:
             break
