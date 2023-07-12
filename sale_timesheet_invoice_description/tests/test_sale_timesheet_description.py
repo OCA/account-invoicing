@@ -196,7 +196,13 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         self.sale_order.timesheet_invoice_split = True
         self.sale_order.timesheet_invoice_description = "001"
         # Set a different UoM on SO line/Invoice line from Timesheets UoM
-        self.so_line.write({"product_uom": self.product_uom_day.id})
+        new_uom = self.product_uom_day
+        new_qty = self.so_line.product_uom._compute_quantity(
+            self.so_line.product_uom_qty, new_uom
+        )
+        self.so_line.product_uom = new_uom.id
+        self.so_line.product_uom_qty = new_qty
+        self.so_line.product_uom_change()  # to adjust the unit price
 
         # Add a new timesheets with the same date to the same invoiced sale.order.line
         self.timesheet.write({"name": "Description 1"})
