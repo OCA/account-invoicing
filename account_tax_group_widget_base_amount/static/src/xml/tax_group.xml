@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-inherit="account.TaxGroupComponent" t-inherit-mode="extension" owl="1">
+        <xpath expr="//label[hasclass('o_tax_total_label')]" position="replace">
+            <label class="o_form_label o_tax_total_label">
+                <t t-esc="props.taxGroup.tax_group_name" /> on <t
+                    t-esc="props.taxGroup.formatted_tax_group_base_amount"
+                />
+            </label>
+        </xpath>
+    </t>
+</templates>
