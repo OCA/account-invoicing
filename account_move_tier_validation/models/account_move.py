@@ -40,9 +40,6 @@ class AccountMove(models.Model):
     @api.depends(lambda self: self._compute_need_validation_dependencies())
     def _compute_need_validation(self):
         for rec in self:
-            if isinstance(rec.id, models.NewId):
-                rec.need_validation = False
-                continue
             tiers = self.env["tier.definition"].search([("model", "=", self._name)])
             valid_tiers = any([rec.evaluate_tier(tier) for tier in tiers])
             rec.need_validation = (
