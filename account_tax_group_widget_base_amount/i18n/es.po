@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_tax_group_widget_base_amount
-#. openerp-web
+#. odoo-javascript
 #: code:addons/account_tax_group_widget_base_amount/static/src/xml/tax_group.xml:0
 #, python-format
 msgid "on"
