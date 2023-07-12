@@ -4,13 +4,11 @@
 <odoo>
 
     <record model="ir.ui.view" id="account_invoice_form_view">
-        <field
-            name="name"
-        >account.invoice.form (in product_special_type_invoice)</field>
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_form" />
+        <field name="name">account.move.form (in product_special_type_invoice)</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-            <field name="amount_untaxed" position="before">
+            <field name="tax_totals" position="before">
                 <small
                     attrs="{'invisible': [('extra_discount_amount', '=', 0.0)]}"
                     class="ml8"

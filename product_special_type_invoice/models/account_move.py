@@ -1,34 +1,31 @@
 # Copyright 2018 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from operator import add
+from itertools import product
 
 from odoo import api, fields, models
 
-import odoo.addons.decimal_precision as dp
 
-
-class AccountInvoice(models.Model):
-
-    _inherit = "account.invoice"
+class AccountMove(models.Model):
+    _inherit = "account.move"
 
     extra_discount_amount = fields.Float(
         compute="_compute_special_fields",
-        digits=dp.get_precision("Account"),
+        digits="Account",
         store=True,
     )
     advance_amount = fields.Float(
         compute="_compute_special_fields",
-        digits=dp.get_precision("Account"),
+        digits="Account",
         store=True,
     )
     delivery_amount = fields.Float(
         compute="_compute_special_fields",
-        digits=dp.get_precision("Account"),
+        digits="Account",
         store=True,
     )
     fees_amount = fields.Float(
         compute="_compute_special_fields",
-        digits=dp.get_precision("Account"),
+        digits="Account",
         store=True,
     )
 
@@ -54,18 +51,15 @@ class AccountInvoice(models.Model):
         depending on the grouping in '_get_special_fields' (overriding it)
         function.
         """
-        # mapping where keys are product special type and values are the
-        # invoice fields
         product_to_fields = self._get_special_fields()
-        for invoice in self:
-            for special_type, field in product_to_fields.iteritems():
-                invoice[field] += reduce(
-                    add,
-                    [
-                        line.price_subtotal
-                        for line in invoice.invoice_line_ids
-                        if line.product_id
-                        and line.product_id.special_type == special_type
-                    ],
-                    0.0,
-                )
+        fields_name = set(product_to_fields.values())
+        # Init to 0
+        self.update({f: 0 for f in fields_name})
+        for invoice, (special_type, field_name) in product(
+            self, product_to_fields.items()
+        ):
+            invoice[field_name] += sum(
+                line.price_subtotal
+                for line in invoice.invoice_line_ids
+                if line.product_id.special_type == special_type
+            )
