@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
 
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
@@ -10,7 +9,10 @@
                 <tr>
                     <td><small class="ml8">Fees:</small></td>
                     <td class="text-right">
-                         <small><span t-field="o.fees_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></small>
+                         <small><span
+                                t-field="o.fees_amount"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                            /></small>
                     </td>
                 </tr>
             </t>
@@ -18,7 +20,10 @@
                 <tr>
                     <td><small class="ml8">Delivery:</small></td>
                     <td class="text-right">
-                         <small><span t-field="o.delivery_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></small>
+                         <small><span
+                                t-field="o.delivery_amount"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                            /></small>
                     </td>
                 </tr>
             </t>
@@ -26,7 +31,10 @@
                 <tr>
                     <td><small class="ml8">Advance:</small></td>
                     <td class="text-right">
-                         <small><span t-field="o.advance_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></small>
+                         <small><span
+                                t-field="o.advance_amount"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                            /></small>
                     </td>
                 </tr>
             </t>
@@ -34,7 +42,10 @@
                 <tr>
                     <td><small class="ml8">Extra Discount:</small></td>
                     <td class="text-right">
-                         <small><span t-field="o.extra_discount_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></small>
+                         <small><span
+                                t-field="o.extra_discount_amount"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                            /></small>
                     </td>
                 </tr>
             </t>
