@@ -1,0 +1,45 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_crm_tag
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-14 06:55+0000\n"
+"PO-Revision-Date: 2023-07-14 08:57+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: account_invoice_crm_tag
+#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_invoice_report__tag_ids
+msgid "Invoice CRM Tags"
+msgstr "Etiquetas CRM de facturas"
+
+#. module: account_invoice_crm_tag
+#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_bank_statement_line__tags_ids
+#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_move__tags_ids
+#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_payment__tags_ids
+msgid "Invoice CRM tags"
+msgstr "Etiquetas CRM de facturas"
+
+#. module: account_invoice_crm_tag
+#: model:ir.model,name:account_invoice_crm_tag.model_account_invoice_report
+msgid "Invoices Statistics"
+msgstr "Estadísticas de facturas"
+
+#. module: account_invoice_crm_tag
+#: model:ir.model,name:account_invoice_crm_tag.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_invoice_crm_tag
+#: model:ir.model,name:account_invoice_crm_tag.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
