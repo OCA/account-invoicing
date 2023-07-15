@@ -182,6 +182,16 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         )._create_invoices()
         self.assertEqual(invoice2.line_ids[0].name, expected)
 
+    def _change_uom_on_line(self, so_line):
+        """Set a different UoM on SO line/Invoice line from Timesheets UoM"""
+        new_uom = self.product_uom_day
+        new_qty = so_line.product_uom._compute_quantity(
+            so_line.product_uom_qty, new_uom
+        )
+        so_line.product_uom = new_uom.id
+        so_line.product_uom_qty = new_qty
+        so_line.product_uom_change()  # to adjust the unit price
+
     def test_sale_timesheet_description_000(self):
         self._test_sale_time_description("000", "Test product")
 
@@ -262,13 +272,7 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         self.sale_order.timesheet_invoice_split = True
         self.sale_order.timesheet_invoice_description = "001"
         # Set a different UoM on SO line/Invoice line from Timesheets UoM
-        new_uom = self.product_uom_day
-        new_qty = self.so_line.product_uom._compute_quantity(
-            self.so_line.product_uom_qty, new_uom
-        )
-        self.so_line.product_uom = new_uom.id
-        self.so_line.product_uom_qty = new_qty
-        self.so_line.product_uom_change()  # to adjust the unit price
+        self._change_uom_on_line(self.so_line)
 
         # Add a new timesheets with the same date to the same invoiced sale.order.line
         self.timesheet.write({"name": "Description 1"})
@@ -334,13 +338,7 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         self.sale_order_2.timesheet_invoice_description = "001"
         # Set a different UoM on sale order line / invoice line from
         # timesheet's UoM, but only for the first line = first product / task.
-        new_uom = self.product_uom_day
-        new_qty = self.so_2_line_1.product_uom._compute_quantity(
-            self.so_2_line_1.product_uom_qty, new_uom
-        )
-        self.so_2_line_1.product_uom = new_uom.id
-        self.so_2_line_1.product_uom_qty = new_qty
-        self.so_2_line_1.product_uom_change()  # to adjust the unit price
+        self._change_uom_on_line(self.so_2_line_1)
 
         # Add two new timesheets to the first invoiced sale order line
         self.timesheet_2_1.write({"name": "Description 1"})
