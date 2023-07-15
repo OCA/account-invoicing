@@ -54,6 +54,13 @@ class SaleOrder(models.Model):
         aml_sum = 0
         ts_ids = ts_ids.sorted(lambda t: (t.date, t.task_id.id or 0))
 
+        # Don't check the invoice balance while still doing the splitting.
+        # An "intermediate" invoice may be unbalanced, and this would raise an
+        # (unwanted) exception.
+        # This is done by using `with_context(split_aml_by_timesheets=True)`.
+        # Then, at the end, the taxes are recomputed, so that the invoice is
+        # balanced again. See below.
+
         # Add a line section on top before the original aml
         self.env["account.move.line"].create(
             {
@@ -114,6 +121,22 @@ class SaleOrder(models.Model):
                 }
             )
             aml_seq += 1
+
+        # Finally, recompute the (sub)total and taxes so that they all are
+        # still correct.
+        # Note that splitting could result in tax values on the split lines
+        # that differ from the total tax of their original "unsplit" line,
+        # thus resulting in incorrect invoice totals.
+        # For example, say the original line has total = 400 with included
+        # tax = 63.87, and it is split into two lines of total = 200 each.
+        # These then will have tax = 31.93 each, for a tax sum = 63.86.
+        # Which is 0.01 less than the original's tax.
+        # In the end this means that the invoice's (sub)total and tax lines
+        # have to be recomputed.
+        move = aml.move_id.with_context(split_aml_by_timesheets=True)
+        move._recompute_dynamic_lines(
+            recompute_all_taxes=True, recompute_tax_base_amount=True
+        )
 
         return aml_seq
 
