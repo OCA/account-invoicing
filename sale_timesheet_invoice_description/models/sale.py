@@ -90,10 +90,28 @@ class SaleOrder(models.Model):
         or tasks (depending on the type of split);
         taking care to convert timesheets quantities in the invoice line's UoM
         """
-        aml_total = aml.quantity
         aml_uom_id = aml.product_uom_id
         aml_sum = 0
         ts_ids = ts_ids.sorted(lambda t: (t.date, t.task_id.id or 0))
+
+        # the total amount not yet invoiced for this line
+        aml_total = aml.quantity
+        # the total remaining amount of the desired associated timesheets
+        group_total = self._split_aml_accumulate_qty_of_group(
+            ts_ids, aml_uom_id, invoiced
+        )
+        # In principle, this is the amount we want to invoice now. However, due
+        # to rounding effects when involving different UoM's between timesheets
+        # and their invoice line, this value may be larger than the uninvoiced
+        # total `aml_total`.
+        # Hence, we have to consider the minimum of the two.
+        # Example: Let the invoice line consist of three timesheets with
+        # 10.50 h (Hours) each, but let the invoice line's UoM be d (Days).
+        # Then the total of the timesheets is 31.5 h, which is rounded to the
+        # invoice line's `aml_total` of 3.94 d. But the individual timesheets
+        # have an amount of 1.32 d each, accumulating to 3.96 d, which is
+        # larger than the invoice line's `aml_total`.
+        aml_total = min(group_total, aml_total)
 
         # Don't check the invoice balance while still doing the splitting.
         # An "intermediate" invoice may be unbalanced, and this would raise an
