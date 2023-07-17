@@ -95,6 +95,8 @@ class SaleOrder(models.Model):
             }
         )
         aml_seq += 1
+        # note: updating invoice line on timesheet should not be necessary
+        ts_ids[0].write({"timesheet_invoice_line_id": aml.id})
 
         # Create one invoice line for each timesheet except the last one
         for ts_id in ts_ids[1:-1]:
@@ -112,6 +114,8 @@ class SaleOrder(models.Model):
             )
             aml_seq += 1
             aml_sum += qty
+            # update invoice line on timesheet
+            ts_id.write({"timesheet_invoice_line_id": new_aml.id})
 
         # Last new invoice line get the rest
         if ts_ids[-1] != ts_ids[0]:
@@ -126,6 +130,8 @@ class SaleOrder(models.Model):
                 }
             )
             aml_seq += 1
+            # update invoice line on timesheet
+            ts_ids[-1].write({"timesheet_invoice_line_id": last_aml.id})
 
         # Finally, recompute the (sub)total and taxes so that they all are
         # still correct.
