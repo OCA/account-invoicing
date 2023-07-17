@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_invoice_refund_lines" model="ir.ui.view">
+        <field name="name">account.move.reversal.lines.form</field>
+        <field name="model">account.move.reversal</field>
+        <field name="inherit_id" ref="account.view_account_move_reversal" />
+        <field name="arch" type="xml">
+            <xpath expr="//footer" position="before">
+                <notebook
+                    attrs="{'invisible': [('refund_method', '!=', 'refund_lines')]}"
+                >
+                    <page string="Invoice Lines">
+                        <field name="selectable_invoice_lines_ids" invisible="1" />
+                        <field
+                            name="line_ids"
+                            context="{'tree_view_ref': 'account.view_move_line_tree_grouped_sales_purchases'}"
+                        >
+                            <tree>
+                                <field name="sequence" widget="handle" readonly="1" />
+                                <field name="product_id" readonly="1" />
+                                <field name="name" readonly="1" />
+                                <field name="quantity" readonly="1" />
+                                <field name="discount" readonly="1" />
+                                <field
+                                    name="tax_ids"
+                                    widget="many2many_tags"
+                                    readonly="1"
+                                />
+                                <field name="price_unit" readonly="1" />
+                                <field name="price_subtotal" readonly="1" />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+            <xpath expr="//group/div[2]" position="after">
+                <div
+                    attrs="{'invisible':[('refund_method','!=','refund_lines')]}"
+                    class="oe_grey"
+                    colspan="4"
+                >
+                    Use this option if you want to refund only some specific lines in an invoice.
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
