@@ -3,7 +3,7 @@
 
 from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
-from odoo.tools import float_compare
+from odoo.tools import float_is_zero
 
 
 class TestInvoiceNegativeAmount(TransactionCase):
@@ -68,13 +68,12 @@ class TestInvoiceNegativeAmount(TransactionCase):
 
     def test_invoice_has_negative_amount(self):
         invoice = self.get_negative_invoice()
-        self.assertEqual(
-            float_compare(
+        self.assertTrue(
+            not float_is_zero(
                 invoice.amount_total,
-                0.0,
                 precision_rounding=invoice.currency_id.rounding,
-            ),
-            -1,
+            )
+            and invoice.amount_total < 0
         )
 
     def test_action_invoice_open_without_permission(self):

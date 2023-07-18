@@ -1,6 +1,6 @@
 from odoo import _, api, models
 from odoo.exceptions import UserError
-from odoo.tools import float_compare
+from odoo.tools import float_is_zero
 
 
 class AccountInvoice(models.Model):
@@ -13,12 +13,11 @@ class AccountInvoice(models.Model):
             "account_invoice_negative_total."
             "group_validate_invoice_negative_total_amount"
         ) and to_open_invoices.filtered(
-            lambda inv: float_compare(
+            lambda inv: not float_is_zero(
                 inv.amount_total,
-                0.0,
                 precision_rounding=inv.currency_id.rounding,
             )
-            == -1
+            and inv.amount_total < 0
         ):
             return self.action_invoice_negative_amount_open(to_open_invoices)
         return super(AccountInvoice, self).action_invoice_open()
