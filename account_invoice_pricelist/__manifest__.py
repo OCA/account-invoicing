@@ -11,4 +11,6 @@
     "depends": ["account"],
     "data": ["views/account_invoice_view.xml"],
     "installable": True,
+    "pre_init_hook": "pre_init_hook",
+    "post_init_hook": "post_init_hook",
 }
