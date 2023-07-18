@@ -71,7 +71,21 @@ class AccountMove(models.Model):
         copy=False,
     )
 
-    @api.depends("move_type")
+    @api.onchange("partner_id")
+    def _onchange_validation_user_id(self):
+        use_invoice_first_approval = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("account_invoice_validation.use_invoice_first_approval")
+        )
+        if use_invoice_first_approval:
+            for rec in self:
+                val_user_id = rec.partner_id.validation_user_id
+                rec.validation_user_id = (
+                    val_user_id or rec.company_id.validation_user_id
+                )
+
+    @api.depends("move_type", "partner_id")
     def _compute_validation_user_id(self):
         use_invoice_first_approval = (
             self.env["ir.config_parameter"]
@@ -80,11 +94,7 @@ class AccountMove(models.Model):
         )
 
         for rec in self:
-            # if validation user is not set and move type is in concerned types
-            if (
-                rec.move_type in rec.get_concerned_types()
-                and not rec.validation_user_id
-            ):
+            if rec.move_type in rec.get_concerned_types():
                 val_user_id = self.env["res.partner"]
                 approved_once = False
                 # try to take approver on partner
