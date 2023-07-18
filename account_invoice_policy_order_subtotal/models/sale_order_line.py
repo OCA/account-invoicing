@@ -60,9 +60,12 @@ class SaleOrderLine(models.Model):
     def _get_invoice_qty(self):
         subtot_policy_lns = self._get_policy_order_subtotal_lines()
         for line in subtot_policy_lns:
-            line.qty_invoiced = (
-                line.product_uom_qty * line.amount_invoiced / line.price_subtotal
-            )
+            if line.price_subtotal:
+                line.qty_invoiced = (
+                    line.product_uom_qty * line.amount_invoiced / line.price_subtotal
+                )
+            else:
+                line.qty_invoiced = 0.0
         super(SaleOrderLine, self - subtot_policy_lns)._get_invoice_qty()
 
     @api.depends("product_id")
