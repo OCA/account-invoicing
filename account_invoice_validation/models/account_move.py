@@ -20,7 +20,7 @@ class AccountMove(models.Model):
         store=True,
         readonly=False,
         copy=False,
-        domain="[('company_ids','in',company_id)]"
+        domain="[('company_ids','in',company_id)]",
     )
 
     date_assignation = fields.Date(
