@@ -14,7 +14,7 @@
                 expr="//div[hasclass('app_settings_block')]//div[@id='quick_edit_mode']"
                 position="after"
             >
-                <h2>Invoice Validation</h2>
+                <h2>Invoice Approval</h2>
                 <div
                     class="row mt16 o_settings_container"
                     name="invoice_validation_setting_container"

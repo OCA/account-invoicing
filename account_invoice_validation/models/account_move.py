@@ -14,12 +14,13 @@ class AccountMove(models.Model):
 
     validation_user_id = fields.Many2one(
         comodel_name="res.users",
-        string="Validation user",
+        string="Approver user",
         index=True,
         compute="_compute_validation_user_id",
         store=True,
         readonly=False,
         copy=False,
+        domain="[('company_ids','in',company_id)]"
     )
 
     date_assignation = fields.Date(
@@ -37,7 +38,7 @@ class AccountMove(models.Model):
             ("refused", "Refused"),
             ("locked", "Waiting/Blocked"),
         ],
-        help="Validation state of the invoice/refund",
+        help="Approval state of the invoice/refund",
         readonly=True,
         # Empty default value for invoice not-concerned
         default="",
@@ -51,7 +52,7 @@ class AccountMove(models.Model):
     pending_date = fields.Date(
         readonly=True,
         help="Date (not included) to ignore document when sending reminders"
-        " to validate purchase invoice/refund",
+        " to approve purchase invoice/refund",
     )
 
     note = fields.Char(
@@ -59,7 +60,7 @@ class AccountMove(models.Model):
     )
 
     can_edit_validation_user = fields.Boolean(
-        help="Technical field: true if user can edit validation user",
+        help="Technical field: true if user can edit approver user",
         compute="_compute_can_edit_validation_user",
     )
 
@@ -410,7 +411,7 @@ class AccountMove(models.Model):
         return {}
 
     @api.model
-    def notify_validation_process_waiting(self):
+    def notify_approval_process_waiting(self):
         """
         Cron function to execute as Admin (to avoid multi-company issues)
         Steps:

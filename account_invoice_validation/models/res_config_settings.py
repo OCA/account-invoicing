@@ -8,9 +8,9 @@ class ResConfigSettings(models.TransientModel):
 
     validation_user_id = fields.Many2one(
         comodel_name="res.users",
-        string="Main Invoice Validation User",
+        string="Main Invoice Approver User",
         related="company_id.validation_user_id",
-        help="Default validation user for purchase invoice/refunds",
+        help="Default approver user for purchase invoice/refunds",
         readonly=False,
     )
 

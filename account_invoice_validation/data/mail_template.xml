@@ -3,11 +3,11 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo noupdate="1">
   <record id="mail_template_invoice_assign_late" model="mail.template">
-    <field name="name">Invoice Validation - Reminder</field>
+    <field name="name">Invoice Approval - Reminder</field>
     <field
             name="email_from"
         >{{(user.email and '%s &lt;%s&gt;' % (user.name, user.email) or '')}}</field>
-    <field name="subject">Invoice Validation - Automatic reminder</field>
+    <field name="subject">Invoice Approval - Automatic reminder</field>
     <field name="partner_to">{{object.partner_id.id}}</field>
     <field name="model_id" ref="base.model_res_users" />
     <field name="auto_delete" eval="True" />
@@ -17,7 +17,7 @@
         ><![CDATA[
 <p>Dear <t t-out="object.partner_id.name"></t>,
 
-<p>You have some purchase invoices to validate:</p>
+<p>You have some purchase invoices to approve:</p>
 <t t-set="invoice_ids" t-value="ctx.get('reminder_account_invoice_ids')"/>
 <t t-if="invoice_ids">
     <p>

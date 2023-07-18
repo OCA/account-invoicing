@@ -9,13 +9,14 @@ class ResPartner(models.Model):
 
     validation_user_id = fields.Many2one(
         "res.users",
-        "Validation user",
-        help="User in charge of the invoices/refunds validation.",
+        "Approver user",
+        help="User in charge of the invoices/refunds approval.",
+        company_dependent=True,
     )
 
     validation_user_id_domain = fields.Binary(
-        string="validation user domain",
-        help="Dynamic domain for validation user",
+        string="approver user domain",
+        help="Dynamic domain for approver user",
         compute="_compute_validation_user_id_domain",
     )
 

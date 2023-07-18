@@ -3,10 +3,10 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
     <record model="res.groups" id="group_account_invoice_validation">
-        <field name="name">Invoice validation</field>
+        <field name="name">Invoice Approval</field>
     </record>
     <record model="res.groups" id="group_account_invoice_validation_assign">
-        <field name="name">Invoice validation: can assign validation user</field>
+        <field name="name">Invoice Approval: can assign approver user</field>
         <field
             name="implied_ids"
             eval="[(4, ref('account_invoice_validation.group_account_invoice_validation'))]"

@@ -2,9 +2,9 @@
 <!-- Copyright 2023 ACSONE SA/NV
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo noupdate="1">
-    <!-- Sends every week a reminder to every users that need to validate invoices -->
-    <record model="ir.cron" id="ir_cron_notify_invoice_validation">
-        <field name="name">Invoice Validation - Notify assignation late</field>
+    <!-- Sends every week a reminder to every users that need to approve invoices -->
+    <record model="ir.cron" id="ir_cron_notify_invoice_approval">
+        <field name="name">Invoice Approval - Notify assignation late</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
@@ -16,6 +16,6 @@
         />
         <field name="model_id" ref="account.model_account_move" />
         <field name="state">code</field>
-        <field name="code">model.notify_validation_process_waiting()</field>
+        <field name="code">model.notify_approval_process_waiting()</field>
     </record>
 </odoo>

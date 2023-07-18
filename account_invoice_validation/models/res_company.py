@@ -8,6 +8,6 @@ class ResCompany(models.Model):
 
     validation_user_id = fields.Many2one(
         comodel_name="res.users",
-        string="Default invoice validation user",
-        help="Default validation user for purchase invoice/refunds",
+        string="Default invoice approver user",
+        help="Default approver user for purchase invoice/refunds",
     )

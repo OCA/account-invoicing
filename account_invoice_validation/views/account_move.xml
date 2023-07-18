@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2023 ACSONE SA/NV
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
@@ -16,6 +16,12 @@
                     title="Waiting approval"
                     bg_color="bg-primary"
                     attrs="{'invisible': [('validation_state', '!=', 'wait_approval')]}"
+                />
+                <widget
+                    name="web_ribbon"
+                    title="First approval"
+                    bg_color="bg-primary"
+                    attrs="{'invisible': [('validation_state', '!=', 'first_approval')]}"
                 />
                 <widget
                     name="web_ribbon"
@@ -88,6 +94,11 @@
                     domain="[('validation_state', '=', 'wait_approval')]"
                 />
                 <filter
+                    string="Is First Accepted"
+                    name="first_approval_filter"
+                    domain="[('validation_state', '=', 'first_approval')]"
+                />
+                <filter
                     string="Is Accepted"
                     name="accepted_filter"
                     domain="[('validation_state', '=', 'accepted')]"
@@ -114,7 +125,7 @@
     <record model="ir.ui.view" id="account_invoice_validation_form_view">
         <field
             name="name"
-        >Invoice Validation Form (in account_invoice_validation)</field>
+        >Invoice Approval Form (in account_invoice_validation)</field>
         <field name="model">account.move</field>
         <field name="priority" eval="90" />
         <field name="arch" type="xml">
@@ -129,6 +140,12 @@
                         title="Waiting approval"
                         bg_color="bg-primary"
                         attrs="{'invisible': [('validation_state', '!=', 'wait_approval')]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        title="First approval"
+                        bg_color="bg-primary"
+                        attrs="{'invisible': [('validation_state', '!=', 'first_approval')]}"
                     />
                     <widget
                         name="web_ribbon"
@@ -201,6 +218,7 @@
                                 string="Assign"
                                 type="object"
                                 class="btn-primary"
+                                attrs="{'invisible': [('can_edit_validation_user','=',False)]}"
                             />
                         </div>
                     </group>
@@ -221,7 +239,7 @@
     <record model="ir.ui.view" id="account_move_search_view">
         <field
             name="name"
-        >Invoice Validation Search (in account_invoice_validation)</field>
+        >Invoice Approval Search (in account_invoice_validation)</field>
         <field name="model">account.move</field>
         <field name="arch" type="xml">
             <search>
@@ -230,6 +248,11 @@
                     string="Is Waiting Approval"
                     name="waiting_approval_filter"
                     domain="[('validation_state', '=', 'wait_approval')]"
+                />
+                <filter
+                    string="Is First Accepted"
+                    name="first_approval_filter"
+                    domain="[('validation_state', '=', 'first_approval')]"
                 />
                 <filter
                     string="Is Accepted"
@@ -258,7 +281,7 @@
     <record model="ir.ui.view" id="account_invoice_validation_tree_view">
         <field
             name="name"
-        >Invoice Validation Tree (in account_invoice_validation)</field>
+        >Invoice Approval Tree (in account_invoice_validation)</field>
         <field name="model">account.move</field>
         <field name="arch" type="xml">
             <tree>
@@ -271,13 +294,14 @@
     </record>
 
     <record model="ir.actions.act_window" id="account_move_act_window">
-        <field name="name">Invoice validation</field>
+        <field name="name">Invoice Approval</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('validation_user_id', '=', uid),('move_type',
             'in', ('in_invoice', 'in_refund'))]</field>
-        <field name="context">{'create':
-            0,'search_default_waiting_approval_filter':1,'search_default_was_locked_filter':1}</field>
+        <field name="context">
+            {'create':
+            0,'search_default_waiting_approval_filter':1,'search_default_was_locked_filter':1,'search_default_first_approval_filter':1}</field>
         <field
             name="view_ids"
             eval="[(5, 0, 0),
@@ -287,13 +311,13 @@
         />
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Nothing to validate
+                Nothing to Approve
             </p>
         </field>
     </record>
 
     <record model="ir.ui.menu" id="validation_menu">
-        <field name="name">Invoice validation </field>
+        <field name="name">Invoice Approval </field>
         <field name="action" ref="account_move_act_window" />
         <field name="sequence" eval="16" />
         <field name="groups_id" eval="[(4,ref('group_account_invoice_validation'))]" />
