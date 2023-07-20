@@ -226,7 +226,7 @@
     <!-- Supplier -->
     <!-- Stocking Picking - To be Invoiced - State Assigned-->
     <record id="stock_picking_invoicing_7" model="stock.picking">
-        <field name="partner_id" ref="base.res_partner_12" />
+        <field name="partner_id" ref="base.res_partner_4" />
         <field name="picking_type_id" ref="stock.picking_type_in" />
         <field name="invoice_state">2binvoiced</field>
         <field name="origin">stock_picking_invoicing demo</field>
