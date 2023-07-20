@@ -94,7 +94,8 @@ class TestPickingInvoicing(TransactionCase):
     def test_0_picking_out_invoicing(self):
         # setting Agrolait type to default, because it's 'contact' in demo data
         nb_invoice_before = self.invoice_model.search_count([])
-        self.partner.write({"type": "invoice"})
+        # Test case to Get Price Unit to Invoice when Partner don't has Pricelist
+        self.partner.write({"type": "invoice", "property_product_pricelist": False})
         picking = self.picking_model.create(
             {
                 "partner_id": self.partner2.id,
@@ -845,6 +846,9 @@ class TestPickingInvoicing(TransactionCase):
         # Force product availability
         for move in picking_devolution.move_ids_without_package:
             move.quantity_done = move.product_uom_qty
+            # Test case where the user inform the field, value
+            # infomed should has preferency over the PriceList or Sellers
+            move.price_unit = 11.1
         picking_devolution.button_validate()
         self.assertEqual(picking_devolution.state, "done", "Change state fail.")
         wizard_obj = self.invoice_wizard.with_context(
