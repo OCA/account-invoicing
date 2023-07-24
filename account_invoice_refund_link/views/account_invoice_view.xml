@@ -45,6 +45,18 @@
                                 <field name="amount_total" string="Total" />
                                 <field name="state" string="Status" />
                             </group>
+                            <field name="invoice_line_ids" nolabel="1">
+                                <tree>
+                                    <field name="product_id" />
+                                    <field name="name" />
+                                    <field name="account_id" />
+                                    <field name="quantity" />
+                                    <field name="price_unit" />
+                                    <field name="discount" optional="hide" />
+                                    <field name="tax_ids" widget="many2many_tags" />
+                                    <field name="price_subtotal" />
+                                </tree>
+                            </field>
                         </form>
                     </field>
                 </page>
