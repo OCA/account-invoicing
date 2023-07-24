@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-07-24 15:09+0000\n"
+"Last-Translator: Anna Martínez <anna080678@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_mode_monthly
 #: model_terms:ir.ui.view,arch_db:account_invoice_mode_monthly.res_config_settings_view_form
@@ -42,6 +44,8 @@ msgid ""
 "number of days in a month, the invoicing will beexecuted on the last day of "
 "the month."
 msgstr ""
+"Día del mes para ejecutar la facturación. Si el número es mayor al numero de "
+"días del mes, la facturación será ejecutada el último día del mes."
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_company__display_name
@@ -56,7 +60,7 @@ msgstr ""
 #: model:ir.cron,cron_name:account_invoice_mode_monthly.ir_cron_generate_monthly_invoice
 #: model:ir.cron,name:account_invoice_mode_monthly.ir_cron_generate_monthly_invoice
 msgid "Generate Monthly Invoices"
-msgstr ""
+msgstr "Generar facturas mensuales"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_company__id
@@ -70,7 +74,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_company__invoicing_mode_monthly_day_todo
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_config_settings__res_invoicing_mode_monthly_day_todo
 msgid "Invoicing Day"
-msgstr ""
+msgstr "Día de facturación"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_partner__invoicing_mode
@@ -82,7 +86,7 @@ msgstr ""
 #. module: account_invoice_mode_monthly
 #: model_terms:ir.ui.view,arch_db:account_invoice_mode_monthly.res_config_settings_view_form
 msgid "Invoicing day"
-msgstr ""
+msgstr "Día de facturación"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_company____last_update
@@ -101,18 +105,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
 #: model:ir.model.fields,field_description:account_invoice_mode_monthly.field_res_config_settings__invoicing_mode_monthly_last_execution
 msgid "Last execution"
-msgstr ""
+msgstr "Última ejecución"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields,help:account_invoice_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
 #: model:ir.model.fields,help:account_invoice_mode_monthly.field_res_config_settings__invoicing_mode_monthly_last_execution
 msgid "Last execution of monthly invoicing."
-msgstr ""
+msgstr "Última ejecución de la facturación mensual."
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model.fields.selection,name:account_invoice_mode_monthly.selection__res_partner__invoicing_mode__monthly
 msgid "Monthly"
-msgstr ""
+msgstr "Mensual"
 
 #. module: account_invoice_mode_monthly
 #: model:ir.model,name:account_invoice_mode_monthly.model_sale_order
