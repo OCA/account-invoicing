@@ -18,14 +18,20 @@ msgstr ""
 "X-Generator: Poedit 3.0.1\n"
 
 #. module: account_invoice_crm_tag
-#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_invoice_report__tag_ids
+#: model_terms:ir.ui.view,arch_db:account_invoice_crm_tag.view_account_invoice_report_search
+msgid "CRM Tags"
+msgstr ""
+
+#. module: account_invoice_crm_tag
+#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_invoice_report__crm_tag_ids
 msgid "Invoice CRM Tags"
 msgstr "Etiquetas CRM de facturas"
 
 #. module: account_invoice_crm_tag
-#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_bank_statement_line__tags_ids
-#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_move__tags_ids
-#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_payment__tags_ids
+#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_bank_statement_line__crm_tag_ids
+#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_move__crm_tag_ids
+#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_move_line__crm_tag_ids
+#: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_payment__crm_tag_ids
 msgid "Invoice CRM tags"
 msgstr "Etiquetas CRM de facturas"
 
@@ -38,6 +44,11 @@ msgstr "Estadísticas de facturas"
 #: model:ir.model,name:account_invoice_crm_tag.model_account_move
 msgid "Journal Entry"
 msgstr "Asiento contable"
+
+#. module: account_invoice_crm_tag
+#: model:ir.model,name:account_invoice_crm_tag.model_account_move_line
+msgid "Journal Item"
+msgstr ""
 
 #. module: account_invoice_crm_tag
 #: model:ir.model,name:account_invoice_crm_tag.model_sale_order
