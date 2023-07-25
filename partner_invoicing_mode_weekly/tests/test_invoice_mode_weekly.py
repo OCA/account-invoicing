@@ -65,29 +65,18 @@ class TestInvoiceModeWeekly(TransactionCase):
         )
         cls.company = cls.so1.company_id
 
-        stock_location = cls.env.ref("stock.stock_location_stock")
-        cls.env["stock.quant"].create(
-            {
-                "product_id": cls.product.id,
-                "inventory_quantity": 100.0,
-                "location_id": stock_location.id,
-            }
-        )._apply_inventory()
-
-    def deliver_invoice(self, sale_order):
+    @classmethod
+    def _confirm_and_deliver(cls, sale_order):
         sale_order.action_confirm()
-        for picking in sale_order.picking_ids:
-            for line in picking.move_ids:
-                line.quantity_done = line.product_uom_qty
-            picking.action_assign()
-            picking.button_validate()
+        for line in sale_order.order_line:
+            line.qty_delivered = line.product_uom_qty
 
     def test_saleorder_with_different_mode_term(self):
         """Check multiple sale order one partner diverse terms."""
         self.so1.payment_term_id = self.pt1.id
-        self.deliver_invoice(self.so1)
+        self._confirm_and_deliver(self.so1)
         self.so2.payment_term_id = self.pt2.id
-        self.deliver_invoice(self.so2)
+        self._confirm_and_deliver(self.so2)
         with tools.mute_logger("odoo.addons.queue_job.models.base"):
             self.SaleOrder.with_context(
                 test_queue_job_no_delay=True
@@ -100,8 +89,8 @@ class TestInvoiceModeWeekly(TransactionCase):
 
     def test_saleorder_grouped_in_invoice(self):
         """Check multiple sale order grouped in one invoice"""
-        self.deliver_invoice(self.so1)
-        self.deliver_invoice(self.so2)
+        self._confirm_and_deliver(self.so1)
+        self._confirm_and_deliver(self.so2)
         with tools.mute_logger("odoo.addons.queue_job.models.base"):
             self.SaleOrder.with_context(
                 test_queue_job_no_delay=True
@@ -116,8 +105,8 @@ class TestInvoiceModeWeekly(TransactionCase):
         """For same customer invoice 2 sales order separately."""
         self.partner.invoicing_mode = "weekly"
         self.partner.one_invoice_per_order = True
-        self.deliver_invoice(self.so1)
-        self.deliver_invoice(self.so2)
+        self._confirm_and_deliver(self.so1)
+        self._confirm_and_deliver(self.so2)
         with tools.mute_logger("odoo.addons.queue_job.models.base"):
             self.SaleOrder.with_context(
                 test_queue_job_no_delay=True
@@ -135,8 +124,8 @@ class TestInvoiceModeWeekly(TransactionCase):
         self.so2.partner_id = self.partner2
         self.so2.partner_invoice_id = self.partner2
         self.so2.partner_shipping_id = self.partner2
-        self.deliver_invoice(self.so1)
-        self.deliver_invoice(self.so2)
+        self._confirm_and_deliver(self.so1)
+        self._confirm_and_deliver(self.so2)
         with tools.mute_logger("odoo.addons.queue_job.models.base"):
             self.SaleOrder.with_context(
                 test_queue_job_no_delay=True
