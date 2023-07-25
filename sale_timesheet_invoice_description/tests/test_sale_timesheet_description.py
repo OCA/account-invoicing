@@ -519,3 +519,313 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         self.assertEqual(
             float_compare(5.0, line.qty_invoiced, precision_rounding=pr), 0
         )
+
+    def test_split_with_multiple_invoices(self):
+        self.sale_order.timesheet_invoice_split = "timesheet"
+        self.sale_order.timesheet_invoice_description = "001"
+        self.sale_order.timesheet_invoice_consecutive = "not_fully_invoiced"
+        # Set a different UoM on SO line / invoice line from timesheet's UoM
+        self._change_uom_on_line(self.so_line)
+
+        # Add two new timesheets to the invoiced sale order line
+        self.timesheet.write({"name": "Description 1"})
+        self.timesheet.copy(
+            {
+                "name": "Description 2",
+                "date": datetime.strptime("2017-08-05", "%Y-%m-%d"),
+            }
+        )
+        self.timesheet.copy(
+            {
+                "name": "Description 3",
+                "date": datetime.strptime("2017-08-06", "%Y-%m-%d"),
+            }
+        )
+
+        # === First Invoice ===
+        invoice = self.sale_order.with_context(
+            test_timesheet_description=True
+        )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
+
+        self.assertEqual(len(invoice.invoice_line_ids), 4)
+
+        # delete the invoice line for third timesheet
+        invoice_unchecked = invoice.with_context(check_move_validity=False)
+        invoice_unchecked.invoice_line_ids[-1].unlink()
+        # modify the quantity on the invoice line for the second timesheet
+        invoice_unchecked.invoice_line_ids[-1].write({"quantity": 1.0})
+        # finally, balance the invoice again
+        invoice_unchecked._onchange_invoice_line_ids()
+        invoice._check_balanced()
+
+        # First line is a section with product's name
+        aml_ids = invoice.invoice_line_ids.sorted(key=lambda aml: aml.sequence)
+        self.assertEqual(aml_ids[0].display_type, "line_section")
+        self.assertEqual(aml_ids[0].name, "Test product")
+        # Next line refers to first timesheet
+        self.assertEqual(aml_ids[1].name, "Description 1")
+        self.assertEqual(aml_ids[1].quantity, 1.32)
+        # Next line refers to second timesheet; its quantity had been changed
+        self.assertEqual(aml_ids[2].name, "Description 2")
+        self.assertEqual(aml_ids[2].quantity, 1.0)
+
+        # Order line's delivered quantity must equal the sum of the timesheets'
+        # quantities, and order line's invoiced quantity must equal the
+        # actually invoiced quantity, which had been changed.
+        line = self.so_line
+        pr = line.product_uom.rounding
+        self.assertEqual(
+            float_compare(3.94, line.qty_delivered, precision_rounding=pr), 0
+        )
+        self.assertEqual(
+            float_compare(2.32, line.qty_invoiced, precision_rounding=pr), 0
+        )
+
+        # === Second Invoice ===
+        invoice = self.sale_order.with_context(
+            test_timesheet_description=True
+        )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
+
+        self.assertEqual(len(invoice.invoice_line_ids), 3)
+
+        # First line is a section with product's name
+        aml_ids = invoice.invoice_line_ids.sorted(key=lambda aml: aml.sequence)
+        self.assertEqual(aml_ids[0].display_type, "line_section")
+        self.assertEqual(aml_ids[0].name, "Test product")
+        # Next line refers to second timesheet, and its quantity is the
+        # remaining one
+        self.assertEqual(aml_ids[1].name, "Description 2")
+        self.assertEqual(aml_ids[1].quantity, 0.32)
+        # Next line refers to third timesheet, and its quantity
+        # is calculated as the rest to equal the original line's quantity
+        self.assertEqual(aml_ids[2].name, "Description 3")
+        self.assertEqual(aml_ids[2].quantity, 1.3)
+
+        # Note that the sum of all invoice lines -- 1.32 + 1.0 from first
+        # invoice, plus 0.32 + 1.3 from second invoice -- equals 3.94, the
+        # expected total.
+
+        # Order line's delivered quantity must equal the sum of the timesheets'
+        # quantities, and order line's invoiced quantity must equal the sum of
+        # the actually invoiced quantities, i.e. from both invoices.
+        line = self.so_line
+        pr = line.product_uom.rounding
+        self.assertEqual(
+            float_compare(3.94, line.qty_delivered, precision_rounding=pr), 0
+        )
+        self.assertEqual(
+            float_compare(3.94, line.qty_invoiced, precision_rounding=pr), 0
+        )
+
+    def test_split_with_multiple_invoices_uninvoiced_all(self):
+        self.sale_order.timesheet_invoice_split = "timesheet"
+        self.sale_order.timesheet_invoice_description = "001"
+        self.sale_order.timesheet_invoice_consecutive = "uninvoiced"
+        # Set a different UoM on SO line / invoice line from timesheet's UoM
+        self._change_uom_on_line(self.so_line)
+
+        # Add two new timesheets to the invoiced sale order line
+        self.timesheet.write({"name": "Description 1"})
+        self.timesheet.copy(
+            {
+                "name": "Description 2",
+                "date": datetime.strptime("2017-08-05", "%Y-%m-%d"),
+            }
+        )
+        self.timesheet.copy(
+            {
+                "name": "Description 3",
+                "date": datetime.strptime("2017-08-06", "%Y-%m-%d"),
+            }
+        )
+
+        # === First Invoice ===
+        invoice = self.sale_order.with_context(
+            test_timesheet_description=True
+        )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
+
+        self.assertEqual(len(invoice.invoice_line_ids), 4)
+
+        # delete the invoice line for third timesheet
+        invoice_unchecked = invoice.with_context(check_move_validity=False)
+        invoice_unchecked.invoice_line_ids[-1].unlink()
+        # modify the quantity on the invoice line for the second timesheet
+        # The quantity is chosen small enough, in such a way that the second
+        # invoice (created below) will be able to use the entire specified
+        # quantity of the third (= currently uninvoiced) timesheet.
+        invoice_unchecked.invoice_line_ids[-1].write({"quantity": 1.0})
+        # finally, balance the invoice again
+        invoice_unchecked._onchange_invoice_line_ids()
+        invoice._check_balanced()
+
+        # First line is a section with product's name
+        aml_ids = invoice.invoice_line_ids.sorted(key=lambda aml: aml.sequence)
+        self.assertEqual(aml_ids[0].display_type, "line_section")
+        self.assertEqual(aml_ids[0].name, "Test product")
+        # Next line refers to first timesheet
+        self.assertEqual(aml_ids[1].name, "Description 1")
+        self.assertEqual(aml_ids[1].quantity, 1.32)
+        # Next line refers to second timesheet; its quantity had been changed
+        self.assertEqual(aml_ids[2].name, "Description 2")
+        self.assertEqual(aml_ids[2].quantity, 1.0)
+
+        # Order line's delivered quantity must equal the sum of the timesheets'
+        # quantities, and order line's invoiced quantity must equal the
+        # actually invoiced quantity, which had been changed.
+        line = self.so_line
+        pr = line.product_uom.rounding
+        self.assertEqual(
+            float_compare(3.94, line.qty_delivered, precision_rounding=pr), 0
+        )
+        self.assertEqual(
+            float_compare(2.32, line.qty_invoiced, precision_rounding=pr), 0
+        )
+        # Note that the order's total quantity is not the sum of the three
+        # timesheets' quantities of 1.32 + 1.32 + 1.32 = 3.96, but rather 3.94,
+        # due to rounding effect. And the quantity currently invoiced is 2.32.
+        # Thus, a quantity of 3.94 - 2.32 = 1.62 remains, which is *more* than
+        # the quantity of the third (= currently uninvoiced) timesheet of 1.32.
+        # Hence, the third timesheet's *entire* quantity can now be invoiced
+        # with a second invoice.
+
+        # === Second Invoice ===
+        invoice = self.sale_order.with_context(
+            test_timesheet_description=True
+        )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
+
+        self.assertEqual(len(invoice.invoice_line_ids), 2)
+
+        # First line is a section with product's name
+        aml_ids = invoice.invoice_line_ids.sorted(key=lambda aml: aml.sequence)
+        self.assertEqual(aml_ids[0].display_type, "line_section")
+        self.assertEqual(aml_ids[0].name, "Test product")
+        # Next line refers to third timesheet, and its quantity
+        # is calculated as the rest to equal the original line's quantity, but
+        # limited to the quantity of the timesheet itself. In this case, it's
+        # actually the timesheet's quantity.
+        self.assertEqual(aml_ids[1].name, "Description 3")
+        self.assertEqual(aml_ids[1].quantity, 1.32)
+
+        # Note that the sum of all invoice lines -- 1.32 + 1.0 from first
+        # invoice, plus 1.32 from second invoice -- does not equal 3.94, the
+        # expected total, as there is still a partially invoiced timesheet.
+
+        # Order line's delivered quantity must equal the sum of the timesheets'
+        # quantities, and order line's invoiced quantity must equal the sum of
+        # the actually invoiced quantities, i.e. from both invoices.
+        line = self.so_line
+        pr = line.product_uom.rounding
+        self.assertEqual(
+            float_compare(3.94, line.qty_delivered, precision_rounding=pr), 0
+        )
+        self.assertEqual(
+            float_compare(3.64, line.qty_invoiced, precision_rounding=pr), 0
+        )
+
+    def test_split_with_multiple_invoices_uninvoiced_part(self):
+        self.sale_order.timesheet_invoice_split = "timesheet"
+        self.sale_order.timesheet_invoice_description = "001"
+        self.sale_order.timesheet_invoice_consecutive = "uninvoiced"
+        # Set a different UoM on SO line / invoice line from timesheet's UoM
+        self._change_uom_on_line(self.so_line)
+
+        # Add two new timesheets to the invoiced sale order line
+        self.timesheet.write({"name": "Description 1"})
+        self.timesheet.copy(
+            {
+                "name": "Description 2",
+                "date": datetime.strptime("2017-08-05", "%Y-%m-%d"),
+            }
+        )
+        self.timesheet.copy(
+            {
+                "name": "Description 3",
+                "date": datetime.strptime("2017-08-06", "%Y-%m-%d"),
+            }
+        )
+
+        # === First Invoice ===
+        invoice = self.sale_order.with_context(
+            test_timesheet_description=True
+        )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
+
+        self.assertEqual(len(invoice.invoice_line_ids), 4)
+
+        # delete the invoice line for third timesheet
+        invoice_unchecked = invoice.with_context(check_move_validity=False)
+        invoice_unchecked.invoice_line_ids[-1].unlink()
+        # modify the quantity on the invoice line for the second timesheet
+        # The quantity is chosen large enough, in such a way that the second
+        # invoice (created below) will *not* be able to use the entire
+        # specified quantity of the third (= currently uninvoiced) timesheet,
+        # due to the rounding effect on the order's total quantity.
+        invoice_unchecked.invoice_line_ids[-1].write({"quantity": 1.31})
+        # finally, balance the invoice again
+        invoice_unchecked._onchange_invoice_line_ids()
+        invoice._check_balanced()
+
+        # First line is a section with product's name
+        aml_ids = invoice.invoice_line_ids.sorted(key=lambda aml: aml.sequence)
+        self.assertEqual(aml_ids[0].display_type, "line_section")
+        self.assertEqual(aml_ids[0].name, "Test product")
+        # Next line refers to first timesheet
+        self.assertEqual(aml_ids[1].name, "Description 1")
+        self.assertEqual(aml_ids[1].quantity, 1.32)
+        # Next line refers to second timesheet; its quantity had been changed
+        self.assertEqual(aml_ids[2].name, "Description 2")
+        self.assertEqual(aml_ids[2].quantity, 1.31)
+
+        # Order line's delivered quantity must equal the sum of the timesheets'
+        # quantities, and order line's invoiced quantity must equal the
+        # actually invoiced quantity, which had been changed.
+        line = self.so_line
+        pr = line.product_uom.rounding
+        self.assertEqual(
+            float_compare(3.94, line.qty_delivered, precision_rounding=pr), 0
+        )
+        self.assertEqual(
+            float_compare(2.63, line.qty_invoiced, precision_rounding=pr), 0
+        )
+        # Note that the order's total quantity is not the sum of the three
+        # timesheets' quantities of 1.32 + 1.32 + 1.32 = 3.96, but rather 3.94,
+        # due to rounding effect. And the quantity currently invoiced is 2.63.
+        # Thus, a quantity of 3.94 - 2.63 = 1.31 remains, which is *less* than
+        # the quantity of the third (= currently uninvoiced) timesheet of 1.32.
+        # Hence, only a *proper part* of the third timesheet's quantity can now
+        # be invoiced with a second invoice.
+
+        # === Second Invoice ===
+        invoice = self.sale_order.with_context(
+            test_timesheet_description=True
+        )._create_invoices(start_date="2017-01-01", end_date="2018-01-01")
+
+        self.assertEqual(len(invoice.invoice_line_ids), 2)
+
+        # First line is a section with product's name
+        aml_ids = invoice.invoice_line_ids.sorted(key=lambda aml: aml.sequence)
+        self.assertEqual(aml_ids[0].display_type, "line_section")
+        self.assertEqual(aml_ids[0].name, "Test product")
+        # Next line refers to third timesheet, and its quantity
+        # is calculated as the rest to equal the original line's quantity, but
+        # limited to the quantity of the timesheet itself. In this case, it's
+        # actually the rest.
+        self.assertEqual(aml_ids[1].name, "Description 3")
+        self.assertEqual(aml_ids[1].quantity, 1.31)
+
+        # Note that the sum of all invoice lines -- 1.32 + 1.31 from first
+        # invoice, plus 1.31 from second invoice -- does equal 3.94, the
+        # expected total. I.e., even though the second and third timesheets are
+        # only partially invoiced, the invoiced total equals the delivered
+        # total, due to rounding effects.
+
+        # Order line's delivered quantity must equal the sum of the timesheets'
+        # quantities, and order line's invoiced quantity must equal the sum of
+        # the actually invoiced quantities, i.e. from both invoices.
+        line = self.so_line
+        pr = line.product_uom.rounding
+        self.assertEqual(
+            float_compare(3.94, line.qty_delivered, precision_rounding=pr), 0
+        )
+        self.assertEqual(
+            float_compare(3.94, line.qty_invoiced, precision_rounding=pr), 0
+        )
