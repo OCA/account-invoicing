@@ -1,8 +1,12 @@
 # Copyright 2021 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
+from freezegun import freeze_time
 
-from odoo import tools
+from odoo import fields, tools
 from odoo.tests.common import TransactionCase
+from odoo.tools import relativedelta
+
+from odoo.addons.queue_job.tests.common import trap_jobs
 
 
 class TestInvoiceModeWeekly(TransactionCase):
@@ -11,6 +15,9 @@ class TestInvoiceModeWeekly(TransactionCase):
         super().setUpClass()
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.SaleOrder = cls.env["sale.order"]
+        cls.cron = cls.env.ref(
+            "partner_invoicing_mode_weekly.ir_cron_generate_weekly_invoice"
+        )
         cls.partner = cls.env.ref("base.res_partner_1")
         cls.partner.invoicing_mode = "weekly"
         cls.partner2 = cls.env.ref("base.res_partner_2")
@@ -130,6 +137,57 @@ class TestInvoiceModeWeekly(TransactionCase):
             self.SaleOrder.with_context(
                 test_queue_job_no_delay=True
             ).generate_weekly_invoices(self.company)
+        self.assertEqual(len(self.so1.invoice_ids), 1)
+        self.assertEqual(len(self.so2.invoice_ids), 1)
+        self.assertNotEqual(self.so1.invoice_ids, self.so2.invoice_ids)
+        self.assertEqual(self.so1.invoice_ids.state, "posted")
+        self.assertEqual(self.so2.invoice_ids.state, "posted")
+
+    @freeze_time("2023-05-10")
+    def test_cron(self):
+        # Today is Wednesday
+        self.env.company.invoicing_mode_weekly_last_execution = (
+            fields.Datetime.now() - relativedelta(days=10)
+        )
+        self.env.company.invoicing_mode_weekly_day_todo = "2"
+        self.partner.invoicing_mode = "weekly"
+        self.so2.partner_id = self.partner2
+        self.so2.partner_invoice_id = self.partner2
+        self.so2.partner_shipping_id = self.partner2
+        self._confirm_and_deliver(self.so1)
+        self._confirm_and_deliver(self.so2)
+        with trap_jobs() as trap:
+            self.cron.method_direct_trigger()
+            trap.assert_jobs_count(2)
+            trap.assert_enqueued_job(
+                self.env["sale.order"]._generate_invoices_by_partner,
+                args=(self.so1.ids,),
+                kwargs={},
+            )
+            with trap_jobs() as trap_invoice:
+                for job in trap.enqueued_jobs:
+                    if job.args == (self.so1.ids,):
+                        job.perform()
+                trap_invoice.assert_jobs_count(1)
+                trap_invoice.assert_enqueued_job(
+                    self.so1.invoice_ids._validate_invoice,
+                    args=(),
+                    kwargs={},
+                )
+                trap_invoice.enqueued_jobs[0].perform()
+
+            with trap_jobs() as trap_invoice:
+                for job in trap.enqueued_jobs:
+                    if job.args == (self.so2.ids,):
+                        job.perform()
+                trap_invoice.assert_jobs_count(1)
+                trap_invoice.assert_enqueued_job(
+                    self.so2.invoice_ids._validate_invoice,
+                    args=(),
+                    kwargs={},
+                )
+                trap_invoice.enqueued_jobs[0].perform()
+
         self.assertEqual(len(self.so1.invoice_ids), 1)
         self.assertEqual(len(self.so2.invoice_ids), 1)
         self.assertNotEqual(self.so1.invoice_ids, self.so2.invoice_ids)
