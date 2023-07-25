@@ -28,6 +28,25 @@ class TestSaleTimesheetDescription(common.TransactionCase):
         )
         cls.product_uom_hour = cls.env.ref("uom.product_uom_hour")
         cls.product_uom_day = cls.env.ref("uom.product_uom_day")
+
+        # Make sure the UoM's have the necessary properties for the rounding
+        # effects on the quantities in the unit tests do work as expected.
+        # Note: Need to write the (new) reference UoM first.
+        cls.product_uom_day.write(
+            {
+                "uom_type": "reference",
+                "factor": 1.0,
+                "rounding": 0.01,
+            }
+        )
+        cls.product_uom_hour.write(
+            {
+                "uom_type": "smaller",
+                "factor": 8.0,
+                "rounding": 0.01,
+            }
+        )
+
         cls.product = cls.env["product.product"].create(
             {
                 "name": "Test product",
