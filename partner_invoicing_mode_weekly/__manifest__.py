@@ -13,7 +13,6 @@
         "partner_invoicing_mode",
         "queue_job",
         "sale",
-        "stock",  # For unit tests
     ],
     "data": [
         "data/ir_cron.xml",
