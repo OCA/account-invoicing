@@ -9,5 +9,5 @@ class SaleOrder(models.Model):
     def _prepare_invoice(self):
         vals = super()._prepare_invoice()
         if self.tag_ids:
-            vals["tag_ids"] = [(6, 0, self.tag_ids.ids)]
+            vals["crm_tag_ids"] = [(6, 0, self.tag_ids.ids)]
         return vals
