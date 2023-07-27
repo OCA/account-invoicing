@@ -56,3 +56,33 @@ class TestInvoiceModeAtShipping(CommonPartnerInvoicingMode, TransactionCase):
             for job in trap.enqueued_jobs:
                 job.perform()
         self.assertTrue(self.so1.invoice_ids)
+
+    def test_invoicing_standard_grouping(self):
+        # Confirm and deliver both sale orders
+        self._confirm_and_deliver(self.so1)
+        self._confirm_and_deliver(self.so2)
+        with trap_jobs() as trap:
+            self.SaleOrder.generate_invoices()
+            for job in trap.enqueued_jobs:
+                job.perform()
+        # Check one invoice is generated
+        self.assertEqual(1, len(self.so2.invoice_ids))
+        self.assertEqual(1, len(self.so1.invoice_ids))
+        # Check the invoice is the same
+        self.assertEqual(self.so2.invoice_ids, self.so1.invoice_ids)
+
+    def test_invoicing_standard_no_grouping(self):
+        # Confirm and deliver both sale orders
+        self.so1.one_invoice_per_order = True
+        self.so2.one_invoice_per_order = True
+        self._confirm_and_deliver(self.so1)
+        self._confirm_and_deliver(self.so2)
+        with trap_jobs() as trap:
+            self.SaleOrder.generate_invoices()
+            for job in trap.enqueued_jobs:
+                job.perform()
+        # Check one invoice is generated
+        self.assertEqual(1, len(self.so2.invoice_ids))
+        self.assertEqual(1, len(self.so1.invoice_ids))
+        # Check the invoice is the same
+        self.assertNotEqual(self.so2.invoice_ids, self.so1.invoice_ids)
