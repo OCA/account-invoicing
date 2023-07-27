@@ -11,6 +11,8 @@
     "depends": ["account", "queue_job", "sale"],
     "data": [
         "data/queue_job_data.xml",
+        "data/ir_cron.xml",
         "views/res_partner.xml",
+        "views/res_config_settings.xml",
     ],
 }
