@@ -196,12 +196,13 @@ class TestInvoiceTripleDiscount(SavepointCase):
             line_form.quantity = 10
             line_form.price_unit = -2.00
         invoice_form.save()
-        for line in invoice.invoice_line_ids:
+        for line in invoice.line_ids:
             line.with_context(check_move_validity=False).update(
                 {"price_unit": -line.price_unit}
             )
         invoice.with_context(check_move_validity=False)._recompute_dynamic_lines(
-            recompute_all_taxes=True
+            recompute_all_taxes=True,
         )
+        invoice._check_balanced()
         self.assertEqual(invoice.move_type, "in_refund")
         self.assertEqual(round(invoice.amount_total, 2), 23.0)
