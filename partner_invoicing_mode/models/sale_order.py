@@ -70,12 +70,16 @@ class SaleOrder(models.Model):
         )
         if not sales:
             return "No sale order found to invoice ?"
-        invoices = sales._create_invoices(
-            grouped=sales[0].partner_invoice_id.one_invoice_per_order, final=True
-        )
-        for invoice in invoices:
-            invoice.with_delay()._validate_invoice()
-        return invoices
+        # Create invoices using grouping when needed, so partition sales
+        invoice_ids = set()
+        for partition, sales in sales.partition(
+            lambda sale: sale.partner_invoice_id.one_invoice_per_order
+        ).items():
+            invoices = sales._create_invoices(grouped=partition, final=True)
+            invoice_ids.update(invoices.ids)
+            for invoice in invoices:
+                invoice.with_delay()._validate_invoice()
+        return self.env["account.move"].browse(invoice_ids)
 
     @api.model
     def _get_companies_standard_invoicing(self):
