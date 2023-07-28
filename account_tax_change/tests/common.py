@@ -8,8 +8,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 class AccountTaxChangeCommon(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpClass(cls, chart_template_ref=None):
+        super().setUpClass(chart_template_ref=chart_template_ref)
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         # Prepare the taxes and products
         cls.product_b.taxes_id -= cls.product_a.taxes_id
