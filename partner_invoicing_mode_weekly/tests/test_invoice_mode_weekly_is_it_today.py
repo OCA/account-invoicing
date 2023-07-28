@@ -20,11 +20,11 @@ class TestInvoiceModeWeekly(TransactionCase):
         company.invoicing_mode_weekly_last_execution = "2020-07-02"
         self.assertTrue(self.env.company)
         with freeze_time("2020-07-03"):
-            res = self.SaleOrder._company_weekly_invoicing_today()
+            res = self.SaleOrder._get_companies_weekly_invoicing()
             self.assertTrue(res)
         company.invoicing_mode_weekly_last_execution = "2020-07-04"
         with freeze_time("2020-07-03"):
-            res = self.SaleOrder._company_weekly_invoicing_today()
+            res = self.SaleOrder._get_companies_weekly_invoicing()
             self.assertFalse(res)
 
     def test_no_invoicing_done_yet(self):
@@ -38,8 +38,8 @@ class TestInvoiceModeWeekly(TransactionCase):
         company.invoicing_mode_weekly_last_execution = None
         self.assertTrue(self.env.company)
         with freeze_time("2020-06-07"):
-            res = self.SaleOrder._company_weekly_invoicing_today()
+            res = self.SaleOrder._get_companies_weekly_invoicing()
             self.assertFalse(res)
         with freeze_time("2020-06-08"):
-            res = self.SaleOrder._company_weekly_invoicing_today()
+            res = self.SaleOrder._get_companies_weekly_invoicing()
             self.assertTrue(res)
