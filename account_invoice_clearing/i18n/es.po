@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-12 10:57+0000\n"
-"PO-Revision-Date: 2023-04-12 13:12+0200\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-07-29 10:09+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"X-Generator: Poedit 3.1.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
@@ -23,6 +23,8 @@ msgid ""
 "<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible="
 "\"1\">Actions:</span>"
 msgstr ""
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible=\"1\""
+">Acciones:</span>"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
@@ -30,6 +32,8 @@ msgid ""
 "<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible="
 "\"1\">Sort by:</span>"
 msgstr ""
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible=\"1\""
+">Corta por:</span>"
 
 #. module: account_invoice_clearing
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
@@ -219,7 +223,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__id
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__id
 msgid "ID"
-msgstr ""
+msgstr "ID(identificador)"
 
 #. module: account_invoice_clearing
 #: model:ir.actions.server,name:account_invoice_clearing.action_invoice_clearing
