@@ -6,69 +6,71 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-07-29 10:09+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_tax_change
 #: model:ir.model.constraint,message:account_tax_change.constraint_account_tax_change_name_company_date_uniq
 msgid "A tax change already exists for this company at this date."
-msgstr ""
+msgstr "En esta fecha ya existe un cambio fiscal para esta empresa."
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change__active
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #. module: account_tax_change
 #: model:ir.model,name:account_tax_change.model_account_move_apply_tax_change
 msgid "Apply a tax change on invoices."
-msgstr ""
+msgstr "Aplicar un cambio fiscal en las facturas."
 
 #. module: account_tax_change
 #: model:ir.actions.act_window,name:account_tax_change.account_move_apply_tax_change_action
 msgid "Apply tax changes"
-msgstr ""
+msgstr "Aplicar cambios de impuestos"
 
 #. module: account_tax_change
 #: model_terms:ir.ui.view,arch_db:account_tax_change.account_tax_change_view_search
 msgid "Archived"
-msgstr ""
+msgstr "Archivado"
 
 #. module: account_tax_change
 #: model_terms:ir.ui.view,arch_db:account_tax_change.account_move_apply_tax_change_view_form
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_move_apply_tax_change__company_id
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change__company_id
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line__company_id
 msgid "Company"
-msgstr ""
+msgstr "Companía"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_move_apply_tax_change__create_uid
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change__create_uid
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_move_apply_tax_change__create_date
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change__create_date
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creado el"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change__date
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #. module: account_tax_change
 #: model:ir.model.fields,help:account_tax_change.field_account_tax_change_line__type_tax_use
@@ -77,106 +79,109 @@ msgid ""
 "used by itself, however it can still be used in a group. 'adjustment' is "
 "used to perform tax adjustment."
 msgstr ""
+"Determina dónde se puede seleccionar el impuesto. Nota : 'Ninguno' significa "
+"que un impuesto no puede ser usado por si mismo, sin embargo puede ser usado "
+"en un grupo. 'Ajuste' se utiliza para realizar el ajuste de impuestos."
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_move_apply_tax_change__display_name
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change__display_name
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nombre a Mostrar"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line__tax_src_id
 msgid "From tax"
-msgstr ""
+msgstr "Del impuesto"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_move_apply_tax_change__id
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change__id
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line__id
 msgid "ID"
-msgstr ""
+msgstr "ID (identificación)"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_move_apply_tax_change__invoice_ids
 #: model_terms:ir.ui.view,arch_db:account_tax_change.account_move_apply_tax_change_view_form
 msgid "Invoices"
-msgstr ""
+msgstr "Facturas"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_move_apply_tax_change____last_update
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change____last_update
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última Modificación el"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_move_apply_tax_change__write_uid
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change__write_uid
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Actualizado por última vez por"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_move_apply_tax_change__write_date
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change__write_date
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Última Actualización el"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change__change_line_ids
 msgid "Mapping"
-msgstr ""
+msgstr "Mapeo"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change__name
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #. module: account_tax_change
 #: model_terms:ir.ui.view,arch_db:account_tax_change.account_move_apply_tax_change_view_form
 msgid "Once validated the tax changes cannot be rolled back."
-msgstr ""
+msgstr "Una vez validados, los cambios fiscales no pueden anularse."
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_move_apply_tax_change__tax_change_id
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line__tax_change_id
 msgid "Tax Change"
-msgstr ""
+msgstr "Cambio fiscal"
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line__type_tax_use
 msgid "Tax Type"
-msgstr ""
+msgstr "Tipo de impuesto"
 
 #. module: account_tax_change
 #: model:ir.model,name:account_tax_change.model_account_tax_change
 msgid "Tax change mapping"
-msgstr ""
+msgstr "Mapeo de cambio de impuestos"
 
 #. module: account_tax_change
 #: model:ir.model,name:account_tax_change.model_account_tax_change_line
 msgid "Tax change mapping line"
-msgstr ""
+msgstr "Línea de mapeo de cambio de impuestos"
 
 #. module: account_tax_change
 #: model:ir.actions.act_window,name:account_tax_change.account_tax_change_action
 #: model:ir.ui.menu,name:account_tax_change.account_tax_change_menu
 msgid "Tax changes"
-msgstr ""
+msgstr "Cambios fiscales"
 
 #. module: account_tax_change
 #. odoo-python
 #: code:addons/account_tax_change/models/account_tax_change.py:0
 #, python-format
 msgid "Taxes From/To have to share the same type."
-msgstr ""
+msgstr "Los impuestos Desde/Hasta tienen que compartir el mismo tipo."
 
 #. module: account_tax_change
 #: model:ir.model.fields,field_description:account_tax_change.field_account_tax_change_line__tax_dest_id
 msgid "To tax"
-msgstr ""
+msgstr "Para tributar"
 
 #. module: account_tax_change
 #. odoo-python
@@ -190,8 +195,14 @@ msgid ""
 "\n"
 "These invoices could be already paid, posted or cancelled."
 msgstr ""
+"No se pueden actualizar los impuestos de las siguientes facturas:\n"
+"\n"
+"- \n"
+"- \n"
+"\n"
+"Estas facturas podrían estar ya pagadas, contabilizadas o anuladas."
 
 #. module: account_tax_change
 #: model_terms:ir.ui.view,arch_db:account_tax_change.account_move_apply_tax_change_view_form
 msgid "Validate"
-msgstr ""
+msgstr "Validar"
