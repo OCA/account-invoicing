@@ -10,7 +10,7 @@
     'license': 'AGPL-3',
     'author': 'Tecnativa, '
               'Odoo Community Association (OCA)',
-    'website': 'https://www.tecnativa.com',
+    'website': 'https://github.com/OCA/oca-account-invoicing',
     'depends': [
         'sale_timesheet',
     ],

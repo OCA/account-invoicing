@@ -9,7 +9,7 @@
                "and purchase_stock_picking_return_invoicing",
     "version": "11.0.1.0.0",
     "category": "Purchases",
-    "website": "https://github.com/OCA/account-invoicing",
+    "website": "https://github.com/OCA/oca-account-invoicing",
     "author": "Eficent,"
               "Odoo Community Association (OCA)",
     "license": "AGPL-3",

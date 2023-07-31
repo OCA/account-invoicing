@@ -6,7 +6,7 @@
     'category': 'Accounting & Finance',
     'summary': 'Allows to change currency of Invoice by wizard',
     'author': 'Komit Consulting, Odoo Community Association (OCA)',
-    'website': 'https://github.com/OCA/account-invoicing',
+    'website': 'https://github.com/OCA/oca-account-invoicing',
     'license': 'AGPL-3',
     'depends': [
         'account',

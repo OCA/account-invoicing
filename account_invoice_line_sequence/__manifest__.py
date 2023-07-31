@@ -12,7 +12,7 @@
               "Eficent, "
               "Serpent CS, "
               "Odoo Community Association (OCA)",
-    'website': 'https://github.com/OCA/account-invoicing.git',
+    'website': 'https://github.com/OCA/oca-account-invoicing',
     'data': ['views/account_invoice_view.xml',
              'views/report_invoice.xml'],
     'depends': ['account'],

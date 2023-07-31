@@ -8,7 +8,7 @@
     "summary": "Link refund invoice with its original invoice",
     "version": "11.0.2.0.0",
     "category": "Accounting & Finance",
-    "website": "https://odoo-community.org/",
+    "website": "https://github.com/OCA/oca-account-invoicing",
     "author": "Pexego, "
               "Tecnativa, "
               "Odoo Community Association (OCA)",

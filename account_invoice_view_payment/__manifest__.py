@@ -9,7 +9,7 @@
     'summary': "Access to the payment from an invoice",
     'author': 'Eficent,'
               'Odoo Community Association (OCA)',
-    'website': 'https://github.com/OCA/account-payment',
+    'website': 'https://github.com/OCA/oca-account-invoicing',
     'license': 'AGPL-3',
     "depends": [
         'account',

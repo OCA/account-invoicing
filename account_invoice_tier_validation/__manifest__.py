@@ -6,7 +6,7 @@
     "support a tier validation process.",
     "version": "11.0.1.0.0",
     "category": "Invoices",
-    "website": "https://github.com/OCA/account-invoicing",
+    "website": "https://github.com/OCA/oca-account-invoicing",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "installable": True,

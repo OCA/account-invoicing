@@ -9,7 +9,7 @@
                'lines in a invoice',
     'author': 'Creu Blanca,'
               'Odoo Community Association (OCA)',
-    'website': 'https://github.com/OCA/account-invoicing',
+    'website': 'https://github.com/OCA/oca-account-invoicing',
     'license': 'LGPL-3',
     'depends': ['account'],
     'data': ['wizards/account_invoice_refund_view.xml'],

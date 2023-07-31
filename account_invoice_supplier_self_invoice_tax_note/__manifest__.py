@@ -9,7 +9,7 @@
               "Eficent, "
               "Odoo Community Association (OCA)",
     "category": "Accounting & Finance",
-    "website": "https://github.com/OCA/account-invoicing",
+    "website": "https://github.com/OCA/oca-account-invoicing",
     "license": "AGPL-3",
     "depends": [
         "account_invoice_supplier_self_invoice",

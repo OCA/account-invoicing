@@ -9,7 +9,7 @@
     "version": "11.0.1.0.0",
     "author": "Eficent, "
               "Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/account-invoicing",
+    "website": "https://github.com/OCA/oca-account-invoicing",
     "category": "Accounting & Finance",
     "depends": ["stock_account", "sale_stock"],
     "license": "AGPL-3",

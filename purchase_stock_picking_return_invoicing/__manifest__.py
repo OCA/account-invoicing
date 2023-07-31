@@ -8,7 +8,7 @@
     "summary": "Add an option to refund returned pickings",
     "version": "11.0.1.1.0",
     "category": "Purchases",
-    "website": "https://github.com/OCA/account-invoicing",
+    "website": "https://github.com/OCA/oca-account-invoicing",
     "author": "Eficent,"
               "Tecnativa,"
               "Odoo Community Association (OCA)",

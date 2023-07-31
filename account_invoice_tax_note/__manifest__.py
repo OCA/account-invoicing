@@ -5,7 +5,7 @@
     'version': "11.0.1.0.0",
     "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
     "summary": "Print tax notes on customer invoices",
-    'website': "https://github.com/OCA/account-invoicing",
+    'website': "https://github.com/OCA/oca-account-invoicing",
     'category': "Localization / Accounting",
     'license': "AGPL-3",
     'depends': [

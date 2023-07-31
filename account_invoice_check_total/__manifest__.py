@@ -8,7 +8,7 @@
     'version': '11.0.1.1.0',
     'license': 'AGPL-3',
     'author': 'Acsone SA/NV,Odoo Community Association (OCA)',
-    'website': 'https://acsone.eu/',
+    'website': 'https://github.com/OCA/oca-account-invoicing',
     'depends': [
         'account',
     ],

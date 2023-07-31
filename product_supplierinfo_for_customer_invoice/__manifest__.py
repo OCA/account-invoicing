@@ -8,7 +8,7 @@
                 account invoice the customer code defined in the product""",
     "version": "11.0.1.0.0",
     "author": "Agile Business Group,Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/account-invoicing",
+    "website": "https://github.com/OCA/oca-account-invoicing",
     "category": "Account",
     "license": "AGPL-3",
     "depends": [

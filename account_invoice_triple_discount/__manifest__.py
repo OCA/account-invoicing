@@ -8,7 +8,7 @@
     'author': 'QubiQ,'
               'Tecnativa,'
               'Odoo Community Association (OCA)',
-    'website': 'https://odoo-community.org',
+    'website': 'https://github.com/OCA/oca-account-invoicing',
     'license': 'AGPL-3',
     'summary': 'Manage triple discount on invoice lines',
     'depends': [
