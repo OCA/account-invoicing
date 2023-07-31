@@ -14,7 +14,7 @@
               'Agile Business Group, '
               'Odoo Community Association (OCA)',
     'maintainer': 'OCA',
-    'website': 'http://www.camptocamp.com/',
+    'website': 'https://github.com/OCA/account-invoicing',
     'license': 'AGPL-3',
     'depends': ['account'],
     'data': [

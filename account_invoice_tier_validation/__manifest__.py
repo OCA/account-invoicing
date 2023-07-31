@@ -8,7 +8,7 @@
     "category": "Invoices",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "installable": True,
     "depends": ["account", "base_tier_validation",
                 ],

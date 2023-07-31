@@ -1,28 +1,37 @@
-[![Runbot Status](https://runbot.odoo-community.org/runbot/badge/flat/95/11.0.svg)](https://runbot.odoo-community.org/runbot/repo/github-com-oca-account-invoicing-95)
-[![Build Status](https://travis-ci.org/OCA/account-invoicing.svg?branch=11.0)](https://travis-ci.org/OCA/account-invoicing)
-[![Coverage Status](https://coveralls.io/repos/OCA/account-invoicing/badge.svg?branch=11.0)](https://coveralls.io/r/OCA/account-invoicing?branch=11.0)
 
-OCA account invoicing modules for Odoo
-======================================
+[![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/oca-account-invoicing&target_branch=11.0)
+[![Pre-commit Status](https://github.com/OCA/oca-account-invoicing/actions/workflows/pre-commit.yml/badge.svg?branch=11.0)](https://github.com/OCA/oca-account-invoicing/actions/workflows/pre-commit.yml?query=branch%3A11.0)
+[![Build Status](https://github.com/OCA/oca-account-invoicing/actions/workflows/test.yml/badge.svg?branch=11.0)](https://github.com/OCA/oca-account-invoicing/actions/workflows/test.yml?query=branch%3A11.0)
+[![codecov](https://codecov.io/gh/OCA/oca-account-invoicing/branch/11.0/graph/badge.svg)](https://codecov.io/gh/OCA/oca-account-invoicing)
+[![Translation Status](https://translation.odoo-community.org/widgets/oca-account-invoicing-11-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/oca-account-invoicing-11-0/?utm_source=widget)
 
-This project aim to deal with modules related to manage invoicing in a generic way. You'll find modules that:
+<!-- /!\ do not modify above this line -->
 
- - Add a validation step on invoicing process
- - Add check on invoice
- - Unit rounded invoice
- - Utils and ease of use for invoicing with OpenERP
- - ...
+# This project aims to deal with modules related to account invoicing
 
+Account invoicing
 
+<!-- /!\ do not modify below this line -->
 
-Translation Status
-------------------
-[![Transifex Status](https://www.transifex.com/projects/p/OCA-account-invoicing-11-0/chart/image_png)](https://www.transifex.com/projects/p/OCA-account-invoicing-11-0)
+<!-- prettier-ignore-start -->
+
+[//]: # (addons)
+
+This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+
+[//]: # (end addons)
+
+<!-- prettier-ignore-end -->
+
+## Licenses
+
+This repository is licensed under [AGPL-3.0](LICENSE).
+
+However, each module can have a totally different license, as long as they adhere to Odoo Community Association (OCA)
+policy. Consult each module's `__manifest__.py` file, which contains a `license` key
+that explains its license.
 
 ----
-
-OCA, or the Odoo Community Association, is a nonprofit organization whose 
-mission is to support the collaborative development of Odoo features and 
-promote its widespread use.
-
-http://odoo-community.org/
+OCA, or the [Odoo Community Association](http://odoo-community.org/), is a nonprofit
+organization whose mission is to support the collaborative development of Odoo features
+and promote its widespread use.

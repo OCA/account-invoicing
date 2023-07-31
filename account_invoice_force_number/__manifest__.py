@@ -7,7 +7,7 @@
     'category': 'Accounting & Finance',
     'summary': 'Allows to force invoice numbering on specific invoices',
     'author': 'Agile Business Group, Odoo Community Association (OCA)',
-    'website': 'https://www.agilebg.com',
+    'website': 'https://github.com/OCA/account-invoicing',
     'license': 'AGPL-3',
     'depends': [
         'account'

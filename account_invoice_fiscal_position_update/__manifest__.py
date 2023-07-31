@@ -14,6 +14,7 @@
     'author': "Julius Network Solutions,"
               "Akretion,"
               "Odoo Community Association (OCA)",
+    'website': 'https://github.com/OCA/account-invoicing',
     'depends': ['account'],
     'installable': True,
 }

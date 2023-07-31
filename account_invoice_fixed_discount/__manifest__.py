@@ -5,7 +5,7 @@
     "summary": "Allows to apply fixed amount discounts in invoices.",
     "version": "11.0.1.0.0",
     "category": "Accounting & Finance",
-    "website": "https://odoo-community.org/",
+    "website": "https://github.com/OCA/account-invoicing",
     "author": "Eficent, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,

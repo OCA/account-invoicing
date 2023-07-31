@@ -8,7 +8,7 @@
     'author':
         "Savoir-faire Linux, Acsone SA/NV, Odoo Community Association (OCA)",
     'maintainer': 'Savoir-faire Linux',
-    'website': 'http://www.savoirfairelinux.com',
+    'website': 'https://github.com/OCA/account-invoicing',
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'depends': [

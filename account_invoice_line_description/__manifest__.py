@@ -9,7 +9,7 @@
     'author':   "Agile Business Group, "
                 "Tecnativa, "
                 "Odoo Community Association (OCA)",
-    'website': 'http://www.agilebg.com',
+    'website': 'https://github.com/OCA/account-invoicing',
     'license': 'AGPL-3',
     "depends": [
         'account',

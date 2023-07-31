@@ -6,7 +6,7 @@
     'summary': 'Makes it possible to reuse supplier invoice references',
     'author': 'Camptocamp, '
               'Odoo Community Association (OCA)',
-    'website': 'https://www.camptocamp.com',
+    'website': 'https://github.com/OCA/account-invoicing',
     'license': 'AGPL-3',
     'category': 'Accounting & Finance',
     'depends': [
