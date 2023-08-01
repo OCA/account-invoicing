@@ -20,6 +20,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_refund_link>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_tax_required>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_transmit_method>=16.0dev,<16.1dev',
+        'odoo-addon-account_invoice_tree_currency>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_triple_discount>=16.0dev,<16.1dev',
         'odoo-addon-account_menu_invoice_refund>=16.0dev,<16.1dev',
         'odoo-addon-account_move_tier_validation>=16.0dev,<16.1dev',
