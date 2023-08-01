@@ -58,8 +58,3 @@ class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
 
     def set_supplierinfo_ok(self):
         self.invoice_id.write({"supplierinfo_ok": True})
-
-    def update_supplierinfo_validate(self):
-        self.update_supplierinfo()
-        invoice = self.env["account.move"].browse(self._context["active_id"])
-        invoice.post()
