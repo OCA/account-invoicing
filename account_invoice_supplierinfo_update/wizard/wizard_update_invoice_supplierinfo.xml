@@ -54,16 +54,9 @@
                 <footer>
                     <button
                         name="update_supplierinfo"
-                        string="Update without Validating"
+                        string="Update Supplier Infos"
                         type="object"
                         class="oe_highlight"
-                    />
-                    <button
-                        name="update_supplierinfo_validate"
-                        string="Update and Validate"
-                        type="object"
-                        states="draft,proforma2"
-                        groups="account.group_account_invoice"
                     />
                     <button
                         name="set_supplierinfo_ok"
