@@ -43,8 +43,8 @@ class TestAccountInvoicePricelist(SavepointCase):
             'name': 'Test Sale pricelist',
             'item_ids': [(0, 0, {
                     'applied_on': '1_product',
-                    'compute_price': 'fixed',
-                    'fixed_price': 80.00,
+                    'compute_price': 'percentage',
+                    'percent_price': 10.00,
                     'product_tmpl_id': self.product.id,
                 })],
         })
@@ -75,10 +75,10 @@ class TestAccountInvoicePricelist(SavepointCase):
         self.sale_pricelist_id.write({"discount_policy" : 'with_discount'})
         self.invoice.pricelist_id = self.sale_pricelist_id.id
         self.invoice.button_update_prices_from_pricelist()
-        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, 80.00)
-        self.assertEqual(self.invoice.invoice_line_ids[0].discount, 0.0)
-        self.assertEqual(self.invoice.invoice_line_ids[1].price_unit, 80.00)
-        self.assertEqual(self.invoice.invoice_line_ids[1].discount, 0.0)
+
+        for invoice_line in self.invoice.invoice_line_ids:
+            self.assertEqual(invoice_line.price_unit, 90.00)
+            self.assertEqual(invoice_line.discount, 0.0)
 
     def test_account_invoice_change_pricelist_wo_discount(self):
         """Check updated prices and discounts for invoice"""
@@ -86,10 +86,16 @@ class TestAccountInvoicePricelist(SavepointCase):
         self.invoice.pricelist_id = self.sale_pricelist_id.id
         self.invoice.button_update_prices_from_pricelist()
 
-        invoice_line1 = self.invoice.invoice_line_ids[0]
-        self.assertEqual(invoice_line1.price_unit, 80.00)
-        self.assertEqual(invoice_line1.discount, 20.0)
+        for invoice_line in self.invoice.invoice_line_ids:
+            self.assertEqual(invoice_line.price_unit, 90.00)
+            self.assertEqual(invoice_line.discount, 10.0)
 
-        invoice_line2 = self.invoice.invoice_line_ids[1]
-        self.assertEqual(invoice_line2.price_unit, 80.00)
-        self.assertEqual(invoice_line2.discount, 20.0)
+    def test_account_invoice_pricelist_not_applied(self):
+        """Check prices and discounts when sale pricelist is not applied"""
+        self.invoice.pricelist_id = False
+        for line in self.invoice.invoice_line_ids:
+            line._onchange_product_id()
+
+        for invoice_line in self.invoice.invoice_line_ids:
+            self.assertEqual(invoice_line.price_unit, 100.00)
+            self.assertEqual(invoice_line.discount, 0.0)
