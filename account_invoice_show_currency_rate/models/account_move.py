@@ -8,7 +8,9 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     currency_rate_amount = fields.Float(
-        string="Rate amount", compute="_compute_currency_rate_amount", digits=0,
+        string="Rate amount",
+        compute="_compute_currency_rate_amount",
+        digits=0,
     )
     show_currency_rate_amount = fields.Boolean(
         compute="_compute_show_currency_rate_amount", readonly=True
@@ -23,7 +25,7 @@ class AccountMove(models.Model):
         "show_currency_rate_amount",
     )
     def _compute_currency_rate_amount(self):
-        """ It's necessary to define value according to some cases:
+        """It's necessary to define value according to some cases:
         - Case A: Currency is equal to company currency (Value = 1)
         - Case B: Move exist previously (posted) and get real rate according to lines
         - Case C: Get expected rate (according to date) to show some value in creation.
