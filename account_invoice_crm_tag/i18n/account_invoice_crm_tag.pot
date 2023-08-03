@@ -50,3 +50,8 @@ msgstr ""
 #: model:ir.model,name:account_invoice_crm_tag.model_sale_order
 msgid "Sales Order"
 msgstr ""
+
+#. module: account_invoice_crm_tag
+#: model:ir.model,name:account_invoice_crm_tag.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
