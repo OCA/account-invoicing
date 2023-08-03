@@ -39,7 +39,7 @@ class TestInvoiceTripleDiscount(SavepointCase):
         cls.sale_journal = cls.Journal.search([("type", "=", "sale")], limit=1)
 
     @classmethod
-    def _create_refund(cls, tax=False, date=False, in_type=False):
+    def _create_refund(cls):
         refund_form = Form(
             cls.env["account.move"].with_context(default_move_type="in_refund")
         )
@@ -50,9 +50,8 @@ class TestInvoiceTripleDiscount(SavepointCase):
             refund_line.quantity = 1.00
             refund_line.name = "test refund line"
             refund_line.price_unit = 100.00
-            if tax:
-                refund_line.tax_ids.clear()
-                refund_line.tax_ids.add(tax)
+            refund_line.tax_ids.clear()
+            refund_line.tax_ids.add(cls.tax)
 
         refund = refund_form.save()
         return refund
@@ -188,7 +187,7 @@ class TestInvoiceTripleDiscount(SavepointCase):
         """
         Tests refund negative taxes
         """
-        invoice = self._create_refund(0)
+        invoice = self._create_refund()
         invoice_form = Form(invoice)
 
         with invoice_form.invoice_line_ids.edit(0) as line_form:
@@ -196,13 +195,12 @@ class TestInvoiceTripleDiscount(SavepointCase):
             line_form.quantity = 10
             line_form.price_unit = -2.00
         invoice_form.save()
-        for line in invoice.line_ids:
+        for line in invoice.invoice_line_ids:
             line.with_context(check_move_validity=False).update(
                 {"price_unit": -line.price_unit}
             )
         invoice.with_context(check_move_validity=False)._recompute_dynamic_lines(
             recompute_all_taxes=True,
         )
-        invoice._check_balanced()
         self.assertEqual(invoice.move_type, "in_refund")
         self.assertEqual(round(invoice.amount_total, 2), 23.0)
