@@ -24,11 +24,12 @@ class TestAccountMove(common.SavepointCase):
                 "taxes_id": [(6, 0, [cls.account_tax.id])],
             }
         )
+
         cls.account = cls.env["account.account"].create(
             {
                 "name": "Test Account",
                 "code": "TEST",
-                "user_type_id": cls.env.ref("account.data_account_type_receivable").id,
+                "account_type": "asset_receivable",
                 "reconcile": True,
             }
         )
@@ -36,9 +37,7 @@ class TestAccountMove(common.SavepointCase):
             {
                 "name": "Test Account",
                 "code": "ACC",
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_other_income"
-                ).id,
+                "account_type": "income_other",
                 "reconcile": True,
             }
         )
@@ -62,10 +61,9 @@ class TestAccountMove(common.SavepointCase):
 
     def _create_invoice(self, currency_id):
         move_form = Form(
-            self.env["account.move"].with_context(default_type="out_invoice")
+            self.env["account.move"].with_context(default_move_type="out_invoice")
         )
         move_form.partner_id = self.partner
-        move_form.journal_id = self.journal
         move_form.invoice_date = fields.Date.from_string("2000-01-01")
         move_form.currency_id = currency_id
         with move_form.invoice_line_ids.new() as line_form:
