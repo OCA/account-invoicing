@@ -43,7 +43,6 @@ class TestInvoiceTripleDiscount(SavepointCase):
         refund_form = Form(
             cls.env["account.move"].with_context(default_move_type="in_refund")
         )
-        # refund_form.partner_id = partner
         refund_form.name = "Test Refund for Triple Discount"
 
         with refund_form.invoice_line_ids.new() as refund_line:
