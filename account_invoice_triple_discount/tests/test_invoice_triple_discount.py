@@ -38,19 +38,18 @@ class TestInvoiceTripleDiscount(SavepointCase):
         )
         cls.sale_journal = cls.Journal.search([("type", "=", "sale")], limit=1)
 
-    @classmethod
-    def _create_refund(cls):
+    def _create_refund(self):
         refund_form = Form(
-            cls.env["account.move"].with_context(default_move_type="in_refund")
+            self.env["account.move"].with_context(default_move_type="in_refund")
         )
         refund_form.name = "Test Refund for Triple Discount"
 
         with refund_form.invoice_line_ids.new() as refund_line:
-            refund_line.quantity = 1.00
-            refund_line.name = "test refund line"
-            refund_line.price_unit = 100.00
+            refund_line.quantity = 10
+            refund_line.name = "Negative amounts"
+            refund_line.price_unit = -2.00
             refund_line.tax_ids.clear()
-            refund_line.tax_ids.add(cls.tax)
+            refund_line.tax_ids.add(self.tax)
 
         refund = refund_form.save()
         return refund
@@ -186,20 +185,13 @@ class TestInvoiceTripleDiscount(SavepointCase):
         """
         Tests refund negative taxes
         """
-        invoice = self._create_refund()
-        invoice_form = Form(invoice)
-
-        with invoice_form.invoice_line_ids.edit(0) as line_form:
-            line_form.name = "Negative amounts"
-            line_form.quantity = 10
-            line_form.price_unit = -2.00
-        invoice_form.save()
-        for line in invoice.invoice_line_ids:
+        refund = self._create_refund()
+        for line in refund.invoice_line_ids:
             line.with_context(check_move_validity=False).update(
                 {"price_unit": -line.price_unit}
             )
-        invoice.with_context(check_move_validity=False)._recompute_dynamic_lines(
+        refund.with_context(check_move_validity=False)._recompute_dynamic_lines(
             recompute_all_taxes=True,
         )
-        self.assertEqual(invoice.move_type, "in_refund")
-        self.assertEqual(round(invoice.amount_total, 2), 23.0)
+        self.assertEqual(refund.move_type, "in_refund")
+        self.assertEqual(round(refund.amount_total, 2), 23.0)
