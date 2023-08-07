@@ -1,12 +1,12 @@
 # Copyright 2004-2011 Pexego Sistemas Informáticos. (http://pexego.es)
 # Copyright 2016 Antonio Espinosa <antonio.espinosa@tecnativa.com>
-# Copyright 2014-2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # Copyright 2021 Tecnativa - João Marques
+# Copyright 2014-2023 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "Show links between refunds and their originator invoices.",
-    "version": "16.0.1.0.2",
+    "version": "16.0.1.0.3",
     "development_status": "Mature",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
