@@ -3,7 +3,7 @@
 # Copyright 2014-2022 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class AccountMove(models.Model):
@@ -12,22 +12,6 @@ class AccountMove(models.Model):
     refund_invoice_ids = fields.One2many(
         "account.move", "reversed_entry_id", string="Refund Invoices", readonly=True
     )
-
-    @api.model
-    def _reverse_move_vals(self, default_values, cancel=True):
-        move_vals = super()._reverse_move_vals(default_values, cancel)
-        if self.env.context.get("link_origin_line", False) and move_vals["type"] in (
-            "out_refund",
-            "in_refund",
-        ):
-            refund_lines_vals = [
-                x[2]
-                for x in move_vals.get("line_ids", [])
-                if not x[2].get("exclude_from_invoice_tab", True)
-            ]
-            for i, line in enumerate(self.invoice_line_ids):
-                refund_lines_vals[i]["origin_line_id"] = line.id
-        return move_vals
 
 
 class AccountInvoiceLine(models.Model):
@@ -48,3 +32,13 @@ class AccountInvoiceLine(models.Model):
         help="Refund invoice lines created from this invoice line",
         copy=False,
     )
+
+    def copy_data(self, default=None):
+        """Link refund lines with the original ones when copying move lines from the
+        `_reverse_move_vals` method.
+        """
+        res = super().copy_data(default=default)
+        if self.env.context.get("link_origin_line"):
+            for line, values in zip(self, res):
+                values["origin_line_id"] = line.id
+        return res
