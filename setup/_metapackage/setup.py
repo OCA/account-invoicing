@@ -33,6 +33,7 @@ setuptools.setup(
         'odoo-addon-partner_invoicing_mode_at_shipping>=16.0dev,<16.1dev',
         'odoo-addon-partner_invoicing_mode_monthly>=16.0dev,<16.1dev',
         'odoo-addon-purchase_stock_picking_return_invoicing>=16.0dev,<16.1dev',
+        'odoo-addon-sale_line_refund_to_invoice_qty>=16.0dev,<16.1dev',
         'odoo-addon-sale_order_invoicing_grouping_criteria>=16.0dev,<16.1dev',
         'odoo-addon-stock_picking_return_refund_option>=16.0dev,<16.1dev',
     ],
