@@ -1,5 +1,5 @@
-# Copyright 2016 Antonio Espinosa <antonio.espinosa@tecnativa.com>
-# Copyright 2014-2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
+# Copyright 2016 Tecnativa - Antonio Espinosa
+# Copyright 2014-2023 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.tests.common import TransactionCase
@@ -119,20 +119,14 @@ class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
         refund = self.invoice.refund_invoice_ids[0]
         self.invoice.copy()
         self.assertEqual(
-            refund.invoice_line_ids.mapped("origin_line_id"),
-            self.invoice.invoice_line_ids.filtered(
-                lambda x: x.display_type == "product"
-            ),
+            refund.invoice_line_ids.origin_line_id, self.invoice.invoice_line_ids
         )
 
     def test_refund_copy(self):
         refund = self.invoice.refund_invoice_ids[0]
         refund.copy()
         self.assertEqual(
-            self.invoice.invoice_line_ids.filtered(
-                lambda x: x.display_type == "product"
-            ),
-            refund.invoice_line_ids.mapped("origin_line_id"),
+            self.invoice.invoice_line_ids, refund.invoice_line_ids.origin_line_id
         )
 
 
