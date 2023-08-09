@@ -36,7 +36,7 @@ addon | version | maintainers | summary
 [account_invoice_force_number](account_invoice_force_number/) | 14.0.1.0.1 |  | Allows to force invoice numbering on specific invoices
 [account_invoice_line_description](account_invoice_line_description/) | 14.0.1.0.1 |  | Account invoice line description
 [account_invoice_line_sequence](account_invoice_line_sequence/) | 14.0.1.0.1 |  | Adds sequence field on invoice lines to manage its order.
-[account_invoice_mass_sending](account_invoice_mass_sending/) | 14.0.1.0.2 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) | This addon adds a mass sending feature on invoices.
+[account_invoice_mass_sending](account_invoice_mass_sending/) | 14.0.2.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) | This addon adds a mass sending feature on invoices.
 [account_invoice_merge](account_invoice_merge/) | 14.0.1.0.1 |  | Merge invoices in draft
 [account_invoice_mode_at_shipping](account_invoice_mode_at_shipping/) | 14.0.1.1.0 |  | Create invoices automatically when goods are shipped.
 [account_invoice_mode_monthly](account_invoice_mode_monthly/) | 14.0.1.1.0 |  | Create invoices automatically on a monthly basis.
