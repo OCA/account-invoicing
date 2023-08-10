@@ -55,6 +55,7 @@ addon | version | maintainers | summary
 [account_invoice_view_payment](account_invoice_view_payment/) | 15.0.1.0.0 |  | Access to the payment from an invoice
 [account_move_exception](account_move_exception/) | 15.0.1.0.0 |  | Custom exceptions on account move
 [account_move_post_block](account_move_post_block/) | 15.0.1.0.1 |  | Account Move Post Block
+[account_move_search_line](account_move_search_line/) | 15.0.1.0.0 |  | Account Move Search Line
 [account_move_tier_validation](account_move_tier_validation/) | 15.0.1.1.1 |  | Extends the functionality of Account Moves to support a tier validation process.
 [account_move_tier_validation_forward](account_move_tier_validation_forward/) | 15.0.1.0.0 |  | Account Move Tier Validation - Forward Option
 [account_portal_invoice_search](account_portal_invoice_search/) | 15.0.1.0.0 |  | Account Portal Invoice Search
