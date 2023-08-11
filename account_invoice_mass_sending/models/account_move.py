@@ -42,7 +42,10 @@ class AccountInvoice(models.Model):
         wiz_ctx.update(
             {
                 "active_model": self._name,
+                # Setting both active_id and active_ids is required,
+                # mimicking how direct call to ir.actions.act_window works
                 "active_ids": self.ids,
+                "active_id": self.id,
             }
         )
         wiz = self.env["account.invoice.send"].with_context(**wiz_ctx).create({})

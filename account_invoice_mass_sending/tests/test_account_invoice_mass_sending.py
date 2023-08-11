@@ -1,17 +1,18 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from odoo.tests import SavepointCase
+from odoo.tests import TransactionCase
 
 from odoo.addons.queue_job.tests.common import trap_jobs
 
 
-class TestAccountInvoiceMassSending(SavepointCase):
+class TestAccountInvoiceMassSending(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.wizard_obj = cls.env["account.invoice.send"]
         cls.invoice_obj = cls.env["account.move"]
+        cls.mail_template_obj = cls.env["mail.template"]
 
         cls.partner_with_email = cls.env["res.partner"].create(
             {"name": "Test partner 1", "email": "test@mail.com"}
@@ -22,14 +23,11 @@ class TestAccountInvoiceMassSending(SavepointCase):
             }
         )
 
-        cls.account_type = cls.env["account.account.type"].create(
-            {"name": "Test account type", "internal_group": "equity"}
-        )
         cls.account = cls.env["account.account"].create(
             {
                 "name": "Test account",
-                "code": "TEST_AIMS",
-                "user_type_id": cls.account_type.id,
+                "code": "TESTAIMS",
+                "account_type": "equity",
             }
         )
         cls.first_eligible_invoice = cls.invoice_obj.create(
@@ -107,8 +105,8 @@ class TestAccountInvoiceMassSending(SavepointCase):
         )
 
     def test_invoice_mass_sending_1(self):
-        # test two eligibe invoice to send
-        self.invoices = self.first_eligible_invoice | self.second_eligible_invoice
+        # test two eligible invoice to send
+        self.invoices = self.first_eligible_invoice + self.second_eligible_invoice
         with trap_jobs() as trap:
             wizard = self.wizard_obj.with_context(
                 active_ids=self.invoices.ids,
@@ -131,8 +129,8 @@ class TestAccountInvoiceMassSending(SavepointCase):
         # test one invoice to send, one with no mail and one already in progress
         self.invoices = (
             self.first_eligible_invoice
-            | self.invoice_without_mail
-            | self.invoice_in_progress
+            + self.invoice_without_mail
+            + self.invoice_in_progress
         )
         with trap_jobs() as trap:
             wizard = self.wizard_obj.with_context(
@@ -144,5 +142,9 @@ class TestAccountInvoiceMassSending(SavepointCase):
             self.assertFalse(self.invoice_without_mail.sending_in_progress)
             self.assertTrue(self.invoice_in_progress.sending_in_progress)
             trap.assert_jobs_count(1)
+            trap.assert_enqueued_job(
+                self.first_eligible_invoice._send_invoice_individually,
+                kwargs={"template": self.mail_template_obj},
+            )
             trap.perform_enqueued_jobs()
             self.assertFalse(self.first_eligible_invoice.sending_in_progress)
