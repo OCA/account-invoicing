@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [account_invoice_check_total](account_invoice_check_total/) | 16.0.1.0.0 |  | Check if the verification total is equal to the bill's total
 [account_invoice_currency_taxes](account_invoice_currency_taxes/) | 16.0.1.0.1 |  | Taxes in company currency in invoice report
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 16.0.1.0.0 | [![alexis-via](https://github.com/alexis-via.png?size=30px)](https://github.com/alexis-via) | Changing the fiscal position of an invoice will auto-update invoice lines
+[account_invoice_mass_sending](account_invoice_mass_sending/) | 16.0.1.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) | This addon adds a mass sending feature on invoices.
 [account_invoice_merge](account_invoice_merge/) | 16.0.1.0.1 |  | Merge invoices in draft
 [account_invoice_pricelist](account_invoice_pricelist/) | 16.0.1.0.0 |  | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 16.0.1.0.0 |  | Module to fill pricelist from sales order in invoice.
