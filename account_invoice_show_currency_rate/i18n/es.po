@@ -19,10 +19,22 @@ msgstr ""
 
 #. module: account_invoice_show_currency_rate
 #: model:ir.model,name:account_invoice_show_currency_rate.model_account_move
-msgid "Journal Entries"
-msgstr "Asientos contables"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_show_currency_rate
+#: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_bank_statement_line__currency_rate_amount
 #: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_move__currency_rate_amount
+#: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_payment__currency_rate_amount
 msgid "Rate amount"
 msgstr "Valor de cambio de moneda"
+
+#. module: account_invoice_show_currency_rate
+#: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_bank_statement_line__show_currency_rate_amount
+#: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_move__show_currency_rate_amount
+#: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_payment__show_currency_rate_amount
+msgid "Show Currency Rate Amount"
+msgstr ""
+
+#~ msgid "Journal Entries"
+#~ msgstr "Asientos contables"
