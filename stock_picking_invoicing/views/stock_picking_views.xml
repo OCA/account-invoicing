@@ -76,6 +76,12 @@
                 position="after"
             >
                 <field name="invoice_state" groups="account.group_account_invoice" />
+                <field name="invoice_state" invisible="1" />
+                <field
+                    name="price_unit"
+                    attrs="{'invisible':[('invoice_state', '=', 'none')], 'readonly':[('invoice_state', '=', 'invoiced')]}"
+                    optional="hide"
+                />
             </xpath>
             <button name="%(stock.act_stock_return_picking)d" position="after">
                 <button
