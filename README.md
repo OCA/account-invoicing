@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_global_discount](account_global_discount/) | 15.0.1.0.1 |  | Account Global Discount
+[account_global_discount](account_global_discount/) | 15.0.1.0.2 |  | Account Global Discount
 [account_invoice_analytic_search](account_invoice_analytic_search/) | 15.0.1.0.0 |  | Search invoices by analytic account or by project manager
 [account_invoice_block_payment](account_invoice_block_payment/) | 15.0.1.0.0 |  | Module to block payment of invoices
 [account_invoice_blocking](account_invoice_blocking/) | 15.0.1.0.1 |  | Set a blocking (No Follow-up) flag on invoices
