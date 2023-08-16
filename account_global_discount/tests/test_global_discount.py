@@ -10,6 +10,16 @@ class TestGlobalDiscount(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.currency_eur = cls.env.ref("base.EUR")
+        cls.currency_usd = cls.env.ref("base.USD")
+        cls.currency_usd.active = True
+        # Make sure the currency of the company is USD, as this not always happens
+        # To be removed in V17: https://github.com/odoo/odoo/pull/107113
+        cls.company = cls.env.company
+        cls.env.cr.execute(
+            "UPDATE res_company SET currency_id = %s WHERE id = %s",
+            (cls.env.ref("base.USD").id, cls.company.id),
+        )
         cls.account_type = cls.env["account.account.type"].create(
             {"name": "Test", "type": "other", "internal_group": "income"}
         )
