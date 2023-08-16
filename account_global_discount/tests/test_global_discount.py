@@ -17,6 +17,16 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         cls.env.ref("base_global_discount.group_global_discount").write(
             {"users": [(4, cls.env.user.id)]}
         )
+        cls.currency_eur = cls.env.ref("base.EUR")
+        cls.currency_usd = cls.env.ref("base.USD")
+        cls.currency_usd.active = True
+        # Make sure the currency of the company is USD, as this not always happens
+        # To be removed in V17: https://github.com/odoo/odoo/pull/107113
+        cls.company = cls.env.company
+        cls.env.cr.execute(
+            "UPDATE res_company SET currency_id = %s WHERE id = %s",
+            (cls.env.ref("base.USD").id, cls.company.id),
+        )
         cls.account = cls.env["account.account"].create(
             {
                 "name": "Test account",
