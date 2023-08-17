@@ -4,6 +4,7 @@
 from datetime import datetime, timedelta
 
 from odoo import fields
+from odoo.exceptions import UserError
 from odoo.tests import Form, common
 
 
@@ -14,7 +15,6 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
         cls.env = cls.env(
             context=dict(cls.env.context, tracking_disable=True, no_reset_password=True)
         )
-        # Create new user allowed to change invoice due date
         group = cls.env.ref("account_invoice_date_due.allow_to_change_due_date")
         acc_group = cls.env.ref("account.group_account_manager")
         # Loose dependency on stock to avoid perm issues.
@@ -41,35 +41,25 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
                 "groups_id": [(6, 0, (acc_group + stock_group).ids)],
             }
         )
-        account100 = cls.env["account.account"].create(
-            {
-                "code": "100",
-                "name": "Account 100",
-                "user_type_id": cls.env.ref("account.data_account_type_receivable").id,
-                "reconcile": True,
-            }
+
+        cls.sale_journal = cls.env["account.journal"].search(
+            [("type", "=", "sale")], limit=1
         )
-        account300 = cls.env["account.account"].create(
-            {
-                "code": "300",
-                "name": "Account 300",
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_other_income"
-                ).id,
-            }
+        move_form = Form(
+            cls.env["account.move"].with_context(
+                default_move_type="out_invoice",
+                default_journal_id=cls.sale_journal.id,
+            )
         )
-        move_form = Form(cls.env["account.move"])
-        move_form.date = fields.Date.today()
+        move_form.invoice_date = fields.Date.today()
+        move_form.partner_id = cls.env["res.partner"].create({"name": "test partner"})
+
         with move_form.invoice_line_ids.new() as line_form:
             line_form.name = "move test"
-            line_form.debit = 0.0
-            line_form.credit = 1000.0
-            line_form.account_id = account300
+            line_form.price_unit = 1000.0
         with move_form.invoice_line_ids.new() as line_form:
             line_form.name = "move test"
-            line_form.debit = 1000.0
-            line_form.credit = 0.0
-            line_form.account_id = account100
+            line_form.price_unit = -1000.0
         cls.move = move_form.save()
 
     def _compare_records(self, rec1, rec2, ignore=None):
@@ -93,7 +83,7 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             self._compare_records(
                 old_move_state,
                 self.move.sudo().read()[0],
-                ignore={"write_uid", "message_is_follower"},
+                ignore={"write_uid", "message_is_follower", "needed_terms"},
             ),
             # Assert only this field is changed
             {"invoice_date_due_payment_term", "invoice_date_due"},
@@ -119,7 +109,8 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
                 self.move.line_ids.filtered(
                     lambda l: fields.Date.to_string(l.date_maturity)
                     == twenty_days_from_now
-                    and l.account_id.user_type_id.type in ("receivable", "payable")
+                    and l.account_id.account_type
+                    in ("asset_receivable", "liability_payable")
                 )
             ),
             1,
@@ -128,7 +119,13 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             self._compare_records(
                 old_move_state,
                 self.move.sudo().read()[0],
-                ignore={"write_uid", "message_is_follower", "message_ids"},
+                ignore={
+                    "write_uid",
+                    "message_is_follower",
+                    "message_ids",
+                    "needed_terms",
+                    "hide_post_button",
+                },
             ),
             # Assert only this field is changed
             {"invoice_date_due_payment_term", "invoice_date_due"},
@@ -140,7 +137,6 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             "account.account_payment_term_15days"
         )
         self.move = move_edit_form.save()
-        self.assertFalse(self.move.invoice_date_due)
         # Post and should remain editable even w/ payment term
         twenty_days_from_now = fields.Date.to_string(
             datetime.today() + timedelta(days=20)
@@ -156,7 +152,8 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
                 self.move.line_ids.filtered(
                     lambda l: fields.Date.to_string(l.date_maturity)
                     == twenty_days_from_now
-                    and l.account_id.user_type_id.type in ("receivable", "payable")
+                    and l.account_id.account_type
+                    in ("asset_receivable", "liability_payable")
                 )
             ),
             1,
@@ -185,7 +182,8 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
         twenty_days_from_now = fields.Date.to_string(
             datetime.today() + timedelta(days=20)
         )
+        move_edit_form.invoice_date_due = twenty_days_from_now
         with self.assertRaisesRegex(
-            AssertionError, r"can't\swrite\son\sreadonly\sfield.*"
+            UserError, "You are not allowed to change the due date."
         ):
-            move_edit_form.invoice_date_due = twenty_days_from_now
+            move_edit_form.save()
