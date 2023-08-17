@@ -1,6 +1,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class AccountMove(models.Model):
@@ -10,6 +11,19 @@ class AccountMove(models.Model):
     invoice_date_due_payment_term = fields.Date(
         related="invoice_date_due", string="Due Date Payment Term"
     )
+    invoice_date_due = fields.Date(
+        string="Due Date",
+        compute="_compute_invoice_date_due",
+        inverse="_inverse_invoice_date_due",
+    )
+
+    def _inverse_invoice_date_due(self):
+        for invoice in self:
+            if invoice.state == "posted":
+                if not self.env.user.has_group(
+                    "account_invoice_date_due.allow_to_change_due_date"
+                ):
+                    raise UserError(_("You are not allowed to change the due date."))
 
     @api.onchange("invoice_date_due_payment_term")
     def _onchange_invoice_date_due_payment_term(self):
@@ -39,8 +53,8 @@ class AccountMove(models.Model):
         # that correspont to the receivable/payable account
         if "invoice_date_due" in vals and self.state == "posted":
             payment_term_lines = self.line_ids.filtered(
-                lambda line: line.account_id.user_type_id.type
-                in ("receivable", "payable")
+                lambda line: line.account_id.account_type
+                in ("asset_receivable", "liability_payable")
             )
             payment_term_lines.write({"date_maturity": vals["invoice_date_due"]})
         return res
