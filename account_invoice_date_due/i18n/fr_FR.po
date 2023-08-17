@@ -52,3 +52,10 @@ msgstr "Ecriture"
 #: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification"
+
+#. module: account_invoice_date_due
+#. odoo-python
+#: code:addons/account_invoice_date_due/models/account_move.py:0
+#, python-format
+msgid "You are not allowed to change the due date."
+msgstr "Vous n'êtes pas autorisé à modifier la date d'échéance."
