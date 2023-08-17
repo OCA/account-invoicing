@@ -76,6 +76,8 @@ class SaleOrder(models.Model):
             lambda sale: sale.partner_invoice_id.one_invoice_per_order
         ).items():
             invoices = sales._create_invoices(grouped=partition, final=True)
+            # Update each partner next invoice date
+            sales.partner_invoice_id._update_next_invoice_date()
             invoice_ids.update(invoices.ids)
             for invoice in invoices:
                 invoice.with_delay()._validate_invoice()

@@ -49,10 +49,12 @@ The following modules use it to install specific invoicing mode :
 Usage
 =====
 
-* To enable the invoices automatic generation, enable the developer mode, 
+* To enable the invoices automatic generation, enable the developer mode,
   go to Settings > Automation > Scheduled Actions
 * Filter the archived actions and activate 'Generate Standard Invoices'.
 * Adapt the frequency you want to automatically generate invoices to your needs.
+* The field 'Next Invoice Date' on partner form indicates when the next invoice
+  generation will take place.
 
 Bug Tracker
 ===========

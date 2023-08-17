@@ -1,10 +1,13 @@
 # Copyright 2022 Opener B.V.
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
+from unittest import mock
+
 from odoo.tests.common import TransactionCase
 
 from odoo.addons.queue_job.tests.common import trap_jobs
 
+from ..models.res_partner import ResPartner
 from .common import CommonPartnerInvoicingMode
 
 
@@ -86,3 +89,13 @@ class TestInvoiceModeAtShipping(CommonPartnerInvoicingMode, TransactionCase):
         self.assertEqual(1, len(self.so1.invoice_ids))
         # Check the invoice is the same
         self.assertNotEqual(self.so2.invoice_ids, self.so1.invoice_ids)
+
+    def test_update_date(self):
+        # Check the update next invoice date function has been called
+        with mock.patch.object(ResPartner, "_update_next_invoice_date") as mock_update:
+            self._confirm_and_deliver(self.so1)
+            with trap_jobs() as trap:
+                self.SaleOrder.generate_invoices()
+                for job in trap.enqueued_jobs:
+                    job.perform()
+            mock_update.assert_called()
