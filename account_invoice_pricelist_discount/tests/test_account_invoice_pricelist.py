@@ -71,7 +71,7 @@ class TestAccountInvoicePricelist(SavepointCase):
         })
 
     def test_account_invoice_change_pricelist(self):
-        """Check discount applied not shown with """
+        """Check discount applied is not shown in invoice line"""
         self.sale_pricelist_id.write({"discount_policy" : 'with_discount'})
         self.invoice.pricelist_id = self.sale_pricelist_id.id
         self.invoice.button_update_prices_from_pricelist()
@@ -81,7 +81,7 @@ class TestAccountInvoicePricelist(SavepointCase):
             self.assertEqual(invoice_line.discount, 0.0)
 
     def test_account_invoice_change_pricelist_wo_discount(self):
-        """Check updated prices and discounts for invoice"""
+        """Check updated prices and discounts for invoice lines"""
         self.sale_pricelist_id.write({"discount_policy" : 'without_discount'})
         self.invoice.pricelist_id = self.sale_pricelist_id.id
         self.invoice.button_update_prices_from_pricelist()
