@@ -85,7 +85,8 @@ class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
     def test_split_invoice_by_sale_order(self):
         """For same customer invoice 2 sales order separately."""
         self.partner.invoicing_mode = "monthly"
-        self.partner.one_invoice_per_order = True
+        self.so1.one_invoice_per_order = True
+        self.so2.one_invoice_per_order = True
         self.deliver_invoice(self.so1)
         self.deliver_invoice(self.so2)
         with mute_logger("odoo.addons.queue_job.delay"):
