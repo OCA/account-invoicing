@@ -4,6 +4,8 @@
 from odoo import api, fields, models
 from odoo.fields import Datetime
 
+from odoo.addons.sale.models.sale_order import LOCKED_FIELD_STATES
+
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
@@ -13,6 +15,23 @@ class SaleOrder(models.Model):
         store=True,
         index=True,
     )
+
+    one_invoice_per_order = fields.Boolean(
+        compute="_compute_one_invoice_per_order",
+        readonly=False,
+        store=True,
+        states=LOCKED_FIELD_STATES,
+        help="You can check or uncheck this if you want the periodic invoicing"
+        " grouping this sale order with other ones or not.",
+    )
+
+    @api.depends("partner_invoice_id")
+    def _compute_one_invoice_per_order(self):
+        # We depends only on partner as if we change it, we should recompute
+        # but not if the parameter on it has changed (this allows to set a different
+        # value on each sale order).
+        for order in self:
+            order.one_invoice_per_order = order.partner_invoice_id.one_invoice_per_order
 
     @api.model
     def cron_generate_standard_invoices(self):
@@ -73,7 +92,7 @@ class SaleOrder(models.Model):
         # Create invoices using grouping when needed, so partition sales
         invoice_ids = set()
         for partition, sales in sales.partition(
-            lambda sale: sale.partner_invoice_id.one_invoice_per_order
+            lambda sale: sale.one_invoice_per_order
         ).items():
             invoices = sales._create_invoices(grouped=partition, final=True)
             # Update each partner next invoice date
