@@ -90,6 +90,20 @@ class TestInvoiceModeAtShipping(CommonPartnerInvoicingMode, TransactionCase):
         # Check the invoice is the same
         self.assertNotEqual(self.so2.invoice_ids, self.so1.invoice_ids)
 
+    def test_grouping_change(self):
+        # Create a sale order with a partner that have one invoice per order enabled
+        # Check if the sale order created has that option enabled
+        # Change the partner, then check if the option is disabled
+        # Then, set it manually and check if value remains.
+        self.partner2.one_invoice_per_order = True
+        so3 = self.so1.copy()
+        so3.partner_id = self.partner2
+        self.assertTrue(so3.one_invoice_per_order)
+        so3.partner_id = self.partner
+        self.assertFalse(so3.one_invoice_per_order)
+        so3.one_invoice_per_order = True
+        self.assertTrue(so3.one_invoice_per_order)
+
     def test_update_date(self):
         # Check the update next invoice date function has been called
         with mock.patch.object(ResPartner, "_update_next_invoice_date") as mock_update:
