@@ -4,14 +4,12 @@
 
 {
     "name": "Account Invoice Anglo Saxon no COGS deferral",
-    "summary": "Invalidates the COGS deferral introduced by the anglo saxon "
-               "module",
+    "summary": "Invalidates the COGS deferral introduced by the anglo saxon " "module",
     "version": "12.0.1.0.0",
-    "author": "Eficent, "
-              "Odoo Community Association (OCA)",
+    "author": "Eficent, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Accounting & Finance",
     "depends": ["stock_account", "sale_stock"],
     "license": "AGPL-3",
-    'installable': True,
+    "installable": True,
 }

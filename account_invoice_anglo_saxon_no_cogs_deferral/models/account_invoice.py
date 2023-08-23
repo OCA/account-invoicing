@@ -9,15 +9,16 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     def _anglo_saxon_reconcile_valuation(self, product=False):
-        """ Ignore customer invoices. """
+        """Ignore customer invoices."""
         supplier_invoices = self.filtered(
-            lambda i: i.type in ['in_invoice', 'in_refund'])
-        return super(AccountInvoice, supplier_invoices
-                     )._anglo_saxon_reconcile_valuation(product=product)
+            lambda i: i.type in ["in_invoice", "in_refund"]
+        )
+        return super(
+            AccountInvoice, supplier_invoices
+        )._anglo_saxon_reconcile_valuation(product=product)
 
     @api.model
     def _anglo_saxon_sale_move_lines(self, i_line):
         # We override the standard method to invalidate it
-        super(AccountInvoice, self)._anglo_saxon_sale_move_lines(
-            i_line)
+        super(AccountInvoice, self)._anglo_saxon_sale_move_lines(i_line)
         return []
