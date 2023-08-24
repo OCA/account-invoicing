@@ -4,7 +4,6 @@ from freezegun import freeze_time
 
 from odoo.fields import Datetime
 from odoo.tests.common import TransactionCase
-from odoo.tools import mute_logger
 
 from odoo.addons.partner_invoicing_mode.tests.common import CommonPartnerInvoicingMode
 from odoo.addons.queue_job.tests.common import trap_jobs
@@ -23,10 +22,10 @@ class TestInvoiceModeTenDays(CommonPartnerInvoicingMode, TransactionCase):
         """
         self._confirm_and_deliver(self.so1)
         self.assertFalse(self.so1.invoice_ids)
-        with mute_logger("odoo.addons.queue_job.delay"):
-            self.SaleOrder.with_context(
-                queue_job__no_delay=True
-            ).generate_ten_days_invoices()
+        with trap_jobs() as trap:
+            self.SaleOrder.generate_ten_days_invoices()
+            trap.assert_jobs_count(1)
+            trap.enqueued_jobs[0].perform()
         self.assertTrue(self.so1.invoice_ids)
 
     def test_invoice_mode_ten_days_only(self):
@@ -45,10 +44,10 @@ class TestInvoiceModeTenDays(CommonPartnerInvoicingMode, TransactionCase):
         self._confirm_and_deliver(so3)
         self.assertFalse(self.so1.invoice_ids)
         self.assertFalse(so3.invoice_ids)
-        with mute_logger("odoo.addons.queue_job.delay"):
-            self.SaleOrder.with_context(
-                queue_job__no_delay=True
-            ).generate_ten_days_invoices()
+        with trap_jobs() as trap:
+            self.SaleOrder.generate_ten_days_invoices()
+            trap.assert_jobs_count(1)
+            trap.enqueued_jobs[0].perform()
         self.assertTrue(self.so1.invoice_ids)
         self.assertFalse(so3.invoice_ids)
 
@@ -142,9 +141,13 @@ class TestInvoiceModeTenDays(CommonPartnerInvoicingMode, TransactionCase):
 
     def test_cron_no(self):
         """
-        Create the invoice on first day
+        The last date of execution is on 31th of May
+        Create the invoice on first day of June
         Then, try to run cron on the 9th
+        No invoice should be generated
         """
+        with freeze_time("2023-05-31"):
+            self.env.company.invoicing_mode_ten_days_last_execution = Datetime.now()
         with freeze_time("2023-06-01"):
             self._confirm_and_deliver(self.so1)
         with freeze_time("2023-05-09"):

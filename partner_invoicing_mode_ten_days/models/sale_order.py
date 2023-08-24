@@ -27,18 +27,27 @@ class SaleOrder(models.Model):
     def _get_companies_ten_days_invoicing(self):
         """
         Get company ids for which today is ten days invoicing day
-        (10/20/last day of month).
+        (10/20/last day of month) or if that day is passed since last execution.
         """
         company_obj = self.env["res.company"]
         today = Datetime.now()
-        day = today.day
-        # reativedelta with day=31 returns always the last day of month
+        # Get the last ten day from now (e.g.: we are the 11th of the month, get the tenth,
+        # if we are the third, get the last month last day)
         last_day = today + relativedelta(day=31)
-        if not (day in [10, 20, last_day.day]):
-            return company_obj.browse()
+        day = today.day
+        if day == last_day.day:
+            pivot_date = today
+        elif day >= 1 and day < 10:
+            pivot_date = today + relativedelta(months=-1) + relativedelta(day=31)
+        elif day >= 10 and day < 20:
+            pivot_date = today + relativedelta(day=10)
+        else:
+            pivot_date = today + relativedelta(day=20)
+
+        # reativedelta with day=31 returns always the last day of month
         domain = [
             "|",
-            ("invoicing_mode_ten_days_last_execution", "<", today),
+            ("invoicing_mode_ten_days_last_execution", "<", pivot_date),
             ("invoicing_mode_ten_days_last_execution", "=", False),
         ]
-        return self.env["res.company"].search(domain)
+        return company_obj.search(domain)
