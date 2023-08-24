@@ -1,4 +1,4 @@
-# Copyright 2015-2018 Eficent Business and IT Consulting Services S.L.
+# Copyright 2023 ForgeFlow S.L.
 # - Jordi Ballester Alomar
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
@@ -10,7 +10,7 @@ class TestAccountAngloSaxonNoCogsDeferral(TransactionCase):
         super(TestAccountAngloSaxonNoCogsDeferral, self).setUp()
 
         # ENVIRONEMENTS
-        self.Invoice = self.env["account.invoice"]
+        self.Invoice = self.env["account.move"]
         self.Account = self.env["account.account"]
         # INSTANCES
         self.stock_location = self.env.ref("stock.stock_location_stock")
@@ -23,10 +23,13 @@ class TestAccountAngloSaxonNoCogsDeferral(TransactionCase):
                 "name": "Product A",
                 "type": "product",
                 "categ_id": self.env.ref("product.product_category_all").id,
+                "standard_price": 5,
             }
         )
         self.product1.product_tmpl_id.valuation = "real_time"
+        self.product1.valuation = "real_time"
         self.product1.product_tmpl_id.cost_method = "fifo"
+        self.product1.cost_method = "fifo"
         self.stock_input_account = self.Account.create(
             {
                 "name": "Stock Input",
@@ -110,22 +113,24 @@ class TestAccountAngloSaxonNoCogsDeferral(TransactionCase):
         )
         so.action_confirm()
         # invoice on order
-        so.action_invoice_create()
+        so._create_invoices()
         pick = so.picking_ids
         pick.action_assign()
         pick.move_lines.write({"quantity_done": 1})
         pick.button_validate()
         self.assertEqual(pick.state, "done")
         invoice = so.invoice_ids
-        invoice.action_invoice_open()
+        invoice._post()
         # Check that there's no cogs line involved in the customer invoice
-        cogs_line = invoice.move_id.mapped("line_ids").filtered(
+        cogs_line = invoice.mapped("invoice_line_ids").filtered(
             lambda l: l.account_id.code == "cogs"
         )
         self.assertEqual(len(cogs_line), 0)
         # Check that the account move originating from the stock move has a
         # COGS account.
-        move = self.env["account.move"].search([("ref", "=", pick.name)])
+        move = self.env["account.move"].search(
+            [("ref", "=", pick.name + " - " + self.product1.name)]
+        )
         self.assertEqual(len(move), 1)
         cogs_line = move.mapped("line_ids").filtered(
             lambda l: l.account_id.code == "cogs"

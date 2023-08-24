@@ -60,12 +60,12 @@ Credits
 Authors
 ~~~~~~~
 
-* Eficent
+* ForgeFlow
 
 Contributors
 ~~~~~~~~~~~~
 
-* Jordi Ballester Alomar <jordi.ballester@eficent.com>
+* Jordi Ballester Alomar <jordi.ballester@forgeflow.com>
 
 Maintainers
 ~~~~~~~~~~~
