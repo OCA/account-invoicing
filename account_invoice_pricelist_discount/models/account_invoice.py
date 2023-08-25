@@ -42,7 +42,10 @@ class AccountInvoiceLine(models.Model):
                     )
 
             discount = (new_list_price - product.price) / new_list_price * 100
-            if discount > 0:
+            if discount != 0:
                 self.discount = discount
-
-        super(AccountInvoiceLine, self)._onchange_product_id_account_invoice_pricelist()
+        else:
+            super(
+                AccountInvoiceLine,
+                self
+                )._onchange_product_id_account_invoice_pricelist()

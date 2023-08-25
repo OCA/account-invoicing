@@ -77,7 +77,7 @@ class TestAccountInvoicePricelist(SavepointCase):
         self.invoice.button_update_prices_from_pricelist()
 
         for invoice_line in self.invoice.invoice_line_ids:
-            self.assertEqual(invoice_line.price_unit, 90.00)
+            self.assertEqual(invoice_line.price_total, 90.00)
             self.assertEqual(invoice_line.discount, 0.0)
 
     def test_account_invoice_change_pricelist_wo_discount(self):
@@ -87,7 +87,7 @@ class TestAccountInvoicePricelist(SavepointCase):
         self.invoice.button_update_prices_from_pricelist()
 
         for invoice_line in self.invoice.invoice_line_ids:
-            self.assertEqual(invoice_line.price_unit, 90.00)
+            self.assertEqual(invoice_line.price_total, 90.00)
             self.assertEqual(invoice_line.discount, 10.0)
 
     def test_account_invoice_pricelist_not_applied(self):
