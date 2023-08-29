@@ -14,7 +14,7 @@ class AccountTax(models.Model):
             return res
 
         record = base_lines[0]["record"]
-        company_currency_id = record.company_id.currency_id
+        company_currency_id = record.env.company.currency_id
         if (
             record._name != "account.move.line"
             or not record.move_id.invoice_date
