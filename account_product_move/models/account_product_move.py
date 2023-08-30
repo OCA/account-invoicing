@@ -22,6 +22,10 @@ class AccountProductMove(models.Model):
         default="new",
         required=True,
     )
+    product_category_ids = fields.Many2many(
+        comodel_name="product.category",
+        help="Journal items will be created for these product categories",
+    )
     product_tmpl_ids = fields.Many2many(
         comodel_name="product.template",
         help="Journal items will be created for these products",
