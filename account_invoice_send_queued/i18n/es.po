@@ -1,0 +1,55 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_send_queued
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-30 11:43+0000\n"
+"PO-Revision-Date: 2023-08-30 13:44+0200\n"
+"Last-Translator: Sergio Teruel <sergio.teruel@tecnativa.com>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: account_invoice_send_queued
+#: model:ir.model,name:account_invoice_send_queued.model_account_invoice_send
+msgid "Account Invoice Send"
+msgstr "Enviar Factura"
+
+#. module: account_invoice_send_queued
+#: model_terms:ir.ui.view,arch_db:account_invoice_send_queued.view_queue_job_account_invoice_email_send
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_invoice_send_queued
+#: model:ir.model.fields,field_description:account_invoice_send_queued.field_account_bank_statement_line__email_send_job_ids
+#: model:ir.model.fields,field_description:account_invoice_send_queued.field_account_move__email_send_job_ids
+#: model:ir.model.fields,field_description:account_invoice_send_queued.field_account_payment__email_send_job_ids
+msgid "Email Send Jobs"
+msgstr "Trabajos de envío"
+
+#. module: account_invoice_send_queued
+#: model_terms:ir.ui.view,arch_db:account_invoice_send_queued.account_invoice_send_wizard_form
+msgid "Enqueue Send"
+msgstr "Encolar envío"
+
+#. module: account_invoice_send_queued
+#: model:ir.model,name:account_invoice_send_queued.model_account_move
+msgid "Journal Entry"
+msgstr "Asientos contables"
+
+#. module: account_invoice_send_queued
+#: model_terms:ir.ui.view,arch_db:account_invoice_send_queued.view_queue_job_account_invoice_email_send
+msgid "Requeue"
+msgstr "Reencolar"
+
+#. module: account_invoice_send_queued
+#: model_terms:ir.ui.view,arch_db:account_invoice_send_queued.view_move_form
+msgid "Sending Jobs"
+msgstr "Trabajos de envío"
