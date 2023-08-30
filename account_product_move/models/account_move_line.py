@@ -10,22 +10,33 @@ class AccountMoveLine(models.Model):
     def _create_extra_moves(self):
         move_model = self.env["account.move"]
         for line in self:
-            product_moves = line.product_id.product_tmpl_id.product_move_ids
+            # Concattenate product moves for categories and product templates.
+            product_moves = (
+                line.product_id.product_tmpl_id.product_move_ids
+                | line.product_id.product_tmpl_id.categ_id.product_move_ids
+            )
             if not product_moves:
                 continue
             for product_move in product_moves:
                 if not line._is_product_move_valid(product_move):
                     continue
-                vals = {
-                    "type": "entry",
-                    "ref": line.move_id.name,
-                    "journal_id": product_move.journal_id.id,
-                    "date": line.move_id.invoice_date,
-                    "invoice_move_id": line.move_id.id,
-                }
+                vals = line._prepare_move_vals(product_move)
                 extra_move = move_model.create(vals)
                 line._create_extra_move_lines(product_move, extra_move)
                 extra_move.action_post()
+
+    def _prepare_move_vals(self, product_move):
+        """Values for creation of extra product move."""
+        self.ensure_one()
+        return {
+            "type": "entry",
+            "ref": self.move_id.name,
+            "journal_id": product_move.journal_id.id,
+            "partner_id": self.move_id.partner_id.id,
+            "date": self.move_id.invoice_date,
+            "invoice_move_id": self.move_id.id,
+            "invoice_origin": self.move_id.name,
+        }
 
     def _is_product_move_valid(self, product_move):
         """Check wether product.move valid for this move and line."""
@@ -51,21 +62,27 @@ class AccountMoveLine(models.Model):
         """Create extra move lines for product move."""
         self.ensure_one()
         for product_move_line in product_move.line_ids:
-            if self.move_id.type == "out_invoice":
-                credit = product_move_line.credit
-                debit = product_move_line.debit
-            else:
-                credit = product_move_line.debit
-                debit = product_move_line.credit
-            quantity = self.quantity
-            extra_move_line = self.with_context(check_move_validity=False).create(
-                {
-                    "move_id": extra_move.id,
-                    "account_id": product_move_line.account_id.id,
-                    "currency_id": product_move_line.currency_id.id,
-                    "amount_currency": product_move_line.amount_currency * quantity,
-                    "credit": credit * quantity,
-                    "debit": debit * quantity,
-                }
-            )
+            vals = self._prepare_move_line_vals(product_move_line, extra_move)
+            extra_move_line = self.with_context(check_move_validity=False).create(vals)
             extra_move_line._onchange_currency()
+
+    def _prepare_move_line_vals(self, product_move_line, extra_move):
+        """Prepare vals for extra move line."""
+        self.ensure_one()
+        quantity = self.quantity
+        if self.move_id.type == "out_invoice":
+            credit = product_move_line.credit
+            debit = product_move_line.debit
+        else:
+            credit = product_move_line.debit
+            debit = product_move_line.credit
+        return {
+            "move_id": extra_move.id,
+            "name": product_move_line.move_id.name,
+            "partner_id": self.move_id.partner_id.id,
+            "account_id": product_move_line.account_id.id,
+            "currency_id": product_move_line.currency_id.id,
+            "amount_currency": product_move_line.amount_currency * quantity,
+            "credit": credit * quantity,
+            "debit": debit * quantity,
+        }
