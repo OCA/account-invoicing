@@ -8,8 +8,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='discount']"
                    position="after">
-                <field name="discount2" groups="base.group_no_one"/>
-                <field name="discount3" groups="base.group_no_one"/>
+                <field name="discount2"/>
+                <field name="discount3"/>
             </xpath>
         </field>
     </record>
@@ -22,8 +22,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='discount']"
                    position="after">
-                <field name="discount2" groups="base.group_no_one"/>
-                <field name="discount3" groups="base.group_no_one"/>
+                <field name="discount2"/>
+                <field name="discount3"/>
             </xpath>
         </field>
     </record>
@@ -34,8 +34,8 @@
         <field name="inherit_id" ref="account.view_invoice_line_form"/>
         <field name="arch" type="xml">
             <field name="discount" position="after">
-                   <field name="discount2" groups="base.group_no_one"/>
-                   <field name="discount3" groups="base.group_no_one"/>
+                   <field name="discount2"/>
+                   <field name="discount3"/>
             </field>
        </field>
     </record>
