@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_anglo_saxon_no_cogs_deferral
+# 	* account_invoice_anglo_saxon_no_cogs_deferral
 #
 msgid ""
 msgstr ""
@@ -15,6 +15,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 
 #. module: account_invoice_anglo_saxon_no_cogs_deferral
-#: model:ir.model,name:account_invoice_anglo_saxon_no_cogs_deferral.model_account_invoice
-msgid "Invoice"
+#: model:ir.model,name:account_invoice_anglo_saxon_no_cogs_deferral.model_account_move
+msgid "Journal Entry"
 msgstr ""

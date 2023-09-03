@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_anglo_saxon_no_cogs_deferral
+# 	* account_invoice_anglo_saxon_no_cogs_deferral
 #
 msgid ""
 msgstr ""
@@ -17,6 +17,9 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: account_invoice_anglo_saxon_no_cogs_deferral
-#: model:ir.model,name:account_invoice_anglo_saxon_no_cogs_deferral.model_account_invoice
-msgid "Invoice"
-msgstr "Rechnung"
+#: model:ir.model,name:account_invoice_anglo_saxon_no_cogs_deferral.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Rechnung"
