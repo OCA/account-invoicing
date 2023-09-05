@@ -12,12 +12,13 @@ class AccountMove(models.Model):
     def _recompute_tax_lines(self, **kwargs):
         """
         As the taxes are recalculated based on a single discount, we need to
-        simulate a multiple discount by changing the unit price. Values are
-        restored after the original process is done
+        simulate a multiple discount by changing temporarily the first discount
+        with the aggregated discount.
+        Values are restored after the original process is done
         """
+        old_values_by_line_id = {}
         digits = self.line_ids._fields["discount"]._digits
         self.line_ids._fields["discount"]._digits = (16, 16)
-        old_values_by_line_id = {}
         for line in self.line_ids:
             aggregated_discount = line._compute_aggregated_discount(line.discount)
             old_values_by_line_id[line.id] = {
