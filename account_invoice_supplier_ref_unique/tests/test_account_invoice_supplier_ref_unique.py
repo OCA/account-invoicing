@@ -27,9 +27,9 @@ class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
         cls.account = cls.account_account.search(
             [
                 (
-                    "user_type_id",
+                    "account_type",
                     "=",
-                    cls.env.ref("account.data_account_type_receivable").id,
+                    "asset_receivable",
                 )
             ],
             limit=1,
