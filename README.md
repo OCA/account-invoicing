@@ -32,6 +32,7 @@ addon | version | maintainers | summary
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 16.0.1.0.0 |  | Module to fill pricelist from sales order in invoice.
 [account_invoice_refund_line_selection](account_invoice_refund_line_selection/) | 16.0.1.0.0 |  | This module allows the user to refund specific lines in a invoice
 [account_invoice_refund_link](account_invoice_refund_link/) | 16.0.1.0.3 |  | Show links between refunds and their originator invoices.
+[account_invoice_section_sale_order](account_invoice_section_sale_order/) | 16.0.1.0.0 |  | For invoices targetting multiple sale order addsections with sale order name.
 [account_invoice_show_currency_rate](account_invoice_show_currency_rate/) | 16.0.1.0.1 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Show currency rate in invoices.
 [account_invoice_supplierinfo_update](account_invoice_supplierinfo_update/) | 16.0.1.0.1 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | In the supplier invoice, automatically updates all products whose unit price on the line is different from the supplier price
 [account_invoice_tax_required](account_invoice_tax_required/) | 16.0.1.0.0 |  | This module adds functional a check on invoice to force user to set tax on invoice line.
