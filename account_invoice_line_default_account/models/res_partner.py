@@ -14,9 +14,9 @@ class ResPartner(models.Model):
         string="Default Income Account",
         domain=lambda model: [
             (
-                "user_type_id",
+                "account_type",
                 "=",
-                model.env.ref("account.data_account_type_revenue").id,
+                "income",
             ),
         ],
         help="Default counterpart account for sales on invoice lines",
@@ -33,9 +33,9 @@ class ResPartner(models.Model):
         string="Default Expense Account",
         domain=lambda model: [
             (
-                "user_type_id",
+                "account_type",
                 "=",
-                model.env.ref("account.data_account_type_expenses").id,
+                "expense",
             ),
         ],
         help="Default counterpart account for purchases on invoice lines",
