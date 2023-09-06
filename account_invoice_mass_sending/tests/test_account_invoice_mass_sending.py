@@ -113,6 +113,7 @@ class TestAccountInvoiceMassSending(TransactionCase):
             wizard = self.wizard_obj.with_context(
                 active_ids=self.invoices.ids,
                 active_model=self.first_eligible_invoice._name,
+                discard_logo_check=True,
             ).create({})
             wizard.enqueue_invoices()
             trap.assert_jobs_count(2)
@@ -123,6 +124,7 @@ class TestAccountInvoiceMassSending(TransactionCase):
             wizard = self.wizard_obj.with_context(
                 active_ids=self.invoice_in_progress.ids,
                 active_model=self.invoice_in_progress._name,
+                discard_logo_check=True,
             ).create({})
             wizard.enqueue_invoices()
             trap.assert_jobs_count(0)
@@ -138,6 +140,7 @@ class TestAccountInvoiceMassSending(TransactionCase):
             wizard = self.wizard_obj.with_context(
                 active_ids=self.invoices.ids,
                 active_model=self.first_eligible_invoice._name,
+                discard_logo_check=True,
             ).create({})
             wizard.enqueue_invoices()
             self.assertTrue(self.first_eligible_invoice.sending_in_progress)
