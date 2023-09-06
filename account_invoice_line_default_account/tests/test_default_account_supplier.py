@@ -8,13 +8,16 @@ from odoo.tests import Form
 from .common import DefaultAccountCommon
 
 
-class TestDefaultAccount(DefaultAccountCommon):
+class TestDefaultAccountSupplier(DefaultAccountCommon):
+
+    _default_move_type = "in_invoice"
+
     def test_default_account_product(self):
         """
         If the invoice line has a product, account is not changed
         """
         # Arrange: Set a different account in the partner
-        self.partner.property_account_income = self.partner_account
+        self.partner.property_account_expense = self.partner_account
         self.assertNotEqual(self.default_account, self.partner_account)
 
         # Act: Create an invoice
@@ -33,7 +36,7 @@ class TestDefaultAccount(DefaultAccountCommon):
         If the invoice line has no product, account is changed
         """
         # Arrange: Set a different account in the partner
-        self.partner.property_account_income = self.partner_account
+        self.partner.property_account_expense = self.partner_account
         self.assertNotEqual(self.default_account, self.partner_account)
 
         # Act: Create an invoice without product
@@ -51,11 +54,11 @@ class TestDefaultAccount(DefaultAccountCommon):
         If the partner is configured to save the updated account, it is saved.
         """
         # Arrange: Set a different account in the partner
-        self.partner.property_account_income = self.partner_account
+        self.partner.property_account_expense = self.partner_account
         self.assertNotEqual(self.default_account, self.partner_account)
         other_account = self.other_income_account
         # pre-condition: Partner is set to save income account
-        self.assertTrue(self.partner.auto_update_account_income)
+        self.assertTrue(self.partner.auto_update_account_expense)
 
         # Act: Edit the account in the line
         invoice_form = Form(self.invoice)
@@ -65,7 +68,7 @@ class TestDefaultAccount(DefaultAccountCommon):
 
         # Assert: Account in the line has been set in the partner
         self.assertEqual(
-            self.partner.property_account_income,
+            self.partner.property_account_expense,
             other_account,
         )
 
@@ -75,8 +78,8 @@ class TestDefaultAccount(DefaultAccountCommon):
         is disabled.
         """
         # Arrange: Set a different account in the partner
-        self.partner.auto_update_account_income = False
-        self.partner.property_account_income = self.partner_account
+        self.partner.auto_update_account_expense = False
+        self.partner.property_account_expense = self.partner_account
         self.assertNotEqual(self.default_account, self.partner_account)
         other_account = self.other_income_account
 
@@ -88,6 +91,6 @@ class TestDefaultAccount(DefaultAccountCommon):
 
         # Assert: Account in the line has been set in the partner
         self.assertEqual(
-            self.partner.property_account_income,
+            self.partner.property_account_expense,
             self.partner_account,
         )
