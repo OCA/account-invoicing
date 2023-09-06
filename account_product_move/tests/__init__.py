@@ -1,1 +1,1 @@
-from . import test_account_move_journal_template
+from . import test_account_product_move
