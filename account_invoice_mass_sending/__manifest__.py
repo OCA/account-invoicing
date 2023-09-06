@@ -16,6 +16,7 @@
         "queue_job",
     ],
     "data": [
+        "data/queue_job.xml",
         "views/account_invoice_views.xml",
         "wizards/account_invoice_send.xml",
     ],
