@@ -2,14 +2,14 @@
 #  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 
-from odoo.addons.account.tests.account_test_users import AccountTestUsers
 from odoo.fields import first
-from odoo.tests import tagged, Form
+from odoo.tests import Form, tagged
+
+from odoo.addons.account.tests.account_test_users import AccountTestUsers
 
 
-@tagged('post_install', '-at_install')
-class TestDefaultAccount (AccountTestUsers):
-
+@tagged("post_install", "-at_install")
+class TestDefaultAccount(AccountTestUsers):
     def _create_invoice(self, user, partner, product=None):
         account_invoice_model = self.account_invoice_model
         if user:
@@ -28,10 +28,11 @@ class TestDefaultAccount (AccountTestUsers):
 
     def setUp(self):
         super().setUp()
-        self.partner = self.env.ref('base.res_partner_3')
-        self.account_invoice_model = self.env['account.invoice'] \
-            .sudo(self.account_user.id)
-        self.product = self.env.ref('product.product_product_5')
+        self.partner = self.env.ref("base.res_partner_3")
+        self.account_invoice_model = self.env["account.invoice"].sudo(
+            self.account_user.id
+        )
+        self.product = self.env.ref("product.product_product_5")
 
         self.invoice = self._create_invoice(
             self.account_user,
@@ -39,8 +40,9 @@ class TestDefaultAccount (AccountTestUsers):
         )
         invoice_line = first(self.invoice.invoice_line_ids)
         self.default_account = invoice_line.account_id
-        self.partner_account = self.default_account.search([
-            ('id', '!=', self.default_account.id),
+        self.partner_account = self.default_account.search(
+            [
+                ("id", "!=", self.default_account.id),
             ],
             limit=1,
         )
@@ -90,8 +92,9 @@ class TestDefaultAccount (AccountTestUsers):
         self.partner.property_account_income = self.partner_account
         self.assertNotEqual(self.default_account, self.partner_account)
         used_accounts = self.default_account | self.partner_account
-        other_account = self.default_account.search([
-            ('id', 'not in', used_accounts.ids),
+        other_account = self.default_account.search(
+            [
+                ("id", "not in", used_accounts.ids),
             ],
             limit=1,
         )
