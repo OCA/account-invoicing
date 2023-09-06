@@ -69,20 +69,8 @@ class AccountMoveLine(models.Model):
     def _prepare_move_line_vals(self, product_move_line, extra_move):
         """Prepare vals for extra move line."""
         self.ensure_one()
-        quantity = self.quantity
-        if self.move_id.type == "out_invoice":
-            credit = product_move_line.credit
-            debit = product_move_line.debit
-        else:
-            credit = product_move_line.debit
-            debit = product_move_line.credit
-        return {
+        line_vals = {
             "move_id": extra_move.id,
-            "name": product_move_line.move_id.name,
             "partner_id": self.move_id.partner_id.id,
-            "account_id": product_move_line.account_id.id,
-            "currency_id": product_move_line.currency_id.id,
-            "amount_currency": product_move_line.amount_currency * quantity,
-            "credit": credit * quantity,
-            "debit": debit * quantity,
         }
+        return product_move_line._complete_line_vals(self, line_vals)

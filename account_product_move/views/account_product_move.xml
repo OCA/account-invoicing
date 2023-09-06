@@ -59,8 +59,14 @@
                         <field name="journal_id" options="{'no_create_edit': True}" />
                         <field name="filter_id" options="{'no_create_edit': True}" />
                     </group>
-                    <group name="config" colspan="4" col="4">
-                        <field name="line_ids" colspan="4">
+                    <group name="group_product_move_line" colspan="4" col="4">
+                        <separator string="Product Move Lines" colspan="4" />
+                        <field
+                            name="line_ids"
+                            nolabel="1"
+                            colspan="4"
+                            attrs="{'readonly': [('state', '=', 'complete')]}"
+                        >
                             <tree editable="bottom">
                                 <field name="company_id" invisible="1" />
                                 <field name="move_id" invisible="1" />
@@ -68,13 +74,14 @@
                                     name="account_id"
                                     options="{'no_create_edit': True, 'no_open': True}"
                                 />
-                                <field name="amount_currency" />
                                 <field
                                     name="currency_id"
                                     options="{'no_create_edit': True, 'no_open': True}"
                                 />
-                                <field name="debit" />
-                                <field name="credit" />
+                                <field name="debit" widget="monetary" />
+                                <field name="credit" widget="monetary" />
+                                <field name="percentage_debit" />
+                                <field name="percentage_credit" />
                             </tree>
                         </field>
                     </group>

@@ -3,7 +3,7 @@
 {
     "name": "Account Product Move",
     "summary": "Extra journal entries and items, per product or category.",
-    "version": "13.0.3.0.0",
+    "version": "13.0.4.0.0",
     "license": "AGPL-3",
     "author": "Therp BV, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
