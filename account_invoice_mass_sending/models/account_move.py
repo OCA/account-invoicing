@@ -30,9 +30,10 @@ class AccountInvoice(models.Model):
             )
             for invoice in invoices_to_send:
                 description = _("Send invoice %(name)s by email", name=invoice.name)
-                invoice.with_delay(description=description)._send_invoice_individually(
-                    template=template
-                )
+                invoice.with_delay(
+                    description=description,
+                    channel="root.account_invoice_mass_sending_channel",
+                )._send_invoice_individually(template=template)
         return invoices_to_send
 
     def _send_invoice_individually(self, template=None):
@@ -43,6 +44,7 @@ class AccountInvoice(models.Model):
             {
                 "active_model": self._name,
                 "active_ids": self.ids,
+                "discard_logo_check": True,
             }
         )
         wiz = self.env["account.invoice.send"].with_context(**wiz_ctx).create({})
