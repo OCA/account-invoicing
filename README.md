@@ -79,6 +79,7 @@ addon | version | maintainers | summary
 [account_receipt_journal](account_receipt_journal/) | 14.0.1.0.0 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) | Define and use journals dedicated to receipts
 [account_receipt_print](account_receipt_print/) | 14.0.1.0.1 |  | Enable printing in sale and purchase receipts
 [account_refund_payment_term](account_refund_payment_term/) | 14.0.1.0.0 | [![petrus-v](https://github.com/petrus-v.png?size=30px)](https://github.com/petrus-v) | Dedicated payment terms used for refunds
+[accounting_partner_category](accounting_partner_category/) | 14.0.1.0.0 | [![petrus-v](https://github.com/petrus-v.png?size=30px)](https://github.com/petrus-v) | Add tags on partner to helps accountant to select journal entries easley based on dedicated partner category
 [product_supplierinfo_for_customer_invoice](product_supplierinfo_for_customer_invoice/) | 14.0.1.0.0 |  | Based on product_customer_code, this module loads in every account invoice the customer code defined in the product
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 14.0.1.2.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) [![MiquelRForgeFlow](https://github.com/MiquelRForgeFlow.png?size=30px)](https://github.com/MiquelRForgeFlow) | Add an option to refund returned pickings
 [sale_line_refund_to_invoice_qty](sale_line_refund_to_invoice_qty/) | 14.0.1.0.1 |  | Allow deciding whether refunded quantity should be considered as quantity to reinvoice
