@@ -1,7 +1,7 @@
 # Copyright 2022-2023 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
-from odoo.tools import UserError
+from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_is_zero
 
 
@@ -65,10 +65,6 @@ class AccountProductMove(models.Model):
         self.ensure_one()
         self.state = "new"
 
-    def action_toggle_active(self):
-        self.ensure_one()
-        self.active = not self.active
-
     def _check_balanced(self):
         """Applying all extra move lines should leave total move balanced."""
         self.ensure_one()
@@ -79,7 +75,7 @@ class AccountProductMove(models.Model):
             debit = currency_entry["debit"]
             credit = currency_entry["credit"]
             if not float_is_zero(debit - credit, 3):
-                raise UserError(
+                raise ValidationError(
                     _(
                         "Cannot create unbalanced product move for currency %s.\n"
                         "Debit = %s, credit = %s."
@@ -89,7 +85,7 @@ class AccountProductMove(models.Model):
             percentage_debit = currency_entry["percentage_debit"]
             percentage_credit = currency_entry["percentage_credit"]
             if not float_is_zero(percentage_debit - percentage_credit, 3):
-                raise UserError(
+                raise ValidationError(
                     _(
                         "Cannot create unbalanced product move for currency %s.\n"
                         "Debit percentage = %s, credit percentage = %s."
