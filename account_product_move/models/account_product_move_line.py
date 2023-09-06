@@ -71,7 +71,7 @@ class AccountProductMoveLine(models.Model):
                 )
 
     @api.constrains(
-        "currency_id", "company_currency_id", "percentage_debit", "percentage_credit",
+        "currency_id", "percentage_debit", "percentage_credit",
     )
     def _check_no_percentage_currency(self):
         """Do not use percentages of cost price with currency conversion."""

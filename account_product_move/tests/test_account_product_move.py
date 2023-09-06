@@ -1,21 +1,16 @@
-# Copyright 2022 Therp BV <https://therp.nl>
+# Copyright 2022-2023 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import fields
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 
 class TestAccountProductMove(TransactionCase):
     def setUp(self):
         super().setUp()
-        self.item_lines = self.env["account.product.move.line"]
-        # demo journal entry template
-        self.template = self.env.ref("account_product_move.account_product_move_01")
-        self.template.product_tmpl_id = (
-            self.env["product.template"]
-            .search([("product_variant_ids", "!=", False)], limit=1)
-            .id
-        )
+        self.product_template_model = self.env["product.template"]
+        self.product_move_model = self.env["account.product.move"]
+        self.product_move_line_model = self.env["account.product.move.line"]
         # demo account.journals
         self.journal = self.env["account.journal"].create(
             {"name": "demo_journal", "type": "sale", "code": "code"}
@@ -23,43 +18,52 @@ class TestAccountProductMove(TransactionCase):
         self.another_journal = self.env["account.journal"].create(
             {"name": "another_demo_journal", "type": "sale", "code": "code"}
         )
+        # a random product template
+        self.product_template_01 = self.product_template_model.search(
+            [("product_variant_ids", "!=", False)], limit=1
+        )
+        self.product = self.product_template_01.product_variant_ids[0]
         # a random demo account
         self.account = self.env["account.account"].search([], limit=1)
-        # demo journal item lines for journal entry template
-        self.item_line_01 = self.item_lines.create(
+        # demo account product move
+        self.product_move_01 = self.product_move_model.create(
             {
+                "name": "TEST account_product_move",
                 "journal_id": self.journal.id,
+                "product_tmpl_ids": [(6, 0, self.product_template_01.ids)],
+            }
+        )
+        # demo journal item lines for account product move
+        self.item_line_01 = self.product_move_line_model.create(
+            {
                 "account_id": self.account.id,
-                "product_move_id": self.template.id,
+                "move_id": self.product_move_01.id,
                 "credit": 1.0,
             }
         )
-        self.item_line_02 = self.item_lines.create(
+        self.item_line_02 = self.product_move_line_model.create(
             {
-                "journal_id": self.journal.id,
                 "account_id": self.account.id,
-                "product_move_id": self.template.id,
+                "move_id": self.product_move_01.id,
                 "debit": 1.0,
             }
         )
-        self.item_line_03 = self.item_lines.create(
+        self.item_line_03 = self.product_move_line_model.create(
             {
-                "journal_id": self.another_journal.id,
                 "account_id": self.account.id,
-                "product_move_id": self.template.id,
+                "move_id": self.product_move_01.id,
                 "credit": 1.0,
             }
         )
-        self.item_line_04 = self.item_lines.create(
+        self.item_line_04 = self.product_move_line_model.create(
             {
-                "journal_id": self.another_journal.id,
                 "account_id": self.account.id,
-                "product_move_id": self.template.id,
+                "move_id": self.product_move_01.id,
                 "debit": 1.0,
             }
         )
+        self.product_move_01.button_complete()
         # demo invoice
-        product = self.template.product_tmpl_id.product_variant_ids[0]
         self.invoice = self.env["account.move"].create(
             {
                 "type": "out_invoice",
@@ -72,7 +76,7 @@ class TestAccountProductMove(TransactionCase):
                         0,
                         None,
                         {
-                            "product_id": product.id,
+                            "product_id": self.product.id,
                             "quantity": 300.0,
                             "account_id": self.account.id,
                         },
@@ -83,22 +87,22 @@ class TestAccountProductMove(TransactionCase):
 
     def test_debit_credit_balance(self):
         """Check that balance is always 0 for template"""
-        line = self.item_lines.create(
+        # First set to state new.
+        self.product_move_01.button_reset()
+        # Add unbalanced line.
+        line = self.product_move_line_model.create(
             {
-                "journal_id": self.journal.id,
-                "product_move_id": self.template.id,
+                "move_id": self.product_move_01.id,
                 "credit": 1.0,
                 "account_id": self.account.id,
             }
         )
-        with self.assertRaises(UserError):
-            self.template._check_balanced()
-        line.write({"credit": 0.0})
-        self.template._check_balanced()
-
-    def test_active(self):
-        self.template.toggle_active()
-        self.assertFalse(self.template.active)
+        with self.assertRaises(ValidationError):
+            # Try to set state to complete.
+            self.product_move_01.button_complete()
+        # Remove line again and try again to complete.
+        line.unlink()
+        self.product_move_01.button_complete()
 
     def test_workflow(self):
         # Post the invoice
@@ -113,12 +117,12 @@ class TestAccountProductMove(TransactionCase):
         # Product templates are the same
         self.assertEqual(
             self.invoice.mapped("line_ids.product_id.product_tmpl_id"),
-            self.template.mapped("product_tmpl_id"),
+            self.product_move_01.mapped("product_tmpl_ids"),
         )
         # Journals are the same
         self.assertEqual(
             self.invoice.mapped("product_move_ids.journal_id"),
-            self.template.journal_item_ids.mapped("journal_id"),
+            self.product_move_01.journal_id,
         )
         # Set invoice to draft
         self.invoice.button_draft()
