@@ -100,11 +100,47 @@ class TestAccountProductMove(TransactionCase):
             }
         )
         with self.assertRaises(ValidationError):
-            # Try to set state to complete.
             self.product_move_01.button_complete()
         # Remove line again and try again to complete.
         line.unlink()
         self.product_move_01.button_complete()
+        # Create and complete move without lines. This should not be accepted.
+        empty_move = self.product_move_model.create(
+            {
+                "name": "TEST empty account_product_move",
+                "journal_id": self.journal.id,
+                "product_tmpl_ids": [(6, 0, self.product_template_01.ids)],
+            }
+        )
+        with self.assertRaises(ValidationError):
+            empty_move.button_complete()
+        # Try what happens when having unbalanced percentage lines.
+        percentage_move = self.product_move_model.create(
+            {
+                "name": "TEST account_product_move with unblanced percentages",
+                "journal_id": self.journal.id,
+                "product_tmpl_ids": [(6, 0, self.product_template_01.ids)],
+            }
+        )
+        self.product_move_line_model.create(
+            {
+                "account_id": self.account.id,
+                "move_id": percentage_move.id,
+                "percentage_credit": 5.0,
+            }
+        )
+        debit_percentage_line = self.product_move_line_model.create(
+            {
+                "account_id": self.account.id,
+                "move_id": percentage_move.id,
+                "percentage_debit": 10.0,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            percentage_move.button_complete()
+        # Correcting the percentage should make it possible to complete.
+        debit_percentage_line.write({"percentage_debit": 5.0})
+        percentage_move.button_complete()
 
     def test_workflow(self):
         """Post invoice, set back to draft, etc. and check what happens."""
@@ -163,3 +199,18 @@ class TestAccountProductMove(TransactionCase):
         self.invoice.button_draft()
         self.invoice.action_post()
         self.assertTrue(self.invoice.product_move_ids)
+        # Filter with empty domain is also valid.
+        partner_filter.write({"domain": "[]"})
+        self.invoice.button_draft()
+        self.invoice.action_post()
+        self.assertTrue(self.invoice.product_move_ids)
+
+    def test_is_product_move_valid(self):
+        """Test the non filter part of is_product_move_valid."""
+        invoice_line = self.invoice.line_ids[0]
+        # Move as is is valid.
+        self.assertTrue(invoice_line._is_product_move_valid(self.product_move_01))
+        # Not complete move is not valid.
+        self.product_move_01.button_reset()
+        self.assertFalse(invoice_line._is_product_move_valid(self.product_move_01))
+        self.product_move_01.button_complete()

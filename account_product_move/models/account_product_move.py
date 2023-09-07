@@ -68,9 +68,11 @@ class AccountProductMove(models.Model):
     def _check_balanced(self):
         """Applying all extra move lines should leave total move balanced."""
         self.ensure_one()
-        if not self.line_ids:
-            return
         lines_per_currency = self._collect_lines_per_currency()
+        if not lines_per_currency:
+            raise ValidationError(
+                _("You cannot have a valid definition without lines.")
+            )
         for currency_name, currency_entry in lines_per_currency.items():
             debit = currency_entry["debit"]
             credit = currency_entry["credit"]
