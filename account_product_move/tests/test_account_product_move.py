@@ -8,6 +8,7 @@ from odoo.tests.common import TransactionCase
 class TestAccountProductMove(TransactionCase):
     def setUp(self):
         super().setUp()
+        self.partner_model = self.env["res.partner"]
         self.product_template_model = self.env["product.template"]
         self.product_move_model = self.env["account.product.move"]
         self.product_move_line_model = self.env["account.product.move.line"]
@@ -64,13 +65,14 @@ class TestAccountProductMove(TransactionCase):
         )
         self.product_move_01.button_complete()
         # demo invoice
+        self.partner_01 = self.partner_model.search(
+            [("customer_rank", ">", 0)], limit=1
+        )
         self.invoice = self.env["account.move"].create(
             {
                 "type": "out_invoice",
                 "date": fields.Date.today(),
-                "partner_id": self.env["res.partner"]
-                .search([("customer_rank", ">", 0)], limit=1)
-                .id,
+                "partner_id": self.partner_01.id,
                 "line_ids": [
                     (
                         0,
@@ -105,6 +107,7 @@ class TestAccountProductMove(TransactionCase):
         self.product_move_01.button_complete()
 
     def test_workflow(self):
+        """Post invoice, set back to draft, etc. and check what happens."""
         # Post the invoice
         self.invoice.action_post()
         # Journal entries created
@@ -135,3 +138,28 @@ class TestAccountProductMove(TransactionCase):
         self.invoice.button_cancel()
         for this in self.invoice.product_move_ids:
             self.assertEqual(this.state, "cancel")
+
+    def test_filter(self):
+        """Test creation of extra moves (or non creation) depending on filter."""
+        filter_model = self.env["ir.filters"]
+        partner_filter = filter_model.create(
+            {
+                "name": "Invoices for Bond 007",
+                "domain": "[('partner_id.name', '=', 'Bond 007')]",
+                "model_id": "account.move",
+                "user_id": False,
+            }
+        )
+        # Link filter to model.
+        self.product_move_01.write({"filter_id": partner_filter.id})
+        # Post the invoice.
+        self.invoice.action_post()
+        # No journal entries should have been created.
+        self.assertFalse(self.invoice.product_move_ids)
+        # Change filter and try again.
+        partner_filter.write(
+            {"domain": "[('partner_id.name', '=', '%s')]" % self.partner_01.name}
+        )
+        self.invoice.button_draft()
+        self.invoice.action_post()
+        self.assertTrue(self.invoice.product_move_ids)
