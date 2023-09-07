@@ -1,0 +1,35 @@
+<!-- Copyright 2017 ForgeFlow S.L.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="report_invoice_document"
+        inherit_id="account.report_invoice_document"
+        priority="101"
+    >
+        <xpath expr="//t[@t-set='display_discount']" position="after">
+            <t
+                t-set="display_discount_fixed"
+                t-value="any([l.discount_fixed for l in o.invoice_line_ids])"
+            />
+        </xpath>
+        <xpath expr="//th[@t-if='display_discount']/span" position="replace">
+            <t t-if="display_discount_fixed">
+                <span>Discount Amount (%)</span>
+            </t>
+            <t t-else="">
+                <span>Disc. %</span>
+            </t>
+        </xpath>
+        <span t-field="line.discount" position="replace">
+            <t t-if="display_discount_fixed">
+                <span class="text-nowrap" t-field="line.discount_fixed" /> (or <span
+                    class="text-nowrap"
+                    t-field="line.discount"
+                /> %)
+            </t>
+            <t t-else="">
+                <span class="text-nowrap" t-field="line.discount" />
+            </t>
+        </span>
+    </template>
+</odoo>
