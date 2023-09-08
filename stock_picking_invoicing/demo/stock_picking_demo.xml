@@ -50,7 +50,7 @@
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_2-2" model="stock.move">
-        <field name="product_id" ref="product.product_product_27" />
+        <field name="product_id" ref="product.product_product_25" />
         <field name="name">Test</field>
         <field name="picking_id" ref="stock_picking_invoicing_2" />
         <field name="invoice_state">2binvoiced</field>
@@ -94,7 +94,7 @@
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_3-2" model="stock.move">
-        <field name="product_id" ref="product.product_product_27" />
+        <field name="product_id" ref="product.product_product_25" />
         <field name="name">Test</field>
         <field name="picking_id" ref="stock_picking_invoicing_3" />
         <field name="invoice_state">2binvoiced</field>
@@ -128,7 +128,7 @@
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_4-2" model="stock.move">
-        <field name="product_id" ref="product.product_product_27" />
+        <field name="product_id" ref="product.product_product_25" />
         <field name="name">Test</field>
         <field name="picking_id" ref="stock_picking_invoicing_4" />
         <field name="invoice_state">invoiced</field>
@@ -157,7 +157,7 @@
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_5-2" model="stock.move">
-        <field name="product_id" ref="product.product_product_27" />
+        <field name="product_id" ref="product.product_product_25" />
         <field name="name">Test</field>
         <field name="picking_id" ref="stock_picking_invoicing_5" />
         <field name="invoice_state">none</field>
@@ -201,7 +201,7 @@
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_6-2" model="stock.move">
-        <field name="product_id" ref="product.product_product_27" />
+        <field name="product_id" ref="product.product_product_25" />
         <field name="name">Test</field>
         <field name="picking_id" ref="stock_picking_invoicing_6" />
         <field name="invoice_state">none</field>
@@ -236,7 +236,7 @@
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_7-2" model="stock.move">
-        <field name="product_id" ref="product.product_product_27" />
+        <field name="product_id" ref="product.product_product_25" />
         <field name="name">Test</field>
         <field name="picking_id" ref="stock_picking_invoicing_7" />
         <field name="invoice_state">2binvoiced</field>
