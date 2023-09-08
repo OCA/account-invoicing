@@ -214,3 +214,70 @@ class TestAccountProductMove(TransactionCase):
         self.product_move_01.button_reset()
         self.assertFalse(invoice_line._is_product_move_valid(self.product_move_01))
         self.product_move_01.button_complete()
+
+    def test_foreign_currency(self):
+        """Test with a currency that has twice the value of company currency."""
+        currency_model = self.env["res.currency"]
+        rate_model = self.env["res.currency.rate"]
+        strubl = currency_model.create(
+            {
+                "name": "STRUBL",  # The national currency of Molvania
+                "symbol": "₰",
+                "active": True,
+            }
+        )
+        rate_model.create({"currency_id": strubl.id, "name": "2001-01-01", "rate": 0.5})
+        strubl_move = self.product_move_model.create(
+            {
+                "name": "TEST account_product_move with foreign currency",
+                "journal_id": self.journal.id,
+                "product_tmpl_ids": [(6, 0, self.product_template_01.ids)],
+            }
+        )
+        self.product_move_line_model.create(
+            {
+                "account_id": self.account.id,
+                "move_id": strubl_move.id,
+                "currency_id": strubl.id,
+                "credit": 10.0,
+            }
+        )
+        self.product_move_line_model.create(
+            {
+                "account_id": self.account.id,
+                "move_id": strubl_move.id,
+                "currency_id": strubl.id,
+                "debit": 10.0,
+            }
+        )
+        # Deactivate standard apm and activate strubl apm.
+        self.product_move_01.button_reset()
+        strubl_move.button_complete()
+        # Post the invoice
+        self.invoice.action_post()
+        # Journal entries created
+        self.assertTrue(self.invoice.product_move_ids)
+        # Action returns these only
+        self.assertEqual(
+            self.invoice.product_move_ids,
+            self.invoice.search(self.invoice.action_view_journal_entries()["domain"]),
+        )
+        # Check the moves created.
+        extra_move = self.invoice.product_move_ids
+        self.assertEqual(len(extra_move), 1)  # There can be only one.
+        # Get conversion rate of company curreny to strubl.
+        company = self.env.company
+        conversion_rate = currency_model._get_conversion_rate(
+            strubl, company.currency_id, company, fields.Date.today()
+        )
+        for extra_line in extra_move.line_ids:
+            self.assertEqual(extra_line.currency_id, strubl)
+            if extra_line.debit:
+                expected_amount = extra_line.amount_currency * conversion_rate
+                compare_amount = extra_line.debit
+            else:
+                expected_amount = 0.0 - (extra_line.amount_currency * conversion_rate)
+                compare_amount = extra_line.credit
+            self.assertEqual(
+                0, company.currency_id.compare_amounts(compare_amount, expected_amount)
+            )
