@@ -322,9 +322,9 @@ class TestAccountProductMove(TransactionCase):
         self.assertEqual(len(extra_move.line_ids), 3)
         for extra_line in extra_move.line_ids:
             if extra_line.debit:
-                self.assertEqual(extra_line.debit, 5.0)
+                self.assertEqual(extra_line.debit, 1500.0)
             if extra_line.credit:
-                self.assertEqual(extra_line.credit, 10.0)
+                self.assertEqual(extra_line.credit, 3000.0)
 
     def test_percentage(self):
         """Test creating moves with percentage of standard_price (cost)."""

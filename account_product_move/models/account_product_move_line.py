@@ -89,9 +89,10 @@ class AccountProductMoveLine(models.Model):
             if self.percentage_credit:
                 credit += quantity * self.percentage_credit * 0.01 * standard_price
         if invoice_type == "out_refund":
-            # Reverse amounts for credit note.
-            debit = 0.0 - debit
-            credit = 0.0 - credit
+            # Swap amounts for credit note.
+            save_debit = debit
+            debit = credit
+            credit = save_debit
         if not self.currency_id or (self.currency_id == self.company_currency_id):
             vals["debit"] = debit
             vals["credit"] = credit
