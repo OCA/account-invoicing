@@ -104,7 +104,8 @@ class AccountProductMove(models.Model):
         # Setup manual loop, instead of using sum to prevent repeated
         # iteration over the same records.
         for line in self.line_ids:
-            currency_name = line.effective_currency_id.name
+            currency = line.currency_id or self.env.company.currency_id
+            currency_name = currency.name
             if currency_name not in lines_per_currency:
                 lines_per_currency[currency_name] = {
                     "debit": 0.0,
