@@ -8,16 +8,21 @@ from odoo.tests.common import TransactionCase
 class TestAccountProductMove(TransactionCase):
     def setUp(self):
         super().setUp()
+        # Models used in tests.
         self.partner_model = self.env["res.partner"]
         self.product_template_model = self.env["product.template"]
         self.product_move_model = self.env["account.product.move"]
         self.product_move_line_model = self.env["account.product.move.line"]
+        self.currency_model = self.env["res.currency"]
+        self.rate_model = self.env["res.currency.rate"]
         # demo account.journals
         self.journal = self.env["account.journal"].create(
-            {"name": "demo_journal", "type": "sale", "code": "code"}
-        )
-        self.another_journal = self.env["account.journal"].create(
-            {"name": "another_demo_journal", "type": "sale", "code": "code"}
+            {
+                "name": "demo_journal",
+                "type": "sale",
+                "code": "code",
+                "currency_id": self.env.company.currency_id.id,
+            }
         )
         # a random product template
         self.product_template_01 = self.product_template_model.search(
@@ -26,6 +31,9 @@ class TestAccountProductMove(TransactionCase):
         self.product = self.product_template_01.product_variant_ids[0]
         # a random demo account
         self.account = self.env["account.account"].search([], limit=1)
+        # For succesfull test on non-empty database, archive existing moves.
+        # This will automatically be undone by the end of the test.
+        self.product_move_model.search([]).action_archive()
         # demo account product move
         self.product_move_01 = self.product_move_model.create(
             {
@@ -68,24 +76,7 @@ class TestAccountProductMove(TransactionCase):
         self.partner_01 = self.partner_model.search(
             [("customer_rank", ">", 0)], limit=1
         )
-        self.invoice = self.env["account.move"].create(
-            {
-                "type": "out_invoice",
-                "date": fields.Date.today(),
-                "partner_id": self.partner_01.id,
-                "line_ids": [
-                    (
-                        0,
-                        None,
-                        {
-                            "product_id": self.product.id,
-                            "quantity": 300.0,
-                            "account_id": self.account.id,
-                        },
-                    ),
-                ],
-            }
-        )
+        self.invoice = self._make_invoice()
 
     def test_debit_credit_balance(self):
         """Check that balance is always 0 for template"""
@@ -177,6 +168,7 @@ class TestAccountProductMove(TransactionCase):
 
     def test_filter(self):
         """Test creation of extra moves (or non creation) depending on filter."""
+        invoice = self._make_invoice()
         filter_model = self.env["ir.filters"]
         partner_filter = filter_model.create(
             {
@@ -189,21 +181,21 @@ class TestAccountProductMove(TransactionCase):
         # Link filter to model.
         self.product_move_01.write({"filter_id": partner_filter.id})
         # Post the invoice.
-        self.invoice.action_post()
+        invoice.action_post()
         # No journal entries should have been created.
-        self.assertFalse(self.invoice.product_move_ids)
+        self.assertFalse(invoice.product_move_ids)
         # Change filter and try again.
         partner_filter.write(
             {"domain": "[('partner_id.name', '=', '%s')]" % self.partner_01.name}
         )
-        self.invoice.button_draft()
-        self.invoice.action_post()
-        self.assertTrue(self.invoice.product_move_ids)
+        invoice.button_draft()
+        invoice.action_post()
+        self.assertTrue(invoice.product_move_ids)
         # Filter with empty domain is also valid.
         partner_filter.write({"domain": "[]"})
-        self.invoice.button_draft()
-        self.invoice.action_post()
-        self.assertTrue(self.invoice.product_move_ids)
+        invoice.button_draft()
+        invoice.action_post()
+        self.assertTrue(invoice.product_move_ids)
 
     def test_is_product_move_valid(self):
         """Test the non filter part of is_product_move_valid."""
@@ -217,16 +209,7 @@ class TestAccountProductMove(TransactionCase):
 
     def test_foreign_currency(self):
         """Test with a currency that has twice the value of company currency."""
-        currency_model = self.env["res.currency"]
-        rate_model = self.env["res.currency.rate"]
-        strubl = currency_model.create(
-            {
-                "name": "STRUBL",  # The national currency of Molvania
-                "symbol": "₰",
-                "active": True,
-            }
-        )
-        rate_model.create({"currency_id": strubl.id, "name": "2001-01-01", "rate": 0.5})
+        strubl = self._make_foreign_currency()
         strubl_move = self.product_move_model.create(
             {
                 "name": "TEST account_product_move with foreign currency",
@@ -267,7 +250,7 @@ class TestAccountProductMove(TransactionCase):
         self.assertEqual(len(extra_move), 1)  # There can be only one.
         # Get conversion rate of company curreny to strubl.
         company = self.env.company
-        conversion_rate = currency_model._get_conversion_rate(
+        conversion_rate = self.currency_model._get_conversion_rate(
             strubl, company.currency_id, company, fields.Date.today()
         )
         for extra_line in extra_move.line_ids:
@@ -281,3 +264,87 @@ class TestAccountProductMove(TransactionCase):
             self.assertEqual(
                 0, company.currency_id.compare_amounts(compare_amount, expected_amount)
             )
+
+    def test_constraints(self):
+        """Check several constraints."""
+        self.product_move_01.button_reset()  # Should not edit with state complete.
+        # Should not mix debit and credit
+        with self.assertRaises(ValidationError):
+            self.product_move_line_model.create(
+                {
+                    "move_id": self.product_move_01.id,
+                    "credit": 1.0,
+                    "percentage_debit": 1.0,
+                    "account_id": self.account.id,
+                }
+            )
+        # Should not use percentage with foreign currency.
+        strubl = self._make_foreign_currency()
+        with self.assertRaises(ValidationError):
+            self.product_move_line_model.create(
+                {
+                    "move_id": self.product_move_01.id,
+                    "percentage_debit": 1.0,
+                    "account_id": self.account.id,
+                    "currency_id": strubl.id,
+                }
+            )
+
+    def test_percentage(self):
+        """Test creating moves with percentage of standard_price (cost)."""
+        self.product_move_01.button_reset()  # Should not edit with state complete.
+        for line in self.product_move_01.line_ids:
+            if line.debit:
+                line.write({"debit": 0.0, "percentage_debit": 10.0})
+            if line.credit:
+                line.write({"credit": 0.0, "percentage_credit": 10.0})
+        self.product_move_01.button_complete()
+        self.product.standard_price = 50.0  # in company currency
+        expected_amount = 300.0 * 10.0 * 0.01 * 50.0
+        # Post the invoice
+        self.invoice.action_post()
+        # Check the moves created.
+        extra_move = self.invoice.product_move_ids
+        self.assertEqual(len(extra_move), 1)  # There can be only one.
+        self.assertEqual(len(extra_move.line_ids), 4)
+        for extra_line in extra_move.line_ids:
+            if extra_line.debit:
+                self.assertEqual(extra_line.debit, expected_amount)
+            if extra_line.credit:
+                self.assertEqual(extra_line.credit, expected_amount)
+
+    def _make_invoice(self):
+        """Make fresh invoice for each test."""
+        invoice = self.env["account.move"].create(
+            {
+                "type": "out_invoice",
+                "date": fields.Date.today(),
+                "partner_id": self.partner_01.id,
+                "line_ids": [
+                    (
+                        0,
+                        None,
+                        {
+                            "product_id": self.product.id,
+                            "quantity": 300.0,
+                            "account_id": self.account.id,
+                        },
+                    ),
+                ],
+            }
+        )
+        return invoice
+
+    def _make_foreign_currency(self):
+        """Return non company currency for testing."""
+        strubl = self.currency_model.create(
+            {
+                "name": "STRUBL",  # The national currency of Molvania
+                "symbol": "₰",
+                "active": True,
+            }
+        )
+        self.rate_model.create(
+            {"currency_id": strubl.id, "name": "2001-01-01", "rate": 0.5}
+        )
+        return strubl

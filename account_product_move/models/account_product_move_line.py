@@ -8,11 +8,6 @@ class AccountProductMoveLine(models.Model):
     _name = "account.product.move.line"
     _description = "Items for journal entry for given products"
 
-    def _compute_effective_currency_id(self):
-        """Effective currency is specified on line or taken from company."""
-        for line in self:
-            line.effective_currency_id = line.currency_id or line.company_currency_id
-
     company_id = fields.Many2one(
         related="move_id.company_id", store=True, readonly=True
     )
@@ -28,13 +23,6 @@ class AccountProductMoveLine(models.Model):
         copy=True,
         help="DEPRECATED, but still needed for data migration",
     )
-    effective_currency_id = fields.Many2one(
-        comodel_name="res.currency",
-        compute="_compute_effective_currency_id",
-        string="Effective Currency",
-        readonly=True,
-        help="Utility field to express amount currency",
-    )
     move_id = fields.Many2one(comodel_name="account.product.move")
     account_id = fields.Many2one(
         comodel_name="account.account",
@@ -42,8 +30,8 @@ class AccountProductMoveLine(models.Model):
         required=True,
         check_company=True,
     )
-    debit = fields.Monetary(default=0.0, currency_field="effective_currency_id")
-    credit = fields.Monetary(default=0.0, currency_field="effective_currency_id")
+    debit = fields.Monetary(default=0.0, currency_field="currency_id")
+    credit = fields.Monetary(default=0.0, currency_field="currency_id")
     percentage_debit = fields.Float(
         string="Debit as % of cost",
         digits=(5, 2),
@@ -104,7 +92,7 @@ class AccountProductMoveLine(models.Model):
             # Reverse amounts for credit note.
             debit = 0.0 - debit
             credit = 0.0 - credit
-        if self.effective_currency_id == self.company_currency_id:
+        if not self.currency_id or (self.currency_id == self.company_currency_id):
             vals["debit"] = debit
             vals["credit"] = credit
             vals["currency_id"] = False
