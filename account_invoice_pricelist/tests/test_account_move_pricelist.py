@@ -14,48 +14,47 @@ from odoo.addons.sale.models.sale import SaleOrderLine as upstream
 VALID_HASHES = ["7c0bb27c20598327008f81aee58cdfb4"]
 
 
-class TestAccountMovePricelist(common.SavepointCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.AccountMove = cls.env["account.move"]
-        cls.ProductPricelist = cls.env["product.pricelist"]
-        cls.FiscalPosition = cls.env["account.fiscal.position"]
-        cls.fiscal_position = cls.FiscalPosition.create(
+class TestAccountMovePricelist(common.TransactionCase):
+    def setUp(self):
+        super().setUp()
+        self.AccountMove = self.env["account.move"]
+        self.ProductPricelist = self.env["product.pricelist"]
+        self.FiscalPosition = self.env["account.fiscal.position"]
+        self.fiscal_position = self.FiscalPosition.create(
             {"name": "Test Fiscal Position", "active": True}
         )
-        cls.journal_sale = cls.env["account.journal"].create(
+        self.journal_sale = self.env["account.journal"].create(
             {"name": "Test sale journal", "type": "sale", "code": "TEST_SJ"}
         )
         # Make sure the currency of the company is USD, as this not always happens
         # To be removed in V17: https://github.com/odoo/odoo/pull/107113
-        cls.company = cls.env.company
-        cls.env.cr.execute(
+        self.company = self.env.company
+        self.env.cr.execute(
             "UPDATE res_company SET currency_id = %s WHERE id = %s",
-            (cls.env.ref("base.USD").id, cls.company.id),
+            (self.env.ref("base.USD").id, self.company.id),
         )
-        cls.at_receivable = cls.env["account.account.type"].create(
+        self.at_receivable = self.env["account.account.type"].create(
             {
                 "name": "Test receivable account",
                 "type": "receivable",
                 "internal_group": "income",
             }
         )
-        cls.a_receivable = cls.env["account.account"].create(
+        self.a_receivable = self.env["account.account"].create(
             {
                 "name": "Test receivable account",
                 "code": "TEST_RA",
-                "user_type_id": cls.at_receivable.id,
+                "user_type_id": self.at_receivable.id,
                 "reconcile": True,
             }
         )
-        cls.product = cls.env["product.template"].create(
+        self.product = self.env["product.template"].create(
             {"name": "Product Test", "list_price": 100.00}
         )
-        cls.product_0 = cls.env["product.template"].create(
+        self.product_0 = self.env["product.template"].create(
             {"name": "Product Test 2", "list_price": 0.00}
         )
-        cls.sale_pricelist = cls.ProductPricelist.create(
+        self.sale_pricelist = self.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist",
                 "item_ids": [
@@ -66,21 +65,21 @@ class TestAccountMovePricelist(common.SavepointCase):
                             "applied_on": "1_product",
                             "compute_price": "fixed",
                             "fixed_price": 60.00,
-                            "product_tmpl_id": cls.product.id,
+                            "product_tmpl_id": self.product.id,
                         },
                     )
                 ],
             }
         )
-        cls.partner = cls.env["res.partner"].create(
+        self.partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "property_product_pricelist": cls.sale_pricelist.id,
-                "property_account_receivable_id": cls.a_receivable.id,
-                "property_account_position_id": cls.fiscal_position.id,
+                "property_product_pricelist": self.sale_pricelist.id,
+                "property_account_receivable_id": self.a_receivable.id,
+                "property_account_position_id": self.fiscal_position.id,
             }
         )
-        cls.sale_pricelist_fixed_without_discount = cls.ProductPricelist.create(
+        self.sale_pricelist_fixed_without_discount = self.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist",
                 "discount_policy": "without_discount",
@@ -92,13 +91,13 @@ class TestAccountMovePricelist(common.SavepointCase):
                             "applied_on": "1_product",
                             "compute_price": "fixed",
                             "fixed_price": 60.00,
-                            "product_tmpl_id": cls.product.id,
+                            "product_tmpl_id": self.product.id,
                         },
                     )
                 ],
             }
         )
-        cls.sale_pricelist_with_discount = cls.ProductPricelist.create(
+        self.sale_pricelist_with_discount = self.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist - 2",
                 "discount_policy": "with_discount",
@@ -110,13 +109,13 @@ class TestAccountMovePricelist(common.SavepointCase):
                             "applied_on": "1_product",
                             "compute_price": "percentage",
                             "percent_price": 10.0,
-                            "product_tmpl_id": cls.product.id,
+                            "product_tmpl_id": self.product.id,
                         },
                     )
                 ],
             }
         )
-        cls.sale_pricelist_without_discount = cls.ProductPricelist.create(
+        self.sale_pricelist_without_discount = self.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist - 3",
                 "discount_policy": "without_discount",
@@ -128,18 +127,18 @@ class TestAccountMovePricelist(common.SavepointCase):
                             "applied_on": "1_product",
                             "compute_price": "percentage",
                             "percent_price": 10.0,
-                            "product_tmpl_id": cls.product.id,
+                            "product_tmpl_id": self.product.id,
                         },
                     )
                 ],
             }
         )
-        cls.euro_currency = cls.env["res.currency"].search([("name", "=", "EUR")])
-        cls.sale_pricelist_with_discount_in_euros = cls.ProductPricelist.create(
+        self.euro_currency = self.env["res.currency"].search([("name", "=", "EUR")])
+        self.sale_pricelist_with_discount_in_euros = self.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist - 4",
                 "discount_policy": "with_discount",
-                "currency_id": cls.euro_currency.id,
+                "currency_id": self.euro_currency.id,
                 "item_ids": [
                     (
                         0,
@@ -148,17 +147,17 @@ class TestAccountMovePricelist(common.SavepointCase):
                             "applied_on": "1_product",
                             "compute_price": "percentage",
                             "percent_price": 10.0,
-                            "product_tmpl_id": cls.product.id,
+                            "product_tmpl_id": self.product.id,
                         },
                     )
                 ],
             }
         )
-        cls.sale_pricelist_without_discount_in_euros = cls.ProductPricelist.create(
+        self.sale_pricelist_without_discount_in_euros = self.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist - 5",
                 "discount_policy": "without_discount",
-                "currency_id": cls.euro_currency.id,
+                "currency_id": self.euro_currency.id,
                 "item_ids": [
                     (
                         0,
@@ -167,17 +166,17 @@ class TestAccountMovePricelist(common.SavepointCase):
                             "applied_on": "1_product",
                             "compute_price": "percentage",
                             "percent_price": 10.0,
-                            "product_tmpl_id": cls.product.id,
+                            "product_tmpl_id": self.product.id,
                         },
                     )
                 ],
             }
         )
-        cls.sale_pricelist_fixed_with_discount_in_euros = cls.ProductPricelist.create(
+        self.sale_pricelist_fixed_with_discount_in_euros = self.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist - 6",
                 "discount_policy": "with_discount",
-                "currency_id": cls.euro_currency.id,
+                "currency_id": self.euro_currency.id,
                 "item_ids": [
                     (
                         0,
@@ -186,17 +185,17 @@ class TestAccountMovePricelist(common.SavepointCase):
                             "applied_on": "1_product",
                             "compute_price": "fixed",
                             "fixed_price": 60.00,
-                            "product_tmpl_id": cls.product.id,
+                            "product_tmpl_id": self.product.id,
                         },
                     )
                 ],
             }
         )
-        cls.sale_pricelist_fixed_wo_disc_euros = cls.ProductPricelist.create(
+        self.sale_pricelist_fixed_wo_disc_euros = self.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist - 7",
                 "discount_policy": "without_discount",
-                "currency_id": cls.euro_currency.id,
+                "currency_id": self.euro_currency.id,
                 "item_ids": [
                     (
                         0,
@@ -205,22 +204,22 @@ class TestAccountMovePricelist(common.SavepointCase):
                             "applied_on": "1_product",
                             "compute_price": "fixed",
                             "fixed_price": 60.00,
-                            "product_tmpl_id": cls.product.id,
+                            "product_tmpl_id": self.product.id,
                         },
                     )
                 ],
             }
         )
-        cls.invoice = cls.AccountMove.create(
+        self.invoice = self.AccountMove.create(
             {
-                "partner_id": cls.partner.id,
+                "partner_id": self.partner.id,
                 "move_type": "out_invoice",
                 "invoice_line_ids": [
                     (
                         0,
                         0,
                         {
-                            "product_id": cls.product.product_variant_ids[:1].id,
+                            "product_id": self.product.product_variant_ids[:1].id,
                             "name": "Test line",
                             "quantity": 1.0,
                             "price_unit": 100.00,
@@ -230,7 +229,7 @@ class TestAccountMovePricelist(common.SavepointCase):
                         0,
                         0,
                         {
-                            "product_id": cls.product.product_variant_ids[:2].id,
+                            "product_id": self.product.product_variant_ids[:2].id,
                             "name": "Test line 2",
                             "quantity": 1.0,
                             "price_unit": 100.00,
@@ -240,12 +239,12 @@ class TestAccountMovePricelist(common.SavepointCase):
             }
         )
         # Fix currency rate of EUR -> USD to 1.5289
-        usd_currency = cls.env["res.currency"].search([("name", "=", "USD")])
-        usd_rates = cls.env["res.currency.rate"].search(
+        usd_currency = self.env["res.currency"].search([("name", "=", "USD")])
+        usd_rates = self.env["res.currency.rate"].search(
             [("currency_id", "=", usd_currency.id)]
         )
         usd_rates.unlink()
-        cls.env["res.currency.rate"].create(
+        self.env["res.currency.rate"].create(
             {
                 "currency_id": usd_currency.id,
                 "rate": 1.5289,
