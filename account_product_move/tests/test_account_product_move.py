@@ -289,6 +289,42 @@ class TestAccountProductMove(TransactionCase):
                     "currency_id": strubl.id,
                 }
             )
+        # Should not be a problem to create percentage lines with
+        # company currency.
+        percent_line = self.product_move_line_model.create(
+            {
+                "move_id": self.product_move_01.id,
+                "percentage_debit": 1.0,
+                "account_id": self.account.id,
+                "currency_id": self.env.company.currency_id.id,
+            }
+        )
+        self.assertTrue(percent_line)
+
+    def test_refund_invoice(self):
+        """Test refund invoice: debit and credit should be reversed."""
+        # For easier testing make have one debit line for 10.0 and two
+        # credit lines of 5.0. This should be reversed for credit invoices.
+        self.product_move_01.button_reset()
+        self.item_line_01.write({"credit": 5.0})
+        self.item_line_02.write({"debit": 10.0})
+        self.item_line_03.write({"credit": 5.0})
+        self.item_line_04.unlink()
+        self.product_move_01.button_complete()
+        # Make invoice and credit note.
+        invoice = self._make_invoice()
+        invoice.action_post()
+        credit_note = invoice._reverse_moves()
+        credit_note.action_post()
+        # Check the extra moves for the credit note.
+        extra_move = credit_note.product_move_ids
+        self.assertEqual(len(extra_move), 1)  # There can be only one.
+        self.assertEqual(len(extra_move.line_ids), 3)
+        for extra_line in extra_move.line_ids:
+            if extra_line.debit:
+                self.assertEqual(extra_line.debit, 5.0)
+            if extra_line.credit:
+                self.assertEqual(extra_line.credit, 10.0)
 
     def test_percentage(self):
         """Test creating moves with percentage of standard_price (cost)."""
