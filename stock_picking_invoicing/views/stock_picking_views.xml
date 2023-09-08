@@ -89,9 +89,28 @@
                     type="object"
                     string="Set to be invoiced"
                     attrs="{'invisible':['|', '|',
-                         ('invoice_state', '=', 'invoiced'),
+                         ('invoice_state', 'not in', ('invoiced', 'none')),
                          ('invoice_ids', '=', True), ('state', '=', 'cancel')]}"
                 />
+
+                <button
+                    name="set_as_invoiced"
+                    type="object"
+                    string="Set to as invoiced"
+                    attrs="{'invisible':['|', '|',
+                         ('invoice_state', 'not in', ('2binvoiced', 'none')),
+                         ('invoice_ids', '=', True), ('state', '=', 'cancel')]}"
+                />
+
+                <button
+                    name="set_as_not_billable"
+                    type="object"
+                    string="Set to Not Billable"
+                    attrs="{'invisible':['|', '|',
+                         ('invoice_state', 'not in', ('invoiced', '2binvoiced')),
+                         ('invoice_ids', '=', True), ('state', '=', 'cancel')]}"
+                />
+
             </button>
         </field>
     </record>

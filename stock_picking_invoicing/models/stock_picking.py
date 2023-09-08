@@ -1,7 +1,7 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models
+from odoo import api, models
 
 
 class StockPicking(models.Model):
@@ -13,27 +13,24 @@ class StockPicking(models.Model):
 
     def set_to_be_invoiced(self):
         """
-        Update invoice_state of current pickings to "2binvoiced".
-        :return: dict
+        Button to set Invoice State to To Be Invoice.
         """
         self._set_as_2binvoiced()
-        return {}
-
-    def _set_as_2binvoiced(self):
-        """
-        Inherit to also update related moves.
-        :return: bool
-        """
         self.mapped("move_ids")._set_as_2binvoiced()
-        return super()._set_as_2binvoiced()
 
-    def _set_as_invoiced(self):
+    def set_as_invoiced(self):
         """
-        Inherit to also update related moves.
-        :return: bool
+        Button to set Invoice State to Invoiced.
         """
+        self._set_as_invoiced()
         self.mapped("move_ids")._set_as_invoiced()
-        return super()._set_as_invoiced()
+
+    def set_as_not_billable(self):
+        """
+        Button to set Invoice State to Not Billable.
+        """
+        self._set_as_not_billable()
+        self.mapped("move_ids")._set_as_not_billable()
 
     def _get_partner_to_invoice(self):
         self.ensure_one()
@@ -45,3 +42,9 @@ class StockPicking(models.Model):
         if any(m.invoice_state == "2binvoiced" for m in self.mapped("move_ids")):
             self.write({"invoice_state": "2binvoiced"})
         return super().action_assign()
+
+    @api.onchange("invoice_state")
+    def _onchange_invoice_state(self):
+        for record in self:
+            record._update_invoice_state(record.invoice_state)
+            record.mapped("move_ids")._update_invoice_state(record.invoice_state)
