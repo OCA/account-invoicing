@@ -3,7 +3,7 @@
 
 {
     "name": "Acccount Move Accounting Description",
-    "version": "14.0.1.0.1",
+    "version": "16.0.1.0.0",
     "summary": "Adds an 'accounting description' on products",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",

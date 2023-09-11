@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.tests import Form
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestAccountLineDescription(SavepointCase):
+class TestAccountLineDescription(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
