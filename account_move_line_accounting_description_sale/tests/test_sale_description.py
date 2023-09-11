@@ -1,10 +1,12 @@
 # Copyright 2021 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from odoo.tests.common import SavepointCase
+from odoo.tests import tagged
+from odoo.tests.common import TransactionCase
 
 
-class TestSaleDescription(SavepointCase):
+@tagged("post_install", "-at_install")
+class TestSaleDescription(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -82,9 +84,7 @@ class TestSaleDescription(SavepointCase):
 
         # For 1st SO check invoice line is same as product description
         invoice_id = self.order1_p1._create_invoices()
-        lines = invoice_id[0].line_ids.filtered(
-            lambda r: not r.exclude_from_invoice_tab
-        )
+        lines = invoice_id[0].line_ids.filtered(lambda line: line.product_id)
 
         for line in lines:
             self.assertEqual(line.name, self.product_acc_desc.accounting_description)
@@ -93,9 +93,7 @@ class TestSaleDescription(SavepointCase):
         # For 2nd SO make sure invoice line name isn't set to product description
 
         invoice_id = self.order2_p1._create_invoices()
-        lines = invoice_id[0].line_ids.filtered(
-            lambda r: not r.exclude_from_invoice_tab
-        )
+        lines = invoice_id[0].line_ids.filtered(lambda line: line.product_id)
 
         for line in lines:
             self.assertNotEqual(

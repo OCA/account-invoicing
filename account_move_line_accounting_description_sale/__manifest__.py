@@ -3,7 +3,7 @@
 
 {
     "name": "Acccount Move Accounting Sale Order Description",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "summary": "Consider accounting description when invoicing sale order",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
