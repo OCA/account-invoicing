@@ -1,0 +1,80 @@
+<odoo>
+
+    <record id="account.menu_finance" model="ir.ui.menu">
+        <field
+            name="groups_id"
+            eval="[(4, ref('account_user_group.group_account_account_receivable')), (4, ref('account_user_group.group_account_account_payable'))]"
+        />
+    </record>
+
+    <record id="account.menu_finance_receivables" model="ir.ui.menu">
+        <field
+            name="groups_id"
+            eval="[(4, ref('account_user_group.group_account_account_receivable'))]"
+        />
+    </record>
+
+    <record id="account.menu_finance_payables" model="ir.ui.menu">
+        <field
+            name="groups_id"
+            eval="[(4, ref('account_user_group.group_account_account_payable'))]"
+        />
+    </record>
+
+    <record id="account.menu_action_account_payments_receivable" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
+    </record>
+
+    <record id="account.menu_action_account_payments_payable" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
+    </record>
+
+    <record id="account_move_view_form_inherit_user_group" model="ir.ui.view">
+        <field name="name">account.move.view.form.inherit.user.group</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_post'][1]" position="attributes">
+                <attribute
+                    name="groups"
+                >account_user_group.group_account_account_receivable, account_user_group.group_account_account_payable</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_post'][2]" position="attributes">
+                <attribute
+                    name="groups"
+                >account_user_group.group_account_account_receivable, account_user_group.group_account_account_payable</attribute>
+            </xpath>
+            <xpath expr="//button[@type='action']" position="attributes">
+                <attribute
+                    name="groups"
+                >account_user_group.group_account_account_receivable, account_user_group.group_account_account_payable</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_reverse']" position="attributes">
+                <attribute
+                    name="groups"
+                >account_user_group.group_account_account_receivable, account_user_group.group_account_account_payable</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_cancel'][1]" position="attributes">
+                <attribute
+                    name="groups"
+                >account_user_group.group_account_account_receivable, account_user_group.group_account_account_payable</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_cancel'][2]" position="attributes">
+                <attribute
+                    name="groups"
+                >account_user_group.group_account_account_receivable, account_user_group.group_account_account_payable</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_draft']" position="attributes">
+                <attribute
+                    name="groups"
+                >account_user_group.group_account_account_receivable, account_user_group.group_account_account_payable</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_set_checked']" position="attributes">
+                <attribute
+                    name="groups"
+                >account_user_group.group_account_account_receivable, account_user_group.group_account_account_payable</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
