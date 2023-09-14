@@ -10,6 +10,7 @@
             <field name="fiscal_position_id" position="after">
                 <field name="timesheet_invoice_description" />
                 <field name="timesheet_invoice_split" />
+                <field name="timesheet_invoice_consecutive" />
             </field>
         </field>
     </record>

@@ -21,6 +21,28 @@
                         </div>
                     </div>
                 </div>
+                <div class="content-group" name="sale_timesheet_invoice_split">
+                    <div class="mt16">
+                        <label for="default_timesheet_invoice_split" />
+                        <div class="text-muted">
+                            Default splitting of order lines for invoice lines
+                        </div>
+                        <div class="text-muted">
+                            <field name="default_timesheet_invoice_split" />
+                        </div>
+                    </div>
+                </div>
+                <div class="content-group" name="sale_timesheet_invoice_consecutive">
+                    <div class="mt16">
+                        <label for="default_timesheet_invoice_consecutive" />
+                        <div class="text-muted">
+                            Default for which timesheets to be invoiced on consecutive invoices
+                        </div>
+                        <div class="text-muted">
+                            <field name="default_timesheet_invoice_consecutive" />
+                        </div>
+                    </div>
+                </div>
             </xpath>
         </field>
     </record>
