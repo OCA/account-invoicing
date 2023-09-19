@@ -1,6 +1,7 @@
 import logging
 
 from odoo import SUPERUSER_ID, api
+from psycopg2.extras import execute_values
 
 
 def pre_init_hook(cr):
@@ -16,4 +17,17 @@ def post_init_hook(cr, registry):
     moves = env["account.move"].search(
         [("move_type", "in", ("out_invoice", "out_refund"))]
     )
-    moves.with_context(tracking_disable=True)._compute_pricelist_id()
+    vals = []
+    for invoice in moves:
+        if (
+            invoice.partner_id
+            and invoice.partner_id.property_product_pricelist
+        ):
+            vals.append((invoice.id,invoice.partner_id.property_product_pricelist.id))
+    if vals:
+        execute_values(cr, """
+            UPDATE account_move SET pricelist_id = vals.p
+            FROM (VALUES %s) AS vals (id, p)
+            WHERE account_move.id = vals.id
+            """, vals
+        )
