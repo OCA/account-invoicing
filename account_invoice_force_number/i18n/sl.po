@@ -26,12 +26,16 @@ msgid "Allow \"Invoice Force Number\""
 msgstr "Omogoči vsiljevanje številke računa"
 
 #. module: account_invoice_force_number
+#: model:ir.model.fields,field_description:account_invoice_force_number.field_account_bank_statement_line__move_name
 #: model:ir.model.fields,field_description:account_invoice_force_number.field_account_move__move_name
+#: model:ir.model.fields,field_description:account_invoice_force_number.field_account_payment__move_name
 msgid "Force Number"
 msgstr "Vsili številko"
 
 #. module: account_invoice_force_number
+#: model:ir.model.fields,help:account_invoice_force_number.field_account_bank_statement_line__move_name
 #: model:ir.model.fields,help:account_invoice_force_number.field_account_move__move_name
+#: model:ir.model.fields,help:account_invoice_force_number.field_account_payment__move_name
 msgid ""
 "Force invoice number. Use this field if\n"
 "        you don't want to use the default numbering."
@@ -41,10 +45,11 @@ msgstr ""
 
 #. module: account_invoice_force_number
 #: model:ir.model,name:account_invoice_force_number.model_account_move
-msgid "Journal Entries"
-msgstr "Dnevniški vnosi"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_force_number
+#. odoo-python
 #: code:addons/account_invoice_force_number/models/account_move.py:0
 #, python-format
 msgid ""
@@ -55,3 +60,6 @@ msgstr ""
 "Računa po tem, ko je bil enkrat knjižen (in je prejel številko), ne morete "
 "brisati. Lahko pa ga nastavite kot \"Osnutek\", mu spremenite vsebino in ga "
 "ponovno potrdite."
+
+#~ msgid "Journal Entries"
+#~ msgstr "Dnevniški vnosi"
