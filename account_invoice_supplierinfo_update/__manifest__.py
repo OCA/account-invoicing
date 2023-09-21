@@ -8,7 +8,7 @@
     "summary": "In the supplier invoice, automatically updates all products "
     "whose unit price on the line is different from "
     "the supplier price",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.1.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Akretion, GRAP, Odoo Community Association (OCA)",
