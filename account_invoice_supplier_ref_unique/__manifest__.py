@@ -11,6 +11,6 @@
     "license": "AGPL-3",
     "category": "Accounting & Finance",
     "depends": ["account"],
-    "data": ["views/account_move.xml"],
+    "data": ["views/account_move.xml", "views/res_config_settings.xml"],
     "installable": True,
 }
