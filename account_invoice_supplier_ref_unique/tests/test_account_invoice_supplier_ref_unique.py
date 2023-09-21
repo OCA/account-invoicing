@@ -45,6 +45,9 @@ class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
             }
         )
 
+        # Activate unique number check
+        cls.env.company.check_invoice_supplier_number = True
+
     def test_check_unique_supplier_invoice_number_insensitive(self):
         # A new invoice instance with an existing supplier_invoice_number
         with self.assertRaises(ValidationError):
@@ -61,6 +64,17 @@ class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
                 "partner_id": self.partner.id,
                 "move_type": "in_invoice",
                 "supplier_invoice_number": "ABC123bis",
+            }
+        )
+
+    def test_no_check_unique_supplier_invoice_number(self):
+        # A new invoice instance with an existing supplier_invoice_number
+        self.env.company.check_invoice_supplier_number = False
+        self.account_move.create(
+            {
+                "partner_id": self.partner.id,
+                "move_type": "in_invoice",
+                "supplier_invoice_number": "ABC123",
             }
         )
 

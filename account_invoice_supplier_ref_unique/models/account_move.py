@@ -22,8 +22,10 @@ class AccountMove(models.Model):
         and the same commercial_partner_id than the current instance
         """
         for rec in self:
-            if rec.supplier_invoice_number and rec.is_purchase_document(
-                include_receipts=True
+            if (
+                rec.company_id.check_invoice_supplier_number
+                and rec.supplier_invoice_number
+                and rec.is_purchase_document(include_receipts=True)
             ):
                 same_supplier_inv_num = rec.search(
                     [
