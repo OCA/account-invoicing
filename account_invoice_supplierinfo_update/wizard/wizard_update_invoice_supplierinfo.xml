@@ -31,12 +31,14 @@
                             optional="show"
                         />
                         <field name="new_price" optional="show" />
+                        <field name="current_uom_id" invisible="1" />
                         <field
                             name="current_uom_id"
                             attrs="{'invisible': [('supplierinfo_id', '=', False)]}"
                             groups="uom.group_uom"
                             optional="show"
                         />
+                        <field name="new_uom_id" invisible="1" />
                         <field
                             name="new_uom_id"
                             groups="uom.group_uom"
