@@ -41,13 +41,12 @@ class AccountMove(models.Model):
                 if same_customer_inv_num:
                     raise ValidationError(
                         _(
-                            "The invoice/refund with customer invoice number {} "
-                            "already exists in Odoo under the number {} "
-                            "for customer {}."
-                        ).format(
-                            same_customer_inv_num.customer_invoice_number,
-                            same_customer_inv_num.name or "-",
-                            same_customer_inv_num.partner_id.display_name,
+                            "The invoice/refund with customer invoice number %(number)s "
+                            "already exists in Odoo under the number %(same)s "
+                            "for customer %(customer)s.",
+                            number=same_customer_inv_num.customer_invoice_number,
+                            same=same_customer_inv_num.name or "-",
+                            customer=same_customer_inv_num.partner_id.display_name,
                         )
                     )
 
