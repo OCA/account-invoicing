@@ -25,6 +25,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_show_currency_rate>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_supplier_ref_unique>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_supplierinfo_update>=16.0dev,<16.1dev',
+        'odoo-addon-account_invoice_supplierinfo_update_discount>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_tax_required>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_transmit_method>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_tree_currency>=16.0dev,<16.1dev',
