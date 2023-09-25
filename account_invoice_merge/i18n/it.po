@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-21 02:57+0000\n"
-"PO-Revision-Date: 2023-05-25 12:10+0000\n"
+"PO-Revision-Date: 2023-10-09 09:09+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/"
 "OCA-account-invoicing-8-0/language/it/)\n"
@@ -170,7 +170,7 @@ msgstr "Non tutte le fatture sono dello stesso tipo!"
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:52
 #, python-format
 msgid "Not all invoices have the same Partner Bank Account!"
-msgstr ""
+msgstr "Le fatture non hanno tutte lo stesso conto bancario del partner!"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:34
