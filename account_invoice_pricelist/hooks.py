@@ -4,6 +4,7 @@ from psycopg2.extras import execute_values
 
 from odoo import SUPERUSER_ID, api
 
+
 def pre_init_hook(cr):
     """Precreate pricelist_id column to prevent tracked computation."""
     logger = logging.getLogger(__name__)
