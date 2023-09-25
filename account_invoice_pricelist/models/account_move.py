@@ -57,9 +57,10 @@ class AccountMove(models.Model):
         return res
 
     def button_update_prices_from_pricelist(self):
-        self.filtered(
-            lambda r: r.state == "draft"
-        ).invoice_line_ids._compute_price_unit()
+        moves = self.filtered(lambda r: r.state == "draft")
+        moves.invoice_line_ids._compute_price_unit()
+        for line in moves.invoice_line_ids:
+            line._onchange_quantity()
 
 
 class AccountMoveLine(models.Model):
@@ -76,53 +77,71 @@ class AccountMoveLine(models.Model):
             ).price_unit = line._get_price_with_pricelist()
         return res
 
+    @api.onchange("quantity")
+    def _onchange_quantity(self):
+        if (
+            not self.move_id.pricelist_id
+            or not self.product_id
+            or not self.move_id.is_invoice()
+        ):
+            return
+        if self.move_id.pricelist_id.discount_policy == "with_discount":
+            self.with_context(check_move_validity=False).discount = 0.0
+        else:
+            final_price, rule_id = self._get_final_price_with_pricelist()
+            base_price = self._get_base_price_with_pricelist_without_discount(rule_id)
+            self.with_context(
+                check_move_validity=False
+            ).discount = self._calculate_discount(base_price, final_price)
+
     def _calculate_discount(self, base_price, final_price):
         discount = (base_price - final_price) / base_price * 100
         if (discount < 0 and base_price > 0) or (discount > 0 and base_price < 0):
             discount = 0.0
         return discount
 
+    def _get_final_price_with_pricelist(self):
+        self.ensure_one()
+        (final_price, rule_id,) = self.move_id.pricelist_id._get_product_price_rule(
+            self.product_id,
+            self.quantity or 1.0,
+            uom=self.product_uom_id,
+            date=self.move_id.invoice_date or fields.Date.today(),
+        )
+        return final_price, rule_id
+
+    def _get_base_price_with_pricelist_without_discount(self, rule_id):
+        self.ensure_one()
+        product = self.product_id
+        qty = self.quantity or 1.0
+        date = self.move_id.invoice_date or fields.Date.today()
+        uom = self.product_uom_id
+        rule = self.env["product.pricelist.item"].browse(rule_id)
+        while (
+            rule.base == "pricelist"
+            and rule.base_pricelist_id.discount_policy == "without_discount"
+        ):
+            new_rule_id = rule.base_pricelist_id._get_product_rule(
+                product, qty, uom=uom, date=date
+            )
+            rule = self.env["product.pricelist.item"].browse(new_rule_id)
+        return rule._compute_base_price(
+            product, qty, uom, date, target_currency=self.currency_id
+        )
+
     def _get_price_with_pricelist(self):
         price_unit = 0.0
         if self.move_id.pricelist_id and self.product_id and self.move_id.is_invoice():
-            product = self.product_id
-            qty = self.quantity or 1.0
-            date = self.move_id.invoice_date or fields.Date.today()
-            uom = self.product_uom_id
-            (final_price, rule_id,) = self.move_id.pricelist_id._get_product_price_rule(
-                product,
-                qty,
-                uom=uom,
-                date=date,
-            )
+            final_price, rule_id = self._get_final_price_with_pricelist()
             if self.move_id.pricelist_id.discount_policy == "with_discount":
                 price_unit = self.env["account.tax"]._fix_tax_included_price_company(
-                    final_price,
-                    product.taxes_id,
-                    self.tax_ids,
-                    self.company_id,
+                    final_price, self.product_id.taxes_id, self.tax_ids, self.company_id
                 )
                 self.with_context(check_move_validity=False).discount = 0.0
                 return price_unit
             else:
-                rule_id = self.env["product.pricelist.item"].browse(rule_id)
-                while (
-                    rule_id.base == "pricelist"
-                    and rule_id.base_pricelist_id.discount_policy == "without_discount"
-                ):
-                    new_rule_id = rule_id.base_pricelist_id._get_product_rule(
-                        product, qty, uom=uom, date=date
-                    )
-                    rule_id = self.env["product.pricelist.item"].browse(new_rule_id)
-                base_price = rule_id._compute_base_price(
-                    product,
-                    qty,
-                    uom,
-                    date,
-                    target_currency=self.currency_id,
+                base_price = self._get_base_price_with_pricelist_without_discount(
+                    rule_id
                 )
                 price_unit = max(base_price, final_price)
-                self.with_context(
-                    check_move_validity=False
-                ).discount = self._calculate_discount(base_price, final_price)
         return price_unit
