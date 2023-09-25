@@ -1,8 +1,8 @@
 import logging
 
-from odoo import SUPERUSER_ID, api
 from psycopg2.extras import execute_values
 
+from odoo import SUPERUSER_ID, api
 
 def pre_init_hook(cr):
     """Precreate pricelist_id column to prevent tracked computation."""
@@ -19,15 +19,15 @@ def post_init_hook(cr, registry):
     )
     vals = []
     for invoice in moves:
-        if (
-            invoice.partner_id
-            and invoice.partner_id.property_product_pricelist
-        ):
-            vals.append((invoice.id,invoice.partner_id.property_product_pricelist.id))
+        if invoice.partner_id and invoice.partner_id.property_product_pricelist:
+            vals.append((invoice.id, invoice.partner_id.property_product_pricelist.id))
     if vals:
-        execute_values(cr, """
+        execute_values(
+            cr,
+            """
             UPDATE account_move SET pricelist_id = vals.p
             FROM (VALUES %s) AS vals (id, p)
             WHERE account_move.id = vals.id
-            """, vals
+            """,
+            vals,
         )
