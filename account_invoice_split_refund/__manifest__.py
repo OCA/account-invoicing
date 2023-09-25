@@ -3,9 +3,9 @@
 {
     "name": "Account Invoice Split Refund",
     "summary": "Split invoices and refunds from the sale order",
-    "version": "10.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Sale",
-    "website": "https://github.com/OCA/account-invoice",
+    "website": "https://github.com/OCA/account-invoicing",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
