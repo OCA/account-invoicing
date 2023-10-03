@@ -6,26 +6,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-09-24 12:34+0000\n"
-"Last-Translator: TOMAS SAINZ GARCIA <tomassainz@digital5.es>\n"
+"PO-Revision-Date: 2023-10-09 07:43+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_move_tier_validation
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Bill"
-msgstr ""
+msgstr "Factura"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__can_forward
 msgid "Can Forward"
-msgstr ""
+msgstr "Puede Reenviar"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__can_review
@@ -36,7 +36,7 @@ msgstr "Puede Revisar"
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Credit Note"
-msgstr ""
+msgstr "Nota de crédito"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__has_comment
@@ -47,12 +47,12 @@ msgstr "Tiene Comentario"
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Invoice"
-msgstr ""
+msgstr "Factura"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Invoices Pending to Validate"
-msgstr ""
+msgstr "Facturas Pendientes de Validar"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -62,12 +62,12 @@ msgstr "Facturas validadas y listas para ser confirmadas"
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Invoices where no validation has been requested"
-msgstr ""
+msgstr "Facturas en las que no se ha solicitado validación"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Invoices where validation has not started"
-msgstr ""
+msgstr "Facturas donde la validación no ha comenzado"
 
 #. module: account_move_tier_validation
 #: model:ir.model,name:account_move_tier_validation.model_account_move
@@ -92,18 +92,18 @@ msgstr "Necesita mi revisión"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__next_review
 msgid "Next Review"
-msgstr ""
+msgstr "Siguiente Revisión"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "No Validation Requested"
-msgstr ""
+msgstr "No se ha solicitado validación"
 
 #. module: account_move_tier_validation
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Refund"
-msgstr ""
+msgstr "Devolución"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
@@ -118,7 +118,7 @@ msgstr "Rechazada"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected_message
 msgid "Rejected Message"
-msgstr ""
+msgstr "Mensaje Rechazado"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
@@ -143,7 +143,7 @@ msgstr "Definición de nivel"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__to_validate_message
 msgid "To Validate Message"
-msgstr ""
+msgstr "Para validar el mensaje"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_move_form
@@ -159,17 +159,17 @@ msgstr "Validado"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated_message
 msgid "Validated Message"
-msgstr ""
+msgstr "Mensaje Validado"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Validation In Progress"
-msgstr ""
+msgstr "Validación en Progreso"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Validation Not Started"
-msgstr ""
+msgstr "Validación no iniciada"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
