@@ -13,9 +13,12 @@
             <div>
     Dear ${object.user_id.name or 'accounting user'},<br />
     This email is to inform that your journal entry ${object.name} was verified by accounting manager.
-       <br /><br />
-    Thank you,
-    <br />
+    <br /><br />
+    Best Regards,
+    % if user.signature
+        <br />
+        ${user.signature | safe}
+    % endif
 </div>
         </field>
         <field name="auto_delete" eval="True" />
