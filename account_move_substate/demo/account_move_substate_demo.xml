@@ -4,12 +4,12 @@
     <record id="base_substate_to_verify_account_move" model="base.substate">
         <field name="name">To Verify</field>
         <field name="sequence">1</field>
-        <field name="target_state_value_id" ref="target_state_value_posted" />
+        <field name="target_state_value_id" ref="target_state_value_draft" />
     </record>
     <record id="base_substate_checked_account_move" model="base.substate">
         <field name="name">Checked</field>
         <field name="sequence">2</field>
-        <field name="target_state_value_id" ref="target_state_value_posted" />
+        <field name="target_state_value_id" ref="target_state_value_draft" />
     </record>
     <record id="base_substate_verified_account_move" model="base.substate">
         <field name="name">Verified</field>
