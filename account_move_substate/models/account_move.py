@@ -17,3 +17,20 @@ class AccountMove(models.Model):
     _inherit = ["account.move", "base.substate.mixin"]
     _name = "account.move"
     _state_field = "state"
+
+    def _track_template(self, changes):
+        res = super(AccountMove, self)._track_template(changes)
+        track = self[0]
+        if "substate_id" in changes and track.substate_id.mail_template_id:
+            res["substate_id"] = (
+                track.substate_id.mail_template_id,
+                {
+                    "composition_mode": "comment",
+                    "auto_delete_message": True,
+                    "subtype_id": self.env["ir.model.data"].xmlid_to_res_id(
+                        "mail.mt_note"
+                    ),
+                    "email_layout_xmlid": "mail.mail_notification_light",
+                },
+            )
+        return res
