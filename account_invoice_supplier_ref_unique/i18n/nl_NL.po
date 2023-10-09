@@ -21,8 +21,23 @@ msgstr ""
 "X-Generator: Weblate 3.1.1\n"
 
 #. module: account_invoice_supplier_ref_unique
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_move__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_supplier_ref_unique
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_supplier_ref_unique
 #: model:ir.model,name:account_invoice_supplier_ref_unique.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_supplier_ref_unique
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_move____last_update
+msgid "Last Modified on"
 msgstr ""
 
 #. module: account_invoice_supplier_ref_unique
@@ -36,7 +51,9 @@ msgstr ""
 "met nummer '%s' voor leverancier '%s'."
 
 #. module: account_invoice_supplier_ref_unique
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_bank_statement_line__supplier_invoice_number
 #: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_move__supplier_invoice_number
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_payment__supplier_invoice_number
 msgid "Vendor invoice number"
 msgstr "Leverancier factuurnummer"
 
