@@ -26,12 +26,21 @@ msgid "Allow \"Invoice Force Number\""
 msgstr "Autoriser 'Forcer le numéro de facture'"
 
 #. module: account_invoice_force_number
+#: model:ir.model.fields,field_description:account_invoice_force_number.field_account_move__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_force_number
+#: model:ir.model.fields,field_description:account_invoice_force_number.field_account_bank_statement_line__move_name
 #: model:ir.model.fields,field_description:account_invoice_force_number.field_account_move__move_name
+#: model:ir.model.fields,field_description:account_invoice_force_number.field_account_payment__move_name
 msgid "Force Number"
 msgstr "Forcer le numéro"
 
 #. module: account_invoice_force_number
+#: model:ir.model.fields,help:account_invoice_force_number.field_account_bank_statement_line__move_name
 #: model:ir.model.fields,help:account_invoice_force_number.field_account_move__move_name
+#: model:ir.model.fields,help:account_invoice_force_number.field_account_payment__move_name
 msgid ""
 "Force invoice number. Use this field if\n"
 "        you don't want to use the default numbering."
@@ -40,9 +49,19 @@ msgstr ""
 "        Vous ne souhaitez pas utiliser la numérotation par défaut."
 
 #. module: account_invoice_force_number
+#: model:ir.model.fields,field_description:account_invoice_force_number.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_force_number
 #: model:ir.model,name:account_invoice_force_number.model_account_move
-msgid "Journal Entries"
-msgstr "Ecritures comptables"
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_force_number
+#: model:ir.model.fields,field_description:account_invoice_force_number.field_account_move____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: account_invoice_force_number
 #: code:addons/account_invoice_force_number/models/account_move.py:0
@@ -55,3 +74,6 @@ msgstr ""
 "Vous ne pouvez pas supprimer une facture une fois qu’elle a été validée (et "
 "qu’elle a reçu un numéro). Vous pouvez le remettre à l’état « Brouillon » et "
 "modifier son contenu, puis la confirmer à nouveau."
+
+#~ msgid "Journal Entries"
+#~ msgstr "Ecritures comptables"
