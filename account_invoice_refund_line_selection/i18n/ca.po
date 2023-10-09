@@ -32,16 +32,6 @@ msgid "Credit Method"
 msgstr ""
 
 #. module: account_invoice_refund_line_selection
-#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: account_invoice_refund_line_selection
-#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__id
-msgid "ID"
-msgstr ""
-
-#. module: account_invoice_refund_line_selection
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
 msgid "Invoice Lines"
 msgstr ""
@@ -49,11 +39,6 @@ msgstr ""
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__line_ids
 msgid "Invoice lines to refund"
-msgstr ""
-
-#. module: account_invoice_refund_line_selection
-#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: account_invoice_refund_line_selection
@@ -69,6 +54,5 @@ msgstr ""
 #. module: account_invoice_refund_line_selection
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
 msgid ""
-"Use this option if you want to refund only some specific lines in an "
-"invoice."
+"Use this option if you want to refund only some specific lines in an invoice."
 msgstr ""
