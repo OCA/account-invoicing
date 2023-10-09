@@ -24,9 +24,9 @@ msgid "Current Discount"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update_discount
-#: model:ir.model,name:account_invoice_supplierinfo_update_discount.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Linha de fatura"
+#: model:ir.model,name:account_invoice_supplierinfo_update_discount.model_account_move_line
+msgid "Journal Item"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update_discount
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_wizard_update_invoice_supplierinfo_line__new_discount
@@ -37,3 +37,6 @@ msgstr ""
 #: model:ir.model,name:account_invoice_supplierinfo_update_discount.model_wizard_update_invoice_supplierinfo_line
 msgid "Wizard Line to update supplierinfo"
 msgstr ""
+
+#~ msgid "Invoice Line"
+#~ msgstr "Linha de fatura"
