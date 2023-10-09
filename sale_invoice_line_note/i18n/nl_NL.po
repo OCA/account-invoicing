@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_invoice_line_note
+# 	* sale_invoice_line_note
 #
 msgid ""
 msgstr ""
