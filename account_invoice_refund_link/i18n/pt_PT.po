@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2018-04-11 02:41+0000\n"
 "PO-Revision-Date: 2021-09-06 12:33+0000\n"
 "Last-Translator: Pedro Castro Silva <pedrocs@exo.pt>\n"
-"Language-Team: Portuguese (Portugal) (https://www.transifex.com/oca/teams/"
-"23907/pt_PT/)\n"
+"Language-Team: Portuguese (Portugal) (https://www.transifex.com/oca/"
+"teams/23907/pt_PT/)\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,8 +32,8 @@ msgstr "Referência da Fatura"
 
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_move
-msgid "Journal Entries"
-msgstr "Movimentos do Diário"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_move_line
@@ -51,7 +51,9 @@ msgid "Original invoice line to which this refund invoice line is referred to"
 msgstr "Linha da fatura à qual se refere esta linha de nota de crédito"
 
 #. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_bank_statement_line__refund_invoice_ids
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__refund_invoice_ids
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_payment__refund_invoice_ids
 msgid "Refund Invoices"
 msgstr "Notas de Crédito"
 
@@ -79,6 +81,9 @@ msgstr "Estado"
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 msgid "Total"
 msgstr "Total"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Movimentos do Diário"
 
 #~ msgid "Bill date"
 #~ msgstr "Data da Fatura"
