@@ -43,6 +43,7 @@ msgid "Dates does not match"
 msgstr "Las fechas no coinciden"
 
 #. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_account_move__display_name
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
@@ -53,6 +54,7 @@ msgid "Exception Msg"
 msgstr "Mensaje de excepción"
 
 #. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_account_move__id
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__id
 msgid "ID"
 msgstr "ID (identificación)"
@@ -72,8 +74,7 @@ msgstr "Asistente de comprobación de fecha de fac tura y albarán"
 #: model_terms:ir.ui.view,arch_db:account_invoice_check_picking_date.invoice_stock_picking_date_wizard
 #, python-format
 msgid "Invoice date does not match with stock move dates"
-msgstr ""
-"El mes de la fecha de la factura no coincide con la fecha del albarán"
+msgstr "El mes de la fecha de la factura no coincide con la fecha del albarán"
 
 #. module: account_invoice_check_picking_date
 #: code:addons/account_invoice_check_picking_date/models/account_move.py:0
@@ -88,15 +89,16 @@ msgstr ""
 "Fecha factura: %s\n"
 "Primer movimiento de stock: %s   Último movimiento de stock: %s\n"
 "\n"
-"Si las fechas son correctas y tiene permisos de Administrador de "
-"facturación aparecerá un botón que le permite continuar con el proceso."
+"Si las fechas son correctas y tiene permisos de Administrador de facturación "
+"aparecerá un botón que le permite continuar con el proceso."
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model,name:account_invoice_check_picking_date.model_account_move
-msgid "Journal Entries"
-msgstr "Asientos contables"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_check_picking_date
+#: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_account_move____last_update
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
@@ -110,3 +112,6 @@ msgstr "Última actualización por"
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Asientos contables"
