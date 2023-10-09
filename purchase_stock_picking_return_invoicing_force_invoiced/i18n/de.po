@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* purchase_stock_picking_return_invoicing_force_invoiced
+# 	* purchase_stock_picking_return_invoicing_force_invoiced
 #
 msgid ""
 msgstr ""
