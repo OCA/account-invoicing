@@ -54,14 +54,22 @@ msgid "Default Sales Invoicing Grouping Criteria"
 msgstr "Criterio de agrupación de facturación de ventas por defecto"
 
 #. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company__display_name
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_partner__display_name
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__display_name
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_order__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,help:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__field_ids
-msgid "Fields used for grouping sales orders when invoicing. Invoicing address, company and currency will always be applied."
-msgstr "Campos usados para agrupar los pedidos de venta cuando se facturan. La dirección de facturación, la compañía y la moneda se aplicarán siempre."
+msgid ""
+"Fields used for grouping sales orders when invoicing. Invoicing address, "
+"company and currency will always be applied."
+msgstr ""
+"Campos usados para agrupar los pedidos de venta cuando se facturan. La "
+"dirección de facturación, la compañía y la moneda se aplicarán siempre."
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__field_ids
@@ -69,7 +77,11 @@ msgid "Grouping Fields"
 msgstr "Campos de agrupación"
 
 #. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company__id
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_config_settings__id
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_partner__id
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__id
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_order__id
 msgid "ID"
 msgstr "ID"
 
@@ -77,12 +89,16 @@ msgstr "ID"
 #: model:ir.model.fields,help:sale_order_invoicing_grouping_criteria.field_res_partner__sale_invoicing_grouping_criteria_id
 #: model:ir.model.fields,help:sale_order_invoicing_grouping_criteria.field_res_users__sale_invoicing_grouping_criteria_id
 msgid "If empty, company default (if any) or default will be applied."
-msgstr "Si está vacío, el valor por defecto de la compañía (si está establecido) o el de por defecto general serán aplicados."
+msgstr ""
+"Si está vacío, el valor por defecto de la compañía (si está establecido) o "
+"el de por defecto general serán aplicados."
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
 msgid "If empty, invoicing address, company and currency will be applied."
-msgstr "Si está vacío, la dirección de facturacíón, la compañía y la moneda serán aplicados."
+msgstr ""
+"Si está vacío, la dirección de facturacíón, la compañía y la moneda serán "
+"aplicados."
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.ui.menu,name:sale_order_invoicing_grouping_criteria.menu_sale_invoice_grouping_criteria
@@ -90,7 +106,11 @@ msgid "Invoicing Grouping Criteria"
 msgstr "Criterio de agrupación de facturación"
 
 #. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company____last_update
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_partner____last_update
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria____last_update
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_order____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
