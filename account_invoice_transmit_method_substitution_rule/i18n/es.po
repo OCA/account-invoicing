@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_transmit_method_substitution_rule
+# 	* account_invoice_transmit_method_substitution_rule
 #
 msgid ""
 msgstr ""
