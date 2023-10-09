@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_supplier_ref_unique
+# 	* account_invoice_supplier_ref_unique
 #
 msgid ""
 msgstr ""
@@ -24,7 +24,9 @@ msgstr "Faktura"
 #. module: account_invoice_supplier_ref_unique
 #: code:addons/account_invoice_supplier_ref_unique/models/account_invoice.py:35
 #, python-format
-msgid "The invoice/refund with supplier invoice number '%s' already exists in Odoo under the number '%s' for supplier '%s'."
+msgid ""
+"The invoice/refund with supplier invoice number '%s' already exists in Odoo "
+"under the number '%s' for supplier '%s'."
 msgstr ""
 "Fakturaen/kreditnotaen med leverandør fakturanummer '%s' findes allerede i "
 "Odoo under nummeret '%s' for leverandør '%s'."
