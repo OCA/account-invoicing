@@ -26,3 +26,8 @@ msgstr "Asientos contables"
 #: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_move__currency_rate_amount
 msgid "Rate amount"
 msgstr "Valor de cambio de moneda"
+
+#. module: account_invoice_show_currency_rate
+#: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_move__show_currency_rate_amount
+msgid "Show Currency Rate Amount"
+msgstr ""
