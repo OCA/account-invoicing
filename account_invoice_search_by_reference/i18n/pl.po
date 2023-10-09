@@ -22,7 +22,7 @@ msgstr ""
 
 #. module: account_invoice_search_by_reference
 #: model:ir.model,name:account_invoice_search_by_reference.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #~ msgid "Invoice"
