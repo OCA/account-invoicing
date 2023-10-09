@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_debitnote
+# 	* account_debitnote
 #
 msgid ""
 msgstr ""
@@ -56,14 +56,16 @@ msgstr ""
 #. module: account_debitnote
 #: code:addons/account_debitnote/wizard/account_invoice_debitnote.py:51
 #, python-format
-msgid "Cannot create debit note for\n"
+msgid ""
+"Cannot create debit note for\n"
 "                                           draft/cancel invoice."
 msgstr ""
 
 #. module: account_debitnote
 #: model:ir.model.fields,help:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence
 #: model:ir.model.fields,help:account_debitnote.field_account_journal__debitnote_sequence
-msgid "Check this box if you don't want to share the same sequence\n"
+msgid ""
+"Check this box if you don't want to share the same sequence\n"
 "                for invoices and debit notes made from this journal"
 msgstr ""
 
@@ -214,13 +216,15 @@ msgstr ""
 #. module: account_debitnote
 #: model:ir.model.fields,help:account_debitnote.field_account_bank_statement_import_journal_creation__debitnote_sequence_id
 #: model:ir.model.fields,help:account_debitnote.field_account_journal__debitnote_sequence_id
-msgid "This field contains the information related to the numbering of\n"
+msgid ""
+"This field contains the information related to the numbering of\n"
 "                the debit note entries of this journal."
 msgstr ""
 
 #. module: account_debitnote
 #: model_terms:ir.ui.view,arch_db:account_debitnote.view_account_invoice_debitnote
-msgid "You will be able to edit and validate this\n"
+msgid ""
+"You will be able to edit and validate this\n"
 "                            debit note directly or keep it draft,\n"
 "                            waiting for the document to be issued by\n"
 "                            your supplier/customer."
