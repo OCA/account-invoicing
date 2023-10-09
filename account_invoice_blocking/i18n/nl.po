@@ -17,23 +17,18 @@ msgstr ""
 "X-Generator: Weblate 3.3\n"
 
 #. module: account_invoice_blocking
-#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice__draft_blocked
-msgid "Draft Blocked"
+#: model:ir.model,name:account_invoice_blocking.model_account_move
+msgid "Journal Entries"
 msgstr ""
 
 #. module: account_invoice_blocking
-#: model:ir.model,name:account_invoice_blocking.model_account_invoice
-msgid "Invoice"
-msgstr "Factuur"
-
-#. module: account_invoice_blocking
-#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_invoice__blocked
-#: model_terms:ir.ui.view,arch_db:account_invoice_blocking.account_invoice_form_view
+#: model:ir.model.fields,field_description:account_invoice_blocking.field_account_move__blocked
 msgid "No Follow-up"
 msgstr "Geen opvolging"
 
-#. module: account_invoice_blocking
-#: model:ir.model.fields,help:account_invoice_blocking.field_account_invoice__draft_blocked
-msgid "This flag facilitates the blocking of the invoice's move lines."
-msgstr ""
-"De optie maakt het mogelijk om factuuregels uit te sluiten van opvolging."
+#~ msgid "Invoice"
+#~ msgstr "Factuur"
+
+#~ msgid "This flag facilitates the blocking of the invoice's move lines."
+#~ msgstr ""
+#~ "De optie maakt het mogelijk om factuuregels uit te sluiten van opvolging."
