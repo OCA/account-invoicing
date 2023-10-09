@@ -31,8 +31,8 @@ msgstr "Crear rectificativa"
 
 #. module: purchase_stock_picking_return_invoicing
 #: model:ir.model,name:purchase_stock_picking_return_invoicing.model_account_move
-msgid "Journal Entries"
-msgstr "Asientos contables"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: purchase_stock_picking_return_invoicing
 #: model:ir.model,name:purchase_stock_picking_return_invoicing.model_purchase_order
@@ -65,9 +65,20 @@ msgid "Select a purchase order or an old bill"
 msgstr "Seleccione un pedido de compra o una factura de proveedor antigua"
 
 #. module: purchase_stock_picking_return_invoicing
+#: code:addons/purchase_stock_picking_return_invoicing/models/purchase_order.py:0
+#, python-format
+msgid ""
+"There is no invoiceable line. If a product has a control policy based on "
+"received quantity, please make sure that a quantity has been received."
+msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
 #: model:ir.model.fields,help:purchase_stock_picking_return_invoicing.field_purchase_order_line__qty_returned
 msgid "This is ONLY the returned quantity that is refundable."
 msgstr "Esta es SOLO la cantidad devuelta que es reembolsable."
+
+#~ msgid "Journal Entries"
+#~ msgstr "Asientos contables"
 
 #~ msgid "Invoice"
 #~ msgstr "Factura"
