@@ -20,6 +20,12 @@ msgstr ""
 "2);\n"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__active
+msgid "Active"
+msgstr ""
+
+#. module: account_invoice_transmit_method
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_search
 msgid "Archived"
 msgstr ""
@@ -135,6 +141,11 @@ msgid "Selectable on Vendors"
 msgstr ""
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: account_invoice_transmit_method
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_account_payment__transmit_method_code
@@ -181,9 +192,4 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
-msgstr ""
-
-#. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__active
-msgid "active"
 msgstr ""
