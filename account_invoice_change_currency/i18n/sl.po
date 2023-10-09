@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_change_currency
+# 	* account_invoice_change_currency
 #
 msgid ""
 msgstr ""
@@ -13,17 +13,19 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3;\n"
 "X-Generator: Weblate 3.10\n"
 
 #. module: account_invoice_change_currency
 #: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_form_inherit
 #: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.account_invoice_supplier_form_inherit
-msgid "<i title=\"Update Currency: Will convert the amount lines to the new currency set\" class=\"fa fa-fw fa-refresh\"/>"
+msgid ""
+"<i title=\"Update Currency: Will convert the amount lines to the new "
+"currency set\" class=\"fa fa-fw fa-refresh\"/>"
 msgstr ""
-"<i title=\"Posodobi valuto: spremeni zneske postavk v novo valuto\" class=\""
-"fa fa-fw fa-refresh\"/>"
+"<i title=\"Posodobi valuto: spremeni zneske postavk v novo valuto\" class="
+"\"fa fa-fw fa-refresh\"/>"
 
 #. module: account_invoice_change_currency
 #: model:mail.message.subtype,description:account_invoice_change_currency.mt_currency_update
@@ -57,8 +59,10 @@ msgstr "Odprto"
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,help:account_invoice_change_currency.field_account_invoice__custom_rate
-msgid "Set new currency rate to apply on the invoice\n"
-".This rate will be taken in order to convert amounts between the currency on the invoice and last currency"
+msgid ""
+"Set new currency rate to apply on the invoice\n"
+".This rate will be taken in order to convert amounts between the currency on "
+"the invoice and last currency"
 msgstr ""
 "Nastavi nov menjalni tečaj na račun.\n"
 "Ta tečaj bo uporabljen za pretvorbo zneskov med valuto na računu in prejšnjo "
