@@ -21,21 +21,13 @@ msgstr ""
 
 #. module: account_invoice_line_description
 #: model:ir.model.fields,field_description:account_invoice_line_description.field_res_config_settings__group_use_product_description_per_inv_line
-msgid ""
-"Allow using only the product description on the\n"
-"        invoice lines"
+msgid "Allow using only the product description on the invoice lines"
 msgstr ""
-"Usare solo la descrizione del prodotto nelle\n"
-"        righe fattura"
 
 #. module: account_invoice_line_description
 #: model:ir.model.fields,help:account_invoice_line_description.field_res_config_settings__group_use_product_description_per_inv_line
-msgid ""
-"Allows you to use only product description on the\n"
-"        invoice lines."
+msgid "Allows you to use only product description on the invoice lines."
 msgstr ""
-"Consente di usare solo la descrizione del prodotto\n"
-"        nelle righe fattura."
 
 #. module: account_invoice_line_description
 #: model:ir.model,name:account_invoice_line_description.model_res_config_settings
@@ -43,11 +35,46 @@ msgid "Config Settings"
 msgstr "Impostazioni configurazione"
 
 #. module: account_invoice_line_description
-#: model:ir.model,name:account_invoice_line_description.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Riga fattura"
+#: model:ir.model.fields,field_description:account_invoice_line_description.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:account_invoice_line_description.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_line_description
+#: model:ir.model.fields,field_description:account_invoice_line_description.field_account_move_line__id
+#: model:ir.model.fields,field_description:account_invoice_line_description.field_res_config_settings__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_line_description
+#: model:ir.model,name:account_invoice_line_description.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_line_description
+#: model:ir.model.fields,field_description:account_invoice_line_description.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:account_invoice_line_description.field_res_config_settings____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: account_invoice_line_description
 #: model:res.groups,name:account_invoice_line_description.group_use_product_description_per_inv_line
 msgid "Use only product description on invoice lines"
 msgstr "Usare solo la descrizione del prodotto nelle righe fattura"
+
+#~ msgid ""
+#~ "Allow using only the product description on the\n"
+#~ "        invoice lines"
+#~ msgstr ""
+#~ "Usare solo la descrizione del prodotto nelle\n"
+#~ "        righe fattura"
+
+#~ msgid ""
+#~ "Allows you to use only product description on the\n"
+#~ "        invoice lines."
+#~ msgstr ""
+#~ "Consente di usare solo la descrizione del prodotto\n"
+#~ "        nelle righe fattura."
+
+#~ msgid "Invoice Line"
+#~ msgstr "Riga fattura"
