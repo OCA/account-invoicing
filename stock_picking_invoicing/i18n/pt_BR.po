@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: stock_picking_invoicing
-#: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:494
+#: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:0
 #, python-format
 msgid "All pickings are not related to your company!"
 msgstr "Todas as coletas não estão relacionadas à sua empresa!"
@@ -38,7 +38,7 @@ msgid "Create"
 msgstr "Criar"
 
 #. module: stock_picking_invoicing
-#: selection:stock.invoice.onshipping,journal_type:0
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_invoice_onshipping__journal_type__sale
 msgid "Create Customer Invoice"
 msgstr "Criar fatura do cliente"
 
@@ -53,7 +53,7 @@ msgid "Create Invoice"
 msgstr "Criar Fatura"
 
 #. module: stock_picking_invoicing
-#: selection:stock.invoice.onshipping,journal_type:0
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_invoice_onshipping__journal_type__purchase
 msgid "Create Supplier Invoice"
 msgstr "Criar Fatura de Fornecedor"
 
@@ -74,7 +74,6 @@ msgstr "Criado em"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__display_name
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_state_mixin__display_name
 msgid "Display Name"
 msgstr "Exibir nome"
 
@@ -100,14 +99,8 @@ msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__id
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_state_mixin__id
 msgid "ID"
 msgstr "ID"
-
-#. module: stock_picking_invoicing
-#: model:ir.model,name:stock_picking_invoicing.model_account_invoice
-msgid "Invoice"
-msgstr "Fatura"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__invoice_date
@@ -122,8 +115,9 @@ msgid "Invoice Status"
 msgstr "Status (situação) da Fatura"
 
 #. module: stock_picking_invoicing
-#: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_invoice_state_mixin__invoice_state__invoiced
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_move__invoice_state__invoiced
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_picking__invoice_state__invoiced
 msgid "Invoiced"
 msgstr "Faturado"
 
@@ -141,10 +135,16 @@ msgstr ""
 "Não aplicável: nenhuma fatura para criar"
 
 #. module: stock_picking_invoicing
+#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_return_picking__invoice_state
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_move_picking_form
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_form
 msgid "Invoicing"
 msgstr "Faturamento"
+
+#. module: stock_picking_invoicing
+#: model:ir.model,name:stock_picking_invoicing.model_account_move
+msgid "Journal Entry"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__journal_type
@@ -153,7 +153,6 @@ msgstr "Tipo de diário"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping____last_update
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_state_mixin____last_update
 msgid "Last Modified on"
 msgstr "Última modificação em"
 
@@ -168,29 +167,35 @@ msgid "Last Updated on"
 msgstr "Última modificação feita em"
 
 #. module: stock_picking_invoicing
-#: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:192
+#: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:0
 #, python-format
 msgid "No invoice created!"
 msgstr "Nenhuma fatura criada!"
 
 #. module: stock_picking_invoicing
-#: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_return_picking__invoice_state__none
+msgid "No invoicing"
+msgstr ""
+
+#. module: stock_picking_invoicing
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_invoice_state_mixin__invoice_state__none
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_move__invoice_state__none
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_picking__invoice_state__none
 msgid "Not Applicable"
 msgstr "Não se aplica"
 
 #. module: stock_picking_invoicing
-#: selection:stock.invoice.onshipping,group:0
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_invoice_onshipping__group__partner
 msgid "Partner"
 msgstr "Parceiro"
 
 #. module: stock_picking_invoicing
-#: selection:stock.invoice.onshipping,group:0
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_invoice_onshipping__group__partner_product
 msgid "Partner/Product"
 msgstr "Parceiro/Produto"
 
 #. module: stock_picking_invoicing
-#: selection:stock.invoice.onshipping,group:0
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_invoice_onshipping__group__picking
 msgid "Picking"
 msgstr "Coleta"
 
@@ -208,6 +213,11 @@ msgstr "Coleta a Faturar"
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__purchase_journal
 msgid "Purchase Journal"
 msgstr "Diário de compras"
+
+#. module: stock_picking_invoicing
+#: model:ir.model,name:stock_picking_invoicing.model_stock_return_picking
+msgid "Return Picking"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__sale_journal
@@ -250,8 +260,9 @@ msgid "Stock Move"
 msgstr "Movimentação de Estoque"
 
 #. module: stock_picking_invoicing
-#: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_invoice_state_mixin__invoice_state__2binvoiced
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_move__invoice_state__2binvoiced
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_picking__invoice_state__2binvoiced
 msgid "To Be Invoiced"
 msgstr "A ser faturado"
 
@@ -259,6 +270,11 @@ msgstr "A ser faturado"
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.stock_picking_type_kanban
 msgid "To be Invoiced"
 msgstr "A ser faturado"
+
+#. module: stock_picking_invoicing
+#: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_return_picking__invoice_state__2binvoiced
+msgid "To be refunded/invoiced"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_picking
@@ -274,3 +290,6 @@ msgstr "Verdadeiro"
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "or"
 msgstr "ou"
+
+#~ msgid "Invoice"
+#~ msgstr "Fatura"
