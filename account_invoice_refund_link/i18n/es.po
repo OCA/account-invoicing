@@ -25,19 +25,40 @@ msgid "Account Move Reversal"
 msgstr "Reversión de asiento contable"
 
 #. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_reversal__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__id
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_reversal__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 msgid "Invoice reference"
 msgstr "Referencia de factura"
 
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_move
-msgid "Journal Entries"
-msgstr "Asientos contables"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_move_line
 msgid "Journal Item"
 msgstr "Apunte contable"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_reversal____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__origin_line_id
@@ -52,7 +73,9 @@ msgstr ""
 "refiere"
 
 #. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_bank_statement_line__refund_invoice_ids
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__refund_invoice_ids
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_payment__refund_invoice_ids
 msgid "Refund Invoices"
 msgstr "Facturas rectificativas"
 
@@ -80,6 +103,9 @@ msgstr "Estado"
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 msgid "Total"
 msgstr "Total"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Asientos contables"
 
 #~ msgid "Bill date"
 #~ msgstr "Fecha de factura"

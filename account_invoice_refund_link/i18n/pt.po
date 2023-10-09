@@ -25,19 +25,40 @@ msgid "Account Move Reversal"
 msgstr "Reversão de Movimento Contabilístico"
 
 #. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_reversal__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__id
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_reversal__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_refund_link
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 msgid "Invoice reference"
 msgstr "Refª da Fatura"
 
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_move
-msgid "Journal Entries"
-msgstr "Entradas no Diário"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_move_line
 msgid "Journal Item"
 msgstr "Item do Diário"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_reversal____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__origin_line_id
@@ -47,10 +68,13 @@ msgstr "Linha de Fatura Original"
 #. module: account_invoice_refund_link
 #: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__origin_line_id
 msgid "Original invoice line to which this refund invoice line is referred to"
-msgstr "Linha de fatura original referenciada por esta linha de nota de crédito"
+msgstr ""
+"Linha de fatura original referenciada por esta linha de nota de crédito"
 
 #. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_bank_statement_line__refund_invoice_ids
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__refund_invoice_ids
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_payment__refund_invoice_ids
 msgid "Refund Invoices"
 msgstr "Notas de Crédito"
 
@@ -78,6 +102,9 @@ msgstr "Estado"
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
 msgid "Total"
 msgstr "Total"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Entradas no Diário"
 
 #~ msgid "Reference"
 #~ msgstr "Referência"
