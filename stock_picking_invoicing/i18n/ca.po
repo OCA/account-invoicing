@@ -92,7 +92,8 @@ msgid ""
 "Group pickings/moves to create invoice(s):\n"
 "Picking: One invoice per picking;\n"
 "Partner: One invoice for each picking's partner;\n"
-"Partner/Product: One invoice per picking's partner and group product into a single invoice line."
+"Partner/Product: One invoice per picking's partner and group product into a "
+"single invoice line."
 msgstr ""
 
 #. module: stock_picking_invoicing
