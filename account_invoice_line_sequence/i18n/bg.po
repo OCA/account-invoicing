@@ -24,32 +24,35 @@ msgid "<strong>Sequence</strong>"
 msgstr ""
 
 #. module: account_invoice_line_sequence
-#: model:ir.model,name:account_invoice_line_sequence.model_account_invoice
-msgid "Invoice"
-msgstr "Фактура"
-
-#. module: account_invoice_line_sequence
-#: model:ir.model,name:account_invoice_line_sequence.model_account_invoice_line
-msgid "Invoice Line"
+#: model:ir.model,name:account_invoice_line_sequence.model_account_move
+msgid "Journal Entries"
 msgstr ""
 
 #. module: account_invoice_line_sequence
-#: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice__max_line_sequence
+#: model:ir.model,name:account_invoice_line_sequence.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_line_sequence
+#: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_move__max_line_sequence
 msgid "Max sequence in lines"
 msgstr ""
 
 #. module: account_invoice_line_sequence
-#: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice_line__sequence2
+#: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_move_line__sequence2
 msgid "Sequence"
 msgstr ""
 
 #. module: account_invoice_line_sequence
-#: model:ir.model.fields,help:account_invoice_line_sequence.field_account_invoice_line__sequence
-#: model:ir.model.fields,help:account_invoice_line_sequence.field_account_invoice_line__sequence2
+#: model:ir.model.fields,help:account_invoice_line_sequence.field_account_move_line__sequence
+#: model:ir.model.fields,help:account_invoice_line_sequence.field_account_move_line__sequence2
 msgid "Shows the sequence of this line in the  invoice."
 msgstr ""
 
 #. module: account_invoice_line_sequence
-#: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice_line__sequence
+#: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_move_line__sequence
 msgid "original sequence"
 msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Фактура"
