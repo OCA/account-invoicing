@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_reimbursable
+# 	* account_invoice_reimbursable
 #
 msgid ""
 msgstr ""
@@ -142,12 +142,16 @@ msgstr ""
 #. module: account_invoice_reimbursable
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__executable_total_company_signed
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__reimbursable_total_company_signed
-msgid "Total executable amount in the currency of the company, negative for credit notes."
+msgid ""
+"Total executable amount in the currency of the company, negative for credit "
+"notes."
 msgstr ""
 
 #. module: account_invoice_reimbursable
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__executable_total_signed
-msgid "Total executable amount in the currency of the invoice, negative for credit notes."
+msgid ""
+"Total executable amount in the currency of the invoice, negative for credit "
+"notes."
 msgstr ""
 
 #. module: account_invoice_reimbursable
@@ -167,7 +171,9 @@ msgstr ""
 
 #. module: account_invoice_reimbursable
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__reimbursable_total_signed
-msgid "Total reimbursable amount in the currency of the invoice, negative for credit notes."
+msgid ""
+"Total reimbursable amount in the currency of the invoice, negative for "
+"credit notes."
 msgstr ""
 
 #. module: account_invoice_reimbursable

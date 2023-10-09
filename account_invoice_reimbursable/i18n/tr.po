@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_reimbursable
+# 	* account_invoice_reimbursable
 #
 msgid ""
 msgstr ""
@@ -149,14 +149,18 @@ msgstr "Toplam işletilebilir"
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__executable_total_company_signed
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__reimbursable_total_company_signed
 #, fuzzy
-msgid "Total executable amount in the currency of the company, negative for credit notes."
+msgid ""
+"Total executable amount in the currency of the company, negative for credit "
+"notes."
 msgstr ""
 "Şirketin para biriminde toplam işletilebilir tutar, kredi notu için negatif."
 
 #. module: account_invoice_reimbursable
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__executable_total_signed
 #, fuzzy
-msgid "Total executable amount in the currency of the invoice, negative for credit notes."
+msgid ""
+"Total executable amount in the currency of the invoice, negative for credit "
+"notes."
 msgstr ""
 "Faturanın para biriminde toplam işletilebilir tutar, kredi notu için negatif."
 
@@ -180,7 +184,9 @@ msgstr "Toplam geri ödenebilir"
 #. module: account_invoice_reimbursable
 #: model:ir.model.fields,help:account_invoice_reimbursable.field_account_invoice__reimbursable_total_signed
 #, fuzzy
-msgid "Total reimbursable amount in the currency of the invoice, negative for credit notes."
+msgid ""
+"Total reimbursable amount in the currency of the invoice, negative for "
+"credit notes."
 msgstr ""
 "Faturanın para biriminde toplam geri ödenebilir tutar, kredi notu için "
 "negatif."
