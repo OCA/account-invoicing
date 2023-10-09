@@ -33,7 +33,7 @@ msgstr "Hier kann ein absoluter Rabatt hinzugefügt werden."
 
 #. module: account_invoice_fixed_discount
 #: model:ir.model,name:account_invoice_fixed_discount.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_fixed_discount
