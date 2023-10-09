@@ -19,26 +19,22 @@ msgstr ""
 "X-Launchpad-Export-Date: 2014-06-22 05:58+0000\n"
 
 #. module: product_supplierinfo_for_customer_invoice
-#: model:ir.model.fields,help:product_supplierinfo_for_customer_invoice.field_account_invoice_line__partner_is_customer
-msgid ""
-"Check this box if this contact is a customer. It can be selected in sales "
-"orders."
+#: model:ir.model,name:product_supplierinfo_for_customer_invoice.model_account_move_line
+msgid "Journal Item"
 msgstr ""
 
 #. module: product_supplierinfo_for_customer_invoice
-#: model:ir.model,name:product_supplierinfo_for_customer_invoice.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Riga fattura"
-
-#. module: product_supplierinfo_for_customer_invoice
-#: model:ir.model.fields,field_description:product_supplierinfo_for_customer_invoice.field_account_invoice_line__partner_is_customer
-msgid "Is a Customer"
+#: model:ir.model.fields,field_description:product_supplierinfo_for_customer_invoice.field_account_move_line__partner_show_customer_code
+msgid "Partner Show Customer Code"
 msgstr ""
 
 #. module: product_supplierinfo_for_customer_invoice
-#: model:ir.model.fields,field_description:product_supplierinfo_for_customer_invoice.field_account_invoice_line__product_customer_code
+#: model:ir.model.fields,field_description:product_supplierinfo_for_customer_invoice.field_account_move_line__product_customer_code
 msgid "Product Customer Code"
 msgstr "Codice cliente prodotto"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Riga fattura"
 
 #~ msgid "Invoice"
 #~ msgstr "Fattura"
