@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_tier_validation
+# 	* account_invoice_tier_validation
 #
 msgid ""
 msgstr ""
@@ -19,7 +19,8 @@ msgstr ""
 #. module: account_invoice_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_form
 #: model_terms:ir.ui.view,arch_db:account_invoice_tier_validation.invoice_supplier_form
-msgid "<i class=\"fa fa-info-circle\"/>This Invoice needs to be\n"
+msgid ""
+"<i class=\"fa fa-info-circle\"/>This Invoice needs to be\n"
 "                        validated."
 msgstr ""
 "<i class=\"fa fa-info-circle\"/>Esta Fatura precisa ser\n"
