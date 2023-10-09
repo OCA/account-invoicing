@@ -21,23 +21,34 @@ msgstr ""
 
 #. module: account_invoice_supplier_ref_unique
 #: model:ir.model,name:account_invoice_supplier_ref_unique.model_account_move
-msgid "Journal Entries"
-msgstr "Entradas Diarias"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_supplier_ref_unique
 #: code:addons/account_invoice_supplier_ref_unique/models/account_move.py:0
 #, python-format
 msgid ""
-"The invoice/refund with supplier invoice number '%s' already exists in Odoo "
-"under the number '%s' for supplier '%s'."
+"The invoice/refund with supplier invoice number {} already exists in Odoo "
+"under the number {} for supplier {}."
 msgstr ""
-"La factura/abono con número de factura de proveedor '%s' ya existe en Odoo "
-"con el número '%s' para el proveedor '%s'."
 
 #. module: account_invoice_supplier_ref_unique
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_bank_statement_line__supplier_invoice_number
 #: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_move__supplier_invoice_number
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_payment__supplier_invoice_number
 msgid "Vendor invoice number"
 msgstr "Número de factura de proveedor"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Entradas Diarias"
+
+#, python-format
+#~ msgid ""
+#~ "The invoice/refund with supplier invoice number '%s' already exists in "
+#~ "Odoo under the number '%s' for supplier '%s'."
+#~ msgstr ""
+#~ "La factura/abono con número de factura de proveedor '%s' ya existe en "
+#~ "Odoo con el número '%s' para el proveedor '%s'."
 
 #~ msgid "Invoice"
 #~ msgstr "Factura"

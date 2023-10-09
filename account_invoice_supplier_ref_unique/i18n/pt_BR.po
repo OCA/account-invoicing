@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2017-02-15 03:39+0000\n"
 "PO-Revision-Date: 2020-07-01 20:19+0000\n"
 "Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
-"23907/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
+"teams/23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,23 +22,34 @@ msgstr ""
 
 #. module: account_invoice_supplier_ref_unique
 #: model:ir.model,name:account_invoice_supplier_ref_unique.model_account_move
-msgid "Journal Entries"
-msgstr "Entradas Diárias"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_supplier_ref_unique
 #: code:addons/account_invoice_supplier_ref_unique/models/account_move.py:0
 #, python-format
 msgid ""
-"The invoice/refund with supplier invoice number '%s' already exists in Odoo "
-"under the number '%s' for supplier '%s'."
+"The invoice/refund with supplier invoice number {} already exists in Odoo "
+"under the number {} for supplier {}."
 msgstr ""
-"A fatura/reembolso com o número da fatura do fornecedor '%s' já existe no "
-"Odoo com o número '%s' do fornecedor '%s'."
 
 #. module: account_invoice_supplier_ref_unique
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_bank_statement_line__supplier_invoice_number
 #: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_move__supplier_invoice_number
+#: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_payment__supplier_invoice_number
 msgid "Vendor invoice number"
 msgstr "Número da fatura do fornecedor"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Entradas Diárias"
+
+#, python-format
+#~ msgid ""
+#~ "The invoice/refund with supplier invoice number '%s' already exists in "
+#~ "Odoo under the number '%s' for supplier '%s'."
+#~ msgstr ""
+#~ "A fatura/reembolso com o número da fatura do fornecedor '%s' já existe no "
+#~ "Odoo com o número '%s' do fornecedor '%s'."
 
 #~ msgid "Invoice"
 #~ msgstr "Fatura"
