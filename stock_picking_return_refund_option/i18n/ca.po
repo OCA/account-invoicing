@@ -40,8 +40,11 @@ msgstr "Moviment d'estoc"
 #. module: stock_picking_return_refund_option
 #: model:ir.model.fields,help:stock_picking_return_refund_option.field_stock_picking__to_refund_lines
 msgid ""
-"This field allow modify 'to_refund' field value in all stock moves from this picking after it has been confirmed.to_refund: set all stock moves to True value and recompute delivered quantities in sale order.\n"
-"no_refund: set all stock moves to False value and recompute delivered quantities in sale/purchase order."
+"This field allow modify 'to_refund' field value in all stock moves from this "
+"picking after it has been confirmed.to_refund: set all stock moves to True "
+"value and recompute delivered quantities in sale order.\n"
+"no_refund: set all stock moves to False value and recompute delivered "
+"quantities in sale/purchase order."
 msgstr ""
 
 #. module: stock_picking_return_refund_option
