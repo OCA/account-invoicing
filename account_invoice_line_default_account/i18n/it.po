@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_line_default_account
+# 	* account_invoice_line_default_account
 #
 msgid ""
 msgstr ""
@@ -10,6 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2022-04-26 08:55+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -19,13 +20,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_partner__auto_update_account_expense
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_users__auto_update_account_expense
 msgid "Autosave Selection for Expense Account on Invoice Line"
-msgstr "Salvare automaticamente la selezione per il conto di costo nelle righe fattura"
+msgstr ""
+"Salvare automaticamente la selezione per il conto di costo nelle righe "
+"fattura"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_partner__auto_update_account_income
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_users__auto_update_account_income
 msgid "Autosave Selection for Income Account on Invoice Line"
-msgstr "Salvare automaticamente la selezione per il conto di ricavo nelle righe fattura"
+msgstr ""
+"Salvare automaticamente la selezione per il conto di ricavo nelle righe "
+"fattura"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model,name:account_invoice_line_default_account.model_res_partner
@@ -64,17 +69,24 @@ msgstr "Riga fattura"
 #. module: account_invoice_line_default_account
 #: model:ir.model.fields,help:account_invoice_line_default_account.field_res_partner__auto_update_account_expense
 #: model:ir.model.fields,help:account_invoice_line_default_account.field_res_users__auto_update_account_expense
-msgid "When an account is selected on an invoice line, automatically assign it as default expense account"
-msgstr "Quando viene selezionato un conto sulla riga fattura, assegnarlo automaticamente come conto di costo predefinito"
+msgid ""
+"When an account is selected on an invoice line, automatically assign it as "
+"default expense account"
+msgstr ""
+"Quando viene selezionato un conto sulla riga fattura, assegnarlo "
+"automaticamente come conto di costo predefinito"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model.fields,help:account_invoice_line_default_account.field_res_partner__auto_update_account_income
 #: model:ir.model.fields,help:account_invoice_line_default_account.field_res_users__auto_update_account_income
-msgid "When an account is selected on an invoice line, automatically assign it as default income account"
-msgstr "Quando viene selezionato un conto sulla riga fattura, assegnarlo automaticamente come conto di ricavo predefinito"
+msgid ""
+"When an account is selected on an invoice line, automatically assign it as "
+"default income account"
+msgstr ""
+"Quando viene selezionato un conto sulla riga fattura, assegnarlo "
+"automaticamente come conto di ricavo predefinito"
 
 #. module: account_invoice_line_default_account
 #: model_terms:ir.ui.view,arch_db:account_invoice_line_default_account.view_partner_expense_property_form
 msgid "autosave from invoice line"
 msgstr "Salvataggio automatico da riga fattura"
-
