@@ -21,39 +21,25 @@ msgstr ""
 "X-Generator: Weblate 4.14.1\n"
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__state
-msgid ""
-" * The 'Draft' status is used when a user is encoding a new and unconfirmed "
-"Invoice.\n"
-" * The 'Open' status is used when user creates invoice, an invoice number is "
-"generated. It stays in the open status till the user pays the invoice.\n"
-" * The 'In Payment' status is used when payments have been registered for "
-"the entirety of the invoice in a journal configured to post entries at bank "
-"reconciliation only, and some of them haven't been reconciled with a bank "
-"statement line yet.\n"
-" * The 'Paid' status is set automatically when the invoice is paid. Its "
-"related journal entries may or may not be reconciled.\n"
-" * The 'Cancelled' status is used when user cancel invoice."
-msgstr ""
-
-#. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Cancel"
 msgstr "Preklic"
 
 #. module: account_invoice_supplierinfo_update
-#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_account_invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_move_form
 msgid "Check Supplier Infos"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_account_invoice_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_move_form
 msgid ""
 "Check if the invoice information are similar from the supplier information"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_invoice__supplierinfo_ok
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplierinfo_ok
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_move__supplierinfo_ok
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_payment__supplierinfo_ok
 msgid ""
 "Checked if the check of supplierinfo has been done.\n"
 " - Uncheck this box, if you want to check again this invoice\n"
@@ -62,6 +48,16 @@ msgstr ""
 "Označeno, če so bili podatki o dobavitelju preverjeni.\n"
 " - Odstranite označbo, če želite ponovno preveriti ta račun\n"
 " - Označite, če želite ta račun označiti kot potrjen"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_cost
+msgid "Cost"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__cost_variation
+msgid "Cost Variation (%)"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__create_uid
@@ -74,6 +70,18 @@ msgstr "Ustvaril"
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__create_date
 msgid "Created on"
 msgstr "Ustvarjeno"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_uom_id
+msgid "Default unit of measure used for all stock operations."
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_uom_id
+msgid ""
+"Default unit of measure used for purchase orders. It must be in the same "
+"category as the default unit of measure."
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__display_name
@@ -98,15 +106,19 @@ msgid "Ignore"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model,name:account_invoice_supplierinfo_update.model_account_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__invoice_id
 msgid "Invoice"
 msgstr "Račun"
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model,name:account_invoice_supplierinfo_update.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Postavka računa"
+#: model:ir.model,name:account_invoice_supplierinfo_update.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model,name:account_invoice_supplierinfo_update.model_account_move_line
+msgid "Journal Item"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo____last_update
@@ -137,8 +149,8 @@ msgid "List of products to update"
 msgstr "Seznam proizvodov za posodobitev"
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_min_quantity
-msgid "Minimal Quantity"
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_cost
+msgid "New Cost"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
@@ -152,14 +164,14 @@ msgid "New Unit Price"
 msgstr "Nova cena enote"
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_price
-msgid "Price"
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_uom_id
+msgid "New UoM"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__price_variation
-msgid "Price Variation (%)"
-msgstr "Variacija cene (%)"
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_price
+msgid "Price"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_id
@@ -177,12 +189,16 @@ msgid "Supplier"
 msgstr "Dobavitelj"
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_invoice__supplierinfo_ok
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplierinfo_ok
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_move__supplierinfo_ok
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_payment__supplierinfo_ok
 msgid "Supplier Informations Checked"
 msgstr "Podatki o dobavitelju preverjeni"
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_invoice__supplier_partner_id
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplier_partner_id
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_move__supplier_partner_id
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_payment__supplier_partner_id
 msgid "Supplier Partner"
 msgstr "Partner dobavitelj"
 
@@ -192,16 +208,16 @@ msgid "Supplierinfo"
 msgstr "Podatki o dobavitelju"
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_min_quantity
-msgid ""
-"The minimal quantity to purchase from this vendor, expressed in the vendor "
-"Product Unit of Measure if not any, in the default unit of measure of the "
-"product otherwise."
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_price
+msgid "The price to purchase a product"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_price
-msgid "The price to purchase a product"
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_min_quantity
+msgid ""
+"The quantity to purchase from this vendor to benefit from the price, "
+"expressed in the vendor Product Unit of Measure if not any, in the default "
+"unit of measure of the product otherwise."
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
@@ -212,20 +228,26 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
-msgid "Update and Validate"
-msgstr "Posodobi in potrdi"
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_uom_id
+msgid "Unit of Measure"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: code:addons/account_invoice_supplierinfo_update/models/account_invoice.py:73
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_uom_id
+msgid "UoM"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+msgid "Update Supplier Infos"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#. odoo-python
+#: code:addons/account_invoice_supplierinfo_update/models/account_move.py:0
 #, python-format
 msgid "Update supplier informations of products"
 msgstr "Posodobi podatke o dobaviteljih proizvodov"
-
-#. module: account_invoice_supplierinfo_update
-#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
-msgid "Update without Validating"
-msgstr "Posodobi brez potrditve"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__wizard_id
@@ -243,9 +265,26 @@ msgid "Wizard to update supplierinfo"
 msgstr "Čarovnik za posodobitev podatkov o dobavitelju"
 
 #. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_min_quantity
+msgid "current Min quantity"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "or"
 msgstr "ali"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Postavka računa"
+
+#~ msgid "Price Variation (%)"
+#~ msgstr "Variacija cene (%)"
+
+#~ msgid "Update and Validate"
+#~ msgstr "Posodobi in potrdi"
+
+#~ msgid "Update without Validating"
+#~ msgstr "Posodobi brez potrditve"
 
 #~ msgid "Invoice id"
 #~ msgstr "ID računa"
