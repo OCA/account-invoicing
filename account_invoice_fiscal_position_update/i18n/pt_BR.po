@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
 "PO-Revision-Date: 2022-02-01 19:33+0000\n"
 "Last-Translator: Rodrigo Macedo <rmsolucoeseminformatica@protonmail.com>\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
-"23907/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
+"teams/23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,24 +21,37 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_fiscal_position_update
-#: model:ir.model,name:account_invoice_fiscal_position_update.model_account_move
-msgid "Journal Entries"
-msgstr "Entradas Diárias"
+#: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_move__display_name
+msgid "Display Name"
+msgstr ""
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
+#: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_fiscal_position_update
+#: model:ir.model,name:account_invoice_fiscal_position_update.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_fiscal_position_update
+#: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_move____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position "
-"because they don't have a Product: - %s You should update the Account and "
-"the Taxes of these invoice lines manually."
+"because they don't have a Product:\n"
+" - %s\n"
+"You should update the Account and the Taxes of these invoice lines manually."
 msgstr ""
-"As seguintes linhas da fatura não foram atualizadas na nova posição fiscal "
-"porque não possuem um produto: -%s Você deve atualizar manualmente a conta e "
-"os impostos dessas linhas da fatura."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they "
@@ -50,10 +63,23 @@ msgstr ""
 "fatura manualmente."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid "Warning"
 msgstr "Aviso"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Entradas Diárias"
+
+#, python-format
+#~ msgid ""
+#~ "The following invoice lines were not updated to the new Fiscal Position "
+#~ "because they don't have a Product: - %s You should update the Account and "
+#~ "the Taxes of these invoice lines manually."
+#~ msgstr ""
+#~ "As seguintes linhas da fatura não foram atualizadas na nova posição "
+#~ "fiscal porque não possuem um produto: -%s Você deve atualizar manualmente "
+#~ "a conta e os impostos dessas linhas da fatura."
 
 #~ msgid "Invoice"
 #~ msgstr "Fatura"
