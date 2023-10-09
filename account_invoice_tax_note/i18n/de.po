@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_tax_note
+# 	* account_invoice_tax_note
 #
 msgid ""
 msgstr ""
@@ -17,9 +17,9 @@ msgstr ""
 "X-Generator: Weblate 3.7.1\n"
 
 #. module: account_invoice_tax_note
-#: model:ir.model,name:account_invoice_tax_note.model_account_invoice
-msgid "Invoice"
-msgstr "Rechnung"
+#: model:ir.model,name:account_invoice_tax_note.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_tax_note
 #: model:ir.model.fields,help:account_invoice_tax_note.field_account_tax_group__report_note
@@ -36,3 +36,6 @@ msgstr "Hinweis auf Beleg"
 #: model:ir.model,name:account_invoice_tax_note.model_account_tax_group
 msgid "Tax Group"
 msgstr "Steuergruppe"
+
+#~ msgid "Invoice"
+#~ msgstr "Rechnung"

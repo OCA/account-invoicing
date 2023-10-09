@@ -17,9 +17,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_tax_note
-#: model:ir.model,name:account_invoice_tax_note.model_account_invoice
-msgid "Invoice"
-msgstr "Facture"
+#: model:ir.model,name:account_invoice_tax_note.model_account_move
+msgid "Journal Entries"
+msgstr ""
 
 #. module: account_invoice_tax_note
 #: model:ir.model.fields,help:account_invoice_tax_note.field_account_tax_group__report_note
@@ -35,3 +35,6 @@ msgstr "Note rapport"
 #: model:ir.model,name:account_invoice_tax_note.model_account_tax_group
 msgid "Tax Group"
 msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Facture"
