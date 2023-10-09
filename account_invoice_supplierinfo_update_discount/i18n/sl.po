@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3;\n"
 "X-Generator: Weblate 3.10\n"
 
 #. module: account_invoice_supplierinfo_update_discount
@@ -26,9 +26,27 @@ msgid "Current Discount"
 msgstr "Trenutni popust"
 
 #. module: account_invoice_supplierinfo_update_discount
-#: model:ir.model,name:account_invoice_supplierinfo_update_discount.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Postavka računa"
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_wizard_update_invoice_supplierinfo_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update_discount
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_account_move_line__id
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_wizard_update_invoice_supplierinfo_line__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update_discount
+#: model:ir.model,name:account_invoice_supplierinfo_update_discount.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update_discount
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_wizard_update_invoice_supplierinfo_line____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update_discount
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_wizard_update_invoice_supplierinfo_line__new_discount
@@ -39,3 +57,6 @@ msgstr "Novi popust"
 #: model:ir.model,name:account_invoice_supplierinfo_update_discount.model_wizard_update_invoice_supplierinfo_line
 msgid "Wizard Line to update supplierinfo"
 msgstr "Postavka čarovnika za posodobitev podatkov o dobavitelju"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Postavka računa"

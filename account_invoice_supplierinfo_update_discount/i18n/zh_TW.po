@@ -25,9 +25,27 @@ msgid "Current Discount"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update_discount
-#: model:ir.model,name:account_invoice_supplierinfo_update_discount.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "發票明細"
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_wizard_update_invoice_supplierinfo_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update_discount
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_account_move_line__id
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_wizard_update_invoice_supplierinfo_line__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update_discount
+#: model:ir.model,name:account_invoice_supplierinfo_update_discount.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update_discount
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_wizard_update_invoice_supplierinfo_line____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: account_invoice_supplierinfo_update_discount
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_wizard_update_invoice_supplierinfo_line__new_discount
@@ -38,3 +56,6 @@ msgstr ""
 #: model:ir.model,name:account_invoice_supplierinfo_update_discount.model_wizard_update_invoice_supplierinfo_line
 msgid "Wizard Line to update supplierinfo"
 msgstr ""
+
+#~ msgid "Invoice Line"
+#~ msgstr "發票明細"
