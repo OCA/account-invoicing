@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* stock_picking_invoicing
+# 	* stock_picking_invoicing
 #
 msgid ""
 msgstr ""
@@ -86,10 +86,12 @@ msgstr "Grup"
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_invoice_onshipping__group
 #, fuzzy
-msgid "Group pickings/moves to create invoice(s):\n"
+msgid ""
+"Group pickings/moves to create invoice(s):\n"
 "Picking: One invoice per picking;\n"
 "Partner: One invoice for each picking's partner;\n"
-"Partner/Product: One invoice per picking's partner and group product into a single invoice line."
+"Partner/Product: One invoice per picking's partner and group product into a "
+"single invoice line."
 msgstr ""
 "Fatura(lar) oluşturmak için transferleri/hareketleri grupla:\n"
 "Transfer: Transfer başına bir fatura;\n"
@@ -122,8 +124,7 @@ msgstr "Fatura Durumu"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 msgid "Invoiced"
 msgstr "Faturalanan"
 
@@ -131,7 +132,8 @@ msgstr "Faturalanan"
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_invoice_state_mixin__invoice_state
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_move__invoice_state
 #: model:ir.model.fields,help:stock_picking_invoicing.field_stock_picking__invoice_state
-msgid "Invoiced: an invoice already exists\n"
+msgid ""
+"Invoiced: an invoice already exists\n"
 "To Be Invoiced: need to be invoiced\n"
 "Not Applicable: no invoice to create"
 msgstr ""
@@ -180,8 +182,7 @@ msgstr ""
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 msgid "Not Applicable"
 msgstr "Uygun Değil"
 
@@ -264,8 +265,7 @@ msgstr "Stok Hareketi"
 
 #. module: stock_picking_invoicing
 #: selection:stock.invoice.state.mixin,invoice_state:0
-#: selection:stock.move,invoice_state:0
-#: selection:stock.picking,invoice_state:0
+#: selection:stock.move,invoice_state:0 selection:stock.picking,invoice_state:0
 msgid "To Be Invoiced"
 msgstr "Faturalanacak"
 
