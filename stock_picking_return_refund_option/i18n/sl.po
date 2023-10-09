@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* stock_picking_return_refund_option
+# 	* stock_picking_return_refund_option
 #
 msgid ""
 msgstr ""
@@ -35,8 +35,12 @@ msgstr "Opcije za dobropis"
 
 #. module: stock_picking_return_refund_option
 #: model:ir.model.fields,help:stock_picking_return_refund_option.field_stock_picking__to_refund_lines
-msgid "This field allow modify 'to_refund' field value in all stock moves from this picking after it has been confirmed.to_refund: set all stock moves to True value and recompute delivered quantities in sale order.\n"
-"no_refund: set all stock moves to False value and recompute delivered quantities in sale/purchase order."
+msgid ""
+"This field allow modify 'to_refund' field value in all stock moves from this "
+"picking after it has been confirmed.to_refund: set all stock moves to True "
+"value and recompute delivered quantities in sale order.\n"
+"no_refund: set all stock moves to False value and recompute delivered "
+"quantities in sale/purchase order."
 msgstr ""
 "To polje omogoča spreminjanje vrednosti polja 'to_refund' v vseh premikih "
 "zalog na tej dobavnici, po tem, ko je potrjena. \n"
