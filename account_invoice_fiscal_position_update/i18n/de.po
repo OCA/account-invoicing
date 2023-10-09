@@ -21,24 +21,21 @@ msgstr ""
 
 #. module: account_invoice_fiscal_position_update
 #: model:ir.model,name:account_invoice_fiscal_position_update.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position "
-"because they don't have a Product: - %s You should update the Account and "
-"the Taxes of these invoice lines manually."
+"because they don't have a Product:\n"
+" - %s\n"
+"You should update the Account and the Taxes of these invoice lines manually."
 msgstr ""
-"Die folgenden Rechnungspositionen wurden nicht auf die neue Steuerzuordnung "
-"aktualisiert, da sie keine Produkte enthalten: \n"
-"- %s\n"
-"Sie müssen Konto und Steuern in diesen Positionen ggf. händisch anpassen."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they "
@@ -51,10 +48,21 @@ msgstr ""
 "aktualisieren."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid "Warning"
 msgstr "Warnung"
+
+#, python-format
+#~ msgid ""
+#~ "The following invoice lines were not updated to the new Fiscal Position "
+#~ "because they don't have a Product: - %s You should update the Account and "
+#~ "the Taxes of these invoice lines manually."
+#~ msgstr ""
+#~ "Die folgenden Rechnungspositionen wurden nicht auf die neue "
+#~ "Steuerzuordnung aktualisiert, da sie keine Produkte enthalten: \n"
+#~ "- %s\n"
+#~ "Sie müssen Konto und Steuern in diesen Positionen ggf. händisch anpassen."
 
 #~ msgid "Invoice"
 #~ msgstr "Rechnung"
