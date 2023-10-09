@@ -19,6 +19,24 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: account_invoice_partner
-#: model:ir.model,name:account_invoice_partner.model_account_invoice
-msgid "Invoice"
-msgstr "Faktur"
+#: model:ir.model.fields,field_description:account_invoice_partner.field_account_move__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_partner
+#: model:ir.model.fields,field_description:account_invoice_partner.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_partner
+#: model:ir.model,name:account_invoice_partner.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_partner
+#: model:ir.model.fields,field_description:account_invoice_partner.field_account_move____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Faktur"
