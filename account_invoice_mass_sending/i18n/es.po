@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* account_invoice_mass_sending
+# 	* account_invoice_mass_sending
 #
 msgid ""
 msgstr ""
@@ -18,7 +18,9 @@ msgstr ""
 
 #. module: account_invoice_mass_sending
 #: model:ir.model.fields,help:account_invoice_mass_sending.field_account_invoice__sending_in_progress
-msgid "If checked, the invoice is already being processed, and it will prevent the sending of a duplicated mail."
+msgid ""
+"If checked, the invoice is already being processed, and it will prevent the "
+"sending of a duplicated mail."
 msgstr ""
 "Si está marcado, la factura ya se está procesando, y evitará el envío de un "
 "email duplicado."
@@ -53,11 +55,13 @@ msgstr "Envío en progreso"
 #. module: account_invoice_mass_sending
 #: code:addons/account_invoice_mass_sending/models/account_invoice.py:30
 #, python-format
-msgid "The sending of {in_progress_invoices_count} invoices is already in progress."
+msgid ""
+"The sending of {in_progress_invoices_count} invoices is already in progress."
 msgstr "El envío de {in_progress_invoices_count} facturas ya está en progreso."
 
 #. module: account_invoice_mass_sending
 #: code:addons/account_invoice_mass_sending/models/account_invoice.py:36
 #, python-format
-msgid "The sending of {invoices_count} invoices will be processed in background."
+msgid ""
+"The sending of {invoices_count} invoices will be processed in background."
 msgstr "El envío de {invoices_count} facturas se procesará en segundo plano."
