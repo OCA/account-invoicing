@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-13 03:43+0000\n"
-"PO-Revision-Date: 2023-10-09 09:10+0000\n"
+"PO-Revision-Date: 2023-10-10 21:36+0000\n"
 "Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
@@ -27,12 +27,12 @@ msgstr "Descuento actual"
 #. module: account_invoice_supplierinfo_update_discount
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_wizard_update_invoice_supplierinfo__display_discount
 msgid "Display Discount"
-msgstr ""
+msgstr "Mostrar descuento"
 
 #. module: account_invoice_supplierinfo_update_discount
 #: model:ir.model,name:account_invoice_supplierinfo_update_discount.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Artículo Diario"
 
 #. module: account_invoice_supplierinfo_update_discount
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_discount.field_wizard_update_invoice_supplierinfo_line__new_discount
@@ -47,7 +47,7 @@ msgstr "Asistente de línea para actualizar la información del proveedor"
 #. module: account_invoice_supplierinfo_update_discount
 #: model:ir.model,name:account_invoice_supplierinfo_update_discount.model_wizard_update_invoice_supplierinfo
 msgid "Wizard to update supplierinfo"
-msgstr ""
+msgstr "Asistenta para actualizar datos de los proveedores"
 
 #~ msgid "Invoice Line"
 #~ msgstr "Linea de factura"
