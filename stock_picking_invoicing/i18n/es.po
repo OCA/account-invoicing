@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-03 13:38+0000\n"
+"PO-Revision-Date: 2023-10-10 20:36+0000\n"
 "Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -144,7 +144,7 @@ msgstr "Facturación"
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Entrada Diaria"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__journal_type
@@ -175,7 +175,7 @@ msgstr "No se creó factura!"
 #. module: stock_picking_invoicing
 #: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_return_picking__invoice_state__none
 msgid "No invoicing"
-msgstr ""
+msgstr "Sin facturación"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_invoice_state_mixin__invoice_state__none
@@ -217,7 +217,7 @@ msgstr "Diario de Compra"
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_return_picking
 msgid "Return Picking"
-msgstr ""
+msgstr "Albarán de devolución"
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__sale_journal
@@ -274,7 +274,7 @@ msgstr "Para ser facturado"
 #. module: stock_picking_invoicing
 #: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_return_picking__invoice_state__2binvoiced
 msgid "To be refunded/invoiced"
-msgstr ""
+msgstr "A devolver/facturar"
 
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_picking
