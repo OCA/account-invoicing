@@ -20,7 +20,6 @@ msgstr ""
 "X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__code
 msgid "Code"
 msgstr "Code"
@@ -53,12 +52,16 @@ msgid "Customer Invoice Transmission Method Code"
 msgstr "Code de la méthode d'envoi des factures"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__display_name
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_account_move__transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_payment__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_code
@@ -72,16 +75,20 @@ msgstr ""
 "être utilisé pour identifier une méthode de transmission particulière."
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__id
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__id
 msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_account_move
-msgid "Journal Entries"
-msgstr "Ecritures"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner____last_update
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method____last_update
 msgid "Last Modified on"
 msgstr "Modifié le"
@@ -129,9 +136,18 @@ msgid "This transmit method code already exists!"
 msgstr "Ce code de méthode d'envoi existe déjà !"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_id
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_id
 msgid "Transmission Method"
 msgstr "Mode d’envoi"
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_code
+msgid "Transmission Method Code"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_form
@@ -139,12 +155,16 @@ msgid "Transmit Method"
 msgstr "Mode d’envoi"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_domain_purchase
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_purchase
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_domain_purchase
 msgid "Transmit Method Domain Purchase"
 msgstr "Mode d'envoi pour les achats"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_domain_sale
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_sale
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_domain_sale
 msgid "Transmit Method Domain Sale"
 msgstr "Mode d'envoi pour les ventes"
 
@@ -171,6 +191,9 @@ msgstr "Méthode de réception des factures fournisseurs"
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
 msgstr "Code de méthode de réception des factures fournisseurs"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Ecritures"
 
 #~ msgid "Invoice"
 #~ msgstr "Facture"

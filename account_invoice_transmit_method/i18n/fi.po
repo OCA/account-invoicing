@@ -20,7 +20,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__code
 msgid "Code"
 msgstr "Koodi"
@@ -53,12 +52,16 @@ msgid "Customer Invoice Transmission Method Code"
 msgstr "Laskun lähetystavan koodi"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__display_name
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__display_name
 msgid "Display Name"
 msgstr "Nimi"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_account_move__transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_payment__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_code
@@ -72,16 +75,20 @@ msgstr ""
 "käyttää tietyn lähetystavan tunnistamiseen."
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__id
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__id
 msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner____last_update
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method____last_update
 msgid "Last Modified on"
 msgstr "Viimeksi muokattu"
@@ -129,9 +136,18 @@ msgid "This transmit method code already exists!"
 msgstr "Tämä lähetystavan koodi on jo olemassa!"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_id
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_id
 msgid "Transmission Method"
 msgstr "Lähetystapa"
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_code
+msgid "Transmission Method Code"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_form
@@ -139,13 +155,17 @@ msgid "Transmit Method"
 msgstr "Lähetystapa"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_domain_purchase
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_purchase
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_domain_purchase
 #, fuzzy
 msgid "Transmit Method Domain Purchase"
 msgstr "Dokumentin lähetystapa"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_domain_sale
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_sale
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_domain_sale
 #, fuzzy
 msgid "Transmit Method Domain Sale"
 msgstr "Dokumentin lähetystapa"

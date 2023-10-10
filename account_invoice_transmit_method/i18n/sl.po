@@ -21,7 +21,6 @@ msgstr ""
 "X-Generator: Weblate 4.14.1\n"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__code
 msgid "Code"
 msgstr "Koda"
@@ -54,12 +53,16 @@ msgid "Customer Invoice Transmission Method Code"
 msgstr "Koda načina prenosa izdanih računov"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__display_name
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__display_name
 msgid "Display Name"
 msgstr "Prikazani naziv"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_account_move__transmit_method_code
+#: model:ir.model.fields,help:account_invoice_transmit_method.field_account_payment__transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__customer_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_partner__supplier_invoice_transmit_method_code
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_res_users__customer_invoice_transmit_method_code
@@ -73,16 +76,20 @@ msgstr ""
 "uporabi kot identifikacija točno določenega načina prenosa."
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner__id
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__id
 msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model,name:account_invoice_transmit_method.model_account_move
-msgid "Journal Entries"
-msgstr "Dnevniški vnosi"
+msgid "Journal Entry"
+msgstr ""
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_partner____last_update
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method____last_update
 msgid "Last Modified on"
 msgstr "Zadnjič spremenjeno"
@@ -130,9 +137,18 @@ msgid "This transmit method code already exists!"
 msgstr "Ta koda načina prenosa že obstaja!"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_id
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_id
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_id
 msgid "Transmission Method"
 msgstr "Način prenosa"
+
+#. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_code
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_code
+msgid "Transmission Method Code"
+msgstr ""
 
 #. module: account_invoice_transmit_method
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_form
@@ -140,12 +156,16 @@ msgid "Transmit Method"
 msgstr "Način prenosa"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_domain_purchase
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_purchase
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_domain_purchase
 msgid "Transmit Method Domain Purchase"
 msgstr "Način prenosa pri nabavi"
 
 #. module: account_invoice_transmit_method
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_domain_sale
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_move__transmit_method_domain_sale
+#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_account_payment__transmit_method_domain_sale
 msgid "Transmit Method Domain Sale"
 msgstr "Način prenosa pri prodaji"
 
@@ -172,6 +192,9 @@ msgstr "Način prejema računa dobavitelja"
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
 msgstr "Koda načina prejema računa dobavitelja"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Dnevniški vnosi"
 
 #~ msgid "Invoice"
 #~ msgstr "Račun"
