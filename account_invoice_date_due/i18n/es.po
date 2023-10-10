@@ -23,71 +23,68 @@ msgid "Allow to change due date"
 msgstr "Permitir actualizar la fecha de vencimiento"
 
 #. module: account_invoice_date_due
-#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.wizard_set_due_date
-msgid "Cancel"
-msgstr "Cancelar"
-
-#. module: account_invoice_date_due
-#: model:ir.actions.act_window,name:account_invoice_date_due.action_show_wizard_set_due_date
-msgid "Change due date"
-msgstr "Cambiar fecha de vencimiento"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__create_uid
-msgid "Created by"
-msgstr "Creado por"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__create_date
-msgid "Created on"
-msgstr "Creado el"
-
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__display_name
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__id
+#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.view_move_form
+msgid "Due Date"
+msgstr ""
+
+#. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_bank_statement_line__invoice_date_due_payment_term
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__invoice_date_due_payment_term
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_payment__invoice_date_due_payment_term
+msgid "Due Date Payment Term"
+msgstr ""
+
+#. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__id
 msgid "ID"
 msgstr "ID"
 
 #. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date____last_update
+#: model:ir.model,name:account_invoice_date_due.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__write_uid
-msgid "Last Updated by"
-msgstr "Última actualización por"
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
 
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__write_date
-msgid "Last Updated on"
-msgstr "Última actualización el"
+#~ msgid "Change due date"
+#~ msgstr "Cambiar fecha de vencimiento"
 
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_invoice_set_due_date__date_due
-msgid "New Due Date"
-msgstr "Nueva Fecha de Vencimiento"
+#~ msgid "Created by"
+#~ msgstr "Creado por"
 
-#. module: account_invoice_date_due
-#: model:ir.model.fields,help:account_invoice_date_due.field_account_invoice_set_due_date__date_due
-msgid "New date to be set to the invoice's due date."
-msgstr "Nueva fecha a establecer para la fecha de vencimiento de la factura."
+#~ msgid "Created on"
+#~ msgstr "Creado el"
 
-#. module: account_invoice_date_due
-#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.wizard_set_due_date
-msgid "Set Due Date"
-msgstr "Colocar Fecha de Vencimiento"
+#~ msgid "Last Updated by"
+#~ msgstr "Última actualización por"
 
-#. module: account_invoice_date_due
-#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.wizard_set_due_date
-msgid "Set a new due date on selected invoices."
-msgstr "Colocar una nueva fecha de vencimiento a las facturas seleccionadas."
+#~ msgid "Last Updated on"
+#~ msgstr "Última actualización el"
 
-#. module: account_invoice_date_due
-#: model:ir.model,name:account_invoice_date_due.model_account_invoice_set_due_date
-msgid "Wizard to set due date"
-msgstr "Asistente para configurar nueva fecha de vencimiento"
+#~ msgid "New Due Date"
+#~ msgstr "Nueva Fecha de Vencimiento"
+
+#~ msgid "New date to be set to the invoice's due date."
+#~ msgstr ""
+#~ "Nueva fecha a establecer para la fecha de vencimiento de la factura."
+
+#~ msgid "Set Due Date"
+#~ msgstr "Colocar Fecha de Vencimiento"
+
+#~ msgid "Set a new due date on selected invoices."
+#~ msgstr ""
+#~ "Colocar una nueva fecha de vencimiento a las facturas seleccionadas."
+
+#~ msgid "Wizard to set due date"
+#~ msgstr "Asistente para configurar nueva fecha de vencimiento"

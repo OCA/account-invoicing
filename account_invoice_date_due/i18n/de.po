@@ -22,19 +22,36 @@ msgid "Allow to change due date"
 msgstr "Fälligkeitsdatum in Rechnungen ändern"
 
 #. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: account_invoice_date_due
 #: model_terms:ir.ui.view,arch_db:account_invoice_date_due.view_move_form
 msgid "Due Date"
 msgstr ""
 
 #. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_bank_statement_line__invoice_date_due_payment_term
 #: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__invoice_date_due_payment_term
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_payment__invoice_date_due_payment_term
 msgid "Due Date Payment Term"
 msgstr ""
 
 #. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_date_due
 #: model:ir.model,name:account_invoice_date_due.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
+
+#. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move____last_update
+msgid "Last Modified on"
+msgstr "Zuletzt geändert am"
 
 #~ msgid "Cancel"
 #~ msgstr "Abbrechen"
@@ -47,15 +64,6 @@ msgstr ""
 
 #~ msgid "Created on"
 #~ msgstr "Erstellt am"
-
-#~ msgid "Display Name"
-#~ msgstr "Anzeigename"
-
-#~ msgid "ID"
-#~ msgstr "ID"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Zuletzt geändert am"
 
 #~ msgid "Last Updated by"
 #~ msgstr "Zuletzt aktualisiert von"
