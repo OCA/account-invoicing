@@ -6,15 +6,7 @@ from odoo import api, models
 
 class AccountMove(models.Model):
     _inherit = "account.move"
-
-    @api.model
-    def name_search(self, name, args=None, operator="ilike", limit=100):
-        args = args or []
-        domain = []
-        if name:
-            domain = ["|", ("ref", operator, name), ("name", operator, name)]
-        invoices = self.search(domain + args, limit=limit)
-        return invoices.name_get()
+    _rec_names_search = ["name", "ref"]
 
     @api.depends("ref", "name")
     def name_get(self):
