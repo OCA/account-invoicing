@@ -19,11 +19,16 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: account_invoice_analytic_search
-#: model:ir.model.fields,field_description:account_invoice_analytic_search.field_account_invoice__account_analytic_ids
+#: model:ir.model.fields,field_description:account_invoice_analytic_search.field_account_bank_statement_line__analytic_account_ids
+#: model:ir.model.fields,field_description:account_invoice_analytic_search.field_account_move__analytic_account_ids
+#: model:ir.model.fields,field_description:account_invoice_analytic_search.field_account_payment__analytic_account_ids
 msgid "Analytic Account"
 msgstr ""
 
 #. module: account_invoice_analytic_search
-#: model:ir.model,name:account_invoice_analytic_search.model_account_invoice
-msgid "Invoice"
-msgstr "ใบแจ้งหนี้"
+#: model:ir.model,name:account_invoice_analytic_search.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "ใบแจ้งหนี้"
