@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="account_invoice_validation_form_view">
+        <field
+            name="name"
+        >Account.move.form (in account_invoice_validation_purchase_type)</field>
+        <field name="model">account.move</field>
+        <field
+            name="inherit_id"
+            ref="account_invoice_validation.account_invoice_validation_form_view"
+        />
+        <field name="priority" eval="120" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="product_type_id" required="1" />
+            </field>
+        </field>
+    </record>
+</odoo>
