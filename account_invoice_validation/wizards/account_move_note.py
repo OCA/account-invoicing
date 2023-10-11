@@ -1,4 +1,4 @@
-# Copyright 2022 ACSONE SA/NV
+# Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import _, exceptions, fields, models
@@ -8,7 +8,7 @@ class AccountMoveNote(models.TransientModel):
     _name = "account.move.note"
     _description = "Adds a note to an account move"
 
-    note = fields.Char()
+    note = fields.Char(required=True)
     account_move_id = fields.Many2one(
         "account.move",
         "Account move",
@@ -21,10 +21,6 @@ class AccountMoveNote(models.TransientModel):
         Action to send the note to the corresponding account_move
         :return: dict/action
         """
-        if not self.note:
-            message = _("Please specify a note!")
-            raise exceptions.UserError(message)
-
         if self.env.context.get("movingToState") == "refuse":
             self.account_move_id.action_refuse_state_continue(self.note)
         elif self.env.context.get("movingToState") == "assign":

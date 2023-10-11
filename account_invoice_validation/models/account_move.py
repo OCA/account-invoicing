@@ -4,7 +4,7 @@
 
 from typing import List
 
-from odoo import _, api, fields, models
+from odoo import Command, _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.fields import first
 
@@ -55,7 +55,7 @@ class AccountMove(models.Model):
         " to approve purchase invoice/refund",
     )
 
-    note = fields.Char(
+    note = fields.Text(
         help="Reason of the last modification of the state",
     )
 
@@ -85,7 +85,7 @@ class AccountMove(models.Model):
                     val_user_id or rec.company_id.validation_user_id
                 )
 
-    @api.depends("move_type", "partner_id")
+    @api.depends("move_type", "partner_id", "company_id")
     def _compute_validation_user_id(self):
         use_invoice_first_approval = (
             self.env["ir.config_parameter"]
@@ -95,7 +95,7 @@ class AccountMove(models.Model):
 
         for rec in self:
             if rec.move_type in rec.get_concerned_types():
-                val_user_id = self.env["res.partner"]
+                val_user_id = self.env["res.users"]
                 approved_once = False
                 # try to take approver on partner
                 if use_invoice_first_approval:
@@ -120,8 +120,12 @@ class AccountMove(models.Model):
 
     @api.depends_context("uid")
     def _compute_can_edit_validation_user(self) -> None:
-        self.can_edit_validation_user = self.env.user.has_group(
-            "account_invoice_validation.group_account_invoice_validation_assign"
+        self.update(
+            {
+                "can_edit_validation_user": self.env.user.has_group(
+                    "account_invoice_validation.group_account_invoice_validation_assign"
+                )
+            }
         )
 
     @api.depends("validation_user_id")
@@ -132,9 +136,27 @@ class AccountMove(models.Model):
 
     @api.depends("validation_user_id")
     def _compute_date_assignation(self) -> None:
-        self.filtered(lambda rec: rec.validation_user_id).update(
-            {"date_assignation": fields.Date.today()}
-        )
+        for rec in self:
+            if rec.validation_user_id:
+                rec.date_assignation = fields.Date.today()
+            else:
+                rec.date_assignation = False
+
+    def _open_wizard_note(self, movingToState: str) -> dict:
+        formid = self.env.ref(
+            "account_invoice_validation.account_move_note_form_view"
+        ).id
+        context = self.env.context.copy()
+        context.update({"movingToState": movingToState})
+        return {
+            "type": "ir.actions.act_window",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "account.move.note",
+            "view_id": formid,
+            "target": "new",
+            "context": context,
+        }
 
     def _ensure_current_user_is_validation_user(self) -> None:
         self.ensure_one()
@@ -215,18 +237,9 @@ class AccountMove(models.Model):
             # set next approbator
             values["validation_user_id"] = self.company_id.validation_user_id.id
 
-        line = first(self.invoice_line_ids)
+        first(self.invoice_line_ids)
         values.update(
             {
-                "invoice_line_ids": [
-                    (
-                        1,
-                        line.id,
-                        {
-                            "company_id": line.company_id.id,
-                        },
-                    ),
-                ],
                 "partner_id": supplier_id,
                 "validation_state": validation_state,
                 "invoice_date": date_invoice,
@@ -241,20 +254,7 @@ class AccountMove(models.Model):
         """
         action calling the wizard account_move_note
         """
-        formid = self.env.ref(
-            "account_invoice_validation.account_move_note_form_view"
-        ).id
-        context = self.env.context.copy()
-        context.update({"movingToState": "refuse"})
-        return {
-            "type": "ir.actions.act_window",
-            "view_type": "form",
-            "view_mode": "form",
-            "res_model": "account.move.note",
-            "view_id": formid,
-            "target": "new",
-            "context": context,
-        }
+        return self._open_wizard_note("refuse")
 
     def action_refuse_state_continue(self, note: str) -> dict:
         """
@@ -303,20 +303,7 @@ class AccountMove(models.Model):
         """
         action calling the wizard account_move_note from block button
         """
-        formid = self.env.ref(
-            "account_invoice_validation.account_move_note_form_view"
-        ).id
-        context = self.env.context.copy()
-        context.update({"movingToState": "blocked"})
-        return {
-            "type": "ir.actions.act_window",
-            "view_type": "form",
-            "view_mode": "form",
-            "res_model": "account.move.note",
-            "view_id": formid,
-            "target": "new",
-            "context": context,
-        }
+        return self._open_wizard_note("blocked")
 
     def action_block_state_continue(self, note: str, pending_date: str) -> dict:
         """
@@ -358,20 +345,7 @@ class AccountMove(models.Model):
         """
         action calling the wizard account_move_note from assign button
         """
-        formid = self.env.ref(
-            "account_invoice_validation.account_move_note_form_view"
-        ).id
-        context = self.env.context.copy()
-        context.update({"movingToState": "assign"})
-        return {
-            "type": "ir.actions.act_window",
-            "view_type": "form",
-            "view_mode": "form",
-            "res_model": "account.move.note",
-            "view_id": formid,
-            "target": "new",
-            "context": context,
-        }
+        return self._open_wizard_note("assign")
 
     def action_assign_continue(self, note: str) -> str:
         for rec in self:
@@ -412,7 +386,7 @@ class AccountMove(models.Model):
         self.message_post_with_view(
             "account_invoice_validation.message_validation_user_assigned",
             composition_mode="mass_mail",
-            partner_ids=[(4, pid) for pid in partner_ids],
+            partner_ids=[Command.link(pid) for pid in partner_ids],
             auto_delete=True,
             auto_delete_message=True,
             parent_id=False,  # override accidental context defaults

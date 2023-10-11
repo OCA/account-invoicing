@@ -26,10 +26,14 @@ class ResPartner(models.Model):
     )
 
     def _compute_use_invoice_first_approval(self):
-        self.use_invoice_first_approval = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("account_invoice_validation.use_invoice_first_approval")
+        self.update(
+            {
+                "use_invoice_first_approval": (
+                    self.env["ir.config_parameter"]
+                    .sudo()
+                    .get_param("account_invoice_validation.use_invoice_first_approval")
+                )
+            }
         )
 
     def _compute_validation_user_id_domain(self):

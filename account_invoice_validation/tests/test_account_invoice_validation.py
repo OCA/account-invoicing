@@ -3,7 +3,7 @@
 from datetime import timedelta
 from uuid import uuid4
 
-from odoo import exceptions, fields
+from odoo import Command, exceptions, fields
 from odoo.tests.common import TransactionCase
 
 
@@ -85,7 +85,7 @@ class TestAccountMove(TransactionCase):
                 "name": "Unit test User 1",
                 "login": "account_invoice_validation1",
                 "email": "test1@acsone.eu",
-                "groups_id": [(6, 0, account_user_group.ids)],
+                "groups_id": [Command.set(account_user_group.ids)],
             }
         )
         self.user2 = users_obj.create(
@@ -93,7 +93,7 @@ class TestAccountMove(TransactionCase):
                 "name": "Unit test User 2",
                 "login": "account_invoice_validation2",
                 "email": "test2@acsone.eu",
-                "groups_id": [(6, 0, account_user_group.ids)],
+                "groups_id": [Command.set(account_user_group.ids)],
             }
         )
         self.user_manager = users_obj.create(
@@ -102,9 +102,7 @@ class TestAccountMove(TransactionCase):
                 "login": "account_invoice_validation3",
                 "email": "test3@acsone.eu",
                 "groups_id": [
-                    (
-                        6,
-                        0,
+                    Command.set(
                         self.env.ref(
                             "account_invoice_validation.group_account_invoice_validation_assign"
                         ).ids,
@@ -118,9 +116,7 @@ class TestAccountMove(TransactionCase):
             "move_type": "in_invoice",
             "validation_state": "wait_approval",
             "invoice_line_ids": [
-                (
-                    0,
-                    False,
+                Command.create(
                     {
                         "name": "Line 1",
                         "account_id": account_payable.id,
@@ -136,9 +132,7 @@ class TestAccountMove(TransactionCase):
             "validation_state": "wait_approval",
             "partner_id": supplier.id,
             "invoice_line_ids": [
-                (
-                    0,
-                    False,
+                Command.create(
                     {
                         "name": "Line 2 refunded",
                         "account_id": account_payable.id,
@@ -152,9 +146,7 @@ class TestAccountMove(TransactionCase):
             "partner_id": supplier.id,
             "move_type": "out_invoice",
             "invoice_line_ids": [
-                (
-                    0,
-                    False,
+                Command.create(
                     {
                         "name": "Line 1",
                         "account_id": account_receivable.id,
@@ -445,7 +437,7 @@ class TestAccountMove(TransactionCase):
         account_user_group = self.account_user_group
         # Add the user to authorized accoutant group to validate
         # refused invoice
-        self.env.user.write({"groups_id": [(4, account_user_group.id, False)]})
+        self.env.user.write({"groups_id": [Command.link(account_user_group.id)]})
         supplier_refund = self.supplier_refund
         supplier_refund.update(
             {
@@ -485,7 +477,7 @@ class TestAccountMove(TransactionCase):
         account_user_group = self.account_user_group
         # Add the user to authorized accoutant group to validate
         # refused invoice
-        self.env.user.write({"groups_id": [(4, account_user_group.id, False)]})
+        self.env.user.write({"groups_id": [Command.link(account_user_group.id)]})
         # The refund should not be already 'posted'
         self.assertNotEqual(supplier_invoice.state, "posted")
         self.assertNotEqual(supplier_invoice.validation_state, "accepted")
@@ -541,9 +533,7 @@ class TestAccountMove(TransactionCase):
             "validation_state": "wait_approval",
             "partner_id": self.supplier.id,
             "invoice_line_ids": [
-                (
-                    0,
-                    False,
+                Command.create(
                     {
                         "name": "Line 2 refunded",
                         "account_id": self.account_payable.id,

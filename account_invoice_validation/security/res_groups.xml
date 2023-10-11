@@ -9,7 +9,11 @@
         <field name="name">Invoice Approval: can assign approver user</field>
         <field
             name="implied_ids"
-            eval="[(4, ref('account_invoice_validation.group_account_invoice_validation'))]"
+            eval="[Command.link(ref('account_invoice_validation.group_account_invoice_validation'))]"
+        />
+        <field
+            name="users"
+            eval="[Command.link(ref('base.user_root')), Command.link( ref('base.user_admin'))]"
         />
     </record>
     <record model="ir.model.access" id="model_access_account_move_validation">
@@ -42,7 +46,10 @@
     <record id="ir_rule_account_move_validation" model="ir.rule">
         <field name="name">account.move invoice validation access</field>
         <field name="model_id" ref="account.model_account_move" />
-        <field name="groups" eval="[(4, ref('group_account_invoice_validation'))]" />
+        <field
+            name="groups"
+            eval="[Command.link(ref('group_account_invoice_validation'))]"
+        />
         <field name="domain_force">
             [('validation_user_id', '=', user.id), ('move_type', 'in', ('in_invoice', 'in_refund'))]
         </field>
@@ -50,7 +57,10 @@
     <record id="ir_rule_account_move_line_validation" model="ir.rule">
         <field name="name">account.move.line invoice validation access</field>
         <field name="model_id" ref="account.model_account_move_line" />
-        <field name="groups" eval="[(4, ref('group_account_invoice_validation'))]" />
+        <field
+            name="groups"
+            eval="[Command.link(ref('group_account_invoice_validation'))]"
+        />
         <field name="domain_force">
             [('move_id.validation_user_id', '=', user.id), ('move_id.move_type', 'in', ('in_invoice', 'in_refund'))]
         </field>

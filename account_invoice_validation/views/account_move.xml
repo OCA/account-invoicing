@@ -128,8 +128,6 @@
         <field name="priority" eval="90" />
         <field name="arch" type="xml">
             <form>
-                <header>
-                </header>
                 <sheet>
                     <field name="state" invisible="1" />
                     <field name="validation_state" invisible="1" />
@@ -234,7 +232,7 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="account_move_search_view">
+    <record model="ir.ui.view" id="account_move_validation_search_view">
         <field
             name="name"
         >Invoice Approval Search (in account_invoice_validation)</field>
