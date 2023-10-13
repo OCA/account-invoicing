@@ -12,6 +12,16 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
     def setUpClass(cls):
         """Add some defaults to let the test run without an accounts chart."""
         super(TestPurchaseStockPickingReturnInvoicing, cls).setUpClass()
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                mail_create_nolog=True,
+                mail_create_nosubscribe=True,
+                mail_notrack=True,
+                no_reset_password=True,
+                tracking_disable=True,
+            )
+        )
         cls.journal = cls.env["account.journal"].create(
             {"name": "Test journal", "type": "purchase", "code": "TEST_J"}
         )
