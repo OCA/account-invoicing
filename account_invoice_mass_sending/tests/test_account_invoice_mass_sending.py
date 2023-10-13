@@ -10,6 +10,16 @@ class TestAccountInvoiceMassSending(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                mail_create_nolog=True,
+                mail_create_nosubscribe=True,
+                mail_notrack=True,
+                no_reset_password=True,
+                tracking_disable=True,
+            )
+        )
         cls.wizard_obj = cls.env["account.invoice.send"]
         cls.invoice_obj = cls.env["account.move"]
 
