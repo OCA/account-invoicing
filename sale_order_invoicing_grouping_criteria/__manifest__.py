@@ -3,7 +3,7 @@
 
 {
     "name": "Sales order invoicing grouping criteria",
-    "version": "15.0.1.0.2",
+    "version": "15.0.1.0.3",
     "category": "Sales Management",
     "license": "AGPL-3",
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
