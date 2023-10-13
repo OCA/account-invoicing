@@ -3,7 +3,7 @@
 {
     "name": "Stock Picking Return Refund Option",
     "summary": "Update the refund options in pickings",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "development_status": "Production/Stable",
     "category": "Sales",
     "website": "https://github.com/OCA/account-invoicing",
