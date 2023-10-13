@@ -13,7 +13,14 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.env = cls.env(
-            context=dict(cls.env.context, tracking_disable=True, no_reset_password=True)
+            context=dict(
+                cls.env.context,
+                mail_create_nolog=True,
+                mail_create_nosubscribe=True,
+                mail_notrack=True,
+                no_reset_password=True,
+                tracking_disable=True,
+            )
         )
         group = cls.env.ref("account_invoice_date_due.allow_to_change_due_date")
         acc_group = cls.env.ref("account.group_account_manager")
