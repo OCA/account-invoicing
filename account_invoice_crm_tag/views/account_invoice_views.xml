@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="invoice_crm_tag_form" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//page[@name='other_info']//group[@name='sale_info_group']"
+                position="inside"
+            >
+                <field
+                    name="crm_tag_ids"
+                    widget="many2many_tags"
+                    attrs="{'invisible': [('move_type', 'not in', ['out_invoice','out_refund'])]}"
+                    options="{'color_field': 'color', 'no_create_edit': True}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
