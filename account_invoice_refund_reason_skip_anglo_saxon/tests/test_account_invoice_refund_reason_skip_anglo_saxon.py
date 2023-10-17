@@ -52,16 +52,19 @@ class TestAccountInvoiceRefundReasonSkipAngloSaxon(TransactionCase):
             )
         )
         invoice_form.partner_id = self.partner
-        with invoice_form.line_ids.new() as invoice_line:
+        with invoice_form.invoice_line_ids.new() as invoice_line:
             invoice_line.product_id = self.product
             invoice_line.price_unit = 15.0
             invoice_line.quantity = 5
-            invoice_line.account_id = (
-                self.fifo_category.property_account_income_categ_id
-            )
+
         invoice = invoice_form.save()
+        invoice.invoice_line_ids.account_id = (
+            self.fifo_category.property_account_income_categ_id
+        )
         invoice.action_post()
-        self.assertTrue(invoice.line_ids.filtered(lambda x: x.is_anglo_saxon_line))
+        self.assertTrue(
+            invoice.invoice_line_ids.filtered(lambda x: x.display_type != "cogs")
+        )
 
         reversal_form = Form(
             self.env["account.move.reversal"].with_context(
@@ -74,7 +77,7 @@ class TestAccountInvoiceRefundReasonSkipAngloSaxon(TransactionCase):
         action = reversal_wizard.reverse_moves()
         refund = self.env["account.move"].browse(action.get("res_id"))
         refund.action_post()
-        self.assertTrue(refund.line_ids.filtered(lambda x: x.is_anglo_saxon_line))
+        self.assertTrue(refund.line_ids.filtered(lambda x: x.display_type == "cogs"))
 
         reversal_form = Form(
             self.env["account.move.reversal"].with_context(
@@ -90,4 +93,4 @@ class TestAccountInvoiceRefundReasonSkipAngloSaxon(TransactionCase):
         #  proposed by MiquelRForgeFlow, I put reason manually
         refund.reason_id = self.refund_reason_skip_anglo_saxon.id
         refund.action_post()
-        self.assertFalse(refund.line_ids.filtered(lambda x: x.is_anglo_saxon_line))
+        self.assertFalse(refund.line_ids.filtered(lambda x: x.display_type == "cogs"))
