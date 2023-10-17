@@ -5,37 +5,38 @@ from odoo.tests import Form, TransactionCase
 
 
 class TestSaleLineRefundToInvoiceQtySkipAngloSaxon(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.partner = self.env["res.partner"].create({"name": "Test"})
-        self.product = self.env["product.product"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.partner = cls.env["res.partner"].create({"name": "Test"})
+        cls.product = cls.env["product.product"].create(
             {"name": "test_product", "type": "consu"}
         )
-        self.order = self.env["sale.order"].create(
+        cls.order = cls.env["sale.order"].create(
             {
-                "partner_id": self.partner.id,
+                "partner_id": cls.partner.id,
                 "order_line": [
                     (
                         0,
                         0,
                         {
-                            "name": self.product.name,
-                            "product_id": self.product.id,
+                            "name": cls.product.name,
+                            "product_id": cls.product.id,
                             "product_uom_qty": 5,
-                            "product_uom": self.product.uom_id.id,
+                            "product_uom": cls.product.uom_id.id,
                             "price_unit": 1000.00,
                         },
                     ),
                 ],
-                "pricelist_id": self.env.ref("product.list0").id,
+                "pricelist_id": cls.env.ref("product.list0").id,
             }
         )
-        self.order.action_confirm()
-        self.order.order_line[0].write({"qty_delivered": 5.0})
-        self.order._create_invoices()
-        self.invoice = self.order.invoice_ids[0]
-        self.invoice.action_post()
-        self.refund_reason_skip_anglo_saxon = self.env[
+        cls.order.action_confirm()
+        cls.order.order_line[0].write({"qty_delivered": 5.0})
+        cls.order._create_invoices()
+        cls.invoice = cls.order.invoice_ids[0]
+        cls.invoice.action_post()
+        cls.refund_reason_skip_anglo_saxon = cls.env[
             "account.move.refund.reason"
         ].create(
             {
@@ -43,7 +44,7 @@ class TestSaleLineRefundToInvoiceQtySkipAngloSaxon(TransactionCase):
                 "skip_anglo_saxon_entries": True,
             }
         )
-        self.refund_reason_not_skip_anglo_saxon = self.env[
+        cls.refund_reason_not_skip_anglo_saxon = cls.env[
             "account.move.refund.reason"
         ].create(
             {
@@ -58,7 +59,13 @@ class TestSaleLineRefundToInvoiceQtySkipAngloSaxon(TransactionCase):
             "active_ids": self.invoice.ids,
         }
         wizard = (
-            self.env["account.move.reversal"].with_context(**context_wizard).create({})
+            self.env["account.move.reversal"]
+            .with_context(**context_wizard)
+            .create(
+                {
+                    "journal_id": self.invoice.journal_id.id,
+                }
+            )
         )
         wizard_form = Form(wizard)
         wizard_form.reason_id = self.refund_reason_skip_anglo_saxon
