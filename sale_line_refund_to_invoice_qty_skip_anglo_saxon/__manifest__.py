@@ -2,7 +2,7 @@
 # Part of ForgeFlow. See LICENSE file for full copyright and licensing details.
 {
     "name": "Sale Line Refund To Invoice Qty Skip Anglo Saxon",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "summary": "Sale Line Refund To Invoice Qty skip anglo saxon.",
     "category": "Accounting",
     "author": "ForgeFlow S.L, " "Odoo Community Association (OCA)",
