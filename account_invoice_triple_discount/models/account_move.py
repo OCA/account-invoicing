@@ -18,7 +18,7 @@ class AccountMove(models.Model):
         old_values_by_line_id = {}
         digits = self.line_ids._fields["price_unit"]._digits
         self.line_ids._fields["price_unit"]._digits = (16, 16)
-        for line in self.line_ids:
+        for line in self.invoice_line_ids:
             aggregated_discount = line._compute_aggregated_discount(line.discount)
             old_values_by_line_id[line.id] = {
                 "price_unit": line.price_unit,
@@ -28,7 +28,7 @@ class AccountMove(models.Model):
             line.update({"price_unit": price_unit, "discount": 0})
         self.line_ids._fields["price_unit"]._digits = digits
         res = super(AccountMove, self)._recompute_tax_lines(**kwargs)
-        for line in self.line_ids:
+        for line in self.invoice_line_ids:
             if line.id not in old_values_by_line_id:
                 continue
             line.update(old_values_by_line_id[line.id])
