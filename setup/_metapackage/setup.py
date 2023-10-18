@@ -39,6 +39,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_refund_reinvoice',
         'odoo14-addon-account_invoice_restrict_linked_so',
         'odoo14-addon-account_invoice_search_by_reference',
+        'odoo14-addon-account_invoice_section_picking',
         'odoo14-addon-account_invoice_section_sale_order',
         'odoo14-addon-account_invoice_supplier_ref_unique',
         'odoo14-addon-account_invoice_supplier_self_invoice',
