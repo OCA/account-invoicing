@@ -55,4 +55,5 @@ class AccountInvoiceRefund(models.TransientModel):
                 dict_line = line._convert_to_write(line._cache)
                 lines.append((0, 0, dict_line))
             res["line_ids"] = lines
+            res["invoice_payment_term_id"] = move.invoice_payment_term_id.id
         return res

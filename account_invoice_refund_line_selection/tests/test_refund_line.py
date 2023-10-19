@@ -60,6 +60,10 @@ class TestInvoiceRefundLine(AccountTestInvoicingCommon):
             refund.invoice_line_ids.product_id,
         )
         self.assertNotEqual(refund.amount_total, self.out_invoice.amount_total)
+        self.assertNotEqual(refund.invoice_payment_term_id, False)
+        self.assertEqual(
+            refund.invoice_payment_term_id, self.out_invoice.invoice_payment_term_id
+        )
 
     def test_total_refund_in_invoice(self):
         """Checking the old functionality"""
@@ -114,6 +118,10 @@ class TestInvoiceRefundLine(AccountTestInvoicingCommon):
             refund.invoice_line_ids.product_id,
         )
         self.assertNotEqual(refund.amount_total, self.out_invoice.amount_total)
+        self.assertNotEqual(refund.invoice_payment_term_id, False)
+        self.assertEqual(
+            refund.invoice_payment_term_id, self.out_invoice.invoice_payment_term_id
+        )
 
     def test_total_refund_out_invoice(self):
         """Checking the old functionality"""
