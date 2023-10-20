@@ -86,13 +86,11 @@ class TestAccountInvoiceLineDescription(TransactionCase):
         cls.invoice_purchase = invoice_purchase.save()
 
     def test_onchange_product_id_sale(self):
-        self.invoice_sale.invoice_line_ids._onchange_product_id()
         self.assertEqual(
             self.product_sale.description_sale, self.invoice_sale.invoice_line_ids.name
         )
 
     def test_onchange_product_id_purchase(self):
-        self.invoice_purchase.invoice_line_ids._onchange_product_id()
         self.assertEqual(
             self.product_purchase.description_purchase,
             self.invoice_purchase.invoice_line_ids.name,
