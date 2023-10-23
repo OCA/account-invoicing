@@ -11,17 +11,12 @@ class AccountPayment(models.Model):
     @api.multi
     def post_and_open_payment(self):
         self.post()
-        res = {
-            'domain': "[('id','in', ["+','.join(map(str, self.ids))+"])]",
-            'name': _('Payments'),
-            'view_type': 'form',
-            'view_mode': 'tree,form',
-            'res_model': 'account.payment',
-            'view_id': False,
-            'context': False,
-            'type': 'ir.actions.act_window'
-        }
-        if len(self.ids) == 1:
-            res['views'] = [(False, 'form')]
-            res['res_id'] = self.id
+        res = dict(
+            domain=[('id', 'in', self.ids)],
+            name=_('Payments'),
+            view_type='form',
+            view_mode='tree,form',
+            res_model='account.payment',
+            type='ir.actions.act_window',
+        )
         return res
