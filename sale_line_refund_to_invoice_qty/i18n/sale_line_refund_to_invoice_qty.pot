@@ -1,0 +1,77 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_line_refund_to_invoice_qty
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-06 15:07+0000\n"
+"PO-Revision-Date: 2022-09-06 15:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_invoice_refund
+msgid "Credit Note"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_invoice_line
+msgid "Invoice Line"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,help:sale_line_refund_to_invoice_qty.field_account_invoice_line__sale_qty_to_reinvoice
+msgid "Leave it marked if you will reinvoice the same sale order line"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,help:sale_line_refund_to_invoice_qty.field_account_invoice_refund__sale_qty_to_reinvoice
+msgid "Leave it marked if you will reinvoice the same sale order line (standard behaviour)"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model_terms:ir.ui.view,arch_db:sale_line_refund_to_invoice_qty.view_account_invoice_refund
+msgid "Leave it marked when other customer invoices are expected for the quantities in the credit note."
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__qty_refunded_not_invoiceable
+msgid "Quantity Refunded Not Invoiceable"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__refund_invoice_line_ids
+msgid "Refund Lines linked to this Sale Order Line"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_invoice_line__refund_sale_line_ids
+msgid "Sale Order Lines linked to this Refund Line"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_invoice_line__sale_qty_to_reinvoice
+msgid "Sale qty to reinvoice"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_invoice_refund__sale_qty_to_reinvoice
+msgid "This credit note will be reinvoiced"
+msgstr ""
+
