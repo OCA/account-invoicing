@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Camptocamp SA
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+  <record id="account_move_apply_tax_change_view_form" model="ir.ui.view">
+    <field name="name">account.move.apply.tax.change.form</field>
+    <field name="model">account.move.apply.tax.change</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="company_id" invisible="1" />
+            <field
+                            name="tax_change_id"
+                            options="{'no_create': True, 'no_edit': True}"
+                        />
+          </group>
+          <group string="Invoices">
+            <field
+                            name="invoice_ids"
+                            options="{'no_create': True, 'no_edit': True}"
+                            nolabel="1"
+                            colspan="2"
+                        />
+          </group>
+          <div class="alert alert-warning" role="alert">
+              Once validated the tax changes cannot be rolled back.
+          </div>
+        </sheet>
+        <footer>
+          <button name="validate" type="object" string="Validate" class="btn-primary" />
+          <button string="Cancel" class="btn-secondary" special="cancel" />
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <act_window id="account_move_apply_tax_change_action"
+      multi="False"
+      name="Apply tax changes"
+      src_model="account.invoice"
+      res_model="account.move.apply.tax.change"
+      view_type="form" view_mode="form"
+      key2="client_action_multi" target="new"
+      groups="account.group_account_invoice"/>
+
+</odoo>
