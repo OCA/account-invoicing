@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="priority">17</field>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='ref']" position="before">
+                <field
+                    name="self_invoice_number"
+                    readonly="1"
+                    attrs="{'invisible':['|', ('move_type', 'not in', ('in_invoice', 'in_refund')), '&amp;', ('state', '=', 'draft'), ('self_invoice_number', '=', False)]}"
+                    groups="base.group_no_one"
+                />
+            </xpath>
+            <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                <field name="can_self_invoice" invisible="1" />
+                <field name="is_self_invoice_number_different" invisible="1" />
+                <field
+                    name="set_self_invoice"
+                    attrs="{'invisible':['|',('can_self_invoice','=',False), ('move_type', 'not in', ('in_invoice', 'in_refund'))], 'readonly': ['|', ('state','!=','draft'), ('self_invoice_number', '!=', False)]}"
+                />
+            </xpath>
+            <!-- Alerts -->
+            <xpath expr="//header" position="after">
+                <div
+                    class="alert alert-info mb-0"
+                    attrs="{'invisible': ['|', '|', '|', ('move_type', 'not in', ('in_invoice', 'in_refund')), ('state', '!=', 'draft'), ('self_invoice_number', '!=', False), ('set_self_invoice', '=', False)]}"
+                    role="alert"
+                >
+                    <span>
+                        This Invoice will generate a new Self-Bill Invoice Number.
+                    </span>
+                </div>
+                <div
+                    class="alert alert-danger mb-0"
+                    attrs="{'invisible': ['|', ('state', '!=', 'posted'), ('is_self_invoice_number_different', '=', False)]}"
+                    role="alert"
+                >
+                    <span>
+                        Self-Bill Invoice Number <strong><field
+                                name="self_invoice_number"
+                            /></strong> is different than Invoice Reference.
+                    </span>
+                </div>
+            </xpath>
+            <!-- Make visible Send & Print button -->
+            <xpath
+                expr="//button[@name='action_invoice_sent'][1]"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'invisible':['|', ('state', '==', 'cancel'), '|', ('is_move_sent', '=', True), '|', ('move_type', 'in', ('entry', 'out_receipt', 'in_receipt')), '&amp;', ('move_type', 'in', ('in_invoice', 'in_refund')), ('set_self_invoice', '=', False)]}</attribute>
+            </xpath>
+            <xpath
+                expr="//button[@name='action_invoice_sent'][2]"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'invisible':['|', ('state', '==', 'cancel'), '|', ('is_move_sent', '=', False), '|', ('move_type', 'in', ('entry', 'out_receipt', 'in_receipt')), '&amp;', ('move_type', 'in', ('in_invoice', 'in_refund')), ('set_self_invoice', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">account.invoice.select</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='to_check']" position="after">
+                <filter
+                    string="Self Invoices"
+                    name="flt_set_self_invoice_true"
+                    domain="[('set_self_invoice', '=', True)]"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
