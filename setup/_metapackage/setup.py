@@ -20,6 +20,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_merge>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_pricelist>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_pricelist_sale>=16.0dev,<16.1dev',
+        'odoo-addon-account_invoice_refund_code>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_refund_line_selection>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_refund_link>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_section_sale_order>=16.0dev,<16.1dev',
