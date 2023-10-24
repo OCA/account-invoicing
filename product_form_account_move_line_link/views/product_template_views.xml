@@ -7,7 +7,6 @@
             name="name"
         >product.template.form (in product_form_account_move_line_link)</field>
         <field name="model">product.template</field>
-        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
         <field name="inherit_id" ref="product.product_template_only_form_view" />
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
@@ -16,11 +15,13 @@
                     name="%(product_form_account_move_line_link.action_account_move_line_product_tree)d"
                     type="action"
                     icon="fa-list"
+                    groups="account.group_account_invoice"
                 >
                     <field
                         string="Journal Items"
                         name="account_move_lines_count"
                         widget="statinfo"
+                        groups="account.group_account_invoice"
                     />
                 </button>
             </div>

@@ -8,7 +8,7 @@ from odoo import api, fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    account_move_lines_count = fields.Float(
+    account_move_lines_count = fields.Integer(
         compute="_compute_account_move_lines_count", string="Invoiced"
     )
 
