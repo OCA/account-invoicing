@@ -7,13 +7,13 @@ from odoo import fields, models
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    account_move_lines_count = fields.Float(
+    account_move_lines_count = fields.Integer(
         compute="_compute_account_move_lines_count", string="Invoiced"
     )
 
     def _compute_account_move_lines_count(self):
         if not self.user_has_groups("account.group_account_invoice") or not self.ids:
-            self.purchase_lines_count = 0.0
+            self.purchase_lines_count = 0
             return
         domain = [
             ("product_id", "in", self.ids),
