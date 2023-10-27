@@ -1,8 +1,7 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.17.1
+_commit: v1.17.2
 _src_path: gh:oca/oca-addons-repo-template
 ci: GitHub
-dependency_installation_mode: PIP
 generate_requirements_txt: true
 github_check_license: true
 github_ci_extra_env: {}
@@ -20,6 +19,4 @@ repo_description: 'TODO: add repo description.'
 repo_name: account-invoicing
 repo_slug: account-invoicing
 repo_website: https://github.com/OCA/account-invoicing
-travis_apt_packages: []
-travis_apt_sources: []
 
