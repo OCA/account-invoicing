@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
         <!-- Queue Job Channel -->
         <record id="invoice_job" model="queue.job.channel">
             <field name="name">Invoice Job</field>
@@ -13,5 +12,4 @@
             <field name="method">create_invoices_job</field>
             <field name="channel_id" ref="invoice_job" />
         </record>
-    </data>
 </odoo>
