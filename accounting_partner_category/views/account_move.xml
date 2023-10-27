@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
-
         <record id="view_move_tree" model="ir.ui.view">
             <field name="name">account.move.tree.category_ids</field>
             <field name="model">account.move</field>
@@ -9,11 +7,11 @@
             <field name="arch" type="xml">
                 <field name="state" position="after">
                     <field
-                        name="category_ids"
-                        optional="hide"
-                        widget="many2many_tags"
-                        options="{'color_field': 'color'}"
-                    />
+                    name="category_ids"
+                    optional="hide"
+                    widget="many2many_tags"
+                    options="{'color_field': 'color'}"
+                />
                 </field>
             </field>
         </record>
@@ -25,11 +23,11 @@
             <field name="arch" type="xml">
                 <field name="state" position="after">
                     <field
-                        name="category_ids"
-                        optional="hide"
-                        widget="many2many_tags"
-                        options="{'color_field': 'color'}"
-                    />
+                    name="category_ids"
+                    optional="hide"
+                    widget="many2many_tags"
+                    options="{'color_field': 'color'}"
+                />
                 </field>
             </field>
         </record>
@@ -41,11 +39,11 @@
             <field name="arch" type="xml">
                 <field name="partner_id" position="after">
                     <field
-                        name="category_ids"
-                        widget="many2many_tags"
-                        options="{'color_field': 'color', 'no_create_edit': True}"
-                        placeholder="Tags..."
-                    />
+                    name="category_ids"
+                    widget="many2many_tags"
+                    options="{'color_field': 'color', 'no_create_edit': True}"
+                    placeholder="Tags..."
+                />
                 </field>
             </field>
         </record>
@@ -57,18 +55,17 @@
             <field name="arch" type="xml">
                 <field name="partner_id" position="after">
                     <field
-                        string="Tag present"
-                        name="category_ids"
-                        filter_domain="[('category_ids','ilike', self)]"
-                    />
+                    string="Tag present"
+                    name="category_ids"
+                    filter_domain="[('category_ids','ilike', self)]"
+                />
                     <field
-                        string="Tag absent"
-                        name="category_ids"
-                        filter_domain="[('category_ids','not ilike', self)]"
-                    />
+                    string="Tag absent"
+                    name="category_ids"
+                    filter_domain="[('category_ids','not ilike', self)]"
+                />
                 </field>
             </field>
         </record>
 
-    </data>
 </odoo>
