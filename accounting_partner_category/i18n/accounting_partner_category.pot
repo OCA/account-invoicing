@@ -46,11 +46,6 @@ msgid "Contact"
 msgstr ""
 
 #. module: accounting_partner_category
-#: model_terms:ir.ui.view,arch_db:accounting_partner_category.view_accounting_partner_category_list
-msgid "Contact Tags"
-msgstr ""
-
-#. module: accounting_partner_category
 #: model_terms:ir.actions.act_window,help:accounting_partner_category.action_accounting_partner_category
 msgid "Create a new accounting partner tag"
 msgstr ""
