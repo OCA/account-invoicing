@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-29 10:09+0000\n"
+"PO-Revision-Date: 2023-10-29 10:31+0000\n"
 "Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -153,7 +153,7 @@ msgstr "Validación no iniciada"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validation_status
 msgid "Validation Status"
-msgstr ""
+msgstr "Estado de la Validación"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
