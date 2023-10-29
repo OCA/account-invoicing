@@ -336,7 +336,6 @@ msgstr "Wanneer aangevinkt, zijn er nieuwe berichten met acties."
 
 #. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing__message_has_error
-#: model:ir.model.fields,help:account_billing.field_account_billing__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Wanneer aangevinkt, zijn er berichten met een foutmelding."
 
@@ -510,11 +509,6 @@ msgid "Relationship between invoice and billing"
 msgstr "Relatie tussen factuur en verzamelfacturen"
 
 #. module: account_billing
-#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "SMS leverfout"
-
-#. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
 msgid "Search Billings"
 msgstr "Zoek verzamelfacturen"
@@ -603,3 +597,6 @@ msgstr "Website berichten"
 #: model:ir.model.fields,help:account_billing.field_account_billing__website_message_ids
 msgid "Website communication history"
 msgstr "Website communicatie geschiedenis"
+
+#~ msgid "SMS Delivery error"
+#~ msgstr "SMS leverfout"
