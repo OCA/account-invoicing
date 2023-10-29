@@ -172,6 +172,11 @@ msgid "Validation Not Started"
 msgstr ""
 
 #. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validation_status
+msgid "Validation Status"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
 msgid "Validations"
 msgstr ""
