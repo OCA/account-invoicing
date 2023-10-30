@@ -41,14 +41,16 @@ class AccountMove(models.Model):
                 if same_supplier_inv_num:
                     raise ValidationError(
                         _(
-                            "The invoice/refund with supplier invoice number {} "
-                            "already exists in Odoo under the number {} "
-                            "for supplier {}."
-                        ).format(
-                            same_supplier_inv_num.supplier_invoice_number,
-                            same_supplier_inv_num.name or "-",
-                            same_supplier_inv_num.partner_id.display_name,
+                            "The invoice/refund with supplier "
+                            "invoice number %(invoice_number)s "
+                            "already exists in Odoo under the number %(name)s "
+                            "for supplier %(partner)s."
                         )
+                        % {
+                            "invoice_number": same_supplier_inv_num.supplier_invoice_number,
+                            "name": same_supplier_inv_num.name or "-",
+                            "partner": same_supplier_inv_num.partner_id.display_name,
+                        }
                     )
 
     @api.onchange("supplier_invoice_number")
