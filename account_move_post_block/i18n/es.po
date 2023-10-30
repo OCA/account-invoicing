@@ -20,7 +20,8 @@ msgstr ""
 #: model:res.groups,comment:account_move_post_block.group_journal_entry_post_block
 msgid ""
 "\n"
-"            The user will be able to release a Journal Entry blocked for post.\n"
+"            The user will be able to release a Journal Entry blocked for "
+"post.\n"
 "        "
 msgstr ""
 "\n"
@@ -82,20 +83,20 @@ msgstr "Mostrar Nombre"
 #. module: account_move_post_block
 #: code:addons/account_move_post_block/models/account_move.py:0
 #, python-format
+msgid "Entry \"%(move_name)s\" blocked with reason%(reason)s"
+msgstr ""
+
+#. module: account_move_post_block
+#: code:addons/account_move_post_block/models/account_move.py:0
+#, python-format
 msgid "Entry \"%s\" post block released."
 msgstr "Entrada \"%s\" postbloqueo liberado."
 
 #. module: account_move_post_block
 #: code:addons/account_move_post_block/models/account_move.py:0
 #, python-format
-msgid "Entry \"{}\" blocked with reason{}"
-msgstr "Entrada \"{}\" bloqueada con motivo{}"
-
-#. module: account_move_post_block
-#: code:addons/account_move_post_block/models/account_move.py:0
-#, python-format
-msgid "Entry {} blocked with reason {}"
-msgstr "Entrada {} bloqueada con motivo {}"
+msgid "Entry %(move_name)s blocked with reason %(reason)s"
+msgstr ""
 
 #. module: account_move_post_block
 #: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason__id
@@ -161,3 +162,11 @@ msgstr "Liberar bloqueo de poste"
 #: model:exception.rule,description:account_move_post_block.am_excep_post_block
 msgid "The post has been blocked with a Blocking reason"
 msgstr "El mensaje ha sido bloqueado con un motivo de bloqueo"
+
+#, python-format
+#~ msgid "Entry \"{}\" blocked with reason{}"
+#~ msgstr "Entrada \"{}\" bloqueada con motivo{}"
+
+#, python-format
+#~ msgid "Entry {} blocked with reason {}"
+#~ msgstr "Entrada {} bloqueada con motivo {}"
