@@ -11,13 +11,16 @@ class AccountMove(models.Model):
     invoice_warn_msg = fields.Text(compute="_compute_invoice_warn_msg")
 
     @api.depends(
-        "type", "state", "partner_id.invoice_warn", "partner_id.parent_id.invoice_warn"
+        "move_type",
+        "state",
+        "partner_id.invoice_warn",
+        "partner_id.parent_id.invoice_warn",
     )
     def _compute_invoice_warn_msg(self):
         for rec in self:
             if (
                 rec.partner_id
-                and rec.type in ("out_invoice", "out_refund")
+                and rec.move_type in ("out_invoice", "out_refund")
                 and rec.state == "draft"
             ):
                 if (
