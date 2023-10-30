@@ -29,8 +29,8 @@ msgstr ""
 #: code:addons/account_invoice_supplier_ref_unique/models/account_move.py:0
 #, python-format
 msgid ""
-"The invoice/refund with supplier invoice number {} already exists in Odoo "
-"under the number {} for supplier {}."
+"The invoice/refund with supplier invoice number %(invoice_number)s already "
+"exists in Odoo under the number %(name)s for supplier %(partner)s."
 msgstr ""
 
 #. module: account_invoice_supplier_ref_unique

@@ -28,11 +28,9 @@ msgstr "Entrada Diaria"
 #: code:addons/account_invoice_supplier_ref_unique/models/account_move.py:0
 #, python-format
 msgid ""
-"The invoice/refund with supplier invoice number {} already exists in Odoo "
-"under the number {} for supplier {}."
+"The invoice/refund with supplier invoice number %(invoice_number)s already "
+"exists in Odoo under the number %(name)s for supplier %(partner)s."
 msgstr ""
-"La factura/reembolso con el número de factura del proveedor {} ya existe en "
-"Odoo con el número {} para el proveedor {}."
 
 #. module: account_invoice_supplier_ref_unique
 #: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_bank_statement_line__supplier_invoice_number
@@ -40,6 +38,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_supplier_ref_unique.field_account_payment__supplier_invoice_number
 msgid "Vendor invoice number"
 msgstr "Número de factura de proveedor"
+
+#, python-format
+#~ msgid ""
+#~ "The invoice/refund with supplier invoice number {} already exists in Odoo "
+#~ "under the number {} for supplier {}."
+#~ msgstr ""
+#~ "La factura/reembolso con el número de factura del proveedor {} ya existe "
+#~ "en Odoo con el número {} para el proveedor {}."
 
 #~ msgid "Journal Entries"
 #~ msgstr "Entradas Diarias"
