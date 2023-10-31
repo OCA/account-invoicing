@@ -26,11 +26,16 @@ msgstr ""
 "                        &amp;nbsp;"
 
 #. module: account_invoice_warn_message
+#: model:ir.model.fields,field_description:account_invoice_warn_message.field_account_bank_statement_line__invoice_warn_msg
 #: model:ir.model.fields,field_description:account_invoice_warn_message.field_account_move__invoice_warn_msg
+#: model:ir.model.fields,field_description:account_invoice_warn_message.field_account_payment__invoice_warn_msg
 msgid "Invoice Warn Msg"
 msgstr "Mensaje Aviso Factura"
 
 #. module: account_invoice_warn_message
 #: model:ir.model,name:account_invoice_warn_message.model_account_move
-msgid "Journal Entries"
-msgstr "Asientos contables"
+msgid "Journal Entry"
+msgstr ""
+
+#~ msgid "Journal Entries"
+#~ msgstr "Asientos contables"
