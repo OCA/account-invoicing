@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2023-10-31 09:39+0000\n"
+"PO-Revision-Date: 2023-11-02 09:38+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -202,7 +202,7 @@ msgstr "Fornitore"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__supplierinfo_id
 msgid "Supplierinfo"
-msgstr "Listino di acquisto"
+msgstr "Informazioni fornitore"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_min_quantity
