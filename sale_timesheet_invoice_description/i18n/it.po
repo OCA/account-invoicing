@@ -9,38 +9,39 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-20 03:39+0000\n"
-"PO-Revision-Date: 2017-12-20 03:39+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"PO-Revision-Date: 2023-11-02 17:40+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_account_analytic_line
 msgid "Analytic Line"
-msgstr ""
+msgstr "Riga analitica"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Impostazioni configurazione"
 
 #. module: sale_timesheet_invoice_description
 #. odoo-python
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Date - Description"
-msgstr ""
+msgstr "Data - descrizione"
 
 #. module: sale_timesheet_invoice_description
 #. odoo-python
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Date - Time spent - Description"
-msgstr ""
+msgstr "Data - tempo impiegato - descrizione"
 
 #. module: sale_timesheet_invoice_description
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_invoice_description.view_sales_config_inherit_timesheet_invoice_description
@@ -57,22 +58,22 @@ msgstr "Descrizione"
 #. module: sale_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_analytic_line__timesheet_invoice_line_id
 msgid "Invoice Line"
-msgstr ""
+msgstr "Riga fattura"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model.fields,help:sale_timesheet_invoice_description.field_account_analytic_line__timesheet_invoice_line_id
 msgid "Invoice line created from the timesheet"
-msgstr ""
+msgstr "Riga fattura creata dai fogli ore"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Movimento contabile"
 
 #. module: sale_timesheet_invoice_description
 #. odoo-python
@@ -83,14 +84,13 @@ msgstr "Nessuno"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order
-#, fuzzy
 msgid "Sales Order"
-msgstr "Linea d'ordine di vendita"
+msgstr "Ordine di vendita"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Linea d'ordine di vendita"
+msgstr "Riga ordine di vendita"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_invoice_split
@@ -103,7 +103,7 @@ msgstr ""
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Time spent - Description"
-msgstr ""
+msgstr "Tempo impiegato - descrizione"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_invoice_description
@@ -115,4 +115,4 @@ msgstr ""
 #. module: sale_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_ids
 msgid "Timesheets"
-msgstr ""
+msgstr "Fogli ore"
