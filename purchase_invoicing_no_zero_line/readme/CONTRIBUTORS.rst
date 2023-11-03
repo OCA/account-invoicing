@@ -2,3 +2,4 @@
 * `Tecnativa <https://www.tecnativa.com>`_:
 
   * Carlos Roca
+* Florian da Costa <florian.dacosta@akretion.com>

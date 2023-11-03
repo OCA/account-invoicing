@@ -14,8 +14,8 @@ class AccountMove(models.Model):
         after the creation of the lines, delete the zero qty lines
         if the journal is marked as such
         """
-        purchase = self.purchase_id or self.purchase_vendor_bill_id.purchase_order_id
-        super()._onchange_purchase_auto_complete()
+        purchase = self.purchase_vendor_bill_id.purchase_order_id
+        res = super()._onchange_purchase_auto_complete()
         if purchase and self.journal_id and self.journal_id.avoid_zero_lines:
             zero_lines = self.invoice_line_ids.filtered(
                 lambda x: float_is_zero(
@@ -24,9 +24,5 @@ class AccountMove(models.Model):
                 )
                 and x.purchase_line_id.order_id == purchase
             )
-            # The bellow lines are needed for delete the invoice lines, the first one
-            # is used when the invoice is created manually, using the field
-            # purchase_vendor_bill_id and the other one when the invoice is created
-            # using the button "Create Bill" on the purchase orders.
             self.invoice_line_ids -= zero_lines
-            self.line_ids -= zero_lines
+        return res

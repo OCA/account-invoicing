@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import fields
-from odoo.tests.common import Form, SavepointCase
+from odoo.tests.common import Form, TransactionCase
 
 
-class TestPurchaseInvoicingNoZeroLine(SavepointCase):
+class TestPurchaseInvoicingNoZeroLine(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -16,7 +16,7 @@ class TestPurchaseInvoicingNoZeroLine(SavepointCase):
             {
                 "name": "Account Payable",
                 "code": "ACP",
-                "user_type_id": cls.env.ref("account.data_account_type_payable").id,
+                "account_type": "liability_payable",
                 "reconcile": True,
             }
         )
@@ -31,7 +31,7 @@ class TestPurchaseInvoicingNoZeroLine(SavepointCase):
             {
                 "name": "Account Expense",
                 "code": "ACE",
-                "user_type_id": cls.env.ref("account.data_account_type_expenses").id,
+                "account_type": "expense",
             }
         )
         cls.product1 = cls.env["product.product"].create(
@@ -82,23 +82,30 @@ class TestPurchaseInvoicingNoZeroLine(SavepointCase):
             }
         )
 
+    def _create_invoice_from_po_ref(self, po=False):
+        if not po:
+            po = self.purchase_order
+        supplier_form = self.env.ref("account.view_move_form")
+        invoice_form = Form(
+            self.env["account.move"].with_context(default_move_type="in_invoice"),
+            view=supplier_form,
+        )
+
+        invoice_form.purchase_vendor_bill_id = self.env["purchase.bill.union"].browse(
+            -po.id
+        )
+        invoice = invoice_form.save()
+        return invoice
+
     def test_01_all_lines(self):
         self.purchase_order.button_confirm()
         self.purchase_order.order_line[0].qty_received = 5
-        view = self.purchase_order.with_context(create_bill=True).action_view_invoice()
-        context = view["context"]
-        invoice = Form(self.env["account.move"].with_context(context)).save()
+        invoice = self._create_invoice_from_po_ref()
         self.assertEqual(len(invoice.invoice_line_ids), 2)
 
     def test_02_no_zero_lines(self):
         self.journal.avoid_zero_lines = True
         self.purchase_order.button_confirm()
         self.purchase_order.order_line[0].qty_received = 5
-        view = self.purchase_order.with_context(create_bill=True).action_view_invoice()
-        context = view["context"]
-        invoice = Form(self.env["account.move"].with_context(context)).save()
+        invoice = self._create_invoice_from_po_ref()
         self.assertEqual(len(invoice.invoice_line_ids), 1)
-        view = self.purchase_order.with_context(create_bill=True).action_view_invoice()
-        context = view["context"]
-        invoice = Form(self.env["account.move"].with_context(context)).save()
-        self.assertEqual(len(invoice.invoice_line_ids), 0)
