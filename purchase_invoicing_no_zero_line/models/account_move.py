@@ -19,7 +19,8 @@ class AccountMove(models.Model):
         if purchase and self.journal_id and self.journal_id.avoid_zero_lines:
             zero_lines = self.invoice_line_ids.filtered(
                 lambda x: float_is_zero(
-                    x.quantity, precision_rounding=x.product_uom_id.rounding,
+                    x.quantity,
+                    precision_rounding=x.product_uom_id.rounding,
                 )
                 and x.purchase_line_id.order_id == purchase
             )
