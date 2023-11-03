@@ -70,6 +70,10 @@ class Tests(TransactionCase):
         self.assertEqual(len(line_ids), 2)
         self.assertEqual(line_ids[0][2]["current_price"], False)
         self.assertEqual(line_ids[0][2]["new_price"], 400.0)
+        self.assertEqual(line_ids[0][2]["current_min_quantity"], 0.0)
+
+        # Change values
+        line_ids[0][2]["new_min_quantity"] = 6.0
 
         # Create and launch update process
         wizard = self.wizard_obj.create(
@@ -90,6 +94,7 @@ class Tests(TransactionCase):
         )
         self.assertEqual(len(supplierinfos1), 1)
         self.assertEqual(supplierinfos1.currency_id, self.currency)
+        self.assertEqual(supplierinfos1.min_qty, 6.0)
 
         self.assertEqual(supplierinfos1.price, 400.0)
 
