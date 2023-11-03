@@ -8,7 +8,7 @@
     'summary': 'In the supplier invoice, automatically updates all products '
                'whose unit price on the line is different from '
                'the supplier price',
-    'version': '12.0.1.0.2',
+    'version': '12.0.1.0.3',
     'category': 'Accounting & Finance',
     'website': 'https://github.com/OCA/account-invoicing',
     'author':
