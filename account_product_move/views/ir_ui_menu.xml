@@ -10,7 +10,7 @@
         id="menu_product_move"
         name="Extra Product Moves"
         action="account_product_move_act_window"
-        parent="account.menu_finance_entries_accounting_journals"
+        parent="account.menu_finance_entries_accounting_miscellaneous"
         groups="account.group_account_user"
         sequence="100"
     />
