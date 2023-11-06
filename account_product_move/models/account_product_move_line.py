@@ -59,7 +59,9 @@ class AccountProductMoveLine(models.Model):
                 )
 
     @api.constrains(
-        "currency_id", "percentage_debit", "percentage_credit",
+        "currency_id",
+        "percentage_debit",
+        "percentage_credit",
     )
     def _check_no_percentage_currency(self):
         """Do not use percentages of cost price with currency conversion."""
@@ -76,7 +78,7 @@ class AccountProductMoveLine(models.Model):
         self.ensure_one()
         vals.update({"name": self.move_id.name, "account_id": self.account_id.id})
         quantity = line.quantity
-        invoice_type = line.move_id.type
+        invoice_type = line.move_id.move_type
         standard_price = line.product_id.standard_price
         if self.debit or self.percentage_debit:
             credit = 0.0
@@ -100,4 +102,7 @@ class AccountProductMoveLine(models.Model):
         else:
             vals["amount_currency"] = debit - credit
             vals["currency_id"] = self.currency_id.id
+        if not vals.get("currency_id"):
+            # Allow the line to be created
+            vals["currency_id"] = line.currency_id.id
         return vals

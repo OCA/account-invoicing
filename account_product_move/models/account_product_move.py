@@ -79,20 +79,27 @@ class AccountProductMove(models.Model):
             if not float_is_zero(debit - credit, 3):
                 raise ValidationError(
                     _(
-                        "Cannot create unbalanced product move for currency %s.\n"
-                        "Debit = %s, credit = %s."
+                        "Cannot create unbalanced product move for currency "
+                        "%(currency_name)s.\n"
+                        "Debit = %(debit)s, credit = %(credit)s."
                     )
-                    % (currency_name, debit, credit)
+                    % {"currency_name": currency_name, "debit": debit, "credit": credit}
                 )
             percentage_debit = currency_entry["percentage_debit"]
             percentage_credit = currency_entry["percentage_credit"]
             if not float_is_zero(percentage_debit - percentage_credit, 3):
                 raise ValidationError(
                     _(
-                        "Cannot create unbalanced product move for currency %s.\n"
-                        "Debit percentage = %s, credit percentage = %s."
+                        "Cannot create unbalanced product move for currency "
+                        "%(currency_name)s.\n"
+                        "Debit percentage = %(percentage_debit)s, "
+                        "credit percentage = %(percentage_credit)s."
                     )
-                    % (currency_name, percentage_debit, percentage_credit)
+                    % {
+                        "currency_name": currency_name,
+                        "percentage_debit": percentage_debit,
+                        "percentage_credit": percentage_credit,
+                    }
                 )
 
     def _collect_lines_per_currency(self):

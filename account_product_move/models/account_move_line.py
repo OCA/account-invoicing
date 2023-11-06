@@ -29,7 +29,7 @@ class AccountMoveLine(models.Model):
         """Values for creation of extra product move."""
         self.ensure_one()
         return {
-            "type": "entry",
+            "move_type": "entry",
             "ref": self.move_id.name,
             "journal_id": product_move.journal_id.id,
             "partner_id": self.move_id.partner_id.id,
@@ -64,7 +64,7 @@ class AccountMoveLine(models.Model):
         for product_move_line in product_move.line_ids:
             vals = self._prepare_move_line_vals(product_move_line, extra_move)
             extra_move_line = self.with_context(check_move_validity=False).create(vals)
-            extra_move_line._onchange_currency()
+            extra_move_line._compute_currency_id()
 
     def _prepare_move_line_vals(self, product_move_line, extra_move):
         """Prepare vals for extra move line."""

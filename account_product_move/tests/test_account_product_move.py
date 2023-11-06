@@ -353,7 +353,7 @@ class TestAccountProductMove(TransactionCase):
         """Make fresh invoice for each test."""
         invoice = self.env["account.move"].create(
             {
-                "type": "out_invoice",
+                "move_type": "out_invoice",
                 "date": fields.Date.today(),
                 "partner_id": self.partner_01.id,
                 "line_ids": [

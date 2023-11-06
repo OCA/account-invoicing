@@ -18,7 +18,8 @@ class AccountMove(models.Model):
         "a product connected to an account.product.move record",
     )
     product_move_count = fields.Float(
-        string="Number of extra moves", compute="_compute_product_move_count",
+        string="Number of extra moves",
+        compute="_compute_product_move_count",
     )
     invoice_move_id = fields.Many2one(
         comodel_name="account.move",
@@ -48,10 +49,10 @@ class AccountMove(models.Model):
             "domain": [("id", "in", self.product_move_ids.ids)],
         }
 
-    def post(self):
-        res = super().post()
+    def _post(self, soft=True):
+        res = super()._post(soft=soft)
         for invoice in self:
-            if invoice.type not in ["out_invoice", "out_refund"]:
+            if invoice.move_type not in ["out_invoice", "out_refund"]:
                 continue
             # Remove previous lines
             invoice.product_move_ids.line_ids.unlink()
