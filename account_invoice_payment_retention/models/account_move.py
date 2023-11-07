@@ -1,7 +1,7 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import Command, _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -84,7 +84,9 @@ class AccountMove(models.Model):
                 ("partner_id", "=", self.partner_id.id),
             ]
             move_lines = self.env["account.move.line"].search(dom)
-            self.domain_retained_move_ids = [(6, 0, move_lines.mapped("move_id").ids)]
+            self.domain_retained_move_ids = [
+                Command.set(move_lines.mapped("move_id").ids)
+            ]
 
     @api.model
     def _move_lines_retained_moves(self, retained_moves):
@@ -104,14 +106,13 @@ class AccountMove(models.Model):
 
     @api.onchange("retained_move_ids")
     def _onchange_retained_move_ids(self):
-        self.line_ids = False
+        self.invoice_line_ids = False
         self.payment_retention = False
         if self.retained_move_ids:
             lines = self._move_lines_retained_moves(self.retained_move_ids)
             for line in lines:
-                self.env["account.move.line"].new(line)
+                self.invoice_line_ids += self.env["account.move.line"].new(line)
         self.currency_id = self.env.company.currency_id
-        self._recompute_dynamic_lines()
 
     @api.depends(
         "payment_retention",
@@ -126,23 +127,19 @@ class AccountMove(models.Model):
             if rec.payment_retention == "amount":
                 retention_amount = rec.amount_retention
             elif rec.payment_retention == "percent":
-                amount = 0.0
-                if rec.retention_method == "untax":
-                    # Ensure working with purchase deposit, sum only positive qty lines
-                    amount = sum(
-                        rec.invoice_line_ids.filtered(lambda l: l.quantity > 0).mapped(
-                            "amount_currency"
-                        )
+                # Ensure working with purchase deposit, sum only positive qty lines
+                amount = sum(
+                    rec.invoice_line_ids.filtered(lambda l: l.quantity > 0).mapped(
+                        "amount_currency"
                     )
-                elif rec.retention_method == "total":
+                )
+                if rec.retention_method == "total":
                     # Ensure working with purchase deposit, sum only positive qty lines
                     # and not Payable or Receivable account
-                    amount = sum(
-                        rec.line_ids.filtered(
-                            lambda l: l.quantity > 0
-                            and l.account_id.internal_type
-                            not in ["payable", "receivable"]
-                        ).mapped("amount_currency")
+                    amount += sum(
+                        rec.line_ids.filtered(lambda l: l.display_type == "tax").mapped(
+                            "amount_currency"
+                        )
                     )
                 sign = 1 if rec.move_type in ["in_invoice", "out_refund"] else -1
                 retention_amount = sign * (amount * rec.amount_retention / 100)
@@ -219,17 +216,10 @@ class AccountMoveLine(models.Model):
     def _prepare_retained_move_lines(self, move):
         self.ensure_one()
         copied_vals = self.copy_data()[0]
-        debit = copied_vals["debit"]
-        credit = copied_vals["credit"]
         copied_vals.update(
             {
-                "debit": credit,
-                "credit": debit,
-                "amount_currency": False,
-                "currency_id": False,
-                "move_id": move.id,
-                "price_unit": credit + debit,
-                "price_subtotal": copied_vals["quantity"] * copied_vals["price_unit"],
+                "price_unit": abs(copied_vals["balance"]),
+                "currency_id": move.currency_id.id,
             }
         )
         return copied_vals
