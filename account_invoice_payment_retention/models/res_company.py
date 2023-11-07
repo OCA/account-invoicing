@@ -10,12 +10,24 @@ class ResCompany(models.Model):
 
     retention_account_id = fields.Many2one(
         comodel_name="account.account",
-        domain=[("user_type_id.type", "=", "other")],
+        domain=[
+            (
+                "account_type",
+                "not in",
+                ["asset_receivable", "asset_cash", "liability_payable"],
+            ),
+        ],
         help="Retention account used for case payment retention",
     )
     retention_receivable_account_id = fields.Many2one(
         comodel_name="account.account",
-        domain=[("user_type_id.type", "=", "other")],
+        domain=[
+            (
+                "account_type",
+                "not in",
+                ["asset_receivable", "asset_cash", "liability_payable"],
+            ),
+        ],
         help="Retention account used for case payment retention",
     )
     retention_method = fields.Selection(

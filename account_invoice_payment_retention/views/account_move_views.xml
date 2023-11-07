@@ -14,13 +14,9 @@
                 <div
                     class="d-flex"
                     groups="account_invoice_payment_retention.group_payment_retention"
-                    attrs="{'invisible': [('move_type', '=', 'entry')]}"
+                    attrs="{'invisible': ['|', ('retained_move_ids', '!=', []), ('move_type', '=', 'entry')]}"
                 >
-                    <field
-                        name="payment_retention"
-                        class="oe_edit_only"
-                        attrs="{'invisible': [('retained_move_ids', '!=', [])]}"
-                    />
+                    <field name="payment_retention" class="oe_edit_only" />
                     <field
                         class="oe_edit_only"
                         name="retention_method"
