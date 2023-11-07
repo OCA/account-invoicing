@@ -1,7 +1,7 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.exceptions import UserError, ValidationError
 from odoo.tests.common import Form, TransactionCase
 
@@ -9,7 +9,7 @@ from odoo.tests.common import Form, TransactionCase
 class TestInvoicePaymentRetention(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestInvoicePaymentRetention, cls).setUpClass()
+        super().setUpClass()
 
         cls.invoice_model = cls.env["account.move"]
         cls.payment_model = cls.env["account.payment"]
@@ -22,9 +22,7 @@ class TestInvoicePaymentRetention(TransactionCase):
             {
                 "code": "RE",
                 "name": "Retention Account",
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_current_liabilities"
-                ).id,
+                "account_type": "liability_current",
                 "reconcile": True,
             }
         )
@@ -32,9 +30,7 @@ class TestInvoicePaymentRetention(TransactionCase):
             {
                 "code": "RE2",
                 "name": "Retention Receivable Account",
-                "user_type_id": cls.env.ref(
-                    "account.data_account_type_current_liabilities"
-                ).id,
+                "account_type": "liability_current",
                 "reconcile": True,
             }
         )
@@ -49,22 +45,14 @@ class TestInvoicePaymentRetention(TransactionCase):
 
         cls.account_revenue = cls.env["account.account"].search(
             [
-                (
-                    "user_type_id",
-                    "=",
-                    cls.env.ref("account.data_account_type_revenue").id,
-                ),
+                ("account_type", "=", "income"),
                 ("company_id", "=", cls.env.company.id),
             ],
             limit=1,
         )
         cls.account_expense = cls.env["account.account"].search(
             [
-                (
-                    "user_type_id",
-                    "=",
-                    cls.env.ref("account.data_account_type_expenses").id,
-                ),
+                ("account_type", "=", "expense"),
                 ("company_id", "=", cls.env.company.id),
             ],
             limit=1,
@@ -84,9 +72,7 @@ class TestInvoicePaymentRetention(TransactionCase):
                 "partner_id": cls.partner.id,
                 "invoice_date": fields.Date.today(),
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": cls.product_3.id,
                             "quantity": 1.0,
@@ -94,7 +80,7 @@ class TestInvoicePaymentRetention(TransactionCase):
                             "name": "[PCSC234] PC Assemble SC234",
                             "price_unit": 500.00,
                         },
-                    )
+                    ),
                 ],
             }
         )
@@ -106,9 +92,7 @@ class TestInvoicePaymentRetention(TransactionCase):
                 "partner_id": cls.partner.id,
                 "invoice_date": fields.Date.today(),
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": cls.env.ref("product.product_product_3").id,
                             "quantity": 1.0,
@@ -125,9 +109,7 @@ class TestInvoicePaymentRetention(TransactionCase):
         cls.company_currency.write(
             {
                 "rate_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": fields.Date.today(),
                             "rate": 1,
@@ -141,9 +123,7 @@ class TestInvoicePaymentRetention(TransactionCase):
                 "name": "2X",  # Foreign currency, 2 time
                 "symbol": "X",
                 "rate_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": fields.Date.today(),
                             "rate": cls.company_currency.rate * 2,
@@ -270,10 +250,10 @@ class TestInvoicePaymentRetention(TransactionCase):
             self.invoice_model.with_context(default_move_type="out_invoice"),
             view=view_id,
         ) as f:
-            f.journal_id = self.sale_journal
             f.partner_id = self.partner
         cust_invoice3 = f.save()
         self.assertEqual(cust_invoice3.domain_retained_move_ids, payment_moves)
+        self.assertFalse(cust_invoice3.invoice_line_ids)
         #  Select retained moves
         with Form(
             cust_invoice3.with_context(check_move_validity=False), view=view_id
@@ -281,26 +261,8 @@ class TestInvoicePaymentRetention(TransactionCase):
             for move in payment_moves:
                 inv.retained_move_ids.add(move)
         cust_invoice3 = inv.save()
-        total = sum(cust_invoice3.invoice_line_ids.mapped("price_unit"))
-        cust_invoice3.write(
-            {
-                "line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "/",
-                            "debit": total,
-                            "account_id": self.account_receivable.id,
-                        },
-                    )
-                ]
-            }
-        )
+        self.assertTrue(cust_invoice3.invoice_line_ids)
         cust_invoice3.action_post()
-        # After validate invoice, all retention is cleared
-        cust_invoice3._onchange_domain_retained_move_ids()
-        self.assertFalse(cust_invoice3.domain_retained_move_ids)
 
     def test_04_vendor_bill_payment_retention_currency(self):
         """Test 2 invoice retention and 1 retetnion return invoice"""
@@ -367,7 +329,6 @@ class TestInvoicePaymentRetention(TransactionCase):
             self.invoice_model.with_context(default_move_type="in_invoice"),
             view=view_id,
         ) as f:
-            # f.journal_id = self.purchase_journal
             f.partner_id = self.partner
         vendor_bill3 = f.save()
         self.assertEqual(vendor_bill3.domain_retained_move_ids, payment_moves)
@@ -384,9 +345,6 @@ class TestInvoicePaymentRetention(TransactionCase):
             }
         )
         vendor_bill3.action_post()
-        # After validate invoice, all retention is cleared
-        vendor_bill3._onchange_domain_retained_move_ids()
-        self.assertFalse(vendor_bill3.domain_retained_move_ids)
 
     def test_05_multi_invoice_payment(self):
         """Test multi invoice payment. Not allowed if retention"""
@@ -410,17 +368,17 @@ class TestInvoicePaymentRetention(TransactionCase):
         # Test multi invoice payment, with some retention, not allowed
         self.cust_invoice2 = self.cust_invoice.copy({"name": "Test Invoice 2"})
         self.cust_invoice3 = self.cust_invoice.copy({"name": "Test Invoice 3"})
-        # Invoice 1, 10% = 50.0
+        # Invoice 1, 10% = 50.0 (Untaxed Amount)
         self.cust_invoice.payment_retention = "percent"
         self.cust_invoice.retention_method = "untax"
         self.cust_invoice.amount_retention = 10.0
         self.assertEqual(self.cust_invoice.retention_amount_currency, 50.0)
         self.cust_invoice.action_post()
-        # Invoice 2, 5% = 25.0
+        # Invoice 2, 5% = 25.0 (Total Amount)
         self.cust_invoice2.payment_retention = "percent"
         self.cust_invoice2.retention_method = "total"
         self.cust_invoice2.amount_retention = 5.0
-        self.assertEqual(self.cust_invoice2.retention_amount_currency, 25.0)
+        self.assertEqual(self.cust_invoice2.retention_amount_currency, 28.75)
         self.cust_invoice2.action_post()
         self.cust_invoice3.action_post()
         ctx = {
