@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
 from odoo import _, models
+from odoo.tools import groupby
 
 
 class StockPicking(models.Model):
@@ -24,24 +25,19 @@ class StockPicking(models.Model):
 
     def _invoicing_at_shipping(self):
         self.ensure_one()
-        sales = self.env["sale.order"].browse()
+        SALE = self.env["sale.order"]
+        sales = SALE.browse()
         # Filter out non invoicable sales order
-        for sale in self._get_sales_order_to_invoice():
-            if sale._get_invoiceable_lines():
-                sales |= sale
-        # Split invoice creation on partner sales grouping on invoice settings
-        sales_one_invoice_per_order = sales.filtered(
-            "partner_invoice_id.one_invoice_per_order"
-        )
-        invoices = self.env["account.move"].browse()
-        if sales_one_invoice_per_order:
-            invoices |= sales_one_invoice_per_order._create_invoices(grouped=True)
-        sales_many_invoice_per_order = sales - sales_one_invoice_per_order
-        if sales_many_invoice_per_order:
-            invoices |= sales_many_invoice_per_order._create_invoices(grouped=False)
-        for invoice in invoices:
-            invoice.with_delay()._validate_invoice()
-        return invoices or _("Nothing to invoice.")
+        sales = self._get_sales_order_to_invoice()
+        invoice_ids = set()
+        for _partner_invoice, sale_orders in groupby(
+            sales, lambda sale_order: sale_order.partner_invoice_id
+        ):
+            sale_order_ids = SALE.union(*sale_orders).ids
+            invoice_ids = invoice_ids.union(
+                set(SALE._generate_invoices_by_partner(sale_order_ids).ids)
+            )
+        return self.env["account.move"].browse(invoice_ids) or _("Nothing to invoice.")
 
     def _get_sales_order_to_invoice(self):
         return self.mapped("move_lines.sale_line_id.order_id").filtered(

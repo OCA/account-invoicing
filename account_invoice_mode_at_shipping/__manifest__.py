@@ -11,5 +11,5 @@
     "data": [
         "data/queue_job_data.xml",
     ],
-    "depends": ["account", "account_invoice_base_invoicing_mode", "queue_job", "stock"],
+    "depends": ["account_invoice_base_invoicing_mode", "stock"],
 }

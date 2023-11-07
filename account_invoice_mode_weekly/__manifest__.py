@@ -9,11 +9,7 @@
     "license": "AGPL-3",
     "category": "Accounting & Finance",
     "depends": [
-        "account",
         "account_invoice_base_invoicing_mode",
-        "queue_job",
-        "sale",
-        "stock",  # For unit tests
     ],
     "data": [
         "data/ir_cron.xml",
