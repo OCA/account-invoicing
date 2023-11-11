@@ -2,11 +2,13 @@
 # Copyright 2014-2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo.tests import tagged
 from odoo.tests.common import SavepointCase
 
 from .. import post_init_hook
 
 
+@tagged("post_install", "-at_install")
 class TestInvoiceRefundLinkBase(SavepointCase):
     refund_method = "refund"
 
@@ -87,6 +89,7 @@ class TestInvoiceRefundLinkBase(SavepointCase):
         )
 
 
+@tagged("post_install", "-at_install")
 class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
     @classmethod
     def setUpClass(cls):
@@ -121,6 +124,7 @@ class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
         )
 
 
+@tagged("post_install", "-at_install")
 class TestInvoiceRefundCancelLink(TestInvoiceRefundLinkBase):
     refund_method = "cancel"
 
@@ -128,6 +132,7 @@ class TestInvoiceRefundCancelLink(TestInvoiceRefundLinkBase):
         self._test_refund_link()
 
 
+@tagged("post_install", "-at_install")
 class TestInvoiceRefundModifyLink(TestInvoiceRefundLinkBase):
     refund_method = "modify"
 
