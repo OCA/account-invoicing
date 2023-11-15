@@ -1,4 +1,5 @@
 # Copyright 2020 ACSONE SA/NV
+# Copyright 2023 Simone Rubino - Aion Tech
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import functools
@@ -81,7 +82,9 @@ class AccountMoveLine(models.Model):
         for line in self:
             if line.id not in old_values_by_line_id:
                 continue
-            line.update(old_values_by_line_id[line.id])
+            line.with_context(
+                restoring_triple_discount=True,
+            ).update(old_values_by_line_id[line.id])
         return res
 
     @api.depends(
@@ -114,7 +117,9 @@ class AccountMoveLine(models.Model):
         for line in self:
             if line.id not in old_values_by_line_id:
                 continue
-            line.update(old_values_by_line_id[line.id])
+            line.with_context(
+                restoring_triple_discount=True,
+            ).update(old_values_by_line_id[line.id])
         return res
 
     def _convert_to_tax_base_line_dict(self):
