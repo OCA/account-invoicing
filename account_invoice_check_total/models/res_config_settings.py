@@ -7,7 +7,6 @@ from ..models.account_move import GROUP_AICT
 
 
 class AccountConfigSettings(models.TransientModel):
-
     _inherit = "res.config.settings"
 
     group_supplier_inv_check_total = fields.Boolean(
