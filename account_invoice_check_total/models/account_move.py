@@ -14,7 +14,6 @@ class AccountMove(models.Model):
     check_total = fields.Monetary(
         string="Verification Total",
         readonly=True,
-        states={"draft": [("readonly", False)]},
         copy=False,
     )
     check_total_display_difference = fields.Monetary(
