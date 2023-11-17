@@ -10,15 +10,16 @@
             <xpath expr="//div[@name='journal_div']" position="after">
                 <field
                     name="check_total"
+                    readonly="state != 'draft'"
                     groups="account_invoice_check_total.group_supplier_inv_check_total"
-                    attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])]}"
+                    invisible="move_type not in ['in_invoice', 'in_refund']"
                 />
             </xpath>
             <xpath expr="//field[@name='amount_residual']" position="after">
                 <field
                     name="check_total_display_difference"
                     groups="account_invoice_check_total.group_supplier_inv_check_total"
-                    attrs="{'invisible': ['|', ('move_type', 'not in', ['in_invoice', 'in_refund']), ('check_total_display_difference', '=', 0)]}"
+                    invisible="move_type not in ['in_invoice', 'in_refund'] or check_total == 0"
                 />
             </xpath>
         </field>
