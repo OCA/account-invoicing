@@ -30,14 +30,7 @@ class TestAccountInvoiceViewPayment(TransactionCase):
         self.partner1 = self._create_partner()
 
         self.invoice_account = self.acc_model.search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_revenue").id,
-                )
-            ],
-            limit=1,
+            [("account_type", "=", "income")], limit=1
         )
 
         self.invoice1 = self._create_invoice(self.partner1, "out_invoice")
