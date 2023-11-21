@@ -6,3 +6,6 @@
 * Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
 
   * Chanakya Soni <chanakya.soni@serpentcs.com>
+
+* Christopher Ormaza <chris.ormaza@forgeflow.com>
+* BT-anieto <alberto.nieto@braintec.com> (https://braintec.com)

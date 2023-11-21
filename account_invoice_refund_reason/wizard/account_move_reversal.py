@@ -8,13 +8,17 @@ class AccountMoveReversal(models.TransientModel):
     _inherit = "account.move.reversal"
 
     reason_id = fields.Many2one("account.move.refund.reason", string="Refund Reason")
+    reason = fields.Char(
+        compute="_compute_reason", precompute=True, store=True, readonly=False
+    )
 
-    @api.onchange("reason_id")
-    def _onchange_reason_id(self):
-        if self.reason_id:
-            self.reason = self.reason_id.name
+    @api.depends("reason_id")
+    def _compute_reason(self):
+        for record in self:
+            if record.reason_id:
+                record.reason = record.reason_id.name
 
     def reverse_moves(self):
         res = super().reverse_moves()
-        self.move_ids.mapped("reversal_move_id").write({"reason_id": self.reason_id})
+        self.move_ids.mapped("reversal_move_id").write({"reason_id": self.reason_id.id})
         return res
