@@ -3,7 +3,7 @@
 import hashlib
 import inspect
 
-from odoo.tests import Form, common
+from odoo.tests import Form, common, tagged
 
 from odoo.addons.sale.models.sale import SaleOrderLine as upstream
 
@@ -14,6 +14,7 @@ from odoo.addons.sale.models.sale import SaleOrderLine as upstream
 VALID_HASHES = ["7c0bb27c20598327008f81aee58cdfb4"]
 
 
+@tagged("post_install", "-at_install")
 class TestAccountMovePricelist(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
@@ -262,7 +263,7 @@ class TestAccountMovePricelist(common.SavepointCase):
         self.invoice.pricelist_id = self.sale_pricelist.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertEqual(invoice_line.price_unit, 60.00)
+        self.assertAlmostEqual(invoice_line.price_unit, 60.00)
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_account_invoice_pricelist_without_discount(self):
@@ -276,7 +277,7 @@ class TestAccountMovePricelist(common.SavepointCase):
         self.invoice.pricelist_id = self.sale_pricelist_with_discount.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertEqual(invoice_line.price_unit, 90.00)
+        self.assertAlmostEqual(invoice_line.price_unit, 90.00)
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_account_invoice_without_discount_change_pricelist(self):
@@ -307,7 +308,7 @@ class TestAccountMovePricelist(common.SavepointCase):
         self.invoice.pricelist_id = self.sale_pricelist_fixed_with_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertEqual(invoice_line.price_unit, 60.00)
+        self.assertAlmostEqual(invoice_line.price_unit, 60.00)
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_account_invoice_fixed_pricelist_without_discount_secondary_currency(self):

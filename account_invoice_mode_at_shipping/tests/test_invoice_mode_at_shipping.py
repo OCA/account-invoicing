@@ -1,9 +1,11 @@
 # Copyright 2020 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
+from odoo.tests import tagged
 from odoo.tests.common import SavepointCase
 
 
+@tagged("post_install", "-at_install")
 class TestInvoiceModeAtShipping(SavepointCase):
     @classmethod
     def setUpClass(cls):
