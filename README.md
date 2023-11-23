@@ -24,7 +24,7 @@ addon | version | maintainers | summary
 [account_billing](account_billing/) | 14.0.1.0.3 | [![Saran440](https://github.com/Saran440.png?size=30px)](https://github.com/Saran440) | Group invoice as billing before payment
 [account_global_discount](account_global_discount/) | 14.0.1.1.0 |  | Account Global Discount
 [account_invoice_alternate_payer](account_invoice_alternate_payer/) | 14.0.1.0.1 |  | Set a alternate payor/payee in invoices
-[account_invoice_base_invoicing_mode](account_invoice_base_invoicing_mode/) | 14.0.1.1.0 |  | Base module for handling multiple invoicing mode
+[account_invoice_base_invoicing_mode](account_invoice_base_invoicing_mode/) | 14.0.1.2.0 |  | Base module for handling multiple invoicing mode
 [account_invoice_blocking](account_invoice_blocking/) | 14.0.1.0.1 |  | Set a blocking (No Follow-up) flag on invoices
 [account_invoice_change_currency](account_invoice_change_currency/) | 14.0.2.0.0 | [![luisg123v](https://github.com/luisg123v.png?size=30px)](https://github.com/luisg123v) | Allows to change currency of Invoice by wizard
 [account_invoice_check_picking_date](account_invoice_check_picking_date/) | 14.0.1.0.0 | [![carlosdauden](https://github.com/carlosdauden.png?size=30px)](https://github.com/carlosdauden) | Check if date of pickings match with invoice date
@@ -38,12 +38,12 @@ addon | version | maintainers | summary
 [account_invoice_line_sequence](account_invoice_line_sequence/) | 14.0.1.0.1 |  | Adds sequence field on invoice lines to manage its order.
 [account_invoice_mass_sending](account_invoice_mass_sending/) | 14.0.2.0.0 | [![jguenat](https://github.com/jguenat.png?size=30px)](https://github.com/jguenat) | This addon adds a mass sending feature on invoices.
 [account_invoice_merge](account_invoice_merge/) | 14.0.1.0.1 |  | Merge invoices in draft
-[account_invoice_mode_at_shipping](account_invoice_mode_at_shipping/) | 14.0.1.1.0 |  | Create invoices automatically when goods are shipped.
-[account_invoice_mode_monthly](account_invoice_mode_monthly/) | 14.0.1.1.0 |  | Create invoices automatically on a monthly basis.
-[account_invoice_mode_weekly](account_invoice_mode_weekly/) | 14.0.1.1.0 |  | Create invoices automatically on a weekly basis.
+[account_invoice_mode_at_shipping](account_invoice_mode_at_shipping/) | 14.0.1.2.0 |  | Create invoices automatically when goods are shipped.
+[account_invoice_mode_monthly](account_invoice_mode_monthly/) | 14.0.1.2.0 |  | Create invoices automatically on a monthly basis.
+[account_invoice_mode_weekly](account_invoice_mode_weekly/) | 14.0.1.2.0 |  | Create invoices automatically on a weekly basis.
 [account_invoice_partner](account_invoice_partner/) | 14.0.1.0.0 |  | Replace the partner by an invoice contact if found
 [account_invoice_payment_retention](account_invoice_payment_retention/) | 14.0.1.2.0 |  | Account Invoice Payment Retention
-[account_invoice_pricelist](account_invoice_pricelist/) | 14.0.1.0.2 |  | Add partner pricelist on invoices
+[account_invoice_pricelist](account_invoice_pricelist/) | 14.0.1.1.0 |  | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 14.0.1.0.0 |  | Module to fill pricelist from sales order in invoice.
 [account_invoice_refund_line_selection](account_invoice_refund_line_selection/) | 14.0.1.0.3 |  | This module allows the user to refund specific lines in a invoice
 [account_invoice_refund_link](account_invoice_refund_link/) | 14.0.1.0.5 |  | Show links between refunds and their originator invoices
