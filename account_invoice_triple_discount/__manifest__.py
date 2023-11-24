@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Account Invoice Triple Discount",
-    "version": "14.0.1.1.2",
+    "version": "14.0.1.1.3",
     "category": "Accounting & Finance",
     "author": "QubiQ, Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
