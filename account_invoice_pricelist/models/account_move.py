@@ -11,7 +11,6 @@ class AccountMove(models.Model):
     pricelist_id = fields.Many2one(
         comodel_name="product.pricelist",
         string="Pricelist",
-        states={"draft": [("readonly", False)]},
         compute="_compute_pricelist_id",
         tracking=True,
         store=True,
@@ -89,9 +88,12 @@ class AccountMoveLine(models.Model):
             qty = self.quantity or 1.0
             date = self.move_id.invoice_date or fields.Date.today()
             uom = self.product_uom_id
-            (final_price, rule_id,) = self.move_id.pricelist_id._get_product_price_rule(
+            (
+                final_price,
+                rule_id,
+            ) = self.move_id.pricelist_id._get_product_price_rule(
                 product,
-                qty,
+                quantity=qty,
                 uom=uom,
                 date=date,
             )
@@ -111,15 +113,11 @@ class AccountMoveLine(models.Model):
                     and rule_id.base_pricelist_id.discount_policy == "without_discount"
                 ):
                     new_rule_id = rule_id.base_pricelist_id._get_product_rule(
-                        product, qty, uom=uom, date=date
+                        product, quantity=qty, uom=uom, date=date
                     )
                     rule_id = self.env["product.pricelist.item"].browse(new_rule_id)
                 base_price = rule_id._compute_base_price(
-                    product,
-                    qty,
-                    uom,
-                    date,
-                    target_currency=self.currency_id,
+                    product, qty, uom, date, self.currency_id
                 )
                 price_unit = max(base_price, final_price)
                 self.with_context(
