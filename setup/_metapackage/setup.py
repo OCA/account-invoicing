@@ -46,6 +46,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_validation_queued>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_view_payment>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_warn_message>=15.0dev,<15.1dev',
+        'odoo-addon-account_manual_currency>=15.0dev,<15.1dev',
         'odoo-addon-account_move_exception>=15.0dev,<15.1dev',
         'odoo-addon-account_move_post_block>=15.0dev,<15.1dev',
         'odoo-addon-account_move_search_line>=15.0dev,<15.1dev',
