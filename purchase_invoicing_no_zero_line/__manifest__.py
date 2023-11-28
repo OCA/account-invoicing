@@ -3,7 +3,7 @@
 {
     "name": "Purchase invoicing no zero line",
     "summary": "Avoid creation of zero quantity invoice lines from purchase",
-    "version": "11.0.1.0.0",
+    "version": "11.0.1.0.1",
     "category": "Purchase Management",
     "author": "Digital5 S.L., Odoo Community Association (OCA)",
     "license": "AGPL-3",
