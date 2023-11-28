@@ -27,13 +27,6 @@ class TestAccountMovePricelist(common.TransactionCase):
         cls.journal_sale = cls.env["account.journal"].create(
             {"name": "Test sale journal", "type": "sale", "code": "TEST_SJ"}
         )
-        # Make sure the currency of the company is USD, as this not always happens
-        # To be removed in V17: https://github.com/odoo/odoo/pull/107113
-        cls.company = cls.env.company
-        cls.env.cr.execute(
-            "UPDATE res_company SET currency_id = %s WHERE id = %s",
-            (cls.env.ref("base.USD").id, cls.company.id),
-        )
         cls.a_receivable = cls.env["account.account"].create(
             {
                 "name": "Test receivable account",
