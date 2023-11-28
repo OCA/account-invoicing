@@ -2,11 +2,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.exceptions import ValidationError
-from odoo.tests import Form, SavepointCase
+from odoo.tests import Form, SavepointCase, tagged
 
 from ..models.account_move import GROUP_AICT
 
 
+@tagged("post_install", "-at_install")
 class TestAccountInvoice(SavepointCase):
     @classmethod
     def setUpClass(cls):
