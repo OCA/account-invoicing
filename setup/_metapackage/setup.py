@@ -26,6 +26,7 @@ setuptools.setup(
         'odoo14-addon-account_invoice_mass_sending',
         'odoo14-addon-account_invoice_merge',
         'odoo14-addon-account_invoice_mode_at_shipping',
+        'odoo14-addon-account_invoice_mode_daily',
         'odoo14-addon-account_invoice_mode_monthly',
         'odoo14-addon-account_invoice_mode_weekly',
         'odoo14-addon-account_invoice_partner',
