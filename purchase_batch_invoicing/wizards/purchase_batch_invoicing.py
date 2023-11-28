@@ -1,9 +1,11 @@
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from logging import getLogger
-
-from odoo import _, api, fields, models
+import traceback
+from io import StringIO
+from odoo import _, api, fields, models, registry as odoo_registry
 from odoo.exceptions import UserError
+from odoo.tools import config
 
 _logger = getLogger(__name__)
 
@@ -86,27 +88,48 @@ class PurchaseBatchInvoicing(models.TransientModel):
         :return dict:
             Window action to see the generated invoices.
         """
-        invoices = self.env["account.invoice"]
+        test_enabled = config["test_enable"]
+        registry = odoo_registry(self.env.cr.dbname)
+        invoice_ids = []
         for pogroup in self.grouped_purchase_orders():
-            invoice = invoices.create({
-                "partner_id": pogroup.mapped("partner_id").id,
-                "type": "in_invoice",
-            })
-            invoice._onchange_partner_id()
-            for po in pogroup:
-                invoice.currency_id = po.currency_id
-                invoice.purchase_id = po
-                invoice.purchase_order_change()
-            invoices |= invoice
-        if not invoices:
+            with api.Environment.manage():
+                try:
+                    if not test_enabled:
+                        env = api.Environment(
+                            registry.cursor(), self._uid, self._context
+                        )
+                    else:
+                        env = self.env
+                    invoice = env["account.invoice"].create({
+                        "partner_id": pogroup.mapped("partner_id").id,
+                        "type": "in_invoice",
+                    })
+                    invoice._onchange_partner_id()
+                    for po in pogroup:
+                        invoice.currency_id = po.currency_id
+                        invoice.purchase_id = po
+                        invoice.purchase_order_change()
+                    invoice_ids.append(invoice.id)
+                except Exception:
+                    buff = StringIO()
+                    traceback.print_exc(file=buff)
+                    error_msg = buff.getvalue()
+                    _logger.error(error_msg)
+                    if not test_enabled:
+                        env.cr.rollback()
+                if not test_enabled:
+                    env.cr.commit()
+                    env.cr.close()
+                    env.clear()
+        if not invoice_ids:
             raise UserError(_("No ready-to-invoice purchase orders selected."))
-        invoices.compute_taxes()
+        self.env["account.invoice"].browse(invoice_ids).compute_taxes()
         return {
             "type": "ir.actions.act_window",
             "res_model": "account.invoice",
             "name": _("Generated Invoices"),
             "views": [[False, "tree"], [False, "form"]],
-            "domain": [["id", "in", invoices.ids]],
+            "domain": [["id", "in", invoice_ids]],
         }
 
     @api.model
