@@ -430,7 +430,6 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param invoice: account.move
         :return: dict
         """
-        name = ", ".join(moves.mapped("name"))
         move = fields.first(moves)
         product = move.product_id
         partner_id = self.env["res.partner"].browse(invoice_values["partner_id"])
@@ -457,7 +456,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         values = line_obj.default_get(line_obj.fields_get().keys())
         values.update(
             {
-                "name": name,
+                "name": move.name,
                 "product_id": product.id,
                 "quantity": quantity,
                 "price_unit": price,
@@ -466,7 +465,6 @@ class StockInvoiceOnshipping(models.TransientModel):
             }
         )
         values = self._simulate_invoice_line_onchange(values, price_unit=price)
-        values.update({"name": name})
         return values
 
     def _update_picking_invoice_status(self, pickings):
