@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: account_invoice_mode_daily
 #: model_terms:ir.ui.view,arch_db:account_invoice_mode_daily.res_config_settings_view_form
-msgid "<span class=\"o_form_label\">daily Invoicing Options</span>"
+msgid "<span class=\"o_form_label\">Daily Invoicing Options</span>"
 msgstr ""
 
 #. module: account_invoice_mode_daily
@@ -34,6 +34,17 @@ msgid "Contact"
 msgstr ""
 
 #. module: account_invoice_mode_daily
+#: model:ir.model.fields.selection,name:account_invoice_mode_daily.selection__res_partner__invoicing_mode__daily
+msgid "Daily"
+msgstr ""
+
+#. module: account_invoice_mode_daily
+#: model:ir.model.fields,field_description:account_invoice_mode_daily.field_res_company__invoicing_mode_daily_last_execution
+#: model:ir.model.fields,field_description:account_invoice_mode_daily.field_res_config_settings__invoicing_mode_daily_last_execution
+msgid "Daily last execution"
+msgstr ""
+
+#. module: account_invoice_mode_daily
 #: model:ir.model.fields,field_description:account_invoice_mode_daily.field_res_company__display_name
 #: model:ir.model.fields,field_description:account_invoice_mode_daily.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:account_invoice_mode_daily.field_res_partner__display_name
@@ -45,7 +56,7 @@ msgstr ""
 #: model:ir.actions.server,name:account_invoice_mode_daily.ir_cron_generate_daily_invoice_ir_actions_server
 #: model:ir.cron,cron_name:account_invoice_mode_daily.ir_cron_generate_daily_invoice
 #: model:ir.cron,name:account_invoice_mode_daily.ir_cron_generate_daily_invoice
-msgid "Generate daily Invoices"
+msgid "Generate Daily Invoices"
 msgstr ""
 
 #. module: account_invoice_mode_daily
@@ -83,21 +94,10 @@ msgstr ""
 #. module: account_invoice_mode_daily
 #: model:ir.model.fields,help:account_invoice_mode_daily.field_res_company__invoicing_mode_daily_last_execution
 #: model:ir.model.fields,help:account_invoice_mode_daily.field_res_config_settings__invoicing_mode_daily_last_execution
-msgid "Last execution of daily invoicing."
+msgid "Last execution of daily invoice/refunds creation."
 msgstr ""
 
 #. module: account_invoice_mode_daily
 #: model:ir.model,name:account_invoice_mode_daily.model_sale_order
 msgid "Sales Order"
-msgstr ""
-
-#. module: account_invoice_mode_daily
-#: model:ir.model.fields.selection,name:account_invoice_mode_daily.selection__res_partner__invoicing_mode__daily
-msgid "Daily"
-msgstr ""
-
-#. module: account_invoice_mode_daily
-#: model:ir.model.fields,field_description:account_invoice_mode_daily.field_res_company__invoicing_mode_daily_last_execution
-#: model:ir.model.fields,field_description:account_invoice_mode_daily.field_res_config_settings__invoicing_mode_daily_last_execution
-msgid "daily last execution"
 msgstr ""
