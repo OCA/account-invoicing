@@ -109,6 +109,7 @@ class PurchaseBatchInvoicing(models.TransientModel):
                         invoice.currency_id = po.currency_id
                         invoice.purchase_id = po
                         invoice.purchase_order_change()
+                    invoice.compute_taxes()
                     invoice_ids.append(invoice.id)
                 except Exception:
                     buff = StringIO()
@@ -123,7 +124,6 @@ class PurchaseBatchInvoicing(models.TransientModel):
                     env.clear()
         if not invoice_ids:
             raise UserError(_("No ready-to-invoice purchase orders selected."))
-        self.env["account.invoice"].browse(invoice_ids).compute_taxes()
         return {
             "type": "ir.actions.act_window",
             "res_model": "account.invoice",
