@@ -15,6 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. module: stock_picking_invoicing
+#. odoo-python
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:0
 #, python-format
 msgid "All pickings are not related to your company!"
@@ -71,13 +72,7 @@ msgid "Created on"
 msgstr ""
 
 #. module: stock_picking_invoicing
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_account_move__display_name
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__display_name
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_state_mixin__display_name
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_move__display_name
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking__display_name
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking_type__display_name
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_return_picking__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -92,17 +87,12 @@ msgid ""
 "Group pickings/moves to create invoice(s):\n"
 "Picking: One invoice per picking;\n"
 "Partner: One invoice for each picking's partner;\n"
-"Partner/Product: One invoice per picking's partner and group product into a single invoice line."
+"Partner/Product: One invoice per picking's partner and group product into a "
+"single invoice line."
 msgstr ""
 
 #. module: stock_picking_invoicing
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_account_move__id
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__id
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_state_mixin__id
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_move__id
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking__id
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking_type__id
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_return_picking__id
 msgid "ID"
 msgstr ""
 
@@ -153,13 +143,7 @@ msgid "Journal Type"
 msgstr ""
 
 #. module: stock_picking_invoicing
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_account_move____last_update
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping____last_update
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_state_mixin____last_update
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_move____last_update
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking____last_update
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking_type____last_update
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_return_picking____last_update
 msgid "Last Modified on"
 msgstr ""
 
@@ -174,6 +158,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: stock_picking_invoicing
+#. odoo-python
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:0
 #, python-format
 msgid "No invoice created!"
@@ -229,6 +214,16 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__sale_journal
 msgid "Sale Journal"
+msgstr ""
+
+#. module: stock_picking_invoicing
+#: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_form
+msgid "Set to Not Billable"
+msgstr ""
+
+#. module: stock_picking_invoicing
+#: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_form
+msgid "Set to as invoiced"
 msgstr ""
 
 #. module: stock_picking_invoicing
