@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Copyright 2023 Tecnativa - Stefan Ungureanu
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo noupdate="1">
+    <record id="view_account_invoice_report_search" model="ir.ui.view">
+        <field name="name">account.invoice.report.search</field>
+        <field name="model">account.invoice.report</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_search" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="crm_tag_ids" />
+            </field>
+            <filter name="category_product" position="after">
+                <filter
+                    string="CRM Tags"
+                    name="crm_tag_ids"
+                    context="{'group_by': 'crm_tag_ids'}"
+                />
+            </filter>
+        </field>
+    </record>
+
+</odoo>
