@@ -71,6 +71,10 @@ Contributors
    -  Stefan Ungureanu
    -  Pedro M. Baeza
 
+-  `APSL <https://apsl.tech>`__:
+
+   -  Antoni Marroig <amarroig@apsl.net>
+
 Maintainers
 -----------
 
