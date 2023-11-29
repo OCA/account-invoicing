@@ -1,0 +1,135 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_tax_one_vat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-11-29 19:33+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: account_tax_one_vat
+#. odoo-python
+#: code:addons/account_tax_one_vat/models/account_move.py:0
+#, python-format
+msgid ""
+"%(message)s\n"
+"%(errors)s"
+msgstr ""
+"%(message)s\n"
+"%(errors)s"
+
+#. module: account_tax_one_vat
+#: model:ir.model,name:account_tax_one_vat.model_one_vat_mixin
+msgid "Abstract the methods needed to ensure only one VAT tax is selected."
+msgstr ""
+"Resumen de los métodos necesarios para garantizar que sólo se selecciona un "
+"impuesto del IVA."
+
+#. module: account_tax_one_vat
+#: model:ir.model.fields,help:account_tax_one_vat.field_res_company__account_tax_one_vat
+#: model:ir.model.fields,help:account_tax_one_vat.field_res_config_settings__account_tax_one_vat
+#: model_terms:ir.ui.view,arch_db:account_tax_one_vat.res_config_settings_view_form
+msgid "Avoid the selection of multiple VAT taxes."
+msgstr "Evite la selección de varios impuestos sobre el IVA."
+
+#. module: account_tax_one_vat
+#: model:ir.model,name:account_tax_one_vat.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: account_tax_one_vat
+#: model:ir.model,name:account_tax_one_vat.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configuración de Ajustes"
+
+#. module: account_tax_one_vat
+#. odoo-python
+#: code:addons/account_tax_one_vat/models/account_move.py:0
+#, python-format
+msgid "Invoice has a line %s with more than one vat tax"
+msgstr "La factura tiene una línea %s con más de un impuesto al IVA"
+
+#. module: account_tax_one_vat
+#: model:ir.model.fields,field_description:account_tax_one_vat.field_account_tax_template__is_vat
+msgid "Is a VAT tax"
+msgstr "Es un impuesto sobre el IVA"
+
+#. module: account_tax_one_vat
+#: model:ir.model,name:account_tax_one_vat.model_account_move
+msgid "Journal Entry"
+msgstr "Entrada en el Diario"
+
+#. module: account_tax_one_vat
+#: model:ir.model,name:account_tax_one_vat.model_account_move_line
+msgid "Journal Item"
+msgstr "Artículo Diario"
+
+#. module: account_tax_one_vat
+#. odoo-python
+#: code:addons/account_tax_one_vat/models/one_vat_mixin.py:0
+#, python-format
+msgid "More than one VAT tax selected!"
+msgstr "¡Más de un impuesto IVA seleccionado!"
+
+#. module: account_tax_one_vat
+#. odoo-python
+#: code:addons/account_tax_one_vat/models/one_vat_mixin.py:0
+#, python-format
+msgid "Multiple taxes of type VAT are selected. Only one is allowed."
+msgstr ""
+"Múltiples impuestos de tipo IVA han sido seleccionados. Sólo se permite uno."
+
+#. module: account_tax_one_vat
+#: model:ir.model.fields,field_description:account_tax_one_vat.field_res_company__account_tax_one_vat
+#: model:ir.model.fields,field_description:account_tax_one_vat.field_res_config_settings__account_tax_one_vat
+msgid "One VAT tax only"
+msgstr "Sólo un Impuesto sobre el Valor Añadido"
+
+#. module: account_tax_one_vat
+#: model:ir.model,name:account_tax_one_vat.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: account_tax_one_vat
+#: model:ir.model,name:account_tax_one_vat.model_account_tax
+msgid "Tax"
+msgstr "Impuesto"
+
+#. module: account_tax_one_vat
+#: model:ir.model,name:account_tax_one_vat.model_account_tax_template
+msgid "Templates for Taxes"
+msgstr "Plantillas para Impuestos"
+
+#. module: account_tax_one_vat
+#: model:ir.model.fields,field_description:account_tax_one_vat.field_product_product__vat_id
+#: model:ir.model.fields,field_description:account_tax_one_vat.field_product_template__vat_id
+#: model_terms:ir.ui.view,arch_db:account_tax_one_vat.view_account_tax_search
+msgid "VAT"
+msgstr "IVA"
+
+#. module: account_tax_one_vat
+#: model:ir.model.fields,field_description:account_tax_one_vat.field_product_product__vat
+#: model:ir.model.fields,field_description:account_tax_one_vat.field_product_template__vat
+msgid "VAT name"
+msgstr "Nombre del IVA"
+
+#. module: account_tax_one_vat
+#: model:ir.model.fields,field_description:account_tax_one_vat.field_account_tax__is_vat
+msgid "VAT tax"
+msgstr "Impuesto sobre el IVA"
+
+#. module: account_tax_one_vat
+#. odoo-python
+#: code:addons/account_tax_one_vat/models/one_vat_mixin.py:0
+#, python-format
+msgid "You selected more than one tax of type VAT."
+msgstr "Ha seleccionado más de un impuesto del tipo IVA."
