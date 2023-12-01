@@ -1,2 +1,4 @@
 * Manuel Regidor <manuel.regidor@sygel.es>
-* Alexei Rivera <arivera@archeti.com> (migration to 15.0)
+* Alexei Rivera <arivera@archeti.com>
+* [APSL-Nagarro](https://apsl.tech):
+  * Santi Amorós <samoros@apsl.net>

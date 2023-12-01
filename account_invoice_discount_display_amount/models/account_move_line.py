@@ -14,7 +14,7 @@ class AccountMoveLine(models.Model):
 
     @api.depends("discount", "price_total")
     def _compute_discount_amount(self):
-        invoice_lines_discount = self.filtered(lambda a: not a.exclude_from_invoice_tab)
+        invoice_lines_discount = self.filtered(lambda a: a.display_type == "product")
         for line in invoice_lines_discount:
             price_total_no_discount = line.price_total
             discount_total = 0
