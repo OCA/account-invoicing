@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-24 12:28+0000\n"
-"Last-Translator: Anna Martínez <anna080678@gmail.com>\n"
+"PO-Revision-Date: 2023-12-01 14:33+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -19,22 +19,22 @@ msgstr ""
 #. module: account_invoice_mode_weekly
 #: model_terms:ir.ui.view,arch_db:account_invoice_mode_weekly.res_config_settings_view_form
 msgid "<span class=\"o_form_label\">Weekly Invoicing Options</span>"
-msgstr ""
+msgstr "<span class=\"o_form_label\">Opciones de facturación semanal</span>"
 
 #. module: account_invoice_mode_weekly
 #: model:ir.model,name:account_invoice_mode_weekly.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Compañías"
 
 #. module: account_invoice_mode_weekly
 #: model:ir.model,name:account_invoice_mode_weekly.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Ajustes de config"
 
 #. module: account_invoice_mode_weekly
 #: model:ir.model,name:account_invoice_mode_weekly.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #. module: account_invoice_mode_weekly
 #: model:ir.model.fields,help:account_invoice_mode_weekly.field_res_company__invoicing_mode_weekly_day_todo
@@ -48,7 +48,7 @@ msgstr "Día de la semana para ejecutar la facturación."
 #: model:ir.model.fields,field_description:account_invoice_mode_weekly.field_res_partner__display_name
 #: model:ir.model.fields,field_description:account_invoice_mode_weekly.field_sale_order__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Mostrar Nombre"
 
 #. module: account_invoice_mode_weekly
 #: model:ir.model.fields.selection,name:account_invoice_mode_weekly.selection__res_company__invoicing_mode_weekly_day_todo__4
@@ -60,7 +60,7 @@ msgstr "Viernes"
 #: model:ir.cron,cron_name:account_invoice_mode_weekly.ir_cron_generate_weekly_invoice
 #: model:ir.cron,name:account_invoice_mode_weekly.ir_cron_generate_weekly_invoice
 msgid "Generate Weekly Invoices"
-msgstr ""
+msgstr "Generar Facturas Semanales"
 
 #. module: account_invoice_mode_weekly
 #: model:ir.model.fields,field_description:account_invoice_mode_weekly.field_res_company__id
@@ -68,7 +68,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_mode_weekly.field_res_partner__id
 #: model:ir.model.fields,field_description:account_invoice_mode_weekly.field_sale_order__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_mode_weekly
 #: model:ir.model.fields,field_description:account_invoice_mode_weekly.field_res_partner__invoicing_mode
@@ -87,7 +87,7 @@ msgstr "Semanalmente"
 #: model:ir.model.fields,field_description:account_invoice_mode_weekly.field_res_partner____last_update
 #: model:ir.model.fields,field_description:account_invoice_mode_weekly.field_sale_order____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última Modificación el"
 
 #. module: account_invoice_mode_weekly
 #: model_terms:ir.ui.view,arch_db:account_invoice_mode_weekly.res_config_settings_view_form
@@ -108,7 +108,7 @@ msgstr "Lunes"
 #. module: account_invoice_mode_weekly
 #: model:ir.model,name:account_invoice_mode_weekly.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Orden de Venta"
 
 #. module: account_invoice_mode_weekly
 #: model:ir.model.fields.selection,name:account_invoice_mode_weekly.selection__res_company__invoicing_mode_weekly_day_todo__5
