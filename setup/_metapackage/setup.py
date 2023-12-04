@@ -18,6 +18,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_force_number>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_mass_sending>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_merge>=16.0dev,<16.1dev',
+        'odoo-addon-account_invoice_payment_term_date_due>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_pricelist>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_pricelist_sale>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_refund_code>=16.0dev,<16.1dev',
