@@ -24,6 +24,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_refund_code>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_refund_line_selection>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_refund_link>=16.0dev,<16.1dev',
+        'odoo-addon-account_invoice_refund_reason>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_section_sale_order>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_show_currency_rate>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_supplier_ref_unique>=16.0dev,<16.1dev',
