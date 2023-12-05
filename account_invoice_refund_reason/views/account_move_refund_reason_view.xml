@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="account_invoice_refund_reasons_search" model="ir.ui.view">
+        <field name="name">account.move.refund.reason.search</field>
+        <field name="model">account.move.refund.reason</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="description" />
+                <filter
+                    string="Archived"
+                    domain="[('active','=',False)]"
+                    name="archived_reasons_filter"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_refund_reason" model="ir.ui.view">
+        <field name="name">account.move.refund.reason.form</field>
+        <field name="model">account.move.refund.reason</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Reason Name" />
+                        <h1>
+                            <field name="name" placeholder="Reason Name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="active" invisible="1" />
+                        <field name="description" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_refund_reason_tree" model="ir.ui.view">
+        <field name="name">account.move.refund.reason.tree</field>
+        <field name="model">account.move.refund.reason</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="refund_reason_action" model="ir.actions.act_window">
+        <field name="name">Refund Reasons</field>
+        <field name="res_model">account.move.refund.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="refund_reasons_menu"
+        name="Refund Reasons"
+        parent="account.account_management_menu"
+        action="refund_reason_action"
+        sequence="10"
+    />
+
+</odoo>
