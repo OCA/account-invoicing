@@ -5,27 +5,32 @@
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
             <xpath
-                expr="//field[@name='invoice_line_ids']//tree/field[@name='sequence']"
+                expr="//field[@name='invoice_line_ids']//tree/field[@name='price_total']"
                 position="after"
             >
                 <field name="stock_valuation_ok" invisible="True" />
                 <button
-                    icon="fa-th"
+                    icon="fa-info-circle"
                     attrs="{'invisible': [('stock_valuation_ok', '=', True)]}"
                     title="Stock valuation to update"
                 />
             </xpath>
             <header position="after">
+                <field name="all_stock_valuation_ok" invisible="True" />
                 <div
                     class="alert alert-warning"
                     role="alert"
-                    attrs="{'invisible': [('svl_warn_msg', '=', False)]}"
+                    attrs="{'invisible': [('all_stock_valuation_ok', '=', True)]}"
                     style="margin-bottom:0px;"
                 >
                     <p>
-                        <i class="fa fa-info-circle" />
+                        <i class="fa fa-exclamation-triangle" />
                         &amp;nbsp;
-                        <field name="svl_warn_msg" class="oe_inline" />
+                        <span
+                        >Warning: in this invoice, there are lines that have a unit price
+                              that is different from that of the purchase order !
+                              The stock valuation as well as the purchase price of the product
+                              will be updated when the invoice is validated.</span>
                     </p>
                 </div>
             </header>
