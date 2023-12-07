@@ -10,7 +10,7 @@
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "maintainers": ["smaciasosi", "max3903"],
     "license": "AGPL-3",
-    "depends": ["account"],
+    "depends": ["account", "account_edi"],
     "data": [
         "security/account_user_group_security.xml",
         "security/ir.model.access.csv",

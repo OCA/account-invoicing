@@ -74,6 +74,11 @@
                     name="groups"
                 >account_user_group.group_account_account_receivable, account_user_group.group_account_account_payable</attribute>
             </xpath>
+            <field name="account_id" position="attributes">
+                <attribute
+                    name="groups"
+                >account.group_account_readonly,account_user_group.group_account_account_payable</attribute>
+            </field>
         </field>
     </record>
 

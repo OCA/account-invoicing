@@ -36,3 +36,4 @@ access_account_move_line_uinvoice_ap,account.move.line invoice,account_edi.model
 access_account_move_line_uinvoice_ar,account.move.line invoice,account_edi.model_account_move_line,account_user_group.group_account_account_receivable,TRUE,TRUE,TRUE,TRUE
 access_account_tax_invoice_ap,account.tax,account.model_account_tax,account_user_group.group_account_account_payable,TRUE,,,
 access_account_tax_invoice_ar,account.tax,account.model_account_tax,account_user_group.group_account_account_receivable,TRUE,,,
+access_account_edi_document_group_ar,account.edi.document.group.ar,account_edi.model_account_edi_document,account_user_group.group_account_account_receivable,TRUE,TRUE,TRUE,
