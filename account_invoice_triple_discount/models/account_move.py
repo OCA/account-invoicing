@@ -15,6 +15,12 @@ class AccountMove(models.Model):
         simulate a multiple discount by changing the unit price. Values are
         restored after the original process is done
         """
+        # If another module of this repo inherited this function do not execute
+        # following code in order to avoid conflict
+        if self.env.context.get("avoid_inherit", False) or not any(
+            line._compute_aggregated_discount(line.discount) for line in self.line_ids
+        ):
+            return super(AccountMove, self)._recompute_tax_lines(**kwargs)
         old_values_by_line_id = {}
         # To simulate multiple discounts by changing the unit price, we need
         # to increase the precision of the field otherwise the result is
@@ -31,7 +37,9 @@ class AccountMove(models.Model):
             price_unit = line.price_unit * (1 - aggregated_discount / 100)
             line.update({"price_unit": price_unit, "discount": 0})
         self.line_ids._fields["price_unit"]._digits = digits
-        res = super(AccountMove, self)._recompute_tax_lines(**kwargs)
+        res = super(
+            AccountMove, self.with_context(avoid_inherit=True)
+        )._recompute_tax_lines(**kwargs)
         for line in self.line_ids:
             if line.id not in old_values_by_line_id:
                 continue
