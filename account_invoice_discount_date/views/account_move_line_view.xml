@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<data>
+    <record id="view_move_line_tree_grouped" model="ir.ui.view">
+        <field name="name">account.move.line.tree.grouped</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree_grouped" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='date_maturity']" position="after">
+                <field name="discount_date" optional="hide" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_move_line_filter" model="ir.ui.view">
+        <field name="name">account.move.line.search</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_account_move_line_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='date']" position="after">
+                <filter
+                    name="flt_discount_date"
+                    string="Discount Date"
+                    date="discount_date"
+                />
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter
+                    name="grp_discount_date"
+                    string="Discount Date"
+                    domain="[]"
+                    context="{'group_by': 'discount_date'}"
+                />
+            </xpath>
+        </field>
+    </record>
+</data>
