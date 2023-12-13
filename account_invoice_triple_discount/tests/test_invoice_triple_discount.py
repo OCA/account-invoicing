@@ -9,7 +9,7 @@ from odoo.tests.common import Form
 class TestInvoiceTripleDiscount(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestInvoiceTripleDiscount, cls).setUpClass()
+        super().setUpClass()
         cls.env.user.groups_id += cls.env.ref("product.group_discount_per_so_line")
         cls.Account = cls.env["account.account"]
         cls.AccountMove = cls.env["account.move"]
