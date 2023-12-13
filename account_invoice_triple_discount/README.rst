@@ -17,18 +17,19 @@ Account Invoice Triple Discount
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_triple_discount
+    :target: https://github.com/OCA/account-invoicing/tree/17.0/account_invoice_triple_discount
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-account_invoice_triple_discount
+    :target: https://translation.odoo-community.org/projects/account-invoicing-17-0/account-invoicing-17-0-account_invoice_triple_discount
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows to have three successive discounts on each invoice line.
+This module allows to have three successive discounts on each invoice
+line.
 
 **Table of contents**
 
@@ -38,23 +39,23 @@ This module allows to have three successive discounts on each invoice line.
 Usage
 =====
 
-Create a new invoice and add discounts in any of the three discount fields
-given. They go in order of precedence so discount 2 will be calculated over
-discount 1 and discount 3 over the result of discount 2. For example, let's
-divide by two on every discount:
+Create a new invoice and add discounts in any of the three discount
+fields given. They go in order of precedence so discount 2 will be
+calculated over discount 1 and discount 3 over the result of discount 2.
+For example, let's divide by two on every discount:
 
 Unit price: 600.00 ->
 
-  - Disc. 1 = 50% -> Amount = 300.00
-  - Disc. 2 = 50% -> Amount = 150.00
-  - Disc. 3 = 50% -> Amount = 75.00
+   -  Disc. 1 = 50% -> Amount = 300.00
+   -  Disc. 2 = 50% -> Amount = 150.00
+   -  Disc. 3 = 50% -> Amount = 75.00
 
 You can also use negative values to charge instead of discount:
 
 Unit price: 600.00 ->
 
-  - Disc. 1 = 50% -> Amount = 300.00
-  - Disc. 2 = -5% -> Amount = 315.00
+   -  Disc. 1 = 50% -> Amount = 300.00
+   -  Disc. 2 = -5% -> Amount = 315.00
 
 Bug Tracker
 ===========
@@ -62,7 +63,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_triple_discount%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_triple_discount%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -70,23 +71,23 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * QubiQ
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* David Vidal <david.vidal@tecnativa.com>
-* Pedro M. Baeza <pedro.baeza@tecnativa.com>
-* Nikul Chaudhary <nikulchaudhary2112@gmail.com>
-* `Aion Tech <https://aiontech.company/>`_:
+-  David Vidal <david.vidal@tecnativa.com>
+-  Pedro M. Baeza <pedro.baeza@tecnativa.com>
+-  Nikul Chaudhary <nikulchaudhary2112@gmail.com>
+-  `Aion Tech <https://aiontech.company/>`__:
 
-  * Simone Rubino <simone.rubino@aion-tech.it>
+   -  Simone Rubino <simone.rubino@aion-tech.it>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -98,6 +99,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_triple_discount>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/17.0/account_invoice_triple_discount>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

@@ -7,7 +7,6 @@ from odoo import api, models
 
 
 class AccountMove(models.Model):
-
     _inherit = "account.move"
 
     def _has_discount(self):

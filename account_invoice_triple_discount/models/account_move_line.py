@@ -9,7 +9,6 @@ from odoo.tools import float_compare
 
 
 class AccountMoveLine(models.Model):
-
     _inherit = "account.move.line"
 
     discount2 = fields.Float(
