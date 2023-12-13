@@ -6,10 +6,10 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-def post_init_hook(cr, registry):
+def post_init_hook(env):
     _logger.info("Initializing column discount1 on table account_move_line")
-    if "discount_fixed" not in registry.models["account.move.line"]._fields:
-        cr.execute(
+    if "discount_fixed" not in env["account.move.line"]._fields:
+        env.cr.execute(
             """
                 UPDATE account_move_line
                 SET discount1 = discount
@@ -17,7 +17,7 @@ def post_init_hook(cr, registry):
             """
         )
     else:
-        cr.execute(
+        env.cr.execute(
             """
                 UPDATE account_move_line
                 SET discount1 = discount
