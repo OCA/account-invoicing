@@ -25,6 +25,7 @@
                     readonly="1"
                     groups="!base_global_discount.group_global_discount"
                 />
+                <field name="global_discount_base" invisible="True" />
             </xpath>
             <field name="amount_untaxed" position="before">
                 <field
@@ -44,6 +45,7 @@
                     add="oe_subtotal_footer_separator"
                     separator=" "
                 />
+                <field name="amount_global_discount" attrs="{'invisible': [('global_discount_base','!=','total')]}"/>
             </field>
             <page id="other_tab" position="inside">
                 <group string="Global Discounts">
