@@ -160,7 +160,8 @@ class AccountInvoice(models.Model):
         old_invoices = self.env['account.invoice']
         qty_prec = self.env['decimal.precision'].precision_get(
             'Product Unit of Measure')
-        for invoice_key, (invoice_data, old_ids) in new_invoices.items():
+        # _invoice_key never used , varname starts with underscore for linter
+        for _invoice_key, (invoice_data, old_ids) in new_invoices.items():
             # skip merges with only one invoice
             if len(old_ids) < 2:
                 allinvoices += (old_ids or [])
