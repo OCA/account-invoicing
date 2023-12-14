@@ -43,8 +43,8 @@ msgstr "Apunte contable"
 #: model:ir.model.fields,help:account_invoice_discount_date.field_account_move_line__discount_date
 #: model:ir.model.fields,help:account_invoice_discount_date.field_account_payment__discount_date
 msgid ""
-"Last date at which the discounted amount must be paid in order for the "
-"Early Payment Discount to be granted"
+"Last date at which the discounted amount must be paid in order for the Early "
+"Payment Discount to be granted"
 msgstr ""
 "Fecha límite en la cual el importe descontado debe ser pagado para que el "
 "Descuento por Pago Adelantado sea concedido"
