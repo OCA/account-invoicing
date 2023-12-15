@@ -36,11 +36,11 @@ class AccountMove(models.Model):
     )
     global_discount_base = fields.Selection(
         selection=[
-            ('subtotal', 'Subtotal'),
-            ('total', 'Total'),
+            ("subtotal", "Subtotal"),
+            ("total", "Total"),
         ],
-        string='Discount Base',
-        compute='_compute_global_discount_base',
+        string="Discount Base",
+        compute="_compute_global_discount_base",
     )
     amount_global_discount = fields.Monetary(
         string="Total Global Discounts",
@@ -59,9 +59,9 @@ class AccountMove(models.Model):
         store=True,
     )
     amount_total_before_global_discounts = fields.Monetary(
-        string='Amount Total Before Discounts',
-        compute='_compute_amount',
-        currency_field='currency_id',
+        string="Amount Total Before Discounts",
+        compute="_compute_amount",
+        currency_field="currency_id",
         readonly=True,
     )
     invoice_global_discount_ids = fields.One2many(
@@ -105,11 +105,9 @@ class AccountMove(models.Model):
             lambda r: r.tax_line_id.amount_type in ("percent", "division")
         )
 
-        discount_base = set(self.global_discount_ids.mapped('discount_base'))
+        discount_base = set(self.global_discount_ids.mapped("discount_base"))
         if len(discount_base) > 1:
-            raise exceptions.UserError(
-                _("All global discount must have the same base")
-            )
+            raise exceptions.UserError(_("All global discount must have the same base"))
         elif len(discount_base) == 1:
             discount_base = discount_base.pop()
 
@@ -117,10 +115,12 @@ class AccountMove(models.Model):
             base = tax_line.tax_base_amount
             tax_line.base_before_global_discounts = base
             amount = tax_line.balance
-            if discount_base == 'subtotal':
+            if discount_base == "subtotal":
                 for discount in self.global_discount_ids:
                     base = discount._get_global_discount_vals(base)["base_discounted"]
-                    amount = discount._get_global_discount_vals(amount)["base_discounted"]
+                    amount = discount._get_global_discount_vals(amount)[
+                        "base_discounted"
+                    ]
             tax_line.tax_base_amount = round_curr(base)
             tax_line.debit = amount > 0.0 and amount or 0.0
             tax_line.credit = amount < 0.0 and -amount or 0.0
@@ -155,7 +155,7 @@ class AccountMove(models.Model):
                 "tax_ids": [(4, tax_id) for tax_id in tax_ids],
             }
 
-    @api.depends('global_discount_ids')
+    @api.depends("global_discount_ids")
     def _compute_global_discount_base(self):
         for invoice in self:
             # Only check first because sanity checks
@@ -170,7 +170,7 @@ class AccountMove(models.Model):
         This also resets previous global discounts in case they existed.
         """
         self.ensure_one()
-        invoice_global_discounts = self.env['account.invoice.global.discount']
+        invoice_global_discounts = self.env["account.invoice.global.discount"]
         self.invoice_global_discount_ids = invoice_global_discounts.browse()
         if not self.is_invoice():
             return
@@ -178,11 +178,9 @@ class AccountMove(models.Model):
         taxes_keys = {}
         # Perform a sanity check for discarding cases that will lead to
         # incorrect data in discounts
-        discount_base = set(self.global_discount_ids.mapped('discount_base'))
+        discount_base = set(self.global_discount_ids.mapped("discount_base"))
         if len(discount_base) > 1:
-            raise exceptions.UserError(
-                _("All global discount must have the same base")
-            )
+            raise exceptions.UserError(_("All global discount must have the same base"))
         elif len(discount_base) == 1:
             discount_base = discount_base.pop()
         _self = self.filtered("global_discount_ids")
@@ -191,17 +189,19 @@ class AccountMove(models.Model):
                 if key == tuple(inv_line.tax_ids.ids):
                     break
                 elif key & inv_line.tax_ids.ids:
-                    raise exceptions.UserError(_(
-                        "Incompatible taxes found for global discounts."
-                    ))
+                    raise exceptions.UserError(
+                        _("Incompatible taxes found for global discounts.")
+                    )
             else:
                 taxes_keys[tuple(inv_line.tax_ids.ids)] = True
         ## Reset previous global discounts
-        #self.invoice_global_discount_ids -= self.invoice_global_discount_ids
+        # self.invoice_global_discount_ids -= self.invoice_global_discount_ids
 
-        if discount_base == 'subtotal':
+        if discount_base == "subtotal":
             model = "account.invoice.global.discount"
-            create_method = in_draft_mode and self.env[model].new or self.env[model].create
+            create_method = (
+                in_draft_mode and self.env[model].new or self.env[model].create
+            )
             for tax_line in _self.line_ids.filtered("tax_line_id"):
                 key = []
                 to_create = True
@@ -214,7 +214,9 @@ class AccountMove(models.Model):
                     continue
                 base = tax_line.base_before_global_discounts or tax_line.tax_base_amount
                 for global_discount in self.global_discount_ids:
-                    vals = self._prepare_global_discount_vals(global_discount, base, key)
+                    vals = self._prepare_global_discount_vals(
+                        global_discount, base, key
+                    )
                     create_method(vals)
                     base = vals["base_discounted"]
             # Check all moves with defined taxes to check if there's any discount not
@@ -229,20 +231,22 @@ class AccountMove(models.Model):
                         )
                         create_method(vals)
                         base = vals["base_discounted"]
-        elif discount_base == 'total':
+        elif discount_base == "total":
             base = self.amount_total
             for global_discount in self.global_discount_ids:
                 discount = global_discount._get_global_discount_vals(base)
-                invoice_global_discounts += invoice_global_discounts.new({
-                    'name': global_discount.display_name,
-                    'invoice_id': self.id,
-                    'global_discount_id': global_discount.id,
-                    'discount': global_discount.discount,
-                    'base': base,
-                    'base_discounted': discount['base_discounted'],
-                    'account_id': global_discount.account_id.id,
-                })
-                base = discount['base_discounted']
+                invoice_global_discounts += invoice_global_discounts.new(
+                    {
+                        "name": global_discount.display_name,
+                        "invoice_id": self.id,
+                        "global_discount_id": global_discount.id,
+                        "discount": global_discount.discount,
+                        "base": base,
+                        "base_discounted": discount["base_discounted"],
+                        "account_id": global_discount.account_id.id,
+                    }
+                )
+                base = discount["base_discounted"]
 
     def _recompute_global_discount_lines(self):
         """Append global discounts move lines.
@@ -324,10 +328,10 @@ class AccountMove(models.Model):
         self.amount_untaxed_before_global_discounts = self.amount_untaxed
         self.amount_total_before_global_discounts = self.amount_total
 
-        if self.global_discount_base == 'subtotal':
+        if self.global_discount_base == "subtotal":
             self.amount_untaxed = self.amount_untaxed + self.amount_global_discount
             self.amount_total = self.amount_untaxed + self.amount_tax
-        elif self.global_discount_base == 'total':
+        elif self.global_discount_base == "total":
             self.amount_total += self.amount_global_discount
 
         amount_untaxed_signed = self.amount_untaxed

@@ -50,7 +50,10 @@
                     add="oe_subtotal_footer_separator"
                     separator=" "
                 />
-                <field name="amount_global_discount" attrs="{'invisible': [('global_discount_base','!=','total')]}"/>
+                <field
+                    name="amount_global_discount"
+                    attrs="{'invisible': [('global_discount_base','!=','total')]}"
+                />
             </field>
             <page id="other_tab" position="inside">
                 <group string="Global Discounts">
