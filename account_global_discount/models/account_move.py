@@ -92,7 +92,6 @@ class AccountMove(models.Model):
             self._recompute_global_discount_lines()
         return res
 
-
     def _update_tax_lines_for_global_discount(self):
         """Update tax_base_amount and taxes debits on tax move lines using global
         discounts.
@@ -127,6 +126,7 @@ class AccountMove(models.Model):
             # Apply onchanges
             tax_line._onchange_balance()
             tax_line._onchange_amount_currency()
+
     def _prepare_global_discount_vals(self, global_discount, base, tax_ids):
         """Prepare the dictionary values for an invoice global discount
         line.
