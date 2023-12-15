@@ -196,8 +196,8 @@ class AccountMove(models.Model):
                     ))
             else:
                 taxes_keys[tuple(inv_line.tax_ids.ids)] = True
-        # Reset previous global discounts
-        self.invoice_global_discount_ids -= self.invoice_global_discount_ids
+        ## Reset previous global discounts
+        #self.invoice_global_discount_ids -= self.invoice_global_discount_ids
 
         if discount_base == 'subtotal':
             model = "account.invoice.global.discount"
@@ -314,6 +314,7 @@ class AccountMove(models.Model):
         if not self.invoice_global_discount_ids:
             self.amount_global_discount = 0.0
             self.amount_untaxed_before_global_discounts = 0.0
+            self.amount_total_before_global_discounts = 0.0
             return
         round_curr = self.currency_id.round
         self.amount_global_discount = sum(
