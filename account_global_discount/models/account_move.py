@@ -3,8 +3,8 @@
 # Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import _, api, exceptions, fields, models
-from odoo.tools import config
 from odoo.fields import first
+from odoo.tools import config
 
 
 class AccountMove(models.Model):
