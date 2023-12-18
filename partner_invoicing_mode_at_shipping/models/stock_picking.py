@@ -17,9 +17,9 @@ class StockPicking(models.Model):
     def _invoice_at_shipping(self):
         """Check if picking must be invoiced at shipping."""
         self.ensure_one()
-        return (
-            self.picking_type_code == "outgoing"
-            and self.sale_id.partner_invoice_id.invoicing_mode == "at_shipping"
+        return self.picking_type_code == "outgoing" and (
+            self.sale_id.partner_invoice_id.invoicing_mode == "at_shipping"
+            or self.sale_id.partner_invoice_id.one_invoice_per_picking
         )
 
     def _invoicing_at_shipping(self):
@@ -35,7 +35,10 @@ class StockPicking(models.Model):
         sales_many_invoice_per_order = sales - sales_one_invoice_per_order
         if sales_many_invoice_per_order:
             invoices |= sales_many_invoice_per_order._create_invoices(grouped=False)
-        for invoice in invoices:
+        # The invoices per picking will use the invoicing_mode
+        for invoice in invoices.filtered(
+            lambda invoice: not invoice.partner_id.one_invoice_per_picking
+        ):
             invoice.with_delay()._validate_invoice()
         return invoices or _("Nothing to invoice.")
 
