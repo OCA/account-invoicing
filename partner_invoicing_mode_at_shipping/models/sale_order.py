@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 
-from odoo import fields, models
+from odoo import api, fields, models
 from odoo.osv.expression import OR
 
 
@@ -10,10 +10,21 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     one_invoice_per_picking = fields.Boolean(
-        related="partner_invoice_id.one_invoice_per_picking",
+        compute="_compute_one_invoice_per_picking",
         store=True,
         index=True,
     )
+
+    @api.depends("partner_invoice_id")
+    def _compute_one_invoice_per_picking(self):
+        """
+        Compute this field (instead a related) to avoid computing all
+        related sale orders if option changed on partner level.
+        """
+        for order in self:
+            order.one_invoice_per_picking = (
+                order.partner_invoice_id.one_invoice_per_picking
+            )
 
     def _get_generate_invoices_state_domain(self):
         domain = super()._get_generate_invoices_state_domain()
