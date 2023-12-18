@@ -13,32 +13,32 @@ class ResPartner(models.Model):
         ondelete={"at_shipping": "set default"},
     )
 
-    one_invoice_per_picking = fields.Boolean(
-        help="Check this if you want to create one invoice per picking using the"
+    one_invoice_per_shipping = fields.Boolean(
+        help="Check this if you want to create one invoice per shipping using the"
         " partner invoicing mode that should be different than 'At Shipping'."
     )
 
     @api.constrains(
-        "invoicing_mode", "one_invoice_per_picking", "one_invoice_per_order"
+        "invoicing_mode", "one_invoice_per_shipping", "one_invoice_per_order"
     )
-    def _check_invoicing_mode_one_invoice_per_picking(self):
+    def _check_invoicing_mode_one_invoice_per_shipping(self):
         for partner in self:
             if (
                 partner.invoicing_mode == "at_shipping"
-                and partner.one_invoice_per_picking
+                and partner.one_invoice_per_shipping
             ):
                 raise ValidationError(
                     _(
                         "You cannot configure the partner %(partner)s with "
-                        "Invoicing Mode 'At Shipping' and 'One Invoice Per Picking'!",
+                        "Invoicing Mode 'At Shipping' and 'One Invoice Per Shipping'!",
                         partner=partner.name,
                     ),
                 )
-            if partner.one_invoice_per_picking and partner.one_invoice_per_order:
+            if partner.one_invoice_per_shipping and partner.one_invoice_per_order:
                 raise ValidationError(
                     _(
                         "You cannot configure the partner %(partner)s with "
-                        "'One Invoice Per Order' and 'One Invoice Per Picking'!",
+                        "'One Invoice Per Order' and 'One Invoice Per Shipping'!",
                         partner=partner.name,
                     ),
                 )
