@@ -9,21 +9,21 @@ from odoo.osv.expression import OR
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    one_invoice_per_picking = fields.Boolean(
-        compute="_compute_one_invoice_per_picking",
+    one_invoice_per_shipping = fields.Boolean(
+        compute="_compute_one_invoice_per_shipping",
         store=True,
         index=True,
     )
 
     @api.depends("partner_invoice_id")
-    def _compute_one_invoice_per_picking(self):
+    def _compute_one_invoice_per_shipping(self):
         """
         Compute this field (instead a related) to avoid computing all
         related sale orders if option changed on partner level.
         """
         for order in self:
-            order.one_invoice_per_picking = (
-                order.partner_invoice_id.one_invoice_per_picking
+            order.one_invoice_per_shipping = (
+                order.partner_invoice_id.one_invoice_per_shipping
             )
 
     def _get_generate_invoices_state_domain(self):
@@ -32,7 +32,7 @@ class SaleOrder(models.Model):
             [
                 domain,
                 [
-                    ("one_invoice_per_picking", "=", True),
+                    ("one_invoice_per_shipping", "=", True),
                     ("invoice_ids.state", "=", "draft"),
                 ],
             ]
@@ -41,7 +41,7 @@ class SaleOrder(models.Model):
 
     def _get_generated_invoices(self, partition):
         sales_to_validate_invoices = self.filtered(
-            lambda sale: sale.one_invoice_per_picking
+            lambda sale: sale.one_invoice_per_shipping
             and any(invoice.state == "draft" for invoice in self.invoice_ids)
         )
         sales_create_invoices = self - sales_to_validate_invoices
