@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 from odoo import api, fields, models
 from odoo.fields import Datetime
+from odoo.osv.expression import AND
 
 from odoo.addons.sale.models.sale_order import LOCKED_FIELD_STATES
 
@@ -40,12 +41,20 @@ class SaleOrder(models.Model):
             self.generate_invoices(company_ids)
 
     @api.model
+    def _get_generate_invoices_state_domain(self):
+        return [("invoice_status", "=", "to invoice")]
+
+    @api.model
     def _get_generate_invoices_domain(self, companies, invoicing_mode="standard"):
-        return [
-            ("invoicing_mode", "=", invoicing_mode),
-            ("invoice_status", "=", "to invoice"),
-            ("company_id", "in", companies.ids),
-        ]
+        return AND(
+            [
+                self._get_generate_invoices_state_domain(),
+                [
+                    ("invoicing_mode", "=", invoicing_mode),
+                    ("company_id", "in", companies.ids),
+                ],
+            ]
+        )
 
     @api.model
     def generate_invoices(
@@ -80,12 +89,19 @@ class SaleOrder(models.Model):
         """Returns the sale order fields used to group them into jobs."""
         return ["partner_invoice_id", "payment_term_id"]
 
+    def _get_generated_invoices(self, partition):
+        """
+        Hook to get the generated invoices as in some extended modules,
+        those invoices should not be validated yet.
+        """
+        return self._create_invoices(grouped=partition, final=True)
+
     def _generate_invoices_by_partner(self, saleorder_ids):
         """Generate invoices for a group of sale order belonging to a customer."""
         sales = (
             self.browse(saleorder_ids)
             .exists()
-            .filtered(lambda r: r.invoice_status == "to invoice")
+            .filtered_domain(self._get_generate_invoices_state_domain())
         )
         if not sales:
             return "No sale order found to invoice ?"
@@ -94,7 +110,7 @@ class SaleOrder(models.Model):
         for partition, sales in sales.partition(
             lambda sale: sale.one_invoice_per_order
         ).items():
-            invoices = sales._create_invoices(grouped=partition, final=True)
+            invoices = sales._get_generated_invoices(partition=partition)
             # Update each partner next invoice date
             sales.partner_invoice_id._update_next_invoice_date()
             invoice_ids.update(invoices.ids)
