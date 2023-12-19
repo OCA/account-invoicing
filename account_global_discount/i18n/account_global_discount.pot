@@ -15,9 +15,7 @@ msgstr ""
 
 #. module: account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.report_invoice_document
-msgid ""
-"<strong>Global Discounts</strong>\n"
-"                        <br/>"
+msgid "<strong>Global Discounts</strong><br/>"
 msgstr ""
 
 #. module: account_global_discount
@@ -26,9 +24,28 @@ msgid "<strong>Subtotal w/o disc.</strong>"
 msgstr ""
 
 #. module: account_global_discount
+#: model_terms:ir.ui.view,arch_db:account_global_discount.report_invoice_document
+msgid "<strong>Total before disc.</strong>"
+msgstr ""
+
+#. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__account_id
 #: model:ir.model.fields,field_description:account_global_discount.field_global_discount__account_id
 msgid "Account"
+msgstr ""
+
+#. module: account_global_discount
+#: code:addons/account_global_discount/models/account_move.py:0
+#: code:addons/account_global_discount/models/account_move.py:0
+#, python-format
+msgid "All global discount must have the same base"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_bank_statement_line__amount_total_before_global_discounts
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move__amount_total_before_global_discounts
+#: model:ir.model.fields,field_description:account_global_discount.field_account_payment__amount_total_before_global_discounts
+msgid "Amount Total Before Discounts"
 msgstr ""
 
 #. module: account_global_discount
@@ -86,6 +103,13 @@ msgid "Discount (number)"
 msgstr ""
 
 #. module: account_global_discount
+#: model:ir.model.fields,field_description:account_global_discount.field_account_bank_statement_line__global_discount_base
+#: model:ir.model.fields,field_description:account_global_discount.field_account_move__global_discount_base
+#: model:ir.model.fields,field_description:account_global_discount.field_account_payment__global_discount_base
+msgid "Discount Base"
+msgstr ""
+
+#. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__name
 msgid "Discount Name"
 msgstr ""
@@ -136,6 +160,7 @@ msgid "ID"
 msgstr ""
 
 #. module: account_global_discount
+#: code:addons/account_global_discount/models/account_move.py:0
 #: code:addons/account_global_discount/models/account_move.py:0
 #, python-format
 msgid "Incompatible taxes found for global discounts."
@@ -205,8 +230,18 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: account_global_discount
+#: model:ir.model.fields.selection,name:account_global_discount.selection__account_move__global_discount_base__subtotal
+msgid "Subtotal"
+msgstr ""
+
+#. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__tax_ids
 msgid "Taxes"
+msgstr ""
+
+#. module: account_global_discount
+#: model:ir.model.fields.selection,name:account_global_discount.selection__account_move__global_discount_base__total
+msgid "Total"
 msgstr ""
 
 #. module: account_global_discount
