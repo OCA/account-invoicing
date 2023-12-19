@@ -204,9 +204,9 @@ class AccountMove(models.Model):
         self, _self, taxes_keys, invoice_global_discounts, discount_base
     ):
 
-        in_draft_mode = self != self._origin
         if discount_base == "subtotal":
             model = "account.invoice.global.discount"
+            in_draft_mode = self != self._origin
             create_method = (
                 in_draft_mode and self.env[model].new or self.env[model].create
             )
