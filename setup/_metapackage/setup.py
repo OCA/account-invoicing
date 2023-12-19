@@ -46,6 +46,7 @@ setuptools.setup(
         'odoo-addon-partner_invoicing_mode_at_shipping>=16.0dev,<16.1dev',
         'odoo-addon-partner_invoicing_mode_monthly>=16.0dev,<16.1dev',
         'odoo-addon-portal_account_personal_data_only>=16.0dev,<16.1dev',
+        'odoo-addon-product_form_account_move_line_link>=16.0dev,<16.1dev',
         'odoo-addon-purchase_stock_picking_return_invoicing>=16.0dev,<16.1dev',
         'odoo-addon-sale_line_refund_to_invoice_qty>=16.0dev,<16.1dev',
         'odoo-addon-sale_order_invoicing_grouping_criteria>=16.0dev,<16.1dev',

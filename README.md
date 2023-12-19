@@ -59,6 +59,7 @@ addon | version | maintainers | summary
 [partner_invoicing_mode_at_shipping](partner_invoicing_mode_at_shipping/) | 16.0.1.0.1 |  | Create invoices automatically when goods are shipped.
 [partner_invoicing_mode_monthly](partner_invoicing_mode_monthly/) | 16.0.1.0.1 |  | Create invoices automatically on a monthly basis.
 [portal_account_personal_data_only](portal_account_personal_data_only/) | 16.0.1.0.0 |  | Portal Accounting Personal Data Only
+[product_form_account_move_line_link](product_form_account_move_line_link/) | 16.0.1.0.0 |  | Adds a button on product forms to access Journal Items
 [purchase_stock_picking_return_invoicing](purchase_stock_picking_return_invoicing/) | 16.0.1.0.1 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) [![MiquelRForgeFlow](https://github.com/MiquelRForgeFlow.png?size=30px)](https://github.com/MiquelRForgeFlow) | Add an option to refund returned pickings
 [sale_line_refund_to_invoice_qty](sale_line_refund_to_invoice_qty/) | 16.0.1.0.0 |  | Allow deciding whether refunded quantity should be considered as quantity to reinvoice
 [sale_order_invoicing_grouping_criteria](sale_order_invoicing_grouping_criteria/) | 16.0.1.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Sales order invoicing grouping criteria
