@@ -196,9 +196,13 @@ class AccountMove(models.Model):
                 taxes_keys[tuple(inv_line.tax_ids.ids)] = True
         # Reset previous global discounts
         # self.invoice_global_discount_ids -= self.invoice_global_discount_ids
-        self._set_global_discounts_by_base(_self, taxes_keys, invoice_global_discounts, discount_base)
+        self._set_global_discounts_by_base(
+            _self, taxes_keys, invoice_global_discounts, discount_base
+        )
 
-    def _set_global_discounts_by_base(self, _self, taxes_keys, invoice_global_discounts, discount_base):
+    def _set_global_discounts_by_base(
+        self, _self, taxes_keys, invoice_global_discounts, discount_base
+    ):
 
         in_draft_mode = self != self._origin
         if discount_base == "subtotal":
