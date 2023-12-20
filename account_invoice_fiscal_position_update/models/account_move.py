@@ -40,5 +40,5 @@ class AccountMove(models.Model):
                     "to the new Fiscal Position because they don't have a "
                     "Product:\n - %s\nYou should update the Account and the "
                     "Taxes of these invoice lines manually."
-                ) % ("\n- ".join(lines_without_product.mapped("name")))
+                ) % ("\n- ".join([str(k.name) for k in lines_without_product]))
         return res
