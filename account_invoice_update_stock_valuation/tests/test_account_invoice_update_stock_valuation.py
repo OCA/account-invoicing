@@ -106,6 +106,28 @@ class TestAccountInvoiceUpdateStockValuation(SavepointCase):
         self.assertTrue(svl)
         self.assertEqual(svl.unit_cost, 750.83)
 
+    def test_reset_to_draft_invoice(self):
+        purchase = self._create_purchase_order(
+            self.partner, self.product, qty=1, uom=self.unit
+        )
+        invoice = self._create_invoice_from_purchase(purchase)
+        invoice_line = invoice.invoice_line_ids[0].with_context(
+            check_move_validity=False
+        )
+        invoice_line.price_unit += 10.0
+        invoice._recompute_dynamic_lines()
+        invoice.invoice_date = fields.Date.today()
+        invoice.action_post()
+        invoice_line._compute_stock_valuation_ok()
+        invoice.button_draft()
+        svl = self.env["stock.valuation.layer"].search(
+            [
+                ("account_move_id", "=", invoice.id),
+                ("company_id", "=", invoice.company_id.id),
+            ]
+        )
+        self.assertFalse(svl)
+
     def _create_purchase_order(self, partner, product, qty, uom):
         po = Form(self.env["purchase.order"])
         po.partner_id = partner

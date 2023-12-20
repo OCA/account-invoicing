@@ -34,6 +34,29 @@ class AccountMove(models.Model):
                     line._update_product_standard_price()
         return super().action_post()
 
+    def button_draft(self):
+        for invoice in self:
+            if invoice.move_type == "in_invoice":
+                invoice._unlink_svl()
+        return super().button_draft()
+
+    def _unlink_svl(self):
+        for invoice in self:
+            svl = (
+                self.env["stock.valuation.layer"]
+                .sudo()
+                .search(
+                    [
+                        ("account_move_id", "=", invoice.id),
+                        ("company_id", "=", invoice.company_id.id),
+                    ]
+                )
+            )
+            if svl:
+                svl.unlink()
+                for line in invoice.invoice_line_ids:
+                    line._update_product_standard_price()
+
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
