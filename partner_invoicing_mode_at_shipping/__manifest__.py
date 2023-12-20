@@ -10,6 +10,7 @@
     "category": "Accounting & Finance",
     "data": [
         "data/queue_job_data.xml",
+        "views/res_partner.xml",
     ],
     "depends": ["account", "partner_invoicing_mode", "queue_job", "stock"],
     "pre_init_hook": "pre_init_hook",

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field name="name">view_partner_property_form</field>
+        <field name="model">res.partner</field>
+        <field
+            name="inherit_id"
+            ref="partner_invoicing_mode.view_partner_property_form"
+        />
+        <field name="arch" type="xml">
+            <field name="one_invoice_per_order" position="after">
+                <field name="one_invoice_per_shipping" />
+            </field>
+        </field>
+    </record>
+</odoo>
