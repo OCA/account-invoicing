@@ -74,6 +74,8 @@ Contributors
 
 -  Roel Adriaans <roel@road-support.nl>
 
+-  Marcos Oitabén <marcos.oitaben@dynapps.eu>
+
 -  `Tecnativa <https://www.tecnativa.com>`__:
 
       -  Ernesto Tejeda

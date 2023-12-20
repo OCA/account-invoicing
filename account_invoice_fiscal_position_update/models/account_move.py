@@ -17,7 +17,7 @@ class AccountMove(models.Model):
         res = {}
         lines_without_product = self.env["account.move.line"]
         invoice_lines = self.invoice_line_ids.filtered(
-            lambda l: "product" == l.display_type
+            lambda k: "product" == k.display_type
         )
         for line in invoice_lines:
             if not line.product_id:
