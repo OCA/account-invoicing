@@ -17,7 +17,7 @@ class TestProductIdChange(AccountTestInvoicingCommon):
     """
 
     def setUp(self):
-        super(TestProductIdChange, self).setUp()
+        super().setUp()
         self.invoice_model = self.env["account.move"]
         self.fiscal_position_model = self.env["account.fiscal.position"]
         self.fiscal_position_tax_model = self.env["account.fiscal.position.tax"]
@@ -140,7 +140,7 @@ class TestProductIdChange(AccountTestInvoicingCommon):
         onchange_result = out_invoice.with_context(
             check_move_validity=False
         )._onchange_fiscal_position_id_account_invoice_fiscal_position_invoice()
-        self.assertTrue(type(onchange_result) == dict)
+        self.assertTrue(isinstance(onchange_result, dict))
         self.assertEqual(list(onchange_result.keys()), ["warning"])
 
         # for all lines without product
@@ -165,5 +165,5 @@ class TestProductIdChange(AccountTestInvoicingCommon):
         onchange_result = out_invoice_without_prd.with_context(
             check_move_validity=False
         )._onchange_fiscal_position_id_account_invoice_fiscal_position_invoice()
-        self.assertTrue(type(onchange_result) == dict)
+        self.assertTrue(isinstance(onchange_result, dict))
         self.assertEqual(list(onchange_result.keys()), ["warning"])
