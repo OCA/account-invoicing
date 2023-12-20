@@ -9,7 +9,12 @@ from odoo.addons.queue_job.tests.common import trap_jobs
 from .common import InvoiceModeAtShippingCommon
 
 
-class TestInvoiceModeAtShipping(InvoiceModeAtShippingCommon, TransactionCase):
+class TestInvoiceModeAtShippingGrouped(InvoiceModeAtShippingCommon, TransactionCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.companies = cls.env["res.company"].search([])
+
     def test_invoice_created_at_shipping_per_delivery(self):
         """Check that an invoice is created when goods are shipped."""
         self.partner.invoicing_mode = "standard"
@@ -56,8 +61,9 @@ class TestInvoiceModeAtShipping(InvoiceModeAtShippingCommon, TransactionCase):
         with trap_jobs() as trap:
             self.env["sale.order"].cron_generate_standard_invoices()
             trap.assert_enqueued_job(
-                self.env["sale.order"]._generate_invoices_by_partner,
-                args=(self.so1.ids,),
+                self.env["sale.order"]._validate_per_shipping_generated_invoices,
+                args=(),
+                kwargs={"companies": self.companies, "invoicing_mode": "standard"},
             )
             with trap_jobs() as trap_invoice:
                 trap.perform_enqueued_jobs()
