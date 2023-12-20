@@ -14,8 +14,9 @@ class ResPartner(models.Model):
     )
 
     one_invoice_per_shipping = fields.Boolean(
+        index=True,
         help="Check this if you want to create one invoice per shipping using the"
-        " partner invoicing mode that should be different than 'At Shipping'."
+        " partner invoicing mode that should be different than 'At Shipping'.",
     )
 
     @api.constrains(
