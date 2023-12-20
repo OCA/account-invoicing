@@ -74,13 +74,12 @@ class SaleOrder(models.Model):
         )
         saleorder_groups = self.read_group(
             domain,
-            ["partner_invoice_id"],
+            ["partner_invoice_id", "sale_ids:array_agg(id)"],
             groupby=self._get_groupby_fields_for_invoicing(),
             lazy=False,
         )
         for saleorder_group in saleorder_groups:
-            saleorder_ids = self.search(saleorder_group["__domain"]).ids
-            self.with_delay()._generate_invoices_by_partner(saleorder_ids)
+            self.with_delay()._generate_invoices_by_partner(saleorder_group["sale_ids"])
         companies.write({last_execution_field: Datetime.now()})
         return saleorder_groups
 
