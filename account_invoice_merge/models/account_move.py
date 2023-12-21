@@ -51,7 +51,9 @@ class AccountMove(models.Model):
     @api.model
     def _get_first_invoice_fields(self, invoice):
         return {
-            "invoice_origin": "%s" % (invoice.invoice_origin or "",),
+            "invoice_origin": "{}".format(
+                invoice.invoice_origin or "",
+            ),
             "partner_id": invoice.partner_id.id,
             "journal_id": invoice.journal_id.id,
             "user_id": invoice.user_id.id,
@@ -59,8 +61,12 @@ class AccountMove(models.Model):
             "company_id": invoice.company_id.id,
             "move_type": invoice.move_type,
             "state": "draft",
-            "payment_reference": "%s" % (invoice.payment_reference or "",),
-            "name": "%s" % (invoice.name or "",),
+            "payment_reference": "{}".format(
+                invoice.payment_reference or "",
+            ),
+            "name": "{}".format(
+                invoice.name or "",
+            ),
             "fiscal_position_id": invoice.fiscal_position_id.id,
             "invoice_payment_term_id": invoice.invoice_payment_term_id.id,
             "invoice_line_ids": {},
@@ -194,7 +200,7 @@ class AccountMove(models.Model):
         qty_prec = self.env["decimal.precision"].precision_get(
             "Product Unit of Measure"
         )
-        for invoice_key, (invoice_data, old_ids) in new_invoices.items():
+        for _invoice_key, (invoice_data, old_ids) in new_invoices.items():
             # skip merges with only one invoice
             if len(old_ids) < 2:
                 allinvoices += old_ids or []

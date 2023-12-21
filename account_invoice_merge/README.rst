@@ -91,6 +91,8 @@ Contributors
 
 -  Freni Patel <fpatel@opensourceintegrators.com>
 
+-  Marcos Oitabén <marcos.oitaben@dynapps.eu>
+
 -  `Trobz <https://trobz.com>`__:
 
       -  Nguyễn Minh Chiến <chien@trobz.com>

@@ -10,6 +10,8 @@
 
 - Freni Patel \<<fpatel@opensourceintegrators.com>\>
 
+- Marcos Oitabén \<<marcos.oitaben@dynapps.eu>\>
+
 - [Trobz](https://trobz.com):
 
   > - Nguyễn Minh Chiến \<<chien@trobz.com>\>

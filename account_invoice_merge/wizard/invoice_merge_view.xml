@@ -6,7 +6,7 @@
         <field name="model">invoice.merge</field>
         <field name="arch" type="xml">
             <form string="Merge Partner Invoice">
-                <group attrs="{'invisible': [('error_message', '!=', False)]}">
+                <group invisible="error_message">
                     <group>
                         <separator
                             string="Are you sure you want to merge these invoices?"
@@ -29,7 +29,7 @@
                         </group>
                     </group>
                 </group>
-                <group attrs="{'invisible': [('error_message', '=', False)]}">
+                <group invisible="not error_message">
                     <field
                         name="error_message"
                         readonly="1"
@@ -46,7 +46,7 @@
                         string="Merge Invoices"
                         type="object"
                         class="oe_highlight"
-                        attrs="{'invisible': [('error_message', '!=', False)]}"
+                        invisible="error_message"
                     />
                     <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>
