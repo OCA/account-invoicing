@@ -5,7 +5,10 @@
         <field name="model">account.tax.group</field>
         <field name="inherit_id" ref="account.view_tax_group_tree" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='property_advance_tax_payment_account_id']" position="after">
+            <xpath
+                expr="//field[@name='property_advance_tax_payment_account_id']"
+                position="after"
+            >
                 <field name="report_note" />
             </xpath>
         </field>
