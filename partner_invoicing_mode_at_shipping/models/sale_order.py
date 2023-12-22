@@ -23,23 +23,6 @@ class SaleOrder(models.Model):
                 order.partner_invoice_id.one_invoice_per_shipping
             )
 
-    def _get_generated_invoices(self, partition):
-        sales_to_validate_invoices = self.filtered(
-            lambda sale: sale.one_invoice_per_shipping
-            and any(invoice.state == "draft" for invoice in self.invoice_ids)
-        )
-        sales_create_invoices = self - sales_to_validate_invoices
-        if sales_create_invoices:
-            invoices = super(SaleOrder, sales_create_invoices)._get_generated_invoices(
-                partition
-            )
-        else:
-            invoices = self.env["account.move"].browse()
-        to_validate_invoices = sales_to_validate_invoices.mapped(
-            "invoice_ids"
-        ).filtered(lambda invoice: invoice.state == "draft")
-        return invoices | to_validate_invoices
-
     def generate_invoices(
         self,
         companies=None,
