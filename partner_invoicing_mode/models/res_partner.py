@@ -21,7 +21,6 @@ class ResPartner(models.Model):
         return super()._commercial_fields() + [
             "invoicing_mode",
             "one_invoice_per_order",
-            "next_invoice_date",
         ]
 
     def _update_next_invoice_date(self):
