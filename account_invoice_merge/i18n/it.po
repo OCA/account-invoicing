@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-21 02:57+0000\n"
-"PO-Revision-Date: 2023-10-09 09:09+0000\n"
+"PO-Revision-Date: 2023-12-24 18:34+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/"
 "OCA-account-invoicing-8-0/language/it/)\n"
@@ -51,7 +51,7 @@ msgstr "* fatture appartengono allo stesso partner"
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid "Are you sure you want to merge these invoices ?"
-msgstr "Sei sicuro che vuoi unire queste fatture? "
+msgstr "Sei sicuro che vuoi unire queste fatture?"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:29
@@ -97,7 +97,7 @@ msgstr "Data fattura"
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid "Invoices will only be merged if:"
-msgstr "Le fatture  saranno unite se:"
+msgstr "Le fatture saranno unite se:"
 
 #. module: account_invoice_merge
 #: field:invoice.merge,keep_references:0
@@ -122,7 +122,7 @@ msgstr "Ultimo aggiornamento il"
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
 msgid "Lines will only be merged if:"
-msgstr "Le linee saranno  unite solo se:"
+msgstr "Le linee saranno unite solo se:"
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
@@ -187,7 +187,7 @@ msgstr "Prego notare che:"
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:23
 #, python-format
 msgid "Please select multiple invoice to merge in the list view."
-msgstr "Selezionare  più  fatture  da unire in una vista a lista."
+msgstr "Selezionare più fatture da unire in una vista a lista."
 
 #. module: account_invoice_merge
 #: view:invoice.merge:account_invoice_merge.view_invoice_merge
