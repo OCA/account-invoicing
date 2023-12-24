@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-09 03:38+0000\n"
-"PO-Revision-Date: 2023-10-09 09:10+0000\n"
+"PO-Revision-Date: 2023-12-24 19:42+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -23,7 +23,7 @@ msgstr ""
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Are you sure you want to merge these invoices ?"
-msgstr "Sei sicuro che vuoi unire queste fatture? "
+msgstr "Sei sicuro che vuoi unire queste fatture?"
 
 #. module: account_invoice_merge
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:31
@@ -161,7 +161,7 @@ msgstr ""
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:24
 #, python-format
 msgid "Please select multiple invoice to merge in the list view."
-msgstr "Selezionare  più  fatture  da unire in una vista a lista."
+msgstr "Selezionare più fatture da unire in una vista a lista."
 
 #. module: account_invoice_merge
 #: model:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
