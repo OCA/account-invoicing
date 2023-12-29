@@ -21,7 +21,7 @@ class SaleOrder(models.Model):
         )
         if not sales:
             return "No sale order found to invoice ?"
-        sales.partner_id.ensure_one()
+        sales.partner_invoice_id.ensure_one()
         invoices = sales._create_invoices(
             grouped=sales.partner_invoice_id.one_invoice_per_order,
             final=True,
