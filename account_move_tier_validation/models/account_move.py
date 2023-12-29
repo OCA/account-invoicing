@@ -23,7 +23,7 @@ class AccountMove(models.Model):
         return super()._get_under_validation_exceptions() + ["needed_terms_dirty"]
 
     def _get_to_validate_message_name(self):
-        name = super(AccountMove, self)._get_to_validate_message_name()
+        name = super()._get_to_validate_message_name()
         if self.move_type == "in_invoice":
             name = _("Bill")
         elif self.move_type == "in_refund":
