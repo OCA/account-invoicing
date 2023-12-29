@@ -17,18 +17,19 @@ Account Move Tier Validation
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/account_move_tier_validation
+    :target: https://github.com/OCA/account-invoicing/tree/17.0/account_move_tier_validation
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-account_move_tier_validation
+    :target: https://translation.odoo-community.org/projects/account-invoicing-17-0/account-invoicing-17-0-account_move_tier_validation
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extends the functionality of Account Move to support a tier validation process.
+This module extends the functionality of Account Move to support a tier
+validation process.
 
 **Table of contents**
 
@@ -38,15 +39,16 @@ This module extends the functionality of Account Move to support a tier validati
 Installation
 ============
 
-This module depends on base_tier_validation. You can find it at [OCA/server-ux](https://github.com/OCA/server-ux)
+This module depends on base_tier_validation. You can find it at
+[OCA/server-ux](https://github.com/OCA/server-ux)
 
 Configuration
 =============
 
 To configure this module, you need to:
 
-#. Go to *Settings > Technical > Tier Validations > Tier Definition*.
-#. Create as many tiers as you want for Account Move model.
+1. Go to *Settings > Technical > Tier Validations > Tier Definition*.
+2. Create as many tiers as you want for Account Move model.
 
 Usage
 =====
@@ -55,13 +57,17 @@ To use this module, you need to:
 
 1. Create an Account Invoice triggering at least one "Tier Definition".
 2. Click on Request Validation button.
-3. Under the tab Reviews have a look to pending reviews and their statuses.
+3. Under the tab Reviews have a look to pending reviews and their
+   statuses.
 4. Once all reviews are validated click on Post.
 
 Additional features:
 
-* You can filter the Account Invoices requesting your review through the filter Needs my Review.
-* User with rights to confirm the Account Invoice (validate all tiers that would be generated) can directly do the operation, this is, there is no need for her/him to request a validation.
+-  You can filter the Account Invoices requesting your review through
+   the filter Needs my Review.
+-  User with rights to confirm the Account Invoice (validate all tiers
+   that would be generated) can directly do the operation, this is,
+   there is no need for her/him to request a validation.
 
 Bug Tracker
 ===========
@@ -69,7 +75,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_move_tier_validation%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_move_tier_validation%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -77,18 +83,18 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * PESOL
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Odoo Perú <info@odooperu.pe>
-* Tharathip Chaweewongphan <tharathipc@ecosoft.co.th>
+-  Odoo Perú <info@odooperu.pe>
+-  Tharathip Chaweewongphan <tharathipc@ecosoft.co.th>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -100,6 +106,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/account_move_tier_validation>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/17.0/account_move_tier_validation>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
