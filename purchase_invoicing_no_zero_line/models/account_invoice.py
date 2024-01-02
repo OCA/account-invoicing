@@ -1,24 +1,39 @@
 # Copyright 2019 Digital5 S.L.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import models
-from odoo.tools import float_is_zero, float_compare
+from odoo import models, api
+from odoo.tools import float_is_zero
 
 
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    def _prepare_invoice_line_from_po_line(self, line):
-        if self.purchase_id and self.journal_id and self.journal_id.avoid_zero_lines:
-            if line.product_id.purchase_method == "purchase":
-                qty = line.product_qty - line.qty_invoiced
+    @api.onchange('purchase_id')
+    def purchase_order_change(self):
+        if not self.purchase_id:
+            return {}
+        ctx = dict(
+            self._context,
+            avoid_zero_lines=self.journal_id and self.journal_id.avoid_zero_lines
+        )
+        return super(AccountInvoice, self.with_context(ctx)).purchase_order_change()
+
+
+class AccountInvoiceLine(models.Model):
+    _inherit = "account.invoice.line"
+
+    @api.model
+    def new(self, values={}, ref=None):
+        """Avoid zero quantity lines."""
+        if (
+            self._context.get("avoid_zero_lines", False) and
+            "quantity" in values
+        ):
+            if "uom_id" in values:
+                uom_id = values["uom_id"]
             else:
-                qty = line.qty_received - line.qty_invoiced
-            if (
-                float_compare(qty, 0.0, precision_rounding=line.product_uom.rounding)
-                <= 0
-            ):
-                qty = 0.0
-            if float_is_zero(qty, precision_rounding=line.product_uom.rounding):
-                return {}
-        return super()._prepare_invoice_line_from_po_line(line)
+                uom_id = self.env["product.template"]._get_default_uom_id()
+            uom = self.env["product.uom"].browse(uom_id)
+            if float_is_zero(values["quantity"], precision_rounding=uom.rounding):
+                return self.env["account.invoice.line"]
+        return super().new(values=values, ref=ref)
