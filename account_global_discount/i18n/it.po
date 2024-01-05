@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-09 17:18+0000\n"
-"PO-Revision-Date: 2023-10-09 07:44+0000\n"
+"PO-Revision-Date: 2024-01-05 15:37+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -94,7 +94,7 @@ msgstr "Sconto (numero)"
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__name
 msgid "Discount Name"
-msgstr "Nome Sconto"
+msgstr "Nome sconto"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__discount_amount
@@ -115,7 +115,7 @@ msgstr "Nome visualizzato"
 #: model:ir.model,name:account_global_discount.model_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__global_discount_id
 msgid "Global Discount"
-msgstr "Sconto Globale"
+msgstr "Sconto globale"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_move_line__global_discount_item
@@ -126,7 +126,7 @@ msgstr "Oggetto Sconto Globale"
 #: model:ir.ui.menu,name:account_global_discount.menu_account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
 msgid "Global Discounts"
-msgstr "Sconti Globali"
+msgstr "Sconti globali"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__id
