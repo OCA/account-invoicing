@@ -137,3 +137,11 @@ class TestInvoiceFixedDiscount(TransactionCase):
         self.assertEqual(self.invoice.amount_total, 143)
         self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143)
+
+    def test_04_base_line_set_to_none(self):
+
+        self.vat._convert_to_tax_base_line_dict(
+            None,
+            price_unit=10,
+            currency=1,
+        )
