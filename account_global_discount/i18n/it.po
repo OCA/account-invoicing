@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-12 12:53+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2024-01-05 15:36+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.report_invoice_document
@@ -82,7 +82,7 @@ msgstr "Sconto (numero)"
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__name
 msgid "Discount Name"
-msgstr "Nome Sconto"
+msgstr "Nome sconto"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__discount_amount
@@ -108,13 +108,13 @@ msgstr "Nome visualizzato"
 #: model:ir.model,name:account_global_discount.model_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__global_discount_id
 msgid "Global Discount"
-msgstr "Sconto Globale"
+msgstr "Sconto globale"
 
 #. module: account_global_discount
 #: model:ir.ui.menu,name:account_global_discount.menu_account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.account_invoice_form_view
 msgid "Global Discounts"
-msgstr "Sconti Globali"
+msgstr "Sconti globali"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__id
