@@ -5,14 +5,26 @@
         inherit_id="account.report_invoice_document"
         priority="100"
     >
-        <xpath expr="//t[@t-set='display_discount']" position="replace">
-            <t t-set="display_discount" t-value="o._has_discount()" />
+        <xpath expr="//t[@t-set='display_discount']" position="attributes">
+            <attribute name="t-value">False</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='display_discount']" position="after">
             <t
                 t-set="discount_class"
                 t-value="'text-end %s' % ('d-none d-md-table-cell' if report_type == 'html' else '')"
             />
         </xpath>
+        <xpath expr="//th[@name='th_price_unit']" position="attributes">
+            <attribute name="style">visibility: hidden;</attribute>
+        </xpath>
         <xpath expr="//th[@name='th_price_unit']" position="after">
+            <th
+                name="th_discount1"
+                t-if="display_discount"
+                t-att-class="discount_class"
+            >
+                <span>Disc.1 %</span>
+            </th>
             <th
                 name="th_discount2"
                 t-if="display_discount"
@@ -28,7 +40,13 @@
                 <span>Disc.3 %</span>
             </th>
         </xpath>
+        <xpath expr="//td[span[@t-field='line.discount']]" position="attributes">
+            <attribute name="style">visibility: hidden;</attribute>
+        </xpath>
         <xpath expr="//td[span[@t-field='line.discount']]" position="after">
+            <td t-if="display_discount" t-att-class="discount_class">
+                <span class="text-nowrap" t-field="line.discount1" />
+            </td>
             <td t-if="display_discount" t-att-class="discount_class">
                 <span class="text-nowrap" t-field="line.discount2" />
             </td>
