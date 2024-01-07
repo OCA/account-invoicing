@@ -73,6 +73,10 @@ Contributors
    -  Jeroen Evens
    -  Raf Ven
 
+-  `NICO SOLUTIONS <https://www.nico-solutions-de>`__
+
+   -  Nils Coenen
+
 Other credits
 -------------
 
