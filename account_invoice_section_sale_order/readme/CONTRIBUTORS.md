@@ -4,3 +4,5 @@
 - [Dynapps](https://www.dynapps.eu)
   - Jeroen Evens
   - Raf Ven
+- [NICO SOLUTIONS](https://www.nico-solutions-de)
+  - Nils Coenen
