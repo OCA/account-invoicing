@@ -1,4 +1,5 @@
 # Copyright 2016 - Tecnativa - Angel Moya <odoo@tecnativa.com>
+# Copyright 2024 - Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import exceptions
@@ -90,6 +91,19 @@ class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
         """Validate invoice without tax must raise exception"""
         with self.assertRaises(exceptions.UserError):
             self.invoice.with_context(test_tax_required=True).action_post()
+
+    def test_mass_validation(self):
+        wizard = (
+            self.env["validate.account.move"]
+            .with_context(
+                test_tax_required=True,
+                active_model="account.move",
+                active_ids=self.invoice.ids,
+            )
+            .create({})
+        )
+        with self.assertRaises(exceptions.UserError):
+            wizard.validate_move()
 
     def test_without_exception(self):
         """Validate invoice without tax must raise exception"""
