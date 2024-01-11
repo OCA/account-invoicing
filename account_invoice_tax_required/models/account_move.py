@@ -1,7 +1,7 @@
 # Copyright 2015 - Camptocamp SA - Author Vincent Renaville
 # Copyright 2016 - Tecnativa - Angel Moya <odoo@tecnativa.com>
-# Copyright 2019 - Tecnativa - Pedro M. Baeza
 # Copyright 2019 - Punt Sistemes - Juan Vicente Pascual
+# Copyright 2019-2024 - Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import SUPERUSER_ID, _, models
@@ -30,7 +30,7 @@ class AccountMove(models.Model):
                 )
             )
 
-    def action_post(self):
+    def _post(self, soft=True):
         # Always test if it is required by context
         force_test = self.env.context.get("test_tax_required")
         skip_test = any(
@@ -51,4 +51,4 @@ class AccountMove(models.Model):
         for move in self:
             if move.move_type != "entry" and (force_test or not skip_test):
                 move._test_invoice_line_tax()
-        return super(AccountMove, self).action_post()
+        return super()._post(soft=soft)
