@@ -35,8 +35,8 @@ msgstr "Račun"
 #. module: account_invoice_tax_required
 #: code:addons/account_invoice_tax_required/models/account_invoice.py:17
 #, python-format
-msgid "Invoice has a line with product %s with no taxes"
-msgstr "Račun vsebuje postavko s proizvodom %s brez davkov"
+msgid "Invoice %(invoice)s has a line with product %(product)s with no taxes"
+msgstr "Račun %(invoice)s vsebuje postavko s proizvodom %(product)s brez davkov"
 
 #. module: account_invoice_tax_required
 #: code:addons/account_invoice_tax_required/models/account_invoice.py:24
