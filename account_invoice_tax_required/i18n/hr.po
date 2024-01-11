@@ -35,8 +35,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
-msgid "Invoice has a line with product %s with no taxes"
-msgstr "Račun sadrži stavku sa proizvodom %s bez poreza"
+msgid "Invoice %(invoice)s has a line with product %(product)s with no taxes"
+msgstr "Račun %(invoice)s sadrži stavku sa proizvodom %(product)s bez poreza"
 
 #. module: account_invoice_tax_required
 #: model:ir.model,name:account_invoice_tax_required.model_account_move
