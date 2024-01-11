@@ -32,9 +32,9 @@ msgstr ""
 #. module: account_invoice_tax_required
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
-msgid "Invoice has a line with product %s with no taxes"
+msgid "Invoice %(invoice)s has a line with product %(product)s with no taxes"
 msgstr ""
-"La factura contiene una línea con el producto %s que no tiene impuestos"
+"La factura %(invoice)s contiene una línea con el producto %(product)s que no tiene impuestos"
 
 #. module: account_invoice_tax_required
 #: model:ir.model,name:account_invoice_tax_required.model_account_move
