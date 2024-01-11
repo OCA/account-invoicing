@@ -24,21 +24,19 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
-msgid ""
-"%(message)s\n"
-"%(errors)s"
+msgid "Invoice %(invoice)s has a line with product %(product)s with no taxes"
+msgstr ""
+
+#. module: account_invoice_tax_required
+#: model:ir.model,name:account_invoice_tax_required.model_account_move
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_tax_required
 #. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
-msgid "Invoice has a line with product %s with no taxes"
-msgstr ""
-
-#. module: account_invoice_tax_required
-#: model:ir.model,name:account_invoice_tax_required.model_account_move
-msgid "Journal Entry"
+msgid "No Taxes Defined!"
 msgstr ""
 
 #~ msgid "Invoice"

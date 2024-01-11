@@ -24,24 +24,28 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
-msgid ""
-"%(message)s\n"
-"%(errors)s"
-msgstr ""
-"%(message)s\n"
-"%(errors)s"
-
-#. module: account_invoice_tax_required
-#. odoo-python
-#: code:addons/account_invoice_tax_required/models/account_move.py:0
-#, python-format
-msgid "Invoice has a line with product %s with no taxes"
-msgstr "A Fatura com o produto %s está sem impostos"
+msgid "Invoice %(invoice)s has a line with product %(product)s with no taxes"
+msgstr "A Fatura %(invoice)s com o produto %(product)s está sem impostos"
 
 #. module: account_invoice_tax_required
 #: model:ir.model,name:account_invoice_tax_required.model_account_move
 msgid "Journal Entry"
 msgstr "Entrada Diário"
+
+#. module: account_invoice_tax_required
+#. odoo-python
+#: code:addons/account_invoice_tax_required/models/account_move.py:0
+#, python-format
+msgid "No Taxes Defined!"
+msgstr "Sem Impostos Definidos!"
+
+#, python-format
+#~ msgid ""
+#~ "%(message)s\n"
+#~ "%(errors)s"
+#~ msgstr ""
+#~ "%(message)s\n"
+#~ "%(errors)s"
 
 #, python-format
 #~ msgid ""
@@ -53,7 +57,3 @@ msgstr "Entrada Diário"
 
 #~ msgid "Invoice"
 #~ msgstr "Fatura"
-
-#, python-format
-#~ msgid "No Taxes Defined!"
-#~ msgstr "Sem Impostos Definidos!"

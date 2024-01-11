@@ -23,24 +23,30 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
-msgid ""
-"%(message)s\n"
-"%(errors)s"
+msgid "Invoice %(invoice)s has a line with product %(product)s with no taxes"
 msgstr ""
-"%(message)s\n"
-"%(errors)s"
-
-#. module: account_invoice_tax_required
-#. odoo-python
-#: code:addons/account_invoice_tax_required/models/account_move.py:0
-#, python-format
-msgid "Invoice has a line with product %s with no taxes"
-msgstr "Die Rechnung hat eine Position mit Produkt %s ohne Steuer"
+"Die Rechnung %(invoice)s hat eine Position mit Produkt %(product)s ohne "
+"Steuer"
 
 #. module: account_invoice_tax_required
 #: model:ir.model,name:account_invoice_tax_required.model_account_move
 msgid "Journal Entry"
 msgstr "Buchungssatz"
+
+#. module: account_invoice_tax_required
+#. odoo-python
+#: code:addons/account_invoice_tax_required/models/account_move.py:0
+#, python-format
+msgid "No Taxes Defined!"
+msgstr "Keine Steuern festgelegt!"
+
+#, python-format
+#~ msgid ""
+#~ "%(message)s\n"
+#~ "%(errors)s"
+#~ msgstr ""
+#~ "%(message)s\n"
+#~ "%(errors)s"
 
 #, python-format
 #~ msgid ""
@@ -52,7 +58,3 @@ msgstr "Buchungssatz"
 
 #~ msgid "Invoice"
 #~ msgstr "Rechnung"
-
-#, python-format
-#~ msgid "No Taxes Defined!"
-#~ msgstr "Keine Steuern festgelegt!"
