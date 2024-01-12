@@ -3,6 +3,19 @@
 
 from odoo import api, fields, models
 
+from .res_company import INVOICE_WARN_MESSAGE_SELECTION
+
+INVOICE_WARN_MESSAGE_SEL_MAPPING = {
+    INVOICE_WARN_MESSAGE_SELECTION[0][0]: ["out_invoice", "out_refund"],
+    INVOICE_WARN_MESSAGE_SELECTION[1][0]: ["in_invoice", "in_refund"],
+    INVOICE_WARN_MESSAGE_SELECTION[2][0]: [
+        "out_invoice",
+        "out_refund",
+        "in_invoice",
+        "in_refund",
+    ],
+}
+
 
 class AccountMove(models.Model):
 
@@ -14,12 +27,11 @@ class AccountMove(models.Model):
         "type", "state", "partner_id.invoice_warn", "partner_id.parent_id.invoice_warn"
     )
     def _compute_invoice_warn_msg(self):
+        move_types_warn = INVOICE_WARN_MESSAGE_SEL_MAPPING[
+            self.env.company.invoice_warn_message_type
+        ]
         for rec in self:
-            if (
-                rec.partner_id
-                and rec.type in ("out_invoice", "out_refund")
-                and rec.state == "draft"
-            ):
+            if rec.partner_id and rec.type in move_types_warn and rec.state == "draft":
                 if (
                     rec.partner_id.parent_id
                     and rec.partner_id.parent_id.invoice_warn == "warning"
