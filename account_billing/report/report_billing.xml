@@ -73,7 +73,7 @@
                                     <span t-field="line.invoice_date" />
                                 </td>
                                 <td>
-                                    <span t-field="line.invoice_id.invoice_date_due" />
+                                    <span t-field="line.move_id.invoice_date_due" />
                                 </td>
                                 <td>
                                     <span t-field="line.origin" />
