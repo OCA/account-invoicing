@@ -32,9 +32,9 @@ class TestAccountBilling(TransactionCase):
         cls.account_receivable = cls.env["account.account"].search(
             [
                 (
-                    "user_type_id",
+                    "account_type",
                     "=",
-                    cls.env.ref("account.data_account_type_receivable").id,
+                    "asset_receivable",
                 )
             ],
             limit=1,
@@ -42,9 +42,9 @@ class TestAccountBilling(TransactionCase):
         cls.account_revenue = cls.env["account.account"].search(
             [
                 (
-                    "user_type_id",
+                    "account_type",
                     "=",
-                    cls.env.ref("account.data_account_type_revenue").id,
+                    "income",
                 ),
                 ("company_id", "=", cls.env.company.id),
             ],
@@ -194,7 +194,7 @@ class TestAccountBilling(TransactionCase):
         bill1._onchange_invoice_list()
         bill1.validate_billing()
         self.assertEqual(bill1.invoice_related_count, 2)
-        self.assertEqual(bill1.billing_line_ids.mapped("invoice_id.billing_ids"), bill1)
+        self.assertEqual(bill1.billing_line_ids.mapped("move_id.billing_ids"), bill1)
 
         # Create billing type - supplier
         bill2 = self.billing_model.create(
