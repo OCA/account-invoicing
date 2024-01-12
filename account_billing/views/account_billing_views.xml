@@ -176,7 +176,7 @@
                         <page string="Billing Lines" groups="base.group_user">
                             <field name="billing_line_ids">
                                 <tree name="billing" create="0" editable="bottom">
-                                    <field name="invoice_id" />
+                                    <field name="move_id" />
                                     <field name="name" readonly="1" force_save="1" />
                                     <field
                                         name="invoice_date"
