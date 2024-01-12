@@ -15,7 +15,7 @@ class AccountMove(models.Model):
     )
 
     def _compute_billing_ids(self):
-        BillLine = self.env["account.billing.line"]
+        bl_obj = self.env["account.billing.line"]
         for rec in self:
-            billing_lines = BillLine.search([("invoice_id", "=", rec.id)])
+            billing_lines = bl_obj.search([("move_id", "=", rec.id)])
             rec.billing_ids = billing_lines.mapped("billing_id")

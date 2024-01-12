@@ -109,8 +109,8 @@ class AccountBilling(models.Model):
         "threshold date will be listed in billing lines",
     )
 
-    def _get_invoices(self, date=False, types=False):
-        invoices = self.env["account.move"].search(
+    def _get_moves(self, date=False, types=False):
+        moves = self.env["account.move"].search(
             [
                 ("partner_id", "=", self.partner_id.id),
                 ("state", "=", "posted"),
@@ -120,47 +120,45 @@ class AccountBilling(models.Model):
                 ("move_type", "in", types),
             ]
         )
-        return invoices
+        return moves
 
     @api.onchange("partner_id", "currency_id", "threshold_date", "threshold_date_type")
     def _onchange_invoice_list(self):
         self.billing_line_ids = False
-        Billing_line = self.env["account.billing.line"]
-        invoices = self.env["account.move"].browse(self._context.get("active_ids", []))
-        if not invoices:
+        bl_obj = self.env["account.billing.line"]
+        moves = self.env["account.move"].browse(self._context.get("active_ids", []))
+        if not moves:
             types = ["in_invoice", "in_refund"]
             if self.bill_type == "out_invoice":
                 types = ["out_invoice", "out_refund"]
-            invoices = self._get_invoices(self.threshold_date_type, types)
+            moves = self._get_moves(self.threshold_date_type, types)
         else:
-            if invoices[0].move_type in ["out_invoice", "out_refund"]:
+            if moves[0].move_type in ["out_invoice", "out_refund"]:
                 self.bill_type = "out_invoice"
             else:
                 self.bill_type = "in_invoice"
-        for line in invoices:
-            if line.move_type in ["out_refund", "in_refund"]:
-                line.amount_residual = line.amount_residual * (-1)
-            self.billing_line_ids += Billing_line.new(
-                {"invoice_id": line.id, "total": line.amount_residual}
+        for move in moves:
+            if move.move_type in ["out_refund", "in_refund"]:
+                move.amount_residual = move.amount_residual * (-1)
+            self.billing_line_ids += bl_obj.new(
+                {"move_id": move.id, "total": move.amount_residual}
             )
 
     def _get_partner_id(self):
-        inv_ids = self.env["account.move"].browse(self._context.get("active_ids", []))
-        if any(inv.state != "posted" or inv.payment_state == "paid" for inv in inv_ids):
+        move_ids = self.env["account.move"].browse(self._context.get("active_ids", []))
+        if any(
+            move.state != "posted" or move.payment_state == "paid" for move in move_ids
+        ):
             raise ValidationError(
                 _(
                     "Billing cannot be processed because "
-                    "some invoices are not in state Open"
+                    "some invoices are not in the 'Posted' or 'Paid' state already."
                 )
             )
-        partners = (
-            self.env["account.move"]
-            .browse(self._context.get("active_ids", []))
-            .mapped("partner_id")
-        )
+        partners = move_ids.mapped("partner_id")
         if len(partners) > 1:
             raise ValidationError(_("Please select invoices with same partner"))
-        return partners and partners[0] or False
+        return partners
 
     def _get_currency_id(self):
         currency_ids = (
@@ -221,7 +219,7 @@ class AccountBilling(models.Model):
 
     def action_cancel(self):
         for rec in self:
-            invoice_paid = rec.billing_line_ids.mapped("invoice_id").filtered(
+            invoice_paid = rec.billing_line_ids.mapped("move_id").filtered(
                 lambda l: l.payment_state == "paid"
             )
             if invoice_paid:
@@ -242,9 +240,7 @@ class AccountBilling(models.Model):
                 (self.env.ref("account.view_move_form").id, "form"),
             ],
             "type": "ir.actions.act_window",
-            "domain": [
-                ("id", "in", [rec.invoice_id.id for rec in self.billing_line_ids])
-            ],
+            "domain": [("id", "in", [rec.move_id.id for rec in self.billing_line_ids])],
             "context": {"create": False},
         }
 
@@ -254,11 +250,14 @@ class AccountBillingLine(models.Model):
     _description = "Billing Line"
 
     billing_id = fields.Many2one(comodel_name="account.billing")
-    invoice_id = fields.Many2one(comodel_name="account.move")
-    name = fields.Char(related="invoice_id.name")
-    invoice_date = fields.Date(related="invoice_id.invoice_date")
-    threshold_date = fields.Date(related="invoice_id.invoice_date_due")
-    origin = fields.Char(related="invoice_id.invoice_origin")
+    move_id = fields.Many2one(
+        comodel_name="account.move",
+        index=True,
+    )
+    name = fields.Char(related="move_id.name")
+    invoice_date = fields.Date(related="move_id.invoice_date")
+    threshold_date = fields.Date(related="move_id.invoice_date_due")
+    origin = fields.Char(related="move_id.invoice_origin")
     total = fields.Float()
-    state = fields.Selection(related="invoice_id.state")
-    payment_state = fields.Selection(related="invoice_id.payment_state")
+    state = fields.Selection(related="move_id.state")
+    payment_state = fields.Selection(related="move_id.payment_state")
