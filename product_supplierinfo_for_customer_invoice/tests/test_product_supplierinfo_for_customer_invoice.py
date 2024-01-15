@@ -18,7 +18,7 @@ class TestProductSupplierinfoForCustomerInvoice(TransactionCase):
         cls.product = cls.env.ref("product.product_product_4")
         cls.customerinfo_1 = cls.customerinfo_model.create(
             {
-                "name": cls.customer_1.id,
+                "partner_id": cls.customer_1.id,
                 "product_tmpl_id": cls.product.product_tmpl_id.id,
                 "product_id": cls.product.id,
                 "product_code": "CUST1234",
