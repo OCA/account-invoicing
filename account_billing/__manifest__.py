@@ -12,7 +12,7 @@
     "depends": ["account"],
     "data": [
         "data/account_billing_sequence.xml",
-        "data/account_move.xml",
+        "data/server_action.xml",
         "security/ir.model.access.csv",
         "views/account_billing_views.xml",
         "views/account_move_views.xml",

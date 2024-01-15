@@ -55,7 +55,7 @@
                             <th>
                                 <span>Source Document</span>
                             </th>
-                            <th class="text-right">
+                            <th class="text-end">
                                 <span>Total</span>
                             </th>
                             <th>
@@ -78,8 +78,8 @@
                                 <td>
                                     <span t-field="line.origin" />
                                 </td>
-                                <td class="text-right">
-                                    <span t-field="line.total" />
+                                <td class="text-end">
+                                    <span t-field="line.amount_total" />
                                 </td>
                                 <td>
                                     <span t-field="line.state" />
