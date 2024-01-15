@@ -23,6 +23,12 @@
                     attrs="{'invisible': [('partner_show_customer_code', '!=', True)]}"
                 />
             </xpath>
+            <xpath
+                expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']"
+                position="attributes"
+            >
+                <attribute name="context">{'partner_id': parent.partner_id}</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>
