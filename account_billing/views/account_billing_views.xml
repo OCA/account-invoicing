@@ -12,6 +12,7 @@
                 <field name="partner_id" string="Customer" />
                 <field name="date" />
                 <field name="threshold_date" />
+                <field name="payment_paid_all" />
                 <field
                     name="state"
                     widget="badge"
@@ -35,6 +36,7 @@
                 <field name="partner_id" string="Vendor" />
                 <field name="date" />
                 <field name="threshold_date" />
+                <field name="payment_paid_all" />
                 <field
                     name="state"
                     widget="badge"
@@ -104,6 +106,15 @@
                         type="object"
                     />
                     <button
+                        name="action_register_payment"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'billed'), ('payment_paid_all', '!=', False)]}"
+                        string="Register Payment"
+                        data-hotkey="g"
+                        groups="account.group_account_invoice"
+                    />
+                    <button
                         name="action_cancel"
                         states="draft"
                         string="Cancel"
@@ -164,6 +175,7 @@
                                 attrs="{'readonly': [('state', '!=', 'draft')]}"
                             />
                             <field name="bill_type" invisible="1" />
+                            <field name="payment_paid_all" />
                         </group>
                         <group>
                             <field name="threshold_date_type" />
@@ -176,29 +188,24 @@
                         <page string="Billing Lines" groups="base.group_user">
                             <field name="billing_line_ids">
                                 <tree name="billing" create="0" editable="bottom">
-                                    <field name="move_id" />
-                                    <field name="name" readonly="1" force_save="1" />
+                                    <field name="move_id" invisible="1" />
+                                    <field name="name" />
+                                    <field name="invoice_date" />
+                                    <field name="threshold_date" />
+                                    <field name="origin" />
+                                    <field name="currency_id" invisible="1" />
                                     <field
-                                        name="invoice_date"
-                                        readonly="1"
-                                        force_save="1"
-                                    />
-                                    <field
-                                        name="threshold_date"
-                                        readonly="1"
-                                        force_save="1"
-                                    />
-                                    <field name="origin" readonly="1" force_save="1" />
-                                    <field
-                                        name="total"
+                                        name="amount_total"
                                         sum="Total Amount"
-                                        readonly="1"
-                                        force_save="1"
+                                        optional="show"
+                                    />
+                                    <field
+                                        name="amount_residual"
+                                        sum="Total Amount Residual"
+                                        optional="show"
                                     />
                                     <field
                                         name="state"
-                                        readonly="1"
-                                        force_save="1"
                                         widget="badge"
                                         decoration-success="state == 'posted'"
                                         decoration-info="state == 'draft'"
@@ -237,7 +244,7 @@
         <field name="view_id" eval="view_account_billing_tree" />
         <field
             name="context"
-        >{'bill_type':'out_invoice', 'search_default_customer_filter': 1}</field>
+        >{'bill_type':'out_invoice', 'search_default_customer_filter': 1, 'default_group_payment': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
             Click to register a new billing.
@@ -254,7 +261,7 @@
         <field name="view_id" eval="view_account_supplier_billing_tree" />
         <field
             name="context"
-        >{'bill_type':'in_invoice', 'search_default_vendor_filter': 1}</field>
+        >{'bill_type':'in_invoice', 'search_default_vendor_filter': 1, 'default_group_payment': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
             Click to register a new billing.
