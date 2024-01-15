@@ -2,12 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
-
-MAP_INVOICE_TYPE_PARTNER_TYPE = {
-    "out_invoice": "customer",
-    "in_invoice": "supplier",
-}
+from odoo.exceptions import UserError, ValidationError
 
 
 class AccountBilling(models.Model):
@@ -24,7 +19,6 @@ class AccountBilling(models.Model):
     partner_id = fields.Many2one(
         comodel_name="res.partner",
         required=True,
-        default=lambda self: self._get_partner_id(),
         help="Partner Information",
         tracking=True,
     )
@@ -70,7 +64,7 @@ class AccountBilling(models.Model):
             * The 'Cancelled' status is used when user billing is cancelled
         """,
     )
-    narration = fields.Text(
+    narration = fields.Html(
         string="Notes",
         readonly=True,
         states={"draft": [("readonly", False)]},
@@ -87,7 +81,7 @@ class AccountBilling(models.Model):
         comodel_name="res.currency",
         string="Currency",
         required=True,
-        default=lambda self: self._get_currency_id(),
+        default=lambda self: self.env.company.currency_id,
         readonly=True,
         states={"draft": [("readonly", False)]},
         help="Currency",
@@ -108,6 +102,20 @@ class AccountBilling(models.Model):
         help="All invoices with date (threshold date type) before and equal to "
         "threshold date will be listed in billing lines",
     )
+    payment_paid_all = fields.Boolean(
+        compute="_compute_payment_paid_all",
+        store=True,
+    )
+
+    @api.depends("billing_line_ids.payment_state")
+    def _compute_payment_paid_all(self):
+        for rec in self:
+            if not rec.billing_line_ids:
+                rec.payment_paid_all = False
+                continue
+            rec.payment_paid_all = all(
+                line.payment_state == "paid" for line in rec.billing_line_ids
+            )
 
     def _get_moves(self, date=False, types=False):
         moves = self.env["account.move"].search(
@@ -116,59 +124,11 @@ class AccountBilling(models.Model):
                 ("state", "=", "posted"),
                 ("payment_state", "!=", "paid"),
                 ("currency_id", "=", self.currency_id.id),
-                (date, "<=", self.threshold_date),
+                ("date", "<=", self.threshold_date),
                 ("move_type", "in", types),
             ]
         )
         return moves
-
-    @api.onchange("partner_id", "currency_id", "threshold_date", "threshold_date_type")
-    def _onchange_invoice_list(self):
-        self.billing_line_ids = False
-        bl_obj = self.env["account.billing.line"]
-        moves = self.env["account.move"].browse(self._context.get("active_ids", []))
-        if not moves:
-            types = ["in_invoice", "in_refund"]
-            if self.bill_type == "out_invoice":
-                types = ["out_invoice", "out_refund"]
-            moves = self._get_moves(self.threshold_date_type, types)
-        else:
-            if moves[0].move_type in ["out_invoice", "out_refund"]:
-                self.bill_type = "out_invoice"
-            else:
-                self.bill_type = "in_invoice"
-        for move in moves:
-            if move.move_type in ["out_refund", "in_refund"]:
-                move.amount_residual = move.amount_residual * (-1)
-            self.billing_line_ids += bl_obj.new(
-                {"move_id": move.id, "total": move.amount_residual}
-            )
-
-    def _get_partner_id(self):
-        move_ids = self.env["account.move"].browse(self._context.get("active_ids", []))
-        if any(
-            move.state != "posted" or move.payment_state == "paid" for move in move_ids
-        ):
-            raise ValidationError(
-                _(
-                    "Billing cannot be processed because "
-                    "some invoices are not in the 'Posted' or 'Paid' state already."
-                )
-            )
-        partners = move_ids.mapped("partner_id")
-        if len(partners) > 1:
-            raise ValidationError(_("Please select invoices with same partner"))
-        return partners
-
-    def _get_currency_id(self):
-        currency_ids = (
-            self.env["account.move"]
-            .browse(self._context.get("active_ids", []))
-            .mapped("currency_id")
-        )
-        if len(currency_ids) > 1:
-            raise ValidationError(_("Please select invoices with same currency"))
-        return currency_ids or self.env.company.currency_id
 
     def _compute_invoice_related_count(self):
         self.invoice_related_count = len(self.billing_line_ids)
@@ -179,6 +139,8 @@ class AccountBilling(models.Model):
 
     def validate_billing(self):
         for rec in self:
+            if not rec.billing_line_ids:
+                raise UserError(_("You need to add a line before validate."))
             date_type = dict(self._fields["threshold_date_type"].selection).get(
                 self.threshold_date_type
             )
@@ -228,6 +190,9 @@ class AccountBilling(models.Model):
             self.message_post(body=_("Billing %s is cancelled") % rec.name)
         return True
 
+    def action_register_payment(self):
+        return self.mapped("billing_line_ids.move_id").action_register_payment()
+
     def invoice_relate_billing_tree_view(self):
         name = self.bill_type == "out_invoice" and "Invoices" or "Bills"
         return {
@@ -244,6 +209,27 @@ class AccountBilling(models.Model):
             "context": {"create": False},
         }
 
+    def _get_billing_line_dict(self, moves):
+        billing_line_dict = [
+            {
+                "billing_id": self.id,
+                "move_id": m.id,
+                "amount_total": m.amount_total
+                * (-1 if m.move_type in ["out_refund", "in_refund"] else 1),
+            }
+            for m in moves
+        ]
+        return billing_line_dict
+
+    def compute_lines(self):
+        self.billing_line_ids = False
+        types = ["in_invoice", "in_refund"]
+        if self.bill_type == "out_invoice":
+            types = ["out_invoice", "out_refund"]
+        moves = self._get_moves(self.threshold_date_type, types)
+        billing_line_dict = self._get_billing_line_dict(moves)
+        self.billing_line_ids.create(billing_line_dict)
+
 
 class AccountBillingLine(models.Model):
     _name = "account.billing.line"
@@ -258,6 +244,21 @@ class AccountBillingLine(models.Model):
     invoice_date = fields.Date(related="move_id.invoice_date")
     threshold_date = fields.Date(related="move_id.invoice_date_due")
     origin = fields.Char(related="move_id.invoice_origin")
-    total = fields.Float()
+    currency_id = fields.Many2one(related="move_id.currency_id")
+    amount_total = fields.Monetary(
+        string="Total",
+        readonly=True,
+    )
+    amount_residual = fields.Monetary(
+        compute="_compute_amount_residual",
+        store=True,
+        string="Amount Due",
+    )
     state = fields.Selection(related="move_id.state")
     payment_state = fields.Selection(related="move_id.payment_state")
+
+    @api.depends("move_id.amount_residual")
+    def _compute_amount_residual(self):
+        for rec in self:
+            sign = -1 if rec.move_id.move_type in ["out_refund", "in_refund"] else 1
+            rec.amount_residual = rec.move_id.amount_residual * sign
