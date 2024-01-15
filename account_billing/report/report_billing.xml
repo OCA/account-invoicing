@@ -79,7 +79,7 @@
                                     <span t-field="line.origin" />
                                 </td>
                                 <td class="text-right">
-                                    <span t-field="line.total" />
+                                    <span t-field="line.amount_total" />
                                 </td>
                                 <td>
                                     <span t-field="line.state" />

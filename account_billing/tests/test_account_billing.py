@@ -5,7 +5,7 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields
+from odoo import fields, Command
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
@@ -100,17 +100,15 @@ class TestAccountBilling(TransactionCase):
                 "invoice_date": fields.Date.today(),
                 "invoice_payment_term_id": self.payment_term.id,
                 "invoice_line_ids": [
-                    [
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": self.product.id,
                             "quantity": 1,
                             "price_unit": amount,
                             "name": "something",
                             "account_id": self.account_revenue.id,
-                        },
-                    ]
+                        }
+                    )
                 ],
             }
         )
