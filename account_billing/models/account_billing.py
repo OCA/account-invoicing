@@ -2,12 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
-
-MAP_INVOICE_TYPE_PARTNER_TYPE = {
-    "out_invoice": "customer",
-    "in_invoice": "supplier",
-}
+from odoo.exceptions import UserError, ValidationError
 
 
 class AccountBilling(models.Model):
@@ -108,6 +103,20 @@ class AccountBilling(models.Model):
         help="All invoices with date (threshold date type) before and equal to "
         "threshold date will be listed in billing lines",
     )
+    payment_paid_all = fields.Boolean(
+        compute="_compute_payment_paid_all",
+        store=True,
+    )
+
+    @api.depends("billing_line_ids.payment_state")
+    def _compute_payment_paid_all(self):
+        for rec in self:
+            if not rec.billing_line_ids:
+                rec.payment_paid_all = False
+                continue
+            rec.payment_paid_all = all(
+                line.payment_state == "paid" for line in rec.billing_line_ids
+            )
 
     def _get_moves(self, date=False, types=False):
         moves = self.env["account.move"].search(
@@ -116,7 +125,7 @@ class AccountBilling(models.Model):
                 ("state", "=", "posted"),
                 ("payment_state", "!=", "paid"),
                 ("currency_id", "=", self.currency_id.id),
-                (date, "<=", self.threshold_date),
+                ("date", "<=", self.threshold_date),
                 ("move_type", "in", types),
             ]
         )
@@ -140,9 +149,7 @@ class AccountBilling(models.Model):
         for move in moves:
             if move.move_type in ["out_refund", "in_refund"]:
                 move.amount_residual = move.amount_residual * (-1)
-            self.billing_line_ids += bl_obj.new(
-                {"move_id": move.id, "total": move.amount_residual}
-            )
+            self.billing_line_ids += bl_obj.new({"move_id": move.id})
 
     def _get_partner_id(self):
         move_ids = self.env["account.move"].browse(self._context.get("active_ids", []))
@@ -179,6 +186,8 @@ class AccountBilling(models.Model):
 
     def validate_billing(self):
         for rec in self:
+            if not rec.billing_line_ids:
+                raise UserError(_("You need to add a line before validate."))
             date_type = dict(self._fields["threshold_date_type"].selection).get(
                 self.threshold_date_type
             )
@@ -228,6 +237,9 @@ class AccountBilling(models.Model):
             self.message_post(body=_("Billing %s is cancelled") % rec.name)
         return True
 
+    def action_register_payment(self):
+        return self.mapped("billing_line_ids.move_id").action_register_payment()
+
     def invoice_relate_billing_tree_view(self):
         name = self.bill_type == "out_invoice" and "Invoices" or "Bills"
         return {
@@ -258,6 +270,14 @@ class AccountBillingLine(models.Model):
     invoice_date = fields.Date(related="move_id.invoice_date")
     threshold_date = fields.Date(related="move_id.invoice_date_due")
     origin = fields.Char(related="move_id.invoice_origin")
-    total = fields.Float()
+    currency_id = fields.Many2one(related="move_id.currency_id")
+    amount_total = fields.Monetary(
+        string='Total',
+        related="move_id.amount_total"
+    )
+    amount_residual = fields.Monetary(
+        string='Amount Due',
+        related="move_id.amount_residual"
+    )
     state = fields.Selection(related="move_id.state")
     payment_state = fields.Selection(related="move_id.payment_state")
