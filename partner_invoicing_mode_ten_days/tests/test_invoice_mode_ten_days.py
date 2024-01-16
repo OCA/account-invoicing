@@ -155,3 +155,31 @@ class TestInvoiceModeTenDays(CommonPartnerInvoicingMode, TransactionCase):
                 self.env["sale.order"].cron_generate_ten_days_invoices()
                 trap.assert_jobs_count(0)
         self.assertEqual(len(self.so1.invoice_ids), 0)
+
+    def test_cron_last_execution_time_agnostic(self):
+        with freeze_time("2023-05-01"):
+            self._confirm_and_deliver(self.so1)
+        with freeze_time("2023-05-10 10:00:00"):
+            self.env.company.invoicing_mode_ten_days_last_execution = Datetime.now()
+        # the job for the 10th of May should not be executed since the last execution
+        # is on the 10th of May
+        with freeze_time("2023-05-10 11:00:01"):
+            with trap_jobs() as trap:
+                self.env["sale.order"].cron_generate_ten_days_invoices()
+                trap.assert_jobs_count(0)
+        # The 20th of May is the next invoicing date so the job should be executed
+        with freeze_time("2023-05-20 10:00:01"):
+            with trap_jobs() as trap:
+                self.env["sale.order"].cron_generate_ten_days_invoices()
+                trap.assert_jobs_count(1)
+
+        # If a new sale order is created after the last execution, it should be invoiced
+        # on the next invoicing date even if has been created the same day as the last
+        # execution
+        with freeze_time("2023-05-20 10:00:01"):
+            so3 = self.so1.copy()
+            self._confirm_and_deliver(so3)
+        with freeze_time("2023-05-20 10:00:02"):
+            with trap_jobs() as trap:
+                self.env["sale.order"].cron_generate_ten_days_invoices()
+                trap.assert_jobs_count(0)
