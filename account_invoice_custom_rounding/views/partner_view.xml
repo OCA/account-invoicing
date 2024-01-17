@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Manuel Regidor <manuel.regidor@sygel.es>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="acount_invoice_custom_rounding_view_partner_form" model="ir.ui.view">
+        <field name="name">account.invoice.custom.rounding.view.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field
+                    name="tax_calculation_rounding_method"
+                    groups="account.group_account_invoice,account.group_account_readonly"
+                />
+            </field>
+            <xpath
+                expr="//page[@name='contact_addresses']//form//div[@name='div_address']/.."
+                position="after"
+            >
+                <field
+                    attrs="{'invisible': [('type','!=', 'invoice')]}"
+                    name="tax_calculation_rounding_method"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
