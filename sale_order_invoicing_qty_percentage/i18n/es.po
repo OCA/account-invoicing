@@ -20,13 +20,9 @@ msgstr ""
 #. module: sale_order_invoicing_qty_percentage
 #: model:ir.model.fields,help:sale_order_invoicing_qty_percentage.field_sale_advance_payment_inv__advance_payment_method
 msgid ""
-"A standard invoice is issued with all the order lines ready for "
-"invoicing,         according to their invoicing policy (based on ordered or "
-"delivered quantity)."
+"A standard invoice is issued with all the order lines ready for invoicing,"
+"according to their invoicing policy (based on ordered or delivered quantity)."
 msgstr ""
-"Se emite una factura estándar con todas las líneas de pedido listas para la "
-"facturación, de acuerdo con su política de facturación (basada en la "
-"cantidad pedida o entregada)."
 
 #. module: sale_order_invoicing_qty_percentage
 #: model:ir.model.fields,field_description:sale_order_invoicing_qty_percentage.field_sale_advance_payment_inv__advance_payment_method
@@ -52,6 +48,15 @@ msgstr "Ventas. Anticipo pago factura"
 #: model:ir.model,name:sale_order_invoicing_qty_percentage.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
+
+#~ msgid ""
+#~ "A standard invoice is issued with all the order lines ready for "
+#~ "invoicing,         according to their invoicing policy (based on ordered "
+#~ "or delivered quantity)."
+#~ msgstr ""
+#~ "Se emite una factura estándar con todas las líneas de pedido listas para "
+#~ "la facturación, de acuerdo con su política de facturación (basada en la "
+#~ "cantidad pedida o entregada)."
 
 #~ msgid "Display Name"
 #~ msgstr "Nombre mostrado"
