@@ -66,7 +66,9 @@ class AccountPaymentRegister(models.TransientModel):
                         "manual_currency_rate": self.manual_currency_rate,
                     }
                 )
-                payment.move_id.with_context(
+                payment_ml = payment.move_id.line_ids
+                payment_ml._compute_currency_rate()
+                payment_ml.with_context(
                     check_move_validity=False
-                ).line_ids._onchange_amount_currency()
+                )._inverse_amount_currency()
         return payments
