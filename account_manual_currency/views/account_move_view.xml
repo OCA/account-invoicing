@@ -42,13 +42,16 @@
                     </div>
                 </div>
             </xpath>
-            <xpath expr="//field[@name='tax_totals_json']" position="before">
+            <xpath expr="//field[@name='tax_totals']" position="before">
                 <field
                     name="total_company_currency"
                     attrs="{'invisible': [('currency_diff', '=', False)]}"
                 />
                 <field name="company_currency_id" invisible="1" />
                 <field name="currency_diff" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/tree" position="inside">
+                <field name="currency_rate" optional="show" />
             </xpath>
         </field>
     </record>
