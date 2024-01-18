@@ -1,12 +1,32 @@
 # Copyright 2023 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
 class AccountPaymentRegister(models.TransientModel):
     _inherit = "account.payment.register"
+
+    currency_diff = fields.Boolean(
+        compute="_compute_currency_diff",
+        store=True,
+    )
+    manual_currency = fields.Boolean()
+    type_currency = fields.Selection(
+        selection=lambda self: self.line_ids.move_id._get_label_currency_name(),
+    )
+    manual_currency_rate = fields.Float(
+        digits="Manual Currency",
+        help="Set new currency rate to apply on the invoice\n."
+        "This rate will be taken in order to convert amounts between the "
+        "currency on the purchase order and last currency",
+    )
+
+    @api.depends("currency_id")
+    def _compute_currency_diff(self):
+        for rec in self:
+            rec.currency_diff = rec.company_currency_id != rec.currency_id
 
     @api.model
     def default_get(self, fields_list):
@@ -26,36 +46,27 @@ class AccountPaymentRegister(models.TransientModel):
                     "You can only register payments for moves with the same manual currency."
                 )
             )
+        res["manual_currency"] = moves.mapped("manual_currency")[0]
+        if len(list(set(moves.mapped("manual_currency_rate")))) == 1:
+            res["manual_currency_rate"] = moves.mapped("manual_currency_rate")[0]
+        if len(list(set(moves.mapped("type_currency")))) == 1:
+            res["type_currency"] = moves.mapped("type_currency")[0]
         return res
 
     def _init_payments(self, to_process, edit_mode=False):
+        """Update currency rate on move line payment"""
         payments = super()._init_payments(to_process, edit_mode)
-        if self._context.get("active_model") == "account.move":
+        if self._context.get("active_model") == "account.move" and self.manual_currency:
             for vals in to_process:
-                lines = vals["to_reconcile"]
                 payment = vals["payment"]
-                origin_move = lines.mapped("move_id")
-                # Not allow group payments for case manual currency
-                if (
-                    self.group_payment
-                    and len(origin_move) != 1
-                    and len({move.manual_currency_rate for move in origin_move}) != 1
-                ):
-                    raise UserError(
-                        _(
-                            "You can't register a payment for invoices "
-                            "belong to multiple manual currency rate."
-                        )
-                    )
-                if all(move.manual_currency for move in origin_move):
-                    payment.move_id.write(
-                        {
-                            "manual_currency": origin_move[0].manual_currency,
-                            "type_currency": origin_move[0].type_currency,
-                            "manual_currency_rate": origin_move[0].manual_currency_rate,
-                        }
-                    )
-                    payment.move_id.with_context(
-                        check_move_validity=False
-                    ).line_ids._onchange_amount_currency()
+                payment.move_id.write(
+                    {
+                        "manual_currency": self.manual_currency,
+                        "type_currency": self.type_currency,
+                        "manual_currency_rate": self.manual_currency_rate,
+                    }
+                )
+                payment.move_id.with_context(
+                    check_move_validity=False
+                ).line_ids._onchange_amount_currency()
         return payments

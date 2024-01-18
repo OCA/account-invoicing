@@ -10,7 +10,11 @@
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
     "depends": ["account"],
-    "data": ["data/decimal_data.xml", "views/account_move_view.xml"],
+    "data": [
+        "data/decimal_data.xml",
+        "views/account_move_view.xml",
+        "wizard/account_payment_register_views.xml",
+    ],
     "installable": True,
     "maintainer": ["Saran440"],
 }
