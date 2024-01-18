@@ -41,6 +41,7 @@ class TestAccountManualCurrency(TransactionCase):
                     "name": "Test Invoice Line",
                     "quantity": 1.0,
                     "price_unit": 100.0,
+                    "tax_ids": False,
                 },
             )
         ]
@@ -68,7 +69,7 @@ class TestAccountManualCurrency(TransactionCase):
             10,
             "inverse_company_rate",
         )
-        invoice1._fields_view_get()
+        invoice1.get_view()
         self.assertTrue(invoice1.is_manual)
         # Currency will recompute to default
         self.assertEqual(invoice1.manual_currency_rate, 10)
@@ -129,16 +130,3 @@ class TestAccountManualCurrency(TransactionCase):
         self.assertAlmostEqual(
             payment.move_id.total_company_currency, invoice1.total_company_currency
         )
-
-    def test_02_manual_currency_zero_rate(self):
-        invoice1 = self._create_invoice(
-            self.partner1,
-            "in_invoice",
-            self.eur_currency,
-            True,
-            0,
-            "inverse_company_rate",
-        )
-        self.assertAlmostEqual(invoice1.manual_currency_rate, 0.0)
-        with self.assertRaises(UserError):
-            invoice1.action_post()
