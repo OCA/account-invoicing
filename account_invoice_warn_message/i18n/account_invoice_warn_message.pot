@@ -21,11 +21,58 @@ msgid ""
 msgstr ""
 
 #. module: account_invoice_warn_message
+#: model:ir.model.fields.selection,name:account_invoice_warn_message.selection__res_company__invoice_warn_message_type__both
+msgid "Both"
+msgstr ""
+
+#. module: account_invoice_warn_message
+#: model:ir.model,name:account_invoice_warn_message.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: account_invoice_warn_message
+#: model:ir.model,name:account_invoice_warn_message.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: account_invoice_warn_message
+#: model:ir.model.fields.selection,name:account_invoice_warn_message.selection__res_company__invoice_warn_message_type__customer
+msgid "Customers"
+msgstr ""
+
+#. module: account_invoice_warn_message
+#: model_terms:ir.ui.view,arch_db:account_invoice_warn_message.res_config_settings_view_form
+msgid ""
+"For warning message for invoices configuration, please select invoice types "
+"involved:"
+msgstr ""
+
+#. module: account_invoice_warn_message
+#: model:ir.model.fields,field_description:account_invoice_warn_message.field_res_company__invoice_warn_message_type
+msgid "Invoice Warn Message Type"
+msgstr ""
+
+#. module: account_invoice_warn_message
 #: model:ir.model.fields,field_description:account_invoice_warn_message.field_account_move__invoice_warn_msg
 msgid "Invoice Warn Msg"
 msgstr ""
 
 #. module: account_invoice_warn_message
+#: model:ir.model.fields,field_description:account_invoice_warn_message.field_res_config_settings__invoice_warn_message_type
+msgid "Invoice warn message options"
+msgstr ""
+
+#. module: account_invoice_warn_message
 #: model:ir.model,name:account_invoice_warn_message.model_account_move
 msgid "Journal Entries"
+msgstr ""
+
+#. module: account_invoice_warn_message
+#: model:ir.model.fields.selection,name:account_invoice_warn_message.selection__res_company__invoice_warn_message_type__vendor
+msgid "Vendors"
+msgstr ""
+
+#. module: account_invoice_warn_message
+#: model_terms:ir.ui.view,arch_db:account_invoice_warn_message.res_config_settings_view_form
+msgid "Warning messages"
 msgstr ""
