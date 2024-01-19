@@ -16,6 +16,7 @@
     "data": [
         "views/account_fiscal_position_views.xml",
         "views/res_partner_views.xml",
+        "views/account_move_views.xml",
         "reports/account_invoice_report_views.xml",
     ],
 }

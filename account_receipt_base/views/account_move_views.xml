@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_move_form_inherit" model="ir.ui.view">
+        <field name="name">Add Receipts to Account Move Form View</field>
+        <field name="model">account.move</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='invoice_outstanding_credits_debits_widget']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'invisible':[('state', '!=', 'posted')]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
