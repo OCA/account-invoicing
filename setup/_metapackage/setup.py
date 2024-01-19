@@ -44,6 +44,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_supplier_self_invoice',
         'odoo12-addon-account_invoice_supplierinfo_update',
         'odoo12-addon-account_invoice_supplierinfo_update_discount',
+        'odoo12-addon-account_invoice_supplierinfo_update_qty_multiplier',
         'odoo12-addon-account_invoice_supplierinfo_update_triple_discount',
         'odoo12-addon-account_invoice_tax_note',
         'odoo12-addon-account_invoice_tax_required',
