@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Copyright (C) 2018 - Today: GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="view_wizard_update_invoice_supplierinfo_form" model="ir.ui.view">
+        <field name="model">wizard.update.invoice.supplierinfo</field>
+        <field
+            name="inherit_id"
+            ref="account_invoice_supplierinfo_update_discount.view_wizard_update_invoice_supplierinfo_form"
+        />
+        <field name="arch" type="xml">
+            <field name="display_discount" position="after">
+                <field name="display_discount2" invisible="1" />
+                <field name="display_discount3" invisible="1" />
+            </field>
+            <xpath
+                expr="//field[@name='line_ids']/tree/field[@name='new_discount']"
+                position="after"
+            >
+                <field
+                    name="current_discount2"
+                    attrs="{
+                        'invisible': [('supplierinfo_id', '=', False)],
+                        'column_invisible': [('parent.display_discount2', '=', False)],
+                    }"
+                />
+                <field
+                    name="new_discount2"
+                    attrs="{
+                        'column_invisible': [('parent.display_discount2', '=', False)],
+                    }"
+                />
+                <field
+                    name="current_discount3"
+                    attrs="{
+                        'invisible': [('supplierinfo_id', '=', False)],
+                        'column_invisible': [('parent.display_discount2', '=', False)],
+                    }"
+                />
+                <field
+                    name="new_discount3"
+                    attrs="{
+                        'column_invisible': [('parent.display_discount3', '=', False)],
+                    }"
+                />
+
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
