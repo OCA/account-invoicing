@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2023 - Today: GRAP (http://www.grap.coop)
+  @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo>
+    <template
+        id="report_invoice_document"
+        inherit_id="account.report_invoice_document"
+        priority="1000">
+
+        <!-- HEADER : Make 'Quantity' column smaller -->
+        <xpath expr="//th[@name='th_quantity']" position="replace">
+            <th name="th_quantity" class="text-right"><span>Qty</span></th>
+        </xpath>
+
+        <!-- HEADER : Add 'UoM' Column after the 'Quantity' Column -->
+        <xpath expr="//th[@name='th_quantity']" position="after">
+            <th name="th_uom_id" class="text-right"><span>UoM</span></th>
+        </xpath>
+
+
+        <!-- BODY : Remove 'UoM' value in quantity column -->
+        <xpath expr="//span[@t-field='line.uom_id']" position="replace" />
+
+        <!-- BODY : Add 'Uom' column after 'Quantity' column -->
+        <xpath expr="//span[@t-field='line.quantity']/.." position="after">
+            <td class="text-right">
+                <span t-field="line.uom_id" groups="uom.group_uom"/>
+            </td>
+        </xpath>
+
+    </template>
+</odoo>
