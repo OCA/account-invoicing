@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-15 15:22+0000\n"
-"PO-Revision-Date: 2019-02-15 16:23+0100\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: 2024-01-27 14:33+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"X-Generator: Poedit 2.2.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: purchase_invoicing_no_zero_line
 #: model:ir.model.fields,field_description:purchase_invoicing_no_zero_line.field_account_bank_statement_import_journal_creation__avoid_zero_lines
@@ -41,7 +41,7 @@ msgstr "Diario"
 #. module: purchase_invoicing_no_zero_line
 #: model:ir.model,name:purchase_invoicing_no_zero_line.model_account_move
 msgid "Journal Entries"
-msgstr ""
+msgstr "Entradas en Diario"
 
 #~ msgid "Invoice"
 #~ msgstr "Factura"
