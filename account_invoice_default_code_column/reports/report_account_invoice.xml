@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2023 - Today: GRAP (http://www.grap.coop)
+  @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo>
+    <template
+        id="report_invoice_document"
+        inherit_id="account.report_invoice_document"
+        priority="1000"
+    >
+        <!-- Add 'default_code' Column in table header -->
+        <xpath expr="//th[@name='th_description']" position="before">
+            <th name="default_code" class="text-start"><span>Code</span></th>
+        </xpath>
+
+        <!-- Add 'default_code' Column in table body -->
+        <xpath expr="//td[@name='account_invoice_line_name']" position="before">
+            <td name="account_invoice_line_default_code">
+                <span t-if="line.product_id" t-field="line.product_id.default_code"/>
+            </td>
+        </xpath>
+
+        <!-- Replace 'name' column by 'name_without_default_code' column -->
+        <xpath expr="//td[@name='account_invoice_line_name']" position="replace">
+            <td name="account_invoice_line_name_without_default_code">
+                <span t-field="line.name_without_default_code" t-options="{'widget': 'text'}"/>
+            </td>
+        </xpath>
+
+    </template>
+</odoo>
