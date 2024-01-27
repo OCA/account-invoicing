@@ -20,6 +20,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_check_total',
         'odoo12-addon-account_invoice_confirm_popup',
         'odoo12-addon-account_invoice_date_due',
+        'odoo12-addon-account_invoice_default_code_column',
         'odoo12-addon-account_invoice_fiscal_position_update',
         'odoo12-addon-account_invoice_fix_tax_rounding',
         'odoo12-addon-account_invoice_fixed_discount',
