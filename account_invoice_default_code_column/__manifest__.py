@@ -4,17 +4,13 @@
 {
     "name": "Account Invoices - Default Code Column",
     "summary": "Display Default code product in a dedicated column on invoice reports",
-    "version": "12.0.1.0.1",
+    "version": "16.0.1.0.0",
     "category": "Invoicing",
     "license": "AGPL-3",
     "author": "GRAP,Odoo Community Association (OCA)",
     "maintainers": ["legalsylvain"],
     "website": "https://github.com/OCA/account-invoicing",
-    "depends": [
-        "account",
-    ],
-    "data": [
-        "reports/report_account_invoice.xml",
-    ],
+    "depends": ["account"],
+    "data": ["reports/report_account_invoice.xml"],
     "installable": True,
 }
