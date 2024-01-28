@@ -5,8 +5,8 @@
 from odoo import api, fields, models
 
 
-class AccountInvoiceLine(models.Model):
-    _inherit = "account.invoice.line"
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
 
     name_without_default_code = fields.Char(
         compute="_compute_name_without_default_code"
