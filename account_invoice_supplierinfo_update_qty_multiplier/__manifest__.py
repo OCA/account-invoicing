@@ -6,7 +6,7 @@
     "name": "Account Invoice - Quantity Multiplier Update",
     "summary": "In the invoice Supplierinfo wizard,"
     " allow to change the Quantity Multiplier field",
-    "version": "12.0.1.0.1",
+    "version": "16.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "GRAP,Odoo Community Association (OCA)",
