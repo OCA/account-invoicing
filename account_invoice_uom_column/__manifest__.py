@@ -4,7 +4,7 @@
 {
     "name": "Account Invoices - UoM Column",
     "summary": "Display UoM invoice line in a dedicated column on invoice reports",
-    "version": "12.0.1.0.1",
+    "version": "16.0.1.0.0",
     "category": "Invoicing",
     "license": "AGPL-3",
     "author": "GRAP,Odoo Community Association (OCA)",
