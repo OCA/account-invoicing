@@ -14,11 +14,10 @@
             >
                 <field
                     name="current_multiplier_qty"
-                    attrs="{
-                    'invisible': [('supplierinfo_id', '=', False)],
-                }"
+                    optional="show"
+                    attrs="{'invisible': [('supplierinfo_id', '=', False)]}"
                 />
-                <field name="new_multiplier_qty" />
+                <field name="new_multiplier_qty" optional="show" />
             </xpath>
         </field>
     </record>

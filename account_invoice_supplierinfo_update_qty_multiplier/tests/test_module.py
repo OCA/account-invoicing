@@ -2,79 +2,56 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime
+from odoo.tests import tagged
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.account_invoice_supplierinfo_update.tests.test_module import TestModule
 
 
-class TestModule(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.AccountInvoice = self.env["account.invoice"]
-        self.WizardUpdate = self.env["wizard.update.invoice.supplierinfo"]
-        self.SupplierInfo = self.env["product.supplierinfo"]
-
-        self.product1 = self.env.ref("product.product_product_4b")
-        unit = self.env.ref("uom.product_uom_unit")
-        account_id = (
-            self.env["account.account"]
-            .search([("user_type_id.type", "=", "payable")], limit=1)
-            .id
-        )
-        journal_id = (
-            self.env["account.journal"].search([("type", "=", "purchase")], limit=1).id
-        )
-        product_account_id = self.env.ref("account.demo_coffee_machine_account").id
-
-        self.invoice = self.AccountInvoice.create(
+@tagged("post_install", "-at_install")
+class TestModule(TestModule):
+    def test_supplierinfo_update_multiplier_qty(self):
+        self.ProductSupplierinfo.create(
             {
-                "journal_id": journal_id,
-                "partner_id": self.env.ref("base.res_partner_12").id,
-                "account_id": account_id,
-                "date_invoice": "%s-01-01" % datetime.now().year,
-                "invoice_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "product_id": self.product1.id,
-                            "name": "iPad Retina Display",
-                            "quantity": 10.0,
-                            "price_unit": 400.0,
-                            "uom_id": unit.id,
-                            "account_id": product_account_id,
-                        },
-                    )
-                ],
+                "partner_id": self.invoice.supplier_partner_id.id,
+                "product_tmpl_id": self.product_a.product_tmpl_id.id,
+                "multiplier_qty": 15.0,
             }
         )
 
-    # Test Section
-    def test_wizard(self):
-        # Launch and confirm Wizard
-        lines_for_update = self.invoice._get_update_supplierinfo_lines()
-        wizard = self.WizardUpdate.with_context(
-            default_line_ids=lines_for_update, default_invoice_id=self.invoice.id
-        ).create({})
-        wizard.line_ids[0].new_multiplier_qty = 55
+        vals_wizard = self.invoice.check_supplierinfo().get("context", {})
+
+        line_ids = vals_wizard.get("default_line_ids", {})
+
+        self.assertEqual(len(line_ids), 2)
+        self.assertEqual(line_ids[0][2]["current_multiplier_qty"], 15.0)
+        self.assertEqual(line_ids[0][2]["new_multiplier_qty"], 15.0)
+        self.assertEqual(line_ids[1][2]["current_multiplier_qty"], False)
+        self.assertEqual(line_ids[1][2]["new_multiplier_qty"], False)
+
+        line_ids[0][2]["new_multiplier_qty"] = 12.0
+        line_ids[1][2]["new_multiplier_qty"] = 14.0
+
+        # Create and launch update process
+        wizard = self.WizardUpdateSupplierinfo.create(
+            {"line_ids": line_ids, "invoice_id": self.invoice.id}
+        )
+
         wizard.update_supplierinfo()
 
-        # Check Regressions
-        supplierinfo = self.SupplierInfo.search(
+        supplierinfo_a = self.ProductSupplierinfo.search(
             [
-                ("product_tmpl_id", "=", self.product1.product_tmpl_id.id),
-                ("name", "=", self.invoice.partner_id.id),
+                ("partner_id", "=", self.invoice.supplier_partner_id.id),
+                ("product_tmpl_id", "=", self.product_a.product_tmpl_id.id),
             ]
         )
+        self.assertEqual(len(supplierinfo_a), 1)
+        self.assertEqual(supplierinfo_a.multiplier_qty, 12.0)
 
-        self.assertEqual(
-            len(supplierinfo),
-            1,
-            "Regression : Confirming wizard should have create a supplierinfo",
+        supplierinfo_b = self.ProductSupplierinfo.search(
+            [
+                ("partner_id", "=", self.invoice.supplier_partner_id.id),
+                ("product_tmpl_id", "=", self.product_b.product_tmpl_id.id),
+            ]
         )
-
-        self.assertEqual(
-            supplierinfo.multiplier_qty,
-            55,
-            "Confirming wizard should have update Multiplier Qty field.",
-        )
+        self.assertEqual(len(supplierinfo_b), 1)
+        self.assertEqual(supplierinfo_b.multiplier_qty, 14.0)
