@@ -56,6 +56,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_transmit_method_substitution_rule',
         'odoo12-addon-account_invoice_triple_discount',
         'odoo12-addon-account_invoice_uom_column',
+        'odoo12-addon-account_invoice_update_check',
         'odoo12-addon-account_invoice_validation_queued',
         'odoo12-addon-account_invoice_view_payment',
         'odoo12-addon-account_menu_invoice_refund',

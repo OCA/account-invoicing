@@ -69,6 +69,7 @@ addon | version | maintainers | summary
 [account_invoice_transmit_method_substitution_rule](account_invoice_transmit_method_substitution_rule/) | 12.0.1.0.0 |  | This addon allow to set substitution rules for transmit method
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 12.0.1.0.1 |  | Manage triple discount on invoice lines
 [account_invoice_uom_column](account_invoice_uom_column/) | 12.0.1.0.1 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Display UoM invoice line in a dedicated column on invoice reports
+[account_invoice_update_check](account_invoice_update_check/) | 12.0.1.0.2 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Check if it"s possible to update account invoice lines
 [account_invoice_validation_queued](account_invoice_validation_queued/) | 12.0.1.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Enqueue account invoice validation
 [account_invoice_view_payment](account_invoice_view_payment/) | 12.0.1.0.1 |  | Access to the payment from an invoice
 [account_menu_invoice_refund](account_menu_invoice_refund/) | 12.0.2.0.1 | [![kittiu](https://github.com/kittiu.png?size=30px)](https://github.com/kittiu) | New invoice menu that combine invoices and refunds

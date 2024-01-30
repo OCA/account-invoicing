@@ -6,7 +6,7 @@
     "name": "Account Invoice - Check Updates",
     "summary": """
         Check if it"s possible to update account invoice lines""",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.0.2",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "GRAP,Odoo Community Association (OCA)",
     "maintainers": ["legalsylvain"],
