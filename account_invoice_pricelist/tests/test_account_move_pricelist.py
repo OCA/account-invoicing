@@ -428,3 +428,11 @@ class TestAccountMovePricelist(BaseCommon):
         self.invoice.invoice_line_ids[0].quantity = 0.0
         self.invoice.invoice_line_ids[0].quantity = 1.0
         self.assertEqual(self.invoice.invoice_line_ids[0].discount, 0)
+
+    def test_switch_invoice_into_refund_credit_note(self):
+        self.invoice.pricelist_id = self.sale_pricelist_with_discount.id
+        self.invoice.invoice_line_ids.write({"price_unit": -100.00})
+        self.invoice.action_switch_move_type()
+        self.assertEqual(self.invoice.move_type, "out_refund")
+        self.assertEqual(self.invoice.invoice_line_ids[0].price_unit, -100.00)
+        self.assertEqual(self.invoice.amount_total, 230.00)
