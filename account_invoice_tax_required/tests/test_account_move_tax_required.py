@@ -90,7 +90,7 @@ class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
 
     def test_exception(self):
         """Validate invoice without tax must raise exception"""
-        with self.assertRaises(exceptions.UserError):
+        with self.assertRaises(exceptions.RedirectWarning):
             self.invoice.with_context(test_tax_required=True).action_post()
 
     def test_mass_validation(self):
@@ -103,7 +103,7 @@ class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
             )
             .create({})
         )
-        with self.assertRaises(exceptions.UserError):
+        with self.assertRaises(exceptions.RedirectWarning):
             wizard.validate_move()
 
     def test_without_exception(self):
