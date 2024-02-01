@@ -28,6 +28,7 @@ addon | version | maintainers | summary
 [account_invoice_blocking](account_invoice_blocking/) | 13.0.1.0.0 |  | Set a blocking (No Follow-up) flag on invoices
 [account_invoice_check_picking_date](account_invoice_check_picking_date/) | 13.0.2.0.0 | [![carlosdauden](https://github.com/carlosdauden.png?size=30px)](https://github.com/carlosdauden) | Check if date of pickings match with accounting date
 [account_invoice_check_total](account_invoice_check_total/) | 13.0.1.0.1 |  | Check if the verification total is equal to the bill's total
+[account_invoice_customer_no_autofollow](account_invoice_customer_no_autofollow/) | 13.0.1.0.0 | [![dessanhemrayev](https://github.com/dessanhemrayev.png?size=30px)](https://github.com/dessanhemrayev) [![CetmixGitDrone](https://github.com/CetmixGitDrone.png?size=30px)](https://github.com/CetmixGitDrone) | Do not add customer as follower in Invoices
 [account_invoice_date_due](account_invoice_date_due/) | 13.0.1.0.1 | [![luisg123v](https://github.com/luisg123v.png?size=30px)](https://github.com/luisg123v) [![joao-p-marques](https://github.com/joao-p-marques.png?size=30px)](https://github.com/joao-p-marques) | Update Invoice's Due Date
 [account_invoice_fiscal_position_update](account_invoice_fiscal_position_update/) | 13.0.1.0.4 |  | Changing the fiscal position of an invoice will auto-update invoice lines
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 13.0.1.0.3 |  | Allows to apply fixed amount discounts in invoices.

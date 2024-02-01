@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo13-addon-account_invoice_blocking',
         'odoo13-addon-account_invoice_check_picking_date',
         'odoo13-addon-account_invoice_check_total',
+        'odoo13-addon-account_invoice_customer_no_autofollow',
         'odoo13-addon-account_invoice_date_due',
         'odoo13-addon-account_invoice_fiscal_position_update',
         'odoo13-addon-account_invoice_fixed_discount',
