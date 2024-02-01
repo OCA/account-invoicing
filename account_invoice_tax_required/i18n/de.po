@@ -1,32 +1,38 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * account_invoice_tax_required
+# 	* account_invoice_tax_required
 #
-# Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-02 03:40+0000\n"
-"PO-Revision-Date: 2023-10-11 11:36+0000\n"
-"Last-Translator: David Brühlmeier <david@bruehlmeier.com>\n"
-"Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
-"Language: de\n"
+"POT-Creation-Date: 2024-02-01 08:35+0000\n"
+"PO-Revision-Date: 2024-02-01 08:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"Plural-Forms: \n"
 
 #. module: account_invoice_tax_required
 #. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
-msgid "Invoice %(invoice)s has a line with product %(product)s with no taxes"
+msgid ""
+"Invoice %(invoice)s for customer %(customer)s has a line with product "
+"%(product)s with no taxes"
 msgstr ""
-"Die Rechnung %(invoice)s hat eine Position mit Produkt %(product)s ohne "
-"Steuer"
+"Rechnung %(invoice)s für Kunden %(customer)s enthält eine Zeile mit dem "
+"Produkt %(product)s ohne Steuern"
+
+#. module: account_invoice_tax_required
+#. odoo-python
+#: code:addons/account_invoice_tax_required/models/account_move.py:0
+#, python-format
+msgid "Invoices with Missing Taxes"
+msgstr "Rechnungen mit fehlenden Steuern"
 
 #. module: account_invoice_tax_required
 #: model:ir.model,name:account_invoice_tax_required.model_account_move
@@ -40,21 +46,9 @@ msgstr "Buchungssatz"
 msgid "No Taxes Defined!"
 msgstr "Keine Steuern festgelegt!"
 
+#. module: account_invoice_tax_required
+#. odoo-python
+#: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
-#~ msgid ""
-#~ "%(message)s\n"
-#~ "%(errors)s"
-#~ msgstr ""
-#~ "%(message)s\n"
-#~ "%(errors)s"
-
-#, python-format
-#~ msgid ""
-#~ "%s\n"
-#~ "%s"
-#~ msgstr ""
-#~ "%s\n"
-#~ "%s"
-
-#~ msgid "Invoice"
-#~ msgstr "Rechnung"
+msgid "Show invoices with lines without taxes"
+msgstr "Rechnungen mit Positionen ohne Steuern anzeigen"
