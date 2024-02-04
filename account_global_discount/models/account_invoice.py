@@ -1,6 +1,7 @@
 # Copyright 2019 Tecnativa - David Vidal
 # Copyright 2020 Tecnativa - Pedro M. Baeza
 # Copyright 2022 Simone Rubino - TAKOBI
+# Copyright 2024 Sergio Zanchetta - PNLUG APS
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import _, api, exceptions, fields, models
 from odoo.addons import decimal_precision as dp
@@ -29,7 +30,15 @@ class AccountInvoice(models.Model):
             ('total', 'Total'),
         ],
         string='Discount Base',
-        compute='_compute_global_discount_base',
+        compute='_compute_global_discount_selection',
+    )
+    global_discount_type = fields.Selection(
+        selection=[
+            ('percentage', 'Percentage'),
+            ('fixed', 'Fixed'),
+        ],
+        string='Discount Type',
+        compute='_compute_global_discount_selection',
     )
     # HACK: Looks like UI doesn't behave well with Many2many fields and
     # negative groups when the same field is shown. In this case, we want to
@@ -66,12 +75,13 @@ class AccountInvoice(models.Model):
 
     @api.multi
     @api.depends('global_discount_ids')
-    def _compute_global_discount_base(self):
+    def _compute_global_discount_selection(self):
         for invoice in self:
             # Only check first because sanity checks
             # assure all global discounts in same invoice have same base
             first_global_discount = first(invoice.global_discount_ids)
             invoice.global_discount_base = first_global_discount.discount_base
+            invoice.global_discount_type = first_global_discount.discount_type
 
     def _set_global_discounts_by_tax(self):
         """Create invoice global discount lines by taxes combinations and
@@ -128,7 +138,9 @@ class AccountInvoice(models.Model):
                         'name': global_discount.display_name,
                         'invoice_id': self.id,
                         'global_discount_id': global_discount.id,
+                        'discount_type': global_discount.discount_type,
                         'discount': global_discount.discount,
+                        'discount_fixed': global_discount.discount_fixed,
                         'base': base,
                         'base_discounted': discount['base_discounted'],
                         'account_id': global_discount.account_id.id,
@@ -143,7 +155,9 @@ class AccountInvoice(models.Model):
                     'name': global_discount.display_name,
                     'invoice_id': self.id,
                     'global_discount_id': global_discount.id,
+                    'discount_type': global_discount.discount_type,
                     'discount': global_discount.discount,
+                    'discount_fixed': global_discount.discount_fixed,
                     'base': base,
                     'base_discounted': discount['base_discounted'],
                     'account_id': global_discount.account_id.id,
@@ -238,18 +252,21 @@ class AccountInvoice(models.Model):
                 for discount in self.global_discount_ids:
                     base = discount._get_global_discount_vals(
                         base)['base_discounted']
-                    amount = discount._get_global_discount_vals(
-                        amount)['base_discounted']
+                    if discount.discount_type == 'percentage':
+                        amount = discount._get_global_discount_vals(
+                            amount)['base_discounted']
                 tax_grouped[key]['base'] = round_curr(base)
                 tax_grouped[key]['amount'] = round_curr(amount)
+
         return tax_grouped
 
     @api.model
     def invoice_line_move_line_get(self):
         """Append global discounts move lines"""
         res = super().invoice_line_move_line_get()
+
         for discount in self.invoice_global_discount_ids:
-            if not discount.discount:
+            if not (discount.discount or discount.discount_fixed):
                 continue
             # Traverse upstream result for taking existing dictionary vals
             inv_lines = self.invoice_line_ids.filtered(
@@ -303,8 +320,21 @@ class AccountInvoiceGlobalDiscount(models.Model):
         string='Global Discount',
         readonly=True,
     )
+    discount_type = fields.Selection(
+        selection=[
+            ('percentage', 'Percentage'),
+            ('fixed', 'Fixed'),
+        ],
+        string='Discount Type',
+        readonly=True,
+    )
     discount = fields.Float(
         string='Discount (number)',
+        readonly=True,
+    )
+    discount_fixed = fields.Float(
+        string='Discount (number)',
+        currency_field='currency_id',
         readonly=True,
     )
     discount_display = fields.Char(
@@ -327,7 +357,7 @@ class AccountInvoiceGlobalDiscount(models.Model):
         readonly=True,
     )
     discount_amount = fields.Monetary(
-        string='Discounted Amount',
+        string='Discount Amount',
         compute='_compute_discount_amount',
         currency_field='currency_id',
         readonly=True,
@@ -352,10 +382,16 @@ class AccountInvoiceGlobalDiscount(models.Model):
 
     def _compute_discount_display(self):
         """Given a discount type, we need to render a different symbol"""
+
         for one in self:
-            precision = self.env['decimal.precision'].precision_get('Discount')
-            one.discount_display = '{0:.{1}f}%'.format(
-                one.discount * -1, precision)
+            if one.discount_type == 'percentage':
+                precision = self.env['decimal.precision'].precision_get('Discount')
+                one.discount_display = '{0:.{1}f}%'.format(
+                    one.discount * -1, precision)
+            elif one.discount_type == 'fixed':
+                precision = self.env['decimal.precision'].precision_get('Product Price')
+                one.discount_display = '{0:.{1}f}'.format(
+                    one.discount_fixed * -1, precision)
 
     @api.depends('base', 'base_discounted')
     def _compute_discount_amount(self):
