@@ -47,6 +47,14 @@ class TestGlobalDiscount(common.SavepointCase):
             'discount': 50,
             'account_id': cls.account.id,
         })
+        cls.global_discount_fixed_total = cls.global_discount_obj.create({
+            'name': 'Test Total Fixed Discount',
+            'discount_scope': 'sale',
+            'discount_base': 'total',
+            'discount_type': 'fixed',
+            'discount_fixed': 20,
+            'account_id': cls.account.id,
+        })
         cls.partner_1 = cls.env['res.partner'].create({
             'name': 'Mr. Odoo',
         })
@@ -287,3 +295,36 @@ class TestGlobalDiscount(common.SavepointCase):
         self.assertAlmostEqual(self.invoice.amount_tax, 30.0)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -115.0)
         self.assertAlmostEqual(self.invoice.amount_total, 115.0)
+
+    def test_global_invoice_total_mixed_discount(self):
+        """Add both global fixed and percentage discount on total to the invoice"""
+        # Pre-condition: check starting amounts and the discount base
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 200.0)
+        self.assertAlmostEqual(self.invoice.amount_tax, 30.0)
+        self.assertAlmostEqual(self.invoice.amount_global_discount, 0)
+        self.assertAlmostEqual(self.invoice.amount_total, 230)
+        self.assertEqual(self.global_discount_total.discount_base, 'total')
+
+        # Act: set the global total fixed discount
+        self.invoice.global_discount_ids = self.global_discount_fixed_total
+        self.invoice._onchange_global_discount_ids()
+
+        # Assert: fixed discount is applied to the total
+        # and taxes remain the same:
+        # 230 - 20 (fixed disc.) =  210
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 200.0)
+        self.assertAlmostEqual(self.invoice.amount_tax, 30.0)
+        self.assertAlmostEqual(self.invoice.amount_global_discount, -20.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 210.0)
+
+        # Act: set the next global total discount
+        self.invoice.global_discount_ids += self.global_discount_total
+        self.invoice._onchange_global_discount_ids()
+
+        # Assert: percentage discount is applied to previous discounted total,
+        # and taxes remain the same:
+        # 210 - 50% (percentage disc.) =  105
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 200.0)
+        self.assertAlmostEqual(self.invoice.amount_tax, 30.0)
+        self.assertAlmostEqual(self.invoice.amount_global_discount, -125.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 105.0)
