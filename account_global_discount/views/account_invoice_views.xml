@@ -25,12 +25,18 @@
                     readonly="1"
                     groups="!base_global_discount.group_global_discount"
                 />
+                <field name="global_discount_base" invisible="True" />
             </xpath>
             <field name="amount_untaxed" position="before">
                 <field
                     name="amount_untaxed_before_global_discounts"
                     string="Untaxed Amount Before Disc."
-                    attrs="{'invisible': [('global_discount_ids', '=', [])]}"
+                    attrs="{'invisible': ['|', ('global_discount_ids', '=', []), ('global_discount_base', '=', 'total')]}"
+                />
+                <field
+                    name="amount_total_before_global_discounts"
+                    string="Untaxed Amount Before Disc."
+                    attrs="{'invisible': ['|', ('global_discount_ids', '=', []), ('global_discount_base', '=', 'subtotal')]}"
                 />
                 <field
                     name="amount_global_discount"
@@ -43,6 +49,10 @@
                     name="class"
                     add="oe_subtotal_footer_separator"
                     separator=" "
+                />
+                <field
+                    name="amount_global_discount"
+                    attrs="{'invisible': [('global_discount_base','!=','total')]}"
                 />
             </field>
             <page id="other_tab" position="inside">
