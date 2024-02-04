@@ -149,6 +149,11 @@ msgid "Tier Definition"
 msgstr "层级定义"
 
 #. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__tier_validation_before_write
+msgid "Tier Validation Before Write"
+msgstr ""
+
+#. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__to_validate_message
 msgid "To Validate Message"
 msgstr ""
