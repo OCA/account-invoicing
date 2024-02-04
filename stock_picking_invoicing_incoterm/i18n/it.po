@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-16 08:16+0000\n"
-"PO-Revision-Date: 2023-12-13 13:36+0000\n"
+"PO-Revision-Date: 2024-02-04 13:37+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -30,7 +30,7 @@ msgstr ""
 #. module: stock_picking_invoicing_incoterm
 #: model:ir.model.fields,field_description:stock_picking_invoicing_incoterm.field_stock_picking__incoterm
 msgid "Incoterm"
-msgstr "Termine di resa"
+msgstr "Incoterm"
 
 #. module: stock_picking_invoicing_incoterm
 #: model:ir.model.fields,help:stock_picking_invoicing_incoterm.field_stock_picking__incoterm
