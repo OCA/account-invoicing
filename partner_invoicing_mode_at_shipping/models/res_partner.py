@@ -19,6 +19,12 @@ class ResPartner(models.Model):
         " partner invoicing mode that should be different than 'At Shipping'.",
     )
 
+    @api.model
+    def _commercial_fields(self):
+        return super()._commercial_fields() + [
+            "one_invoice_per_shipping",
+        ]
+
     @api.constrains(
         "invoicing_mode", "one_invoice_per_shipping", "one_invoice_per_order"
     )
