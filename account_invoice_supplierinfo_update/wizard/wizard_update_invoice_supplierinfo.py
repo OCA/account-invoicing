@@ -33,9 +33,19 @@ class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
             supplierinfo = line.supplierinfo_id
             # Create supplierinfo if not exist
             if not supplierinfo:
-                supplierinfo_obj.create(line._prepare_supplierinfo())
+                vals = line._prepare_supplierinfo()
+                supplierinfo_obj.create(vals)
             else:
-                supplierinfo.write(line._prepare_supplierinfo_update())
+                vals = line._prepare_supplierinfo_update()
+                supplierinfo.write(vals)
+            # Manually write uom_po_id on product
+            # because unfortunately product_uom is a related on supplierinfo
+            # and writing product_uom doesn't change the related field.
+            if (
+                "product_uom" in vals
+                and vals["product_uom"] != line.product_id.uom_po_id.id
+            ):
+                line.product_id.uom_po_id = vals["product_uom"]
 
         # Mark the invoice as checked
         self.invoice_id.write({'supplierinfo_ok': True})

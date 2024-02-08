@@ -31,7 +31,7 @@ class Tests(TransactionCase):
              'date_invoice': '%s-01-01' % datetime.now().year,
              'invoice_line_ids': [(0, 0, {'product_id': self.product1.id,
                                           'name': 'iPad Retina Display',
-                                          'quantity': 10.0,
+                                          'quantity': 12.0,
                                           'price_unit': 400.0,
                                           'uom_id': unit.id,
                                           'account_id': self.prod_account.id,
@@ -87,8 +87,7 @@ class Tests(TransactionCase):
         ])
         self.assertEquals(len(supplierinfos1), 1)
         self.assertEqual(supplierinfos1.currency_id, self.currency)
-        self.assertEqual(supplierinfos1.min_qty, 6.0)
-
+        self.assertEquals(supplierinfos1.min_qty, 6.0)
         self.assertEquals(supplierinfos1.price, 400.0)
 
         supplierinfos2 = self.supplierinfo_obj.search([
@@ -104,22 +103,53 @@ class Tests(TransactionCase):
 
     def test_update_pricelist_supplierinfo_uom_conversion(self):
         """ Price is converted to the product's purchase UOM """
-        self.product1.uom_po_id = self.env.ref('uom.product_uom_dozen')
-        invoice_line = self.invoice.invoice_line_ids.filtered(
-            lambda ail: ail.product_id == self.product1)
-        invoice_line.write({'price_unit': 33.0})
+
+        # 1. check supplierinfo with an invoice with 12 Units x 400 $
         wizard = self.wizard_obj.with_context(
             self.invoice.check_supplierinfo()['context']).create({})
-        line = wizard.line_ids.filtered(
-            lambda line: line.product_id == self.product1)
-
-        # Prices are converted to the purchase UOM.
-        # 33 per unit equals 396 per dozen
-        self.assertEquals(line.new_price, 396.0)
-
         wizard.update_supplierinfo()
+
         supplierinfo = self.supplierinfo_obj.search([
             ('name', '=', self.invoice.supplier_partner_id.id),
             ('product_tmpl_id', '=', self.product1.product_tmpl_id.id)])
-        self.assertEquals(supplierinfo.price, 396.0)
-        self.assertTrue(invoice_line._is_correct_price(supplierinfo))
+
+        self.assertEquals(supplierinfo.price, 400.0)
+        self.assertEquals(
+            supplierinfo.product_uom,
+            self.env.ref('uom.product_uom_unit')
+        )
+
+        # 2. check supplierinfo with an invoice with 12 No Uom) 401 $
+        invoice_line = self.invoice.invoice_line_ids.filtered(
+            lambda line: line.product_id == self.product1)
+        invoice_line.write({
+            "uom_id": False,
+            "price_unit": 401,
+        })
+        wizard = self.wizard_obj.with_context(
+            self.invoice.check_supplierinfo()['context']).create({})
+        wizard.update_supplierinfo()
+
+        self.assertEquals(supplierinfo.price, 401.0)
+        self.assertEquals(
+            supplierinfo.product_uom,
+            self.env.ref('uom.product_uom_unit')
+        )
+
+        # 3. check supplierinfo with an invoice with 1 dozen x 4800 $
+        invoice_line = self.invoice.invoice_line_ids.filtered(
+            lambda line: line.product_id == self.product1)
+        invoice_line.write({
+            "quantity": 1,
+            "uom_id": self.env.ref('uom.product_uom_dozen').id,
+            "price_unit": 4812,
+        })
+        wizard = self.wizard_obj.with_context(
+            self.invoice.check_supplierinfo()['context']).create({})
+        wizard.update_supplierinfo()
+
+        self.assertEquals(supplierinfo.price, 4812.0)
+        self.assertEquals(
+            supplierinfo.product_uom,
+            self.env.ref('uom.product_uom_dozen')
+        )
