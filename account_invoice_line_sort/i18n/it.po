@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: account-invoicing (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-18 08:20+0000\n"
-"PO-Revision-Date: 2023-06-09 12:08+0000\n"
+"PO-Revision-Date: 2024-02-08 10:36+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/"
 "OCA-account-invoicing-8-0/language/it/)\n"
@@ -49,7 +49,7 @@ msgstr "Fattura"
 #. module: account_invoice_line_sort
 #: model:ir.model,name:account_invoice_line_sort.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Righe Fattura"
+msgstr "Riga fattura"
 
 #. module: account_invoice_line_sort
 #: model:ir.model,name:account_invoice_line_sort.model_res_partner
