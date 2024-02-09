@@ -7,3 +7,6 @@
   * Ernesto Tejeda
   * Víctor Martínez
 * Omar Castiñeira <omar@comunitea.com>
+* `TAKOBI <https://takobi.online>`_:
+
+  * Simone Rubino <sir@takobi.online>
