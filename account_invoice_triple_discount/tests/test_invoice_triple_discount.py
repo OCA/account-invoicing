@@ -2,11 +2,12 @@
 # Copyright 2023 Simone Rubino - Aion Tech
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import TransactionCase
 from odoo.tests.common import Form
 
+from odoo.addons.base.tests.common import BaseCommon
 
-class TestInvoiceTripleDiscount(TransactionCase):
+
+class TestInvoiceTripleDiscount(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super(TestInvoiceTripleDiscount, cls).setUpClass()
@@ -17,7 +18,6 @@ class TestInvoiceTripleDiscount(TransactionCase):
         cls.Partner = cls.env["res.partner"]
         cls.Journal = cls.env["account.journal"]
 
-        cls.partner = cls.Partner.create({"name": "test"})
         cls.tax = cls.AccountTax.create(
             {
                 "name": "TAX 15%",
