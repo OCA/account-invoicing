@@ -1,8 +1,10 @@
 # Copyright 2019 Tecnativa - David Vidal
 # Copyright 2020-2021 Tecnativa - Pedro M. Baeza
 # Copyright 2021 Tecnativa - Víctor Martínez
+# Copyright 2022 Simone Rubino - TAKOBI
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import _, api, exceptions, fields, models
+from odoo.fields import first
 from odoo.tools import config
 
 
@@ -33,6 +35,14 @@ class AccountMove(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
     )
+    global_discount_base = fields.Selection(
+        selection=[
+            ("subtotal", "Subtotal"),
+            ("total", "Total"),
+        ],
+        string="Discount Base",
+        compute="_compute_global_discount_base",
+    )
     amount_global_discount = fields.Monetary(
         string="Total Global Discounts",
         compute="_compute_amount",
@@ -49,11 +59,27 @@ class AccountMove(models.Model):
         compute_sudo=True,
         store=True,
     )
+    amount_total_before_global_discounts = fields.Monetary(
+        string="Amount Total Before Discounts",
+        compute="_compute_amount",
+        currency_field="currency_id",
+        readonly=True,
+        compute_sudo=True,
+        store=True,
+    )
     invoice_global_discount_ids = fields.One2many(
         comodel_name="account.invoice.global.discount",
         inverse_name="invoice_id",
         readonly=True,
     )
+
+    @api.depends("global_discount_ids")
+    def _compute_global_discount_base(self):
+        for invoice in self:
+            # Only check first because sanity checks
+            # assure all global discounts in same invoice have same base
+            first_global_discount = first(invoice.global_discount_ids)
+            invoice.global_discount_base = first_global_discount.discount_base
 
     def _recompute_tax_lines(
         self, recompute_tax_base_amount=False, tax_rep_lines_to_recompute=None
@@ -84,25 +110,28 @@ class AccountMove(models.Model):
         We are altering the recently recreated tax move lines got calling super on
         ``_recompute_tax_lines``.
         """
-        round_curr = self.currency_id.round
-        tax_lines = self.line_ids.filtered(
-            lambda r: r.tax_line_id.amount_type in ("percent", "division")
-        )
-        for tax_line in tax_lines:
-            base = tax_line.tax_base_amount
-            tax_line.base_before_global_discounts = base
-            amount = tax_line.balance
-            for discount in self.global_discount_ids:
-                base = discount._get_global_discount_vals(base)["base_discounted"]
-                amount = discount._get_global_discount_vals(amount)["base_discounted"]
-            tax_line.tax_base_amount = round_curr(base)
-            tax_line.debit = amount > 0.0 and amount or 0.0
-            tax_line.credit = amount < 0.0 and -amount or 0.0
-            # Apply onchanges
-            tax_line._onchange_balance()
-            tax_line._onchange_amount_currency()
+        if self.global_discount_base == "subtotal":
+            round_curr = self.currency_id.round
+            tax_lines = self.line_ids.filtered(
+                lambda r: r.tax_line_id.amount_type in ("percent", "division")
+            )
+            for tax_line in tax_lines:
+                base = tax_line.tax_base_amount
+                tax_line.base_before_global_discounts = base
+                amount = tax_line.balance
+                for discount in self.global_discount_ids:
+                    base = discount._get_global_discount_vals(base)["base_discounted"]
+                    amount = discount._get_global_discount_vals(amount)[
+                        "base_discounted"
+                    ]
+                tax_line.tax_base_amount = round_curr(base)
+                tax_line.debit = amount > 0.0 and amount or 0.0
+                tax_line.credit = amount < 0.0 and -amount or 0.0
+                # Apply onchanges
+                tax_line._onchange_balance()
+                tax_line._onchange_amount_currency()
 
-    def _prepare_global_discount_vals(self, global_discount, base, tax_ids):
+    def _prepare_global_discount_vals(self, global_discount, base, tax_ids=None):
         """Prepare the dictionary values for an invoice global discount
         line.
         """
@@ -116,7 +145,7 @@ class AccountMove(models.Model):
             "base": base,
             "base_discounted": discount["base_discounted"],
             "account_id": global_discount.account_id.id,
-            "tax_ids": [(4, tax_id) for tax_id in tax_ids],
+            "tax_ids": [(4, tax_id) for tax_id in tax_ids] if tax_ids else None,
         }
 
     def _set_global_discounts_by_tax(self):
@@ -128,10 +157,16 @@ class AccountMove(models.Model):
         self.ensure_one()
         if not self.is_invoice():
             return
-        in_draft_mode = self != self._origin
+        if not self.global_discount_ids:
+            return
         taxes_keys = {}
         # Perform a sanity check for discarding cases that will lead to
         # incorrect data in discounts
+        discount_base = set(self.global_discount_ids.mapped("discount_base"))
+        if len(discount_base) > 1:
+            raise exceptions.UserError(_("All global discount must have the same base"))
+        discount_base = discount_base.pop()
+
         _self = self.filtered("global_discount_ids")
         for inv_line in _self.invoice_line_ids.filtered(lambda l: not l.display_type):
             for key in taxes_keys:
@@ -141,6 +176,14 @@ class AccountMove(models.Model):
                 taxes_keys[tuple(inv_line.tax_ids.ids)] = True
         # Reset previous global discounts
         self.invoice_global_discount_ids -= self.invoice_global_discount_ids
+
+        if discount_base == "subtotal":
+            self._apply_global_discount_by_subtotal(_self, taxes_keys)
+        elif discount_base == "total":
+            self._apply_global_discount_by_total()
+
+    def _apply_global_discount_by_subtotal(self, _self, taxes_keys):
+        in_draft_mode = self != self._origin
         model = "account.invoice.global.discount"
         create_method = in_draft_mode and self.env[model].new or self.env[model].create
         for tax_line in _self.line_ids.filtered("tax_line_id"):
@@ -170,6 +213,16 @@ class AccountMove(models.Model):
                     )
                     create_method(vals)
                     base = vals["base_discounted"]
+
+    def _apply_global_discount_by_total(self):
+        in_draft_mode = self != self._origin
+        model = "account.invoice.global.discount"
+        create_method = in_draft_mode and self.env[model].new or self.env[model].create
+        base = self.amount_total
+        for global_discount in self.global_discount_ids:
+            vals = self._prepare_global_discount_vals(global_discount, base, None)
+            create_method(vals)
+            base = vals["base_discounted"]
 
     def _recompute_global_discount_lines(self):
         """Append global discounts move lines.
@@ -248,8 +301,14 @@ class AccountMove(models.Model):
             for discount in self.invoice_global_discount_ids
         )
         self.amount_untaxed_before_global_discounts = self.amount_untaxed
-        self.amount_untaxed = self.amount_untaxed + self.amount_global_discount
-        self.amount_total = self.amount_untaxed + self.amount_tax
+        self.amount_total_before_global_discounts = self.amount_total
+
+        if self.global_discount_base == "subtotal":
+            self.amount_untaxed = self.amount_untaxed + self.amount_global_discount
+            self.amount_total = self.amount_untaxed + self.amount_tax
+        elif self.global_discount_base == "total":
+            self.amount_total += self.amount_global_discount
+
         amount_untaxed_signed = self.amount_untaxed
         if (
             self.currency_id
