@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models
+from odoo.tools import str2bool
 
 
 class ResPartner(models.Model):
@@ -20,7 +21,7 @@ class ResPartner(models.Model):
         compute="_compute_validation_user_id_domain",
     )
 
-    use_invoice_first_approval = fields.Binary(
+    use_invoice_first_approval = fields.Boolean(
         help="Use a first level of approbation: approver can be set on vendors",
         compute="_compute_use_invoice_first_approval",
     )
@@ -28,7 +29,7 @@ class ResPartner(models.Model):
     def _compute_use_invoice_first_approval(self):
         self.update(
             {
-                "use_invoice_first_approval": (
+                "use_invoice_first_approval": str2bool(
                     self.env["ir.config_parameter"]
                     .sudo()
                     .get_param("account_invoice_validation.use_invoice_first_approval")

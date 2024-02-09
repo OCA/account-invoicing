@@ -7,6 +7,7 @@ from typing import List
 from odoo import Command, _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.fields import first
+from odoo.tools import str2bool
 
 
 class AccountMove(models.Model):
@@ -71,23 +72,9 @@ class AccountMove(models.Model):
         copy=False,
     )
 
-    @api.onchange("partner_id")
-    def _onchange_validation_user_id(self):
-        use_invoice_first_approval = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("account_invoice_validation.use_invoice_first_approval")
-        )
-        if use_invoice_first_approval:
-            for rec in self:
-                val_user_id = rec.partner_id.validation_user_id
-                rec.validation_user_id = (
-                    val_user_id or rec.company_id.validation_user_id
-                )
-
     @api.depends("move_type", "partner_id", "company_id")
     def _compute_validation_user_id(self):
-        use_invoice_first_approval = (
+        use_invoice_first_approval = str2bool(
             self.env["ir.config_parameter"]
             .sudo()
             .get_param("account_invoice_validation.use_invoice_first_approval")
