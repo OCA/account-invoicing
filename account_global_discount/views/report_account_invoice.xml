@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2022 Simone Rubino - TAKOBI
+     Copyright 2024 Sergio Zanchetta - PNLUG APS
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
@@ -49,9 +50,19 @@
                 </tr>
                 <tr>
                     <td><strong>Global Discounts</strong><br />
-                    <t
-                            t-esc="'→'.join(['{:.2f}%'.format(x.discount) for x in o.global_discount_ids])"
-                        /></td>
+                        <t t-foreach="o.global_discount_ids" t-as="global_discount_id">
+                            <t t-if="global_discount_id.discount_type == 'percentage'">
+                                <t
+                                    t-esc="'→'.join(['{:.2f}%'.format(global_discount_id.discount)])"
+                                />
+                            </t>
+                            <t t-else="global_discount_id.discount_type == 'fixed'">
+                                <t
+                                    t-esc="'→'.join(['{:.2f}'.format(global_discount_id.discount_fixed)])"
+                                />
+                            </t>
+                        </t>
+                    </td>
                     <td class="text-right">
                         <span
                             t-field="o.amount_global_discount"

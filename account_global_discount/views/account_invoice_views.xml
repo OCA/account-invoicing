@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2019 Tecnativa - David Vidal
      Copyright 2022 Simone Rubino - TAKOBI
+     Copyright 2024 Sergio Zanchetta - PNLUG APS
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
     <record id="view_move_form" model="ir.ui.view">
@@ -77,7 +78,9 @@
                             <field name="name" />
                             <field name="currency_id" invisible="1" />
                             <field name="global_discount_id" invisible="1" />
+                            <field name="discount_type" invisible="1" />
                             <field name="discount" invisible="1" />
+                            <field name="discount_fixed" invisible="1" />
                             <field
                                 name="base"
                                 widget="monetary"

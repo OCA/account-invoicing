@@ -2,6 +2,7 @@
 # Copyright 2020-2021 Tecnativa - Pedro M. Baeza
 # Copyright 2021 Tecnativa - Víctor Martínez
 # Copyright 2022 Simone Rubino - TAKOBI
+# Copyright 2024 Sergio Zanchetta - PNLUG APS
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import _, api, exceptions, fields, models
 from odoo.fields import first
@@ -41,7 +42,15 @@ class AccountMove(models.Model):
             ("total", "Total"),
         ],
         string="Discount Base",
-        compute="_compute_global_discount_base",
+        compute="_compute_global_discount_selection",
+    )
+    global_discount_type = fields.Selection(
+        selection=[
+            ("percentage", "Percentage"),
+            ("fixed", "Fixed"),
+        ],
+        string="Discount Type",
+        compute="_compute_global_discount_selection",
     )
     amount_global_discount = fields.Monetary(
         string="Total Global Discounts",
@@ -74,12 +83,13 @@ class AccountMove(models.Model):
     )
 
     @api.depends("global_discount_ids")
-    def _compute_global_discount_base(self):
+    def _compute_global_discount_selection(self):
         for invoice in self:
             # Only check first because sanity checks
             # assure all global discounts in same invoice have same base
             first_global_discount = first(invoice.global_discount_ids)
             invoice.global_discount_base = first_global_discount.discount_base
+            invoice.global_discount_type = first_global_discount.discount_type
 
     def _recompute_tax_lines(
         self, recompute_tax_base_amount=False, tax_rep_lines_to_recompute=None
@@ -121,9 +131,10 @@ class AccountMove(models.Model):
                 amount = tax_line.balance
                 for discount in self.global_discount_ids:
                     base = discount._get_global_discount_vals(base)["base_discounted"]
-                    amount = discount._get_global_discount_vals(amount)[
-                        "base_discounted"
-                    ]
+                    if discount.discount_type == "percentage":
+                        amount = discount._get_global_discount_vals(amount)[
+                            "base_discounted"
+                        ]
                 tax_line.tax_base_amount = round_curr(base)
                 tax_line.debit = amount > 0.0 and amount or 0.0
                 tax_line.credit = amount < 0.0 and -amount or 0.0
@@ -141,7 +152,9 @@ class AccountMove(models.Model):
             "name": global_discount.display_name,
             "invoice_id": self.id,
             "global_discount_id": global_discount.id,
+            "discount_type": global_discount.discount_type,
             "discount": global_discount.discount,
+            "discount_fixed": global_discount.discount_fixed,
             "base": base,
             "base_discounted": discount["base_discounted"],
             "account_id": global_discount.account_id.id,
@@ -234,7 +247,9 @@ class AccountMove(models.Model):
         in_draft_mode = self != self._origin
         model = "account.move.line"
         create_method = in_draft_mode and self.env[model].new or self.env[model].create
-        for discount in self.invoice_global_discount_ids.filtered("discount"):
+        for discount in self.invoice_global_discount_ids.filtered(
+            lambda x: x.discount or x.discount_fixed
+        ):
             sign = -1 if self.move_type in {"in_invoice", "out_refund"} else 1
             disc_amount = sign * discount.discount_amount
             create_method(
@@ -355,6 +370,7 @@ class AccountMove(models.Model):
     def _check_balanced(self):
         """Add the check of proper taxes for global discounts."""
         super()._check_balanced()
+
         test_condition = not config["test_enable"] or self.env.context.get(
             "test_account_global_discount"
         )
@@ -417,7 +433,20 @@ class AccountInvoiceGlobalDiscount(models.Model):
         comodel_name="global.discount",
         string="Global Discount",
     )
-    discount = fields.Float(string="Discount (number)")
+    discount_type = fields.Selection(
+        selection=[
+            ("percentage", "Percentage"),
+            ("fixed", "Fixed"),
+        ],
+        string="Discount Type",
+    )
+    discount = fields.Float(
+        string="Discount (number)",
+    )
+    discount_fixed = fields.Float(
+        string="Discount (number)",
+        currency_field="currency_id",
+    )
     discount_display = fields.Char(
         compute="_compute_discount_display",
         string="Discount",
@@ -426,7 +455,7 @@ class AccountInvoiceGlobalDiscount(models.Model):
     base_discounted = fields.Float(string="Base after discount", digits="Product Price")
     currency_id = fields.Many2one(related="invoice_id.currency_id", readonly=True)
     discount_amount = fields.Monetary(
-        string="Discounted Amount",
+        string="Discount Amount",
         compute="_compute_discount_amount",
         currency_field="currency_id",
         compute_sudo=True,
@@ -446,9 +475,16 @@ class AccountInvoiceGlobalDiscount(models.Model):
 
     def _compute_discount_display(self):
         """Given a discount type, we need to render a different symbol"""
+
         for one in self:
-            precision = self.env["decimal.precision"].precision_get("Discount")
-            one.discount_display = "{0:.{1}f}%".format(one.discount * -1, precision)
+            if one.discount_type == "percentage":
+                precision = self.env["decimal.precision"].precision_get("Discount")
+                one.discount_display = "{0:.{1}f}%".format(one.discount * -1, precision)
+            elif one.discount_type == "fixed":
+                precision = self.env["decimal.precision"].precision_get("Product Price")
+                one.discount_display = "{0:.{1}f}".format(
+                    one.discount_fixed * -1, precision
+                )
 
     @api.depends("base", "base_discounted")
     def _compute_discount_amount(self):
