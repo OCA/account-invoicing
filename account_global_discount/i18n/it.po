@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-05 15:34+0000\n"
-"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"PO-Revision-Date: 2024-02-11 15:51+0000\n"
+"Last-Translator: Sergio Zanchetta <primes2h@gmail.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgid ""
 "<strong>Global Discounts</strong>\n"
 "                        <br/>"
 msgstr ""
-"<strong>Sconti Globali</strong>\n"
+"<strong>Sconti globali</strong>\n"
 "                        <br/>"
 
 #. module: account_global_discount
@@ -42,7 +42,7 @@ msgstr "Conto"
 #: model:ir.model.fields,field_description:account_global_discount.field_account_move_line__base_before_global_discounts
 #: model:ir.model.fields,field_description:account_global_discount.field_account_payment__amount_untaxed_before_global_discounts
 msgid "Amount Untaxed Before Discounts"
-msgstr "Importo Imponibile Pre-Sconti"
+msgstr "Importo imponibile pre-sconti"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__account_analytic_id
@@ -98,7 +98,7 @@ msgstr "Nome sconto"
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__discount_amount
 msgid "Discounted Amount"
-msgstr "Importo Scontato"
+msgstr "Importo scontato"
 
 #. module: account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
@@ -123,7 +123,7 @@ msgstr "Sconto globale"
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_move_line__global_discount_item
 msgid "Global Discount Item"
-msgstr "Oggetto Sconto Globale"
+msgstr "Movimento sconto globale"
 
 #. module: account_global_discount
 #: model:ir.ui.menu,name:account_global_discount.menu_account_global_discount
@@ -158,7 +158,7 @@ msgstr "Fattura"
 #: model:ir.model.fields,field_description:account_global_discount.field_account_move_line__invoice_global_discount_id
 #: model:ir.model.fields,field_description:account_global_discount.field_account_payment__invoice_global_discount_ids
 msgid "Invoice Global Discount"
-msgstr "Sconto Globale Fattura"
+msgstr "Sconto globale fattura"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_bank_statement_line__global_discount_ids
@@ -166,14 +166,14 @@ msgstr "Sconto Globale Fattura"
 #: model:ir.model.fields,field_description:account_global_discount.field_account_payment__global_discount_ids
 #: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
 msgid "Invoice Global Discounts"
-msgstr "Sconti Globali Fattura"
+msgstr "Sconti globali fattura"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_bank_statement_line__global_discount_ids_readonly
 #: model:ir.model.fields,field_description:account_global_discount.field_account_move__global_discount_ids_readonly
 #: model:ir.model.fields,field_description:account_global_discount.field_account_payment__global_discount_ids_readonly
 msgid "Invoice Global Discounts (readonly)"
-msgstr "Sconti Globali Fattura (Sola lettura)"
+msgstr "Sconti globali fattura (sola lettura)"
 
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_invoice_report
@@ -219,12 +219,12 @@ msgstr "Imposte"
 #: model:ir.model.fields,field_description:account_global_discount.field_account_move__amount_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_payment__amount_global_discount
 msgid "Total Global Discounts"
-msgstr "Totale Sconti Globali"
+msgstr "Totale sconti globali"
 
 #. module: account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
 msgid "Untaxed Amount Before Disc."
-msgstr "Imponibile pre-sconto"
+msgstr "Importo imponibile pre-sconto"
 
 #. module: account_global_discount
 #: code:addons/account_global_discount/models/account_move.py:0
