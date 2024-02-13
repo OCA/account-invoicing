@@ -50,6 +50,7 @@
                     attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])]}"
                 >
                     <field name="can_edit_validation_user" invisible="1" />
+                    <field name="approved_once" invisible="1" force_save="1" />
                     <field
                         name="validation_user_id"
                         attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])], 'readonly': [('can_edit_validation_user','=',False)]}"
@@ -131,6 +132,7 @@
                 <sheet>
                     <field name="state" invisible="1" />
                     <field name="validation_state" invisible="1" />
+                    <field name="approved_once" invisible="1" force_save="1" />
                     <widget
                         name="web_ribbon"
                         title="Waiting approval"
