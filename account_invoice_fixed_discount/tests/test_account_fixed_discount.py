@@ -8,7 +8,7 @@ from odoo.tests.common import Form
 class TestInvoiceFixedDiscount(TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestInvoiceFixedDiscount, cls).setUpClass()
+        super().setUpClass()
 
         cls.env.user.groups_id |= cls.env.ref("account.group_account_invoice")
         cls.partner = cls.env["res.partner"].create({"name": "Test"})
@@ -139,7 +139,6 @@ class TestInvoiceFixedDiscount(TransactionCase):
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143)
 
     def test_04_base_line_set_to_none(self):
-
         self.vat._convert_to_tax_base_line_dict(
             None,
             price_unit=10,
