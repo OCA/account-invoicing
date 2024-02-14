@@ -18,6 +18,7 @@ class InvoiceMerge(models.TransientModel):
     )
     date_invoice = fields.Date("Invoice Date")
     error_message = fields.Text()
+    disable_merge_lines = fields.Boolean()
 
     @api.model
     def default_get(self, default_fields):
@@ -68,7 +69,9 @@ class InvoiceMerge(models.TransientModel):
         ids = self.env.context.get("active_ids", [])
         invoices = self.env["account.move"].browse(ids)
         allinvoices = invoices.do_merge(
-            keep_references=self.keep_references, date_invoice=self.date_invoice
+            keep_references=self.keep_references,
+            date_invoice=self.date_invoice,
+            disable_merge_lines=self.disable_merge_lines,
         )
         xid = {
             "out_invoice": "action_move_out_invoice_type",

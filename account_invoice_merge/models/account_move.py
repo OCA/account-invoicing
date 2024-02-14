@@ -8,7 +8,7 @@
 
 import numbers
 
-from odoo import api, models
+from odoo import _, api, models
 from odoo.tools import float_is_zero
 
 
@@ -28,7 +28,7 @@ class AccountMove(models.Model):
         ]
 
     @api.model
-    def _get_invoice_line_key_cols(self):
+    def _get_invoice_line_key_cols(self, disable_merge_lines=False):
         fields = [
             "name",
             "discount",
@@ -39,6 +39,13 @@ class AccountMove(models.Model):
             "analytic_distribution",
             "product_uom_id",
         ]
+        if disable_merge_lines:
+            extra_fields = [
+                "id",
+                "display_type",
+                "sequence",
+            ]
+            fields += extra_fields
         for field in [
             "sale_line_ids",  # odoo/sale
             "purchase_line_id",  # odoo/purchase
@@ -72,13 +79,20 @@ class AccountMove(models.Model):
         return ["quantity"]
 
     @api.model
-    def _get_invoice_line_vals(self, line):
-        field_names = self._get_invoice_line_key_cols() + self._get_sum_fields()
+    def _get_invoice_line_vals(
+        self, line, disable_merge_lines=False, sequence_offset=0
+    ):
+        field_names = (
+            self._get_invoice_line_key_cols(disable_merge_lines=disable_merge_lines)
+            + self._get_sum_fields()
+        )
         vals = {}
         origin_vals = line._convert_to_write(line._cache)
         for field_name, val in origin_vals.items():
             if field_name in field_names:
                 vals[field_name] = val
+        if sequence_offset > 0 and "sequence" in vals:
+            vals["sequence"] += sequence_offset
         return vals
 
     def _get_draft_invoices(self):
@@ -102,7 +116,11 @@ class AccountMove(models.Model):
 
     # flake8: noqa: C901
     def do_merge(
-        self, keep_references=True, date_invoice=False, remove_empty_invoice_lines=True
+        self,
+        keep_references=True,
+        date_invoice=False,
+        remove_empty_invoice_lines=True,
+        disable_merge_lines=False,
     ):
         """
         To merge similar type of account invoices.
@@ -126,7 +144,8 @@ class AccountMove(models.Model):
         seen_origins = {}
         seen_client_refs = {}
         sum_fields = self._get_sum_fields()
-
+        invoice_sequence_offset = 0
+        line_sequence_offset = 0
         for account_invoice in self._get_draft_invoices():
             invoice_key = self.make_key(account_invoice, self._get_invoice_key_cols())
             new_invoice = new_invoices.setdefault(invoice_key, ({}, []))
@@ -170,14 +189,35 @@ class AccountMove(models.Model):
                     )
                     client_refs.add(account_invoice.payment_reference)
 
+            if disable_merge_lines and not account_invoice.invoice_line_ids.filtered(
+                lambda x: x.display_type == "line_section"
+            ):
+                invoice_origin = account_invoice.invoice_origin or _("Invoice Merged")
+                line_key = (
+                    ("sequence", invoice_sequence_offset),
+                    ("display_type", "line_section"),
+                    ("name", invoice_origin),
+                )
+                o_line = invoice_infos["invoice_line_ids"].setdefault(
+                    line_key,
+                    {
+                        "name": invoice_origin,
+                        "display_type": "line_section",
+                        "sequence": invoice_sequence_offset,
+                    },
+                )
             for invoice_line in account_invoice.invoice_line_ids:
                 line_key = self.make_key(
-                    invoice_line, self._get_invoice_line_key_cols()
+                    invoice_line,
+                    self._get_invoice_line_key_cols(
+                        disable_merge_lines=disable_merge_lines
+                    ),
                 )
                 o_line = invoice_infos["invoice_line_ids"].setdefault(line_key, {})
 
-                if o_line:
+                if (not disable_merge_lines) and o_line:
                     # merge the line with an existing line
+
                     for sum_field in sum_fields:
                         if sum_field in invoice_line._fields:
                             sum_val = invoice_line[sum_field]
@@ -185,7 +225,16 @@ class AccountMove(models.Model):
                                 o_line[sum_field] += sum_val
                 else:
                     # append a new "standalone" line
-                    o_line.update(self._get_invoice_line_vals(invoice_line))
+                    values = self._get_invoice_line_vals(
+                        invoice_line,
+                        disable_merge_lines=disable_merge_lines,
+                        sequence_offset=invoice_sequence_offset,
+                    )
+                    o_line.update(values)
+                    actual_sequence = values.get("sequence", 0)
+                    if actual_sequence > line_sequence_offset:
+                        line_sequence_offset = actual_sequence
+            invoice_sequence_offset = line_sequence_offset
 
         allinvoices = []
         allnewinvoices = []
@@ -199,18 +248,20 @@ class AccountMove(models.Model):
             if len(old_ids) < 2:
                 allinvoices += old_ids or []
                 continue
-
             if remove_empty_invoice_lines:
                 invoice_data["invoice_line_ids"] = [
                     (0, 0, value)
                     for value in invoice_data["invoice_line_ids"].values()
-                    if not float_is_zero(value["quantity"], precision_digits=qty_prec)
+                    if (
+                        "display_type" in value.keys()
+                        and value["display_type"] in ["line_section", "line_note"]
+                    )
+                    or not float_is_zero(value["quantity"], precision_digits=qty_prec)
                 ]
             else:
                 invoice_data["invoice_line_ids"] = [
                     (0, 0, value) for value in invoice_data["invoice_line_ids"].values()
                 ]
-
             if date_invoice:
                 invoice_data["invoice_date"] = date_invoice
 
