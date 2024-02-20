@@ -15,11 +15,21 @@
                     attrs="{'invisible': ['|', ('invoice_payment_term_id', '=', False), ('invoice_date_due', '=', False)]}"
                     title="Arrow icon"
                 />
+                <field name="extracting_ocr" invisible="1" />
                 <field
                     class="text-muted"
                     name="invoice_date_due"
                     force_save="1"
-                    attrs="{'readonly': [('invoice_payment_term_id', '!=', False)], 'invisible': ['|', ('invoice_payment_term_id', '=', False), ('invoice_date_due', '=', False)]}"
+                    attrs="{
+                        'invisible': [
+                            '|',
+                            ('invoice_payment_term_id', '=', False),
+                            ('invoice_date_due', '=', False)
+                        ],
+                        'readonly': [
+                            ('extracting_ocr', '=', False)
+                        ]
+                    }"
                 />
             </xpath>
         </field>

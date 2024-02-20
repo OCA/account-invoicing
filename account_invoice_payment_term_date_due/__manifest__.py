@@ -10,6 +10,9 @@
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
     "category": "Accounting",
-    "depends": ["account"],
+    "depends": [
+        "account",
+        "account_invoice_extract",
+    ],
     "data": ["views/account_move.xml"],
 }
