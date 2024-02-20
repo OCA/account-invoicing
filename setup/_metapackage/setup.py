@@ -18,6 +18,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_check_total>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_clearing>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_crm_tag>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_custom_rounding>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_date_due>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_discount_date>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_discount_display_amount>=15.0dev,<15.1dev',

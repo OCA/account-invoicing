@@ -31,6 +31,7 @@ addon | version | maintainers | summary
 [account_invoice_check_total](account_invoice_check_total/) | 15.0.1.0.0 |  | Check if the verification total is equal to the bill's total
 [account_invoice_clearing](account_invoice_clearing/) | 15.0.0.1.3 | [![Shide](https://github.com/Shide.png?size=30px)](https://github.com/Shide) | Account invoice clearing wizard
 [account_invoice_crm_tag](account_invoice_crm_tag/) | 15.0.1.0.2 |  | Account Invoice CRM Tag
+[account_invoice_custom_rounding](account_invoice_custom_rounding/) | 15.0.1.0.0 |  | Custom taxes rounding method in invoices
 [account_invoice_date_due](account_invoice_date_due/) | 15.0.1.0.3 | [![luisg123v](https://github.com/luisg123v.png?size=30px)](https://github.com/luisg123v) [![joao-p-marques](https://github.com/joao-p-marques.png?size=30px)](https://github.com/joao-p-marques) | Update Invoice's Due Date
 [account_invoice_discount_date](account_invoice_discount_date/) | 15.0.1.0.1 | [![Shide](https://github.com/Shide.png?size=30px)](https://github.com/Shide) [![rafaelbn](https://github.com/rafaelbn.png?size=30px)](https://github.com/rafaelbn) | Set the early discount date on invoices
 [account_invoice_discount_display_amount](account_invoice_discount_display_amount/) | 15.0.1.0.1 |  | Show total discount applied and total without discount on invoices.
