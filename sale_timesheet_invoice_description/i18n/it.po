@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-20 03:39+0000\n"
-"PO-Revision-Date: 2023-12-04 09:35+0000\n"
+"PO-Revision-Date: 2024-02-21 17:35+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -44,7 +44,7 @@ msgstr "Data - Tempo - Descrizione"
 #. module: sale_timesheet_invoice_description
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_invoice_description.view_sales_config_inherit_timesheet_invoice_description
 msgid "Default timesheet details on invoice lines"
-msgstr "Dettagli ore lavorate di default sulle righe fattura"
+msgstr "Dettagli predefiniti ore lavorate sulle righe fattura"
 
 #. module: sale_timesheet_invoice_description
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
@@ -122,7 +122,7 @@ msgstr "Riga ordine di vendita"
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_invoice_split
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order__timesheet_invoice_split
 msgid "Split Order lines by timesheets"
-msgstr "Dividi righe ordine per ore di lavoro"
+msgstr "Dividi righe ordine per foglio ore"
 
 #. module: sale_timesheet_invoice_description
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
@@ -135,7 +135,7 @@ msgstr "Tempo - Descrizione"
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_res_config_settings__default_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order__timesheet_invoice_description
 msgid "Timesheet Invoice Description"
-msgstr "Descrizione ore di lavoro in fattura"
+msgstr "Descrizione foglio ore fattura"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_ids
