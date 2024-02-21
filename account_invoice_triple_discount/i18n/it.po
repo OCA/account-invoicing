@@ -9,25 +9,25 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-09 02:45+0000\n"
-"PO-Revision-Date: 2021-12-03 12:37+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2024-02-21 17:33+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_triple_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
 msgid "<span>Disc.2 %</span>"
-msgstr ""
+msgstr "<span>Sconto 2 (%)</span>"
 
 #. module: account_invoice_triple_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
 msgid "<span>Disc.3 %</span>"
-msgstr ""
+msgstr "<span>Sconto 3 (%)</span>"
 
 #. module: account_invoice_triple_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.invoice_triple_discount_form_view
@@ -52,12 +52,12 @@ msgstr "Sconto 3 (%)"
 #. module: account_invoice_triple_discount
 #: model:ir.model,name:account_invoice_triple_discount.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_invoice_triple_discount
 #: model:ir.model,name:account_invoice_triple_discount.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Movimento contabile"
 
 #~ msgid "Invoice"
 #~ msgstr "Fattura"
