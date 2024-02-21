@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2023-11-09 17:38+0000\n"
+"PO-Revision-Date: 2024-02-21 17:35+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -253,12 +253,12 @@ msgstr "Procedura guidata"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo_line
 msgid "Wizard Line to update supplierinfo"
-msgstr "Riga procedura guidata per aggiornare i prezzi fornitori"
+msgstr "Riga procedura guidata per aggiornare i prezzi fornitore"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo
 msgid "Wizard to update supplierinfo"
-msgstr "Procedura guidata per aggiornare i prezzi fornitori"
+msgstr "Procedura guidata per aggiornare i prezzi fornitore"
 
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
