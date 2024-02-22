@@ -10,5 +10,5 @@
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "depends": ["account"],
-    "data": ["views/account_move_views.xml"],
+    "data": ["views/account_move_views.xml", "views/res_config_settings_views.xml"],
 }
