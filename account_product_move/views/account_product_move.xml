@@ -1,0 +1,121 @@
+<?xml version="1.0" ?>
+<odoo>
+    <!-- Form and tree -->
+    <record model="ir.ui.view" id="account_product_move_form_view">
+        <field name="name">account.product.move.form</field>
+        <field name="model">account.product.move</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="company_id" invisible="1" />
+                <field name="active" invisible="1" />
+                <header>
+                    <button
+                        name="button_complete"
+                        string="Complete"
+                        type="object"
+                        class="oe_highlight"
+                        states="new"
+                    />
+                    <button
+                        name="button_reset"
+                        string="Reset"
+                        type="object"
+                        class="oe_highlight"
+                        states="complete"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="new,complete"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_archive"
+                            string="Archive"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-archive"
+                            attrs="{'invisible': [('active', '=', False)]}"
+                        />
+                        <button
+                            name="action_unarchive"
+                            string="Reactivate"
+                            type="object"
+                            attrs="{'invisible': [('active', '=', True)]}"
+                        />
+                    </div>
+                    <label for="name" class="oe_edit_only" />
+                    <h1>
+                        <field name="name" class="oe_inline" />
+                    </h1>
+                    <group name="general" colspan="4" col="2">
+                        <field
+                            name="product_category_ids"
+                            widget="many2many_tags"
+                            options="{'no_create_edit': True, 'no_open': True}"
+                            string="Product categories"
+                        />
+                        <field
+                            name="product_tmpl_ids"
+                            widget="many2many_tags"
+                            options="{'no_create_edit': True, 'no_open': True}"
+                            string="Products"
+                        />
+                        <field name="journal_id" options="{'no_create_edit': True}" />
+                        <field name="filter_id" options="{'no_create_edit': True}" />
+                    </group>
+                    <group name="group_product_move_line" colspan="4" col="4">
+                        <separator string="Product Move Lines" colspan="4" />
+                        <field
+                            name="line_ids"
+                            nolabel="1"
+                            colspan="4"
+                            attrs="{'readonly': [('state', '=', 'complete')]}"
+                        >
+                            <tree editable="bottom">
+                                <field name="company_id" invisible="1" />
+                                <field name="move_id" invisible="1" />
+                                <field
+                                    name="account_id"
+                                    options="{'no_create_edit': True, 'no_open': True}"
+                                />
+                                <field
+                                    name="currency_id"
+                                    options="{'no_create_edit': True, 'no_open': True}"
+                                />
+                                <field name="debit" widget="monetary" />
+                                <field name="credit" widget="monetary" />
+                                <field name="percentage_debit" />
+                                <field name="percentage_credit" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="account_product_move_tree_view">
+        <field name="name">account.product.move.tree</field>
+        <field name="model">account.product.move</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="journal_id" />
+                <field name="filter_id" />
+            </tree>
+        </field>
+    </record>
+    <!-- Search -->
+    <record model="ir.ui.view" id="account_product_move_search_view">
+        <field name="name">account.product.move.search</field>
+        <field name="model">account.product.move</field>
+        <field name="arch" type="xml">
+            <search string="Search">
+                <field name="name" />
+                <field name="journal_id" />
+            </search>
+        </field>
+    </record>
+</odoo>
