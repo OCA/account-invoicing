@@ -13,7 +13,7 @@
                 <separator />
                 <filter
                     name="unsent"
-                    string="Unsent"
+                    string="Not Sent"
                     domain="[('is_move_sent', '=', False)]"
                 />
                 <filter
