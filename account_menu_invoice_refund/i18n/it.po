@@ -6,21 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-08-04 11:06+0000\n"
-"Last-Translator: Sergio Corato <sergiocorato@gmail.com>\n"
+"PO-Revision-Date: 2024-02-23 11:35+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_menu_invoice_refund
 #: model:ir.actions.act_window,name:account_menu_invoice_refund.action_invoice_in_tree
 #: model:ir.ui.menu,name:account_menu_invoice_refund.menu_action_invoice_in_tree
 msgid "Bills / Refunds"
-msgstr "Fatture / Note di Credito"
+msgstr "Fatture / Note di credito"
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_out_tree
@@ -54,4 +54,4 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_menu_invoice_refund.action_invoice_out_tree
 #: model:ir.ui.menu,name:account_menu_invoice_refund.menu_action_invoice_out_tree
 msgid "Invoices / Credit Notes"
-msgstr "Fatture / Note di Credito"
+msgstr "Fatture / Note di credito"
