@@ -6,25 +6,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-02-23 14:36+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_default_code_column
 #: model_terms:ir.ui.view,arch_db:account_invoice_default_code_column.report_invoice_document
 msgid "<span>Code</span>"
-msgstr ""
+msgstr "<span>Codice</span>"
 
 #. module: account_invoice_default_code_column
 #: model:ir.model,name:account_invoice_default_code_column.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Movimento contabile"
 
 #. module: account_invoice_default_code_column
 #: model:ir.model.fields,field_description:account_invoice_default_code_column.field_account_move_line__name_without_default_code
 msgid "Name Without Default Code"
-msgstr ""
+msgstr "Nome senza codice predefinito"
