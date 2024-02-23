@@ -1,0 +1,53 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_order_invoicing_qty_percentage
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-02-23 14:36+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: sale_order_invoicing_qty_percentage
+#: model:ir.model.fields,help:sale_order_invoicing_qty_percentage.field_sale_advance_payment_inv__advance_payment_method
+msgid ""
+"A standard invoice is issued with all the order lines ready for "
+"invoicing,according to their invoicing policy (based on ordered or delivered"
+" quantity)."
+msgstr ""
+"Una fattura standard è creata con tutte le righe d'ordine pronte per "
+"fatturazione, in accordo con la sua politica di fatturazione (in base alle "
+"quantità ordinate o consegnate)."
+
+#. module: sale_order_invoicing_qty_percentage
+#: model:ir.model.fields,field_description:sale_order_invoicing_qty_percentage.field_sale_advance_payment_inv__advance_payment_method
+msgid "Create Invoice"
+msgstr "Crea fattura"
+
+#. module: sale_order_invoicing_qty_percentage
+#: model:ir.model.fields.selection,name:sale_order_invoicing_qty_percentage.selection__sale_advance_payment_inv__advance_payment_method__qty_percentage
+msgid "Percentage of the quantity"
+msgstr "Percentuale della quantità"
+
+#. module: sale_order_invoicing_qty_percentage
+#: model:ir.model.fields,field_description:sale_order_invoicing_qty_percentage.field_sale_advance_payment_inv__qty_percentage
+msgid "Quantity percentage"
+msgstr "Percentuale quantità"
+
+#. module: sale_order_invoicing_qty_percentage
+#: model:ir.model,name:sale_order_invoicing_qty_percentage.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Fattura di vendita con pagamento anticipato"
+
+#. module: sale_order_invoicing_qty_percentage
+#: model:ir.model,name:sale_order_invoicing_qty_percentage.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Riga ordine di vendita"
