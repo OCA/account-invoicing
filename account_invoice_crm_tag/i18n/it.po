@@ -6,23 +6,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-02-23 10:36+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_crm_tag
 #: model_terms:ir.ui.view,arch_db:account_invoice_crm_tag.view_account_invoice_report_search
 msgid "CRM Tags"
-msgstr ""
+msgstr "Etichette CRM"
 
 #. module: account_invoice_crm_tag
 #: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_invoice_report__crm_tag_ids
 msgid "Invoice CRM Tags"
-msgstr ""
+msgstr "Etichette fattura CRM"
 
 #. module: account_invoice_crm_tag
 #: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_bank_statement_line__crm_tag_ids
@@ -30,29 +32,29 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_move_line__crm_tag_ids
 #: model:ir.model.fields,field_description:account_invoice_crm_tag.field_account_payment__crm_tag_ids
 msgid "Invoice CRM tags"
-msgstr ""
+msgstr "Etichette fattura CRM"
 
 #. module: account_invoice_crm_tag
 #: model:ir.model,name:account_invoice_crm_tag.model_account_invoice_report
 msgid "Invoices Statistics"
-msgstr ""
+msgstr "Statistiche fatture"
 
 #. module: account_invoice_crm_tag
 #: model:ir.model,name:account_invoice_crm_tag.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_invoice_crm_tag
 #: model:ir.model,name:account_invoice_crm_tag.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Movimento contabile"
 
 #. module: account_invoice_crm_tag
 #: model:ir.model,name:account_invoice_crm_tag.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Ordine di vendita"
 
 #. module: account_invoice_crm_tag
 #: model:ir.model,name:account_invoice_crm_tag.model_sale_order_line
 msgid "Sales Order Line"
-msgstr ""
+msgstr "Riga ordine di vendita"
