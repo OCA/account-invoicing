@@ -6,24 +6,26 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-02-23 10:36+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: partner_invoicing_mode
 #: model:ir.model,name:partner_invoicing_mode.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contatto"
 
 #. module: partner_invoicing_mode
 #: model:ir.model.fields,help:partner_invoicing_mode.field_res_partner__one_invoice_per_order
 #: model:ir.model.fields,help:partner_invoicing_mode.field_res_users__one_invoice_per_order
 msgid "Do not group sale order into one invoice."
-msgstr ""
+msgstr "Non raggruppare gli ordini di vendita in una fattura."
 
 #. module: partner_invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__invoicing_mode
@@ -31,30 +33,30 @@ msgstr ""
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_sale_order__invoicing_mode
 #: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.view_partner_property_form
 msgid "Invoicing Mode"
-msgstr ""
+msgstr "Modo fatturazione"
 
 #. module: partner_invoicing_mode
 #: model:ir.model,name:partner_invoicing_mode.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: partner_invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__one_invoice_per_order
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_users__one_invoice_per_order
 msgid "One Invoice Per Order"
-msgstr ""
+msgstr "Una fattura per ordine"
 
 #. module: partner_invoicing_mode
 #: model:ir.model,name:partner_invoicing_mode.model_queue_job
 msgid "Queue Job"
-msgstr ""
+msgstr "Lavoro in coda"
 
 #. module: partner_invoicing_mode
 #: model:ir.model,name:partner_invoicing_mode.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Ordine di vendita"
 
 #. module: partner_invoicing_mode
 #: model:ir.model.fields.selection,name:partner_invoicing_mode.selection__res_partner__invoicing_mode__standard
 msgid "Standard"
-msgstr ""
+msgstr "Standard"
