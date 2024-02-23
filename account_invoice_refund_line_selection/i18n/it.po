@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-22 14:35+0000\n"
+"PO-Revision-Date: 2024-02-23 10:36+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -27,31 +27,33 @@ msgid ""
 "Choose how you want to credit this invoice. You cannot \"modify\" nor "
 "\"cancel\" if the invoice is already reconciled."
 msgstr ""
+"Scegliere come si vuole accreditare questa fattura. Se la fattura è già "
+"riconciliata non si può \"modificare\" ne \"annullare\"."
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__refund_method
 msgid "Credit Method"
-msgstr ""
+msgstr "Metodo di accredito"
 
 #. module: account_invoice_refund_line_selection
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
 msgid "Invoice Lines"
-msgstr ""
+msgstr "Righe fattura"
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__line_ids
 msgid "Invoice lines to refund"
-msgstr ""
+msgstr "Righe fattura da rimborsare"
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields.selection,name:account_invoice_refund_line_selection.selection__account_move_reversal__refund_method__refund_lines
 msgid "Refund specific lines"
-msgstr ""
+msgstr "Rimborso righe specifiche"
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__selectable_invoice_lines_ids
 msgid "Selectable Invoice Lines"
-msgstr ""
+msgstr "Righe fattura selezionabili"
 
 #. module: account_invoice_refund_line_selection
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
@@ -59,3 +61,5 @@ msgid ""
 "Use this option if you want to refund only some specific lines in an "
 "invoice."
 msgstr ""
+"Utilizzare questa opzione se si vuole rimborsare solo righe specifiche di "
+"una fattura."
