@@ -225,11 +225,18 @@ class AccountMove(models.Model):
             values["validation_user_id"] = self.company_id.validation_user_id.id
 
         first(self.invoice_line_ids)
+
+        if self.invoice_date != date_invoice:
+            values.update(
+                {
+                    "invoice_date": date_invoice,
+                }
+            )
+
         values.update(
             {
                 "partner_id": supplier_id,
                 "validation_state": validation_state,
-                "invoice_date": date_invoice,
                 "pending_date": False,
                 "ref": reference,
             }

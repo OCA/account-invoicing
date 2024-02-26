@@ -29,7 +29,7 @@
       </a>
     </p>
     <ul>
-        <li t-as="invoice" t-foreach= "object.env['account.move'].browse(invoice_ids)" class="list-group-item form-group clearfix active">
+        <li t-as="invoice" t-foreach= "object.env['account.move'].browse(invoice_ids).filtered(lambda r: r.state != 'draft')" class="list-group-item form-group clearfix active">
             <div t-attf-style="display: inline-block; border-radius: 50%; width: 10px; height: 10px;};"> </div>
                 <span style="margin-left:5px" t-out="invoice.name"></span>
         </li>
