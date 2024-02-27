@@ -6,22 +6,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-03-08 13:17+0000\n"
-"Last-Translator: Simon S <simon.stromberg@vertel.se>\n"
+"PO-Revision-Date: 2024-02-27 15:35+0000\n"
+"Last-Translator: jakobkrabbe <jakob@syscare.se>\n"
 "Language-Team: none\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_move_tier_validation
 #. odoo-python
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Bill"
-msgstr ""
+msgstr "Räkning"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__can_review
@@ -33,7 +33,7 @@ msgstr "Kan granska"
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Credit Note"
-msgstr ""
+msgstr "Kreditnota"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__has_comment
@@ -45,7 +45,7 @@ msgstr "Har kommentar"
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Invoice"
-msgstr ""
+msgstr "Faktura"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -60,7 +60,7 @@ msgstr "Fakturor som har attesterats och är redo att bekräftas"
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Invoices where no validation has been requested"
-msgstr ""
+msgstr "Fakturor där ingen validering har begärts"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -95,14 +95,14 @@ msgstr "Nästa granskning"
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "No Validation Requested"
-msgstr ""
+msgstr "Ingen validering begärd"
 
 #. module: account_move_tier_validation
 #. odoo-python
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Refund"
-msgstr ""
+msgstr "Återbetalning"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected
@@ -112,7 +112,7 @@ msgstr "Nekad"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected_message
 msgid "Rejected Message"
-msgstr ""
+msgstr "Avvisat meddelande"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__reviewer_ids
@@ -127,7 +127,7 @@ msgstr "Attestdefinition"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__to_validate_message
 msgid "To Validate Message"
-msgstr ""
+msgstr "För att validera meddelandet"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated
@@ -138,7 +138,7 @@ msgstr "Attesterad"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated_message
 msgid "Validated Message"
-msgstr ""
+msgstr "Validerat meddelande"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
@@ -153,7 +153,7 @@ msgstr "Attestering ej påbörjad"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validation_status
 msgid "Validation Status"
-msgstr ""
+msgstr "Status för validering"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
