@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_picking_inherit_tree2" model="ir.ui.view">
+        <field name="name">stock.picking.tree.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree" />
+        <field name="arch" type="xml">
+            <field name="backorder_id" position="after">
+                <field name="invoice_state" groups="account.group_account_invoice" />
+            </field>
+        </field>
+    </record>
+    <record id="view_picking_invoicing_internal_search" model="ir.ui.view">
+        <field name="name">stock.picking.search.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="before">
+                <filter
+                    name="picking_to_invoice"
+                    string="Shipments to Invoice"
+                    domain="[('invoice_state', '=', '2binvoiced')]"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock_picking_invoice_link.view_picking_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page
+                    string="Invoicing"
+                    name="page_invoicing"
+                    groups="account.group_account_invoice"
+                    attrs="{'invisible': [('invoice_state', 'in', [False, 'none'])]}"
+                >
+                    <field name="invoice_ids">
+                        <tree>
+                            <field name="partner_id" />
+                            <field name="name" />
+                            <field name="ref" />
+                            <field name="invoice_date" />
+                            <field name="state" />
+                            <field name="amount_untaxed" sum="True" />
+                            <field name="amount_tax" />
+                            <field name="amount_total" sum="True" />
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+            <button name="do_unreserve" position="after">
+                <button
+                    name="%(action_stock_invoice_onshipping)d"
+                    string="Create Invoice"
+                    attrs="{'invisible': ['|', ('state', '!=', 'done'), ('invoice_state', '!=', '2binvoiced')]}"
+                    type="action"
+                    class="oe_highlight"
+                    groups="base.group_user"
+                />
+            </button>
+            <field name="move_ids_without_package" position="attributes">
+                <attribute name="context" operation="update">
+                    {
+                    'default_invoice_state': invoice_state,
+                    }
+                </attribute>
+            </field>
+            <field name="move_type" position="before">
+                <field name="invoice_state" groups="account.group_account_invoice" />
+                <field name="invoice_state" invisible="1" />
+            </field>
+            <xpath
+                expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']"
+                position="after"
+            >
+                <field name="invoice_state" groups="account.group_account_invoice" />
+                <field name="invoice_state" invisible="1" />
+                <field
+                    name="price_unit"
+                    attrs="{'invisible':[('invoice_state', '=', 'none')], 'readonly':[('invoice_state', '=', 'invoiced')]}"
+                    optional="hide"
+                />
+            </xpath>
+            <button name="%(stock.act_stock_return_picking)d" position="after">
+                <button
+                    name="set_to_be_invoiced"
+                    type="object"
+                    string="Set to be invoiced"
+                    attrs="{'invisible':['|', '|',
+                         ('invoice_state', 'not in', ('invoiced', 'none')),
+                         ('invoice_ids', '=', True), ('state', '=', 'cancel')]}"
+                />
+
+                <button
+                    name="set_as_invoiced"
+                    type="object"
+                    string="Set to as invoiced"
+                    attrs="{'invisible':['|', '|',
+                         ('invoice_state', 'not in', ('2binvoiced', 'none')),
+                         ('invoice_ids', '=', True), ('state', '=', 'cancel')]}"
+                />
+
+                <button
+                    name="set_as_not_billable"
+                    type="object"
+                    string="Set to Not Billable"
+                    attrs="{'invisible':['|', '|',
+                         ('invoice_state', 'not in', ('invoiced', '2binvoiced')),
+                         ('invoice_ids', '=', True), ('state', '=', 'cancel')]}"
+                />
+
+            </button>
+        </field>
+    </record>
+</odoo>

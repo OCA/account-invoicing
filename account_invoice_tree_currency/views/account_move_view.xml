@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+     Copyright 2021 ForgeFlow S.L. (http://www.forgeflow.com)
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+-->
+<odoo>
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="name">account.invoice.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="company_currency_id" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="amount_residual_signed" position="after">
+                <field
+                    name="amount_untaxed"
+                    string="Tax Excluded (Currency)"
+                    sum="Total"
+                    optional="hide"
+                />
+                <field
+                    name="amount_tax"
+                    string="Tax (Currency)"
+                    sum="Total"
+                    optional="hide"
+                />
+                <field
+                    name="amount_total"
+                    string="Total (Currency)"
+                    sum="Total"
+                    optional="hide"
+                />
+                <field
+                    name="amount_residual"
+                    string="Amount Due (Currency)"
+                    sum="Amount Due"
+                    optional="hide"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

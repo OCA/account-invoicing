@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_wizard_update_invoice_supplierinfo_form" model="ir.ui.view">
+        <field name="model">wizard.update.invoice.supplierinfo</field>
+        <field
+            name="inherit_id"
+            ref="account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form"
+        />
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="display_discount" invisible="1" />
+            </field>
+            <xpath
+                expr="//field[@name='line_ids']/tree/field[@name='cost_variation']"
+                position="before"
+            >
+                <field
+                    name="current_discount"
+                    attrs="{
+                        'invisible': [('supplierinfo_id', '=', False)],
+                        'column_invisible': [('parent.display_discount', '=', False)],
+                    }"
+                    optional="show"
+                />
+                <field
+                    name="new_discount"
+                    optional="show"
+                    attrs="{
+                        'column_invisible': [('parent.display_discount', '=', False)],
+                }"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

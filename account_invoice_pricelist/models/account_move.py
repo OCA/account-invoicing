@@ -77,6 +77,8 @@ class AccountMoveLine(models.Model):
         return res
 
     def _calculate_discount(self, base_price, final_price):
+        if base_price == 0.0:
+            return 0.0
         discount = (base_price - final_price) / base_price * 100
         if (discount < 0 and base_price > 0) or (discount > 0 and base_price < 0):
             discount = 0.0
