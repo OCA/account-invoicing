@@ -8,7 +8,6 @@ from .. import post_init_hook
 
 
 class TestInvoiceRefundLinkBase(TransactionCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -91,7 +90,7 @@ class TestInvoiceRefundLinkBase(TransactionCase):
     def _test_refund_link(self):
         self.assertTrue(self.invoice.refund_invoice_ids)
         refund = self.invoice.refund_invoice_ids[0]
-        ref = "Reversal of: {}, {}".format(self.invoice.name, self.refund_reason)
+        ref = f"Reversal of: {self.invoice.name}, {self.refund_reason}"
         self.assertEqual(refund.ref, ref)
         self.assertEqual(len(self.invoice.invoice_line_ids), len(self.invoice_lines))
         self.assertEqual(len(refund.invoice_line_ids), len(self.invoice_lines))
@@ -109,7 +108,7 @@ class TestInvoiceRefundLinkBase(TransactionCase):
 class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
     @classmethod
     def setUpClass(cls):
-        super(TestInvoiceRefundLink, cls).setUpClass()
+        super().setUpClass()
 
     def test_post_init_hook(self):
         self.assertTrue(self.invoice.refund_invoice_ids)
@@ -139,12 +138,10 @@ class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
 
 
 class TestInvoiceRefundCancelLink(TestInvoiceRefundLinkBase):
-
     def test_refund_link(self):
         self._test_refund_link()
 
 
 class TestInvoiceRefundModifyLink(TestInvoiceRefundLinkBase):
-
     def test_refund_link(self):
         self._test_refund_link()
