@@ -6,40 +6,42 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-02-27 12:36+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_tree_currency
 #: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
 msgid "Amount Due"
-msgstr ""
+msgstr "Importo dovuto"
 
 #. module: account_invoice_tree_currency
 #: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
 msgid "Amount Due (Currency)"
-msgstr ""
+msgstr "Importo dovuto (valuta)"
 
 #. module: account_invoice_tree_currency
 #: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
 msgid "Tax (Currency)"
-msgstr ""
+msgstr "Imposta (valuta)"
 
 #. module: account_invoice_tree_currency
 #: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
 msgid "Tax Excluded (Currency)"
-msgstr ""
+msgstr "Imposta esclusa (valuta)"
 
 #. module: account_invoice_tree_currency
 #: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
 msgid "Total"
-msgstr ""
+msgstr "Totale"
 
 #. module: account_invoice_tree_currency
 #: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
 msgid "Total (Currency)"
-msgstr ""
+msgstr "Totale (valuta)"
