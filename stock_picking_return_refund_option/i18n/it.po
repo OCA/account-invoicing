@@ -1,0 +1,61 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_return_refund_option
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-02-27 18:35+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: stock_picking_return_refund_option
+#: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking__is_return
+msgid "Is Return"
+msgstr "È un reso"
+
+#. module: stock_picking_return_refund_option
+#: model:ir.model.fields.selection,name:stock_picking_return_refund_option.selection__stock_picking__to_refund_lines__no_refund
+msgid "No Refund"
+msgstr "Non rimborsato"
+
+#. module: stock_picking_return_refund_option
+#: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking__to_refund_lines
+#: model_terms:ir.ui.view,arch_db:stock_picking_return_refund_option.view_picking_form
+msgid "Refund Options"
+msgstr "Opzioni rimborso"
+
+#. module: stock_picking_return_refund_option
+#: model:ir.model,name:stock_picking_return_refund_option.model_stock_move
+msgid "Stock Move"
+msgstr "Movimento di magazzino"
+
+#. module: stock_picking_return_refund_option
+#: model:ir.model.fields,help:stock_picking_return_refund_option.field_stock_picking__to_refund_lines
+msgid ""
+"This field allow modify 'to_refund' field value in all stock moves from this picking after it has been confirmed.to_refund: set all stock moves to True value and recompute delivered quantities in sale order.\n"
+"no_refund: set all stock moves to False value and recompute delivered quantities in sale/purchase order."
+msgstr ""
+"Questo campo consente di modificare il valore del campo 'to_refund' in tutti "
+"i movimenti di magazzino da questo prelievo dopo che è stato confermato. "
+"To_refund: imposta il valore a True in tutti i movimenti di magazzino e "
+"ricalcola le quantità consegnate nell'ordine di vendita. \n"
+"No_refund: imposta il valore a False in tutti i movimenti di magazzino e "
+"ricalcola le quantità consegnate nell'ordine di vendita/acquisto."
+
+#. module: stock_picking_return_refund_option
+#: model:ir.model.fields.selection,name:stock_picking_return_refund_option.selection__stock_picking__to_refund_lines__to_refund
+msgid "To Refund"
+msgstr "Da rimborsare"
+
+#. module: stock_picking_return_refund_option
+#: model:ir.model,name:stock_picking_return_refund_option.model_stock_picking
+msgid "Transfer"
+msgstr "Trasferimento"
