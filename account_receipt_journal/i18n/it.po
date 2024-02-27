@@ -6,25 +6,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-02-27 18:35+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_receipt_journal
 #. odoo-python
 #: code:addons/account_receipt_journal/models/account_journal.py:0
 #, python-format
 msgid "Create receipt"
-msgstr ""
+msgstr "Crea ricevuta"
 
 #. module: account_receipt_journal
 #: model:ir.model.fields,field_description:account_receipt_journal.field_account_journal__receipts
 msgid "Exclusive to Receipts"
-msgstr ""
+msgstr "Esclusivo per le ricevute"
 
 #. module: account_receipt_journal
 #: model:ir.model.fields,help:account_receipt_journal.field_account_journal__receipts
@@ -32,16 +34,18 @@ msgid ""
 "If checked, this journal will be used by default for receipts and only can "
 "be used for receipts."
 msgstr ""
+"Se selezionata, questo registro verrà utilizzato in modo predefinito e "
+"solamente per le ricevute."
 
 #. module: account_receipt_journal
 #: model:ir.model,name:account_receipt_journal.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Registro"
 
 #. module: account_receipt_journal
 #: model:ir.model,name:account_receipt_journal.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_receipt_journal
 #. odoo-python
@@ -51,18 +55,20 @@ msgid ""
 "Purchase Receipt must use a Receipt Journal because there is already a "
 "Receipt Journal for Purchases"
 msgstr ""
+"La ricevuta di acquisto deve utilizzare il registro ricevute acquisti perchè "
+"esiste già"
 
 #. module: account_receipt_journal
 #. odoo-python
 #: code:addons/account_receipt_journal/models/account_move.py:0
 #, python-format
 msgid "Receipt Journal is restricted to Receipts"
-msgstr ""
+msgstr "Il registro ricevute è riservato alle ricevute"
 
 #. module: account_receipt_journal
 #: model_terms:ir.ui.view,arch_db:account_receipt_journal.view_account_journal_form_receipts
 msgid "Receipts"
-msgstr ""
+msgstr "Ricevute"
 
 #. module: account_receipt_journal
 #. odoo-python
@@ -72,6 +78,8 @@ msgid ""
 "Sale Receipt must use a Receipt Journal because there is already a Receipt "
 "Journal for Sales"
 msgstr ""
+"La ricevuta di vendita deve utilizzare un registro ricevuta vendite perché "
+"esiste già"
 
 #. module: account_receipt_journal
 #. odoo-python
@@ -81,3 +89,5 @@ msgid ""
 "The sequence of the journal '%s' must be higher than the sequence of the "
 "other journals of the same type."
 msgstr ""
+"La sequenza del registro '%s' deve essere superiore della sequenza "
+"dell'altro registro dello stesso tipo."
