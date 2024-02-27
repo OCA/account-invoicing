@@ -6,43 +6,45 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-02-27 12:11+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: partner_invoicing_mode_at_shipping
 #: model:ir.model.fields.selection,name:partner_invoicing_mode_at_shipping.selection__res_partner__invoicing_mode__at_shipping
 msgid "At Shipping"
-msgstr ""
+msgstr "Alla spedizione"
 
 #. module: partner_invoicing_mode_at_shipping
 #: model:ir.model,name:partner_invoicing_mode_at_shipping.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contatto"
 
 #. module: partner_invoicing_mode_at_shipping
 #: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_partner__invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_users__invoicing_mode
 msgid "Invoicing Mode"
-msgstr ""
+msgstr "Modo fatturazione"
 
 #. module: partner_invoicing_mode_at_shipping
 #. odoo-python
 #: code:addons/partner_invoicing_mode_at_shipping/models/stock_picking.py:0
 #, python-format
 msgid "Nothing to invoice."
-msgstr ""
+msgstr "Nulla da fatturare."
 
 #. module: partner_invoicing_mode_at_shipping
 #: model:ir.model,name:partner_invoicing_mode_at_shipping.model_stock_move
 msgid "Stock Move"
-msgstr ""
+msgstr "Movimento di magazzino"
 
 #. module: partner_invoicing_mode_at_shipping
 #: model:ir.model,name:partner_invoicing_mode_at_shipping.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "Trasferimento"
