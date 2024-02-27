@@ -6,18 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-02-27 12:36+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: purchase_invoicing_no_zero_line
 #: model:ir.model.fields,field_description:purchase_invoicing_no_zero_line.field_account_journal__avoid_zero_lines
 msgid "Avoid zero lines"
-msgstr ""
+msgstr "Evita righe a zero"
 
 #. module: purchase_invoicing_no_zero_line
 #: model:ir.model.fields,help:purchase_invoicing_no_zero_line.field_account_journal__avoid_zero_lines
@@ -25,13 +27,15 @@ msgid ""
 "If this option is checked, the purchase invoices in this journal will have "
 "no lines with zero quantity"
 msgstr ""
+"Se questa opzione è selezionata, le fatture di acquisto in questo registro "
+"non avranno righe con quantità a zero"
 
 #. module: purchase_invoicing_no_zero_line
 #: model:ir.model,name:purchase_invoicing_no_zero_line.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Registro"
 
 #. module: purchase_invoicing_no_zero_line
 #: model:ir.model,name:purchase_invoicing_no_zero_line.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
