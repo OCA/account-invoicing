@@ -1,0 +1,70 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_invoice_line_complimentary
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-24 16:04+0000\n"
+"PO-Revision-Date: 2023-04-24 16:04+0000\n"
+"Last-Translator: Simone Rubino <sir@takobi.online>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_line_complimentary
+#: model_terms:ir.ui.view,arch_db:account_invoice_line_complimentary.res_config_settings_view_form
+msgid "Account where Complimentary Products will be accounted for."
+msgstr "Conto dove verranno contabilizzati i prodotti omaggio."
+
+#. module: account_invoice_line_complimentary
+#: model:ir.model.fields,help:account_invoice_line_complimentary.field_account_invoice__show_complimentary_flag
+msgid "Allow to have complimentary invoice lines."
+msgstr "Permette di avere righe fattura per omaggi."
+
+#. module: account_invoice_line_complimentary
+#: model:ir.model,name:account_invoice_line_complimentary.model_res_company
+msgid "Companies"
+msgstr "Aziende"
+
+#. module: account_invoice_line_complimentary
+#: model:ir.model.fields,field_description:account_invoice_line_complimentary.field_account_invoice_line__is_complimentary
+msgid "Complimentary"
+msgstr "Omaggio"
+
+#. module: account_invoice_line_complimentary
+#: model:ir.model.fields,field_description:account_invoice_line_complimentary.field_res_company__complimentary_account_id
+#: model:ir.model.fields,field_description:account_invoice_line_complimentary.field_res_config_settings__complimentary_account_id
+msgid "Complimentary Account"
+msgstr "Conto omaggio"
+
+#. module: account_invoice_line_complimentary
+#: model:ir.model,name:account_invoice_line_complimentary.model_res_config_settings
+msgid "Config Settings"
+msgstr "Impostazioni di configurazione"
+
+#. module: account_invoice_line_complimentary
+#: model:ir.model,name:account_invoice_line_complimentary.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: account_invoice_line_complimentary
+#: model:ir.model,name:account_invoice_line_complimentary.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Riga fattura"
+
+#. module: account_invoice_line_complimentary
+#: code:addons/account_invoice_line_complimentary/models/account_invoice.py:23
+#, python-format
+msgid "Invoice Lines {lines} are set as complimentary but there is not Complimentary Account set in Company {company}.\n"
+"Please set the Complimentary Account."
+msgstr "Le righe fattura {lines} sono impostate come omaggio ma il conto omaggio non è impostato nell'azienda {company}.\n"
+"Impostare il conto omaggio."
+
+#. module: account_invoice_line_complimentary
+#: model:ir.model.fields,field_description:account_invoice_line_complimentary.field_account_invoice__show_complimentary_flag
+msgid "Show Complimentary Flag"
+msgstr "Mostrare il flag omaggio"
