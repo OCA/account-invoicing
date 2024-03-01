@@ -10,6 +10,7 @@ class TestPickingInvoicing(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.sale_model = cls.env["sale.order"]
         cls.picking_model = cls.env["stock.picking"]
         cls.move_model = cls.env["stock.move"]
         cls.invoice_wizard = cls.env["stock.invoice.onshipping"]
@@ -944,4 +945,106 @@ class TestPickingInvoicing(SavepointCase):
             invoice_devolution.move_type,
             "in_refund",
             "Invoice Type should be In Refund",
+        )
+
+    def test_sale_line_get_invoiced_qty(self):
+        """
+        Test invoiced qty in sale order line after picking invoice.
+        """
+        sale_order = self.sale_model.create(
+            {
+                "partner_id": self.partner.id,
+                "order_line": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": self.product_test_1.id,
+                            "product_uom_qty": 2,
+                            "product_uom": self.product_test_1.uom_id.id,
+                            "price_unit": 100,
+                        },
+                    )
+                ],
+            }
+        )
+        sale_order.action_confirm()
+        picking = sale_order.picking_ids
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking.set_to_be_invoiced()
+        picking.action_confirm()
+        picking.action_assign()
+        picking.button_validate()
+        self.assertEqual(picking.state, "done")
+        wizard_obj = self.invoice_wizard.with_context(
+            active_ids=picking.ids, active_model=picking._name, active_id=picking.id
+        )
+        fields_list = wizard_obj.fields_get().keys()
+        wizard_values = wizard_obj.default_get(fields_list)
+        wizard = wizard_obj.create(wizard_values)
+        wizard.onchange_group()
+        wizard.action_generate()
+        domain = [("picking_ids", "=", picking.id)]
+        invoice = self.invoice_model.search(domain)
+        self.assertEqual(picking.invoice_state, "invoiced")
+        self.assertEqual(invoice.partner_id, self.partner)
+        self.assertEqual(invoice.invoice_line_ids.price_unit, 100)
+        self.assertEqual(sale_order.invoice_ids, invoice)
+        self.assertEqual(sale_order.order_line.qty_invoiced, 2)
+        invoice.action_post()
+        refund = invoice._reverse_moves(cancel=True)
+        self.assertEqual(sale_order.invoice_ids, invoice | refund)
+        self.assertEqual(sale_order.invoice_count, 2)
+        self.assertEqual(sale_order.order_line.qty_invoiced, 0)
+
+    def test_invoice_line_product_lst_price(self):
+        """
+        Test if the invoice line price is the same as the product lst_price
+        when the pricelist is not set in the partner.
+        """
+        self.partner2.write({"property_product_pricelist": False})
+        picking = self.picking_model.create(
+            {
+                "partner_id": self.partner2.id,
+                "picking_type_id": self.pick_type_out.id,
+                "location_id": self.stock_location.id,
+                "location_dest_id": self.customers_location.id,
+            }
+        )
+        move_vals = {
+            "product_id": self.product_test_1.id,
+            "picking_id": picking.id,
+            "location_dest_id": self.customers_location.id,
+            "location_id": self.stock_location.id,
+            "name": self.product_test_1.name,
+            "product_uom_qty": 2,
+            "product_uom": self.product_test_1.uom_id.id,
+        }
+        new_move = self.move_model.create(move_vals)
+        new_move.onchange_product_id()
+        picking.set_to_be_invoiced()
+        picking.action_confirm()
+        # Check product availability
+        picking.action_assign()
+        # Force product availability
+        for move in picking.move_ids_without_package:
+            move.quantity_done = move.product_uom_qty
+        picking.button_validate()
+        self.assertEqual(picking.state, "done")
+        wizard_obj = self.invoice_wizard.with_context(
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
+        )
+        fields_list = wizard_obj.fields_get().keys()
+        wizard_values = wizard_obj.default_get(fields_list)
+        wizard = wizard_obj.create(wizard_values)
+        wizard.onchange_group()
+        wizard.action_generate()
+        domain = [("picking_ids", "=", picking.id)]
+        invoice = self.invoice_model.search(domain)
+        self.assertEqual(
+            invoice.invoice_line_ids.price_unit, self.product_test_1.lst_price
         )

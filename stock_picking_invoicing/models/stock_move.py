@@ -48,20 +48,23 @@ class StockMove(models.Model):
         """
         product = self.mapped("product_id")
         product.ensure_one()
-        if inv_type in ("in_invoice", "in_refund"):
-            result = product.price
+        if self.sale_line_id:
+            result = self.sale_line_id.price_unit
         else:
-            # If partner given, search price in its sale pricelist
-            if partner and partner.property_product_pricelist:
-                product = product.with_context(
-                    partner=partner.id,
-                    quantity=qty,
-                    pricelist=partner.property_product_pricelist.id,
-                    uom=fields.first(self).product_uom.id,
-                )
+            if inv_type in ("in_invoice", "in_refund"):
                 result = product.price
             else:
-                result = product.lst_price
+                # If partner given, search price in its sale pricelist
+                if partner and partner.property_product_pricelist:
+                    product = product.with_context(
+                        partner=partner.id,
+                        quantity=qty,
+                        pricelist=partner.property_product_pricelist.id,
+                        uom=fields.first(self).product_uom.id,
+                    )
+                    result = product.price
+                else:
+                    result = product.lst_price
         return result
 
     def _prepare_extra_move_vals(self, qty):
