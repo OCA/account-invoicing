@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_move_form_inherit_purchase" model="ir.ui.view">
+        <field
+            name="name"
+        >account.move.inherit.purchase (in account_invoice_purchase_quantity)</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="purchase.view_move_form_inherit_purchase" />
+        <field name="arch" type="xml">
+            <field name="purchase_line_id" position="after">
+                <field
+                    name="purchase_line_qty_received"
+                    groups="purchase.group_purchase_user"
+                    attrs="{'column_invisible': [('parent.move_type', '!=', 'in_invoice')]}"
+                    optional="hide"
+                />
+                <field
+                    name="purchase_line_product_qty"
+                    groups="purchase.group_purchase_user"
+                    attrs="{'column_invisible': [('parent.move_type', '!=', 'in_invoice')]}"
+                    optional="hide"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
