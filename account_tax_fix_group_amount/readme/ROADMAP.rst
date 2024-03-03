@@ -1,0 +1,1 @@
+- Automatically check the restrictions mentioned in Configuration
