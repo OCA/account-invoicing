@@ -19,14 +19,14 @@
                 <field
                     name="transmit_method_id"
                     widget="selection"
-                    attrs="{'invisible': [('move_type', 'not in', ('out_invoice', 'out_refund'))]}"
+                    invisible="move_type not in ('out_invoice', 'out_refund')"
                 />
             </div>
             <field name="invoice_source_email" position="after">
                 <field
                     name="transmit_method_id"
                     widget="selection"
-                    attrs="{'invisible': [('move_type', 'not in', ('in_invoice', 'in_refund'))]}"
+                    invisible="move_type not in ('in_invoice', 'in_refund')"
                 />
             </field>
             <!--
@@ -40,31 +40,17 @@
                 expr="//button[@name='action_invoice_sent' and hasclass('oe_highlight')]"
                 position="attributes"
             >
-                <attribute name="attrs" operation="update">
-                    {
-                        'invisible': [
-                            '|', '|', '|',
-                            ('state', '!=', 'posted'),
-                            ('is_move_sent', '=', True),
-                            ('move_type', 'not in', ('out_invoice', 'out_refund')),
-                            ('transmit_method_code', 'not in', ('mail', False)),
-                        ],
-                    }
-                </attribute>
+                <attribute
+                    name="invisible"
+                >state != 'posted' or is_being_sent or invoice_pdf_report_id or move_type not in ('out_invoice', 'out_refund') or transmit_method_code not in ('mail', False)</attribute>
             </xpath>
             <xpath
                 expr="//button[@name='action_invoice_sent' and not(hasclass('oe_highlight'))]"
                 position="attributes"
             >
-            <attribute name="attrs" operation="update">{
-                        'invisible': [
-                            '|', '|', '|',
-                            ('state', '!=', 'posted'),
-                            ('is_move_sent', '=', False),
-                            ('move_type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')),
-                            ('transmit_method_code', 'not in', ('mail', False)),
-                        ],
-                    }</attribute>
+            <attribute
+                    name="invisible"
+                >state != 'posted' or not is_being_sent and not invoice_pdf_report_id or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund') or transmit_method_code not in ('mail', False)</attribute>
             </xpath>
             <field name="invoice_filter_type_domain" position="after">
                 <field name="transmit_method_code" invisible="1" />
