@@ -14,7 +14,7 @@
                         name="web_ribbon"
                         title="Archived"
                         bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
+                        invisible="active"
                     />
                     <div class="oe_title">
                         <label for="name" />
@@ -43,7 +43,7 @@
                 <field name="code" />
                 <field name="customer_ok" widget="boolean_toggle" />
                 <field name="supplier_ok" widget="boolean_toggle" />
-                <field name="active" invisible="True" />
+                <field name="active" column_invisible="True" />
             </tree>
         </field>
     </record>

@@ -38,14 +38,9 @@
                 expr="//field[@name='child_ids']/form//field[@name='email']"
                 position="attributes"
             >
-                <attribute name="attrs" operation="update">
-                    {
-                        'required': [
-                            ('customer_invoice_transmit_method_code', '=', 'mail'),
-                            ('type', '=', 'invoice'),
-                        ],
-                    }
-                </attribute>
+                <attribute
+                    name="required"
+                >customer_invoice_transmit_method_code == 'mail' and type == 'invoice'</attribute>
             </xpath>
         </field>
     </record>
