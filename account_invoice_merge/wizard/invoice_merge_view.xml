@@ -19,13 +19,15 @@
                         * Invoices belong to the same partner.<br />
                         * Invoices have the same company, partner, address,
                         currency, journal, salesman, account and type.<br /><br />
-                        Lines will only be merged if:<br />
+                        If you don check "Disable Merge Lines", lines will only be merged if:<br
+                            />
                         * Invoice lines are exactly the same except for the
                         product, quantity and unit.<br />
                         </p>
                         <group name="options" colspan="4">
                             <field name="keep_references" />
                             <field name="date_invoice" />
+                            <field name="disable_merge_lines" />
                         </group>
                     </group>
                 </group>
