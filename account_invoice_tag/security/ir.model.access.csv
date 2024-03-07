@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_invoice_tag_invoice,account_invoice_tag.move account tag invoice,account_invoice_tag.model_account_move_tag,account.group_account_invoice,1,1,1,1
+access_account_invoice_tag_user,account_invoice_tag.move account tag user,account_invoice_tag.model_account_move_tag,account.group_account_user,1,1,1,1
+access_account_invoice_tag_manager,account_invoice_tag.move account tag manager,account_invoice_tag.model_account_move_tag,account.group_account_manager,1,1,1,1

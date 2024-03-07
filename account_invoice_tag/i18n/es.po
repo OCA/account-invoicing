@@ -1,0 +1,114 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_tag
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-01 11:52+0000\n"
+"PO-Revision-Date: 2022-07-01 11:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_move_tag
+#: model:ir.model,name:account_move_tag.model_account_move_tag
+msgid "Account Move Tag"
+msgstr "Etiqueta de factura"
+
+#. module: account_move_tag
+#: model:ir.actions.act_window,name:account_move_tag.account_move_tag_action
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move__so_tag_ids
+#: model_terms:ir.ui.view,arch_db:account_move_tag.account_move_tag_form_view
+msgid "Account Move Tags"
+msgstr "Etiquetas de facturas"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__active
+msgid "Active"
+msgstr "Activa"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__color
+msgid "Color Index"
+msgstr "Color"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__company_id
+msgid "Company"
+msgstr "Compañia"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__create_date
+msgid "Created on"
+msgstr "Creado"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__display_name
+msgid "Display Name"
+msgstr "Nombre"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_move_tag
+#: model:ir.model,name:account_move_tag.model_account_move
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag____last_update
+msgid "Last Modified on"
+msgstr "Última modificación"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__write_date
+msgid "Last Updated on"
+msgstr "Última actualización"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__name
+#: model_terms:ir.ui.view,arch_db:account_move_tag.account_move_tag_form_view
+msgid "Name"
+msgstr "Nombre"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: account_move_tag
+#: model:ir.model.constraint,message:account_move_tag.constraint_account_move_tag_name_uniq
+msgid "Tag name already exists!"
+msgstr "La etiqueta ya existe"
+
+#. module: account_move_tag
+#: model:ir.ui.menu,name:account_move_tag.account_move_tag_menu
+msgid "Tags"
+msgstr "Etiquetas"
+
+#. module: account_move_tag
+#: model_terms:ir.ui.view,arch_db:account_move_tag.account_move_tag_view_form
+msgid "tag..."
+msgstr "etiqueta..."

@@ -1,0 +1,11 @@
+<!-- Copyright 2022 Darío Cruz
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+<odoo noupdate="1">
+    <record id="account_invoice_tag_multi_company_rule" model="ir.rule">
+        <field name="name">Account Move Tag in multi company</field>
+        <field name="model_id" ref="account_invoice_tag.model_account_move_tag" />
+        <field
+            name="domain_force"
+        >['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+</odoo>

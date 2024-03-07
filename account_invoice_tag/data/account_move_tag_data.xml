@@ -1,0 +1,10 @@
+<!-- Copyright 2022 Darío Cruz
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).-->
+<odoo noupdate="1">
+    <record id="account_move_tag_seq" model="ir.sequence">
+        <field name="name">account.move.tag.sequence</field>
+        <field name="code">account.move.tag</field>
+        <field name="prefix">0</field>
+        <field name="padding">1</field>
+    </record>
+</odoo>
