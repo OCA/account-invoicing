@@ -6,7 +6,7 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">account_receipt_print.report_receipt</field>
             <field name="report_file">account_receipt_print.report_receipt</field>
-            <field name="print_report_name">(object._get_move_display_name())</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
             <field
             name="attachment"
         >(object.state == 'posted') and ((object.name or 'REC').replace('/','_')+'.pdf')</field>
