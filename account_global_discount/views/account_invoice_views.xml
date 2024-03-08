@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2019 Tecnativa - David Vidal
+     Copyright 2022 Simone Rubino - TAKOBI
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
 
@@ -10,10 +11,15 @@
             <field name="payment_term_id" position="after">
                 <field name="global_discount_ids" widget="many2many_tags" placeholder="Discounts..." groups="base_global_discount.group_global_discount" />
                 <field name="global_discount_ids_readonly" string="Invoice Global Discounts" widget="many2many_tags" readonly="1" groups="!base_global_discount.group_global_discount" />
+                <field name="global_discount_base" invisible="True" />
             </field>
             <field name="amount_untaxed" position="before">
-                <field name="amount_untaxed_before_global_discounts" string="Untaxed Amount Before Disc." attrs="{'invisible': [('global_discount_ids', '=', [])]}"/>
-                <field name="amount_global_discount" string="Global Discounts" attrs="{'invisible': [('global_discount_ids', '=', [])]}"/>
+                <field name="amount_untaxed_before_global_discounts" string="Untaxed Amount Before Disc." attrs="{'invisible': [('global_discount_base','!=','subtotal')]}"/>
+                <field name="amount_global_discount" string="Global Discounts" attrs="{'invisible': [('global_discount_base','!=','subtotal')]}"/>
+            </field>
+            <field name="amount_tax" position="after">
+                <field name="amount_total_before_global_discounts" attrs="{'invisible': [('global_discount_base','!=','total')]}"/>
+                <field name="amount_global_discount" attrs="{'invisible': [('global_discount_base','!=','total')]}"/>
             </field>
             <field name="tax_line_ids" position="before">
                 <group string="Global Discounts">

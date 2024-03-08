@@ -1,8 +1,10 @@
 # Copyright 2019 Tecnativa - David Vidal
 # Copyright 2020 Tecnativa - Pedro M. Baeza
+# Copyright 2022 Simone Rubino - TAKOBI
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import _, api, exceptions, fields, models
 from odoo.addons import decimal_precision as dp
+from odoo.fields import first
 
 
 class AccountInvoice(models.Model):
@@ -20,6 +22,14 @@ class AccountInvoice(models.Model):
                "    'in_invoice': ['purchase']"
                "}.get(type, [])), ('account_id', '!=', False), '|', "
                "('company_id', '=', company_id), ('company_id', '=', False)]",
+    )
+    global_discount_base = fields.Selection(
+        selection=[
+            ('subtotal', 'Subtotal'),
+            ('total', 'Total'),
+        ],
+        string='Discount Base',
+        compute='_compute_global_discount_base',
     )
     # HACK: Looks like UI doesn't behave well with Many2many fields and
     # negative groups when the same field is shown. In this case, we want to
@@ -42,25 +52,48 @@ class AccountInvoice(models.Model):
         currency_field='currency_id',
         readonly=True,
     )
+    amount_total_before_global_discounts = fields.Monetary(
+        string='Amount Total Before Discounts',
+        compute='_compute_amount',
+        currency_field='currency_id',
+        readonly=True,
+    )
     invoice_global_discount_ids = fields.One2many(
         comodel_name='account.invoice.global.discount',
         inverse_name='invoice_id',
         readonly=True,
     )
 
+    @api.multi
+    @api.depends('global_discount_ids')
+    def _compute_global_discount_base(self):
+        for invoice in self:
+            # Only check first because sanity checks
+            # assure all global discounts in same invoice have same base
+            first_global_discount = first(invoice.global_discount_ids)
+            invoice.global_discount_base = first_global_discount.discount_base
+
     def _set_global_discounts_by_tax(self):
         """Create invoice global discount lines by taxes combinations and
         discounts.
         """
         self.ensure_one()
+        invoice_global_discounts = self.env['account.invoice.global.discount']
+        self.invoice_global_discount_ids = invoice_global_discounts.browse()
         if not self.global_discount_ids:
             self.amount_global_discount = 0.0
             self.amount_untaxed_before_global_discounts = 0.0
             return
-        invoice_global_discounts = self.env['account.invoice.global.discount']
         taxes_keys = {}
         # Perform a sanity check for discarding cases that will lead to
         # incorrect data in discounts
+        discount_base = set(self.global_discount_ids.mapped('discount_base'))
+        if len(discount_base) > 1:
+            raise exceptions.UserError(
+                _("All global discount must have the same base")
+            )
+        discount_base = discount_base.pop()
+
         for inv_line in self.invoice_line_ids.filtered(
                 lambda l: not l.display_type):
             if not inv_line.invoice_line_tax_ids:
@@ -76,17 +109,34 @@ class AccountInvoice(models.Model):
                     ))
             else:
                 taxes_keys[inv_line.invoice_line_tax_ids] = True
-        for tax_line in self.tax_line_ids:
-            key = []
-            to_create = True
-            for key in taxes_keys:
-                if tax_line.tax_id in key:
-                    to_create = taxes_keys[key]
-                    taxes_keys[key] = False  # mark for not duplicating
-                    break  # we leave in key variable the proper taxes value
-            if not to_create:
-                continue
-            base = tax_line.base_before_global_discounts or tax_line.base
+
+        if discount_base == 'subtotal':
+            for tax_line in self.tax_line_ids:
+                key = []
+                to_create = True
+                for key in taxes_keys:
+                    if tax_line.tax_id in key:
+                        to_create = taxes_keys[key]
+                        taxes_keys[key] = False  # mark for not duplicating
+                        break  # we leave in key variable the proper taxes value
+                if not to_create:
+                    continue
+                base = tax_line.base_before_global_discounts or tax_line.base
+                for global_discount in self.global_discount_ids:
+                    discount = global_discount._get_global_discount_vals(base)
+                    invoice_global_discounts += invoice_global_discounts.new({
+                        'name': global_discount.display_name,
+                        'invoice_id': self.id,
+                        'global_discount_id': global_discount.id,
+                        'discount': global_discount.discount,
+                        'base': base,
+                        'base_discounted': discount['base_discounted'],
+                        'account_id': global_discount.account_id.id,
+                        'tax_ids': [(4, x.id) for x in key],
+                    })
+                    base = discount['base_discounted']
+        elif discount_base == 'total':
+            base = self.amount_total
             for global_discount in self.global_discount_ids:
                 discount = global_discount._get_global_discount_vals(base)
                 invoice_global_discounts += invoice_global_discounts.new({
@@ -97,9 +147,9 @@ class AccountInvoice(models.Model):
                     'base': base,
                     'base_discounted': discount['base_discounted'],
                     'account_id': global_discount.account_id.id,
-                    'tax_ids': [(4, x.id) for x in key],
                 })
                 base = discount['base_discounted']
+
         self.invoice_global_discount_ids = invoice_global_discounts
 
     def _set_global_discounts(self):
@@ -142,9 +192,15 @@ class AccountInvoice(models.Model):
             round_curr(discount.discount_amount) * - 1
             for discount in self.invoice_global_discount_ids)
         self.amount_untaxed_before_global_discounts = self.amount_untaxed
-        self.amount_untaxed = (
-            self.amount_untaxed + self.amount_global_discount)
-        self.amount_total = self.amount_untaxed + self.amount_tax
+        self.amount_total_before_global_discounts = self.amount_total
+
+        if self.global_discount_base == 'subtotal':
+            self.amount_untaxed = (
+                self.amount_untaxed + self.amount_global_discount)
+            self.amount_total = self.amount_untaxed + self.amount_tax
+        elif self.global_discount_base == 'total':
+            self.amount_total += self.amount_global_discount
+
         amount_total_company_signed = self.amount_total
         amount_untaxed_signed = self.amount_untaxed
         if (self.currency_id and self.company_id and
@@ -174,17 +230,18 @@ class AccountInvoice(models.Model):
         """Override this computation for adding global discount to taxes."""
         round_curr = self.currency_id.round
         tax_grouped = super().get_taxes_values()
-        for key in tax_grouped.keys():
-            base = tax_grouped[key]['base']
-            tax_grouped[key]['base_before_global_discounts'] = base
-            amount = tax_grouped[key]['amount']
-            for discount in self.global_discount_ids:
-                base = discount._get_global_discount_vals(
-                    base)['base_discounted']
-                amount = discount._get_global_discount_vals(
-                    amount)['base_discounted']
-            tax_grouped[key]['base'] = round_curr(base)
-            tax_grouped[key]['amount'] = round_curr(amount)
+        if self.global_discount_base == 'subtotal':
+            for key in tax_grouped.keys():
+                base = tax_grouped[key]['base']
+                tax_grouped[key]['base_before_global_discounts'] = base
+                amount = tax_grouped[key]['amount']
+                for discount in self.global_discount_ids:
+                    base = discount._get_global_discount_vals(
+                        base)['base_discounted']
+                    amount = discount._get_global_discount_vals(
+                        amount)['base_discounted']
+                tax_grouped[key]['base'] = round_curr(base)
+                tax_grouped[key]['amount'] = round_curr(amount)
         return tax_grouped
 
     @api.model
