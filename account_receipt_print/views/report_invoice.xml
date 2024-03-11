@@ -25,7 +25,9 @@
                 <attribute name="t-if">o.move_type != 'out_receipt'</attribute>
             </xpath>
             <xpath expr="//p[@name='payment_communication']" position="before">
-                <p t-if="o.move_type == 'out_receipt'">
+                <p
+                t-if="o._get_show_amount_in_words() and o.move_type == 'out_receipt'"
+            >
                     <strong>Amount In Words:</strong>
                     <t
                     t-set="amount_in_words"
