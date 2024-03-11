@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
         <template
-        id="report_invoice_document"
+        id="report_receipt_document"
         inherit_id="account.report_invoice_document"
     >
             <xpath expr="//h2/span[@t-field='o.name']" position="before">
@@ -27,7 +27,9 @@
             >o.invoice_payment_term_id and o.move_type != 'out_receipt'</attribute>
             </xpath>
             <xpath expr="//p[@t-if='o.narration']" position="before">
-                <p t-if="o.move_type == 'out_receipt'">
+                <p
+                t-if="o._get_show_amount_in_words() and o.move_type == 'out_receipt'"
+            >
                     <strong>Amount In Words:</strong>
                     <t
                     t-set="amount_in_words"
