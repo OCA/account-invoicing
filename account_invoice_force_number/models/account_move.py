@@ -1,4 +1,5 @@
 # Copyright 2019 Ecosoft Co., Ltd (https://ecosoft.co.th/)
+# Copyright 2024 Factor Libre - Aritz Olea
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
 from odoo import _, fields, models
@@ -29,8 +30,8 @@ class AccountMove(models.Model):
                 )
         return super(AccountMove, self).unlink()
 
-    def action_post(self):
+    def _post(self, soft=True):
         for move in self:
             if move.move_name:
                 move.write({"name": move.move_name})
-        return super(AccountMove, self).action_post()
+        return super(AccountMove, self)._post(soft=soft)
