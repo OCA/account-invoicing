@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="portal_my_home_menu_invoice"
+        inherit_id="account.portal_my_home_menu_invoice"
+        priority="110"
+    >
+        <xpath
+            expr="//li//a[@t-if='invoice'][.='Invoices &amp; Bills']"
+            position="replace"
+        >
+            <a
+                t-if="invoice"
+                t-attf-href="/my/invoices?{{ keep_query() }}"
+            >Invoices, Bills &amp; Receipts</a>
+        </xpath>
+        <xpath expr='//li//t[@t-else=""][.="Invoices &amp; Bills"]' position="replace">
+            <t t-else="">Invoices, Bills &amp; Receipts</t>
+        </xpath>
+    </template>
+    <template
+        id="portal_my_home_invoice"
+        name="Show Invoices &amp; Bills"
+        inherit_id="account.portal_my_home_invoice"
+        priority="110"
+    >
+        <xpath expr="//t[@t-set='title'][.='Invoices &amp; Bills']" position="replace">
+            <t t-set="title">Invoices, Bills &amp; Receipts</t>
+        </xpath>
+    </template>
+    <template
+        id="portal_my_invoices"
+        name="My Invoices and Payments"
+        inherit_id="account.portal_my_invoices"
+        priority="110"
+    >
+        <xpath expr="//t[@t-if='not invoices']/p" position="replace">
+            <p
+            >There are currently no invoices/receipts and payments for your account.</p>
+        </xpath>
+        <xpath expr="//th[.='Invoice #']" position="replace">
+            <th>Invoice/Receipt #</th>
+        </xpath>
+        <xpath expr="//th[.='Invoice Date']" position="replace">
+            <th>Invoice/Receipt Date</th>
+        </xpath>
+    </template>
+</odoo>

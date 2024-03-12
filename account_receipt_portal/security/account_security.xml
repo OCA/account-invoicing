@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value
+                eval="[('module', '=', 'account'), ('name', '=', 'account_invoice_rule_portal')]"
+            />
+            </function>
+            <value eval="{'noupdate': False}" />
+        </function>
+        <record id="account.account_invoice_rule_portal" model="ir.rule">
+            <field
+            name="domain_force"
+        >[('state', 'not in', ('cancel', 'draft')), ('move_type', 'in', ('out_invoice', 'out_refund', 'out_receipt', 'in_invoice', 'in_refund', 'in_receipt')), ('message_partner_ids','child_of',[user.commercial_partner_id.id])]</field>
+        </record>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value
+                eval="[('module', '=', 'account'), ('name', '=', 'account_invoice_rule_portal')]"
+            />
+            </function>
+            <value eval="{'noupdate': True}" />
+        </function>
+</odoo>
