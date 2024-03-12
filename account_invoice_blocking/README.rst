@@ -32,6 +32,9 @@ This module allows the user to set a blocking (No Follow-up) flag
 directly on the invoice. This facilitates the blocking of the invoice's
 move lines.
 
+Blocking lines is recommended to avoid automatic tasks in some lines
+like payments file generation.
+
 **Table of contents**
 
 .. contents::
@@ -40,7 +43,9 @@ move lines.
 Usage
 =====
 
-You can set the No Follow-up flag on invoices.
+You can set the No Follow-up flag on invoices. When the No Follow-up
+flag is setted the receivable and payable lines of the invoice are
+blocked.
 
 Known issues / Roadmap
 ======================
