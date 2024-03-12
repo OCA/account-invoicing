@@ -1,0 +1,70 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_receipt_portal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-15 21:06+0000\n"
+"PO-Revision-Date: 2024-03-15 21:06+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_receipt_portal
+#: model:ir.model.fields,field_description:account_receipt_portal.field_account_move__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: account_receipt_portal
+#: model:ir.model.fields,field_description:account_receipt_portal.field_account_move__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_receipt_portal
+#: model_terms:ir.ui.view,arch_db:account_receipt_portal.portal_my_invoices
+msgid "Invoice/Receipt #"
+msgstr "Fattura/Ricevuta n°"
+
+#. module: account_receipt_portal
+#: model_terms:ir.ui.view,arch_db:account_receipt_portal.portal_my_invoices
+msgid "Invoice/Receipt Date"
+msgstr "Data fattura/ricevuta"
+
+#. module: account_receipt_portal
+#: model_terms:ir.ui.view,arch_db:account_receipt_portal.portal_my_home_invoice
+#: model_terms:ir.ui.view,arch_db:account_receipt_portal.portal_my_home_menu_invoice
+msgid "Invoices, Bills &amp; Receipts"
+msgstr "Fatture e ricevute"
+
+#. module: account_receipt_portal
+#: model:ir.model,name:account_receipt_portal.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: account_receipt_portal
+#: model:ir.model.fields,field_description:account_receipt_portal.field_account_move____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: account_receipt_portal
+#: code:addons/account_receipt_portal/controllers/portal.py:0
+#, python-format
+msgid "Purchase Receipts"
+msgstr "Ricevute di acquisto"
+
+#. module: account_receipt_portal
+#: code:addons/account_receipt_portal/controllers/portal.py:0
+#, python-format
+msgid "Sale Receipts"
+msgstr "Ricevute di vendita"
+
+#. module: account_receipt_portal
+#: model_terms:ir.ui.view,arch_db:account_receipt_portal.portal_my_invoices
+msgid ""
+"There are currently no invoices/receipts and payments for your account."
+msgstr "Al momento nell'account non sono presenti fatture/ricevute e pagamenti."
