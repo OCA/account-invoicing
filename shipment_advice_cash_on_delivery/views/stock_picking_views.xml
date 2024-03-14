@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">cash on delivery</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+        <field name="picking_type_id" position="after">
+            <field
+                    name="cash_on_delivery_invoice_ids"
+                    string="COD Invoices"
+                    groups="account.group_account_invoice"
+                    attrs="{'invisible':[('cash_on_delivery_invoice_ids', '=', False)]}"
+                    widget="many2many_tags"
+                    context="{'tree_view_ref': 'account.invoice_tree', 'form_view_ref': 'account.invoice_form'}"
+                />
+        </field>
+        </field>
+    </record>
+</odoo>

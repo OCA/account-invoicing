@@ -1,0 +1,1 @@
+from . import test_shipment_advice_cash_on_delivery
