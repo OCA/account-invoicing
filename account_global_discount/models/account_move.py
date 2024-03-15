@@ -30,8 +30,6 @@ class AccountMove(models.Model):
         "    'in_invoice': ['purchase']"
         "}.get(move_type, [])), ('account_id', '!=', False), '|', "
         "('company_id', '=', company_id), ('company_id', '=', False)]",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     amount_global_discount = fields.Monetary(
         string="Total Global Discounts",
@@ -87,9 +85,12 @@ class AccountMove(models.Model):
         # incorrect data in discounts
         _self = self.filtered("global_discount_ids")
         for inv_line in _self.invoice_line_ids.filtered(
-            lambda l: l.display_type not in ["line_section", "line_note"]
+            lambda line: line.display_type not in ["line_section", "line_note"]
         ):
-            if not inv_line.product_id or inv_line.product_id.apply_global_discount:
+            if (
+                not inv_line.product_id
+                or not inv_line.product_id.not_apply_global_discount
+            ):
                 taxes_keys.setdefault(tuple(inv_line.tax_ids.ids), 0)
                 taxes_keys[tuple(inv_line.tax_ids.ids)] += inv_line.price_subtotal
         # Reset previous global discounts
@@ -97,7 +98,10 @@ class AccountMove(models.Model):
         model = "account.invoice.global.discount"
         create_method = in_draft_mode and self.env[model].new or self.env[model].create
         for tax_line in _self.line_ids.filtered("tax_line_id"):
-            if not tax_line.product_id or tax_line.product_id.apply_global_discount:
+            if (
+                not tax_line.product_id
+                or not tax_line.product_id.not_apply_global_discount
+            ):
                 key = []
                 discount_line_base = 0
                 for key in taxes_keys:
@@ -121,7 +125,7 @@ class AccountMove(models.Model):
         base_total = 0
         zero_taxes = self.env["account.tax"]
         for line in self.line_ids.filtered("tax_ids"):
-            if not line.product_id or line.product_id.apply_global_discount:
+            if not line.product_id or not line.product_id.not_apply_global_discount:
                 key = tuple(line.tax_ids.ids)
                 if taxes_keys.get(key):
                     base_total += line.price_subtotal
@@ -160,8 +164,7 @@ class AccountMove(models.Model):
                 {
                     "invoice_global_discount_id": discount.id,
                     "move_id": self.id,
-                    "name": "%s - %s"
-                    % (discount.name, ", ".join(discount.tax_ids.mapped("name"))),
+                    "name": f"{discount.name} - {', '.join(discount.tax_ids.mapped('name'))}",
                     "debit": disc_amount_company_currency > 0.0
                     and disc_amount_company_currency
                     or 0.0,

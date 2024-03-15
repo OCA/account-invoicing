@@ -16,6 +16,7 @@
                     name="global_discount_ids"
                     widget="many2many_tags"
                     placeholder="Discounts..."
+                    readonly="state != 'draft'"
                     groups="base_global_discount.group_global_discount"
                 />
                 <field
@@ -30,25 +31,25 @@
                 <field
                     name="amount_untaxed_before_global_discounts"
                     string="Untaxed Amount Before Disc."
-                    attrs="{'invisible': ['|',('global_discount_ids', '=', []),('invoice_global_discount_ids','=',[])]}"
+                    invisible="not global_discount_ids or not invoice_global_discount_ids"
                     groups="base_global_discount.group_global_discount"
                 />
                 <field
                     name="amount_untaxed_before_global_discounts"
                     string="Untaxed Amount Before Disc."
-                    attrs="{'invisible': ['|',('global_discount_ids_readonly', '=', []),('invoice_global_discount_ids','=',[])]}"
+                    invisible="not global_discount_ids_readonly or not invoice_global_discount_ids"
                     groups="!base_global_discount.group_global_discount"
                 />
                 <field
                     name="amount_global_discount"
                     string="Global Discounts"
-                    attrs="{'invisible': ['|',('global_discount_ids', '=', []),('invoice_global_discount_ids','=',[])]}"
+                    invisible="not global_discount_ids or not invoice_global_discount_ids"
                     groups="base_global_discount.group_global_discount"
                 />
                 <field
                     name="amount_global_discount"
                     string="Global Discounts"
-                    attrs="{'invisible': ['|',('global_discount_ids_readonly', '=', []),('invoice_global_discount_ids','=',[])]}"
+                    invisible="not global_discount_ids_readonly or not invoice_global_discount_ids"
                     groups="!base_global_discount.group_global_discount"
                 />
             </field>
@@ -65,7 +66,7 @@
                     name="invoice_global_discount_ids"
                     nolabel="1"
                     readonly="1"
-                    attrs="{'invisible': [('global_discount_ids', '=', [])]}"
+                    invisible="global_discount_ids"
                     force_save="1"
                     groups="base_global_discount.group_global_discount"
                 >
@@ -100,7 +101,7 @@
                     name="invoice_global_discount_ids"
                     nolabel="1"
                     readonly="1"
-                    attrs="{'invisible': [('global_discount_ids_readonly', '=', [])]}"
+                    invisible="global_discount_ids_readonly"
                     force_save="1"
                     groups="!base_global_discount.group_global_discount"
                 >

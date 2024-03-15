@@ -188,7 +188,7 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         self.assertAlmostEqual(self.invoice.amount_global_discount, -60.0)
 
     def test_03_multiple_taxes_multi_line(self):
-        tax2 = self.tax.copy(default={"amount": 20.0})
+        tax2 = self.tax.copy(default={"amount": 20.0, "name": "Tax 2"})
         with Form(self.invoice) as invoice_form:
             invoice_form.global_discount_ids.add(self.global_discount_1)
             with invoice_form.invoice_line_ids.new() as line_form:
@@ -230,7 +230,7 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
 
     def test_04_multiple_taxes_same_line(self):
         tax2 = self.tax.copy(
-            default={"amount": -20.0}
+            default={"amount": -20.0, "name": "Tax 2"}
         )  # negative for testing more use cases
         with Form(self.invoice.with_context(check_move_validity=False)) as invoice_form:
             invoice_form.global_discount_ids.add(self.global_discount_1)
@@ -261,7 +261,7 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         # Line 1 with tax and tax2
         # Line 2 with only tax2
         tax2 = self.tax.copy(
-            default={"amount": -20.0}
+            default={"amount": -20.0, "name": "Tax 2"}
         )  # negative for testing more use cases
         with self.assertRaises(exceptions.UserError):
             with Form(self.invoice) as invoice_form:
@@ -320,7 +320,7 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
                 "sequence": 1,
             }
         )
-        tax = self.tax_sale_a.copy(default={"amount": 15.0})
+        tax = self.tax_sale_a.copy(default={"amount": 15.0, "name": "Tax 2"})
         invoice = (
             self.env["account.move"]
             .with_context(test_account_global_discount=True)
@@ -370,7 +370,7 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         self.assertAlmostEqual(invoice.amount_untaxed, 200.0)
         self.assertAlmostEqual(invoice.amount_global_discount, 0)
         base_line = invoice.line_ids.filtered(
-            lambda l: l.tax_ids and not l.invoice_global_discount_id
+            lambda line: line.tax_ids and not line.invoice_global_discount_id
         )
         self.assertEqual(len(base_line), 1)
         self.assertAlmostEqual(
@@ -380,7 +380,7 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
             ),
         )
         tax_line = invoice.line_ids.filtered(
-            lambda l: l.tax_line_id and not l.invoice_global_discount_id
+            lambda line: line.tax_line_id and not line.invoice_global_discount_id
         )
         self.assertEqual(len(tax_line), 1)
         tax_line_balance_before_discount = tax_line.balance
@@ -413,7 +413,7 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         self.assertAlmostEqual(invoice.amount_untaxed, 160.0)
         self.assertAlmostEqual(invoice.amount_global_discount, -40.0)
         base_line = invoice.line_ids.filtered(
-            lambda l: l.tax_ids and not l.invoice_global_discount_id
+            lambda line: line.tax_ids and not line.invoice_global_discount_id
         )
         self.assertEqual(len(base_line), 1)
         self.assertAlmostEqual(
@@ -426,7 +426,7 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
             ),
         )
         tax_line = invoice.line_ids.filtered(
-            lambda l: l.tax_line_id and not l.invoice_global_discount_id
+            lambda line: line.tax_line_id and not line.invoice_global_discount_id
         )
         self.assertEqual(len(tax_line), 1)
         self.assertAlmostEqual(
