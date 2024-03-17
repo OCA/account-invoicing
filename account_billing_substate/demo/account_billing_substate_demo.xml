@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- Account Billing Substate -->
+    <record id="base_substate_to_verify_account_billing" model="base.substate">
+        <field name="name">To Verify</field>
+        <field name="sequence">1</field>
+        <field name="target_state_value_id" ref="target_substate_value_billing_draft" />
+    </record>
+    <record id="base_substate_checked_account_billing" model="base.substate">
+        <field name="name">Checked</field>
+        <field name="sequence">2</field>
+        <field name="target_state_value_id" ref="target_substate_value_billing_draft" />
+    </record>
+</odoo>
