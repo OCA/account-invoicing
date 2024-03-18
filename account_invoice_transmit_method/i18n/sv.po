@@ -101,11 +101,6 @@ msgid "Journal Entry"
 msgstr "Journalanteckning"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method____last_update
-msgid "Last Modified on"
-msgstr "Senast redigerad den"
-
-#. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__write_uid
 msgid "Last Updated by"
 msgstr "Senast uppdaterad av"
@@ -195,6 +190,9 @@ msgstr "Leverantörsfaktura Mottagningsmetod"
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
 msgstr "Leverantörsfaktura Kod för mottagningsmetod"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Senast redigerad den"
 
 #~ msgid "Invoice"
 #~ msgstr "Faktura"

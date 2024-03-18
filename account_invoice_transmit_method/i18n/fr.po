@@ -101,11 +101,6 @@ msgid "Journal Entry"
 msgstr "Pièce comptable"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method____last_update
-msgid "Last Modified on"
-msgstr "Dernière modification le"
-
-#. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
@@ -195,6 +190,9 @@ msgstr "Mode de réception des factures fournisseurs"
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
 msgstr "Code du mode de réception des factures fournisseurs"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Dernière modification le"
 
 #~ msgid "active"
 #~ msgstr "Actif"

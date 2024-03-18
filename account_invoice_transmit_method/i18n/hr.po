@@ -103,11 +103,6 @@ msgid "Journal Entry"
 msgstr "Temeljnica"
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method____last_update
-msgid "Last Modified on"
-msgstr "Zadnje modificirano"
-
-#. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__write_uid
 msgid "Last Updated by"
 msgstr "Zadnje ažurirao"
@@ -197,6 +192,9 @@ msgstr "Metoda primanja računa od dobavljača"
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
 msgstr "Šifra metode primanja računa od dobavljača"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Zadnje modificirano"
 
 #~ msgid "active"
 #~ msgstr "aktivan"
