@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+account_invoice_date.access_account_voucher_proforma_date,access_account_voucher_proforma_date,account_invoice_date.model_account_voucher_proforma_date,base.group_user,1,1,1,1

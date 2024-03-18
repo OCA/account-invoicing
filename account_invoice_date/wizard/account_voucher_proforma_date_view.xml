@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_voucher_proforma_date" model="ir.ui.view">
+        <field name="name">view.account.voucher.proforma.date</field>
+        <field name="model">account.voucher.proforma.date</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="invoice_type" invisible="1" />
+                    <field
+                        name="date"
+                        string="Invoice date"
+                        attrs="{'invisible' : ['|','|',
+                            ('invoice_type','=','in_invoice'),
+                            ('invoice_type','=','in_refund'),
+                            ('invoice_type','=','out_refund')]}"
+                    />
+                    <field
+                        name="date"
+                        string="Bill date"
+                        attrs="{'invisible' : ['|','|',
+                            ('invoice_type','=','out_invoice'),
+                            ('invoice_type','=','out_refund'),
+                            ('invoice_type','=','in_refund')]}"
+                    />
+
+                    <field
+                        name="date"
+                        string="Credit Note date"
+                        attrs="{'invisible' : ['|',('invoice_type','=','out_invoice'),('invoice_type','=','in_invoice')]}"
+                    />
+                </group>
+                <footer>
+                    <button
+                        string='Confirm'
+                        name="action_post"
+                        default_focus="1"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_invoice_customer" model="ir.actions.act_window">
+        <field name="name">Open invoice</field>
+        <field name="res_model">account.voucher.proforma.date</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_account_voucher_proforma_date" />
+        <field name="target">new</field>
+    </record>
+</odoo>
