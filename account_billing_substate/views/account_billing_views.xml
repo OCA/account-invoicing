@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_billing_form" model="ir.ui.view">
+        <field name="name">account.billing.form</field>
+        <field name="model">account.billing</field>
+        <field name="inherit_id" ref="account_billing.view_account_billing_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="after">
+                <header name="substate">
+                    <field
+                        name="substate_id"
+                        widget="statusbar"
+                        options="{'clickable': '1',}"
+                    />
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_billing_tree" model="ir.ui.view">
+        <field name="model">account.billing</field>
+        <field name="inherit_id" ref="account_billing.view_account_billing_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="substate_id" widget="badge" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_billing_search" model="ir.ui.view">
+        <field name="name">account.billing.search</field>
+        <field name="model">account.billing</field>
+        <field name="inherit_id" ref="account_billing.view_billing_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='customer_filter']" position="after">
+                <separator />
+                <field name="substate_id" />
+            </xpath>
+            <xpath expr="//filter[@name='group_by_state']" position="after">
+                <filter
+                    name="substate_id"
+                    string="Substate"
+                    context="{'group_by':'substate_id'}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
