@@ -1,0 +1,14 @@
+<odoo>
+    <record id="report_account_billing" model="ir.actions.report">
+        <field name="name">Billing</field>
+        <field name="model">account.billing</field>
+        <field name="report_name">account_billing.report_billing</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_file">account_billing.report_billing</field>
+        <field name="binding_model_id" ref="model_account_billing" />
+        <field name="binding_type">report</field>
+        <field
+            name="print_report_name"
+        >'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')</field>
+    </record>
+</odoo>
