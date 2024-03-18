@@ -98,11 +98,6 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_transmit_method
-#: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method____last_update
-msgid "Last Modified on"
-msgstr "Sidst ændret den"
-
-#. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__write_uid
 msgid "Last Updated by"
 msgstr "Sidst opdateret af"
@@ -192,3 +187,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_res_users__supplier_invoice_transmit_method_code
 msgid "Vendor Invoice Reception Method Code"
 msgstr ""
+
+#~ msgid "Last Modified on"
+#~ msgstr "Sidst ændret den"
