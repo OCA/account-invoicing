@@ -8,10 +8,10 @@ from odoo.tools.float_utils import float_is_zero
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    discount_fixed = fields.Monetary(
+    discount_fixed = fields.Float(
         string="Discount (Fixed)",
         default=0.0,
-        currency_field="currency_id",
+        digits="Product Price",
         help=(
             "Apply a fixed amount discount to this line. The amount is multiplied by "
             "the quantity of the product."
