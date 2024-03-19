@@ -9,6 +9,10 @@
                 <group name="invoicing_mode" string="Invoicing Mode">
                     <field name="invoicing_mode" />
                     <field name="one_invoice_per_order" />
+                    <field
+                        name="next_invoice_date"
+                        attrs="{'invisible': [('invoicing_mode', '=', 'standard')]}"
+                    />
                 </group>
             </xpath>
         </field>

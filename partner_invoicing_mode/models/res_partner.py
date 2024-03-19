@@ -12,6 +12,9 @@ class ResPartner(models.Model):
         default=False,
         help="Do not group sale order into one invoice.",
     )
+    next_invoice_date = fields.Date(
+        help="This is the date at which the next invoice will be generated."
+    )
 
     @api.model
     def _commercial_fields(self):
@@ -19,3 +22,10 @@ class ResPartner(models.Model):
             "invoicing_mode",
             "one_invoice_per_order",
         ]
+
+    def _update_next_invoice_date(self):
+        """
+        This will update the next invoice date from the configuration set on
+        the partner if needed (not for standard invoicing_mode).
+        """
+        return
