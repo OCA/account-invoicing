@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_export_invoice_pdf_zip_form_wizard" model="ir.ui.view">
+        <field name="name">export.invoice.pdf.zip.form.view</field>
+        <field name="model">export.invoice.pdf.zip</field>
+        <field name="arch" type="xml">
+            <form string="Invoices">
+                <group>
+                    <group>
+                        <field name='from_date' required="1" />
+                    </group>
+                    <group>
+                        <field name='to_date' required="1" />
+                    </group>
+                    <group>
+                        <field
+                            name='filter_statuses'
+                            widget='many2many_tags'
+                            options="{'no_create_edit': True}"
+                            domain="[('code', 'in', ['draft', 'posted', 'cancel'])]"
+                        />
+                    </group>
+                </group>
+
+                <footer>
+                    <button
+                        name="action_export_pdf_zip"
+                        string="Export Invoices in Zip"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button string="Cancel" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_export_invoice_pdf_zip" model="ir.actions.act_window">
+        <field name="name">Export Invoices in Zip</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">export.invoice.pdf.zip</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        name="Export Invoices"
+        id="menu_action_export_invoice_pdf_zip"
+        parent="account.menu_finance_reports"
+        sequence="9"
+        action="action_export_invoice_pdf_zip"
+    />
+</odoo>
