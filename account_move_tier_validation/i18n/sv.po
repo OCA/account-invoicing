@@ -1,0 +1,195 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_tier_validation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2022-03-08 13:17+0000\n"
+"Last-Translator: Simon S <simon.stromberg@vertel.se>\n"
+"Language-Team: none\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: account_move_tier_validation
+#. odoo-python
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Bill"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__can_review
+msgid "Can Review"
+msgstr "Kan granska"
+
+#. module: account_move_tier_validation
+#. odoo-python
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Credit Note"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__has_comment
+msgid "Has Comment"
+msgstr "Har kommentar"
+
+#. module: account_move_tier_validation
+#. odoo-python
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Invoice"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Invoices Pending to Validate"
+msgstr "Fakturor i väntan på attestering"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Invoices validated and ready to be confirmed"
+msgstr "Fakturor som har attesterats och är redo att bekräftas"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Invoices where no validation has been requested"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Invoices where validation has not started"
+msgstr "Fakturor vars attestering inte har påbörjats"
+
+#. module: account_move_tier_validation
+#: model:ir.model,name:account_move_tier_validation.model_account_move
+msgid "Journal Entry"
+msgstr "Verifikat"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "My Accounts to review"
+msgstr "Mina konton att granska"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__need_validation
+msgid "Need Validation"
+msgstr "Behöver attestering"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Needs my Review"
+msgstr "Behöver min granskning"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__next_review
+msgid "Next Review"
+msgstr "Nästa granskning"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "No Validation Requested"
+msgstr ""
+
+#. module: account_move_tier_validation
+#. odoo-python
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+#, python-format
+msgid "Refund"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected
+msgid "Rejected"
+msgstr "Nekad"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected_message
+msgid "Rejected Message"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__reviewer_ids
+msgid "Reviewers"
+msgstr "Granskare"
+
+#. module: account_move_tier_validation
+#: model:ir.model,name:account_move_tier_validation.model_tier_definition
+msgid "Tier Definition"
+msgstr "Attestdefinition"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__to_validate_message
+msgid "To Validate Message"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Validated"
+msgstr "Attesterad"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated_message
+msgid "Validated Message"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Validation In Progress"
+msgstr "Attestering pågår"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Validation Not Started"
+msgstr "Attestering ej påbörjad"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validation_status
+msgid "Validation Status"
+msgstr ""
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
+msgid "Validations"
+msgstr "Attesteringar"
+
+#~ msgid "Reject"
+#~ msgstr "Neka"
+
+#~ msgid "Request Validation"
+#~ msgstr "Begär attestering"
+
+#~ msgid "Restart Validation"
+#~ msgstr "Starta om attestering"
+
+#~ msgid "Validate"
+#~ msgstr "Attestera"
+
+#~ msgid ""
+#~ "<i class=\"fa fa-info-circle\"/>This Invoice needs to be\n"
+#~ "                        validated."
+#~ msgstr ""
+#~ "<i class=\"fa fa-info-circle\"/>Den här fakturan behöver\n"
+#~ "                        attesteras."
+
+#~ msgid "<i class=\"fa fa-thumbs-down\"/> Operation has been <b>rejected</b>."
+#~ msgstr "<i class=\"fa fa-thumbs-down\"/> Operationen har <b>nekats</b>."
+
+#~ msgid "<i class=\"fa fa-thumbs-up\"/> Operation has been <b>validated</b>!"
+#~ msgstr "<i class=\"fa fa-thumbs-up\"/> Operationen har <b>attesterats</b>!"
+
+#~ msgid "Display Name"
+#~ msgstr "Visningsnamn"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Senast ändrad den"
