@@ -1,0 +1,66 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_receipt_refund
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-28 13:35+0000\n"
+"PO-Revision-Date: 2023-03-28 13:35+0000\n"
+"Last-Translator: Simone Rubino <sir@takobi.online>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_receipt_refund
+#: model:ir.model.fields,field_description:account_receipt_refund.field_account_move__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: account_receipt_refund
+#: model:ir.model.fields,field_description:account_receipt_refund.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_receipt_refund
+#: model:ir.model,name:account_receipt_refund.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: account_receipt_refund
+#: model:ir.model.fields,field_description:account_receipt_refund.field_account_move____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: account_receipt_refund
+#: code:addons/account_receipt_refund/models/account_move.py:0
+#: model_terms:ir.ui.view,arch_db:account_receipt_refund.view_move_form
+#, python-format
+msgid "Refund Receipt"
+msgstr "Rimborso ricevuta"
+
+#. module: account_receipt_refund
+#: model_terms:ir.ui.view,arch_db:account_receipt_refund.view_account_move_reversal
+msgid "The Receipt Refund is auto-validated and reconciled with the Receipt."
+msgstr "La ricevuta di rimborso viene validata e riconciliata con la ricevuta in modo automatico."
+
+#. module: account_receipt_refund
+#: model_terms:ir.ui.view,arch_db:account_receipt_refund.view_account_move_reversal
+msgid ""
+"The Receipt Refund is auto-validated and reconciled with the Receipt.\n"
+"                         The original Receipt is duplicated as a new draft."
+msgstr ""
+"La ricevuta di rimborso viene validata e riconciliata in modo automatico con la ricevuta.\n"
+"                         La ricevuta di origine viene duplicata come nuova bozza."
+
+#. module: account_receipt_refund
+#: model_terms:ir.ui.view,arch_db:account_receipt_refund.view_account_move_reversal
+msgid ""
+"The Receipt Refund is created in draft and can be edited before being "
+"issued."
+msgstr ""
+"La ricevuta di rimborso viene creata in bozza e può essere modificata prima di "
+"essere emessa."
