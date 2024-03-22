@@ -1,0 +1,95 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_policy_order_subtotal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-30 15:48+0000\n"
+"PO-Revision-Date: 2022-11-30 15:48+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_policy_order_subtotal
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_product_template__display_name
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_sale_order__display_name
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_sale_order_line__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: account_invoice_policy_order_subtotal
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_product_template__id
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_sale_order__id
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_sale_order_line__id
+msgid "ID"
+msgstr "Id."
+
+#. module: account_invoice_policy_order_subtotal
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_sale_order_line__amount_invoiced
+msgid "Invoiced Amount"
+msgstr "Montant facturé"
+
+#. module: account_invoice_policy_order_subtotal
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_product_product__invoice_policy
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_product_template__invoice_policy
+msgid "Invoicing Policy"
+msgstr "Politique de facturation"
+
+#. module: account_invoice_policy_order_subtotal
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_product_template____last_update
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_sale_order____last_update
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_sale_order_line____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: account_invoice_policy_order_subtotal
+#: model:ir.model.fields.selection,name:account_invoice_policy_order_subtotal.selection__product_template__invoice_policy__order_subtotal
+msgid "Order subtotal"
+msgstr "Sous-total de commande"
+
+#. module: account_invoice_policy_order_subtotal
+#: code:addons/account_invoice_policy_order_subtotal/models/product.py:0
+#, python-format
+msgid ""
+"Order subtotal invoice policy can only be used in products of type "
+"consumable."
+msgstr ""
+"La politique de facturation du sous-total de la commande "
+"ne peut être utilisée que pour les produits de type consommable."
+
+#. module: account_invoice_policy_order_subtotal
+#: model:ir.model.fields,help:account_invoice_policy_order_subtotal.field_product_product__invoice_policy
+#: model:ir.model.fields,help:account_invoice_policy_order_subtotal.field_product_template__invoice_policy
+msgid ""
+"Ordered Quantity: Invoice quantities ordered by the customer.\n"
+"Delivered Quantity: Invoice quantities delivered to the customer.\n"
+"Ordered Subtotal: Invoice subtotal amount ordered by the customer."
+msgstr ""
+"Quantité commandée : Quantités facturées commandées par le client.\n"
+"Quantité livrée : Quantités facturées livrées au client.\n"
+" Sous-total commandé : Montant du sous-total de la facture commandé par le client. "
+
+#. module: account_invoice_policy_order_subtotal
+#: model:ir.model,name:account_invoice_policy_order_subtotal.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: account_invoice_policy_order_subtotal
+#: model:ir.model,name:account_invoice_policy_order_subtotal.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: account_invoice_policy_order_subtotal
+#: model:ir.model,name:account_invoice_policy_order_subtotal.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bons de commande"
+
+#. module: account_invoice_policy_order_subtotal
+#: model:ir.model.fields,field_description:account_invoice_policy_order_subtotal.field_sale_order_line__amount_to_invoice
+msgid "To Invoice Amount"
+msgstr "Montant à facturer"
