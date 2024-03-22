@@ -8,6 +8,8 @@ To edit the invoice's due date, we have several scenarios:
 * No Payment Term is set, and the due date is set manually. In this case, the
   due date is editable while in draft, as with the standard Odoo flow. However,
   once posted, the field will remain editable.
+* In a list view, multi edit has been enabled, allowing the update for multiple
+  invoices at once.
 
 (All the above are considering the user belongs to the security group refered in
 "Configuration")
