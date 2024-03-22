@@ -14,8 +14,7 @@ odoo_test_flavor: Both
 odoo_version: 14.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
-rebel_module_groups:
-- account_invoice_line_sequence
+rebel_module_groups: []
 repo_description: This project aims to deal with modules related to account invoicing
 repo_name: Account invoicing
 repo_slug: account-invoicing

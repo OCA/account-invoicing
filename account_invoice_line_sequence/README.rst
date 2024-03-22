@@ -37,6 +37,11 @@ The sequence number always starts at 1 and rises incrementally: 1, 2, 3, ... To 
 .. contents::
    :local:
 
+Installation
+============
+
+Go to Settings -> Invoicing -> Recompute invoice line sequence -> Check to activate line sequence automatic recalculation.
+
 Bug Tracker
 ===========
 
