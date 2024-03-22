@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 CreuBlanca
+     Copyright 2023 ForgeFlow
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="res_config_settings_form_view">
+        <field
+            name="name"
+        >res.config.settings.form (in account_invoice_ocr_google)</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div id="account_ocr_settings" position="before">
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="account_ocr_google_settings"
+                >
+                    <div class="o_setting_left_pane" />
+                    <div
+                        class="o_setting_right_pane"
+                        id="account_ocr_google_settings_right"
+                    >
+                        <label for="ocr_google_enabled" />
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            aria-label="Values set here are company-specific."
+                            groups="base.group_multi_company"
+                            role="img"
+                        />
+                        <div
+                            class="text-muted"
+                            attrs="{'invisible': [('ocr_google_enabled', '!=', 'no_send')]}"
+                        >
+                            Enable Google OCR for invoices
+                        </div>
+
+                        <div class="o_light_label">
+                            <field
+                                name="ocr_google_enabled"
+                                widget="radio"
+                                required="1"
+                            />
+                        </div>
+                        <div
+                            class="text-muted"
+                            attrs="{'invisible': [('ocr_google_enabled', '=', 'no_send')]}"
+                        >
+                            Access Google Cloud console, create an App, enable Google Document AI API and fill the following data
+                        </div>
+                        <div
+                            class="content-group"
+                            attrs="{'invisible': [('ocr_google_enabled', '=', 'no_send')]}"
+                        >
+                            <div class="row mt16">
+                                <label
+                                    string="Project"
+                                    for="ocr_google_project"
+                                    class="col-lg-3 o_light_label"
+                                />
+                                <field
+                                    name="ocr_google_project"
+                                    attrs="{'required': [('ocr_google_enabled', '!=', 'no_send')]}"
+                                />
+                            </div>
+                            <div class="row mt16">
+                                <label
+                                    string="Location"
+                                    for="ocr_google_location"
+                                    class="col-lg-3 o_light_label"
+                                />
+                                <field
+                                    name="ocr_google_location"
+                                    attrs="{'required': [('ocr_google_enabled', '!=', 'no_send')]}"
+                                />
+                            </div>
+                            <div class="row mt16">
+                                <label
+                                    string="Processor"
+                                    for="ocr_google_processor"
+                                    class="col-lg-3 o_light_label"
+                                />
+                                <field
+                                    name="ocr_google_processor"
+                                    attrs="{'required': [('ocr_google_enabled', '!=', 'no_send')]}"
+                                />
+                            </div>
+                            <div class="row mt16">
+                                <label
+                                    string="Authentication"
+                                    for="ocr_google_authentication"
+                                    class="col-lg-3 o_light_label"
+                                />
+                                <field
+                                    name="ocr_google_authentication"
+                                    filename="ocr_google_authentication_name"
+                                    attrs="{'required': [('ocr_google_enabled', '!=', 'no_send')]}"
+                                />
+                                <field
+                                    name="ocr_google_authentication_name"
+                                    invisible="1"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </field>
+    </record>
+
+</odoo>
