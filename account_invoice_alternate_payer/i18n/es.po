@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-07 13:08+0000\n"
-"Last-Translator: Jesarregui <jesarreguisan@gmail.com>\n"
+"PO-Revision-Date: 2024-03-23 09:36+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_payment__alternate_payer_id
 #: model_terms:ir.ui.view,arch_db:account_invoice_alternate_payer.view_move_form
 msgid "Alternate Payer"
-msgstr ""
+msgstr "Pagador Alterno"
 
 #. module: account_invoice_alternate_payer
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_move__display_name
