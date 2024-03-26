@@ -132,6 +132,7 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
                     "message_ids",
                     "needed_terms",
                     "hide_post_button",
+                    "needed_terms_dirty",
                 },
             ),
             # Assert only this field is changed
@@ -169,10 +170,46 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             self._compare_records(
                 old_move_state,
                 self.move.sudo().read()[0],
-                ignore={"write_uid", "message_is_follower", "message_ids"},
+                ignore={
+                    "write_uid",
+                    "message_is_follower",
+                    "message_ids",
+                    "needed_terms_dirty",
+                },
             ),
             # Assert only this field is changed
             {"invoice_date_due_payment_term", "invoice_date_due"},
+        )
+
+    def test_invoice_date_w_payment_term_reset_to_draft_reconfirm(self):
+        """When an invoice with a changed date is reset to draft, then the manually
+        changed date is preserved, as are the maturity date of the lines is updated
+        too. If the move is posted after that, the values are kept too.
+        """
+        move_edit_form = Form(self.move.with_user(self.user_w_access))
+        move_edit_form.invoice_payment_term_id = self.env.ref(
+            "account.account_payment_term_15days"
+        )
+        self.move = move_edit_form.save()
+        # Post and should remain editable even w/ payment term
+        twenty_days_from_now = (datetime.today() + timedelta(days=20)).date()
+
+        self.move.action_post()
+        move_edit_form = Form(self.move.with_user(self.user_w_access))
+        move_edit_form.invoice_date_due_payment_term = twenty_days_from_now
+        self.move = move_edit_form.save()
+        self.move.button_draft()
+        self.assertEqual(self.move.invoice_date_due, twenty_days_from_now)
+        line_with_date = self.move.line_ids.filtered("date_maturity")
+        self.assertEqual(
+            line_with_date.mapped("date_maturity"),
+            [twenty_days_from_now],
+        )
+        self.move.action_post()
+        self.assertEqual(self.move.invoice_date_due, twenty_days_from_now)
+        self.assertEqual(
+            line_with_date.mapped("date_maturity"),
+            [twenty_days_from_now],
         )
 
     def test_invoice_date_due_is_not_editable_for_user_wo_access(self):
