@@ -14,35 +14,58 @@ class StockInvoiceOnshipping(models.TransientModel):
         invoice, values = super()._build_invoice_values_from_pickings(pickings)
         pick = fields.first(pickings)
         if pick.sale_id:
-            values.update(
-                {
-                    "partner_id": pick.sale_id.partner_invoice_id.id,
+            # Refund case don't get values from Sale Dict
+            # TODO: Should get any value?
+            if self._get_invoice_type() != "out_refund":
+                # Other modules can included new fields in Sale Order and include
+                # this fields in the dict of creation Invoice from sale, for
+                # example:
+                # - account_payment_sale
+                #  https://github.com/OCA/bank-payment/blob/14.0/
+                #  account_payment_sale/models/sale_order.py#L41
+                # - sale_commssion
+                #  https://github.com/OCA/commission/blob/14.0/
+                #  sale_commission/models/sale_order.py#L64
+                # To avoid the necessity of a 'glue' module the method get the
+                # values from _prepare_invoice but removed some fields of the
+                # original method, given priority for values from
+                # stock_picking_invoicing dict, for now it's seems the best to
+                # way to avoid the 'glue' modules problem.
+                sale_values = pick.sale_id._prepare_invoice()
+                # Original dict from sale module, fields uncomment will be remove
+                vals_to_remove = {
+                    # "ref": self.client_order_ref or '',
+                    "move_type",
+                    # "narration": self.note,
+                    "currency_id",
+                    # "campaign_id": self.campaign_id.id,
+                    # "medium_id": self.medium_id.id,
+                    # "source_id": self.source_id.id,
+                    "user_id",
+                    "invoice_user_id",
+                    # "team_id": self.team_id.id,
+                    "partner_id",
+                    # "partner_shipping_id": self.partner_shipping_id.id,
+                    "fiscal_position_id",
+                    # "partner_bank_id": self.company_id.partner_id.bank_ids.
+                    # filtered(lambda bank: bank.company_id.id in
+                    # (self.company_id.id, False))[:1].id,
+                    "journal_id",  # company comes from the journal
+                    "invoice_origin",
+                    # "invoice_payment_term_id": self.payment_term_id.id,
+                    # "payment_reference": self.reference,
+                    # "transaction_ids": [(6, 0, self.transaction_ids.ids)],
+                    "invoice_line_ids",
+                    "company_id",
+                    # Another fields
+                    "__last_update",
+                    "display_name",
                 }
-            )
-            if (
-                pick.sale_id.partner_invoice_id.id
-                != pick.sale_id.partner_shipping_id.id
-            ):
-                values.update(
-                    {
-                        "partner_shipping_id": pick.sale_id.partner_shipping_id.id,
-                    }
-                )
-            if pick.sale_id.payment_term_id.id != values["invoice_payment_term_id"]:
-                values.update(
-                    {"invoice_payment_term_id": pick.sale_id.payment_term_id.id}
-                )
-            # TODO: Should we implement payment_mode_id as did in Brazilian
-            #  Localization?
-            # The field payment_mode_id are implement by
-            # https://github.com/OCA/bank-payment/tree/14.0/account_payment_mode
-            # To avoid the necessity of a 'GLUE' module we just check
-            # if the fiel exist.
-            # if hasattr(pick.sale_id, "payment_mode_id"):
-            #    if pick.sale_id.payment_mode_id.id != values.get("payment_mode_id"):
-            #        values.update({"payment_mode_id": pick.sale_id.payment_mode_id.id})
-            if pick.sale_id.note:
-                values.update({"narration": pick.sale_id.note})
+                sale_values_rm = {
+                    k: sale_values[k] for k in set(sale_values) - vals_to_remove
+                }
+
+                values.update(sale_values_rm)
 
         return invoice, values
 
@@ -85,6 +108,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         values = super()._get_invoice_line_values(moves, invoice_values, invoice)
         move = fields.first(moves)
         if move.sale_line_id:
+            # Vals informed in any case
             values["sale_line_ids"] = [(6, 0, moves.sale_line_id.ids)]
             values[
                 "analytic_account_id"
@@ -92,5 +116,32 @@ class StockInvoiceOnshipping(models.TransientModel):
             values["analytic_tag_ids"] = [
                 (6, 0, moves.sale_line_id.analytic_tag_ids.ids)
             ]
+            # Refund case don't get values from Sale Line Dict
+            # TODO: Should get any value?
+            if self._get_invoice_type() != "out_refund":
+                # Same make above, get fields informed in Sale Line dict
+                sale_line_values = move.sale_line_id._prepare_invoice_line()
+                vals_to_remove = {
+                    "display_type",
+                    # "sequence": self.sequence,
+                    "name",
+                    "product_id",
+                    "product_uom_id",
+                    "quantity",
+                    # "discount": self.discount,
+                    "price_unit",
+                    "tax_ids",
+                    "analytic_account_id",
+                    "analytic_tag_ids",
+                    "sale_line_ids",
+                    # another fields
+                    "__last_update",
+                    "display_name",
+                }
+                sale_line_values_rm = {
+                    k: sale_line_values[k]
+                    for k in set(sale_line_values) - vals_to_remove
+                }
+                values.update(sale_line_values_rm)
 
         return values
