@@ -21,7 +21,6 @@
     "data": [
         "views/res_company_view.xml",
         "views/res_config_settings_view.xml",
-        "views/sale_order_view.xml",
     ],
     "demo": [
         "demo/sale_order_demo.xml",

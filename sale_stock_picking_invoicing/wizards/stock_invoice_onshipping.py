@@ -145,3 +145,80 @@ class StockInvoiceOnshipping(models.TransientModel):
                 values.update(sale_line_values_rm)
 
         return values
+
+    def _create_invoice(self, invoice_values):
+        """Override this method if you need to change any values of the
+        invoice and the lines before the invoice creation
+        :param invoice_values: dict with the invoice and its lines
+        :return: invoice
+        """
+        pickings = self._load_pickings()
+        pick = fields.first(pickings)
+        if pick.sale_id:
+            invoice_item_sequence = (
+                0  # Incremental sequencing to keep the lines order on the invoice.
+            )
+
+            order = pick.sale_id.with_company(pick.sale_id.company_id)
+
+            invoiceable_lines = order._get_invoiceable_lines(final=True)
+
+            # Get Sale Sequence
+            sale_sequence_list = []
+            for line in invoice_values.get("invoice_line_ids"):
+                if line[2].get("sequence"):
+                    sale_sequence_list.append(line[2].get("sequence"))
+
+            invoice_item_sequence = max(sale_sequence_list) + 1
+
+            invoice_line_vals = []
+            down_payment_section_added = False
+            for line in invoiceable_lines:
+                if not down_payment_section_added and line.is_downpayment:
+                    # Create a dedicated section for the down payments
+                    # (put at the end of the invoiceable_lines)
+                    invoice_line_vals.append(
+                        (
+                            0,
+                            0,
+                            order._prepare_down_payment_section_line(
+                                sequence=invoice_item_sequence,
+                            ),
+                        ),
+                    )
+                    down_payment_section_added = True
+
+                if line.is_downpayment and line.price_unit:
+                    value_down_payment = line._prepare_invoice_line()
+                    invoice_line_vals.append(
+                        (0, 0, value_down_payment),
+                    )
+
+                invoice_item_sequence += 1
+
+            invoice_values["invoice_line_ids"] += invoice_line_vals
+
+        moves = (
+            self.env["account.move"]
+            .sudo()
+            .with_context(default_move_type="out_invoice")
+            .create(invoice_values)
+        )
+
+        # TODO: Should Final field always True?
+        final = True
+        if final:
+            moves.sudo().filtered(
+                lambda m: m.amount_total < 0
+            ).action_switch_invoice_into_refund_credit_note()
+        for move in moves:
+            move.message_post_with_view(
+                "mail.message_origin_link",
+                values={
+                    "self": move,
+                    "origin": move.line_ids.mapped("sale_line_ids.order_id"),
+                },
+                subtype_id=self.env.ref("mail.mt_note").id,
+            )
+
+        return moves
