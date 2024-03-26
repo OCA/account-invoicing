@@ -30,6 +30,6 @@ class AccountInvoiceLine(models.Model):
         """
         res = super().copy_data(default=default)
         if self.env.context.get("link_origin_line"):
-            for line, values in zip(self, res):
+            for line, values in zip(self, res, strict=False):
                 values["origin_line_id"] = line.id
         return res
