@@ -8,7 +8,7 @@ from .. import post_init_hook
 
 
 class TestInvoiceRefundLinkBase(TransactionCase):
-    refund_method = "refund"
+    is_modify = False
 
     @classmethod
     def setUpClass(cls):
@@ -84,11 +84,10 @@ class TestInvoiceRefundLinkBase(TransactionCase):
             active_ids=cls.invoice.ids, active_model="account.move"
         ).create(
             {
-                "refund_method": cls.refund_method,
                 "reason": cls.refund_reason,
                 "journal_id": cls.journal.id,
             }
-        ).reverse_moves()
+        ).reverse_moves(is_modify=cls.is_modify)
 
     def _test_refund_link(self):
         self.assertTrue(self.invoice.refund_invoice_ids)
@@ -118,7 +117,7 @@ class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
         refund = self.invoice.refund_invoice_ids[0]
         refund.invoice_line_ids.write({"origin_line_id": False})
         self.assertFalse(refund.mapped("invoice_line_ids.origin_line_id"))
-        post_init_hook(self.env.cr, None)
+        post_init_hook(self.env)
         self.refund_reason = "The refund reason"
         self._test_refund_link()
 
@@ -140,15 +139,15 @@ class TestInvoiceRefundLink(TestInvoiceRefundLinkBase):
         )
 
 
-class TestInvoiceRefundCancelLink(TestInvoiceRefundLinkBase):
-    refund_method = "cancel"
+class TestInvoiceRefundNoModifyLink(TestInvoiceRefundLinkBase):
+    is_modify = False
 
     def test_refund_link(self):
         self._test_refund_link()
 
 
 class TestInvoiceRefundModifyLink(TestInvoiceRefundLinkBase):
-    refund_method = "modify"
+    is_modify = True
 
     def test_refund_link(self):
         self._test_refund_link()
