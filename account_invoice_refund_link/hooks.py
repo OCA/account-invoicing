@@ -2,8 +2,6 @@
 # Copyright 2017-2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import SUPERUSER_ID, api
-
 
 def match_origin_lines(refund):
     """Try to match lines by product or by description."""
@@ -24,8 +22,7 @@ def match_origin_lines(refund):
             break
 
 
-def post_init_hook(cr, registry):
-    env = api.Environment(cr, SUPERUSER_ID, {})
+def post_init_hook(env):
     # Linking all refund invoices to its original invoices
     refunds = env["account.move"].search(
         [

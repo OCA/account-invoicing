@@ -18,15 +18,15 @@
                 <page
                     name="refunds"
                     string="Refunds"
-                    attrs="{'invisible':[('move_type', 'not in', ['in_invoice', 'out_invoice'])]}"
+                    invisible="move_type not in ('in_invoice', 'out_invoice')"
                 >
                     <field name="refund_invoice_ids" nolabel="1">
                         <tree
                             decoration-info="state == 'draft'"
                             decoration-muted="state == 'cancel'"
                         >
-                            <field name="partner_id" invisible="1" />
-                            <field name="move_type" invisible="1" />
+                            <field name="partner_id" column_invisible="1" />
+                            <field name="move_type" column_invisible="1" />
                             <field name="invoice_date" />
                             <field name="name" />
                             <field name="invoice_origin" />
@@ -68,11 +68,7 @@
                     name="reversed_entry_id"
                     string="Invoice reference"
                     readonly="1"
-                    attrs="{'invisible': [
-                    '|',
-                    ('reversed_entry_id', '=', False),
-                    ('move_type', 'not in', ('in_refund', 'out_refund'))
-                ]}"
+                    invisible="not reversed_entry_id or move_type not in ('in_refund', 'out_refund')"
                 />
             </field>
         </field>
