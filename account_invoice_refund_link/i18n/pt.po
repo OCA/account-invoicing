@@ -1,0 +1,89 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_refund_link
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-11 02:41+0000\n"
+"PO-Revision-Date: 2023-02-28 08:44+0000\n"
+"Last-Translator: Pedro Castro Silva <pedrocs@exo.pt>\n"
+"Language-Team: Portuguese (https://www.transifex.com/oca/teams/23907/pt/)\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 4.14.1\n"
+
+#. module: account_invoice_refund_link
+#: model:ir.model,name:account_invoice_refund_link.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr "Reversão de Movimento Contabilístico"
+
+#. module: account_invoice_refund_link
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
+msgid "Invoice reference"
+msgstr "Refª da Fatura"
+
+#. module: account_invoice_refund_link
+#: model:ir.model,name:account_invoice_refund_link.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_refund_link
+#: model:ir.model,name:account_invoice_refund_link.model_account_move_line
+msgid "Journal Item"
+msgstr "Item do Diário"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__origin_line_id
+msgid "Original invoice line"
+msgstr "Linha de Fatura Original"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__origin_line_id
+msgid "Original invoice line to which this refund invoice line is referred to"
+msgstr ""
+"Linha de fatura original referenciada por esta linha de nota de crédito"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_bank_statement_line__refund_invoice_ids
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__refund_invoice_ids
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_payment__refund_invoice_ids
+msgid "Refund Invoices"
+msgstr "Notas de Crédito"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__refund_line_ids
+msgid "Refund invoice lines"
+msgstr "Linhas de notas de crédito"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__refund_line_ids
+msgid "Refund invoice lines created from this invoice line"
+msgstr "Linhas de notas de crédito criadas a partir desta linha de fatura"
+
+#. module: account_invoice_refund_link
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
+msgid "Refunds"
+msgstr "Créditos"
+
+#. module: account_invoice_refund_link
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
+msgid "Status"
+msgstr "Estado"
+
+#. module: account_invoice_refund_link
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
+msgid "Total"
+msgstr "Total"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Entradas no Diário"
+
+#~ msgid "Reference"
+#~ msgstr "Referência"
