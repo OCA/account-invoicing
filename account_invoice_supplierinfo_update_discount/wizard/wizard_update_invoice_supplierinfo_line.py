@@ -9,13 +9,11 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
     _inherit = "wizard.update.invoice.supplierinfo.line"
 
     current_discount = fields.Float(
-        string="Current Discount",
         digits="Discount",
         readonly=True,
     )
 
     new_discount = fields.Float(
-        string="New Discount",
         digits="Discount",
         required=True,
     )

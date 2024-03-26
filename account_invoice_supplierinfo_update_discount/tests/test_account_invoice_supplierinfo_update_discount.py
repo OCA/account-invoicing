@@ -1,11 +1,11 @@
 # Copyright 2018 - Today: GRAP (http://www.grap.coop)
 # Copyright Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo.tests import Form, SavepointCase, tagged
+from odoo.tests import Form, TransactionCase, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestAccountInvoiceSupplierInfoDiscount(SavepointCase):
+class TestAccountInvoiceSupplierInfoDiscount(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
