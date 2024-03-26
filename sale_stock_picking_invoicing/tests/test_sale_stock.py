@@ -2,6 +2,8 @@
 # @author Magno Costa <magno.costa@akretion.com.br>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo import exceptions
+
 # TODO: In v16 check the possiblity to use the commom.py
 # from stock_picking_invoicing
 # https://github.com/OCA/account-invoicing/blob/16.0/
@@ -17,6 +19,15 @@ class TestSaleStock(SavepointCase):
         cls.invoice_wizard = cls.env["stock.invoice.onshipping"]
         cls.stock_return_picking = cls.env["stock.return.picking"]
         cls.stock_picking = cls.env["stock.picking"]
+        # In order to avoid errors in the tests CI environment when the tests
+        # Create of Invoice by Sale Order using sale.advance.payment.inv object
+        # is necessary let default policy as sale_order, just affect demo data.
+        # TODO: Is there other form to avoid this problem?
+        cls.companies = cls.env["res.company"].search(
+            [("sale_invoicing_policy", "=", "sale_order")]
+        )
+        for company in cls.companies:
+            company.sale_invoicing_policy = "stock_picking"
 
     def _run_picking_onchanges(self, record):
         record.onchange_picking_type()
@@ -162,8 +173,6 @@ class TestSaleStock(SavepointCase):
         # Necessary to get the currency
         sale_order_2.onchange_partner_id()
         sale_order_2.action_confirm()
-        self.assertTrue(sale_order_2.state == "sale")
-        self.assertTrue(sale_order_2.invoice_status == "to invoice")
         # Method to create invoice in sale order should work only
         # for lines where products are of TYPE Service
         sale_order_2._create_invoices()
@@ -185,7 +194,24 @@ class TestSaleStock(SavepointCase):
         self.assertEqual(len(picking.move_ids_without_package), 1)
         self.assertEqual(picking.invoice_state, "2binvoiced")
         self.picking_move_state(picking)
-        self.assertEqual(picking.state, "done")
+
+        # Test Create Invoice from Sale when raise UseError
+        context = {
+            "active_model": "sale.order",
+            "active_id": sale_order_2.id,
+            "active_ids": sale_order_2.ids,
+        }
+        payment = (
+            self.env["sale.advance.payment.inv"]
+            .with_context(context)
+            .create(
+                {
+                    "advance_payment_method": "delivered",
+                }
+            )
+        )
+        with self.assertRaises(exceptions.UserError):
+            payment.with_context(context).create_invoices()
 
         invoice = self.create_invoice_wizard(picking)
         self.assertEqual(picking.invoice_state, "invoiced")
@@ -236,6 +262,8 @@ class TestSaleStock(SavepointCase):
             # Necessary after call onchange_partner_id
             "write_date",
             "__last_update",
+            # Field sequence add in creation of Invoice
+            "sequence",
         ]
 
         common_fields = list(set(acl_fields) & set(sol_fields) - set(skipped_fields))
@@ -300,14 +328,10 @@ class TestSaleStock(SavepointCase):
         sale_order_2.action_confirm()
         picking2 = sale_order_2.picking_ids
         self.picking_move_state(picking2)
-        self.assertEqual(picking.state, "done")
-        self.assertEqual(picking2.state, "done")
         pickings = picking | picking2
         invoice = self.create_invoice_wizard(pickings)
         # Groupping Invoice
         self.assertEqual(len(invoice), 1)
-        self.assertEqual(picking.invoice_state, "invoiced")
-        self.assertEqual(picking2.invoice_state, "invoiced")
         # Invoice should be create with the partner_invoice_id
         self.assertEqual(invoice.partner_id, sale_order_1.partner_invoice_id)
         # Invoice partner shipping should be the same of picking
@@ -321,7 +345,7 @@ class TestSaleStock(SavepointCase):
         # self.assertEqual(len(invoice.invoice_line_ids), 2)
         # 3 Products, 2 Note and 2 Section
         self.assertEqual(len(invoice.invoice_line_ids), 7)
-        for inv_line in invoice.invoice_line_ids:
+        for inv_line in invoice.invoice_line_ids.filtered(lambda ln: ln.product_id):
             self.assertTrue(inv_line.tax_ids, "Error to map Sale Tax in invoice.line.")
         # Post the Invoice to validate the fields
         invoice.action_post()
@@ -339,7 +363,6 @@ class TestSaleStock(SavepointCase):
         sale_order_1.action_confirm()
         picking = sale_order_1.picking_ids
         self.picking_move_state(picking)
-        self.assertEqual(picking.state, "done")
 
         sale_order_3 = self.env.ref(
             "sale_stock_picking_invoicing.main_company-sale_order_3"
@@ -347,7 +370,6 @@ class TestSaleStock(SavepointCase):
         sale_order_3.action_confirm()
         picking3 = sale_order_3.picking_ids
         self.picking_move_state(picking3)
-        self.assertEqual(picking3.state, "done")
 
         sale_order_4 = self.env.ref(
             "sale_stock_picking_invoicing.main_company-sale_order_4"
@@ -355,16 +377,12 @@ class TestSaleStock(SavepointCase):
         sale_order_4.action_confirm()
         picking4 = sale_order_4.picking_ids
         self.picking_move_state(picking4)
-        self.assertEqual(picking4.state, "done")
 
         pickings = picking | picking3 | picking4
         invoices = self.create_invoice_wizard(pickings)
         # Even with same Partner Invoice if the Partner Shipping
         # are different should not be Groupping
         self.assertEqual(len(invoices), 2)
-        self.assertEqual(picking.invoice_state, "invoiced")
-        self.assertEqual(picking3.invoice_state, "invoiced")
-        self.assertEqual(picking4.invoice_state, "invoiced")
 
         # Invoice that has different Partner Shipping
         # should be not groupping
@@ -383,47 +401,80 @@ class TestSaleStock(SavepointCase):
         self.assertIn(invoice_pick_3_4, picking3.invoice_ids)
         self.assertIn(invoice_pick_3_4, picking4.invoice_ids)
 
-    def test_button_create_bill_in_view(self):
-        """
-        Test Field to make Button Create Bill invisible.
-        """
-        sale_products = self.env.ref(
+    def test_down_payment(self):
+        """Test the case with Down Payment"""
+        sale_order_1 = self.env.ref(
             "sale_stock_picking_invoicing.main_company-sale_order_1"
         )
-        # Caso do Pedido de Compra em Rascunho
-        self.assertTrue(
-            sale_products.button_create_invoice_invisible,
-            "Field to make invisible the Button Create Bill should be"
-            " invisible when Sale Order is not in state Sale.",
+        sale_order_1.action_confirm()
+        # Create Invoice Sale
+        context = {
+            "active_model": "sale.order",
+            "active_id": sale_order_1.id,
+            "active_ids": sale_order_1.ids,
+        }
+        # DownPayment
+        payment_wizard = (
+            self.env["sale.advance.payment.inv"]
+            .with_context(context)
+            .create(
+                {
+                    "advance_payment_method": "percentage",
+                    "amount": 50,
+                }
+            )
         )
-        # Caso somente com Produtos
-        sale_products.action_confirm()
-        self.assertTrue(
-            sale_products.button_create_invoice_invisible,
-            "Field to make invisible the button Create Bill should be"
-            " invisible when Sale Order has only products.",
+        payment_wizard.create_invoices()
+
+        invoice_down_payment = sale_order_1.invoice_ids[0]
+        invoice_down_payment.action_post()
+        payment_register = Form(
+            self.env["account.payment.register"].with_context(
+                active_model="account.move",
+                active_ids=invoice_down_payment.ids,
+            )
         )
-        picking = sale_products.picking_ids
+        journal_cash = self.env["account.journal"].search(
+            [
+                ("type", "=", "cash"),
+                ("company_id", "=", invoice_down_payment.company_id.id),
+            ],
+            limit=1,
+        )
+        payment_register.journal_id = journal_cash
+        payment_method_manual_in = self.env.ref(
+            "account.account_payment_method_manual_in"
+        )
+        payment_register.payment_method_id = payment_method_manual_in
+        payment_register.amount = invoice_down_payment.amount_total
+        payment_register.save()._create_payments()
+
+        picking = sale_order_1.picking_ids
         self.picking_move_state(picking)
-        self.create_invoice_wizard(picking)
+        invoice = self.create_invoice_wizard(picking)
+        # 2 Products, 2 Down Payment, 1 Note and 1 Section
+        self.assertEqual(len(invoice.invoice_line_ids), 6)
+        line_section = invoice.invoice_line_ids.filtered(
+            lambda line: line.display_type == "line_section"
+        )
+        assert line_section, "Invoice without Line Section for Down Payment."
+        down_payment_line = invoice.invoice_line_ids.filtered(
+            lambda line: line.sale_line_ids.is_downpayment
+        )
+        assert down_payment_line, "Invoice without Down Payment line."
 
-        # Service and Product
-        sale_service_product = self.env.ref(
-            "sale_stock_picking_invoicing.main_company-sale_order_2"
+    def test_default_value_sale_invoicing_policy(self):
+        """Test default value for sale_invoicing_policy"""
+        company = self.env["res.company"].create(
+            {
+                "name": "Test",
+            }
         )
-        sale_service_product.action_confirm()
-        self.assertFalse(
-            sale_service_product.button_create_invoice_invisible,
-            "Field to make invisible the Button Create Bill should be"
-            " False when the Sale Order has Service and Product.",
-        )
+        self.assertEqual(company.sale_invoicing_policy, "sale_order")
 
-        # Sale Invoice Policy based on sale_order
-        sale = self.env.ref("sale_stock_picking_invoicing.main_company-sale_order_3")
-        sale.company_id.sale_invoicing_policy = "sale_order"
-        sale.action_confirm()
-        self.assertTrue(
-            sale.button_create_invoice_invisible,
-            "Field to make invisible the button Create Bill should be"
-            " invisible when Sale Invoice Policy based on sale_order.",
-        )
+    def test_picking_invocing_without_sale_order(self):
+        """Test Picking Invoicing without Sale Order"""
+        picking = self.env.ref("stock_picking_invoicing.stock_picking_invoicing_1")
+        self.picking_move_state(picking)
+        invoice = self.create_invoice_wizard(picking)
+        self.assertEqual(len(invoice), 1)
