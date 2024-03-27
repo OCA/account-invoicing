@@ -1,5 +1,6 @@
 # Copyright 2016 Davide Corio - davidecorio.com
 # Copyright 2017 Alex Comba - Agile Business Group
+# Copyright 2024 Factor Libre - Aritz Olea
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
 
@@ -38,7 +39,7 @@ class TestAccountForceNumber(AccountTestInvoicingCommon):
             invoice.write({"move_name": "0001"})
         return invoice
 
-    def test_force_number(self):
+    def test_01_force_number(self):
         # in order to test the correct assignment of the internal_number
         # I create a customer invoice.
         # I set the force number
@@ -55,3 +56,16 @@ class TestAccountForceNumber(AccountTestInvoicingCommon):
         # Delete invoice while move_name is False
         invoice_2 = self.create_invoice()
         invoice_2.unlink()
+
+    def test_02_force_number_validate_wizard(self):
+        # Check forced invoice number is also set if posted from 'Post entries'
+        # wizard.
+        invoice = self.create_invoice(move_name="0001")
+        validate_wiz = (
+            self.env["validate.account.move"]
+            .with_context(active_model="account.move", active_ids=invoice.ids)
+            .create({})
+        )
+        validate_wiz.validate_move()
+        self.assertEqual(invoice.state, "posted")
+        self.assertEqual(invoice.name, invoice.move_name)
