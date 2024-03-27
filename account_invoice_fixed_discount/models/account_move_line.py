@@ -82,4 +82,8 @@ class AccountMoveLine(models.Model):
         currency = self.currency_id or self.company_id.currency_id
         if float_is_zero(self.discount_fixed, precision_rounding=currency.rounding):
             return 0.0
-        return (self.discount_fixed / self.price_unit) * 100
+        return (
+            (self.price_unit != 0)
+            and ((self.discount_fixed) / self.price_unit) * 100
+            or 0.00
+        )
