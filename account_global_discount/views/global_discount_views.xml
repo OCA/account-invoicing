@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Tecnativa - David Vidal
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="global_discount_view_tree" model="ir.ui.view">
+        <field name="model">global.discount</field>
+        <field name="inherit_id" ref="base_global_discount.global_discount_view_tree" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field
+                    name="account_id"
+                    required="1"
+                    domain="[('company_id', '=', company_id)]"
+                />
+                <field
+                    domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"
+                    name="account_analytic_id"
+                    groups="analytic.group_analytic_accounting"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="global_discount_view_form" model="ir.ui.view">
+        <field name="model">global.discount</field>
+        <field name="inherit_id" ref="base_global_discount.global_discount_view_form" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field
+                    name="account_id"
+                    required="1"
+                    domain="[('company_id', '=', company_id)]"
+                />
+                <field
+                    domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"
+                    name="account_analytic_id"
+                    groups="analytic.group_analytic_accounting"
+                />
+            </field>
+        </field>
+    </record>
+    <menuitem
+        id="menu_account_global_discount"
+        action="base_global_discount.action_global_discount_tree"
+        name="Global Discounts"
+        groups="base_global_discount.group_global_discount"
+        parent="account.account_management_menu"
+    />
+</odoo>
