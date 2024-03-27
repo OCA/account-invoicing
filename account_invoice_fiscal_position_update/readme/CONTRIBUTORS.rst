@@ -9,3 +9,5 @@
 * `Factor Libre <https://factorlibre.com>`_:
 
     * Luis J. Salvatierra <luis.salvatierra@factorlibre.com>
+
+* Eduardo López (`Moduon <https://www.moduon.team/>`__)

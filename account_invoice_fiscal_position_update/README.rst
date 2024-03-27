@@ -78,6 +78,8 @@ Contributors
 
     * Luis J. Salvatierra <luis.salvatierra@factorlibre.com>
 
+* Eduardo López (`Moduon <https://www.moduon.team/>`__)
+
 Maintainers
 ~~~~~~~~~~~
 

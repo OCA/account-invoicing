@@ -127,10 +127,9 @@ class TestProductIdChange(AccountTestInvoicingCommon):
             fp_account.account_dest_id,
             "The account revenue of invoice line must be changed by fiscal position",
         )
-        # Test warning due to lines without product
+        # Test warning due to lines without product and description
         self.invoice_line_model.with_context(check_move_validity=False).create(
             {
-                "name": "Line without product",
                 "price_unit": 100,
                 "quantity": 1,
                 "move_id": out_invoice.id,
@@ -142,6 +141,12 @@ class TestProductIdChange(AccountTestInvoicingCommon):
         )._onchange_fiscal_position_id_account_invoice_fiscal_position_invoice()
         self.assertTrue(type(onchange_result) == dict)
         self.assertEqual(list(onchange_result.keys()), ["warning"])
+        lines_without_product = out_invoice.invoice_line_ids.filtered(
+            lambda l: not l.product_id.exists()
+        )
+        self.assertNotEqual(
+            len(lines_without_product), len(out_invoice.invoice_line_ids)
+        )
 
         # for all lines without product
         out_invoice_without_prd = self.invoice_model.create(
