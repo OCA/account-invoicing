@@ -7,15 +7,29 @@
         <field name="arch" type="xml">
             <xpath
                 expr="//field[@name='invoice_line_ids']//tree//field[@name='discount']"
+                position="attributes"
+            >
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath
+                expr="//field[@name='invoice_line_ids']//tree//field[@name='discount']"
                 position="after"
             >
+                <field name="discount1" optional="hide" string="Disc.1%" />
                 <field name="discount2" optional="hide" string="Disc.2%" />
                 <field name="discount3" optional="hide" string="Disc.3%" />
             </xpath>
             <xpath
                 expr="//field[@name='invoice_line_ids']//form//field[@name='discount']"
+                position="attributes"
+            >
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath
+                expr="//field[@name='invoice_line_ids']//form//field[@name='discount']"
                 position="after"
             >
+                <field name="discount1" string="Disc.1%" />
                 <field name="discount2" string="Disc.2%" />
                 <field name="discount3" string="Disc.3%" />
             </xpath>

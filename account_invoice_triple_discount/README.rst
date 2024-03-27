@@ -85,6 +85,8 @@ Contributors
 
   * Simone Rubino <simone.rubino@aion-tech.it>
 
+* Akim Juillerat <akim.juillerat@camptocamp.com>
+
 Maintainers
 ~~~~~~~~~~~
 
