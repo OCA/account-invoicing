@@ -98,7 +98,6 @@ class TestAccountInvoiceMerge(TransactionCase):
             active_ids=invoices.ids,
             active_model=invoices._name,
         ).create({})
-        wiz_id.fields_view_get()
         action = wiz_id.merge_invoices()
 
         self.assertEqual(
@@ -122,12 +121,11 @@ class TestAccountInvoiceMerge(TransactionCase):
 
     def test_account_invoice_merge_2(self):
         invoices = self.invoice1 | self.invoice3
-        wiz_id = self.wiz.with_context(
-            active_ids=invoices.ids,
-            active_model=invoices._name,
-        ).create({})
         with self.assertRaises(UserError):
-            wiz_id.fields_view_get()
+            self.wiz.with_context(
+                active_ids=invoices.ids,
+                active_model=invoices._name,
+            ).create({})
 
     def test_dirty_check(self):
         """Check"""
@@ -137,7 +135,7 @@ class TestAccountInvoiceMerge(TransactionCase):
         with self.assertRaises(UserError):
             wiz_id.with_context(
                 active_ids=self.invoice1.ids, active_model=self.invoice1._name
-            ).fields_view_get()
+            ).default_get([])
 
         # Check with two different invoice type
         # Create the invoice 4 with a different account
@@ -149,7 +147,7 @@ class TestAccountInvoiceMerge(TransactionCase):
             wiz_id.with_context(
                 active_ids=invoices.ids,
                 active_model=invoices._name,
-            ).fields_view_get()
+            ).default_get([])
 
         # Check with a canceled invoice
         # Create and cancel the invoice 5
@@ -161,7 +159,7 @@ class TestAccountInvoiceMerge(TransactionCase):
             wiz_id.with_context(
                 active_ids=invoices.ids,
                 active_model=invoices._name,
-            ).fields_view_get()
+            ).default_get([])
 
         # Check with an another company
         # Create the invoice 6 and change the company
@@ -174,7 +172,7 @@ class TestAccountInvoiceMerge(TransactionCase):
             wiz_id.with_context(
                 active_ids=invoices.ids,
                 active_model=invoices._name,
-            ).fields_view_get()
+            ).default_get([])
 
         # Check with two different partners
         invoices = self.invoice1 | self.invoice3
@@ -182,7 +180,7 @@ class TestAccountInvoiceMerge(TransactionCase):
             wiz_id.with_context(
                 active_ids=invoices.ids,
                 active_model=invoices._name,
-            ).fields_view_get()
+            ).default_get([])
 
     def test_account_invoice_merge_3(self):
 
@@ -207,5 +205,4 @@ class TestAccountInvoiceMerge(TransactionCase):
             active_ids=invoices.ids,
             active_model=invoices._name,
         ).create({})
-        wiz_id.fields_view_get()
         wiz_id.merge_invoices()
