@@ -22,6 +22,11 @@ class StockPicking(models.Model):
             or self.sale_id.partner_invoice_id.one_invoice_per_shipping
         )
 
+    def _invoicing_at_shipping_validation(self, invoices):
+        return invoices.filtered(
+            lambda invoice: invoice.partner_id.invoicing_mode == "at_shipping"
+        )
+
     def _invoicing_at_shipping(self):
         self.ensure_one()
         sales = self._get_sales_order_to_invoice()
@@ -36,9 +41,7 @@ class StockPicking(models.Model):
         if sales_many_invoice_per_order:
             invoices |= sales_many_invoice_per_order._create_invoices(grouped=False)
         # The invoices per picking will use the invoicing_mode
-        for invoice in invoices.filtered(
-            lambda invoice: not invoice.partner_id.one_invoice_per_shipping
-        ):
+        for invoice in self._invoicing_at_shipping_validation(invoices):
             invoice.with_delay()._validate_invoice()
         return invoices or _("Nothing to invoice.")
 
