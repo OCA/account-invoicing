@@ -19,6 +19,6 @@ class AccountMove(models.Model):
 
     def action_invoice_open_job(self):
         self.ensure_one()
-        if self.state not in {"draft", "sent"}:
+        if self.state != "draft":
             return
-        self._post()
+        return self._post()
