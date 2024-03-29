@@ -5,8 +5,8 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields, Command
-from odoo.exceptions import ValidationError
+from odoo import Command, fields
+from odoo.exceptions import UserError, ValidationError
 from odoo.tests.common import TransactionCase
 
 
@@ -50,12 +50,12 @@ class TestAccountBilling(TransactionCase):
             ],
             limit=1,
         )
-        cls.payment_method_manual_in = cls.env.ref(
-            "account.account_payment_method_manual_in"
-        )
         cls.journal_bank = cls.env["account.journal"].create(
             {"name": "Bank", "type": "bank", "code": "BNK67"}
         )
+        cls.payment_method_manual_in = cls.journal_bank.inbound_payment_method_line_ids[
+            0
+        ]
 
         cls.inv_1 = cls.create_invoice(
             cls, amount=100, currency_id=cls.currency_eur_id, partner=cls.partner_id.id
@@ -125,28 +125,22 @@ class TestAccountBilling(TransactionCase):
         return register_payments.action_create_payments()
 
     def test_1_invoice_partner(self):
-        ctx = {
-            "active_ids": [self.inv_1.id, self.inv_4.id],
-            "bill_type": "out_invoice",
-        }
-        with self.assertRaises(ValidationError):
-            self.billing_model.with_context(**ctx).create({})
+        # Test difference partner
+        invoices = self.inv_1 + self.inv_4
+        with self.assertRaises(UserError):
+            invoices.action_create_billing()
 
     def test_2_invoice_currency(self):
-        ctx1 = {
-            "active_ids": [self.inv_1.id, self.inv_3.id],
-            "bill_type": "out_invoice",
-        }
-        with self.assertRaises(ValidationError):
-            self.billing_model.with_context(**ctx1).create({})
-        # create billing directly
-        self.billing_model.create({"partner_id": self.partner_agrolait.id})
+        # Test difference currency
+        invoices = self.inv_1 + self.inv_3
+        with self.assertRaises(UserError):
+            invoices.action_create_billing()
 
     def test_3_validate_billing_state_not_open(self):
         ctx = {"active_model": "account.move", "active_ids": [self.inv_1.id]}
         self.create_payment(ctx)
-        with self.assertRaises(ValidationError):
-            self.billing_model.with_context(**ctx).create({})
+        with self.assertRaises(UserError):
+            self.inv_1.action_create_billing()
 
     def test_4_create_billing_from_selected_invoices(self):
         """Create two invoices, post it and send context to Billing"""
@@ -155,9 +149,11 @@ class TestAccountBilling(TransactionCase):
             "active_ids": [self.inv_1.id, self.inv_2.id],
             "bill_type": "out_invoice",
         }
-        customer_billing1 = self.billing_model.with_context(**ctx).create({})
+        invoices = self.inv_1 + self.inv_2
+        action = invoices.action_create_billing()
+        customer_billing1 = self.billing_model.browse(action["res_id"])
         self.assertEqual(customer_billing1.state, "draft")
-        customer_billing1.with_context(**ctx)._onchange_invoice_list()
+        # Threshold Date error
         with self.assertRaises(ValidationError):
             customer_billing1.validate_billing()
         threshold_date_1 = customer_billing1.threshold_date + relativedelta(years=1)
@@ -169,8 +165,9 @@ class TestAccountBilling(TransactionCase):
         customer_billing1.action_cancel()
         customer_billing1.action_cancel_draft()
 
-        customer_billing2 = self.billing_model.with_context(**ctx).create({})
-        customer_billing2.with_context(**ctx)._onchange_invoice_list()
+        invoices = self.inv_1 + self.inv_2
+        action = invoices.action_create_billing()
+        customer_billing2 = self.billing_model.browse(action["res_id"])
         threshold_date_2 = customer_billing2.threshold_date + relativedelta(years=1)
         customer_billing2.threshold_date = threshold_date_2
         customer_billing2.validate_billing()
@@ -189,8 +186,12 @@ class TestAccountBilling(TransactionCase):
             }
         )
         bill1.threshold_date = bill1.threshold_date + relativedelta(months=12)
-        bill1._onchange_invoice_list()
-        bill1.validate_billing()
+        # No lines
+        with self.assertRaises(UserError):
+            bill1.validate_billing()
+
+        bill1.compute_lines()
+
         self.assertEqual(bill1.invoice_related_count, 2)
         self.assertEqual(bill1.billing_line_ids.mapped("move_id.billing_ids"), bill1)
 
@@ -205,7 +206,7 @@ class TestAccountBilling(TransactionCase):
             }
         )
         bill2.threshold_date = bill2.threshold_date + relativedelta(months=1)
-        bill2._onchange_invoice_list()
+        bill2.compute_lines()
         bill2.validate_billing()
         self.assertEqual(bill2.invoice_related_count, 1)
 
@@ -223,10 +224,6 @@ class TestAccountBilling(TransactionCase):
         inv_2.invoice_date = fields.Date.today()
         if inv_2.state != "posted":
             inv_2.action_post()
-        ctx = {
-            "active_model": "account.move",
-            "active_ids": [inv_1.id, inv_2.id],
-            "bill_type": "in_invoice",
-        }
-        vendor_billing = self.billing_model.with_context(**ctx).create({})
-        vendor_billing.with_context(**ctx)._onchange_invoice_list()
+        invoices = inv_1 + inv_2
+        action = invoices.action_create_billing()
+        self.billing_model.browse(action["res_id"])
