@@ -1,5 +1,18 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <!-- Moves -->
+    <record id="action_account_invoice_billing" model="ir.actions.server">
+        <field name="name">Create Billing</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_create_billing()
+        </field>
+    </record>
+
+    <!-- Billing -->
     <record id="action_account_billing_from_list" model="ir.actions.server">
         <field name="name">Register Payment</field>
         <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />

@@ -186,6 +186,12 @@
                     </group>
                     <notebook>
                         <page string="Billing Lines" groups="base.group_user">
+                            <button
+                                name="compute_lines"
+                                type="object"
+                                string="Compute items"
+                                states="draft"
+                            />
                             <field name="billing_line_ids">
                                 <tree name="billing" create="0" editable="bottom">
                                     <field name="move_id" invisible="1" />
