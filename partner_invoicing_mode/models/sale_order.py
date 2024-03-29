@@ -97,6 +97,7 @@ class SaleOrder(models.Model):
 
     def _generate_invoices_by_partner(self, saleorder_ids):
         """Generate invoices for a group of sale order belonging to a customer."""
+        today = fields.Date.context_today(self)
         sales = (
             self.browse(saleorder_ids)
             .exists()
@@ -110,6 +111,9 @@ class SaleOrder(models.Model):
             lambda sale: sale.one_invoice_per_order
         ).items():
             invoices = sales._get_generated_invoices(partition=partition)
+            # Update invoices date to be sure no long validation (jobs) put
+            # the further day date on invoices.
+            invoices.write({"invoice_date": today})
             # Update each partner next invoice date
             sales.partner_invoice_id._update_next_invoice_date()
             invoice_ids.update(invoices.ids)
