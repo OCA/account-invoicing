@@ -62,3 +62,14 @@ class SaleOrder(models.Model):
             self.with_delay()._generate_invoices_by_partner(saleorder_ids)
         companies.write({last_execution_field_name: datetime.now()})
         return saleorder_groups
+
+    def _create_invoices(self, grouped=False, final=False, date=None):
+        moves = self.env["account.move"]
+        for partner_invoice in self.partner_invoice_id:
+            sales = self.filtered(lambda r: r.partner_invoice_id == partner_invoice)
+            moves += super(SaleOrder, sales)._create_invoices(
+                grouped=partner_invoice.one_invoice_per_order,
+                final=final,
+                date=date,
+            )
+        return moves
