@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -375,6 +374,19 @@ It adds a selection field <cite>invoicing_mode</cite> in the Accounting tab of t
 with a default value (Odoo standard invoicing mode).</p>
 <p>It can be used on its own to generate automatically (e.g.: each day)
 the invoices for standard invoicing mode.</p>
+<p>In core, Odoo is grouping invoicing from a group of sale orders on:</p>
+<ul class="simple">
+<li>Company</li>
+<li>Partner</li>
+<li>Currency</li>
+</ul>
+<p>This module uses grouping on those keys:</p>
+<ul class="simple">
+<li>Company</li>
+<li>Invoiced partner</li>
+<li>Currency</li>
+<li>Payment term (as this can be selected on sale order level)</li>
+</ul>
 <p>The following modules use it to install specific invoicing mode :</p>
 <blockquote>
 <ul class="simple">
@@ -438,6 +450,13 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 </blockquote>
 </li>
 <li><p class="first">Phuc (Tran Thanh) &lt;<a class="reference external" href="mailto:phuc&#64;trobz.com">phuc&#64;trobz.com</a>&gt;</p>
+</li>
+<li><p class="first"><a class="reference external" href="https://acsone.eu">ACSONE SA/NV</a>:</p>
+<blockquote>
+<ul class="simple">
+<li>Denis Roussel &lt;<a class="reference external" href="mailto:denis.roussel&#64;acsone.eu">denis.roussel&#64;acsone.eu</a>&gt;</li>
+</ul>
+</blockquote>
 </li>
 </ul>
 </div>

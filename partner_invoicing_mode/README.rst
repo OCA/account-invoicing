@@ -35,6 +35,19 @@ with a default value (Odoo standard invoicing mode).
 It can be used on its own to generate automatically (e.g.: each day)
 the invoices for standard invoicing mode.
 
+In core, Odoo is grouping invoicing from a group of sale orders on:
+
+- Company
+- Partner
+- Currency
+
+This module uses grouping on those keys:
+
+- Company
+- Invoiced partner
+- Currency
+- Payment term (as this can be selected on sale order level)
+
 The following modules use it to install specific invoicing mode :
 
     * `partner_invoicing_mode_at_shipping`
@@ -85,6 +98,10 @@ Contributors
     * Thierry Ducrest <thierry.ducrest@camptocamp.com>
 
 * Phuc (Tran Thanh) <phuc@trobz.com>
+
+* `ACSONE SA/NV <https://acsone.eu>`_:
+
+    * Denis Roussel <denis.roussel@acsone.eu>
 
 Other credits
 ~~~~~~~~~~~~~
