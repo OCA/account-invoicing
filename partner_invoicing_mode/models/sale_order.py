@@ -75,7 +75,7 @@ class SaleOrder(models.Model):
         saleorder_groups = self.read_group(
             domain,
             ["partner_invoice_id", "sale_ids:array_agg(id)"],
-            groupby=self._get_groupby_fields_for_invoicing(),
+            groupby=self._get_invoice_grouping_keys(),
             lazy=False,
         )
         for saleorder_group in saleorder_groups:
@@ -84,9 +84,20 @@ class SaleOrder(models.Model):
         return saleorder_groups
 
     @api.model
-    def _get_groupby_fields_for_invoicing(self):
-        """Returns the sale order fields used to group them into jobs."""
-        return ["partner_invoice_id", "payment_term_id"]
+    def _get_invoice_grouping_keys(self) -> list:
+        """
+        We override the standard (in sale) grouping function in order to
+        add some missing keys. We remove also the partner_id key.
+        """
+        keys = super()._get_invoice_grouping_keys()
+        if "partner_invoice_id" not in keys:
+            keys.append("partner_invoice_id")
+        if "payment_term_id" not in keys:
+            keys.append("payment_term_id")
+        # Removing unwanted keys as we group on invoiced partner
+        if "partner_id" in keys:
+            keys.remove("partner_id")
+        return keys
 
     def _get_generated_invoices(self, partition):
         """
