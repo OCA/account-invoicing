@@ -30,14 +30,14 @@ msgstr "Montant dû"
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__analytic_line_ids
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__analytic_line_ids
 msgid "Analytic Lines"
-msgstr "Lingne analytiques"
+msgstr "Lignes analytiques"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__analytic_line_count
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move__analytic_line_count
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_payment__analytic_line_count
 msgid "Analytic Lines Count"
-msgstr "Nb Lingne analytiques"
+msgstr "Nb Lignes analytiques"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move_line__budget_invoice_id
@@ -47,7 +47,7 @@ msgstr "Budget"
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_move_line__budget_analytic_account_ids
 msgid "Budget Analytic Account"
-msgstr "NB Lingne analytiques du budget"
+msgstr "Analytique"
 
 #. module: account_invoice_customer_budget
 #: model:ir.model.fields,field_description:account_invoice_customer_budget.field_account_bank_statement_line__budget_consumption_line_ids

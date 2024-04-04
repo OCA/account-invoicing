@@ -36,18 +36,16 @@ class AccountInvoiceLine(models.Model):
     @api.depends("budget_invoice_id")
     def _compute_budget_analytic_account_ids(self):
         for line in self:
+            budget_analytic_account_ids = line.env["account.analytic.account"]
             if line.budget_invoice_id:
                 move = line.move_id
-                budget_analytic_account_ids = line.env["account.analytic.account"]
                 for not_budget_line in move.invoice_line_ids.filtered(
                     lambda l: not l.budget_invoice_id
                 ):
                     budget_analytic_account_ids |= not_budget_line.mapped(
-                        "analytic_line_ids.account_id"
+                        "analytic_account_ids"
                     )
-                line.budget_analytic_account_ids = budget_analytic_account_ids
-            else:
-                line.budget_analytic_account_ids = line.env["account.analytic.account"]
+            line.budget_analytic_account_ids = budget_analytic_account_ids
 
     @api.constrains("partner_id", "budget_invoice_id")
     def _check_budget_invoice_partner(self):

@@ -9,7 +9,10 @@
     "author": "Akretion, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "license": "LGPL-3",
-    "depends": ["account"],
+    "depends": [
+        "account",
+        "account_financial_report",  # for analytic_account_ids in account.move.line
+    ],
     "data": [
         "views/account_invoice_view.xml",
         "views/account_journal_view.xml",
