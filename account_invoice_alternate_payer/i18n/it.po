@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-04-04 09:52+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_alternate_payer
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_bank_statement_line__alternate_payer_id
@@ -20,7 +22,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_payment__alternate_payer_id
 #: model_terms:ir.ui.view,arch_db:account_invoice_alternate_payer.view_move_form
 msgid "Alternate Payer"
-msgstr ""
+msgstr "Pagatore alternativo"
 
 #. module: account_invoice_alternate_payer
 #: model:ir.model.fields,help:account_invoice_alternate_payer.field_account_bank_statement_line__alternate_payer_id
@@ -30,16 +32,18 @@ msgid ""
 "If set, this will be the partner that we expect to pay or to be paid by. If "
 "not set, the payor is by default the commercial"
 msgstr ""
+"Se impostato, questo sarà il partner che ci si aspetta che paghi o da "
+"pagare. Se non impostato, il pagatore è in modo predefinito il commerciale"
 
 #. module: account_invoice_alternate_payer
 #: model:ir.model,name:account_invoice_alternate_payer.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_invoice_alternate_payer
 #: model:ir.model,name:account_invoice_alternate_payer.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Movimento contabile"
 
 #. module: account_invoice_alternate_payer
 #. odoo-python
