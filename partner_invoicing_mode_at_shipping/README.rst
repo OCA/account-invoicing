@@ -65,6 +65,8 @@ Contributors
 
 -  Phuc (Tran Thanh) <phuc@trobz.com>
 
+-  Nils Coenen <nils.coenen@nico-solutions.de>
+
 Other credits
 -------------
 

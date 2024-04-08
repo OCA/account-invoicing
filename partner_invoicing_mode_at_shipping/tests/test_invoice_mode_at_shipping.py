@@ -9,7 +9,6 @@ class TestInvoiceModeAtShipping(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.partner = cls.env.ref("base.res_partner_1")
         cls.product = cls.env.ref("product.product_delivery_01")
         cls.so1 = cls.env["sale.order"].create(
@@ -30,7 +29,6 @@ class TestInvoiceModeAtShipping(TransactionCase):
                         },
                     )
                 ],
-                "pricelist_id": cls.env.ref("product.list0").id,
             }
         )
 
@@ -40,7 +38,7 @@ class TestInvoiceModeAtShipping(TransactionCase):
         self.so1.action_confirm()
         for picking in self.so1.picking_ids:
             for move in picking.move_ids:
-                move.quantity_done = move.product_uom_qty
+                move.quantity = move.product_uom_qty
             picking.action_assign()
             with mute_logger("odoo.addons.queue_job.delay"):
                 picking.with_context(test_queue_job_no_delay=True).button_validate()
@@ -53,7 +51,7 @@ class TestInvoiceModeAtShipping(TransactionCase):
         self.so1.action_confirm()
         for picking in self.so1.picking_ids:
             for move in picking.move_ids:
-                move.quantity_done = move.product_uom_qty
+                move.quantity = move.product_uom_qty
             picking.action_assign()
             with mute_logger("odoo.addons.queue_job.delay"):
                 picking.with_context(test_queue_job_no_delay=True).button_validate()
@@ -71,7 +69,7 @@ class TestInvoiceModeAtShipping(TransactionCase):
         so2.picking_ids.move_ids.picking_id = picking
         # Transfer the remaining picking with moves
         for move in picking.move_ids:
-            move.quantity_done = move.product_uom_qty
+            move.quantity = move.product_uom_qty
         picking.action_assign()
         with mute_logger("odoo.addons.queue_job.delay"):
             picking.with_context(test_queue_job_no_delay=True).button_validate()
@@ -91,7 +89,7 @@ class TestInvoiceModeAtShipping(TransactionCase):
         so2.picking_ids.move_ids.picking_id = picking
         # Transfer the remaining picking with moves
         for move in picking.move_ids:
-            move.quantity_done = move.product_uom_qty
+            move.quantity = move.product_uom_qty
         picking.action_assign()
         with mute_logger("odoo.addons.queue_job.delay"):
             picking.with_context(test_queue_job_no_delay=True).button_validate()
@@ -106,7 +104,7 @@ class TestInvoiceModeAtShipping(TransactionCase):
         self.partner.invoicing_mode = "at_shipping"
         self.so1.action_confirm()
         picking = self.so1.picking_ids
-        picking.move_ids.quantity_done = 2
+        picking.move_ids.quantity = 2
         picking.action_assign()
         with mute_logger("odoo.addons.queue_job.delay"):
             picking.with_context(
@@ -116,7 +114,7 @@ class TestInvoiceModeAtShipping(TransactionCase):
         self.assertEqual(self.so1.invoice_ids.state, "posted")
         # Now process the backorder
         backorder = self.so1.picking_ids - picking
-        backorder.move_ids.quantity_done = 2
+        backorder.move_ids.quantity = 2
         backorder.action_assign()
         with mute_logger("odoo.addons.queue_job.delay"):
             backorder.with_context(test_queue_job_no_delay=True).button_validate()
