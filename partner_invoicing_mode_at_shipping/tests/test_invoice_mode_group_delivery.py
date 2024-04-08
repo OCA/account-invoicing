@@ -24,7 +24,7 @@ class TestInvoiceModeAtShippingGrouped(InvoiceModeAtShippingCommon, TransactionC
         picking = self.so1.picking_ids
 
         # Deliver partially
-        picking.move_ids.quantity_done = 2.0
+        picking.move_ids.write({"quantity": 2.0, "picked": True})
         with trap_jobs() as trap:
             picking._action_done()
             trap.assert_enqueued_job(
@@ -43,7 +43,7 @@ class TestInvoiceModeAtShippingGrouped(InvoiceModeAtShippingCommon, TransactionC
         backorder = self.so1.picking_ids - picking
         self.assertTrue(backorder)
 
-        backorder.move_ids.quantity_done = 2.0
+        backorder.move_ids.write({"quantity": 2.0, "picked": True})
         with trap_jobs() as trap:
             backorder._action_done()
             trap.assert_enqueued_job(

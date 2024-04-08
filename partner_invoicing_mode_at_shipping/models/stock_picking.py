@@ -1,7 +1,7 @@
 # Copyright 2020 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from odoo import _, models
+from odoo import _, api, models
 
 
 class StockPicking(models.Model):
@@ -27,6 +27,7 @@ class StockPicking(models.Model):
             lambda invoice: invoice.partner_id.invoicing_mode == "at_shipping"
         )
 
+    @api.model
     def _invoicing_at_shipping(self):
         self.ensure_one()
         sales = self._get_sales_order_to_invoice()

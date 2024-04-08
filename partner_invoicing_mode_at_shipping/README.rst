@@ -69,10 +69,15 @@ Contributors
 
 -  Phuc (Tran Thanh) <phuc@trobz.com>
 
+-  Nils Coenen <nils.coenen@nico-solutions.de>
+
+-  Chau Le <chaulb@trobz.com>
+
 Other credits
 -------------
 
-The development of this module has been financially supported by:
+The development and migration of this module has been financially
+supported by:
 
 -  Camptocamp
 
