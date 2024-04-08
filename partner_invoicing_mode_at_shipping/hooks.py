@@ -2,8 +2,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from openupgradelib import openupgrade
 
-from odoo import SUPERUSER_ID, api
-
 
 def _add_one_invoice_per_shipping(env):
     if not openupgrade.column_exists(env.cr, "sale_order", "one_invoice_per_shipping"):
@@ -21,6 +19,5 @@ def _add_one_invoice_per_shipping(env):
         openupgrade.add_fields(env, field_spec)
 
 
-def pre_init_hook(cr):
-    env = api.Environment(cr, SUPERUSER_ID, {})
+def pre_init_hook(env):
     _add_one_invoice_per_shipping(env)

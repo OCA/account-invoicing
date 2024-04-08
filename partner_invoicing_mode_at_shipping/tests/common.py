@@ -27,7 +27,6 @@ class InvoiceModeAtShippingCommon:
                         },
                     )
                 ],
-                "pricelist_id": cls.env.ref("product.list0").id,
             }
         )
 
@@ -51,6 +50,5 @@ class InvoiceModeAtShippingCommon:
                         },
                     )
                 ],
-                "pricelist_id": cls.env.ref("product.list0").id,
             }
         )
