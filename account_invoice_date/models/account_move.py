@@ -5,15 +5,11 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     def open_invoice_date_wizard(self):
-        if self.invoice_date:
+
+        if self.invoice_date or not self.move_type.endswith("_invoice"):
             self.action_post()
         else:
-            if self.move_type == "out_invoice":
-                name = _("Confirm Invoice")
-            elif self.move_type == "in_invoice":
-                name = _("Confirm Bill")
-            elif self.move_type == "in_refund" or self.move_type == "out_refund":
-                name = _("Confirm Credit Note")
+            name = _("Confirm %s") % self.type_name
             action = self.env.ref(
                 "account_invoice_date.view_account_voucher_proforma_date"
             )
