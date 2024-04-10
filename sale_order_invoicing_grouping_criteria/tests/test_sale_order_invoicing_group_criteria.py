@@ -92,6 +92,7 @@ class TestSaleOrderInvoicingGroupingCriteria(TransactionCase):
         user_demo.groups_id = [
             (4, self.env.ref("sales_team.group_sale_salesman_all_leads").id)
         ]
+        user_demo.groups_id = [(4, self.env.ref("account.group_account_invoice").id)]
         invoice_ids = (self.order + self.order2).with_user(user_demo)._create_invoices()
         self.assertEqual(len(invoice_ids), 2)
         self.assertNotEqual(self.order.invoice_ids, self.order2.invoice_ids)

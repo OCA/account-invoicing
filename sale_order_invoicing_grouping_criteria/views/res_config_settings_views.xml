@@ -6,29 +6,18 @@
         <field name="inherit_id" ref="account.res_config_settings_view_form" />
         <field name="model">res.config.settings</field>
         <field name="arch" type="xml">
-            <div id="invoicing_settings" position="after">
-                <h2>Sales Order Invoicing</h2>
-                <div
-                    class="row mt16 o_settings_container"
-                    id="sale_order_invoicing_settings"
-                >
-                    <div class="col-12 col-lg-6 o_setting_box">
-                        <div class="o_setting_left_pane" />
-                        <div class="o_setting_right_pane">
-                            <label
-                                string="Default Grouping Criteria"
-                                for="res_default_sale_invoicing_grouping_criteria_id"
-                            />
-                            <div
-                                class="text-muted"
-                            >If empty, invoicing address, company and currency will be applied.</div>
-                            <field
-                                name="res_default_sale_invoicing_grouping_criteria_id"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <block id="invoicing_settings" position="after">
+                <block id="sale_order_invoicing_settings" title="Sales Order Invoicing">
+                    <setting
+                        id="sale_order_invoicing_setting"
+                        company_dependent="1"
+                        string="Default Grouping Criteria"
+                        help="If empty, default odoo value will be used"
+                    >
+                        <field name="res_default_sale_invoicing_grouping_criteria_id" />
+                    </setting>
+                </block>
+            </block>
         </field>
     </record>
 </odoo>
