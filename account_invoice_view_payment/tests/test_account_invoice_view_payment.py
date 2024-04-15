@@ -146,7 +146,7 @@ class TestAccountInvoiceViewPayment(TransactionCase):
             }
         )
 
-        res = wiz.create_payment_and_open()
+        res = wiz.action_create_payments()
 
         expect = {"type": "ir.actions.act_window", "res_model": "account.payment"}
         self.assertDictEqual(
