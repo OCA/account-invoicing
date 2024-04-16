@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Moduon Team S.L.
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0) -->
+<data>
+    <record id="account_warn_option_partner_form" model="ir.ui.view">
+        <field name="name">account.warn.option.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.partner_view_buttons" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_warn_msg']" position="before">
+                <field
+                    name="invoice_warn_option"
+                    domain="[('allowed_warning_type', '=', invoice_warn), ('allowed_warning_usage', 'in', ('all', 'partner_invoice_warn'))]"
+                    context="{'default_allowed_warning_usage': 'partner_invoice_warn', 'default_allowed_warning_type': invoice_warn}"
+                    attrs="{'invisible':[('invoice_warn', 'in', (False, 'no-message'))]}"
+                    placeholder="Select a warning option"
+                    nolabel="1"
+                    colspan="2"
+                    class="oe_edit_only"
+                />
+            </xpath>
+        </field>
+    </record>
+</data>
