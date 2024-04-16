@@ -33,3 +33,8 @@ class AccountMove(models.Model):
         elif self.move_type == "out_refund":
             name = _("Credit Note")
         return name
+
+    def action_post(self):
+        return super(
+            AccountMove, self.with_context(skip_validation_check=True)
+        ).action_post()

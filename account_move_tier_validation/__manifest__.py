@@ -4,7 +4,7 @@
     "name": "Account Move Tier Validation",
     "summary": "Extends the functionality of Account Moves to "
     "support a tier validation process.",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "category": "Accounts",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "PESOL, Odoo Community Association (OCA)",
