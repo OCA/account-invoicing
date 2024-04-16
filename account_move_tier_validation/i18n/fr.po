@@ -159,3 +159,10 @@ msgstr "Statuts de validation"
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
 msgid "Validations"
 msgstr ""
+
+#. module: account_move_tier_validation
+#. odoo-python
+#: code:addons/account_move_tier_validation/tests/test_tier_validation.py:0
+#, python-format
+msgid "You are not allowed to write those fields"
+msgstr ""

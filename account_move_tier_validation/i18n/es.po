@@ -160,6 +160,13 @@ msgstr "Estado de la Validación"
 msgid "Validations"
 msgstr "Validaciones"
 
+#. module: account_move_tier_validation
+#. odoo-python
+#: code:addons/account_move_tier_validation/tests/test_tier_validation.py:0
+#, python-format
+msgid "You are not allowed to write those fields"
+msgstr ""
+
 #~ msgid "Reject"
 #~ msgstr "Rechazar"
 
