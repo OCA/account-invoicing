@@ -17,19 +17,19 @@ Stock Picking Return Refund Option
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/stock_picking_return_refund_option
+    :target: https://github.com/OCA/account-invoicing/tree/17.0/stock_picking_return_refund_option
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-stock_picking_return_refund_option
+    :target: https://translation.odoo-community.org/projects/account-invoicing-17-0/account-invoicing-17-0-stock_picking_return_refund_option
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extends the functionality of sales and purchase orders to support
-modify stock move field to_refund after it has been confirmed.
+This module extends the functionality of sales and purchase orders to
+support modify stock move field to_refund after it has been confirmed.
 
 **Table of contents**
 
@@ -39,60 +39,61 @@ modify stock move field to_refund after it has been confirmed.
 Installation
 ============
 
-#. This module requires the additional installation of sale_stock or purchase
-   modules for enabling the features it contains.
+1. This module requires the additional installation of sale_stock or
+   purchase modules for enabling the features it contains.
 
 Usage
 =====
 
-To use this module, when some customer returns some refundable products to you
-after you created an invoice, you need to:
+To use this module, when some customer returns some refundable products
+to you after you created an invoice, you need to:
 
 For a sale order:
 
-#. Go to *Sales > Sales Orders > Create*.
-#. Choose a customer and add a product whose *Invoicing Policy* is *Delivered
-   quantities*, and input some quantity to sell.
-#. Confirm the sale.
-#. Go to *Delivery > Validate > Apply*.
-#. Return to the sale order.
-#. Press *Create Invoice > Invoiceable lines > Create and View Invoices*.
-#. The created invoice's amount is the same you sold.
-#. Return to the sale order.
-#. Go to *Delivery > Return*.
-#. Set *Quantity* to a lower quantity than the sold one, and enable
-   *To Refund*.
-#. Press *Return > Validate > Apply*.
-#. Return to the sale order.
-#. Press *Create Invoice > Invoiceable lines (deduct down payments) >
-   Create and View Invoices*.
-#. A refund is created for the quantity you returned before.
+1.  Go to *Sales > Sales Orders > Create*.
+2.  Choose a customer and add a product whose *Invoicing Policy* is
+    *Delivered quantities*, and input some quantity to sell.
+3.  Confirm the sale.
+4.  Go to *Delivery > Validate > Apply*.
+5.  Return to the sale order.
+6.  Press *Create Invoice > Invoiceable lines > Create and View
+    Invoices*.
+7.  The created invoice's amount is the same you sold.
+8.  Return to the sale order.
+9.  Go to *Delivery > Return*.
+10. Set *Quantity* to a lower quantity than the sold one, and enable *To
+    Refund*.
+11. Press *Return > Validate > Apply*.
+12. Return to the sale order.
+13. Press *Create Invoice > Invoiceable lines (deduct down payments) >
+    Create and View Invoices*.
+14. A refund is created for the quantity you returned before.
 
-For allowing to refund quantities after the picking has been confirmed if you
-did not check 'to refund' in wizard, you can change the value
-of 'Refund Options' field.
+For allowing to refund quantities after the picking has been confirmed
+if you did not check 'to refund' in wizard, you can change the value of
+'Refund Options' field.
 
-To use this module, when you return some refundable products to your supplier
-after you created an invoice, you need to:
+To use this module, when you return some refundable products to your
+supplier after you created an invoice, you need to:
 
-#. Go to *Purchase > Purchase Orders > Create*.
-#. Choose a supplier and add a product whose *Invoicing Policy* is *Delivered
-   quantities*, and input some quantity to buy.
-#. Confirm the order.
-#. Go to *Delivery > Validate > Apply*.
-#. Return to the purchase order.
-#. Press on smart button "Invoices" and create one.
-#. The created invoice's amount is the same you sold.
-#. Return to the purchase order.
-#. Go to *Delivery > Return*.
-#. Set *Quantity* to a lower quantity than you bought, and enable
-   *To Refund*.
-#. Press *Return > Validate > Apply*.
-#. Return to the purchase order.
+1.  Go to *Purchase > Purchase Orders > Create*.
+2.  Choose a supplier and add a product whose *Invoicing Policy* is
+    *Delivered quantities*, and input some quantity to buy.
+3.  Confirm the order.
+4.  Go to *Delivery > Validate > Apply*.
+5.  Return to the purchase order.
+6.  Press on smart button "Invoices" and create one.
+7.  The created invoice's amount is the same you sold.
+8.  Return to the purchase order.
+9.  Go to *Delivery > Return*.
+10. Set *Quantity* to a lower quantity than you bought, and enable *To
+    Refund*.
+11. Press *Return > Validate > Apply*.
+12. Return to the purchase order.
 
-For allowing to refund quantities after the picking has been confirmed if you
-did not check 'to refund' in wizard, you can change the value
-of 'Refund Options' field.
+For allowing to refund quantities after the picking has been confirmed
+if you did not check 'to refund' in wizard, you can change the value of
+'Refund Options' field.
 
 Bug Tracker
 ===========
@@ -100,7 +101,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20stock_picking_return_refund_option%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20stock_picking_return_refund_option%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -108,20 +109,20 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Tecnativa <https://www.tecnativa.com>`_:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  * Sergio Teruel
-  * César A. Sánchez
+   -  Sergio Teruel
+   -  César A. Sánchez
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -141,6 +142,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-sergio-teruel| 
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/stock_picking_return_refund_option>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/17.0/stock_picking_return_refund_option>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
