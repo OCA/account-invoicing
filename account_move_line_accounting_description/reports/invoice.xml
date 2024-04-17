@@ -3,9 +3,10 @@
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
         <xpath
             expr="//td[@name='account_invoice_line_name']//span[@t-field='line.name']"
-            position="replace"
+            position="attributes"
         >
-            <span t-field="line.external_name" t-options="{'widget': 'text'}" />
+            <attribute name="t-field">line.external_name</attribute>
+            <attribute name="t-options">{'widget': 'text'}</attribute>
         </xpath>
     </template>
 </odoo>
