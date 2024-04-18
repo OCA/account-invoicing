@@ -10,7 +10,7 @@
                 <field name="is_return" invisible="1" />
                 <field
                     name="to_refund_lines"
-                    attrs="{'invisible': [('is_return', '=', False)]}"
+                    invisible="not is_return"
                     string="Refund Options"
                 />
             </xpath>
@@ -19,10 +19,7 @@
                 expr="//field[@name='move_ids_without_package']/tree"
                 position="inside"
             >
-                <field
-                    name="to_refund"
-                    attrs="{'column_invisible': [('parent.is_return', '=', False)]}"
-                />
+                <field name="to_refund" column_invisible="not parent.is_return" />
             </xpath>
         </field>
     </record>

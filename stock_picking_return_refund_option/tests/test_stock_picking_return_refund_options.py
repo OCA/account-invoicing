@@ -41,7 +41,7 @@ class TestSaleOrderLineInput(TransactionCase):
         move_line_vals_list = []
         for move in cls.picking.move_ids:
             move_line_vals = move._prepare_move_line_vals()
-            move_line_vals["qty_done"] = 1
+            move_line_vals["quantity"] = 1
             move_line_vals_list.append(move_line_vals)
         cls.env["stock.move.line"].create(move_line_vals_list)
         cls.picking.button_validate()
@@ -65,7 +65,7 @@ class TestSaleOrderLineInput(TransactionCase):
     def test_return_to_refund_values(self):
         return_wizard = self.return_picking_wiz(self.picking)
         return_pick = self.picking.browse(return_wizard.create_returns()["res_id"])
-        return_pick.move_line_ids.write({"qty_done": 1.0})
+        return_pick.move_line_ids.write({"quantity": 1.0})
         return_pick.button_validate()
         self.assertEqual(return_pick.to_refund_lines, "no_refund")
         return_pick.move_ids.write({"to_refund": True})
@@ -77,7 +77,7 @@ class TestSaleOrderLineInput(TransactionCase):
         # Return some items, after SO was invoiced
         return_wizard = self.return_picking_wiz(self.picking)
         return_pick = self.picking.browse(return_wizard.create_returns()["res_id"])
-        return_pick.move_line_ids.write({"qty_done": 1.0})
+        return_pick.move_line_ids.write({"quantity": 1.0})
         return_pick.button_validate()
         self.assertEqual(self.order.invoice_status, "invoiced")
 
@@ -104,7 +104,7 @@ class TestSaleOrderLineInput(TransactionCase):
         po_order.button_confirm()
         picking = po_order.picking_ids[:]
         move_line_vals = picking.move_ids._prepare_move_line_vals()
-        move_line_vals["qty_done"] = 1
+        move_line_vals["quantity"] = 1
         self.env["stock.move.line"].create(move_line_vals)
         picking.button_validate()
         self.assertEqual(po_order.invoice_status, "to invoice")
@@ -112,7 +112,7 @@ class TestSaleOrderLineInput(TransactionCase):
         return_wizard = self.return_picking_wiz(picking)
         return_pick = self.picking.browse(return_wizard.create_returns()["res_id"])
         move_line_vals = return_pick.move_ids._prepare_move_line_vals()
-        move_line_vals["qty_done"] = 1
+        move_line_vals["quantity"] = 1
         self.env["stock.move.line"].create(move_line_vals)
         return_pick.button_validate()
         # Now set to be refunded
