@@ -11,7 +11,7 @@ from odoo.tools.float_utils import float_compare
 class TestSaleTimesheetDescription(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestSaleTimesheetDescription, cls).setUpClass()
+        super().setUpClass()
         # Make sure user is in English
         cls.env.user.lang = "en_US"
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
