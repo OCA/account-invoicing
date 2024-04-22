@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-30 13:45+0000\n"
+"PO-Revision-Date: 2024-04-22 12:36+0000\n"
 "Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model,name:sale_order_invoicing_grouping_criteria.model_res_company
@@ -44,13 +44,13 @@ msgstr "Creato il"
 #. module: sale_order_invoicing_grouping_criteria
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
 msgid "Default Grouping Criteria"
-msgstr "Criteri di Raggruppamento predefiniti"
+msgstr "Criteri di raggruppamento predefiniti"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company__default_sale_invoicing_grouping_criteria_id
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_config_settings__res_default_sale_invoicing_grouping_criteria_id
 msgid "Default Sales Invoicing Grouping Criteria"
-msgstr "Criteri di Raggruppamento della Fatturazione di Vendita Predefinito"
+msgstr "Criteri di raggruppamento della fatturazione di vendita predefinito"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company__display_name
@@ -74,7 +74,7 @@ msgstr ""
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__field_ids
 msgid "Grouping Fields"
-msgstr "Campi da Raggruppare"
+msgstr "Campi raggruppamento"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company__id
@@ -97,13 +97,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
 msgid "If empty, invoicing address, company and currency will be applied."
 msgstr ""
-"se vuoto, verranno applicati l'indirizzo di fatturazione, l'azienda e la "
+"Se vuoto, verranno applicati l'indirizzo di fatturazione, l'azienda e la "
 "valuta."
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.ui.menu,name:sale_order_invoicing_grouping_criteria.menu_sale_invoice_grouping_criteria
 msgid "Invoicing Grouping Criteria"
-msgstr "Criteri di Raggruppamento di Fatturazione"
+msgstr "Criteri di raggruppamento di fatturazione"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company____last_update
@@ -136,7 +136,7 @@ msgstr "Nome"
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_users__sale_invoicing_grouping_criteria_id
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.view_partner_property_form
 msgid "Sales Invoicing Grouping Criteria"
-msgstr "Criteri di Raggruppamento della Fatturazione di Vendita"
+msgstr "Criteri di raggruppamento della fatturazione"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model,name:sale_order_invoicing_grouping_criteria.model_sale_order
@@ -146,4 +146,4 @@ msgstr "Ordine di vendita"
 #. module: sale_order_invoicing_grouping_criteria
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
 msgid "Sales Order Invoicing"
-msgstr "Fatturazione degli Ordini di Vendita"
+msgstr "Fatturazione degli ordini di vendita"
