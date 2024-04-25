@@ -87,6 +87,10 @@ Contributors
       -  Akim Juillerat <akim.juillerat@camptocamp.com>
       -  Sébastien Alix <sebastien.alix@camptocamp.com>
 
+-  `Binhex <https://binhex.cloud>`__:
+
+      -  Mario Luis <m.luis@binhex.cloud>
+
 Maintainers
 -----------
 

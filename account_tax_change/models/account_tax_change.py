@@ -16,7 +16,6 @@ class AccountTaxChange(models.Model):
         comodel_name="res.company",
         string="Company",
         required=True,
-        readonly=True,
         default=lambda self: self.env.company,
     )
     change_line_ids = fields.One2many(
