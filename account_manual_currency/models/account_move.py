@@ -62,7 +62,7 @@ class AccountMove(models.Model):
                     rec.amount_total,
                     rec.company_currency_id,
                     rec.company_id,
-                    fields.Date.today(),
+                    rec.date or fields.Date.context_today(rec),
                 )
 
     def _get_label_currency_name(self):
@@ -87,7 +87,7 @@ class AccountMove(models.Model):
 
     @api.onchange("manual_currency", "type_currency", "currency_id", "date")
     def _onchange_currency_change_rate(self):
-        today = fields.Date.today()
+        today = fields.Date.context_today(self)
         company_currency = self.env.company.currency_id
         amount_currency = company_currency._get_conversion_rate(
             company_currency,

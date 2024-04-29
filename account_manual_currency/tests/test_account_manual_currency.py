@@ -47,7 +47,7 @@ class TestAccountManualCurrency(TransactionCase):
         invoice = self.inv_model.create(
             {
                 "partner_id": partner.id,
-                "invoice_date": fields.Date.today(),
+                "invoice_date": fields.Date.context_today(self),
                 "move_type": invoice_type,
                 "currency_id": currency.id,
                 "manual_currency": manual_currency,
