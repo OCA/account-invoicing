@@ -6,7 +6,7 @@
             <field name="invoice_date" position="after">
                 <field
                     name="move_name"
-                    attrs="{'invisible': [('state', '!=', 'draft')]}"
+                    invisible="state != 'draft'"
                     groups="account_invoice_force_number.group_allow_invoice_force_number"
                 />
             </field>

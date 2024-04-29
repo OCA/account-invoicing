@@ -82,6 +82,9 @@ Contributors
 -  Francesco Apruzzese <f.apruzzese@apuliasoftware.it>
 -  Rattapong Chokmasermkul <rattapongc@ecosoft.co.th>
 -  Simone Vanin <simone.vanin@agilebg.com> (https://www.agilebg.com/)
+-  `Binhex <https://binhex.cloud//com>`__:
+
+   -  David Luis Mora <d.luis@binhex.cloud>
 
 Maintainers
 -----------
