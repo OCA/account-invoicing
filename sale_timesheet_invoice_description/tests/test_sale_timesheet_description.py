@@ -7,16 +7,26 @@ from datetime import datetime
 from odoo.tests import common
 from odoo.tools.float_utils import float_compare
 
+from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+
 
 class TestSaleTimesheetDescription(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
         # Make sure user is in English
         cls.env.user.lang = "en_US"
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
+        cls.default_applicability = cls.env["account.analytic.applicability"].create(
+            {
+                "business_domain": "general",
+                "applicability": "optional",
+                "company_id": False,
+            }
+        )
         cls.default_plan = cls.env["account.analytic.plan"].create(
-            {"name": "Default", "company_id": False}
+            {"name": "Default", "applicability_ids": cls.default_applicability.ids}
         )
         cls.analytic_account = cls.env["account.analytic.account"].create(
             {

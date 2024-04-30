@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Timesheet details invoice",
+    "name": "Timesheet details invoice description",
     "summary": "Add timesheet details in invoice line",
     "version": "17.0.1.0.0",
     "category": "Sales Management",
