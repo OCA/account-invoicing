@@ -113,7 +113,7 @@ Contributors
 
 -  `Binhex Systems Solutions <https://binhex.cloud>`__:
 
-   -  Mario Luis Mora <m.luis@binhex.cloud>
+   -  Mario Luis <m.luis@binhex.cloud>
 
 Maintainers
 -----------

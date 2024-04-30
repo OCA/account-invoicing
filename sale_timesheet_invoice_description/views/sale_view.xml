@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
             <field name="show_update_fpos" position="after">
-                <field name="timesheet_invoice_description" />
+                <field name="timesheet_invoice_description" required="1" />
                 <field name="timesheet_invoice_split" />
             </field>
         </field>
