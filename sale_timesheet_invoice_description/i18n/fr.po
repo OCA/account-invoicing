@@ -118,6 +118,3 @@ msgstr "Description de la facture de la feuille de temps"
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_ids
 msgid "Timesheets"
 msgstr ""
-
-#~ msgid "Quotation"
-#~ msgstr "Devis"

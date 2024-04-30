@@ -10,6 +10,7 @@ class ResConfigSettings(models.TransientModel):
         selection="_get_timesheet_invoice_description",
         string="Timesheet Invoice Description",
         default_model="sale.order",
+        default="000",
     )
 
     @api.model

@@ -26,6 +26,8 @@ class SaleOrder(models.Model):
 
     def _get_timesheet_details(self, timesheet, desc_rule):
         details = []
+        if not desc_rule:
+            return details
         if desc_rule[0] == "1":
             details.append(fields.Date.to_string(timesheet.date))
         if desc_rule[1] == "1":

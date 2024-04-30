@@ -4,29 +4,29 @@
 
 from datetime import datetime
 
-from odoo.tests import common, tagged
+from odoo.tests import tagged
 from odoo.tools.float_utils import float_compare
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
 @tagged("-at_install", "post_install")
-class TestSaleTimesheetDescription(common.TransactionCase):
+class TestSaleTimesheetDescription(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        if not cls.env.company.chart_template_id:
-            # Load a CoA if there's none in current company
-            coa = cls.env.ref("l10n_generic_coa.configurable_chart_template", False)
-            if not coa:
-                # Load the first available CoA
-                coa = cls.env["account.chart.template"].search(
-                    [("visible", "=", True)], limit=1
-                )
-            coa.try_loading(company=cls.env.company, install_demo=False)
         # Make sure user is in English
         cls.env.user.lang = "en_US"
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
+        cls.default_applicability = cls.env["account.analytic.applicability"].create(
+            {
+                "business_domain": "general",
+                "applicability": "optional",
+                "company_id": False,
+            }
+        )
         cls.default_plan = cls.env["account.analytic.plan"].create(
-            {"name": "Default", "company_id": False}
+            {"name": "Default", "applicability_ids": cls.default_applicability.ids}
         )
         cls.analytic_account = cls.env["account.analytic.account"].create(
             {
