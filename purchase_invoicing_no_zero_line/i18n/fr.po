@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-04-30 06:43+0000\n"
+"PO-Revision-Date: 2024-04-30 08:21+0000\n"
 "Last-Translator: \"Denis Roussel (ACSONE)\" <denis.roussel@acsone.eu>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -33,7 +33,7 @@ msgstr ""
 #. module: purchase_invoicing_no_zero_line
 #: model:ir.model,name:purchase_invoicing_no_zero_line.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Journal"
 
 #. module: purchase_invoicing_no_zero_line
 #: model:ir.model,name:purchase_invoicing_no_zero_line.model_account_move
