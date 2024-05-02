@@ -80,8 +80,8 @@ msgstr "Ultima esecuzione il"
 #. module: partner_invoicing_mode_monthly
 #: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
 #: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_config_settings__invoicing_mode_monthly_last_execution
-msgid "Last execution"
-msgstr "Ultima esecuzione"
+msgid "Last execution (monthly)"
+msgstr ""
 
 #. module: partner_invoicing_mode_monthly
 #: model:ir.model.fields,help:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
@@ -98,3 +98,6 @@ msgstr "Mensile"
 #: model:ir.model,name:partner_invoicing_mode_monthly.model_sale_order
 msgid "Sales Order"
 msgstr "Ordine di vendita"
+
+#~ msgid "Last execution"
+#~ msgstr "Ultima esecuzione"
