@@ -17,6 +17,21 @@ msgstr ""
 "X-Generator: Weblate 4.17\n"
 
 #. module: partner_invoicing_mode
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Standard Invoicing Options</span>"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: partner_invoicing_mode
 #: model:ir.model,name:partner_invoicing_mode.model_res_partner
 msgid "Contact"
 msgstr "Contacto"
@@ -28,9 +43,16 @@ msgid "Do not group sale order into one invoice."
 msgstr "No agrupar los pedidos de venta en una factura."
 
 #. module: partner_invoicing_mode
+#: model:ir.actions.server,name:partner_invoicing_mode.ir_cron_generate_standard_invoice_ir_actions_server
+#: model:ir.cron,cron_name:partner_invoicing_mode.ir_cron_generate_standard_invoice
+msgid "Generate Standard Invoices"
+msgstr ""
+
+#. module: partner_invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_users__invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_sale_order__invoicing_mode
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.view_partner_property_form
 msgid "Invoicing Mode"
 msgstr "Modo de facturación"
@@ -41,8 +63,32 @@ msgid "Journal Entry"
 msgstr "Entrada diaria"
 
 #. module: partner_invoicing_mode
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.res_config_settings_view_form
+msgid "Last executed on"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_company__invoicing_mode_standard_last_execution
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_config_settings__invoicing_mode_standard_last_execution
+msgid "Last execution (standard)"
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_company__invoicing_mode_standard_last_execution
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_config_settings__invoicing_mode_standard_last_execution
+msgid "Last execution of standard invoicing."
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__next_invoice_date
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_users__next_invoice_date
+msgid "Next Invoice Date"
+msgstr ""
+
+#. module: partner_invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__one_invoice_per_order
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_users__one_invoice_per_order
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_sale_order__one_invoice_per_order
 msgid "One Invoice Per Order"
 msgstr "Una factura por pedido"
 
@@ -60,3 +106,16 @@ msgstr "Órdenes de venta"
 #: model:ir.model.fields.selection,name:partner_invoicing_mode.selection__res_partner__invoicing_mode__standard
 msgid "Standard"
 msgstr "Estándar"
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_partner__next_invoice_date
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_users__next_invoice_date
+msgid "This is the date at which the next invoice will be generated."
+msgstr ""
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,help:partner_invoicing_mode.field_sale_order__one_invoice_per_order
+msgid ""
+"You can check or uncheck this if you want the periodic invoicing grouping "
+"this sale order with other ones or not."
+msgstr ""
