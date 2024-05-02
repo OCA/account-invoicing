@@ -97,8 +97,10 @@ class AccountMoveApplyTaxChange(models.TransientModel):
 
         Other modules could override this method.
         """
-        line.tax_ids -= self.tax_change_id.change_line_ids.tax_src_id
-        line.tax_ids |= self.tax_change_id.change_line_ids.tax_dest_id
+        for tax_change_line in self.tax_change_id.change_line_ids:
+            if tax_change_line.tax_src_id in line.tax_ids:
+                line.tax_ids -= tax_change_line.tax_src_id
+                line.tax_ids |= tax_change_line.tax_dest_id
         line.invalidate_recordset()
         line.modified(["tax_ids"])
         line.flush_recordset()
