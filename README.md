@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_global_discount](account_global_discount/) | 15.0.1.0.2 |  | Account Global Discount
+[account_invoice_alternate_payer](account_invoice_alternate_payer/) | 15.0.1.0.0 |  | Set a alternate payor/payee in invoices
 [account_invoice_analytic_search](account_invoice_analytic_search/) | 15.0.1.0.0 |  | Search invoices by analytic account or by project manager
 [account_invoice_anglo_saxon_no_cogs_deferral](account_invoice_anglo_saxon_no_cogs_deferral/) | 15.0.1.0.0 |  | Invalidates the COGS deferral introduced by the anglo saxon module
 [account_invoice_block_payment](account_invoice_block_payment/) | 15.0.1.0.0 |  | Module to block payment of invoices
