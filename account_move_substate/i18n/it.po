@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-05-02 11:39+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_move_substate
 #: model:mail.template,body_html:account_move_substate.mail_template_data_account_move_substate_verified
@@ -29,69 +31,82 @@ msgid ""
 "    </div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    Spettabile <t t-out=\"object.user_id.name or 'accounting user'\""
+"></t>,<br>\n"
+"    questa e-mail è per informare che la registrazione contabile <t t-out="
+"\"object.name or ''\"></t> è stata verificata dal responsabile contabilità.\n"
+"    <br><br>\n"
+"    Distinti saluti,\n"
+"    <t t-if=\"user.signature\">\n"
+"        <br>\n"
+"        <t t-out=\"user.signature or ''\"></t>\n"
+"    </t>\n"
+"    </div>\n"
+"        "
 
 #. module: account_move_substate
 #: model:ir.model.fields.selection,name:account_move_substate.selection__base_substate_type__model__account_move
 msgid "Account Move"
-msgstr ""
+msgstr "Movimento contabile"
 
 #. module: account_move_substate
 #: model:base.substate.type,name:account_move_substate.base_substate_type_account_move
 msgid "Account Move Substate"
-msgstr ""
+msgstr "Substato movimento contabile"
 
 #. module: account_move_substate
 #: model:ir.model.fields,field_description:account_move_substate.field_base_substate_type__model
 msgid "Apply on"
-msgstr ""
+msgstr "Applica a"
 
 #. module: account_move_substate
 #: model:ir.model,name:account_move_substate.model_base_substate_type
 msgid "Base Substate Type"
-msgstr ""
+msgstr "Tipo substato base"
 
 #. module: account_move_substate
 #: model:base.substate,name:account_move_substate.base_substate_checked_account_move
 msgid "Checked"
-msgstr ""
+msgstr "Selezionato"
 
 #. module: account_move_substate
 #: model:target.state.value,name:account_move_substate.target_state_value_draft
 msgid "Draft"
-msgstr ""
+msgstr "Bozza"
 
 #. module: account_move_substate
 #: model:ir.model,name:account_move_substate.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_move_substate
 #: model:target.state.value,name:account_move_substate.target_state_value_posted
 msgid "Posted"
-msgstr ""
+msgstr "Inserito"
 
 #. module: account_move_substate
 #: model:ir.model.fields,field_description:account_move_substate.field_account_move__substate_id
 msgid "Sub State"
-msgstr ""
+msgstr "Substato"
 
 #. module: account_move_substate
 #: model_terms:ir.ui.view,arch_db:account_move_substate.view_account_invoice_filter
 msgid "Substate"
-msgstr ""
+msgstr "Substato"
 
 #. module: account_move_substate
 #: model:base.substate,name:account_move_substate.base_substate_to_verify_account_move
 msgid "To Verify"
-msgstr ""
+msgstr "Da verificare"
 
 #. module: account_move_substate
 #: model:base.substate,name:account_move_substate.base_substate_verified_account_move
 #: model:mail.template,name:account_move_substate.mail_template_data_account_move_substate_verified
 msgid "Verified"
-msgstr ""
+msgstr "Verificato"
 
 #. module: account_move_substate
 #: model:mail.template,subject:account_move_substate.mail_template_data_account_move_substate_verified
 msgid "Your journal entry {{object.name}} is verified"
-msgstr ""
+msgstr "La registrazione contabile {{object.name}} è verificata"
