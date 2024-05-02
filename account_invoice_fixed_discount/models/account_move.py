@@ -71,7 +71,9 @@ class AccountMoveLine(models.Model):
         move_type,
     ):
         if self.discount_fixed != 0:
-            discount = ((self.discount_fixed) / price_unit) * 100 or 0.00
+            discount = (
+                (price_unit != 0) and ((self.discount_fixed) / price_unit) * 100 or 0.00
+            )
         return super(AccountMoveLine, self)._get_price_total_and_subtotal_model(
             price_unit, quantity, discount, currency, product, partner, taxes, move_type
         )
@@ -110,8 +112,10 @@ class AccountMoveLine(models.Model):
                     {"discount_fixed": vals.get("discount_fixed"), "discount": 0.00}
                 )
                 fixed_discount = (
-                    vals.get("discount_fixed") / vals.get("price_unit")
-                ) * 100
+                    vals.get("price_unit")
+                    and ((vals.get("discount_fixed") / vals.get("price_unit")) * 100)
+                    or 0.0
+                )
                 vals.update({"discount": fixed_discount, "discount_fixed": 0.00})
             elif vals.get("discount"):
                 prev_discount.append({"discount": vals.get("discount")})
