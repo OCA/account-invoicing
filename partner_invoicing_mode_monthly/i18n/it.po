@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-27 18:34+0000\n"
+"PO-Revision-Date: 2024-05-02 11:44+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -81,7 +81,7 @@ msgstr "Ultima esecuzione il"
 #: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
 #: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_config_settings__invoicing_mode_monthly_last_execution
 msgid "Last execution (monthly)"
-msgstr ""
+msgstr "Ultima esecuzione (mensile)"
 
 #. module: partner_invoicing_mode_monthly
 #: model:ir.model.fields,help:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
