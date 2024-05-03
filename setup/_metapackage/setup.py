@@ -25,6 +25,7 @@ setuptools.setup(
         'odoo12-addon-account_invoice_fix_tax_rounding',
         'odoo12-addon-account_invoice_fixed_discount',
         'odoo12-addon-account_invoice_force_number',
+        'odoo12-addon-account_invoice_line_complimentary',
         'odoo12-addon-account_invoice_line_default_account',
         'odoo12-addon-account_invoice_line_description',
         'odoo12-addon-account_invoice_line_sequence',

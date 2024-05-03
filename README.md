@@ -38,6 +38,7 @@ addon | version | maintainers | summary
 [account_invoice_fix_tax_rounding](account_invoice_fix_tax_rounding/) | 12.0.1.0.0 |  | Fix invoice tax rounding globally
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 12.0.1.0.1 |  | Allows to apply fixed amount discounts in invoices.
 [account_invoice_force_number](account_invoice_force_number/) | 12.0.1.0.0 |  | Allows to force invoice numbering on specific invoices
+[account_invoice_line_complimentary](account_invoice_line_complimentary/) | 12.0.1.0.0 |  | Define Invoice Lines for complimentary Products.
 [account_invoice_line_default_account](account_invoice_line_default_account/) | 12.0.1.0.1 |  | Account Invoice Line Default Account
 [account_invoice_line_description](account_invoice_line_description/) | 12.0.1.0.0 |  | Account invoice line description
 [account_invoice_line_sequence](account_invoice_line_sequence/) | 12.0.1.1.1 |  | Adds sequence field on invoice lines to manage its order.
