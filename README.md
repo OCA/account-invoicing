@@ -62,7 +62,7 @@ addon | version | maintainers | summary
 [account_invoice_tree_currency](account_invoice_tree_currency/) | 15.0.1.0.0 |  | Show currencies in the invoice tree view
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 15.0.1.0.2 |  | Manage triple discount on invoice lines
 [account_invoice_validation_queued](account_invoice_validation_queued/) | 15.0.1.0.0 | [![pedrobaeza](https://github.com/pedrobaeza.png?size=30px)](https://github.com/pedrobaeza) | Enqueue account invoice validation
-[account_invoice_view_payment](account_invoice_view_payment/) | 15.0.1.0.0 |  | Access to the payment from an invoice
+[account_invoice_view_payment](account_invoice_view_payment/) | 15.0.1.1.0 |  | Access to the payment from an invoice
 [account_invoice_warn_message](account_invoice_warn_message/) | 15.0.1.0.0 |  | Add a popup warning on invoice to ensure warning is populated
 [account_manual_currency](account_manual_currency/) | 15.0.1.0.0 |  | Allows to manual currency of Accounting
 [account_move_exception](account_move_exception/) | 15.0.1.0.0 |  | Custom exceptions on account move
