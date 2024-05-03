@@ -32,12 +32,6 @@ msgid "Payments"
 msgstr "Pagos"
 
 #. module: account_invoice_view_payment
-#: model:ir.model,name:account_invoice_view_payment.model_account_payment_register
-msgid "Register Payment"
-msgstr "Registrar pago"
-
-#. module: account_invoice_view_payment
-#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_form_multi
 #: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_invoice_form
 msgid "Validate & View Payment"
 msgstr "Validar y ver el pago"
@@ -46,6 +40,9 @@ msgstr "Validar y ver el pago"
 #: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_move_form
 msgid "View Payments"
 msgstr "Ver pagos"
+
+#~ msgid "Register Payment"
+#~ msgstr "Registrar pago"
 
 #~ msgid "Invoice"
 #~ msgstr "Factura"
