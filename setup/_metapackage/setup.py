@@ -27,6 +27,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_fixed_discount>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_force_number>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_line_description>=15.0dev,<15.1dev',
+        'odoo-addon-account_invoice_line_sequence>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_mass_sending>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_merge>=15.0dev,<15.1dev',
         'odoo-addon-account_invoice_payment_retention>=15.0dev,<15.1dev',
