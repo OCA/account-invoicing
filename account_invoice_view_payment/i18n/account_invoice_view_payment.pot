@@ -20,19 +20,12 @@ msgstr ""
 
 #. module: account_invoice_view_payment
 #: code:addons/account_invoice_view_payment/models/account_payment.py:0
-#: code:addons/account_invoice_view_payment/models/account_payment.py:0
 #: model:ir.model,name:account_invoice_view_payment.model_account_payment
 #, python-format
 msgid "Payments"
 msgstr ""
 
 #. module: account_invoice_view_payment
-#: model:ir.model,name:account_invoice_view_payment.model_account_payment_register
-msgid "Register Payment"
-msgstr ""
-
-#. module: account_invoice_view_payment
-#: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_form_multi
 #: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_account_payment_invoice_form
 msgid "Validate & View Payment"
 msgstr ""
