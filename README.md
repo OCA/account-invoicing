@@ -23,6 +23,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_invoice_crm_tag](account_invoice_crm_tag/) | 17.0.1.0.0 |  | Account Invoice CRM Tag
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 17.0.1.0.1 |  | Allows to apply fixed amount discounts in invoices.
+[account_invoice_refund_link](account_invoice_refund_link/) | 17.0.1.0.0 |  | Show links between refunds and their originator invoices.
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 17.0.1.0.0 | [![alexis-via](https://github.com/alexis-via.png?size=30px)](https://github.com/alexis-via) | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_warn_message](account_invoice_warn_message/) | 17.0.1.0.0 |  | Add a popup warning on invoice to ensure warning is populated
 
