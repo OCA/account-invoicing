@@ -13,7 +13,7 @@
     "author": "Pexego, Tecnativa, Odoo Community Association (OCA)",
     "installable": True,
     "post_init_hook": "post_init_hook",
-    "depends": ["account"],
+    "depends": ["account", "sale"],
     "license": "AGPL-3",
     "data": ["views/account_invoice_view.xml"],
 }
