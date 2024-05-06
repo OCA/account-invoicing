@@ -4,7 +4,7 @@
 {
     "name": "Account Warn Option",
     "summary": "Add Options to Account Warn Messages",
-    "version": "15.0.1.0.0",
+    "version": "15.0.1.0.1",
     "development_status": "Alpha",
     "category": "Accounting/Accounting",
     "website": "https://github.com/OCA/account-invoicing",
