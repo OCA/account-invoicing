@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-29 10:09+0000\n"
-"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"PO-Revision-Date: 2024-05-06 12:38+0000\n"
+"Last-Translator: Anna Martínez <anna080678@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -19,17 +19,17 @@ msgstr ""
 #. module: partner_invoicing_mode
 #: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.res_config_settings_view_form
 msgid "<span class=\"o_form_label\">Standard Invoicing Options</span>"
-msgstr ""
+msgstr "<span class=\"o_form_label\">Opciones de facturación estandar</span>"
 
 #. module: partner_invoicing_mode
 #: model:ir.model,name:partner_invoicing_mode.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Compañías"
 
 #. module: partner_invoicing_mode
 #: model:ir.model,name:partner_invoicing_mode.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Configuración de Ajustes"
 
 #. module: partner_invoicing_mode
 #: model:ir.model,name:partner_invoicing_mode.model_res_partner
@@ -46,7 +46,7 @@ msgstr "No agrupar los pedidos de venta en una factura."
 #: model:ir.actions.server,name:partner_invoicing_mode.ir_cron_generate_standard_invoice_ir_actions_server
 #: model:ir.cron,cron_name:partner_invoicing_mode.ir_cron_generate_standard_invoice
 msgid "Generate Standard Invoices"
-msgstr ""
+msgstr "Generar facturas estándar"
 
 #. module: partner_invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__invoicing_mode
@@ -65,25 +65,25 @@ msgstr "Entrada diaria"
 #. module: partner_invoicing_mode
 #: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.res_config_settings_view_form
 msgid "Last executed on"
-msgstr ""
+msgstr "Última ejecución el"
 
 #. module: partner_invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_company__invoicing_mode_standard_last_execution
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_config_settings__invoicing_mode_standard_last_execution
 msgid "Last execution (standard)"
-msgstr ""
+msgstr "Última ejecución (estándar)"
 
 #. module: partner_invoicing_mode
 #: model:ir.model.fields,help:partner_invoicing_mode.field_res_company__invoicing_mode_standard_last_execution
 #: model:ir.model.fields,help:partner_invoicing_mode.field_res_config_settings__invoicing_mode_standard_last_execution
 msgid "Last execution of standard invoicing."
-msgstr ""
+msgstr "Última ejecución de facturación estándar."
 
 #. module: partner_invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__next_invoice_date
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_users__next_invoice_date
 msgid "Next Invoice Date"
-msgstr ""
+msgstr "Siguiente fecha de facturación"
 
 #. module: partner_invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__one_invoice_per_order
@@ -111,7 +111,7 @@ msgstr "Estándar"
 #: model:ir.model.fields,help:partner_invoicing_mode.field_res_partner__next_invoice_date
 #: model:ir.model.fields,help:partner_invoicing_mode.field_res_users__next_invoice_date
 msgid "This is the date at which the next invoice will be generated."
-msgstr ""
+msgstr "Esta es la fecha en la que se generará la próxima factura."
 
 #. module: partner_invoicing_mode
 #: model:ir.model.fields,help:partner_invoicing_mode.field_sale_order__one_invoice_per_order
@@ -119,3 +119,5 @@ msgid ""
 "You can check or uncheck this if you want the periodic invoicing grouping "
 "this sale order with other ones or not."
 msgstr ""
+"Puede marcar o desmarcar esta opción si desea que la facturación periódica "
+"agrupe esta orden de venta con otras o no."
