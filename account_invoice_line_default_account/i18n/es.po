@@ -6,59 +6,63 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-05-06 12:38+0000\n"
+"Last-Translator: Anna Martínez <anna080678@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_partner__auto_update_account_expense
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_users__auto_update_account_expense
 msgid "Autosave Selection for Expense Account on Invoice Line"
-msgstr ""
+msgstr "Selección de autoguardado para cuenta de gastos en línea de factura"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_partner__auto_update_account_income
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_users__auto_update_account_income
 msgid "Autosave Selection for Income Account on Invoice Line"
-msgstr ""
+msgstr "Selección de autoguardado para cuenta de ingresos en línea de factura"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model,name:account_invoice_line_default_account.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_partner__property_account_expense
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_users__property_account_expense
 msgid "Default Expense Account"
-msgstr ""
+msgstr "Cuenta de gastos por defecto"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_partner__property_account_income
 #: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_users__property_account_income
 msgid "Default Income Account"
-msgstr ""
+msgstr "Cuenta de ingresos oir defecto"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model.fields,help:account_invoice_line_default_account.field_res_partner__property_account_expense
 #: model:ir.model.fields,help:account_invoice_line_default_account.field_res_users__property_account_expense
 msgid "Default counterpart account for purchases on invoice lines"
 msgstr ""
+"Cuenta de contrapartida predeterminada para compras en las líneas de factura"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model.fields,help:account_invoice_line_default_account.field_res_partner__property_account_income
 #: model:ir.model.fields,help:account_invoice_line_default_account.field_res_users__property_account_income
 msgid "Default counterpart account for sales on invoice lines"
 msgstr ""
+"Cuenta de contrapartida predeterminada para ventas en las líneas de factura"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model,name:account_invoice_line_default_account.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Apunte contable"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model.fields,help:account_invoice_line_default_account.field_res_partner__auto_update_account_expense
@@ -67,6 +71,8 @@ msgid ""
 "When an account is selected on an invoice line, automatically assign it as "
 "default expense account"
 msgstr ""
+"Cuando se seleccione una cuenta en una línea de factura, se asigna "
+"automáticamente como cuenta de gastos predeterminada"
 
 #. module: account_invoice_line_default_account
 #: model:ir.model.fields,help:account_invoice_line_default_account.field_res_partner__auto_update_account_income
@@ -75,8 +81,10 @@ msgid ""
 "When an account is selected on an invoice line, automatically assign it as "
 "default income account"
 msgstr ""
+"Cuando se seleccione una cuenta en una línea de factura, se asigna "
+"automáticamente como cuenta de ingresos predeterminada"
 
 #. module: account_invoice_line_default_account
 #: model_terms:ir.ui.view,arch_db:account_invoice_line_default_account.view_partner_expense_property_form
 msgid "autosave from invoice line"
-msgstr ""
+msgstr "autoguardado desde línea de factura"
