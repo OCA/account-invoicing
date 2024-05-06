@@ -1,0 +1,82 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_line_default_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: account_invoice_line_default_account
+#: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_partner__auto_update_account_expense
+#: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_users__auto_update_account_expense
+msgid "Autosave Selection for Expense Account on Invoice Line"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_partner__auto_update_account_income
+#: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_users__auto_update_account_income
+msgid "Autosave Selection for Income Account on Invoice Line"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model:ir.model,name:account_invoice_line_default_account.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_partner__property_account_expense
+#: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_users__property_account_expense
+msgid "Default Expense Account"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_partner__property_account_income
+#: model:ir.model.fields,field_description:account_invoice_line_default_account.field_res_users__property_account_income
+msgid "Default Income Account"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model:ir.model.fields,help:account_invoice_line_default_account.field_res_partner__property_account_expense
+#: model:ir.model.fields,help:account_invoice_line_default_account.field_res_users__property_account_expense
+msgid "Default counterpart account for purchases on invoice lines"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model:ir.model.fields,help:account_invoice_line_default_account.field_res_partner__property_account_income
+#: model:ir.model.fields,help:account_invoice_line_default_account.field_res_users__property_account_income
+msgid "Default counterpart account for sales on invoice lines"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model:ir.model,name:account_invoice_line_default_account.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model:ir.model.fields,help:account_invoice_line_default_account.field_res_partner__auto_update_account_expense
+#: model:ir.model.fields,help:account_invoice_line_default_account.field_res_users__auto_update_account_expense
+msgid ""
+"When an account is selected on an invoice line, automatically assign it as "
+"default expense account"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model:ir.model.fields,help:account_invoice_line_default_account.field_res_partner__auto_update_account_income
+#: model:ir.model.fields,help:account_invoice_line_default_account.field_res_users__auto_update_account_income
+msgid ""
+"When an account is selected on an invoice line, automatically assign it as "
+"default income account"
+msgstr ""
+
+#. module: account_invoice_line_default_account
+#: model_terms:ir.ui.view,arch_db:account_invoice_line_default_account.view_partner_expense_property_form
+msgid "autosave from invoice line"
+msgstr ""
