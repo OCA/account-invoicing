@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import functools
+from contextlib import contextmanager
 
 from odoo import api, fields, models
 from odoo.tools import float_compare
@@ -55,6 +56,42 @@ class AccountMoveLine(models.Model):
                 record.write(old_values[index])
         return records
 
+    @contextmanager
+    def _aggregated_discount(self):
+        """A context manager to temporarily change the discount value on the
+        records and restore it after the context is exited. It temporarily
+        changes the discount value to the aggregated discount value so that
+        methods that depend on the discount value will use the aggregated
+        discount value instead of the original one.
+        """
+        discount_field = self._fields["discount"]
+        original_digits = discount_field._digits
+        # Change the discount field to have a higher precision to avoid
+        # rounding errors when computing the aggregated discount
+        discount_field._digits = (16, 16)
+        # Protect discount field from triggering recompute of totals
+        # and calls to the write method on account.move. This is safe
+        # because we are going to restore the original value at the end
+        # of the method. This is also required to avoid to trigger the
+        # _sync_dynamic_lines and _check_balanced methods on account.move
+        # that would lead to errors while computing the triple discount
+        # on the invoice lines and raise an exception when the computation is called
+        # on account.move.line with a date prior to fiscal year close date.
+        with self.env.protecting([discount_field], self):
+            old_values = {}
+            for line in self:
+                old_values[line.id] = line.discount
+                aggregated_discount = line._compute_aggregated_discount(line.discount)
+                line.update({"discount": aggregated_discount})
+            yield
+            discount_field._digits = original_digits
+            for line in self:
+                if line.id not in old_values:
+                    continue
+                line.with_context(
+                    restoring_triple_discount=True,
+                ).update({"discount": old_values[line.id]})
+
     @api.depends(
         "quantity",
         "discount",
@@ -65,26 +102,10 @@ class AccountMoveLine(models.Model):
         "discount3",
     )
     def _compute_totals(self):
-        """
-        As the totals are recalculated based on a single discount, we need to
-        simulate a multiple discount by changing the discount value. Values are
-        restored after the original process is done
-        """
-        old_values_by_line_id = {}
-        digits = self._fields["discount"]._digits
-        self._fields["discount"]._digits = (16, 16)
-        for line in self:
-            aggregated_discount = line._compute_aggregated_discount(line.discount)
-            old_values_by_line_id[line.id] = {"discount": line.discount}
-            line.update({"discount": aggregated_discount})
-        res = super()._compute_totals()
-        self._fields["discount"]._digits = digits
-        for line in self:
-            if line.id not in old_values_by_line_id:
-                continue
-            line.with_context(
-                restoring_triple_discount=True,
-            ).update(old_values_by_line_id[line.id])
+        # As the totals are recompute based on the discount field, we need
+        # to use the aggregated discount value to compute the totals.
+        with self._aggregated_discount():
+            res = super()._compute_totals()
         return res
 
     @api.depends(
@@ -100,26 +121,10 @@ class AccountMoveLine(models.Model):
         "discount3",
     )
     def _compute_all_tax(self):
-        """
-        As the taxes are recalculated based on a single discount, we need to
-        simulate a multiple discount by changing discount value. Values are
-        restored after the original process is done
-        """
-        digits = self._fields["discount"]._digits
-        self._fields["discount"]._digits = (16, 16)
-        old_values_by_line_id = {}
-        for line in self:
-            aggregated_discount = line._compute_aggregated_discount(line.discount)
-            old_values_by_line_id[line.id] = {"discount": line.discount}
-            line.update({"discount": aggregated_discount})
-        res = super()._compute_all_tax()
-        self._fields["discount"]._digits = digits
-        for line in self:
-            if line.id not in old_values_by_line_id:
-                continue
-            line.with_context(
-                restoring_triple_discount=True,
-            ).update(old_values_by_line_id[line.id])
+        # As the taxes are recompute based on the discount field, we need
+        # to use the aggregated discount value to compute the taxes.
+        with self._aggregated_discount():
+            res = super()._compute_all_tax()
         return res
 
     def _convert_to_tax_base_line_dict(self):
