@@ -124,7 +124,10 @@ class TestAccountMovePricelist(common.TransactionCase):
                 ],
             }
         )
-        cls.euro_currency = cls.env["res.currency"].search([("name", "=", "EUR")])
+        cls.euro_currency = cls.env["res.currency"].search(
+            [("active", "=", False), ("name", "=", "EUR")]
+        )
+        cls.euro_currency.active = True
         cls.usd_currency = cls.env["res.currency"].search([("name", "=", "USD")])
         cls.sale_pricelist_with_discount_in_euros = cls.ProductPricelist.create(
             {
@@ -280,14 +283,14 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.invoice.pricelist_id = self.sale_pricelist_with_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertAlmostEqual(invoice_line.price_unit, 58.87)
+        self.assertAlmostEqual(invoice_line.price_unit, 75.55)
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_account_invoice_pricelist_without_discount_secondary_currency(self):
         self.invoice.pricelist_id = self.sale_pricelist_without_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertAlmostEqual(invoice_line.price_unit, 65.41)
+        self.assertAlmostEqual(invoice_line.price_unit, 83.94)
         self.assertEqual(invoice_line.discount, 10.00)
 
     def test_account_invoice_fixed_pricelist_with_discount_secondary_currency(self):
@@ -301,8 +304,8 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.invoice.pricelist_id = self.sale_pricelist_fixed_wo_disc_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertAlmostEqual(invoice_line.price_unit, 65.41)
-        self.assertEqual(invoice_line.discount, 8.27)
+        self.assertAlmostEqual(invoice_line.price_unit, 83.94)
+        self.assertEqual(invoice_line.discount, 28.52)
 
     def test_check_currency(self):
         with self.assertRaises(UserError):

@@ -77,6 +77,9 @@ Contributors
 -  Alberto Martín <alberto.martin@guadaltech.es>
 -  Nikul Chaudhary <nikulchaudhary2112@gmail.com>
 -  Manuel Regidor <manuel.regidor@sygel.es>
+-  `APSL-Nagarro <https://www.apsl.tech>`__:
+
+   -  Antoni Marroig <amarroig@apsl.net>
 
 Maintainers
 -----------

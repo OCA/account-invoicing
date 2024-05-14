@@ -2,13 +2,14 @@
 
 {
     "name": "Account - Pricelist on Invoices",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "summary": "Add partner pricelist on invoices",
     "category": "Accounting & Finance",
     "author": "GRAP," "Therp BV," "Tecnativa," "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
-    "depends": ["account"],
+    "depends": ["account", "sale_management"],
     "data": ["views/account_invoice_view.xml"],
     "installable": True,
+    "pre_init_hook": "pre_init_hook",
 }

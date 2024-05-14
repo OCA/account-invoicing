@@ -11,11 +11,9 @@ class AccountMove(models.Model):
     pricelist_id = fields.Many2one(
         comodel_name="product.pricelist",
         string="Pricelist",
-        states={"draft": [("readonly", False)]},
         compute="_compute_pricelist_id",
         tracking=True,
         store=True,
-        readonly=True,
         precompute=True,
     )
 
@@ -122,7 +120,7 @@ class AccountMoveLine(models.Model):
                     qty,
                     uom,
                     date,
-                    target_currency=self.currency_id,
+                    currency=self.currency_id,
                 )
                 price_unit = max(base_price, final_price)
                 self.with_context(
