@@ -89,7 +89,10 @@ class AccountMoveLine(models.Model):
             qty = self.quantity or 1.0
             date = self.move_id.invoice_date or fields.Date.today()
             uom = self.product_uom_id
-            (final_price, rule_id,) = self.move_id.pricelist_id._get_product_price_rule(
+            (
+                final_price,
+                rule_id,
+            ) = self.move_id.pricelist_id._get_product_price_rule(
                 product,
                 qty,
                 uom=uom,
