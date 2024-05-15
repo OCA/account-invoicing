@@ -18,13 +18,13 @@ msgstr ""
 
 #. module: account_invoice_fixed_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
-msgid "(or"
-msgstr "(ou"
+msgid "<span class=\"text-nowrap\"> %)</span>"
+msgstr ""
 
 #. module: account_invoice_fixed_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
-msgid "<span>Disc. %</span>"
-msgstr "<span>Desc. %</span>"
+msgid "<span class=\"text-nowrap\"> (or</span>"
+msgstr ""
 
 #. module: account_invoice_fixed_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
@@ -59,3 +59,9 @@ msgstr "Item do diário"
 #: model:ir.model,name:account_invoice_fixed_discount.model_account_tax
 msgid "Tax"
 msgstr "Imposto"
+
+#~ msgid "(or"
+#~ msgstr "(ou"
+
+#~ msgid "<span>Disc. %</span>"
+#~ msgstr "<span>Desc. %</span>"
