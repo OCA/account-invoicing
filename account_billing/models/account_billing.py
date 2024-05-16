@@ -64,7 +64,7 @@ class AccountBilling(models.Model):
             * The 'Cancelled' status is used when user billing is cancelled
         """,
     )
-    narration = fields.Text(
+    narration = fields.Html(
         string="Notes",
         readonly=True,
         states={"draft": [("readonly", False)]},
