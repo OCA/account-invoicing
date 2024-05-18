@@ -4,7 +4,7 @@
 
 {
     "name": "Account Move Sub State",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "category": "Accounting & Finance",
     "author": "360ERP, Ecosoft, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
