@@ -89,6 +89,8 @@ class AccountMove(models.Model):
         for inv_line in _self.invoice_line_ids.filtered(
             lambda l: l.display_type not in ["line_section", "line_note"]
         ):
+            if inv_line.product_id.bypass_global_discount:
+                continue
             taxes_keys.setdefault(tuple(inv_line.tax_ids.ids), 0)
             taxes_keys[tuple(inv_line.tax_ids.ids)] += inv_line.price_subtotal
         # Reset previous global discounts
@@ -119,6 +121,8 @@ class AccountMove(models.Model):
         base_total = 0
         zero_taxes = self.env["account.tax"]
         for line in self.line_ids.filtered("tax_ids"):
+            if line.product_id.bypass_global_discount:
+                continue
             key = tuple(line.tax_ids.ids)
             if taxes_keys.get(key):
                 base_total += line.price_subtotal
