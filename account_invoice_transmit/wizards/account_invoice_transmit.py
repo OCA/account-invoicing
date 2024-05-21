@@ -4,6 +4,8 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
+from odoo.addons.queue_job.job import identity_exact
+
 
 class AccountInvoiceTransmit(models.TransientModel):
     """This wizard will mark as sent the all the selected validated invoices."""
@@ -115,6 +117,7 @@ class AccountInvoiceTransmit(models.TransientModel):
         description = _("Mass generating invoice reports for sending")
         invoices.with_delay(
             description=description,
+            identity_key=identity_exact,
             priority=20,
             channel="root.invoice_transmit.post",
         )._transmit_invoice_by_post()
@@ -144,6 +147,7 @@ class AccountInvoiceTransmit(models.TransientModel):
         description = _("Mass generating invoice emails for sending")
         invoices.with_delay(
             description=description,
+            identity_key=identity_exact,
             priority=50,
             channel="root.invoice_transmit.email",
         )._transmit_invoice_by_email()
