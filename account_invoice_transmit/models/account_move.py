@@ -1,6 +1,8 @@
 # Copyright 2015 Jacques-Etienne Baudoux (BCIM) <je@bcim.be>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from psycopg2.extensions import AsIs
+
 from odoo import _, api, fields, models
 
 
@@ -34,6 +36,11 @@ class AccountMove(models.Model):
         invoices = self.exists().filtered("is_invoice_to_transmit")
         if not invoices:
             return self.browse()
+        self.env.cr.execute(
+            "SELECT id FROM %s WHERE id in %s FOR UPDATE",
+            (AsIs(self._table), tuple(invoices.ids)),
+            log_exceptions=False,
+        )
         invoices.write({"is_move_sent": True})
         for invoice in invoices:
             invoice.message_post(body=_("Invoice sent by %s") % method)
