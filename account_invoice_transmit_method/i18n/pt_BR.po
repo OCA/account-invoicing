@@ -9,10 +9,11 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2023-07-01 22:13+0000\n"
-"Last-Translator: Adriano Prado <adrianojprado@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
-"teams/23907/pt_BR/)\n"
+"PO-Revision-Date: 2024-05-22 02:47+0000\n"
+"Last-Translator: Rodrigo Macedo <sottomaiormacedotec@users.noreply."
+"translation.odoo-community.org>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
+"23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +24,7 @@ msgstr ""
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__active
 msgid "Active"
-msgstr ""
+msgstr "Ativo"
 
 #. module: account_invoice_transmit_method
 #: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_form
@@ -146,7 +147,7 @@ msgstr "Selecionável em Fornecedores"
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,field_description:account_invoice_transmit_method.field_transmit_method__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Sequencia"
 
 #. module: account_invoice_transmit_method
 #: model:ir.model.fields,help:account_invoice_transmit_method.field_account_bank_statement_line__transmit_method_code
