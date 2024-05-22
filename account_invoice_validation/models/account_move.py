@@ -81,6 +81,14 @@ class AccountMove(models.Model):
         )
 
         for rec in self:
+            # This fixes a bug:
+            # When this compute is executed by a cron or in sudo
+            # (e.g. the ocr changes the partner)
+            #
+            # The company is not set to the company of the account.move and so,
+            # it is not possible the read the validation_user_id (res.user)
+            rec = rec.with_company(rec.company_id)
+
             if rec.move_type in rec.get_concerned_types():
                 val_user_id = self.env["res.users"]
                 approved_once = False
