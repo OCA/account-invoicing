@@ -22,12 +22,15 @@ class AccountMoveNote(models.TransientModel):
         :return: dict/action
         """
         if self.env.context.get("movingToState") == "refuse":
-            self.account_move_id.action_refuse_state_continue(self.note)
+            action = self.account_move_id.action_refuse_state_continue(self.note)
         elif self.env.context.get("movingToState") == "assign":
-            self.account_move_id.action_assign_continue(self.note)
+            action = self.account_move_id.action_assign_continue(self.note)
         elif self.env.context.get("movingToState") == "blocked":
             if not self.date:
                 message = _("Please specify a date!")
                 raise exceptions.UserError(message)
 
-            self.account_move_id.action_block_state_continue(self.note, self.date)
+            action = self.account_move_id.action_block_state_continue(
+                self.note, self.date
+            )
+        return action

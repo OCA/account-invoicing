@@ -202,11 +202,13 @@ class AccountMove(models.Model):
             raise ValidationError(_("Please provide an invoice date!"))
         if not self.partner_id:
             raise ValidationError(_("Please provide the supplier of the invoice!"))
-        self.validation_state_accepted(
+        action = self.validation_state_accepted(
             self.partner_id,
             self.ref,
             self.invoice_date,
         )
+
+        return action
 
     def validation_state_accepted(
         self,
@@ -251,6 +253,10 @@ class AccountMove(models.Model):
         )
         self._check_before_update_validation_state(validation_state)
         self.write(values)
+        action = self.env["ir.actions.act_window"]._for_xml_id(
+            "account_invoice_validation.account_move_act_window"
+        )
+        return action
 
     def action_refuse_state(self):
         """
@@ -273,7 +279,10 @@ class AccountMove(models.Model):
         self._update_validation_state(values, validation_state)
         for rec in self:
             rec.message_post(body=note)
-        return {}
+        action = self.env["ir.actions.act_window"]._for_xml_id(
+            "account_invoice_validation.account_move_act_window"
+        )
+        return action
 
     def _check_before_update_validation_state(self, validation_state: str) -> bool:
         """
@@ -326,7 +335,10 @@ class AccountMove(models.Model):
         self._update_validation_state(values, validation_state)
         for rec in self:
             rec.message_post(body=note)
-        return {}
+        action = self.env["ir.actions.act_window"]._for_xml_id(
+            "account_invoice_validation.account_move_act_window"
+        )
+        return action
 
     def _check_pending_date(self, pending_date: str) -> bool:
         """
@@ -360,6 +372,10 @@ class AccountMove(models.Model):
             for r in rec:
                 r.message_post(body=note)
             rec.redirect_approval()
+        action = self.env["ir.actions.act_window"]._for_xml_id(
+            "account_invoice_validation.account_move_act_window"
+        )
+        return action
 
     def redirect_approval(self):
         """
