@@ -16,6 +16,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_crm_tag>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_currency_taxes>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_default_code_column>=16.0dev,<16.1dev',
+        'odoo-addon-account_invoice_discount_display_amount>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_fiscal_position_update>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_fixed_discount>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_force_number>=16.0dev,<16.1dev',
