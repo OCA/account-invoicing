@@ -58,6 +58,7 @@ class TestMoveRefPropagation(AccountTestInvoicingCommon):
                 "date": self.move_to_reverse.date,
                 "reason": "no reason",
                 "refund_method": method,
+                "journal_id": self.move_to_reverse.journal_id.id,
             }
         )
         action = reverse_wiz.reverse_moves()
