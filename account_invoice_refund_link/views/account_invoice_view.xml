@@ -20,7 +20,11 @@
                     string="Refunds"
                     invisible="move_type not in ('in_invoice', 'out_invoice')"
                 >
-                    <field name="refund_invoice_ids" nolabel="1">
+                    <field
+                        name="refund_invoice_ids"
+                        nolabel="1"
+                        context="{'form_view_ref': 'account_invoice_refund_link.account_invoice_refund_form_view'}"
+                    >
                         <tree
                             decoration-info="state == 'draft'"
                             decoration-muted="state == 'cancel'"
@@ -34,30 +38,6 @@
                             <field name="amount_total" string="Total" />
                             <field name="state" string="Status" />
                         </tree>
-                        <form>
-                            <group>
-                                <field name="partner_id" />
-                                <field name="move_type" invisible="1" />
-                                <field name="invoice_date" />
-                                <field name="name" />
-                                <field name="invoice_origin" />
-                                <field name="ref" />
-                                <field name="amount_total" string="Total" />
-                                <field name="state" string="Status" />
-                            </group>
-                            <field name="invoice_line_ids" nolabel="1">
-                                <tree>
-                                    <field name="product_id" />
-                                    <field name="name" />
-                                    <field name="account_id" />
-                                    <field name="quantity" />
-                                    <field name="price_unit" />
-                                    <field name="discount" optional="hide" />
-                                    <field name="tax_ids" widget="many2many_tags" />
-                                    <field name="price_subtotal" />
-                                </tree>
-                            </field>
-                        </form>
                     </field>
                 </page>
             </notebook>
@@ -71,6 +51,38 @@
                     invisible="not reversed_entry_id or move_type not in ('in_refund', 'out_refund')"
                 />
             </field>
+        </field>
+    </record>
+    <record id="account_invoice_refund_form_view" model="ir.ui.view">
+        <field name="name">account.invoice.refund.form.view</field>
+        <field name="model">account.move</field>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <form string="Refund Invoices">
+                <group>
+                    <field name="company_id" invisible="1" />
+                    <field name="move_type" invisible="1" />
+                    <field name="partner_id" />
+                    <field name="invoice_date" />
+                    <field name="name" />
+                    <field name="invoice_origin" />
+                    <field name="ref" />
+                    <field name="amount_total" string="Total" />
+                    <field name="state" string="Status" />
+                </group>
+                <field name="invoice_line_ids" nolabel="1">
+                    <tree>
+                        <field name="product_id" />
+                        <field name="name" />
+                        <field name="account_id" />
+                        <field name="quantity" />
+                        <field name="price_unit" />
+                        <field name="discount" optional="hide" />
+                        <field name="tax_ids" widget="many2many_tags" />
+                        <field name="price_subtotal" />
+                    </tree>
+                </field>
+            </form>
         </field>
     </record>
 </odoo>
