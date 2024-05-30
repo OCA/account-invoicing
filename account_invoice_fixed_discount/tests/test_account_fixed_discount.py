@@ -51,7 +51,7 @@ class TestInvoiceFixedDiscount(SavepointCase):
             }
         )
 
-    def _create_invoice(self, discount=0.00, discount_fixed=0.00):
+    def _create_invoice(self, price_unit=200.00, discount=0.00, discount_fixed=0.00):
         invoice_vals = [
             (
                 0,
@@ -61,7 +61,7 @@ class TestInvoiceFixedDiscount(SavepointCase):
                     "quantity": 1.0,
                     "account_id": self.account.id,
                     "name": "Line 1",
-                    "price_unit": 200.00,
+                    "price_unit": price_unit,
                     "discount_fixed": discount_fixed,
                     "discount": discount,
                     "tax_ids": [(6, 0, [self.vat.id])],
@@ -86,7 +86,7 @@ class TestInvoiceFixedDiscount(SavepointCase):
 
     def test_01_discounts_fixed(self):
         """Tests multiple discounts in line with taxes."""
-        invoice = self._create_invoice(discount_fixed=57)
+        invoice = self._create_invoice(price_unit=200.00, discount_fixed=57)
         with self.assertRaises(ValidationError):
             invoice.invoice_line_ids.discount = 50
         invoice.invoice_line_ids._onchange_discount_fixed()
@@ -94,14 +94,22 @@ class TestInvoiceFixedDiscount(SavepointCase):
         invoice.invoice_line_ids._onchange_price_subtotal()
         invoice.line_ids.write({"recompute_tax_line": True})
         invoice._onchange_invoice_line_ids()
-        # compute amount total (200 - 57) * 10%
+        # compute amount total (200 - 57) * 110%
         self.assertEqual(invoice.amount_total, 157.3)
         self.assertEqual(invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(invoice.invoice_line_ids.price_subtotal, 143.00)
 
     def test_02_discounts(self):
-        invoice = self._create_invoice(discount=50)
+        invoice = self._create_invoice(price_unit=200.00, discount=50)
         invoice.invoice_line_ids._onchange_discount()
         self.assertEqual(invoice.invoice_line_ids.discount_fixed, 0.00)
         self.assertEqual(invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(invoice.invoice_line_ids.price_subtotal, 100.00)
+
+    def test_03_discounts_fixed_free_product(self):
+        invoice = self._create_invoice(price_unit=0.00, discount_fixed=57)
+        invoice.invoice_line_ids._onchange_discount_fixed()
+        self.assertEqual(invoice.invoice_line_ids.discount, 0.00)
+        self.assertEqual(invoice.amount_total, 0.00)
+        self.assertEqual(invoice.invoice_line_ids.price_unit, 0.00)
+        self.assertEqual(invoice.invoice_line_ids.price_subtotal, 0.00)
