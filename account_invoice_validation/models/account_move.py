@@ -231,8 +231,6 @@ class AccountMove(models.Model):
         else:
             validation_state = "first_approval"
             values["approved_once"] = True
-            # set next approbator
-            values["validation_user_id"] = self.company_id.validation_user_id.id
 
         first(self.invoice_line_ids)
 
@@ -242,11 +240,20 @@ class AccountMove(models.Model):
                     "invoice_date": date_invoice,
                 }
             )
+        # Note about setting the validation_user_id:
+        # Either it's the first approval, and we need to set the next approbator,
+        # being the validation_user_id on company_id
+        # Either we have accepted the invoice for the second time, and we want to
+        # keep the last validator. To do so, we need to explicitely set
+        # the validation_user_id to the last one because
+        # if not given in the values of the write, it's a computed field
+        # that sets the validation_user_id to the partner_id.validation_user_id
 
         values.update(
             {
                 "partner_id": supplier_id,
                 "validation_state": validation_state,
+                "validation_user_id": self.company_id.validation_user_id.id,
                 "pending_date": False,
                 "ref": reference,
             }
