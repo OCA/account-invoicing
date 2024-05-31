@@ -10,6 +10,9 @@
     "license": "AGPL-3",
     "summary": "Manage triple discount on invoice lines",
     "depends": ["account"],
+    "excludes": [
+        "account_global_discount",
+    ],
     "data": ["report/invoice.xml", "views/account_move.xml"],
     "installable": True,
 }
