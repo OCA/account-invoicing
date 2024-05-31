@@ -29,6 +29,7 @@ msgid "Payment Blocked"
 msgstr "Paiement bloqué"
 
 #. module: account_invoice_block_payment
+#. odoo-python
 #: code:addons/account_invoice_block_payment/models/account_move.py:0
 #, python-format
 msgid "The payment on invoice {} is blocked."

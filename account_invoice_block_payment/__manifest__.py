@@ -3,7 +3,7 @@
 
 {
     "name": "Account Invoice Payment Block",
-    "version": "15.0.1.0.0",
+    "version": "16.0.1.0.0",
     "summary": "Module to block payment of invoices",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
