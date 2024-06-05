@@ -74,6 +74,7 @@ Authors
 
 * QubiQ
 * Tecnativa
+* GRAP
 
 Contributors
 ~~~~~~~~~~~~
