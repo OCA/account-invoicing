@@ -33,21 +33,23 @@ class AccountMoveLine(models.Model):
     @api.depends("discount1", "discount2", "discount3")
     def _compute_discount(self):
         for line in self:
-            line.discount = line._get_aggregated_discount_from_values(
-                {
-                    fname: line[fname]
-                    for fname in line._get_multiple_discount_field_names()
-                }
+            line.discount = line._get_aggregated_multiple_discounts(
+                [line[x] for x in line._get_multiple_discount_field_names()]
             )
 
-    def _get_aggregated_discount_from_values(self, values):
-        discount_fnames = self._get_multiple_discount_field_names()
-        discounts = []
-        for discount_fname in discount_fnames:
-            discounts.append(values.get(discount_fname) or 0.0)
-        return self._get_aggregated_multiple_discounts(discounts)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("discount") and not vals.get("discount1"):
+                vals["discount1"] = vals.pop("discount")
+        return super().create(vals_list)
 
     def _get_aggregated_multiple_discounts(self, discounts):
+        """
+        Returns the aggregate discount corresponding to any number of discounts.
+        For exemple, if discounts is [11.0, 22.0, 33.0]
+        It will return 46.5114
+        """
         discount_values = []
         for discount in discounts:
             discount_values.append(1 - (discount or 0.0) / 100.0)
@@ -56,5 +58,6 @@ class AccountMoveLine(models.Model):
         ) * 100
         return aggregated_discount
 
+    @api.model
     def _get_multiple_discount_field_names(self):
         return ["discount1", "discount2", "discount3"]

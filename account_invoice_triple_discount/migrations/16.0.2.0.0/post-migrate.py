@@ -16,8 +16,8 @@ def compute_discount(env):
         ]
     )
     for line in move_lines_to_compute:
-        discount = line._get_aggregated_discount_from_values(
-            {fname: line[fname] for fname in line._get_multiple_discount_field_names()}
+        discount = line._get_aggregated_multiple_discounts(
+            [line[x] for x in ["discount1", "discount2", "discount3"]]
         )
         rounded_discount = line._fields["discount"].convert_to_column(discount, line)
         openupgrade.logged_query(
