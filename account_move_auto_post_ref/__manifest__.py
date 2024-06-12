@@ -4,7 +4,7 @@
 {
     "name": "Recurrent invoice ref propagation",
     "summary": "Propagate customer ref when auto-generating next recurring invoice",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "development_status": "Alpha",
     "category": "Accounting/Accounting",
     "website": "https://github.com/OCA/account-invoicing",
