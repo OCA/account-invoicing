@@ -8,7 +8,7 @@
         <field name="payment_type" position="after">
             <field name="cash_on_delivery" />
             <field
-                    name="auto_validate_invoice"
+                    name="auto_validate_invoice_cash_on_delivery"
                     attrs="{'invisible': [('cash_on_delivery', '=', False)]}"
                 />
         </field>
