@@ -19,6 +19,11 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_show_currency_rate
+#: model_terms:ir.ui.view,arch_db:account_invoice_show_currency_rate.account_move_form
+msgid "Rate"
+msgstr ""
+
+#. module: account_invoice_show_currency_rate
 #: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_bank_statement_line__currency_rate_amount
 #: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_move__currency_rate_amount
 #: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_payment__currency_rate_amount
