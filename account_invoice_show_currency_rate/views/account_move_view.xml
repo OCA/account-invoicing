@@ -17,6 +17,18 @@ License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
                     attrs="{'invisible':[('show_currency_rate_amount', '=', False)]}"
                 />
             </xpath>
+            <xpath
+                expr="//field[@name='line_ids']/tree/field[@name='currency_id']"
+                position="after"
+            >
+                <field
+                    name="currency_rate"
+                    string="Rate"
+                    digits="[12,12]"
+                    groups="base.group_multi_currency"
+                    optional="hide"
+                />
+            </xpath>
         </field>
     </record>
 </odoo>
