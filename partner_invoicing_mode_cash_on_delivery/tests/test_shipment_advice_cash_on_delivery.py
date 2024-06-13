@@ -4,11 +4,11 @@
 
 from odoo import Command
 
+from odoo.addons.base.tests.common import BaseCommon
 from odoo.addons.queue_job.tests.common import trap_jobs
-from odoo.addons.shipment_advice.tests.common import Common
 
 
-class TestShipmentAdviceCashOnDelivery(Common):
+class TestPartnerInvoiceCashOnDelivery(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -73,42 +73,17 @@ class TestShipmentAdviceCashOnDelivery(Common):
         so.action_confirm()
         pick = so.picking_ids
 
-        # Process shipment advice & picking
-        shipment_advice = self.env["shipment.advice"].create(
-            {"shipment_type": "outgoing"}
-        )
-        self._plan_records_in_shipment(shipment_advice, pick)
-        self._in_progress_shipment_advice(shipment_advice)
-        wiz = self._load_records_in_shipment(shipment_advice, pick)
-        self.assertEqual(wiz.picking_ids, pick)
-        self.assertFalse(wiz.move_line_ids)
         pick.move_ids.write({"quantity_done": 1})
         with trap_jobs() as trap:
             pick._action_done()
-            if trap.jobs_count() > 0:
-                trap.assert_enqueued_job(
-                    pick._invoicing_at_shipping,
-                )
-                trap.perform_enqueued_jobs()
-        shipment_advice.action_done()
-        self.assertEqual(shipment_advice.state, "done")
+            trap.perform_enqueued_jobs()
 
-        return pick, shipment_advice
+        return pick
 
-    def _check_picking_shipment(self, pick, shipment, partner):
+    def _check_picking(self, pick, partner):
         self.assertEqual(len(pick.cash_on_delivery_invoice_ids), 1)
         cod_invoice = pick.cash_on_delivery_invoice_ids[0]
         self.assertEqual(cod_invoice.invoice_partner_display_name, partner.name)
-        action = shipment.with_context(
-            discard_logo_check=True
-        ).print_cash_on_delivery_invoices()
-        self.assertEqual(action.get("type"), "ir.actions.report")
-        self.assertEqual(action.get("report_name"), "account.report_invoice")
-        self.assertEqual(action.get("report_type"), "qweb-pdf")
-        self.assertEqual(
-            action.get("context").get("active_ids"),
-            pick.cash_on_delivery_invoice_ids.ids,
-        )
 
     def test01(self):
         """
@@ -116,7 +91,7 @@ class TestShipmentAdviceCashOnDelivery(Common):
         invoicing at shipping
         => Should be listed in picking.cash_on_delivery_invoice_ids
         """
-        pick, shipment = self._create_and_process_sale_order(
+        pick = self._create_and_process_sale_order(
             {
                 "partner_id": self.partner_standard.id,
                 "partner_invoice_id": self.partner_standard.id,
@@ -138,7 +113,7 @@ class TestShipmentAdviceCashOnDelivery(Common):
             }
         )
 
-        self._check_picking_shipment(pick, shipment, self.partner_standard)
+        self._check_picking(pick, self.partner_standard)
 
     def test02(self):
         """
@@ -146,7 +121,7 @@ class TestShipmentAdviceCashOnDelivery(Common):
         invoicing at shipping
         => Should be listed in picking.cash_on_delivery_invoice_ids
         """
-        pick, shipment = self._create_and_process_sale_order(
+        pick = self._create_and_process_sale_order(
             {
                 "partner_id": self.partner_at_shipping.id,
                 "partner_invoice_id": self.partner_at_shipping.id,
@@ -168,7 +143,7 @@ class TestShipmentAdviceCashOnDelivery(Common):
             }
         )
 
-        self._check_picking_shipment(pick, shipment, self.partner_at_shipping)
+        self._check_picking(pick, self.partner_at_shipping)
 
     def test03(self):
         """
@@ -176,7 +151,7 @@ class TestShipmentAdviceCashOnDelivery(Common):
         invoicing at shipping
         => Should NOT be listed in picking.cash_on_delivery_invoice_ids
         """
-        pick, dummy = self._create_and_process_sale_order(
+        pick = self._create_and_process_sale_order(
             {
                 "partner_id": self.partner_at_shipping.id,
                 "partner_invoice_id": self.partner_at_shipping.id,
@@ -206,7 +181,7 @@ class TestShipmentAdviceCashOnDelivery(Common):
         invoicing at shipping
         => Should NOT be listed in picking.cash_on_delivery_invoice_ids
         """
-        pick, dummy = self._create_and_process_sale_order(
+        pick = self._create_and_process_sale_order(
             {
                 "partner_id": self.partner_standard.id,
                 "partner_invoice_id": self.partner_standard.id,

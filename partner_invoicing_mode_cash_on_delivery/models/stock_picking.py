@@ -14,6 +14,11 @@ class StockPicking(models.Model):
     )
 
     def _invoice_at_shipping(self):
+        """
+        This will take this picking into account for invoice creation (at shipping)
+        when sale order has Cash On Delivery set and even if the partner is not
+        using that mode (at shipping).
+        """
         self.ensure_one()
         res = super()._invoice_at_shipping()
         res = res or self.sale_id.payment_mode_id.cash_on_delivery
@@ -23,7 +28,7 @@ class StockPicking(models.Model):
         # COD invoices will be validated automatically
         cod_invoices_to_validate = invoices.filtered(
             lambda invoice: invoice.payment_mode_id.cash_on_delivery
-            and invoice.payment_mode_id.auto_validate_invoice
+            and invoice.payment_mode_id.auto_validate_invoice_cash_on_delivery
         )
         # Non-COD invoices need to check in the call of `super`
         invoices_to_validate = invoices.filtered(
