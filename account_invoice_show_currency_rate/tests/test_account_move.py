@@ -5,7 +5,7 @@ from odoo import fields
 from odoo.tests import Form, common
 
 
-class TestAccountMove(common.SavepointCase):
+class TestAccountMove(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
