@@ -45,7 +45,7 @@ addon | version | maintainers | summary
 [account_invoice_refund_link](account_invoice_refund_link/) | 16.0.1.0.4 |  | Show links between refunds and their originator invoices.
 [account_invoice_refund_reason](account_invoice_refund_reason/) | 16.0.1.0.1 | [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Account Invoice Refund Reason.
 [account_invoice_section_sale_order](account_invoice_section_sale_order/) | 16.0.1.0.0 |  | For invoices targetting multiple sale order addsections with sale order name.
-[account_invoice_show_currency_rate](account_invoice_show_currency_rate/) | 16.0.1.0.1 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Show currency rate in invoices.
+[account_invoice_show_currency_rate](account_invoice_show_currency_rate/) | 16.0.1.0.2 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Show currency rate in invoices.
 [account_invoice_supplier_ref_unique](account_invoice_supplier_ref_unique/) | 16.0.1.0.0 |  | Checks that supplier invoices are not entered twice
 [account_invoice_supplier_self_invoice](account_invoice_supplier_self_invoice/) | 16.0.1.0.0 |  | Purchase Self Invoice
 [account_invoice_supplierinfo_update](account_invoice_supplierinfo_update/) | 16.0.1.1.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | In the supplier invoice, automatically updates all products whose unit price on the line is different from the supplier price
