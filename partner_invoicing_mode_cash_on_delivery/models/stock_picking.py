@@ -10,7 +10,14 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     cash_on_delivery_invoice_ids = fields.Many2many(
-        "account.move", string="COD Invoices", copy=False, readonly=True
+        comodel_name="account.move",
+        # Force the table relation to avoid naming collisions
+        relation="stock_picking_cash_on_delivery_move_id_rel",
+        column1="picking_id",
+        column2="move_id",
+        string="COD Invoices",
+        copy=False,
+        readonly=True,
     )
 
     def _invoice_at_shipping(self):
