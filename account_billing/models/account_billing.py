@@ -139,10 +139,11 @@ class AccountBilling(models.Model):
             else:
                 self.bill_type = "in_invoice"
         for line in invoices:
+            _amount_residual = line.amount_residual
             if line.move_type in ["out_refund", "in_refund"]:
-                line.amount_residual = line.amount_residual * (-1)
+                _amount_residual *= -1
             self.billing_line_ids += Billing_line.new(
-                {"invoice_id": line.id, "total": line.amount_residual}
+                {"invoice_id": line.id, "total": _amount_residual}
             )
 
     def _get_partner_id(self):
