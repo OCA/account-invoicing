@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2024 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+
+    <record id="payment_mode_cash_on_delivery" model="account.payment.mode">
+        <field name="name">Cash On Delivery</field>
+        <field name="cash_on_delivery" eval="True" />
+        <field name="auto_validate_invoice_cash_on_delivery" eval="True" />
+        <field
+            name="payment_method_id"
+            ref="account.account_payment_method_manual_in"
+        />
+        <field name="bank_account_link">variable</field>
+    </record>
+
+</odoo>

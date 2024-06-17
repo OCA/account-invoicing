@@ -18,5 +18,6 @@
     "data": [
         "views/account_payment_mode_views.xml",
         "views/stock_picking_views.xml",
+        "data/account_payment_mode.xml",
     ],
 }
