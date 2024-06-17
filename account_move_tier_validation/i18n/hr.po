@@ -6,7 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-06-17 11:24+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>\n"
 "Language-Team: none\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -14,147 +15,148 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_move_tier_validation
 #. odoo-python
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Bill"
-msgstr ""
+msgstr "Račun"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__can_review
 msgid "Can Review"
-msgstr ""
+msgstr "Može Ovjeriti"
 
 #. module: account_move_tier_validation
 #. odoo-python
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Credit Note"
-msgstr ""
+msgstr "Odobrenje"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__has_comment
 msgid "Has Comment"
-msgstr ""
+msgstr "Ima komentar"
 
 #. module: account_move_tier_validation
 #. odoo-python
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Invoice"
-msgstr ""
+msgstr "Račun"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Invoices Pending to Validate"
-msgstr ""
+msgstr "Računi čekaju za ovjeravanja"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Invoices validated and ready to be confirmed"
-msgstr ""
+msgstr "Ovjereni računi i čekaju potvrđivanje"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Invoices where no validation has been requested"
-msgstr ""
+msgstr "Računi na kojima nije zatražena ovjera"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Invoices where validation has not started"
-msgstr ""
+msgstr "Računi na kojima nije započela validacija"
 
 #. module: account_move_tier_validation
 #: model:ir.model,name:account_move_tier_validation.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Zapis dnevnika"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "My Accounts to review"
-msgstr ""
+msgstr "Moja konta za pregledati"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__need_validation
 msgid "Need Validation"
-msgstr ""
+msgstr "Potrebna ovjera"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Needs my Review"
-msgstr ""
+msgstr "Potrebna moja ovjera"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__next_review
 msgid "Next Review"
-msgstr ""
+msgstr "Sljedeća ovjera"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "No Validation Requested"
-msgstr ""
+msgstr "Ovjera nije zatražena"
 
 #. module: account_move_tier_validation
 #. odoo-python
 #: code:addons/account_move_tier_validation/models/account_move.py:0
 #, python-format
 msgid "Refund"
-msgstr ""
+msgstr "Povrat"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected
 msgid "Rejected"
-msgstr ""
+msgstr "Odbijeno"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected_message
 msgid "Rejected Message"
-msgstr ""
+msgstr "Poruka uz odbijanje"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__reviewer_ids
 msgid "Reviewers"
-msgstr ""
+msgstr "Ovejritelji"
 
 #. module: account_move_tier_validation
 #: model:ir.model,name:account_move_tier_validation.model_tier_definition
 msgid "Tier Definition"
-msgstr ""
+msgstr "Definicija granice"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__to_validate_message
 msgid "To Validate Message"
-msgstr ""
+msgstr "Poruka za ovjeru"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Validated"
-msgstr ""
+msgstr "Ovjereno"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated_message
 msgid "Validated Message"
-msgstr ""
+msgstr "Poruka za ovjereno"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Validation In Progress"
-msgstr ""
+msgstr "Ovjeravanje u tijeku"
 
 #. module: account_move_tier_validation
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
 msgid "Validation Not Started"
-msgstr ""
+msgstr "Ovjeravanje nije započelo"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validation_status
 msgid "Validation Status"
-msgstr ""
+msgstr "Status ovjeravanja"
 
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
 msgid "Validations"
-msgstr ""
+msgstr "Ovjeravanja"
