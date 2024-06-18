@@ -9,14 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-02 03:40+0000\n"
-"PO-Revision-Date: 2018-02-02 03:40+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2018\n"
+"PO-Revision-Date: 2024-06-18 16:38+0000\n"
+"Last-Translator: jakobkrabbe <jakob@syscare.se>\n"
 "Language-Team: Swedish (https://www.transifex.com/oca/teams/23907/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:mail.template,body_html:account_invoice_supplier_self_invoice.email_template_self_invoice
@@ -62,6 +63,46 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Dear\n"
+"        <t t-if=\"object.partner_id.parent_id\">\n"
+"            <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t> ("
+"<t t-out=\"object.partner_id.parent_id.name or ''\">Azure Interior</t>),\n"
+"        </t>\n"
+"        <t t-else=\"\">\n"
+"            <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t>,\n"
+"        </t>\n"
+"        <br><br>\n"
+"        Here is your Self-Bill Faktura\n"
+"        <t t-if=\"object.name and object.ref\">\n"
+"            <strong><t t-out=\"object.ref or ''\">INVREF/2021/05/"
+"0005</t></strong>\n"
+"        </t>\n"
+"        <t t-if=\"object.name and not object.ref\">\n"
+"            <strong><t t-out=\"object.name or ''\">INV/2021/05/"
+"0005</t></strong>\n"
+"        </t>\n"
+"        <t t-if=\"object.invoice_origin\">\n"
+"            (with reference: <t t-out=\"object.invoice_origin or ''\""
+">SUB003</t>)\n"
+"        </t>\n"
+"        amounting in <strong t-out=\"format_amount(object.amount_total, "
+"object.currency_id) or ''\">$ 143,750.00</strong>\n"
+"        to <t t-out=\"object.company_id.name or ''\">YourCompany</t>.\n"
+"        <t t-if=\"object.payment_state in ('paid', 'in_payment')\">\n"
+"            Denna Self-Bill faktura är redan betald för.\n"
+"        </t>\n"
+"        <br><br>\n"
+"        Tveka inte att kontakta oss om du har några frågor.\n"
+"        <t t-if=\"object.invoice_user_id.signature\">\n"
+"            <br>\n"
+"            <t t-out=\"object.invoice_user_id.signature or ''\">--"
+"<br>Mitchell Admin</t>\n"
+"        </t>\n"
+"    </p>\n"
+"</div>\n"
+"        "
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.res_config_settings_view_form
@@ -70,6 +111,9 @@ msgid ""
 "specific.\" aria-label=\"Values set here are company-specific.\" groups="
 "\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Värdena som anges här är "
+"företagsspecifika.\" aria-label=\"Värdena som anges här är företagsspecifika."
+"\" groups=\"base.group_multi_company\" role=\"img\"/>"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.invoice_supplier_form
@@ -79,26 +123,30 @@ msgid ""
 "Number.\n"
 "                    </span>"
 msgstr ""
+"<span>.\n"
+"                        Denna faktura kommer att generera ett nytt "
+"fakturanummer för självfakturering.\n"
+"                    </span>"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_document_self_invoice
 msgid "<strong>Credit Note Date:</strong>"
-msgstr ""
+msgstr "<strong>Datum för kreditfaktura:</strong>"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_document_self_invoice
 msgid "<strong>Invoice Date:</strong>"
-msgstr ""
+msgstr "<strong>Fakturadatum:</strong>"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_document_self_invoice
 msgid "<strong>Receipt Date:</strong>"
-msgstr ""
+msgstr "<strong>Mottagningsdatum:</strong>"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.external_layout_striped_self_invoice
 msgid "<strong>This Self-bill is not valid</strong>"
-msgstr ""
+msgstr "<strong>Den här självfakturan är inte giltig</strong>"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_bank_statement_line__can_self_invoice
@@ -107,58 +155,58 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users__self_invoice
 msgid "Approves Self Billing"
-msgstr ""
+msgstr "Godkänner självfakturering"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Företag"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Konfigureringsinställningar"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.view_partner_selfinvoice_form
 msgid "Create missing Self Billing sequences"
-msgstr ""
+msgstr "Skapa sekvenser för självfakturering som saknas"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_company__self_invoice_prefix
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_config_settings__self_invoice_prefix
 msgid "Default Self Billing prefix"
-msgstr ""
+msgstr "Standard Prefix för självfakturering"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.res_config_settings_view_form
 msgid "Default prefix when generating a new sequence for Self Billing"
-msgstr ""
+msgstr "Standardprefix vid generering av en ny sekvens för Self Billing"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_bank_statement_line__is_self_invoice_number_different
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_move__is_self_invoice_number_different
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_payment__is_self_invoice_number_different
 msgid "Different Invoice Reference and Self-Bill Invoice Number"
-msgstr ""
+msgstr "Olika fakturareferenser och fakturanummer för självfakturering"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_report_footer
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_users__self_invoice_report_footer
 msgid "Footer text displayed at the bottom of the self invoice reports."
-msgstr ""
+msgstr "Sidfotstext som visas längst ner på självfakturarapporterna."
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_account_bank_statement_line__set_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_account_move__set_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_account_payment__set_self_invoice
 msgid "If enabled, create a Self-Bill Invoice when validating."
-msgstr ""
+msgstr "Om den är aktiverad skapas en Self-Bill-faktura vid validering."
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_partner_prefix
@@ -169,68 +217,72 @@ msgid ""
 "With partner prefix: <COMP_PREFIX>/<PARTNER_PREFIX>/INV/<year>\n"
 "Without partner prefix: <COMP_PREFIX>/INV/<year>"
 msgstr ""
+"Om detta anges kommer Self Billing Partner Prefix att läggas till efter "
+"företagsprefixet när sekvensen skapas för första gången. T.ex:\n"
+"Med partnerprefix: <COMP_PREFIX>/<PARTNER_PREFIX>/INV/<year>\n"
+"Utan partnerprefix: <COMP_PREFIX>/INV/<year>"
 
 #. module: account_invoice_supplier_self_invoice
 #. odoo-python
 #: code:addons/account_invoice_supplier_self_invoice/models/res_partner.py:0
 #, python-format
 msgid "Invoiced by the recipent"
-msgstr ""
+msgstr "Faktureras av mottagaren"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Verifikat"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.external_layout_striped_self_invoice
 msgid "Logo"
-msgstr ""
+msgstr "Logotyp"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:mail.template,name:account_invoice_supplier_self_invoice.email_template_self_invoice
 msgid "Purchase Self-Bill Invoice: Send by email"
-msgstr ""
+msgstr "Köp självfaktura: Skicka via e-post"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.view_partner_selfinvoice_form
 msgid "Self Billing"
-msgstr ""
+msgstr "Självfakturering"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_refund_sequence_id
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users__self_invoice_refund_sequence_id
 msgid "Self Billing Refund sequence"
-msgstr ""
+msgstr "Självfakturering Återbetalningssekvens"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_report_footer
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users__self_invoice_report_footer
 msgid "Self Billing footer"
-msgstr ""
+msgstr "Sidfot för självfakturering"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_partner_prefix
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users__self_invoice_partner_prefix
 msgid "Self Billing partner prefix"
-msgstr ""
+msgstr "Prefix för självfakturerande partner"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_company__self_invoice_prefix
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_config_settings__self_invoice_prefix
 msgid "Self Billing prefix for Bills generated by this company"
-msgstr ""
+msgstr "Prefix för självfakturering för fakturor som genereras av detta företag"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_sequence_id
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_users__self_invoice_sequence_id
 msgid "Self Billing sequence"
-msgstr ""
+msgstr "Självfaktureringssekvens"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.view_account_invoice_filter
 msgid "Self Invoices"
-msgstr ""
+msgstr "Självfakturering"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_bank_statement_line__self_invoice_number
@@ -238,24 +290,24 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_payment__self_invoice_number
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.invoice_supplier_form
 msgid "Self-Bill Invoice Number"
-msgstr ""
+msgstr "Fakturanummer för självfakturering"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_account_bank_statement_line__is_self_invoice_number_different
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_account_move__is_self_invoice_number_different
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_account_payment__is_self_invoice_number_different
 msgid "Self-Bill Number is different than Invoice Reference"
-msgstr ""
+msgstr "Fakturanummer skiljer sig från fakturareferens"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_document_self_invoice
 msgid "Self-bill Credit Note"
-msgstr ""
+msgstr "Självfakturering Kreditnota"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_document_self_invoice
 msgid "Self-bill Invoice"
-msgstr ""
+msgstr "Faktura för självfakturering"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:mail.template,report_name:account_invoice_supplier_self_invoice.email_template_self_invoice
@@ -263,29 +315,31 @@ msgid ""
 "Self_bill_invoice_{{ (object.ref or object.name or '').replace('/','_') }}"
 "{{ object.state == 'draft' and '_draft' or '' }}"
 msgstr ""
+"Self_bill_invoice_{{ (object.ref or object.name or '').replace('/','_') }}{{{"
+" object.state == 'draft' and '_draft' eller '' }}"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_bank_statement_line__set_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_move__set_self_invoice
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_account_payment__set_self_invoice
 msgid "Set Self Invoice"
-msgstr ""
+msgstr "Ställ in självfakturering"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.external_layout_striped_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_document_self_invoice
 msgid "Tax ID"
-msgstr ""
+msgstr "Skatte-ID"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_document_self_invoice
 msgid "Vendor Bill"
-msgstr ""
+msgstr "Säljarrevers"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_document_self_invoice
 msgid "Vendor Credit Note"
-msgstr ""
+msgstr "Kreditnota till leverantör"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_partner__self_invoice
@@ -294,18 +348,20 @@ msgid ""
 "When checked, all vendor Bills will generate by default a Self-Bill Invoice "
 "on confirmation."
 msgstr ""
+"När detta är markerat genererar alla leverantörsfakturor som standard en "
+"egenfaktura vid bekräftelse."
 
 #. module: account_invoice_supplier_self_invoice
 #. odoo-python
 #: code:addons/account_invoice_supplier_self_invoice/models/res_partner.py:0
 #, python-format
 msgid "You must set a Self Billing prefix in Account Settings."
-msgstr ""
+msgstr "Du måste ange ett Self Billing-prefix i Kontoinställningar."
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.invoice_supplier_form
 msgid "is different than Invoice Reference."
-msgstr ""
+msgstr "är annorlunda än Fakturareferens."
 
 #. module: account_invoice_supplier_self_invoice
 #: model:mail.template,subject:account_invoice_supplier_self_invoice.email_template_self_invoice
@@ -313,6 +369,8 @@ msgid ""
 "{{ object.company_id.name }} Self-Bill Invoice (Ref {{ object.ref or object."
 "name or 'n/a' }})"
 msgstr ""
+"{{ object.company_id.name }} Faktura för självfakturering (Ref {{ object.ref "
+"or object.name or 'n/a' }})"
 
 #~ msgid "Description"
 #~ msgstr "Beskrivning"
