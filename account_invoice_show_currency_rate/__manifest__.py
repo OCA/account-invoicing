@@ -3,7 +3,7 @@
 {
     "name": "Account Invoice Show Currency Rate",
     "summary": "Show currency rate in invoices.",
-    "version": "16.0.1.0.2",
+    "version": "16.0.1.0.3",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Tecnativa, Odoo Community Association (OCA)",
