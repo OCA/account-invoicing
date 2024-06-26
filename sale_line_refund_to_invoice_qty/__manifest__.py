@@ -14,6 +14,7 @@
     "depends": ["sale_management"],
     "data": [
         "views/account_move_views.xml",
+        "views/res_config_settings_views.xml",
         "views/sale_order_views.xml",
         "wizards/account_move_reversal_view.xml",
     ],

@@ -49,6 +49,9 @@ Furthermore, after creating the credit note, you can mark the field "Sale qty
 not to reinvoice" to decide the criteria to be used for each specific invoice
 line.
 
+Enabling the "Reinvoice credit note by default" flag in the Invoice settings, will
+enable the "This credit note will be reinvoiced" flag on Credit Notes by default.
+
 Bug Tracker
 ===========
 
