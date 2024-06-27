@@ -9,21 +9,22 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-29 02:39+0000\n"
-"PO-Revision-Date: 2017-04-29 02:39+0000\n"
-"Last-Translator: Ediz Duman <neps1192@gmail.com>, 2017\n"
+"PO-Revision-Date: 2024-06-27 08:25+0000\n"
+"Last-Translator: Ömer KÜLAK <omer.kulak@kitayazilim.com>\n"
 "Language-Team: Turkish (https://www.transifex.com/oca/teams/23907/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_fiscal_position_update
 #: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_bank_statement_line__fiscal_position_id
 #: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_move__fiscal_position_id
 #: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_payment__fiscal_position_id
 msgid "Fiscal Position"
-msgstr ""
+msgstr "Mali Koşul"
 
 #. module: account_invoice_fiscal_position_update
 #: model:ir.model.fields,help:account_invoice_fiscal_position_update.field_account_bank_statement_line__fiscal_position_id
@@ -34,11 +35,14 @@ msgid ""
 "customers or sales orders/invoices. The default value comes from the "
 "customer."
 msgstr ""
+"Mali koşullar, vergileri ve hesapları belirli müşterilere veya satış sipariş"
+"lerine/faturalara uyarlamak için kullanılır. Varsayılan değer müşteriden "
+"gelir."
 
 #. module: account_invoice_fiscal_position_update
 #: model:ir.model,name:account_invoice_fiscal_position_update.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Yevmiye Kaydı"
 
 #. module: account_invoice_fiscal_position_update
 #. odoo-python
@@ -50,6 +54,11 @@ msgid ""
 " - %s\n"
 "You should update the Account and the Taxes of these invoice lines manually."
 msgstr ""
+"Aşağıdaki fatura satırları Ürün içermediği için yeni Mali Koşulları "
+"güncellenmedi:\n"
+" - %s\n"
+"Bu fatura satırlarının Hesabını ve Vergilerini manuel olarak "
+"güncellemelisiniz."
 
 #. module: account_invoice_fiscal_position_update
 #. odoo-python
@@ -60,13 +69,15 @@ msgid ""
 "don't have products. You should update the Account and the Taxes of each "
 "invoice line manually."
 msgstr ""
+"Fatura satırları, ürün içermediği için yeni Mali Koşulları güncellenmedi. "
+"Her fatura satırının Hesabını ve Vergilerini manuel olarak güncellemelisiniz."
 
 #. module: account_invoice_fiscal_position_update
 #. odoo-python
 #: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid "Warning"
-msgstr ""
+msgstr "Uyarı"
 
 #~ msgid "Invoice"
 #~ msgstr "Fatura"
