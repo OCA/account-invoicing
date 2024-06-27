@@ -87,16 +87,11 @@ class SaleOrder(models.Model):
     def _get_invoice_grouping_keys(self) -> list:
         """
         We override the standard (in sale) grouping function in order to
-        add some missing keys. We remove also the partner_id key.
+        add some missing keys.
         """
         keys = super()._get_invoice_grouping_keys()
-        if "partner_invoice_id" not in keys:
-            keys.append("partner_invoice_id")
         if "payment_term_id" not in keys:
             keys.append("payment_term_id")
-        # Removing unwanted keys as we group on invoiced partner
-        if "partner_id" in keys:
-            keys.remove("partner_id")
         return keys
 
     def _get_generated_invoices(self, partition):
