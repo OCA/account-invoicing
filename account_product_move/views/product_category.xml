@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="product_category_form_view" model="ir.ui.view">
+        <field name="name">product.category.form.add_product_moves</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group name="product_moves" col="2">
+                    <field
+                        name="product_move_ids"
+                        widget="many2many_tags"
+                        options="{'no_create_edit': True}"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
