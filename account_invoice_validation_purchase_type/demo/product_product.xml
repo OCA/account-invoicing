@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+  <record id="product_product_purchase_type1" model="product.product">
+    <field name="name">Purchase type 1</field>
+    <field name="list_price" eval="1000" />
+    <field name="type">service</field>
+    <field name="uom_po_id" ref="uom.product_uom_unit" />
+    <field name="uom_id" ref="uom.product_uom_unit" />
+    <field name="purchase_type" eval="True" />
+    <field name="purchase_ok" eval="True" />
+  </record>
+  <record id="product_product_purchase_type2" model="product.product">
+    <field name="name">Purchase type 2</field>
+    <field name="list_price" eval="123.456" />
+    <field name="type">service</field>
+    <field name="uom_po_id" ref="uom.product_uom_unit" />
+    <field name="uom_id" ref="uom.product_uom_unit" />
+    <field name="purchase_type" eval="True" />
+    <field name="purchase_ok" eval="True" />
+  </record>
+</odoo>
