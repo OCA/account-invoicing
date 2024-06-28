@@ -104,7 +104,7 @@ class AccountMoveLine(models.Model):
                     self.tax_ids,
                     self.company_id,
                 )
-                self.with_context(check_move_validity=False).discount = 0.0
+                self._set_discount(0.0)
                 return price_unit
             else:
                 rule_id = self.env["product.pricelist.item"].browse(rule_id)
@@ -124,7 +124,13 @@ class AccountMoveLine(models.Model):
                     target_currency=self.currency_id,
                 )
                 price_unit = max(base_price, final_price)
-                self.with_context(
-                    check_move_validity=False
-                ).discount = self._calculate_discount(base_price, final_price)
+                self._set_discount(self._calculate_discount(base_price, final_price))
         return price_unit
+
+    def _set_discount(self, amount):
+        if self.env["account.move.line"]._fields.get("discount1", False):
+            # OCA/account_invoice_triple_discount is installed
+            fname = "discount1"
+        else:
+            fname = "discount"
+        self.with_context(check_move_validity=False)[fname] = amount
