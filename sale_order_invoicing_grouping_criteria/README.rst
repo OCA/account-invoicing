@@ -106,6 +106,11 @@ Contributors
 
    -  Pedro M. Baeza
 
+-  `Sygel <https://www.sygel.es/>`__:
+
+   -  Valentin Vinagre valentin.vinagre@sygel.es
+   -  Roger Sans roger.sans@sygel.es
+
 Maintainers
 -----------
 
