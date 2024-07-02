@@ -88,17 +88,13 @@ msgstr ""
 #. module: sale_order_invoicing_grouping_criteria
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
 msgid "If empty, invoicing address, company and currency will be applied."
-msgstr "Wenn leer, werden Rechnungsadresse, Unternehmen und Währung übernommen."
+msgstr ""
+"Wenn leer, werden Rechnungsadresse, Unternehmen und Währung übernommen."
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.ui.menu,name:sale_order_invoicing_grouping_criteria.menu_sale_invoice_grouping_criteria
 msgid "Invoicing Grouping Criteria"
 msgstr "Gruppierungsmerkmale für die Rechnungsstellung"
-
-#. module: sale_order_invoicing_grouping_criteria
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria____last_update
-msgid "Last Modified on"
-msgstr "Zuletzt geändert am"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__write_uid
@@ -133,3 +129,6 @@ msgstr "Verkaufsauftrag"
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
 msgid "Sales Order Invoicing"
 msgstr "Rechnungsstellung von Verkaufsaufträgen"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Zuletzt geändert am"
