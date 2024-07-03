@@ -19,17 +19,38 @@ msgid "Account Move Reversal"
 msgstr ""
 
 #. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move__display_name
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_reversal__display_name
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_company__display_name
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model_terms:ir.ui.view,arch_db:sale_line_refund_to_invoice_qty.res_config_settings_view_form
+msgid ""
+"Enables the \"This credit note will be reinvoiced\" flag on Credit Notes by "
+"default"
 msgstr ""
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move__id
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_line__id
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_reversal__id
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_company__id
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_config_settings__id
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__id
 msgid "ID"
 msgstr ""
@@ -48,6 +69,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move____last_update
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_line____last_update
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_reversal____last_update
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_company____last_update
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -74,6 +97,12 @@ msgstr ""
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__qty_refunded_not_invoiceable
 msgid "Quantity Refunded Not Invoiceable"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_company__reinvoice_credit_note_default
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_config_settings__reinvoice_credit_note_default
+msgid "Reinvoice credit notes by default"
 msgstr ""
 
 #. module: sale_line_refund_to_invoice_qty
