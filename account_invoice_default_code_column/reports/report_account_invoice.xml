@@ -19,7 +19,7 @@
         <!-- Add 'default_code' Column in table body -->
         <xpath expr="//td[@name='account_invoice_line_name']" position="before">
             <td name="account_invoice_line_default_code">
-                <span t-if="line.product_id" t-field="line.product_id.default_code"/>
+                <span t-if="line.product_id" t-field="line.product_id.default_code" style="white-space: nowrap;"/>
             </td>
         </xpath>
 
