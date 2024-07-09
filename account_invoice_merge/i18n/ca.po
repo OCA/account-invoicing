@@ -10,26 +10,27 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-04 11:09+0000\n"
-"PO-Revision-Date: 2017-01-04 11:09+0000\n"
-"Last-Translator: Carles Antoli <carlesantoli@hotmail.com>, 2017\n"
+"PO-Revision-Date: 2024-07-09 09:58+0000\n"
+"Last-Translator: Jaime Ruiz Maccione <jaime.ruiz@sygel.es>\n"
 "Language-Team: Catalan (https://www.transifex.com/oca/teams/23907/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: account_invoice_merge
 #. odoo-python
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "All invoices must have the same: \n"
-msgstr ""
+msgstr "Totes les factures han de tenir el mateix: \n"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Are you sure you want to merge these invoices?"
-msgstr ""
+msgstr "Estàs segur que vols fusionar aquestes factures?"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -56,12 +57,12 @@ msgstr "Veure el nom"
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Draft"
-msgstr ""
+msgstr "Esborrany"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__error_message
 msgid "Error Message"
-msgstr ""
+msgstr "Missatge d'error"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__id
@@ -71,17 +72,17 @@ msgstr "ID"
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__date_invoice
 msgid "Invoice Date"
-msgstr "Data de la factura:"
+msgstr "Data de la factura"
 
 #. module: account_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Entrada de diari"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__keep_references
 msgid "Keep references from original invoices"
-msgstr ""
+msgstr "Mantingues les referències de les factures originals"
 
 #. module: account_invoice_merge
 #: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge____last_update
@@ -101,21 +102,21 @@ msgstr "Darrera Actualització el"
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Invoices"
-msgstr ""
+msgstr "Fusionar factures"
 
 #. module: account_invoice_merge
 #: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
 #: model:ir.model,name:account_invoice_merge.model_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Merge Partner Invoice"
-msgstr ""
+msgstr "Fusionar factura del soci"
 
 #. module: account_invoice_merge
 #. odoo-python
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Merge-able State (ex : %s)"
-msgstr ""
+msgstr "Estat fusionable (p. ex.: %s)"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -131,6 +132,17 @@ msgid ""
 "                        * Invoice lines are exactly the same except for the\n"
 "                        product, quantity and unit.<br/>"
 msgstr ""
+"Si us plau, tingueu en compte que:<br/><br/>\n"
+"\n"
+"                        Les factures només es fusionaran si:<br/>\n"
+"                        * Les factures estan en estat 'esborrany'.<br/>\n"
+"                        * Les factures pertanyen al mateix soci.<br/>\n"
+"                        * Les factures tenen la mateixa empresa, soci, "
+"adreça, moneda, diari, venedor, compte i tipus.<br/><br/>\n"
+"                        Les línies només es fusionaran si:<br/>\n"
+"                        * Les línies de factura són exactament iguals "
+"excepte pel \n"
+"                        producte, la quantitat i la unitat.<br/>"
 
 #. module: account_invoice_merge
 #. odoo-python
@@ -138,6 +150,7 @@ msgstr ""
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
 msgstr ""
+"Si us plau, seleccioneu múltiples factures per fusionar a la vista de llista."
 
 #~ msgid "Invoice"
 #~ msgstr "Factura"
