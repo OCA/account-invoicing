@@ -3,6 +3,10 @@
 
 from odoo import _, models
 
+from odoo.addons.account.models.account_move import TYPE_REVERSE_MAP
+
+TYPE_REVERSE_MAP.update({"out_refund": "out_invoice", "in_refund": "in_invoice"})
+
 
 class AccountMove(models.Model):
 
@@ -15,16 +19,6 @@ class AccountMove(models.Model):
             "invoice_payment_term_id": None,
             "invoice_user_id": self.invoice_user_id.id,
         }
-
-    def _reverse_move_vals(self, default_values, cancel=True):
-        if self.env.context.get("reinvoice_refund"):
-            if self.move_type == "out_refund":
-                default_values["move_type"] = "out_invoice"
-            elif self.move_type == "in_refund":
-                default_values["move_type"] = "in_invoice"
-        return super(AccountMove, self)._reverse_move_vals(
-            default_values, cancel=cancel
-        )
 
     def action_refund_reinvoice(self):
         self.ensure_one()
