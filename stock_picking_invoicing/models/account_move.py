@@ -47,10 +47,11 @@ class AccountMove(models.Model):
         reverse_moves = super()._reverse_moves(
             default_values_list=default_values_list, cancel=cancel
         )
-        for move, reverse_move in zip(self, reverse_moves):
+        for move, reverse_move in zip(self, reverse_moves, strict=False):
             for line in move.invoice_line_ids:
                 reverse_line = reverse_move.invoice_line_ids.filtered(
-                    lambda l: l.product_id == line.product_id
+                    lambda invoice_line, line=line: invoice_line.product_id
+                    == line.product_id
                 )
                 reverse_line.move_line_ids = line.move_line_ids.ids
 
