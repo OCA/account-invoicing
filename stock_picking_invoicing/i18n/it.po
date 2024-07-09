@@ -87,7 +87,8 @@ msgid ""
 "Group pickings/moves to create invoice(s):\n"
 "Picking: One invoice per picking;\n"
 "Partner: One invoice for each picking's partner;\n"
-"Partner/Product: One invoice per picking's partner and group product into a single invoice line."
+"Partner/Product: One invoice per picking's partner and group product into a "
+"single invoice line."
 msgstr ""
 
 #. module: stock_picking_invoicing
@@ -139,11 +140,6 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__journal_type
 msgid "Journal Type"
-msgstr ""
-
-#. module: stock_picking_invoicing
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: stock_picking_invoicing
@@ -258,6 +254,11 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_move
 msgid "Stock Move"
+msgstr ""
+
+#. module: stock_picking_invoicing
+#: model:account.fiscal.position,name:stock_picking_invoicing.fiscal_position_demo
+msgid "Test - Stock Picking Invocing"
 msgstr ""
 
 #. module: stock_picking_invoicing

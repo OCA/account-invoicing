@@ -44,7 +44,6 @@ class StockMove(models.Model):
         date_done = min(pickings.mapped("date_done"))
 
         if inv_type in ("in_invoice", "in_refund"):
-
             seller = product._select_seller(
                 partner_id=partner, quantity=qty, date=date_done
             )

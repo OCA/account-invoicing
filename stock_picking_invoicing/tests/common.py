@@ -24,7 +24,7 @@ class TestPickingInvoicingCommon(TransactionCase):
         # Force product availability
         for move in picking.move_ids_without_package:
             self._run_line_onchanges(move)
-            move.quantity_done = move.product_uom_qty
+            move.quantity = move.product_uom_qty
         picking.button_validate()
 
     def create_invoice_wizard(self, pickings):

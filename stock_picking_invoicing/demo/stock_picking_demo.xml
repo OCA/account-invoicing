@@ -253,19 +253,4 @@
         <field name="product_uom_qty">1</field>
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
-    <function
-        model="stock.picking"
-        name="action_confirm"
-        eval="[[ref('stock_picking_invoicing_7')]]"
-    />
-    <function
-        model="stock.picking"
-        name="action_assign"
-        eval="[[ref('stock_picking_invoicing_7')]]"
-    />
-    <function
-        model="stock.picking"
-        name="button_validate"
-        eval="[[ref('stock_picking_invoicing_7')]]"
-    />
 </odoo>

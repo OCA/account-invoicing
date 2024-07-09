@@ -15,7 +15,7 @@
                     string="Invoicing"
                     colspan="4"
                     groups="base.group_no_one"
-                    attrs="{'invisible': [('invoice_state', 'in', [False, 'none'])]}"
+                    invisible="invoice_state in [False, 'none']"
                 >
                     <field name="invoice_line_ids" readonly="1" nolabel="1" />
                 </group>
@@ -32,9 +32,7 @@
                 <field name="invoice_state" invisible="1" />
             </field>
             <field name="invoice_line_ids" position="attributes">
-                <attribute
-                    name="attrs"
-                >{'invisible': [('invoice_state', 'in', [False, 'none'])]}</attribute>
+                <attribute name="invisible">invoice_state in [False, 'none']</attribute>
             </field>
         </field>
     </record>

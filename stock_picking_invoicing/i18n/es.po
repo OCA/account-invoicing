@@ -153,11 +153,6 @@ msgid "Journal Type"
 msgstr "Tipo de Diario"
 
 #. module: stock_picking_invoicing
-#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping____last_update
-msgid "Last Modified on"
-msgstr "Última modificación en"
-
-#. module: stock_picking_invoicing
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_invoice_onshipping__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
@@ -272,6 +267,11 @@ msgid "Stock Move"
 msgstr "Movimiento de Stock"
 
 #. module: stock_picking_invoicing
+#: model:account.fiscal.position,name:stock_picking_invoicing.fiscal_position_demo
+msgid "Test - Stock Picking Invocing"
+msgstr ""
+
+#. module: stock_picking_invoicing
 #: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_invoice_state_mixin__invoice_state__2binvoiced
 #: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_move__invoice_state__2binvoiced
 #: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_picking__invoice_state__2binvoiced
@@ -302,6 +302,9 @@ msgstr "Verdadero"
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "or"
 msgstr "o"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última modificación en"
 
 #~ msgid "Invoice"
 #~ msgstr "Factura"
