@@ -92,7 +92,7 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
 
         # Test PriceList and Sellers Price
         product_price_test = cls.env.ref("product.product_product_6")
-        cls.price_list = cls.env.ref("product.list0")
+        cls.price_list = cls.env["product.pricelist"].create({"name": "Test pricelist"})
         cls.price_list.item_ids.create(
             {
                 "compute_price": "fixed",
@@ -104,8 +104,8 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
         # Data has duplicate line with 2 Prices for same Partner,
         # just remove one for the test.
         seller_to_delete = product_price_test.seller_ids.filtered(
-            lambda l: l.price == 785.0
-            and l.partner_id == cls.env.ref("base.res_partner_4")
+            lambda line: line.price == 785.0
+            and line.partner_id == cls.env.ref("base.res_partner_4")
         )
         seller_to_delete.unlink()
 
@@ -335,7 +335,7 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
         picking.action_assign()
         # Force product availability
         for move in picking.move_ids_without_package:
-            move.quantity_done = move.product_uom_qty / 2.0
+            move.quantity = move.product_uom_qty / 2.0
             # Test Price Unit informed by User
             move.price_unit = 345.0
 
@@ -695,7 +695,8 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
                     self.assertEqual(
                         seller.price,
                         line.price_unit,
-                        "Product Price in invoice line should be the same of Seller Price.",
+                        "Product Price in invoice line should "
+                        "be the same of Seller Price.",
                     )
         # Confirm Invoice
         invoice.action_post()
@@ -752,6 +753,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
         for line in picking.move_ids_without_package:
             self._run_line_onchanges(line)
             # Force Split
-            line.quantity_done = 10
+            line.quantity = 10
 
         picking.button_validate()
