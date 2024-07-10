@@ -12,6 +12,7 @@
                     type="object"
                     class="oe_highlight"
                     groups="account.group_account_invoice"
+                    attrs="{'invisible': [('state', '!=', 'draft')]}"
                 />
             </button>
         </field>
