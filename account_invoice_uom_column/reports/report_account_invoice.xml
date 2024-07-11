@@ -18,7 +18,8 @@
 
         <!-- HEADER : Add 'UoM' Column after the 'Quantity' Column -->
         <xpath expr="//th[@name='th_quantity']" position="after">
-            <th name="th_uom_id" class="text-start"><span>UoM</span></th>
+            <th name="th_uom_id" class="text-start" groups="uom.group_uom"><span
+                >UoM</span></th>
         </xpath>
 
 
@@ -27,8 +28,8 @@
 
         <!-- BODY : Add 'Uom' column after 'Quantity' column -->
         <xpath expr="//span[@t-field='line.quantity']/.." position="after">
-            <td class="text-start">
-                <span t-field="line.product_uom_id" groups="uom.group_uom" />
+            <td class="text-start" groups="uom.group_uom">
+                <span t-field="line.product_uom_id" />
             </td>
         </xpath>
 
