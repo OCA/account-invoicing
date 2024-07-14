@@ -33,14 +33,12 @@ class AccountBilling(models.Model):
     date = fields.Date(
         string="Billing Date",
         readonly=True,
-        states={"draft": [("readonly", False)]},
         default=fields.Date.context_today,
         help="Effective date for accounting entries",
         tracking=True,
     )
     threshold_date = fields.Date(
         readonly=True,
-        states={"draft": [("readonly", False)]},
         default=lambda self: fields.Date.context_today(self),
         required=True,
         tracking=True,
@@ -67,13 +65,11 @@ class AccountBilling(models.Model):
     narration = fields.Html(
         string="Notes",
         readonly=True,
-        states={"draft": [("readonly", False)]},
         help="Notes",
     )
     bill_type = fields.Selection(
         selection=[("out_invoice", "Customer Invoice"), ("in_invoice", "Vendor Bill")],
         readonly=True,
-        states={"draft": [("readonly", False)]},
         default=lambda self: self._context.get("bill_type", False),
         help="Type of invoice",
     )
@@ -83,7 +79,6 @@ class AccountBilling(models.Model):
         required=True,
         default=lambda self: self.env.company.currency_id,
         readonly=True,
-        states={"draft": [("readonly", False)]},
         help="Currency",
     )
     billing_line_ids = fields.One2many(
@@ -91,13 +86,11 @@ class AccountBilling(models.Model):
         inverse_name="billing_id",
         string="Bill Lines",
         readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     threshold_date_type = fields.Selection(
         selection=[("invoice_date_due", "Due Date"), ("invoice_date", "Invoice Date")],
         required=True,
         readonly=True,
-        states={"draft": [("readonly", False)]},
         default="invoice_date_due",
         help="All invoices with date (threshold date type) before and equal to "
         "threshold date will be listed in billing lines",

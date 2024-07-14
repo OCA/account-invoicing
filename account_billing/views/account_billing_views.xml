@@ -101,7 +101,7 @@
                     <button
                         name="validate_billing"
                         class="oe_highlight"
-                        states="draft"
+                        invisible="state != 'draft'"
                         string="Validate"
                         type="object"
                     />
@@ -109,27 +109,27 @@
                         name="action_register_payment"
                         type="object"
                         class="oe_highlight"
-                        attrs="{'invisible': ['|', ('state', '!=', 'billed'), ('payment_paid_all', '!=', False)]}"
+                        invisible="state != 'billed' or payment_paid_all"
                         string="Register Payment"
                         data-hotkey="g"
                         groups="account.group_account_invoice"
                     />
                     <button
                         name="action_cancel"
-                        states="draft"
+                        invisible="state != 'draft'"
                         string="Cancel"
                         type="object"
                     />
                     <button
                         name="action_cancel"
-                        states="billed"
+                        invisible="state != 'billed'"
                         string="Cancel"
                         type="object"
                         confirm="Are you sure to cancel this document?"
                     />
                     <button
                         name="action_cancel_draft"
-                        states="cancel"
+                        invisible="state != 'cancel'"
                         string="Set to Draft"
                         type="object"
                     />
@@ -145,7 +145,7 @@
                             class="oe_stat_button"
                             name="invoice_relate_billing_tree_view"
                             type="object"
-                            attrs="{'invisible':[('state', 'not in', ['billed'])]}"
+                            invisible="state != 'billed'"
                             icon="fa-pencil-square-o"
                         >
                             <field
@@ -159,29 +159,37 @@
                         <label
                             for="name"
                             string="Draft Billing"
-                            attrs="{'invisible': [('state','!=', 'draft')]}"
+                            invisible="state != 'draft'"
                         />
                         <field
                             name="name"
                             readonly="1"
                             class="oe_inline"
-                            attrs="{'invisible': [('state', '=', 'draft')]}"
+                            invisible="state == 'draft'"
                         />
                     </h1>
                     <group>
                         <group>
+                            <field name="partner_id" readonly="state != 'draft'" />
                             <field
-                                name="partner_id"
-                                attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                name="bill_type"
+                                invisible="1"
+                                readonly="state != 'draft'"
                             />
-                            <field name="bill_type" invisible="1" />
                             <field name="payment_paid_all" />
                         </group>
                         <group>
-                            <field name="threshold_date_type" />
-                            <field name="threshold_date" string="Threshold Date" />
-                            <field name="date" />
-                            <field name="currency_id" />
+                            <field
+                                name="threshold_date_type"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="threshold_date"
+                                string="Threshold Date"
+                                readonly="state != 'draft'"
+                            />
+                            <field name="date" readonly="state != 'draft'" />
+                            <field name="currency_id" readonly="state != 'draft'" />
                         </group>
                     </group>
                     <notebook>
@@ -190,9 +198,9 @@
                                 name="compute_lines"
                                 type="object"
                                 string="Compute items"
-                                states="draft"
+                                invisible="state != 'draft'"
                             />
-                            <field name="billing_line_ids">
+                            <field name="billing_line_ids" readonly="state != 'draft'">
                                 <tree name="billing" create="0" editable="bottom">
                                     <field name="move_id" invisible="1" />
                                     <field name="name" />
@@ -230,7 +238,12 @@
                             <group>
                                 <group>
                                     <separator string="Notes" />
-                                    <field name="narration" colspan="4" nolabel="1" />
+                                    <field
+                                        name="narration"
+                                        colspan="4"
+                                        nolabel="1"
+                                        readonly="state != 'draft'"
+                                    />
                                 </group>
                                 <group />
                             </group>
