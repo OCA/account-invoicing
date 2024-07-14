@@ -182,7 +182,7 @@ class AccountBilling(models.Model):
     def action_cancel(self):
         for rec in self:
             invoice_paid = rec.billing_line_ids.mapped("move_id").filtered(
-                lambda l: l.payment_state == "paid"
+                lambda m: m.payment_state == "paid"
             )
             if invoice_paid:
                 raise ValidationError(_("Invoice paid already."))
