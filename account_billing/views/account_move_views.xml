@@ -8,7 +8,7 @@
                 <field
                     name="billing_ids"
                     widget="many2many_tags"
-                    attrs="{'invisible': [('billing_ids', '=', [])]}"
+                    invisible="not billing_ids"
                 />
             </xpath>
         </field>
