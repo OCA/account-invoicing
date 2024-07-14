@@ -8,10 +8,11 @@
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 8954 2022-01-20 10:10:25Z milde $
+:Id: $Id: html4css1.css 9511 2024-01-13 09:50:07Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
+Despite the name, some widely supported CSS2 features are used.
 
 See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
 customize this style sheet.
@@ -274,7 +275,7 @@ pre.literal-block, pre.doctest-block, pre.math, pre.code {
   margin-left: 2em ;
   margin-right: 2em }
 
-pre.code .ln { color: grey; } /* line numbers */
+pre.code .ln { color: gray; } /* line numbers */
 pre.code, code { background-color: #eeeeee }
 pre.code .comment, code .comment { color: #5C6576 }
 pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
@@ -300,7 +301,7 @@ span.option {
 span.pre {
   white-space: pre }
 
-span.problematic {
+span.problematic, pre.problematic {
   color: red }
 
 span.section-subtitle {
@@ -368,13 +369,16 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:8b4645677fa58abac7bc34475c8b0445a9335a1e0fa334fdeb8c790eca4c21c9
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Alpha" src="https://img.shields.io/badge/maturity-Alpha-red.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/account-invoicing/tree/16.0/account_billing"><img alt="OCA/account-invoicing" src="https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-account_billing"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
-<p>In some countries, there is a customary practice for companies to collect money
-from their customers only once in a month. For example, the customer has 3 payments due in
-a given month, the vendor or billing company should group all the due AR Invoices in a document
-call Billing Document and issue it with all the invoices consolidated to the customer on the Billing Day.
-The customer will be paying based on the payable amount shown in Billing Document in the following month.</p>
-<p>This module use a new document called “Billing” to group these invoices together.</p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Alpha" src="https://img.shields.io/badge/maturity-Alpha-red.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/account-invoicing/tree/17.0/account_billing"><img alt="OCA/account-invoicing" src="https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/account-invoicing-17-0/account-invoicing-17-0-account_billing"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>In some countries, there is a customary practice for companies to
+collect money from their customers only once in a month. For example,
+the customer has 3 payments due in a given month, the vendor or billing
+company should group all the due AR Invoices in a document call Billing
+Document and issue it with all the invoices consolidated to the customer
+on the Billing Day. The customer will be paying based on the payable
+amount shown in Billing Document in the following month.</p>
+<p>This module use a new document called “Billing” to group these invoices
+together.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last">This is an alpha version, the data model and design can change at any time without warning.
@@ -397,21 +401,18 @@ Only for development or testing purpose, do not use in production.
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#toc-entry-1">Usage</a></h1>
 <p>To use this module, you have 2 ways:</p>
-<ol class="arabic simple">
-<li><dl class="first docutils">
-<dt>Create new billing directly</dt>
-<dd>Go to <em>Invoicing -&gt; Customers or Vendors -&gt; Billing</em></dd>
-</dl>
+<ol class="arabic">
+<li><div class="first line-block">
+<div class="line">Create new billing directly</div>
+<div class="line">Go to <em>Invoicing -&gt; Customers or Vendors -&gt; Billing</em></div>
+</div>
 </li>
-<li><dl class="first docutils">
-<dt>Create billing from selected invoice(s)</dt>
-<dd><ol class="first last arabic">
+<li><p class="first">Create billing from selected invoice(s)</p>
+<ol class="arabic simple">
 <li>Go to <em>Invoicing -&gt; Customers or Vendors -&gt; Invoices or Bills</em></li>
 <li>Create Invoice</li>
 <li>On tree view select invoice and go to <em>Action -&gt; Create Billing</em></li>
 </ol>
-</dd>
-</dl>
 </li>
 </ol>
 </div>
@@ -420,7 +421,7 @@ Only for development or testing purpose, do not use in production.
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/account-invoicing/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_billing%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_billing%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -443,13 +444,15 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <div class="section" id="maintainers">
 <h2><a class="toc-backref" href="#toc-entry-6">Maintainers</a></h2>
 <p>This module is maintained by the OCA.</p>
-<a class="reference external image-reference" href="https://odoo-community.org"><img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" /></a>
+<a class="reference external image-reference" href="https://odoo-community.org">
+<img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
+</a>
 <p>OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
 <p>Current <a class="reference external" href="https://odoo-community.org/page/maintainer-role">maintainer</a>:</p>
 <p><a class="reference external image-reference" href="https://github.com/Saran440"><img alt="Saran440" src="https://github.com/Saran440.png?size=40px" /></a></p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/account-invoicing/tree/16.0/account_billing">OCA/account-invoicing</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/account-invoicing/tree/17.0/account_billing">OCA/account-invoicing</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>
