@@ -96,11 +96,6 @@ msgid "Invoicing Grouping Criteria"
 msgstr "Critère de groupement de facturation"
 
 #. module: sale_order_invoicing_grouping_criteria
-#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria____last_update
-msgid "Last Modified on"
-msgstr "Dernière modification le"
-
-#. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__write_uid
 msgid "Last Updated by"
 msgstr "Dernière modification par"
@@ -133,3 +128,6 @@ msgstr "Commande de Vente"
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
 msgid "Sales Order Invoicing"
 msgstr "Facturation Commandes de Vente"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Dernière modification le"
