@@ -1,0 +1,137 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_order_invoicing_grouping_criteria
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-05 09:09+0000\n"
+"PO-Revision-Date: 2020-03-05 10:10+0100\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model,name:sale_order_invoicing_grouping_criteria.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model,name:sale_order_invoicing_grouping_criteria.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model,name:sale_order_invoicing_grouping_criteria.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
+msgid "Default Grouping Criteria"
+msgstr "Criterio de agrupación por defecto"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company__default_sale_invoicing_grouping_criteria_id
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_config_settings__res_default_sale_invoicing_grouping_criteria_id
+msgid "Default Sales Invoicing Grouping Criteria"
+msgstr "Criterio de agrupación de facturación de ventas por defecto"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,help:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__field_ids
+msgid ""
+"Fields used for grouping sales orders when invoicing. Invoicing address, "
+"company and currency will always be applied."
+msgstr ""
+"Campos usados para agrupar los pedidos de venta cuando se facturan. La "
+"dirección de facturación, la compañía y la moneda se aplicarán siempre."
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__field_ids
+msgid "Grouping Fields"
+msgstr "Campos de agrupación"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,help:sale_order_invoicing_grouping_criteria.field_res_partner__sale_invoicing_grouping_criteria_id
+#: model:ir.model.fields,help:sale_order_invoicing_grouping_criteria.field_res_users__sale_invoicing_grouping_criteria_id
+msgid "If empty, company default (if any) or default will be applied."
+msgstr ""
+"Si está vacío, el valor por defecto de la compañía (si está establecido) o "
+"el de por defecto general serán aplicados."
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
+msgid "If empty, invoicing address, company and currency will be applied."
+msgstr ""
+"Si está vacío, la dirección de facturacíón, la compañía y la moneda serán "
+"aplicados."
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.ui.menu,name:sale_order_invoicing_grouping_criteria.menu_sale_invoice_grouping_criteria
+msgid "Invoicing Grouping Criteria"
+msgstr "Criterio de agrupación de facturación"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_sale_invoicing_grouping_criteria__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.actions.act_window,name:sale_order_invoicing_grouping_criteria.action_sale_invoice_grouping_criteria
+#: model:ir.model,name:sale_order_invoicing_grouping_criteria.model_sale_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_partner__sale_invoicing_grouping_criteria_id
+#: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_users__sale_invoicing_grouping_criteria_id
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.view_partner_property_form
+msgid "Sales Invoicing Grouping Criteria"
+msgstr "Criterio de agrupación de facturación de ventas"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model:ir.model,name:sale_order_invoicing_grouping_criteria.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: sale_order_invoicing_grouping_criteria
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
+msgid "Sales Order Invoicing"
+msgstr "Facturación de pedidos de venta"
