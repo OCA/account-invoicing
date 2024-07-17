@@ -248,8 +248,7 @@ msgstr ""
 
 #. module: account_invoice_payment_retention
 #: model_terms:ir.ui.view,arch_db:account_invoice_payment_retention.res_config_settings_view_form
-msgid ""
-"This enable retention option in invoice, to be retained on its payment."
+msgid "This enable retention option in invoice, to be retained on its payment."
 msgstr ""
 "Esto habilita la opción de retención en factura, para ser retenida en su "
 "pago."

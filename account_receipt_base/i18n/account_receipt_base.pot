@@ -1,0 +1,105 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_receipt_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_receipt_base
+#: model_terms:ir.ui.view,arch_db:account_receipt_base.partner_view_buttons
+msgid "<span class=\"o_stat_text\">Receipts</span>"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model,name:account_receipt_base.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model.fields,field_description:account_receipt_base.field_account_fiscal_position__display_name
+#: model:ir.model.fields,field_description:account_receipt_base.field_account_invoice_report__display_name
+#: model:ir.model.fields,field_description:account_receipt_base.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model,name:account_receipt_base.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model.fields,field_description:account_receipt_base.field_account_fiscal_position__id
+#: model:ir.model.fields,field_description:account_receipt_base.field_account_invoice_report__id
+#: model:ir.model.fields,field_description:account_receipt_base.field_account_move__id
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model,name:account_receipt_base.model_account_invoice_report
+msgid "Invoices Statistics"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model,name:account_receipt_base.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model.fields,field_description:account_receipt_base.field_account_fiscal_position____last_update
+#: model:ir.model.fields,field_description:account_receipt_base.field_account_invoice_report____last_update
+#: model:ir.model.fields,field_description:account_receipt_base.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model.fields,field_description:account_receipt_base.field_account_invoice_report__move_type
+msgid "Move Type"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model.fields.selection,name:account_receipt_base.selection__account_invoice_report__move_type__in_receipt
+msgid "Purchase Receipt"
+msgstr ""
+
+#. module: account_receipt_base
+#: model_terms:ir.ui.view,arch_db:account_receipt_base.view_account_invoice_report_search
+msgid "Purchase Receipts"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model.fields,field_description:account_receipt_base.field_account_fiscal_position__receipts
+msgid "Receipts"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model.fields.selection,name:account_receipt_base.selection__account_invoice_report__move_type__out_receipt
+msgid "Sales Receipt"
+msgstr ""
+
+#. module: account_receipt_base
+#: model_terms:ir.ui.view,arch_db:account_receipt_base.view_account_invoice_report_search
+msgid "Sales Receipts"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_partner__total_receipts_invoiced
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_users__total_receipts_invoiced
+msgid "Total Receipts Invoiced"
+msgstr ""
+
+#. module: account_receipt_base
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_partner__use_receipts
+#: model:ir.model.fields,field_description:account_receipt_base.field_res_users__use_receipts
+msgid "Use Receipts"
+msgstr ""

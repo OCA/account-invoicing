@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-20 09:26+0000\n"
-"PO-Revision-Date: 2022-12-20 10:32+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-12-01 14:33+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"X-Generator: Poedit 3.1.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:mail.template,body_html:account_invoice_supplier_self_invoice.email_template_self_invoice
@@ -109,9 +109,9 @@ msgid ""
 "specific.\" aria-label=\"Values set here are company-specific.\" groups="
 "\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Los valores establecidos aquí "
-"son específicos de la empresa.\" aria-label=\"Los valores establecidos aquí "
-"son específicos de la empresa.\" role=\"img\"/> "
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" aria-label=\"Values set here are company-specific.\" groups="
+"\"base.group_multi_company\" role=\"img\"/>"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.invoice_supplier_form
@@ -200,7 +200,7 @@ msgstr "Diferente referencia de Factura y Número de Auto-Factura"
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Mostrar Nombre"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_res_partner__self_invoice_report_footer
@@ -216,7 +216,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_config_settings__id
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model.fields,help:account_invoice_supplier_self_invoice.field_account_bank_statement_line__set_self_invoice
@@ -251,12 +251,12 @@ msgstr "Asiento contable"
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:account_invoice_supplier_self_invoice.field_res_partner____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última Modificación el"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.external_layout_clean_self_invoice
 msgid "Logo"
-msgstr ""
+msgstr "Logotipo"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.view_partner_selfinvoice_form
@@ -347,7 +347,7 @@ msgstr "Identificación fiscal"
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.external_layout_clean_self_invoice
 msgid "Tel:"
-msgstr ""
+msgstr "Telfn:"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.report_invoice_document_self_invoice

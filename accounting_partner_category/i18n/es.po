@@ -1,0 +1,169 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* accounting_partner_category
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-11-30 19:33+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: accounting_partner_category
+#: model:ir.actions.act_window,name:accounting_partner_category.action_accounting_partner_category
+#: model:ir.ui.menu,name:accounting_partner_category.menu_accounting_partner_category
+msgid "Accounting contact Tags"
+msgstr "Etiquetas de contacto de contabilidad"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_res_partner__accounting_category_ids
+#: model:ir.model.fields,field_description:accounting_partner_category.field_res_users__accounting_category_ids
+msgid "Accounting tags"
+msgstr "Etiquetas de contabilidad"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.accounting_partner_category_view_search
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__color
+msgid "Color Index"
+msgstr "Índice de Color"
+
+#. module: accounting_partner_category
+#: model:ir.model,name:accounting_partner_category.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: accounting_partner_category
+#: model_terms:ir.actions.act_window,help:accounting_partner_category.action_accounting_partner_category
+msgid "Create a new accounting partner tag"
+msgstr "Crear una nueva etiqueta de socio contable"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_move__display_name
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__display_name
+#: model:ir.model.fields,field_description:accounting_partner_category.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_move__id
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__id
+#: model:ir.model.fields,field_description:accounting_partner_category.field_res_partner__id
+msgid "ID"
+msgstr "ID"
+
+#. module: accounting_partner_category
+#: model:ir.model,name:accounting_partner_category.model_account_move
+msgid "Journal Entry"
+msgstr "Entrada Diaria"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_move____last_update
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category____last_update
+#: model:ir.model.fields,field_description:accounting_partner_category.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr "Ultima Modificación el"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: accounting_partner_category
+#: model_terms:ir.actions.act_window,help:accounting_partner_category.action_accounting_partner_category
+msgid ""
+"Manage accounting contact tags to better classify them for tracking, filter "
+"and analysis purposes."
+msgstr ""
+"Gestione las etiquetas de los contactos contables para clasificarlos mejor "
+"con fines de seguimiento, filtrado y análisis."
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.partner_view_accounting_category
+msgid "Misc"
+msgstr "Misc"
+
+#. module: accounting_partner_category
+#: model:ir.model,name:accounting_partner_category.model_accounting_partner_category
+msgid "Partner accounting Tags"
+msgstr "Etiquetas de Contabilidad de Socios"
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.accounting_partner_category_view_search
+msgid "Search Partner Category"
+msgstr "Buscar Categoría de Socio"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_accounting_partner_category__name
+msgid "Tag Name"
+msgstr "Nombre de Etiqueta"
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.view_account_invoice_filter
+msgid "Tag absent"
+msgstr "Etiqueta ausente"
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.view_account_invoice_filter
+msgid "Tag present"
+msgstr "Etiqueta presente"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_bank_statement_line__category_ids
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_move__category_ids
+#: model:ir.model.fields,field_description:accounting_partner_category.field_account_payment__category_ids
+msgid "Tags"
+msgstr "Etiquetas"
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,help:accounting_partner_category.field_account_bank_statement_line__category_ids
+#: model:ir.model.fields,help:accounting_partner_category.field_account_move__category_ids
+#: model:ir.model.fields,help:accounting_partner_category.field_account_payment__category_ids
+msgid "Tags when partner was added to the invoice."
+msgstr "Etiquetas cuando el socio fue añadido a la factura."
+
+#. module: accounting_partner_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.partner_view_accounting_category
+#: model_terms:ir.ui.view,arch_db:accounting_partner_category.view_move_form
+msgid "Tags..."
+msgstr "Etiquetas..."
+
+#. module: accounting_partner_category
+#: model:ir.model.fields,help:accounting_partner_category.field_accounting_partner_category__active
+msgid "The active field allows you to hide the category without removing it."
+msgstr "El campo activo le permite ocultar la clase sin tener que eliminarla."
+
+#. module: accounting_partner_category
+#: model:ir.model.constraint,message:accounting_partner_category.constraint_accounting_partner_category_name_uniq
+msgid "The name must be unique!"
+msgstr "¡El nombre debe ser único!"

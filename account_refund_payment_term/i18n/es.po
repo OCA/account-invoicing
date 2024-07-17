@@ -1,0 +1,66 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_refund_payment_term
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-11-30 19:33+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: account_refund_payment_term
+#: model:ir.model,name:account_refund_payment_term.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: account_refund_payment_term
+#: model:ir.model.fields,field_description:account_refund_payment_term.field_res_partner__property_refund_payment_term_id
+#: model:ir.model.fields,field_description:account_refund_payment_term.field_res_users__property_refund_payment_term_id
+msgid "Customer refund Payment Terms"
+msgstr "Reembolso al cliente Condiciones de pago"
+
+#. module: account_refund_payment_term
+#: model:ir.model.fields,field_description:account_refund_payment_term.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_refund_payment_term.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Nombre para Mostrar"
+
+#. module: account_refund_payment_term
+#: model:ir.model.fields,field_description:account_refund_payment_term.field_account_move__id
+#: model:ir.model.fields,field_description:account_refund_payment_term.field_res_partner__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_refund_payment_term
+#: model:ir.model,name:account_refund_payment_term.model_account_move
+msgid "Journal Entry"
+msgstr "Entrada Diaria"
+
+#. module: account_refund_payment_term
+#: model:ir.model.fields,field_description:account_refund_payment_term.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_refund_payment_term.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr "Última Modificación el"
+
+#. module: account_refund_payment_term
+#: model_terms:ir.ui.view,arch_db:account_refund_payment_term.view_partner_property_form
+msgid "Refund payment Terms"
+msgstr "Términos de pago de la devolución"
+
+#. module: account_refund_payment_term
+#: model:ir.model.fields,help:account_refund_payment_term.field_res_partner__property_refund_payment_term_id
+#: model:ir.model.fields,help:account_refund_payment_term.field_res_users__property_refund_payment_term_id
+msgid ""
+"This payment term will be used instead of the default one for customer "
+"refunds"
+msgstr ""
+"Este plazo de pago se utilizará en lugar del predeterminado para las "
+"devoluciones de los clientes"

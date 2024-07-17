@@ -9,32 +9,66 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-09 02:45+0000\n"
-"PO-Revision-Date: 2023-04-27 14:34+0000\n"
-"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"PO-Revision-Date: 2023-11-09 11:39+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount2
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.2 %</span>"
+msgstr "<span>Sconto 2 (%)</span>"
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.3 %</span>"
+msgstr "<span>Sconto 3 (%)</span>"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount2
 msgid "Discount 2 (%)"
 msgstr "Sconto 2 (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount3
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount3
 msgid "Discount 3 (%)"
 msgstr "Sconto 3 (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model,name:account_invoice_triple_discount.model_account_invoice
-msgid "Invoice"
-msgstr "Fattura"
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model,name:account_invoice_triple_discount.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Riga fattura"
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move_line
+msgid "Journal Item"
+msgstr "Movimento contabile"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#~ msgid "Invoice"
+#~ msgstr "Fattura"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Riga fattura"

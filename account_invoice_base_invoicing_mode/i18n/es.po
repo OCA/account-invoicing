@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-24 15:09+0000\n"
-"Last-Translator: Anna Martínez <anna080678@gmail.com>\n"
+"PO-Revision-Date: 2023-12-01 11:36+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model,name:account_invoice_base_invoicing_mode.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_account_move__display_name
@@ -27,7 +27,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner__display_name
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_sale_order__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Mostrar Nombre"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model.fields,help:account_invoice_base_invoicing_mode.field_res_partner__one_invoice_per_order
@@ -41,7 +41,7 @@ msgstr "No agrupar los pedidos de venta en una factura."
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner__id
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_sale_order__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner__invoicing_mode
@@ -53,7 +53,7 @@ msgstr "Modo de facturación"
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model,name:account_invoice_base_invoicing_mode.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Entrada en Diario"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_account_move____last_update
@@ -61,7 +61,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner____last_update
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_sale_order____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última Modificación el"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model.fields,field_description:account_invoice_base_invoicing_mode.field_res_partner__one_invoice_per_order
@@ -72,24 +72,24 @@ msgstr "Una factura por pedido"
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model,name:account_invoice_base_invoicing_mode.model_queue_job
 msgid "Queue Job"
-msgstr ""
+msgstr "Cola de Trabajo"
 
 #. module: account_invoice_base_invoicing_mode
 #: code:addons/account_invoice_base_invoicing_mode/models/queue_job.py:0
 #, python-format
 msgid "Related Record"
-msgstr ""
+msgstr "Registro Relacionado"
 
 #. module: account_invoice_base_invoicing_mode
 #: code:addons/account_invoice_base_invoicing_mode/models/queue_job.py:0
 #, python-format
 msgid "Related Records"
-msgstr ""
+msgstr "Registros Relacionados"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model,name:account_invoice_base_invoicing_mode.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Orden de venta"
 
 #. module: account_invoice_base_invoicing_mode
 #: model:ir.model.fields.selection,name:account_invoice_base_invoicing_mode.selection__res_partner__invoicing_mode__standard

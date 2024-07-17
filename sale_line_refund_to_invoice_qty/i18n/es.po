@@ -1,0 +1,129 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_line_refund_to_invoice_qty
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-11-30 19:33+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr "Reversión de Movimiento de Cuenta"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move__display_name
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_reversal__display_name
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_company__display_name
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model_terms:ir.ui.view,arch_db:sale_line_refund_to_invoice_qty.res_config_settings_view_form
+msgid ""
+"Enables the \"This credit note will be reinvoiced\" flag on Credit Notes by "
+"default"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move__id
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_line__id
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_reversal__id
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_company__id
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_config_settings__id
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_move
+msgid "Journal Entry"
+msgstr "Entrada Diaria"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_move_line
+msgid "Journal Item"
+msgstr "Artículo Diario"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move____last_update
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_reversal____last_update
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_company____last_update
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line____last_update
+msgid "Last Modified on"
+msgstr "Última Modificación en"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,help:sale_line_refund_to_invoice_qty.field_account_move_line__sale_qty_to_reinvoice
+msgid "Leave it marked if you will reinvoice the same sale order line"
+msgstr ""
+"Déjelo marcado si va a volver a facturar la misma línea de pedido de venta"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,help:sale_line_refund_to_invoice_qty.field_account_move_reversal__sale_qty_to_reinvoice
+msgid ""
+"Leave it marked if you will reinvoice the same sale order line (standard "
+"behaviour)"
+msgstr ""
+"Déjelo marcado si va a volver a facturar la misma línea de pedido de venta "
+"(comportamiento estándar)"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model_terms:ir.ui.view,arch_db:sale_line_refund_to_invoice_qty.view_account_move_reversal
+msgid ""
+"Leave it marked when other customer invoices are expected for the quantities "
+"in the credit note."
+msgstr ""
+"Déjelo marcado cuando se esperen otras facturas de clientes por las "
+"cantidades de la factura rectificativa."
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__qty_refunded_not_invoiceable
+msgid "Quantity Refunded Not Invoiceable"
+msgstr "Cantidad reembolsada no facturable"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_company__reinvoice_credit_note_default
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_config_settings__reinvoice_credit_note_default
+msgid "Reinvoice credit notes by default"
+msgstr ""
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_line__sale_qty_to_reinvoice
+msgid "Sale qty to reinvoice"
+msgstr "Cantidad de venta a refacturar"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de Orden de Venta"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_reversal__sale_qty_to_reinvoice
+msgid "This credit note will be reinvoiced"
+msgstr "Esta factura rectificativa será refacturada"

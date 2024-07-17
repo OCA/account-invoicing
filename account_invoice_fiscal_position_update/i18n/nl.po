@@ -20,25 +20,37 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_fiscal_position_update
-#: model:ir.model,name:account_invoice_fiscal_position_update.model_account_move
-msgid "Journal Entries"
-msgstr "Dagboek regels"
+#: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_move__display_name
+msgid "Display Name"
+msgstr ""
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
+#: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_fiscal_position_update
+#: model:ir.model,name:account_invoice_fiscal_position_update.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_fiscal_position_update
+#: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_move____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_fiscal_position_update
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position "
-"because they don't have a Product: - %s You should update the Account and "
-"the Taxes of these invoice lines manually."
+"because they don't have a Product:\n"
+" - %s\n"
+"You should update the Account and the Taxes of these invoice lines manually."
 msgstr ""
-"De volgende factuurregels werden niet bijgewerkt naar de nieuwe fiscale \n"
-"positie, omdat ze geen producten bevat:\\n\n"
-"- %s\\n\n"
-"U zult de grootboekrekening en BTW handmatig moeten aanpassen."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they "
@@ -51,10 +63,24 @@ msgstr ""
 "\"aanpassen."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid "Warning"
 msgstr "Waarschuwing"
+
+#~ msgid "Journal Entries"
+#~ msgstr "Dagboek regels"
+
+#, python-format
+#~ msgid ""
+#~ "The following invoice lines were not updated to the new Fiscal Position "
+#~ "because they don't have a Product: - %s You should update the Account and "
+#~ "the Taxes of these invoice lines manually."
+#~ msgstr ""
+#~ "De volgende factuurregels werden niet bijgewerkt naar de nieuwe fiscale \n"
+#~ "positie, omdat ze geen producten bevat:\\n\n"
+#~ "- %s\\n\n"
+#~ "U zult de grootboekrekening en BTW handmatig moeten aanpassen."
 
 #~ msgid "Invoice"
 #~ msgstr "Factuur"

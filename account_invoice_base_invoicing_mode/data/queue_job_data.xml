@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
         <!-- Queue Job Channel -->
         <record id="invoice_validation" model="queue.job.channel">
             <field name="name">invoice_validation</field>
@@ -13,9 +12,8 @@
             <field name="method">_validate_invoice</field>
             <field name="channel_id" ref="invoice_validation" />
             <field
-                name="related_action"
-                eval='{"func_name": "related_action_open_invoice"}'
-            />
+            name="related_action"
+            eval='{"func_name": "related_action_open_invoice"}'
+        />
         </record>
-    </data>
 </odoo>

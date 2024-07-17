@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ Copyright 2023 Simone Rubino - TAKOBI
+  ~ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+  -->
+<odoo>
+    <record id="partner_view_buttons" model="ir.ui.view">
+        <field name="name">Add Receipts Button to Partner Form View</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.partner_view_buttons" />
+        <field name="arch" type="xml">
+            <button name="action_view_partner_invoices" position="after">
+                <button
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-pencil-square-o"
+                    name="action_view_partner_receipts"
+                    context="{'default_partner_id': active_id}"
+                >
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="currency_id" invisible="1" />
+                            <field
+                                name="total_receipts_invoiced"
+                                widget='monetary'
+                                options="{'currency_field': 'currency_id'}"
+                            />
+                        </span>
+                        <span class="o_stat_text">Receipts</span>
+                    </div>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field name="name">Add Receipts flag to Partner Form View</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="groups_id" eval="[(4, ref('account.group_account_manager'))]" />
+        <field name="arch" type="xml">
+            <group name="fiscal_information" position="inside">
+                <field name="use_receipts" />
+            </group>
+        </field>
+    </record>
+</odoo>

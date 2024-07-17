@@ -36,8 +36,7 @@ msgstr "# facturen"
 
 #. module: account_billing
 #: model:ir.actions.report,print_report_name:account_billing.report_account_billing
-msgid ""
-"'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
+msgid "'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
 msgstr ""
 "'VERZAMELFACTUUR-%s%s' % (object.name, object.state == 'draft' and '-draft' "
 "or '')"
@@ -176,8 +175,7 @@ msgstr "Factuurregels"
 #. module: account_billing
 #: code:addons/account_billing/models/account_billing.py:0
 #, python-format
-msgid ""
-"Billing cannot be processed because some invoices are not in state Open"
+msgid "Billing cannot be processed because some invoices are not in state Open"
 msgstr ""
 
 #. module: account_billing
@@ -299,7 +297,8 @@ msgstr "Effectieve datum voor boekingen"
 #: model_terms:ir.actions.act_window,help:account_billing.action_customer_billing
 msgid ""
 "Enter the customer the invoices expect to be paid by the customer for this\n"
-"            bill period. By default the pending invoices will be listed, automatically."
+"            bill period. By default the pending invoices will be listed, "
+"automatically."
 msgstr ""
 
 #. module: account_billing
@@ -337,7 +336,6 @@ msgstr "Wanneer aangevinkt, zijn er nieuwe berichten met acties."
 
 #. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing__message_has_error
-#: model:ir.model.fields,help:account_billing.field_account_billing__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Wanneer aangevinkt, zijn er berichten met een foutmelding."
 
@@ -511,11 +509,6 @@ msgid "Relationship between invoice and billing"
 msgstr "Relatie tussen factuur en verzamelfacturen"
 
 #. module: account_billing
-#: model:ir.model.fields,field_description:account_billing.field_account_billing__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "SMS leverfout"
-
-#. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
 msgid "Search Billings"
 msgstr "Zoek verzamelfacturen"
@@ -604,3 +597,6 @@ msgstr "Website berichten"
 #: model:ir.model.fields,help:account_billing.field_account_billing__website_message_ids
 msgid "Website communication history"
 msgstr "Website communicatie geschiedenis"
+
+#~ msgid "SMS Delivery error"
+#~ msgstr "SMS leverfout"

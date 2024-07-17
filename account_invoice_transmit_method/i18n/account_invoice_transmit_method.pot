@@ -168,7 +168,6 @@ msgstr ""
 #. module: account_invoice_transmit_method
 #: model:ir.actions.act_window,name:account_invoice_transmit_method.transmit_method_action
 #: model:ir.ui.menu,name:account_invoice_transmit_method.transmit_method_menu
-#: model_terms:ir.ui.view,arch_db:account_invoice_transmit_method.transmit_method_tree
 msgid "Transmit Methods"
 msgstr ""
 

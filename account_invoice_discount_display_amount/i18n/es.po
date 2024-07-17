@@ -1,0 +1,66 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_discount_display_amount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-11-30 23:39+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: account_invoice_discount_display_amount
+#: model_terms:ir.ui.view,arch_db:account_invoice_discount_display_amount.invoice_discount_display_amount_document
+msgid "<strong>Discount</strong>"
+msgstr "<strong>Descuento</strong>"
+
+#. module: account_invoice_discount_display_amount
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_bank_statement_line__discount_total
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move__discount_total
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move_line__discount_total
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_payment__discount_total
+msgid "Discount Total"
+msgstr "Descuento Total"
+
+#. module: account_invoice_discount_display_amount
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move_line__display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: account_invoice_discount_display_amount
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_discount_display_amount
+#: model:ir.model,name:account_invoice_discount_display_amount.model_account_move
+msgid "Journal Entry"
+msgstr "Entrada Diaria"
+
+#. module: account_invoice_discount_display_amount
+#: model:ir.model,name:account_invoice_discount_display_amount.model_account_move_line
+msgid "Journal Item"
+msgstr "Artículo del diario"
+
+#. module: account_invoice_discount_display_amount
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move_line____last_update
+msgid "Last Modified on"
+msgstr "Última Modificación el"
+
+#. module: account_invoice_discount_display_amount
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_bank_statement_line__price_total_no_discount
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move__price_total_no_discount
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move_line__price_total_no_discount
+#: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_payment__price_total_no_discount
+msgid "Total Without Discount"
+msgstr "Total Sin Descuento"

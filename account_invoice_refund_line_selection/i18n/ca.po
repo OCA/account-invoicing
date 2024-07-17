@@ -69,6 +69,5 @@ msgstr ""
 #. module: account_invoice_refund_line_selection
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
 msgid ""
-"Use this option if you want to refund only some specific lines in an "
-"invoice."
+"Use this option if you want to refund only some specific lines in an invoice."
 msgstr ""

@@ -104,11 +104,6 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_move_post_block
-#: model_terms:ir.ui.view,arch_db:account_move_post_block.account_post_block_reason_tree_view
-msgid "Journal Entry Approval Block Reasons"
-msgstr ""
-
-#. module: account_move_post_block
 #: model:ir.model.fields,field_description:account_move_post_block.field_account_exception_confirm____last_update
 #: model:ir.model.fields,field_description:account_move_post_block.field_account_move____last_update
 #: model:ir.model.fields,field_description:account_move_post_block.field_account_post_block_reason____last_update

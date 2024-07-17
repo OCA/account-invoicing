@@ -7,19 +7,20 @@ msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-13 10:26+0000\n"
-"PO-Revision-Date: 2022-04-13 10:26+0000\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-12-01 14:33+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model,name:account_invoice_refund_reason.model_account_move_refund_reason
 msgid "Account Move Refund Reason"
-msgstr ""
+msgstr "Movimiento de Cuenta Motivo del Reembolso"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model,name:account_invoice_refund_reason.model_account_move_reversal
@@ -29,13 +30,13 @@ msgstr "Reversión de asiento"
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__active
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #. module: account_invoice_refund_reason
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.account_invoice_refund_reasons_search
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.view_account_invoice_refund_reason
 msgid "Archived"
-msgstr ""
+msgstr "Archivado"
 
 #. module: account_invoice_refund_reason
 #: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_cancellation
@@ -65,7 +66,7 @@ msgstr "Corrección de Datos"
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__description
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move__display_name
@@ -79,7 +80,7 @@ msgstr "Nombre mostrado"
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__id
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_refund_reason
 #: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_noref
@@ -131,7 +132,7 @@ msgstr "Diferencia de Precio"
 #. module: account_invoice_refund_reason
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.view_account_invoice_refund_reason
 msgid "Reason Name"
-msgstr ""
+msgstr "Nombre del Motivo"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_bank_statement_line__reason_id
@@ -139,7 +140,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__reason_id
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_payment__reason_id
 msgid "Refund Reason"
-msgstr ""
+msgstr "Motivo del Reembolso"
 
 #. module: account_invoice_refund_reason
 #: model:ir.actions.act_window,name:account_invoice_refund_reason.refund_reason_action

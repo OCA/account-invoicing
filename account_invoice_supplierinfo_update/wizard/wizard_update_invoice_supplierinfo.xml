@@ -11,11 +11,7 @@
                 </group>
                 <separator string="List of products to update" />
                 <field name="line_ids">
-                    <tree
-                        create="false"
-                        editable="0"
-                        colors="blue: supplierinfo_id == False; brown: supplierinfo_id != False"
-                    >
+                    <tree create="false" editable="0">
                         <field name="product_id" />
                         <field name="supplierinfo_id" invisible="1" />
                         <field

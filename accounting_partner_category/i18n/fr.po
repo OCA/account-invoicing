@@ -47,11 +47,6 @@ msgid "Contact"
 msgstr "Contact"
 
 #. module: accounting_partner_category
-#: model_terms:ir.ui.view,arch_db:accounting_partner_category.view_accounting_partner_category_list
-msgid "Contact Tags"
-msgstr "Tags comptabilité"
-
-#. module: accounting_partner_category
 #: model_terms:ir.actions.act_window,help:accounting_partner_category.action_accounting_partner_category
 msgid "Create a new accounting partner tag"
 msgstr "Créer un nouveau tag de comptabilité"
@@ -170,3 +165,6 @@ msgstr "Le champs actif permet de masquer la catégorie sans la supprimer."
 #: model:ir.model.constraint,message:accounting_partner_category.constraint_accounting_partner_category_name_uniq
 msgid "The name must be unique!"
 msgstr "Le nom du tag doit être unique."
+
+#~ msgid "Contact Tags"
+#~ msgstr "Tags comptabilité"

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-09 02:45+0000\n"
-"PO-Revision-Date: 2023-09-23 19:36+0000\n"
-"Last-Translator: Gil Arasa Verge <gilarasaverge@gmail.com>\n"
+"PO-Revision-Date: 2023-12-01 11:36+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -20,21 +20,55 @@ msgstr ""
 "X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount2
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.2 %</span>"
+msgstr "<span>Desc. 2 (%)</span>"
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.3 %</span>"
+msgstr "<span>Desc.3 %</span>"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount2
 msgid "Discount 2 (%)"
 msgstr "Descuento 2 (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount3
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount3
 msgid "Discount 3 (%)"
 msgstr "Descuento 3 (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model,name:account_invoice_triple_discount.model_account_invoice
-msgid "Invoice"
-msgstr "Factura"
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model,name:account_invoice_triple_discount.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Línea de factura"
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move
+msgid "Journal Entry"
+msgstr "Entrada en Diario"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move_line
+msgid "Journal Item"
+msgstr "Elemento de Diario"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line____last_update
+msgid "Last Modified on"
+msgstr "Última Modificación el"
+
+#~ msgid "Invoice"
+#~ msgstr "Factura"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Línea de factura"

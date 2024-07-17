@@ -20,6 +20,21 @@ msgstr ""
 "%100==4 ? 2 : 3);\n"
 
 #. module: account_invoice_pricelist_sale
+#: model:ir.model.fields,field_description:account_invoice_pricelist_sale.field_sale_order__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_pricelist_sale
+#: model:ir.model.fields,field_description:account_invoice_pricelist_sale.field_sale_order__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_pricelist_sale
+#: model:ir.model.fields,field_description:account_invoice_pricelist_sale.field_sale_order____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_pricelist_sale
 #: model:ir.model,name:account_invoice_pricelist_sale.model_sale_order
 #, fuzzy
 msgid "Sales Order"

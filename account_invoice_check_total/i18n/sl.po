@@ -22,8 +22,8 @@ msgstr ""
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_res_config_settings__group_supplier_inv_check_total
-#: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 #: model:res.groups,name:account_invoice_check_total.group_supplier_inv_check_total
+#: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 msgid "Check Total on Vendor Bills"
 msgstr "Preveri skupni znesek na prejetih računih"
 
@@ -39,6 +39,18 @@ msgid "Config Settings"
 msgstr "Nastavitve"
 
 #. module: account_invoice_check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_res_config_settings__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_check_total
 #: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 msgid ""
 "If you check this box, the system verifies that the total computed amount is "
@@ -49,7 +61,13 @@ msgstr ""
 
 #. module: account_invoice_check_total
 #: model:ir.model,name:account_invoice_check_total.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_res_config_settings____last_update
+msgid "Last Modified on"
 msgstr ""
 
 #. module: account_invoice_check_total
@@ -66,12 +84,16 @@ msgstr ""
 "Obstaja razlika %s"
 
 #. module: account_invoice_check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_bank_statement_line__check_total_display_difference
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total_display_difference
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_payment__check_total_display_difference
 msgid "Total Difference"
 msgstr "Skupaj razlika"
 
 #. module: account_invoice_check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_bank_statement_line__check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_payment__check_total
 msgid "Verification Total"
 msgstr "Skupaj verifikacija"
 

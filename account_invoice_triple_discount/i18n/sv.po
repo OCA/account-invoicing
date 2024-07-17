@@ -19,21 +19,55 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount2
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.2 %</span>"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.3 %</span>"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount2
 msgid "Discount 2 (%)"
 msgstr ""
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_invoice_line__discount3
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount3
 msgid "Discount 3 (%)"
 msgstr ""
 
 #. module: account_invoice_triple_discount
-#: model:ir.model,name:account_invoice_triple_discount.model_account_invoice
-msgid "Invoice"
-msgstr "Faktura"
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__display_name
+msgid "Display Name"
+msgstr ""
 
 #. module: account_invoice_triple_discount
-#: model:ir.model,name:account_invoice_triple_discount.model_account_invoice_line
-msgid "Invoice Line"
-msgstr "Fakturarad"
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Faktura"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Fakturarad"
