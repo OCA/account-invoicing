@@ -1,3 +1,3 @@
-This module allows to add a substate to journal entry.
+This module allows you to add a substate to a journal entry.
 For each journal entry state you can define a substate.
-We this module you can define substate which allow you to extend accounting workflow.
+With this module, you can define substates which allow you to extend the accounting workflow.

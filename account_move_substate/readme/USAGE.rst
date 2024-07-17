@@ -1,4 +1,4 @@
-#. Go to ** Settings > Technical > Database Structure ** and Add  "Base substate".
+#. Go to ** Settings > Technical > Substate Configuration > Base Substate ** and add a "Base substate".
     If necessary you can add "target State values" (ex define a substate for "cancel"
     state).
     Substate sequence is very important.
