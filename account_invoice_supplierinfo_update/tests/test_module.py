@@ -42,6 +42,106 @@ class TestModule(AccountTestInvoicingCommon):
         cls.WizardUpdateSupplierinfo = cls.env["wizard.update.invoice.supplierinfo"]
         cls.ProductSupplierinfo = cls.env["product.supplierinfo"]
 
+    def test_get_the_right_variant_supplierinfo(self):
+        # Variant the product A and set a price on variation 1
+        tmpl_a = self.product_a.product_tmpl_id
+        tmpl_a.write(
+            {
+                "attribute_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "attribute_id": self.env.ref(
+                                "product.product_attribute_2"
+                            ).id,
+                            "value_ids": [
+                                (
+                                    6,
+                                    0,
+                                    [
+                                        self.env.ref(
+                                            "product.product_attribute_value_3"
+                                        ).id,
+                                        self.env.ref(
+                                            "product.product_attribute_value_4"
+                                        ).id,
+                                    ],
+                                )
+                            ],
+                        },
+                    )
+                ]
+            }
+        )
+        product_a_1, product_a_2 = tmpl_a.product_variant_ids
+
+        supplier_product_a_1 = self.env["product.supplierinfo"].create(
+            [
+                {
+                    "partner_id": self.invoice.supplier_partner_id.id,
+                    "product_tmpl_id": tmpl_a.id,
+                    "product_id": product_a_1.id,
+                    "price": 30,
+                }
+            ]
+        )
+
+        # Set the variation 2 on the invoice and run the wizard
+        self.line_a.write({"product_id": product_a_2, "price_unit": 400})
+        vals_wizard = self.invoice.check_supplierinfo().get("context", {})
+        line_ids = vals_wizard.get("default_line_ids", {})
+
+        self.assertEqual(line_ids[0][2]["current_price"], False)
+        self.assertEqual(line_ids[0][2]["new_price"], 400.0)
+
+        wizard = self.WizardUpdateSupplierinfo.create(
+            {"line_ids": line_ids, "invoice_id": self.invoice.id}
+        )
+        wizard.update_supplierinfo()
+
+        # Supplier of product_a_1 should be not updated and a new supplierinfo
+        # have been created (to make it simple supplierinfo are always created
+        # on template)
+        self.assertEqual(supplier_product_a_1.price, 30)
+        self.assertEqual(len(tmpl_a.seller_ids), 2)
+        self.assertEqual(tmpl_a.seller_ids[1].price, 400)
+        self.assertFalse(tmpl_a.seller_ids[1].product_id)
+
+    def test_get_the_right_qty_supplierinfo(self):
+        tmpl_a = self.product_a.product_tmpl_id
+        self.env["product.supplierinfo"].create(
+            [
+                {
+                    "partner_id": self.invoice.supplier_partner_id.id,
+                    "product_tmpl_id": tmpl_a.id,
+                    "price": 500,
+                    "min_qty": 0,
+                },
+                {
+                    "partner_id": self.invoice.supplier_partner_id.id,
+                    "product_tmpl_id": tmpl_a.id,
+                    "price": 300,
+                    "min_qty": 20,
+                },
+            ]
+        )
+
+        vals_wizard = self.invoice.check_supplierinfo().get("context", {})
+        line_ids = vals_wizard.get("default_line_ids", {})
+
+        self.assertEqual(line_ids[0][2]["current_price"], 500)
+        self.assertEqual(line_ids[0][2]["new_price"], 400.0)
+
+        wizard = self.WizardUpdateSupplierinfo.create(
+            {"line_ids": line_ids, "invoice_id": self.invoice.id}
+        )
+        wizard.update_supplierinfo()
+
+        self.assertEqual(len(tmpl_a.seller_ids), 2)
+        self.assertEqual(tmpl_a.seller_ids[0].price, 300)
+        self.assertEqual(tmpl_a.seller_ids[1].price, 400)
+
     def test_update_pricelist_supplierinfo(self):
         # supplier invoice with pricelist supplierinfo to update and
         # product supplierinfo is on product_template

@@ -12,8 +12,9 @@ class AccountMoveLine(models.Model):
         """Given an invoice line, return the supplierinfo that matches
         with product and supplier, if exist"""
         self.ensure_one()
-        supplierinfos = self.product_id.seller_ids.filtered(
-            lambda seller: seller.partner_id == self.move_id.supplier_partner_id
+        supplierinfos = self.product_id._select_seller(
+            partner_id=self.move_id.supplier_partner_id,
+            quantity=self.quantity,
         )
         return supplierinfos and supplierinfos[0] or False
 
