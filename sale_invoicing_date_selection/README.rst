@@ -72,6 +72,7 @@ Contributors
 
    -  Carlos Dauden
    -  Sergio Teruel
+   -  Carolina Fernandez
 
 Maintainers
 -----------
