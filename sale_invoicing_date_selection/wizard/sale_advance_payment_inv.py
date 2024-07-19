@@ -9,16 +9,24 @@ class SaleAdvancePaymentInv(models.TransientModel):
 
     invoice_date = fields.Date()
 
-    def create_invoices(self):
-        """
-        Add date to crate all invoices into user context
-        """
-        ctx = self.env.context.copy()
-        if self.invoice_date:
+    def _create_invoices(self, sale_orders):
+        if self.advance_payment_method == "delivered" and self.invoice_date:
+            ctx = self.env.context.copy()
             ctx.update(
                 {
                     "default_invoice_date": self.invoice_date,
-                    "default_date": self.invoice_date,
                 }
             )
-        return super(SaleAdvancePaymentInv, self.with_context(**ctx)).create_invoices()
+            return sale_orders.with_context(**ctx)._create_invoices(
+                final=self.deduct_down_payments, grouped=not self.consolidated_billing
+            )
+        return super()._create_invoices(sale_orders)
+
+    def _prepare_invoice_values(self, order, so_line):
+        """Redefine function to take into account invoices
+        created when advanced payment method is not delivered"""
+        res = super()._prepare_invoice_values(order, so_line)
+        if self.invoice_date:
+            res["invoice_date"] = self.invoice_date
+            res["date"] = self.invoice_date
+        return res
