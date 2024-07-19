@@ -4,7 +4,7 @@
         <field name="model">sale.advance.payment.inv</field>
         <field name="inherit_id" ref="sale.view_sale_advance_payment_inv" />
         <field name="arch" type="xml">
-            <field name="deposit_taxes_id" position="after">
+            <field name="advance_payment_method" position="after">
                 <field name="invoice_date" />
             </field>
         </field>
