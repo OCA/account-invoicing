@@ -37,13 +37,6 @@ class AccountMoveLine(models.Model):
                 [line[x] for x in line._get_multiple_discount_field_names()]
             )
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get("discount") and not vals.get("discount1"):
-                vals["discount1"] = vals.pop("discount")
-        return super().create(vals_list)
-
     def _get_aggregated_multiple_discounts(self, discounts):
         """
         Returns the aggregate discount corresponding to any number of discounts.
@@ -61,3 +54,27 @@ class AccountMoveLine(models.Model):
     @api.model
     def _get_multiple_discount_field_names(self):
         return ["discount1", "discount2", "discount3"]
+
+    def _fix_triple_discount_values(self, values):
+        res = values
+        if "discount" in values and "discount1" not in values:
+            res = values.copy()
+            res["discount1"] = res.pop("discount")
+        return res
+
+    # In case sale is installed but not sale_triple_discount, Odoo
+    #  will propagate sale.order.line.discount into account.move.line.discount
+    #  but account.move.line.discount1 will not be set properly
+    # Override create/write and only in case discount is set but not
+    #  discount1, move its value to discount1
+    @api.model_create_multi
+    def create(self, vals_list):
+        for i, vals in enumerate(vals_list):
+            new_vals = self._fix_triple_discount_values(vals)
+            if new_vals:
+                vals_list[i] = new_vals
+        return super().create(vals_list)
+
+    def write(self, vals):
+        vals = self._fix_triple_discount_values(vals)
+        return super().write(vals)
