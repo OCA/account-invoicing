@@ -17,11 +17,6 @@ msgstr ""
 "X-Generator: Weblate 4.17\n"
 
 #. module: partner_invoicing_mode
-#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.res_config_settings_view_form
-msgid "<span class=\"o_form_label\">Standard Invoicing Options</span>"
-msgstr "<span class=\"o_form_label\">Opciones de facturación estandar</span>"
-
-#. module: partner_invoicing_mode
 #: model:ir.model,name:partner_invoicing_mode.model_res_company
 msgid "Companies"
 msgstr "Compañías"
@@ -44,7 +39,6 @@ msgstr "No agrupar los pedidos de venta en una factura."
 
 #. module: partner_invoicing_mode
 #: model:ir.actions.server,name:partner_invoicing_mode.ir_cron_generate_standard_invoice_ir_actions_server
-#: model:ir.cron,cron_name:partner_invoicing_mode.ir_cron_generate_standard_invoice
 msgid "Generate Standard Invoices"
 msgstr "Generar facturas estándar"
 
@@ -108,6 +102,11 @@ msgid "Standard"
 msgstr "Estándar"
 
 #. module: partner_invoicing_mode
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.res_config_settings_view_form
+msgid "Standard Invoicing Options"
+msgstr ""
+
+#. module: partner_invoicing_mode
 #: model:ir.model.fields,help:partner_invoicing_mode.field_res_partner__next_invoice_date
 #: model:ir.model.fields,help:partner_invoicing_mode.field_res_users__next_invoice_date
 msgid "This is the date at which the next invoice will be generated."
@@ -121,3 +120,7 @@ msgid ""
 msgstr ""
 "Puede marcar o desmarcar esta opción si desea que la facturación periódica "
 "agrupe esta orden de venta con otras o no."
+
+#~ msgid "<span class=\"o_form_label\">Standard Invoicing Options</span>"
+#~ msgstr ""
+#~ "<span class=\"o_form_label\">Opciones de facturación estandar</span>"

@@ -5,8 +5,6 @@ from odoo import api, fields, models
 from odoo.fields import Datetime
 from odoo.osv.expression import AND
 
-from odoo.addons.sale.models.sale_order import LOCKED_FIELD_STATES
-
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
@@ -21,7 +19,6 @@ class SaleOrder(models.Model):
         compute="_compute_one_invoice_per_order",
         readonly=False,
         store=True,
-        states=LOCKED_FIELD_STATES,
         help="You can check or uncheck this if you want the periodic invoicing"
         " grouping this sale order with other ones or not.",
     )
@@ -109,24 +106,24 @@ class SaleOrder(models.Model):
     def _generate_invoices_by_partner(self, saleorder_ids):
         """Generate invoices for a group of sale order belonging to a customer."""
         today = fields.Date.context_today(self)
-        sales = (
+        sale_orders = (
             self.browse(saleorder_ids)
             .exists()
             .filtered_domain(self._get_generate_invoices_state_domain())
         )
-        if not sales:
+        if not sale_orders:
             return "No sale order found to invoice ?"
         # Create invoices using grouping when needed, so partition sales
         invoice_ids = set()
-        for partition, sales in sales.partition(
+        for partition, partitioned_sales in sale_orders.partition(
             lambda sale: sale.one_invoice_per_order
         ).items():
-            invoices = sales._get_generated_invoices(partition=partition)
+            invoices = partitioned_sales._get_generated_invoices(partition=partition)
             # Update invoices date to be sure no long validation (jobs) put
             # the further day date on invoices.
             invoices.write({"invoice_date": today})
             # Update each partner next invoice date
-            sales.partner_invoice_id._update_next_invoice_date()
+            partitioned_sales.partner_invoice_id._update_next_invoice_date()
             invoice_ids.update(invoices.ids)
             for invoice in invoices:
                 invoice.with_delay()._validate_invoice()
