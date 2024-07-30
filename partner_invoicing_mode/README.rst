@@ -17,42 +17,42 @@ Partner Invoicing Mode
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/partner_invoicing_mode
+    :target: https://github.com/OCA/account-invoicing/tree/17.0/partner_invoicing_mode
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-partner_invoicing_mode
+    :target: https://translation.odoo-community.org/projects/account-invoicing-17-0/account-invoicing-17-0-partner_invoicing_mode
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This is a base module for implementing different invoicing mode for customers.
-It adds a selection field `invoicing_mode` in the Accounting tab of the partner
-with a default value (Odoo standard invoicing mode).
+This is a base module for implementing different invoicing mode for
+customers. It adds a selection field invoicing_mode in the Accounting
+tab of the partner with a default value (Odoo standard invoicing mode).
 
-It can be used on its own to generate automatically (e.g.: each day)
-the invoices for standard invoicing mode.
+It can be used on its own to generate automatically (e.g.: each day) the
+invoices for standard invoicing mode.
 
 In core, Odoo is grouping invoicing from a group of sale orders on:
 
-- Company
-- Partner
-- Currency
+-  Company
+-  Partner
+-  Currency
 
 This module uses grouping on those keys:
 
-- Company
-- Invoiced partner
-- Currency
-- Payment term (as this can be selected on sale order level)
+-  Company
+-  Invoiced partner
+-  Currency
+-  Payment term (as this can be selected on sale order level)
 
 The following modules use it to install specific invoicing mode :
 
-    * `partner_invoicing_mode_at_shipping`
-    * `partner_invoicing_mode_monthly`
-    * `partner_invoicing_mode_weekly`
+   -  partner_invoicing_mode_at_shipping
+   -  partner_invoicing_mode_monthly
+   -  partner_invoicing_mode_weekly
 
 **Table of contents**
 
@@ -62,15 +62,17 @@ The following modules use it to install specific invoicing mode :
 Usage
 =====
 
-* To enable the invoices automatic generation, enable the developer mode,
-  go to Settings > Automation > Scheduled Actions
-* Filter the archived actions and activate 'Generate Standard Invoices'.
-* Adapt the frequency you want to automatically generate invoices to your needs.
-* The field 'Next Invoice Date' on partner form indicates when the next invoice
-  generation will take place.
-* To manually change the invoicing group (one invoice per order), go to the
-  Sale Order > Other Information > Invoicing and Payments and check
-  the 'One Invoice Per Order' box.
+-  To enable the invoices automatic generation, enable the developer
+   mode, go to Settings > Automation > Scheduled Actions
+-  Filter the archived actions and activate 'Generate Standard
+   Invoices'.
+-  Adapt the frequency you want to automatically generate invoices to
+   your needs.
+-  The field 'Next Invoice Date' on partner form indicates when the next
+   invoice generation will take place.
+-  To manually change the invoicing group (one invoice per order), go to
+   the Sale Order > Other Information > Invoicing and Payments and check
+   the 'One Invoice Per Order' box.
 
 Bug Tracker
 ===========
@@ -78,7 +80,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20partner_invoicing_mode%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20partner_invoicing_mode%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -86,32 +88,32 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Camptocamp
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Camptocamp <https://www.camptocamp.com>`_:
+-  `Camptocamp <https://www.camptocamp.com>`__:
 
-    * Thierry Ducrest <thierry.ducrest@camptocamp.com>
+      -  Thierry Ducrest <thierry.ducrest@camptocamp.com>
 
-* Phuc (Tran Thanh) <phuc@trobz.com>
+-  Phuc (Tran Thanh) <phuc@trobz.com>
 
-* `ACSONE SA/NV <https://acsone.eu>`_:
+-  `ACSONE SA/NV <https://acsone.eu>`__:
 
-    * Denis Roussel <denis.roussel@acsone.eu>
+      -  Denis Roussel <denis.roussel@acsone.eu>
 
 Other credits
-~~~~~~~~~~~~~
+-------------
 
 The development of this module has been financially supported by:
 
-* Camptocamp
+-  Camptocamp
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -123,6 +125,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/partner_invoicing_mode>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/17.0/partner_invoicing_mode>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
