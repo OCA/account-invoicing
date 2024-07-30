@@ -11,7 +11,6 @@ from odoo.addons.partner_invoicing_mode_monthly.models.sale_order import SaleOrd
 
 
 class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
-
     _invoicing_mode = "monthly"
 
     def deliver_invoice(self, sale_order):
