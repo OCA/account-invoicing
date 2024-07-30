@@ -13,7 +13,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
         queue_obj = self.env["queue.job"]
         order_obj = self.env["sale.order"]
         context = self.env.context
-        final = self.advance_payment_method == "all"
+        final = self.advance_payment_method in {"delivered", "all"}
         if self.advance_payment_method not in {"delivered", "all"}:
             # Call standard method in these cases
             return self.create_invoices()
