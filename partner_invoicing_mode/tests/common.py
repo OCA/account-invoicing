@@ -4,7 +4,6 @@
 
 
 class CommonPartnerInvoicingMode:
-
     _invoicing_mode = "standard"
 
     @classmethod
