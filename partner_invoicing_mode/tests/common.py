@@ -9,7 +9,6 @@ class CommonPartnerInvoicingMode:
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.SaleOrder = cls.env["sale.order"]
         cls.partner = cls.env.ref("base.res_partner_1")
         cls.partner.invoicing_mode = cls._invoicing_mode
@@ -18,6 +17,16 @@ class CommonPartnerInvoicingMode:
         cls.product = cls.env.ref("product.product_delivery_01")
         cls.pt1 = cls.env["account.payment.term"].create({"name": "Term Two"})
         cls.pt2 = cls.env["account.payment.term"].create({"name": "Term One"})
+
+        # Create a default pricelist for the test
+        cls.pricelist = cls.env["product.pricelist"].create(
+            {
+                "name": "Test Pricelist",
+                "currency_id": cls.env.ref("base.main_company").currency_id.id,
+                "company_id": cls.env.ref("base.main_company").id,
+            }
+        )
+
         cls.so1 = cls.env["sale.order"].create(
             {
                 "partner_id": cls.partner.id,
@@ -37,7 +46,7 @@ class CommonPartnerInvoicingMode:
                         },
                     )
                 ],
-                "pricelist_id": cls.env.ref("product.list0").id,
+                "pricelist_id": cls.pricelist.id,  # Use the newly created pricelist
             }
         )
         # Lets give the saleorder the same partner and payment terms
@@ -60,7 +69,7 @@ class CommonPartnerInvoicingMode:
                         },
                     )
                 ],
-                "pricelist_id": cls.env.ref("product.list0").id,
+                "pricelist_id": cls.pricelist.id,  # Use the newly created pricelist
             }
         )
         cls.company = cls.so1.company_id

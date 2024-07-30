@@ -1,6 +1,7 @@
 This is a base module for implementing different invoicing mode for
-customers. It adds a selection field invoicing_mode in the Accounting
-tab of the partner with a default value (Odoo standard invoicing mode).
+customers. It adds a selection field invoicing_mode in the Invoicing tab
+(if enterprise account_accountant is installed -> Accounting tab) of the
+partner with a default value (Odoo standard invoicing mode).
 
 It can be used on its own to generate automatically (e.g.: each day) the
 invoices for standard invoicing mode.
