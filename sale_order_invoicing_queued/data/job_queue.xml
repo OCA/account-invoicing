@@ -2,7 +2,7 @@
 <odoo>
         <!-- Queue Job Channel -->
         <record id="invoice_job" model="queue.job.channel">
-            <field name="name">Invoice Job</field>
+            <field name="name">invoice_job</field>
             <field name="parent_id" ref="queue_job.channel_root" />
         </record>
 
