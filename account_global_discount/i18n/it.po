@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-04 16:47+0000\n"
+"PO-Revision-Date: 2024-07-31 14:11+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.report_invoice_document
@@ -178,7 +178,7 @@ msgstr "Sconti Globali Fattura (Sola lettura)"
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_invoice_report
 msgid "Invoices Statistics"
-msgstr "Statistiche Fatture"
+msgstr "Statistiche fatture"
 
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_move
