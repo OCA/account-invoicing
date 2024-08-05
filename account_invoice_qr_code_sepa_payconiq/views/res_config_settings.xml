@@ -18,6 +18,14 @@
                         />
                         <field name="payconiq_qr_profile_id" class="oe_inline" />
                     </div>
+                    <div class="row">
+                        <label for="payconiq_url" class="col-lg-3 o_light_label" />
+                        <field name="payconiq_url" class="oe_inline" />
+                    </div>
+                    <div class="row">
+                        <label for="payconiq_qr_url" class="col-lg-3 o_light_label" />
+                        <field name="payconiq_qr_url" class="oe_inline" />
+                    </div>
                 </div>
             </div>
         </field>
