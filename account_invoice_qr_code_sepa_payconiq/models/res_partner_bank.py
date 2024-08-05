@@ -92,14 +92,18 @@ class ResPartnerBank(models.Model):
             structured_communication,
         )
 
-    def _eligible_for_qr_code(self, qr_method, debtor_partner, currency):
+    def _eligible_for_qr_code(
+        self, qr_method, debtor_partner, currency, raises_error=True
+    ):
         if qr_method == "payconiq_qr":
             return (
                 currency.name == "EUR"
                 and self.acc_type == "iban"
                 and self.sanitized_acc_number[:2] in ["LU"]
             )
-        return super()._eligible_for_qr_code(qr_method, debtor_partner, currency)
+        return super()._eligible_for_qr_code(
+            qr_method, debtor_partner, currency, raises_error=raises_error
+        )
 
     def _get_qr_code_base64(
         self,
@@ -134,7 +138,9 @@ class ResPartnerBank(models.Model):
                 "s": "S",
                 "c": c_url + urllib.parse.urlencode(params),
             }
-            response = requests.get(PAYCONIQ_QR_URL, params=new_params, stream=True)
+            response = requests.get(
+                PAYCONIQ_QR_URL, params=new_params, stream=True, timeout=60
+            )
             raw_image = response.raw
             img = Image.open(raw_image)
 
