@@ -1,0 +1,1 @@
+odoo-addon-partner_invoicing_mode @ git+https://github.com/OCA/account-invoicing.git@refs/pull/1699/head#subdirectory=partner_invoicing_mode
