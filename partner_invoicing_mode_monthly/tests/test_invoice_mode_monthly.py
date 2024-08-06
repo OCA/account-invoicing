@@ -17,7 +17,7 @@ class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
         sale_order.action_confirm()
         for picking in sale_order.picking_ids:
             for move in picking.move_ids:
-                move.quantity_done = move.product_uom_qty
+                move.quantity = move.product_uom_qty
             picking.action_assign()
             picking.with_context(test_queue_job_no_delay=True).button_validate()
 
