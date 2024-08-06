@@ -69,6 +69,8 @@ Contributors
 
 -  Phuc (Tran Thanh) <phuc@trobz.com>
 
+-  Tran Thanh Trai <traitt@trobz.com>
+
 Other credits
 -------------
 
