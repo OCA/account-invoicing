@@ -16,14 +16,16 @@ class SaleOrder(models.Model):
         the group name.
         Only do this for invoices targetting multiple groups
         """
-        invoice_ids = super()._create_invoices(grouped=grouped, final=final, date=date)
-        for invoice in invoice_ids:
+        invoices = super()._create_invoices(grouped=grouped, final=final, date=date)
+        for invoice in invoices.sudo():
             if (
                 len(invoice.line_ids.mapped(invoice.line_ids._get_section_grouping()))
                 == 1
             ):
                 continue
             sequence = 10
+            # Because invoices are already created, this would require
+            # an extra read access in order to read order fields.
             move_lines = invoice._get_ordered_invoice_lines()
             # Group move lines according to their sale order
             section_grouping_matrix = OrderedDict()
@@ -56,18 +58,14 @@ class SaleOrder(models.Model):
                     )
                     sequence += 10
                 for move_line in self.env["account.move.line"].browse(move_line_ids):
-                    if move_line.display_type == "line_section":
-                        # add extra indent for existing SO Sections
-                        move_line.name = f"- {move_line.name}"
+                    # Because invoices are already created, this would require
+                    # an extra write access in order to read order fields.
                     move_line.sequence = sequence
                     sequence += 10
+            # Because invoices are already created, this would require
+            # an extra write access in order to read order fields.
             invoice.line_ids = section_lines
-        return invoice_ids
-
-    def _get_ordered_invoice_lines(self, invoice):
-        return invoice.invoice_line_ids.sorted(
-            key=lambda r: r.sale_line_ids.order_id.id
-        )
+        return invoices
 
     def _get_invoice_section_name(self):
         """Returns the text for the section name."""
