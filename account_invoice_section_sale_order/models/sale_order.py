@@ -24,7 +24,9 @@ class SaleOrder(models.Model):
             ):
                 continue
             sequence = 10
-            move_lines = invoice._get_ordered_invoice_lines()
+            # Because invoices are already created, this would require
+            # an extra read access in order to read order fields.
+            move_lines = invoice.sudo()._get_ordered_invoice_lines()
             # Group move lines according to their sale order
             section_grouping_matrix = OrderedDict()
             for move_line in move_lines:
@@ -56,9 +58,13 @@ class SaleOrder(models.Model):
                     )
                     sequence += 10
                 for move_line in self.env["account.move.line"].browse(move_line_ids):
-                    move_line.sequence = sequence
+                    # Because invoices are already created, this would require
+                    # an extra write access in order to read order fields.
+                    move_line.sudo().sequence = sequence
                     sequence += 10
-            invoice.line_ids = section_lines
+            # Because invoices are already created, this would require
+            # an extra write access in order to read order fields.
+            invoice.sudo().line_ids = section_lines
         return invoice_ids
 
     def _get_invoice_section_name(self):
