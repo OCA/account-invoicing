@@ -30,8 +30,9 @@ class AccountMove(models.Model):
         "    'in_invoice': ['purchase']"
         "}.get(move_type, [])), ('account_id', '!=', False), '|', "
         "('company_id', '=', company_id), ('company_id', '=', False)]",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
+        compute="_compute_global_discount_ids",
+        store=True,
+        readonly=False,
     )
     amount_global_discount = fields.Monetary(
         string="Total Global Discounts",
@@ -87,7 +88,7 @@ class AccountMove(models.Model):
         # incorrect data in discounts
         _self = self.filtered("global_discount_ids")
         for inv_line in _self.invoice_line_ids.filtered(
-            lambda l: l.display_type not in ["line_section", "line_note"]
+            lambda line: line.display_type not in ["line_section", "line_note"]
         ):
             if inv_line.product_id.bypass_global_discount:
                 continue
@@ -161,8 +162,9 @@ class AccountMove(models.Model):
                 {
                     "invoice_global_discount_id": discount.id,
                     "move_id": self.id,
-                    "name": "%s - %s"
-                    % (discount.name, ", ".join(discount.tax_ids.mapped("name"))),
+                    "name": "{} - {}".format(
+                        discount.name, ", ".join(discount.tax_ids.mapped("name"))
+                    ),
                     "debit": disc_amount_company_currency > 0.0
                     and disc_amount_company_currency
                     or 0.0,
@@ -179,27 +181,25 @@ class AccountMove(models.Model):
                 }
             )
 
-    @api.onchange("partner_id", "company_id")
-    def _onchange_partner_id(self):
-        res = super()._onchange_partner_id()
-        discounts = False
-        if (
-            self.move_type in ["out_invoice", "out_refund"]
-            and self.partner_id.customer_global_discount_ids
-        ):
-            discounts = self.partner_id.customer_global_discount_ids.filtered(
-                lambda d: d.company_id == self.company_id
-            )
-        elif (
-            self.move_type in ["in_refund", "in_invoice"]
-            and self.partner_id.supplier_global_discount_ids
-        ):
-            discounts = self.partner_id.supplier_global_discount_ids.filtered(
-                lambda d: d.company_id == self.company_id
-            )
-        if discounts:
-            self.global_discount_ids = discounts
-        return res
+    @api.depends("partner_id", "company_id", "move_type")
+    def _compute_global_discount_ids(self):
+        for move in self:
+            discounts = False
+            if (
+                move.move_type in ["out_invoice", "out_refund"]
+                and move.partner_id.customer_global_discount_ids
+            ):
+                discounts = move.partner_id.customer_global_discount_ids.filtered(
+                    lambda d: d.company_id == move.company_id
+                )
+            elif (
+                move.move_type in ["in_refund", "in_invoice"]
+                and move.partner_id.supplier_global_discount_ids
+            ):
+                discounts = move.partner_id.supplier_global_discount_ids.filtered(
+                    lambda d: d.company_id == move.company_id
+                )
+            move.global_discount_ids = discounts
 
     def _compute_amount_one(self):
         """Perform totals computation of a move with global discounts."""
@@ -320,8 +320,8 @@ class AccountMoveLine(models.Model):
         string="Amount Untaxed Before Discounts",
         readonly=True,
     )
-    # TODO: To be removed on future versions if invoice_global_discount_id is properly filled
-    # Provided for compatibility in stable branch
+    # TODO: To be removed on future versions if invoice_global_discount_id
+    # is properly filled Provided for compatibility in stable branch
     # UPD: can be removed past version 16.0
     global_discount_item = fields.Boolean()
 
@@ -368,7 +368,9 @@ class AccountInvoiceGlobalDiscount(models.Model):
         comodel_name="account.account",
         required=True,
         string="Account",
-        domain="[('account_type', 'not in', ['asset_receivable', 'liability_payable'])]",
+        domain=(
+            "[('account_type', 'not in', ['asset_receivable', 'liability_payable'])]"
+        ),
     )
     account_analytic_id = fields.Many2one(
         comodel_name="account.analytic.account",
