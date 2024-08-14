@@ -17,6 +17,7 @@ class AccountMove(models.Model):
         store=True,
         readonly=True,
         precompute=True,
+        copy=True,
     )
 
     @api.constrains("pricelist_id", "currency_id")
