@@ -8,14 +8,15 @@
         <field name="arch" type="xml">
             <!-- For ensuring the storage of these fields -->
             <xpath expr="//field[@name='line_ids']/tree" position="inside">
-                <field name="invoice_global_discount_id" invisible="1" />
-                <field name="global_discount_item" invisible="1" />
+                <field name="invoice_global_discount_id" column_invisible="1" />
+                <field name="global_discount_item" column_invisible="1" />
             </xpath>
             <xpath expr="//field[@name='invoice_payment_term_id']/.." position="after">
                 <field
                     name="global_discount_ids"
                     widget="many2many_tags"
                     placeholder="Discounts..."
+                    readonly="state != 'draft'"
                     groups="base_global_discount.group_global_discount"
                 />
                 <field
@@ -30,25 +31,25 @@
                 <field
                     name="amount_untaxed_before_global_discounts"
                     string="Untaxed Amount Before Disc."
-                    attrs="{'invisible': ['|',('global_discount_ids', '=', []),('invoice_global_discount_ids','=',[])]}"
+                    invisible="not global_discount_ids or not invoice_global_discount_ids"
                     groups="base_global_discount.group_global_discount"
                 />
                 <field
                     name="amount_untaxed_before_global_discounts"
                     string="Untaxed Amount Before Disc."
-                    attrs="{'invisible': ['|',('global_discount_ids_readonly', '=', []),('invoice_global_discount_ids','=',[])]}"
+                    invisible="not global_discount_ids_readonly or not invoice_global_discount_ids"
                     groups="!base_global_discount.group_global_discount"
                 />
                 <field
                     name="amount_global_discount"
                     string="Global Discounts"
-                    attrs="{'invisible': ['|',('global_discount_ids', '=', []),('invoice_global_discount_ids','=',[])]}"
+                    invisible="not global_discount_ids or not invoice_global_discount_ids"
                     groups="base_global_discount.group_global_discount"
                 />
                 <field
                     name="amount_global_discount"
                     string="Global Discounts"
-                    attrs="{'invisible': ['|',('global_discount_ids_readonly', '=', []),('invoice_global_discount_ids','=',[])]}"
+                    invisible="not global_discount_ids_readonly or not invoice_global_discount_ids"
                     groups="!base_global_discount.group_global_discount"
                 />
             </field>
@@ -65,15 +66,15 @@
                     name="invoice_global_discount_ids"
                     nolabel="1"
                     readonly="1"
-                    attrs="{'invisible': [('global_discount_ids', '=', [])]}"
+                    invisible="not global_discount_ids"
                     force_save="1"
                     groups="base_global_discount.group_global_discount"
                 >
                     <tree create="0" delete="0">
                         <field name="name" />
-                        <field name="currency_id" invisible="1" />
-                        <field name="global_discount_id" invisible="1" />
-                        <field name="discount" invisible="1" />
+                        <field name="currency_id" column_invisible="1" />
+                        <field name="global_discount_id" column_invisible="1" />
+                        <field name="discount" column_invisible="1" />
                         <field
                             name="base"
                             widget="monetary"
@@ -88,7 +89,7 @@
                         />
                         <field name="account_id" />
                         <field name="tax_ids" widget="many2many_tags" />
-                        <field name="company_id" invisible="1" />
+                        <field name="company_id" column_invisible="1" />
                         <field
                             domain="[('company_id', '=', company_id)]"
                             name="account_analytic_id"
@@ -100,15 +101,15 @@
                     name="invoice_global_discount_ids"
                     nolabel="1"
                     readonly="1"
-                    attrs="{'invisible': [('global_discount_ids_readonly', '=', [])]}"
+                    invisible="not global_discount_ids_readonly"
                     force_save="1"
                     groups="!base_global_discount.group_global_discount"
                 >
                     <tree create="0" delete="0">
                         <field name="name" />
-                        <field name="currency_id" invisible="1" />
-                        <field name="global_discount_id" invisible="1" />
-                        <field name="discount" invisible="1" />
+                        <field name="currency_id" column_invisible="1" />
+                        <field name="global_discount_id" column_invisible="1" />
+                        <field name="discount" column_invisible="1" />
                         <field
                             name="base"
                             widget="monetary"
@@ -123,7 +124,7 @@
                         />
                         <field name="account_id" />
                         <field name="tax_ids" widget="many2many_tags" />
-                        <field name="company_id" invisible="1" />
+                        <field name="company_id" column_invisible="1" />
                         <field
                             domain="[('company_id', '=', company_id)]"
                             name="account_analytic_id"
