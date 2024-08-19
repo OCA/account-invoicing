@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
 from odoo.exceptions import UserError
-from odoo.tests import TransactionCase
+from odoo.tests import SavepointCase
 
 
-class TestAccountInvoice(TransactionCase):
+class TestAccountInvoice(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
