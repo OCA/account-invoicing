@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-06 00:42+0000\n"
-"PO-Revision-Date: 2024-02-21 17:33+0000\n"
+"PO-Revision-Date: 2024-08-20 10:58+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: purchase_stock_picking_return_invoicing
 #: model:ir.model.fields,field_description:purchase_stock_picking_return_invoicing.field_purchase_order__invoice_refund_count
@@ -72,9 +72,9 @@ msgid ""
 "There is no invoiceable line. If a product has a control policy based on "
 "received quantity, please make sure that a quantity has been received."
 msgstr ""
-"Non c'è una riga fatturabile. Se un prodotto ha una politica di controllo "
-"basata sulla quantità ricevuta, assicurarsi che una quantità sia stata "
-"ricevuta."
+"Non c'è alcuna riga fatturabile. Se un prodotto ha una politica di controllo "
+"basata sulla quantità ricevuta, si prega di accertarsi che ci sia una "
+"ricezione."
 
 #. module: purchase_stock_picking_return_invoicing
 #: model:ir.model.fields,help:purchase_stock_picking_return_invoicing.field_purchase_order_line__qty_returned
