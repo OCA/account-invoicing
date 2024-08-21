@@ -56,6 +56,7 @@ setuptools.setup(
         'odoo-addon-account_move_exception>=15.0dev,<15.1dev',
         'odoo-addon-account_move_post_block>=15.0dev,<15.1dev',
         'odoo-addon-account_move_search_line>=15.0dev,<15.1dev',
+        'odoo-addon-account_move_sent_usability>=15.0dev,<15.1dev',
         'odoo-addon-account_move_tier_validation>=15.0dev,<15.1dev',
         'odoo-addon-account_move_tier_validation_forward>=15.0dev,<15.1dev',
         'odoo-addon-account_portal_hide_invoice>=15.0dev,<15.1dev',
