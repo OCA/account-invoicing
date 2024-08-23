@@ -9,7 +9,7 @@
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Account",
     "depends": ["account"],
-    "maintainers": ["dessanhemrayev", "CetmixGitDrone"],
+    "maintainers": [],
     "data": ["views/res_config_settings.xml"],
     "license": "AGPL-3",
     "development_status": "Production/Stable",
