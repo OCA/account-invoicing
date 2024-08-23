@@ -18,7 +18,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
                 }
             )
             return sale_orders.with_context(**ctx)._create_invoices(
-                final=self.deduct_down_payments, grouped=not self.consolidated_billing
+                final=self.deduct_down_payments
             )
         return super()._create_invoices(sale_orders)
 

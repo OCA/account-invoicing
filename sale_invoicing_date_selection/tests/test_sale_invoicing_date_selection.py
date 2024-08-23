@@ -48,10 +48,9 @@ class TestSaleInvoicingDateSelection(TransactionCase):
             )
         ) as wiz_invoice_form:
             wiz_invoice_form.invoice_date = "2024-03-01"
+            wiz_invoice_form.advance_payment_method = "fixed"
+            wiz_invoice_form.fixed_amount = 10
         wiz = wiz_invoice_form.save()
-        # set values by code as there are invisible fields
-        wiz.advance_payment_method = "fixed"
-        wiz.fixed_amount = 10
         action = wiz.create_invoices()
         invoices = self.env["account.move"].browse(action["res_id"])
         self.assertEqual(fields.Date.to_string(invoices[0].invoice_date), "2024-03-01")
