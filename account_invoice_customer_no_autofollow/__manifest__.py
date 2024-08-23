@@ -5,7 +5,7 @@
     "name": "Invoice Customer No Autofollow",
     "summary": "Do not add customer as follower in Invoices",
     "author": "Cetmix,Odoo Community Association (OCA)",
-    "version": "13.0.1.0.0",
+    "version": "16.0.1.0.0",
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Account",
     "depends": ["account"],
