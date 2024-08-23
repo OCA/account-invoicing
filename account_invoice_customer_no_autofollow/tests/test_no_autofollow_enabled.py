@@ -12,7 +12,8 @@ class TestNoAutofollow(NoAutofollowCommon):
         super(TestNoAutofollow, self).setUp(*args, **kwargs)
 
         self.env["ir.config_parameter"].sudo().set_param(
-            "invoice_customer_no_autofollow.invoice_partner_no_autofollow", False,
+            "invoice_customer_no_autofollow.invoice_partner_no_autofollow",
+            False,
         )
         self.invoice = (
             self.env["account.move"]
@@ -31,12 +32,14 @@ class TestNoAutofollow(NoAutofollowCommon):
         or disabled
         """
         self.assertEqual(
-            self.invoice._partner_disable_autofollow(), False, "Must be equal to False",
+            self.invoice._partner_disable_autofollow(),
+            False,
+            "Must be equal to False",
         )
 
     def test_message_subscribe_1(self):
         """'Customer no autofollow' mode is enabled in settings.
-            Test whether the user will be added to the autofollow
+        Test whether the user will be added to the autofollow
         """
         self.invoice.with_context(
             invoice_no_auto_follow=self.invoice._partner_disable_autofollow()
@@ -49,7 +52,7 @@ class TestNoAutofollow(NoAutofollowCommon):
 
     def test_message_subscribe_2(self):
         """'Customer no autofollow' mode is enabled in settings.
-            Test whether the user will be added to the autofollow
+        Test whether the user will be added to the autofollow
         """
         self.invoice.with_context(
             invoice_no_auto_follow=self.invoice._partner_disable_autofollow()
@@ -62,7 +65,7 @@ class TestNoAutofollow(NoAutofollowCommon):
 
     def test_message_subscribe_3(self):
         """'Customer no autofollow' mode is enabled in settings.
-            Test whether the user will be added to the autofollow
+        Test whether the user will be added to the autofollow
         """
         self.invoice.with_context(
             invoice_no_auto_follow=self.invoice._partner_disable_autofollow()
