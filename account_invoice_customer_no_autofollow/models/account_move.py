@@ -45,6 +45,7 @@ class AccountMove(models.Model):
             self.env["ir.config_parameter"]
             .sudo()
             .get_param(
-                "invoice_customer_no_autofollow.invoice_partner_no_autofollow", False,
+                "invoice_customer_no_autofollow.invoice_partner_no_autofollow",
+                False,
             )
         )
