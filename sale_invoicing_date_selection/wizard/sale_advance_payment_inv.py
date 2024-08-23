@@ -11,7 +11,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
 
     def create_invoices(self):
         """
-        Add date to crate all invoices into user context
+        Add date to create all invoices into user context
         """
         ctx = self.env.context.copy()
         if self.invoice_date:
