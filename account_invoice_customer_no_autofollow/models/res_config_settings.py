@@ -9,5 +9,5 @@ class ResConfigSettings(models.TransientModel):
 
     invoice_partner_no_autofollow = fields.Boolean(
         config_parameter="invoice_customer_no_autofollow.invoice_partner_no_autofollow",
-        string="Customer disable autofollow",
+        string="Disable customer/vendor autofollow",
     )
