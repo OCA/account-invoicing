@@ -20,7 +20,7 @@
                             <label for="invoice_partner_no_autofollow" />
                             <div
                                 class="text-muted"
-                            >Customer will not be added as follower automatically</div>
+                            >Customer/vendor will not be added as follower automatically on invoices</div>
                         </div>
                     </div>
                 </div>
