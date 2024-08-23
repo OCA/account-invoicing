@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -24,16 +24,17 @@ msgid "Config Settings"
 msgstr ""
 
 #. module: account_invoice_customer_no_autofollow
-#: model:ir.model.fields,field_description:account_invoice_customer_no_autofollow.field_res_config_settings__invoice_partner_no_autofollow
-msgid "Customer disable autofollow"
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_no_autofollow.res_config_settings_view_form
+msgid ""
+"Customer/vendor will not be added as follower automatically on invoices"
 msgstr ""
 
 #. module: account_invoice_customer_no_autofollow
-#: model_terms:ir.ui.view,arch_db:account_invoice_customer_no_autofollow.res_config_settings_view_form
-msgid "Customer will not be added as follower automatically"
+#: model:ir.model.fields,field_description:account_invoice_customer_no_autofollow.field_res_config_settings__invoice_partner_no_autofollow
+msgid "Disable customer/vendor autofollow"
 msgstr ""
 
 #. module: account_invoice_customer_no_autofollow
 #: model:ir.model,name:account_invoice_customer_no_autofollow.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
