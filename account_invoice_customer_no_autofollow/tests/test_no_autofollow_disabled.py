@@ -15,15 +15,13 @@ class TestNoAutofollow(NoAutofollowCommon):
             "invoice_customer_no_autofollow.invoice_partner_no_autofollow",
             True,
         )
-        self.invoice = (
-            self.env["account.move"]
-            .with_context(default_type="in_invoice")
-            .create({"partner_id": self.partner1.id})
-        )
-        with Form(self.invoice) as form:
-            with form.invoice_line_ids.new() as line_1:
-                line_1.product_id = self.product1
-            form.save()
+        with Form(
+            self.env["account.move"].with_context(default_move_type="out_invoice")
+        ) as form:
+            form.partner_id = self.partner1
+            with form.invoice_line_ids.new() as line_form:
+                line_form.product_id = self.product1
+            self.invoice = form.save()
 
     def test_message_subscribe_1(self):
         """'Customer no autofollow' mode is enabled in settings.

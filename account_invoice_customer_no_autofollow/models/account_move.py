@@ -8,16 +8,14 @@ from odoo import api, models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    def message_subscribe(self, partner_ids=None, channel_ids=None, subtype_ids=None):
+    def message_subscribe(self, partner_ids=None, subtype_ids=None):
         partner_ids = partner_ids or []
         if (
             self.env.context.get("invoice_no_auto_follow")
             and self.partner_id.id in partner_ids
         ):
             partner_ids.remove(self.partner_id.id)
-        return super(AccountMove, self).message_subscribe(
-            partner_ids, channel_ids, subtype_ids
-        )
+        return super(AccountMove, self).message_subscribe(partner_ids, subtype_ids)
 
     @api.model_create_multi
     def create(self, values):
