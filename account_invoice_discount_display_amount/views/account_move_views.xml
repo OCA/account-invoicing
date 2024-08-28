@@ -16,7 +16,7 @@
                     expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']"
                     position="after"
                 >
-                    <field name="discount_total" optional="hide" />
+                    <field name="discount_total" optional="show" />
                 </xpath>
             </data>
         </field>
