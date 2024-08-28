@@ -84,6 +84,7 @@ Contributors
 
 -  Moaad Bourhim <moaad.bourhim@gmail.com>
 -  Jairo Llopis (`Moduon <https://www.moduon.team/>`__)
+-  SodexisTeam <dev@sodexis.com>
 
 Maintainers
 -----------
