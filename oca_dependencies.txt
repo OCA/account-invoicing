@@ -1,0 +1,2 @@
+account-invoicing https://github.com/factorlibre/account-invoicing 16.0-mig-sale_order_invoicing_queued
+account-invoicing https://github.com/factorlibre/account-invoicing 16.0-bkp-sale_invoicing_date_selection
