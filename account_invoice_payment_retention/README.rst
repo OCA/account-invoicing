@@ -17,22 +17,25 @@ Account Invoice Payment Retention
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_payment_retention
+    :target: https://github.com/OCA/account-invoicing/tree/17.0/account_invoice_payment_retention
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-account_invoice_payment_retention
+    :target: https://translation.odoo-community.org/projects/account-invoicing-17-0/account-invoicing-17-0-account_invoice_payment_retention
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module provide a feature to plan for retention during invoice / payment. And return it at later time.
+This module provide a feature to plan for retention during invoice /
+payment. And return it at later time.
 
-#. At Vendor Bill (or Customer Invoice), user can plan the retention by percent/amount
-#. At Payment, to retain the amount as planned (enforce / not enforce)
-#. At a later time, with another Vendor Bill (or Customer Invoice), user can select the retained payment in order to return it
+1. At Vendor Bill (or Customer Invoice), user can plan the retention by
+   percent/amount
+2. At Payment, to retain the amount as planned (enforce / not enforce)
+3. At a later time, with another Vendor Bill (or Customer Invoice), user
+   can select the retained payment in order to return it
 
 Note: This feature works on both customer invoice and vendor bill alike.
 
@@ -49,36 +52,46 @@ Note: This feature works on both customer invoice and vendor bill alike.
 Configuration
 =============
 
-#. Go to menu > Invoicing > Configurations > Settings
-#. Enable Invoice's Retention on Payment
-#. Select the Retention Payable Account and Retention Receivalbe Account, make sure this account allow reconciliation
-#. Once setup, user will see new Retention fields in Customer Invoice / Vendor Bill.
+1. Go to menu > Invoicing > Configurations > Settings
+2. Enable Invoice's Retention on Payment
+3. Select the Retention Payable Account and Retention Receivalbe
+   Account, make sure this account allow reconciliation
+4. Once setup, user will see new Retention fields in Customer Invoice /
+   Vendor Bill.
 
 Usage
 =====
 
 **To plan for retention during invoice**
 
-#. Create new Vendor Bill (or Customer Invoice).
-#. Specify amount to retain, by percent or amount.
-#. Validate invoice as per normal.
+1. Create new Vendor Bill (or Customer Invoice).
+2. Specify amount to retain, by percent or amount.
+3. Validate invoice as per normal.
 
 **To make payment retention**
 
-#. From the invoice, click Register Payment.
-#. On the payment window, system suggest the retention amount, click on helper toggle to apply it.
-#. By default, enforce retention is checked to ensure that, a valid retention amount and retention account is applied.
-#. Once ready, make payment as per normal. Journal Entry created with a retention account move line (to be cleared at later time).
+1. From the invoice, click Register Payment.
+2. On the payment window, system suggest the retention amount, click on
+   helper toggle to apply it.
+3. By default, enforce retention is checked to ensure that, a valid
+   retention amount and retention account is applied.
+4. Once ready, make payment as per normal. Journal Entry created with a
+   retention account move line (to be cleared at later time).
 
-**Note:** System just help to validate retention. At the end, user can ignore the retention.
+**Note:** System just help to validate retention. At the end, user can
+ignore the retention.
 
 **To return the retained amount**
 
-#. As time arrived to return the retained amount. Create the new Vendor Bill (or Customer Invoice).
-#. Select the partner. Return Retention field will list only uncleared retained amount for this partner.
-#. Select one or multiple payments (journal entry), system will auto populate the retained amount.
-#. Validate invoice as per normal, system will now clear (reconcile) that retention.
-#. Proceed to payment as per normal.
+1. As time arrived to return the retained amount. Create the new Vendor
+   Bill (or Customer Invoice).
+2. Select the partner. Return Retention field will list only uncleared
+   retained amount for this partner.
+3. Select one or multiple payments (journal entry), system will auto
+   populate the retained amount.
+4. Validate invoice as per normal, system will now clear (reconcile)
+   that retention.
+5. Proceed to payment as per normal.
 
 Bug Tracker
 ===========
@@ -86,7 +99,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_payment_retention%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_payment_retention%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -94,20 +107,20 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Ecosoft
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Ecosoft <http://ecosoft.co.th>`__:
+-  `Ecosoft <http://ecosoft.co.th>`__:
 
-  * Kitti U. <kittiu@ecosoft.co.th>
-  * Saran Lim. <saranl@ecosoft.co.th>
+   -  Kitti U. <kittiu@ecosoft.co.th>
+   -  Saran Lim. <saranl@ecosoft.co.th>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -119,6 +132,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_payment_retention>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/17.0/account_invoice_payment_retention>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
