@@ -1,3 +1,4 @@
 - [Ecosoft](http://ecosoft.co.th):
   - Kitti U. \<<kittiu@ecosoft.co.th>\>
   - Saran Lim. \<<saranl@ecosoft.co.th>\>
+- Manish Kumar Bohra <manishkumarbohra@outlook.com>

@@ -10,7 +10,7 @@ class AccountMove(models.Model):
 
     payment_retention = fields.Selection(
         selection=[("percent", "Percent"), ("amount", "Amount")],
-        readonly=True,
+
         states={"draft": [("readonly", False)]},
         help="Suggested retention amount to be withheld on payment.\n"
         "Note: as a suggestiong, during payment, user can ignore it.",
@@ -18,7 +18,7 @@ class AccountMove(models.Model):
     retention_method = fields.Selection(
         selection=[("untax", "Untaxed Amount"), ("total", "Total")],
         default=lambda self: self.env.company.retention_method,
-        readonly=True,
+
         states={"draft": [("readonly", False)]},
         help="Method for computing the retention\n"
         "- Untaxed Amount: The retention compute from the untaxed amount\n"
@@ -26,7 +26,7 @@ class AccountMove(models.Model):
     )
     amount_retention = fields.Float(
         string="Retention",
-        readonly=True,
+
         states={"draft": [("readonly", False)]},
         help="Retention in percent of this invoice, or by amount",
     )
