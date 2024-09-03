@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[account_invoice_block_payment](account_invoice_block_payment/) | 17.0.1.0.0 |  | Module to block payment of invoices
 [account_invoice_blocking](account_invoice_blocking/) | 17.0.1.0.1 |  | Set a blocking (No Follow-up) flag on invoices
 [account_invoice_crm_tag](account_invoice_crm_tag/) | 17.0.1.0.0 |  | Account Invoice CRM Tag
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 17.0.1.1.0 |  | Allows to apply fixed amount discounts in invoices.
