@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Sales",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "depends": ["account_invoice_pricelist", "sale"],
     "installable": True,
     "auto_install": True,

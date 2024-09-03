@@ -64,6 +64,8 @@ Contributors
 
 -  Manuel Regidor <manuel.regidor@sygel.es>
 
+-  SodexisTeam <dev@sodexis.com>
+
 -  `Trobz <https://trobz.com>`__:
 
       -  Nguyễn Minh Chiến <chien@trobz.com>
