@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="after">
+                <header name="substate">
+                    <field
+                        name="substate_id"
+                        widget="statusbar"
+                        options="{'clickable': '1',}"
+                    />
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="substate_id" widget="badge" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="substate_id" />
+            </field>
+            <filter name="status" position="after">
+                <filter
+                    name="substate_id"
+                    string="Substate"
+                    domain="[]"
+                    context="{'group_by':'substate_id'}"
+                />
+            </filter>
+        </field>
+    </record>
+
+</odoo>
