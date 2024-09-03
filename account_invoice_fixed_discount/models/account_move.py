@@ -70,8 +70,9 @@ class AccountMoveLine(models.Model):
         taxes,
         move_type,
     ):
-        if self.discount_fixed != 0:
-            discount = ((self.discount_fixed) / price_unit) * 100 or 0.00
+        discount = self.convert_discount_fixed_to_discount(
+            self.discount_fixed, self.price_unit, discount
+        )
         return super(AccountMoveLine, self)._get_price_total_and_subtotal_model(
             price_unit, quantity, discount, currency, product, partner, taxes, move_type
         )
@@ -88,8 +89,9 @@ class AccountMoveLine(models.Model):
         price_subtotal,
         force_computation=False,
     ):
-        if self.discount_fixed != 0:
-            discount = ((self.discount_fixed) / self.price_unit) * 100 or 0.00
+        discount = self.convert_discount_fixed_to_discount(
+            self.discount_fixed, self.price_unit, discount
+        )
         return super(AccountMoveLine, self)._get_fields_onchange_balance_model(
             quantity,
             discount,
@@ -103,22 +105,32 @@ class AccountMoveLine(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        prev_discount = []
-        for vals in vals_list:
-            if vals.get("discount_fixed"):
-                prev_discount.append(
-                    {"discount_fixed": vals.get("discount_fixed"), "discount": 0.00}
+        discount_vals_to_apply = []
+        for record_index, vals in enumerate(vals_list):
+            discount_fixed = vals.get("discount_fixed")
+            discount = vals.get("discount")
+            if discount_fixed:
+                discount_vals_to_apply.append(
+                    (record_index, {"discount_fixed": discount_fixed, "discount": 0.00})
                 )
-                fixed_discount = (
-                    vals.get("discount_fixed") / vals.get("price_unit")
-                ) * 100
-                vals.update({"discount": fixed_discount, "discount_fixed": 0.00})
-            elif vals.get("discount"):
-                prev_discount.append({"discount": vals.get("discount")})
-        res = super(AccountMoveLine, self).create(vals_list)
-        i = 0
-        for rec in res:
-            if rec.discount and prev_discount:
-                rec.write(prev_discount[i])
-                i += 1
-        return res
+                discount = self.convert_discount_fixed_to_discount(
+                    discount_fixed, vals.get("price_unit"), 0.00
+                )
+                vals.update({"discount": discount, "discount_fixed": 0.00})
+            elif discount:
+                discount_vals_to_apply.append((record_index, {"discount": discount}))
+        records = super(AccountMoveLine, self).create(vals_list)
+        for record_index, discount_vals in discount_vals_to_apply:
+            records[record_index].write(discount_vals)
+        return records
+
+    @api.model
+    def convert_discount_fixed_to_discount(
+        self,
+        discount_fixed,
+        price_unit,
+        default_discount,
+    ):
+        if not discount_fixed or not price_unit:
+            return default_discount
+        return (discount_fixed / price_unit) * 100
