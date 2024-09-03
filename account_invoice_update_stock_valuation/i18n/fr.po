@@ -1,0 +1,80 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_update_stock_valuation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-16 20:21+0000\n"
+"PO-Revision-Date: 2023-10-16 20:21+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_update_stock_valuation
+#: model_terms:ir.ui.view,arch_db:account_invoice_update_stock_valuation.view_move_form
+msgid ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                        &amp;nbsp;"
+msgstr ""
+
+#. module: account_invoice_update_stock_valuation
+#: model:ir.model.fields,field_description:account_invoice_update_stock_valuation.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_update_stock_valuation.field_account_move_line__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: account_invoice_update_stock_valuation
+#: model:ir.model.fields,field_description:account_invoice_update_stock_valuation.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_update_stock_valuation.field_account_move_line__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_update_stock_valuation
+#: model:ir.model,name:account_invoice_update_stock_valuation.model_account_move
+msgid "Journal Entry"
+msgstr "Pièce comptable"
+
+#. module: account_invoice_update_stock_valuation
+#: model:ir.model,name:account_invoice_update_stock_valuation.model_account_move_line
+msgid "Journal Item"
+msgstr "Écriture comptable"
+
+#. module: account_invoice_update_stock_valuation
+#: model:ir.model.fields,field_description:account_invoice_update_stock_valuation.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_update_stock_valuation.field_account_move_line____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: account_invoice_update_stock_valuation
+#: model:ir.model.fields,field_description:account_invoice_update_stock_valuation.field_account_move_line__stock_valuation_ok
+msgid "Stock valuation is ok ?"
+msgstr "Valorisation de stock est ok ?"
+
+#. module: account_invoice_update_stock_valuation
+#: model_terms:ir.ui.view,arch_db:account_invoice_update_stock_valuation.view_move_form
+msgid "Stock valuation to update"
+msgstr "Valorisation de stock à mettre à jour"
+
+#. module: account_invoice_update_stock_valuation
+#: model:ir.model.fields,field_description:account_invoice_update_stock_valuation.field_account_bank_statement_line__svl_warn_msg
+#: model:ir.model.fields,field_description:account_invoice_update_stock_valuation.field_account_move__svl_warn_msg
+#: model:ir.model.fields,field_description:account_invoice_update_stock_valuation.field_account_payment__svl_warn_msg
+msgid "Svl Warn Msg"
+msgstr ""
+
+#. module: account_invoice_update_stock_valuation
+#: code:addons/account_invoice_update_stock_valuation/models/account_move.py:0
+#, python-format
+msgid ""
+"Warning: in this invoice, there are lines that have a unit price that is "
+"different from that of the purchase order ! The stock valuation as well as "
+"the purchase price of the product will be updated when the invoice is "
+"validated."
+msgstr ""
+"Alerte: dans cette facture, il y a des lignes avec un prix unitaire différent de celui de la commande d'achat !"
+"La valoristaion de stock ainsi que le prix d'achat du produit seront mis à jour à la validation de la facture."
