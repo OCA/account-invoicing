@@ -17,9 +17,24 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_block_payment
+#: model:ir.model.fields,field_description:account_invoice_block_payment.field_account_move__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_block_payment
+#: model:ir.model.fields,field_description:account_invoice_block_payment.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_block_payment
 #: model:ir.model,name:account_invoice_block_payment.model_account_move
 msgid "Journal Entry"
 msgstr "Pièce comptable"
+
+#. module: account_invoice_block_payment
+#: model:ir.model.fields,field_description:account_invoice_block_payment.field_account_move____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: account_invoice_block_payment
 #: model:ir.model.fields,field_description:account_invoice_block_payment.field_account_bank_statement_line__payment_blocked
