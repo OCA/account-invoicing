@@ -40,6 +40,8 @@ class TestSaleOrderInvoicingQueue(TransactionCase):
         cls.order.action_confirm()
         cls.order2 = cls.order.copy({"partner_invoice_id": cls.partner2.id})
         cls.order2.action_confirm()
+        cls.order3 = cls.order.copy()
+        cls.order3.action_confirm()
 
     def test_queue_invoicing(self):
         wizard = self.wizard_obj.with_context(
@@ -69,3 +71,18 @@ class TestSaleOrderInvoicingQueue(TransactionCase):
         # Execute method directly for checking if invoicing is done
         self.order.create_invoices_job(True)
         self.assertTrue(self.order.invoice_ids)
+
+    def test_direct_invoices_job_date(self):
+        # Test direct invoicing checking invoice_date declaration
+        wizard = self.wizard_obj.with_context(
+            active_ids=self.order3.ids, active_model=self.order3._name
+        ).create({})
+        wizard.enqueue_invoices()
+        self.order3.create_invoices_job(True, "2024-08-04")
+        self.assertTrue(self.order3.invoice_ids)
+        invoice_date = (
+            self.order3.invoice_ids[0].invoice_date.strftime("%Y-%m-%d")
+            if self.order3.invoice_ids[0].invoice_date
+            else False
+        )
+        self.assertEqual(invoice_date, "2024-08-04")
