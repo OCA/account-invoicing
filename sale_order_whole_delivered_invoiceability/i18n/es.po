@@ -1,0 +1,46 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_order_whole_delivered_invoiceability
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-03 16:50+0000\n"
+"PO-Revision-Date: 2024-09-03 18:54+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: sale_order_whole_delivered_invoiceability
+#: model:ir.model,name:sale_order_whole_delivered_invoiceability.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: sale_order_whole_delivered_invoiceability
+#: model_terms:ir.ui.view,arch_db:sale_order_whole_delivered_invoiceability.view_sales_order_filter
+msgid "Partial orders not invoiced"
+msgstr "Pedidos parciales no facturados"
+
+#. module: sale_order_whole_delivered_invoiceability
+#: model:ir.model.fields,help:sale_order_whole_delivered_invoiceability.field_res_partner__whole_delivered_invoiceability
+#: model:ir.model.fields,help:sale_order_whole_delivered_invoiceability.field_res_users__whole_delivered_invoiceability
+msgid "Prevent invoicing until everything has been delivered."
+msgstr "Evitar la facturación hasta que se haya entregado todo."
+
+#. module: sale_order_whole_delivered_invoiceability
+#: model:ir.model,name:sale_order_whole_delivered_invoiceability.model_sale_order
+msgid "Sales Order"
+msgstr "Órdenes de Venta"
+
+#. module: sale_order_whole_delivered_invoiceability
+#: model:ir.model.fields,field_description:sale_order_whole_delivered_invoiceability.field_res_partner__whole_delivered_invoiceability
+#: model:ir.model.fields,field_description:sale_order_whole_delivered_invoiceability.field_res_users__whole_delivered_invoiceability
+#: model:ir.model.fields,field_description:sale_order_whole_delivered_invoiceability.field_sale_order__whole_delivered_invoiceability
+msgid "Whole Delivered Invoiceability"
+msgstr "Facturación de entregas completas"
