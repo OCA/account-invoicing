@@ -1,4 +1,4 @@
-# Copyright 2020 Sergio Zanchetta (Associazione PNLUG - Gruppo Odoo)
+# Copyright 2020-2024 Sergio Zanchetta (Associazione PNLUG - Gruppo Odoo)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
@@ -11,8 +11,9 @@
     "license": "AGPL-3",
     "depends": ["account"],
     "data": [
-        "views/report_receipt.xml",
+        "views/report_invoice.xml",
         "views/account_report.xml",
+        "views/res_config_settings_views.xml",
     ],
     "installable": True,
 }

@@ -4,8 +4,8 @@
             <field name="name">Receipts</field>
             <field name="model">account.move</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">account_receipt_print.report_receipt</field>
-            <field name="report_file">account_receipt_print.report_receipt</field>
+            <field name="report_name">account_receipt_print.report_invoice</field>
+            <field name="report_file">account_receipt_print.report_invoice</field>
             <field name="print_report_name">(object._get_move_display_name())</field>
             <field
             name="attachment"
