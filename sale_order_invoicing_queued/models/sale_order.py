@@ -15,5 +15,8 @@ class SaleOrder(models.Model):
         copy=False,
     )
 
-    def create_invoices_job(self, final):
-        self._create_invoices(final=final)
+    def create_invoices_job(self, final, invoice_date=False):
+        ctx = self.env.context.copy()
+        if invoice_date:
+            ctx.update({"default_invoice_date": invoice_date})
+        self.with_context(**ctx)._create_invoices(final=final)
