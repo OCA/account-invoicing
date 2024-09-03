@@ -46,6 +46,7 @@ class AccountMove(models.Model):
             "account_id",
             "analytic_account_id",
             "product_uom_id",
+            "name",
         ]
         for field in ["sale_line_ids"]:
             if field in self.env["account.move.line"]._fields:
