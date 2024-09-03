@@ -1,6 +1,6 @@
 # Copyright 2016-2022 Lorenzo Battistini
 # Copyright 2018-2019 Simone Rubino
-# Copyright 2019 Sergio Zanchetta (Associazione PNLUG - Gruppo Odoo)
+# Copyright 2019-2024 Sergio Zanchetta (Associazione PNLUG - Gruppo Odoo)
 # Copyright 2020 Giovanni Serra - GSLab.it
 # Copyright 2023 Simone Rubino - TAKOBI
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
@@ -23,7 +23,10 @@
         "sale",
     ],
     "data": [
+        "wizard/sale_make_invoice.xml",
         "views/sale_views.xml",
+        "security/sale_security.xml",
+        "security/ir.model.access.csv",
     ],
     "pre_init_hook": "rename_old_italian_module",
     "post_init_hook": "migrate_corrispettivi_data",
