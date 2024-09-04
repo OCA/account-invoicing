@@ -13,6 +13,7 @@ class TestAccountMove(common.TransactionCase):
         eur = cls.env.ref("base.EUR")
         cls.currency = cls.env.ref("base.main_company").currency_id
         cls.currency_extra = eur if cls.currency == usd else usd
+        cls.currency_extra.active = True
         cls.account_tax = cls.env["account.tax"].create(
             {"name": "0%", "amount_type": "fixed", "type_tax_use": "sale", "amount": 0}
         )
