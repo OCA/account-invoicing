@@ -14,7 +14,7 @@ License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
                     name="currency_rate_amount"
                     groups="base.group_multi_currency"
                     digits="[12,12]"
-                    attrs="{'invisible':[('show_currency_rate_amount', '=', False)]}"
+                   invisible="not show_currency_rate_amount"
                 />
             </xpath>
         </field>
