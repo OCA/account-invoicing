@@ -65,7 +65,7 @@ addon | version | maintainers | summary
 [account_move_auto_post_ref](account_move_auto_post_ref/) | 16.0.1.0.1 | [![rafaelbn](https://github.com/rafaelbn.png?size=30px)](https://github.com/rafaelbn) [![yajo](https://github.com/yajo.png?size=30px)](https://github.com/yajo) | Propagate customer ref when auto-generating next recurring invoice
 [account_move_cancel_confirm](account_move_cancel_confirm/) | 16.0.1.0.0 | [![kittiu](https://github.com/kittiu.png?size=30px)](https://github.com/kittiu) | Account Move Cancel Confirm
 [account_move_substate](account_move_substate/) | 16.0.1.0.1 |  | Account Move Sub State
-[account_move_tier_validation](account_move_tier_validation/) | 16.0.1.0.0 |  | Extends the functionality of Account Moves to support a tier validation process.
+[account_move_tier_validation](account_move_tier_validation/) | 16.0.1.0.1 |  | Extends the functionality of Account Moves to support a tier validation process.
 [account_receipt_journal](account_receipt_journal/) | 16.0.1.1.0 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) [![anddago78](https://github.com/anddago78.png?size=30px)](https://github.com/anddago78) | Define and use journals dedicated to receipts
 [account_receipt_send](account_receipt_send/) | 16.0.1.0.2 | [![Shide](https://github.com/Shide.png?size=30px)](https://github.com/Shide) | Send receipts
 [account_tax_change](account_tax_change/) | 16.0.1.0.3 | [![sebalix](https://github.com/sebalix.png?size=30px)](https://github.com/sebalix) | Configure your tax changes starting from a date.
