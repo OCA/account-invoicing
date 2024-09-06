@@ -1,2 +1,7 @@
-- Héctor Villarreal \<<hector.villarreal@forgeflow.com>\>
-- Manuel Regidor \<<manuel.regidor@sygel.es>\>
+- [Forgeflow](https://www.forgeflow.com):
+  - Héctor Villarreal
+- [Sygel](https://www.sygel.es):
+  - Harald Panten
+  - Valentin Vinagre
+  - Manuel Regidor
+  - Roger Sans
