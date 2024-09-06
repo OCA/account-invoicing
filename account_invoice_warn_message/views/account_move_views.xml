@@ -15,9 +15,13 @@
                     style="margin-bottom:0px;"
                 >
                     <p>
-                        <i class="fa fa-info-circle" />
+                        <i class="fa fa-info-circle" style="margin-right:0.5%;" />
                         &amp;nbsp;
-                        <field name="invoice_warn_msg" class="oe_inline" />
+                        <field
+                            name="invoice_warn_msg"
+                            class="oe_inline"
+                            style="width:95% !important;"
+                        />
                     </p>
                 </div>
             </header>
