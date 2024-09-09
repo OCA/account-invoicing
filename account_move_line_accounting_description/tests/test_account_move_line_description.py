@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo.tests import Form
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestAccountLineDescription(SavepointCase):
+class TestAccountLineDescription(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -20,7 +20,7 @@ class TestAccountLineDescription(SavepointCase):
         cls.product_with_acc_desc.categ_id = consumable_cat
         cls.product_without_acc_desc.categ_id = consumable_cat
 
-        cls.product_with_acc_desc.accounting_description = "Product1_acc_desc"
+        cls.product_with_acc_desc.accounting_description = "Virtual Interior Design"
 
         cls.account_move = cls.env["account.move"]
 
