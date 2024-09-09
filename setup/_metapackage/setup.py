@@ -78,6 +78,7 @@ setuptools.setup(
         'odoo-addon-sale_line_refund_to_invoice_qty_skip_anglo_saxon>=15.0dev,<15.1dev',
         'odoo-addon-sale_order_invoicing_grouping_criteria>=15.0dev,<15.1dev',
         'odoo-addon-sale_order_invoicing_qty_percentage>=15.0dev,<15.1dev',
+        'odoo-addon-sale_order_type_whole_delivered_invoiceability>=15.0dev,<15.1dev',
         'odoo-addon-sale_order_whole_delivered_invoiceability>=15.0dev,<15.1dev',
         'odoo-addon-sale_timesheet_invoice_description>=15.0dev,<15.1dev',
         'odoo-addon-stock_picking_invoicing>=15.0dev,<15.1dev',
