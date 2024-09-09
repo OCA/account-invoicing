@@ -7,7 +7,7 @@ from odoo import api, fields, models
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    external_name = fields.Char(string="External Name")
+    external_name = fields.Char()
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
@@ -16,3 +16,4 @@ class AccountMoveLine(models.Model):
             line.external_name = line.name
             if line.product_id.accounting_description:
                 line.name = line.product_id.accounting_description
+        return
