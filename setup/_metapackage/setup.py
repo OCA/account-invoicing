@@ -59,6 +59,7 @@ setuptools.setup(
         'odoo-addon-account_tax_group_widget_base_amount>=16.0dev,<16.1dev',
         'odoo-addon-account_tax_one_vat>=16.0dev,<16.1dev',
         'odoo-addon-account_tax_one_vat_purchase>=16.0dev,<16.1dev',
+        'odoo-addon-account_tax_one_vat_sale>=16.0dev,<16.1dev',
         'odoo-addon-partner_invoicing_mode>=16.0dev,<16.1dev',
         'odoo-addon-partner_invoicing_mode_at_shipping>=16.0dev,<16.1dev',
         'odoo-addon-partner_invoicing_mode_monthly>=16.0dev,<16.1dev',
