@@ -11,13 +11,6 @@
                     <field name="price_total_no_discount" />
                     <field name="discount_total" />
                 </xpath>
-
-                <xpath
-                    expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']"
-                    position="after"
-                >
-                    <field name="discount_total" optional="show" />
-                </xpath>
             </data>
         </field>
     </record>
