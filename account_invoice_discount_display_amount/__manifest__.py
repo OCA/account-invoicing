@@ -6,7 +6,7 @@
     "summary": """
         Show total discount applied and total without
         discount on invoices.""",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.1.1",
     "license": "AGPL-3",
     "author": "Sygel,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
