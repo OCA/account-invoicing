@@ -32,8 +32,6 @@ This module allows to show the total discount amount
 applied to an invoice, both in the backend and the
 invoice PDF repot.
 
-Also it shows the discount amount in the invoice line.
-
 **Table of contents**
 
 .. contents::
@@ -54,7 +52,6 @@ To use this module, you need to:
 #. Apply a discount on an invoice line.
 #. The values 'Discount Total' and 'Total Without Discount'
    will be automatically updated.
-#. The discount amount will be displayed on each invoice line.
 
 Bug Tracker
 ===========
@@ -81,8 +78,6 @@ Contributors
 * Alexei Rivera <arivera@archeti.com>
 * [APSL-Nagarro](https://apsl.tech):
   * Santi Amorós <samoros@apsl.net>
-* Moduon <https://www.moduon.team/>
-  * Eduardo López
 
 Maintainers
 ~~~~~~~~~~~
