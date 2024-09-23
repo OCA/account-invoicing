@@ -6,129 +6,131 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-09-23 15:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model,name:account_invoice_refund_reason.model_account_move_refund_reason
 msgid "Account Move Refund Reason"
-msgstr ""
+msgstr "Motivo rimborso movimento contabile"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model,name:account_invoice_refund_reason.model_account_move_reversal
 msgid "Account Move Reversal"
-msgstr ""
+msgstr "Storno movimento conto"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__active
 msgid "Active"
-msgstr ""
+msgstr "Attivo"
 
 #. module: account_invoice_refund_reason
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.account_invoice_refund_reasons_search
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.view_account_invoice_refund_reason
 msgid "Archived"
-msgstr ""
+msgstr "In archivio"
 
 #. module: account_invoice_refund_reason
 #: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_cancellation
 msgid "Cancellation"
-msgstr ""
+msgstr "Annullamento"
 
 #. module: account_invoice_refund_reason
 #: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_agreement
 msgid "Commercial and/or Collection Agreement"
-msgstr ""
+msgstr "Contratto commerciale e/o di riscossione"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creato il"
 
 #. module: account_invoice_refund_reason
 #: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_correction
 msgid "Data Correction"
-msgstr ""
+msgstr "Correzione dati"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__description
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_refund_reason
 #: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_noref
 msgid "Invoice without reference"
-msgstr ""
+msgstr "Fattura senza riferimento"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model,name:account_invoice_refund_reason.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultimo aggiornamento di"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultimo aggiornamento il"
 
 #. module: account_invoice_refund_reason
 #: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_error
 msgid "Lease and/or Minimum Charge Error"
-msgstr ""
+msgstr "Errore di locazione e/o di tariffa minima"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__name
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. module: account_invoice_refund_reason
 #: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_others
 msgid "Others"
-msgstr ""
+msgstr "Altri"
 
 #. module: account_invoice_refund_reason
 #: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_difference
 msgid "Price Difference"
-msgstr ""
+msgstr "Differenza prezzo"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__reason
 msgid "Reason"
-msgstr ""
+msgstr "Motivo"
 
 #. module: account_invoice_refund_reason
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.view_account_invoice_refund_reason
 msgid "Reason Name"
-msgstr ""
+msgstr "Nome causale"
 
 #. module: account_invoice_refund_reason
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_bank_statement_line__reason_id
@@ -136,10 +138,10 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__reason_id
 #: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_payment__reason_id
 msgid "Refund Reason"
-msgstr ""
+msgstr "Motivo rimborso"
 
 #. module: account_invoice_refund_reason
 #: model:ir.actions.act_window,name:account_invoice_refund_reason.refund_reason_action
 #: model:ir.ui.menu,name:account_invoice_refund_reason.refund_reasons_menu
 msgid "Refund Reasons"
-msgstr ""
+msgstr "Motivi rimborso"
