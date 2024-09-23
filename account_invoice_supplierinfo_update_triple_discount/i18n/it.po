@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-08 10:37+0000\n"
+"PO-Revision-Date: 2024-09-23 15:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: account_invoice_supplierinfo_update_triple_discount
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_triple_discount.field_wizard_update_invoice_supplierinfo_line__current_discount2
@@ -44,4 +44,4 @@ msgstr "Nuovo Sc. 3 (%)"
 #. module: account_invoice_supplierinfo_update_triple_discount
 #: model:ir.model,name:account_invoice_supplierinfo_update_triple_discount.model_wizard_update_invoice_supplierinfo_line
 msgid "Wizard Line to update supplierinfo"
-msgstr "Riga procedura guidata per aggiornare i prezzi fornitore"
+msgstr "Riga procedura guidata per aggiornare le informazioni fornitore"
