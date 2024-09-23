@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2023-10-13 11:37+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2024-09-23 15:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
@@ -27,13 +27,15 @@ msgstr "Annulla"
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_move_form
 msgid "Check Supplier Infos"
-msgstr ""
+msgstr "Controllo prezzi fornitori"
 
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_move_form
 msgid ""
 "Check if the invoice information are similar from the supplier information"
 msgstr ""
+"Controlla se le informazioni in fattura sono simili alle informazioni del "
+"fornitore"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplierinfo_ok
@@ -44,16 +46,21 @@ msgid ""
 " - Uncheck this box, if you want to check again this invoice\n"
 " - Check this box, if you want to mark this invoice as checked"
 msgstr ""
+"Selezionato se il controllo sui prezzi fornitori è stato fatto.\n"
+" - Deselezionare questa opzione, se si vuole controllare nuovamente questa "
+"fattura\n"
+" - Selezionare questa opzione, se si vuole marcare questa fattura come "
+"controllata"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_cost
 msgid "Cost"
-msgstr ""
+msgstr "Costo"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__cost_variation
 msgid "Cost Variation (%)"
-msgstr ""
+msgstr "Variazione costo (%)"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__create_uid
@@ -70,7 +77,7 @@ msgstr "Creato il"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_uom_id
 msgid "Default unit of measure used for all stock operations."
-msgstr ""
+msgstr "Unità di misura predefinita per tutte le operazioni di magazzino."
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_uom_id
@@ -78,6 +85,8 @@ msgid ""
 "Default unit of measure used for purchase orders. It must be in the same "
 "category as the default unit of measure."
 msgstr ""
+"Unità di misura predefinita utilizzata per ordini di acquisto. Deve essere "
+"della stessa categoria dell'unità di misura predefinita."
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__display_name
@@ -88,7 +97,7 @@ msgstr "Nome visualizzato"
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Do you want to set invoice as checked ?"
-msgstr ""
+msgstr "Si vuole impostare questa fattura come controllata?"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__id
@@ -99,7 +108,7 @@ msgstr "ID"
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Ignore"
-msgstr ""
+msgstr "Ignora"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__invoice_id
@@ -109,12 +118,12 @@ msgstr "Fattura"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Movimento contabile"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo____last_update
@@ -142,32 +151,32 @@ msgstr "Righe"
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "List of products to update"
-msgstr ""
+msgstr "Lista di prodotti da aggiornare"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_cost
 msgid "New Cost"
-msgstr ""
+msgstr "Nuovo costo"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_min_quantity
 msgid "New Min Quantity"
-msgstr ""
+msgstr "Nuova q.tà minima"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_price
 msgid "New Unit Price"
-msgstr ""
+msgstr "Nuovo prezzo unitario"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_uom_id
 msgid "New UoM"
-msgstr ""
+msgstr "Nuova UdM"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_price
 msgid "Price"
-msgstr ""
+msgstr "Prezzo"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_id
@@ -177,7 +186,7 @@ msgstr "Prodotto"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__state
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__supplier_partner_id
@@ -189,25 +198,24 @@ msgstr "Fornitore"
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_move__supplierinfo_ok
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_payment__supplierinfo_ok
 msgid "Supplier Informations Checked"
-msgstr ""
+msgstr "Informazioni fornitore controllate"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplier_partner_id
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_move__supplier_partner_id
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_payment__supplier_partner_id
 msgid "Supplier Partner"
-msgstr ""
+msgstr "Partner fornitore"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__supplierinfo_id
-#, fuzzy
 msgid "Supplierinfo"
-msgstr "Fornitore"
+msgstr "Informazioni fornitore"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_price
 msgid "The price to purchase a product"
-msgstr ""
+msgstr "Prezzo di acquisto di un prodotto"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_min_quantity
@@ -216,6 +224,9 @@ msgid ""
 "expressed in the vendor Product Unit of Measure if not any, in the default "
 "unit of measure of the product otherwise."
 msgstr ""
+"La quantità da acquistare da questo fornitore per beneficiare del prezzo, "
+"espresso nell'unità di misura del prodotto del fornitore se non presente, "
+"altrimenti nell'unità di misura del prodotto."
 
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
@@ -223,49 +234,50 @@ msgid ""
 "This will mark the invoice as checked. It will be possible to uncheck "
 "manually in the 'Other Info' tab."
 msgstr ""
+"Questo marcherà la fattura come controllata. È possibile smarcarla "
+"manualmente nella sezione 'Altre Informazioni'."
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_uom_id
 msgid "Unit of Measure"
-msgstr ""
+msgstr "Unità di misura"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_uom_id
 msgid "UoM"
-msgstr ""
+msgstr "UdM"
 
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Update Supplier Infos"
-msgstr ""
+msgstr "Aggiorna informazioni fornitore"
 
 #. module: account_invoice_supplierinfo_update
 #. odoo-python
 #: code:addons/account_invoice_supplierinfo_update/models/account_move.py:0
 #, python-format
 msgid "Update supplier informations of products"
-msgstr ""
+msgstr "Aggiorna informazioni fornitore dei prodotti"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__wizard_id
-#, fuzzy
 msgid "Wizard"
-msgstr "ID Procedura Guidata"
+msgstr "Procedura guidata"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo_line
 msgid "Wizard Line to update supplierinfo"
-msgstr ""
+msgstr "Riga procedura guidata per aggiornare le informazioni fornitore"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo
 msgid "Wizard to update supplierinfo"
-msgstr ""
+msgstr "Procedura guidata per aggiornare le informazioni fornitore"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_min_quantity
 msgid "current Min quantity"
-msgstr ""
+msgstr "quantità minima attuale"
 
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
