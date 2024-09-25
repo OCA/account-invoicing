@@ -19,15 +19,17 @@
         <!-- Add 'default_code' Column in table body -->
         <xpath expr="//td[@name='account_invoice_line_name']" position="before">
             <td name="account_invoice_line_default_code">
-                <span t-if="line.product_id" t-field="line.product_id.default_code"/>
+                <span t-if="line.product_id" t-field="line.product_id.default_code" style="white-space: nowrap;"/>
             </td>
         </xpath>
 
-        <!-- Replace 'name' column by 'name_without_default_code' column -->
-        <xpath expr="//td[@name='account_invoice_line_name']" position="replace">
-            <td name="account_invoice_line_name_without_default_code">
-                <span t-field="line.name_without_default_code" t-options="{'widget': 'text'}"/>
-            </td>
+        <!-- Replace 'name' column content by 'name_without_default_code' -->
+        <xpath expr="//td[@name='account_invoice_line_name']/span[@t-field='line.name']" position="attributes">
+            <attribute name="class">oe_hidden</attribute>
+        </xpath>
+
+        <xpath expr="//td[@name='account_invoice_line_name']/span[@t-field='line.name']" position="after">
+            <span t-field="line.name_without_default_code" t-options="{'widget': 'text'}"/>
         </xpath>
 
     </template>
