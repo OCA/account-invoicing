@@ -22,33 +22,15 @@ msgid "Cancel"
 msgstr "取消"
 
 #. module: sale_order_invoicing_queued
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv__display_name
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: sale_order_invoicing_queued
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_sale_advance_payment_inv
 msgid "Enqueue Invoicing"
 msgstr "排队开票"
 
 #. module: sale_order_invoicing_queued
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv__id
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__id
-msgid "ID"
-msgstr ""
-
-#. module: sale_order_invoicing_queued
 #: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__invoicing_job_ids
-#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_order_form
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_order_form_invoicing_queued
 msgid "Invoicing Jobs"
 msgstr "开票作业"
-
-#. module: sale_order_invoicing_queued
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv____last_update
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order____last_update
-msgid "Last Modified on"
-msgstr ""
 
 #. module: sale_order_invoicing_queued
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_queue_job_sale_order_invoicing
@@ -66,6 +48,7 @@ msgid "Sales Order"
 msgstr "销售订单"
 
 #. module: sale_order_invoicing_queued
+#. odoo-python
 #: code:addons/sale_order_invoicing_queued/wizards/sale_advance_payment_inv.py:0
 #, python-format
 msgid ""

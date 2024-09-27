@@ -23,33 +23,15 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: sale_order_invoicing_queued
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv__display_name
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__display_name
-msgid "Display Name"
-msgstr "Mostrar Nombre"
-
-#. module: sale_order_invoicing_queued
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_sale_advance_payment_inv
 msgid "Enqueue Invoicing"
 msgstr "Encolar facturación"
 
 #. module: sale_order_invoicing_queued
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv__id
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__id
-msgid "ID"
-msgstr "ID"
-
-#. module: sale_order_invoicing_queued
 #: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__invoicing_job_ids
-#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_order_form
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_order_form_invoicing_queued
 msgid "Invoicing Jobs"
 msgstr "Trabajos de facturación"
-
-#. module: sale_order_invoicing_queued
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv____last_update
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order____last_update
-msgid "Last Modified on"
-msgstr "Última Modificación el"
 
 #. module: sale_order_invoicing_queued
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_queue_job_sale_order_invoicing
@@ -67,6 +49,7 @@ msgid "Sales Order"
 msgstr "Pedido de venta"
 
 #. module: sale_order_invoicing_queued
+#. odoo-python
 #: code:addons/sale_order_invoicing_queued/wizards/sale_advance_payment_inv.py:0
 #, python-format
 msgid ""
@@ -75,6 +58,15 @@ msgid ""
 msgstr ""
 "Ya existe un trabajo encolado para facturar el pedido de venta %s. Por favor "
 "espera hasta que haya terminado o elimine el pedido de la selección."
+
+#~ msgid "Display Name"
+#~ msgstr "Mostrar Nombre"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última Modificación el"
 
 #~ msgid "Quotation"
 #~ msgstr "Presupuesto"
