@@ -1,0 +1,76 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_order_invoicing_queued
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-04-07 13:24+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1\n"
+
+#. module: sale_order_invoicing_queued
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_queue_job_sale_order_invoicing
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: sale_order_invoicing_queued
+#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv__display_name
+#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: sale_order_invoicing_queued
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_sale_advance_payment_inv
+msgid "Enqueue Invoicing"
+msgstr "Metti in coda la fatturazione"
+
+#. module: sale_order_invoicing_queued
+#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv__id
+#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_order_invoicing_queued
+#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__invoicing_job_ids
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_order_form
+msgid "Invoicing Jobs"
+msgstr "Jobs Fatturazione"
+
+#. module: sale_order_invoicing_queued
+#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv____last_update
+#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: sale_order_invoicing_queued
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_queue_job_sale_order_invoicing
+msgid "Requeue"
+msgstr "Rimetti in coda"
+
+#. module: sale_order_invoicing_queued
+#: model:ir.model,name:sale_order_invoicing_queued.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Fattura di vendita con pagamento anticipato"
+
+#. module: sale_order_invoicing_queued
+#: model:ir.model,name:sale_order_invoicing_queued.model_sale_order
+msgid "Sales Order"
+msgstr "Ordine di vendita"
+
+#. module: sale_order_invoicing_queued
+#: code:addons/sale_order_invoicing_queued/wizards/sale_advance_payment_inv.py:0
+#, python-format
+msgid ""
+"There's already an enqueued job for invoicing the sales order %s. Please "
+"wait until it's finished or remove it from the selection."
+msgstr ""
+"Esiste già un job in coda per fatturare l'ordine di vendita %s. Attendi che "
+"sia finito o rimuovilo dalla selezione."
