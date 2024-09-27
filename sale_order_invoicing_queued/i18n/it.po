@@ -22,33 +22,15 @@ msgid "Cancel"
 msgstr "Annulla"
 
 #. module: sale_order_invoicing_queued
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv__display_name
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__display_name
-msgid "Display Name"
-msgstr "Nome visualizzato"
-
-#. module: sale_order_invoicing_queued
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_sale_advance_payment_inv
 msgid "Enqueue Invoicing"
 msgstr "Metti in coda la fatturazione"
 
 #. module: sale_order_invoicing_queued
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv__id
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__id
-msgid "ID"
-msgstr "ID"
-
-#. module: sale_order_invoicing_queued
 #: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order__invoicing_job_ids
-#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_order_form
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_order_form_invoicing_queued
 msgid "Invoicing Jobs"
 msgstr "Jobs Fatturazione"
-
-#. module: sale_order_invoicing_queued
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_advance_payment_inv____last_update
-#: model:ir.model.fields,field_description:sale_order_invoicing_queued.field_sale_order____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
 
 #. module: sale_order_invoicing_queued
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_queued.view_queue_job_sale_order_invoicing
@@ -66,6 +48,7 @@ msgid "Sales Order"
 msgstr "Ordine di vendita"
 
 #. module: sale_order_invoicing_queued
+#. odoo-python
 #: code:addons/sale_order_invoicing_queued/wizards/sale_advance_payment_inv.py:0
 #, python-format
 msgid ""
@@ -74,3 +57,12 @@ msgid ""
 msgstr ""
 "Esiste già un job in coda per fatturare l'ordine di vendita %s. Attendi che "
 "sia finito o rimuovilo dalla selezione."
+
+#~ msgid "Display Name"
+#~ msgstr "Nome visualizzato"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
