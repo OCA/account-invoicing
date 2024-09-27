@@ -70,6 +70,7 @@ setuptools.setup(
         'odoo-addon-sale_line_refund_to_invoice_qty>=16.0dev,<16.1dev',
         'odoo-addon-sale_order_invoicing_grouping_criteria>=16.0dev,<16.1dev',
         'odoo-addon-sale_order_invoicing_qty_percentage>=16.0dev,<16.1dev',
+        'odoo-addon-sale_order_invoicing_queued>=16.0dev,<16.1dev',
         'odoo-addon-sale_timesheet_invoice_description>=16.0dev,<16.1dev',
         'odoo-addon-stock_picking_invoicing>=16.0dev,<16.1dev',
         'odoo-addon-stock_picking_return_refund_option>=16.0dev,<16.1dev',
