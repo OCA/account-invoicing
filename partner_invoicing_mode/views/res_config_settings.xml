@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='invoicing_settings']" position="inside">
+                <setting
+                    id="invoicing_mode"
+                    string="Invoicing Mode"
+                    help="Standard Invoicing Options"
+                >
+                    <div class="mt16">
+                        <div class="content-group" id="standard_invoicing_settings">
+                            <div>
+                                <label
+                                    for="invoicing_mode_standard_last_execution"
+                                    string="Last executed on"
+                                    class="col-lg-4 o_light_label"
+                                />
+                                <field name="invoicing_mode_standard_last_execution" />
+                            </div>
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
