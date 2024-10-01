@@ -55,6 +55,8 @@ class SaleOrder(models.Model):
         """Returns the text for the section name."""
         self.ensure_one()
         if self.client_order_ref:
-            return "{} - {}".format(self.name, self.client_order_ref or "")
+            return "{} - {} - {}".format(
+                self.name, self.client_order_ref or "", self.partner_id.name
+            )
         else:
             return self.name
