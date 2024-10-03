@@ -1,0 +1,3 @@
+- Odoo Perú \<<info@odooperu.pe>\>
+- Tharathip Chaweewongphan \<<tharathipc@ecosoft.co.th>\>
+- Marcos Oitabén \<<marcosoitaben@gmail.com>\>
