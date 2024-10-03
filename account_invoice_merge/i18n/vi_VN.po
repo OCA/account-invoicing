@@ -1,0 +1,177 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_merge
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-23 08:11+0000\n"
+"PO-Revision-Date: 2023-02-23 08:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_merge
+#. odoo-python
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "All invoices must have the same: \n"
+msgstr "Tất cả hóa đơn phải có cùng: \n"
+
+#. module: account_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid "Are you sure you want to merge these invoices?"
+msgstr "Bạn có muốn gộp những hóa đơn này lại với nhau ?"
+
+#. module: account_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid "Cancel"
+msgstr "Hủy"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__create_uid
+msgid "Created by"
+msgstr "Tạo bởi"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__create_date
+msgid "Created on"
+msgstr "Tạo vào"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__display_name
+msgid "Display Name"
+msgstr "Tên hiển thị"
+
+#. module: account_invoice_merge
+#. odoo-python
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Draft"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__error_message
+msgid "Error Message"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__date_invoice
+msgid "Invoice Date"
+msgstr "Ngày hóa đơn"
+
+#. module: account_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__keep_references
+msgid "Keep references from original invoices"
+msgstr "Giữ lại số hóa đơn"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__write_uid
+msgid "Last Updated by"
+msgstr "Cập nhật lần cuối bởi"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__write_date
+msgid "Last Updated on"
+msgstr "Cập nhật lần cuối vào"
+
+#. module: account_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid "Merge Invoices"
+msgstr "Gộp các hóa đơn"
+
+#. module: account_invoice_merge
+#: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid "Merge Partner Invoice"
+msgstr "Gộp hóa đơn Đối tác"
+
+#. module: account_invoice_merge
+#. odoo-python
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Merge-able State (ex : %s)"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid ""
+"Please note that:<br/><br/>\n"
+"                        Invoices will only be merged if:<br/>\n"
+"                        * Invoices are in state 'draft'.<br/>\n"
+"                        * Invoices belong to the same partner.<br/>\n"
+"                        * Invoices have the same company, partner, address,\n"
+"                        currency, journal, salesman, account and type.<br/"
+"><br/>\n"
+"                        Lines will only be merged if:<br/>\n"
+"                        * Invoice lines are exactly the same except for the\n"
+"                        product, quantity and unit.<br/>"
+msgstr ""
+
+#. module: account_invoice_merge
+#. odoo-python
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Please select multiple invoices to merge in the list view."
+msgstr "Vui lòng chọn nhiều hóa đơn để gộp"
+
+#, python-format
+#~ msgid "Draf"
+#~ msgstr "Nháp"
+
+#~ msgid "Invoice"
+#~ msgstr "Hóa đơn"
+
+#, python-format
+#~ msgid "Megeable State (ex : %s)"
+#~ msgstr "Trạng thái có thể gộp (vd : %s)"
+
+#~ msgid ""
+#~ "Please note that:<br/><br/>\n"
+#~ "                        Invoices will only be merged if:<br/>\n"
+#~ "                        * Invoices are in state 'draft'.<br/>\n"
+#~ "                        * Invoices belong to the same partner.<br/>\n"
+#~ "                        * Invoices have the same company, partner, "
+#~ "address,\n"
+#~ "                        currency, journal, salesman, account and type."
+#~ "<br/                        Lines will only be merged if:<br/>\n"
+#~ "                        * Invoice lines are exactly the same except for "
+#~ "the\n"
+#~ "                        product, quantity and unit.<br/>"
+#~ msgstr ""
+#~ "Ghi chú:<br/><br/>\n"
+#~ "                        Các hóa đơn chỉ có thể được gộp khi:<br/>\n"
+#~ "                        * Cùng ở trạng thái 'Nháp'.<br/>\n"
+#~ "                        * Thuộc cùng Đối tác,<br/>\n"
+#~ "                        * Thuộc cùng công ty, đơn vị tiền tệ, sổ nhật "
+#~ "ký, \n"
+#~ "                        người bán hàng, tài khoản kế toán và cùng loại "
+#~ "hóa đơn.<br/><br/>\n"
+#~ "                        Các dòng hóa đơn chỉ thể gộp khi:<br/>\n"
+#~ "                        * Các thông tin giống nhau, ngoại trừ các "
+#~ "trường: \n"
+#~ "                        sản phẩm, số lượng và đơn vị tính.<br/>"
+
+#~ msgid "or"
+#~ msgstr "hoặc"
