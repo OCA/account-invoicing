@@ -96,7 +96,15 @@ class TestInvoiceGroupBySaleOrder(TransactionCase):
     def test_create_invoice(self):
         """Check invoice is generated  with sale order sections."""
         result = {
-            0: "".join([self.order1_p1.name, " - ", self.order1_p1.client_order_ref]),
+            0: "".join(
+                [
+                    self.order1_p1.name,
+                    " - ",
+                    self.order1_p1.client_order_ref,
+                    " - ",
+                    self.partner_1.name,
+                ]
+            ),
             1: "order 1 line 1",
             2: "order 1 line 2",
             3: self.order2_p1.name,
