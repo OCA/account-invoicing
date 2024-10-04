@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Tecnativa - Pedro M. Baeza
+     Copyright 2020 Tecnativa - Manuel Calero
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="validate_account_move_view" model="ir.ui.view">
+        <field name="model">validate.account.move</field>
+        <field name="inherit_id" ref="account.validate_account_move_view" />
+        <field name="arch" type="xml">
+            <button name="validate_move" position="before">
+                <button
+                    name="enqueue_invoice_confirm"
+                    string="Enqueue Validation"
+                    type="object"
+                    class="btn btn-primary"
+                />
+            </button>
+        </field>
+    </record>
+</odoo>
