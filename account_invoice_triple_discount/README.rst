@@ -74,6 +74,7 @@ Authors
 
 * QubiQ
 * Tecnativa
+* GRAP
 
 Contributors
 ~~~~~~~~~~~~
@@ -84,7 +85,9 @@ Contributors
 * `Aion Tech <https://aiontech.company/>`_:
 
   * Simone Rubino <simone.rubino@aion-tech.it>
+
 * Laurent Mignon <laurent.mignon@acsone.eu>
+* Akim Juillerat <akim.juillerat@camptocamp.com>
 
 Maintainers
 ~~~~~~~~~~~

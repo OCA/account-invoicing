@@ -14,6 +14,7 @@ class TestInvoiceTripleDiscount(BaseCommon):
         cls.env.user.groups_id += cls.env.ref("product.group_discount_per_so_line")
         cls.Account = cls.env["account.account"]
         cls.AccountMove = cls.env["account.move"]
+        cls.AccountMoveLine = cls.env["account.move.line"]
         cls.AccountTax = cls.env["account.tax"]
         cls.Partner = cls.env["res.partner"]
         cls.Journal = cls.env["account.journal"]
@@ -62,7 +63,7 @@ class TestInvoiceTripleDiscount(BaseCommon):
 
         invoice_form = Form(invoice)
         with invoice_form.invoice_line_ids.edit(0) as line_form:
-            line_form.discount = 50.0
+            line_form.discount1 = 50.0
         invoice_form.save()
 
         invoice_line = invoice.invoice_line_ids[0]
@@ -84,13 +85,13 @@ class TestInvoiceTripleDiscount(BaseCommon):
 
         # Deletes first discount
         with invoice_form.invoice_line_ids.edit(0) as line_form:
-            line_form.discount = 0
+            line_form.discount1 = 0
         invoice_form.save()
         self.assertEqual(invoice.amount_total, 69)
 
         # Charge 5% over price:
         with invoice_form.invoice_line_ids.edit(0) as line_form:
-            line_form.discount = -5
+            line_form.discount1 = -5
         invoice_form.save()
         self.assertEqual(invoice.amount_total, 72.45)
 
@@ -115,7 +116,7 @@ class TestInvoiceTripleDiscount(BaseCommon):
         self.assertEqual(invoice.amount_total, 480.0)
 
         with invoice_form.invoice_line_ids.edit(0) as line_form:
-            line_form.discount = 50.0
+            line_form.discount1 = 50.0
         invoice_form.save()
         self.assertEqual(invoice.amount_total, 365.0)
 
@@ -138,7 +139,7 @@ class TestInvoiceTripleDiscount(BaseCommon):
         self.assertEqual(invoice_line1.price_subtotal, 1393.0)
 
         with invoice_form.invoice_line_ids.edit(0) as line_form:
-            line_form.discount = 15.0
+            line_form.discount1 = 15.0
         invoice_form.save()
 
         self.assertEqual(invoice_line1.price_subtotal, 1184.05)
@@ -153,55 +154,81 @@ class TestInvoiceTripleDiscount(BaseCommon):
             line_form.name = "Line Decimals"
             line_form.quantity = 9950
             line_form.price_unit = 0.14
-            line_form.discount = 0
+            line_form.discount1 = 0
             line_form.discount2 = 0
         invoice_form.save()
 
         self.assertEqual(invoice.amount_tax, 208.95)
         with invoice_form.invoice_line_ids.edit(0) as line_form:
-            line_form.discount = 15.0
+            line_form.discount1 = 15.0
         invoice_form.save()
-
-    def test_05_has_discount(self):
-        """
-        Tests has_discount
-        """
-        invoice = self.create_simple_invoice(0)
-        invoice_form = Form(invoice)
-
-        self.assertFalse(invoice._has_discount())
-
-        with invoice_form.invoice_line_ids.edit(0) as line_form:
-            line_form.discount = 50.0
-        invoice_form.save()
-        self.assertTrue(invoice._has_discount())
-
-        with invoice_form.invoice_line_ids.edit(0) as line_form:
-            line_form.discount = 0
-            line_form.discount2 = 50.0
-        invoice_form.save()
-        self.assertTrue(invoice._has_discount())
-
-        with invoice_form.invoice_line_ids.edit(0) as line_form:
-            line_form.discount2 = 0
-            line_form.discount3 = 50.0
-        invoice_form.save()
-        self.assertTrue(invoice._has_discount())
 
     def test_06_round_discount(self):
         """Discount value is rounded correctly"""
         invoice = self.create_simple_invoice(0)
         invoice_line = invoice.invoice_line_ids[0]
-        invoice_line.discount = 100
+        invoice_line.discount1 = 100
+        self.assertEqual(invoice_line.discount1, 100)
         self.assertEqual(invoice_line.discount, 100)
 
     def test_07_round_tax_discount(self):
         """Discount value is rounded correctly when taxes change"""
         invoice = self.create_simple_invoice(0)
         invoice_line = invoice.invoice_line_ids[0]
-        invoice_line.discount = 100
+        invoice_line.discount1 = 100
         invoice_line.tax_ids = False
+        self.assertEqual(invoice_line.discount1, 100)
         self.assertEqual(invoice_line.discount, 100)
+
+    def test_09_create_with_main_discount(self):
+        """
+        Tests if creating a invoice line with main discount field
+        set correctly discount1, discount2 and discount3
+        """
+        invoice = self.create_simple_invoice(0)
+
+        invoice_line2 = self.AccountMoveLine.create(
+            {
+                "move_id": invoice.id,
+                "name": "Line With Main Discount",
+                "quantity": 1,
+                "price_unit": 1000,
+                "discount": 10,
+                "tax_ids": [],
+            }
+        )
+
+        # 1000 * 0.9
+        self.assertEqual(invoice_line2.price_subtotal, 900.0)
+        self.assertEqual(invoice_line2.discount1, 10.0)
+        self.assertEqual(invoice_line2.discount2, 0.0)
+        self.assertEqual(invoice_line2.discount3, 0.0)
+
+    def test_10_create_invoice_with_discounts(self):
+        invoice = self.env["account.move"].create(
+            {
+                "partner_id": self.partner.id,
+                "move_type": "out_invoice",
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "Line 1",
+                            "quantity": 1,
+                            "price_unit": 100,
+                            "discount1": 30,
+                            "discount2": 20,
+                            "discount3": 10,
+                        },
+                    )
+                ],
+            }
+        )
+        invoice_line1 = invoice.invoice_line_ids[0]
+        self.assertEqual(invoice_line1.discount1, 30.0)
+        self.assertEqual(invoice_line1.discount2, 20.0)
+        self.assertEqual(invoice_line1.discount3, 10.0)
 
     def test_tax_compute_with_lock_date(self):
         # Check that the tax computation works even if the lock date is set
@@ -211,7 +238,7 @@ class TestInvoiceTripleDiscount(BaseCommon):
             line_form.name = "Line Decimals"
             line_form.quantity = 9950
             line_form.price_unit = 0.14
-            line_form.discount = 10
+            line_form.discount1 = 10
             line_form.discount2 = 20
         invoice_form.save()
         invoice_line = invoice.invoice_line_ids[0]
