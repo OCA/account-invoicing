@@ -4,14 +4,17 @@
 from odoo import models
 
 
-class AccountInvoice(models.Model):
+class AccountMove(models.Model):
 
-    _inherit = "account.invoice"
+    _inherit = "account.move"
 
-    @api.multi
-    def do_merge(self, keep_references=True, date_invoice=False):
-        invoices_info = super(AccountInvoice, self).do_merge(
-            keep_references=keep_references, date_invoice=date_invoice
+    def do_merge(
+        self, keep_references=True, date_invoice=False, remove_empty_invoice_lines=True
+    ):
+        invoices_info = super().do_merge(
+            keep_references=keep_references,
+            date_invoice=date_invoice,
+            remove_empty_invoice_lines=remove_empty_invoice_lines,
         )
 
         if self.env.context.get("link_attachment"):
