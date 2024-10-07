@@ -8,7 +8,6 @@ class AccountInvoice(models.Model):
 
     _inherit = "account.invoice"
 
-    @api.multi
     def do_merge(self, keep_references=True, date_invoice=False):
         invoices_info = super(AccountInvoice, self).do_merge(
             keep_references=keep_references, date_invoice=date_invoice

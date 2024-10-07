@@ -10,7 +10,6 @@ class InvoiceMerge(models.TransientModel):
 
     link_attachment = fields.Boolean(string="Link attachments", default=True)
 
-    @api.multi
     def merge_invoices(self):
         self.ensure_one()
         return super(
