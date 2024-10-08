@@ -77,20 +77,26 @@ class AccountMoveLine(models.Model):
         # that would lead to errors while computing the triple discount
         # on the invoice lines and raise an exception when the computation is called
         # on account.move.line with a date prior to fiscal year close date.
-        with self.env.protecting([discount_field], self):
-            old_values = {}
-            for line in self:
-                old_values[line.id] = line.discount
-                aggregated_discount = line._compute_aggregated_discount(line.discount)
-                line.update({"discount": aggregated_discount})
-            yield
+        try:
+            with self.env.protecting([discount_field], self):
+                old_values = {}
+                for line in self:
+                    old_values[line.id] = line.discount
+                    aggregated_discount = line._compute_aggregated_discount(
+                        line.discount
+                    )
+                    line.update({"discount": aggregated_discount})
+                yield
+                discount_field._digits = original_digits
+                for line in self:
+                    if line.id not in old_values:
+                        continue
+                    line.with_context(
+                        restoring_triple_discount=True,
+                    ).update({"discount": old_values[line.id]})
+        except Exception:
             discount_field._digits = original_digits
-            for line in self:
-                if line.id not in old_values:
-                    continue
-                line.with_context(
-                    restoring_triple_discount=True,
-                ).update({"discount": old_values[line.id]})
+            raise
 
     @api.depends(
         "quantity",
