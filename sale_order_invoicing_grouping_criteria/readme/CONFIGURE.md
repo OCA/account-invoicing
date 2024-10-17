@@ -9,7 +9,7 @@ For creating new grouping criteria:
 
 For setting a different grouping criteria for a specific customer:
 
-1.  Go to *Invoicing \> Sales \> Master Data \> Customers*.
+1.  Go to *Invoicing \> Customer \> Customers*.
 2.  Open the desired customer.
 3.  Go to *Invoicing* page.
 4.  Set on "Sales Invoicing Grouping Criteria" the desired grouping

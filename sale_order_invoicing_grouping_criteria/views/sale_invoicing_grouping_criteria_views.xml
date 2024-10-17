@@ -20,10 +20,10 @@
     <record id="view_sale_invoice_grouping_criteria_tree" model="ir.ui.view">
         <field name="model">sale.invoicing.grouping.criteria</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
                 <field name="field_ids" widget="many2many_tags" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="view_sale_invoice_grouping_criteria_search" model="ir.ui.view">
@@ -38,7 +38,7 @@
         <field name="name">Sales Invoicing Grouping Criteria</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.invoicing.grouping.criteria</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         id="menu_sale_invoice_grouping_criteria"
