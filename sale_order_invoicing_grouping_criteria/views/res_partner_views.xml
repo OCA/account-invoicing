@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="account.view_partner_property_form" />
         <field name="arch" type="xml">
             <group name="banks" position="after">
-                <group name="sale_invoicing">
+                <group name="sale_invoicing" string="Sale Invoicing Grouping Criteria">
                     <field
                         name="sale_invoicing_grouping_criteria_id"
                         string="Sales Invoicing Grouping Criteria"

@@ -6,3 +6,7 @@
 
   - Valentin Vinagre <valentin.vinagre@sygel.es>
   - Roger Sans <roger.sans@sygel.es>
+
+- [Dynapps](https://www.dynapps.eu/):
+
+  - Bert Van Groenendael <bert.vangroenendael@dynapps.eu>
