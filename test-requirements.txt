@@ -1,0 +1,3 @@
+odoo-test-helper
+# https://github.com/OCA/partner-contact/pull/1733
+odoo-addon-partner_name_history @ git+https://github.com/OCA/partner-contact.git@refs/pull/1733/head#subdirectory=setup/partner_name_history
