@@ -4,18 +4,16 @@
 from odoo import api, models
 
 
-class AccountInvoice(models.Model):
+class AccountMove(models.Model):
 
-    _inherit = "account.invoice"
+    _inherit = "account.move"
 
     @api.model
     def _get_invoice_key_cols(self):
-        return super(AccountInvoice, self)._get_invoice_key_cols() + [
-            "payment_mode_id",
-        ]
+        return super()._get_invoice_key_cols() + ["payment_mode_id"]
 
     @api.model
     def _get_first_invoice_fields(self, invoice):
-        res = super(AccountInvoice, self)._get_first_invoice_fields(invoice)
+        res = super()._get_first_invoice_fields(invoice)
         res.update({"payment_mode_id": invoice.payment_mode_id.id})
         return res

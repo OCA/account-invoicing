@@ -1,5 +1,4 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 
@@ -13,8 +12,8 @@ class TestAccountInvoiceMergePayment(TransactionCase):
         self.par_model = self.env["res.partner"]
         self.context = self.env["res.users"].context_get()
         self.acc_model = self.env["account.account"]
-        self.inv_model = self.env["account.invoice"]
-        self.inv_line_model = self.env["account.invoice.line"]
+        self.inv_model = self.env["account.move"]
+        self.inv_line_model = self.env["account.move.line"]
         self.wiz = self.env["invoice.merge"]
         self.payment_mode_model = self.env["account.payment.mode"]
         self.journal_model = self.env["account.journal"]
@@ -31,13 +30,7 @@ class TestAccountInvoiceMergePayment(TransactionCase):
         self.payment_mode_1 = self._payment_mode("Pay mode 1")
         self.payment_mode_2 = self._payment_mode("Pay mode 2")
         self.invoice_account = self.acc_model.search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_receivable").id,
-                )
-            ],
+            [("account_type", "=", "asset_receivable")],
             limit=1,
         )
         self.invoice1 = self._create_invoice(
@@ -52,6 +45,7 @@ class TestAccountInvoiceMergePayment(TransactionCase):
             {
                 "partner_id": partner.id,
                 "payment_mode_id": payment_mode_id,
+                "move_type": "out_invoice",
                 "invoice_line_ids": [
                     (
                         0,
@@ -90,9 +84,8 @@ class TestAccountInvoiceMergePayment(TransactionCase):
 
         wiz_id = self.wiz.with_context(
             active_ids=[self.invoice1.id, self.invoice2.id],
-            active_model="account.invoice",
+            active_model="account.move",
         ).create({})
-        wiz_id.fields_view_get()
         wiz_id.merge_invoices()
         end_inv = self.inv_model.search(
             [("state", "=", "draft"), ("partner_id", "=", self.partner1.id)]
@@ -105,7 +98,9 @@ class TestAccountInvoiceMergePayment(TransactionCase):
         )
         wiz_id = self.wiz.with_context(
             active_ids=[self.invoice1.id, self.invoice3.id],
-            active_model="account.invoice",
+            active_model="account.move",
         ).create({})
-        with self.assertRaises(UserError):
-            wiz_id.fields_view_get()
+        self.assertEqual(
+            wiz_id.error_message,
+            "All invoices must have the same: \n- Payment Mode",
+        )
