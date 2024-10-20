@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="account_invoice_form_view">
+        <field name="name">account.move.form (in product_special_type_invoice)</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <field name="tax_totals" position="before">
+                <small
+                    attrs="{'invisible': [('extra_discount_amount', '=', 0.0)]}"
+                    class="ml8"
+                ><label for="extra_discount_amount" /></small>
+                <small
+                    attrs="{'invisible': [('extra_discount_amount', '=', 0.0)]}"
+                ><field
+                        name="extra_discount_amount"
+                        class="oe_form_field text-right"
+                        widget="monetary"
+                    /></small>
+                <small
+                    attrs="{'invisible': [('advance_amount', '=', 0.0)]}"
+                    class="ml8"
+                ><label for="advance_amount" /></small>
+                <small attrs="{'invisible': [('advance_amount', '=', 0.0)]}"><field
+                        name="advance_amount"
+                        class="oe_form_field text-right"
+                        widget="monetary"
+                    /></small>
+                <small
+                    attrs="{'invisible': [('delivery_amount', '=', 0.0)]}"
+                    class="ml8"
+                ><label for="delivery_amount" /></small>
+                <small attrs="{'invisible': [('delivery_amount', '=', 0.0)]}"><field
+                        name="delivery_amount"
+                        class="oe_form_field text-right"
+                        widget="monetary"
+                    /></small>
+                <small
+                    attrs="{'invisible': [('fees_amount', '=', 0.0)]}"
+                    class="ml8"
+                ><label for="fees_amount" /></small>
+                <small attrs="{'invisible': [('fees_amount', '=', 0.0)]}"><field
+                        name="fees_amount"
+                        class="oe_form_field text-right oe_small"
+                        widget="monetary"
+                    /></small>
+            </field>
+        </field>
+    </record>
+
+</odoo>
