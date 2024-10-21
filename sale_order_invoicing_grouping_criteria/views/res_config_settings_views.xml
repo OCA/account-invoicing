@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2019 Tecnativa - Pedro M. Baeza
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <block id="invoicing_settings" position="after">
+                <block title="Sales Order Invoicing" id="sale_order_invoicing_settings">
+                    <block>
+                        <label
+                            string="Default Grouping Criteria"
+                            for="res_default_sale_invoicing_grouping_criteria_id"
+                        />
+                        <div
+                            class="text-muted"
+                        >If empty, invoicing address, company and currency will be applied.</div>
+                        <field
+                            name="res_default_sale_invoicing_grouping_criteria_id"
+                            readonly="0"
+                        />
+                    </block>
+                </block>
+            </block>
+        </field>
+    </record>
+</odoo>
