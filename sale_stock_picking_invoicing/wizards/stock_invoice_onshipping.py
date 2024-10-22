@@ -3,12 +3,31 @@
 # @author Magno Costa <magno.costa@akretion.com.br>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class StockInvoiceOnshipping(models.TransientModel):
 
     _inherit = "stock.invoice.onshipping"
+
+    @api.model
+    def _default_has_down_payment(self):
+        pickings = self._load_pickings()
+        sale_pickings = pickings.filtered(lambda pk: pk.sale_id)
+        downpayment_lines = False
+        if sale_pickings:
+            for pick in sale_pickings:
+                # order = pick.sale_id
+                # sale_lines = order.mapped("order_line")
+                if pick.sale_id.order_line.filtered(lambda ln: ln.is_downpayment):
+                    downpayment_lines = True
+
+        return downpayment_lines
+
+    deduct_down_payments = fields.Boolean("Deduct down payments", default=True)
+    has_down_payments = fields.Boolean(
+        "Has down payments", default=_default_has_down_payment, readonly=True
+    )
 
     def _build_invoice_values_from_pickings(self, pickings):
         invoice, values = super()._build_invoice_values_from_pickings(pickings)
@@ -19,7 +38,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         if sale_pickings and self._get_invoice_type() != "out_refund":
             # Case more than one Sale Order the fields below will be join
             # the others will be overwritting, as done in sale module,
-            # one more field include here Note
+            # one more field include here Note/Narration
             payment_refs = set()
             refs = set()
             # Include Narration
@@ -180,3 +199,130 @@ class StockInvoiceOnshipping(models.TransientModel):
                 values.update(sale_line_values_rm)
 
         return values
+
+    def _create_invoice(self, invoice_values):
+        """Override this method if you need to change any values of the
+        invoice and the lines before the invoice creation
+        :param invoice_values: dict with the invoice and its lines
+        :return: invoice
+        """
+        pickings = self._load_pickings()
+        sale_pickings = pickings.filtered(
+            lambda pk: pk.sale_id
+            # Check Sales Ungrouped
+            and pk.id in invoice_values.get("picking_ids")[0][2]
+        )
+        # Refund case don't included Section, Note or DownPayments
+        if not sale_pickings or self._get_invoice_type() == "out_refund":
+            return super()._create_invoice(invoice_values)
+
+        # Check Other Sale Lines
+        # Section, Note and Down Payments
+        section_note_lines = down_payment_lines = self.env["sale.order.line"]
+        # Resequencing
+        invoice_item_sequence = (
+            0  # Incremental sequencing to keep the lines order on the invoice.
+        )
+        invoice_item_seq_dict = {}
+        for pick in sale_pickings.sorted(key=lambda p: p.name):
+            order = pick.sale_id.with_company(pick.sale_id.company_id)
+            invoiceable_lines = order._get_invoiceable_lines(final=True)
+            section_note_lines |= invoiceable_lines.filtered(
+                lambda ln: ln.display_type in ("line_section", "line_note")
+            )
+            down_payment_lines |= invoiceable_lines.filtered(
+                lambda ln: ln.is_downpayment
+            )
+
+            # Use for Resequencing
+            for line in order.order_line:
+                invoice_item_seq_dict[line.id] = invoice_item_sequence
+                invoice_item_sequence += 1
+
+        # Sections and Notes
+        if section_note_lines:
+            section_note_vals = []
+            for line in section_note_lines:
+                sale_line_vals = line._prepare_invoice_line()
+                # Change [(4, 59)] for [(6, 0, [59])] to avoid error
+                # in method to Resequencing
+                sale_line_vals["sale_line_ids"] = [
+                    (6, 0, [sale_line_vals.get("sale_line_ids")[0][1]])
+                ]
+                section_note_vals.append((0, 0, sale_line_vals))
+
+            invoice_values["invoice_line_ids"] += section_note_vals
+
+        # Resequencing, necessary in the case of Grouping Sale Orders
+        for line in invoice_values.get("invoice_line_ids"):
+            # [(6, 0, {})]
+            if line[2]:
+                sale_line = line[2].get("sale_line_ids")
+                if sale_line:
+                    # [(6, 0, [58])]
+                    line[2]["sequence"] = invoice_item_seq_dict.get(sale_line[0][2][0])
+
+        # Down Payments
+        # After the Resequencing to put it in the end of Invoice
+        if down_payment_lines:
+            down_payment_vals = []
+            down_payment_section_added = False
+            for line in down_payment_lines:
+                if not down_payment_section_added and line.is_downpayment:
+                    # Create a dedicated section for the down payments
+                    # (put at the end of the invoiceable_lines)
+                    down_payment_vals.append(
+                        (
+                            0,
+                            0,
+                            line.order_id._prepare_down_payment_section_line(
+                                sequence=invoice_item_sequence,
+                            ),
+                        ),
+                    )
+                    down_payment_section_added = True
+                    invoice_item_sequence += 1
+
+                if line.is_downpayment:
+                    down_payment_vals.append(
+                        (
+                            0,
+                            0,
+                            line._prepare_invoice_line(
+                                sequence=invoice_item_sequence,
+                            ),
+                        ),
+                    )
+                    invoice_item_sequence += 1
+
+            invoice_values["invoice_line_ids"] += down_payment_vals
+
+        moves = (
+            self.env["account.move"]
+            .sudo()
+            .with_context(default_move_type="out_invoice")
+            .create(invoice_values)
+        )
+
+        # param Final: if True, refunds will be generated if necessary
+        final = self.deduct_down_payments
+        if final:
+            moves.sudo().filtered(
+                lambda m: m.amount_total < 0
+            ).action_switch_invoice_into_refund_credit_note()
+        for move in moves:
+            move.message_post_with_view(
+                "mail.message_origin_link",
+                # In this case the Origin are Pickings
+                # values={
+                #    "self": move,
+                #     "origin": move.line_ids.mapped("sale_line_ids.order_id"),
+                # },
+                values={
+                    "self": move.picking_ids,
+                    "origin": move.picking_ids,
+                },
+                subtype_id=self.env.ref("mail.mt_note").id,
+            )
+
+        return moves
