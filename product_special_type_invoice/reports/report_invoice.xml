@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//tr[td[strong[text()='Subtotal']]]" position="after">
+            <t t-if="o.fees_amount">
+                <tr>
+                    <td><small class="ml8">Fees:</small></td>
+                    <td class="text-right">
+                         <small><span
+                                t-field="o.fees_amount"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                            /></small>
+                    </td>
+                </tr>
+            </t>
+            <t t-if="o.delivery_amount">
+                <tr>
+                    <td><small class="ml8">Delivery:</small></td>
+                    <td class="text-right">
+                         <small><span
+                                t-field="o.delivery_amount"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                            /></small>
+                    </td>
+                </tr>
+            </t>
+            <t t-if="o.advance_amount">
+                <tr>
+                    <td><small class="ml8">Advance:</small></td>
+                    <td class="text-right">
+                         <small><span
+                                t-field="o.advance_amount"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                            /></small>
+                    </td>
+                </tr>
+            </t>
+            <t t-if="o.extra_discount_amount">
+                <tr>
+                    <td><small class="ml8">Extra Discount:</small></td>
+                    <td class="text-right">
+                         <small><span
+                                t-field="o.extra_discount_amount"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                            /></small>
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+    </template>
+</odoo>
