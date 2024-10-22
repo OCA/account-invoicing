@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form.with.journal.button</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    type="object"
+                    name="action_view_journal_entries"
+                    class="oe_stat_button"
+                    icon="fa-file-text-o"
+                    style="width: 18em;"
+                    attrs="{'invisible': [('product_move_count', '=', 0)]}"
+                    groups="account.group_account_user"
+                >
+                    <field
+                        name="product_move_count"
+                        widget="statinfo"
+                        string="Automatic Journal Entries"
+                    />
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
