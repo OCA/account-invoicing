@@ -33,6 +33,8 @@ class AccountMove(models.Model):
             if (
                 self.env.user.has_group(GROUP_AICT)
                 and inv.move_type in ("in_invoice", "in_refund")
+                # hack for compatibility with hr_expense without depending on it
+                and not getattr(inv, "expense_sheet_id", None)
                 and float_compare(
                     inv.check_total,
                     inv.amount_total,
