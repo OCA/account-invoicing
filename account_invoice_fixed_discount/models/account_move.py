@@ -12,7 +12,10 @@ class AccountMove(models.Model):
         self, recompute_tax_base_amount=False, tax_rep_lines_to_recompute=None
     ):
         vals = {}
-        for line in self.invoice_line_ids.filtered("discount_fixed"):
+        # use line_ids because invoice_line_ids may be empty during creation
+        for line in self.line_ids.filtered(
+            lambda l: not l.exclude_from_invoice_tab and l.discount_fixed
+        ):
             vals[line] = {"price_unit": line.price_unit}
             price_unit = line.price_unit - line.discount_fixed
             line.update({"price_unit": price_unit})
