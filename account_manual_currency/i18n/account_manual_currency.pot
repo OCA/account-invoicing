@@ -1,0 +1,123 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_manual_currency
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_manual_currency
+#: code:addons/account_manual_currency/models/account_move.py:0
+#, python-format
+msgid "%(company_currency_name)s per 1 %(rate_currency_name)s"
+msgstr ""
+
+#. module: account_manual_currency
+#: code:addons/account_manual_currency/models/account_move.py:0
+#, python-format
+msgid "%(rate_currency_name)s per 1 %(company_currency_name)s"
+msgstr ""
+
+#. module: account_manual_currency
+#: model_terms:ir.ui.view,arch_db:account_manual_currency.view_move_form
+msgid "<i title=\"Update Currency\" class=\"fa fa-fw fa-refresh\"/>"
+msgstr ""
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__currency_diff
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__currency_diff
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_payment__currency_diff
+msgid "Currency Diff"
+msgstr ""
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__is_manual
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__is_manual
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_payment__is_manual
+msgid "Is Manual"
+msgstr ""
+
+#. module: account_manual_currency
+#: model:ir.model,name:account_manual_currency.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_manual_currency
+#: model:ir.model,name:account_manual_currency.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_payment__manual_currency
+msgid "Manual Currency"
+msgstr ""
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__manual_currency_rate
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__manual_currency_rate
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_payment__manual_currency_rate
+msgid "Manual Currency Rate"
+msgstr ""
+
+#. module: account_manual_currency
+#: model_terms:ir.ui.view,arch_db:account_manual_currency.view_move_form
+msgid "Opened"
+msgstr ""
+
+#. module: account_manual_currency
+#: code:addons/account_manual_currency/models/account_move.py:0
+#, python-format
+msgid "Rate currency can refresh state draft only."
+msgstr ""
+
+#. module: account_manual_currency
+#: model:ir.model,name:account_manual_currency.model_account_payment_register
+msgid "Register Payment"
+msgstr ""
+
+#. module: account_manual_currency
+#: model:ir.model.fields,help:account_manual_currency.field_account_bank_statement_line__manual_currency_rate
+#: model:ir.model.fields,help:account_manual_currency.field_account_move__manual_currency_rate
+#: model:ir.model.fields,help:account_manual_currency.field_account_payment__manual_currency_rate
+msgid ""
+"Set new currency rate to apply on the invoice\n"
+".This rate will be taken in order to convert amounts between the currency on the purchase order and last currency"
+msgstr ""
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__total_company_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__total_company_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_payment__total_company_currency
+msgid "Total Company Currency"
+msgstr ""
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__type_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__type_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_payment__type_currency
+msgid "Type Currency"
+msgstr ""
+
+#. module: account_manual_currency
+#: code:addons/account_manual_currency/wizard/account_payment_register.py:0
+#, python-format
+msgid ""
+"You can only register payments for moves with the same manual currency."
+msgstr ""
+
+#. module: account_manual_currency
+#: code:addons/account_manual_currency/wizard/account_payment_register.py:0
+#, python-format
+msgid ""
+"You can't register a payment for invoices belong to multiple manual currency"
+" rate."
+msgstr ""
