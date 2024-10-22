@@ -47,7 +47,7 @@ class TestAccountManualCurrency(TransactionCase):
         invoice = self.inv_model.create(
             {
                 "partner_id": partner.id,
-                "invoice_date": fields.Date.today(),
+                "invoice_date": fields.Date.context_today(self),
                 "move_type": invoice_type,
                 "currency_id": currency.id,
                 "manual_currency": manual_currency,
@@ -129,3 +129,16 @@ class TestAccountManualCurrency(TransactionCase):
         self.assertAlmostEqual(
             payment.move_id.total_company_currency, invoice1.total_company_currency
         )
+
+    def test_02_manual_currency_zero_rate(self):
+        invoice1 = self._create_invoice(
+            self.partner1,
+            "in_invoice",
+            self.eur_currency,
+            True,
+            0,
+            "inverse_company_rate",
+        )
+        self.assertAlmostEqual(invoice1.manual_currency_rate, 0.0)
+        with self.assertRaises(UserError):
+            invoice1.action_post()

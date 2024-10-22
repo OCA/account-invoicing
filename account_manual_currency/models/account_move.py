@@ -4,7 +4,8 @@
 from lxml import etree
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools import float_is_zero
 
 
 class AccountMove(models.Model):
@@ -61,7 +62,7 @@ class AccountMove(models.Model):
                     rec.amount_total,
                     rec.company_currency_id,
                     rec.company_id,
-                    fields.Date.today(),
+                    rec.date or fields.Date.context_today(rec),
                 )
 
     def _get_label_currency_name(self):
@@ -86,7 +87,7 @@ class AccountMove(models.Model):
 
     @api.onchange("manual_currency", "type_currency", "currency_id", "date")
     def _onchange_currency_change_rate(self):
-        today = fields.Date.today()
+        today = fields.Date.context_today(self)
         company_currency = self.env.company.currency_id
         amount_currency = company_currency._get_conversion_rate(
             company_currency,
@@ -135,6 +136,17 @@ class AccountMove(models.Model):
                 node[0].set("string", "Total ({})".format(company_currency_name))
             result["arch"] = etree.tostring(doc, encoding="unicode")
         return result
+
+    def _check_manual_currency_rate(self):
+        for rec in self:
+            if not rec.manual_currency:
+                continue
+            if float_is_zero(rec.manual_currency_rate, precision_digits=12):
+                raise UserError(_("The Manual Currency Rate must not be zero."))
+
+    def _post(self, soft=True):
+        self._check_manual_currency_rate()
+        return super()._post(soft=soft)
 
 
 class AccountMoveLine(models.Model):
