@@ -98,6 +98,69 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
         self.assertEqual(len(end_inv[0].invoice_line_ids), 1)
         self.assertEqual(end_inv[0].invoice_line_ids[0].quantity, 2.0)
 
+    def test_invoice_merge_disable_merge_lines(self):
+        self.assertEqual(len(self.invoice1.invoice_line_ids), 1)
+        self.assertEqual(len(self.invoice2.invoice_line_ids), 1)
+        self.invoice1.write(
+            {
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "display_type": "line_section",
+                            "name": "Test section 1",
+                        }
+                    )
+                ]
+            }
+        )
+        self.invoice2.write(
+            {
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "display_type": "line_section",
+                            "name": "Test section 2",
+                        }
+                    )
+                ]
+            }
+        )
+        self.assertEqual(len(self.invoice1.invoice_line_ids), 2)
+        self.assertEqual(len(self.invoice2.invoice_line_ids), 2)
+
+        wiz = self._get_wizard([self.invoice1.id, self.invoice2.id], create=True)
+        wiz.disable_merge_lines = True
+        action = wiz.merge_invoices()
+
+        self.assertLessEqual(
+            {
+                "type": "ir.actions.act_window",
+                "binding_view_types": "list,form",
+                "xml_id": "account.action_move_out_invoice_type",
+            }.items(),
+            action.items(),
+            "There was an error and the two invoices were not merged.",
+        )
+
+        end_inv_ids = action.get("domain")[0][2]
+        end_inv_ids.remove(self.invoice1.id)
+        end_inv_ids.remove(self.invoice2.id)
+        end_inv = self.inv_model.browse(end_inv_ids)
+        self.assertEqual(len(end_inv), 1)
+        self.assertEqual(len(end_inv.invoice_line_ids), 4)
+        self.assertEqual(
+            end_inv.invoice_line_ids.filtered(lambda l: l.display_type == "product")[
+                0
+            ].quantity,
+            1.0,
+        )
+        self.assertEqual(
+            end_inv.invoice_line_ids.filtered(lambda l: l.display_type == "product")[
+                1
+            ].quantity,
+            1.0,
+        )
+
     def test_error_check(self):
         """Check"""
         # Different partner
