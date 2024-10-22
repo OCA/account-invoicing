@@ -12,9 +12,10 @@ class AccountMove(models.Model):
         move_vals = super(AccountMove, self)._reverse_move_vals(
             default_values, cancel=cancel
         )
-        if self.env.context.get("sale_qty_to_reinvoice", False):
+        if "sale_qty_to_reinvoice" in self.env.context:
+            is_sale_qty_to_reinvoice = self.env.context.get("sale_qty_to_reinvoice")
             for vals in move_vals["line_ids"]:
-                vals[2].update({"sale_qty_to_reinvoice": True})
+                vals[2].update({"sale_qty_to_reinvoice": is_sale_qty_to_reinvoice})
         return move_vals
 
 
