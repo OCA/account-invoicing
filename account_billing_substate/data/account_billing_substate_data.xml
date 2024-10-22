@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="base_substate_type_account_billing" model="base.substate.type">
+        <field name="name">Account Billing Substate</field>
+        <field name="model">account.billing</field>
+        <field name="target_state_field">state</field>
+    </record>
+    <record id="target_substate_value_billing_draft" model="target.state.value">
+        <field name="name">Draft</field>
+        <field name="base_substate_type_id" ref="base_substate_type_account_billing" />
+        <field name="target_state_value">draft</field>
+    </record>
+    <record id="target_substate_value_billing_billed" model="target.state.value">
+        <field name="name">Billing</field>
+        <field name="base_substate_type_id" ref="base_substate_type_account_billing" />
+        <field name="target_state_value">billed</field>
+    </record>
+</odoo>
