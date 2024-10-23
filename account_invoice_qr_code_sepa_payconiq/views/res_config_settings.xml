@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <div name="qr_code_right_pane" position="inside">
+                <div
+                    class="content-group"
+                    attrs="{'invisible': [('qr_code', '=', False)]}"
+                >
+                    <div class="row">
+                        <label
+                            for="payconiq_qr_profile_id"
+                            class="col-lg-3 o_light_label"
+                        />
+                        <field name="payconiq_qr_profile_id" class="oe_inline" />
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
