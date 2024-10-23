@@ -1,6 +1,9 @@
 # Copyright 2017 Eficent Business and IT Consulting Services S.L.
 #   (http://www.eficent.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from unittest import mock
+from unittest.mock import patch
+
 from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
@@ -209,3 +212,74 @@ class TestAccountInvoiceMerge(TransactionCase):
         ).create({})
         wiz_id.fields_view_get()
         wiz_id.merge_invoices()
+
+    @mock.patch(
+        "odoo.addons.account_invoice_merge.models.account_move.AccountMove.post_merge_message"
+    )
+    @mock.patch(
+        "odoo.addons.account_invoice_merge.models.account_move.AccountMove.post_process_fields"
+    )
+    def test_account_invoice_merge_4(
+        self, mock_post_process_fields, mock_post_merge_message
+    ):
+        invoices = self.invoice1 | self.invoice2
+        wiz_id = self.wiz.with_context(
+            active_ids=invoices.ids,
+            active_model=invoices._name,
+        ).create({})
+        wiz_id.fields_view_get()
+        wiz_id.merge_invoices()
+        mock_post_process_fields.assert_called_once_with(invoices)
+        mock_post_merge_message.assert_called_once_with(invoices)
+
+    def test_get_post_merge_message_invoice_identifier(self):
+        """Test that the post-merge message invoice identifier is correct."""
+        self.assertEqual(
+            self.invoice1._get_post_merge_message_invoice_identifier(),
+            f"account.move({self.invoice1.id})",
+        )
+
+    def test_post_merge_message(self):
+        """Test that the post-merge message is displayed when merging invoices."""
+        invoices = self.invoice1 | self.invoice2
+        invoice_3 = self._create_invoice(self.partner1, "C")
+        message_li_invoice_1 = (
+            f'<li><a href="/web#id={self.invoice1.id}'
+            f'&model=account.move&view_type=form" >'
+            f"{self.invoice1._get_post_merge_message_invoice_identifier()}"
+            f" - "
+            f"{self.invoice1.amount_total}</a></li>"
+        )
+
+        message_li_invoice_2 = (
+            f'<li><a href="/web#id={self.invoice2.id}'
+            f'&model=account.move&view_type=form" >'
+            f"{self.invoice2._get_post_merge_message_invoice_identifier()}"
+            f" - "
+            f"{self.invoice2.amount_total}</a></li>"
+        )
+        message_body = (
+            f"Invoice merged from :"
+            f"<ul>{message_li_invoice_1}{message_li_invoice_2}</ul>"
+        )
+        with patch(
+            "odoo.addons.mail.models.mail_thread.MailThread.message_post"
+        ) as mock_message_post:
+            invoice_3.post_merge_message(invoices)
+            self.assertEqual(mock_message_post.call_count, 1)
+            self.assertEqual(mock_message_post.call_args[1].get("body"), message_body)
+
+    @patch(
+        (
+            "odoo.addons.account_invoice_merge.models.account_move.AccountMove."
+            "_get_fields_to_concatenate_after_merge"
+        ),
+        return_value=["ref"],
+    )
+    def test_post_process_fields(self, mock_get_fields_to_concatenate_after_merge):
+        self.invoice1.ref = "Blabla1"
+        self.invoice2.ref = "Blabla2"
+        invoices = self.invoice1 | self.invoice2
+        invoice_3 = self._create_invoice(self.partner1, "C")
+        invoice_3.post_process_fields(invoices)
+        self.assertEqual(invoice_3.ref, "Blabla1 // Blabla2")

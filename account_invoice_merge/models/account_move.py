@@ -6,7 +6,7 @@
 # Copyright 2019 Okia SPRL
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, models
+from odoo import _, api, models
 from odoo.tools import float_is_zero
 
 
@@ -230,4 +230,45 @@ class AccountMove(models.Model):
         for new_invoice in allnewinvoices:
             new_invoice._compute_amount()
 
+        for new_invoice_id, old_invoice_ids in invoices_info.items():
+            new_invoice = self.browse(new_invoice_id)
+            old_invoices = self.browse(old_invoice_ids)
+            # 1. message post on new invoice to indicate it has been created as result of merging original invoices
+            new_invoice.post_merge_message(old_invoices)
+            # 2. fill char/text fields as concatenation of original invoices `object_entry` field
+            new_invoice.post_process_fields(old_invoices)
+
         return invoices_info
+
+    def _get_post_merge_message_invoice_identifier(self):
+        """
+        Return the identifier of the invoice to be used in the post merge message
+        """
+        return f"{self._name}({self.id})"
+
+    def post_merge_message(self, invoice_list):
+        message_body = _("Invoice merged from :")
+        message_body += "<ul>"
+        for invoice in invoice_list:
+            invoice_url = f"/web#id={invoice.id}&model=account.move&view_type=form"
+            message_body += f'<li><a href="{invoice_url}" >{invoice._get_post_merge_message_invoice_identifier()} - {invoice.amount_total}</a></li>'
+        message_body += "</ul>"
+
+        self.message_post(type="notification", body=message_body)
+
+    @api.model
+    def _get_fields_to_concatenate_after_merge(self):
+        """
+        Return the list of fields to concatenate after merge
+        For example you merge two invoices with different `entry_object` field
+        The result invoice will have the `entry_object` field set to
+        `invoice1.entry_object // invoice2.entry_object`
+        """
+        return []
+
+    def post_process_fields(self, invoice_list):
+        fields_to_concatenate = self._get_fields_to_concatenate_after_merge()
+        for field in fields_to_concatenate:
+            self[field] = " // ".join(
+                [invoice[field] for invoice in invoice_list if invoice[field]]
+            )

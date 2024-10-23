@@ -150,6 +150,12 @@ msgstr "Merci de sélectionner les factures à fusionner depuis la vue liste."
 msgid "or"
 msgstr "ou"
 
+#. module: account_invoice_merge
+#: code:addons/account_invoice_merge/models/account_move.py:0
+#, python-format
+msgid "Invoice merged from :"
+msgstr "Facture fusionnée depuis"
+
 #~ msgid "Invoice"
 #~ msgstr "Facture"
 
