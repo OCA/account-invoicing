@@ -1,6 +1,8 @@
 # Copyright 2019 Tecnativa - David Vidal
 # Copyright 2020 Tecnativa - Pedro M. Baeza
 # Copyright 2021 Tecnativa - Víctor Martínez
+# Copyright 2022 Simone Rubino - TAKOBI
+# Copyright 2024 Sergio Zanchetta - PNLUG APS
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import exceptions
 from odoo.tests import Form, common
@@ -83,6 +85,25 @@ class TestGlobalDiscount(common.SavepointCase):
                 "name": "Mrs. Odoo",
                 "property_account_receivable_id": cls.account_receivable.id,
                 "property_account_payable_id": cls.account_payable.id,
+            }
+        )
+        cls.global_discount_total = cls.global_discount_obj.create(
+            {
+                "name": "Test Total Discount",
+                "discount_scope": "sale",
+                "discount_base": "total",
+                "discount": 50,
+                "account_id": cls.account.id,
+            }
+        )
+        cls.global_discount_fixed_total = cls.global_discount_obj.create(
+            {
+                "name": "Test Total Fixed Discount",
+                "discount_scope": "sale",
+                "discount_base": "total",
+                "discount_type": "fixed",
+                "discount_fixed": 20,
+                "account_id": cls.account.id,
             }
         )
         cls.partner_2.supplier_global_discount_ids = cls.global_discount_2
@@ -373,3 +394,86 @@ class TestGlobalDiscount(common.SavepointCase):
         lines = invoice.line_ids
         line_15 = lines.filtered(lambda x: x.global_discount_item and x.tax_ids == tax)
         self.assertAlmostEqual(line_15.debit, 100)
+
+    def test_mixed_discount_base(self):
+        """
+        Check that an invoice can only have discount having the same base.
+        """
+        with Form(self.invoice) as invoice_form:
+            invoice_form.global_discount_ids.clear()
+            with self.assertRaises(exceptions.UserError) as ue:
+                invoice_form.global_discount_ids.add(self.global_discount_1)
+                invoice_form.global_discount_ids.add(self.global_discount_total)
+        exception_message = ue.exception.name
+        self.assertIn("must have the same base", exception_message)
+
+    def test_discount_total(self):
+        """
+        Add global discounts on total to the invoice.
+
+        Check that only the total amount is discounted,
+        taxes and subtotal remain the same.
+        """
+        # Pre-condition: check starting amounts and the discount base
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 200.0)
+        self.assertAlmostEqual(self.invoice.amount_tax, 30.0)
+        self.assertAlmostEqual(self.invoice.amount_global_discount, 0)
+        self.assertAlmostEqual(self.invoice.amount_total, 230)
+        self.assertEqual(self.global_discount_total.discount_base, "total")
+
+        # Act: set the global total discount
+        with Form(self.invoice) as invoice_form:
+            invoice_form.global_discount_ids.clear()
+            invoice_form.global_discount_ids.add(self.global_discount_total)
+        precision = self.env["decimal.precision"].precision_get("Discount")
+
+        # Assert: global discounts are applied to the total
+        # and taxes remain the same:
+        # 230 - 50% (global disc. 1) =  115
+        self.assertEqual(
+            self.invoice.invoice_global_discount_ids.discount_display,
+            "-50.{}%".format("0" * precision),
+        )
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 200.0)
+        self.assertAlmostEqual(self.invoice.amount_tax, 30.0)
+        self.assertAlmostEqual(self.invoice.amount_global_discount, -115.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 115.0)
+
+    def test_global_invoice_total_mixed_discount(self):
+        """Add both global fixed and percentage discount on total to the invoice"""
+        # Pre-condition: check starting amounts and the discount base
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 200.0)
+        self.assertAlmostEqual(self.invoice.amount_tax, 30.0)
+        self.assertAlmostEqual(self.invoice.amount_global_discount, 0)
+        self.assertAlmostEqual(self.invoice.amount_total, 230)
+        self.assertEqual(self.global_discount_total.discount_base, "total")
+
+        # Act: set the fixed global total discount
+        with Form(self.invoice) as invoice_form:
+            invoice_form.global_discount_ids.clear()
+            invoice_form.global_discount_ids.add(self.global_discount_fixed_total)
+        precision = self.env["decimal.precision"].precision_get("Product Price")
+
+        # Assert: fixed discount is applied to the total
+        # and taxes remain the same:
+        # 230 - 20 (fixed disc.) =  210
+        self.assertEqual(
+            self.invoice.invoice_global_discount_ids.discount_display,
+            "-20.{}".format("0" * precision),
+        )
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 200.0)
+        self.assertAlmostEqual(self.invoice.amount_tax, 30.0)
+        self.assertAlmostEqual(self.invoice.amount_global_discount, -20.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 210.0)
+
+        # Act: set the next global total discount
+        with Form(self.invoice) as invoice_form:
+            invoice_form.global_discount_ids.add(self.global_discount_total)
+
+        # Assert: percentage discount is applied to previous discounted total,
+        # and taxes remain the same:
+        # 210 - 50% (percentage disc.) =  105
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 200.0)
+        self.assertAlmostEqual(self.invoice.amount_tax, 30.0)
+        self.assertAlmostEqual(self.invoice.amount_global_discount, -125.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 105.0)
