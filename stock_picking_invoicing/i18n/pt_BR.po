@@ -81,6 +81,7 @@ msgstr "Criado em"
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking__display_name
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking_type__display_name
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_return_picking__display_name
+#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_rule__display_name
 msgid "Display Name"
 msgstr "Exibir nome"
 
@@ -112,6 +113,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking__id
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking_type__id
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_return_picking__id
+#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_rule__id
 msgid "ID"
 msgstr "ID"
 
@@ -172,6 +174,7 @@ msgstr "Tipo de diário"
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking____last_update
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_picking_type____last_update
 #: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_return_picking____last_update
+#: model:ir.model.fields,field_description:stock_picking_invoicing.field_stock_rule____last_update
 msgid "Last Modified on"
 msgstr "Última modificação em"
 
@@ -277,6 +280,11 @@ msgstr "Fatura de Estoque com Situação Misturado"
 #: model:ir.model,name:stock_picking_invoicing.model_stock_move
 msgid "Stock Move"
 msgstr "Movimentação de Estoque"
+
+#. module: stock_picking_invoicing
+#: model:ir.model,name:stock_picking_invoicing.model_stock_rule
+msgid "Stock Rule"
+msgstr ""
 
 #. module: stock_picking_invoicing
 #: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_invoice_state_mixin__invoice_state__2binvoiced
