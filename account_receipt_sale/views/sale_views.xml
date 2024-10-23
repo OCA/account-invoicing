@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
   ~ Copyright 2022 Simone Rubino - TAKOBI
+  ~ Copyright 2024 Sergio Zanchetta - PNLUG APS
   ~ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
   -->
 <odoo>
@@ -9,6 +10,7 @@
     <record id="view_order_form" model="ir.ui.view">
         <field name="name">sale.order.form.receipts</field>
         <field name="model">sale.order</field>
+        <field name="priority" eval="110" />
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
             <group name="sale_info" position="inside">
@@ -24,6 +26,46 @@
                 >
                     <field name="receipt_count" widget="statinfo" string="Receipts" />
                 </button>
+            </button>
+            <button
+                name="%(sale.action_view_sale_advance_payment_inv)d"
+                class="btn-primary"
+                position="replace"
+            >
+                <button
+                    name="%(sale.action_view_sale_advance_payment_inv)d"
+                    string="Create Invoice"
+                    type="action"
+                    class="btn-primary"
+                    attrs="{'invisible': ['|', ('invoice_status', '!=', 'to invoice'), ('receipts', '!=', False)]}"
+                />
+                <button
+                    name="%(account_receipt_sale.action_view_sale_advance_payment_rec)d"
+                    string="Create Receipt"
+                    type="action"
+                    class="btn-primary"
+                    attrs="{'invisible': ['|', ('invoice_status', '!=', 'to invoice'), ('receipts', '!=', True)]}"
+                />
+            </button>
+            <button
+                name="%(sale.action_view_sale_advance_payment_inv)d"
+                context="{'default_advance_payment_method': 'percentage'}"
+                position="replace"
+            >
+                <button
+                    name="%(sale.action_view_sale_advance_payment_inv)d"
+                    string="Create Invoice"
+                    type="action"
+                    context="{'default_advance_payment_method': 'percentage'}"
+                    attrs="{'invisible': ['|', '|', ('invoice_status', '!=', 'no'), ('state', '!=', 'sale'), ('receipts', '!=', False)]}"
+                />
+                <button
+                    name="%(account_receipt_sale.action_view_sale_advance_payment_rec)d"
+                    string="Create Receipt"
+                    type="action"
+                    context="{'default_advance_payment_method': 'percentage'}"
+                    attrs="{'invisible': ['|', '|', ('invoice_status', '!=', 'no'), ('state', '!=', 'sale'), ('receipts', '!=', True)]}"
+                />
             </button>
         </field>
     </record>
