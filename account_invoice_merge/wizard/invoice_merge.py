@@ -20,6 +20,11 @@ class InvoiceMerge(models.TransientModel):
     date_invoice = fields.Date("Invoice Date")
 
     @api.model
+    def default_get(self, fields_list):
+        self._dirty_check()
+        return super().default_get(fields_list)
+
+    @api.model
     def _get_not_mergeable_invoices_message(self, invoices):
         """Overridable function to custom error message"""
         move_type_set = set(invoices.mapped("move_type"))
@@ -54,23 +59,6 @@ class InvoiceMerge(models.TransientModel):
                 all_msg += "\n".join([value for value in error_msg.values()])
                 raise UserError(all_msg)
         return {}
-
-    @api.model
-    def fields_view_get(
-        self, view_id=None, view_type="form", toolbar=False, submenu=False
-    ):
-        """Changes the view dynamically
-        @param self: The object pointer.
-        @param cr: A database cursor
-        @param uid: ID of the user currently logged in
-        @param context: A standard dictionary
-        @return: New arch of view.
-        """
-        res = super().fields_view_get(
-            view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=False
-        )
-        self._dirty_check()
-        return res
 
     def merge_invoices(self):
         """To merge similar type of account invoices.
