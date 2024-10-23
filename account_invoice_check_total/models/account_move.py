@@ -34,6 +34,8 @@ class AccountMove(models.Model):
             if (
                 self.env.user.has_group(GROUP_AICT)
                 and inv.move_type in ("in_invoice", "in_refund")
+                # compatibility with account_invoice_inter_company
+                and not getattr(inv, "auto_generated", False)
                 and float_compare(
                     inv.check_total,
                     inv.amount_total,
