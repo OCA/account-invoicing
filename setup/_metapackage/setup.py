@@ -79,6 +79,7 @@ setuptools.setup(
         'odoo14-addon-sale_order_invoicing_grouping_criteria',
         'odoo14-addon-sale_order_invoicing_qty_percentage',
         'odoo14-addon-sale_order_invoicing_queued',
+        'odoo14-addon-sale_stock_picking_invoicing',
         'odoo14-addon-sale_timesheet_invoice_description',
         'odoo14-addon-stock_picking_invoicing',
         'odoo14-addon-stock_picking_invoicing_incoterm',
