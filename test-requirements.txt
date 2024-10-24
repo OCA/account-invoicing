@@ -1,0 +1,1 @@
+odoo-addon-account_invoice_pricelist @ git+https://github.com/OCA/account-invoicing.git@refs/pull/1619/head#subdirectory=account_invoice_pricelist
