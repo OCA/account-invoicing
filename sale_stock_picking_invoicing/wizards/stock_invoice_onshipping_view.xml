@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+     <record id="view_sale_stock_invoice_onshipping" model="ir.ui.view">
+        <field name="name">Sale Stock Invoice Onshipping</field>
+        <field name="model">stock.invoice.onshipping</field>
+        <field
+            name="inherit_id"
+            ref="stock_picking_invoicing.view_stock_invoice_onshipping"
+        />
+        <field name="arch" type="xml">
+            <field name="group" position="after">
+
+                <field name="has_down_payments" invisible="1" />
+                <label
+                    for="deduct_down_payments"
+                    string=""
+                    attrs="{'invisible': [('has_down_payments', '=', False)]}"
+                />
+                <div
+                    attrs="{'invisible': [('has_down_payments', '=', False)]}"
+                    id="down_payment_details"
+                >
+                    <field name="deduct_down_payments" nolabel="1" />
+                    <label for="deduct_down_payments" />
+                </div>
+
+
+            </field>
+
+        </field>
+     </record>
+
+</odoo>
