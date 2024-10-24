@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-22 07:58+0000\n"
+"PO-Revision-Date: 2024-10-24 10:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -20,53 +20,54 @@ msgstr ""
 #: model:res.groups,name:account_invoice_section_sale_order.group_sale_order_invoice_section_name
 msgid "Allow customization of invoice section name from sale order"
 msgstr ""
+"Consente la personalizzazione del nome sezione fattura dall'ordine di vendita"
 
 #. module: account_invoice_section_sale_order
 #: model:ir.model,name:account_invoice_section_sale_order.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Aziende"
 
 #. module: account_invoice_section_sale_order
 #: model:ir.model,name:account_invoice_section_sale_order.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Impostazioni configurazione"
 
 #. module: account_invoice_section_sale_order
 #: model:ir.model,name:account_invoice_section_sale_order.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Contatto"
 
 #. module: account_invoice_section_sale_order
 #: model_terms:ir.ui.view,arch_db:account_invoice_section_sale_order.view_partner_property_form
 msgid "Custom section name on invoice"
-msgstr ""
+msgstr "Nome sezione personalizzato nella fattura"
 
 #. module: account_invoice_section_sale_order
 #: model_terms:ir.ui.view,arch_db:account_invoice_section_sale_order.res_config_settings_view_form
 msgid "Customize section names when invoicing from sale orders"
-msgstr ""
+msgstr "Personalizza i nomi sezione quando di fattura da ordini di vendita"
 
 #. module: account_invoice_section_sale_order
 #: model:ir.model.fields,help:account_invoice_section_sale_order.field_res_company__invoice_section_grouping
 #: model:ir.model.fields,help:account_invoice_section_sale_order.field_res_config_settings__invoice_section_grouping
 msgid "Defines object used to group invoice lines"
-msgstr ""
+msgstr "Definisce gli oggetti utilizzati per raggruppare le righe fattura"
 
 #. module: account_invoice_section_sale_order
 #: model:ir.model.fields.selection,name:account_invoice_section_sale_order.selection__res_company__invoice_section_grouping__sale_order
 msgid "Group by sale Order"
-msgstr ""
+msgstr "Raggruppa per ordine di vendita"
 
 #. module: account_invoice_section_sale_order
 #: model_terms:ir.ui.view,arch_db:account_invoice_section_sale_order.res_config_settings_view_form
 msgid "Grouping object"
-msgstr ""
+msgstr "Oggetto raggruppamento"
 
 #. module: account_invoice_section_sale_order
 #: model:ir.model.fields,field_description:account_invoice_section_sale_order.field_res_company__invoice_section_grouping
 #: model:ir.model.fields,field_description:account_invoice_section_sale_order.field_res_config_settings__invoice_section_grouping
 msgid "Invoice Section Grouping"
-msgstr ""
+msgstr "Raggruppamento sezione fattura"
 
 #. module: account_invoice_section_sale_order
 #: model:ir.model.fields,field_description:account_invoice_section_sale_order.field_res_company__invoice_section_name_scheme
@@ -74,22 +75,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_section_sale_order.field_res_partner__invoice_section_name_scheme
 #: model:ir.model.fields,field_description:account_invoice_section_sale_order.field_res_users__invoice_section_name_scheme
 msgid "Invoice Section Name Scheme"
-msgstr ""
+msgstr "Schema nome sezione fattura"
 
 #. module: account_invoice_section_sale_order
 #: model:ir.model,name:account_invoice_section_sale_order.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_invoice_section_sale_order
 #: model:ir.model,name:account_invoice_section_sale_order.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Movimento contabile"
 
 #. module: account_invoice_section_sale_order
 #: model_terms:ir.ui.view,arch_db:account_invoice_section_sale_order.res_config_settings_view_form
 msgid "Naming scheme"
-msgstr ""
+msgstr "Schema denominazione"
 
 #. module: account_invoice_section_sale_order
 #: model:ir.model,name:account_invoice_section_sale_order.model_sale_order
@@ -99,7 +100,7 @@ msgstr "Ordine di vendita"
 #. module: account_invoice_section_sale_order
 #: model_terms:ir.ui.view,arch_db:account_invoice_section_sale_order.res_config_settings_view_form
 msgid "Section names"
-msgstr ""
+msgstr "Nomi sezione"
 
 #. module: account_invoice_section_sale_order
 #: model:ir.model.fields,help:account_invoice_section_sale_order.field_res_company__invoice_section_name_scheme
@@ -111,10 +112,14 @@ msgid ""
 "orders. Keep empty to use default. You can use a python expression with the "
 "'object' (representing sale order) and 'time' variables."
 msgstr ""
+"Questo è il nome delle sezioni sulle fatture quando generate da ordini di "
+"vendita. Lasciare vuoto per usare l'impostazione predefinita. Si può usare "
+"un'espressione python con le variabili 'object' (che rappresenta l'ordine di "
+"vendita) e 'time'."
 
 #. module: account_invoice_section_sale_order
 #. odoo-python
 #: code:addons/account_invoice_section_sale_order/models/account_move.py:0
 #, python-format
 msgid "Unrecognized invoice_section_grouping"
-msgstr ""
+msgstr "Non riconosciuto invoice_section_grouping"
