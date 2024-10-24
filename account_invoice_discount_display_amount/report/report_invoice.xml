@@ -11,6 +11,13 @@
                     <span t-field="o.discount_total" />
                 </td>
             </tr>
+            <tr t-if="display_discount" class="border-black">
+                <td name="td_discount_total_label"><strong
+                    >Without Discount</strong></td>
+                <td name="td_discount_total" class="text-end">
+                    <span t-field="o.price_total_no_discount" />
+                </td>
+            </tr>
         </xpath>
     </template>
 </odoo>
