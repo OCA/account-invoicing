@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_account_move_reversal" model="ir.ui.view">
+        <field name="name">account.move.reversal.form.inherit</field>
+        <field name="model">account.move.reversal</field>
+        <field
+            name="inherit_id"
+            ref="sale_line_refund_to_invoice_qty.view_account_move_reversal"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_qty_to_reinvoice']" position="before">
+                <field name="editable_sale_qty_to_reinvoice" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='sale_qty_to_reinvoice']" position="attributes">
+                <attribute name="force_save">1</attribute>
+                <attribute
+                    name="attrs"
+                >{'readonly': [('editable_sale_qty_to_reinvoice', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
