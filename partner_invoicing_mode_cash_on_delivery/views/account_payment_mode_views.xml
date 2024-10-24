@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_payment_mode_form" model="ir.ui.view">
+        <field name="name">cash on delivery</field>
+        <field name="model">account.payment.mode</field>
+        <field name="inherit_id" ref="account_payment_mode.account_payment_mode_form" />
+        <field name="arch" type="xml">
+        <field name="payment_type" position="after">
+            <field name="cash_on_delivery" />
+            <field
+                    name="auto_validate_invoice_cash_on_delivery"
+                    attrs="{'invisible': [('cash_on_delivery', '=', False)]}"
+                />
+        </field>
+        </field>
+    </record>
+</odoo>
