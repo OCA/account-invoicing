@@ -18,6 +18,7 @@ INVOICE_TYPE_MAP = {
     ("outgoing", "internal", "customer"): "out_invoice",
     ("incoming", "customer", "internal"): "out_refund",
     ("incoming", "supplier", "internal"): "in_invoice",
+    ("incoming", "supplier", "customer"): "in_invoice",
     ("outgoing", "internal", "supplier"): "in_refund",
     ("incoming", "transit", "internal"): "in_invoice",
     ("outgoing", "transit", "supplier"): "in_refund",
