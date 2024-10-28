@@ -200,18 +200,39 @@ class StockInvoiceOnshipping(models.TransientModel):
 
         return values
 
+    def _get_pickings_with_sale(self, invoice_values):
+        pickings = self._load_pickings()
+
+        # Filter Picking with Sales
+        picking_in_invoice_values = self.env["stock.picking"]
+        for line in invoice_values.get("invoice_line_ids"):
+            if line[2]:
+                if len(line[2].get("move_line_ids")[0]) == 2:
+                    # [(4, 233)],
+                    move_line_id = line[2].get("move_line_ids")[0][1]
+                else:
+                    # [(<Command.SET: 6>, 0, [51])]
+                    move_line_id = line[2].get("move_line_ids")[0][2]
+
+                move_line = self.env["stock.move"].browse(move_line_id)
+                picking_in_invoice_values |= move_line.mapped("picking_id")
+
+        sale_pickings = pickings.filtered(
+            lambda pk: pk.sale_id
+            # Check Sales Ungrouped
+            and pk.id in picking_in_invoice_values.ids
+        )
+
+        return sale_pickings
+
     def _create_invoice(self, invoice_values):
         """Override this method if you need to change any values of the
         invoice and the lines before the invoice creation
         :param invoice_values: dict with the invoice and its lines
         :return: invoice
         """
-        pickings = self._load_pickings()
-        sale_pickings = pickings.filtered(
-            lambda pk: pk.sale_id
-            # Check Sales Ungrouped
-            and pk.id in invoice_values.get("picking_ids")[0][2]
-        )
+        sale_pickings = self._get_pickings_with_sale(invoice_values)
+
         # Refund case don't included Section, Note or DownPayments
         if not sale_pickings or self._get_invoice_type() == "out_refund":
             return super()._create_invoice(invoice_values)
