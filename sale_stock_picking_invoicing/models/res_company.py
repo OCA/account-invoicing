@@ -25,7 +25,6 @@ class ResCompany(models.Model):
             ("sale_order", "Sale Order"),
             ("stock_picking", "Stock Picking"),
         ],
-        string="Sale Invoicing Policy",
         help="If set to Sale Order, keep native Odoo behaviour for creation of"
         " invoices from Sale Orders.\n"
         "If set to Stock Picking, disallow creation of Invoices from Sale Orders"

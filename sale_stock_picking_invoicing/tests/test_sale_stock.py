@@ -8,10 +8,10 @@ from odoo import exceptions
 # from stock_picking_invoicing
 # https://github.com/OCA/account-invoicing/blob/16.0/
 # stock_picking_invoicing/tests/common.py
-from odoo.tests import Form, SavepointCase
+from odoo.tests import Form, TransactionCase
 
 
-class TestSaleStock(SavepointCase):
+class TestSaleStock(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -30,12 +30,10 @@ class TestSaleStock(SavepointCase):
             company.sale_invoicing_policy = "stock_picking"
 
     def _run_picking_onchanges(self, record):
-        record.onchange_picking_type()
         record.onchange_partner_id()
 
     def _run_line_onchanges(self, record):
-        record.onchange_product()
-        record.onchange_product_uom()
+        record._onchange_product_id()
 
     def picking_move_state(self, picking):
         self._run_picking_onchanges(picking)
@@ -203,7 +201,7 @@ class TestSaleStock(SavepointCase):
         }
         payment = (
             self.env["sale.advance.payment.inv"]
-            .with_context(context)
+            .with_context(**context)
             .create(
                 {
                     "advance_payment_method": "delivered",
@@ -211,7 +209,7 @@ class TestSaleStock(SavepointCase):
             )
         )
         with self.assertRaises(exceptions.UserError):
-            payment.with_context(context).create_invoices()
+            payment.with_context(**context).create_invoices()
 
         invoice = self.create_invoice_wizard(picking)
         self.assertEqual(picking.invoice_state, "invoiced")
@@ -416,7 +414,7 @@ class TestSaleStock(SavepointCase):
         # DownPayment
         payment_wizard = (
             self.env["sale.advance.payment.inv"]
-            .with_context(context)
+            .with_context(**context)
             .create(
                 {
                     "advance_payment_method": "percentage",
@@ -442,10 +440,6 @@ class TestSaleStock(SavepointCase):
             limit=1,
         )
         payment_register.journal_id = journal_cash
-        payment_method_manual_in = self.env.ref(
-            "account.account_payment_method_manual_in"
-        )
-        payment_register.payment_method_id = payment_method_manual_in
         payment_register.amount = invoice_down_payment.amount_total
         payment_register.save()._create_payments()
 
