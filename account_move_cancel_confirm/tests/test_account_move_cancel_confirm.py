@@ -33,14 +33,7 @@ class TestAccountMoveCancelConfirm(TransactionCase):
                 "invoice_date": fields.Date.today(),
                 "move_type": "in_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "product_id": self.product.id,
-                            "price_unit": 100.0,
-                        },
-                    )
+                    (0, 0, {"product_id": self.product.id, "price_unit": 100.0,},)
                 ],
             }
         )
