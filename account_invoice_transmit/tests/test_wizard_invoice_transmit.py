@@ -73,7 +73,11 @@ class TestAccountInvoicePrintWizard(AccountInvoicePrintCommon, JobMixin):
         with trap_jobs() as trap:
             wizard.button_email()
             trap.assert_jobs_count(1)
-            trap.enqueued_jobs[0].perform()
+            with trap_jobs() as trap_invidivual:
+                trap.enqueued_jobs[0].perform()
+                trap_invidivual.assert_jobs_count(2)
+                trap_invidivual.enqueued_jobs[0].perform()
+                trap_invidivual.enqueued_jobs[1].perform()
         # Mail template has attachment field value set
         self.assertAttachmentCount(self.invoices, 2)
         mail_count_after = self.env["mail.mail"].search_count([]) - mail_count
@@ -134,9 +138,16 @@ class TestAccountInvoicePrintWizard(AccountInvoicePrintCommon, JobMixin):
 
         invoices = wizard.transmit_email_valid_invoice_ids
         self.assertEqual(2, len(invoices))
+
+        with trap_jobs() as trap:
+            wizard.button_email()
         counter = self.job_counter()
-        wizard.button_email()
-        job = counter.search_created()
-        action = job.related_action_open_invoice()
-        domain = action.get("domain")
-        self.assertListEqual(invoices.ids, domain[0][2])
+        trap.enqueued_jobs[0].perform()
+        jobs = counter.search_created()
+        self.assertEqual(2, len(jobs))
+        action = jobs[0].related_action_open_invoice()
+        invoice_ids = [action.get("res_id")]
+        action = jobs[1].related_action_open_invoice()
+        invoice_ids.append(action.get("res_id"))
+
+        self.assertItemsEqual(invoices.ids, invoice_ids)

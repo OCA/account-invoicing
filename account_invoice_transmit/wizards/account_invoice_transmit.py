@@ -145,16 +145,36 @@ class AccountInvoiceTransmit(models.TransientModel):
         if self.resend:
             invoices.filtered("is_move_sent").is_move_sent = False
         description = _("Mass generating invoice emails for sending")
-        invoices.with_delay(
+        self.env["account.invoice.transmit"].with_delay(
             description=description,
             identity_key=identity_exact,
             priority=50,
             channel="root.invoice_transmit.email",
-        )._transmit_invoice_by_email()
+        )._send_email(invoice_ids=invoices.ids)
         self.env.user.notify_info(
             _("Invoices will be sent by email in the background.")
         )
         return self._act_close
+
+    def _send_email(self, invoice_ids):
+        """
+        Create a send job per invoice to manage:
+            - errors by invoice
+            - time to execute the whole process
+        """
+        invoices = self.env["account.move"].browse(invoice_ids)
+        if not invoices:
+            raise UserError(_("No invoice with valid email to send"))
+        for invoice in invoices:
+            description = _(
+                "Send invoice %(invoice_name)s by email", invoice_name=invoice.name
+            )
+            invoice.with_delay(
+                description=description,
+                identity_key=identity_exact,
+                priority=50,
+                channel="root.invoice_transmit.email",
+            )._transmit_invoice_by_email()
 
     def button_mark_only(self):
         self.invoice_ids.write({"is_move_sent": True})
