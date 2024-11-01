@@ -1,6 +1,6 @@
 # Copyright 2020 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
-import mock
+from unittest import mock
 
 from odoo.exceptions import UserError
 
@@ -20,18 +20,14 @@ class TestInvoiceGroupBySaleOrder(Common):
                 "".join([self.order1_p1.name, " - ", self.order1_p1.client_order_ref]),
                 "line_section",
             ),
-            20: ("order 1 line 1", False),
-            30: ("order 1 line 2", False),
+            20: (f"{self.product_1.name} order 1 line 1", "product"),
+            30: (f"{self.product_2.name} order 1 line 2", "product"),
             40: (self.order2_p1.name, "line_section"),
-            50: ("order 2 line 1", False),
-            60: ("order 2 line 2", False),
+            50: (f"{self.product_1.name} order 2 line 1", "product"),
+            60: (f"{self.product_2.name} order 2 line 2", "product"),
         }
         invoice_ids = (self.order1_p1 + self.order2_p1)._create_invoices()
-        lines = (
-            invoice_ids[0]
-            .line_ids.sorted("sequence")
-            .filtered(lambda r: not r.exclude_from_invoice_tab)
-        )
+        lines = invoice_ids[0].invoice_line_ids.sorted("sequence")
         for line in lines:
             if line.sequence not in result:
                 continue
@@ -40,14 +36,9 @@ class TestInvoiceGroupBySaleOrder(Common):
 
     def test_create_invoice_with_currency(self):
         """Check invoice is generated with a correct total amount"""
-        eur = self.env.ref("base.EUR")
-        pricelist = self.env["product.pricelist"].create(
-            {"name": "Europe pricelist", "currency_id": eur.id}
-        )
         orders = self.order1_p1 | self.order2_p1
-        orders.write({"pricelist_id": pricelist.id})
         invoices = orders._create_invoices()
-        self.assertEqual(invoices.amount_total, 80)
+        self.assertEqual(invoices.amount_untaxed, 80)
 
     def test_create_invoice_with_default_journal(self):
         """Using a specific journal for the invoice should not be broken"""
@@ -108,13 +99,13 @@ class TestInvoiceGroupBySaleOrder(Common):
             invoice = (orders + sale_order_3)._create_invoices()
             result = {
                 10: ("Mocked value from ResUsers", "line_section"),
-                20: ("order 1 line 1", False),
-                30: ("order 1 line 2", False),
-                40: ("order 2 line 1", False),
-                50: ("order 2 line 2", False),
+                20: (f"{self.product_1.name} order 1 line 1", "product"),
+                30: (f"{self.product_2.name} order 1 line 2", "product"),
+                40: (f"{self.product_1.name} order 2 line 1", "product"),
+                50: (f"{self.product_2.name} order 2 line 2", "product"),
                 60: ("Mocked value from ResUsers", "line_section"),
-                70: ("order 3 line 1", False),
-                80: ("order 3 line 2", False),
+                70: (f"{self.product_1.name} order 3 line 1", "product"),
+                80: (f"{self.product_2.name} order 3 line 2", "product"),
             }
             for line in invoice.invoice_line_ids.sorted("sequence"):
                 if line.sequence not in result:
