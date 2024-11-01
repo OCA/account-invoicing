@@ -97,11 +97,12 @@ class TestInvoiceGroupBySaleOrder(Common):
         sale_order_3.order_line[1].name = "order 3 line 2"
         sale_order_3.action_confirm()
 
-        with mock.patch(
-            SECTION_GROUPING_FUNCTION
-        ) as mocked_get_section_grouping, mock.patch(
-            SECTION_NAME_FUNCTION, create=True
-        ) as mocked_get_invoice_section_name:
+        with (
+            mock.patch(SECTION_GROUPING_FUNCTION) as mocked_get_section_grouping,
+            mock.patch(
+                SECTION_NAME_FUNCTION, create=True
+            ) as mocked_get_invoice_section_name,
+        ):
             mocked_get_section_grouping.return_value = "sale_line_ids.order_id.user_id"
             mocked_get_invoice_section_name.return_value = "Mocked value from ResUsers"
             invoice = (orders + sale_order_3)._create_invoices()

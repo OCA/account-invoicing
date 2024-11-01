@@ -6,7 +6,6 @@
         <field name="inherit_id" ref="account.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//block[@id='invoicing_settings']" position="inside">
-
                 <setting
                     id="invoice_section_sale_order"
                     string="Section names"
