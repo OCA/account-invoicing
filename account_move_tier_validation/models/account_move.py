@@ -1,7 +1,7 @@
 # Copyright <2020> PESOL <info@pesol.es>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
-from odoo import _, api, models
+from odoo import api, models
 
 
 class AccountMove(models.Model):
@@ -23,15 +23,15 @@ class AccountMove(models.Model):
         return super()._get_under_validation_exceptions() + ["needed_terms_dirty"]
 
     def _get_to_validate_message_name(self):
-        name = super(AccountMove, self)._get_to_validate_message_name()
+        name = super()._get_to_validate_message_name()
         if self.move_type == "in_invoice":
-            name = _("Bill")
+            name = self.env._("Bill")
         elif self.move_type == "in_refund":
-            name = _("Refund")
+            name = self.env._("Refund")
         elif self.move_type == "out_invoice":
-            name = _("Invoice")
+            name = self.env._("Invoice")
         elif self.move_type == "out_refund":
-            name = _("Credit Note")
+            name = self.env._("Credit Note")
         return name
 
     def action_post(self):

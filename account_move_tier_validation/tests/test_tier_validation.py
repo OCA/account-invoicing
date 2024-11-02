@@ -1,14 +1,21 @@
 # Copyright 2018 ForgeFlow S.L.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import _, fields
+from odoo import fields
 from odoo.exceptions import ValidationError
-from odoo.tests import common
-from odoo.tests.common import tagged
+from odoo.tests import Form
+from odoo.tests.common import TransactionCase, tagged
+
+from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
 
 
 @tagged("post_install", "-at_install")
-class TestAccountTierValidation(common.TransactionCase):
+class TestAccountTierValidation(TransactionCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
+
     def test_01_tier_definition_models(self):
         res = self.env["tier.definition"]._get_tier_validation_model_names()
         self.assertIn("account.move", res)
@@ -20,10 +27,10 @@ class TestAccountTierValidation(common.TransactionCase):
                     "model_id": self.env["ir.model"]
                     .search([("model", "=", "account.move")])
                     .id,
-                    "definition_domain": "[('move_type', '=', '%s')]" % _type,
+                    "definition_domain": f"[('move_type', '=', '{_type}')]",
                 }
             )
-            with common.Form(
+            with Form(
                 self.env["account.move"].with_context(default_move_type=_type)
             ) as form:
                 form.save()
@@ -76,7 +83,7 @@ class TestAccountTierValidation(common.TransactionCase):
         invoice.invalidate_model()
         invoice.validate_tier()
         with self.assertRaisesRegex(
-            ValidationError, _("You are not allowed to write those fields")
+            ValidationError, self.env._("You are not allowed to write those fields")
         ):
             invoice._post()
         # Calls _post method by passing context skip_validation_check set to True
