@@ -4,17 +4,20 @@
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
+from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+
 
 class TestAccountMoveTierValidationApprover(TransactionCase):
     def setUp(self):
-        super(TestAccountMoveTierValidationApprover, self).setUp()
+        super().setUp()
+        self.env = self.env(context=dict(self.env.context, **DISABLED_MAIL_CONTEXT))
         self.res_partner_1 = self.env["res.partner"].create(
             {"name": "Wood Corner", "email": "example@yourcompany.com"}
         )
         self.product_1 = self.env["product.product"].create(
             {"name": "Desk Combination"}
         )
-        self.currency_euro = self.env["res.currency"].search([("name", "=", "EUR")])
+        self.currency_usd = self.env["res.currency"].search([("name", "=", "USD")])
         self.test_user_1 = self.env["res.users"].create(
             {"name": "User", "login": "test1", "email": "example@yourcompany.com"}
         )
@@ -26,7 +29,7 @@ class TestAccountMoveTierValidationApprover(TransactionCase):
                 {
                     "move_type": "in_invoice",
                     "partner_id": self.res_partner_1.id,
-                    "currency_id": self.currency_euro.id,
+                    "currency_id": self.currency_usd.id,
                     "approver_id": self.test_approver.id,
                     "invoice_line_ids": [
                         (
@@ -69,7 +72,6 @@ class TestAccountMoveTierValidationApprover(TransactionCase):
             {"approver_id": self.test_approver.id, "invoice_date": record.date}
         )
         record.with_user(self.test_user_1.id).request_validation()
-        record.invalidate_cache()
         record.with_user(self.test_user_1.id).validate_tier()
         with self.assertRaises(ValidationError):
             record.action_post()
