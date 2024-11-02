@@ -1,7 +1,7 @@
 # Copyright 2021 ForgeFlow, S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -26,7 +26,7 @@ class AccountMove(models.Model):
                 and not move.approver_id
             ):
                 raise UserError(
-                    _(
+                    self.env._(
                         "It is mandatory to indicate a Responsible for Approval (in {})"
                     ).format(move.name)
                 )

@@ -10,7 +10,8 @@
             <xpath expr='//field[@name="ref"]' position="after">
                 <field
                     name="approver_id"
-                    attrs="{'readonly': [('review_ids', '!=', [])], 'invisible': [('move_type', 'in', ['out_invoice', 'out_refund', 'entry'])]}"
+                    readonly="review_ids"
+                    invisible="move_type in ('out_invoice', 'out_refund', 'entry')"
                 />
             </xpath>
         </field>
