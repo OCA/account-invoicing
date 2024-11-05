@@ -5,6 +5,8 @@ from odoo import api, fields, models
 from odoo.fields import Datetime
 from odoo.osv.expression import AND
 
+from odoo.addons.queue_job.job import identity_exact
+
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
@@ -76,7 +78,10 @@ class SaleOrder(models.Model):
             lazy=False,
         )
         for saleorder_group in saleorder_groups:
-            self.with_delay()._generate_invoices_by_partner(saleorder_group["sale_ids"])
+            self.with_delay(
+                identity_key=identity_exact,
+                description=self.env._("Generate invoices by partner"),
+            )._generate_invoices_by_partner(saleorder_group["sale_ids"])
         companies.write({last_execution_field: Datetime.now()})
         return saleorder_groups
 
@@ -126,7 +131,10 @@ class SaleOrder(models.Model):
             partitioned_sales.partner_invoice_id._update_next_invoice_date()
             invoice_ids.update(invoices.ids)
             for invoice in invoices:
-                invoice.with_delay()._validate_invoice()
+                description = self.env._("Validate %s invoice", invoice.display_name)
+                invoice.with_delay(
+                    identity_key=identity_exact, description=description
+                )._validate_invoice()
         return self.env["account.move"].browse(invoice_ids)
 
     @api.model

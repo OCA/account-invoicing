@@ -9,7 +9,6 @@ class ResPartner(models.Model):
 
     invoicing_mode = fields.Selection([("standard", "Standard")], default="standard")
     one_invoice_per_order = fields.Boolean(
-        default=False,
         help="Do not group sale order into one invoice.",
     )
     next_invoice_date = fields.Date(

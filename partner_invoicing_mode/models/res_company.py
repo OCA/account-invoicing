@@ -10,5 +10,4 @@ class ResCompany(models.Model):
     invoicing_mode_standard_last_execution = fields.Datetime(
         string="Last execution (standard)",
         help="Last execution of standard invoicing.",
-        readonly=True,
     )

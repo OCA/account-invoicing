@@ -6,7 +6,8 @@ from unittest import mock
 from freezegun import freeze_time
 
 from odoo import fields
-from odoo.tests.common import Form, TransactionCase
+from odoo.tests import Form
+from odoo.tests.common import TransactionCase
 
 from odoo.addons.queue_job.tests.common import trap_jobs
 

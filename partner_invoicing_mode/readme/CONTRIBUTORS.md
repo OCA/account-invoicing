@@ -9,3 +9,5 @@
   > - Denis Roussel \<<denis.roussel@acsone.eu>\>
 
 - Nils Coenen \<<nils.coenen@nico-solutions.de>\>
+
+- Chau Le \<<chaulb@trobz.com>\>
