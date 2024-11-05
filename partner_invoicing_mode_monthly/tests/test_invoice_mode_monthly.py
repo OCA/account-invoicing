@@ -43,10 +43,13 @@ class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
         self.so1.payment_term_id = self.pt1.id
         self.deliver_invoice(self.so1)
         self.assertFalse(self.so1.invoice_ids)
-        with mute_logger("odoo.addons.queue_job.delay"), mock.patch.object(
-            SaleOrder,
-            "_company_monthly_invoicing_today",
-            return_value=self.so1.company_id,
+        with (
+            mute_logger("odoo.addons.queue_job.delay"),
+            mock.patch.object(
+                SaleOrder,
+                "_company_monthly_invoicing_today",
+                return_value=self.so1.company_id,
+            ),
         ):
             cron.with_context(test_queue_job_no_delay=True).ir_actions_server_id.run()
         self.assertTrue(self.so1.invoice_ids)
