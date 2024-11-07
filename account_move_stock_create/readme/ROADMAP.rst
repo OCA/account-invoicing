@@ -1,0 +1,3 @@
+- Add tests
+- Create a group_by/setup wizard structure (similar to stock_invoice_onshipping)
+- Adapt to new PO/Bill matching system from v18

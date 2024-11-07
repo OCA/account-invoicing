@@ -1,0 +1,25 @@
+<!--
+Copyright (C) 2024-Today - KMEE (<http://www.kmee.com.br>).
+@author Diego Paradeda <diego.paradeda@kmee.com.br>
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <data>
+
+        <record model="ir.actions.server" id="action_move_create_picking">
+            <field name="name">Create Stock Picking</field>
+            <field name="model_id" ref="account.model_account_move" />
+            <field
+                name="groups_id"
+                eval="[(4, ref('account.group_account_invoice'))]"
+            />
+            <field name="binding_model_id" ref="account.model_account_move" />
+            <field name="state">code</field>
+            <field name="code">
+if records:
+    action = records.action_generate_pickings_from_invoices()
+            </field>
+        </record>
+
+    </data>
+</odoo>
