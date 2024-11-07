@@ -2,14 +2,13 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.exceptions import ValidationError
-from odoo.tests.common import TransactionCase
 
 from odoo.addons.queue_job.tests.common import trap_jobs
 
 from .common import InvoiceModeAtShippingCommon
 
 
-class TestInvoiceModeAtShippingGrouped(InvoiceModeAtShippingCommon, TransactionCase):
+class TestInvoiceModeAtShippingGrouped(InvoiceModeAtShippingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
