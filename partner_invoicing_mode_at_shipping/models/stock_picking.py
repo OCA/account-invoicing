@@ -1,7 +1,7 @@
 # Copyright 2020 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
-from odoo import _, api, models
+from odoo import api, models
 
 
 class StockPicking(models.Model):
@@ -44,7 +44,7 @@ class StockPicking(models.Model):
         # The invoices per picking will use the invoicing_mode
         for invoice in self._invoicing_at_shipping_validation(invoices):
             invoice.with_delay()._validate_invoice()
-        return invoices or _("Nothing to invoice.")
+        return invoices or self.env._("Nothing to invoice.")
 
     def _get_sales_order_to_invoice(self):
         return self.move_ids.sale_line_id.order_id.filtered(
