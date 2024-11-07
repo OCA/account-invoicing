@@ -3,14 +3,13 @@
 
 from unittest import mock
 
-from odoo.tests.common import TransactionCase
 from odoo.tools import mute_logger
 
 from odoo.addons.partner_invoicing_mode.tests.common import CommonPartnerInvoicingMode
 from odoo.addons.partner_invoicing_mode_monthly.models.sale_order import SaleOrder
 
 
-class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
+class TestInvoiceModeMonthly(CommonPartnerInvoicingMode):
     _invoicing_mode = "monthly"
 
     def deliver_invoice(self, sale_order):
@@ -19,7 +18,7 @@ class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
             for move in picking.move_ids:
                 move.quantity = move.product_uom_qty
             picking.action_assign()
-            picking.with_context(test_queue_job_no_delay=True).button_validate()
+            picking.button_validate()
 
     def test_invoice_mode_monthly(self):
         self.so1.payment_term_id = self.pt1.id
@@ -27,13 +26,13 @@ class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
         self.assertFalse(self.so1.invoice_ids)
         with mute_logger("odoo.addons.queue_job.delay"):
             self.SaleOrder.with_context(
-                test_queue_job_no_delay=True
+                queue_job__no_delay=True
             ).generate_monthly_invoices()
         self.assertTrue(self.so1.invoice_ids)
         # No errors are raised when called without anything to invoice
         with mute_logger("odoo.addons.queue_job.delay"):
             self.SaleOrder.with_context(
-                test_queue_job_no_delay=True
+                queue_job__no_delay=True
             ).generate_monthly_invoices()
 
     def test_invoice_mode_monthly_cron(self):
@@ -51,7 +50,7 @@ class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
                 return_value=self.so1.company_id,
             ),
         ):
-            cron.with_context(test_queue_job_no_delay=True).ir_actions_server_id.run()
+            cron.with_context(queue_job__no_delay=True).ir_actions_server_id.run()
         self.assertTrue(self.so1.invoice_ids)
 
     def test_saleorder_with_different_mode_term(self):
@@ -62,7 +61,7 @@ class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
         self.deliver_invoice(self.so2)
         with mute_logger("odoo.addons.queue_job.delay"):
             self.SaleOrder.with_context(
-                test_queue_job_no_delay=True
+                queue_job__no_delay=True
             ).generate_monthly_invoices(self.company)
         self.assertEqual(len(self.so1.invoice_ids), 1)
         self.assertEqual(len(self.so2.invoice_ids), 1)
@@ -76,7 +75,7 @@ class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
         self.deliver_invoice(self.so2)
         with mute_logger("odoo.addons.queue_job.delay"):
             self.SaleOrder.with_context(
-                test_queue_job_no_delay=True
+                queue_job__no_delay=True
             ).generate_monthly_invoices(self.company)
         self.assertEqual(len(self.so1.invoice_ids), 1)
         self.assertEqual(len(self.so2.invoice_ids), 1)
@@ -93,7 +92,7 @@ class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
         self.deliver_invoice(self.so2)
         with mute_logger("odoo.addons.queue_job.delay"):
             self.SaleOrder.with_context(
-                test_queue_job_no_delay=True
+                queue_job__no_delay=True
             ).generate_monthly_invoices(self.company)
         self.assertEqual(len(self.so1.invoice_ids), 1)
         self.assertEqual(len(self.so2.invoice_ids), 1)
@@ -112,7 +111,7 @@ class TestInvoiceModeMonthly(CommonPartnerInvoicingMode, TransactionCase):
         self.deliver_invoice(self.so2)
         with mute_logger("odoo.addons.queue_job.delay"):
             self.SaleOrder.with_context(
-                test_queue_job_no_delay=True
+                queue_job__no_delay=True
             ).generate_monthly_invoices(self.company)
         self.assertEqual(len(self.so1.invoice_ids), 1)
         self.assertEqual(len(self.so2.invoice_ids), 1)

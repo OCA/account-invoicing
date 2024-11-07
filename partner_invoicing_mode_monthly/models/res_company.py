@@ -17,5 +17,4 @@ class ResCompany(models.Model):
     invoicing_mode_monthly_last_execution = fields.Datetime(
         string="Last execution (monthly)",
         help="Last execution of monthly invoicing.",
-        readonly=True,
     )

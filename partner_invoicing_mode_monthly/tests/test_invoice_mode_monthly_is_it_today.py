@@ -3,10 +3,10 @@
 
 from freezegun import freeze_time
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestInvoiceModeMonthly(TransactionCase):
+class TestInvoiceModeMonthly(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

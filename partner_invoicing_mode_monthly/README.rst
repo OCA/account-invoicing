@@ -71,10 +71,13 @@ Contributors
 
 -  Tran Thanh Trai <traitt@trobz.com>
 
+-  Chau Le <chaulb@trobz.com>
+
 Other credits
 -------------
 
-The development of this module has been financially supported by:
+The migration of this module from 17.0 to 18.0 was financially supported
+by:
 
 -  Camptocamp
 
