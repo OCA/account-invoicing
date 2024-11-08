@@ -35,7 +35,7 @@ class AccountMove(models.Model):
             lines = item.line_ids.filtered(lambda x: x.amount_currency > 0)
             if item.state == "posted" and lines:
                 amount_currency_positive = sum(lines.mapped("amount_currency"))
-                total_debit = sum(item.line_ids.mapped("debit"))
+                total_debit = sum(lines.mapped("debit"))
                 item.currency_rate_amount = item.currency_id.round(
                     amount_currency_positive / total_debit
                 )
