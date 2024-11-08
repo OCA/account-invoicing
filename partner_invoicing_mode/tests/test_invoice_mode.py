@@ -7,7 +7,6 @@ from freezegun import freeze_time
 
 from odoo import fields
 from odoo.tests import Form
-from odoo.tests.common import TransactionCase
 
 from odoo.addons.queue_job.tests.common import trap_jobs
 
@@ -15,7 +14,7 @@ from ..models.res_partner import ResPartner
 from .common import CommonPartnerInvoicingMode
 
 
-class TestInvoiceMode(CommonPartnerInvoicingMode, TransactionCase):
+class TestInvoiceMode(CommonPartnerInvoicingMode):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

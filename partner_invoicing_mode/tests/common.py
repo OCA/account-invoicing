@@ -1,9 +1,12 @@
 # Copyright 2020 Camptocamp SA
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+from odoo import Command
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class CommonPartnerInvoicingMode:
+class CommonPartnerInvoicingMode(BaseCommon):
     _invoicing_mode = "standard"
 
     @classmethod
@@ -34,16 +37,14 @@ class CommonPartnerInvoicingMode:
                 "partner_shipping_id": cls.partner.id,
                 "payment_term_id": cls.pt1.id,
                 "order_line": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Line one",
                             "product_id": cls.product.id,
                             "product_uom_qty": 4,
                             "product_uom": cls.product.uom_id.id,
                             "price_unit": 123,
-                        },
+                        }
                     )
                 ],
                 "pricelist_id": cls.pricelist.id,  # Use the newly created pricelist
@@ -57,9 +58,7 @@ class CommonPartnerInvoicingMode:
                 "partner_shipping_id": cls.partner.id,
                 "payment_term_id": cls.pt1.id,
                 "order_line": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Line one",
                             "product_id": cls.product.id,
