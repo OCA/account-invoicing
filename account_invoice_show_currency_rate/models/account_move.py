@@ -20,6 +20,7 @@ class AccountMove(models.Model):
         "state",
         "date",
         "line_ids.amount_currency",
+        "line_ids.balance",
         "company_id",
         "currency_id",
         "show_currency_rate_amount",
@@ -32,12 +33,14 @@ class AccountMove(models.Model):
         """
         self.currency_rate_amount = 1
         for item in self.filtered("show_currency_rate_amount"):
-            lines = item.line_ids.filtered(lambda x: x.amount_currency > 0)
+            lines = item.line_ids.filtered(lambda x: abs(x.amount_currency) > 0)
             if item.state == "posted" and lines:
-                amount_currency_positive = sum(lines.mapped("amount_currency"))
-                total_debit = sum(lines.mapped("debit"))
+                amount_currency_positive = sum(
+                    [abs(amc) for amc in lines.mapped("amount_currency")]
+                )
+                total_balance_positive = sum([abs(b) for b in lines.mapped("balance")])
                 item.currency_rate_amount = item.currency_id.round(
-                    amount_currency_positive / total_debit
+                    amount_currency_positive / total_balance_positive
                 )
             else:
                 rates = item.currency_id._get_rates(item.company_id, item.date)
@@ -64,7 +67,7 @@ class AccountMoveLine(models.Model):
         "move_id.state",
         "move_id.date",
         "amount_currency",
-        "debit",
+        "balance",
         "move_id.company_id",
         "currency_id",
     )
@@ -81,9 +84,10 @@ class AccountMoveLine(models.Model):
                 or item.currency_id == item.move_id.company_id.currency_id
             ):
                 continue
-            if item.move_id.state == "posted" and item.amount_currency > 0:
+            amount_currency = abs(item.amount_currency)
+            if item.move_id.state == "posted" and amount_currency > 0:
                 item.currency_rate_amount = item.currency_id.round(
-                    item.amount_currency / item.debit
+                    amount_currency / abs(item.balance)
                 )
             else:
                 rates = item.currency_id._get_rates(
