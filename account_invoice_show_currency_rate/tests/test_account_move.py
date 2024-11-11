@@ -77,15 +77,19 @@ class TestAccountMove(common.TransactionCase):
         self.partner.property_product_pricelist = self.pricelist_currency
         invoice = self._create_invoice(self.currency)
         self.assertAlmostEqual(invoice.currency_rate_amount, 1.0, 2)
+        self.assertAlmostEqual(invoice.line_ids[0].currency_rate_amount, 1.0, 2)
 
     def test_02_invoice_currency_extra(self):
         self.partner.property_product_pricelist = self.pricelist_currency_extra
         invoice = self._create_invoice(self.currency_extra)
         self.assertAlmostEqual(invoice.currency_rate_amount, 2.0, 2)
+        self.assertAlmostEqual(invoice.line_ids[0].currency_rate_amount, 2.0, 2)
         rate_custom = self.currency_extra.rate_ids.filtered(
             lambda x: x.name == fields.Date.from_string("2000-01-01")
         )
         rate_custom.rate = 3.0
         self.assertAlmostEqual(invoice.currency_rate_amount, 2.0, 2)
+        self.assertAlmostEqual(invoice.line_ids[0].currency_rate_amount, 2.0, 2)
         invoice.button_draft()
         self.assertAlmostEqual(invoice.currency_rate_amount, 3.0, 2)
+        self.assertAlmostEqual(invoice.line_ids[0].currency_rate_amount, 3.0, 2)

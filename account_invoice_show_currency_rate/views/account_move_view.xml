@@ -22,7 +22,7 @@ License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
                 position="after"
             >
                 <field
-                    name="currency_rate"
+                    name="currency_rate_amount"
                     string="Rate"
                     digits="[12,12]"
                     groups="base.group_multi_currency"

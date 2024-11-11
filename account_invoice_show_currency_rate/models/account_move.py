@@ -49,3 +49,44 @@ class AccountMove(models.Model):
             item.show_currency_rate_amount = (
                 item.currency_id and item.currency_id != item.company_id.currency_id
             )
+
+
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
+
+    currency_rate_amount = fields.Float(
+        string="Rate amount",
+        compute="_compute_currency_rate_amount",
+        digits=0,
+    )
+
+    @api.depends(
+        "move_id.state",
+        "move_id.date",
+        "amount_currency",
+        "debit",
+        "move_id.company_id",
+        "currency_id",
+    )
+    def _compute_currency_rate_amount(self):
+        """It's necessary to define value according to some cases:
+        - Case A: Currency is equal to company currency (Value = 1)
+        - Case B: Move exist previously (posted) and get real rate according to lines
+        - Case C: Get expected rate (according to date) to show some value in creation.
+        """
+        self.currency_rate_amount = 1
+        for item in self:
+            if (
+                not item.currency_id
+                or item.currency_id == item.move_id.company_id.currency_id
+            ):
+                continue
+            if item.move_id.state == "posted" and item.amount_currency > 0:
+                item.currency_rate_amount = item.currency_id.round(
+                    item.amount_currency / item.debit
+                )
+            else:
+                rates = item.currency_id._get_rates(
+                    item.move_id.company_id, item.move_id.date
+                )
+                item.currency_rate_amount = rates.get(item.currency_id.id)
