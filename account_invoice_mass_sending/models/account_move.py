@@ -48,6 +48,7 @@ class AccountInvoice(models.Model):
                 "active_ids": self.ids,
                 "active_id": self.id,
                 "discard_logo_check": True,
+                "account_invoice_mass_sending": True,
             }
         )
         wiz = self.env["account.invoice.send"].with_context(**wiz_ctx).create({})

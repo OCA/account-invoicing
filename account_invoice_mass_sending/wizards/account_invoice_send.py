@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, models
+from odoo import _, api, models
 
 
 class AccountInvoiceSend(models.TransientModel):
@@ -48,3 +48,12 @@ class AccountInvoiceSend(models.TransientModel):
                 }
             )
         return notification
+
+    @api.onchange("invoice_ids")
+    def _compute_composition_mode(self):
+        """Force send as mass_mail although this module sends each invoice one by one
+        to avoid extra notificactions"""
+        if not self.env.context.get("account_invoice_mass_sending", False):
+            return super()._compute_composition_mode()
+        for wizard in self:
+            wizard.composer_id.composition_mode = "mass_mail"
