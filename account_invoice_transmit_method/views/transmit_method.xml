@@ -25,7 +25,6 @@
                     <group name="main">
                         <group name="info">
                             <field name="code" />
-                            <field name="active" invisible="True" />
                         </group>
                         <group name="options">
                             <field name="customer_ok" widget="boolean_toggle" />
@@ -39,14 +38,14 @@
     <record id="transmit_method_tree" model="ir.ui.view">
         <field name="model">transmit.method</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="sequence" widget="handle" />
                 <field name="name" />
                 <field name="code" />
                 <field name="customer_ok" widget="boolean_toggle" />
                 <field name="supplier_ok" widget="boolean_toggle" />
                 <field name="active" column_invisible="True" />
-            </tree>
+            </list>
         </field>
     </record>
     <record id="transmit_method_search" model="ir.ui.view">
@@ -80,7 +79,7 @@
     <record id="transmit_method_action" model="ir.actions.act_window">
         <field name="name">Transmit Methods</field>
         <field name="res_model">transmit.method</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
     <menuitem
         id="transmit_method_menu"

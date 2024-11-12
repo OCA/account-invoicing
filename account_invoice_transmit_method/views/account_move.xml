@@ -52,9 +52,6 @@
                     name="invisible"
                 >state != 'posted' or not is_being_sent and not invoice_pdf_report_id or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund') or transmit_method_code not in ('mail', False)</attribute>
             </xpath>
-            <field name="invoice_filter_type_domain" position="after">
-                <field name="transmit_method_code" invisible="1" />
-            </field>
         </field>
     </record>
 </odoo>
