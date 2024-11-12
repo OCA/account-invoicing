@@ -10,6 +10,7 @@
     "license": "AGPL-3",
     "summary": "Manage triple discount on invoice lines",
     "depends": ["account"],
+    "excludes": ["account_invoice_fixed_discount"],
     "post_init_hook": "post_init_hook",
     "data": ["report/invoice.xml", "views/account_move.xml"],
     "installable": True,
