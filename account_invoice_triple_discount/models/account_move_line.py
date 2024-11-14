@@ -11,11 +11,18 @@ class AccountMoveLine(models.Model):
 
     _inherit = "account.move.line"
 
+    # core discount field is now a computed field
+    # based on the 3 discounts defined below.
+    # the digits limitation is removed, to make
+    # the computation of the subtotal exact.
+    # For exemple, if discounts are 05%, 09% and 13%
+    # the main discount is 24.7885 % (and not 24.79)
     discount = fields.Float(
         string="Total discount",
         compute="_compute_discount",
         store=True,
         readonly=True,
+        digits=None,
     )
     discount1 = fields.Float(
         string="Discount 1 (%)",
