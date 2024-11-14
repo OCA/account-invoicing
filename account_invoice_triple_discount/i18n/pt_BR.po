@@ -22,6 +22,11 @@ msgstr ""
 
 #. module: account_invoice_triple_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.1 %</span>"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
 msgid "<span>Disc.2 %</span>"
 msgstr "<span>Disco.2 %</span>"
 
@@ -29,6 +34,11 @@ msgstr "<span>Disco.2 %</span>"
 #: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
 msgid "<span>Disc.3 %</span>"
 msgstr "<span>Disco.3 %</span>"
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.invoice_triple_discount_form_view
+msgid "Disc.1%"
+msgstr ""
 
 #. module: account_invoice_triple_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.invoice_triple_discount_form_view
@@ -41,6 +51,11 @@ msgid "Disc.3%"
 msgstr "Desconto 3 (%)"
 
 #. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount1
+msgid "Discount 1 (%)"
+msgstr ""
+
+#. module: account_invoice_triple_discount
 #: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount2
 msgid "Discount 2 (%)"
 msgstr "Desconto 2 (%)"
@@ -51,14 +66,18 @@ msgid "Discount 3 (%)"
 msgstr "Desconto 3 (%)"
 
 #. module: account_invoice_triple_discount
-#: model:ir.model,name:account_invoice_triple_discount.model_account_move
-msgid "Journal Entry"
-msgstr "Entrada Diário"
-
-#. module: account_invoice_triple_discount
 #: model:ir.model,name:account_invoice_triple_discount.model_account_move_line
 msgid "Journal Item"
 msgstr "Item Diário"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.invoice_triple_discount_form_view
+msgid "Total discount"
+msgstr ""
+
+#~ msgid "Journal Entry"
+#~ msgstr "Entrada Diário"
 
 #~ msgid "Invoice"
 #~ msgstr "Fatura"
