@@ -1,8 +1,7 @@
 # Copyright 2017 Tecnativa - David Vidal
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
-from odoo.tests import TransactionCase
-from odoo.tests.common import Form
+from odoo.tests import Form, TransactionCase
 
 
 class TestInvoiceFixedDiscount(TransactionCase):
@@ -139,7 +138,7 @@ class TestInvoiceFixedDiscount(TransactionCase):
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143)
 
     def test_04_base_line_set_to_none(self):
-        self.vat._convert_to_tax_base_line_dict(
+        self.vat._prepare_base_line_for_taxes_computation(
             None,
             price_unit=10,
             currency=1,
