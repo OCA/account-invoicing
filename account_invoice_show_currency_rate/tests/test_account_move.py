@@ -61,36 +61,39 @@ class TestAccountMove(common.SavepointCase):
         )
 
     def _create_invoice(self, currency_id):
-        move_form = Form(
-            self.env["account.move"].with_context(default_type="out_invoice")
+        invoice_form = Form(
+            self.env["account.invoice"].with_context(default_type="out_invoice")
         )
-        move_form.partner_id = self.partner
-        move_form.journal_id = self.journal
-        move_form.invoice_date = fields.Date.from_string("2000-01-01")
-        move_form.currency_id = currency_id
-        with move_form.invoice_line_ids.new() as line_form:
+        invoice_form.partner_id = self.partner
+        invoice_form.journal_id = self.journal
+        invoice_form.date_invoice = fields.Date.from_string("2000-01-01")
+        invoice_form.currency_id = currency_id
+        with invoice_form.invoice_line_ids.new() as line_form:
             line_form.product_id = self.product
-        invoice = move_form.save()
-        invoice.action_post()
+        invoice = invoice_form.save()
+        invoice.action_invoice_open()
         return invoice
 
     def test_01_invoice_currency(self):
         self.partner.property_product_pricelist = self.pricelist_currency
         invoice = self._create_invoice(self.currency)
         self.assertAlmostEqual(invoice.currency_rate_amount, 1.0, 2)
-        self.assertAlmostEqual(invoice.line_ids[0].currency_rate_amount, 1.0, 2)
+        move = invoice.move_id
+        self.assertAlmostEqual(move.line_ids[0].currency_rate_amount, 1.0, 2)
 
     def test_02_invoice_currency_extra(self):
         self.partner.property_product_pricelist = self.pricelist_currency_extra
         invoice = self._create_invoice(self.currency_extra)
         self.assertAlmostEqual(invoice.currency_rate_amount, 2.0, 2)
-        self.assertAlmostEqual(invoice.line_ids[0].currency_rate_amount, 2.0, 2)
+        move = invoice.move_id
+        self.assertAlmostEqual(move.line_ids[0].currency_rate_amount, 2.0, 2)
         rate_custom = self.currency_extra.rate_ids.filtered(
             lambda x: x.name == fields.Date.from_string("2000-01-01")
         )
         rate_custom.rate = 3.0
         self.assertAlmostEqual(invoice.currency_rate_amount, 2.0, 2)
-        self.assertAlmostEqual(invoice.line_ids[0].currency_rate_amount, 2.0, 2)
-        invoice.button_draft()
+        self.assertAlmostEqual(move.line_ids[0].currency_rate_amount, 2.0, 2)
+        self.journal.write({'update_posted': True})
+        invoice.action_invoice_cancel()
+        invoice.action_invoice_draft()
         self.assertAlmostEqual(invoice.currency_rate_amount, 3.0, 2)
-        self.assertAlmostEqual(invoice.line_ids[0].currency_rate_amount, 3.0, 2)
