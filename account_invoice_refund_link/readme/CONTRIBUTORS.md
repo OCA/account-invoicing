@@ -13,3 +13,7 @@
 - [Factor Libre](https://factorlibre.com):
 
   > - Luis J. Salvatierra \<<luis.salvatierra@factorlibre.com>\>
+
+- [APSL-Nagarro](https://www.apsl.tech):
+
+  > - Antoni Marroig \<<amarroig@apsl.net>\>
