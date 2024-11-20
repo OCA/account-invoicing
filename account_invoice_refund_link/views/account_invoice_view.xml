@@ -25,7 +25,7 @@
                         nolabel="1"
                         context="{'form_view_ref': 'account_invoice_refund_link.account_invoice_refund_form_view'}"
                     >
-                        <tree
+                        <list
                             decoration-info="state == 'draft'"
                             decoration-muted="state == 'cancel'"
                         >
@@ -37,7 +37,7 @@
                             <field name="ref" />
                             <field name="amount_total" string="Total" />
                             <field name="state" string="Status" />
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </notebook>
@@ -71,7 +71,7 @@
                     <field name="state" string="Status" />
                 </group>
                 <field name="invoice_line_ids" nolabel="1">
-                    <tree>
+                    <list>
                         <field name="product_id" />
                         <field name="name" />
                         <field name="account_id" />
@@ -80,7 +80,7 @@
                         <field name="discount" optional="hide" />
                         <field name="tax_ids" widget="many2many_tags" />
                         <field name="price_subtotal" />
-                    </tree>
+                    </list>
                 </field>
             </form>
         </field>
