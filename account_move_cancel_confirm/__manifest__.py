@@ -3,7 +3,7 @@
 
 {
     "name": "Account Move Cancel Confirm",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "author": "Ecosoft, Odoo Community Association (OCA)",
     "category": "Usability",
     "license": "AGPL-3",
