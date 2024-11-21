@@ -1,2 +1,0 @@
-* Kitti U. <kittiu@ecosoft.co.th>
-* Jordi Masvidal <jordi.masvidal@forgeflow.com>
