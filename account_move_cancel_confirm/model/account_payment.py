@@ -10,10 +10,10 @@ class AccountPayment(models.Model):
 
     _has_cancel_reason = "optional"  # ["no", "optional", "required"]
 
-    def action_cancel(self):
+    def cancel(self):
         if not self.filtered("cancel_confirm"):
             return self.open_cancel_confirm_wizard()
-        return super().action_cancel()
+        return super().cancel()
 
     def action_draft(self):
         self.clear_cancel_confirm_data()
