@@ -1,0 +1,3 @@
+# [12.0][BKP] base_cancel_confirm
+odoo12-addon-base_cancel_confirm@git+https://github.com/ForgeFlow/server-ux.git@12.0-bkp-base_cancel_confirm#subdirectory=setup/base_cancel_confirm
+
