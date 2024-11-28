@@ -15,7 +15,13 @@
         "stock_picking_invoice_link",
     ],
     "data": [
+        # Security
+        "security/ir.model.access.csv",
+        # Data
+        # Views
         "views/account_move_views.xml",
+        # Wizards
+        "wizards/account_move_match_picking_views.xml",
     ],
     "demo": [],
     "development_status": "Alpha",

@@ -20,6 +20,21 @@ if records:
     action = records.action_generate_pickings_from_invoices()
             </field>
         </record>
+<!--
+        <record model="ir.actions.server" id="action_match_picking">
+            <field name="name">Match Stock Picking</field>
+            <field name="model_id" ref="account.model_account_move" />
+            <field
+                name="groups_id"
+                eval="[(4, ref('account.group_account_invoice'))]"
+            />
+            <field name="binding_model_id" ref="account.model_account_move" />
+            <field name="state">code</field>
+            <field name="code">
+if records:
+    action = records.action_match_pickings_from_invoices()
+            </field>
+        </record> -->
 
     </data>
 </odoo>

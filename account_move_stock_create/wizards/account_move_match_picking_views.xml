@@ -1,0 +1,138 @@
+<!--
+Copyright (C) 2024-Today - KMEE (<http://www.kmee.com.br>).
+@author Diego Paradeda <diego.paradeda@kmee.com.br>
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+    <record id="view_account_move_match_picking" model="ir.ui.view">
+        <field name="name">Match Pickings from Invoice</field>
+        <field name="model">account.move.match.picking</field>
+        <field name="arch" type="xml">
+            <form string="Match Pickings">
+                <!-- Technical -->
+                <field name="can_action_exact_match" invisible="1" />
+                <field name="can_action_create_all" invisible="1" />
+                <field name="can_action_match_create" invisible="1" />
+                <field name="count_lines_matching" invisible="1" />
+
+                <field name="stock_picking_ids" invisible="1" />
+                <field name="candidate_stock_picking_ids" invisible="1" />
+
+                <!-- Header and status -->
+                <h1>
+                    <span>Match or Create Stock Pickings</span>
+                </h1>
+                <div class="oe_inline">
+                    <strong>
+                        <span>Account Move Lines matched: </span>
+                        <field name="count_lines_matched" />
+                        <span>/</span>
+                        <field name="count_lines" />
+                    </strong>
+                </div>
+                <div class="oe_inline mb32">
+                    <span> for invoice: </span>
+                    <field name="account_move_id" />
+                </div>
+                <h3>
+                    <div class="oe_inline">
+                        <span>Add more pickings from <field
+                                name="candidate_stock_picking_count"
+                                readonly="1"
+                            /> candidate(s)</span>
+                        <span class="pull-right">Matching: <field
+                                name="matching_progress"
+                                widget="progressbar"
+                            /></span>
+                    </div>
+                </h3>
+
+                <!-- Body -->
+                <group col="1">
+                    <field
+                        name="new_stock_picking_ids"
+                        nolabel="1"
+                        domain="['|', ('id', 'in', candidate_stock_picking_ids), ('id', 'in', stock_picking_ids)]"
+                    />
+                </group>
+
+                <!-- Details -->
+                <notebook>
+                    <page name="details" string="Details">
+                        <group col="1">
+                            <label for="unmatched_invoice_line_ids" />
+                            <field name="unmatched_invoice_line_ids" nolabel="1">
+                                <tree>
+                                    <field name="product_id" />
+                                    <field name="name" />
+                                    <field name="quantity" />
+                                    <field name="price_unit" />
+                                    <field name="price_subtotal" />
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group>
+                            <field
+                                name="partial_match_invoice_line_ids"
+                                widget="list.many2one"
+                                readonly="1"
+                            />
+                            <field
+                                name="full_match_invoice_line_ids"
+                                widget="list.many2one"
+                                readonly="1"
+                            />
+                        </group>
+                    </page>
+                </notebook>
+
+                <!-- Footer / Actions -->
+                <footer>
+                    <button
+                        name="action_exact_match"
+                        string="Exact Match"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': [('can_action_create_all', '=', False)]}"
+                    />
+                    <button
+                        name="action_create_all"
+                        string="Create all"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': [('can_action_create_all', '=', False)]}"
+                    />
+                    <button
+                        name="action_match_create"
+                        string="Match &amp; Create"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': [('can_action_match_create', '=', False)]}"
+                    />
+                    <button
+                        name="action_unmatch_all"
+                        string="Clear All"
+                        type="object"
+                        class="btn-primary"
+                        confirm="Are you sure you want to unmatch all stock pickings? This cannot be undone."
+                    />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_account_move_match_picking" model="ir.actions.act_window">
+        <field name="name">Match Pickings from Invoice</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.move.match.picking</field>
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="view_id" ref="view_account_move_match_picking" />
+        <field name="binding_view_types">list,form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -117,3 +117,9 @@ class AccountInvoice(models.Model):
         :return: picking
         """
         return self.env["stock.picking"].create(picking_values)
+
+    # def action_match_pickings_from_invoices(self):
+    #     action = self.env.ref("account_move_stock_create.action_account_move_match_picking")
+    #     result = action.sudo().read()[0]
+    #     result.update({"res_id": self.id})
+    #     return result
