@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_account_move_match_picking,access_account_move_match_picking,model_account_move_match_picking,base.group_user,1,1,1,1
+access_account_move_match_picking_line,access_account_move_match_picking_line,model_account_move_match_picking_line,base.group_user,1,1,1,1

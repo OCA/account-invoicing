@@ -30,6 +30,12 @@ class AccountMoveMatchPicking(models.TransientModel):
     _name = "account.move.match.picking"
     _description = "Account Move Match Picking"
 
+    state = fields.Selection(
+        [("main", "Main"), ("select", "Select")],
+        string="State",
+        default="main",
+    )
+
     account_move_id = fields.Many2one(
         comodel_name="account.move",
         readonly=True,
@@ -86,6 +92,12 @@ class AccountMoveMatchPicking(models.TransientModel):
         column1="match_wizard_id",
         column2="picking_id",
     )
+    new_match_line_ids = fields.One2many(
+        comodel_name="account.move.match.picking.line",
+        string="New Match Lines",
+        inverse_name="new_match_wizard_id",
+        ondelete="cascade",
+    )
     candidate_stock_picking_ids = fields.Many2many(
         comodel_name="stock.picking",
         string="Candidate stock pickings",
@@ -93,10 +105,18 @@ class AccountMoveMatchPicking(models.TransientModel):
         column1="match_wizard_id",
         column2="picking_id",
     )
+    candidate_match_line_ids = fields.One2many(
+        comodel_name="account.move.match.picking.line",
+        string="Candidate Match Lines",
+        inverse_name="candidate_match_wizard_id",
+        ondelete="cascade",
+    )
     candidate_stock_picking_count = fields.Integer(
         string="Candidate Stock pickings candidates",
     )
-    count_lines_matching = fields.Integer(compute="_compute_matching")
+    count_lines_matching = fields.Integer(
+        string="Matching Lines",
+    )
     matching_invoice_line_ids = fields.Many2many(
         comodel_name="account.move.line",
         string="Matching lines (full)",
@@ -104,7 +124,6 @@ class AccountMoveMatchPicking(models.TransientModel):
         column1="match_wizard_id",
         column2="account_move_id",
         readonly=True,
-        compute="_compute_matching",
         help="These account.move.lines will be fully matched once the current set of"
         " stock pickings is confirmed.",
     )
@@ -170,10 +189,14 @@ class AccountMoveMatchPicking(models.TransientModel):
     # Picking status methods
     @api.onchange("account_move_id")
     def get_stock_picking_ids(self):
+        pickings_to_add = self.env.context.get("default_new_stock_picking_ids", [])
+
         aml = self.account_move_id.invoice_line_ids
         self.stock_picking_ids = aml.mapped("move_line_ids.picking_id")
-        self.new_stock_picking_ids = self.stock_picking_ids
-        self.get_candidate_picking_ids()
+
+        pickings = self.stock_picking_ids.ids + pickings_to_add
+
+        self.new_stock_picking_ids = pickings
 
     def get_candidate_picking_ids(self):
         partner_id = self.account_move_id.partner_id
@@ -195,16 +218,11 @@ class AccountMoveMatchPicking(models.TransientModel):
         self.candidate_stock_picking_ids = candidate_ids
         self.candidate_stock_picking_count = len(candidate_ids)
 
-    @api.onchange("new_stock_picking_ids")
-    def _compute_matching(self):
-        # TODO: merge with action_exact_match
-        """
-        Determine whether invoice lines will be fully matched once the current set of
-        stock pickings is confirmed.
-        """
+    def _set_matching_invoice_lines(self, test=True):
         self.matching_invoice_line_ids = False
         sml = self.new_stock_picking_ids.move_lines
 
+        # Pass 1: Get all exact match lines done
         for line in self.account_move_id.invoice_line_ids:
             # Propose a random match for line
             same_prod_id = sml.filtered(lambda move: move.product_id == line.product_id)
@@ -212,14 +230,92 @@ class AccountMoveMatchPicking(models.TransientModel):
             same_qty = same_prod_id.filtered(
                 lambda sml: sml.quantity_done == line.quantity
             )
-
             # Case exact match
             if same_qty:
                 match_move = same_qty[0]
                 sml -= match_move
                 self.matching_invoice_line_ids += line
+                if not test:
+                    line.move_line_ids += match_move
 
+        # Pass 2: Match lines with split pickings
+        remaining_inv_lines = (
+            self.account_move_id.invoice_line_ids._origin
+            - self.matching_invoice_line_ids._origin
+        )
+        remaining_sm_lines = sml
+        for prod_id in remaining_inv_lines.mapped("product_id"):
+            prod_line_id = remaining_inv_lines.filtered(
+                lambda line: line.product_id == prod_id
+            )
+            if not test and len(prod_line_id) > 1:
+                raise UserError(
+                    _(
+                        "Unsuported ambiguous choice of invoice lines for split-transfer."
+                    )
+                )
+            invoice_qty = sum(prod_line_id.mapped("quantity"))
+            prod_stock_move_ids = remaining_sm_lines.filtered(
+                lambda move: move.product_id == prod_id
+            )
+            transfer_qty = sum(prod_stock_move_ids.mapped("quantity_done"))
+            # Match group
+            if invoice_qty == transfer_qty:
+                match_move = prod_stock_move_ids
+                sml -= match_move
+                self.matching_invoice_line_ids += prod_line_id
+                if not test:
+                    prod_line_id.move_line_ids += match_move
+
+        # Results & Asserts
         self.count_lines_matching = len(self.matching_invoice_line_ids)
+        if not test:
+            if self.matching_invoice_line_ids != self.account_move_id.invoice_line_ids:
+                raise UserError(_("All invoice lines must have a match"))
+            if sml:
+                raise UserError(_("All selected pickings must be fully matched"))
+
+    @api.onchange("new_stock_picking_ids")
+    def _compute_matching(self):
+        # TODO: merge with action_exact_match
+        """
+        Determine whether invoice lines will be fully matched once the current set of
+        stock pickings is confirmed.
+        """
+        self._set_matching_invoice_lines(test=True)
+
+        self._create_new_lines_from_picking()
+        self.get_candidate_picking_ids()
+        self._create_candidate_lines_from_picking()
+
+    def _create_new_lines_from_picking(self):
+        vals = [(6, 0, [])]
+        for picking in self.new_stock_picking_ids:
+            dic = {
+                "picking_id": picking.ids[0],
+            }
+            vals.append((0, 0, dic))
+
+        values = []
+        for picking in self.new_stock_picking_ids:
+            dic = {
+                "picking_id": picking.ids[0],
+            }
+            values.append(dic)
+
+        self.new_match_line_ids = False
+        self.new_match_line_ids = self.new_match_line_ids.create(values)
+
+    def _create_candidate_lines_from_picking(self):
+        values = []
+        for picking in self.candidate_stock_picking_ids:
+            dic = {
+                "picking_id": picking.ids[0],
+            }
+            values.append(dic)
+
+        self.candidate_match_line_ids = False
+        self.candidate_match_line_ids = self.candidate_match_line_ids.create(values)
 
     @api.onchange("matching_invoice_line_ids", "count_lines_matching")
     def _compute_matching_progress(self):
@@ -228,33 +324,26 @@ class AccountMoveMatchPicking(models.TransientModel):
         else:
             self.matching_progress = 100 * self.count_lines_matching / self.count_lines
 
-    # Wizard actions methods
+    # Wizard progress methods
+    def reopen_wizard_act_window(self):
+        action = self.env.ref(
+            "account_move_stock_create.action_account_move_match_picking"
+        ).read()[0]
+        context = dict(self._context or {})
+        action.update({"context": context})
+        return action
+
+    def action_select_more_pickings(self):
+        context = dict(self._context or {})
+        context["default_state"] = "select"
+        self = self.with_context(context)
+
+        action = self.reopen_wizard_act_window()
+        return action
+
+    # Wizard final actions
     def action_exact_match(self):
-        # TODO: merge with _compute_matching
-        self.matching_invoice_line_ids = False
-        sml = self.new_stock_picking_ids.move_lines
-
-        for line in self.account_move_id.invoice_line_ids:
-            # Propose a random match for line
-            same_prod_id = sml.filtered(lambda move: move.product_id == line.product_id)
-            # TODO: consider checking product_uom_qty too
-            same_qty = same_prod_id.filtered(
-                lambda sml: sml.quantity_done == line.quantity
-            )
-
-            # Case exact match
-            if same_qty:
-                match_move = same_qty[0]
-                sml -= match_move
-                line.move_line_ids += match_move
-                self.matching_invoice_line_ids += line
-
-        self.count_lines_matching = len(self.matching_invoice_line_ids)
-
-        if self.matching_invoice_line_ids != self.account_move_id.invoice_line_ids:
-            raise UserError(_("All invoice lines must have a match"))
-        if sml:
-            raise UserError(_("All selected pickings must be fully matched"))
+        self._set_matching_invoice_lines(test=False)
 
     def action_create_all(self):
         self.account_move_id.action_generate_pickings_from_invoices()
@@ -266,3 +355,87 @@ class AccountMoveMatchPicking(models.TransientModel):
         aml = self.account_move_id.invoice_line_ids
         for line in aml:
             line.move_line_ids = False
+
+
+class AccountMoveMatchPickingLine(models.TransientModel):
+    _name = "account.move.match.picking.line"
+    _description = "Match Picking Line"
+
+    picking_id = fields.Many2one("stock.picking", "Transfer", required=True)
+
+    new_match_wizard_id = fields.Many2one(
+        comodel_name="account.move.match.picking",
+        ondelete="cascade",
+    )
+
+    candidate_match_wizard_id = fields.Many2one(
+        comodel_name="account.move.match.picking",
+        ondelete="cascade",
+    )
+
+    p_line_match = fields.Float(
+        string="Matching Lines",
+        compute="_compute_p_line_match",
+        store=True,
+    )
+
+    # Picking fields
+    priority = fields.Selection(
+        related="picking_id.priority",
+    )
+    partner_id = fields.Many2one(
+        string="Contact",
+        related="picking_id.partner_id",
+    )
+    scheduled_date = fields.Datetime(
+        string="Scheduled Date",
+        related="picking_id.scheduled_date",
+    )
+    origin = fields.Char(
+        string="Source Document",
+        related="picking_id.origin",
+    )
+    state = fields.Selection(
+        string="Status",
+        related="picking_id.state",
+    )
+
+    @api.onchange("new_match_wizard_id", "candidate_match_wizard_id")
+    def _compute_p_line_match(self):
+        for record in self:
+
+            account_move_id = record._get_account_move()
+            if not account_move_id or not record.picking_id:
+                record.p_line_match = 0
+                continue
+
+            invoice_prod_ids = account_move_id.mapped("invoice_line_ids.product_id")
+            stock_prod_ids = record.picking_id.mapped("product_id")
+            intersection_ids = invoice_prod_ids & stock_prod_ids
+            p_inv_match = len(intersection_ids) / len(invoice_prod_ids)
+            p_stock_match = len(intersection_ids) / len(stock_prod_ids)
+
+            if not len(invoice_prod_ids) or not len(stock_prod_ids):
+                record.p_line_match = 0
+                continue
+
+            record.p_line_match = 100 * min(p_inv_match, p_stock_match)
+
+    def _get_wizard(self):
+        if self.new_match_wizard_id:
+            return self.new_match_wizard_id
+        if self.candidate_match_wizard_id:
+            return self.candidate_match_wizard_id
+
+    def _get_account_move(self):
+        return self._get_wizard().account_move_id
+
+    def action_add_line(self):
+        new_picking_ids = self._get_wizard().new_stock_picking_ids | self.picking_id
+        context = dict(self._context or {})
+        context["default_new_stock_picking_ids"] = new_picking_ids.ids
+        context["state"] = "main"
+        self = self.with_context(context)
+
+        action = self._get_wizard().reopen_wizard_act_window()
+        return action

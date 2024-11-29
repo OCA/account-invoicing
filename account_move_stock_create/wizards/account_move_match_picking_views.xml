@@ -11,6 +11,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
         <field name="arch" type="xml">
             <form string="Match Pickings">
                 <!-- Technical -->
+                <field name="state" invisible="1" />
+
                 <field name="can_action_exact_match" invisible="1" />
                 <field name="can_action_create_all" invisible="1" />
                 <field name="can_action_match_create" invisible="1" />
@@ -18,6 +20,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
                 <field name="stock_picking_ids" invisible="1" />
                 <field name="candidate_stock_picking_ids" invisible="1" />
+                <field name="candidate_match_line_ids" invisible="1" />
 
                 <!-- Header and status -->
                 <h1>
@@ -35,92 +38,171 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
                     <span> for invoice: </span>
                     <field name="account_move_id" />
                 </div>
-                <h3>
+
+                <!-- Main Page -->
+                <div states="main">
+
+                    <!-- Status -->
                     <div class="oe_inline">
-                        <span>Add more pickings from <field
-                                name="candidate_stock_picking_count"
-                                readonly="1"
-                            /> candidate(s)</span>
-                        <span class="pull-right">Matching: <field
-                                name="matching_progress"
-                                widget="progressbar"
-                            /></span>
+                        <span
+                            style="display: flex;justify-content: center;align-items: center;"
+                        >
+                            <button
+                                name="action_select_more_pickings"
+                                type="object"
+                                class="btn btn-sm btn-link"
+                            >
+                                <h3 style="margin: auto;">Add more pickings from <field
+                                        name="candidate_stock_picking_count"
+                                        readonly="1"
+                                    /> candidate(s) </h3>
+                            </button>
+                            <div class="separator" style="margin:auto;" />
+                            <h3 class="pull-right" style="margin:0">Matching: <field
+                                    name="matching_progress"
+                                    widget="progressbar"
+                                    style="margin:0"
+                                />
+                            </h3>
+                        </span>
                     </div>
-                </h3>
 
-                <!-- Body -->
-                <group col="1">
-                    <field
-                        name="new_stock_picking_ids"
-                        nolabel="1"
-                        domain="['|', ('id', 'in', candidate_stock_picking_ids), ('id', 'in', stock_picking_ids)]"
-                    />
-                </group>
+                    <!-- Body -->
+                    <group col="1">
+                        <field
+                            name="new_stock_picking_ids"
+                            nolabel="1"
+                            invisible="1"
+                            domain="['|', ('id', 'in', candidate_stock_picking_ids), ('id', 'in', stock_picking_ids)]"
+                        />
+                    </group>
 
-                <!-- Details -->
-                <notebook>
-                    <page name="details" string="Details">
-                        <group col="1">
-                            <label for="unmatched_invoice_line_ids" />
-                            <field name="unmatched_invoice_line_ids" nolabel="1">
-                                <tree>
-                                    <field name="product_id" />
-                                    <field name="name" />
-                                    <field name="quantity" />
-                                    <field name="price_unit" />
-                                    <field name="price_subtotal" />
-                                </tree>
-                            </field>
-                        </group>
+                    <!-- Matching lines -->
+                    <group col="1">
+                        <field
+                            name="new_match_line_ids"
+                            widget="many2many"
+                            nolabel="1"
+                            domain="['|', ('id', 'in', candidate_match_line_ids), ('id', 'in', new_match_line_ids)]"
+                            context="{'tree_view_ref': 'view_account_move_match_picking_line'}"
+                            readonly="1"
+                        >
+                            <tree create="0" edit="0">
+                                <field name="priority" widget="priority" />
+                                <field name="picking_id" decoration-bf="1" />
+                                <field name="partner_id" />
+                                <field name="scheduled_date" widget="remaining_days" />
+                                <field name="origin" />
+                                <field name="state" widget="badge" />
+                                <field name="p_line_match" widget="progressbar" />
+                            </tree>
+                        </field>
+                    </group>
 
-                        <group>
-                            <field
-                                name="partial_match_invoice_line_ids"
-                                widget="list.many2one"
-                                readonly="1"
-                            />
-                            <field
-                                name="full_match_invoice_line_ids"
-                                widget="list.many2one"
-                                readonly="1"
-                            />
-                        </group>
-                    </page>
-                </notebook>
+                    <!-- Details -->
+                    <notebook>
+                        <page name="details" string="Details">
+                            <group col="1">
+                                <label for="unmatched_invoice_line_ids" />
+                                <field name="unmatched_invoice_line_ids" nolabel="1">
+                                    <tree create="0" editable="0">
+                                        <field name="product_id" />
+                                        <field name="name" />
+                                        <field name="quantity" />
+                                        <field name="price_unit" />
+                                        <field name="price_subtotal" />
+                                    </tree>
+                                </field>
+                            </group>
 
-                <!-- Footer / Actions -->
-                <footer>
-                    <button
-                        name="action_exact_match"
-                        string="Exact Match"
-                        type="object"
-                        class="btn-primary"
-                        attrs="{'invisible': [('can_action_create_all', '=', False)]}"
-                    />
-                    <button
-                        name="action_create_all"
-                        string="Create all"
-                        type="object"
-                        class="btn-primary"
-                        attrs="{'invisible': [('can_action_create_all', '=', False)]}"
-                    />
-                    <button
-                        name="action_match_create"
-                        string="Match &amp; Create"
-                        type="object"
-                        class="btn-primary"
-                        attrs="{'invisible': [('can_action_match_create', '=', False)]}"
-                    />
-                    <button
-                        name="action_unmatch_all"
-                        string="Clear All"
-                        type="object"
-                        class="btn-primary"
-                        confirm="Are you sure you want to unmatch all stock pickings? This cannot be undone."
-                    />
-                    <button string="Cancel" class="oe_link" special="cancel" />
-                </footer>
+                            <group>
+                                <field
+                                    name="partial_match_invoice_line_ids"
+                                    widget="list.many2one"
+                                    readonly="1"
+                                />
+                                <field
+                                    name="full_match_invoice_line_ids"
+                                    widget="list.many2one"
+                                    readonly="1"
+                                />
+                            </group>
+                        </page>
+                    </notebook>
 
+                    <!-- Footer / Actions -->
+                    <footer>
+                        <button
+                            name="action_exact_match"
+                            string="Exact Match"
+                            type="object"
+                            class="btn-primary"
+                            attrs="{'invisible': [('can_action_create_all', '=', False)]}"
+                            states="main"
+                        />
+                        <button
+                            name="action_create_all"
+                            string="Create all"
+                            type="object"
+                            class="btn-primary"
+                            attrs="{'invisible': [('can_action_create_all', '=', False)]}"
+                            states="main"
+                        />
+                        <button
+                            name="action_match_create"
+                            string="Match &amp; Create"
+                            type="object"
+                            class="btn-primary"
+                            attrs="{'invisible': [('can_action_match_create', '=', False)]}"
+                            states="main"
+                        />
+                        <button
+                            name="action_unmatch_all"
+                            string="Clear All"
+                            type="object"
+                            class="btn-primary"
+                            confirm="Are you sure you want to unmatch all stock pickings? This cannot be undone."
+                            states="main"
+                        />
+                        <button
+                            string="Cancel"
+                            class="oe_link"
+                            special="cancel"
+                            states="main"
+                        />
+                    </footer>
+
+                </div>
+
+                <!-- Selection Page -->
+                <div states="select">
+                    <group col="1">
+                        <field
+                            name="candidate_match_line_ids"
+                            widget="many2many"
+                            nolabel="1"
+                            domain="[('id', 'in', candidate_match_line_ids)]"
+                            context="{'tree_view_ref': 'view_account_move_match_picking_candidate_line'}"
+                            readonly="0"
+                        >
+                            <tree create="0" edit="0">
+                                <button
+                                    name="action_add_line"
+                                    string="Add"
+                                    type="object"
+                                    icon="fa-check text-success"
+                                />
+                                <field name="priority" widget="priority" />
+                                <field name="picking_id" decoration-bf="1" />
+                                <field name="partner_id" />
+                                <field name="scheduled_date" widget="remaining_days" />
+                                <field name="origin" />
+                                <field name="state" widget="badge" />
+                                <field name="p_line_match" widget="progressbar" />
+                            </tree>
+                        </field>
+                    </group>
+                </div>
             </form>
         </field>
     </record>
