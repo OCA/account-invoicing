@@ -158,36 +158,38 @@ class StockInvoiceOnshipping(models.TransientModel):
         values = super()._get_invoice_line_values(moves, invoice_values, invoice)
         move = fields.first(moves)
         if move.sale_line_id:
+            # Same make above, get fields informed in Sale Line dict
+            sale_line_values = move.sale_line_id._prepare_invoice_line()
             # Vals informed in any case
             values["sale_line_ids"] = [(6, 0, moves.sale_line_id.ids)]
-            values[
-                "analytic_account_id"
-            ] = moves.sale_line_id.order_id.analytic_account_id.id
-            values["analytic_tag_ids"] = [
-                (6, 0, moves.sale_line_id.analytic_tag_ids.ids)
-            ]
+            values["analytic_distribution"] = sale_line_values.get(
+                "analytic_distribution"
+            )
             # Refund case don't get values from Sale Line Dict
             # TODO: Should get any value?
             if self._get_invoice_type() != "out_refund":
-                # Same make above, get fields informed in Sale Line dict
-                sale_line_values = move.sale_line_id._prepare_invoice_line()
                 # Original fields from sale module
                 # Fields do get
                 #     "sequence": self.sequence,
                 #     "discount": self.discount,
+                #     "display_type": self.display_type or 'product'
+                #     "is_downpayment": self.is_downpayment
+                #     * optional_values
+                #     * 'N field' included in _prepare_invoice_line method
+                #        by another module
 
                 # Fields to remove
                 vals_to_remove = {
-                    "display_type",
+                    # Fields from Move has priority
                     "name",
                     "product_id",
                     "product_uom_id",
                     "quantity",
                     "price_unit",
                     "tax_ids",
-                    "analytic_account_id",
-                    "analytic_tag_ids",
+                    # Already get
                     "sale_line_ids",
+                    "anlytic_distribution",
                     # another fields
                     "__last_update",
                     "display_name",

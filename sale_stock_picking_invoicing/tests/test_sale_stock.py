@@ -130,7 +130,7 @@ class TestSaleStock(TransactionCase):
         stock_picking = self.so.picking_ids
 
         # compare sale.order.line with stock.move
-        stock_move = stock_picking.move_lines
+        stock_move = stock_picking.move_ids
         sale_order_line = self.so.order_line
 
         sm_fields = [key for key in self.env["stock.move"]._fields.keys()]
@@ -169,7 +169,7 @@ class TestSaleStock(TransactionCase):
             "sale_stock_picking_invoicing.main_company-sale_order_2"
         )
         # Necessary to get the currency
-        sale_order_2.onchange_partner_id()
+        # sale_order_2.onchange_partner_id()
         sale_order_2.action_confirm()
         # Method to create invoice in sale order should work only
         # for lines where products are of TYPE Service
@@ -262,6 +262,9 @@ class TestSaleStock(TransactionCase):
             "__last_update",
             # Field sequence add in creation of Invoice
             "sequence",
+            "currency_id",
+            "analytic_precision",
+            "display_type",
         ]
 
         common_fields = list(set(acl_fields) & set(sol_fields) - set(skipped_fields))
@@ -284,7 +287,7 @@ class TestSaleStock(TransactionCase):
         picking_devolution = self.return_picking_wizard(picking)
 
         self.assertEqual(picking_devolution.invoice_state, "2binvoiced")
-        for line in picking_devolution.move_lines:
+        for line in picking_devolution.move_ids:
             self.assertEqual(line.invoice_state, "2binvoiced")
 
         self.picking_move_state(picking_devolution)
