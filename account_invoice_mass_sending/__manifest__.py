@@ -5,7 +5,7 @@
     "name": "Account Invoice Mass Sending",
     "summary": """
         This addon adds a mass sending feature on invoices.""",
-    "version": "16.0.1.1.2",
+    "version": "16.0.1.1.3",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV, Odoo Community Association (OCA), Open Net Sàrl",
     "website": "https://github.com/OCA/account-invoicing",

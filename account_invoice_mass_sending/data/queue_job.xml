@@ -2,7 +2,7 @@
 <odoo>
         <!-- Queue Job Channel -->
         <record id="account_invoice_mass_sending_channel" model="queue.job.channel">
-            <field name="name">Invoice Mass Sending Job</field>
+            <field name="name">account_invoice_mass_sending_channel</field>
             <field name="parent_id" ref="queue_job.channel_root" />
         </record>
 
