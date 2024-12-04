@@ -30,42 +30,51 @@ class TestClearingWizard(AccountTestInvoicingCommon):
         """Test clearing wizard with different move types."""
 
         def sorted_by_sequence(lines):
-            return sorted(lines, key=lambda l: l.sequence)
+            return sorted(lines, key=lambda line: line.sequence)
 
+        t = fields.Date.today()
+        t_5 = t + timedelta(days=5)
+        t_10 = t + timedelta(days=10)
         move_types = ["out_invoice", "in_invoice"]
         for init_move_type, clearing_move_type in [move_types, move_types[::-1]]:
             with self.subTest(
                 init_move_type=init_move_type, clearing_move_type=clearing_move_type
             ):
                 init_inv = self.init_invoice(
-                    invoice_date=fields.Date.today(),
+                    invoice_date=t,
                     move_type=init_move_type,
                     partner=self.cl_partner,
                     amounts=[100, 200],
                     post=True,
                 )
                 cl_inv_1 = self.init_invoice(
-                    invoice_date=fields.Date.today() + timedelta(days=5),
+                    invoice_date=t_5,
                     move_type=clearing_move_type,
                     partner=self.cl_partner.child_ids[0],
                     amounts=[100],
-                    post=True,
+                    post=False,
                 )
                 cl_inv_2 = self.init_invoice(
                     invoice_date=fields.Date.today() + timedelta(days=10),
                     move_type=clearing_move_type,
                     partner=self.cl_partner.child_ids[1],
                     amounts=[200],
-                    post=True,
+                    post=False,
                 )
+                # Set date maturities
+                cl_inv_1.invoice_date_due = t_5
+                cl_inv_2.invoice_date_due = t_10
+                # Post clearing invoices
+                cl_inv_1.action_post()
+                cl_inv_2.action_post()
                 # Create wizard
                 cw_action = init_inv.action_open_invoice_clearing_wizard()
                 wizard = self.env[cw_action["res_model"]].browse(cw_action["res_id"])
                 # Test Action: Unlink Lines
-                wizard.action_unlink_lines()
+                wizard._action_unlink_lines()
                 self.assertFalse(wizard.line_ids)
                 # Test Action: Add Lines
-                wizard.action_add_lines()
+                wizard._action_add_lines()
                 self.assertTrue(wizard.line_ids)
                 # Test Action: Sort Lines by Date Due
                 wizard.action_sort_by_date_due_asc()
@@ -83,7 +92,7 @@ class TestClearingWizard(AccountTestInvoicingCommon):
                 self.assertTrue(slines[0].amount_residual > slines[1].amount_residual)
                 # Test Action: Fill Amount to Clear
                 wizard.action_fill_amount_to_clear()
-                wizard.refresh()
+                wizard.invalidate_recordset()
                 self.assertTrue(
                     float_is_zero(
                         wizard.amount_to_clear,
@@ -92,7 +101,7 @@ class TestClearingWizard(AccountTestInvoicingCommon):
                 )
                 # Test Action: Reset Lines
                 wizard.action_reset_lines()
-                wizard.refresh()
+                wizard.invalidate_recordset()
                 self.assertTrue(
                     not float_is_zero(
                         wizard.amount_to_clear,
@@ -101,37 +110,37 @@ class TestClearingWizard(AccountTestInvoicingCommon):
                 )
                 # Create moves
                 wizard.action_fill_amount_to_clear()
-                wizard.refresh()
+                wizard.invalidate_recordset()
                 wizard.button_confirm()
                 self.assertEqual(init_inv.payment_state, "paid")
                 self.assertEqual(cl_inv_1.payment_state, "paid")
                 self.assertEqual(cl_inv_2.payment_state, "paid")
 
-    def test_internal_types(self):
+    def test_account_types(self):
         aicw_model = self.env["account.invoice.clearing.wizard"]
         # For lines to clear
         self.assertEqual(
-            "payable",
-            aicw_model._get_internal_type_from_move_type(
+            "liability_payable",
+            aicw_model._get_account_type_from_move_type(
                 "in_invoice", is_counterpart=False
             ),
         )
         self.assertEqual(
-            "receivable",
-            aicw_model._get_internal_type_from_move_type(
+            "asset_receivable",
+            aicw_model._get_account_type_from_move_type(
                 "out_invoice", is_counterpart=False
             ),
         )
         # For counterpart lines
         self.assertEqual(
-            "receivable",
-            aicw_model._get_internal_type_from_move_type(
+            "asset_receivable",
+            aicw_model._get_account_type_from_move_type(
                 "in_invoice", is_counterpart=True
             ),
         )
         self.assertEqual(
-            "payable",
-            aicw_model._get_internal_type_from_move_type(
+            "liability_payable",
+            aicw_model._get_account_type_from_move_type(
                 "out_invoice", is_counterpart=True
             ),
         )

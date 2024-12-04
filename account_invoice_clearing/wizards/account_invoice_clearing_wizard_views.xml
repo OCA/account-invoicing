@@ -19,41 +19,51 @@
                 <field name="amount_to_clear" invisible="1" />
                 <field name="move_data" invisible="1" />
                 <sheet>
-                    <group name="group_top" colspan="2" col="4">
-                        <separator string="Move general configuration" colspan="2" />
-                        <separator string="Move and Move lines texts" colspan="2" />
-                        <field name="journal_id" />
-                        <field name="move_name" />
-                        <field name="date" />
-                        <field name="move_line_prefix" />
+                    <group name="group_config">
+                        <group
+                            name="group_config_left"
+                            string="Move general configuration"
+                            colspan="1"
+                        >
+                            <field name="journal_id" />
+                            <field name="date" />
+                        </group>
+                        <group
+                            name="group_config_right"
+                            string="Move and Move lines texts"
+                            colspan="1"
+                        >
+                            <field name="move_name" />
+                            <field name="move_line_prefix" />
+                        </group>
                     </group>
-                    <separator string="Move Lines to clear" colspan="2" />
-                    <field
-                        name="move_line_ids"
-                        nolabel="1"
-                        colspan="2"
-                        style="max-height:100px;"
+
+                    <group
+                        name="group_move_lines_to_clear"
+                        string="Move Lines to clear"
                     >
-                        <tree limit="4">
-                            <field name="move_id" />
-                            <field name="name" optional="hide" />
-                            <field name="account_id" optional="hide" />
-                            <field name="date" optional="hide" />
-                            <field name="date_maturity" optional="show" />
-                            <field name="company_currency_id" invisible="1" />
-                            <field name="debit" optional="hide" />
-                            <field name="credit" optional="hide" />
-                            <field
-                                name="amount_residual"
-                                sum="Total Amount Residual (Signed)"
-                            />
-                        </tree>
-                    </field>
+                        <field name="move_line_ids" nolabel="1" colspan="2">
+                            <tree limit="4">
+                                <field name="move_id" />
+                                <field name="name" optional="hide" />
+                                <field name="account_id" optional="hide" />
+                                <field name="date" optional="hide" />
+                                <field name="date_maturity" optional="show" />
+                                <field name="company_currency_id" invisible="1" />
+                                <field name="debit" optional="hide" />
+                                <field name="credit" optional="hide" />
+                                <field
+                                    name="amount_residual"
+                                    sum="Total Amount Residual (Signed)"
+                                />
+                            </tree>
+                        </field>
+                    </group>
+
                     <group
                         name="group_invoices_to_clear_with"
                         string="Move Lines to use for clearing"
                         colspan="2"
-                        class="mt-0"
                     >
                         <div name="group_lines_actions" class="o_row mb-2" colspan="2">
                             <span
@@ -77,30 +87,10 @@
                                 class="btn-outline-primary"
                                 help="Removes all lines and adds all available move lines again."
                             />
-                            <button
-                                name="action_add_lines"
-                                type="object"
-                                string="Add all compensation lines"
-                                icon="fa-plus"
-                                class="btn-outline-primary"
-                                groups="base.group_no_one"
-                                help="Adds all available compensation lines to allow use it."
-                            />
-                            <button
-                                name="action_unlink_lines"
-                                type="object"
-                                string="Empty lines"
-                                icon="fa-trash"
-                                confirm="Are you sure you want to clear the invoices?"
-                                class="btn-outline-primary"
-                                groups="base.group_no_one"
-                                help="Removes all invoices."
-                            />
                         </div>
-                        <hr colspan="2" />
                         <div
                             name="group_lines_sort"
-                            class="o_row float-right mb-1"
+                            class="o_row float-end mb-1"
                             colspan="2"
                         >
                             <span
@@ -156,18 +146,16 @@
                                     decoration-warning="amount_to_clear != 0.0 and (amount_residual != amount_to_clear)"
                                     decoration-muted="amount_to_clear == 0.0 and not can_use_line"
                                 >
-                                    <field name="sequence" widget="handle" />
-                                    <field name="invoice_id" optional="hide" />
+                                    <field
+                                        name="sequence"
+                                        widget="handle"
+                                        attrs="{'column_invisible': [('parent.move_data', '!=', '[]')]}"
+                                    />
+                                    <field name="invoice_id" />
                                     <field name="move_line_id" invisible="1" />
                                     <field name="account_id" optional="hide" />
-                                    <field name="name" />
+                                    <field name="name" optional="hide" />
                                     <field name="product_id" optional="hide" />
-                                    <field name="analytic_account_id" optional="hide" />
-                                    <field
-                                        name="analytic_tag_ids"
-                                        optional="hide"
-                                        widget="many2many_tags"
-                                    />
                                     <field name="date" optional="hide" />
                                     <field name="date_maturity" />
                                     <field name="company_currency_id" invisible="1" />

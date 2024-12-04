@@ -3,10 +3,9 @@
 
 import json
 from collections import OrderedDict
-from itertools import groupby
 
 from odoo import _, api, exceptions, fields, models
-from odoo.tools import float_is_zero
+from odoo.tools import float_is_zero, groupby
 
 
 class AccountInvoiceClearingWizard(models.TransientModel):
@@ -104,8 +103,8 @@ class AccountInvoiceClearingWizard(models.TransientModel):
         return res
 
     @api.model
-    def _get_internal_type_from_move_type(self, move_type, is_counterpart=False):
-        move_types = ["payable", "receivable"]
+    def _get_account_type_from_move_type(self, move_type, is_counterpart=False):
+        move_types = ["liability_payable", "asset_receivable"]
         if is_counterpart and "refund" not in move_type:
             move_types.reverse()
         if move_type.startswith("out_"):
@@ -135,12 +134,12 @@ class AccountInvoiceClearingWizard(models.TransientModel):
             )[0]
             record.company_id = company
             record.company_currency_id = company.currency_id
-            internal_type = self._get_internal_type_from_move_type(record.move_type)
+            account_type = self._get_account_type_from_move_type(record.move_type)
             record.move_line_ids = self.invoice_ids.mapped("line_ids").filtered(
-                lambda ml: not ml.full_reconcile_id
+                lambda ml, acc_type=account_type: not ml.full_reconcile_id
                 and ml.balance
                 and ml.account_id.reconcile
-                and ml.account_id.internal_type == internal_type
+                and ml.account_id.account_type == acc_type
             )
 
     @api.depends("move_line_ids", "line_ids")
@@ -233,8 +232,8 @@ class AccountInvoiceClearingWizard(models.TransientModel):
     def action_reset_lines(self):
         """Reset all lines."""
         self.ensure_one()
-        self.action_unlink_lines()
-        self.action_add_lines()
+        self._action_unlink_lines()
+        self._action_add_lines()
         return self.action_reopen_wizard()
 
     def action_fill_amount_to_clear(self):
@@ -242,7 +241,7 @@ class AccountInvoiceClearingWizard(models.TransientModel):
         self.ensure_one()
         # Always inverse sign because move lines has negative residual amounts
         amount_to_clear = -self.amount_to_clear
-        for line in self.line_ids.filtered(lambda l: not l.amount_to_clear):
+        for line in self.line_ids.filtered(lambda line: not line.amount_to_clear):
             cmp_fnc = float.__le__ if line.amount_residual < 0.0 else float.__ge__
             if float_is_zero(
                 amount_to_clear, precision_rounding=line.company_currency_id.rounding
@@ -256,13 +255,13 @@ class AccountInvoiceClearingWizard(models.TransientModel):
                 amount_to_clear = 0.0
         return self.action_reopen_wizard()
 
-    def action_unlink_lines(self):
+    def _action_unlink_lines(self):
         """Unlink all lines."""
         self.ensure_one()
         self.line_ids = [(5, 0, 0)]
         return self.action_reopen_wizard()
 
-    def action_add_lines(self):
+    def _action_add_lines(self):
         """Add all possible lines."""
         self.ensure_one()
         existing_move_lines = self.line_ids.mapped("move_line_id")
@@ -281,11 +280,11 @@ class AccountInvoiceClearingWizard(models.TransientModel):
             self.line_ids = new_lines
         return self.action_reopen_wizard()
 
-    def action_sort_by_date_due(self, reverse=False):
+    def _action_sort_by_date_due(self, reverse=False):
         """Sort lines by date due."""
         self.ensure_one()
         sorted_lines = self.line_ids.sorted(
-            key=lambda l: l.date_maturity, reverse=reverse
+            key=lambda line: line.date_maturity, reverse=reverse
         )
         for seq, line in enumerate(sorted_lines, start=10):
             line.sequence = seq
@@ -293,17 +292,17 @@ class AccountInvoiceClearingWizard(models.TransientModel):
 
     def action_sort_by_date_due_asc(self):
         """Sort lines by date due ascending."""
-        return self.action_sort_by_date_due(reverse=False)
+        return self._action_sort_by_date_due(reverse=False)
 
     def action_sort_by_date_due_desc(self):
         """Sort lines by date due descending."""
-        return self.action_sort_by_date_due(reverse=True)
+        return self._action_sort_by_date_due(reverse=True)
 
-    def action_sort_by_residual(self, reverse=False):
+    def _action_sort_by_residual(self, reverse=False):
         """Sort lines by residual amount."""
         self.ensure_one()
         sorted_lines = self.line_ids.sorted(
-            key=lambda l: l.amount_residual, reverse=reverse
+            key=lambda line: line.amount_residual, reverse=reverse
         )
         for seq, line in enumerate(sorted_lines, start=10):
             line.sequence = seq
@@ -311,11 +310,11 @@ class AccountInvoiceClearingWizard(models.TransientModel):
 
     def action_sort_by_residual_asc(self):
         """Sort lines by residual amount ascending."""
-        return self.action_sort_by_residual(reverse=False)
+        return self._action_sort_by_residual(reverse=False)
 
     def action_sort_by_residual_desc(self):
         """Sort lines by residual amount descending."""
-        return self.action_sort_by_residual(reverse=True)
+        return self._action_sort_by_residual(reverse=True)
 
     def button_confirm(self):
         """Create the clearing move."""
@@ -379,7 +378,7 @@ class AccountInvoiceClearingWizard(models.TransientModel):
     @api.model
     def _get_available_clearing_move_lines(self, move_type, partner, move_lines):
         """Get the move lines that can be used for clearing."""
-        counterpart_internal_type = self._get_internal_type_from_move_type(
+        counterpart_account_type = self._get_account_type_from_move_type(
             move_type, is_counterpart=True
         )
         debit_credit_field = (
@@ -391,7 +390,7 @@ class AccountInvoiceClearingWizard(models.TransientModel):
             .search(
                 [
                     ("id", "not in", move_lines.ids),
-                    ("account_id.internal_type", "=", counterpart_internal_type),
+                    ("account_id.account_type", "=", counterpart_account_type),
                     ("reconciled", "=", False),
                     ("partner_id", "child_of", partner.id),
                     ("parent_state", "=", "posted"),
@@ -441,7 +440,7 @@ class AccountInvoiceClearingWizard(models.TransientModel):
             return -1.0 if different_sign else 1.0
 
         clear_lines_availability = OrderedDict()
-        for cl in self.line_ids.filtered(lambda l: l.amount_to_clear):
+        for cl in self.line_ids.filtered(lambda line: line.amount_to_clear):
             clear_lines_availability[cl.move_line_id] = cl.amount_to_clear
 
         move_vals = []
@@ -596,14 +595,6 @@ class AccountInvoiceClearingLinesWizard(models.TransientModel):
     )
     product_id = fields.Many2one(
         related="move_line_id.product_id",
-        readonly=True,
-    )
-    analytic_account_id = fields.Many2one(
-        related="move_line_id.analytic_account_id",
-        readonly=True,
-    )
-    analytic_tag_ids = fields.Many2many(
-        related="move_line_id.analytic_tag_ids",
         readonly=True,
     )
     amount_to_clear = fields.Monetary(
