@@ -180,7 +180,6 @@ class AccountMoveMatchPicking(models.TransientModel):
             transfer_quantity = sum(sml.mapped("quantity_done"))
 
             # Case exact match
-            # TODO: consider checking product_uom_qty too
             if transfer_quantity == line.quantity:
                 self.full_match_invoice_line_ids += line
 
@@ -218,6 +217,12 @@ class AccountMoveMatchPicking(models.TransientModel):
         self.candidate_stock_picking_ids = candidate_ids
         self.candidate_stock_picking_count = len(candidate_ids)
 
+    def _get_transfer_qty(self, stock_moves):
+        qty = 0
+        for move in stock_moves:
+            qty += move.quantity_done if move.quantity_done else move.product_uom_qty
+        return qty
+
     def _set_matching_invoice_lines(self, test=True):
         self.matching_invoice_line_ids = False
         sml = self.new_stock_picking_ids.move_lines
@@ -226,9 +231,8 @@ class AccountMoveMatchPicking(models.TransientModel):
         for line in self.account_move_id.invoice_line_ids:
             # Propose a random match for line
             same_prod_id = sml.filtered(lambda move: move.product_id == line.product_id)
-            # TODO: consider checking product_uom_qty too
             same_qty = same_prod_id.filtered(
-                lambda sml: sml.quantity_done == line.quantity
+                lambda sml: self._get_transfer_qty(sml) == line.quantity
             )
             # Case exact match
             if same_qty:
@@ -237,6 +241,8 @@ class AccountMoveMatchPicking(models.TransientModel):
                 self.matching_invoice_line_ids += line
                 if not test:
                     line.move_line_ids += match_move
+                    if not match_move.quantity_done:
+                        match_move.quantity_done = match_move.product_uom_qty
 
         # Pass 2: Match lines with split pickings
         remaining_inv_lines = (
@@ -258,7 +264,8 @@ class AccountMoveMatchPicking(models.TransientModel):
             prod_stock_move_ids = remaining_sm_lines.filtered(
                 lambda move: move.product_id == prod_id
             )
-            transfer_qty = sum(prod_stock_move_ids.mapped("quantity_done"))
+
+            transfer_qty = self._get_transfer_qty(prod_stock_move_ids)
             # Match group
             if invoice_qty == transfer_qty:
                 match_move = prod_stock_move_ids
@@ -266,6 +273,9 @@ class AccountMoveMatchPicking(models.TransientModel):
                 self.matching_invoice_line_ids += prod_line_id
                 if not test:
                     prod_line_id.move_line_ids += match_move
+                    for move in match_move:
+                        if not move.quantity_done:
+                            move.quantity_done = move.product_uom_qty
 
         # Results & Asserts
         self.count_lines_matching = len(self.matching_invoice_line_ids)
@@ -349,7 +359,7 @@ class AccountMoveMatchPicking(models.TransientModel):
         self.account_move_id.action_generate_pickings_from_invoices()
 
     def action_match_create(self):
-        pass
+        raise NotImplementedError
 
     def action_unmatch_all(self):
         aml = self.account_move_id.invoice_line_ids
@@ -377,6 +387,17 @@ class AccountMoveMatchPickingLine(models.TransientModel):
         string="Matching Lines",
         compute="_compute_p_line_match",
         store=True,
+    )
+
+    p_qty_match = fields.Float(
+        string="Approx. Qty. Match",
+        compute="_compute_p_line_match",
+        store=True,
+    )
+
+    has_unreserved = fields.Boolean(
+        string="Has Unreserved",
+        default=False,
     )
 
     # Picking fields
@@ -407,8 +428,10 @@ class AccountMoveMatchPickingLine(models.TransientModel):
             account_move_id = record._get_account_move()
             if not account_move_id or not record.picking_id:
                 record.p_line_match = 0
+                record.p_qty_match = 0
                 continue
 
+            # From available lines, calculate % of lines with matching prod IDs
             invoice_prod_ids = account_move_id.mapped("invoice_line_ids.product_id")
             stock_prod_ids = record.picking_id.mapped("product_id")
             intersection_ids = invoice_prod_ids & stock_prod_ids
@@ -417,17 +440,53 @@ class AccountMoveMatchPickingLine(models.TransientModel):
 
             if not len(invoice_prod_ids) or not len(stock_prod_ids):
                 record.p_line_match = 0
+                record.p_qty_match = 0
                 continue
 
             record.p_line_match = 100 * min(p_inv_match, p_stock_match)
+
+            # From filtered matching lines, extract qty matching
+            intersection_inv_line_ids = account_move_id.invoice_line_ids.filtered(
+                lambda inv_line: inv_line.product_id in intersection_ids
+            )
+            intersection_stock_line_ids = record.picking_id.move_lines.filtered(
+                lambda sm: sm.product_id in intersection_ids
+            )
+            inv_qty = sum(intersection_inv_line_ids.mapped("quantity"))
+
+            # Choose best from quantity_done vs product_uom_qty
+            self._compute_has_unreserved(intersection_stock_line_ids)
+            sm_qty = self._get_transfer_qty(intersection_stock_line_ids)
+
+            if not inv_qty or not sm_qty:
+                record.p_qty_match = 0
+                continue
+
+            record.p_qty_match = 100 * min((inv_qty / sm_qty), (sm_qty / inv_qty))
+
+    def _compute_has_unreserved(self, stock_moves):
+        self.has_unreserved = False
+        if 0 in stock_moves.mapped("quantity_done"):
+            self.has_unreserved = True
+
+    def _get_transfer_qty(self, stock_moves):
+        qty = 0
+        for move in stock_moves:
+            qty += move.quantity_done if move.quantity_done else move.product_uom_qty
+        return qty
 
     def _get_wizard(self):
         if self.new_match_wizard_id:
             return self.new_match_wizard_id
         if self.candidate_match_wizard_id:
             return self.candidate_match_wizard_id
+        return False
 
     def _get_account_move(self):
+        if not self._get_wizard() or not self._get_wizard().account_move_id:
+            return False
+            # TODO: consider using validate/raise
+            # raise ValidationError(_("Unable to fetch related account move."))
         return self._get_wizard().account_move_id
 
     def action_add_line(self):

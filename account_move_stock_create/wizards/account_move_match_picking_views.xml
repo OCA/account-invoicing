@@ -88,13 +88,21 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
                             readonly="1"
                         >
                             <tree create="0" edit="0">
-                                <field name="priority" widget="priority" />
+                                <field name="priority" widget="priority" nolabel="1" />
                                 <field name="picking_id" decoration-bf="1" />
                                 <field name="partner_id" />
                                 <field name="scheduled_date" widget="remaining_days" />
                                 <field name="origin" />
                                 <field name="state" widget="badge" />
                                 <field name="p_line_match" widget="progressbar" />
+                                <field name="p_qty_match" widget="progressbar" />
+                                <field name="has_unreserved" invisible="1" />
+                                <button
+                                    name="has_unreserved"
+                                    help="Done quantities will be auto-filled."
+                                    icon="fa-exclamation-triangle text-warning"
+                                    attrs="{'invisible': [('has_unreserved', '=', False)]}"
+                                />
                             </tree>
                         </field>
                     </group>
@@ -137,7 +145,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
                             string="Exact Match"
                             type="object"
                             class="btn-primary"
-                            attrs="{'invisible': [('can_action_create_all', '=', False)]}"
+                            confirm="Are you sure you want to match selected lines?"
                             states="main"
                         />
                         <button
@@ -145,7 +153,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
                             string="Create all"
                             type="object"
                             class="btn-primary"
-                            attrs="{'invisible': [('can_action_create_all', '=', False)]}"
+                            confirm="Are you sure you want to create all possible stock moves?"
                             states="main"
                         />
                         <button
@@ -153,7 +161,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
                             string="Match &amp; Create"
                             type="object"
                             class="btn-primary"
-                            attrs="{'invisible': [('can_action_match_create', '=', False)]}"
                             states="main"
                         />
                         <button
@@ -164,12 +171,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
                             confirm="Are you sure you want to unmatch all stock pickings? This cannot be undone."
                             states="main"
                         />
-                        <button
-                            string="Cancel"
-                            class="oe_link"
-                            special="cancel"
-                            states="main"
-                        />
+                        <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
 
                 </div>
@@ -192,17 +194,64 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
                                     type="object"
                                     icon="fa-check text-success"
                                 />
-                                <field name="priority" widget="priority" />
+                                <field name="priority" widget="priority" string="" />
                                 <field name="picking_id" decoration-bf="1" />
                                 <field name="partner_id" />
                                 <field name="scheduled_date" widget="remaining_days" />
                                 <field name="origin" />
                                 <field name="state" widget="badge" />
                                 <field name="p_line_match" widget="progressbar" />
+                                <field name="p_qty_match" widget="progressbar" />
+                                <field name="has_unreserved" invisible="1" />
+                                <button
+                                    name="has_unreserved"
+                                    help="Done quantities will be auto-filled."
+                                    icon="fa-exclamation-triangle"
+                                    attrs="{'invisible': [('has_unreserved', '=', False)]}"
+                                />
                             </tree>
                         </field>
                     </group>
                 </div>
+
+                <!-- Confirm Page -->
+                <div states="confirm">
+                    <group col="1">
+                        <field
+                            name="candidate_match_line_ids"
+                            widget="many2many"
+                            nolabel="1"
+                            domain="[('id', 'in', candidate_match_line_ids)]"
+                            context="{'tree_view_ref': 'view_account_move_match_picking_candidate_line'}"
+                            readonly="0"
+                        >
+                            <tree create="0" edit="0">
+                                <button
+                                    name="action_add_line"
+                                    string="Add"
+                                    type="object"
+                                    icon="fa-check text-success"
+                                />
+                                <field name="priority" widget="priority" nolabel="1" />
+                                <field name="picking_id" decoration-bf="1" />
+                                <field name="partner_id" />
+                                <field name="scheduled_date" widget="remaining_days" />
+                                <field name="origin" />
+                                <field name="state" widget="badge" />
+                                <field name="p_line_match" widget="progressbar" />
+                                <field name="p_qty_match" widget="progressbar" />
+                                <field name="has_unreserved" invisible="1" />
+                                <button
+                                    name="has_unreserved"
+                                    help="Done quantities will be auto-filled."
+                                    icon="fa-exclamation-triangle"
+                                    attrs="{'invisible': [('has_unreserved', '=', False)]}"
+                                />
+                            </tree>
+                        </field>
+                    </group>
+                </div>
+
             </form>
         </field>
     </record>
