@@ -57,7 +57,9 @@ class SaleOrder(models.Model):
                         )
                     )
                     sequence += 10
-                for move_line in self.env["account.move.line"].browse(move_line_ids):
+                for move_line in (
+                    self.env["account.move.line"].sudo().browse(move_line_ids)
+                ):
                     # Because invoices are already created, this would require
                     # an extra write access in order to read order fields.
                     move_line.sequence = sequence
