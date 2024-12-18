@@ -3,6 +3,7 @@
 
 import json
 from collections import OrderedDict
+from datetime import datetime
 
 from odoo import _, api, exceptions, fields, models
 from odoo.tools import float_is_zero, groupby
@@ -283,8 +284,9 @@ class AccountInvoiceClearingWizard(models.TransientModel):
     def _action_sort_by_date_due(self, reverse=False):
         """Sort lines by date due."""
         self.ensure_one()
+        max_date = datetime.max.date()
         sorted_lines = self.line_ids.sorted(
-            key=lambda line: line.date_maturity, reverse=reverse
+            key=lambda line: line.date_maturity or max_date, reverse=reverse
         )
         for seq, line in enumerate(sorted_lines, start=10):
             line.sequence = seq
@@ -395,6 +397,7 @@ class AccountInvoiceClearingWizard(models.TransientModel):
                     ("partner_id", "child_of", partner.id),
                     ("parent_state", "=", "posted"),
                     ("account_id.reconcile", "=", True),
+                    ("company_id", "=", move_lines.mapped("company_id").id),
                     (debit_credit_field, ">", 0.0),
                 ],
                 order="date_maturity asc, amount_residual asc",
