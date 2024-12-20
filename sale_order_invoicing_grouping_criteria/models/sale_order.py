@@ -14,38 +14,16 @@ class SaleOrder(models.Model):
         If not set, use the partner_id.
         :return: res.partner recordset
         """
-        self.ensure_one()
-        return self.partner_invoice_id or self.partner_id
+        res = self.env["res.partner"]
+        for sale in self:
+            res += sale.partner_invoice_id or sale.partner_id
+        return res
 
-    def _get_sale_invoicing_group_key(self):
-        """Prepare extended grouping criteria for sales orders."""
-        self.ensure_one()
-        group_key = [
-            self.company_id.id,
-            self.partner_invoice_id.id,
-            self.currency_id.id,
-        ]
-        partner = self._get_grouping_partner()
+    def _get_invoice_grouping_keys(self):
+        res = super()._get_invoice_grouping_keys()
+        partners = self._get_grouping_partner()
         criteria = (
-            partner.sale_invoicing_grouping_criteria_id
+            partners.mapped("sale_invoicing_grouping_criteria_id")
             or self.company_id.default_sale_invoicing_grouping_criteria_id
         )
-        for field in criteria.field_ids.sudo():
-            group_key.append(self[field.name])
-        return tuple(group_key)
-
-    def _create_invoices(self, grouped=False, final=False, date=None):
-        """Slice the batch according grouping criteria."""
-        order_groups = {}
-        for order in self:
-            group_key = order._get_sale_invoicing_group_key()
-            if group_key not in order_groups:
-                order_groups[group_key] = order
-            else:
-                order_groups[group_key] += order
-        moves = self.env["account.move"]
-        for group in order_groups.values():
-            moves += super(SaleOrder, group)._create_invoices(
-                grouped=grouped, final=final, date=date
-            )
-        return moves
+        return res + criteria.sudo().field_ids.mapped("name")
