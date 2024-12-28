@@ -1,0 +1,66 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_section_picking
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: account_invoice_section_picking
+#: model:ir.model,name:account_invoice_section_picking.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: account_invoice_section_picking
+#: model:ir.model.fields,help:account_invoice_section_picking.field_res_company__invoice_section_grouping
+msgid "Defines object used to group invoice lines"
+msgstr ""
+
+#. module: account_invoice_section_picking
+#: model:ir.model.fields,field_description:account_invoice_section_picking.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:account_invoice_section_picking.field_res_company__display_name
+#: model:ir.model.fields,field_description:account_invoice_section_picking.field_stock_picking__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_section_picking
+#: model:ir.model.fields.selection,name:account_invoice_section_picking.selection__res_company__invoice_section_grouping__delivery_picking
+msgid "Group by delivery picking"
+msgstr ""
+
+#. module: account_invoice_section_picking
+#: model:ir.model.fields,field_description:account_invoice_section_picking.field_account_move_line__id
+#: model:ir.model.fields,field_description:account_invoice_section_picking.field_res_company__id
+#: model:ir.model.fields,field_description:account_invoice_section_picking.field_stock_picking__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_section_picking
+#: model:ir.model.fields,field_description:account_invoice_section_picking.field_res_company__invoice_section_grouping
+msgid "Invoice Section Grouping"
+msgstr ""
+
+#. module: account_invoice_section_picking
+#: model:ir.model,name:account_invoice_section_picking.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_section_picking
+#: model:ir.model.fields,field_description:account_invoice_section_picking.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:account_invoice_section_picking.field_res_company____last_update
+#: model:ir.model.fields,field_description:account_invoice_section_picking.field_stock_picking____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_section_picking
+#: model:ir.model,name:account_invoice_section_picking.model_stock_picking
+msgid "Transfer"
+msgstr ""
