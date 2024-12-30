@@ -28,7 +28,7 @@ class AccountMove(models.Model):
                 ):
                     rec.invoice_warn_msg = rec.partner_id.parent_id.invoice_warn_msg
                     if rec.partner_id.invoice_warn == "warning":
-                        rec.invoice_warn_msg += "\n%s" % rec.partner_id.invoice_warn_msg
+                        rec.invoice_warn_msg += f"\n{rec.partner_id.invoice_warn_msg}"
                     continue
                 elif rec.partner_id.invoice_warn == "warning":
                     rec.invoice_warn_msg = rec.partner_id.invoice_warn_msg
