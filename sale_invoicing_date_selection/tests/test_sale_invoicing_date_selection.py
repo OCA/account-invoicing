@@ -1,14 +1,15 @@
 # Copyright 2022 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields
-from odoo.tests import Form, TransactionCase
+from odoo.tests import Form
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestSaleInvoicingDateSelection(TransactionCase):
+class TestSaleInvoicingDateSelection(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.partner = cls.env["res.partner"].create({"name": "partner - test"})
         cls.partner_1 = cls.env["res.partner"].create({"name": "partner1 - test"})
         cls.product = cls.env["product.product"].create(
             {"name": "test invoicing", "type": "service", "invoice_policy": "order"}

@@ -2,3 +2,4 @@
   - Carlos Dauden
   - Sergio Teruel
   - Carolina Fernandez
+- `Heliconia Solutions Pvt. Ltd. <https://www.heliconia.io>`_
