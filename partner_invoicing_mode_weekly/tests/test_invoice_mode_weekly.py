@@ -11,7 +11,6 @@ from odoo.addons.queue_job.tests.common import trap_jobs
 
 
 class TestInvoiceModeWeekly(CommonPartnerInvoicingMode, TransactionCase):
-
     _invoicing_mode = "weekly"
 
     @classmethod
