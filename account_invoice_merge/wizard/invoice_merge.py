@@ -76,7 +76,7 @@ class InvoiceMerge(models.TransientModel):
             "in_invoice": "action_move_in_invoice_type",
             "in_refund": "action_move_in_refund_type",
         }[invoices[0].move_type]
-        action = self.env["ir.actions.act_window"]._for_xml_id("account.{}".format(xid))
+        action = self.env["ir.actions.act_window"]._for_xml_id(f"account.{xid}")
         action.update(
             {
                 "domain": [("id", "in", ids + list(allinvoices.keys()))],
