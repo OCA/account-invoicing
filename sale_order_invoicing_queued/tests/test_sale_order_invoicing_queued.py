@@ -9,6 +9,7 @@ class TestSaleOrderInvoicingQueue(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.wizard_obj = cls.env["sale.advance.payment.inv"]
         cls.queue_obj = cls.env["queue.job"]
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})

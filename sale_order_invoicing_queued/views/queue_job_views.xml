@@ -6,7 +6,7 @@
         <field name="model">queue.job</field>
         <field name="priority" eval="9999" />
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="date_created" />
                 <field name="func_string" />
                 <field name="date_done" />
@@ -16,7 +16,7 @@
                     name="requeue"
                     string="Requeue"
                     class="oe_highlight"
-                    attrs="{'invisible': [('state', '!=', 'failed')]}"
+                    invisible="state != 'failed'"
                 />
                 <button
                     type="object"
@@ -24,9 +24,9 @@
                     string="Cancel"
                     class="oe_highlight_cancel"
                     icon="fa-times-circle"
-                    attrs="{'invisible': [('state', 'not in', ['pending','enqueued'])]}"
+                    invisible="state not in ('pending', 'enqueued')"
                 />
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>

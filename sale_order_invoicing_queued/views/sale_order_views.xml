@@ -10,7 +10,7 @@
                 <page
                     name="page_invoicing_jobs"
                     string="Invoicing Jobs"
-                    attrs="{'invisible': [('invoicing_job_ids', '=', [])]}"
+                    invisible="not invoicing_job_ids"
                     groups="queue_job.group_queue_job_manager"
                 >
                     <field
