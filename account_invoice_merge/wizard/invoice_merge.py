@@ -25,7 +25,7 @@ class InvoiceMerge(models.TransientModel):
         there are chances that we typed the account code
         instead of its name. In that case, switch both fields values.
         """
-        res = super(InvoiceMerge, self).default_get(default_fields)
+        res = super().default_get(default_fields)
         if "error_message" in default_fields:
             msg = self._check_error()
             res["error_message"] = msg

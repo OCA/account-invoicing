@@ -14,9 +14,24 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
     """
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.company = cls.company_data_2["company"]
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company = cls.company_data["company"]
+        cls.company_data2 = cls.setup_other_company()
+        cls.company2 = cls.company_data2["company"]
+        companies = cls.company | cls.company2
+        cls.env.user.write(
+            {
+                "company_ids": [Command.set(companies.ids)],
+            }
+        )
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                tracking_disable=True,
+                allowed_company_ids=companies.ids,
+            )
+        )
         invoice_date = fields.Date.today()
         cls.invoice1 = cls.init_invoice(
             "out_invoice",
@@ -54,7 +69,7 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
             partner=cls.partner_a,
             products=cls.product_a,
             invoice_date=invoice_date,
-            company=cls.company,
+            company=cls.company2,
         )
 
         cls.inv_model = cls.env["account.move"]
@@ -94,9 +109,10 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
         )
 
         end_inv = self.inv_model.search(invoice_len_args)
+        single_end_inv = end_inv[-1]
         self.assertEqual(len(end_inv), 4)
-        self.assertEqual(len(end_inv[0].invoice_line_ids), 1)
-        self.assertEqual(end_inv[0].invoice_line_ids[0].quantity, 2.0)
+        self.assertEqual(len(single_end_inv.invoice_line_ids), 1)
+        self.assertEqual(single_end_inv.invoice_line_ids.quantity, 2.0)
 
     def test_error_check(self):
         """Check"""

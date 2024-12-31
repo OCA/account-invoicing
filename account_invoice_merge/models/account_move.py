@@ -8,7 +8,7 @@
 
 import numbers
 
-from odoo import api, models
+from odoo import Command, api, models
 from odoo.tools import float_is_zero
 
 
@@ -51,7 +51,7 @@ class AccountMove(models.Model):
     @api.model
     def _get_first_invoice_fields(self, invoice):
         return {
-            "invoice_origin": "%s" % (invoice.invoice_origin or "",),
+            "invoice_origin": invoice.invoice_origin or "",
             "partner_id": invoice.partner_id.id,
             "journal_id": invoice.journal_id.id,
             "user_id": invoice.user_id.id,
@@ -59,8 +59,8 @@ class AccountMove(models.Model):
             "company_id": invoice.company_id.id,
             "move_type": invoice.move_type,
             "state": "draft",
-            "payment_reference": "%s" % (invoice.payment_reference or "",),
-            "name": "%s" % (invoice.name or "",),
+            "payment_reference": invoice.payment_reference or "",
+            "name": invoice.name or "",
             "fiscal_position_id": invoice.fiscal_position_id.id,
             "invoice_payment_term_id": invoice.invoice_payment_term_id.id,
             "invoice_line_ids": {},
@@ -194,7 +194,7 @@ class AccountMove(models.Model):
         qty_prec = self.env["decimal.precision"].precision_get(
             "Product Unit of Measure"
         )
-        for invoice_key, (invoice_data, old_ids) in new_invoices.items():
+        for _invoice_key, (invoice_data, old_ids) in new_invoices.items():
             # skip merges with only one invoice
             if len(old_ids) < 2:
                 allinvoices += old_ids or []
@@ -233,7 +233,7 @@ class AccountMove(models.Model):
                     lambda x: x.parent_state != "cancel" or x.id not in all_old_inv_line
                 )
                 if invoice_line:
-                    line.write({"invoice_lines": [(6, 0, invoice_line.ids)]})
+                    line.write({"invoice_lines": [Command.set(invoice_line.ids)]})
 
     @api.model
     def merge_callback(self, invoices_info, old_invoices):
