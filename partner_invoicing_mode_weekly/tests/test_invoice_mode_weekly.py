@@ -1,10 +1,10 @@
 # Copyright 2021 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
+from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 
 from odoo import fields, tools
 from odoo.tests.common import TransactionCase
-from odoo.tools import relativedelta
 
 from odoo.addons.partner_invoicing_mode.tests.common import CommonPartnerInvoicingMode
 from odoo.addons.queue_job.tests.common import trap_jobs

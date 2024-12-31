@@ -3,6 +3,7 @@
 
 from odoo import api, models
 from odoo.fields import Datetime
+from odoo.osv import expression
 
 
 class SaleOrder(models.Model):
@@ -33,7 +34,7 @@ class SaleOrder(models.Model):
         """Get company ids for which today is weekly invoicing day."""
         today = Datetime.now()
         domain = [
-            "|",
+            expression.OR_OPERATOR,
             ("invoicing_mode_weekly_last_execution", "<", today),
             ("invoicing_mode_weekly_last_execution", "=", False),
             ("invoicing_mode_weekly_day_todo", "=", today.weekday()),

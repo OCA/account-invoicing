@@ -6,8 +6,6 @@
         <field name="user_id" ref="base.user_root" />
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
-        <field name="numbercall">-1</field>
-        <field eval="False" name="doall" />
         <field name="model_id" ref="model_sale_order" />
         <field name="code">model.cron_generate_weekly_invoices()</field>
         <field
