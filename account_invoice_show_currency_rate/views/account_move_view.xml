@@ -8,21 +8,12 @@ License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-            <xpath expr="//div[@name='journal_div']" position="after">
-                <field name="show_currency_rate_amount" invisible="1" />
-                <field
-                    name="currency_rate_amount"
-                    groups="base.group_multi_currency"
-                    digits="[12,12]"
-                    invisible="not show_currency_rate_amount"
-                />
-            </xpath>
             <xpath
-                expr="//field[@name='line_ids']/tree/field[@name='currency_id']"
+                expr="//field[@name='line_ids']/list/field[@name='currency_id']"
                 position="after"
             >
                 <field
-                    name="currency_rate_amount"
+                    name="currency_rate"
                     string="Rate"
                     digits="[12,12]"
                     groups="base.group_multi_currency"
