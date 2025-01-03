@@ -28,7 +28,10 @@ class StockPicking(models.Model):
         """
         self.ensure_one()
         res = super()._invoice_at_shipping()
-        res = res or self.sale_id.payment_mode_id.cash_on_delivery
+        res = res or (
+            self.picking_type_code == "outgoing"
+            and self.sale_id.payment_mode_id.cash_on_delivery
+        )
         return res
 
     def _invoicing_at_shipping_validation(self, invoices):
