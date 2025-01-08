@@ -161,3 +161,57 @@ class TestAccountInvoiceMassSending(TransactionCase):
             )
             trap.perform_enqueued_jobs()
             self.assertFalse(self.first_eligible_invoice.sending_in_progress)
+
+    def _create_attachment(self, invoice):
+        document = self.env["ir.attachment"].create(
+            {
+                "name": "EDI Document",
+                "res_model": "account.move",
+                "res_id": invoice.id,
+                "mimetype": "application/xml",
+            }
+        )
+        return document
+
+    def create_edi_document(self, state, move=None, move_type=None):
+        edi_format = (
+            self.env["account.edi.format"]
+            .sudo()
+            .create(
+                {
+                    "name": "test_edi_format",
+                    "code": "test_edi_format",
+                }
+            )
+        )
+        return self.env["account.edi.document"].create(
+            {"edi_format_id": edi_format.id, "move_id": move.id, "state": state}
+        )
+
+    def test_invoice_mass_sending_4(self):
+        # test one invoice to send with edi document attached
+        invoice = self.first_eligible_invoice
+        attachment = self._create_attachment(invoice)
+        edi_document = self.create_edi_document("sent", invoice, invoice.move_type)
+        edi_document.attachment_id = attachment.id
+        self.assertEqual(len(invoice.edi_document_ids), 1)
+        self.assertEqual(len(invoice.attachment_ids), 1)
+        with trap_jobs() as trap:
+            wizard = self.wizard_obj.with_context(
+                active_ids=invoice.ids,
+                active_model=self.first_eligible_invoice._name,
+                discard_logo_check=True,
+            ).create({})
+            wizard.enqueue_invoices()
+            trap.assert_jobs_count(1)
+            trap.assert_enqueued_job(
+                invoice._send_invoice_individually,
+                kwargs={"template": self.mail_template_obj},
+            )
+            trap.perform_enqueued_jobs()
+            mail = self.env["mail.mail"].search(
+                [("model", "=", "account.move"), ("res_id", "=", invoice.id)]
+            )
+            self.assertTrue(mail)
+            attachment_ids = mail.attachment_ids.ids
+            self.assertIn(attachment_ids[0], invoice.attachment_ids.ids)

@@ -1,7 +1,7 @@
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, fields, models
+from odoo import Command, _, fields, models
 
 
 class AccountInvoice(models.Model):
@@ -58,6 +58,7 @@ class AccountInvoice(models.Model):
                 "is_email": True,
                 "template_id": template.id,
                 "composition_mode": "comment",
+                "attachment_ids": [Command.set(self._get_edi_documents())],
             }
         )
         wiz.onchange_template_id()
@@ -67,3 +68,13 @@ class AccountInvoice(models.Model):
             }
         )
         return wiz.send_and_print_action()
+
+    def _get_edi_documents(self):
+        self.ensure_one()
+        attachment_ids = []
+        if getattr(self, "edi_document_ids", False):
+            for edi in self.edi_document_ids:
+                attachment = self._get_edi_attachment(edi.edi_format_id)
+                if attachment:
+                    attachment_ids.append(attachment.id)
+        return attachment_ids
