@@ -1,14 +1,15 @@
 # Copyright 2024 Tecnativa - Pilar Vargas
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests import TransactionCase
+from odoo import Command
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestSaleOrderWholeDeliveredInvoiceability(TransactionCase):
+class TestSaleOrderWholeDeliveredInvoiceability(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.partner = cls.env["res.partner"].create(
             {"name": "Test partner", "whole_delivered_invoiceability": True}
         )
@@ -28,9 +29,7 @@ class TestSaleOrderWholeDeliveredInvoiceability(TransactionCase):
             {
                 "partner_id": cls.partner.id,
                 "order_line": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": cls.product_1.name,
                             "product_id": cls.product_1.id,
@@ -38,9 +37,7 @@ class TestSaleOrderWholeDeliveredInvoiceability(TransactionCase):
                             "qty_delivered": 2,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": cls.product_2.name,
                             "product_id": cls.product_2.id,
