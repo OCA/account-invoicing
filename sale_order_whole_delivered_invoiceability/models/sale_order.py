@@ -20,11 +20,11 @@ class SaleOrder(models.Model):
                 record.whole_delivered_invoiceability = True
 
     @api.depends("whole_delivered_invoiceability")
-    def _get_invoice_status(self):
+    def _compute_invoice_status(self):
         # Intercept the invoice_status computed method to
         # set it as not invoiceable if the delivered quantity
         # is less than the ordered quantity.
-        res = super()._get_invoice_status()
+        res = super()._compute_invoice_status()
         for order in self.filtered("whole_delivered_invoiceability"):
             uncomplete_lines = order.order_line.filtered(
                 lambda line: line.product_id.invoice_policy == "delivery"
