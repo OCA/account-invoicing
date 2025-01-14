@@ -3,15 +3,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import exceptions
+from odoo.tests import Form
 
-# TODO: In v16 check the possiblity to use the commom.py
-# from stock_picking_invoicing
-# https://github.com/OCA/account-invoicing/blob/16.0/
-# stock_picking_invoicing/tests/common.py
-from odoo.tests import Form, TransactionCase
+from odoo.addons.stock_picking_invoicing.tests.common import TestPickingInvoicingCommon
 
 
-class TestSaleStock(TransactionCase):
+class TestSaleStock(TestPickingInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -28,56 +25,6 @@ class TestSaleStock(TransactionCase):
         )
         for company in cls.companies:
             company.sale_invoicing_policy = "stock_picking"
-
-    def _run_picking_onchanges(self, record):
-        record.onchange_partner_id()
-
-    def _run_line_onchanges(self, record):
-        record._onchange_product_id()
-
-    def picking_move_state(self, picking):
-        self._run_picking_onchanges(picking)
-        picking.action_confirm()
-        # Check product availability
-        picking.action_assign()
-        # Force product availability
-        for move in picking.move_ids_without_package:
-            self._run_line_onchanges(move)
-            move.quantity_done = move.product_uom_qty
-        picking.button_validate()
-
-    def create_invoice_wizard(self, pickings):
-        wizard_obj = self.env["stock.invoice.onshipping"].with_context(
-            active_ids=pickings.ids,
-            active_model=pickings._name,
-        )
-        fields_list = wizard_obj.fields_get().keys()
-        wizard_values = wizard_obj.default_get(fields_list)
-        # One invoice per partner but group products
-        wizard_values.update({"group": "partner_product"})
-        wizard = wizard_obj.create(wizard_values)
-        wizard.onchange_group()
-        wizard.action_generate()
-        domain = [("picking_ids", "in", pickings.ids)]
-        invoice = self.env["account.move"].search(domain)
-        return invoice
-
-    def return_picking_wizard(self, picking):
-        # Return Picking
-        return_wizard_form = Form(
-            self.env["stock.return.picking"].with_context(
-                **dict(active_id=picking.id, active_model="stock.picking")
-            )
-        )
-        return_wizard_form.invoice_state = "2binvoiced"
-        self.return_wizard = return_wizard_form.save()
-
-        result_wizard = self.return_wizard.create_returns()
-        self.assertTrue(result_wizard, "Create returns wizard fail.")
-        picking_devolution = self.env["stock.picking"].browse(
-            result_wizard.get("res_id")
-        )
-        return picking_devolution
 
     def test_01_sale_stock_return(self):
         """
@@ -124,6 +71,11 @@ class TestSaleStock(TransactionCase):
             len(self.so.picking_ids) == 1,
             "More than one stock " "picking for sale.order",
         )
+
+        # Check Sale Invoicing Policy Warning to force create Invoice from Picking
+        with self.assertRaises(exceptions.UserError):
+            self.so._create_invoices(final=True)
+
         self.so.picking_ids.set_to_be_invoiced()
 
         # validate stock.picking
@@ -165,11 +117,12 @@ class TestSaleStock(TransactionCase):
         Test Sale Order with product and service
         """
 
-        sale_order_2 = self.env.ref(
-            "sale_stock_picking_invoicing.main_company-sale_order_2"
+        sale_order_form = sale_order_form = Form(
+            self.env.ref("sale_stock_picking_invoicing.main_company-sale_order_2")
         )
         # Necessary to get the currency
-        # sale_order_2.onchange_partner_id()
+        sale_order_form.pricelist_id = self.env.ref("product.list0")
+        sale_order_2 = sale_order_form.save()
         sale_order_2.action_confirm()
         # Method to create invoice in sale order should work only
         # for lines where products are of TYPE Service
@@ -262,8 +215,8 @@ class TestSaleStock(TransactionCase):
             "__last_update",
             # Field sequence add in creation of Invoice
             "sequence",
-            "currency_id",
-            "analytic_precision",
+            # In the sale.orde.line display_type has only line_section
+            # and line_note, the acccount.move.line has more options
             "display_type",
         ]
 
@@ -274,6 +227,11 @@ class TestSaleStock(TransactionCase):
         invoice_lines = picking.invoice_ids.invoice_line_ids.filtered(
             lambda ln: ln.product_id
         )
+        # Necessary for get analytic_precision
+        # this problem only occours in the tests, by some reason not
+        # identify yet, but works in the screen the default behavior
+        with Form(invoice_lines) as line:
+            line.save()
 
         for field in common_fields:
             self.assertEqual(
