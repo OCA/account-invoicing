@@ -22,6 +22,14 @@ class AccountMove(models.Model):
     def _get_under_validation_exceptions(self):
         return super()._get_under_validation_exceptions() + ["needed_terms_dirty"]
 
+    def _get_validation_exceptions(self, extra_domain=None, add_base_exceptions=True):
+        res = super()._get_validation_exceptions(extra_domain, add_base_exceptions)
+        # we need to exclude amount_total,
+        # otherwise editing manually the values on lines dirties the field at onchange
+        # since it's not in readonly because readonly="not(review_ids)", it's then
+        # sent at save, and will override the values set by the user
+        return res + ["amount_total"]
+
     def _get_to_validate_message_name(self):
         name = super()._get_to_validate_message_name()
         if self.move_type == "in_invoice":
