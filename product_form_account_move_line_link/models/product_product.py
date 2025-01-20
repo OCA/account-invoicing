@@ -12,8 +12,8 @@ class ProductProduct(models.Model):
     )
 
     def _compute_account_move_lines_count(self):
-        if not self.user_has_groups("account.group_account_invoice") or not self.ids:
-            self.purchase_lines_count = 0
+        if not self.env.user.has_group("account.group_account_invoice") or not self.ids:
+            self.sudo().account_move_lines_count = 0
             return
         domain = [
             ("product_id", "in", self.ids),
