@@ -10,4 +10,5 @@
     "license": "AGPL-3",
     "category": "Accounting & Finance",
     "depends": ["account", "sale"],
+    "data": ["views/res_config_settings.xml"],
 }

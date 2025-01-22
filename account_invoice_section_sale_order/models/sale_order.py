@@ -16,7 +16,10 @@ class SaleOrder(models.Model):
         """
         invoice_ids = super()._create_invoices(grouped=grouped, final=final)
         for invoice in invoice_ids:
-            if len(invoice.line_ids.mapped("sale_line_ids.order_id.id")) == 1:
+            if (
+                not invoice.company_id.always_create_invoice_section
+                and len(invoice.line_ids.mapped("sale_line_ids.order_id.id")) == 1
+            ):
                 continue
             so = None
             sequence = 10
