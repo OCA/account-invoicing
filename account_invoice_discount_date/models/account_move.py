@@ -20,7 +20,12 @@ class AccountMove(models.Model):
     def _compute_discount_date(self):
         """Set discount_date to the earliest Discount date of lines with Date maturity"""
         for record in self:
-            d_dates = record.line_ids.filtered("date_maturity").mapped("discount_date")
+            d_dates = record.line_ids.filtered_domain(
+                [
+                    ("display_type", "=", "payment_term"),
+                    ("discount_date", "!=", False),
+                ]
+            ).mapped("discount_date")
             new_discount_date = d_dates and sorted(d_dates)[0] or None
             if new_discount_date != record.discount_date or not new_discount_date:
                 record.discount_date = new_discount_date
@@ -28,5 +33,7 @@ class AccountMove(models.Model):
     def _inverse_discount_date(self):
         """When set Discount date, update all move lines with Date maturity"""
         for record in self:
-            for line in record.line_ids:
-                line.discount_date = line.date_maturity and record.discount_date
+            for line in record.line_ids.filtered_domain(
+                [("display_type", "=", "payment_term")]
+            ):
+                line.discount_date = record.discount_date
