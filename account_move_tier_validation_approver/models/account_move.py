@@ -8,12 +8,24 @@ from odoo.exceptions import UserError
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    approver_id = fields.Many2one("res.users", string="Responsible for Approval")
+    approver_id = fields.Many2one(
+        "res.users",
+        string="Responsible for Approval",
+        compute="_compute_approver_id",
+        readonly=False,
+        store=True,
+    )
 
-    @api.onchange("partner_id")
-    def _onchange_partner_approver_id(self):
-        if self.partner_id:
-            self.approver_id = self.partner_id.approver_id.id
+    @api.depends("partner_id")
+    def _compute_approver_id(self):
+        for rec in self:
+            if rec.approver_id:
+                # assign a value in any case
+                rec.approver_id = rec.approver_id
+            elif rec.partner_id.approver_id:
+                rec.approver_id = rec.partner_id.approver_id
+            else:
+                rec.approver_id = False
 
     def _post(self, soft=True):
         for move in self:
