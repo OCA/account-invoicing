@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,7 +16,6 @@ msgstr ""
 #. module: account_invoice_discount_date
 #: model:ir.model.fields,field_description:account_invoice_discount_date.field_account_bank_statement_line__discount_date
 #: model:ir.model.fields,field_description:account_invoice_discount_date.field_account_move__discount_date
-#: model:ir.model.fields,field_description:account_invoice_discount_date.field_account_move_line__discount_date
 #: model:ir.model.fields,field_description:account_invoice_discount_date.field_account_payment__discount_date
 #: model_terms:ir.ui.view,arch_db:account_invoice_discount_date.view_account_invoice_filter
 #: model_terms:ir.ui.view,arch_db:account_invoice_discount_date.view_account_move_line_filter
@@ -29,14 +28,8 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_discount_date
-#: model:ir.model,name:account_invoice_discount_date.model_account_move_line
-msgid "Journal Item"
-msgstr ""
-
-#. module: account_invoice_discount_date
 #: model:ir.model.fields,help:account_invoice_discount_date.field_account_bank_statement_line__discount_date
 #: model:ir.model.fields,help:account_invoice_discount_date.field_account_move__discount_date
-#: model:ir.model.fields,help:account_invoice_discount_date.field_account_move_line__discount_date
 #: model:ir.model.fields,help:account_invoice_discount_date.field_account_payment__discount_date
 msgid ""
 "Last date at which the discounted amount must be paid in order for the Early"
