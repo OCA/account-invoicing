@@ -17,22 +17,24 @@ Account Invoice Clearing
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_clearing
+    :target: https://github.com/OCA/account-invoicing/tree/18.0/account_invoice_clearing
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-account_invoice_clearing
+    :target: https://translation.odoo-community.org/projects/account-invoicing-18-0/account-invoicing-18-0-account_invoice_clearing
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module complements the functionality of *Automatic Entries* in Accounting.
-It provides a Wizard to clear invoices by creating an intermediate journal entry.
-It allows to clear any invoice with its opposite types. *out_* types are cleared with *in_* types and vice versa.
-The invoices to be cleared have to be not paid or partially paid.
-The wizard will use the residual amount of the invoices in the clearing process.
+This module complements the functionality of *Automatic Entries* in
+Accounting. It provides a Wizard to clear invoices by creating an
+intermediate journal entry. It allows to clear any invoice with its
+opposite types. *out\_* types are cleared with *in\_* types and vice
+versa. The invoices to be cleared have to be not paid or partially paid.
+The wizard will use the residual amount of the invoices in the clearing
+process.
 
 .. IMPORTANT::
    This is an alpha version, the data model and design can change at any time without warning.
@@ -49,22 +51,30 @@ Usage
 
 To use this module, you need to:
 
-#. You must have unpaid invoices in the system for the same contact (or his childs) in *out_* and *in_* types.
-#. Go to a view where invoices are shown. No matter if are Invoices or Bills.
-#. Select one or several invoices/bills. You can also enter an invoice/bill and click on the *Invoice clearing* button if it's open and fully paid.
-#. Fill in the top fields of the wizard and in the lines to clear field, select the lines from other invoices you want to clear.
-#. With the Sort buttons, you can sort the lines as appropriate.
-#. With the actions button, you can reset, clear or autofill the amount to be used in the order previously chosen.
-#. Check that the preview is as expected.
-#. Press the Confirm button to create the invoice clearing.
-#. A clearing journal entry will be generated for each invoice/bill to be cleared.
-#. The resulting journal entries will reconcile all their lines with the initial move lines and the clearing moves lines.
+1.  You must have unpaid invoices in the system for the same contact (or
+    his childs) in *out\_* and *in\_* types.
+2.  Go to a view where invoices are shown. No matter if are Invoices or
+    Bills.
+3.  Select one or several invoices/bills. You can also enter an
+    invoice/bill and click on the *Invoice clearing* button if it's open
+    and fully paid.
+4.  Fill in the top fields of the wizard and in the lines to clear
+    field, select the lines from other invoices you want to clear.
+5.  With the Sort buttons, you can sort the lines as appropriate.
+6.  With the actions button, you can reset, clear or autofill the amount
+    to be used in the order previously chosen.
+7.  Check that the preview is as expected.
+8.  Press the Confirm button to create the invoice clearing.
+9.  A clearing journal entry will be generated for each invoice/bill to
+    be cleared.
+10. The resulting journal entries will reconcile all their lines with
+    the initial move lines and the clearing moves lines.
 
 Known issues / Roadmap
 ======================
 
-To be able to sort the initial invoice/bill lines in the wizard with sequence
-and sort with buttons as in the clearing lines.
+To be able to sort the initial invoice/bill lines in the wizard with
+sequence and sort with buttons as in the clearing lines.
 
 Bug Tracker
 ===========
@@ -72,7 +82,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_clearing%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_clearing%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -80,25 +90,25 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Moduon
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Eduardo de Miguel (`Moduon <https://www.moduon.team/>`__)
-* Rafael Blasco (`Moduon <https://www.moduon.team/>`__)
+- Eduardo de Miguel (`Moduon <https://www.moduon.team/>`__)
+- Rafael Blasco (`Moduon <https://www.moduon.team/>`__)
 
 Other credits
-~~~~~~~~~~~~~
+-------------
 
 The development of this module has been financially supported by:
 
-* Moduon Team S.L.
+- Moduon Team S.L.
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -118,6 +128,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-Shide| 
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_clearing>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/18.0/account_invoice_clearing>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

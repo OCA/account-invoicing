@@ -20,22 +20,23 @@ msgstr ""
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
 msgid ""
-"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible="
-"\"1\">Actions:</span>"
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
+"invisible=\"1\">Actions:</span>"
 msgstr ""
-"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible="
-"\"1\">Acciones:</span>"
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
+"invisible=\"1\">Acciones:</span>"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
 msgid ""
-"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible="
-"\"1\">Sort by:</span>"
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
+"invisible=\"1\">Sort by:</span>"
 msgstr ""
-"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible="
-"\"1\">Corta por:</span>"
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
+"invisible=\"1\">Corta por:</span>"
 
 #. module: account_invoice_clearing
+#. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__account_id
 #, python-format
@@ -46,18 +47,6 @@ msgstr "Cuenta"
 #: model:ir.model,name:account_invoice_clearing.model_account_invoice_clearing_lines_wizard
 msgid "Account Invoice Clearing Lines Wizard"
 msgstr "Asistente de Compensación de Líneas de Facturas"
-
-#. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Add all compensation lines"
-msgstr "Añadir todas las líneas a compensar"
-
-#. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Adds all available compensation lines to allow use it."
-msgstr ""
-"Añade todas las líneas disponibles para la compensación para poder ser "
-"utilizadas."
 
 #. module: account_invoice_clearing
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__amount_to_clear
@@ -75,25 +64,11 @@ msgid "Amount residual (desc)"
 msgstr "Importe residual (desc)"
 
 #. module: account_invoice_clearing
+#. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #, python-format
 msgid "Amount to clear cannot be greater than residual amount."
 msgstr "El importe a compensar no puede ser superior a la cantidad residual."
-
-#. module: account_invoice_clearing
-#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__analytic_account_id
-msgid "Analytic Account"
-msgstr "Cuenta analítica"
-
-#. module: account_invoice_clearing
-#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__analytic_tag_ids
-msgid "Analytic Tags"
-msgstr "Etiquetas analíticas"
-
-#. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Are you sure you want to clear the invoices?"
-msgstr "¿Está seguro que quiere compensar las facturas?"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
@@ -160,6 +135,7 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: account_invoice_clearing
+#. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__credit
 #, python-format
@@ -183,6 +159,7 @@ msgid "Date due (desc)"
 msgstr "Fecha de vencimiento (desc)"
 
 #. module: account_invoice_clearing
+#. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__debit
 #, python-format
@@ -199,11 +176,6 @@ msgstr "Nombre mostrado"
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__date_maturity
 msgid "Due Date"
 msgstr "Fecha de vencimiento"
-
-#. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Empty lines"
-msgstr "Vaciar líneas"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
@@ -243,18 +215,21 @@ msgid "Invoice clearing"
 msgstr "Compensación de facturas"
 
 #. module: account_invoice_clearing
+#. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #, python-format
 msgid "Invoices must be from the same commercial partner."
 msgstr "Las facturas deben ser del mismo Partner Comercial."
 
 #. module: account_invoice_clearing
+#. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #, python-format
 msgid "Invoices must be of the same type."
 msgstr "Las facturas deben ser del mismo tipo."
 
 #. module: account_invoice_clearing
+#. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #, python-format
 msgid "Invoices must belong to the same company."
@@ -287,6 +262,7 @@ msgid "Journal Entry"
 msgstr "Asiento contable"
 
 #. module: account_invoice_clearing
+#. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__name
 #, python-format
@@ -363,6 +339,7 @@ msgid "Name of the move generated by this wizard"
 msgstr "Referencia del Movimiento de Compensación"
 
 #. module: account_invoice_clearing
+#. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #, python-format
 msgid "Partner"
@@ -387,6 +364,7 @@ msgid "Preview Move Data"
 msgstr "Vista previa de datos de movimiento"
 
 #. module: account_invoice_clearing
+#. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #, python-format
 msgid "Preview of the clearing move related to %s"
@@ -396,11 +374,6 @@ msgstr "Previsualización del Movimiento de Compensación relacionado con %s"
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__product_id
 msgid "Product"
 msgstr "Producto"
-
-#. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Removes all invoices."
-msgstr "Elimina todas las líneas de Compensación."
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
@@ -430,6 +403,7 @@ msgid "Residual Amount to clear (Signed)"
 msgstr "Importe residual a compensar (con signo)"
 
 #. module: account_invoice_clearing
+#. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #, python-format
 msgid "Resulting Clearing Move"
@@ -472,11 +446,6 @@ msgid "The following Journal Entries will be generated"
 msgstr "Se generarán los siguientes Movimientos"
 
 #. module: account_invoice_clearing
-#: model:ir.model.fields,help:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__invoice_id
-msgid "The move of this entry line."
-msgstr "El apunte de este asiento."
-
-#. module: account_invoice_clearing
 #: model:ir.model.fields,help:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__amount_residual
 msgid ""
 "The residual amount on a journal item expressed in the company currency."
@@ -503,10 +472,34 @@ msgstr "Total del Importe residual (con signo)"
 msgid "Use"
 msgstr "Utilizar"
 
-#. module: account_invoice_clearing
-#: model:ir.model.fields,help:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__company_currency_id
-msgid "Utility field to express amount currency"
-msgstr "Campo de utilidad para expresar la moneda del importe"
+#~ msgid "Add all compensation lines"
+#~ msgstr "Añadir todas las líneas a compensar"
+
+#~ msgid "Adds all available compensation lines to allow use it."
+#~ msgstr ""
+#~ "Añade todas las líneas disponibles para la compensación para poder ser "
+#~ "utilizadas."
+
+#~ msgid "Analytic Account"
+#~ msgstr "Cuenta analítica"
+
+#~ msgid "Analytic Tags"
+#~ msgstr "Etiquetas analíticas"
+
+#~ msgid "Are you sure you want to clear the invoices?"
+#~ msgstr "¿Está seguro que quiere compensar las facturas?"
+
+#~ msgid "Empty lines"
+#~ msgstr "Vaciar líneas"
+
+#~ msgid "Removes all invoices."
+#~ msgstr "Elimina todas las líneas de Compensación."
+
+#~ msgid "The move of this entry line."
+#~ msgstr "El apunte de este asiento."
+
+#~ msgid "Utility field to express amount currency"
+#~ msgstr "Campo de utilidad para expresar la moneda del importe"
 
 #~ msgid ""
 #~ "<span class=\"o_form_label\" style=\"font-weight:bolder;\">Actions:</span>"
