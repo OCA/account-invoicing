@@ -219,7 +219,26 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return:
         """
         self.ensure_one()
-        invoices = self._action_generate_invoices()
+
+        active_ids = self.env.context.get("active_ids", [])
+        if active_ids:
+            active_ids = active_ids[0]
+        pick_obj = self.env["stock.picking"]
+        picking = pick_obj.browse(active_ids)
+
+        if picking.picking_type_id.code == "incoming":
+            original_invoice_ids = picking.mapped(
+                "move_lines.origin_returned_move_id.picking_id.invoice_ids"
+            )
+            if original_invoice_ids and len(original_invoice_ids) > 0:
+                return_invoice = original_invoice_ids[0]._reverse_moves(cancel=False)
+                return_invoice.picking_ids = [(4, picking.id)]
+                invoices = return_invoice
+            else:
+                invoices = self._action_generate_invoices()
+        else:
+            invoices = self._action_generate_invoices()
+
         if not invoices:
             raise UserError(_("No invoice created!"))
 
