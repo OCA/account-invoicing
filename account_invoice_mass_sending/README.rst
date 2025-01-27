@@ -17,18 +17,19 @@ Account Invoice Mass Sending
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_mass_sending
+    :target: https://github.com/OCA/account-invoicing/tree/17.0/account_invoice_mass_sending
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-account_invoice_mass_sending
+    :target: https://translation.odoo-community.org/projects/account-invoicing-17-0/account-invoicing-17-0-account_invoice_mass_sending
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module adds a mass sending feature on invoices, using asynchronous jobs.
+This module adds a mass sending feature on invoices, using asynchronous
+jobs.
 
 **Table of contents**
 
@@ -38,14 +39,17 @@ This module adds a mass sending feature on invoices, using asynchronous jobs.
 Configuration
 =============
 
-queue_job module needs to be configured, see the module `documentation <https://github.com/OCA/queue/tree/16.0/queue_job>`_
+queue_job module needs to be configured, see the module
+`documentation <https://github.com/OCA/queue/tree/16.0/queue_job>`__
 
 Usage
 =====
 
-On the invoices list view, select the invoices to send and click on 'Action > Send & print'.
+On the invoices list view, select the invoices to send and click on
+'Action > Send & print'.
 
-In the wizard select the 'Email' checkbox and a template then click on 'Email mass sending (Job Queue)'
+In the wizard select the 'Email' checkbox and a template then click on
+'Email mass sending (Job Queue)'
 
 Bug Tracker
 ===========
@@ -53,7 +57,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_mass_sending%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_mass_sending%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -61,24 +65,25 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * ACSONE SA/NV
 * Open Net Sàrl
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Thomas Binsfeld <thomas.binsfeld@acsone.eu>
-* Denis Robinet <denis.robinet@acsone.eu>
-* Julien Guenat <jgu@open-net.ch>
-* Alberto Nieto de Pablos <alberto.nieto@braintec.com> (https://braintec.com)
-* `Tecnativa <https://www.tecnativa.com>`__:
+- Thomas Binsfeld <thomas.binsfeld@acsone.eu>
+- Denis Robinet <denis.robinet@acsone.eu>
+- Julien Guenat <jgu@open-net.ch>
+- Alberto Nieto de Pablos <alberto.nieto@braintec.com>
+  (https://braintec.com)
+- `Tecnativa <https://www.tecnativa.com>`__:
 
-  * Sergio Teruel
+  - Sergio Teruel
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -98,6 +103,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-jguenat| 
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_mass_sending>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/17.0/account_invoice_mass_sending>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
