@@ -1,12 +1,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from odoo.tests import TransactionCase
-
+from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
 from odoo.addons.queue_job.tests.common import trap_jobs
 
 
-class TestAccountInvoiceMassSending(TransactionCase):
+class TestAccountMoveMassSending(TestAccountMoveSendCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -20,8 +19,7 @@ class TestAccountInvoiceMassSending(TransactionCase):
                 tracking_disable=True,
             )
         )
-        cls.wizard_obj = cls.env["account.invoice.send"]
-        cls.invoice_obj = cls.env["account.move"]
+        cls.wizard_obj = cls.env["account.move.send"]
         cls.mail_template_obj = cls.env["mail.template"]
 
         cls.partner_with_email = cls.env["res.partner"].create(
@@ -33,86 +31,20 @@ class TestAccountInvoiceMassSending(TransactionCase):
             }
         )
 
-        cls.account = cls.env["account.account"].create(
-            {
-                "name": "Test account",
-                "code": "TESTAIMS",
-                "account_type": "equity",
-            }
+        cls.first_eligible_invoice = cls.init_invoice(
+            "out_invoice", partner=cls.partner_with_email, amounts=[20], post=True
         )
-        cls.first_eligible_invoice = cls.invoice_obj.create(
-            {
-                "partner_id": cls.partner_with_email.id,
-                "move_type": "out_invoice",
-                "invoice_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "Test product",
-                            "account_id": cls.account.id,
-                            "price_unit": 20.0,
-                            "quantity": 1.0,
-                        },
-                    ),
-                ],
-            }
+        cls.second_eligible_invoice = cls.init_invoice(
+            "out_invoice", partner=cls.partner_with_email, amounts=[20], post=True
         )
-        cls.second_eligible_invoice = cls.invoice_obj.create(
-            {
-                "partner_id": cls.partner_with_email.id,
-                "move_type": "out_invoice",
-                "invoice_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "Test product",
-                            "account_id": cls.account.id,
-                            "price_unit": 20.0,
-                            "quantity": 1.0,
-                        },
-                    ),
-                ],
-            }
+        cls.invoice_without_mail = cls.init_invoice(
+            "out_invoice", partner=cls.partner_without_mail, amounts=[20], post=True
         )
-        cls.invoice_without_mail = cls.invoice_obj.create(
-            {
-                "partner_id": cls.partner_without_mail.id,
-                "move_type": "out_invoice",
-                "invoice_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "Test product",
-                            "account_id": cls.account.id,
-                            "price_unit": 20.0,
-                            "quantity": 1.0,
-                        },
-                    ),
-                ],
-            }
+        cls.invoice_in_progress = cls.init_invoice(
+            "out_invoice", partner=cls.partner_with_email, amounts=[20], post=False
         )
-        cls.invoice_in_progress = cls.invoice_obj.create(
-            {
-                "partner_id": cls.partner_with_email.id,
-                "move_type": "out_invoice",
-                "sending_in_progress": True,
-                "invoice_line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "Test product",
-                            "account_id": cls.account.id,
-                            "price_unit": 20.0,
-                            "quantity": 1.0,
-                        },
-                    ),
-                ],
-            }
-        )
+        cls.invoice_in_progress.sending_in_progress = True
+        cls.invoice_in_progress.action_post()
 
     def test_invoice_mass_sending_1(self):
         # test two eligible invoice to send

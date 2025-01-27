@@ -4,7 +4,7 @@
 from odoo import _, fields, models
 
 
-class AccountInvoice(models.Model):
+class AccountMove(models.Model):
     _inherit = "account.move"
 
     sending_in_progress = fields.Boolean(
@@ -51,19 +51,21 @@ class AccountInvoice(models.Model):
                 "account_invoice_mass_sending": True,
             }
         )
-        wiz = self.env["account.invoice.send"].with_context(**wiz_ctx).create({})
-        wiz.write(
-            {
-                "is_print": False,
-                "is_email": True,
-                "template_id": template.id,
-                "composition_mode": "comment",
-            }
+        wiz = (
+            self.env["account.move.send"]
+            .with_context(**wiz_ctx)
+            .create(
+                {
+                    "checkbox_download": False,
+                    "checkbox_send_mail": True,
+                    "mode": "invoice_single",
+                    "mail_template_id": template.id,
+                }
+            )
         )
-        wiz.onchange_template_id()
         self.write(
             {
                 "sending_in_progress": False,
             }
         )
-        return wiz.send_and_print_action()
+        return wiz.action_send_and_print(allow_fallback_pdf=True)
