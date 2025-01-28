@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2024-02-21 17:33+0000\n"
+"PO-Revision-Date: 2025-01-28 18:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: account_invoice_merge
 #. odoo-python
@@ -29,7 +29,7 @@ msgstr "Tutte le fatture devono avere lo stesso: \n"
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Are you sure you want to merge these invoices?"
-msgstr "Sei sicuro di voler unire queste fatture?"
+msgstr "Si è sicuri di voler unire queste fatture?"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
@@ -135,10 +135,10 @@ msgstr ""
 "                        Le fatture saranno unite se:<br/>\n"
 "                        * Le fatture sono in stato 'bozza'.<br/>\n"
 "                        * Le fatture appartengono allo stesso partner.<br/>\n"
-"                        * Le fattura hanno la stessa azienda, partner, "
+"                        * Le fatture hanno la stessa azienda, partner, "
 "indirizzo,\n"
-"                        valuta, registro, resposabile vendite, conto e tipo."
-"<br/><br/>\n"
+"                        valuta, registro, responsabile vendite, conto e "
+"tipo.<br/><br/>\n"
 "                        Le righe saranno unite se:<br/>\n"
 "                        * Le righe fattura sono esattamente le stesse ad "
 "eccezione di\n"
@@ -149,7 +149,7 @@ msgstr ""
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "Please select multiple invoices to merge in the list view."
-msgstr "Per favore seleziona più fatture da unire nella vista lista."
+msgstr "Selezionare più fatture da unire nella vista lista."
 
 #, python-format
 #~ msgid "Draf"
