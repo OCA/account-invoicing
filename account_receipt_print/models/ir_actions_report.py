@@ -10,24 +10,28 @@ RECEIPTS_TYPE = ("out_receipt", "in_receipt")
 class IrActionsReport(models.Model):
     _inherit = "ir.actions.report"
 
-    def _render_qweb_pdf(self, res_ids=None, data=None):
-        if self.model == "account.move" and res_ids:
-            invoice_reports = (
-                self.env.ref("account.account_invoices"),
-                self.env.ref("account.account_invoices_without_payment"),
-            )
-            receipt_reports = (self.env.ref("account_receipt_print.account_receipts"),)
+    def _is_receipt_report(self, report_ref):
+        return self._get_report(report_ref).report_name in (
+            "account_receipt_print.report_receipt"
+        )
 
-            receipts = (
-                self.env["account.move"]
-                .browse(res_ids)
-                .filtered(lambda m: m.move_type in RECEIPTS_TYPE)
-            )
+    def _render_qweb_pdf(self, report_ref, res_ids=None, data=None):
 
-            if self in invoice_reports and receipts:
-                raise UserError(_("Only invoices could be printed."))
+        invoices = self.env["account.move"].browse(res_ids)
 
-            if self in receipt_reports and not receipts:
+        if self._is_receipt_report(report_ref):
+            if (
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("account.display_name_in_footer")
+            ):
+                data = data and dict(data) or {}
+                data.update({"display_name_in_footer": True})
+            if any(x.move_type not in RECEIPTS_TYPE for x in invoices):
                 raise UserError(_("Only receipts could be printed."))
 
-        return super()._render_qweb_pdf(res_ids=res_ids, data=data)
+        if self._is_invoice_report(report_ref):
+            if any(x.move_type in RECEIPTS_TYPE for x in invoices):
+                raise UserError(_("Only invoices could be printed."))
+
+        return super()._render_qweb_pdf(report_ref, res_ids=res_ids, data=data)
