@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-30 02:43+0000\n"
-"PO-Revision-Date: 2024-12-04 12:00+0000\n"
+"PO-Revision-Date: 2025-01-28 18:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -48,7 +48,7 @@ msgstr "Sequenza"
 #: model:ir.model.fields,help:account_invoice_line_sequence.field_account_invoice_line__sequence
 #: model:ir.model.fields,help:account_invoice_line_sequence.field_account_invoice_line__sequence2
 msgid "Shows the sequence of this line in the  invoice."
-msgstr "Mostra la sequenza di questa line nella fattura."
+msgstr "Mostra la sequenza di questa righe nella fattura."
 
 #. module: account_invoice_line_sequence
 #: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice_line__sequence
