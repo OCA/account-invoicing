@@ -1,0 +1,1 @@
+odoo-addon-account-payment-partner @ git+https://github.com/OCA/bank-payment@refs/pull/1418/head#subdirectory=setup/account_payment_partner
