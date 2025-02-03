@@ -51,7 +51,9 @@ class AccountMoveLine(models.Model):
         for line in self:
             if line.move_id.state != "posted" or not line.amount_currency:
                 continue
-            line.currency_rate = line.currency_id.round(
-                abs(line.amount_currency) / abs(line.balance)
+            line.currency_rate = (
+                line.currency_id.round(abs(line.amount_currency) / abs(line.balance))
+                if line.balance
+                else 0
             )
         return res
