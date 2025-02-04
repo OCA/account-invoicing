@@ -27,7 +27,7 @@ class AccountMove(models.Model):
                 [abs(amc) for amc in lines.mapped("amount_currency")]
             )
             total_balance_positive = sum([abs(b) for b in lines.mapped("balance")])
-            move.invoice_currency_rate = move.currency_id.round(
+            move.invoice_currency_rate = (
                 amount_currency_positive / total_balance_positive
             )
         return res
@@ -52,8 +52,6 @@ class AccountMoveLine(models.Model):
             if line.move_id.state != "posted" or not line.amount_currency:
                 continue
             line.currency_rate = (
-                line.currency_id.round(abs(line.amount_currency) / abs(line.balance))
-                if line.balance
-                else 0
+                abs(line.amount_currency) / abs(line.balance) if line.balance else 0
             )
         return res
