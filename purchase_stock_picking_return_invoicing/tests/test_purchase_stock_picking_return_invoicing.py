@@ -3,25 +3,17 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import fields
-from odoo.tests.common import TransactionCase, tagged
+from odoo.tests.common import tagged
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
 @tagged("post_install", "-at_install")
-class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
+class TestPurchaseStockPickingReturnInvoicing(BaseCommon):
     @classmethod
     def setUpClass(cls):
         """Add some defaults to let the test run without an accounts chart."""
         super().setUpClass()
-        cls.env = cls.env(
-            context=dict(
-                cls.env.context,
-                mail_create_nolog=True,
-                mail_create_nosubscribe=True,
-                mail_notrack=True,
-                no_reset_password=True,
-                tracking_disable=True,
-            )
-        )
         cls.journal = cls.env["account.journal"].create(
             {"name": "Test journal", "type": "purchase", "code": "TEST_J"}
         )
@@ -109,7 +101,7 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
         """
         # receive completely
         pick = self.po.picking_ids
-        pick.move_ids.write({"quantity_done": 5})
+        pick.move_ids.write({"quantity": 5})
         pick.button_validate()
         self.check_values(self.po_line, 0, 5, 0, 0, "to invoice")
         # Make invoice
@@ -120,10 +112,9 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
 
         # Return some items, after PO was invoiced
         return_wizard = self.env["stock.return.picking"].create({"picking_id": pick.id})
-        return_wizard._onchange_picking_id()
         return_wizard.product_return_moves.write({"quantity": 2, "to_refund": True})
-        return_pick = pick.browse(return_wizard.create_returns()["res_id"])
-        return_pick.move_ids.write({"quantity_done": 2})
+        return_pick = pick.browse(return_wizard.action_create_returns()["res_id"])
+        return_pick.move_ids.write({"quantity": 2})
         return_pick.button_validate()
         self.check_values(self.po_line, 2, 3, 0, 5, "to invoice")
         # Make refund
@@ -148,14 +139,13 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
         received and billed are correct throughout the process.
         """
         pick = self.po.picking_ids
-        pick.move_ids.write({"quantity_done": 5})
+        pick.move_ids.write({"quantity": 5})
         pick.button_validate()
         # Return some items before PO was invoiced
         return_wizard = self.env["stock.return.picking"].create({"picking_id": pick.id})
-        return_wizard._onchange_picking_id()
         return_wizard.product_return_moves.write({"quantity": 2, "to_refund": True})
-        return_pick = pick.browse(return_wizard.create_returns()["res_id"])
-        return_pick.move_ids.write({"quantity_done": 2})
+        return_pick = pick.browse(return_wizard.action_create_returns()["res_id"])
+        return_pick.move_ids.write({"quantity": 2})
         return_pick.button_validate()
         self.check_values(self.po_line, 2, 3, 0, 0, "to invoice")
         # Make invoice

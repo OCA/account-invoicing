@@ -154,7 +154,7 @@ class PurchaseOrder(models.Model):
             # Invoice_ids may be filtered depending on the user. To ensure we get all
             # invoices related to the purchase order, we read them in sudo to fill the
             # cache.
-            self.sudo()._read(["invoice_ids"])
+            self.sudo().fetch(["invoice_ids"])
             invoices = self.invoice_ids
         refunds = invoices.filtered(lambda x: x.move_type == "in_refund")
         result = self.env["ir.actions.act_window"]._for_xml_id(
@@ -183,7 +183,7 @@ class PurchaseOrder(models.Model):
             # Invoice_ids may be filtered depending on the user. To ensure we get all
             # invoices related to the purchase order, we read them in sudo to fill the
             # cache.
-            self.sudo()._read(["invoice_ids"])
+            self.sudo().fetch(["invoice_ids"])
             invoices = self.invoice_ids
         invoices = invoices.filtered(lambda x: x.move_type == "in_invoice")
         result = super().action_view_invoice(invoices)
@@ -217,7 +217,7 @@ class PurchaseOrderLine(models.Model):
             )
             line.qty_refunded = sum(
                 inv_lines.mapped(
-                    lambda x: (
+                    lambda x, line=line: (
                         x.product_uom_id._compute_quantity(x.quantity, line.product_uom)
                     )
                 )

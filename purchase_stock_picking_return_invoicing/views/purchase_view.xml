@@ -14,7 +14,7 @@
                     string="Create Refund"
                     type="object"
                     context="{'create_refund':True, 'default_move_type': 'in_refund'}"
-                    attrs="{'invisible': ['|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced'))]}"
+                    invisible="state not in ('purchase', 'done') or invoice_status in ('no', 'invoiced')"
                 />
             </button>
             <xpath
@@ -26,7 +26,7 @@
                     name="action_view_invoice_refund"
                     class="oe_stat_button"
                     icon="fa-pencil-square-o"
-                    attrs="{'invisible':['|', ('invoice_refund_count', '=', 0), ('state', 'in', ('draft','sent','to approve'))]}"
+                    invisible="invoice_refund_count == 0 or state in ('draft','sent','to approve')"
                 >
                     <field
                         name="invoice_refund_count"
@@ -37,27 +37,27 @@
                 </button>
             </xpath>
             <xpath
-                expr="//field[@name='order_line']/tree/field[@name='qty_received']"
+                expr="//field[@name='order_line']/list/field[@name='qty_received']"
                 position="after"
             >
                 <field
                     name="qty_returned"
-                    attrs="{'column_invisible': [('parent.state', 'not in', ('purchase', 'done'))]}"
+                    column_invisible="parent.state not in ('purchase', 'done')"
                 />
             </xpath>
             <xpath
-                expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']"
+                expr="//field[@name='order_line']/list/field[@name='qty_invoiced']"
                 position="after"
             >
                 <field
                     name="qty_refunded"
-                    attrs="{'column_invisible': [('parent.state', 'not in', ('purchase', 'done'))]}"
+                    column_invisible="parent.state not in ('purchase', 'done')"
                 />
             </xpath>
             <field name="move_ids" position="attributes">
                 <attribute
                     name="context"
-                >{'tree_view_ref':'stock.view_move_tree'}</attribute>
+                >{'list_view_ref':'stock.view_move_tree'}</attribute>
             </field>
         </field>
     </record>
