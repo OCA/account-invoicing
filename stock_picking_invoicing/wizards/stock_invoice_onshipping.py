@@ -528,12 +528,26 @@ class StockInvoiceOnshipping(models.TransientModel):
         invoices = self.env["account.move"].browse()
         for pickings in pick_list:
             moves = pickings.mapped("move_lines")
+            # Origin moves are set when invoicing a return picking
+            origin_moves = moves.mapped("origin_returned_move_id")
+            origin_account_move_id = False
+            if origin_moves:
+                # Core does not suport multi returns:
+                # pick first and set as invoice.reversed_entry_id
+                # TODO: check if this is approach changes in next versions
+                if pickings.get_return_origin_invoice_ids():
+                    origin_account_move_id = pickings.get_return_origin_invoice_ids()[
+                        0
+                    ].id
+
             grouped_moves_list = self._group_moves(moves)
             parts = self.ungroup_moves(grouped_moves_list)
             for moves_list in parts:
                 invoice, invoice_values = self._build_invoice_values_from_pickings(
                     pickings
                 )
+                if origin_account_move_id:
+                    invoice_values["reversed_entry_id"] = origin_account_move_id
                 lines = [(5, 0, {})]
                 line_values = False
                 for moves in moves_list:

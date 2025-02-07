@@ -45,3 +45,11 @@ class StockPicking(models.Model):
         if any(m.invoice_state == "2binvoiced" for m in self.mapped("move_lines")):
             self.write({"invoice_state": "2binvoiced"})
         return super().action_assign()
+
+    def get_return_origin_invoice_ids(self):
+        """
+        Override this method if you need to set a specific invoice to return
+        :return: invoices
+        """
+        source_picking_id = self.mapped("move_lines.origin_returned_move_id.picking_id")
+        return source_picking_id.mapped("invoice_ids")
