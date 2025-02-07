@@ -11,7 +11,7 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
     @classmethod
     def setUpClass(cls):
         """Add some defaults to let the test run without an accounts chart."""
-        super(TestPurchaseStockPickingReturnInvoicing, cls).setUpClass()
+        super().setUpClass()
         cls.env = cls.env(
             context=dict(
                 cls.env.context,

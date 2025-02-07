@@ -38,7 +38,7 @@ class PurchaseOrder(models.Model):
         It's only needed to modify the method for resetting state to
         "to invoice", as the rest of the states are already handled by super.
         """
-        res = super(PurchaseOrder, self)._get_invoiced()
+        res = super()._get_invoiced()
         for order in self.filtered(lambda x: x.state in ("purchase", "done")):
             if order._check_invoice_status_to_invoice():
                 order.invoice_status = "to invoice"
@@ -186,7 +186,7 @@ class PurchaseOrder(models.Model):
             self.sudo()._read(["invoice_ids"])
             invoices = self.invoice_ids
         invoices = invoices.filtered(lambda x: x.move_type == "in_invoice")
-        result = super(PurchaseOrder, self).action_view_invoice(invoices)
+        result = super().action_view_invoice(invoices)
         return result
 
 

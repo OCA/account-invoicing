@@ -17,28 +17,28 @@ Purchase Stock Picking Return Invoicing
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/purchase_stock_picking_return_invoicing
+    :target: https://github.com/OCA/account-invoicing/tree/18.0/purchase_stock_picking_return_invoicing
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-purchase_stock_picking_return_invoicing
+    :target: https://translation.odoo-community.org/projects/account-invoicing-18-0/account-invoicing-18-0-purchase_stock_picking_return_invoicing
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extends the functionality of purchase orders to better manage
-supplier returns and refunds.
+This module extends the functionality of purchase orders to better
+manage supplier returns and refunds.
 
 In the purchase order you are able to display, for each line:
 
-* Billed Quantity and Refunded Quantity, as separate fields.
+- Billed Quantity and Refunded Quantity, as separate fields.
+- Received Quantity and Returned Refundable Quantity, as separate
+  fields.
 
-* Received Quantity and Returned Refundable Quantity, as separate fields.
-
-You have the option to create a vendor bill or a refund. In the bill or refund
-the correct quantity will be proposed, based on those fields.
+You have the option to create a vendor bill or a refund. In the bill or
+refund the correct quantity will be proposed, based on those fields.
 
 **Table of contents**
 
@@ -48,55 +48,60 @@ the correct quantity will be proposed, based on those fields.
 Usage
 =====
 
-Case 1: When you return to a supplier some products, and you have not yet
-received the bill from the supplier
+Case 1: When you return to a supplier some products, and you have not
+yet received the bill from the supplier
 
-#. Go to *Purchases > Purchase > Purchase Orders > Create*.
-#. Choose a supplier and add a product whose *Control Purchase Bills* is
-   *On received quantities*, and input some quantity to purchase.
-#. Confirm the purchase order.
-#. Go to *Shipment > Validate > Apply* so as to receive the quantities ordered.
-#. Press the button *Return*.
-#. In the wizard *Reverse Transfer* set *Quantity* to the quantity to be
-   returned. Press *Return* to complete the wizard. **IMPORTANT**: You have to
-   mark "To refund (Update SO/PO)" check before pressing the button.
-#. On the return picking press *Validate > Apply*.
-#. Go back to the purchase order. You will notice that the field *Returned
-   Qty* is now the quantity that was returned.
-#. Press the button *Create Bill* to create the vendor bill.
-#. The proposed vendor bill will be proposed for the difference between the
-   received and the returned quantity.
+1.  Go to *Purchases > Purchase > Purchase Orders > Create*.
+2.  Choose a supplier and add a product whose *Control Purchase Bills*
+    is *On received quantities*, and input some quantity to purchase.
+3.  Confirm the purchase order.
+4.  Go to *Shipment > Validate > Apply* so as to receive the quantities
+    ordered.
+5.  Press the button *Return*.
+6.  In the wizard *Reverse Transfer* set *Quantity* to the quantity to
+    be returned. Press *Return* to complete the wizard. **IMPORTANT**:
+    You have to mark "To refund (Update SO/PO)" check before pressing
+    the button.
+7.  On the return picking press *Validate > Apply*.
+8.  Go back to the purchase order. You will notice that the field
+    *Returned Qty* is now the quantity that was returned.
+9.  Press the button *Create Bill* to create the vendor bill.
+10. The proposed vendor bill will be proposed for the difference between
+    the received and the returned quantity.
 
-Case 2: When you return to a supplier some products, and you have already
-received a bill from the supplier.
+Case 2: When you return to a supplier some products, and you have
+already received a bill from the supplier.
 
-#. Go to *Purchases > Purchase > Purchase Orders > Create*.
-#. Choose a supplier and add a product whose *Control Purchase Bills* is
-   *On received quantities*, and input some quantity to purchase.
-#. Confirm the purchase order.
-#. Go to *Shipment > Validate > Apply* so as to receive the quantities ordered.
-#. Go back to the purchase order. Press the button *Create Bill* to create
-   the vendor bill.
-#. The proposed vendor bill will be proposed for the quantity received. The
-   *Billing Status* is now 'Fully Billed'
-#. Go to the original incoming shipment
-#. Press the button *Return*.
-#. In the wizard *Reverse Transfer* set *Quantity* to the quantity to be
-   returned. Press *Return* to complete the wizard. **IMPORTANT**: You have to
-   mark "To refund (Update SO/PO)" check before pressing the button.
-#. On the return picking press *Validate > Apply*.
-#. Go back to the purchase order. It will have  *Billing Status* as 'Waiting
-   Bills'. You will notice that the field *Returned Qty* is now the quantity
-   that was returned.
-#. Press the button *Refunds* to create the vendor refund bill.
-#. The proposed vendor refund bill will be proposed for the quantity that is
-   to be refunded.
-#. If you back to the purchase order, you will notice that *Billing Status*
-   is now 'Fully Billed', even when the quantity ordered does not match
-   with the quantity invoiced, because you did return some products.
+1.  Go to *Purchases > Purchase > Purchase Orders > Create*.
+2.  Choose a supplier and add a product whose *Control Purchase Bills*
+    is *On received quantities*, and input some quantity to purchase.
+3.  Confirm the purchase order.
+4.  Go to *Shipment > Validate > Apply* so as to receive the quantities
+    ordered.
+5.  Go back to the purchase order. Press the button *Create Bill* to
+    create the vendor bill.
+6.  The proposed vendor bill will be proposed for the quantity received.
+    The *Billing Status* is now 'Fully Billed'
+7.  Go to the original incoming shipment
+8.  Press the button *Return*.
+9.  In the wizard *Reverse Transfer* set *Quantity* to the quantity to
+    be returned. Press *Return* to complete the wizard. **IMPORTANT**:
+    You have to mark "To refund (Update SO/PO)" check before pressing
+    the button.
+10. On the return picking press *Validate > Apply*.
+11. Go back to the purchase order. It will have *Billing Status* as
+    'Waiting Bills'. You will notice that the field *Returned Qty* is
+    now the quantity that was returned.
+12. Press the button *Refunds* to create the vendor refund bill.
+13. The proposed vendor refund bill will be proposed for the quantity
+    that is to be refunded.
+14. If you back to the purchase order, you will notice that *Billing
+    Status* is now 'Fully Billed', even when the quantity ordered does
+    not match with the quantity invoiced, because you did return some
+    products.
 
-Remark: If you accept that you will not claim for a refund for the quantity
-returned to the supplier, just leave without checking the mark
+Remark: If you accept that you will not claim for a refund for the
+quantity returned to the supplier, just leave without checking the mark
 "To refund (Update SO/PO)" on the return dialog.
 
 Bug Tracker
@@ -105,7 +110,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20purchase_stock_picking_return_invoicing%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20purchase_stock_picking_return_invoicing%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -113,29 +118,29 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * ForgeFlow
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Forgeflow <https://www.forgeflow.com>:
+- Forgeflow <https://www.forgeflow.com>:
 
-  * Jordi Ballester Alomar <jordi.ballester@forgeflow.com>
-  * Juany Davila <juany.davila@forgeflow.com>
+  - Jordi Ballester Alomar <jordi.ballester@forgeflow.com>
+  - Juany Davila <juany.davila@forgeflow.com>
 
-* Tecnativa <https://www.tecnativa.com>
+- Tecnativa <https://www.tecnativa.com>
 
-  * Pedro M. Baeza
+  - Pedro M. Baeza
 
-* Ecosoft <https://ecosoft.co.th>
+- Ecosoft <https://ecosoft.co.th>
 
-  * Kitti Upariphutthiphong
+  - Kitti Upariphutthiphong
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -158,6 +163,6 @@ Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-pedrobaeza| |maintainer-MiquelRForgeFlow| 
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/purchase_stock_picking_return_invoicing>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/18.0/purchase_stock_picking_return_invoicing>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
