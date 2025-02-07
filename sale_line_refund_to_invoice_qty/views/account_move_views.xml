@@ -10,7 +10,7 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
             <field name="quantity" position="after">
                 <field
                     name="sale_qty_to_reinvoice"
-                    column_invisible="parent.move_type != 'out_refund'"
+                    column_invisible="parent.move_type != 'out_refund' or not parent.sale_order_count"
                     optional="show"
                 />
             </field>
