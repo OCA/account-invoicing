@@ -17,21 +17,21 @@ Sale Line Refund To Invoice Qty
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/sale_line_refund_to_invoice_qty
+    :target: https://github.com/OCA/account-invoicing/tree/18.0/sale_line_refund_to_invoice_qty
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-sale_line_refund_to_invoice_qty
+    :target: https://translation.odoo-community.org/projects/account-invoicing-18-0/account-invoicing-18-0-sale_line_refund_to_invoice_qty
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows the user to choose whether refunded quantities in credit
-notes should be considered as quantities to be reinvoiced in the related sales,
-thus deciding if they should be added or not to the quantity to invoice of the
-related sales order line.
+This module allows the user to choose whether refunded quantities in
+credit notes should be considered as quantities to be reinvoiced in the
+related sales, thus deciding if they should be added or not to the
+quantity to invoice of the related sales order line.
 
 **Table of contents**
 
@@ -41,16 +41,17 @@ related sales order line.
 Usage
 =====
 
-When creating a credit note from an invoice, you can mark the checkbox "Not
-reinvoice refunded quantity" to prevent the refunded quantities to be deducted
-from the quantity invoiced of the related sales order lines.
+When creating a credit note from an invoice, you can mark the checkbox
+"Not reinvoice refunded quantity" to prevent the refunded quantities to
+be deducted from the quantity invoiced of the related sales order lines.
 
-Furthermore, after creating the credit note, you can mark the field "Sale qty
-not to reinvoice" to decide the criteria to be used for each specific invoice
-line.
+Furthermore, after creating the credit note, you can mark the field
+"Sale qty not to reinvoice" to decide the criteria to be used for each
+specific invoice line.
 
-Enabling the "Reinvoice credit note by default" flag in the Invoice settings, will
-enable the "This credit note will be reinvoiced" flag on Credit Notes by default.
+Enabling the "Reinvoice credit note by default" flag in the Invoice
+settings, will enable the "This credit note will be reinvoiced" flag on
+Credit Notes by default.
 
 Bug Tracker
 ===========
@@ -58,7 +59,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20sale_line_refund_to_invoice_qty%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20sale_line_refund_to_invoice_qty%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -66,19 +67,19 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * ForgeFlow
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Jordi Masvidal <jordi.masvidal@forgeflow.com>
-* Lois Rilo <lois.rilo@forgeflow.com>
-* Denis Roussel <denis.roussel@acsone.eu>
+- Jordi Masvidal <jordi.masvidal@forgeflow.com>
+- Lois Rilo <lois.rilo@forgeflow.com>
+- Denis Roussel <denis.roussel@acsone.eu>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -90,6 +91,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/sale_line_refund_to_invoice_qty>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/18.0/sale_line_refund_to_invoice_qty>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
