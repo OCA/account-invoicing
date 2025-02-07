@@ -2,18 +2,15 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from openupgradelib import openupgrade
 
-from odoo import SUPERUSER_ID, api
 
-
-def pre_init_hook(cr):
+def pre_init_hook(env):
     """
     Initialize 'sale_qty_to_reinvoice' field with sql default value
     for performances reasons as Odoo does it with an update instead.
     """
-    if openupgrade.column_exists(cr, "account_move_line", "sale_qty_to_reinvoice"):
+    if openupgrade.column_exists(env.cr, "account_move_line", "sale_qty_to_reinvoice"):
         return
 
-    env = api.Environment(cr, SUPERUSER_ID, {})
     field_spec = [
         (
             "sale_qty_to_reinvoice",

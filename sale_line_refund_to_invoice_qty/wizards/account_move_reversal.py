@@ -23,11 +23,9 @@ class AccountMoveReversal(models.TransientModel):
         res["sale_qty_to_reinvoice"] = company.reinvoice_credit_note_default
         return res
 
-    def reverse_moves(self):
-        sale_qty_to_reinvoice = (
-            True if self.refund_method == "modify" else self.sale_qty_to_reinvoice
-        )
+    def reverse_moves(self, is_modify=False):
+        sale_qty_to_reinvoice = True if is_modify else self.sale_qty_to_reinvoice
         return super(
             AccountMoveReversal,
             self.with_context(sale_qty_to_reinvoice=sale_qty_to_reinvoice),
-        ).reverse_moves()
+        ).reverse_moves(is_modify=is_modify)
