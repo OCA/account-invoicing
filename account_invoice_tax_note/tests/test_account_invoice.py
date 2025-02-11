@@ -49,7 +49,8 @@ class TestAccountInvoice(TransactionCase):
         self.product1.write({"taxes_id": [(6, False, self.tax1.ids)]})
         self.product2.write({"taxes_id": [(6, False, self.tax2.ids)]})
         account = self.env["account.account"].search(
-            [("account_type", "=", "income")], limit=1
+            [("account_type", "=", "income"), ("company_id", "=", self.env.company.id)],
+            limit=1,
         )
         account.write({"tax_ids": [(4, self.tax1.id, False), (4, self.tax2.id, False)]})
         journal = self.env["account.journal"].create(
