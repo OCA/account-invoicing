@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="mt_invoice_new" model="mail.message.subtype">
+        <field name="name">Invoice Created</field>
+        <field name="res_model">res.partner</field>
+        <field name="default" eval="False" />
+    </record>
+</odoo>
