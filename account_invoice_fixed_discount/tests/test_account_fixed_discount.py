@@ -144,3 +144,11 @@ class TestInvoiceFixedDiscount(TransactionCase):
             price_unit=10,
             currency=1,
         )
+
+    def test_null_price(self):
+        with Form(self.invoice) as invoice_form:
+            with invoice_form.invoice_line_ids.edit(0) as line:
+                line.discount_fixed = 5.00
+                line.price_unit = 0
+
+        self.assertEqual(self.invoice.amount_total, 0)
