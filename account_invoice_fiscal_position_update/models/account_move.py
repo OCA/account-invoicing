@@ -23,7 +23,14 @@ class AccountMove(models.Model):
             if not line.product_id:
                 lines_without_product |= line
             else:
+                # Preserve the subtotal when converting from tax incl to excl
+                price_unit = line.product_id._get_tax_included_unit_price_from_price(
+                    line.price_unit,
+                    line.tax_ids,
+                    fiscal_position=line.move_id.fiscal_position_id,
+                )
                 line._compute_tax_ids()
+                line.price_unit = price_unit
                 line._compute_account_id()
         if lines_without_product:
             res["warning"] = {"title": _("Warning")}
