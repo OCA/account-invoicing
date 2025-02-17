@@ -8,7 +8,6 @@ from odoo.tools import float_is_zero
 
 
 class AccountMove(models.Model):
-
     _inherit = "account.move"
 
     alternate_payer_id = fields.Many2one(
@@ -145,7 +144,6 @@ class AccountMove(models.Model):
 
 
 class AccountMoveLine(models.Model):
-
     _inherit = "account.move.line"
 
     def write(self, values):
