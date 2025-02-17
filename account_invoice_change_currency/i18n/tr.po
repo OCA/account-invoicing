@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2025-02-17 20:06+0000\n"
+"Last-Translator: Ahmet Yiğit Budak <yigit@altinkaya.com>\n"
 "Language-Team: none\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: account_invoice_change_currency
 #: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.view_move_form
@@ -20,6 +22,8 @@ msgid ""
 "<i title=\"Update Currency: Will convert the amount lines to the new "
 "currency set\" class=\"fa fa-fw fa-refresh\"/>"
 msgstr ""
+"<i title=\"Para Birimini Değiştir: Satır miktarları yeni para birimine göre "
+"çevrilecektir\" class=\"fa fa-fw fa-refresh\"/>"
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,help:account_invoice_change_currency.field_account_bank_statement_line__is_original_currency
@@ -29,11 +33,13 @@ msgid ""
 "Check if current currency is the original currency. This is used to hide "
 "custom rate field in the form view."
 msgstr ""
+"Geçerli para biriminin mevcut para birimi olup olmadığını kontrol et. Bu, "
+"form görünümünde özel kur alanını gizlemek için kullanılır."
 
 #. module: account_invoice_change_currency
 #: model:ir.model,name:account_invoice_change_currency.model_res_currency
 msgid "Currency"
-msgstr ""
+msgstr "Para Birimi"
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_bank_statement_line__custom_rate
@@ -41,36 +47,36 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_payment__custom_rate
 #: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.view_move_form
 msgid "Custom Rate"
-msgstr ""
+msgstr "Özel Kur"
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_bank_statement_line__is_original_currency
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_move__is_original_currency
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_payment__is_original_currency
 msgid "Is Original Currency"
-msgstr ""
+msgstr "Mevcut Para Birimi Mi"
 
 #. module: account_invoice_change_currency
 #: model:ir.model,name:account_invoice_change_currency.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Yevmiye Kaydı"
 
 #. module: account_invoice_change_currency
 #: model:ir.model,name:account_invoice_change_currency.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Yevmiye Kalemi"
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_bank_statement_line__original_currency_id
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_move__original_currency_id
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_payment__original_currency_id
 msgid "Original Currency"
-msgstr ""
+msgstr "Şu Anki Para Birimi"
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,field_description:account_invoice_change_currency.field_account_move_line__original_price_unit
 msgid "Original Price Unit"
-msgstr ""
+msgstr "Şu Anki Birim Fiyatı"
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,help:account_invoice_change_currency.field_account_bank_statement_line__custom_rate
@@ -80,6 +86,9 @@ msgid ""
 "Set new currency rate to apply on the invoice.\n"
 "This rate will be taken in order to convert amounts between the currency on the invoice and last currency"
 msgstr ""
+"Faturada uygulanacak yeni döviz kurunu ayarlayın.\n"
+"Bu kur, faturadaki para birimi ile son para birimi arasındaki tutarları "
+"dönüştürmek için kullanılacaktır"
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,help:account_invoice_change_currency.field_account_move_line__original_price_unit
@@ -88,6 +97,9 @@ msgid ""
 "conversion is called for the first time to use it to convert the amount in "
 "the new currency."
 msgstr ""
+"Fatura oluşturulduğunda veya dönüştürme ilk kez çağrıldığında, tutarı yeni "
+"para birimine dönüştürmek için kullanmak üzere her satırdaki fiyat birimini "
+"depolayın."
 
 #. module: account_invoice_change_currency
 #: model:ir.model.fields,help:account_invoice_change_currency.field_account_bank_statement_line__original_currency_id
@@ -98,8 +110,10 @@ msgid ""
 " called for the first time. This is used to calculate conversion from this "
 "currency."
 msgstr ""
+"Fatura oluşturulduğunda veya dönüştürme ilk kez çağrıldığında orijinal para "
+"birimini depolar. Bu para biriminden dönüştürmeyi hesaplamak için kullanılır."
 
 #. module: account_invoice_change_currency
 #: model_terms:ir.ui.view,arch_db:account_invoice_change_currency.view_move_form
 msgid "Update Currency"
-msgstr ""
+msgstr "Para Birimini Değiştir"
