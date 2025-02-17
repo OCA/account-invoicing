@@ -9,8 +9,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged("post_install", "-at_install")
 class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.in_invoice = cls.init_invoice("in_invoice", products=cls.product_b)
         cls.out_invoice = cls.init_invoice("out_invoice", products=cls.product_a)
         cls.in_invoice_02 = cls.init_invoice("in_invoice", products=cls.product_a)
@@ -212,7 +212,7 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         payment_move.action_post()
         self.assertFalse(self.in_invoice.invoice_has_outstanding)
         self.in_invoice._post()
-        self.in_invoice._invalidate_cache()
+        self.in_invoice.invalidate_recordset()
         self.assertTrue(self.in_invoice.invoice_has_outstanding)
 
     def test_08_payment_widget_out_invoices(self):
@@ -251,5 +251,5 @@ class TestAccountInvoiceAlternateCommercialPartner(AccountTestInvoicingCommon):
         payment_move.action_post()
         self.assertFalse(self.out_invoice.invoice_has_outstanding)
         self.out_invoice._post()
-        self.out_invoice._invalidate_cache()
+        self.out_invoice.invalidate_recordset()
         self.assertTrue(self.out_invoice.invoice_has_outstanding)

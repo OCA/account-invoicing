@@ -9,27 +9,15 @@ class AccountPayment(models.Model):
 
     @api.model
     def default_get(self, default_fields):
-        rec = super().default_get(default_fields)
+        res = super().default_get(default_fields)
         if self.env.context.get("active_model") != "account.move":
-            return rec
-        active_ids = self._context.get("active_ids")
+            return res
+        active_ids = self.env.context.get("active_ids")
         invoices = (
             self.env["account.move"]
             .browse(active_ids)
             .filtered(lambda move: move.is_invoice(include_receipts=True))
         )
         if invoices and invoices[0].alternate_payer_id:
-            rec.update({"partner_id": invoices[0].alternate_payer_id.id})
-        return rec
-
-
-class AccountPaymentRegister(models.TransientModel):
-    _inherit = "account.payment.register"
-
-    def _prepare_payment_vals(self, invoices):
-        res = super()._prepare_payment_vals(invoices)
-        payer_id = (
-            invoices[0].alternate_payer_id.id or invoices[0].commercial_partner_id.id
-        )
-        res["partner_id"] = payer_id
+            res.update({"partner_id": invoices[0].alternate_payer_id.id})
         return res

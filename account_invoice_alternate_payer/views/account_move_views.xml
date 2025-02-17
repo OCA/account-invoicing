@@ -5,8 +5,11 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-            <field name="partner_id" position="after">
-                <field name="alternate_payer_id" string="Alternate Payer" />
+            <field name="partner_shipping_id" position="before">
+                <label for="alternate_payer_id" class="fw-bold" />
+                <div class="o_col">
+                    <field name="alternate_payer_id" readonly="state != 'draft'" />
+                </div>
             </field>
         </field>
     </record>

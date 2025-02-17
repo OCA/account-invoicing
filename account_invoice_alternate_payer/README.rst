@@ -71,6 +71,10 @@ Contributors
 
    -  Jordi Ballester Alomar <jordi.ballester@eficent.com>
 
+-  Trobz (https://www.trobz.com)
+
+   -  Do Anh Duy <duyda@trobz.com>
+
 Maintainers
 -----------
 
