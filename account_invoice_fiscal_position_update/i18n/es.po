@@ -22,14 +22,12 @@ msgstr ""
 #. module: account_invoice_fiscal_position_update
 #: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_bank_statement_line__fiscal_position_id
 #: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_move__fiscal_position_id
-#: model:ir.model.fields,field_description:account_invoice_fiscal_position_update.field_account_payment__fiscal_position_id
 msgid "Fiscal Position"
 msgstr "Posición Fiscal"
 
 #. module: account_invoice_fiscal_position_update
 #: model:ir.model.fields,help:account_invoice_fiscal_position_update.field_account_bank_statement_line__fiscal_position_id
 #: model:ir.model.fields,help:account_invoice_fiscal_position_update.field_account_move__fiscal_position_id
-#: model:ir.model.fields,help:account_invoice_fiscal_position_update.field_account_payment__fiscal_position_id
 msgid ""
 "Fiscal positions are used to adapt taxes and accounts for particular "
 "customers or sales orders/invoices. The default value comes from the "
@@ -47,7 +45,6 @@ msgstr "Asiento contable"
 #. module: account_invoice_fiscal_position_update
 #. odoo-python
 #: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
-#, python-format
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position "
 "because they don't have a Product:\n"
@@ -62,7 +59,6 @@ msgstr ""
 #. module: account_invoice_fiscal_position_update
 #. odoo-python
 #: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
-#, python-format
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they "
 "don't have products. You should update the Account and the Taxes of each "
@@ -75,7 +71,6 @@ msgstr ""
 #. module: account_invoice_fiscal_position_update
 #. odoo-python
 #: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
-#, python-format
 msgid "Warning"
 msgstr "Aviso"
 
