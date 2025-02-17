@@ -42,6 +42,7 @@ class TestAccountInvoicePayconiq(SavepointCase):
         cls.company = cls.env["res.company"].create(
             {
                 "name": "Lux Company",
+                "qr_code": True,
             }
         )
         cls.env["account.chart.template"].browse(1).with_company(
