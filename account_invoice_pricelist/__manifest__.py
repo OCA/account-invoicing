@@ -2,7 +2,7 @@
 
 {
     "name": "Account - Pricelist on Invoices",
-    "version": "17.0.1.0.1",
+    "version": "18.0.1.0.0",
     "summary": "Add partner pricelist on invoices",
     "category": "Accounting & Finance",
     "author": "GRAP," "Therp BV," "Tecnativa," "Odoo Community Association (OCA)",

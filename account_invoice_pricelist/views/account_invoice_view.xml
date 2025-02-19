@@ -21,7 +21,7 @@
                 <attribute name="readonly">pricelist_id</attribute>
             </xpath>
             <xpath
-                expr="//group[@id='header_right_group']/field[@name='currency_id']"
+                expr="//div[@name='currency_conversion_div']/field[@name='currency_id']"
                 position="attributes"
             >
                 <attribute name="readonly">pricelist_id</attribute>
