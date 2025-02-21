@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-20 12:06+0000\n"
+"PO-Revision-Date: 2025-02-21 18:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -320,7 +320,7 @@ msgstr "Bozza fatturazione"
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__threshold_date
 #: model:ir.model.fields.selection,name:account_billing.selection__account_billing__threshold_date_type__invoice_date_due
 msgid "Due Date"
-msgstr "Data scadenza"
+msgstr "Scadenza"
 
 #. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing__date
