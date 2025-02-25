@@ -1,0 +1,1 @@
+odoo-addon-account_invoice_refund_reason @ git+https://github.com/OCA/account-invoicing.git@refs/pull/1925/head#subdirectory=account_invoice_refund_reason
