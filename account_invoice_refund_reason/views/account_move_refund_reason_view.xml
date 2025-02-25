@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="account_invoice_refund_reasons_search" model="ir.ui.view">
         <field name="name">account.move.refund.reason.search</field>
         <field name="model">account.move.refund.reason</field>
@@ -67,5 +66,4 @@
         action="refund_reason_action"
         sequence="10"
     />
-
 </odoo>
