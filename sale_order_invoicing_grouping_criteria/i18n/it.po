@@ -42,11 +42,6 @@ msgid "Created on"
 msgstr "Creato il"
 
 #. module: sale_order_invoicing_grouping_criteria
-#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
-msgid "Default Grouping Criteria"
-msgstr "Criteri di raggruppamento predefiniti"
-
-#. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_company__default_sale_invoicing_grouping_criteria_id
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_config_settings__res_default_sale_invoicing_grouping_criteria_id
 msgid "Default Sales Invoicing Grouping Criteria"
@@ -113,6 +108,11 @@ msgid "Name"
 msgstr "Nome"
 
 #. module: sale_order_invoicing_grouping_criteria
+#: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.view_partner_property_form
+msgid "Sale Invoicing Grouping Criteria"
+msgstr ""
+
+#. module: sale_order_invoicing_grouping_criteria
 #: model:ir.actions.act_window,name:sale_order_invoicing_grouping_criteria.action_sale_invoice_grouping_criteria
 #: model:ir.model,name:sale_order_invoicing_grouping_criteria.model_sale_invoicing_grouping_criteria
 #: model:ir.model.fields,field_description:sale_order_invoicing_grouping_criteria.field_res_partner__sale_invoicing_grouping_criteria_id
@@ -130,6 +130,9 @@ msgstr "Ordine di vendita"
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
 msgid "Sales Order Invoicing"
 msgstr "Fatturazione degli ordini di vendita"
+
+#~ msgid "Default Grouping Criteria"
+#~ msgstr "Criteri di raggruppamento predefiniti"
 
 #~ msgid "Last Modified on"
 #~ msgstr "Ultima modifica il"
