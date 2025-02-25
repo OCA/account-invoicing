@@ -45,12 +45,11 @@ Configuration
 Usage
 =====
 
--  Go to *Accounting > Customers > Invoices* (or *Accounting > Vendors >
-   Bills*)
+-  Go to *Invoicing (Accounting) > Customers > Invoices* (or *Invoicing
+   (Accounting) > Vendors > Bills*)
 -  Select an open invoice
--  Click on "Add Credit Note"
+-  Click on "Credit Note"
 -  In the wizard, select the reason and add the credit note
--  In the pivot view, group customer invoices by Reason
 
 Bug Tracker
 ===========
@@ -85,6 +84,7 @@ Contributors
 
 -  Christopher Ormaza <chris.ormaza@forgeflow.com>
 -  BT-anieto <alberto.nieto@braintec.com> (https://braintec.com)
+-  Do Anh Duy <duyda@trobz.com>
 
 Maintainers
 -----------

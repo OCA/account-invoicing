@@ -5,3 +5,4 @@
   - Chanakya Soni \<<chanakya.soni@serpentcs.com>\>
 - Christopher Ormaza \<<chris.ormaza@forgeflow.com>\>
 - BT-anieto \<<alberto.nieto@braintec.com>\> (<https://braintec.com>)
+- Do Anh Duy \<<duyda@trobz.com>\>
