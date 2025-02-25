@@ -81,7 +81,7 @@ class TestAccountMoveCancelConfirm(TransactionCase):
         payment = payment_register_form.save()
         payment.action_create_payments()
         payment = self.payment_model.search([], order="id desc", limit=1)
-        self.assertEqual(payment.state, "posted")
+        self.assertEqual(payment.state, "paid")
         # Click cance, cancel confirm wizard will open. Type in cancel_reason
         res = payment.action_cancel()
         ctx = res.get("context")
@@ -93,7 +93,7 @@ class TestAccountMoveCancelConfirm(TransactionCase):
         # Confirm cancel on wizard
         wiz.confirm_cancel()
         self.assertEqual(payment.cancel_reason, wizard.cancel_reason)
-        self.assertEqual(payment.state, "cancel")
+        self.assertEqual(payment.state, "canceled")
         # Set to draft
         payment.action_draft()
         self.assertEqual(payment.cancel_reason, False)
