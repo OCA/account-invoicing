@@ -1,33 +1,36 @@
 # Copyright 2022 ForgeFlow S.L. (https://www.forgeflow.com)
 # Part of ForgeFlow. See LICENSE file for full copyright and licensing details.
 
-from odoo.tests.common import Form, TransactionCase
+from odoo.tests import Form, tagged
+from odoo.tests.common import TransactionCase
 
 
+@tagged("-at_install", "post_install")
 class TestAccountInvoiceRefundReasonSkipAngloSaxon(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.partner = self.env["res.partner"].create({"name": "Test partner"})
-        self.sale_journal = self.env["account.journal"].search(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
+        cls.sale_journal = cls.env["account.journal"].search(
             [("type", "=", "sale")], limit=1
         )
-        self.fifo_category = self.env["product.category"].create(
+        cls.fifo_category = cls.env["product.category"].create(
             {
                 "name": "test_product_ctg",
                 "property_valuation": "real_time",
                 "property_cost_method": "fifo",
             }
         )
-        self.product = self.env["product.product"].create(
+        cls.product = cls.env["product.product"].create(
             {
                 "name": "Fifo Product",
                 "list_price": 15.0,
                 "standard_price": 10.0,
-                "categ_id": self.fifo_category.id,
-                "type": "product",
+                "categ_id": cls.fifo_category.id,
+                "is_storable": True,
             }
         )
-        self.refund_reason_skip_anglo_saxon = self.env[
+        cls.refund_reason_skip_anglo_saxon = cls.env[
             "account.move.refund.reason"
         ].create(
             {
@@ -35,7 +38,7 @@ class TestAccountInvoiceRefundReasonSkipAngloSaxon(TransactionCase):
                 "skip_anglo_saxon_entries": True,
             }
         )
-        self.refund_reason_not_skip_anglo_saxon = self.env[
+        cls.refund_reason_not_skip_anglo_saxon = cls.env[
             "account.move.refund.reason"
         ].create(
             {
@@ -89,8 +92,5 @@ class TestAccountInvoiceRefundReasonSkipAngloSaxon(TransactionCase):
         reversal_wizard = reversal_form.save()
         action = reversal_wizard.reverse_moves()
         refund = self.env["account.move"].browse(action.get("res_id"))
-        # FIXME: until Open PR get cherry-pick
-        #  proposed by MiquelRForgeFlow, I put reason manually
-        refund.reason_id = self.refund_reason_skip_anglo_saxon.id
         refund.action_post()
         self.assertFalse(refund.line_ids.filtered(lambda x: x.display_type == "cogs"))
