@@ -66,13 +66,12 @@ class TestAccountInvoiceRefundReason(TransactionCase):
             )
         )
 
-    def create_refund_wizard(self, active_ids=None, **values):
+    def create_refund_wizard(self, active_ids=None, refund_method="refund", **values):
         """Helper function to create a refund wizard"""
         if not active_ids:
             active_ids = self.account_invoice_customer0.ids
 
         create_values = dict(
-            refund_method="refund",
             date=datetime.date.today(),
             reason_id=self.reason_id.id,
             journal_id=self.account_invoice_customer0.journal_id.id,
@@ -81,6 +80,10 @@ class TestAccountInvoiceRefundReason(TransactionCase):
         account_invoice_refund = self.invoice_refund_obj.with_context(
             active_model="account.move", active_ids=active_ids
         ).create(create_values)
+        if refund_method == "refund":
+            account_invoice_refund.refund_moves()
+        else:
+            account_invoice_refund.modify_moves()
         self.assertEqual(
             account_invoice_refund.reason,
             account_invoice_refund.reason_id.name,
@@ -91,14 +94,14 @@ class TestAccountInvoiceRefundReason(TransactionCase):
         self.account_invoice_customer0.action_post()
         self.account_invoice_refund_0 = self.create_refund_wizard()
         self.account_invoice_refund_0.reverse_moves()
-        reversal_move = self.account_invoice_customer0.reversal_move_id
-        self.assertEqual(reversal_move.reason_id.id, self.reason_id.id)
+        reversal_move = self.account_invoice_customer0.reversal_move_ids
+        self.assertEqual(reversal_move.reason_id.ids, self.reason_id.ids)
 
     def test_invoice_with_several_refunds(self):
         self.account_invoice_customer0.action_post()
         self.account_invoice_refund_0 = self.create_refund_wizard()
         self.account_invoice_refund_0.reverse_moves()
-        reversal_move = self.account_invoice_customer0.reversal_move_id
+        reversal_move = self.account_invoice_customer0.reversal_move_ids
         self.assertEqual(reversal_move.reason_id.id, self.reason_id.id)
 
         self.account_invoice_refund_1 = self.create_refund_wizard(
@@ -106,7 +109,7 @@ class TestAccountInvoiceRefundReason(TransactionCase):
         )
         self.account_invoice_refund_1.reverse_moves()
         reversal_move_2 = (
-            self.account_invoice_customer0.reversal_move_id - reversal_move
+            self.account_invoice_customer0.reversal_move_ids - reversal_move
         )
         self.assertEqual(reversal_move.reason_id.id, self.reason_id.id)
         self.assertEqual(reversal_move_2.reason_id.id, self.other_reason_id.id)
@@ -117,7 +120,7 @@ class TestAccountInvoiceRefundReason(TransactionCase):
             refund_method="modify"
         )
         self.account_invoice_refund_0.reverse_moves()
-        reversal_move = self.account_invoice_customer0.reversal_move_id
+        reversal_move = self.account_invoice_customer0.reversal_move_ids
         self.assertEqual(reversal_move.reason_id.id, self.reason_id.id)
 
     def test_invoice_refund_several_invoices(self):
@@ -140,7 +143,7 @@ class TestAccountInvoiceRefundReason(TransactionCase):
             ]
         )
         self.account_invoice_refund_0_1.reverse_moves()
-        reversal_move0 = self.account_invoice_customer0.reversal_move_id
+        reversal_move0 = self.account_invoice_customer0.reversal_move_ids
         self.assertEqual(reversal_move0.reason_id.id, self.reason_id.id)
-        reversal_move1 = self.account_invoice_customer1.reversal_move_id
+        reversal_move1 = self.account_invoice_customer1.reversal_move_ids
         self.assertEqual(reversal_move1.reason_id.id, self.reason_id.id)
