@@ -5,7 +5,6 @@ from odoo import models
 
 
 class AccountMove(models.Model):
-
     _inherit = "account.move"
 
     def _stock_account_prepare_anglo_saxon_out_lines_vals(self):

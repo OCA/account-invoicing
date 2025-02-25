@@ -6,7 +6,7 @@ from odoo.tests.common import Form, TransactionCase
 
 class TestAccountInvoiceRefundReasonSkipAngloSaxon(TransactionCase):
     def setUp(self):
-        super(TestAccountInvoiceRefundReasonSkipAngloSaxon, self).setUp()
+        super().setUp()
         self.partner = self.env["res.partner"].create({"name": "Test partner"})
         self.sale_journal = self.env["account.journal"].search(
             [("type", "=", "sale")], limit=1

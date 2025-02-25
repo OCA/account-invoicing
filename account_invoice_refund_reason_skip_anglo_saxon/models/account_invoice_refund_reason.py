@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class AccountInvoiceRefundReason(models.Model):
-
     _inherit = "account.move.refund.reason"
 
     skip_anglo_saxon_entries = fields.Boolean(
