@@ -7,6 +7,4 @@ from odoo import fields, models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    reason_id = fields.Many2one(
-        "account.move.refund.reason", string="Refund Reason", readonly=True
-    )
+    reason_id = fields.Many2one("account.move.refund.reason", string="Refund Reason")

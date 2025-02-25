@@ -18,10 +18,10 @@ class AccountMoveReversal(models.TransientModel):
             if record.reason_id:
                 record.reason = record.reason_id.name
 
-    def reverse_moves(self):
+    def reverse_moves(self, is_modify=False):
         """Overriden to set the reason_id fields in the new created refunds"""
-        res = super().reverse_moves()
-        self.move_ids.mapped("reversal_move_id").filtered(
-            lambda x: not x.reason_id
-        ).write({"reason_id": self.reason_id.id})
+        res = super().reverse_moves(is_modify=is_modify)
+        self.move_ids.reversal_move_ids.filtered(lambda x: not x.reason_id).write(
+            {"reason_id": self.reason_id.id}
+        )
         return res

@@ -9,10 +9,7 @@
                 expr="//group[@name='sale_info_group']/field[@name='ref']"
                 position="after"
             >
-                <field
-                    name="reason_id"
-                    attrs="{'invisible': [('reason_id', '=', False)]}"
-                />
+                <field name="reason_id" invisible="not reason_id" readonly="1" />
             </xpath>
         </field>
     </record>

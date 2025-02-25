@@ -25,8 +25,8 @@
                     <widget
                         name="web_ribbon"
                         title="Archived"
-                        bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
+                        bg_color="text-bg-danger"
+                        invisible="active"
                     />
                     <div class="oe_title">
                         <label class="oe_edit_only" for="name" string="Reason Name" />
@@ -35,7 +35,6 @@
                         </h1>
                     </div>
                     <group>
-                        <field name="active" invisible="1" />
                         <field name="description" />
                     </group>
                 </sheet>
@@ -44,19 +43,19 @@
     </record>
 
     <record id="view_account_invoice_refund_reason_tree" model="ir.ui.view">
-        <field name="name">account.move.refund.reason.tree</field>
+        <field name="name">account.move.refund.reason.list</field>
         <field name="model">account.move.refund.reason</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="refund_reason_action" model="ir.actions.act_window">
         <field name="name">Refund Reasons</field>
         <field name="res_model">account.move.refund.reason</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem
