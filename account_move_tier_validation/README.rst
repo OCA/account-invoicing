@@ -63,11 +63,11 @@ To use this module, you need to:
 
 Additional features:
 
--  You can filter the Account Invoices requesting your review through
-   the filter Needs my Review.
--  User with rights to confirm the Account Invoice (validate all tiers
-   that would be generated) can directly do the operation, this is,
-   there is no need for her/him to request a validation.
+- You can filter the Account Invoices requesting your review through the
+  filter Needs my Review.
+- User with rights to confirm the Account Invoice (validate all tiers
+  that would be generated) can directly do the operation, this is, there
+  is no need for her/him to request a validation.
 
 Bug Tracker
 ===========
@@ -90,11 +90,11 @@ Authors
 Contributors
 ------------
 
--  Odoo Perú <info@odooperu.pe>
--  Tharathip Chaweewongphan <tharathipc@ecosoft.co.th>
--  `360ERP <https://www.360erp.com>`__:
+- Odoo Perú <info@odooperu.pe>
+- Tharathip Chaweewongphan <tharathipc@ecosoft.co.th>
+- `360ERP <https://www.360erp.com>`__:
 
-   -  Kevin Khao <kevinkhao@gmail.com>
+  - Kevin Khao <kevinkhao@gmail.com>
 
 Maintainers
 -----------
