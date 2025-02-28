@@ -1,6 +1,7 @@
 # Copyright 2018 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.tests.common import Form, TransactionCase, tagged
+from odoo.tests import Form
+from odoo.tests.common import TransactionCase, tagged
 
 
 @tagged("post_install", "-at_install")
@@ -18,23 +19,24 @@ class TestSaleOrderLineInput(TransactionCase):
                 tracking_disable=True,
             )
         )
-        if not cls.env.company.chart_template_id:
-            # Load a CoA if there's none in current company
-            coa = cls.env.ref("l10n_generic_coa.configurable_chart_template", False)
-            if not coa:
-                # Load the first available CoA
-                coa = cls.env["account.chart.template"].search(
-                    [("visible", "=", True)], limit=1
-                )
-            coa.try_loading(company=cls.env.company, install_demo=False)
         cls.partner = cls.env["res.partner"].create(
             {"name": "Test", "customer_rank": 1, "supplier_rank": 1}
         )
         cls.product = cls.env["product.product"].create(
-            {"name": "test_product", "type": "product", "invoice_policy": "delivery"}
+            {
+                "name": "test_product",
+                "type": "consu",
+                "is_storable": True,
+                "invoice_policy": "delivery",
+            }
         )
         cls.product2 = cls.env["product.product"].create(
-            {"name": "test_product_2", "type": "product", "invoice_policy": "delivery"}
+            {
+                "name": "test_product_2",
+                "type": "consu",
+                "is_storable": True,
+                "invoice_policy": "delivery",
+            }
         )
         with Form(cls.env["sale.order"]) as order_form:
             order_form.partner_id = cls.partner
@@ -50,7 +52,7 @@ class TestSaleOrderLineInput(TransactionCase):
         move_line_vals_list = []
         for move in cls.picking.move_ids:
             move_line_vals = move._prepare_move_line_vals()
-            move_line_vals["qty_done"] = 1
+            move_line_vals["quantity"] = 1
             move_line_vals_list.append(move_line_vals)
         cls.env["stock.move.line"].create(move_line_vals_list)
         cls.picking.button_validate()
@@ -73,8 +75,10 @@ class TestSaleOrderLineInput(TransactionCase):
 
     def test_return_to_refund_values(self):
         return_wizard = self.return_picking_wiz(self.picking)
-        return_pick = self.picking.browse(return_wizard.create_returns()["res_id"])
-        return_pick.move_line_ids.write({"qty_done": 1.0})
+        return_pick = self.picking.browse(
+            return_wizard.action_create_returns()["res_id"]
+        )
+        return_pick.move_line_ids.write({"quantity": 1.0})
         return_pick.button_validate()
         self.assertEqual(return_pick.to_refund_lines, "no_refund")
         return_pick.move_ids.write({"to_refund": True})
@@ -85,8 +89,10 @@ class TestSaleOrderLineInput(TransactionCase):
     def test_return_so_wo_to_refund(self):
         # Return some items, after SO was invoiced
         return_wizard = self.return_picking_wiz(self.picking)
-        return_pick = self.picking.browse(return_wizard.create_returns()["res_id"])
-        return_pick.move_line_ids.write({"qty_done": 1.0})
+        return_pick = self.picking.browse(
+            return_wizard.action_create_returns()["res_id"]
+        )
+        return_pick.move_line_ids.write({"quantity": 1.0})
         return_pick.button_validate()
         self.assertEqual(self.order.invoice_status, "invoiced")
 
@@ -113,15 +119,17 @@ class TestSaleOrderLineInput(TransactionCase):
         po_order.button_confirm()
         picking = po_order.picking_ids[:]
         move_line_vals = picking.move_ids._prepare_move_line_vals()
-        move_line_vals["qty_done"] = 1
+        move_line_vals["quantity"] = 1
         self.env["stock.move.line"].create(move_line_vals)
         picking.button_validate()
         self.assertEqual(po_order.invoice_status, "to invoice")
         # Return the picking without refund
         return_wizard = self.return_picking_wiz(picking)
-        return_pick = self.picking.browse(return_wizard.create_returns()["res_id"])
+        return_pick = self.picking.browse(
+            return_wizard.action_create_returns()["res_id"]
+        )
         move_line_vals = return_pick.move_ids._prepare_move_line_vals()
-        move_line_vals["qty_done"] = 1
+        move_line_vals["quantity"] = 1
         self.env["stock.move.line"].create(move_line_vals)
         return_pick.button_validate()
         # Now set to be refunded

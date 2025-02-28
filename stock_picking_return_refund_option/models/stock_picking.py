@@ -38,10 +38,9 @@ class StockPicking(models.Model):
             All lines to False.
             Each line to original value selected in return wizard by user.
         """
-        for picking in self:
-            picking._update_stock_moves()
-            picking.set_delivered_qty()
-            picking.set_received_qty()
+        self._update_stock_moves()
+        self.set_delivered_qty()
+        self.set_received_qty()
 
     def _compute_is_return(self):
         for picking in self:

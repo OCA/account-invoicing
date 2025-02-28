@@ -9,8 +9,6 @@ class StockMove(models.Model):
     def write(self, vals):
         res = super().write(vals)
         if "to_refund" in vals:
-            for move in self:
-                if move.picking_id:
-                    move.picking_id.set_delivered_qty()
-                    move.picking_id.set_received_qty()
+            self.picking_id.set_delivered_qty()
+            self.picking_id.set_received_qty()
         return res
