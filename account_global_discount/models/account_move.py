@@ -252,8 +252,9 @@ class AccountMove(models.Model):
         )
         if gbl_disc_lines:
             move_container = {"records": self}
-            with self._check_balanced(move_container), self._sync_dynamic_lines(
-                move_container
+            with (
+                self._check_balanced(move_container),
+                self._sync_dynamic_lines(move_container),
             ):
                 gbl_disc_lines.unlink()
 
