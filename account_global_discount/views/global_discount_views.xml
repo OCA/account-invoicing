@@ -10,7 +10,7 @@
                 <field
                     name="account_id"
                     required="1"
-                    domain="[('company_id', '=', company_id)]"
+                    domain="[('company_ids', 'in', [company_id])]"
                 />
                 <field
                     domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"
@@ -28,7 +28,7 @@
                 <field
                     name="account_id"
                     required="1"
-                    domain="[('company_id', '=', company_id)]"
+                    domain="[('company_ids', 'in', [company_id])]"
                 />
                 <field
                     domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]"

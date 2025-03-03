@@ -2,7 +2,7 @@
 # Copyright 2020-2021 Tecnativa - Pedro M. Baeza
 # Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import _, api, exceptions, fields, models
+from odoo import api, exceptions, fields, models
 from odoo.tools import config
 
 
@@ -217,10 +217,10 @@ class AccountMove(models.Model):
         )
 
     @api.depends(
-        "line_ids.matched_debit_ids.debit_move_id.move_id.payment_id.is_matched",
+        "line_ids.matched_debit_ids.debit_move_id.move_id.origin_payment_id.is_matched",
         "line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual",
         "line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual_currency",
-        "line_ids.matched_credit_ids.credit_move_id.move_id.payment_id.is_matched",
+        "line_ids.matched_credit_ids.credit_move_id.move_id.origin_payment_id.is_matched",
         "line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual",
         "line_ids.matched_credit_ids.credit_move_id.move_id.line_ids.amount_residual_currency",
         "line_ids.balance",
@@ -245,8 +245,6 @@ class AccountMove(models.Model):
         gbl_disc_lines = self.env["account.move.line"].search(
             [
                 ("move_id", "=", self.id),
-                "|",
-                ("global_discount_item", "=", True),
                 ("invoice_global_discount_id", "!=", False),
             ]
         )
@@ -296,14 +294,14 @@ class AccountMove(models.Model):
                     continue
                 if not inv_line.tax_ids and test_condition:
                     raise exceptions.UserError(
-                        _("With global discounts, taxes in lines are required.")
+                        self.env._("With global discounts, taxes in lines are required")
                     )
                 for key in taxes_keys:
                     if key == tuple(inv_line.tax_ids.ids):
                         break
                     elif set(key) & set(inv_line.tax_ids.ids) and test_condition:
                         raise exceptions.UserError(
-                            _("Incompatible taxes found for global discounts.")
+                            self.env._("Incompatible taxes found for global discounts.")
                         )
                 else:
                     taxes_keys[tuple(inv_line.tax_ids.ids)] = True
@@ -321,10 +319,6 @@ class AccountMoveLine(models.Model):
         string="Amount Untaxed Before Discounts",
         readonly=True,
     )
-    # TODO: To be removed on future versions if invoice_global_discount_id
-    # is properly filled Provided for compatibility in stable branch
-    # UPD: can be removed past version 16.0
-    global_discount_item = fields.Boolean()
 
 
 class AccountInvoiceGlobalDiscount(models.Model):

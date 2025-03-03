@@ -117,11 +117,6 @@ msgid "Global Discount"
 msgstr "Desconto Global"
 
 #. module: account_global_discount
-#: model:ir.model.fields,field_description:account_global_discount.field_account_move_line__global_discount_item
-msgid "Global Discount Item"
-msgstr "Item de Desconto Global"
-
-#. module: account_global_discount
 #: model:ir.ui.menu,name:account_global_discount.menu_account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
 msgid "Global Discounts"

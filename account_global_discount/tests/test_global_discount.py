@@ -13,44 +13,14 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 class TestGlobalDiscount(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+        super().setUpClass()
+        cls.env = cls.env(
+            context=dict(cls.env.context, test_account_global_discount=True)
+        )
         cls.env.ref("base_global_discount.group_global_discount").write(
             {"users": [(4, cls.env.user.id)]}
         )
-        cls.currency_eur = cls.env.ref("base.EUR")
-        cls.currency_usd = cls.env.ref("base.USD")
-        cls.currency_usd.active = True
-        # Make sure the currency of the company is USD, as this not always happens
-        # To be removed in V17: https://github.com/odoo/odoo/pull/107113
-        cls.company = cls.env.company
-        cls.env.cr.execute(
-            "UPDATE res_company SET currency_id = %s WHERE id = %s",
-            (cls.env.ref("base.USD").id, cls.company.id),
-        )
-        cls.account = cls.env["account.account"].create(
-            {
-                "name": "Test account",
-                "code": "TEST",
-                "account_type": "income_other",
-                "reconcile": True,
-            }
-        )
-        cls.account_receivable = cls.env["account.account"].create(
-            {
-                "name": "Test receivable account",
-                "code": "ACCRV",
-                "account_type": "asset_receivable",
-                "reconcile": True,
-            }
-        )
-        cls.account_payable = cls.env["account.account"].create(
-            {
-                "name": "Test receivable account",
-                "code": "ACCPAY",
-                "account_type": "liability_payable",
-                "reconcile": True,
-            }
-        )
+        cls.account = cls.company_data["default_account_revenue"]
         cls.global_discount_obj = cls.env["global.discount"]
         cls.global_discount_1 = cls.global_discount_obj.create(
             {
@@ -82,15 +52,11 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         cls.partner_1 = cls.env["res.partner"].create(
             {
                 "name": "Mr. Odoo",
-                "property_account_receivable_id": cls.account_receivable.id,
-                "property_account_payable_id": cls.account_payable.id,
             }
         )
         cls.partner_2 = cls.env["res.partner"].create(
             {
                 "name": "Mrs. Odoo",
-                "property_account_receivable_id": cls.account_receivable.id,
-                "property_account_payable_id": cls.account_payable.id,
             }
         )
         cls.partner_2.supplier_global_discount_ids = cls.global_discount_2
@@ -98,9 +64,6 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         cls.tax.amount = 15
         cls.tax_0 = cls.tax_purchase_b
         cls.tax_0.amount = 0
-        cls.journal = cls.env["account.journal"].create(
-            {"name": "Test purchase journal", "code": "TPUR", "type": "purchase"}
-        )
         cls.product_3 = cls.env["product.product"].create(
             {
                 "name": "Test Product 3",
@@ -109,33 +72,44 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
             }
         )
         cls.invoice_line = cls.env["account.move.line"]
-        invoice_form = Form(
-            cls.env["account.move"].with_context(
-                default_move_type="in_invoice",
-                test_account_global_discount=True,
+        cls.invoice = (
+            cls.env["account.move"]
+            .with_context(default_move_type="in_invoice")
+            .create(
+                {
+                    "partner_id": cls.partner_1.id,
+                    "ref": "Test global discount",
+                    "invoice_line_ids": [
+                        (
+                            0,
+                            0,
+                            {
+                                "name": "Line 1",
+                                "price_unit": 200.0,
+                                "quantity": 1,
+                                "tax_ids": [(6, 0, [cls.tax.id])],
+                            },
+                        ),
+                        (
+                            0,
+                            0,
+                            {
+                                "name": "Line 2",
+                                "product_id": cls.product_3.id,
+                                "price_unit": 200.0,
+                                "quantity": 1,
+                                "tax_ids": [(6, 0, [cls.tax_0.id])],
+                            },
+                        ),
+                    ],
+                }
             )
         )
-        invoice_form.partner_id = cls.partner_1
-        invoice_form.ref = "Test global discount"
-        with invoice_form.invoice_line_ids.new() as line_form:
-            line_form.name = "Line 1"
-            line_form.price_unit = 200.0
-            line_form.quantity = 1
-            line_form.tax_ids.clear()
-            line_form.tax_ids.add(cls.tax)
-        with invoice_form.invoice_line_ids.new() as line_form:
-            line_form.name = "Line 1"
-            line_form.product_id = cls.product_3
-            line_form.price_unit = 200.0
-            line_form.quantity = 1
-            line_form.tax_ids.clear()
-            line_form.tax_ids.add(cls.tax_0)
-        cls.invoice = invoice_form.save()
 
     def test_01_global_invoice_succesive_discounts(self):
         """Add global discounts to the invoice"""
         invoice_tax_line = self.invoice.line_ids.filtered("tax_line_id")
-        self.assertAlmostEqual(self.invoice.amount_total, 230)
+        self.assertAlmostEqual(self.invoice.amount_total, 430)
         self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 200.0)
         self.assertAlmostEqual(invoice_tax_line.balance, 30.0)
         # Global discounts are applied to the base and taxes are recomputed:
@@ -152,8 +126,8 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         invoice_tax_line = self.invoice.line_ids.filtered("tax_line_id")
         self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 100.0)
         self.assertAlmostEqual(invoice_tax_line.balance, 15.0)
-        self.assertAlmostEqual(self.invoice.amount_untaxed, 100.0)
-        self.assertAlmostEqual(self.invoice.amount_total, 115.0)
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 300.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 315.0)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -100.0)
         # Global discounts are computed succecively:
         # 200 - 50% (global disc. 1) =  100
@@ -165,8 +139,8 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         invoice_tax_line = self.invoice.line_ids.filtered("tax_line_id")
         self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 70.0)
         self.assertAlmostEqual(invoice_tax_line.balance, 10.5)
-        self.assertAlmostEqual(self.invoice.amount_untaxed, 70.0)
-        self.assertAlmostEqual(self.invoice.amount_total, 80.5)
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 270.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 280.5)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -130.0)
         # Line discounts apply before global ones so:
         # 200 - 20% (line discount)  = 160
@@ -175,19 +149,22 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         # The global discounts amount is then 160 - 56 = 104
         with Form(self.invoice) as invoice_form:
             with invoice_form.invoice_line_ids.edit(0) as line_form:
-                line_form.discount = 20
+                if "discount1" in self.env["account.move.line"]._fields:
+                    line_form.discount1 = 20
+                else:
+                    line_form.discount = 20
         self.assertEqual(len(self.invoice.invoice_global_discount_ids), 2)
         invoice_tax_line = self.invoice.line_ids.filtered("tax_line_id")
         self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 56.0)
         self.assertAlmostEqual(invoice_tax_line.balance, 8.4)
-        self.assertAlmostEqual(self.invoice.amount_untaxed, 56.0)
-        self.assertAlmostEqual(self.invoice.amount_total, 64.4)
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 256.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 264.4)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -104.0)
 
     def test_02_global_invoice_discounts_from_partner(self):
         """Change the partner and his global discounts go to the invoice"""
         invoice_tax_line = self.invoice.line_ids.filtered("tax_line_id")
-        self.assertAlmostEqual(self.invoice.amount_total, 230)
+        self.assertAlmostEqual(self.invoice.amount_total, 430)
         self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 200.0)
         self.assertAlmostEqual(invoice_tax_line.balance, 30.0)
         # When we change the parter, his global discounts are fetched depending
@@ -197,8 +174,8 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
             invoice_form.partner_id = self.partner_2
         self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 140.0)
         self.assertAlmostEqual(invoice_tax_line.balance, 21.0)
-        self.assertAlmostEqual(self.invoice.amount_untaxed, 140.0)
-        self.assertAlmostEqual(self.invoice.amount_total, 161.0)
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 340.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 361.0)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -60.0)
 
     def test_03_multiple_taxes_multi_line(self):
@@ -228,8 +205,8 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         self.assertAlmostEqual(tax_line_15.balance, 24)
         self.assertAlmostEqual(tax_line_20.tax_base_amount, 80.0)
         self.assertAlmostEqual(tax_line_20.balance, 16)
-        self.assertAlmostEqual(self.invoice.amount_untaxed, 240.0)
-        self.assertAlmostEqual(self.invoice.amount_total, 280)
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 440.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 480)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -60.0)
         # Check journal items validity
         lines = self.invoice.line_ids
@@ -267,8 +244,8 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         self.assertAlmostEqual(tax_line_15.balance, 24)
         self.assertAlmostEqual(tax_line_20.tax_base_amount, 160.0)
         self.assertAlmostEqual(tax_line_20.balance, -32)
-        self.assertAlmostEqual(self.invoice.amount_untaxed, 160.0)
-        self.assertAlmostEqual(self.invoice.amount_total, 152)
+        self.assertAlmostEqual(self.invoice.amount_untaxed, 360.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 352)
         self.assertAlmostEqual(self.invoice.amount_global_discount, -40.0)
 
     def test_05_incompatible_taxes(self):
@@ -377,11 +354,10 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         eur = self.env.ref("base.EUR")
         usd = self.env.ref("base.USD")
         self.assertEqual(self.env.user.company_id.currency_id, usd)
-        with Form(self.invoice) as invoice_form:
-            invoice_form.currency_id = eur
-        invoice = invoice_form.save()
-        self.assertAlmostEqual(invoice.amount_total, 230.0)
-        self.assertAlmostEqual(invoice.amount_untaxed, 200.0)
+        self.invoice.currency_id = self.env.ref("base.EUR")
+        invoice = self.invoice
+        self.assertAlmostEqual(invoice.amount_total, 430.0)
+        self.assertAlmostEqual(invoice.amount_untaxed, 400.0)
         self.assertAlmostEqual(invoice.amount_global_discount, 0)
         base_line = invoice.line_ids.filtered(
             lambda line: (
@@ -390,9 +366,14 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
                 and not line.product_id
             )
         )
-        self.assertEqual(len(base_line), 1)
+        base_line_with_product = invoice.line_ids.filtered(
+            lambda line: (
+                line.tax_ids and not line.invoice_global_discount_id and line.product_id
+            )
+        )
+        self.assertEqual(len(base_line) + len(base_line_with_product), 2)
         self.assertAlmostEqual(
-            base_line.balance,
+            base_line.balance + base_line_with_product.balance,
             eur._convert(
                 invoice.amount_untaxed, usd, self.env.user.company_id, invoice.date
             ),
@@ -400,12 +381,15 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         tax_line = invoice.line_ids.filtered(
             lambda line: line.tax_line_id and not line.invoice_global_discount_id
         )
+        line_with_tax = invoice.line_ids.filtered(
+            lambda line: line.tax_ids.amount > 0 and not line.invoice_global_discount_id
+        )
         self.assertEqual(len(tax_line), 1)
         tax_line_balance_before_discount = tax_line.balance
         self.assertAlmostEqual(
             tax_line_balance_before_discount,
             eur._convert(
-                invoice.amount_untaxed * (self.tax.amount / 100),
+                line_with_tax.balance * (self.tax.amount / 100),
                 usd,
                 self.env.user.company_id,
                 invoice.date,
@@ -414,7 +398,7 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         self.assertAlmostEqual(
             tax_line.tax_base_amount,
             eur._convert(
-                invoice.amount_untaxed,
+                line_with_tax.balance,
                 usd,
                 self.env.user.company_id,
                 invoice.date,
@@ -427,8 +411,8 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         invoice = invoice_form.save()
         # Check that when we add a global discount it will be based on the
         # correct currency
-        self.assertAlmostEqual(invoice.amount_total, 184)
-        self.assertAlmostEqual(invoice.amount_untaxed, 160.0)
+        self.assertAlmostEqual(invoice.amount_total, 384)
+        self.assertAlmostEqual(invoice.amount_untaxed, 360.0)
         self.assertAlmostEqual(invoice.amount_global_discount, -40.0)
         base_line = invoice.line_ids.filtered(
             lambda line: (
@@ -437,9 +421,14 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
                 and not line.product_id
             )
         )
-        self.assertEqual(len(base_line), 1)
+        base_line_with_product = invoice.line_ids.filtered(
+            lambda line: (
+                line.tax_ids and not line.invoice_global_discount_id and line.product_id
+            )
+        )
+        self.assertEqual(len(base_line) + len(base_line_with_product), 2)
         self.assertAlmostEqual(
-            base_line.balance,
+            base_line.balance + base_line_with_product.balance,
             eur._convert(
                 invoice.amount_untaxed_before_global_discounts,
                 usd,
@@ -450,9 +439,15 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         tax_line = invoice.line_ids.filtered(
             lambda line: line.tax_line_id and not line.invoice_global_discount_id
         )
+        line_without_tax = invoice.line_ids.filtered(
+            lambda line: line.tax_ids.amount == 0
+            and not line.tax_line_id
+            and line.product_id
+            and not line.invoice_global_discount_id
+        )
         self.assertEqual(len(tax_line), 1)
         self.assertAlmostEqual(
-            tax_line.tax_base_amount,
+            tax_line.tax_base_amount + line_without_tax.balance,
             eur._convert(
                 invoice.amount_untaxed,
                 usd,
@@ -463,7 +458,8 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         self.assertAlmostEqual(
             tax_line.balance,
             eur._convert(
-                invoice.amount_untaxed * (self.tax.amount / 100),
+                (invoice.amount_untaxed - line_without_tax.balance)
+                * (self.tax.amount / 100),
                 usd,
                 self.env.user.company_id,
                 invoice.date,
