@@ -1,0 +1,24 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_credit_note_reversal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_credit_note_reversal
+#: model:ir.model,name:sale_credit_note_reversal.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: sale_credit_note_reversal
+#: model_terms:ir.ui.view,arch_db:sale_credit_note_reversal.view_order_form_revert_credit_note
+msgid "Revert Credit Note"
+msgstr ""
