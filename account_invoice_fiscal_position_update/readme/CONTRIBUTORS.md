@@ -12,6 +12,8 @@
 
   > - Ernesto Tejeda
 
+  > - Juan Carlos Oñate
+
 - [Factor Libre](https://factorlibre.com):
 
   > - Luis J. Salvatierra \<<luis.salvatierra@factorlibre.com>\>

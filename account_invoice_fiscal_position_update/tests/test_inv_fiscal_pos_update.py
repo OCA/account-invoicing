@@ -50,7 +50,7 @@ class TestProductIdChange(AccountTestInvoicingCommon):
                 "name": "Sale tax B2C",
                 "type_tax_use": "sale",
                 "amount": "20.00",
-                "price_include_override": "tax_included",
+                "price_include": True,
             }
         )
         cls.tax_sale_export = cls.tax_model.create(
