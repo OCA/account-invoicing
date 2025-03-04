@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="res_config_settings_form_view" model="ir.ui.view">
+        <field name="name">res.config.settings.form.view</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div name="main_currency_setting_container" position="inside">
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="company_default_account_currency_id"
+                >
+                    <div class="o_setting_left_pane" />
+                    <div class="o_setting_right_pane">
+                        <label for="company_default_account_currency_id" />
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            aria-label="Values set here are company-specific."
+                            groups="base.group_multi_company"
+                            role="img"
+                        />
+                        <div class="text-muted">
+                            Set default currency for the company invoices and vendor bills
+                        </div>
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <field name="company_default_account_currency_id" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>
