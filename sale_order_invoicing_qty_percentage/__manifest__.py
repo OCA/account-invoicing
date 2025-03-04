@@ -4,7 +4,7 @@
 
 {
     "name": "Sales order invoicing by percentage of the quantity",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "category": "Sales Management",
     "license": "AGPL-3",
     "author": "Tecnativa, Odoo Community Association (OCA)",
