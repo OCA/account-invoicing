@@ -14,9 +14,6 @@
                 t-value="'text-end %s' % ('d-none d-md-table-cell' if report_type == 'html' else '')"
             />
         </xpath>
-        <xpath expr="//th[@name='th_price_unit']" position="attributes">
-            <attribute name="style">visibility: hidden;</attribute>
-        </xpath>
         <xpath expr="//th[@name='th_price_unit']" position="after">
             <th
                 name="th_discount1"
@@ -39,9 +36,6 @@
             >
                 <span>Disc.3 %</span>
             </th>
-        </xpath>
-        <xpath expr="//td[span[@t-field='line.discount']]" position="attributes">
-            <attribute name="style">visibility: hidden;</attribute>
         </xpath>
         <xpath expr="//td[span[@t-field='line.discount']]" position="after">
             <td t-if="display_discount" t-att-class="discount_class">
