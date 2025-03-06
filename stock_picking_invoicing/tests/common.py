@@ -2,7 +2,8 @@
 # @author Magno Costa <magno.costa@akretion.com.br>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import Form, TransactionCase
+from odoo.tests import Form
+from odoo.tests.common import TransactionCase
 
 
 class TestPickingInvoicingCommon(TransactionCase):
@@ -51,8 +52,8 @@ class TestPickingInvoicingCommon(TransactionCase):
         )
         return_wizard_form.invoice_state = "2binvoiced"
         self.return_wizard = return_wizard_form.save()
-
-        result_wizard = self.return_wizard.create_returns()
+        self.return_wizard.product_return_moves[0].quantity = 1
+        result_wizard = self.return_wizard.action_create_returns()
         self.assertTrue(result_wizard, "Create returns wizard fail.")
         picking_devolution = self.env["stock.picking"].browse(
             result_wizard.get("res_id")

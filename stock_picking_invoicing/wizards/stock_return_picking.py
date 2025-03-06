@@ -15,9 +15,12 @@ class StockReturnPicking(models.TransientModel):
         default="none",
     )
 
-    def _prepare_move_default_values(self, return_line, new_picking):
-        vals = super()._prepare_move_default_values(return_line, new_picking)
-        if self.invoice_state == "2binvoiced":
-            vals.update({"invoice_state": self.invoice_state})
 
+class StockReturnPickingLine(models.TransientModel):
+    _inherit = "stock.return.picking.line"
+
+    def _prepare_move_default_values(self, new_picking):
+        vals = super()._prepare_move_default_values(new_picking)
+        if self.wizard_id.invoice_state == "2binvoiced":
+            vals.update({"invoice_state": self.wizard_id.invoice_state})
         return vals

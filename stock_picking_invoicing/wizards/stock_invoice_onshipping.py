@@ -268,7 +268,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return: account.journal recordset
         """
         self.ensure_one()
-        journal_field = "%s_journal" % self.journal_type
+        journal_field = f"{self.journal_type}_journal"
         journal = self[journal_field]
         return journal
 
