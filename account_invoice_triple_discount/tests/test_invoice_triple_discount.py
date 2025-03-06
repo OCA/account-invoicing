@@ -2,7 +2,7 @@
 # Copyright 2023 Simone Rubino - Aion Tech
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import Form
+from odoo.tests import Form
 
 from odoo.addons.base.tests.common import BaseCommon
 
@@ -11,7 +11,7 @@ class TestInvoiceTripleDiscount(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env.user.groups_id += cls.env.ref("product.group_discount_per_so_line")
+        cls.env.user.groups_id += cls.env.ref("sale.group_discount_per_so_line")
         cls.Account = cls.env["account.account"]
         cls.AccountMove = cls.env["account.move"]
         cls.AccountMoveLine = cls.env["account.move.line"]
@@ -241,7 +241,5 @@ class TestInvoiceTripleDiscount(BaseCommon):
             line_form.discount1 = 10
             line_form.discount2 = 20
         invoice_form.save()
-        invoice_line = invoice.invoice_line_ids[0]
         invoice.action_post()
         self.env.user.company_id.fiscalyear_lock_date = "2000-01-01"
-        invoice_line._compute_all_tax()
