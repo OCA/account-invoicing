@@ -4,7 +4,7 @@
         <field name="name">Picking to Invoice</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.picking</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" eval="False" />
         <field
             name="domain"
@@ -20,7 +20,7 @@
             <field name="code" position="after">
                 <field name="count_picking_2binvoiced" />
             </field>
-            <xpath expr="//div[hasclass('o_kanban_primary_right')]" position="inside">
+            <xpath expr="//div[hasclass('stock-overview-links')]" position="inside">
                 <div t-if="record.count_picking_2binvoiced.raw_value > 0" class="row">
                     <div class="col-9">
                         <a name="%(2binvoiced_action_picking_dashboard)d" type="action">

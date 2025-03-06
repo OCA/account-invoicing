@@ -19,6 +19,7 @@ INVOICE_TYPE_MAP = {
     ("incoming", "customer", "internal"): "out_refund",
     ("incoming", "customer", "customer"): "out_refund",
     ("incoming", "supplier", "internal"): "in_invoice",
+    ("incoming", "supplier", "customer"): "in_invoice",
     ("outgoing", "internal", "supplier"): "in_refund",
     ("outgoing", "internal", "internal"): "in_refund",
     ("incoming", "transit", "internal"): "in_invoice",
@@ -268,7 +269,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :return: account.journal recordset
         """
         self.ensure_one()
-        journal_field = "%s_journal" % self.journal_type
+        journal_field = f"{self.journal_type}_journal"
         journal = self[journal_field]
         return journal
 
@@ -473,7 +474,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param pickings: stock.picking recordset
         :return: stock.picking recordset
         """
-        return pickings._set_as_invoiced()
+        return pickings.set_as_invoiced()
 
     def ungroup_moves(self, grouped_moves_list):
         """Ungroup your moves, split them again, grouping by

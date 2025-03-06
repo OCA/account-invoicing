@@ -6,7 +6,6 @@
         <field name="company_id" ref="base.main_company" />
         <field name="auto_apply">1</field>
     </record>
-
     <!-- Customer -->
     <!-- Stocking Picking - To be Invoiced - State Draft-->
     <record id="stock_picking_invoicing_1" model="stock.picking">
