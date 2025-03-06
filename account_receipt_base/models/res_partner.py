@@ -12,7 +12,6 @@ class ResPartner(models.Model):
     use_receipts = fields.Boolean()
     total_receipts_invoiced = fields.Monetary(
         compute="_compute_total_receipts_invoiced",
-        string="Total Receipts Invoiced",
         groups="account.group_account_invoice,account.group_account_readonly",
     )
 
