@@ -26,11 +26,11 @@
                 </group>
                 <footer>
                     <button
-                        name="action_generate"
-                        string="Create"
-                        type="object"
-                        class="oe_highlight"
-                    />
+                    name="action_generate"
+                    string="Create"
+                    type="object"
+                    class="oe_highlight"
+                />
                     or
                     <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>
