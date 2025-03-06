@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <!-- Fiscal Position -->
     <record id="fiscal_position_demo" model="account.fiscal.position">
         <field name="name">Test - Stock Picking Invocing</field>

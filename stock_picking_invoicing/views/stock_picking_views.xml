@@ -103,7 +103,6 @@
                     string="Set to Not Billable"
                     invisible="invoice_state not in ('invoiced', '2binvoiced') or True in invoice_ids or state == 'cancel'"
                 />
-
             </button>
         </field>
     </record>
