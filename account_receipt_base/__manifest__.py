@@ -3,7 +3,7 @@
 
 {
     "name": "Base for Receipt Management",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Accounting & Finance",
     "summary": "Base fields and methods for better Receipts Management.",
     "author": "TAKOBI, Odoo Community Association (OCA)",

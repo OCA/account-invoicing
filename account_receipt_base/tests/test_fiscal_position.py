@@ -4,7 +4,7 @@
 from odoo import tests
 
 
-class TestFiscalPosition(tests.SavepointCase):
+class TestFiscalPosition(tests.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
