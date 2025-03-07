@@ -21,8 +21,8 @@ msgstr ""
 
 #. module: account_invoice_triple_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
-msgid "<span>Disc.1 %</span>"
-msgstr "<span>Sconto 1 %</span>"
+msgid "<span>Disc.%</span>"
+msgstr ""
 
 #. module: account_invoice_triple_discount
 #: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
@@ -74,6 +74,9 @@ msgstr "Movimento contabile"
 #: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.invoice_triple_discount_form_view
 msgid "Total discount"
 msgstr "Sconto totale"
+
+#~ msgid "<span>Disc.1 %</span>"
+#~ msgstr "<span>Sconto 1 %</span>"
 
 #~ msgid "Journal Entry"
 #~ msgstr "Registrazione contabile"
