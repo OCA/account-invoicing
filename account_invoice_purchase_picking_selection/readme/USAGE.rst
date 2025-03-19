@@ -1,0 +1,8 @@
+- Create some storable products and set the `Control Policy` to `On received quantities`.
+- Create a purchase order with the previously created storable products.
+- Confirm the purchase order
+- Receive the products
+- Go to `Invoicing > Vendors > Bills`
+- Create a new bill
+- Select the picking in the `Auto-Complete from Picking` field
+- The invoice lines will be automatically filled with the product quantities from the picking.
