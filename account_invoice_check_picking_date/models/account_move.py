@@ -52,12 +52,11 @@ class AccountMove(models.Model):
                     "Accounting date: %(accounting_date)s\n"
                     "First stock move: %(min_date)s   Last stock move: %(max_date)s\n\n"
                     "If dates are right and you have manager permissions you can use "
-                    "special action to post this invoice."
-                ) % {
-                    "accounting_date": DateField.value_to_html(invoice.date, {}),
-                    "min_date": DateField.value_to_html(min_date, {}),
-                    "max_date": DateField.value_to_html(max_date, {}),
-                }
+                    "special action to post this invoice.",
+                    accounting_date=DateField.value_to_html(invoice.date, {}),
+                    min_date=DateField.value_to_html(min_date, {}),
+                    max_date=DateField.value_to_html(max_date, {}),
+                )
                 exception_wizard = self.env["invoice.picking.date.check.wiz"].create(
                     {"exception_msg": exception_msg, "invoice_id": invoice.id}
                 )
