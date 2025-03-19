@@ -1,7 +1,7 @@
 # Copyright 2021 Tecnativa - Carlos Dauden
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, models
+from odoo import _, api, models
 from odoo.tools import config
 
 
@@ -26,8 +26,12 @@ class AccountMove(models.Model):
             return True
         return self.date.month == max_date.month
 
+    @api.model
+    def _is_test_enabled(self):
+        return config["test_enable"]
+
     def action_post(self):
-        if config["test_enable"] or self.env.context.get(
+        if self._is_test_enabled() or self.env.context.get(
             "skip_account_invoice_check_picking_date", False
         ):
             return super().action_post()
