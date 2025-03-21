@@ -3,8 +3,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Account Move Stock Create",
-    "summary": """This addon creates stock transfers from an account move""",
+    "name": "Account Move Picking Match or Create",
+    "summary": """This addon helps matching or creating stock transfers from an account move""",
     "version": "14.0.1.0.0",
     "license": "AGPL-3",
     "author": "KMEE,Odoo Community Association (OCA)",
