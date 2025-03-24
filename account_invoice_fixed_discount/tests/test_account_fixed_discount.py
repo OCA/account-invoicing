@@ -139,6 +139,21 @@ class TestInvoiceFixedDiscount(BaseCommon):
         self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143)
 
+    def test_03_discount_fixed_no_unit_prise(self):
+        """Tests fixed discount with no taxes."""
+
+        # Fixed discount 1.0 unit at 57.00
+        with Form(self.invoice) as invoice_form:
+            with invoice_form.invoice_line_ids.edit(0) as line:
+                line.price_unit = 0.00
+                line.discount_fixed = 57.00
+
+        # compute discount (57 / 200) * 100
+        self.assertEqual(self.invoice.invoice_line_ids.discount, 0.0)
+        self.assertEqual(self.invoice.amount_total, 0)
+        self.assertEqual(self.invoice.invoice_line_ids.price_unit, 0.00)
+        self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 0)
+
     def test_04_base_line_set_to_none(self):
         self.vat._prepare_base_line_for_taxes_computation(
             None,
