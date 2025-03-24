@@ -60,7 +60,7 @@ class AccountMove(models.Model):
     def _reverse_moves(self, default_values_list=None, cancel=False):
         # OVERRIDE
         if default_values_list:
-            for move, default_values in zip(self, default_values_list):
+            for move, default_values in zip(self, default_values_list, strict=False):
                 if (
                     move
                     and move.is_purchase_document(include_receipts=True)

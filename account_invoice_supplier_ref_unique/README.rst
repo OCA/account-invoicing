@@ -17,24 +17,28 @@ Unique Supplier Invoice Number in Invoice
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_supplier_ref_unique
+    :target: https://github.com/OCA/account-invoicing/tree/18.0/account_invoice_supplier_ref_unique
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-account_invoice_supplier_ref_unique
+    :target: https://translation.odoo-community.org/projects/account-invoicing-18-0/account-invoicing-18-0-account_invoice_supplier_ref_unique
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module checks that a supplier invoice/refund is not entered twice. This is important because if you enter twice the same supplier invoice, there is also a risk that you pay it twice !
+This module checks that a supplier invoice/refund is not entered twice.
+This is important because if you enter twice the same supplier invoice,
+there is also a risk that you pay it twice !
 
-This module adds a constraint on supplier invoice/refunds to check that (commercial_partner_id, supplier_invoice_number) is unique, without considering the case of the supplier invoice number.
-To activate that feature:
+This module adds a constraint on supplier invoice/refunds to check that
+(commercial_partner_id, supplier_invoice_number) is unique, without
+considering the case of the supplier invoice number. To activate that
+feature:
 
-* Go to Invoicing/Accounting > Configuration > Settings > Vendor Bills
-* Check the 'Check Unicity on Supplier Invoice Number' box.
+-  Go to Invoicing/Accounting > Configuration > Settings > Vendor Bills
+-  Check the 'Check Unicity on Supplier Invoice Number' box.
 
 **Table of contents**
 
@@ -47,7 +51,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_supplier_ref_unique%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_supplier_ref_unique%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -55,24 +59,24 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Savoir-faire Linux
 * Acsone SA/NV
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Marc Cassuto <marc.cassuto@savoirfairelinux.com>
-* Mathieu Benoit <mathieu.benoit@savoirfairelinux.com>
-* Alexis de Lattre <alexis.delattre@akretion.com>
-* Thomas Binsfeld <thomas.binsfeld@acsone.eu>
-* Andrea Stirpe <a.stirpe@onestein.nl>
-* Miguel Gandia <miguel@studio73.es>
-* Juany Davila <juany.davila@forgeflow.com>
+-  Marc Cassuto <marc.cassuto@savoirfairelinux.com>
+-  Mathieu Benoit <mathieu.benoit@savoirfairelinux.com>
+-  Alexis de Lattre <alexis.delattre@akretion.com>
+-  Thomas Binsfeld <thomas.binsfeld@acsone.eu>
+-  Andrea Stirpe <a.stirpe@onestein.nl>
+-  Miguel Gandia <miguel@studio73.es>
+-  Juany Davila <juany.davila@forgeflow.com>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -84,6 +88,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_supplier_ref_unique>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/18.0/account_invoice_supplier_ref_unique>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

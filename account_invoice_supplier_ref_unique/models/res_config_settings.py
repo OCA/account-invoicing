@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class ResConfigSettings(models.TransientModel):
-
     _inherit = "res.config.settings"
 
     check_invoice_supplier_number = fields.Boolean(
