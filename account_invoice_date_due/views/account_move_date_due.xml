@@ -11,7 +11,8 @@
                     name="invoice_date_due_payment_term"
                     string="Due Date"
                     groups="account_invoice_date_due.allow_to_change_due_date"
-                    attrs="{'readonly': [('state', 'not in', ['posted', 'draft'])], 'invisible': ['|', ('state', '=', 'draft'), ('invoice_payment_term_id', '=', False)]}"
+                    readonly="state not in ['posted', 'draft']"
+                    invisible="state == 'draft' or not invoice_payment_term_id"
                 />
             </field>
             <field name="invoice_date_due" position="attributes">
@@ -23,7 +24,8 @@
                 <field
                     name="invoice_date_due"
                     groups="account_invoice_date_due.allow_to_change_due_date"
-                    attrs="{'readonly': [('state', 'not in', ['posted', 'draft'])], 'invisible': [('invoice_payment_term_id', '!=', False)]}"
+                    readonly="state not in ['posted', 'draft']"
+                    invisible="invoice_payment_term_id"
                 />
             </field>
         </field>
