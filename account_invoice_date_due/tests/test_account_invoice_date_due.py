@@ -28,7 +28,8 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
         # We don't really care about such permissions in this context!
         # Eg:
         # odoo.exceptions.AccessError:
-        # You are not allowed to access 'Stock Valuation Layer' (stock.valuation.layer) records.
+        # You are not allowed to access 'Stock Valuation Layer'
+        # (stock.valuation.layer) records.
         stock_group = (
             cls.env.ref("stock.group_stock_manager", False) or cls.env["res.groups"]
         )
@@ -114,9 +115,9 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
         self.assertEqual(
             len(
                 self.move.line_ids.filtered(
-                    lambda l: fields.Date.to_string(l.date_maturity)
+                    lambda line: fields.Date.to_string(line.date_maturity)
                     == twenty_days_from_now
-                    and l.account_id.account_type
+                    and line.account_id.account_type
                     in ("asset_receivable", "liability_payable")
                 )
             ),
@@ -157,9 +158,9 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
         self.assertEqual(
             len(
                 self.move.line_ids.filtered(
-                    lambda l: fields.Date.to_string(l.date_maturity)
+                    lambda line: fields.Date.to_string(line.date_maturity)
                     == twenty_days_from_now
-                    and l.account_id.account_type
+                    and line.account_id.account_type
                     in ("asset_receivable", "liability_payable")
                 )
             ),
