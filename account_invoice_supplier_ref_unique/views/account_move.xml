@@ -7,12 +7,8 @@
             <xpath expr="//label[@for='ref']" position="before">
                 <field
                     name="supplier_invoice_number"
-                    attrs="{'invisible': [
-                        (
-                            'move_type',
-                            'not in',
-                            ('in_invoice','in_refund'))
-                        ]}"
+                    invisible="move_type not in ('in_invoice', 'in_refund')"
+                    readonly="state != 'draft'"
                 />
             </xpath>
         </field>
