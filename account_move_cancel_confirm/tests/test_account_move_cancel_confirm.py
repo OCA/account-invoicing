@@ -9,6 +9,9 @@ from odoo.tests.common import TransactionCase
 class TestAccountMoveCancelConfirm(TransactionCase):
     def setUp(self):
         super().setUp()
+        self.env = self.env(
+            context=dict(self.env.context, test_account_move_cancel_confirm=True)
+        )
         self.account_move_model = self.env["account.move"]
         self.register_payments_model = self.env["account.payment.register"]
         self.payment_model = self.env["account.payment"]

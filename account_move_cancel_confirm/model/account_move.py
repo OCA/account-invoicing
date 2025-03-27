@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import models
+from odoo.tools import config
 
 
 class AccountMove(models.Model):
@@ -11,6 +12,12 @@ class AccountMove(models.Model):
     _has_cancel_reason = "optional"  # ["no", "optional", "required"]
 
     def button_cancel(self):
+        test_condition = not config["test_enable"] or (
+            config["test_enable"]
+            and self.env.context.get("test_account_move_cancel_confirm")
+        )
+        if not test_condition:
+            return super().button_cancel()
         cancel_res_model = self.env.context.get("cancel_res_model", False)
         cancel_res_ids = self.env.context.get("cancel_res_ids", False)
         cancel_method = self.env.context.get("cancel_method", False)
