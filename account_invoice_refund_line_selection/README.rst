@@ -38,9 +38,9 @@ This module allows the user to refund only specific lines in invoices.
 Usage
 =====
 
-In a open validated invoice, click on 'Add Credit Note' to open the
-refunding wizard. Select the 'Refund specific lines' option and select
-the desired invoice lines.
+Click the Add Credit Note button to launch the refunding wizard in an
+open, validated invoice. Then, choose the Refund specific lines option
+and select the invoice lines you want to refund.
 
 Bug Tracker
 ===========
@@ -64,6 +64,7 @@ Contributors
 ------------
 
 -  Jaime Arroyo <jaime.arroyo@creublanca.es>
+-  Italo Lopes <italo.lopes@camptocamp.com>
 
 Maintainers
 -----------

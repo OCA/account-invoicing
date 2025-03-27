@@ -1,1 +1,2 @@
 - Jaime Arroyo \<<jaime.arroyo@creublanca.es>\>
+- Italo Lopes \<<italo.lopes@camptocamp.com>\>
