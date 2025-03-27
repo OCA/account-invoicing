@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2025-02-04 16:44+0000\n"
 "Last-Translator: \"Denis Roussel (ACSONE)\" <denis.roussel@acsone.eu>\n"
@@ -44,7 +44,7 @@ msgid "Invoice lines to refund"
 msgstr "Lignes de facture à rembourser"
 
 #. module: account_invoice_refund_line_selection
-#: model:ir.model.fields.selection,name:account_invoice_refund_line_selection.selection__account_move_reversal__refund_method__refund_lines
+#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__refund_lines
 msgid "Refund specific lines"
 msgstr "Rembourser des lignes spécifiques"
 

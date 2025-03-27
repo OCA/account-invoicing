@@ -5,17 +5,21 @@
         <field name="model">account.move.reversal</field>
         <field name="inherit_id" ref="account.view_account_move_reversal" />
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='reason']" position="before">
+                <field name="refund_lines" />
+                <div invisible="not refund_lines" class="oe_grey" colspan="2">
+                    Use this option if you want to refund only some specific lines in an invoice.
+                </div>
+            </xpath>
             <xpath expr="//footer" position="before">
-                <notebook
-                    attrs="{'invisible': [('refund_method', '!=', 'refund_lines')]}"
-                >
+                <notebook invisible="not refund_lines">
                     <page string="Invoice Lines">
                         <field name="selectable_invoice_lines_ids" invisible="1" />
                         <field
                             name="line_ids"
-                            context="{'tree_view_ref': 'account.view_move_line_tree_grouped_sales_purchases'}"
+                            context="{'list_view_ref': 'account.view_move_line_tree_grouped_sales_purchases'}"
                         >
-                            <tree no_open="True">
+                            <list no_open="True">
                                 <field name="sequence" widget="handle" readonly="1" />
                                 <field name="product_id" readonly="1" />
                                 <field name="name" readonly="1" />
@@ -28,19 +32,10 @@
                                 />
                                 <field name="price_unit" readonly="1" />
                                 <field name="price_subtotal" readonly="1" />
-                            </tree>
+                            </list>
                         </field>
                     </page>
                 </notebook>
-            </xpath>
-            <xpath expr="//group//group/div" position="after">
-                <div
-                    attrs="{'invisible':[('refund_method','!=','refund_lines')]}"
-                    class="oe_grey"
-                    colspan="2"
-                >
-                    Use this option if you want to refund only some specific lines in an invoice.
-                </div>
             </xpath>
         </field>
     </record>
