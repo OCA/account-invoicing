@@ -1,7 +1,7 @@
 # Copyright 2016 Acsone SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_compare
 
@@ -40,7 +40,7 @@ class AccountMove(models.Model):
                 != 0
             ):
                 raise ValidationError(
-                    _(
+                    self.env._(
                         "Please verify the price of the invoice!\n"
                         "The total amount (%(amount_total)s) does not match "
                         "the Verification Total amount (%(check_total)s)!\n"
