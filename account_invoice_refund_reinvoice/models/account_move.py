@@ -9,7 +9,6 @@ TYPE_REVERSE_MAP.update({"out_refund": "out_invoice", "in_refund": "in_invoice"}
 
 
 class AccountMove(models.Model):
-
     _inherit = "account.move"
 
     def _prepare_reinvoice_reversal(self):
