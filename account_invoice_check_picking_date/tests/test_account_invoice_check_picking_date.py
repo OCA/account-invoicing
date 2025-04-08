@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from freezegun import freeze_time
 
+from odoo import Command
 from odoo.tests.common import TransactionCase
 
 
@@ -12,7 +13,7 @@ class TestAccountInvoiceCheckPickingDate(TransactionCase):
         super().setUpClass()
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
         cls.product = cls.env["product.product"].create(
-            {"name": "Test product", "type": "product"}
+            {"name": "Test product", "type": "consu"}
         )
         cls.picking = cls.env["stock.picking"].create(
             {
@@ -21,9 +22,7 @@ class TestAccountInvoiceCheckPickingDate(TransactionCase):
                 "location_id": cls.env.ref("stock.stock_location_suppliers").id,
                 "location_dest_id": cls.env.ref("stock.stock_location_stock").id,
                 "move_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Test move",
                             "product_id": cls.product.id,
@@ -47,9 +46,7 @@ class TestAccountInvoiceCheckPickingDate(TransactionCase):
                 "date": "2025-02-01",
                 "invoice_date": "2025-02-01",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": cls.product.id,
                             "quantity": 1,

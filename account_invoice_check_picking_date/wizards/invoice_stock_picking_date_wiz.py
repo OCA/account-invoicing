@@ -1,7 +1,7 @@
 # Copyright 2021 Tecnativa - Carlos Dauden
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, fields, models
+from odoo import fields, models
 
 
 class InvoicePickingDateCheckWiz(models.TransientModel):
@@ -15,7 +15,7 @@ class InvoicePickingDateCheckWiz(models.TransientModel):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": _("Accounting date does not match with stock move dates"),
+            "name": self.env._("Accounting date does not match with stock move dates"),
             "res_model": self._name,
             "res_id": self.id,
             "view_mode": "form",

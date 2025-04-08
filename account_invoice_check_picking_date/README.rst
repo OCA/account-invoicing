@@ -52,7 +52,7 @@ Usage
 5. Return to the purchase order.
 6. Press the button *Create Bill* to create the vendor bill.
 7. Set accounting date with other month date
-8. Press the button *Post* to view warning message.
+8. Press the button *Confirm* to view warning message.
 
 Bug Tracker
 ===========
@@ -78,6 +78,10 @@ Contributors
 - `Tecnativa <https://www.tecnativa.com>`__:
 
      - Carlos Dauden
+
+- `Heliconia Solutions Pvt. Ltd. <https://www.heliconia.io>`__
+
+  - Bhavesh Heliconia
 
 Maintainers
 -----------

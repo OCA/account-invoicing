@@ -1,7 +1,7 @@
 # Copyright 2021 Tecnativa - Carlos Dauden
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, models
+from odoo import api, models
 from odoo.tools import config
 
 
@@ -52,7 +52,7 @@ class AccountMove(models.Model):
                 if invoice._match_invoice_and_stock_move_dates(min_date, max_date):
                     continue
                 DateField = self.env["ir.qweb.field.date"]
-                exception_msg = _(
+                exception_msg = self.env._(
                     "Accounting date: %(accounting_date)s\n"
                     "First stock move: %(min_date)s   Last stock move: %(max_date)s\n\n"
                     "If dates are right and you have manager permissions you can use "
