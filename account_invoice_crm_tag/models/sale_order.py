@@ -1,7 +1,7 @@
 # Copyright 2023 Tecnativa - Stefan Ungureanu
 # Copyright 2023 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import models
+from odoo import Command, models
 
 
 class SaleOrder(models.Model):
@@ -10,7 +10,7 @@ class SaleOrder(models.Model):
     def _prepare_invoice(self):
         vals = super()._prepare_invoice()
         if self.tag_ids:
-            vals["crm_tag_ids"] = [(6, 0, self.tag_ids.ids)]
+            vals["crm_tag_ids"] = [Command.set(self.tag_ids.ids)]
         return vals
 
 
@@ -22,5 +22,5 @@ class SaleOrderLine(models.Model):
         it's not correctly saved due to the trick/duality of invoice_line_ids/line_ids.
         """
         res = super()._prepare_invoice_line(**optional_values)
-        res["crm_tag_ids"] = [(6, 0, self.order_id.tag_ids.ids)]
+        res["crm_tag_ids"] = [Command.set(self.order_id.tag_ids.ids)]
         return res
