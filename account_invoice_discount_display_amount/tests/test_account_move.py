@@ -1,3 +1,5 @@
+from odoo import Command
+
 from .common import TestInvoiceDiscountDisplayCommon
 
 
@@ -7,9 +9,7 @@ class TestAccountMoveLine(TestInvoiceDiscountDisplayCommon):
         super().setUpClass()
         # Add some more lines
         invoice_line_data = [
-            (
-                0,
-                0,
+            Command.create(
                 {
                     "product_id": cls.product.id,
                     "quantity": 10.0,
@@ -29,9 +29,7 @@ class TestAccountMoveLine(TestInvoiceDiscountDisplayCommon):
                     "discount": 50,
                 },
             ),
-            (
-                0,
-                0,
+            Command.create(
                 {
                     "product_id": cls.product.id,
                     "quantity": 1.0,
@@ -51,9 +49,7 @@ class TestAccountMoveLine(TestInvoiceDiscountDisplayCommon):
                     "discount": 40,
                 },
             ),
-            (
-                0,
-                0,
+            Command.create(
                 {
                     "product_id": cls.product.id,
                     "quantity": 5.0,

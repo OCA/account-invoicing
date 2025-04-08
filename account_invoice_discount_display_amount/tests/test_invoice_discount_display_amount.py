@@ -1,19 +1,18 @@
 # Copyright 2022 Manuel Regidor <manuel.regidor@sygel.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from odoo import Command
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestInvoiceDiscountDisplayAmount(TransactionCase):
+class TestInvoiceDiscountDisplayAmount(BaseCommon):
     def test_invoice_discount_value(self):
         invoice = self.env["account.move"].create(
             {
                 "partner_id": self.env.ref("base.res_partner_1").id,
                 "move_type": "out_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Product A",
                             "price_unit": 100,
@@ -21,9 +20,7 @@ class TestInvoiceDiscountDisplayAmount(TransactionCase):
                             "discount": 10,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Product B",
                             "price_unit": 25,

@@ -79,6 +79,10 @@ Contributors
 
   - Santi Amorós <samoros@apsl.net>
 
+- [Heliconia Solutions Pvt. Ltd.](https://www.heliconia.io)
+
+  - Bhavesh Heliconia
+
 Maintainers
 -----------
 

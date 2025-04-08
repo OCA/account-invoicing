@@ -1,7 +1,9 @@
-from odoo.tests.common import TransactionCase
+from odoo import Command
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestInvoiceDiscountDisplayCommon(TransactionCase):
+class TestInvoiceDiscountDisplayCommon(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -46,9 +48,7 @@ class TestInvoiceDiscountDisplayCommon(TransactionCase):
             }
         )
         invoice_line_data = [
-            (
-                0,
-                0,
+            Command.create(
                 {
                     "product_id": cls.product.id,
                     "quantity": 10.0,
