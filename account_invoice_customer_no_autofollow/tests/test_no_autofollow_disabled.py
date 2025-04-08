@@ -9,7 +9,7 @@ from .common import NoAutofollowCommon
 @tagged("post_install", "-at_install", "standart")
 class TestNoAutofollow(NoAutofollowCommon):
     def setUp(self, *args, **kwargs):
-        super(TestNoAutofollow, self).setUp(*args, **kwargs)
+        super().setUp(*args, **kwargs)
 
         self.env["ir.config_parameter"].sudo().set_param(
             "invoice_customer_no_autofollow.invoice_partner_no_autofollow",
