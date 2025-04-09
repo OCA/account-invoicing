@@ -1,3 +1,5 @@
 - [Camptocamp](https://www.camptocamp.com)
   - Iván Todorovich \<ivan.todorovich@camptocamp.com\>
 - Alberto Nieto \<alberto.nieto@braintec.com\> (<https://braintec.com>)
+- [Heliconia Solutions Pvt. Ltd.](https://www.heliconia.io)
+  - Bhavesh Heliconia

@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,7 +16,6 @@ msgstr ""
 #. module: account_invoice_payment_term_date_due
 #: model_terms:ir.ui.view,arch_db:account_invoice_payment_term_date_due.view_move_form
 msgid ""
-"<i class=\"fa fa-arrow-right mx-3 text-muted pl-4 pt-1\" "
-"attrs=\"{'invisible': ['|', ('invoice_payment_term_id', '=', False), "
-"('invoice_date_due', '=', False)]}\" title=\"Arrow icon\"/>"
+"<i class=\"fa fa-arrow-right mx-3 text-muted pl-4 pt-1\" invisible=\"not "
+"invoice_payment_term_id or not invoice_date_due\" title=\"Arrow icon\"/>"
 msgstr ""
