@@ -13,7 +13,7 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
                     string="Revert Credit Note"
                     type="object"
                     groups="account.group_account_invoice"
-                    attrs="{'invisible': ['|', ('move_type', '!=', 'out_refund'), ('state', '!=', 'posted')]}"
+                    invisible="move_type != 'out_refund' or state != 'posted'"
                 />
             </button>
         </field>

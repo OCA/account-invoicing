@@ -3,7 +3,7 @@
 {
     "name": "Sale Credit Note Reversal",
     "summary": """Allow to revert a credit note""",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sales",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
@@ -13,5 +13,6 @@
     "depends": ["sale_management"],
     "data": [
         "views/account_move_views.xml",
+        "wizard/account_move_reversal_views.xml",
     ],
 }

@@ -28,7 +28,6 @@ class TestSaleCreditNoteReversal(TransactionCase):
                         },
                     ),
                 ],
-                "pricelist_id": cls.env.ref("product.list0").id,
             }
         )
         cls.order.action_confirm()
