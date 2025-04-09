@@ -1,8 +1,8 @@
 # Copyright 2023 Acsone SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from odoo import Command
 from odoo.exceptions import ValidationError
-from odoo.fields import Command
 from odoo.tests import tagged
 
 from odoo.addons.account_tax_one_vat.tests.common import TestAccountTaxOneVatCommon
@@ -17,7 +17,7 @@ class TestAccountTaxOneVatPurchase(TestAccountTaxOneVatCommon):
         so = self.env["sale.order"].create(
             {
                 "partner_id": self.partner_a.id,
-                "order_line": [(0, 0, {"product_id": self.product_a.id})],
+                "order_line": [Command.create({"product_id": self.product_a.id})],
             }
         )
         so_line = so.order_line[0]
@@ -57,7 +57,7 @@ class TestAccountTaxOneVatPurchase(TestAccountTaxOneVatCommon):
             }
         )
         so_line = so.order_line[0]
-        so_line.tax_id = [(6, 0, self.mixed_taxes.ids)]
+        so_line.tax_id = [Command.set(self.mixed_taxes.ids)]
         self.assertEqual(len(so_line.tax_id), 2)
         nb_vat_taxes = len(so_line.tax_id.filtered("is_vat"))
         self.assertEqual(nb_vat_taxes, 1)

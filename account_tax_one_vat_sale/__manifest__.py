@@ -5,7 +5,7 @@
 {
     "name": "Account Tax One VAT Sale",
     "summary": "Allow only the selection of one VAT Tax in purchase order line",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "author": "Camptocamp, Acsone, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "account",
