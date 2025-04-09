@@ -7,13 +7,18 @@
         <field name="model">sale.advance.payment.inv</field>
         <field name="inherit_id" ref="sale.view_sale_advance_payment_inv" />
         <field name="arch" type="xml">
-            <field name="has_down_payments" position="after">
-                <field
-                    name="qty_percentage"
-                    attrs="{'invisible': [('advance_payment_method', '!=', 'qty_percentage')]}"
-                    widget="percentage"
-                />
-            </field>
+            <group name="down_payment_specification" position="after">
+                <group invisible="advance_payment_method != 'qty_percentage'">
+                    <label for="qty_percentage" />
+                    <div>
+                        <field
+                            name="qty_percentage"
+                            widget="percentage"
+                            class="oe_inline"
+                        />
+                    </div>
+                </group>
+            </group>
         </field>
     </record>
 </odoo>

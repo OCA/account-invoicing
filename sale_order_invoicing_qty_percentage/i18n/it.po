@@ -19,9 +19,8 @@ msgstr ""
 #. module: sale_order_invoicing_qty_percentage
 #: model:ir.model.fields,help:sale_order_invoicing_qty_percentage.field_sale_advance_payment_inv__advance_payment_method
 msgid ""
-"A standard invoice is issued with all the order lines ready for "
-"invoicing,according to their invoicing policy (based on ordered or delivered"
-" quantity)."
+"A standard invoice is issued with all the order lines ready for invoicing,"
+"according to their invoicing policy (based on ordered or delivered quantity)."
 msgstr ""
 "Una fattura standard è creata con tutte le righe d'ordine pronte per "
 "fatturazione, in accordo con la sua politica di fatturazione (in base alle "
