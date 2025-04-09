@@ -1,8 +1,8 @@
 # Copyright 2023 Acsone SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from odoo import Command
 from odoo.exceptions import UserError, ValidationError
-from odoo.fields import Command
 from odoo.tests import tagged
 
 from .common import TestAccountTaxOneVatCommon

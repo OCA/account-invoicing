@@ -1,14 +1,15 @@
 # Copyright 2023 Acsone SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from odoo import Command
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 class TestAccountTaxOneVatCommon(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env.user.company_id = cls.company_data["company"]
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.vat_tax_1 = cls.env["account.tax"].create(
@@ -41,9 +42,7 @@ class TestAccountTaxOneVatCommon(AccountTestInvoicingCommon):
             {
                 "move_type": "entry",
                 "line_ids": [
-                    (
-                        0,
-                        None,
+                    Command.create(
                         {
                             "name": "revenue line 1",
                             "account_id": cls.company_data[
@@ -53,9 +52,7 @@ class TestAccountTaxOneVatCommon(AccountTestInvoicingCommon):
                             "credit": 0.0,
                         },
                     ),
-                    (
-                        0,
-                        None,
+                    Command.create(
                         {
                             "name": "counterpart line",
                             "account_id": cls.company_data[
@@ -86,14 +83,12 @@ class TestAccountTaxOneVatCommon(AccountTestInvoicingCommon):
             "move_type": "out_invoice",
             "partner_id": self.partner_a.id,
             "invoice_line_ids": [
-                (
-                    0,
-                    0,
+                Command.create(
                     {
                         "name": "xxxx",
                         "quantity": 1,
                         "price_unit": amount,
-                        "tax_ids": [(6, 0, taxes.ids)],
+                        "tax_ids": [Command.set(taxes.ids)],
                     },
                 )
                 for amount, taxes in taxes_per_line
