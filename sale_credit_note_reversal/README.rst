@@ -16,28 +16,29 @@ Sale Credit Note Reversal
 .. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fsale--workflow-lightgray.png?logo=github
-    :target: https://github.com/OCA/sale-workflow/tree/16.0/sale_credit_note_reversal
-    :alt: OCA/sale-workflow
+.. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
+    :target: https://github.com/OCA/account-invoicing/tree/18.0/sale_credit_note_reversal
+    :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/sale-workflow-16-0/sale-workflow-16-0-sale_credit_note_reversal
+    :target: https://translation.odoo-community.org/projects/account-invoicing-18-0/account-invoicing-18-0-sale_credit_note_reversal
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/sale-workflow&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-Allow to revert a credit note. Standard Odoo does not allow it.
-When reverting the credit note from the journal entry Standard Odoo
-does not link it to the Sales order, because the reversal is not an
-invoice. This module just ensure the reveral is a customer invoice,
-so it counts as invoice in the sales order.
+Allow to revert a credit note. Standard Odoo does not allow it. When
+reverting the credit note from the journal entry Standard Odoo does not
+link it to the Sales order, because the reversal is not an invoice. This
+module just ensure the reveral is a customer invoice, so it counts as
+invoice in the sales order.
 
 This also serves when the posting credit notes by mistake. For example,
 when adding a negative quantity in the sale line and creating Odoo will
-actually create a credit note, then, if other lines with positive quantites
-are added nothing changes, and the invoice will be still a credit note.
+actually create a credit note, then, if other lines with positive
+quantites are added nothing changes, and the invoice will be still a
+credit note.
 
 **Table of contents**
 
@@ -47,18 +48,18 @@ are added nothing changes, and the invoice will be still a credit note.
 Known issues / Roadmap
 ======================
 
-An integration with sale_line_refund_to_invoice_qty module will be very useful.
-The reverted credit note does not add quantity to the qty_invoiced. The credit
-note does also not update the qty_to_invoice in the normal case, so at least
-this reversal is consistent.
+An integration with sale_line_refund_to_invoice_qty module will be very
+useful. The reverted credit note does not add quantity to the
+qty_invoiced. The credit note does also not update the qty_to_invoice in
+the normal case, so at least this reversal is consistent.
 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/OCA/sale-workflow/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/sale-workflow/issues/new?body=module:%20sale_credit_note_reversal%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20sale_credit_note_reversal%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -66,17 +67,17 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * ForgeFlow
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Aaron Henriquez <aaron.henriquez@forgeflow.com>
+- Aaron Henriquez <aaron.henriquez@forgeflow.com>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -88,6 +89,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/sale-workflow <https://github.com/OCA/sale-workflow/tree/16.0/sale_credit_note_reversal>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/18.0/sale_credit_note_reversal>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
