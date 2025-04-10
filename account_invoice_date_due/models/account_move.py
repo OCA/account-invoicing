@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -23,7 +23,9 @@ class AccountMove(models.Model):
                 if not self.env.user.has_group(
                     "account_invoice_date_due.allow_to_change_due_date"
                 ):
-                    raise UserError(_("You are not allowed to change the due date."))
+                    raise UserError(
+                        self.env._("You are not allowed to change the due date.")
+                    )
 
     @api.onchange("invoice_date_due_payment_term")
     def _onchange_invoice_date_due_payment_term(self):
