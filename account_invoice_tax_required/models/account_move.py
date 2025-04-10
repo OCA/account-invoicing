@@ -4,7 +4,7 @@
 # Copyright 2019-2024 - Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import SUPERUSER_ID, _, models
+from odoo import SUPERUSER_ID, models
 from odoo.exceptions import RedirectWarning
 from odoo.tools import config
 
@@ -15,7 +15,7 @@ class AccountMove(models.Model):
     def _test_invoice_line_tax(self):
         errors = []
         invoice_error_ids = []
-        error_template = _(
+        error_template = self.env._(
             "Invoice %(invoice)s for customer %(customer)s "
             "has a line with product %(product)s with no taxes"
         )
@@ -33,7 +33,7 @@ class AccountMove(models.Model):
         if errors:
             invoice_error_ids = list(set(invoice_error_ids))
             action_error = {
-                "name": _("Invoices with Missing Taxes"),
+                "name": self.env._("Invoices with Missing Taxes"),
                 "res_model": "account.move",
                 "type": "ir.actions.act_window",
                 "search_view_id": [
@@ -48,18 +48,20 @@ class AccountMove(models.Model):
                     [self.env.ref("account.view_move_form").id, "form"],
                 ]
             else:
-                action_error["view_mode"] = "tree"
+                action_error["view_mode"] = "list"
                 action_error["domain"] = [("id", "in", invoice_error_ids)]
                 action_error["views"] = [
                     [self.env.ref("account.view_move_tree").id, "list"],
                     [self.env.ref("account.view_move_form").id, "form"],
                 ]
-            error_msg = "%(message)s\n%(errors)s" % {
-                "message": _("No Taxes Defined!"),
-                "errors": "\n".join(errors),
-            }
+            error_msg = "{message}\n{errors}".format(
+                message=self.env._("No Taxes Defined!"),
+                errors="\n".join(errors),
+            )
             raise RedirectWarning(
-                error_msg, action_error, _("Show invoices with lines without taxes")
+                error_msg,
+                action_error,
+                self.env._("Show invoices with lines without taxes"),
             )
 
     def _post(self, soft=True):
