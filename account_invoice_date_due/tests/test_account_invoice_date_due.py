@@ -5,23 +5,15 @@ from datetime import datetime, timedelta
 
 from odoo import fields
 from odoo.exceptions import UserError
-from odoo.tests import Form, common
+from odoo.tests import Form
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestAccountInvoiceDateDue(common.TransactionCase):
+class TestAccountInvoiceDateDue(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(
-            context=dict(
-                cls.env.context,
-                mail_create_nolog=True,
-                mail_create_nosubscribe=True,
-                mail_notrack=True,
-                no_reset_password=True,
-                tracking_disable=True,
-            )
-        )
         group = cls.env.ref("account_invoice_date_due.allow_to_change_due_date")
         acc_group = cls.env.ref("account.group_account_manager")
         # Loose dependency on stock to avoid perm issues.
@@ -91,7 +83,12 @@ class TestAccountInvoiceDateDue(common.TransactionCase):
             self._compare_records(
                 old_move_state,
                 self.move.sudo().read()[0],
-                ignore={"write_uid", "message_is_follower", "needed_terms"},
+                ignore={
+                    "write_uid",
+                    "message_is_follower",
+                    "needed_terms",
+                    "is_manually_modified",
+                },
             ),
             # Assert only this field is changed
             {"invoice_date_due_payment_term", "invoice_date_due"},

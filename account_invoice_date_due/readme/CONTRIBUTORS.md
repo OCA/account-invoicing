@@ -2,3 +2,4 @@
 - Luis Torres \<<luis_t@vauxoo.com>\>
 - [Tecnativa](https://www.tecnativa.com):
   - João Marques
+  - Juan Carlos Oñate
