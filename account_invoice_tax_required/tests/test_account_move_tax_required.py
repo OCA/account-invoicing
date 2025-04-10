@@ -12,7 +12,7 @@ from odoo.addons.account.tests.common import TestAccountReconciliationCommon
 class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
     @classmethod
     def setUpClass(cls):
-        super(TestAccountInvoiceTaxRequired, cls).setUpClass()
+        super().setUpClass()
         cls.env = cls.env(
             context=dict(
                 cls.env.context,
