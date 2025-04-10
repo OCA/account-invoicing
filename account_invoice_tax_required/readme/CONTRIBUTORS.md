@@ -4,3 +4,6 @@
 - Jorge Camacho \<<jcamacho@trey.es>\>
 - Nikul Chaudhary \<<nikulchaudhary2112@gmail.com>\>
 - Juan Vicente PAscual \<<jvpascual@puntsistemes.es>\>
+- [Tecnativa](https://www.tecnativa.com):
+
+  - Juan Carlos Oñate
