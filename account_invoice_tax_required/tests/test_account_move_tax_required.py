@@ -3,26 +3,17 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import exceptions
+from odoo.fields import Command
 from odoo.tests import tagged
 
-from odoo.addons.account.tests.common import TestAccountReconciliationCommon
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @tagged("post_install", "-at_install")
-class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
+class TestAccountInvoiceTaxRequired(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(
-            context=dict(
-                cls.env.context,
-                mail_create_nolog=True,
-                mail_create_nosubscribe=True,
-                mail_notrack=True,
-                no_reset_password=True,
-                tracking_disable=True,
-            )
-        )
         cls.account_invoice = cls.env["account.move"]
         cls.account_journal = cls.env["account.journal"]
         cls.journal = cls.account_journal.create(
@@ -54,9 +45,7 @@ class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
         )
 
         invoice_line_data = [
-            (
-                0,
-                0,
+            Command.create(
                 {
                     "product_id": cls.product.id,
                     "quantity": 10.0,
@@ -85,6 +74,25 @@ class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
                 invoice_line_ids=invoice_line_data,
                 move_type="out_invoice",
             )
+        )
+
+        cls.tax_waiting_account = cls.env["account.account"].create(
+            {
+                "name": "TAX_WAIT",
+                "code": "TWAIT",
+                "account_type": "liability_current",
+                "reconcile": True,
+            }
+        )
+
+        cls.tax_cash_basis = cls.env["account.tax"].create(
+            {
+                "name": "cash basis 20%",
+                "type_tax_use": "purchase",
+                "amount": 20,
+                "tax_exigibility": "on_payment",
+                "cash_basis_transition_account_id": cls.tax_waiting_account.id,
+            }
         )
 
     def test_exception(self):
