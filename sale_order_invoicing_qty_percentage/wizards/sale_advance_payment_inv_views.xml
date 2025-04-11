@@ -10,12 +10,9 @@
             <group name="down_payment_specification" position="after">
                 <group invisible="advance_payment_method != 'qty_percentage'">
                     <label for="qty_percentage" />
-                    <div>
-                        <field
-                            name="qty_percentage"
-                            widget="percentage"
-                            class="oe_inline"
-                        />
+                    <div id="payment_method_percentage_details">
+                        <field name="qty_percentage" class="oe_inline" />
+                        <span class="oe_inline">% </span>
                     </div>
                 </group>
             </group>

@@ -14,7 +14,7 @@ class TestSaleOrderInvoicingQtyPercentage(BaseCommon):
         cls.product = cls.env["product.product"].create(
             {
                 "name": "Test product",
-                "detailed_type": "service",
+                "type": "service",
                 "invoice_policy": "order",
             }
         )
@@ -32,7 +32,7 @@ class TestSaleOrderInvoicingQtyPercentage(BaseCommon):
                 active_ids=cls.order.ids,
                 active_model="sale.order",
             )
-            .create({"advance_payment_method": "qty_percentage", "qty_percentage": 0.5})
+            .create({"advance_payment_method": "qty_percentage", "qty_percentage": 50})
         )
 
     def test_invoicing_same_data(self):

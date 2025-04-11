@@ -10,6 +10,7 @@ class SaleOrder(models.Model):
     def _prepare_invoice_line(self, **optional_values):
         """If invoicing by quantity percentage, modify quantities."""
         res = super()._prepare_invoice_line(**optional_values)
-        if self.env.context.get("qty_percentage"):
-            res["quantity"] *= self.env.context["qty_percentage"]
+        qty_percentage = self.env.context.get("qty_percentage")
+        if qty_percentage:
+            res["quantity"] *= qty_percentage / 100
         return res
