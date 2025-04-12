@@ -15,6 +15,7 @@ class AccountMove(models.Model):
         tracking=True,
         store=True,
         precompute=True,
+        readonly=False,
     )
 
     @api.constrains("pricelist_id", "currency_id")
@@ -39,6 +40,7 @@ class AccountMove(models.Model):
                 invoice.partner_id
                 and invoice.is_sale_document()
                 and invoice.partner_id.property_product_pricelist
+                and not invoice.pricelist_id
             ):
                 invoice.pricelist_id = invoice.partner_id.property_product_pricelist
 
