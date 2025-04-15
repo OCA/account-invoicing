@@ -16,12 +16,9 @@
                     optional="show"
                 />
             </xpath>
-            <xpath
-                expr="//field[@name='invoice_line_ids']/form/sheet/group/field[@name='discount']"
-                position="before"
-            >
+            <field name="discount" position="before">
                 <field name="discount_fixed" groups="base.group_no_one" />
-            </xpath>
+            </field>
             <xpath
                 expr="//field[@name='line_ids']/tree/field[@name='discount']"
                 position="before"
