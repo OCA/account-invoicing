@@ -12,7 +12,7 @@ from odoo.tools.float_utils import float_compare
 class TestSaleTimesheetDescription(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
-        super(TestSaleTimesheetDescription, cls).setUpClass()
+        super().setUpClass()
         if not cls.env.company.chart_template_id:
             # Load a CoA if there's none in current company
             coa = cls.env.ref("l10n_generic_coa.configurable_chart_template", False)
