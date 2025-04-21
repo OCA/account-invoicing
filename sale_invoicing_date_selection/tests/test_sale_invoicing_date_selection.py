@@ -27,28 +27,30 @@ class TestSaleInvoicingDateSelection(TransactionCase):
         self.sale_order_2 = self._create_sale_order(self.partner_1)
         self.sale_order_1.action_confirm()
         self.sale_order_2.action_confirm()
-        with Form(
-            self.env["sale.advance.payment.inv"].with_context(
+        wiz = (
+            self.env["sale.advance.payment.inv"]
+            .with_context(
                 active_model="sale.order",
+                active_id=self.sale_order_1.id,
                 active_ids=self.sale_order_1.ids,
                 open_invoices=True,
             )
-        ) as wiz_invoice_form:
-            wiz_invoice_form.invoice_date = "2022-11-01"
-        wiz = wiz_invoice_form.save()
+            .create({"invoice_date": "2022-11-01"})
+        )
         action = wiz.create_invoices()
         invoices = self.env["account.move"].browse(action["res_id"])
         self.assertEqual(fields.Date.to_string(invoices[0].invoice_date), "2022-11-01")
         # check creating invoices when advanced method is not delivered
-        with Form(
-            self.env["sale.advance.payment.inv"].with_context(
+        wiz = (
+            self.env["sale.advance.payment.inv"]
+            .with_context(
                 active_model="sale.order",
+                active_id=self.sale_order_2.id,
                 active_ids=self.sale_order_2.ids,
                 open_invoices=True,
             )
-        ) as wiz_invoice_form:
-            wiz_invoice_form.invoice_date = "2024-03-01"
-        wiz = wiz_invoice_form.save()
+            .create({"invoice_date": "2024-03-01"})
+        )
         # set values by code as there are invisible fields
         wiz.advance_payment_method = "fixed"
         wiz.fixed_amount = 10

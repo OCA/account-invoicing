@@ -1,4 +1,4 @@
-# Copyright 2022 Sergio Teruel <sergio.teruel@tecnativa.com>
+# Copyright 2022 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models
@@ -17,9 +17,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
                     "default_invoice_date": self.invoice_date,
                 }
             )
-            return sale_orders.with_context(**ctx)._create_invoices(
-                final=self.deduct_down_payments, grouped=not self.consolidated_billing
-            )
+            sale_orders = sale_orders.with_context(**ctx)
         return super()._create_invoices(sale_orders)
 
     def _prepare_invoice_values(self, order, so_line):
