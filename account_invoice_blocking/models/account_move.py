@@ -50,7 +50,6 @@ class AccountInvoice(models.Model):
 
     blocked = fields.Boolean(
         "No Follow-up",
-        states={"draft": [("readonly", True)]},
         compute="_compute_move_blocked",
         inverse="_inverse_move_blocked",
     )
