@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
             <field name="fiscal_position_id" position="after">
-                <field name="blocked" />
+                <field name="blocked" readonly="state=='draft'" />
             </field>
         </field>
     </record>
