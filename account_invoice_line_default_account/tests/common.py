@@ -10,7 +10,6 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 @tagged("post_install", "-at_install")
 class DefaultAccountCommon(AccountTestInvoicingCommon):
-
     _default_move_type = "out_invoice"
 
     @classmethod

@@ -9,7 +9,6 @@ from .common import DefaultAccountCommon
 
 
 class TestDefaultAccountSupplier(DefaultAccountCommon):
-
     _default_move_type = "in_invoice"
 
     def test_default_account_product(self):
