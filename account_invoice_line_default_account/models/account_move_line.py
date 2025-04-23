@@ -1,5 +1,5 @@
 # Copyright 2012 Therp BV (<http://therp.nl>)
-# Copyright 2013-2018 BCIM SPRL (<http://www.bcim.be>)
+# Copyright 2013 Jacques-Etienne Baudoux (BICM) <je@bcim.be>
 # Copyright 2022 Simone Rubino - TAKOBI
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
@@ -7,13 +7,24 @@ from odoo import models
 from odoo.fields import first
 
 
-class AccountInvoiceLine(models.Model):
+class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
+
+    def default_get(self, fields_list):
+        defaults = super().default_get(fields_list)
+        quick_encode_suggestion = self.env.context.get("quick_encoding_vals")
+        if not quick_encode_suggestion:
+            # Remove default journal account to trigger compute
+            if "account_id" in defaults:
+                del defaults["account_id"]
+        return defaults
 
     def _compute_account_id(self):
         super()._compute_account_id()
         lines_without_product = self.filtered(
-            lambda line: line.display_type == "product" and not line.product_id
+            lambda line: line.display_type == "product"
+            and not line.product_id
+            and line.move_id.is_invoice(True)
         )
         if not lines_without_product:
             return

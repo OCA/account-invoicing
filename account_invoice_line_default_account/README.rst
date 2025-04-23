@@ -75,7 +75,7 @@ Contributors
 ------------
 
 - Ronald Portier, Therp
-- Jacques-Etienne Baudoux <je@bcim.be> (BCIM sprl)
+- Jacques-Etienne Baudoux (BCIM) <je@bcim.be>
 - Denis Roussel <denis.roussel@acsone.eu>
 - `TAKOBI <https://takobi.online>`__:
 
