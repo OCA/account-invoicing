@@ -30,6 +30,10 @@ class SaleOrder(models.Model):
             for move_line in move_lines:
                 group = move_line._get_section_group()
                 section_grouping_matrix.setdefault(group, []).append(move_line.id)
+            if invoice.company_id.invoice_section_order_chronological:
+                section_grouping_matrix = OrderedDict(
+                    reversed(list(section_grouping_matrix.items()))
+                )
             # Prepare section lines for each group
             section_lines = []
             for group, move_line_ids in section_grouping_matrix.items():

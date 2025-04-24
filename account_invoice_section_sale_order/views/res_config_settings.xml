@@ -35,6 +35,21 @@
                         </div>
                     </div>
                 </div>
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="invoice_section_sale_order_ordering"
+                    groups="account_invoice_section_sale_order.group_sale_order_invoice_section_name"
+                >
+                    <div class="o_setting_left_pane">
+                        <field name="invoice_section_order_chronological" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="invoice_section_order_chronological" />
+                        <div class="text-muted">
+                            If checked, the invoice sections will be ordered chronologically
+                        </div>
+                    </div>
+                </div>
             </xpath>
         </field>
     </record>

@@ -17,3 +17,8 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
         required=True,
     )
+
+    invoice_section_order_chronological = fields.Boolean(
+        related="company_id.invoice_section_order_chronological",
+        readonly=False,
+    )

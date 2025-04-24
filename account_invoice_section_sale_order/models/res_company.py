@@ -21,3 +21,9 @@ class ResCompany(models.Model):
         default="sale_order",
         required=True,
     )
+
+    invoice_section_order_chronological = fields.Boolean(
+        string="Invoice section order chronological",
+        help="If checked, the invoice sections will be ordered "
+        "chronologically when creating invoice for muliple sale orders ",
+    )
