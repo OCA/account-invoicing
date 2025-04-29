@@ -12,7 +12,9 @@
     >
         <!-- Add 'default_code' Column in table header -->
         <xpath expr="//th[@name='th_description']" position="before">
-            <th name="default_code" class="text-start"><span>Code</span></th>
+            <th name="default_code" class="text-start">
+                <span>Code</span>
+            </th>
         </xpath>
 
         <!-- Add 'default_code' Column in table body -->
@@ -31,6 +33,5 @@
                 />
             </td>
         </xpath>
-
     </template>
 </odoo>
