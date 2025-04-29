@@ -4,7 +4,7 @@
 {
     "name": "Account Invoices - Default Code Column",
     "summary": "Display Default code product in a dedicated column on invoice reports",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Invoicing",
     "license": "AGPL-3",
     "author": "GRAP,Odoo Community Association (OCA)",

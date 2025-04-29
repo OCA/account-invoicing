@@ -13,4 +13,8 @@ of the invoices.
 
 ![](../static/description/1_without_module.png)
 
-**With this module** .. figure:: ../static/description/2_with_module.png
+**With this module**
+
+figure::
+
+![](../static/description/2_with_module.png)
