@@ -17,8 +17,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 #. module: stock_picking_invoicing
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:0
@@ -318,22 +318,16 @@ msgid "True"
 msgstr ""
 
 #. module: stock_picking_invoicing
+#: code:addons/stock_picking_invoicing/models/stock_move.py:0
+#, python-format
+msgid ""
+"You cannot cancel a stock move linked to invoices/bills. Only members of the "
+"\"%(group_name)s\" group can perform this action. References: %(references)s"
+msgstr ""
+"Ne morete preklicati premika zaloge, povezanega z računi/dobropisi. To dejanje "
+"lahko izvedejo samo člani skupine \"%(group_name)s\". Reference: %(references)s"
+
+#. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "or"
 msgstr ""
-
-#~ msgid ""
-#~ "Can't update invoice control for picking %s: It's 'to be invoiced' yet"
-#~ msgstr ""
-#~ "Nadzora obračuna za zbirnik %s ni mogoče posodobiti: ni še zaračunan"
-
-#~ msgid "Picking %s has linked invoice %s"
-#~ msgstr "Zbirnik %s je povezan z računom %s"
-
-#, fuzzy
-#~ msgid "Picking ids"
-#~ msgstr "Zbirni seznam"
-
-#, fuzzy
-#~ msgid "Stock moves"
-#~ msgstr "Premik zaloge"

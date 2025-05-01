@@ -1,7 +1,8 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class StockMove(models.Model):
@@ -75,3 +76,39 @@ class StockMove(models.Model):
         values = super()._prepare_move_split_vals(uom_qty)
         values["invoice_state"] = self.invoice_state
         return values
+
+    def _action_cancel(self):
+        res = super()._action_cancel()
+        # The allowed group is defined in a noupdate xml data section.
+        # This means that if someone updates the module to get this feature,
+        # the group won't be created.
+        allowed_group = self.env.ref(
+            "stock_picking_invoicing.group_allow_to_cancel_stock_move_linked_to_invoice_bill",
+            raise_if_not_found=False,
+        )
+        if allowed_group:
+            # done moves out, built-in workflow deals with them,
+            # also out moves linked to cancelled journal items
+            moves = self.filtered(
+                lambda it: it.state != "done"
+                and it.invoice_line_ids.filtered(
+                    lambda inv_line: inv_line.move_id.state != "cancel"
+                )
+            )
+            if moves:
+                if allowed_group not in self.env.user.groups_id:
+                    move_references = ",".join(
+                        moves.mapped(
+                            lambda it: f"{it.reference}({it.product_id.default_code})"
+                        )
+                    )
+                    raise UserError(
+                        _(
+                            "You cannot cancel a stock move linked to invoices/bills. "
+                            'Only members of the "%(group_name)s" group can perform '
+                            "this action. References: %(references)s",
+                            group_name=allowed_group.name,
+                            references=move_references,
+                        )
+                    )
+        return res

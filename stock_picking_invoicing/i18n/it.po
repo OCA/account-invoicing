@@ -93,7 +93,8 @@ msgid ""
 "Group pickings/moves to create invoice(s):\n"
 "Picking: One invoice per picking;\n"
 "Partner: One invoice for each picking's partner;\n"
-"Partner/Product: One invoice per picking's partner and group product into a single invoice line."
+"Partner/Product: One invoice per picking's partner and group product into a "
+"single invoice line."
 msgstr ""
 
 #. module: stock_picking_invoicing
@@ -299,6 +300,14 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_form
 msgid "True"
+msgstr ""
+
+#. module: stock_picking_invoicing
+#: code:addons/stock_picking_invoicing/models/stock_move.py:0
+#, python-format
+msgid ""
+"You cannot cancel a stock move linked to invoices/bills. Only members of the "
+"\"%(group_name)s\" group can perform this action. References: %(references)s"
 msgstr ""
 
 #. module: stock_picking_invoicing

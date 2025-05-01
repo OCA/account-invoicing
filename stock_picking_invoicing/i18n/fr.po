@@ -324,41 +324,16 @@ msgid "True"
 msgstr ""
 
 #. module: stock_picking_invoicing
+#: code:addons/stock_picking_invoicing/models/stock_move.py:0
+#, python-format
+msgid ""
+"You cannot cancel a stock move linked to invoices/bills. Only members of the "
+"\"%(group_name)s\" group can perform this action. References: %(references)s"
+msgstr ""
+"Vous ne pouvez pas annuler un mouvement de stock lié à des factures. Seuls les membres du "
+"groupe \"%(group_name)s\" peuvent effectuer cette action. Références : %(references)s"
+
+#. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "or"
 msgstr "ou"
-
-#~ msgid "Invoice"
-#~ msgstr "Facture"
-
-#~ msgid "Invoice Line"
-#~ msgstr "Ligne de facture"
-
-#~ msgid "Invoice ids"
-#~ msgstr "Factures"
-
-#~ msgid "Picking ids"
-#~ msgstr "Pickings"
-
-#~ msgid "Purchase refund journal"
-#~ msgstr "Journal note de crédits d'achat"
-
-#, fuzzy
-#~ msgid "Sale refund journal"
-#~ msgstr "Journal note de crédits d'achat"
-
-#, fuzzy
-#~ msgid "Show Refund Purchase Journal"
-#~ msgstr "Journal d'achat"
-
-#~ msgid "Stock moves"
-#~ msgstr "Mouvements de stock"
-
-#~ msgid "Procurement"
-#~ msgstr "Approvisionnement"
-
-#~ msgid "Procurement Rule"
-#~ msgstr "Règle d'approvisionnement"
-
-#~ msgid "Pushed Flow"
-#~ msgstr "Flux poussés"

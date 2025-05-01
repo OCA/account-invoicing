@@ -1,8 +1,9 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import exceptions
-from odoo.tests import Form, SavepointCase, tagged
+from odoo.exceptions import UserError
+from odoo.tests import Form, SavepointCase, new_test_user, tagged
+from odoo.tools import mute_logger
 
 
 @tagged("post_install", "-at_install")
@@ -57,16 +58,32 @@ class TestPickingInvoicing(SavepointCase):
         )
 
         cls.tax_sale_1 = cls.tax_model.create(
-            {"name": "Sale tax 20", "type_tax_use": "sale", "amount": "20.00"}
+            {
+                "name": "Sale tax 20",
+                "type_tax_use": "sale",
+                "amount": "20.00",
+            }
         )
         cls.tax_sale_2 = cls.tax_model.create(
-            {"name": "Sale tax 10", "type_tax_use": "sale", "amount": "10.00"}
+            {
+                "name": "Sale tax 10",
+                "type_tax_use": "sale",
+                "amount": "10.00",
+            }
         )
         cls.tax_purchase_1 = cls.tax_model.create(
-            {"name": "Purchase tax 10", "type_tax_use": "purchase", "amount": "10.00"}
+            {
+                "name": "Purchase tax 10",
+                "type_tax_use": "purchase",
+                "amount": "10.00",
+            }
         )
         cls.tax_purchase_2 = cls.tax_model.create(
-            {"name": "Purchase tax 20", "type_tax_use": "purchase", "amount": "20.00"}
+            {
+                "name": "Purchase tax 20",
+                "type_tax_use": "purchase",
+                "amount": "20.00",
+            }
         )
 
         cls.product_test_1 = cls.product_model.create(
@@ -193,7 +210,7 @@ class TestPickingInvoicing(SavepointCase):
         wizard_values = wizard_obj.default_get(fields_list)
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
-        with self.assertRaises(exceptions.UserError) as e:
+        with self.assertRaises(UserError) as e:
             wizard.with_context(lang="en_US").action_generate()
         msg = "No invoice created!"
         self.assertIn(msg, e.exception.args[0])
@@ -401,7 +418,7 @@ class TestPickingInvoicing(SavepointCase):
                 )
             self.assertTrue(inv_line.tax_ids, "Error to map Sale Tax in invoice.line.")
 
-    def test_picking_cancel(self):
+    def test_invoice_cancel(self):
         """
         Ensure that the invoice_state of the picking is correctly
         updated when an invoice is cancelled
@@ -945,3 +962,58 @@ class TestPickingInvoicing(SavepointCase):
             "in_refund",
             "Invoice Type should be In Refund",
         )
+
+    @mute_logger("odoo.addons.auth_signup.models.res_users")
+    def test_picking_cancel(self):
+        self.partner.write({"type": "invoice"})
+        picking = self.picking_model.create(
+            {
+                "partner_id": self.partner2.id,
+                "picking_type_id": self.pick_type_out.id,
+                "location_id": self.stock_location.id,
+                "location_dest_id": self.customers_location.id,
+            }
+        )
+        move_vals = {
+            "product_id": self.product_test_1.id,
+            "picking_id": picking.id,
+            "location_dest_id": self.customers_location.id,
+            "location_id": self.stock_location.id,
+            "name": self.product_test_1.name,
+            "product_uom_qty": 2,
+            "product_uom": self.product_test_1.uom_id.id,
+        }
+        new_move = self.move_model.create(move_vals)
+        new_move.onchange_product_id()
+        picking.set_to_be_invoiced()
+        picking.action_confirm()
+        # Check product availability
+        picking.action_assign()
+        # Force product availability
+        picking.button_validate()
+        wizard_obj = self.invoice_wizard.with_context(
+            active_ids=picking.ids,
+            active_model=picking._name,
+            active_id=picking.id,
+        )
+        fields_list = wizard_obj.fields_get().keys()
+        wizard_values = wizard_obj.default_get(fields_list)
+        wizard = wizard_obj.create(wizard_values)
+        wizard.onchange_group()
+        wizard.action_generate()
+
+        regular_user = new_test_user(
+            self.env,
+            login="regular_user",
+            groups="stock.group_stock_user,account.group_account_invoice",
+        )
+
+        # regular user cancel should raise UserError
+        with self.assertRaises(UserError):
+            picking.with_user(regular_user).action_cancel()
+
+        self.assertFalse(picking.state == "cancel")
+
+        # priviled user cancel should work as expected
+        picking.action_cancel()
+        self.assertTrue(picking.state == "cancel")

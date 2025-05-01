@@ -31,6 +31,10 @@ Stock Picking Invoicing
 This module allows to create invoices directly from picking, without having to
 use sale or purchase orders.
 
+Additionally, the cancellation of stock moves already linked to invoices or
+bills is restricted to users who belong to the "Allow to cancel stock moves
+linked to invoices/bills" group.
+
 **Table of contents**
 
 .. contents::
@@ -52,9 +56,15 @@ To use this module, you need to:
 #. Into the Tree view, you can select many pickings and create a grouped invoice;
 #. If at least an invoice is created for a picking, a new "Invoicing" tab appears.
 
-
 If an invoice (not refund) is cancelled or deleted, invoice status of related picking is automatically
 updated to "To be invoiced".
+
+Also about the cancellation of stock moves linked to invoices/bills:
+
+* Attempt to cancel a picking linked to invoices/bills.
+* If the user is not part of the group "Allow to cancel stock move linked to invoice/bill",
+  an error will be raised, preventing the cancellation.
+* Members of the group can proceed with the cancellation without restrictions.
 
 Changelog
 =========

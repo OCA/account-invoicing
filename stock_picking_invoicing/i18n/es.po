@@ -313,9 +313,16 @@ msgid "True"
 msgstr "Verdadero"
 
 #. module: stock_picking_invoicing
+#: code:addons/stock_picking_invoicing/models/stock_move.py:0
+#, python-format
+msgid ""
+"You cannot cancel a stock move linked to invoices/bills. Only members of the "
+"\"%(group_name)s\" group can perform this action. References: %(references)s"
+msgstr ""
+"No puede cancelar un movimiento de stock vinculado a facturas. Solo los miembros del "
+"grupo \"%(group_name)s\" pueden realizar esta acción. Referencias: %(references)s"
+
+#. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "or"
 msgstr "o"
-
-#~ msgid "Invoice"
-#~ msgstr "Factura"
