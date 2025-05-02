@@ -30,8 +30,8 @@ class TestPartnerAccess(AccountTestInvoicingCommon):
     def _create_user(self, letter):
         return self.env["res.users"].create(
             {
-                "name": "User %s" % letter,
-                "login": "user_%s" % letter,
+                "name": f"User {letter}",
+                "login": f"user_{letter}",
                 "groups_id": [(6, 0, [self.group_portal.id])],
             }
         )
