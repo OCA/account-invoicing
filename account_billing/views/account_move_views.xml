@@ -13,4 +13,14 @@
             </xpath>
         </field>
     </record>
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="name">account.invoice.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_origin']" position="before">
+                <field name="billing_ids" widget="many2many_tags" optional="hide" />
+            </xpath>
+        </field>
+    </record>
 </odoo>
