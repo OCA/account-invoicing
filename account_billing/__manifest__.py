@@ -14,6 +14,7 @@
         "data/account_billing_sequence.xml",
         "data/server_action.xml",
         "security/ir.model.access.csv",
+        "security/account_billing_security.xml",
         "views/account_billing_views.xml",
         "views/account_move_views.xml",
         "report/report_billing.xml",
