@@ -9,6 +9,52 @@ from odoo.tests.common import tagged
 
 @tagged("post_install", "-at_install")
 class TestAccountTierValidation(common.TransactionCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.group_system = cls.env.ref("base.group_system")
+        cls.group_account_manager = cls.env.ref("account.group_account_manager")
+        cls.test_user_1 = new_test_user(
+            cls.env,
+            name="John",
+            login="test1",
+            groups="base.group_system,account.group_account_manager",
+        )
+        cls.test_user_2 = new_test_user(
+            cls.env,
+            name="Mike",
+            login="test2",
+            groups="base.group_system,account.group_account_manager",
+        )
+        cls.account_move_model = cls.env["ir.model"]._get("account.move")
+
+        # Ensure the company has a document layout configured.
+        if not cls.company.external_report_layout_id:
+            # Try to find a common default layout by XML ID
+            default_layout = cls.env.ref(
+                "web.external_layout_standard", raise_if_not_found=False
+            )
+            if not default_layout:
+                # Fallback: try other common layouts if standard
+                # is not found by that XML ID directly
+                common_layouts_xml_ids = [
+                    "web.external_layout_boxed",
+                    "web.external_layout_bold",
+                ]
+                for layout_xml_id in common_layouts_xml_ids:
+                    default_layout = cls.env.ref(
+                        layout_xml_id, raise_if_not_found=False
+                    )
+                    if default_layout:
+                        break
+            if not default_layout:
+                # As a last resort, find the first available report.layout
+                default_layout = cls.env["report.layout"].search([], limit=1)
+
+            if default_layout:
+                cls.company.external_report_layout_id = default_layout.id
+
+>>>>>>> account_move_tier_validation: Test invoice send flow
     def test_01_tier_definition_models(self):
         res = self.env["tier.definition"]._get_tier_validation_model_names()
         self.assertIn("account.move", res)
@@ -81,3 +127,35 @@ class TestAccountTierValidation(common.TransactionCase):
             invoice._post()
         # Calls _post method by passing context skip_validation_check set to True
         invoice.action_post()
+        self.assertEqual(invoice.state, "posted")
+
+        # --- Simulate Sending Invoice by Email ---
+        # The 'action_invoice_sent' method on 'account.move' usually returns
+        # an action to open the 'account.move.send.wizard' wizard.
+        action = invoice.action_invoice_sent()
+        self.assertTrue(
+            action, "Action 'action_invoice_sent' should return an action dictionary."
+        )
+        self.assertEqual(
+            action.get("res_model"),
+            "account.move.send.wizard",
+            "Action should open 'account.move.send.wizard' wizard.",
+        )
+
+        # Get the context from the action to create the wizard instance
+        wizard_context = action.get("context", {})
+        mail_composer = (
+            self.env["account.move.send.wizard"]
+            .with_context(**wizard_context)
+            .create({})
+        )
+
+        # we should test action_send_and_print because that fails if
+        # not all necesary fields are excluded
+        if hasattr(mail_composer, "action_send_and_print"):
+            mail_composer.action_send_and_print()
+        else:
+            self.fail(
+                "Could not find a 'action_send_and_print' "
+                "action on the account.move.send.wizard."
+            )
