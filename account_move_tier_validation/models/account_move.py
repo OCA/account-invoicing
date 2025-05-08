@@ -28,7 +28,16 @@ class AccountMove(models.Model):
         # otherwise editing manually the values on lines dirties the field at onchange
         # since it's not in readonly because readonly="not(review_ids)", it's then
         # sent at save, and will override the values set by the user
-        return res + ["amount_total"]
+        # The other exclusions are needed to be able to generate the pdf
+        # and send the invoice by email
+        am_exceptions = [
+            "amount_total",
+            "needed_terms_dirty",
+            "is_manually_modified",
+            "is_move_sent",
+            "sending_data",
+        ]
+        return res + am_exceptions
 
     def _get_to_validate_message_name(self):
         name = super()._get_to_validate_message_name()
