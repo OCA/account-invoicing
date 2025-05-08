@@ -14,18 +14,6 @@ class TestAccountTierValidation(common.TransactionCase):
         super().setUpClass()
         cls.group_system = cls.env.ref("base.group_system")
         cls.group_account_manager = cls.env.ref("account.group_account_manager")
-        cls.test_user_1 = new_test_user(
-            cls.env,
-            name="John",
-            login="test1",
-            groups="base.group_system,account.group_account_manager",
-        )
-        cls.test_user_2 = new_test_user(
-            cls.env,
-            name="Mike",
-            login="test2",
-            groups="base.group_system,account.group_account_manager",
-        )
         cls.account_move_model = cls.env["ir.model"]._get("account.move")
 
         # Ensure the company has a document layout configured.
@@ -54,7 +42,6 @@ class TestAccountTierValidation(common.TransactionCase):
             if default_layout:
                 cls.company.external_report_layout_id = default_layout.id
 
->>>>>>> account_move_tier_validation: Test invoice send flow
     def test_01_tier_definition_models(self):
         res = self.env["tier.definition"]._get_tier_validation_model_names()
         self.assertIn("account.move", res)
