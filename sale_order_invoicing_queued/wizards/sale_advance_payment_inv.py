@@ -49,12 +49,17 @@ class SaleAdvancePaymentInv(models.TransientModel):
                     % (order.name,)
                 )
             grouped_orders[group_key] |= order
-        invoice_date = False
-        if hasattr(self.env["sale.advance.payment.inv"], "invoice_date"):
-            invoice_date = self.invoice_date
+        invoices_job_kwargs = self._get_create_invoices_job_kwargs()
         for orders in grouped_orders.values():
             new_delay = orders.with_delay().create_invoices_job(
-                final, invoice_date=invoice_date
+                final, **invoices_job_kwargs
             )
             job = queue_obj.search([("uuid", "=", new_delay.uuid)])
             orders.sudo().write({"invoicing_job_ids": [(4, job.id)]})
+
+    def _get_create_invoices_job_kwargs(self):
+        self.ensure_one()
+        invoice_date = False
+        if hasattr(self.env["sale.advance.payment.inv"], "invoice_date"):
+            invoice_date = self.invoice_date
+        return {"invoice_date": invoice_date}

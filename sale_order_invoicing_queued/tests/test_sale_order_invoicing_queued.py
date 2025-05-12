@@ -78,7 +78,7 @@ class TestSaleOrderInvoicingQueue(TransactionCase):
             active_ids=self.order3.ids, active_model=self.order3._name
         ).create({})
         wizard.enqueue_invoices()
-        self.order3.create_invoices_job(True, "2024-08-04")
+        self.order3.create_invoices_job(True, invoice_date="2024-08-04")
         self.assertTrue(self.order3.invoice_ids)
         invoice_date = (
             self.order3.invoice_ids[0].invoice_date.strftime("%Y-%m-%d")
