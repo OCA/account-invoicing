@@ -432,10 +432,10 @@ class TestAccountMovePricelist(common.TransactionCase):
     def test_12_account_invoice_without_pricelist(self):
         self.env.user.write({"groups_id": [(4, self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist2.id
-        self.invoice.invoice_line_ids[:1]._compute_discount()
+        self.invoice.invoice_line_ids[:1]._compute_pricelist_discount()
         self.assertEqual(self.invoice.invoice_line_ids[:1].discount, 0.0)
         self.invoice.pricelist_id = False
-        self.invoice.invoice_line_ids[:1]._compute_discount()
+        self.invoice.invoice_line_ids[:1]._compute_pricelist_discount()
         self.assertEqual(self.invoice.invoice_line_ids[:1].discount, 0.0)
 
     def test_13_account_invoice_pricelist_with_discount(self):
@@ -448,9 +448,9 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.env.user.write({"groups_id": [(4, self.group_discount.id)]})
         self.product.write({"list_price": 0.00})
         self.invoice.pricelist_id = self.sale_pricelist3.id
-        self.invoice.invoice_line_ids[0]._compute_discount()
+        self.invoice.invoice_line_ids[0]._compute_pricelist_discount()
         self.assertEqual(self.invoice.invoice_line_ids[0].discount, 0.0)
         self.product.write({"list_price": 100.00})
         self.invoice.pricelist_id = self.sale_pricelist4.id
-        self.invoice.invoice_line_ids[0]._compute_discount()
+        self.invoice.invoice_line_ids[0]._compute_pricelist_discount()
         self.assertEqual(self.invoice.invoice_line_ids[0].discount, 0)

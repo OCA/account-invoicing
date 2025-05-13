@@ -89,16 +89,14 @@ class AccountMoveLine(models.Model):
         return self.move_id.invoice_date
 
     @api.depends("product_id", "product_uom_id", "quantity")
-    def _compute_discount(self):
+    def _compute_pricelist_discount(self):
         discount_enabled = self.env[
             "product.pricelist.item"
         ]._is_discount_feature_enabled()
         for line in self:
             if not (line.move_id.pricelist_id and discount_enabled):
                 continue
-
-            line.discount = 0.0
-
+            line._set_discount(0.0)
             if not line.pricelist_item_id._show_discount():
                 # No pricelist rule was found for the product
                 # therefore, the pricelist didn't apply any discount/change
@@ -117,7 +115,7 @@ class AccountMoveLine(models.Model):
                     # only show negative discounts if price is negative
                     # otherwise it's a surcharge which shouldn't be shown
                     # to the customer
-                    line.discount = discount
+                    line._set_discount(discount)
 
     @api.depends("quantity")
     def _compute_price_unit(self):
@@ -173,7 +171,7 @@ class AccountMoveLine(models.Model):
 
         base_price = self._get_pricelist_price_before_discount()
 
-        self._compute_discount()
+        self._compute_pricelist_discount()
 
         # negative discounts (= surcharge) are included in the display price
         return max(base_price, pricelist_price)
@@ -213,3 +211,11 @@ class AccountMoveLine(models.Model):
             date=self._get_move_date(),
             currency=self.currency_id,
         )
+
+    def _set_discount(self, amount):
+        if self.env["account.move.line"]._fields.get("discount1", False):
+            # OCA/account_invoice_triple_discount is installed
+            fname = "discount1"
+        else:
+            fname = "discount"
+        self.with_context(check_move_validity=False)[fname] = amount
