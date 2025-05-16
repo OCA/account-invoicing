@@ -25,18 +25,11 @@ class TripleDiscountMixin(models.AbstractModel):
         readonly=True,
         digits=None,
     )
-    discount1 = fields.Float(
-        string="Discount 1 (%)",
-        digits="Discount",
-    )
-    discount2 = fields.Float(
-        string="Discount 2 (%)",
-        digits="Discount",
-    )
-    discount3 = fields.Float(
-        string="Discount 3 (%)",
-        digits="Discount",
-    )
+    discount1 = fields.Float(string="Discount 1 (%)", digits="Discount")
+
+    discount2 = fields.Float(string="Discount 2 (%)", digits="Discount")
+
+    discount3 = fields.Float(string="Discount 3 (%)", digits="Discount")
 
     _sql_constraints = [
         (
