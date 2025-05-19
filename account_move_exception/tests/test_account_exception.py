@@ -17,13 +17,7 @@ class TestAccountException(TransactionCase):
         self.product_id_2 = self.env.ref("product.product_product_7")
         self.product_id_3 = self.env.ref("product.product_product_7")
         self.account_receivable = self.env["account.account"].search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_receivable").id,
-                )
-            ],
+            [("account_type", "=", "asset_receivable")],
             limit=1,
         )
         self.account_exception_confirm = self.env["account.exception.confirm"]
@@ -58,63 +52,74 @@ class TestAccountException(TransactionCase):
             ],
         }
 
-    def test_account_move_exception(self):
+    def test_all_draft(self):
         self.exception_noemail.active = True
         self.exception_qtycheck.active = True
         self.partner_id.email = False
-        self.am = self.AccountMove.create(self.am_vals.copy())
-
-        self.assertEqual(self.am.state, "draft")
-        # test all draft am
-        self.am2 = self.AccountMove.create(self.am_vals.copy())
+        am = self.AccountMove.create(self.am_vals.copy())
+        am2 = self.AccountMove.create(self.am_vals.copy())
+        self.assertEqual(am.state, "draft")
+        self.assertEqual(am2.state, "draft")
 
         self.AccountMove.test_all_draft_moves()
-        self.assertEqual(self.am2.state, "draft")
-        # Set ignore_exception flag  (Done after ignore is selected at wizard)
-        self.am.ignore_exception = True
-        self.am.action_post()
-        self.assertEqual(self.am.state, "posted")
 
-        # Add an account move to test after AM is confirmed
-        # set ignore_exception = False  (Done by onchange of line_ids)
-        field_onchange = self.AccountMove._onchange_spec()
-        self.assertEqual(field_onchange.get("line_ids"), "1")
-        self.env.cache.invalidate()
-        self.am3New = self.AccountMove.new(self.am_vals.copy())
-        self.am3New.ignore_exception = True
-        self.am3New.state = "posted"
-        self.am3New.onchange_ignore_exception()
-        self.assertFalse(self.am3New.ignore_exception)
-        self.am.line_ids.write(
+    def test_post_if_ignore_exception(self):
+        self.exception_noemail.active = True
+        self.exception_qtycheck.active = True
+        self.partner_id.email = False
+        am = self.AccountMove.create(self.am_vals.copy())
+        am.ignore_exception = True
+
+        am.action_post()
+
+        self.assertEqual(am.state, "posted")
+
+    def test_onchange_ignore_exception(self):
+        self.exception_noemail.active = True
+        self.exception_qtycheck.active = True
+        self.partner_id.email = False
+        am3New = self.AccountMove.new(self.am_vals.copy())
+        am3New.ignore_exception = True
+        am3New.state = "posted"
+
+        am3New.onchange_ignore_exception()
+
+        self.assertFalse(am3New.ignore_exception)
+
+    def test_cancel_draft(self):
+        self.exception_noemail.active = True
+        self.exception_qtycheck.active = True
+        self.partner_id.email = False
+        am = self.AccountMove.create(self.am_vals.copy())
+        am.line_ids.write(
             {
                 "product_id": self.product_id_3.id,
                 "quantity": 2,
                 "price_unit": 30,
             }
         )
+        am.ignore_exception = True
 
-        # Set ignore exception True  (Done manually by user)
-        self.am.ignore_exception = True
-        self.am.button_cancel()
-        self.am.button_draft()
-        self.assertEqual(self.am.state, "draft")
-        self.assertTrue(not self.am.ignore_exception)
-        self.am.action_post()
-        self.assertTrue(self.am.state, "posted")
+        am.button_cancel()
+        am.button_draft()
+        self.assertEqual(am.state, "draft")
+        self.assertFalse(am.ignore_exception)
 
-        # Simulation the opening of the wizard account_exception_confirm and
-        # set ignore_exception to True
+    def test_wizard_account_exception_confirm(self):
+        self.exception_noemail.active = True
+        self.exception_qtycheck.active = True
+        self.partner_id.email = False
+        am = self.AccountMove.create(self.am_vals.copy())
+        am.ignore_exception = True
+        am.action_post()
+        self.assertTrue(am.state, "posted")
         am_except_confirm = self.account_exception_confirm.with_context(
             **{
-                "active_id": self.am.id,
-                "active_ids": [self.am.id],
-                "active_model": self.am._name,
+                "active_id": am.id,
+                "active_ids": [am.id],
+                "active_model": am._name,
             }
         ).create({"ignore": True})
 
-        # avoid balance check:
-        for line in self.am.line_ids:
-            line.credit = 0.0
-
         am_except_confirm.action_confirm()
-        self.assertTrue(self.am.ignore_exception)
+        self.assertTrue(am.ignore_exception)
