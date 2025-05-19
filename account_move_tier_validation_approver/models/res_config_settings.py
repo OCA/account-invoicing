@@ -21,17 +21,7 @@ class ResConfigSettings(models.TransientModel):
                 [("model", "=", "account.move"), ("name", "=", "approver_id")]
             )
             tier_definition = self.env["tier.definition"].create(
-                {
-                    "model_id": self.env["ir.model"]
-                    .search([("model", "=", "account.move")])
-                    .id,
-                    "review_type": "field",
-                    "name": "Validation with Approver field",
-                    "reviewer_field_id": field.id,
-                    "definition_domain": "[('move_type', '=', 'in_invoice')]",
-                    "approve_sequence": True,
-                    "active": self.require_approver_in_vendor_bills,
-                }
+                self._prepare_tier_approver_definition_values(field)
             )
             self.company_id.validation_approver_tier_definition_id = tier_definition
         if self.require_approver_in_vendor_bills:
@@ -39,3 +29,16 @@ class ResConfigSettings(models.TransientModel):
         else:
             tier_definition.action_archive()
         return super().set_values()
+
+    def _prepare_tier_approver_definition_values(self, field):
+        return {
+            "model_id": self.env["ir.model"]
+            .search([("model", "=", "account.move")])
+            .id,
+            "review_type": "field",
+            "name": "Validation with Approver field",
+            "reviewer_field_id": field.id,
+            "definition_domain": "[('move_type', '=', 'in_invoice')]",
+            "approve_sequence": True,
+            "active": self.require_approver_in_vendor_bills,
+        }
