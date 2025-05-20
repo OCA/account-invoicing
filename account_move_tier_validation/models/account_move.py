@@ -36,6 +36,7 @@ class AccountMove(models.Model):
             "is_manually_modified",
             "is_move_sent",
             "sending_data",
+            "send_and_print_values",
         ]
         return res + am_exceptions
 
