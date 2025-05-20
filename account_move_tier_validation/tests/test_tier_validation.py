@@ -12,6 +12,7 @@ class TestAccountTierValidation(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.company = cls.env.ref("base.main_company")
         cls.group_system = cls.env.ref("base.group_system")
         cls.group_account_manager = cls.env.ref("account.group_account_manager")
         cls.account_move_model = cls.env["ir.model"]._get("account.move")
@@ -118,23 +119,21 @@ class TestAccountTierValidation(common.TransactionCase):
 
         # --- Simulate Sending Invoice by Email ---
         # The 'action_invoice_sent' method on 'account.move' usually returns
-        # an action to open the 'account.move.send.wizard' wizard.
+        # an action to open the 'account.move.send' wizard.
         action = invoice.action_invoice_sent()
         self.assertTrue(
             action, "Action 'action_invoice_sent' should return an action dictionary."
         )
         self.assertEqual(
             action.get("res_model"),
-            "account.move.send.wizard",
-            "Action should open 'account.move.send.wizard' wizard.",
+            "account.move.send",
+            "Action should open 'account.move.send' wizard.",
         )
 
         # Get the context from the action to create the wizard instance
         wizard_context = action.get("context", {})
         mail_composer = (
-            self.env["account.move.send.wizard"]
-            .with_context(**wizard_context)
-            .create({})
+            self.env["account.move.send"].with_context(**wizard_context).create({})
         )
 
         # we should test action_send_and_print because that fails if
@@ -144,5 +143,5 @@ class TestAccountTierValidation(common.TransactionCase):
         else:
             self.fail(
                 "Could not find a 'action_send_and_print' "
-                "action on the account.move.send.wizard."
+                "action on the account.move.send."
             )
