@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 360 ERP
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field name="name">res.partner.move_approve.user</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <field name="approver_id" position="after">
+                <field name="approver_group_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
