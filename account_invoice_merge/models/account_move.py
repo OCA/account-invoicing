@@ -54,7 +54,7 @@ class AccountMove(models.Model):
             "invoice_origin": "%s" % (invoice.invoice_origin or "",),
             "partner_id": invoice.partner_id.id,
             "journal_id": invoice.journal_id.id,
-            "user_id": invoice.user_id.id,
+            "invoice_user_id": invoice.invoice_user_id.id,
             "currency_id": invoice.currency_id.id,
             "company_id": invoice.company_id.id,
             "move_type": invoice.move_type,
