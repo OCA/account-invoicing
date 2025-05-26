@@ -77,9 +77,7 @@ class TripleDiscountMixin(models.AbstractModel):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if vals.get("discount") and not any(
-                vals.get(field) for field in self._get_multiple_discount_field_names()
-            ):
+            if "discount" in vals and "discount1" not in vals:
                 vals["discount1"] = vals.pop("discount")
         return super().create(vals_list)
 
