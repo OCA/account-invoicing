@@ -1,0 +1,45 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_order_whole_delivered_invoiceability
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-05-27 14:12+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
+
+#. module: sale_order_whole_delivered_invoiceability
+#: model:ir.model,name:sale_order_whole_delivered_invoiceability.model_res_partner
+msgid "Contact"
+msgstr "Contatto"
+
+#. module: sale_order_whole_delivered_invoiceability
+#: model_terms:ir.ui.view,arch_db:sale_order_whole_delivered_invoiceability.view_sales_order_filter
+msgid "Partial orders not invoiced"
+msgstr "Ordini parziali on fatturati"
+
+#. module: sale_order_whole_delivered_invoiceability
+#: model:ir.model.fields,help:sale_order_whole_delivered_invoiceability.field_res_partner__whole_delivered_invoiceability
+#: model:ir.model.fields,help:sale_order_whole_delivered_invoiceability.field_res_users__whole_delivered_invoiceability
+msgid "Prevent invoicing until everything has been delivered."
+msgstr "Previene la fatturazione finché non è stato consegnato tutto."
+
+#. module: sale_order_whole_delivered_invoiceability
+#: model:ir.model,name:sale_order_whole_delivered_invoiceability.model_sale_order
+msgid "Sales Order"
+msgstr "Ordine di vendita"
+
+#. module: sale_order_whole_delivered_invoiceability
+#: model:ir.model.fields,field_description:sale_order_whole_delivered_invoiceability.field_res_partner__whole_delivered_invoiceability
+#: model:ir.model.fields,field_description:sale_order_whole_delivered_invoiceability.field_res_users__whole_delivered_invoiceability
+#: model:ir.model.fields,field_description:sale_order_whole_delivered_invoiceability.field_sale_order__whole_delivered_invoiceability
+msgid "Whole Delivered Invoiceability"
+msgstr "Fatturabilità consegna completa"
