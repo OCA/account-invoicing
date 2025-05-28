@@ -8,11 +8,7 @@
                 expr="//field[@name='invoice_line_ids']/list/field[@name='sequence']"
                 position="after"
             >
-                <field
-                    name="sequence2"
-                    readonly="True"
-                    invisible="not sequence2"
-                />
+                <field name="sequence2" readonly="True" invisible="not sequence2" />
             </xpath>
         </field>
     </record>
