@@ -11,7 +11,6 @@ class TestInvoiceTripleDiscount(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env.user.groups_id += cls.env.ref("sale.group_discount_per_so_line")
         cls.Account = cls.env["account.account"]
         cls.AccountMove = cls.env["account.move"]
         cls.AccountMoveLine = cls.env["account.move.line"]
