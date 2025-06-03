@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 from collections import OrderedDict
 
-from odoo import models
+from odoo import Command, models
 from odoo.tools.safe_eval import safe_eval, time
 
 
@@ -16,6 +16,13 @@ class SaleOrder(models.Model):
         the group name.
         Only do this for invoices targetting multiple groups
         """
+        # the context key 'current_line_sequence' is used by
+        # sale.order.line:_prepare_invoice_line to generate spaced apart sequence number
+        # for invoice lines. We use a mutable in the context because the context is an
+        # immutable dictionary: this way we can update the value of the first element on
+        # the list it and see the updated values in the different calls to
+        # _prepare_invoice_line
+        self = self.with_context(current_line_sequence=[10])
         invoices = super()._create_invoices(grouped=grouped, final=final, date=date)
         for invoice in invoices.sudo():
             if invoice.line_ids and (
@@ -23,27 +30,22 @@ class SaleOrder(models.Model):
                 == 1
             ):
                 continue
-            sequence = 10
-            # Because invoices are already created, this would require
-            # an extra read access in order to read order fields.
-            move_lines = invoice._get_ordered_invoice_lines()
             # Group move lines according to their sale order
             section_grouping_matrix = OrderedDict()
-            for move_line in move_lines:
+            for move_line in invoice.invoice_line_ids:
                 group = move_line._get_section_group()
-                section_grouping_matrix.setdefault(group, []).append(move_line.id)
+                section_grouping_matrix.setdefault(group, []).append(move_line.sequence)
             # Prepare section lines for each group
             section_lines = []
-            for group, move_line_ids in section_grouping_matrix.items():
+            for group, move_line_sequences in section_grouping_matrix.items():
                 if group:
+                    first_seq = move_line_sequences[0]
                     section_lines.append(
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "name": group._get_invoice_section_name(),
                                 "display_type": "line_section",
-                                "sequence": sequence,
+                                "sequence": first_seq - 1,
                                 # see test: test_create_invoice_with_default_journal
                                 # forcing the account_id is needed to avoid
                                 # incorrect default value
@@ -53,17 +55,9 @@ class SaleOrder(models.Model):
                                 # the total amount will be wrong
                                 # because all line do not have the same currency
                                 "currency_id": invoice.currency_id.id,
-                            },
+                            }
                         )
                     )
-                    sequence += 10
-                for move_line in (
-                    self.env["account.move.line"].sudo().browse(move_line_ids)
-                ):
-                    # Because invoices are already created, this would require
-                    # an extra write access in order to read order fields.
-                    move_line.sequence = sequence
-                    sequence += 10
             # Because invoices are already created, this would require
             # an extra write access in order to read order fields.
             invoice.line_ids = section_lines
