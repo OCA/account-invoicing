@@ -3,6 +3,7 @@
 
 import datetime
 
+from odoo import Command
 from odoo.tests import tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -29,9 +30,7 @@ class TestPartnerLastInvoiceDate(AccountTestInvoicingCommon):
                 "partner_id": cls.partner.id,
                 "move_type": "out_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": cls.env.ref("product.product_product_4").id,
                             "quantity": 1.0,
@@ -49,9 +48,7 @@ class TestPartnerLastInvoiceDate(AccountTestInvoicingCommon):
                 "move_type": "in_invoice",
                 "invoice_date": "2025-01-02",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": cls.env.ref("product.product_product_4").id,
                             "quantity": 1.0,
@@ -68,9 +65,7 @@ class TestPartnerLastInvoiceDate(AccountTestInvoicingCommon):
                 "move_type": "in_invoice",
                 "invoice_date": "2025-01-03",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": cls.env.ref("product.product_product_4").id,
                             "quantity": 1.0,

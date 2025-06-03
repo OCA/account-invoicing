@@ -6,9 +6,9 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-def post_init_hook(cr, registry):
+def post_init_hook(env):
     _logger.info("Initializing last invoice and bill dates for partners.")
-    cr.execute(
+    env.cr.execute(
         """
         WITH RECURSIVE partner_tree AS (
             SELECT id, id AS root_id FROM res_partner
