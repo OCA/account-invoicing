@@ -40,8 +40,8 @@ class TestPartnerLastInvoiceDate(AccountTestInvoicingCommon):
                 ],
             }
         )
-        cls.invoice.action_post()
         cls.invoice.write({"invoice_date": "2025-01-01"})
+        cls.invoice.action_post()
         cls.bill_1 = cls.account_move_model.create(
             {
                 "partner_id": cls.partner.id,
