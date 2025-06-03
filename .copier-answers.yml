@@ -17,7 +17,9 @@ odoo_test_flavor: Both
 odoo_version: 18.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
-rebel_module_groups: []
+rebel_module_groups:
+- account_invoice_triple_discount
+- account_invoice_fixed_discount
 repo_description: account-invoicing
 repo_name: account-invoicing
 repo_slug: account-invoicing
