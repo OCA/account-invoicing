@@ -14,11 +14,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_auto_send_by_email
-#: model:ir.model,name:account_invoice_auto_send_by_email.model_account_invoice_send
-msgid "Account Invoice Send"
-msgstr ""
-
-#. module: account_invoice_auto_send_by_email
 #: model:ir.actions.server,name:account_invoice_auto_send_by_email.cron_send_email_invoice_ir_actions_server
 #: model:ir.cron,cron_name:account_invoice_auto_send_by_email.cron_send_email_invoice
 #: model:ir.cron,name:account_invoice_auto_send_by_email.cron_send_email_invoice
@@ -26,13 +21,11 @@ msgid "Account Invoice: Send email invoice"
 msgstr ""
 
 #. module: account_invoice_auto_send_by_email
-#: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_invoice_send__display_name
 #: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_move__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: account_invoice_auto_send_by_email
-#: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_invoice_send__id
 #: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_move__id
 msgid "ID"
 msgstr ""
@@ -43,7 +36,6 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_auto_send_by_email
-#: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_invoice_send____last_update
 #: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_move____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -52,4 +44,10 @@ msgstr ""
 #: code:addons/account_invoice_auto_send_by_email/models/account_move.py:0
 #, python-format
 msgid "This invoice has already been sent."
+msgstr ""
+
+#. module: account_invoice_auto_send_by_email
+#: code:addons/account_invoice_auto_send_by_email/models/account_move.py:0
+#, python-format
+msgid "This invoice should not send by mail"
 msgstr ""
