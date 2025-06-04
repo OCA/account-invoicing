@@ -41,6 +41,8 @@ class ResPartner(models.Model):
         self.last_invoice_date = False
         self.last_bill_date = False
         for partner in self:
+            if isinstance(partner.id, models.NewId):
+                continue
             inv_domain = partner._last_invoice_date_domain() + [
                 ("move_type", "in", ("out_invoice", "out_refund"))
             ]
