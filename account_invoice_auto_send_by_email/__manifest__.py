@@ -4,7 +4,7 @@
 {
     "name": "Account Invoice Auto Send By Email",
     "summary": "Invoice with the email transmit method are send automatically.",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Accounting",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "license": "AGPL-3",
