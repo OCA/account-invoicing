@@ -18,7 +18,7 @@ class AccountMove(models.Model):
         res = super()._onchange_purchase_auto_complete()
         if purchase and self.journal_id and self.journal_id.avoid_zero_lines:
             zero_lines = self.invoice_line_ids.filtered(
-                lambda x: float_is_zero(
+                lambda x: x.product_uom_id and float_is_zero(
                     x.quantity,
                     precision_rounding=x.product_uom_id.rounding,
                 )
