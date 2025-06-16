@@ -17,32 +17,31 @@ Account Invoice - Change Currency
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_change_currency
+    :target: https://github.com/OCA/account-invoicing/tree/18.0/account_invoice_change_currency
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-account_invoice_change_currency
+    :target: https://translation.odoo-community.org/projects/account-invoicing-18-0/account-invoicing-18-0-account_invoice_change_currency
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-==================================
 Update currency of Account Invoice
-==================================
+----------------------------------
 
-This module allows users to update the currency of Invoices (in draft state) by
-a button Update Currency at the invoice form.
-After update to new currency, all the unit prices of invoice lines will be
-recomputed to new currency, thus the Total amounts (tax and without tax) of
-Invoice will be in the new currency also
+This module allows users to update the currency of Invoices (in draft
+state) by a button Update Currency at the invoice form. After update to
+new currency, all the unit prices of invoice lines will be recomputed to
+new currency, thus the Total amounts (tax and without tax) of Invoice
+will be in the new currency also
 
-Also this module allows user to set a custom rate that will be take to recompute
-all lines. By default the custom rate proposed is the rate between invoice
-currency and base currency (company currency), after the first coversion the
-custom rate will be proposed by default between last currency and invoice
-currency.
+Also this module allows user to set a custom rate that will be take to
+recompute all lines. By default the custom rate proposed is the rate
+between invoice currency and base currency (company currency), after the
+first coversion the custom rate will be proposed by default between last
+currency and invoice currency.
 
 **Table of contents**
 
@@ -52,14 +51,14 @@ currency.
 Configuration
 =============
 
-The exchange rate will be configured in
-Accounting > Configuration > Multi-Currencies > Currencies
+The exchange rate will be configured in Accounting > Configuration >
+Multi-Currencies > Currencies
 
 Usage
 =====
 
-To use this module, the user must be in group Accounting & Finance / Adviser
-to be able to update currency of Invoices
+To use this module, the user must be in group Accounting & Finance /
+Adviser to be able to update currency of Invoices
 
 Note : you have to save new invoice before change currency
 
@@ -69,7 +68,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_change_currency%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_change_currency%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -77,22 +76,24 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Vauxoo
 * Komit Consulting
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Duc, Dao Dong <duc.dd@komit-consulting.com> (https://komit-consulting.com)
-* Hugo Adan <hugo@vauxoo.com>
-* Saran Lim. <saranl@ecosoft.co.th>
-* Rolando Duarte <rolando@vauxoo.com>
-* Luis J. Salvatierra <luis.salvatierra@factorlibre.com> (https://factorlibre.com)
+-  Duc, Dao Dong <duc.dd@komit-consulting.com>
+   (https://komit-consulting.com)
+-  Hugo Adan <hugo@vauxoo.com>
+-  Saran Lim. <saranl@ecosoft.co.th>
+-  Rolando Duarte <rolando@vauxoo.com>
+-  Luis J. Salvatierra <luis.salvatierra@factorlibre.com>
+   (https://factorlibre.com)
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -115,6 +116,6 @@ Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-luisg123v| |maintainer-rolandojduartem| 
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_change_currency>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/18.0/account_invoice_change_currency>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
