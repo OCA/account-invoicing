@@ -19,6 +19,11 @@ msgid "<strong>Discount</strong>"
 msgstr ""
 
 #. module: account_invoice_discount_display_amount
+#: model_terms:ir.ui.view,arch_db:account_invoice_discount_display_amount.invoice_discount_display_amount_document
+msgid "<strong>Without Discount</strong>"
+msgstr ""
+
+#. module: account_invoice_discount_display_amount
 #: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_bank_statement_line__discount_total
 #: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move__discount_total
 #: model:ir.model.fields,field_description:account_invoice_discount_display_amount.field_account_move_line__discount_total
