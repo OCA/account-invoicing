@@ -51,7 +51,10 @@ class AccountMove(models.Model):
                 invoice.invoice_line_ids._set_original_price_unit()
             invoice_date = invoice.invoice_date or today
             to_currency = invoice.currency_id
-            context = {"custom_rate": invoice.custom_rate, "to_currency": to_currency}
+            context = {
+                "custom_rate": invoice.custom_rate,
+                "to_currency": to_currency.id,
+            }
             original_currency = invoice.original_currency_id.with_context(**context)
             for line in invoice.invoice_line_ids:
                 line.price_unit = original_currency._convert(

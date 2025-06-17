@@ -16,25 +16,15 @@
                         string="Custom Rate"
                         placeholder="Custom Rate"
                         class="oe_inline"
-                        attrs="{
-                            'invisible': [
-                                '|',
-                                ('custom_rate', '=', 0),
-                                ('is_original_currency', '=', True),
-                            ],
-                            'readonly': [
-                                '|',
-                                ('state', '!=', 'draft'),
-                                ('is_original_currency', '=', True),
-                            ]
-                        }"
+                        invisible="custom_rate == 0 or is_original_currency"
+                        readonly="state != 'draft' or is_original_currency"
                     />
                     <button
                         aria-label="Update Currency"
                         type="object"
                         name="action_account_change_currency"
                         class="btn-link"
-                        states="draft"
+                        invisible="state != 'draft'"
                         groups="account.group_account_manager"
                     >
                         <i

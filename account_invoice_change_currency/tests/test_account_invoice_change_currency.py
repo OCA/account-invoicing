@@ -1,6 +1,7 @@
 # Copyright 2018 Komit <http://komit-consulting.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import fields
+from odoo.exceptions import UserError
 from odoo.tests import tagged
 from odoo.tools import float_compare
 
@@ -10,8 +11,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged("post_install", "-at_install")
 class TestAccountInvoiceChangeCurrency(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         decimal_precision_name = (
             cls.env["account.move.line"]._fields["price_unit"]._digits
         )
@@ -49,8 +50,8 @@ class TestAccountInvoiceChangeCurrency(AccountTestInvoicingCommon):
         before_amount = inv.amount_total
         inv.action_post()
         # Make sure that we can not change the currency after validated:
-        inv.write({"currency_id": self.env.ref("base.USD").id})
-        inv.action_account_change_currency()
+        with self.assertRaises(UserError):
+            inv.write({"currency_id": self.env.ref("base.USD").id})
         self.assertEqual(
             inv.amount_total,
             before_amount,
@@ -81,8 +82,9 @@ class TestAccountInvoiceChangeCurrency(AccountTestInvoicingCommon):
         self.assertEqual(inv.original_currency_id, self.env.ref("base.USD"))
         after_curr = self.env.ref("base.EUR")
         custom_rate = 1.13208
-        inv.write({"currency_id": after_curr.id, "custom_rate": custom_rate})
-        inv.write({"custom_rate": custom_rate})
+        inv.with_context(custom_rate=custom_rate, to_currency=after_curr.id).write(
+            {"currency_id": after_curr.id, "custom_rate": custom_rate}
+        )
         inv.action_account_change_currency()
         expected_value = before_amount * custom_rate
         self.assertEqual(

@@ -15,7 +15,7 @@ class ResCurrency(models.Model):
         to_currency = self.env.context.get("to_currency")
         if custom_rate and to_currency:
             return {
-                currency.id: custom_rate if currency == to_currency else 1.0
+                currency.id: custom_rate if currency.id == to_currency else 1.0
                 for currency in self
             }
         return super()._get_rates(company, date)
