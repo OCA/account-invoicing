@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-06-18 07:26+0000\n"
+"PO-Revision-Date: 2025-06-18 10:25+0000\n"
 "Last-Translator: Ryoko Tsuda <ryoko@quartile.co>\n"
 "Language-Team: none\n"
 "Language: ja\n"
@@ -552,7 +552,7 @@ msgstr "合計請求書検索"
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Set to Draft"
-msgstr ""
+msgstr "ドラフトに設定"
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__state
@@ -564,7 +564,7 @@ msgstr "状態"
 #. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing_line__origin
 msgid "The document(s) that generated the invoice."
-msgstr ""
+msgstr "顧客請求書を生成したドキュメント"
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__threshold_date
@@ -597,42 +597,42 @@ msgstr "合計金額"
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Total Amount Residual"
-msgstr ""
+msgstr "残額合計"
 
 #. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing__bill_type
 msgid "Type of invoice"
-msgstr ""
+msgstr "請求書タイプ"
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Validate"
-msgstr ""
+msgstr "検証"
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_supplier_billing_tree
 #: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
 msgid "Vendor"
-msgstr ""
+msgstr "仕入先"
 
 #. module: account_billing
 #: model:ir.model.fields.selection,name:account_billing.selection__account_billing__bill_type__in_invoice
 msgid "Vendor Bill"
-msgstr ""
+msgstr "仕入先請求書"
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "ウェブサイトメッセージ"
 
 #. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "ウェブサイト通信履歴"
 
 #. module: account_billing
 #. odoo-python
 #: code:addons/account_billing/models/account_billing.py:0
 #, python-format
 msgid "You need to add a line before validate."
-msgstr ""
+msgstr "検証の前に行を追加する必要があります。"
