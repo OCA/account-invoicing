@@ -10,7 +10,7 @@
         <field name="inherit_id" ref="account.view_invoice_tree" />
         <field name="arch" type="xml">
             <field name="company_currency_id" position="attributes">
-                <attribute name="invisible">0</attribute>
+                <attribute name="column_invisible" />
                 <attribute name="optional">hide</attribute>
             </field>
             <field name="amount_residual_signed" position="after">
