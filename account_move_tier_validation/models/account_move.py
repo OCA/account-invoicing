@@ -36,6 +36,8 @@ class AccountMove(models.Model):
             "is_manually_modified",
             "is_move_sent",
             "sending_data",
+            "matched_payment_ids",
+            "payment_state",
         ]
         return res + am_exceptions
 
