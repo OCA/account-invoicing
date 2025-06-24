@@ -191,7 +191,8 @@ class TestAccountBilling(TransactionCase):
             bill1.validate_billing()
 
         bill1.compute_lines()
-
+        # In case _compute_billing_ids is not triggered again after compute_lines.
+        bill1.billing_line_ids.mapped("move_id")._compute_billing_ids()
         self.assertEqual(bill1.invoice_related_count, 2)
         self.assertEqual(bill1.billing_line_ids.mapped("move_id.billing_ids"), bill1)
 
