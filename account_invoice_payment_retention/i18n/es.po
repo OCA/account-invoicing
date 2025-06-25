@@ -22,8 +22,6 @@ msgid ""
 "<span class=\"oe_edit_only\" attrs=\"{'invisible': [('payment_retention', "
 "'=', False)]}\"> = </span>"
 msgstr ""
-"<span class=\"oe_edit_only\" attrs=\"{'invisible': [('payment_retention', "
-"'=', False)]}\"> = </span>"
 
 #. module: account_invoice_payment_retention
 #: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__account_move__payment_retention__amount
@@ -87,8 +85,8 @@ msgid ""
 "Enforce retention amount as suggested, otherwise, user can ignore the "
 "retention."
 msgstr ""
-"Aplique la cantidad de retención sugerida, de lo contrario, el usuario puede "
-"ignorar la retención."
+"Aplique la cantidad de retención sugerida, de lo contrario, el usuario puede"
+" ignorar la retención."
 
 #. module: account_invoice_payment_retention
 #: model:ir.model.fields,help:account_invoice_payment_retention.field_account_payment_register__retention_amount_currency
@@ -117,8 +115,7 @@ msgid ""
 "- Total: The retention compute from the total amount"
 msgstr ""
 "Método de cálculo de la retención\n"
-"- Importe no tributado: La retención se computa a partir del importe no "
-"tributado\n"
+"- Importe no tributado: La retención se computa a partir del importe no tributado\n"
 "- Total: La retención se computa a partir del importe total"
 
 #. module: account_invoice_payment_retention
@@ -289,7 +286,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__account_move__retention_method__total
 #: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__res_company__retention_method__total
 msgid "Total"
-msgstr "Total"
+msgstr ""
 
 #. module: account_invoice_payment_retention
 #: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__account_move__retention_method__untax

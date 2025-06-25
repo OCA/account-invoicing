@@ -22,8 +22,6 @@ msgid ""
 "<span class=\"oe_edit_only\" attrs=\"{'invisible': [('payment_retention', "
 "'=', False)]}\"> = </span>"
 msgstr ""
-"<span class=\"oe_edit_only\" attrs=\"{'invisible': [('payment_retention', "
-"'=', False)]}\"> = </span>"
 
 #. module: account_invoice_payment_retention
 #: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__account_move__payment_retention__amount
@@ -245,8 +243,8 @@ msgid ""
 "Selected invoice(s) require payment retentions, multi invoices payment is "
 "not allowed."
 msgstr ""
-"Le fatture selezionate richiedono la ritenuta del pagamento, il pagamento di "
-"fatture multiple non è consentito."
+"Le fatture selezionate richiedono la ritenuta del pagamento, il pagamento di"
+" fatture multiple non è consentito."
 
 #. module: account_invoice_payment_retention
 #: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment_register__retention_amount_currency

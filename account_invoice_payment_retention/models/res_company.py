@@ -52,6 +52,7 @@ class ResCompany(models.Model):
             if not rec.retention_receivable_account_id.reconcile:
                 raise ValidationError(
                     _(
-                        "Retention receivable account should be set to allow Reconciliation"
+                        "Retention receivable account should"
+                        " be set to allow Reconciliation"
                     )
                 )

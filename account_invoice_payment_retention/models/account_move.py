@@ -10,24 +10,24 @@ class AccountMove(models.Model):
 
     payment_retention = fields.Selection(
         selection=[("percent", "Percent"), ("amount", "Amount")],
-        readonly=True,
-        states={"draft": [("readonly", False)]},
+        readonly=False,
+        # states={"draft": [("readonly", False)]},
         help="Suggested retention amount to be withheld on payment.\n"
         "Note: as a suggestiong, during payment, user can ignore it.",
     )
     retention_method = fields.Selection(
         selection=[("untax", "Untaxed Amount"), ("total", "Total")],
         default=lambda self: self.env.company.retention_method,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
+        readonly=False,
+        # states={"draft": [("readonly", False)]},
         help="Method for computing the retention\n"
         "- Untaxed Amount: The retention compute from the untaxed amount\n"
         "- Total: The retention compute from the total amount",
     )
     amount_retention = fields.Float(
         string="Retention",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
+        readonly=False,
+        # states={"draft": [("readonly", False)]},
         help="Retention in percent of this invoice, or by amount",
     )
     retention_amount_currency = fields.Monetary(
@@ -54,8 +54,8 @@ class AccountMove(models.Model):
         column1="invoice_id",
         column2="move_id",
         string="Return Retention",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
+        readonly=False,
+        # states={"draft": [("readonly", False)]},
         copy=False,
     )
 
@@ -97,7 +97,7 @@ class AccountMove(models.Model):
             else self.env.company.retention_receivable_account_id
         )
         move_lines = retained_moves.mapped("line_ids").filtered(
-            lambda l: l.account_id == retention_account and not l.reconciled
+            lambda line: line.account_id == retention_account and not line.reconciled
         )
         retained_move_lines = [
             line._prepare_retained_move_lines(self) for line in move_lines
@@ -129,17 +129,17 @@ class AccountMove(models.Model):
             elif rec.payment_retention == "percent":
                 # Ensure working with purchase deposit, sum only positive qty lines
                 amount = sum(
-                    rec.invoice_line_ids.filtered(lambda l: l.quantity > 0).mapped(
-                        "amount_currency"
-                    )
+                    rec.invoice_line_ids.filtered(
+                        lambda line: line.quantity > 0
+                    ).mapped("amount_currency")
                 )
                 if rec.retention_method == "total":
                     # Ensure working with purchase deposit, sum only positive qty lines
                     # and not Payable or Receivable account
                     amount += sum(
-                        rec.line_ids.filtered(lambda l: l.display_type == "tax").mapped(
-                            "amount_currency"
-                        )
+                        rec.line_ids.filtered(
+                            lambda line: line.display_type == "tax"
+                        ).mapped("amount_currency")
                     )
                 sign = 1 if rec.move_type in ["in_invoice", "out_refund"] else -1
                 retention_amount = sign * (amount * rec.amount_retention / 100)
@@ -156,7 +156,7 @@ class AccountMove(models.Model):
             else self.env.company.retention_receivable_account_id
         )
         retained_move_lines = reconciled_moves.mapped("line_ids").filtered(
-            lambda l: l.account_id == retention_account
+            lambda line: line.account_id == retention_account
         )
         return retained_move_lines
 
@@ -191,22 +191,27 @@ class AccountMove(models.Model):
 
     def action_post(self):
         res = super().action_post()
-        for rec in self.filtered(lambda l: l.retained_move_ids):
-            retention_account = (
-                self.env.company.retention_account_id
-                if rec.move_type == "in_invoice"
-                else self.env.company.retention_receivable_account_id
-            )
-            retained_move_lines = rec.retained_move_ids.mapped("line_ids").filtered(
-                lambda l: l.account_id == retention_account and not l.reconciled
-            )
-            return_move_lines = rec.line_ids.filtered(
-                lambda l: l.account_id == retention_account
-            )
-            move_lines = retained_move_lines + return_move_lines
-            move_lines.filtered(lambda line: not line.reconciled).with_context(
-                skip_account_move_synchronization=True
-            ).reconcile()
+        for rec in self.filtered(lambda mv: mv.retained_move_ids):
+            # Create a local scope to capture the retention_account value
+            def process_retention_lines(record):
+                retention_account = (
+                    self.env.company.retention_account_id
+                    if record.move_type == "in_invoice"
+                    else self.env.company.retention_receivable_account_id or False
+                )
+                retained_move_lines = record.retained_move_ids.mapped(
+                    "line_ids"
+                ).filtered(
+                    lambda line: line.account_id == retention_account
+                    and not line.reconciled
+                )
+                return_move_lines = record.line_ids.filtered(
+                    lambda line: line.account_id == retention_account
+                )
+                move_lines = retained_move_lines + return_move_lines
+                move_lines.filtered(lambda line: not line.reconciled).reconcile()
+
+            process_retention_lines(rec)
         return res
 
 
