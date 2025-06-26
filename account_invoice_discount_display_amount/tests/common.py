@@ -7,7 +7,6 @@ from odoo.tests.common import TransactionCase
 class TestInvoiceDiscountDisplayCommon(TransactionCase):
     @classmethod
     def setUpClass(cls):
-
         super().setUpClass()
         cls.account_invoice = cls.env["account.move"]
         cls.account_journal = cls.env["account.journal"]
