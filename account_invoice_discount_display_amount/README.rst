@@ -29,7 +29,7 @@ Account Invoice Discount Display Amount
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module allows to show the total discount amount applied to an
-invoice, both in the backend and the invoice PDF repot.
+invoice, both in the backend and the invoice PDF report.
 
 **Table of contents**
 
