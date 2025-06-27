@@ -1,15 +1,34 @@
-from odoo import models, api
+from odoo import fields, models
 
-class ResCurrency(models.Model):
-    _inherit = "res.currency"
 
-    @api.model
-    def _get_rates(self, company, date, currency_table=None):
-        custom_rate = self.env.context.get('custom_rate')
-        to_currency = self.env.context.get('to_currency')
-        if custom_rate and to_currency:
-            # Call super first to get base rates
-            rates = super()._get_rates(company, date, currency_table=currency_table)
-            rates[to_currency.id] = custom_rate
-            return rates
-        return super()._get_rates(company, date, currency_table=currency_table)
+class AccountMove(models.Model):
+    _inherit = "account.move"
+
+    # Labels se generan automáticamente; no hace falta string=
+    use_manual_rate = fields.Boolean()
+    manual_currency_rate = fields.Float(digits=(16, 6))
+
+    # pylint: disable=signature-differs
+    def _post(self, soft=True):
+        """Publicar el asiento usando la tasa manual cuando proceda."""
+        manual_moves = self.filtered(
+            lambda m: m.use_manual_rate and m.manual_currency_rate
+        )
+        normal_moves = self - manual_moves
+
+        posted = self.env["account.move"]
+
+        if manual_moves:
+            ctx = dict(
+                self.env.context,
+                custom_rate=manual_moves[0].manual_currency_rate,
+                to_currency=manual_moves[0].company_id.currency_id,
+            )
+            posted |= super(AccountMove, manual_moves.with_context(**ctx))._post(
+                soft=soft
+            )
+
+        if normal_moves:
+            posted |= super(AccountMove, normal_moves)._post(soft=soft)
+
+        return posted

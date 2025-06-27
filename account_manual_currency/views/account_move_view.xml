@@ -7,7 +7,10 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='currency_id']" position="after">
                 <field name="use_manual_rate"/>
-                <field name="manual_currency_rate" attrs="{'invisible': [('use_manual_rate', '=', False)]}"/>
+                <field
+                    name="manual_currency_rate"
+                    attrs="{'invisible': [('use_manual_rate', '=', False)]}"
+                />
             </xpath>
         </field>
     </record>
