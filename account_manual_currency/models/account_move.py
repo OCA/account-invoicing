@@ -5,9 +5,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     use_manual_rate = fields.Boolean(string="Use Manual FX Rate")
-    manual_currency_rate = fields.Float(
-        string="Manual FX Rate", digits=(16, 6)
-    )
+    manual_currency_rate = fields.Float(string="Manual FX Rate", digits=(16, 6))
 
     # -------------------------------------------------------------------------
     # Posting with manual rate
@@ -30,9 +28,9 @@ class AccountMove(models.Model):
                 custom_rate=manual_moves[0].manual_currency_rate,
                 to_currency=manual_moves[0].company_id.currency_id,
             )
-            posted |= super(
-                AccountMove, manual_moves.with_context(**ctx)
-            )._post(soft=soft)
+            posted |= super(AccountMove, manual_moves.with_context(**ctx))._post(
+                soft=soft
+            )
 
         if normal_moves:
             posted |= super(AccountMove, normal_moves)._post(soft=soft)
