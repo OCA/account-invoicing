@@ -25,10 +25,10 @@ class TestAccountBilling(TransactionCase):
         cls.partner_agrolait = cls.env.ref("base.res_partner_2")
         cls.partner_china_exp = cls.env.ref("base.res_partner_3")
         cls.product = cls.env.ref("product.product_product_4")
-        cls.currency_eur = cls.env["res.currency"].browse(1)
+        cls.currency_eur = cls.env.ref("base.EUR")
         cls.currency_eur.active = True
         cls.currency_usd_id = cls.env.ref("base.USD").id
-        cls.currency_eur_id = cls.env.ref("base.EUR").id
+        cls.currency_eur_id = cls.currency_eur.id
         cls.account_receivable = cls.env["account.account"].search(
             [
                 (
@@ -46,7 +46,7 @@ class TestAccountBilling(TransactionCase):
                     "=",
                     "income",
                 ),
-                ("company_id", "=", cls.env.company.id),
+                ("company_ids", "=", cls.env.company.id),
             ],
             limit=1,
         )
