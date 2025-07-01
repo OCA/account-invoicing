@@ -190,11 +190,11 @@ class AccountBilling(models.Model):
         name = self.bill_type == "out_invoice" and "Invoices" or "Bills"
         return {
             "name": _("%s") % (name),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "account.move",
             "view_id": False,
             "views": [
-                (self.env.ref("account.view_move_tree").id, "tree"),
+                (self.env.ref("account.view_move_tree").id, "list"),
                 (self.env.ref("account.view_move_form").id, "form"),
             ],
             "type": "ir.actions.act_window",
