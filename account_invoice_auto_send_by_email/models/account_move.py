@@ -11,7 +11,7 @@ class AccountMove(models.Model):
     def cron_send_email_invoice(self):
         invoices = self.search(self._email_invoice_to_send_domain())
         for invoice in invoices:
-            description = "Send invoice {} by email".format(invoice.name)
+            description = f"Send invoice {invoice.name} by email"
             invoice.with_delay(description=description)._execute_invoice_sent_wizard()
 
     def _prepare_invoice_sent_wizard_vals(self):
