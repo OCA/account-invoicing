@@ -15,7 +15,7 @@ class AccountMove(models.Model):
             invoice.with_delay(description=description)._execute_invoice_sent_wizard()
 
     def _prepare_invoice_sent_wizard_vals(self):
-        return {"is_email": True, "composition_mode": "mass_mail"}
+        return {"checkbox_send_mail": True}
 
     def _execute_invoice_sent_wizard(self, options=None):
         self.ensure_one()
@@ -28,11 +28,11 @@ class AccountMove(models.Model):
         wiz_ctx["active_model"] = self._name
         wiz_ctx["active_ids"] = self.ids
         wiz = (
-            self.env["account.invoice.send"]
+            self.env["account.move.send"]
             .with_context(**wiz_ctx)
             .create(self._prepare_invoice_sent_wizard_vals())
         )
-        return wiz.send_and_print_action()
+        return wiz.action_send_and_print()
 
     @api.model
     def _email_invoice_to_send_domain(self):
