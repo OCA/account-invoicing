@@ -2,10 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 from unittest import mock
 
-from odoo.tests.common import SavepointCase
+from odoo import Command
+from odoo.tests.common import TransactionCase
 
 
-class TestAccountInvoiceAutoSendByEmail(SavepointCase):
+class TestAccountInvoiceAutoSendByEmail(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -19,6 +20,7 @@ class TestAccountInvoiceAutoSendByEmail(SavepointCase):
         cls.AccountMove.search([]).write({"transmit_method_code": ""})
         cls.company = cls.env.user.company_id
         cls.transmit_method = cls.env.ref("account_invoice_transmit_method.mail")
+        cls.transmit_method_post = cls.env.ref("account_invoice_transmit_method.post")
         cls.env["account.journal"].create(
             {"name": "Test sale journal", "type": "sale", "code": "tsj"}
         )
@@ -26,9 +28,9 @@ class TestAccountInvoiceAutoSendByEmail(SavepointCase):
         cls.receivable_account = cls.env["account.account"].search(
             [
                 (
-                    "user_type_id",
+                    "account_type",
                     "=",
-                    cls.env.ref("account.data_account_type_receivable").id,
+                    "asset_receivable",
                 ),
                 ("company_id", "=", cls.env.company.id),
             ],
@@ -37,9 +39,9 @@ class TestAccountInvoiceAutoSendByEmail(SavepointCase):
         cls.income_account = cls.env["account.account"].search(
             [
                 (
-                    "user_type_id",
+                    "account_type",
                     "=",
-                    cls.env.ref("account.data_account_type_current_liabilities").id,
+                    "liability_current",
                 ),
                 ("company_id", "=", cls.env.company.id),
             ],
@@ -61,27 +63,23 @@ class TestAccountInvoiceAutoSendByEmail(SavepointCase):
                 "partner_bank_id": cls.partner_bank.id,
                 "transmit_method_id": cls.transmit_method.id,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "quantity": 3,
                             "price_unit": 4.0,
                             "debit": 12,
-                            "credit": 0,
+                            "credit": 12,
                             "name": "Some service",
                             "account_id": cls.receivable_account.id,
-                        },
+                        }
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
-                            "debit": 0,
+                            "debit": 12,
                             "credit": 12,
                             "name": "inv",
                             "account_id": cls.income_account.id,
-                        },
+                        }
                     ),
                 ],
             }
@@ -110,3 +108,12 @@ class TestAccountInvoiceAutoSendByEmail(SavepointCase):
         self.invoice.is_move_sent = True
         res = self.invoice._execute_invoice_sent_wizard()
         self.assertEqual(res, "This invoice has already been sent.")
+
+        self.invoice.write(
+            {
+                "transmit_method_id": self.transmit_method_post.id,
+                "is_move_sent": False,
+            }
+        )
+        res = self.invoice._execute_invoice_sent_wizard()
+        self.assertEqual(res, "This invoice should not send by mail")
