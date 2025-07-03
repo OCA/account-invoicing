@@ -4,12 +4,10 @@
 
 {
     "name": "Account Invoice Refund Reason",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "summary": "Account Invoice Refund Reason.",
     "category": "Accounting",
-    "author": "Open Source Integrators, "
-    "Serpent CS, "
-    "Odoo Community Association (OCA)",
+    "author": "Open Source Integrators, Serpent CS, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "data": [
         "security/ir.model.access.csv",
