@@ -61,8 +61,8 @@
     <menuitem
         id="refund_reasons_menu"
         name="Refund Reasons"
-        parent="account.account_management_menu"
+        parent="account.account_invoicing_menu"
         action="refund_reason_action"
-        sequence="10"
+        sequence="100"
     />
 </odoo>
