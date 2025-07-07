@@ -10,28 +10,21 @@ from odoo.tests.common import TransactionCase
 class TestModule(TransactionCase):
     def setUp(self):
         super(TestModule, self).setUp()
-        self.AccountInvoice = self.env["account.invoice"]
+        self.AccountInvoice = self.env["account.move"]
         self.WizardUpdate = self.env["wizard.update.invoice.supplierinfo"]
         self.SupplierInfo = self.env["product.supplierinfo"]
 
         self.product1 = self.env.ref("product.product_product_4b")
         unit = self.env.ref("uom.product_uom_unit")
-        account_id = (
-            self.env["account.account"]
-            .search([("user_type_id.type", "=", "payable")], limit=1)
-            .id
-        )
         journal_id = (
             self.env["account.journal"].search([("type", "=", "purchase")], limit=1).id
         )
-        product_account_id = self.env.ref("account.demo_coffee_machine_account").id
 
         self.invoice = self.AccountInvoice.create(
             {
                 "journal_id": journal_id,
                 "partner_id": self.env.ref("base.res_partner_12").id,
-                "account_id": account_id,
-                "date_invoice": "%s-01-01" % datetime.now().year,
+                "invoice_date": "%s-01-01" % datetime.now().year,
                 "invoice_line_ids": [
                     (
                         0,
@@ -41,8 +34,7 @@ class TestModule(TransactionCase):
                             "name": "iPad Retina Display",
                             "quantity": 10.0,
                             "price_unit": 400.0,
-                            "uom_id": unit.id,
-                            "account_id": product_account_id,
+                            "product_uom_id": unit.id,
                             "discount": 10.0,
                             "discount2": 20.0,
                             "discount3": 30.0,
