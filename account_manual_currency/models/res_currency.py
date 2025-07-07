@@ -1,5 +1,4 @@
 # account_manual_currency/models/res_currency.py
-import inspect
 from odoo import api, models
 
 
