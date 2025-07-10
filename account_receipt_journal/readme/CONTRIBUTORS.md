@@ -1,0 +1,5 @@
+- [TAKOBI](https://takobi.online):
+  - Lorenzo Battistini
+- [Moduon](https://www.moduon.team):
+  - Eduardo de Miguel
+  - Rafael Blasco
