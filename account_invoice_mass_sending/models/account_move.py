@@ -13,7 +13,7 @@ class AccountInvoice(models.Model):
         "and it will prevent the sending of a duplicated mail.",
     )
 
-    def mass_sending(self, template=None):
+    def mass_sending(self, template=None, include_followers=False):
         """
         This method triggers the asynchronous sending for the selected
         invoices for which there is no asynchronous sending in progress
@@ -33,10 +33,13 @@ class AccountInvoice(models.Model):
                 invoice.with_delay(
                     description=description,
                     channel="root.account_invoice_mass_sending_channel",
-                )._send_invoice_individually(template=template)
+                )._send_invoice_individually(
+                    template=template,
+                    include_followers=include_followers,
+                )
         return invoices_to_send
 
-    def _send_invoice_individually(self, template=None):
+    def _send_invoice_individually(self, template=None, include_followers=False):
         self.ensure_one()
         res = self.action_invoice_sent()
         wiz_ctx = res["context"] or {}
@@ -48,7 +51,7 @@ class AccountInvoice(models.Model):
                 "active_ids": self.ids,
                 "active_id": self.id,
                 "discard_logo_check": True,
-                "account_invoice_mass_sending": True,
+                "include_followers": include_followers,
             }
         )
         wiz = self.env["account.invoice.send"].with_context(**wiz_ctx).create({})
@@ -67,3 +70,21 @@ class AccountInvoice(models.Model):
             }
         )
         return wiz.send_and_print_action()
+
+    def _notify_get_recipients(self, message, msg_vals, **kwargs):
+        recipients_data = super()._notify_get_recipients(message, msg_vals, **kwargs)
+        if self.env.context.get("include_followers", False):
+            return recipients_data
+        else:
+            msg_sudo = message.sudo()
+            pids = (
+                msg_vals.get("partner_ids", [])
+                if msg_vals
+                else msg_sudo.partner_ids.ids
+            )
+            filtered_recipients_data = [
+                recipient
+                for recipient in recipients_data
+                if recipient.get("id") in pids
+            ]
+            return filtered_recipients_data

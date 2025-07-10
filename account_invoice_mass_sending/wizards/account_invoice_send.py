@@ -1,15 +1,24 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, models
+from odoo import _, fields, models
 
 
 class AccountInvoiceSend(models.TransientModel):
     _inherit = "account.invoice.send"
 
+    include_followers = fields.Boolean(
+        default=False,
+        help="If checked, this email will be also send to document followers. "
+        "Else, the email will be sent just to the invoice partner."
+        "\nNote: This functionality only applies for mass sending.",
+    )
+
     def enqueue_invoices(self):
         active_ids = self._context.get("active_ids")
         invoices = self.env["account.move"].browse(active_ids)
-        invoices_to_send = invoices.mass_sending(self.template_id)
+        invoices_to_send = invoices.mass_sending(
+            template=self.template_id, include_followers=self.include_followers
+        )
         ineligible_invoices = invoices - invoices_to_send
         title = _("Invoices: Mass sending")
         msg = _(
@@ -48,12 +57,3 @@ class AccountInvoiceSend(models.TransientModel):
                 }
             )
         return notification
-
-    @api.onchange("invoice_ids")
-    def _compute_composition_mode(self):
-        """Force send as mass_mail although this module sends each invoice one by one
-        to avoid extra notificactions"""
-        if not self.env.context.get("account_invoice_mass_sending", False):
-            return super()._compute_composition_mode()
-        for wizard in self:
-            wizard.composer_id.composition_mode = "mass_mail"

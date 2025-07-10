@@ -169,7 +169,7 @@ class TestAccountInvoiceMassSending(TransactionCase):
             trap.assert_jobs_count(1)
             trap.assert_enqueued_job(
                 self.first_eligible_invoice._send_invoice_individually,
-                kwargs={"template": self.mail_template_obj},
+                kwargs={"template": self.mail_template_obj, "include_followers": False},
             )
             trap.perform_enqueued_jobs()
             self.assertFalse(self.first_eligible_invoice.sending_in_progress)
