@@ -1,6 +1,8 @@
 # Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import fields
 from odoo.tests import Form, common
 
@@ -91,5 +93,7 @@ class TestAccountMove(common.TransactionCase):
         self.assertAlmostEqual(invoice.invoice_currency_rate, 2.0, 2)
         self.assertAlmostEqual(invoice.line_ids[0].currency_rate, 2.0, 2)
         invoice.button_draft()
+        # Now change the invoice date to trigger recompute
+        invoice.invoice_date = invoice.invoice_date + relativedelta(days=1)
         self.assertAlmostEqual(invoice.invoice_currency_rate, 3.0, 2)
         self.assertAlmostEqual(invoice.line_ids[0].currency_rate, 3.0, 2)
