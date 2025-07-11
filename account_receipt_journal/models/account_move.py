@@ -4,18 +4,20 @@ from odoo import _, api, exceptions, models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    @api.depends("company_id", "invoice_filter_type_domain", "move_type")
+    @api.depends("company_id", "invoice_filter_type_domain")
     def _compute_suitable_journal_ids(self):
         res = super()._compute_suitable_journal_ids()
-        for m in self:
-            dedicated_journals = m.suitable_journal_ids.filtered(
-                lambda j: j.receipts == m.move_type in {"out_receipt", "in_receipt"}
+        for move in self:
+            if move.move_type in {"in_receipt", "out_receipt"}:
+                move.suitable_journal_ids = move.suitable_journal_ids.filtered(
+                    "receipts"
+                )
+                continue
+            move.suitable_journal_ids = move.suitable_journal_ids.filtered(
+                lambda x: not x.receipts
             )
-            # Suitable journals dedicated to receipts if exists
-            m.suitable_journal_ids = dedicated_journals or m.suitable_journal_ids
         return res
 
-    @api.model
     def _search_default_receipt_journal(self, journal_types):
         company_id = self.env.context.get("default_company_id", self.env.company.id)
         currency_id = self.env.context.get("default_currency_id")
@@ -33,14 +35,13 @@ class AccountMove(models.Model):
             journal = self.env["account.journal"].search(domain, limit=1)
         return journal
 
-    @api.model
-    def _search_default_journal(self, journal_types):
-        journal = super()._search_default_journal(journal_types)
-        move_type = self.env.context.get("default_move_type")
+    def _search_default_journal(self):
+        journal = super()._search_default_journal()
         # We can assume that if move_type is not in receipts, a journal without
         # receipts it's coming because of the Journal constraint
-        if move_type not in {"in_receipt", "out_receipt"} or journal.receipts:
+        if self.move_type not in {"in_receipt", "out_receipt"} or journal.receipts:
             return journal
+        journal_types = self._get_valid_journal_types()
         return self._search_default_receipt_journal(journal_types) or journal
 
     def _get_journal_types(self, move_type):
@@ -88,8 +89,10 @@ class AccountMove(models.Model):
 
     @api.constrains("move_type", "journal_id")
     def _check_receipts_journal(self):
-        """Ensure that Receipt Journal is only used in Receipts
-        if exists Receipt Journals for its type"""
+        """
+        Ensure that Receipt Journal is only used in Receipts
+        if exists Receipt Journals for its type
+        """
         aj_model = self.env["account.journal"]
         receipt_domain = [("receipts", "=", True)]
         has_in_rjournals = aj_model.search([("type", "=", "purchase")] + receipt_domain)

@@ -6,21 +6,22 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 @tagged("post_install", "-at_install")
 class TestReceipts(AccountTestInvoicingCommon):
-    def setUp(self):
-        super().setUp()
-        self.out_receipt_journal = self.env["account.journal"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.out_receipt_journal = cls.env["account.journal"].create(
             {
                 "name": "Sale Receipts Journal",
-                "code": "S-REC",
+                "code": "SREC",
                 "type": "sale",
                 "receipts": True,
                 "sequence": 99,
             }
         )
-        self.in_receipt_journal = self.env["account.journal"].create(
+        cls.in_receipt_journal = cls.env["account.journal"].create(
             {
                 "name": "Purchase Receipts Journal",
-                "code": "P-REC",
+                "code": "PREC",
                 "type": "purchase",
                 "receipts": True,
                 "sequence": 99,
@@ -58,3 +59,16 @@ class TestReceipts(AccountTestInvoicingCommon):
                 )
                 with self.assertRaises(ValidationError):
                     receipt.write({"journal_id": non_receipt_journals.ids[0]})
+
+    def test_action_open_dashboard(self):
+        """Test action_create_new and open_action"""
+        action = self.out_receipt_journal.action_create_new()
+        self.assertEqual(action["context"]["default_move_type"], "out_receipt")
+        action = self.in_receipt_journal.action_create_new()
+        self.assertEqual(action["context"]["default_move_type"], "in_receipt")
+        action = self.out_receipt_journal.open_action()
+        self.assertEqual(action["context"]["default_move_type"], "out_receipt")
+        self.assertEqual(action["domain"], [("move_type", "=", "out_receipt")])
+        action = self.in_receipt_journal.open_action()
+        self.assertEqual(action["context"]["default_move_type"], "in_receipt")
+        self.assertEqual(action["domain"], [("move_type", "=", "in_receipt")])
