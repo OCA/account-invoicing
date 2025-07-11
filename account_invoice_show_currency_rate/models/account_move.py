@@ -32,6 +32,16 @@ class AccountMove(models.Model):
             )
         return res
 
+    # Add the 'state', 'line_ids.amount_currency', and 'line_ids.balance'
+    # dependencies to the base dependencies to recalculate the expected exchange rate.
+    #
+    # Without this change, which causes expected_currency_rate and invoice_currency_rate
+    # to be updated simultaneously, invoice_currency_rate is updated with an outdated
+    # expected_currency_rate value in account.move.
+    @api.depends("state", "line_ids.amount_currency", "line_ids.balance")
+    def _compute_expected_currency_rate(self):
+        return super()._compute_expected_currency_rate()
+
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
