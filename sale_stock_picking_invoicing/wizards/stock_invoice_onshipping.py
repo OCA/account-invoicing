@@ -7,7 +7,6 @@ from odoo import api, fields, models
 
 
 class StockInvoiceOnshipping(models.TransientModel):
-
     _inherit = "stock.invoice.onshipping"
 
     @api.model

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
-     <record id="view_sale_stock_invoice_onshipping" model="ir.ui.view">
+    <record id="view_sale_stock_invoice_onshipping" model="ir.ui.view">
         <field name="name">Sale Stock Invoice Onshipping</field>
         <field name="model">stock.invoice.onshipping</field>
         <field
@@ -10,7 +9,6 @@
         />
         <field name="arch" type="xml">
             <field name="group" position="after">
-
                 <field name="has_down_payments" invisible="1" />
                 <label
                     for="deduct_down_payments"
@@ -24,11 +22,7 @@
                     <field name="deduct_down_payments" nolabel="1" />
                     <label for="deduct_down_payments" />
                 </div>
-
-
             </field>
-
         </field>
-     </record>
-
+    </record>
 </odoo>

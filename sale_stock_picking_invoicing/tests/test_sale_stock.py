@@ -108,8 +108,8 @@ class TestSaleStock(TestPickingInvoicingCommon):
             self.assertEqual(
                 stock_move[field],
                 sale_order_line[field],
-                "Field %s failed to transfer from "
-                "sale.order.line to stock.move" % field,
+                f"Field {field} failed to transfer from sale.order.line "
+                "to stock.move",
             )
 
     def test_picking_sale_order_product_and_service(self):
@@ -237,8 +237,8 @@ class TestSaleStock(TestPickingInvoicingCommon):
             self.assertEqual(
                 sale_order_line[field],
                 invoice_lines[field],
-                "Field %s failed to transfer from "
-                "sale.order.line to account.invoice.line" % field,
+                f"Field {field} failed to transfer from sale.order.line "
+                "to account.invoice.line",
             )
 
         # Return Picking
