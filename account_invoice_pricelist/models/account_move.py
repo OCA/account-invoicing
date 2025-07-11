@@ -88,8 +88,7 @@ class AccountMoveLine(models.Model):
         self.ensure_one()
         return self.move_id.invoice_date
 
-    @api.depends("product_id", "product_uom_id", "quantity")
-    def _compute_discount(self):
+    def _calculate_discount(self):
         discount_enabled = self.env[
             "product.pricelist.item"
         ]._is_discount_feature_enabled()
@@ -173,7 +172,7 @@ class AccountMoveLine(models.Model):
 
         base_price = self._get_pricelist_price_before_discount()
 
-        self._compute_discount()
+        self._calculate_discount()
 
         # negative discounts (= surcharge) are included in the display price
         return max(base_price, pricelist_price)
