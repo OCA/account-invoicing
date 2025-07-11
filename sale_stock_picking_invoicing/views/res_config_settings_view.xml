@@ -5,7 +5,6 @@
   License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-
     <record
         id="sale_stock_picking_invoicing_res_config_settings_form"
         model="ir.ui.view"
@@ -39,5 +38,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>

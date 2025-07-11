@@ -5,7 +5,6 @@
   License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo noupdate="1">
-
     <!-- Show partner_shipping_id in Sale Order -->
     <record
         id="group_sale_delivery_address_config_settings"
@@ -311,5 +310,4 @@
         <field name="product_uom" ref="uom.product_uom_unit" />
         <field name="price_unit">500</field>
     </record>
-
 </odoo>
