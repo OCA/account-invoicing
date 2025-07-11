@@ -10,16 +10,31 @@ class AccountJournal(models.Model):
         "and only can be used for receipts.",
     )
 
-    def action_create_new(self):
-        """Create a new Receipt from the Dashboard"""
-        res = super().action_create_new()
+    def _get_move_action_context(self):
+        res = super()._get_move_action_context()
+        ctx = self._context.copy()
+        journal = self or self.browse(ctx["default_journal_id"])
+        if not journal or not journal.receipts:
+            return res
+        if journal.type == "sale":
+            res["default_move_type"] = "out_receipt"
+        elif journal.type == "purchase":
+            res["default_move_type"] = "in_receipt"
+        return res
+
+    def open_action(self):
+        """Create a new Receipt from the Dashboard
+        Button link in name of journal
+        """
+        res = super().open_action()
         if not self.receipts:
             return res
-        res["name"] = _("Create receipt")
         if self.type == "sale":
             res["context"]["default_move_type"] = "out_receipt"
+            res["domain"] = [("move_type", "=", "out_receipt")]
         elif self.type == "purchase":
             res["context"]["default_move_type"] = "in_receipt"
+            res["domain"] = [("move_type", "=", "in_receipt")]
         return res
 
     @api.constrains("sequence", "type", "receipts", "company_id")
@@ -39,7 +54,7 @@ class AccountJournal(models.Model):
             if not journals:
                 continue
             previous_sequence_journals = journals.filtered(
-                lambda j: j.sequence < receipt_journal.sequence
+                lambda j, r=receipt_journal: j.sequence < r.sequence
             )
             if not previous_sequence_journals:
                 raise exceptions.ValidationError(

@@ -2,12 +2,12 @@ from . import models
 from openupgradelib import openupgrade
 
 
-def rename_old_italian_data(cr):
-    if not openupgrade.is_module_installed(cr, "l10n_it_corrispettivi"):
+def rename_old_italian_data(env):
+    if not openupgrade.is_module_installed(env.cr, "l10n_it_corrispettivi"):
         return
 
     openupgrade.rename_xmlids(
-        cr,
+        env.cr,
         [
             (
                 "l10n_it_corrispettivi.corrispettivi_journal",

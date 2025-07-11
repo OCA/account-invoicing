@@ -9,7 +9,7 @@
                 <group
                     name="receipts"
                     string="Receipts"
-                    attrs="{'invisible': [('type', 'not in',  ('sale', 'purchase'))]}"
+                    invisible="type not in ('sale', 'purchase')"
                 >
                     <field name="receipts" />
                 </group>
