@@ -10,9 +10,7 @@
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
     "depends": ["account"],
-    "data": [
-        "views/account_move_views.xml",
-    ],
+    "data": ["views/account_move_views.xml",],
     "pre_init_hook": "pre_init_hook",
     "installable": True,
 }

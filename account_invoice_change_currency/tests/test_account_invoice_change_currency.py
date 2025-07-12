@@ -288,8 +288,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
         inv.write({"original_currency_id": False})
         inv.invoice_line_ids.write({"original_price_unit": False})
         self.assertFalse(
-            inv.original_currency_id,
-            "There is an original currency in the invoice",
+            inv.original_currency_id, "There is an original currency in the invoice",
         )
         self.assertEqual(
             inv.invoice_line_ids.mapped("original_price_unit"),

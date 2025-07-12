@@ -75,10 +75,7 @@ class AccountMove(models.Model):
             date = invoice.invoice_date or fields.Date.context_today(invoice)
             from_currency = invoice.original_currency_id or invoice.currency_id
             invoice.custom_rate = from_currency._get_conversion_rate(
-                from_currency,
-                invoice.currency_id,
-                invoice.company_id,
-                date,
+                from_currency, invoice.currency_id, invoice.company_id, date,
             )
 
     @api.depends("currency_id", "original_currency_id")
