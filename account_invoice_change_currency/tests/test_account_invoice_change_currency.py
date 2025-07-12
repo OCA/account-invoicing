@@ -61,7 +61,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
     def create_simple_invoice(self, date=False, context=None, inv_type=None):
         if not context:
             context = {}
-        context["default_move_type"] = True
+        context["default_type"] = True
         invoice_lines = [
             (
                 0,
@@ -93,7 +93,7 @@ class TestAccountInvoiceChangeCurrency(common.TransactionCase):
             .create(
                 {
                     "partner_id": 1,
-                    "move_type": inv_type or "in_invoice",
+                    "type": inv_type or "in_invoice",
                     "invoice_date": date,
                     "currency_id": self.env.ref("base.EUR").id,
                     "invoice_line_ids": invoice_lines,
