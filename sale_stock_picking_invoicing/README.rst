@@ -144,13 +144,9 @@ Contributors
 -  `KMEE <https://www.kmee.com.br>`__:
 
    -  Gabriel Cardoso de Faria <gabriel.cardoso@kmee.com.br>
+      `APSL-Nagarro <https://www.apsl.tech>`__:
 
-Other credits
--------------
-
-The development of this module has been financially supported by:
-
--  Aketion - `www.akretion.com <http://www.akretion.com>`__
+-  Patryk Pyczko <ppyczko@apsl.net>
 
 Maintainers
 -----------

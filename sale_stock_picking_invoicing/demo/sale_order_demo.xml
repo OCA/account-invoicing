@@ -21,18 +21,24 @@
         />
     </function>
 
-    <!-- Show Incoterms in Sale Order and Invoice -->
-    <record id="group_display_incoterm_config_settings" model="res.config.settings">
-        <field name="group_display_incoterm">True</field>
+    <!-- Enable Pricelists -->
+    <record id="group_product_pricelist_config_settings" model="res.config.settings">
+        <field name="group_product_pricelist">True</field>
     </record>
 
+    <!-- Execute the settings so they take effect -->
     <function model="res.config.settings" name="execute">
         <value
             model="res.config.settings"
-            search="[('id', '=',
-                ref('group_display_incoterm_config_settings'))]"
+            search="[('id', '=', ref('group_product_pricelist_config_settings'))]"
         />
     </function>
+
+    <record id="demo_pricelist" model="product.pricelist">
+        <field name="name">Demo Pricelist</field>
+        <field name="currency_id" ref="base.USD" />
+        <field name="company_id" ref="base.main_company" />
+    </record>
 
     <!-- Test different Payment Terms -->
     <record id="base.res_partner_2" model="res.partner">
@@ -46,6 +52,16 @@
     it's seems a mistake, fix here to use in the tests -->
     <record id="product.product_product_1" model="product.product">
         <field name="invoice_policy">order</field>
+        <field name="taxes_id" eval="[(6, 0, [ref('account.1_sale_tax_template')])]" />
+    </record>
+
+    <!-- Add default sale tax -->
+    <record id="product.product_product_12" model="product.product">
+        <field name="taxes_id" eval="[(6, 0, [ref('account.1_sale_tax_template')])]" />
+    </record>
+
+    <record id="product.product_product_27" model="product.product">
+        <field name="taxes_id" eval="[(6, 0, [ref('account.1_sale_tax_template')])]" />
     </record>
 
     <!-- Test with different shipping address -->
@@ -80,7 +96,7 @@
         <field name="partner_invoice_id" ref="base.res_partner_2" />
         <field name="partner_shipping_id" ref="res_partner_2_address" />
         <field name="user_id" ref="base.user_admin" />
-        <field name="pricelist_id" ref="product.list0" />
+        <field name="pricelist_id" ref="demo_pricelist" />
         <field name="payment_term_id" ref="account.account_payment_term_advance" />
         <field name="team_id" ref="sales_team.crm_team_1" />
         <field name="state">draft</field>
@@ -140,7 +156,7 @@
         <field name="partner_invoice_id" ref="base.res_partner_2" />
         <field name="partner_shipping_id" ref="res_partner_2_address" />
         <field name="user_id" ref="base.user_admin" />
-        <field name="pricelist_id" ref="product.list0" />
+        <field name="pricelist_id" ref="demo_pricelist" />
         <field name="payment_term_id" ref="account.account_payment_term_advance" />
         <field name="team_id" ref="sales_team.crm_team_1" />
         <field name="state">draft</field>
@@ -201,7 +217,7 @@
         <field name="partner_invoice_id" ref="base.res_partner_2" />
         <field name="partner_shipping_id" ref="base.res_partner_2" />
         <field name="user_id" ref="base.user_admin" />
-        <field name="pricelist_id" ref="product.list0" />
+        <field name="pricelist_id" ref="demo_pricelist" />
         <field name="payment_term_id" ref="account.account_payment_term_advance" />
         <field name="team_id" ref="sales_team.crm_team_1" />
         <field name="state">draft</field>
@@ -259,7 +275,7 @@
         <field name="partner_invoice_id" ref="base.res_partner_2" />
         <field name="partner_shipping_id" ref="base.res_partner_2" />
         <field name="user_id" ref="base.user_admin" />
-        <field name="pricelist_id" ref="product.list0" />
+        <field name="pricelist_id" ref="demo_pricelist" />
         <field name="payment_term_id" ref="account.account_payment_term_advance" />
         <field name="team_id" ref="sales_team.crm_team_1" />
         <field name="state">draft</field>

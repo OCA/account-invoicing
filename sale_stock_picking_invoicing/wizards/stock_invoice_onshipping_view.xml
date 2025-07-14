@@ -9,16 +9,13 @@
         />
         <field name="arch" type="xml">
             <field name="group" position="after">
-                <field name="has_down_payments" invisible="1" />
+                <field name="has_down_payments" invisible="1" readonly="1" />
                 <label
                     for="deduct_down_payments"
                     string=""
-                    attrs="{'invisible': [('has_down_payments', '=', False)]}"
+                    invisible="not has_down_payments"
                 />
-                <div
-                    attrs="{'invisible': [('has_down_payments', '=', False)]}"
-                    id="down_payment_details"
-                >
+                <div invisible="not has_down_payments" id="down_payment_details">
                     <field name="deduct_down_payments" nolabel="1" />
                     <label for="deduct_down_payments" />
                 </div>

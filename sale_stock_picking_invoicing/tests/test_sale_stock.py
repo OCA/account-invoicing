@@ -54,7 +54,9 @@ class TestSaleStock(TestPickingInvoicingCommon):
                     },
                 )
             ],
-            "pricelist_id": self.env.ref("product.list0").id,
+            "pricelist_id": self.env.ref(
+                "sale_stock_picking_invoicing.demo_pricelist"
+            ).id,
         }
         self.so = self.env["sale.order"].create(so_vals)
 
@@ -117,11 +119,16 @@ class TestSaleStock(TestPickingInvoicingCommon):
         Test Sale Order with product and service
         """
 
+        # Ensure the company's sale_invoicing_policy is set to "stock_picking"
+        company = self.env.ref("base.main_company")
+        company.sale_invoicing_policy = "stock_picking"
         sale_order_form = sale_order_form = Form(
             self.env.ref("sale_stock_picking_invoicing.main_company-sale_order_2")
         )
         # Necessary to get the currency
-        sale_order_form.pricelist_id = self.env.ref("product.list0")
+        sale_order_form.pricelist_id = self.env.ref(
+            "sale_stock_picking_invoicing.demo_pricelist"
+        )
         sale_order_2 = sale_order_form.save()
         sale_order_2.action_confirm()
         # Method to create invoice in sale order should work only
