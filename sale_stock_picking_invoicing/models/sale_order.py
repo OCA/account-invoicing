@@ -2,7 +2,7 @@
 # @author Magno Costa <magno.costa@akretion.com.br>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, models
+from odoo import models
 from odoo.exceptions import UserError
 
 
@@ -18,7 +18,7 @@ class SaleOrder(models.Model):
             and model != "stock.picking"
         ):
             new_lines = lines.filtered(
-                lambda ln: ln.product_id.type != "product" and not ln.is_downpayment
+                lambda ln: not ln.product_id.is_storable and not ln.is_downpayment
             )
             if new_lines:
                 # Case lines with Product Type 'service'
@@ -26,7 +26,7 @@ class SaleOrder(models.Model):
             else:
                 # Case only Products Type 'product'
                 raise UserError(
-                    _(
+                    self.env._(
                         "When 'Sale Invoicing Policy' is defined as"
                         "'Stock Picking' the Invoice can only be created"
                         " from the Stock Picking, if necessary you can change"

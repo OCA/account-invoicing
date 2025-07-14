@@ -25,7 +25,7 @@ class StockInvoiceOnshipping(models.TransientModel):
 
     deduct_down_payments = fields.Boolean("Deduct down payments", default=True)
     has_down_payments = fields.Boolean(
-        "Has down payments", default=_default_has_down_payment, readonly=True
+        "Has down payments", default=_default_has_down_payment
     )
 
     def _get_fields_not_used_from_sale(self):
@@ -339,20 +339,14 @@ class StockInvoiceOnshipping(models.TransientModel):
         if final:
             moves.sudo().filtered(
                 lambda m: m.amount_total < 0
-            ).action_switch_invoice_into_refund_credit_note()
+            ).action_switch_move_type()
         for move in moves:
-            move.message_post_with_view(
-                "mail.message_origin_link",
-                # In this case the Origin are Pickings
-                # values={
-                #    "self": move,
-                #     "origin": move.line_ids.mapped("sale_line_ids.order_id"),
-                # },
-                values={
+            move.message_post_with_source(
+                source_ref="mail.message_origin_link",
+                render_values={
                     "self": move.picking_ids,
                     "origin": move.picking_ids,
                 },
                 subtype_id=self.env.ref("mail.mt_note").id,
             )
-
         return moves
