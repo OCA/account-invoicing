@@ -6,7 +6,7 @@ from odoo.tests.common import TransactionCase
 
 class TestAccountException(TransactionCase):
     def setUp(self):
-        super(TestAccountException, self).setUp()
+        super().setUp()
         # Useful models
         self.AccountMove = self.env["account.move"].with_context(
             check_move_validity=False
