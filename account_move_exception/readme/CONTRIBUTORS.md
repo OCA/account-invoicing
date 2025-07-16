@@ -1,2 +1,5 @@
 - Miquel Raïch \<miquel.raich@forgeflow.com\>
 - Pimolnat Suntian \<pimolnats@ecosoft.co.th\>
+- [Komit](https://komit-consulting.com):
+  - Cai Hoang Huynh
+  - Cuong NGUYEN MINH TRAN MANH
