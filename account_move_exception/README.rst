@@ -70,8 +70,12 @@ Authors
 Contributors
 ------------
 
-- Miquel Raïch <miquel.raich@forgeflow.com>
-- Pimolnat Suntian <pimolnats@ecosoft.co.th>
+-  Miquel Raïch <miquel.raich@forgeflow.com>
+-  Pimolnat Suntian <pimolnats@ecosoft.co.th>
+-  `Komit <https://komit-consulting.com>`__:
+
+   -  Cai Hoang Huynh
+   -  Cuong NGUYEN MINH TRAN MANH
 
 Maintainers
 -----------

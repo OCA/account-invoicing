@@ -17,15 +17,10 @@ class TestAccountException(TransactionCase):
         self.product_id_2 = self.env.ref("product.product_product_7")
         self.product_id_3 = self.env.ref("product.product_product_7")
         self.account_receivable = self.env["account.account"].search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_receivable").id,
-                )
-            ],
+            [("account_type", "=", "asset_receivable")],
             limit=1,
         )
+
         self.account_exception_confirm = self.env["account.exception.confirm"]
         self.exception_noemail = self.env.ref(
             "account_move_exception.am_excep_no_email"
@@ -79,13 +74,12 @@ class TestAccountException(TransactionCase):
         # set ignore_exception = False  (Done by onchange of line_ids)
         field_onchange = self.AccountMove._onchange_spec()
         self.assertEqual(field_onchange.get("line_ids"), "1")
-        self.env.cache.invalidate()
         self.am3New = self.AccountMove.new(self.am_vals.copy())
         self.am3New.ignore_exception = True
         self.am3New.state = "posted"
         self.am3New.onchange_ignore_exception()
         self.assertFalse(self.am3New.ignore_exception)
-        self.am.line_ids.write(
+        self.am.invoice_line_ids.write(
             {
                 "product_id": self.product_id_3.id,
                 "quantity": 2,
