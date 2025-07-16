@@ -16,16 +16,7 @@ class TestAccountException(TransactionCase):
         self.product_id_1 = self.env.ref("product.product_product_6")
         self.product_id_2 = self.env.ref("product.product_product_7")
         self.product_id_3 = self.env.ref("product.product_product_7")
-        self.account_receivable = self.env["account.account"].search(
-            [
-                (
-                    "user_type_id",
-                    "=",
-                    self.env.ref("account.data_account_type_receivable").id,
-                )
-            ],
-            limit=1,
-        )
+
         self.account_exception_confirm = self.env["account.exception.confirm"]
         self.exception_noemail = self.env.ref(
             "account_move_exception.am_excep_no_email"
@@ -78,20 +69,23 @@ class TestAccountException(TransactionCase):
         # Add an account move to test after AM is confirmed
         # set ignore_exception = False  (Done by onchange of line_ids)
         field_onchange = self.AccountMove._onchange_spec()
-        self.assertEqual(field_onchange.get("line_ids"), "1")
+        self.assertEqual(field_onchange.get("invoice_line_ids"), "1")
         self.env.cache.invalidate()
         self.am3New = self.AccountMove.new(self.am_vals.copy())
         self.am3New.ignore_exception = True
         self.am3New.state = "posted"
         self.am3New.onchange_ignore_exception()
         self.assertFalse(self.am3New.ignore_exception)
-        self.am.line_ids.write(
-            {
-                "product_id": self.product_id_3.id,
-                "quantity": 2,
-                "price_unit": 30,
-            }
-        )
+        self.env.cache.clear()
+
+        # this cannot be done on a posted invoice in 17.0
+        # self.am.line_ids.write(
+        #     {
+        #         "product_id": self.product_id_3.id,
+        #         "quantity": 2,
+        #         "price_unit": 30,
+        #     }
+        # )
 
         # Set ignore exception True  (Done manually by user)
         self.am.ignore_exception = True
@@ -101,6 +95,11 @@ class TestAccountException(TransactionCase):
         self.assertTrue(not self.am.ignore_exception)
         self.am.action_post()
         self.assertTrue(self.am.state, "posted")
+
+        # avoid balance check:(fails because Record does not exist or has been deleted.)
+        # for line in self.am.line_ids:
+        #     line.price_unit = 0.0
+        #     line.credit = 0.0
 
         # Simulation the opening of the wizard account_exception_confirm and
         # set ignore_exception to True
@@ -112,9 +111,20 @@ class TestAccountException(TransactionCase):
             }
         ).create({"ignore": True})
 
-        # avoid balance check:
-        for line in self.am.line_ids:
-            line.credit = 0.0
-
         am_except_confirm.action_confirm()
         self.assertTrue(self.am.ignore_exception)
+
+    def test_reverse_field(self):
+        self.assertEqual(self.AccountMove._reverse_field(), "account_move_ids")
+
+    def test_action_post_with_exception(self):
+        self.exception_noemail.active = True
+        self.partner_id.email = False
+
+        am = self.AccountMove.create(self.am_vals.copy())
+        # Don't set ignore_exception
+        result = am.action_post()
+
+        self.assertIsInstance(result, dict)
+        self.assertIn("type", result)
+        self.assertEqual(result["type"], "ir.actions.act_window")

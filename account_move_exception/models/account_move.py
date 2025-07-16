@@ -31,7 +31,7 @@ class AccountMove(models.Model):
         if moves:
             moves._check_exception()
 
-    @api.onchange("line_ids")
+    @api.onchange("invoice_line_ids")
     def onchange_ignore_exception(self):
         if self.state == "posted":
             self.ignore_exception = False
