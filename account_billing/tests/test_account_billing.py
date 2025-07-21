@@ -37,6 +37,7 @@ class TestAccountBilling(AccountTestInvoicingCommon):
             invoice_amount=100,
             currency_id=cls.currency_eur_id,
             partner_id=cls.partner_a.id,
+            date_invoice=fields.Date.context_today(cls.env.user),
             payment_term_id=cls.payment_term.id,
             auto_validate=True,
         )
