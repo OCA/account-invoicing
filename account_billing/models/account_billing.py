@@ -135,13 +135,13 @@ class AccountBilling(models.Model):
             if not rec.billing_line_ids:
                 raise UserError(_("You need to add a line before validate."))
             date_type = dict(self._fields["threshold_date_type"].selection).get(
-                self.threshold_date_type
+                rec.threshold_date_type
             )
             if any(
                 rec.threshold_date
                 < (
                     b.threshold_date
-                    if self.threshold_date_type == "invoice_date_due"
+                    if rec.threshold_date_type == "invoice_date_due"
                     else b.invoice_date
                 )
                 for b in rec.billing_line_ids
