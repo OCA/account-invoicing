@@ -256,3 +256,14 @@ class TestAccountBilling(TransactionCase):
             [("id", "=", billing_other.id)]
         )
         self.assertTrue(billing_with_sudo, "Sudo should bypass company record rule")
+
+    def test_8_check_move_button_draft(self):
+        self.assertEqual(self.inv_1.state, "posted")
+        action = self.inv_1.action_create_billing()
+        customer_billing = self.billing_model.browse(action["res_id"])
+        self.assertEqual(customer_billing.state, "draft")
+        with self.assertRaises(UserError):
+            self.inv_1.button_draft()
+        customer_billing.action_cancel()
+        self.inv_1.button_draft()
+        self.assertEqual(self.inv_1.state, "draft")
