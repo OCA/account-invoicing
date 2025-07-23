@@ -137,15 +137,7 @@ class AccountBilling(models.Model):
             date_type = dict(self._fields["threshold_date_type"].selection).get(
                 rec.threshold_date_type
             )
-            if any(
-                rec.threshold_date
-                < (
-                    b.threshold_date
-                    if rec.threshold_date_type == "invoice_date_due"
-                    else b.invoice_date
-                )
-                for b in rec.billing_line_ids
-            ):
+            if any(rec.threshold_date < b.invoice_date for b in rec.billing_line_ids):
                 raise ValidationError(
                     _("Threshold Date cannot be later than the %s in lines")
                     % (date_type)
@@ -234,8 +226,7 @@ class AccountBillingLine(models.Model):
         index=True,
     )
     name = fields.Char(related="move_id.name")
-    invoice_date = fields.Date(related="move_id.invoice_date")
-    threshold_date = fields.Date(related="move_id.invoice_date_due")
+    invoice_date = fields.Date(compute="_compute_invoice_date")
     origin = fields.Char(related="move_id.invoice_origin")
     currency_id = fields.Many2one(related="move_id.currency_id")
     amount_total = fields.Monetary(
@@ -249,6 +240,13 @@ class AccountBillingLine(models.Model):
     )
     state = fields.Selection(related="move_id.state")
     payment_state = fields.Selection(related="move_id.payment_state")
+
+    def _compute_invoice_date(self):
+        for line in self:
+            if line.billing_id.threshold_date_type == "invoice_date_due":
+                line.invoice_date = line.move_id.invoice_date_due
+                continue
+            line.invoice_date = line.move_id.invoice_date
 
     @api.depends("move_id.amount_residual")
     def _compute_amount_residual(self):

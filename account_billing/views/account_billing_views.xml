@@ -201,7 +201,6 @@
                                     <field name="move_id" invisible="1" />
                                     <field name="name" />
                                     <field name="invoice_date" />
-                                    <field name="threshold_date" />
                                     <field name="origin" />
                                     <field name="currency_id" invisible="1" />
                                     <field
