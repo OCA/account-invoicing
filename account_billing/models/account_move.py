@@ -82,3 +82,11 @@ class AccountMove(models.Model):
                 }
             )
         return action
+
+    def button_draft(self):
+        for rec in self:
+            if rec.billing_ids.filtered(lambda x: x.state != "cancel"):
+                raise UserError(
+                    _("You cannot reset to draft an invoice that has been billed.")
+                )
+        return super().button_draft()
