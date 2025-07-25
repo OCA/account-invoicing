@@ -97,7 +97,8 @@ class TestAccountBilling(TransactionCase):
                 "partner_id": partner or self.partner_agrolait.id,
                 "currency_id": currency_id or self.currency_eur_id,
                 "move_type": invoice_type,
-                "invoice_date": fields.Date.today(),
+                "invoice_date": fields.Date.context_today(self.env.user),
+                "date": fields.Date.context_today(self.env.user),
                 "invoice_payment_term_id": self.payment_term.id,
                 "invoice_line_ids": [
                     Command.create(
@@ -222,7 +223,7 @@ class TestAccountBilling(TransactionCase):
             inv_1.action_post()
         inv_2 = inv_1.copy()
         # Need to explicitly assign invoice date, not kept on copy
-        inv_2.invoice_date = fields.Date.today()
+        inv_2.invoice_date = fields.Date.context_today(self.env.user)
         if inv_2.state != "posted":
             inv_2.action_post()
         invoices = inv_1 + inv_2
