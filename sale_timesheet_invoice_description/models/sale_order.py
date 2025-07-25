@@ -31,7 +31,9 @@ class SaleOrder(models.Model):
         if desc_rule[0] == "1":
             details.append(fields.Date.to_string(timesheet.date))
         if desc_rule[1] == "1":
-            details.append(f"{timesheet.unit_amount} {timesheet.product_uom_id.name}")
+            details.append(
+                f"{round(timesheet.unit_amount, 2)} {timesheet.product_uom_id.name}"
+            )
         if desc_rule[2] == "1":
             details.append(timesheet.name)
         return details
