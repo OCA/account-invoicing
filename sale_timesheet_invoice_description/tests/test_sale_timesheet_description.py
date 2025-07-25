@@ -38,7 +38,7 @@ class TestSaleTimesheetDescription(BaseCommon):
         cls.project = cls.env["project.project"].create(
             {
                 "name": "Test project",
-                "analytic_account_id": cls.analytic_account.id,
+                "account_id": cls.analytic_account.id,
                 "allow_timesheets": True,
                 "allow_billable": True,
             }
@@ -64,7 +64,6 @@ class TestSaleTimesheetDescription(BaseCommon):
                 "partner_invoice_id": cls.partner.id,
                 "partner_shipping_id": cls.partner.id,
                 "pricelist_id": cls.partner.property_product_pricelist.id,
-                "analytic_account_id": cls.analytic_account.id,
             }
         )
         cls.sale_order.timesheet_invoice_split = False

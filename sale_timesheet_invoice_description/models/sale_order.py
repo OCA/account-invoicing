@@ -2,7 +2,7 @@
 # Copyright 2020 Tecnativa - Manuel Calero
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.tools import config
 
 
@@ -17,11 +17,11 @@ class SaleOrder(models.Model):
     @api.model
     def _get_timesheet_invoice_description(self):
         return [
-            ("000", _("None")),
-            ("111", _("Date - Time spent - Description")),
-            ("101", _("Date - Description")),
-            ("001", _("Description")),
-            ("011", _("Time spent - Description")),
+            ("000", self.env._("None")),
+            ("111", self.env._("Date - Time spent - Description")),
+            ("101", self.env._("Date - Description")),
+            ("001", self.env._("Description")),
+            ("011", self.env._("Time spent - Description")),
         ]
 
     def _get_timesheet_details(self, timesheet, desc_rule):
