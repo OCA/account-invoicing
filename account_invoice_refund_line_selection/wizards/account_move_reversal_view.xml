@@ -14,7 +14,6 @@
             <xpath expr="//footer" position="before">
                 <notebook invisible="not refund_lines">
                     <page string="Invoice Lines">
-                        <field name="selectable_invoice_lines_ids" invisible="1" />
                         <field
                             name="line_ids"
                             context="{'list_view_ref': 'account.view_move_line_tree_grouped_sales_purchases'}"
