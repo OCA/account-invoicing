@@ -1,1 +1,1 @@
-from . import test_product_supplierinfo_for_customer_invoice
+from . import test_product_customerinfo_invoice

@@ -1,10 +1,11 @@
 # Copyright 2021 ForgeFlow
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from odoo import Command
 from odoo.tests.common import TransactionCase
 
 
-class TestProductSupplierinfoForCustomerInvoice(TransactionCase):
+class TestProductCustomerInfoInvoice(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -18,7 +19,7 @@ class TestProductSupplierinfoForCustomerInvoice(TransactionCase):
         cls.product = cls.env.ref("product.product_product_4")
         cls.customerinfo_1 = cls.customerinfo_model.create(
             {
-                "name": cls.customer_1.id,
+                "partner_id": cls.customer_1.id,
                 "product_tmpl_id": cls.product.product_tmpl_id.id,
                 "product_id": cls.product.id,
                 "product_code": "CUST1234",
@@ -41,9 +42,7 @@ class TestProductSupplierinfoForCustomerInvoice(TransactionCase):
                 "partner_id": customer.id,
                 "move_type": "out_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": cls.product.id,
                             "quantity": 1.0,
@@ -51,9 +50,7 @@ class TestProductSupplierinfoForCustomerInvoice(TransactionCase):
                             "price_unit": 450.00,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Line without product",
                             "quantity": 1.0,
@@ -66,15 +63,17 @@ class TestProductSupplierinfoForCustomerInvoice(TransactionCase):
 
     def test_01_invoice_line_customer_code(self):
         invoice = self._create_invoice(self.customer_1)
-        line = invoice.invoice_line_ids.filtered(lambda l: l.product_id)
+        line = invoice.invoice_line_ids.filtered(lambda il: il.product_id)
         self.assertEqual(len(line), 1)
         self.assertEqual(line.product_customer_code, "CUST1234")
 
     def test_02_invoice_line_no_customer_code(self):
         invoice = self._create_invoice(self.customer_2)
-        line = invoice.invoice_line_ids.filtered(lambda l: l.product_id)
+        line = invoice.invoice_line_ids.filtered(lambda il: il.product_id)
         self.assertEqual(len(line), 1)
         self.assertFalse(line.product_customer_code)
-        line_no_product = invoice.invoice_line_ids.filtered(lambda l: not l.product_id)
+        line_no_product = invoice.invoice_line_ids.filtered(
+            lambda il: not il.product_id
+        )
         self.assertEqual(len(line_no_product), 1)
         self.assertFalse(line_no_product.product_customer_code)
