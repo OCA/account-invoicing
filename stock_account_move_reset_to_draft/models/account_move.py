@@ -43,7 +43,9 @@ class AccountMove(models.Model):
                                 line_name=line.display_name,
                             )
                         )
-                    svls = origin_svl.stock_valuation_layer_ids
+                    svls = origin_svl.stock_valuation_layer_ids.filtered(
+                        "account_move_line_id"
+                    )
                     value = sum(svls.mapped("value"))
                     if not float_is_zero(
                         value, precision_rounding=line.currency_id.rounding
