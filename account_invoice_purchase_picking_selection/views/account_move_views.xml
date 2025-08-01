@@ -15,13 +15,17 @@
                     context="{'filter_picking_autocomplete': True, 'invoice_company_id': company_id, 'invoice_partner_id': commercial_partner_id, 'invoice_type': 'in_invoice'}"
                     options="{'no_create': True, 'no_open': True}"
                 />
-                <field name="autocomplete_purchase_picking_changed" invisible="1"/>
+                <field name="autocomplete_purchase_picking_changed" invisible="1" />
             </xpath>
             <xpath
                 expr="//field[@name='invoice_line_ids']/tree/field[@name='price_total']"
                 position="after"
             >
-                <field name="stock_move_invoiced_id" column_invisible="1" force_save="1" />
+                <field
+                    name="stock_move_invoiced_id"
+                    column_invisible="1"
+                    force_save="1"
+                />
                 <field
                     name="picking_invoiced_id"
                     force_save="1"
@@ -33,7 +37,11 @@
                 expr="//field[@name='line_ids']/tree/field[@name='balance']"
                 position="after"
             >
-                <field name="stock_move_invoiced_id" column_invisible="1" force_save="1" />
+                <field
+                    name="stock_move_invoiced_id"
+                    column_invisible="1"
+                    force_save="1"
+                />
                 <field name="picking_invoiced_id" column_invisible="1" force_save="1" />
             </xpath>
         </field>

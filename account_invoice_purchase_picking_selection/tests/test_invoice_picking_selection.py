@@ -202,8 +202,12 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
         move_line_1.write({"quantity": 10})
         move_line_2.write({"quantity": 0})
         picking.button_validate()
-        backorder_wizard = self.env['stock.backorder.confirmation'].sudo().with_context(
-            button_validate_picking_ids=[picking.id]).create({'pick_ids': [(4, picking.id)]})
+        backorder_wizard = (
+            self.env["stock.backorder.confirmation"]
+            .sudo()
+            .with_context(button_validate_picking_ids=[picking.id])
+            .create({"pick_ids": [(4, picking.id)]})
+        )
         backorder_wizard.process()
         self.assertEqual(picking.state, "done")
         self.assertEqual(picking.received_invoiced_status, "to invoice")
@@ -279,8 +283,12 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
         move_line_1.write({"quantity": 10})
         move_line_2.write({"quantity": 0})
         picking.button_validate()
-        backorder_wizard = self.env['stock.backorder.confirmation'].sudo().with_context(
-            button_validate_picking_ids=[picking.id]).create({'pick_ids': [(4, picking.id)]})
+        backorder_wizard = (
+            self.env["stock.backorder.confirmation"]
+            .sudo()
+            .with_context(button_validate_picking_ids=[picking.id])
+            .create({"pick_ids": [(4, picking.id)]})
+        )
         backorder_wizard.process()
         self.assertEqual(picking.state, "done")
         self.assertEqual(picking.received_invoiced_status, "to invoice")
@@ -374,8 +382,12 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
         move_line_1.write({"quantity": 6})
         move_line_2.write({"quantity": 15})
         picking.button_validate()
-        backorder_wizard = self.env['stock.backorder.confirmation'].sudo().with_context(
-            button_validate_picking_ids=[picking.id]).create({'pick_ids': [(4, picking.id)]})
+        backorder_wizard = (
+            self.env["stock.backorder.confirmation"]
+            .sudo()
+            .with_context(button_validate_picking_ids=[picking.id])
+            .create({"pick_ids": [(4, picking.id)]})
+        )
         backorder_wizard.process()
         self.assertEqual(picking.state, "done")
         self.assertEqual(picking.received_invoiced_status, "to invoice")
@@ -411,11 +423,11 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
         self.assertEqual(len(invoice.invoice_line_ids), 2)
         invoice_line_1 = invoice.invoice_line_ids.filtered(
             lambda x: x.product_id == self.product_1
-                      and x.picking_invoiced_id == picking
+            and x.picking_invoiced_id == picking
         )
         invoice_line_2 = invoice.invoice_line_ids.filtered(
             lambda x: x.product_id == self.product_2
-                      and x.picking_invoiced_id == picking
+            and x.picking_invoiced_id == picking
         )
         self.assertEqual(invoice_line_1.quantity, 6)
         self.assertEqual(invoice_line_1.price_unit, 100)
@@ -441,11 +453,11 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
         self.assertEqual(len(invoice.invoice_line_ids), 4)
         invoice_line_3 = invoice.invoice_line_ids.filtered(
             lambda x: x.product_id == self.product_1
-                      and x.picking_invoiced_id == picking2
+            and x.picking_invoiced_id == picking2
         )
         invoice_line_4 = invoice.invoice_line_ids.filtered(
             lambda x: x.product_id == self.product_2
-                      and x.picking_invoiced_id == picking2
+            and x.picking_invoiced_id == picking2
         )
         self.assertEqual(invoice_line_3.quantity, 4)
         self.assertEqual(invoice_line_3.price_unit, 100)
@@ -504,11 +516,11 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
         self.assertEqual(len(invoice.invoice_line_ids), 2)
         invoice_line_1 = invoice.invoice_line_ids.filtered(
             lambda x: x.product_id == self.product_1
-                      and x.picking_invoiced_id == picking
+            and x.picking_invoiced_id == picking
         )
         invoice_line_2 = invoice.invoice_line_ids.filtered(
             lambda x: x.product_id == self.product_2
-                      and x.picking_invoiced_id == picking
+            and x.picking_invoiced_id == picking
         )
         self.assertEqual(invoice_line_1.quantity, 10)
         self.assertEqual(invoice_line_1.price_unit, 100)
