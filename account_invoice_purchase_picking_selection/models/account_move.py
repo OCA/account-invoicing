@@ -9,14 +9,16 @@ class AccountMove(models.Model):
         "stock.picking", copy=False, string="Auto-Complete from Picking"
     )
 
-    autocomplete_purchase_picking_changed = fields.Boolean(string='Autocomplete Purchase Picking Changed')
+    autocomplete_purchase_picking_changed = fields.Boolean(
+        "Autocomplete Purchase Picking Changed"
+    )
 
     @api.onchange("autocomplete_purchase_picking_id")
     def _onchange_autocomplete_purchase_picking_id(self):
         """Load from either an stock.picking."""
         if (
-                not self.autocomplete_purchase_picking_id
-                or not self.autocomplete_purchase_picking_id.purchase_id
+            not self.autocomplete_purchase_picking_id
+            or not self.autocomplete_purchase_picking_id.purchase_id
         ):
             return
 
@@ -25,7 +27,7 @@ class AccountMove(models.Model):
         stock_moves = self.autocomplete_purchase_picking_id.move_ids
         invoice_vals = purchase.with_company(purchase.company_id)._prepare_invoice()
         invoice_vals["currency_id"] = (
-                self.line_ids and self.currency_id or invoice_vals.get("currency_id")
+            self.line_ids and self.currency_id or invoice_vals.get("currency_id")
         )
         del invoice_vals["ref"]
         self.update(invoice_vals)
@@ -39,7 +41,7 @@ class AccountMove(models.Model):
         )
         for stock_move in stock_moves:
             if float_is_zero(
-                    stock_move.qty_received_to_invoice, precision_digits=precision
+                stock_move.qty_received_to_invoice, precision_digits=precision
             ):
                 continue
             line_vals = stock_move._prepare_account_move_line_from_stock(self, sequence)
@@ -67,15 +69,15 @@ class AccountMove(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('autocomplete_purchase_picking_changed'):
-            vals['autocomplete_purchase_picking_changed'] = False
-            vals['line_ids'] = []
+        if vals.get("autocomplete_purchase_picking_changed"):
+            vals["autocomplete_purchase_picking_changed"] = False
+            vals["line_ids"] = []
         return super().create(vals)
 
     def write(self, vals):
-        if vals.get('autocomplete_purchase_picking_changed'):
-            vals['autocomplete_purchase_picking_changed'] = False
-            vals['line_ids'] = []
+        if vals.get("autocomplete_purchase_picking_changed"):
+            vals["autocomplete_purchase_picking_changed"] = False
+            vals["line_ids"] = []
         return super().write(vals)
 
 

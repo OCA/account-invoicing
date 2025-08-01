@@ -26,18 +26,18 @@ class StockPicking(models.Model):
         default="no",
     )
 
-    @api.depends('name', 'purchase_id.name', 'purchase_id.partner_ref')
+    @api.depends("name", "purchase_id.name", "purchase_id.partner_ref")
     def _compute_display_name(self):
         if self.env.context.get("filter_picking_autocomplete"):
             for picking in self:
-                    name = picking.name
-                    if picking.purchase_id:
-                        name += f" - {picking.purchase_id.name}"
-                    if picking.purchase_id.partner_ref:
-                        name += f" - {picking.purchase_id.partner_ref}"
-                    picking.display_name = name
+                name = picking.name
+                if picking.purchase_id:
+                    name += f" - {picking.purchase_id.name}"
+                if picking.purchase_id.partner_ref:
+                    name += f" - {picking.purchase_id.partner_ref}"
+                picking.display_name = name
         else:
-            super()._compute_display_name()
+            return super()._compute_display_name()
 
     @api.depends(
         "state", "move_ids.qty_received_to_invoice", "purchase_id.invoice_status"
@@ -78,9 +78,7 @@ class StockPicking(models.Model):
         if self.env.context.get("filter_picking_autocomplete"):
             # inject the domain to filter only the pickings pending to be invoiced
             domain.extend(self._get_picking_extra_domain())
-        return super().search(
-            domain, offset=offset, limit=limit, order=order
-        )
+        return super().search(domain, offset=offset, limit=limit, order=order)
 
     def read_group(
         self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True
@@ -100,9 +98,7 @@ class StockPicking(models.Model):
         )
 
     @api.model
-    def _name_search(
-        self, name, domain=None, operator='ilike', limit=None, order=None
-    ):
+    def _name_search(self, name, domain=None, operator="ilike", limit=None, order=None):
         domain = domain or []
         if self.env.context.get("filter_picking_autocomplete"):
             # inject the domain to filter only the pickings
@@ -114,9 +110,7 @@ class StockPicking(models.Model):
                 picking_domain = expression.AND(
                     [base_domain, self._get_name_search_domain(operator, name)]
                 )
-            records_find = self._search(
-                picking_domain, limit=limit, order=order
-            )
+            records_find = self._search(picking_domain, limit=limit, order=order)
             return records_find
         return super()._name_search(
             name, domain=domain, operator=operator, limit=limit, order=order
