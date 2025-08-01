@@ -6,7 +6,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     autocomplete_purchase_picking_id = fields.Many2one(
-        "stock.picking", copy=False, string="Auto-Complete from Picking"
+        "stock.picking", copy=False
     )
 
     autocomplete_purchase_picking_changed = fields.Boolean(
