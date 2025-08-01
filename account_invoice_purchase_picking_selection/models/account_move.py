@@ -5,13 +5,8 @@ from odoo.tools.float_utils import float_is_zero
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    autocomplete_purchase_picking_id = fields.Many2one(
-        "stock.picking", copy=False
-    )
-
-    autocomplete_purchase_picking_changed = fields.Boolean(
-        "Autocomplete Purchase Picking Changed"
-    )
+    autocomplete_purchase_picking_id = fields.Many2one("stock.picking", copy=False)
+    autocomplete_purchase_picking_changed = fields.Boolean()
 
     @api.onchange("autocomplete_purchase_picking_id")
     def _onchange_autocomplete_purchase_picking_id(self):
