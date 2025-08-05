@@ -1,6 +1,6 @@
 [project]
 name = "odoo-addons-oca-account-invoicing"
-version = "17.0.20250723.0"
+version = "17.0.20250805.0"
 dependencies = [
     "odoo-addon-account_global_discount>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_block_payment>=17.0dev,<17.1dev",
@@ -17,6 +17,7 @@ dependencies = [
     "odoo-addon-account_invoice_show_currency_rate>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_subscription_per_contact>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_supplier_ref_unique>=17.0dev,<17.1dev",
+    "odoo-addon-account_invoice_supplierinfo_update>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_transmit_method>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_warn_message>=17.0dev,<17.1dev",
     "odoo-addon-account_manual_currency>=17.0dev,<17.1dev",
