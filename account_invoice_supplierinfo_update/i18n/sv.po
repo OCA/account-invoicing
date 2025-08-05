@@ -280,9 +280,3 @@ msgstr "aktuell Min kvantitet"
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "or"
 msgstr "eller"
-
-#~ msgid "Invoice Line"
-#~ msgstr "Fakturarad"
-
-#~ msgid "State"
-#~ msgstr "Status"

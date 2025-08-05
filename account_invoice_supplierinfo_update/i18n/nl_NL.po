@@ -273,24 +273,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "or"
 msgstr "of"
-
-#~ msgid "Invoice Line"
-#~ msgstr "Factuurregel"
-
-#~ msgid "Minimal Quantity"
-#~ msgstr "Minimale Hoeveelheid"
-
-#~ msgid "Update and Validate"
-#~ msgstr "Aanpassen en Valideren"
-
-#~ msgid "Invoice id"
-#~ msgstr "Factuur ID"
-
-#~ msgid "New Supplier Info"
-#~ msgstr "Nieuwe Leveranciers-Info"
-
-#~ msgid "Update Supplier Info"
-#~ msgstr "Aanpassen Leveranciers-Info"
-
-#~ msgid "wizard.update.invoice.supplierinfo.line"
-#~ msgstr "wizard.update.invoice.supplierinfo.line"

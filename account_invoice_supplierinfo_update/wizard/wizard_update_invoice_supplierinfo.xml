@@ -11,14 +11,12 @@
                 </group>
                 <separator string="List of products to update" />
                 <field name="line_ids">
-                    <tree
+                    <list
                         create="false"
                         editable="bottom"
-                        decoration-info="supplierinfo_id == False"
+                        decoration-info="not supplierinfo_id"
                     >
                         <field name="product_id" />
-                        <field name="product_uom_id" column_invisible="1" />
-                        <field name="supplierinfo_id" column_invisible="1" />
                         <field
                             name="current_min_quantity"
                             invisible="not supplierinfo_id"
@@ -44,14 +42,12 @@
                             groups="uom.group_uom"
                             optional="show"
                         />
-                        <field name="current_cost" column_invisible="1" />
-                        <field name="new_cost" column_invisible="1" />
                         <field
                             name="cost_variation"
                             invisible="cost_variation == 0.0"
                             optional="show"
                         />
-                    </tree>
+                    </list>
                 </field>
                 <footer>
                     <button

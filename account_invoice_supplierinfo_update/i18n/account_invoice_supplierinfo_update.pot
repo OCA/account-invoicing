@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -32,7 +32,6 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplierinfo_ok
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_move__supplierinfo_ok
-#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_payment__supplierinfo_ok
 msgid ""
 "Checked if the check of supplierinfo has been done.\n"
 " - Uncheck this box, if you want to check again this invoice\n"
@@ -175,14 +174,12 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplierinfo_ok
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_move__supplierinfo_ok
-#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_payment__supplierinfo_ok
 msgid "Supplier Informations Checked"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplier_partner_id
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_move__supplier_partner_id
-#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_payment__supplier_partner_id
 msgid "Supplier Partner"
 msgstr ""
 
@@ -229,7 +226,6 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #. odoo-python
 #: code:addons/account_invoice_supplierinfo_update/models/account_move.py:0
-#, python-format
 msgid "Update supplier informations of products"
 msgstr ""
 

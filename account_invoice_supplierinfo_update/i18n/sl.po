@@ -273,24 +273,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "or"
 msgstr "ali"
-
-#~ msgid "Invoice Line"
-#~ msgstr "Postavka računa"
-
-#~ msgid "Price Variation (%)"
-#~ msgstr "Variacija cene (%)"
-
-#~ msgid "Update and Validate"
-#~ msgstr "Posodobi in potrdi"
-
-#~ msgid "Update without Validating"
-#~ msgstr "Posodobi brez potrditve"
-
-#~ msgid "Invoice id"
-#~ msgstr "ID računa"
-
-#~ msgid "New Supplier Info"
-#~ msgstr "Novi podatki o dobavitelju"
-
-#~ msgid "State"
-#~ msgstr "Stanje"

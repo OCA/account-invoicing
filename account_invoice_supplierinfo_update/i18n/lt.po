@@ -269,6 +269,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "or"
 msgstr "arba"
-
-#~ msgid "Invoice Line"
-#~ msgstr "Sąskaitos faktūros eilutė"

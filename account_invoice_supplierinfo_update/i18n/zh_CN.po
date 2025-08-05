@@ -270,9 +270,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "or"
 msgstr "或"
-
-#~ msgid "Invoice Line"
-#~ msgstr "发票明细"
-
-#~ msgid "State"
-#~ msgstr "状态"

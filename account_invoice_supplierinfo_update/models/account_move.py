@@ -2,8 +2,7 @@
 # Copyright 2016-Today: GRAP (http://www.grap.coop)
 # Copyright Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
-from odoo import _, fields, models
+from odoo import Command, fields, models
 
 
 class AccountMove(models.Model):
@@ -54,7 +53,9 @@ class AccountMove(models.Model):
                     continue
 
             # Propose updating, if needed
-            lines.append((0, 0, line._prepare_supplier_wizard_line(supplierinfo)))
+            lines.append(
+                Command.create(line._prepare_supplier_wizard_line(supplierinfo))
+            )
         return lines
 
     # View Section
@@ -72,7 +73,7 @@ class AccountMove(models.Model):
                 "view_wizard_update_invoice_supplierinfo_form"
             )
             return {
-                "name": _("Update supplier informations of products"),
+                "name": self.env._("Update supplier informations of products"),
                 "type": "ir.actions.act_window",
                 "view_mode": "form",
                 "res_model": "wizard.update.invoice.supplierinfo",

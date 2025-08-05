@@ -270,24 +270,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "or"
 msgstr "ya da"
-
-#~ msgid "Invoice Line"
-#~ msgstr "Fatura kalemi"
-
-#~ msgid "Price Variation (%)"
-#~ msgstr "Fiyat Değişimi (%)"
-
-#~ msgid "Update and Validate"
-#~ msgstr "Güncelleştir ve Onaylayın"
-
-#~ msgid "Update without Validating"
-#~ msgstr "Doğrulama olmadan Güncelleme"
-
-#~ msgid "Invoice id"
-#~ msgstr "Fatura kimliği"
-
-#~ msgid "New Supplier Info"
-#~ msgstr "Yeni Tedarikçi Bilgisi"
-
-#~ msgid "State"
-#~ msgstr "Durum"
