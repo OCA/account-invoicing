@@ -1,0 +1,288 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_supplierinfo_update
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-06 02:39+0000\n"
+"PO-Revision-Date: 2024-02-27 15:35+0000\n"
+"Last-Translator: jakobkrabbe <jakob@syscare.se>\n"
+"Language-Team: Swedish (https://www.transifex.com/oca/teams/23907/sv/)\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: account_invoice_supplierinfo_update
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+msgid "Cancel"
+msgstr "Avbryt"
+
+#. module: account_invoice_supplierinfo_update
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_move_form
+msgid "Check Supplier Infos"
+msgstr "Kontrollera leverantörsinformation"
+
+#. module: account_invoice_supplierinfo_update
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_move_form
+msgid ""
+"Check if the invoice information are similar from the supplier information"
+msgstr ""
+"Kontrollera om fakturainformationen liknar informationen från leverantören"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplierinfo_ok
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_move__supplierinfo_ok
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_payment__supplierinfo_ok
+msgid ""
+"Checked if the check of supplierinfo has been done.\n"
+" - Uncheck this box, if you want to check again this invoice\n"
+" - Check this box, if you want to mark this invoice as checked"
+msgstr ""
+"Markerad om kontroll av leverantörsinformation har gjorts.\n"
+" - Avmarkera denna ruta, om du vill kontrollera denna faktura igen\n"
+" - Markera denna ruta om du vill markera fakturan som kontrollerad"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_cost
+msgid "Cost"
+msgstr "Kostnad"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__cost_variation
+msgid "Cost Variation (%)"
+msgstr "Kostnadsavvikelse (%)"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__create_uid
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__create_uid
+msgid "Created by"
+msgstr "Skapad av"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__create_date
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__create_date
+msgid "Created on"
+msgstr "Skapad den"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_uom_id
+msgid "Default unit of measure used for all stock operations."
+msgstr "Standardmått som används för alla lageroperationer."
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_uom_id
+msgid ""
+"Default unit of measure used for purchase orders. It must be in the same "
+"category as the default unit of measure."
+msgstr ""
+"Förvald måttenhet som används för inköpsorder. Den måste vara i samma "
+"kategori som den förvalda måttenheten."
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__display_name
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__display_name
+msgid "Display Name"
+msgstr "Visa namn"
+
+#. module: account_invoice_supplierinfo_update
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+msgid "Do you want to set invoice as checked ?"
+msgstr "Vill du ange fakturan som kontrollerad?"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__id
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_supplierinfo_update
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+msgid "Ignore"
+msgstr "Ignorera"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__invoice_id
+msgid "Invoice"
+msgstr "Faktura"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model,name:account_invoice_supplierinfo_update.model_account_move
+msgid "Journal Entry"
+msgstr "Journalanteckning"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model,name:account_invoice_supplierinfo_update.model_account_move_line
+msgid "Journal Item"
+msgstr "Journalrad"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo____last_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line____last_update
+msgid "Last Modified on"
+msgstr "Senast redigerad"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__write_uid
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__write_uid
+msgid "Last Updated by"
+msgstr "Senast uppdaterad av"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__write_date
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__write_date
+msgid "Last Updated on"
+msgstr "Senast uppdaterad"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__line_ids
+msgid "Lines"
+msgstr "Rader"
+
+#. module: account_invoice_supplierinfo_update
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+msgid "List of products to update"
+msgstr "Lista över produkter som ska uppdateras"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_cost
+msgid "New Cost"
+msgstr "Ny kostnad"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_min_quantity
+msgid "New Min Quantity"
+msgstr "Ny Min kvantitet"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_price
+msgid "New Unit Price"
+msgstr "Nytt enhetspris"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_uom_id
+msgid "New UoM"
+msgstr "Ny UoM"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_price
+msgid "Price"
+msgstr "Pris"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_id
+msgid "Product"
+msgstr "Produkt"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__state
+msgid "Status"
+msgstr "Status"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__supplier_partner_id
+msgid "Supplier"
+msgstr "Leverantör"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplierinfo_ok
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_move__supplierinfo_ok
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_payment__supplierinfo_ok
+msgid "Supplier Informations Checked"
+msgstr "Leverantörsinformation kontrollerad"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplier_partner_id
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_move__supplier_partner_id
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_payment__supplier_partner_id
+msgid "Supplier Partner"
+msgstr "Leverantör Kontakt"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__supplierinfo_id
+msgid "Supplierinfo"
+msgstr "Leverantörsinformation"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_price
+msgid "The price to purchase a product"
+msgstr "Priset för att köpa en produkt"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_min_quantity
+msgid ""
+"The quantity to purchase from this vendor to benefit from the price, "
+"expressed in the vendor Product Unit of Measure if not any, in the default "
+"unit of measure of the product otherwise."
+msgstr ""
+"Den kvantitet som ska köpas från denna leverantör för att dra nytta av "
+"priset, uttryckt i leverantörens produktmåttenhet om det inte finns någon, i "
+"produktens standardmåttenhet annars."
+
+#. module: account_invoice_supplierinfo_update
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+msgid ""
+"This will mark the invoice as checked. It will be possible to uncheck "
+"manually in the 'Other Info' tab."
+msgstr ""
+"Detta kommer att markera fakturan som kontrollerad. Det kommer att vara "
+"möjligt att ta bort markeringen manuellt på fliken 'Övrig information'."
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_uom_id
+msgid "Unit of Measure"
+msgstr "Måttenhet"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_uom_id
+msgid "UoM"
+msgstr "UoM"
+
+#. module: account_invoice_supplierinfo_update
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+msgid "Update Supplier Infos"
+msgstr "Uppdatera leverantörens information"
+
+#. module: account_invoice_supplierinfo_update
+#. odoo-python
+#: code:addons/account_invoice_supplierinfo_update/models/account_move.py:0
+#, python-format
+msgid "Update supplier informations of products"
+msgstr "Uppdatera leverantörsinformation om produkter"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__wizard_id
+msgid "Wizard"
+msgstr "Guide"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo_line
+msgid "Wizard Line to update supplierinfo"
+msgstr "Guide för att uppdatera leverantörsinfo rad"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo
+msgid "Wizard to update supplierinfo"
+msgstr "Guide för uppdatering av leverantörsinformation"
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_min_quantity
+msgid "current Min quantity"
+msgstr "aktuell Min kvantitet"
+
+#. module: account_invoice_supplierinfo_update
+#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
+msgid "or"
+msgstr "eller"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Fakturarad"
+
+#~ msgid "State"
+#~ msgstr "Status"

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_wizard_update_invoice_supplierinfo_form" model="ir.ui.view">
+        <field name="model">wizard.update.invoice.supplierinfo</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4" colspan="4">
+                    <field name="invoice_id" invisible="1" />
+                    <field name="state" invisible="1" />
+                    <field name="supplier_partner_id" />
+                </group>
+                <separator string="List of products to update" />
+                <field name="line_ids">
+                    <tree
+                        create="false"
+                        editable="bottom"
+                        decoration-info="supplierinfo_id == False"
+                    >
+                        <field name="product_id" />
+                        <field name="product_uom_id" column_invisible="1" />
+                        <field name="supplierinfo_id" column_invisible="1" />
+                        <field
+                            name="current_min_quantity"
+                            invisible="not supplierinfo_id"
+                            optional="show"
+                        />
+                        <field name="new_min_quantity" optional="show" />
+                        <field
+                            name="current_price"
+                            invisible="not supplierinfo_id"
+                            optional="show"
+                        />
+                        <field name="new_price" optional="show" />
+                        <field name="current_uom_id" column_invisible="1" />
+                        <field
+                            name="current_uom_id"
+                            invisible="not supplierinfo_id"
+                            groups="uom.group_uom"
+                            optional="show"
+                        />
+                        <field name="new_uom_id" column_invisible="1" />
+                        <field
+                            name="new_uom_id"
+                            groups="uom.group_uom"
+                            optional="show"
+                        />
+                        <field name="current_cost" column_invisible="1" />
+                        <field name="new_cost" column_invisible="1" />
+                        <field
+                            name="cost_variation"
+                            invisible="cost_variation == 0.0"
+                            optional="show"
+                        />
+                    </tree>
+                </field>
+                <footer>
+                    <button
+                        name="update_supplierinfo"
+                        string="Update Supplier Infos"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button
+                        name="set_supplierinfo_ok"
+                        string="Ignore"
+                        type="object"
+                        confirm="Do you want to set invoice as checked ?"
+                        help="This will mark the invoice as checked. It will be possible to uncheck manually in the 'Other Info' tab."
+                    />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
