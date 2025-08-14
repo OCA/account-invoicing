@@ -7,8 +7,8 @@
                     t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
                 />
                 <div t-if="o.partner_id.vat" class="mt16"><t
-                    t-esc="o.company_id.country_id.vat_label or 'Tax ID'"
-                />: <span t-field="o.partner_id.vat" /></div>
+                        t-esc="o.company_id.country_id.vat_label or 'Tax ID'"
+                    />: <span t-field="o.partner_id.vat" /></div>
             </t>
             <div class="page">
                 <h2>
@@ -18,23 +18,28 @@
                     <span t-field="o.name" />
                 </h2>
                 <div id="informations" class="row mt32 mb32">
-                    <div class="col" t-if="o.date" name="billing_date">
+                    <div class="col-auto mw-100 mb-2" t-if="o.date" name="billing_date">
                         <strong>Billing Date:</strong>
                         <p class="m-0" t-field="o.date" />
                     </div>
-                    <div class="col" t-if="o.threshold_date" name="due_date">
+                    <div
+                        class="col-auto mw-100 mb-2"
+                        t-if="o.threshold_date"
+                        name="due_date"
+                    >
                         <strong>Due Date:</strong>
                         <p class="m-0" t-field="o.threshold_date" />
                     </div>
-                    <div class="col" t-if="o.currency_id" name="currency_id">
+                    <div
+                        class="col-auto mw-100 mb-2"
+                        t-if="o.currency_id"
+                        name="currency_id"
+                    >
                         <strong>Currency:</strong>
                         <p class="m-0" t-field="o.currency_id" />
                     </div>
                 </div>
-                <table
-                    class="o_has_total_table table o_main_table"
-                    name="invoice_line_table"
-                >
+                <table class="table table-sm o_main_table" name="invoice_line_table">
                     <thead name="line_header">
                         <tr>
                             <t t-set="colspan" t-value="6" />

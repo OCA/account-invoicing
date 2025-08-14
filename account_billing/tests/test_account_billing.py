@@ -46,7 +46,7 @@ class TestAccountBilling(TransactionCase):
                     "=",
                     "income",
                 ),
-                ("company_ids", "=", cls.env.company.id),
+                ("company_id", "=", cls.env.company.id),
             ],
             limit=1,
         )

@@ -77,7 +77,7 @@ class AccountMove(models.Model):
         else:
             action.update(
                 {
-                    "view_mode": "list,form",
+                    "view_mode": "tree,form",
                     "domain": [("id", "in", billing.ids)],
                 }
             )
