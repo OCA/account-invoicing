@@ -7,9 +7,10 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import Command, fields
 from odoo.exceptions import UserError, ValidationError
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase, tagged
 
 
+@tagged("post_install", "-at_install")
 class TestAccountBilling(TransactionCase):
     @classmethod
     def setUpClass(cls):
@@ -19,16 +20,14 @@ class TestAccountBilling(TransactionCase):
         cls.invoice_line_model = cls.env["account.move.line"]
         cls.billing_model = cls.env["account.billing"]
         cls.register_payments_model = cls.env["account.payment.register"]
-
-        cls.partner_id = cls.env["res.partner"].create({"name": "Test Partner"})
+        cls.partner = cls.env["res.partner"].create({"name": "Test Partner"})
         cls.payment_term = cls.env.ref("account.account_payment_term_15days")
-        cls.partner_agrolait = cls.env.ref("base.res_partner_2")
         cls.partner_china_exp = cls.env.ref("base.res_partner_3")
         cls.product = cls.env.ref("product.product_product_4")
         cls.currency_eur = cls.env.ref("base.EUR")
         cls.currency_eur.active = True
-        cls.currency_usd_id = cls.env.ref("base.USD").id
-        cls.currency_eur_id = cls.currency_eur.id
+        cls.currency_usd = cls.env.ref("base.USD")
+        cls.currency_usd.active = True
         cls.account_receivable = cls.env["account.account"].search(
             [
                 (
@@ -56,49 +55,50 @@ class TestAccountBilling(TransactionCase):
         cls.payment_method_manual_in = cls.journal_bank.inbound_payment_method_line_ids[
             0
         ]
-
         cls.inv_1 = cls.create_invoice(
-            cls, amount=100, currency_id=cls.currency_eur_id, partner=cls.partner_id.id
+            cls, amount=100, currency=cls.currency_usd, partner=cls.partner
         )
         cls.inv_2 = cls.create_invoice(
-            cls, amount=200, currency_id=cls.currency_eur_id, partner=cls.partner_id.id
+            cls, amount=200, currency=cls.currency_usd, partner=cls.partner
         )
         cls.inv_3 = cls.create_invoice(
-            cls, amount=300, currency_id=cls.currency_usd_id, partner=cls.partner_id.id
+            cls, amount=300, currency=cls.currency_eur, partner=cls.partner
         )
         cls.inv_4 = cls.create_invoice(
             cls,
             amount=400,
-            currency_id=cls.currency_eur_id,
-            partner=cls.partner_china_exp.id,
+            currency=cls.currency_usd,
+            partner=cls.partner_china_exp,
         )
         cls.inv_5 = cls.create_invoice(
-            cls, amount=500, currency_id=cls.currency_usd_id, partner=cls.partner_id.id
+            cls, amount=500, currency=cls.currency_eur, partner=cls.partner
         )
         cls.inv_6 = cls.create_invoice(
             cls,
             amount=500,
-            currency_id=cls.currency_usd_id,
-            partner=cls.partner_id.id,
+            currency=cls.currency_eur,
+            partner=cls.partner,
             invoice_type="in_refund",
         )
 
     def create_invoice(
         self,
-        amount=None,
+        partner,
+        currency,
+        amount,
         invoice_type="out_invoice",
-        currency_id=None,
-        partner=None,
-        account_id=None,
+        invoice_date=None,
+        date=None,
     ):
         """Returns an open invoice"""
         invoice = self.invoice_model.create(
             {
-                "partner_id": partner or self.partner_agrolait.id,
-                "currency_id": currency_id or self.currency_eur_id,
+                "partner_id": partner.id,
+                "currency_id": currency.id,
                 "move_type": invoice_type,
-                "invoice_date": fields.Date.context_today(self.env.user),
-                "date": fields.Date.context_today(self.env.user),
+                "invoice_date": invoice_date
+                or fields.Date.context_today(self.env.user),
+                "date": date or fields.Date.context_today(self.env.user),
                 "invoice_payment_term_id": self.payment_term.id,
                 "invoice_line_ids": [
                     Command.create(
@@ -165,7 +165,6 @@ class TestAccountBilling(TransactionCase):
         customer_billing1.invoice_relate_billing_tree_view()
         customer_billing1.action_cancel()
         customer_billing1.action_cancel_draft()
-
         invoices = self.inv_1 + self.inv_2
         action = invoices.action_create_billing()
         customer_billing2 = self.billing_model.browse(action["res_id"])
@@ -180,8 +179,8 @@ class TestAccountBilling(TransactionCase):
         bill1 = self.billing_model.create(
             {
                 "bill_type": "out_invoice",
-                "partner_id": self.partner_id.id,
-                "currency_id": self.currency_eur_id,
+                "partner_id": self.partner.id,
+                "currency_id": self.currency_usd.id,
                 "threshold_date": datetime.now(),
                 "threshold_date_type": "invoice_date_due",
             }
@@ -190,19 +189,17 @@ class TestAccountBilling(TransactionCase):
         # No lines
         with self.assertRaises(UserError):
             bill1.validate_billing()
-
         bill1.compute_lines()
         # In case _compute_billing_ids is not triggered again after compute_lines.
         bill1.billing_line_ids.mapped("move_id")._compute_billing_ids()
         self.assertEqual(bill1.invoice_related_count, 2)
         self.assertEqual(bill1.billing_line_ids.mapped("move_id.billing_ids"), bill1)
-
         # Create billing type - supplier
         bill2 = self.billing_model.create(
             {
                 "bill_type": "in_invoice",
-                "partner_id": self.partner_id.id,
-                "currency_id": self.currency_usd_id,
+                "partner_id": self.partner.id,
+                "currency_id": self.currency_eur.id,
                 "threshold_date": datetime.now(),
                 "threshold_date_type": "invoice_date_due",
             }
@@ -215,8 +212,8 @@ class TestAccountBilling(TransactionCase):
     def test_6_check_billing_from_bills(self):
         inv_1 = self.create_invoice(
             amount=100,
-            currency_id=self.currency_eur_id,
-            partner=self.partner_id.id,
+            currency=self.currency_usd,
+            partner=self.partner,
             invoice_type="in_invoice",
         )
         if inv_1.state != "posted":
@@ -235,8 +232,8 @@ class TestAccountBilling(TransactionCase):
         billing_other = self.billing_model.with_company(other_company).create(
             {
                 "bill_type": "out_invoice",
-                "partner_id": self.partner_id.id,
-                "currency_id": self.currency_eur_id,
+                "partner_id": self.partner.id,
+                "currency_id": self.currency_usd.id,
                 "threshold_date": datetime.now(),
                 "threshold_date_type": "invoice_date_due",
                 "company_id": other_company.id,
