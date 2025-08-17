@@ -28,8 +28,8 @@ Account Invoice Pricelist - Sale
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extend the 'Account Invoice Pricelist' and 'Sale' modules
-and Copies pricelist from sales order to invoices
+This module extends the 'Account Invoice Pricelist' and 'Sale' modules
+and copies pricelists from sales order to invoices
 
 **Table of contents**
 
@@ -67,12 +67,6 @@ Contributors
 -  `Trobz <https://trobz.com>`__:
 
       -  Nguyễn Minh Chiến <chien@trobz.com>
-
-Other credits
--------------
-
-The migration of this module from 15.0 to 16.0 was financially supported
-by Camptocamp
 
 Maintainers
 -----------

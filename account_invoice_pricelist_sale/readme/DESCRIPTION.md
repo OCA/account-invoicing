@@ -1,2 +1,2 @@
-This module extend the 'Account Invoice Pricelist' and 'Sale' modules
-and Copies pricelist from sales order to invoices
+This module extends the 'Account Invoice Pricelist' and 'Sale' modules
+and copies pricelists from sales order to invoices

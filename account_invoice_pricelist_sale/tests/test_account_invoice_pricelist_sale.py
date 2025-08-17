@@ -2,40 +2,36 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import TransactionCase
+from odoo import Command
+
+from odoo.addons.account_invoice_pricelist.tests.test_account_move_pricelist import (
+    TestAccountMovePricelist,
+)
 
 
-class TestModule(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.partner = self.env.ref("base.res_partner_12")
-        self.product = self.env.ref("product.consu_delivery_01")
+class TestAccountInvoicePricelistSale(TestAccountMovePricelist):
+    def test_invoice_create_from_sale(self):
+        # Create Sale Order
         self.product.invoice_policy = "order"
-
-    def test_main(self):
-        # Create Pricelist
-        pricelist = self.env["product.pricelist"].create({"name": "Demo Pricelist"})
-        # Create Product
         order = self.env["sale.order"].create(
             {
                 "partner_id": self.partner.id,
-                "pricelist_id": pricelist.id,
+                "pricelist_id": self.sale_pricelist.id,
                 "order_line": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": self.product.name,
-                            "product_id": self.product.id,
+                            "product_id": self.product.product_variant_id.id,
                             "product_uom_qty": 5,
                             "product_uom": self.product.uom_id.id,
                             "price_unit": self.product.list_price,
                             "qty_delivered": 5,
-                        },
-                    ),
+                        }
+                    )
                 ],
             }
         )
+
         order.action_confirm()
         invoice = order._create_invoices()
         self.assertEqual(
