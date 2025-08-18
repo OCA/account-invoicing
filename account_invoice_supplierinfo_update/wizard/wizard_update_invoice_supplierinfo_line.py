@@ -69,27 +69,50 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
         compute="_compute_cost_variation",
         digits="Discount",
     )
+    current_discount = fields.Float(
+        digits="Discount",
+        readonly=True,
+    )
+    new_discount = fields.Float(
+        digits="Discount",
+        required=True,
+    )
 
     def _get_fields_depend_current_cost(self):
-        return ["supplierinfo_id", "product_uom_id", "current_price", "current_uom_id"]
+        return [
+            "supplierinfo_id",
+            "product_uom_id",
+            "current_price",
+            "current_uom_id",
+            "current_discount",
+        ]
 
     def _get_fields_depend_new_cost(self):
-        return ["supplierinfo_id", "product_uom_id", "new_price", "new_uom_id"]
+        return [
+            "supplierinfo_id",
+            "product_uom_id",
+            "new_price",
+            "new_uom_id",
+            "new_discount",
+        ]
 
     @api.depends(lambda self: self._get_fields_depend_current_cost())
     def _compute_current_cost(self):
         self.write({"current_cost": False})
         for line in self.filtered(lambda x: x.supplierinfo_id):
-            line.current_cost = line.current_uom_id._compute_price(
+            current_cost = line.current_uom_id._compute_price(
                 line.current_price, line.product_uom_id
             )
+            line.current_cost = current_cost * (100 - line.current_discount) / 100
 
     @api.depends(lambda self: self._get_fields_depend_new_cost())
     def _compute_new_cost(self):
         for line in self.filtered(lambda x: x.new_uom_id):
-            line.new_cost = line.new_uom_id._compute_price(
+            new_cost = line.new_uom_id._compute_price(
                 line.new_price, line.product_uom_id
             )
+            line.new_cost = new_cost * (100 - line.new_discount) / 100
+
         for line in self.filtered(lambda x: not x.new_uom_id):
             line.new_cost = 0.0
 
@@ -118,6 +141,7 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
             "min_qty": self.new_min_quantity,
             "price": self.new_price,
             "currency_id": self.wizard_id.invoice_id.currency_id.id,
+            "discount": self.new_discount,
         }
         if self.new_uom_id:
             res["product_uom"] = self.new_uom_id.id

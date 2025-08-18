@@ -32,10 +32,20 @@ class TestModule(AccountTestInvoicingCommon):
         )
 
         cls.line_a.write(
-            {"quantity": 10.0, "price_unit": 400.0, "product_uom_id": cls.uom_unit.id}
+            {
+                "quantity": 10.0,
+                "price_unit": 400.0,
+                "product_uom_id": cls.uom_unit.id,
+                "discount": 0.0,
+            }
         )
         cls.line_b.write(
-            {"quantity": 1.0, "price_unit": 10.0, "product_uom_id": cls.uom_dozen.id}
+            {
+                "quantity": 1.0,
+                "price_unit": 10.0,
+                "product_uom_id": cls.uom_dozen.id,
+                "discount": 10.0,
+            }
         )
         cls.line_without_product.write({"quantity": 1.0, "price_unit": 35.0})
 
@@ -56,10 +66,14 @@ class TestModule(AccountTestInvoicingCommon):
         self.assertEqual(line_ids[0][2]["current_uom_id"], False)
         self.assertEqual(line_ids[0][2]["new_uom_id"], self.uom_unit.id)
         self.assertEqual(line_ids[0][2]["current_min_quantity"], 0.0)
+        self.assertEqual(line_ids[0][2]["current_discount"], False)
+        self.assertEqual(line_ids[0][2]["new_discount"], 0.0)
         self.assertEqual(line_ids[1][2]["current_price"], False)
         self.assertEqual(line_ids[1][2]["new_price"], 10.0)
         self.assertEqual(line_ids[1][2]["current_uom_id"], False)
         self.assertEqual(line_ids[1][2]["new_uom_id"], self.uom_dozen.id)
+        self.assertEqual(line_ids[1][2]["current_discount"], False)
+        self.assertEqual(line_ids[1][2]["new_discount"], 10.0)
 
         # Change values
         line_ids[0][2]["new_min_quantity"] = 6.0
@@ -85,6 +99,7 @@ class TestModule(AccountTestInvoicingCommon):
         self.assertEqual(supplierinfo_a.price, 400.0)
         self.assertEqual(supplierinfo_a.product_uom, self.uom_unit)
         self.assertEqual(supplierinfo_a.min_qty, 6.0)
+        self.assertEqual(supplierinfo_a.discount, 0.0)
 
         supplierinfo_b = self.ProductSupplierinfo.search(
             [
@@ -95,6 +110,7 @@ class TestModule(AccountTestInvoicingCommon):
         self.assertEqual(len(supplierinfo_b), 1)
         self.assertEqual(supplierinfo_b.price, 10.0)
         self.assertEqual(supplierinfo_b.product_uom, self.uom_dozen)
+        self.assertEqual(supplierinfo_b.discount, 10.0)
 
         # change values 400 / Unit -> 5400 / Dozen.
         # Price variation : +12.5%

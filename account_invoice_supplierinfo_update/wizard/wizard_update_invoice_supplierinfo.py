@@ -3,7 +3,7 @@
 # Copyright Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
@@ -31,6 +31,16 @@ class WizardUpdateInvoiceSupplierinfo(models.TransientModel):
         related="invoice_id.supplier_partner_id",
         readonly=True,
     )
+    display_discount = fields.Boolean(
+        compute="_compute_display_discount",
+    )
+
+    @api.depends("line_ids.current_discount", "line_ids.new_discount")
+    def _compute_display_discount(self):
+        for wizard in self:
+            wizard.display_discount = any(
+                wizard.mapped("line_ids.current_discount")
+            ) or any(wizard.mapped("line_ids.new_discount"))
 
     def update_supplierinfo(self):
         self.ensure_one()

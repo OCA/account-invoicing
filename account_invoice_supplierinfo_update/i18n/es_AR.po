@@ -41,7 +41,6 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplierinfo_ok
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_move__supplierinfo_ok
-#: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_payment__supplierinfo_ok
 msgid ""
 "Checked if the check of supplierinfo has been done.\n"
 " - Uncheck this box, if you want to check again this invoice\n"
@@ -75,6 +74,11 @@ msgid "Created on"
 msgstr "Creado en"
 
 #. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_discount
+msgid "Current Discount"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_uom_id
 msgid "Default unit of measure used for all stock operations."
 msgstr ""
@@ -84,6 +88,11 @@ msgstr ""
 msgid ""
 "Default unit of measure used for purchase orders. It must be in the same "
 "category as the default unit of measure."
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__display_discount
+msgid "Display Discount"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
@@ -124,12 +133,6 @@ msgid "Journal Item"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
-#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo____last_update
-#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line____last_update
-msgid "Last Modified on"
-msgstr "Última modificación en"
-
-#. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__write_uid
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__write_uid
 msgid "Last Updated by"
@@ -154,6 +157,11 @@ msgstr "Lista de productos a actualizar"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_cost
 msgid "New Cost"
+msgstr ""
+
+#. module: account_invoice_supplierinfo_update
+#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_discount
+msgid "New Discount"
 msgstr ""
 
 #. module: account_invoice_supplierinfo_update
@@ -194,14 +202,12 @@ msgstr "Proveedor"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplierinfo_ok
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_move__supplierinfo_ok
-#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_payment__supplierinfo_ok
 msgid "Supplier Informations Checked"
 msgstr "Información de Proveedor Verificada"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplier_partner_id
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_move__supplier_partner_id
-#: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_account_payment__supplier_partner_id
 msgid "Supplier Partner"
 msgstr "Contacto del Proveedor"
 
@@ -250,7 +256,6 @@ msgstr ""
 #. module: account_invoice_supplierinfo_update
 #. odoo-python
 #: code:addons/account_invoice_supplierinfo_update/models/account_move.py:0
-#, python-format
 msgid "Update supplier informations of products"
 msgstr "Actualizar información de productos del proveedor"
 
@@ -274,7 +279,8 @@ msgstr "Asistente para actualizar la información del proveedor"
 msgid "current Min quantity"
 msgstr ""
 
-#. module: account_invoice_supplierinfo_update
-#: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
-msgid "or"
-msgstr "o"
+#~ msgid "Last Modified on"
+#~ msgstr "Última modificación en"
+
+#~ msgid "or"
+#~ msgstr "o"

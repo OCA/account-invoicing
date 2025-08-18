@@ -18,17 +18,18 @@ class AccountMoveLine(models.Model):
         return supplierinfos and supplierinfos[0] or False
 
     def _is_matching_supplierinfo(self, supplierinfo):
-        """Return True if the partner information matches with line information
-        Overload this function in custom module if extra fields
-        are added in supplierinfo. (discount for exemple)
-        """
+        """Return True if the partner information matches with line information"""
         self.ensure_one()
-        return (
+        res = (
             not self.product_uom_id or self.product_uom_id == supplierinfo.product_uom
         ) and not float_compare(
             self.price_unit,
             supplierinfo.price,
             precision_rounding=self.move_id.currency_id.rounding,
+        )
+        precision = self.env["decimal.precision"].precision_get("Discount")
+        return res and not float_compare(
+            self.discount, supplierinfo.discount, precision_digits=precision
         )
 
     def _prepare_supplier_wizard_line(self, supplierinfo):
@@ -44,4 +45,6 @@ class AccountMoveLine(models.Model):
             "new_uom_id": self.product_uom_id.id or self.product_id.uom_po_id.id,
             "current_min_quantity": supplierinfo and supplierinfo.min_qty or False,
             "new_min_quantity": supplierinfo and supplierinfo.min_qty or False,
+            "current_discount": supplierinfo and supplierinfo.discount,
+            "new_discount": self.discount,
         }

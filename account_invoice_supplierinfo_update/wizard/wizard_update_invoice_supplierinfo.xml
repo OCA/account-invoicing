@@ -7,6 +7,7 @@
                 <group col="4" colspan="4">
                     <field name="invoice_id" invisible="1" />
                     <field name="state" invisible="1" />
+                    <field name="display_discount" invisible="1" />
                     <field name="supplier_partner_id" />
                 </group>
                 <separator string="List of products to update" />
@@ -41,6 +42,17 @@
                             name="new_uom_id"
                             groups="uom.group_uom"
                             optional="show"
+                        />
+                        <field
+                            name="current_discount"
+                            invisible="not supplierinfo_id"
+                            column_invisible="not parent.display_discount"
+                            optional="show"
+                        />
+                        <field
+                            name="new_discount"
+                            optional="show"
+                            column_invisible="not parent.display_discount"
                         />
                         <field
                             name="cost_variation"
