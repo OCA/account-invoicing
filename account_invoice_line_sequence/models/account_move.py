@@ -23,9 +23,9 @@ class AccountMove(models.Model):
         # This part is just modifying sequences and so does not need a check
         for rec in self.with_context(check_move_validity=False):
             for current_seq, line in enumerate(
-                rec.invoice_line_ids.filtered(lambda x: not x.display_type).sorted(
-                    "sequence"
-                ),
+                rec.invoice_line_ids.filtered(
+                    lambda x: x.display_type == "product" and x.product_id
+                ).sorted("sequence"),
                 start=1,
             ):
                 line.sequence2 = current_seq

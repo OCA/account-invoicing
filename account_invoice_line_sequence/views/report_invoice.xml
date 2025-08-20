@@ -9,14 +9,14 @@
             position="before"
         >
             <th>
-                <strong>Sequence</strong>
+                <span>Sequence</span>
             </th>
         </xpath>
         <xpath
             expr="//table[@name='invoice_line_table']/tbody/t/tr/t[@name='account_invoice_line_accountable']/td[1]"
             position="before"
         >
-            <td>
+            <td class="text-center">
                 <span t-field="line.sequence2" />
             </td>
         </xpath>
