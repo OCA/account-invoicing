@@ -5,7 +5,7 @@
 {
     "name": "Account Mail Autosubscribe",
     "summary": "Automatically subscribe partners to their company's invoices",
-    "version": "16.0.1.0.1",
+    "version": "17.0.1.0.0",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "maintainers": ["ivantodorovich"],
     "license": "AGPL-3",
