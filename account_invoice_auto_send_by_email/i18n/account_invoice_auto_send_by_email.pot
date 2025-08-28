@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,19 +15,7 @@ msgstr ""
 
 #. module: account_invoice_auto_send_by_email
 #: model:ir.actions.server,name:account_invoice_auto_send_by_email.cron_send_email_invoice_ir_actions_server
-#: model:ir.cron,cron_name:account_invoice_auto_send_by_email.cron_send_email_invoice
-#: model:ir.cron,name:account_invoice_auto_send_by_email.cron_send_email_invoice
 msgid "Account Invoice: Send email invoice"
-msgstr ""
-
-#. module: account_invoice_auto_send_by_email
-#: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_move__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: account_invoice_auto_send_by_email
-#: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_move__id
-msgid "ID"
 msgstr ""
 
 #. module: account_invoice_auto_send_by_email
@@ -36,17 +24,14 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_auto_send_by_email
-#: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_move____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: account_invoice_auto_send_by_email
+#. odoo-python
 #: code:addons/account_invoice_auto_send_by_email/models/account_move.py:0
 #, python-format
 msgid "This invoice has already been sent."
 msgstr ""
 
 #. module: account_invoice_auto_send_by_email
+#. odoo-python
 #: code:addons/account_invoice_auto_send_by_email/models/account_move.py:0
 #, python-format
 msgid "This invoice should not send by mail"
