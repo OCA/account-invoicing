@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_global_discount](account_global_discount/) | 17.0.1.0.0 |  | Account Global Discount
+[account_invoice_auto_send_by_email](account_invoice_auto_send_by_email/) | 17.0.1.0.0 |  | Invoice with the email transmit method are send automatically.
 [account_invoice_block_payment](account_invoice_block_payment/) | 17.0.1.0.0 |  | Module to block payment of invoices
 [account_invoice_blocking](account_invoice_blocking/) | 17.0.1.0.2 |  | Set a blocking (No Follow-up) flag on invoices
 [account_invoice_crm_tag](account_invoice_crm_tag/) | 17.0.1.0.0 |  | Account Invoice CRM Tag
