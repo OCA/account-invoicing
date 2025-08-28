@@ -1,0 +1,59 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_auto_send_by_email
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-03-14 14:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
+
+#. module: account_invoice_auto_send_by_email
+#: model:ir.actions.server,name:account_invoice_auto_send_by_email.cron_send_email_invoice_ir_actions_server
+#: model:ir.cron,cron_name:account_invoice_auto_send_by_email.cron_send_email_invoice
+#: model:ir.cron,name:account_invoice_auto_send_by_email.cron_send_email_invoice
+msgid "Account Invoice: Send email invoice"
+msgstr "Conto fattura: invia e-mail fattura"
+
+#. module: account_invoice_auto_send_by_email
+#: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_move__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: account_invoice_auto_send_by_email
+#: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_move__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_auto_send_by_email
+#: model:ir.model,name:account_invoice_auto_send_by_email.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: account_invoice_auto_send_by_email
+#: model:ir.model.fields,field_description:account_invoice_auto_send_by_email.field_account_move____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: account_invoice_auto_send_by_email
+#: code:addons/account_invoice_auto_send_by_email/models/account_move.py:0
+#, python-format
+msgid "This invoice has already been sent."
+msgstr "Questa fattura è già stata spedita."
+
+#. module: account_invoice_auto_send_by_email
+#: code:addons/account_invoice_auto_send_by_email/models/account_move.py:0
+#, python-format
+msgid "This invoice should not send by mail"
+msgstr ""
+
+#~ msgid "Account Invoice Send"
+#~ msgstr "Conto invio fattura"
