@@ -19,7 +19,7 @@
         "purchase_triple_discount",
     ],
     "installable": True,
-    "auto_install": True,
+    "auto_install": False,
     "data": [
         "wizard/wizard_update_invoice_supplierinfo.xml",
     ],
