@@ -12,3 +12,8 @@ Some rates must be defined (and be distinct to 1.0) for currencies different fro
 #. Go to Invoicing > Configuration > Currencies and go to EUR
 #. Go to Rates smart-button
 #. Update 01/01/2010 record and change rate to 1.5
+
+To change the currency rate display style on invoices:
+
+- Go to Accounting (or Invoicing) → Configuration → Settings.
+- In the Invoice Rate Display Type section, select the default display type for all currencies.

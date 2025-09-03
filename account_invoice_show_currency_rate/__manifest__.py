@@ -11,5 +11,8 @@
     "installable": True,
     "depends": ["account"],
     "maintainers": ["victoralmau"],
-    "data": ["views/account_move_view.xml"],
+    "data": [
+        "views/account_move_view.xml",
+        "views/res_config_settings_views.xml",
+    ],
 }

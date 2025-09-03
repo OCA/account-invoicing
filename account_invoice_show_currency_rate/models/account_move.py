@@ -32,6 +32,7 @@ class AccountMove(models.Model):
         - Case C: Get expected rate (according to date) to show some value in creation.
         """
         self.currency_rate_amount = 1
+        inverse = self.env.company.invoice_rate_display_type == "inverse_rate"
         for item in self.filtered("show_currency_rate_amount"):
             lines = item.line_ids.filtered(lambda x: abs(x.amount_currency) > 0)
             if item.state == "posted" and lines:
@@ -40,11 +41,19 @@ class AccountMove(models.Model):
                 )
                 total_balance_positive = sum([abs(b) for b in lines.mapped("balance")])
                 item.currency_rate_amount = (
-                    amount_currency_positive / total_balance_positive
+                    (amount_currency_positive / total_balance_positive)
+                    if not inverse
+                    else (total_balance_positive / amount_currency_positive)
                 )
             else:
                 rates = item.currency_id._get_rates(item.company_id, item.date)
-                item.currency_rate_amount = rates.get(item.currency_id.id)
+                item.currency_rate_amount = (
+                    rates.get(item.currency_id.id)
+                    if not inverse
+                    else item.currency_id._convert(
+                        1.0, item.company_id.currency_id, item.company_id, item.date
+                    )
+                )
 
     @api.depends("currency_id", "currency_id.rate_ids", "company_id")
     def _compute_show_currency_rate_amount(self):
