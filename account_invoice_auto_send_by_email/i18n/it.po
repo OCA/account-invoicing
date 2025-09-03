@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-03-14 14:06+0000\n"
+"PO-Revision-Date: 2025-09-03 12:43+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. module: account_invoice_auto_send_by_email
 #: model:ir.actions.server,name:account_invoice_auto_send_by_email.cron_send_email_invoice_ir_actions_server
@@ -53,7 +53,7 @@ msgstr "Questa fattura è già stata spedita."
 #: code:addons/account_invoice_auto_send_by_email/models/account_move.py:0
 #, python-format
 msgid "This invoice should not send by mail"
-msgstr ""
+msgstr "Questa fattura non dovrebbe essere spedita per posta"
 
 #~ msgid "Account Invoice Send"
 #~ msgstr "Conto invio fattura"
