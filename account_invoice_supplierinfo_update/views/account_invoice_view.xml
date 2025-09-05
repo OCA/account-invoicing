@@ -14,9 +14,9 @@
                     attrs="{'invisible': ['|', ('supplierinfo_ok', '=', True), ('partner_id', '=', False)]}"
                 />
             </xpath>
-            <field name="invoice_payment_term_id" position="after">
+            <xpath expr="//field[@name='invoice_payment_term_id']/.." position="after">
                 <field name="supplierinfo_ok" />
-            </field>
+            </xpath>
         </field>
     </record>
 </odoo>
