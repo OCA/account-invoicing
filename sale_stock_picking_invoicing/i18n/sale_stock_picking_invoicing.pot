@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -32,6 +32,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_stock_picking_invoicing.sale_stock_picking_invoicing_res_config_settings_form
 msgid ""
 "Define if Invoice should be created from Sale Order or from Stock Picking"
+msgstr ""
+
+#. module: sale_stock_picking_invoicing
+#: model:product.pricelist,name:sale_stock_picking_invoicing.demo_pricelist
+msgid "Demo Pricelist"
 msgstr ""
 
 #. module: sale_stock_picking_invoicing
@@ -96,7 +101,6 @@ msgstr ""
 #. module: sale_stock_picking_invoicing
 #. odoo-python
 #: code:addons/sale_stock_picking_invoicing/models/sale_order.py:0
-#, python-format
 msgid ""
 "When 'Sale Invoicing Policy' is defined as'Stock Picking' the Invoice can "
 "only be created from the Stock Picking, if necessary you can change in the "
