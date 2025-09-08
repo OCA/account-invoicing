@@ -9,6 +9,8 @@ class TestSelfInvoice(common.TransactionCase):
     def setUp(self):
         res = super(TestSelfInvoice, self).setUp()
         self.user = self.env.ref("base.user_admin")
+        main_company = self.env.ref("base.main_company")
+        main_company.self_invoice_auto_ref = True
         self.partner = self.env["res.partner"].create(
             {"name": "Partner", "supplier_rank": 1}
         )
@@ -21,7 +23,6 @@ class TestSelfInvoice(common.TransactionCase):
         self.simple_partner = self.env["res.partner"].create(
             {"name": "Partner", "supplier_rank": 1}
         )
-        main_company = self.env.ref("base.main_company")
         main_company.self_invoice_prefix = "MC"
         main_company.external_report_layout_id = self.env.ref(
             "web.report_layout_standard"
@@ -131,3 +132,17 @@ class TestSelfInvoice(common.TransactionCase):
         self.invoice.with_user(self.user.id).action_post()
         self.assertTrue(self.invoice.invoice_date)
         self.assertTrue(self.invoice.self_invoice_number)
+
+    def test_self_invoice_no_specific_sequence(self):
+        with Form(self.partner) as f:
+            f.self_invoice = True
+            f.self_invoice_auto_ref = False
+        self.invoice.partner_id = self.partner
+        self.invoice._onchange_partner_id()
+        self.assertTrue(self.invoice.can_self_invoice)
+        self.assertTrue(self.invoice.set_self_invoice)
+        self.invoice.invoice_date = None
+        self.invoice.with_user(self.user.id).action_post()
+        self.assertTrue(self.invoice.invoice_date)
+        self.assertFalse(self.invoice.self_invoice_number)
+        self.assertFalse(self.invoice.ref)
