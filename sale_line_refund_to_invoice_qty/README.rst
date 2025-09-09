@@ -33,6 +33,7 @@ notes should be considered as quantities to be reinvoiced in the related sales,
 thus deciding if they should be added or not to the quantity to invoice of the
 related sales order line.
 
+
 **Table of contents**
 
 .. contents::

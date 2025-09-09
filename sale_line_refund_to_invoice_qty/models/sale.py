@@ -54,3 +54,30 @@ class SaleOrderLine(models.Model):
                         invoice_line.quantity, line.product_uom
                     )
             line.qty_refunded_not_invoiceable = qty_ref_not_inv
+
+    @api.depends("invoice_lines.sale_qty_to_reinvoice")
+    def _compute_untaxed_amount_invoiced(self):
+        """
+        Revert effect of refunds in untaxed_amount_invoiced
+        when `sale_qty_to_reinvoice` is not set.
+        """
+        res = super()._compute_untaxed_amount_invoiced()
+        for line in self:
+            amount_invoiced = line.untaxed_amount_invoiced
+            for invoice_line in line.invoice_lines:
+                if (
+                    invoice_line.move_id.state == "posted"
+                    and invoice_line.move_id.move_type == "out_refund"
+                    and not invoice_line.sale_qty_to_reinvoice
+                ):
+                    invoice_date = (
+                        invoice_line.move_id.invoice_date or fields.Date.today()
+                    )
+                    amount_invoiced += invoice_line.currency_id._convert(
+                        invoice_line.price_subtotal,
+                        line.currency_id,
+                        line.company_id,
+                        invoice_date,
+                    )
+            line.untaxed_amount_invoiced = amount_invoiced
+        return res
