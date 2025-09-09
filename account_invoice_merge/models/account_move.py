@@ -25,6 +25,7 @@ class AccountMove(models.Model):
             "journal_id",
             "company_id",
             "partner_bank_id",
+            "invoice_incoterm_id",
         ]
 
     @api.model
@@ -65,6 +66,7 @@ class AccountMove(models.Model):
             "invoice_payment_term_id": invoice.invoice_payment_term_id.id,
             "invoice_line_ids": {},
             "partner_bank_id": invoice.partner_bank_id.id,
+            "invoice_incoterm_id": invoice.invoice_incoterm_id.id,
         }
 
     @api.model
