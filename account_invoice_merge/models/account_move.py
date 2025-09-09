@@ -25,6 +25,7 @@ class AccountMove(models.Model):
             "journal_id",
             "company_id",
             "partner_bank_id",
+            "invoice_incoterm_id",
         ]
 
     @api.model
