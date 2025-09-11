@@ -9,14 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-06 02:39+0000\n"
-"PO-Revision-Date: 2017-06-06 02:39+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"PO-Revision-Date: 2025-09-11 22:42+0000\n"
+"Last-Translator: Tamer Sezgin <tamer.sezgin@gmail.com>\n"
 "Language-Team: Turkish (https://www.transifex.com/oca/teams/23907/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
@@ -26,13 +27,14 @@ msgstr "Vazgeç"
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_move_form
 msgid "Check Supplier Infos"
-msgstr ""
+msgstr "Tedarikçi Bilgilerini Kontrol Edin"
 
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_move_form
 msgid ""
 "Check if the invoice information are similar from the supplier information"
 msgstr ""
+"Fatura bilgilerinin tedarikçi bilgilerine benzer olup olmadığını kontrol edin"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_account_bank_statement_line__supplierinfo_ok
@@ -42,16 +44,21 @@ msgid ""
 " - Uncheck this box, if you want to check again this invoice\n"
 " - Check this box, if you want to mark this invoice as checked"
 msgstr ""
+"Tedarikçi bilgisi kontrolünün yapılıp yapılmadığı kontrol edildi.\n"
+" - Bu faturayı tekrar kontrol etmek istiyorsanız bu kutunun işaretini "
+"kaldırın\n"
+" - Bu faturayı kontrol edildi olarak işaretlemek istiyorsanız bu kutuyu "
+"işaretleyin"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_cost
 msgid "Cost"
-msgstr ""
+msgstr "Maliyet"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__cost_variation
 msgid "Cost Variation (%)"
-msgstr ""
+msgstr "Maliyet Değişimi (%)"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__create_uid
@@ -68,12 +75,12 @@ msgstr "Oluşturuldu"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_discount
 msgid "Current Discount"
-msgstr ""
+msgstr "Geçerli İndirim"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_uom_id
 msgid "Default unit of measure used for all stock operations."
-msgstr ""
+msgstr "Tüm stok işlemleri için kullanılan varsayılan ölçü birimi."
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_uom_id
@@ -81,11 +88,13 @@ msgid ""
 "Default unit of measure used for purchase orders. It must be in the same "
 "category as the default unit of measure."
 msgstr ""
+"Satınalma siparişleri için kullanılan varsayılan ölçü birimi. Varsayılan "
+"ölçü birimiyle aynı kategoride olmalıdır."
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__display_discount
 msgid "Display Discount"
-msgstr ""
+msgstr "İndirimi Göster"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__display_name
@@ -96,7 +105,7 @@ msgstr "Görünen İsim"
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Do you want to set invoice as checked ?"
-msgstr ""
+msgstr "Faturayı kontrol edildi olarak ayarlamak ister misiniz?"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__id
@@ -107,7 +116,7 @@ msgstr "ID"
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Ignore"
-msgstr ""
+msgstr "Dikkate Alma"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__invoice_id
@@ -117,12 +126,12 @@ msgstr "Fatura"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Yevmiye Kaydı"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Yevmiye Kalemi"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__write_uid
@@ -149,12 +158,12 @@ msgstr "Güncelleme yapılacak ürün listesi"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_cost
 msgid "New Cost"
-msgstr ""
+msgstr "Yeni Maliyet"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_discount
 msgid "New Discount"
-msgstr ""
+msgstr "Yeni İndirim"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_min_quantity
@@ -169,12 +178,12 @@ msgstr "Yeni Birim Fiyatı"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__new_uom_id
 msgid "New UoM"
-msgstr ""
+msgstr "Yeni Birim"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_price
 msgid "Price"
-msgstr ""
+msgstr "Fiyat"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_id
@@ -184,7 +193,7 @@ msgstr "Ürün"
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__state
 msgid "Status"
-msgstr ""
+msgstr "Durum"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo__supplier_partner_id
@@ -205,14 +214,13 @@ msgstr "Tedarikçi Ortak"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__supplierinfo_id
-#, fuzzy
 msgid "Supplierinfo"
 msgstr "Tedarikçi"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_price
 msgid "The price to purchase a product"
-msgstr ""
+msgstr "Bir ürün satın alma fiyatı"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,help:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_min_quantity
@@ -221,6 +229,8 @@ msgid ""
 "expressed in the vendor Product Unit of Measure if not any, in the default "
 "unit of measure of the product otherwise."
 msgstr ""
+"Fiyattan yararlanmak için satın alınması gereken miktar; varsa satıcının "
+"Ürün Ölçü Birimi cinsinden, yoksa ürünün varsayılan ölçü birimi cinsinden."
 
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
@@ -228,21 +238,23 @@ msgid ""
 "This will mark the invoice as checked. It will be possible to uncheck "
 "manually in the 'Other Info' tab."
 msgstr ""
+"Bu, faturayı kontrol edildi olarak işaretleyecektir. İşaret manuel olarak "
+"'Diğer Bilgiler' sekmesinden kaldırılabilir."
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__product_uom_id
 msgid "Unit of Measure"
-msgstr ""
+msgstr "Ölçü Birimi"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_uom_id
 msgid "UoM"
-msgstr ""
+msgstr "Birim"
 
 #. module: account_invoice_supplierinfo_update
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplierinfo_update.view_wizard_update_invoice_supplierinfo_form
 msgid "Update Supplier Infos"
-msgstr ""
+msgstr "Tedarikçi Bilgilerini Güncelle"
 
 #. module: account_invoice_supplierinfo_update
 #. odoo-python
@@ -252,24 +264,23 @@ msgstr "Ürünlerin tedarikçi bilgilerini güncelleyin"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__wizard_id
-#, fuzzy
 msgid "Wizard"
-msgstr "Sihirbaz id"
+msgstr "Sihirbaz"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo_line
 msgid "Wizard Line to update supplierinfo"
-msgstr ""
+msgstr "Tedarikçi bilgisini güncellemek için Sihirbaz Satırı"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model,name:account_invoice_supplierinfo_update.model_wizard_update_invoice_supplierinfo
 msgid "Wizard to update supplierinfo"
-msgstr ""
+msgstr "Tedarikçi bilgisini güncellemek için Sihirbaz"
 
 #. module: account_invoice_supplierinfo_update
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update.field_wizard_update_invoice_supplierinfo_line__current_min_quantity
 msgid "current Min quantity"
-msgstr ""
+msgstr "Geçerli Minimum Miktar"
 
 #~ msgid "Last Modified on"
 #~ msgstr "Son değişiklik"
