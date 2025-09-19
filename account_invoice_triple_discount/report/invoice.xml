@@ -5,9 +5,6 @@
         inherit_id="account.report_invoice_document"
         priority="100"
     >
-        <xpath expr="//t[@t-set='display_discount']" position="attributes">
-            <attribute name="t-value">False</attribute>
-        </xpath>
         <xpath expr="//t[@t-set='display_discount']" position="after">
             <t
                 t-set="discount_class"
@@ -15,7 +12,7 @@
             />
         </xpath>
         <xpath expr="//th[@name='th_discount']" position="attributes">
-            <attribute name="style">visibility: hidden;</attribute>
+            <attribute name="style">display: none;</attribute>
         </xpath>
         <xpath expr="//th[@name='th_discount']" position="after">
             <th
@@ -41,7 +38,7 @@
             </th>
         </xpath>
         <xpath expr="//td[span[@t-field='line.discount']]" position="attributes">
-            <attribute name="style">visibility: hidden;</attribute>
+            <attribute name="style">display: none;</attribute>
         </xpath>
         <xpath expr="//td[span[@t-field='line.discount']]" position="after">
             <td t-if="display_discount" t-att-class="discount_class">
