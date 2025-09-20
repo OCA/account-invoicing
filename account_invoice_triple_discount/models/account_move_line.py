@@ -21,7 +21,7 @@ class AccountMoveLine(models.Model):
         compute="_compute_discount",
         store=True,
         readonly=True,
-        digits=None,
+        digits=(16, 13),
     )
     discount1 = fields.Float(
         string="Discount 1 (%)",
@@ -84,3 +84,10 @@ class AccountMoveLine(models.Model):
     def write(self, vals):
         vals = self._fix_triple_discount_values(vals)
         return super().write(vals)
+
+    @api.model
+    def fields_get(self, allfields=None, attributes=None):
+        res = super().fields_get(allfields, attributes)
+        if self.env.context.get("test_account_global_discount") and res.get("discount"):
+            res["discount"]["readonly"] = False
+        return res
