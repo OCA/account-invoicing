@@ -37,6 +37,10 @@ fixed amount discounts at invoice line level.
 
 The module also extends the invoice report to show fixed discount.
 
+If the module ``account_invoice_triple_discount`` is installed and a
+fixed discount is set, it will take priority over anything set in the
+triple discount fields.
+
 **Table of contents**
 
 .. contents::
@@ -79,15 +83,15 @@ Authors
 Contributors
 ------------
 
-- Lois Rilo <lois.rilo@forgeflow.com>
-- Jordi Ballester <jordi.ballester@forgeflow.com>
-- Rattapong Chokmasermkul <rattapongc@ecosoft.co.th>
-- Kitti U. <kittiu@ecosoft.co.th>
-- Pieter Paulussen <pieterpaulussen@code-source.be>
+-  Lois Rilo <lois.rilo@forgeflow.com>
+-  Jordi Ballester <jordi.ballester@forgeflow.com>
+-  Rattapong Chokmasermkul <rattapongc@ecosoft.co.th>
+-  Kitti U. <kittiu@ecosoft.co.th>
+-  Pieter Paulussen <pieterpaulussen@code-source.be>
 
-- OERP Canada <https://www.oerp.ca/>:
+-  OERP Canada <https://www.oerp.ca/>:
 
-  - Foram Darji <fd@oerp.ca>
+   -  Foram Darji <fd@oerp.ca>
 
 Maintainers
 -----------
