@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 ===============================
 Account Invoice Triple Discount
 ===============================
@@ -13,7 +17,7 @@ Account Invoice Triple Discount
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
@@ -29,6 +33,8 @@ Account Invoice Triple Discount
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module allows to have three successive discounts on each invoice line.
+
+If the module `account_invoice_fixed_discount` is installed and a fixed discount is set, it will take priority over anything set in the triple discount fields.
 
 **Table of contents**
 

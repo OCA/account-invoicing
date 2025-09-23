@@ -11,6 +11,7 @@
             >
                 <attribute name="optional">hide</attribute>
                 <attribute name="string">Total discount</attribute>
+                <attribute name="force_save">1</attribute>
             </xpath>
             <xpath
                 expr="//field[@name='invoice_line_ids']//tree//field[@name='discount']"

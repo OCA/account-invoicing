@@ -6,7 +6,7 @@
         priority="100"
     >
         <xpath expr="//t[@t-set='display_discount']" position="attributes">
-            <attribute name="t-value">False</attribute>
+            <attribute name="t-if">False</attribute>
         </xpath>
         <xpath expr="//t[@t-set='display_discount']" position="after">
             <t
