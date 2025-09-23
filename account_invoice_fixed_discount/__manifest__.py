@@ -12,7 +12,6 @@
     "application": False,
     "installable": True,
     "depends": ["account"],
-    "excludes": ["account_invoice_triple_discount"],
     "data": [
         "security/res_groups.xml",
         "views/account_move_view.xml",
