@@ -8,13 +8,24 @@ _logger = logging.getLogger(__name__)
 
 def post_init_hook(env):
     _logger.info("Initializing column discount1 on table account_move_line")
-    env.cr.execute(
-        """
-            UPDATE account_move_line
-            SET discount1 = discount
-            WHERE discount != 0
-        """
-    )
+    if "discount_fixed" not in env["account.move.line"]._fields:
+        env.cr.execute(
+            """
+                UPDATE account_move_line
+                SET discount1 = discount
+                WHERE discount != 0
+            """
+        )
+    else:
+        # Lines with a fixed discount (account_invoice_fixed_discount) keep
+        # their discount, which is driven by the fixed amount.
+        env.cr.execute(
+            """
+                UPDATE account_move_line
+                SET discount1 = discount
+                WHERE discount != 0 AND COALESCE(discount_fixed, 0.0) = 0.0
+            """
+        )
     # if discounts are : 10% - 20% - 30% main discount is : 49.6 %
     # if discounts are : 05% - 09% - 13% main discount is : 24.7885 %
     env.cr.execute(
@@ -26,6 +37,7 @@ def post_init_hook(env):
                     * (100 - COALESCE(discount2, 0.0)) / 100
                     * (100 - COALESCE(discount3, 0.0)) / 100
                 )
-        );
+        )
+        WHERE discount1 != 0 OR discount2 != 0 OR discount3 != 0;
         """
     )
