@@ -100,8 +100,8 @@ class TestInvoiceFixedDiscount(TransactionCase):
                 # Force the fixed discount as the onchange does not
                 # handle the context properly
                 line.discount_fixed = 0.0
-                line.discount = 20.0
 
+        self.invoice.invoice_line_ids[0].discount = 20.0
         self.assertEqual(self.invoice.invoice_line_ids.discount_fixed, 0.0)
         self.assertEqual(self.invoice.invoice_line_ids.discount, 20.0)
         self.assertEqual(self.invoice.amount_total, 176.0)
