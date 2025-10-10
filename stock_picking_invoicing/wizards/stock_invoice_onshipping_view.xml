@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_stock_invoice_onshipping" model="ir.ui.view">
         <field name="name">Stock Invoice Onshipping</field>
@@ -25,14 +25,8 @@
                     <field name="invoice_date" />
                 </group>
                 <footer>
-                    <button
-                        name="action_generate"
-                        string="Create"
-                        type="object"
-                        class="oe_highlight"
-                    />
-                    or
-                    <button string="Cancel" class="oe_link" special="cancel" />
+                    <button name="action_generate" string="Create" type="object" class="btn-primary" data-hotkey="q" />
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x" />
                 </footer>
             </form>
         </field>

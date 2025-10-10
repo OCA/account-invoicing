@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_picking_inherit_tree2" model="ir.ui.view">
         <field name="name">stock.picking.tree.inherit</field>
@@ -86,21 +86,21 @@
                 <button
                     name="set_to_be_invoiced"
                     type="object"
-                    string="Set to be invoiced"
+                    string="Set as To Be Invoiced"
                     invisible="invoice_state not in ('invoiced', 'none') or True in invoice_ids or state == 'cancel'"
                 />
 
                 <button
                     name="set_as_invoiced"
                     type="object"
-                    string="Set to as invoiced"
+                    string="Set as Invoiced"
                     invisible="invoice_state not in ('2binvoiced', 'none') or True in invoice_ids or state == 'cancel'"
                 />
 
                 <button
                     name="set_as_not_billable"
                     type="object"
-                    string="Set to Not Billable"
+                    string="Set as Not Billable"
                     invisible="invoice_state not in ('invoiced', '2binvoiced') or True in invoice_ids or state == 'cancel'"
                 />
 
