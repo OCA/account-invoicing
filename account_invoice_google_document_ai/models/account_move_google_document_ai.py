@@ -212,6 +212,7 @@ class AccountMoveGoogleDocumentAi(models.AbstractModel):
         if invoice_data["context"]:
             invoice = invoice.with_context(**invoice_data["context"])
         if invoice_data["write"]:
+            invoice_data["write"]["ocr_sent"] = True
             invoice.write(invoice_data["write"])
         field_controls = self._ocr_field_control()
         for field, value in invoice_data["control"].items():
