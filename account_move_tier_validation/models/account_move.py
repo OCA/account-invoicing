@@ -57,3 +57,17 @@ class AccountMove(models.Model):
         return super(
             AccountMove, self.with_context(skip_validation_check=True)
         ).action_post()
+
+    def button_draft(self):
+        # OVERRIDE: drop reviews once a move is reverted back to draft, else module
+        # ``base_tier_validation`` will trigger an error saying we're not allowed to
+        # update the move's status
+        # TODO: updating the existing status of the reviews to "rejected" doesn't work
+        #  because fields on the moves that depend on the reviews' statuses are not
+        #  recomputed correctly, due to model ``tier_validation``'s computed methods
+        #  being declared without proper ``@api.depends()`` decorators.
+        #  Maybe we could prevent deleting existing reviews once compute methods are
+        #  correctly decorated?
+        if reviews := self.review_ids:
+            reviews.unlink()
+        return super().button_draft()

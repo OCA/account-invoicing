@@ -4,7 +4,8 @@
 from odoo import Command, fields
 from odoo.exceptions import ValidationError
 from odoo.tests import Form
-from odoo.tests.common import new_test_user, tagged
+from odoo.tests.common import new_test_user, tagged, users
+from odoo.tools.misc import mute_logger
 
 from odoo.addons.base.tests.common import BaseCommon
 
@@ -28,6 +29,14 @@ class TestAccountTierValidation(BaseCommon):
             login="test2",
             groups="base.group_system,account.group_account_manager",
         )
+        cls.test_user_3 = new_test_user(
+            cls.env,
+            name="Nolan",
+            login="test3",
+            groups="account.group_account_user",
+        )
+        cls.partner = cls.env["res.partner"].create({"name": "Test Partner"})
+        cls.product = cls.env["product.product"].create({"name": "Test product"})
         cls.account_move_model = cls.env["ir.model"]._get("account.move")
 
         # Ensure the company has a document layout configured.
@@ -56,6 +65,41 @@ class TestAccountTierValidation(BaseCommon):
             if default_layout:
                 cls.company.external_report_layout_id = default_layout.id
 
+    def _prepare_tier_definition(self, sudo_flag=False, move_type="out_invoice"):
+        return (
+            self.env["tier.definition"]
+            .sudo(flag=sudo_flag)
+            .create(
+                {
+                    "model_id": self.account_move_model.id,
+                    "definition_domain": f"[('move_type', '=', '{move_type}')]",
+                    "reviewer_id": self.test_user_1.id,
+                }
+            )
+        )
+
+    def _prepare_move(self, sudo_flag=False, move_type="out_invoice"):
+        return (
+            self.env["account.move"]
+            .sudo(flag=sudo_flag)
+            .create(
+                {
+                    "move_type": move_type,
+                    "partner_id": self.partner.id,
+                    "invoice_date_due": fields.Date.to_date("2024-01-01"),
+                    "invoice_line_ids": [
+                        Command.create(
+                            {
+                                "product_id": self.product.id,
+                                "quantity": 1,
+                                "price_unit": 30,
+                            }
+                        )
+                    ],
+                }
+            )
+        )
+
     def test_01_tier_definition_models(self):
         res = self.env["tier.definition"]._get_tier_validation_model_names()
         self.assertIn("account.move", res)
@@ -75,27 +119,8 @@ class TestAccountTierValidation(BaseCommon):
                 self.assertTrue(form.hide_post_button)
 
     def test_03_move_post(self):
-        self.env["tier.definition"].create(
-            {
-                "model_id": self.account_move_model.id,
-                "definition_domain": "[('move_type', '=', 'out_invoice')]",
-                "reviewer_id": self.test_user_1.id,
-            }
-        )
-        partner = self.env["res.partner"].create({"name": "Test Partner"})
-        product = self.env["product.product"].create({"name": "Test product"})
-        invoice = self.env["account.move"].create(
-            {
-                "move_type": "out_invoice",
-                "partner_id": partner.id,
-                "invoice_date_due": fields.Date.to_date("2024-01-01"),
-                "invoice_line_ids": [
-                    Command.create(
-                        {"product_id": product.id, "quantity": 1, "price_unit": 30}
-                    )
-                ],
-            }
-        )
+        self._prepare_tier_definition()
+        invoice = self._prepare_move()
         invoice.with_user(self.test_user_2.id).request_validation()
         invoice = invoice.with_user(self.test_user_1.id)
         invoice.invalidate_model()
@@ -138,3 +163,42 @@ class TestAccountTierValidation(BaseCommon):
                 "Could not find a 'action_send_and_print' "
                 "action on the account.move.send.wizard."
             )
+
+    @users("test3")
+    def test_04_move_reset_to_draft(self):
+        """Test we can revert a posted move back to draft"""
+        self._prepare_tier_definition(sudo_flag=True, move_type="in_invoice")
+        # User 3 creates the vendor bill
+        vendor_bill = self._prepare_move(move_type="in_invoice")
+        # User 3 adds the invoice date (else the posting action fails), but it does it
+        # before requesting validation (else the update itself fails)
+        vendor_bill.invoice_date = fields.Date.context_today(vendor_bill)
+        self.assertEqual(len(vendor_bill.review_ids), 0)
+        self.assertEqual(vendor_bill.validation_status, "no")
+        # User 3 requires validation for the bill
+        vendor_bill.request_validation()
+        self.assertEqual(len(vendor_bill.review_ids), 1)
+        self.assertEqual(vendor_bill.review_ids.status, "waiting")
+        self.assertEqual(vendor_bill.validation_status, "waiting")
+        # User 1 validates it
+        vendor_bill.with_user(self.test_user_1.id).validate_tier()
+        self.assertEqual(len(vendor_bill.review_ids), 1)
+        self.assertEqual(vendor_bill.review_ids.status, "approved")
+        self.assertEqual(vendor_bill.validation_status, "validated")
+        # Invalidate model to force Odoo to recompute field ``need_validation``: it is a
+        # computed, non-stored field, but its compute method has no ``@api.depends``
+        # decorator and its value is checked upon calling ``write()`` (which is
+        # called by ``action_post()`` to update the vendor bill's status)
+        vendor_bill.invalidate_model()
+        # User 3 posts the vendor bill
+        vendor_bill.action_post()
+        self.assertEqual(vendor_bill.state, "posted")
+        self.assertEqual(len(vendor_bill.review_ids), 1)
+        self.assertEqual(vendor_bill.review_ids.status, "approved")
+        self.assertEqual(vendor_bill.validation_status, "validated")
+        # User 3 reverts the vendor bill to draft
+        with mute_logger("odoo.models.unlink"):
+            vendor_bill.button_draft()
+        self.assertEqual(vendor_bill.state, "draft")
+        self.assertEqual(len(vendor_bill.review_ids), 0)
+        self.assertEqual(vendor_bill.validation_status, "no")
