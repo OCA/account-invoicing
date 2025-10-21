@@ -1,0 +1,119 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_triple_discount
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-09 02:45+0000\n"
+"PO-Revision-Date: 2025-05-18 09:27+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.%</span>"
+msgstr "<span>Sconto %</span>"
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.2 %</span>"
+msgstr "<span>Sconto 2 (%)</span>"
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.report_invoice_document
+msgid "<span>Disc.3 %</span>"
+msgstr "<span>Sconto 3 (%)</span>"
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.invoice_triple_discount_form_view
+msgid "Disc.1%"
+msgstr "Sconto 1%"
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.invoice_triple_discount_form_view
+msgid "Disc.2%"
+msgstr "Sconto 2 (%)"
+
+#. module: account_invoice_triple_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.invoice_triple_discount_form_view
+msgid "Disc.3%"
+msgstr "Sconto 3 (%)"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount
+msgid "Discount (%)"
+msgstr "Sconto (%)"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount1
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount1
+msgid "Discount 1 (%)"
+msgstr "Sconto 1%"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_account_move_line_discount1_limit
+#: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_triple_discount_mixin_discount1_limit
+msgid "Discount 1 must be lower than 100%."
+msgstr "Lo sconto 1 deve essere minore del 100%."
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount2
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount2
+msgid "Discount 2 (%)"
+msgstr "Sconto 2 (%)"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_account_move_line_discount2_limit
+#: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_triple_discount_mixin_discount2_limit
+msgid "Discount 2 must be lower than 100%."
+msgstr "Sconto 2 deve essere inferiore di 100%."
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount3
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount3
+msgid "Discount 3 (%)"
+msgstr "Sconto 3 (%)"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_account_move_line_discount3_limit
+#: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_triple_discount_mixin_discount3_limit
+msgid "Discount 3 must be lower than 100%."
+msgstr "Sconto 3 deve essere minore di 100%."
+
+#. module: account_invoice_triple_discount
+#: model:ir.model,name:account_invoice_triple_discount.model_account_move_line
+msgid "Journal Item"
+msgstr "Movimento contabile"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_triple_discount.invoice_triple_discount_form_view
+msgid "Total discount"
+msgstr "Sconto totale"
+
+#. module: account_invoice_triple_discount
+#: model:ir.model,name:account_invoice_triple_discount.model_triple_discount_mixin
+msgid "Triple discount mixin"
+msgstr "Mixin sconto triplo"
+
+#~ msgid "<span>Disc.1 %</span>"
+#~ msgstr "<span>Sconto 1 %</span>"
+
+#~ msgid "Journal Entry"
+#~ msgstr "Registrazione contabile"
+
+#~ msgid "Invoice"
+#~ msgstr "Fattura"
+
+#~ msgid "Invoice Line"
+#~ msgstr "Righe Fattura"
