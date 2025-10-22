@@ -6,7 +6,7 @@ from odoo.tests.common import TransactionCase
 
 class TestBaseSubstate(TransactionCase):
     def setUp(self):
-        super(TestBaseSubstate, self).setUp()
+        super().setUp()
         self.substate_test_account_move = self.env["account.move"]
         self.substate_test_account_move_line = self.env["account.move.line"]
 

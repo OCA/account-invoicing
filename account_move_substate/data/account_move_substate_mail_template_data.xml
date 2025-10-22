@@ -13,14 +13,14 @@
             <div>
     Dear <t t-out="object.user_id.name or 'accounting user'" />,<br />
     This email is to inform that your journal entry <t
-                    t-out="object.name or ''"
-                /> was verified by accounting manager.
+                t-out="object.name or ''"
+            /> was verified by accounting manager.
     <br /><br />
     Best Regards,
     <t t-if="user.signature">
-        <br />
-        <t t-out="user.signature or ''" />
-    </t>
+                <br />
+                <t t-out="user.signature or ''" />
+            </t>
     </div>
         </field>
         <field name="lang">{{ object.partner_id.lang }}</field>

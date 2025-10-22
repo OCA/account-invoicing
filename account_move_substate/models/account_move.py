@@ -19,7 +19,7 @@ class AccountMove(models.Model):
     _state_field = "state"
 
     def _track_template(self, changes):
-        res = super(AccountMove, self)._track_template(changes)
+        res = super()._track_template(changes)
         track = self[0]
         if "substate_id" in changes and track.substate_id.mail_template_id:
             res["substate_id"] = (
