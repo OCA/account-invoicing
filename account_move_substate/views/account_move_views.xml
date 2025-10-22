@@ -21,7 +21,7 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_invoice_tree" />
         <field name="arch" type="xml">
-            <field name="state" position="after">
+            <field name="checked" position="after">
                 <field name="substate_id" widget="badge" optional="show" />
             </field>
         </field>
