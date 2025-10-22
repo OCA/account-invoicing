@@ -79,6 +79,7 @@ Contributors
 - `360ERP <https://360ERP.com>`__:
 
   - Bosd <bosd>
+  - Kevin Khao <kevinkhao@gmail.com>
 
 Maintainers
 -----------
