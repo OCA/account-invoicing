@@ -10,3 +10,7 @@ modules can create additionnal transmission methods (for example, the
 module *l10n_fr_chorus_account* creates a specific transmission method
 *Chorus Pro*, which is the e-invoicing plateform of the French
 administration).
+
+When we select “Post” or “Customer Portal,” the button to send disappears.
+To reactivate the send button, you will need to change the transmission 
+method to “E-Mail,”.
