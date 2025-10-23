@@ -5,8 +5,11 @@
         inherit_id="account.report_invoice_document"
         priority="100"
     >
-        <xpath expr="//t[@t-set='display_discount']" position="attributes">
-            <attribute name="t-value">False</attribute>
+        <xpath expr="//t[@t-set='display_discount']" position="replace">
+            <t
+                t-set="display_discount"
+                t-value="any(l.discount1 or l.discount2 or l.discount3 for l in o.invoice_line_ids)"
+            />
         </xpath>
         <xpath expr="//t[@t-set='display_discount']" position="after">
             <t
@@ -15,7 +18,7 @@
             />
         </xpath>
         <xpath expr="//th[@name='th_discount']" position="attributes">
-            <attribute name="style">visibility: hidden;</attribute>
+            <attribute name="t-if">False</attribute>
         </xpath>
         <xpath expr="//th[@name='th_discount']" position="after">
             <th
@@ -41,7 +44,7 @@
             </th>
         </xpath>
         <xpath expr="//td[span[@t-field='line.discount']]" position="attributes">
-            <attribute name="style">visibility: hidden;</attribute>
+            <attribute name="t-if">False</attribute>
         </xpath>
         <xpath expr="//td[span[@t-field='line.discount']]" position="after">
             <td t-if="display_discount" t-att-class="discount_class">
@@ -53,6 +56,12 @@
             <td t-if="display_discount" t-att-class="discount_class">
                 <span class="text-nowrap" t-field="line.discount3" />
             </td>
+        </xpath>
+        <xpath expr="//t[@t-set='line_colspan']" position="replace">
+            <t
+                t-set="line_colspan"
+                t-value="3 + (3 if display_discount else 0) + (1 if display_taxes and not line.tax_ids else 0)"
+            />
         </xpath>
     </template>
 </odoo>
