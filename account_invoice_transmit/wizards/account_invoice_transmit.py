@@ -66,13 +66,14 @@ class AccountInvoiceTransmit(models.TransientModel):
             result["invoice_ids"] = [fields.Command.set(active_ids)]
         return result
 
-    @api.depends("invoice_ids", "resend")
+    @api.depends("invoice_ids.is_move_sent", "resend")
     def _compute_transmit_invoice_ids(self):
+        invoices = self.invoice_ids.filtered("is_invoice_to_transmit")
         if self.resend:
-            self.transmit_invoice_ids = self.invoice_ids
+            self.transmit_invoice_ids = invoices
         else:
-            self.transmit_invoice_ids = self.invoice_ids.filtered(
-                lambda r: r.is_invoice_to_transmit
+            self.transmit_invoice_ids = invoices.filtered(
+                lambda inv: not inv.is_move_sent
             )
 
     @api.depends("transmit_invoice_ids")

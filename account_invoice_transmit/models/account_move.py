@@ -11,14 +11,10 @@ class AccountMove(models.Model):
 
     is_invoice_to_transmit = fields.Boolean(compute="_compute_is_invoice_to_transmit")
 
-    @api.depends("state", "move_type", "is_move_sent")
+    @api.depends("state", "move_type")
     def _compute_is_invoice_to_transmit(self):
         for rec in self:
-            if (
-                rec.state == "posted"
-                and rec.move_type in ("out_invoice", "out_refund")
-                and not rec.is_move_sent
-            ):
+            if rec.state == "posted" and rec.move_type in ("out_invoice", "out_refund"):
                 rec.is_invoice_to_transmit = True
             else:
                 rec.is_invoice_to_transmit = False
@@ -33,7 +29,9 @@ class AccountMove(models.Model):
     def _transmit_invoice(self, method):
         # we need to apply the filter because the state may have
         # changed since when we delayed the job
-        invoices = self.exists().filtered("is_invoice_to_transmit")
+        invoices = self.exists().filtered(
+            lambda inv: inv.is_invoice_to_transmit and not inv.is_move_sent
+        )
         if not invoices:
             return self.browse()
         self.env.cr.execute(
