@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-09-18 12:58+0000\n"
+"PO-Revision-Date: 2025-10-27 10:08+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 #. module: account_receipt_journal
 #: model:ir.model,name:account_receipt_journal.model_account_chart_template
 msgid "Account Chart Template"
-msgstr ""
+msgstr "Modello foglio conto"
 
 #. module: account_receipt_journal
 #: model:ir.model.fields,field_description:account_receipt_journal.field_account_journal__receipts
@@ -49,7 +49,7 @@ msgstr "Registrazione contabile"
 #. odoo-python
 #: code:addons/account_receipt_journal/models/account_chart_template.py:0
 msgid "P-REC"
-msgstr ""
+msgstr "P-REC"
 
 #. module: account_receipt_journal
 #. odoo-python
@@ -82,7 +82,7 @@ msgstr "Ricevute"
 #. odoo-python
 #: code:addons/account_receipt_journal/models/account_chart_template.py:0
 msgid "S-REC"
-msgstr ""
+msgstr "S-REC"
 
 #. module: account_receipt_journal
 #. odoo-python
