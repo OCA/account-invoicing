@@ -82,7 +82,9 @@ class TestAccountTierValidation(BaseCommon):
                 "reviewer_id": self.test_user_1.id,
             }
         )
-        partner = self.env["res.partner"].create({"name": "Test Partner"})
+        partner = self.env["res.partner"].create(
+            {"name": "Test Partner", "email": "test.partner@mail.com"}
+        )
         product = self.env["product.product"].create({"name": "Test product"})
         invoice = self.env["account.move"].create(
             {
