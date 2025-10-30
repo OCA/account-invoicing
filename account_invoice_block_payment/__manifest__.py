@@ -10,6 +10,7 @@
     "license": "AGPL-3",
     "category": "Accounting & Finance",
     "depends": ["account"],
+    "maintainers": ["JayaramRangaraj"],
     "data": [
         "views/account_move.xml",
     ],
