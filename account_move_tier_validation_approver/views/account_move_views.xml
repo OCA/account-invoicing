@@ -8,10 +8,10 @@
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
             <xpath expr='//field[@name="ref"]' position="after">
+                <field name="review_ids" invisible="1" />
                 <field
                     name="approver_id"
-                    readonly="review_ids"
-                    invisible="move_type in ('out_invoice', 'out_refund', 'entry')"
+                    attrs="{'readonly': [('review_ids', '!=', False)], 'invisible': [('move_type', 'in', ('out_invoice', 'out_refund', 'entry'))]}"
                 />
             </xpath>
         </field>
