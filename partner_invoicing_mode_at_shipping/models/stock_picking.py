@@ -37,10 +37,14 @@ class StockPicking(models.Model):
         )
         invoices = self.env["account.move"]
         if sales_one_invoice_per_order:
-            invoices |= sales_one_invoice_per_order._create_invoices(grouped=True)
+            invoices |= sales_one_invoice_per_order.sudo()._create_invoices(
+                grouped=True
+            )
         sales_many_invoice_per_order = sales - sales_one_invoice_per_order
         if sales_many_invoice_per_order:
-            invoices |= sales_many_invoice_per_order._create_invoices(grouped=False)
+            invoices |= sales_many_invoice_per_order.sudo()._create_invoices(
+                grouped=False
+            )
         # The invoices per picking will use the invoicing_mode
         for invoice in self._invoicing_at_shipping_validation(invoices):
             invoice.with_delay()._validate_invoice()
