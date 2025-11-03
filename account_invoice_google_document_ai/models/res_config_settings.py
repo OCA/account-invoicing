@@ -27,3 +27,8 @@ class ResConfigSettings(models.TransientModel):
     ocr_google_authentication_name = fields.Char(
         related="company_id.ocr_google_authentication_name", readonly=False
     )
+    google_ocr_invoice_mode = fields.Selection(
+        related="company_id.google_ocr_invoice_mode",
+        readonly=False,
+        required=True,
+    )
