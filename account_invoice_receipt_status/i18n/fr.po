@@ -1,0 +1,69 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_receipt_status
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-05 14:16+0000\n"
+"PO-Revision-Date: 2025-11-05 14:16+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_receipt_status
+#: model_terms:ir.ui.view,arch_db:account_invoice_receipt_status.account_move_line_search_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_receipt_status.account_move_search_view
+msgid "Fully Received"
+msgstr "Entièrement reçu"
+
+#. module: account_invoice_receipt_status
+#: model:ir.model.fields,help:account_invoice_receipt_status.field_account_move_line__receipt_status
+msgid ""
+"Indicates the progress of the reception flow for this purchase line. "
+"Computed from incoming stock moves."
+msgstr ""
+"Indique la progression du flux de réception pour cette ligne d'achat. "
+"Calculé à partir des mouvements de stock entrants."
+
+#. module: account_invoice_receipt_status
+#: model:ir.model,name:account_invoice_receipt_status.model_account_move
+msgid "Journal Entry"
+msgstr "Écriture de journal"
+
+#. module: account_invoice_receipt_status
+#: model:ir.model,name:account_invoice_receipt_status.model_account_move_line
+msgid "Journal Item"
+msgstr "Ecriture comptable"
+
+#. module: account_invoice_receipt_status
+#: model_terms:ir.ui.view,arch_db:account_invoice_receipt_status.account_move_line_search_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_receipt_status.account_move_search_view
+msgid "Nothing to Receive"
+msgstr "Rien à recevoir"
+
+#. module: account_invoice_receipt_status
+#: model_terms:ir.ui.view,arch_db:account_invoice_receipt_status.account_move_line_search_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_receipt_status.account_move_search_view
+msgid "Partially Received"
+msgstr "Partiellement reçu"
+
+#. module: account_invoice_receipt_status
+#: model_terms:ir.ui.view,arch_db:account_invoice_receipt_status.account_move_line_search_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_receipt_status.account_move_search_view
+msgid "Pending Receipts"
+msgstr "Réceptions en attente"
+
+#. module: account_invoice_receipt_status
+#: model:ir.model.fields,field_description:account_invoice_receipt_status.field_account_bank_statement_line__receipt_status
+#: model:ir.model.fields,field_description:account_invoice_receipt_status.field_account_move__receipt_status
+#: model:ir.model.fields,field_description:account_invoice_receipt_status.field_account_move_line__receipt_status
+#: model:ir.model.fields,field_description:account_invoice_receipt_status.field_account_payment__receipt_status
+#: model_terms:ir.ui.view,arch_db:account_invoice_receipt_status.account_move_line_search_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_receipt_status.account_move_search_view
+msgid "Receipt Status"
+msgstr "Statut de réception"

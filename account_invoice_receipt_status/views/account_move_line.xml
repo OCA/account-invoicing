@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="account_move_line_form_view" model="ir.ui.view">
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_form" />
+        <field name="arch" type="xml">
+            <field name="blocked" position="after">
+                <field name="purchase_line_id" invisible="1" />
+                <field
+                    name="receipt_status"
+                    widget="badge"
+                    decoration-info="receipt_status == 'pending'"
+                    decoration-warning="receipt_status == 'partial'"
+                    decoration-success="receipt_status == 'full'"
+                    attrs="{'invisible': [('purchase_line_id', '=', False)]}"
+                />
+                </field>
+        </field>
+    </record>
+
+    <record id="account_move_line_search_view" model="ir.ui.view">
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_account_move_line_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='misc_filter']" position="after">
+                <separator string="Receipt Status" />
+                <filter
+                    name="filter_no"
+                    string="Nothing to Receive"
+                    domain="[('receipt_status','=',False)]"
+                />
+                <filter
+                    name="filter_pending"
+                    string="Pending Receipts"
+                    domain="[('receipt_status','=','pending')]"
+                />
+                <filter
+                    name="filter_partial"
+                    string="Partially Received"
+                    domain="[('receipt_status','=','partial')]"
+                />
+                <filter
+                    name="filter_received"
+                    string="Fully Received"
+                    domain="[('receipt_status','=','full')]"
+                />
+                <separator />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_move_line_tree_view" model="ir.ui.view">
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree" />
+        <field name="arch" type="xml">
+           <field name="move_type" position="before">
+                <field
+                    name="receipt_status"
+                    widget="badge"
+                    decoration-info="receipt_status == 'pending'"
+                    decoration-warning="receipt_status == 'partial'"
+                    decoration-success="receipt_status == 'full'"
+                    optional="hide"
+                />
+            </field>
+        </field>
+    </record>
+
+</odoo>
