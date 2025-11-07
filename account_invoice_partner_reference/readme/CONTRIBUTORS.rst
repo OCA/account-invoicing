@@ -1,2 +1,0 @@
-- [Binhex Cloud] (https://www.binhex.cloud):
-  - Edilio Escalona Almira <e.escalona@binhex.cloud>
