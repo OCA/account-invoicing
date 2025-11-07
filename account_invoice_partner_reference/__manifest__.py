@@ -3,8 +3,8 @@
 
 {
     "name": "Add partner reference",
-    "summary": "Add partner reference in the billing tree view.",
-    "version": "16.0.1.0.0",
+    "summary": "Add partner reference in the billing list view.",
+    "version": "18.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Binhex, Odoo Community Association (OCA)",
