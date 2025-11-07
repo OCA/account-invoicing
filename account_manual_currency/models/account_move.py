@@ -54,7 +54,7 @@ class AccountMove(models.Model):
                     rec.amount_total,
                     rec.company_currency_id,
                     rec.company_id,
-                    fields.Date.today(),
+                    rec._get_invoice_currency_rate_date(),
                 )
 
     def _get_label_currency_name(self):
