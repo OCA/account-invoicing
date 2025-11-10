@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_customerinfo_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-12-09 13:43+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
+
+#. module: product_customerinfo_invoice
+#: model:ir.model,name:product_customerinfo_invoice.model_account_move_line
+msgid "Journal Item"
+msgstr "Movimento contabile"
+
+#. module: product_customerinfo_invoice
+#: model:ir.model.fields,field_description:product_customerinfo_invoice.field_account_move_line__partner_show_customer_code
+msgid "Partner Show Customer Code"
+msgstr "Visualizza codice cliente partner"
+
+#. module: product_customerinfo_invoice
+#: model:ir.model.fields,field_description:product_customerinfo_invoice.field_account_move_line__product_customer_code
+msgid "Product Customer Code"
+msgstr "Codice prodotto cliente"
