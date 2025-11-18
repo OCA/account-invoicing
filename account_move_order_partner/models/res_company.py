@@ -7,4 +7,4 @@ from odoo import fields, models
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    invoice_group_by_sale_partner = fields.Boolean()
+    invoice_group_by_order_partner = fields.Boolean()

@@ -4,21 +4,23 @@
 from odoo.tools.sql import column_exists
 
 
-def pre_init_hook(cr):
-    if not column_exists(cr, "account_move", "partner_sale_id"):
-        cr.execute(
+def pre_init_hook(env):
+    if not column_exists(env.cr, "account_move", "order_partner_id"):
+        env.cr.execute(
             """
             ALTER TABLE account_move
-            ADD COLUMN partner_sale_id INTEGER REFERENCES res_partner(id) ON DELETE SET NULL;
-        """
+                ADD COLUMN order_partner_id INTEGER
+                REFERENCES res_partner(id)
+                ON DELETE SET NULL;
+            """
         )
-    cr.execute(
+    env.cr.execute(
         """
         WITH spc AS (
             SELECT
                 am.id AS move_id,
-                COUNT(DISTINCT so.partner_id) AS cnt,
-                MIN(so.partner_id) AS single_partner_id
+                COUNT(DISTINCT sol.order_partner_id) AS cnt,
+                MIN(sol.order_partner_id) AS single_partner_id
             FROM account_move am
             LEFT JOIN account_move_line aml
                    ON aml.move_id = am.id
@@ -26,13 +28,11 @@ def pre_init_hook(cr):
                    ON rel.invoice_line_id = aml.id
             LEFT JOIN sale_order_line sol
                    ON sol.id = rel.order_line_id
-            LEFT JOIN sale_order so
-                   ON so.id = sol.order_id
             WHERE am.move_type IN ('out_invoice', 'out_refund')
             GROUP BY am.id
         )
         UPDATE account_move am
-        SET partner_sale_id = CASE
+        SET order_partner_id = CASE
             WHEN spc.cnt = 1 AND spc.single_partner_id IS NOT NULL
                 THEN spc.single_partner_id
             ELSE am.partner_id
@@ -40,6 +40,6 @@ def pre_init_hook(cr):
         FROM spc
         WHERE am.id = spc.move_id
           AND am.move_type IN ('out_invoice', 'out_refund')
-          AND am.partner_sale_id IS NULL;
+          AND am.order_partner_id IS NULL;
         """
     )

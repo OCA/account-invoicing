@@ -10,11 +10,11 @@ class SaleOrder(models.Model):
     def _prepare_invoice(self):
         vals = super()._prepare_invoice()
         # Set for use in _get_invoice_grouping_keys
-        vals["partner_sale_id"] = self.partner_id.id
+        vals["order_partner_id"] = self.partner_id.id
         return vals
 
     def _get_invoice_grouping_keys(self):
         keys = super()._get_invoice_grouping_keys()
-        if self.env.company.invoice_group_by_sale_partner:
-            keys.append("partner_sale_id")
+        if self.env.company.invoice_group_by_order_partner:
+            keys.append("order_partner_id")
         return keys
