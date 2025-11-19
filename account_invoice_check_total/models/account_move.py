@@ -4,6 +4,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_compare
+from odoo.tools.misc import format_amount
 
 GROUP_AICT = "account_invoice_check_total.group_supplier_inv_check_total"
 
@@ -48,9 +49,17 @@ class AccountMove(models.Model):
                         "There is a difference of %(diff)s"
                     )
                     % {
-                        "amount_total": inv.amount_total,
-                        "check_total": inv.check_total,
-                        "diff": inv.check_total_display_difference,
+                        "amount_total": format_amount(
+                            self.env, inv.amount_total, inv.currency_id
+                        ),
+                        "check_total": format_amount(
+                            self.env, inv.check_total, inv.currency_id
+                        ),
+                        "diff": format_amount(
+                            self.env,
+                            inv.check_total_display_difference,
+                            inv.currency_id,
+                        ),
                     }
                 )
         return super().action_post()
