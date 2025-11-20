@@ -5,8 +5,6 @@
         <field name="name">account.move.send - Mass sending</field>
         <field name="model">account.move.send</field>
         <field name="type">form</field>
-        <field name="inherit_id" ref="base.view_view_form" />
-        <field name="priority">100</field>
         <field name="arch" type="xml">
             <form string="Send Move">
                 <sheet>
@@ -23,7 +21,7 @@
                         string="📧 Email mass sending (Job Queue)"
                         type="object"
                         class="btn-primary"
-                        attrs="{'invisible': [('checkbox_send_mail', '=', False), ('mail_template_id', '=', False)]}"
+                        attrs="{'invisible': [('checkbox_send_mail', '=', False)]}"
                     />
                     <button
                         name="action_send_and_print"
