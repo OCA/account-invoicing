@@ -27,7 +27,40 @@ class AccountMoveSendBatchWizard(models.TransientModel):
                 },
             }
         
-        invoices_to_send = invoices.mass_sending(self.mail_template_id)
+        # En wizard batch, el template viene de los move_ids (facturas)
+        # Obtenemos el primer template válido
+        mail_template = None
+        
+        # Intentar obtener el template del contexto o del primer move
+        if self.move_ids:
+            # Si hay relación move_ids, usar su template
+            for move in self.move_ids:
+                # Intentar obtener template del wizard individual asociado
+                if hasattr(move, 'mail_template_id'):
+                    mail_template = move.mail_template_id
+                    break
+        
+        # Si no hay template, usar el por defecto del módulo account
+        if not mail_template:
+            # Obtener template por defecto para facturas
+            mail_template = self.env.ref(
+                'account.email_template_edi_invoice', 
+                raise_if_not_found=False
+            )
+        
+        if not mail_template:
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "title": _("Error"),
+                    "message": _("No email template found for batch sending."),
+                    "type": "danger",
+                    "next": {"type": "ir.actions.act_window_close"},
+                },
+            }
+        
+        invoices_to_send = invoices.mass_sending(mail_template)
         ineligible_invoices = invoices - invoices_to_send
         
         title = _("Invoices: Mass sending")

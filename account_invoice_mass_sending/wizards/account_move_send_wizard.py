@@ -27,7 +27,23 @@ class AccountMoveSendWizard(models.TransientModel):
                 },
             }
         
-        invoices_to_send = invoices.mass_sending(self.mail_template_id)
+        # En wizard individual, siempre hay mail_template_id
+        mail_template = self.mail_template_id
+        
+        if not mail_template:
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "title": _("Error"),
+                    "message": _("No email template selected."),
+                    "type": "danger",
+                    "next": {"type": "ir.actions.act_window_close"},
+                },
+            }
+        
+        # Llamar al método mass_sending del modelo account.move
+        invoices_to_send = invoices.mass_sending(mail_template)
         
         return {
             "type": "ir.actions.client",
