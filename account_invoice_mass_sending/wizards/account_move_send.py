@@ -4,7 +4,7 @@
 from odoo import _, api, models
 
 
-class AccountMoveSendMassSending(models.Model):
+class AccountMoveSendMassSending(models.AbstractModel):
     """Mixin para agregar funcionalidad de envío masivo a account.move.send"""
     
     _inherit = "account.move.send"
