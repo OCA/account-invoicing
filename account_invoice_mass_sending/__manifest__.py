@@ -1,6 +1,3 @@
-# Copyright 2019 ACSONE SA/NV
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 {
     "name": "Account Invoice Mass Sending",
     "summary": "Mass sending feature for invoices",
@@ -10,15 +7,13 @@
     "author": "ACSONE SA/NV, Odoo Community Association (OCA), Open Net Sàrl",
     "website": "https://github.com/OCA/account-invoicing",
     "depends": [
-        # ODOO
         "account",
-        # OCA
         "queue_job",
     ],
     "data": [
         "data/queue_job.xml",
         "views/account_invoice_views.xml",
-        # "wizards/account_move_send.xml",  # COMENTADO: No hay vista en v18
+        "wizards/account_move_send.xml",  # DESCOMENTADO
     ],
     "installable": True,
     "maintainers": ["jguenat"],
