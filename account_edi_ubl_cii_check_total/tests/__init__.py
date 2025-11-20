@@ -1,0 +1,1 @@
+from . import test_account_edi_ubl_cii_supplier_check_total
