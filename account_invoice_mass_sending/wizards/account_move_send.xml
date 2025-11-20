@@ -5,6 +5,7 @@
         <field name="model">account.move.send</field>
         <field name="inherit_id" ref="account.account_move_send_form" />
         <field name="arch" type="xml">
+            <!-- Add mass sending button before standard send button -->
             <button name="action_send_and_print" position="before">
                 <button
                     name="enqueue_invoices"

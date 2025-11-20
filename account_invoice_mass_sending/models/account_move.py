@@ -1,7 +1,7 @@
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 
 
 class AccountMove(models.Model):
@@ -15,9 +15,11 @@ class AccountMove(models.Model):
 
     def mass_sending(self, template=None):
         """
-        This method triggers the asynchronous sending for the selected
-        invoices for which there is no asynchronous sending in progress
-        and an email address is defined.
+        Trigger asynchronous sending for selected invoices.
+        
+        Only sends invoices that:
+        - Are not already being sent
+        - Have a partner email address
         """
         invoices_to_send = self.filtered(
             lambda i: not i.sending_in_progress and i.partner_id.email
@@ -37,9 +39,12 @@ class AccountMove(models.Model):
         return invoices_to_send
 
     def _send_invoice_individually(self, template=None):
+        """Send a single invoice using account.move.send wizard."""
         self.ensure_one()
-        res = self.action_invoice_sent()
-        wiz_ctx = res["context"] or {}
+        
+        # Get the action from account.move
+        res = self.action_post_open()
+        wiz_ctx = res.get("context") or {}
         wiz_ctx.update(
             {
                 "active_model": self._name,
@@ -47,25 +52,32 @@ class AccountMove(models.Model):
                 # mimicking how direct call to ir.actions.act_window works
                 "active_ids": self.ids,
                 "active_id": self.id,
-                "discard_logo_check": True,
                 "account_invoice_mass_sending": True,
             }
         )
+        
+        # Create wizard with proper context
+        wiz_vals = {
+            "checkbox_download": False,
+            "checkbox_send_mail": True,
+            "mode": "invoice_single",
+        }
+        
+        # Add template only if provided
+        if template:
+            wiz_vals["mail_template_id"] = template.id
+        
         wiz = (
             self.env["account.move.send"]
             .with_context(**wiz_ctx)
-            .create(
-                {
-                    "checkbox_download": False,
-                    "checkbox_send_mail": True,
-                    "mode": "invoice_single",
-                    "mail_template_id": template.id,
-                }
-            )
+            .create(wiz_vals)
         )
+        
+        # Mark as no longer in progress
         self.write(
             {
                 "sending_in_progress": False,
             }
         )
+        
         return wiz.action_send_and_print(allow_fallback_pdf=True)

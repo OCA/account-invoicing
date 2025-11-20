@@ -3,9 +3,9 @@
 
 {
     "name": "Account Invoice Mass Sending",
-    "summary": """
-        This addon adds a mass sending feature on invoices.""",
+    "summary": "Mass sending feature for invoices",
     "version": "18.0.1.0.0",
+    "category": "Accounting",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV, Odoo Community Association (OCA), Open Net Sàrl",
     "website": "https://github.com/OCA/account-invoicing",
@@ -20,5 +20,7 @@
         "views/account_invoice_views.xml",
         "wizards/account_move_send.xml",
     ],
+    "installable": True,
     "maintainers": ["jguenat"],
+    "development_status": "Beta",
 }
