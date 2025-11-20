@@ -6,6 +6,8 @@ from odoo import _, api, models
 
 class AccountMoveSend(models.TransientModel):
     _inherit = "account.move.send"
+    _name = "account.move.send"
+    _description = "Account Move Send - Mass Sending"
 
     def enqueue_invoices(self):
         """
