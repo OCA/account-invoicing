@@ -18,7 +18,7 @@
     "data": [
         "data/queue_job.xml",
         "views/account_invoice_views.xml",
-        "wizards/account_move_send.xml",
+        # "wizards/account_move_send.xml",  # COMENTADO: No hay vista en v18
     ],
     "installable": True,
     "maintainers": ["jguenat"],
