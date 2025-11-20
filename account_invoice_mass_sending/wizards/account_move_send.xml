@@ -6,7 +6,7 @@
         <field name="name">account.move.send.wizard - Mass sending</field>
         <field name="model">account.move.send.wizard</field>
         <field name="type">form</field>
-        <field name="inherit_id" ref="account.view_move_send_wizard" />
+        <field name="inherit_id" ref="account.account_move_send_wizard_form" />
         <field name="arch" type="xml">
             <button name="action_send_and_print" position="before">
                 <button
@@ -24,7 +24,7 @@
         <field name="name">account.move.send.batch.wizard - Mass sending</field>
         <field name="model">account.move.send.batch.wizard</field>
         <field name="type">form</field>
-        <field name="inherit_id" ref="account.view_move_send_batch_wizard" />
+        <field name="inherit_id" ref="account.account_move_send_batch_wizard_form" />
         <field name="arch" type="xml">
             <button name="action_send_and_print" position="before">
                 <button
