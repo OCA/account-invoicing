@@ -4,10 +4,10 @@
 from odoo import _, api, models
 
 
-class AccountMoveSend(models.TransientModel):
+class AccountMoveSendMassSending(models.Model):
+    """Mixin para agregar funcionalidad de envío masivo a account.move.send"""
+    
     _inherit = "account.move.send"
-    _name = "account.move.send"
-    _description = "Account Move Send - Mass Sending"
 
     def enqueue_invoices(self):
         """
