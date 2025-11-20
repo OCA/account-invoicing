@@ -5,7 +5,7 @@
     "version": "18.0.1.0.2",
     "summary": "Add partner pricelist on invoices",
     "category": "Accounting & Finance",
-    "author": "GRAP," "Therp BV," "Tecnativa," "Odoo Community Association (OCA)",
+    "author": "GRAP,Therp BV,Tecnativa,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
     "depends": ["account", "sale_management"],
