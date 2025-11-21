@@ -61,19 +61,31 @@ class AccountMove(models.Model):
             if not mail_template:
                 raise UserError(_("No email template found for sending invoices."))
             
-            # Preparar valores del email
-            mail_values = mail_template.generate_email(self.id)
+            # Preparar valores del email usando _render_template()
+            mail_values = mail_template._render_template(
+                mail_template.body_html,
+                'account.move',
+                self.id,
+            )
+            
+            subject = mail_template._render_template(
+                mail_template.subject,
+                'account.move',
+                self.id,
+            )
+            
+            # Obtener destinatario
+            email_to = self.partner_id.email or ''
+            email_from = mail_template.email_from or self.env.company.email
             
             # Crear el registro de email
             mail = self.env['mail.mail'].sudo().create({
-                'subject': mail_values.get('subject'),
-                'body_html': mail_values.get('body_html'),
-                'email_from': mail_values.get('email_from'),
-                'email_to': mail_values.get('email_to'),
-                'reply_to': mail_values.get('reply_to'),
+                'subject': subject,
+                'body_html': mail_values,
+                'email_from': email_from,
+                'email_to': email_to,
                 'model': 'account.move',
                 'res_id': self.id,
-                'attachment_ids': [(6, 0, mail_values.get('attachment_ids', []))],
             })
             
             # Enviar el email directamente
@@ -81,7 +93,7 @@ class AccountMove(models.Model):
             
             # Crear registro de seguimiento
             self.message_post(
-                body=_("Invoice sent by email to %(email)s", email=self.partner_id.email),
+                body=_("Invoice sent by email to %(email)s", email=email_to),
                 message_type='notification',
             )
             
