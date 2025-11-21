@@ -61,8 +61,18 @@ class AccountMove(models.Model):
             if not mail_template:
                 raise UserError(_("No email template found for sending invoices."))
             
-            # Enviar email usando send_mail() del template
-            mail_template.send_mail(self.id, force_send=True)
+            # Crear el email usando send_mail pero capturamos el ID
+            # send_mail devuelve el ID del mail creado
+            mail_id = mail_template.send_mail(self.id, force_send=False)
+            
+            # Obtener el registro del mail creado
+            mail = self.env['mail.mail'].sudo().browse(mail_id)
+            
+            # ENVIAR EL EMAIL DIRECTAMENTE
+            mail.send(force_send=True)
+            
+            # Marcar la factura como enviada
+            self.sudo().is_move_sent = True
             
             # Crear registro de seguimiento
             self.message_post(
