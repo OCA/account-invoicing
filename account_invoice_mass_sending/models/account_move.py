@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class AccountMove(models.Model):
@@ -39,28 +40,69 @@ class AccountMove(models.Model):
         return invoices_to_send
 
     def _send_invoice_individually(self, template=None):
-        """Send a single invoice using the account.move.send wizard."""
+        """Send a single invoice by email directly without using Odoo cron."""
         self.ensure_one()
         
         try:
-            # En Odoo 18, usar action_post() si está en draft
+            # Publicar factura si está en borrador
             if self.state == 'draft':
                 self.action_post()
             
-            # Usar action_send_invoice_mail() que es el método estándar de Odoo
-            # para enviar la factura por email
-            result = self.sudo().action_send_invoice_mail()
+            # Obtener el template a usar
+            mail_template = template
+            
+            # Si no hay template, usar el por defecto
+            if not mail_template:
+                mail_template = self.env.ref(
+                    'account.email_template_edi_invoice',
+                    raise_if_not_found=False
+                )
+            
+            if not mail_template:
+                raise UserError(_("No email template found for sending invoices."))
+            
+            # Preparar valores del email
+            mail_values = mail_template.generate_email(self.id)
+            
+            # Crear el registro de email
+            mail = self.env['mail.mail'].sudo().create({
+                'subject': mail_values.get('subject'),
+                'body_html': mail_values.get('body_html'),
+                'email_from': mail_values.get('email_from'),
+                'email_to': mail_values.get('email_to'),
+                'reply_to': mail_values.get('reply_to'),
+                'model': 'account.move',
+                'res_id': self.id,
+                'attachment_ids': [(6, 0, mail_values.get('attachment_ids', []))],
+            })
+            
+            # Enviar el email directamente
+            mail.sudo().send(force_send=True)
+            
+            # Crear registro de seguimiento
+            self.message_post(
+                body=_("Invoice sent by email to %(email)s", email=self.partner_id.email),
+                message_type='notification',
+            )
             
             # Marcar como completado
             self.write({
                 "sending_in_progress": False,
             })
             
-            return result
+            return True
             
         except Exception as e:
-            # Si falla, marcar como no en progreso
+            # Si falla, marcar como no en progreso y registrar el error
             self.write({
                 "sending_in_progress": False,
             })
+            
+            # Registrar el error en el seguimiento
+            self.message_post(
+                body=_("Error sending invoice by email: %(error)s", error=str(e)),
+                message_type='notification',
+                subtype_xmlid='mail.mt_comment',
+            )
+            
             raise
