@@ -40,7 +40,7 @@ class AccountMove(models.Model):
         return invoices_to_send
 
     def _send_invoice_individually(self, template=None):
-        """Send a single invoice using the native Odoo action but in background job."""
+        """Send a single invoice using action_send_and_print() in background job."""
         self.ensure_one()
         
         try:
@@ -48,21 +48,9 @@ class AccountMove(models.Model):
             if self.state == 'draft':
                 self.action_post()
             
-            # Usar el wizard nativo de Odoo pero sin interfaz de usuario
-            # Esto es lo que hace el botón "Enviar" manualmente
-            ctx = {
-                'active_model': 'account.move',
-                'active_ids': self.ids,
-                'active_id': self.id,
-            }
-            
-            # Crear el wizard con sudo() para permisos
-            wizard = self.env['account.move.send'].sudo().with_context(**ctx).create({
-                'checkbox_send_mail': True,
-            })
-            
-            # Ejecutar directamente sin interfaz
-            wizard.sudo().action_send_and_print()
+            # Llamar directamente al método de envío nativo de Odoo
+            # Este es el que se ejecuta cuando presionas el botón "Enviar"
+            self.sudo().action_send_and_print()
             
             # Marcar como completado
             self.write({
