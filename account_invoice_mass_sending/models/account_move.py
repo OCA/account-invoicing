@@ -52,9 +52,17 @@ class AccountMove(models.Model):
             # Esto envía SOLO la factura, sin batch mode
             self.sudo().action_send_invoice_mail()
             
-            # Marcar la factura como enviada para limpiar el estado
+            # Borrar la actividad de envío pendiente que mantiene el estado
             # "Esta factura se envía en segundo plano"
-            self.sudo().message_post(
+            activities = self.env['mail.activity'].sudo().search([
+                ('res_model', '=', 'account.move'),
+                ('res_id', '=', self.id),
+                ('activity_type_id.name', 'ilike', 'send'),
+            ])
+            activities.unlink()
+            
+            # Registrar en el chatter
+            self.message_post(
                 body=_("Invoice sent by email to %(email)s", email=self.partner_id.email),
                 message_type='notification',
             )
