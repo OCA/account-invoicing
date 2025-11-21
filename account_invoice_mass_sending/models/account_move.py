@@ -39,7 +39,7 @@ class AccountMove(models.Model):
         return invoices_to_send
 
     def _send_invoice_individually(self, template=None):
-        """Send a single invoice by email directly."""
+        """Send a single invoice using the account.move.send wizard."""
         self.ensure_one()
         
         try:
@@ -47,19 +47,18 @@ class AccountMove(models.Model):
             if self.state == 'draft':
                 self.action_post()
             
-            # Obtener el template a usar
-            mail_template = template
+            # Usar action_open_send_wizard() que es el método estándar de Odoo
+            # para abrir el wizard de envío
+            action = self.sudo().action_open_send_wizard()
             
-            # Si no hay template, usar el por defecto
-            if not mail_template:
-                mail_template = self.env.ref(
-                    'account.email_template_edi_invoice',
-                    raise_if_not_found=False
-                )
-            
-            # Enviar email si hay template
-            if mail_template:
-                mail_template.send_mail(self.id, force_send=True)
+            # Si la acción retorna un diccionario con 'res_id', significa que
+            # el wizard se creó, entonces ejecutamos la acción de envío
+            if action and isinstance(action, dict):
+                # Obtener el wizard ID del contexto si existe
+                if 'res_id' in action:
+                    wizard = self.env['account.move.send'].sudo().browse(action['res_id'])
+                    # Ejecutar el envío
+                    wizard.action_send_and_print()
             
             # Marcar como completado
             self.write({
