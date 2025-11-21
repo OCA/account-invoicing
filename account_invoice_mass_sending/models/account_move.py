@@ -52,14 +52,16 @@ class AccountMove(models.Model):
             # Esto envía SOLO la factura, sin batch mode
             self.sudo().action_send_invoice_mail()
             
-            # Borrar la actividad de envío pendiente que mantiene el estado
-            # "Esta factura se envía en segundo plano"
-            activities = self.env['mail.activity'].sudo().search([
-                ('res_model', '=', 'account.move'),
+            # SIMULAR lo que hace el cron de Odoo:
+            # Marcar todos los mail.mail relacionados como enviados
+            mails = self.env['mail.mail'].sudo().search([
+                ('model', '=', 'account.move'),
                 ('res_id', '=', self.id),
-                ('activity_type_id.name', 'ilike', 'send'),
+                ('state', 'in', ['outgoing', 'pending']),
             ])
-            activities.unlink()
+            
+            # Enviar los mails directamente
+            mails.send()
             
             # Registrar en el chatter
             self.message_post(
