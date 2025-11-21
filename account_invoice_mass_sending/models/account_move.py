@@ -64,9 +64,11 @@ class AccountMove(models.Model):
             if template:
                 wiz_vals["mail_template_id"] = template.id
             
-            # Crear wizard
+            # Crear wizard con sudo() para permisos de administrador
+            # Necesario cuando se ejecuta desde background job/cron
             wiz = (
                 self.env["account.move.send"]
+                .sudo()
                 .with_context(**wiz_ctx)
                 .create(wiz_vals)
             )
@@ -76,8 +78,8 @@ class AccountMove(models.Model):
                 "sending_in_progress": False,
             })
             
-            # Ejecutar acción de envío
-            return wiz.action_send_and_print(allow_fallback_pdf=True)
+            # Ejecutar acción de envío con sudo()
+            return wiz.sudo().action_send_and_print(allow_fallback_pdf=True)
             
         except Exception as e:
             # Si falla, marcar como no en progreso
