@@ -40,7 +40,7 @@ class AccountMove(models.Model):
         return invoices_to_send
 
     def _send_invoice_individually(self, template=None):
-        """Send a single invoice by email directly without using Odoo cron."""
+        """Send a single invoice by email directly without using Odoo native methods."""
         self.ensure_one()
         
         try:
@@ -48,27 +48,46 @@ class AccountMove(models.Model):
             if self.state == 'draft':
                 self.action_post()
             
-            # Obtener el template a usar
-            mail_template = template
+            # Obtener destinatario
+            if not self.partner_id.email:
+                raise UserError(_("Partner has no email address"))
             
-            # Si no hay template, usar el por defecto
-            if not mail_template:
-                mail_template = self.env.ref(
-                    'account.email_template_edi_invoice',
-                    raise_if_not_found=False
-                )
+            email_to = self.partner_id.email
             
-            if not mail_template:
-                raise UserError(_("No email template found for sending invoices."))
+            # Obtener email remitente
+            email_from = self.env.company.email or self.env.user.email
+            if not email_from:
+                raise UserError(_("No sender email configured"))
             
-            # Crear el email usando send_mail pero capturamos el ID
-            # send_mail devuelve el ID del mail creado
-            mail_id = mail_template.send_mail(self.id, force_send=False)
+            # Preparar asunto
+            subject = _("Invoice %s") % self.name
             
-            # Obtener el registro del mail creado
-            mail = self.env['mail.mail'].sudo().browse(mail_id)
+            # Preparar cuerpo del email (simple)
+            body_html = _("""
+                <p>Dear %(partner_name)s,</p>
+                <p>Please find attached the invoice <strong>%(invoice_name)s</strong>.</p>
+                <p>Amount due: %(amount)s</p>
+                <br/>
+                <p>Best regards,</p>
+                <p>%(company_name)s</p>
+            """) % {
+                'partner_name': self.partner_id.name,
+                'invoice_name': self.name,
+                'amount': self.amount_total,
+                'company_name': self.env.company.name,
+            }
             
-            # ENVIAR EL EMAIL DIRECTAMENTE (sin force_send)
+            # Crear email DIRECTAMENTE sin usar el template estándar
+            mail = self.env['mail.mail'].sudo().create({
+                'subject': subject,
+                'body_html': body_html,
+                'email_from': email_from,
+                'email_to': email_to,
+                'model': 'account.move',
+                'res_id': self.id,
+            })
+            
+            # ENVIAR EL EMAIL DIRECTAMENTE
             mail.send()
             
             # Marcar la factura como enviada
@@ -76,7 +95,7 @@ class AccountMove(models.Model):
             
             # Crear registro de seguimiento
             self.message_post(
-                body=_("Invoice sent by email to %(email)s", email=self.partner_id.email),
+                body=_("Invoice sent by email to %(email)s", email=email_to),
                 message_type='notification',
             )
             
@@ -100,3 +119,4 @@ class AccountMove(models.Model):
                 subtype_xmlid='mail.mt_comment',
             )
             
+            raise
