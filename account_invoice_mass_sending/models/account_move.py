@@ -68,8 +68,8 @@ class AccountMove(models.Model):
             # Obtener el registro del mail creado
             mail = self.env['mail.mail'].sudo().browse(mail_id)
             
-            # ENVIAR EL EMAIL DIRECTAMENTE
-            mail.send(force_send=True)
+            # ENVIAR EL EMAIL DIRECTAMENTE (sin force_send)
+            mail.send()
             
             # Marcar la factura como enviada
             self.sudo().is_move_sent = True
@@ -100,4 +100,3 @@ class AccountMove(models.Model):
                 subtype_xmlid='mail.mt_comment',
             )
             
-            raise
