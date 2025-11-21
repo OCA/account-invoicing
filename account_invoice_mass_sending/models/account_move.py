@@ -42,42 +42,46 @@ class AccountMove(models.Model):
         """Send a single invoice using account.move.send wizard."""
         self.ensure_one()
         
-        # Get the action from account.move
-        res = self.action_post_open()
-        wiz_ctx = res.get("context") or {}
-        wiz_ctx.update(
-            {
+        try:
+            # En Odoo 18, usar action_post() si está en draft
+            if self.state == 'draft':
+                self.action_post()
+            
+            # Preparar contexto del wizard
+            wiz_ctx = {
                 "active_model": self._name,
-                # Setting both active_id and active_ids is required,
-                # mimicking how direct call to ir.actions.act_window works
                 "active_ids": self.ids,
                 "active_id": self.id,
                 "account_invoice_mass_sending": True,
             }
-        )
-        
-        # Create wizard with proper context
-        wiz_vals = {
-            "checkbox_download": False,
-            "checkbox_send_mail": True,
-            "mode": "invoice_single",
-        }
-        
-        # Add template only if provided
-        if template:
-            wiz_vals["mail_template_id"] = template.id
-        
-        wiz = (
-            self.env["account.move.send"]
-            .with_context(**wiz_ctx)
-            .create(wiz_vals)
-        )
-        
-        # Mark as no longer in progress
-        self.write(
-            {
-                "sending_in_progress": False,
+            
+            # Crear wizard con valores correctos
+            wiz_vals = {
+                "checkbox_send_mail": True,
             }
-        )
-        
-        return wiz.action_send_and_print(allow_fallback_pdf=True)
+            
+            # Agregar template si se proporciona
+            if template:
+                wiz_vals["mail_template_id"] = template.id
+            
+            # Crear wizard
+            wiz = (
+                self.env["account.move.send"]
+                .with_context(**wiz_ctx)
+                .create(wiz_vals)
+            )
+            
+            # Marcar como completado
+            self.write({
+                "sending_in_progress": False,
+            })
+            
+            # Ejecutar acción de envío
+            return wiz.action_send_and_print(allow_fallback_pdf=True)
+            
+        except Exception as e:
+            # Si falla, marcar como no en progreso
+            self.write({
+                "sending_in_progress": False,
+            })
+            raise
