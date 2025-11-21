@@ -56,13 +56,13 @@ class AccountMove(models.Model):
                 'active_id': self.id,
             }
             
-            # Crear el wizard con el contexto
-            wizard = self.env['account.move.send'].with_context(**ctx).create({
+            # Crear el wizard con sudo() para permisos
+            wizard = self.env['account.move.send'].sudo().with_context(**ctx).create({
                 'checkbox_send_mail': True,
             })
             
             # Ejecutar directamente sin interfaz
-            wizard.action_send_and_print()
+            wizard.sudo().action_send_and_print()
             
             # Marcar como completado
             self.write({
