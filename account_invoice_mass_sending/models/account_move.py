@@ -40,7 +40,7 @@ class AccountMove(models.Model):
         return invoices_to_send
 
     def _send_invoice_individually(self, template=None):
-        """Send a single invoice directly without batch mode."""
+        """Send a single invoice and mark it as sent to clear the banner."""
         self.ensure_one()
         
         try:
@@ -48,20 +48,12 @@ class AccountMove(models.Model):
             if self.state == 'draft':
                 self.action_post()
             
-            # USAR action_send_invoice_mail() directamente
-            # Esto envía SOLO la factura, sin batch mode
+            # USAR action_send_invoice_mail() para enviar
             self.sudo().action_send_invoice_mail()
             
-            # SIMULAR lo que hace el cron de Odoo:
-            # Marcar todos los mail.mail relacionados como enviados
-            mails = self.env['mail.mail'].sudo().search([
-                ('model', '=', 'account.move'),
-                ('res_id', '=', self.id),
-                ('state', 'in', ['outgoing', 'pending']),
-            ])
-            
-            # Enviar los mails directamente
-            mails.send()
+            # USAR action_invoice_sent() para limpiar el banner
+            # Este es el método que realmente limpia el estado "envío en segundo plano"
+            self.sudo().action_invoice_sent()
             
             # Registrar en el chatter
             self.message_post(
