@@ -40,7 +40,7 @@ class AccountMove(models.Model):
         return invoices_to_send
 
     def _send_invoice_individually(self, template=None):
-        """Send a single invoice and mark it as sent to clear the banner."""
+        """Send a single invoice directly by sending mail.mail records."""
         self.ensure_one()
         
         try:
@@ -48,11 +48,28 @@ class AccountMove(models.Model):
             if self.state == 'draft':
                 self.action_post()
             
-            # USAR action_send_invoice_mail() para enviar
+            # Crear el email usando action_send_invoice_mail()
             self.sudo().action_send_invoice_mail()
             
+            # ENVIAR DIRECTAMENTE los mails que se crearon
+            # Buscar los mails en estado "outgoing" relacionados con esta factura
+            mails = self.env['mail.mail'].sudo().search([
+                ('model', '=', 'account.move'),
+                ('res_id', '=', self.id),
+                ('state', 'in', ['outgoing', 'pending']),
+            ])
+            
+            # Enviar cada mail directamente
+            for mail in mails:
+                try:
+                    mail.send()
+                except Exception as mail_error:
+                    self.message_post(
+                        body=_("Error sending email: %(error)s", error=str(mail_error)),
+                        message_type='notification',
+                    )
+            
             # LIMPIAR sending_data para que desaparezca el banner
-            # Este es el campo que el wizard limpia en _generate_and_send_invoices()
             self.sudo().write({'sending_data': False})
             
             # Registrar en el chatter
