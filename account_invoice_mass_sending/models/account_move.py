@@ -47,25 +47,16 @@ class AccountMove(models.Model):
             if self.state == 'draft':
                 self.action_post()
             
-            # Usar action_open_send_wizard() que es el método estándar de Odoo
-            # para abrir el wizard de envío
-            action = self.sudo().action_open_send_wizard()
-            
-            # Si la acción retorna un diccionario con 'res_id', significa que
-            # el wizard se creó, entonces ejecutamos la acción de envío
-            if action and isinstance(action, dict):
-                # Obtener el wizard ID del contexto si existe
-                if 'res_id' in action:
-                    wizard = self.env['account.move.send'].sudo().browse(action['res_id'])
-                    # Ejecutar el envío
-                    wizard.action_send_and_print()
+            # Usar action_send_invoice_mail() que es el método estándar de Odoo
+            # para enviar la factura por email
+            result = self.sudo().action_send_invoice_mail()
             
             # Marcar como completado
             self.write({
                 "sending_in_progress": False,
             })
             
-            return True
+            return result
             
         except Exception as e:
             # Si falla, marcar como no en progreso
