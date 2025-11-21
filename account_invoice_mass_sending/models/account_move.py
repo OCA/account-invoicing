@@ -51,9 +51,9 @@ class AccountMove(models.Model):
             # USAR action_send_invoice_mail() para enviar
             self.sudo().action_send_invoice_mail()
             
-            # USAR action_invoice_sent() para limpiar el banner
-            # Este es el método que realmente limpia el estado "envío en segundo plano"
-            self.sudo().action_invoice_sent()
+            # LIMPIAR sending_data para que desaparezca el banner
+            # Este es el campo que el wizard limpia en _generate_and_send_invoices()
+            self.sudo().write({'sending_data': False})
             
             # Registrar en el chatter
             self.message_post(
@@ -73,6 +73,9 @@ class AccountMove(models.Model):
             self.write({
                 "sending_in_progress": False,
             })
+            
+            # Limpiar sending_data también en caso de error
+            self.sudo().write({'sending_data': {'error': True}})
             
             # Registrar el error en el seguimiento
             self.message_post(
