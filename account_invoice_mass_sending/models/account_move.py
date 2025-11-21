@@ -40,7 +40,7 @@ class AccountMove(models.Model):
         return invoices_to_send
 
     def _send_invoice_individually(self, template=None):
-        """Send a single invoice using action_send_and_print() in background job."""
+        """Send a single invoice directly without batch mode."""
         self.ensure_one()
         
         try:
@@ -48,9 +48,9 @@ class AccountMove(models.Model):
             if self.state == 'draft':
                 self.action_post()
             
-            # Llamar directamente al método de envío nativo de Odoo
-            # Este es el que se ejecuta cuando presionas el botón "Enviar"
-            self.sudo().action_send_and_print()
+            # USAR action_send_invoice_mail() directamente
+            # Esto envía SOLO la factura, sin batch mode
+            self.sudo().action_send_invoice_mail()
             
             # Marcar como completado
             self.write({
