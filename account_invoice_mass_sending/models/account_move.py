@@ -39,7 +39,7 @@ class AccountMove(models.Model):
         return invoices_to_send
 
     def _send_invoice_individually(self, template=None):
-        """Send a single invoice using account.move.send wizard."""
+        """Send a single invoice by email directly."""
         self.ensure_one()
         
         try:
@@ -47,39 +47,26 @@ class AccountMove(models.Model):
             if self.state == 'draft':
                 self.action_post()
             
-            # Preparar contexto del wizard
-            wiz_ctx = {
-                "active_model": self._name,
-                "active_ids": self.ids,
-                "active_id": self.id,
-                "account_invoice_mass_sending": True,
-            }
+            # Obtener el template a usar
+            mail_template = template
             
-            # Crear wizard con valores correctos
-            wiz_vals = {
-                "checkbox_send_mail": True,
-            }
+            # Si no hay template, usar el por defecto
+            if not mail_template:
+                mail_template = self.env.ref(
+                    'account.email_template_edi_invoice',
+                    raise_if_not_found=False
+                )
             
-            # Agregar template si se proporciona
-            if template:
-                wiz_vals["mail_template_id"] = template.id
-            
-            # Crear wizard con sudo() para permisos de administrador
-            # Necesario cuando se ejecuta desde background job/cron
-            wiz = (
-                self.env["account.move.send"]
-                .sudo()
-                .with_context(**wiz_ctx)
-                .create(wiz_vals)
-            )
+            # Enviar email si hay template
+            if mail_template:
+                mail_template.send_mail(self.id, force_send=True)
             
             # Marcar como completado
             self.write({
                 "sending_in_progress": False,
             })
             
-            # Ejecutar acción de envío con sudo()
-            return wiz.sudo().action_send_and_print(allow_fallback_pdf=True)
+            return True
             
         except Exception as e:
             # Si falla, marcar como no en progreso
