@@ -52,6 +52,13 @@ class AccountMove(models.Model):
             # Esto envía SOLO la factura, sin batch mode
             self.sudo().action_send_invoice_mail()
             
+            # Marcar la factura como enviada para limpiar el estado
+            # "Esta factura se envía en segundo plano"
+            self.sudo().message_post(
+                body=_("Invoice sent by email to %(email)s", email=self.partner_id.email),
+                message_type='notification',
+            )
+            
             # Marcar como completado
             self.write({
                 "sending_in_progress": False,
