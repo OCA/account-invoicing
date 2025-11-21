@@ -40,7 +40,7 @@ class AccountMove(models.Model):
         return invoices_to_send
 
     def _send_invoice_individually(self, template=None):
-        """Send a single invoice by email directly without using Odoo native methods."""
+        """Send a single invoice using the native Odoo action but in background job."""
         self.ensure_one()
         
         try:
@@ -48,56 +48,21 @@ class AccountMove(models.Model):
             if self.state == 'draft':
                 self.action_post()
             
-            # Obtener destinatario
-            if not self.partner_id.email:
-                raise UserError(_("Partner has no email address"))
-            
-            email_to = self.partner_id.email
-            
-            # Obtener email remitente
-            email_from = self.env.company.email or self.env.user.email
-            if not email_from:
-                raise UserError(_("No sender email configured"))
-            
-            # Preparar asunto
-            subject = _("Invoice %s") % self.name
-            
-            # Preparar cuerpo del email (simple)
-            body_html = _("""
-                <p>Dear %(partner_name)s,</p>
-                <p>Please find attached the invoice <strong>%(invoice_name)s</strong>.</p>
-                <p>Amount due: %(amount)s</p>
-                <br/>
-                <p>Best regards,</p>
-                <p>%(company_name)s</p>
-            """) % {
-                'partner_name': self.partner_id.name,
-                'invoice_name': self.name,
-                'amount': self.amount_total,
-                'company_name': self.env.company.name,
+            # Usar el wizard nativo de Odoo pero sin interfaz de usuario
+            # Esto es lo que hace el botón "Enviar" manualmente
+            ctx = {
+                'active_model': 'account.move',
+                'active_ids': self.ids,
+                'active_id': self.id,
             }
             
-            # Crear email DIRECTAMENTE sin usar el template estándar
-            mail = self.env['mail.mail'].sudo().create({
-                'subject': subject,
-                'body_html': body_html,
-                'email_from': email_from,
-                'email_to': email_to,
-                'model': 'account.move',
-                'res_id': self.id,
+            # Crear el wizard con el contexto
+            wizard = self.env['account.move.send'].with_context(**ctx).create({
+                'checkbox_send_mail': True,
             })
             
-            # ENVIAR EL EMAIL DIRECTAMENTE
-            mail.send()
-            
-            # Marcar la factura como enviada
-            self.sudo().is_move_sent = True
-            
-            # Crear registro de seguimiento
-            self.message_post(
-                body=_("Invoice sent by email to %(email)s", email=email_to),
-                message_type='notification',
-            )
+            # Ejecutar directamente sin interfaz
+            wizard.action_send_and_print()
             
             # Marcar como completado
             self.write({
