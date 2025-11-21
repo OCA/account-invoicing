@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import config
 
@@ -24,14 +24,16 @@ class AccountMove(models.Model):
             not config["test_enable"]
             or (
                 config["test_enable"]
-                and self._context.get("force_check_currecy", False)
+                and self.env.context.get("force_check_currecy", False)
             )
         ) and self.filtered(
             lambda a: a.pricelist_id
             and a.is_sale_document()
             and a.pricelist_id.currency_id != a.currency_id
         ):
-            raise UserError(_("Pricelist and Invoice need to use the same currency."))
+            raise UserError(
+                self.env._("Pricelist and Invoice need to use the same currency.")
+            )
 
     @api.depends("partner_id", "company_id")
     def _compute_pricelist_id(self):
@@ -57,7 +59,7 @@ class AccountMove(models.Model):
 
     def button_update_prices_from_pricelist(self):
         self.filtered(
-            lambda r: r.state == "draft"
+            lambda rec: rec.state == "draft"
         ).invoice_line_ids._compute_price_unit()
 
 

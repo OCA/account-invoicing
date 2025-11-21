@@ -44,11 +44,27 @@ class TestAccountMovePricelist(common.TransactionCase):
                 "reconcile": True,
             }
         )
+        cls.a_income = cls.env["account.account"].create(
+            {
+                "name": "Test income account",
+                "code": "TESTINC",
+                "account_type": "income",
+                "reconcile": False,
+            }
+        )
         cls.product = cls.env["product.template"].create(
-            {"name": "Product Test", "list_price": 100.00}
+            {
+                "name": "Product Test",
+                "list_price": 100.00,
+                "property_account_income_id": cls.a_income.id,
+            }
         )
         cls.product2 = cls.env["product.template"].create(
-            {"name": "Product Test 2", "list_price": 100.00}
+            {
+                "name": "Product Test 2",
+                "list_price": 100.00,
+                "property_account_income_id": cls.a_income.id,
+            }
         )
         cls.product_product = cls.env["product.product"].create(
             {
@@ -76,16 +92,15 @@ class TestAccountMovePricelist(common.TransactionCase):
                 "name": "Desk Combo",
                 "type": "combo",
                 "taxes_id": False,
-                "combo_ids": [(6, 0, [combo.id for combo in cls.combos])],
+                "combo_ids": [Command.set([combo.id for combo in cls.combos])],
+                "property_account_income_id": cls.a_income.id,
             }
         )
         cls.sale_pricelist = cls.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist",
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "1_product",
                             "compute_price": "fixed",
@@ -100,9 +115,7 @@ class TestAccountMovePricelist(common.TransactionCase):
             {
                 "name": "Test Sale pricelist 2",
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "1_product",
                             "compute_price": "fixed",
@@ -117,9 +130,7 @@ class TestAccountMovePricelist(common.TransactionCase):
             {
                 "name": "Test Sale pricelist 3",
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "1_product",
                             "compute_price": "fixed",
@@ -134,9 +145,7 @@ class TestAccountMovePricelist(common.TransactionCase):
             {
                 "name": "Test Sale pricelist 4",
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "1_product",
                             "compute_price": "percentage",
@@ -159,9 +168,7 @@ class TestAccountMovePricelist(common.TransactionCase):
             {
                 "name": "Test Sale pricelist",
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "1_product",
                             "compute_price": "fixed",
@@ -176,9 +183,7 @@ class TestAccountMovePricelist(common.TransactionCase):
             {
                 "name": "Test Sale pricelist - 2",
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "1_product",
                             "compute_price": "percentage",
@@ -193,9 +198,7 @@ class TestAccountMovePricelist(common.TransactionCase):
             {
                 "name": "Test Sale pricelist - 3",
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "1_product",
                             "compute_price": "percentage",
@@ -216,9 +219,7 @@ class TestAccountMovePricelist(common.TransactionCase):
                 "name": "Test Sale pricelist - 4",
                 "currency_id": cls.euro_currency.id,
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "1_product",
                             "compute_price": "percentage",
@@ -234,9 +235,7 @@ class TestAccountMovePricelist(common.TransactionCase):
                 "name": "Test Sale pricelist - 5",
                 "currency_id": cls.euro_currency.id,
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "1_product",
                             "compute_price": "percentage",
@@ -252,9 +251,7 @@ class TestAccountMovePricelist(common.TransactionCase):
                 "name": "Test Sale pricelist - 6",
                 "currency_id": cls.euro_currency.id,
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "1_product",
                             "compute_price": "fixed",
@@ -270,9 +267,7 @@ class TestAccountMovePricelist(common.TransactionCase):
                 "name": "Test Sale pricelist - 7",
                 "currency_id": cls.euro_currency.id,
                 "item_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "applied_on": "1_product",
                             "compute_price": "fixed",
@@ -288,9 +283,7 @@ class TestAccountMovePricelist(common.TransactionCase):
                 "partner_id": cls.partner.id,
                 "move_type": "out_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": cls.product.product_variant_ids[:1].id,
                             "name": "Test line",
@@ -298,9 +291,7 @@ class TestAccountMovePricelist(common.TransactionCase):
                             "price_unit": 100.00,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": cls.product.product_variant_ids[:2].id,
                             "name": "Test line 2",
@@ -316,9 +307,7 @@ class TestAccountMovePricelist(common.TransactionCase):
                 "partner_id": cls.partner.id,
                 "move_type": "out_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": cls.product3.id,
                             "name": "Test line",
@@ -338,7 +327,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         cls.env["res.currency.rate"].create(
             {
                 "currency_id": usd_currency.id,
-                "rate": 1.5289,
+                "rate": 1.1913,
                 "create_date": "2010-01-01",
                 "write_date": "2010-01-01",
             }
@@ -348,7 +337,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(self.invoice.pricelist_id, self.sale_pricelist)
 
     def test_02_account_invoice_change_pricelist(self):
-        self.env.user.write({"groups_id": [(5, self.group_discount.id)]})
+        self.env.user.write({"group_ids": [(5, self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -356,7 +345,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_03_account_invoice_pricelist_without_discount(self):
-        self.env.user.write({"groups_id": [(4, self.group_discount.id)]})
+        self.env.user.write({"group_ids": [(4, self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist_fixed_without_discount.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -364,7 +353,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_04_account_invoice_with_discount_change_pricelist(self):
-        self.env.user.write({"groups_id": [(5, self.group_discount.id)]})
+        self.env.user.write({"group_ids": [(5, self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist_with_discount.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -372,7 +361,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_05_account_invoice_without_discount_change_pricelist(self):
-        self.env.user.write({"groups_id": [(4, self.group_discount.id)]})
+        self.env.user.write({"group_ids": [(4, self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist_without_discount.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -380,7 +369,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 10.00)
 
     def test_06_account_invoice_pricelist_with_discount_secondary_currency(self):
-        self.env.user.write({"groups_id": [(5, self.group_discount.id)]})
+        self.env.user.write({"group_ids": [(5, self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist_with_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -388,7 +377,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_07_account_invoice_pricelist_without_discount_secondary_currency(self):
-        self.env.user.write({"groups_id": [(4, self.group_discount.id)]})
+        self.env.user.write({"group_ids": [(4, self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist_without_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -396,7 +385,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 10.00)
 
     def test_08_account_invoice_fixed_pricelist_with_discount_secondary_currency(self):
-        self.env.user.write({"groups_id": [(5, self.group_discount.id)]})
+        self.env.user.write({"group_ids": [(5, self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist_fixed_with_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -406,7 +395,7 @@ class TestAccountMovePricelist(common.TransactionCase):
     def test_09_account_invoice_fixed_pricelist_without_discount_secondary_currency(
         self,
     ):
-        self.env.user.write({"groups_id": [(4, self.group_discount.id)]})
+        self.env.user.write({"group_ids": [(4, self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist_fixed_wo_disc_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
@@ -430,7 +419,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_12_account_invoice_without_pricelist(self):
-        self.env.user.write({"groups_id": [(4, self.group_discount.id)]})
+        self.env.user.write({"group_ids": [(4, self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist2.id
         self.invoice.invoice_line_ids[:1].quantity = 0.0
         self.invoice.invoice_line_ids[:1].quantity = 1.0
@@ -447,7 +436,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_14_calculate_discount(self):
-        self.env.user.write({"groups_id": [(4, self.group_discount.id)]})
+        self.env.user.write({"group_ids": [(4, self.group_discount.id)]})
         self.product.write({"list_price": 0.00})
         self.invoice.pricelist_id = self.sale_pricelist3.id
         self.invoice.invoice_line_ids[0].quantity = 0.0

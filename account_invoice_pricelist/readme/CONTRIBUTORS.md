@@ -7,3 +7,5 @@
 - Manuel Regidor \<<manuel.regidor@sygel.es>\>
 - [APSL-Nagarro](https://www.apsl.tech):
   - Antoni Marroig \<<amarroig@apsl.net>\>
+- [Studio73,SL](https://www.studio73.es):
+  - Pablo Cortés
