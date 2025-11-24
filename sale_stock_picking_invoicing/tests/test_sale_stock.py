@@ -2,7 +2,7 @@
 # @author Magno Costa <magno.costa@akretion.com.br>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import exceptions
+from odoo import exceptions, models
 from odoo.tests import Form
 
 from odoo.addons.stock_picking_invoicing.tests.common import TestPickingInvoicingCommon
@@ -239,8 +239,14 @@ class TestSaleStock(TestPickingInvoicingCommon):
         # identify yet, but works in the screen the default behavior
         with Form(invoice_lines) as line:
             line.save()
-
         for field in common_fields:
+            if (
+                isinstance(sale_order_line[field], models.BaseModel)
+                and sale_order_line[field]._name != invoice_lines[field]._name
+            ):
+                # Same name, different models
+                # e.g.: sale_commmission_oca with agent_ids field
+                continue
             self.assertEqual(
                 sale_order_line[field],
                 invoice_lines[field],
