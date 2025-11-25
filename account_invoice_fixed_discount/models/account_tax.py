@@ -10,6 +10,14 @@ class AccountTax(models.Model):
     @api.model
     def _prepare_base_line_for_taxes_computation(self, record, **kwargs):
         res = super()._prepare_base_line_for_taxes_computation(record, **kwargs)
-        if record and record._name == "account.move.line" and record.discount_fixed:
+        # In some cases, record can be a dict (e.g. during the creation of
+        # ``account.move.line`` from a ``sale.order.line``). In that case, we cannot
+        # access the ``discount_fixed`` field.
+        if (
+            record
+            and not isinstance(record, dict)
+            and record._name == "account.move.line"
+            and record.discount_fixed
+        ):
             res["discount"] = record._get_discount_from_fixed_discount()
         return res

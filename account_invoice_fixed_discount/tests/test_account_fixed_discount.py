@@ -1,6 +1,7 @@
 # Copyright 2017 Tecnativa - David Vidal
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
+from odoo.fields import Command, Domain
 from odoo.tests import Form
 
 from odoo.addons.base.tests.common import BaseCommon
@@ -11,11 +12,18 @@ class TestInvoiceFixedDiscount(BaseCommon):
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.env.user.groups_id |= cls.env.ref("account.group_account_invoice")
+        cls.env.user.group_ids = [
+            Command.link(cls.env.ref("account.group_account_invoice").id)
+        ]
         cls.partner = cls.env["res.partner"].create({"name": "Test"})
-        cls.product = cls.env.ref("product.product_product_3")
+        cls.product = cls.env["product.product"].create(
+            {
+                "name": "Desk Combination",
+                "type": "consu",
+            }
+        )
         cls.account = cls.env["account.account"].search(
-            [("account_type", "=", "income")],
+            Domain("account_type", "=", "income"),
             limit=1,
         )
         cls.output_vat_acct = cls.env["account.account"].create(
@@ -31,10 +39,10 @@ class TestInvoiceFixedDiscount(BaseCommon):
                 "tax_group_id": cls.tax_group_vat.id,
                 "tax_exigibility": "on_invoice",
                 "invoice_repartition_line_ids": [
-                    (0, 0, {"factor_percent": 100.0, "repartition_type": "base"}),
-                    (
-                        0,
-                        0,
+                    Command.create(
+                        {"factor_percent": 100.0, "repartition_type": "base"}
+                    ),
+                    Command.create(
                         {
                             "factor_percent": 100.0,
                             "repartition_type": "tax",
@@ -49,9 +57,7 @@ class TestInvoiceFixedDiscount(BaseCommon):
     @classmethod
     def _create_invoice(cls, discount=0.00, discount_fixed=0.00):
         invoice_vals = [
-            (
-                0,
-                0,
+            Command.create(
                 {
                     "product_id": cls.product.id,
                     "quantity": 1.0,
@@ -60,7 +66,7 @@ class TestInvoiceFixedDiscount(BaseCommon):
                     "price_unit": 200.00,
                     "discount_fixed": discount_fixed,
                     "discount": discount,
-                    "tax_ids": [(6, 0, [cls.vat.id])],
+                    "tax_ids": [Command.set([cls.vat.id])],
                 },
             )
         ]
@@ -70,7 +76,7 @@ class TestInvoiceFixedDiscount(BaseCommon):
             .create(
                 {
                     "journal_id": cls.env["account.journal"]
-                    .search([("type", "=", "sale")], limit=1)
+                    .search(Domain("type", "=", "sale"), limit=1)
                     .id,
                     "partner_id": cls.partner.id,
                     "move_type": "out_invoice",
