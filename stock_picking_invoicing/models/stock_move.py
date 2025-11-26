@@ -1,7 +1,7 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import models
 from odoo.tools.float_utils import float_round
 
 
@@ -34,7 +34,7 @@ class StockMove(models.Model):
         product.ensure_one()
         sum(self.mapped("product_uom_qty"))
         product_uom = self.mapped("product_uom")
-        company = fields.first(self).picking_id.company_id
+        company = self[0].picking_id.company_id if self else False
         # Only in the cases the stock.move has linked to Sale or
         # Purchase Order it's possible use different Currencys
         # TODO: Should this module make possible by include field
@@ -54,7 +54,7 @@ class StockMove(models.Model):
                     product.supplier_taxes_id,
                     # TODO: Should inform taxes_ids in stock.move?
                     product.supplier_taxes_id,
-                    fields.first(self).company_id,
+                    self and self[0].company_id,
                 )
                 price_unit = product.currency_id._convert(
                     price_unit, currency, company, date_done, False
@@ -72,7 +72,7 @@ class StockMove(models.Model):
                     product.supplier_taxes_id,
                     # TODO: Should inform taxes_ids in stock.move?
                     product.supplier_taxes_id,
-                    fields.first(self).company_id,
+                    self and self[0].company_id,
                 )
                 price_unit = seller.currency_id._convert(
                     price_unit, currency, company, date_done, False
@@ -84,7 +84,7 @@ class StockMove(models.Model):
                         self.env["decimal.precision"].precision_get("Product Price"),
                     ),
                 )
-                result = seller.product_uom._compute_price(price_unit, product_uom)
+                result = seller.product_uom_id._compute_price(price_unit, product_uom)
 
         else:
             # If partner given, search price in its sale pricelist

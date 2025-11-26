@@ -13,11 +13,82 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
         cls.picking_model = cls.env["stock.picking"]
         cls.move_model = cls.env["stock.move"]
         cls.invoice_model = cls.env["account.move"]
-        cls.partner_model = cls.env["res.partner"]
-        cls.partner = cls.env.ref("base.res_partner_2")
-        cls.partner2 = cls.env.ref("base.res_partner_address_4")
-        cls.partner3 = cls.env.ref("base.res_partner_18")
-        cls.supplier = cls.env.ref("base.res_partner_12")
+        cls.partner = cls.env["res.partner"].create(
+            {
+                "name": "Deco Addict",
+                "is_company": True,
+                "street": "77 Santa Barbara Rd",
+                "city": "Pleasant Hill",
+                "state_id": cls.env.ref("base.state_us_5").id,
+                "zip": "94523",
+                "country_id": cls.env.ref("base.us").id,
+                "email": "deco_addict@yourcompany.example.com",
+                "phone": "(603)-996-3829",
+                "website": "http://www.deco-addict.com",
+                "vat": "US12345673",
+            }
+        )
+        cls.partner.write(
+            {
+                "property_payment_term_id": cls.env.ref(
+                    "account.account_payment_term_immediate"
+                ).id
+            }
+        )
+        cls.partner2 = cls.env["res.partner"].create(
+            {
+                "name": "Floyd Steward",
+                "parent_id": cls.partner.id,
+                "function": "Analyst",
+                "email": "floyd.steward34@example.com",
+                "phone": "(145)-138-3401",
+            }
+        )
+        cls.partner3 = cls.env["res.partner"].create(
+            {
+                "name": "Lumber Inc",
+                "is_company": True,
+                "street": "1337 N San Joaquin St",
+                "city": "Stockton",
+                "state_id": cls.env.ref("base.state_us_5").id,
+                "zip": "95202",
+                "email": "lumber-inv92@example.com",
+                "phone": "(828)-316-0593",
+                "country_id": cls.env.ref("base.us").id,
+                "website": "http://www.lumber-inc.com",
+                "vat": "US12345678",
+            }
+        )
+        cls.partner4 = cls.env["res.partner"].create(
+            {
+                "name": "Ready Mat",
+                "is_company": True,
+                "street": "7500 W Linne Road",
+                "city": "Tracy",
+                "state_id": cls.env.ref("base.state_us_5").id,
+                "zip": "95304",
+                "email": "ready.mat28@example.com",
+                "phone": "(803)-873-6126",
+                "country_id": cls.env.ref("base.us").id,
+                "website": "http://www.ready-mat.com/",
+                "vat": "US12345675",
+            }
+        )
+        cls.supplier = cls.env["res.partner"].create(
+            {
+                "name": "Azure Interior",
+                "is_company": True,
+                "street": "4557 De Silva St",
+                "city": "Fremont",
+                "state_id": cls.env.ref("base.state_us_5").id,
+                "zip": "94538",
+                "phone": "(870)-931-0505",
+                "country_id": cls.env.ref("base.us").id,
+                "email": "azure.Interior24@example.com",
+                "website": "http://www.azure-interior.com",
+                "vat": "US12345677",
+            }
+        )
         cls.pick_type_in = cls.env.ref("stock.picking_type_in")
         cls.pick_type_out = cls.env.ref("stock.picking_type_out")
         cls.stock_location = cls.env.ref("stock.stock_location_stock")
@@ -34,10 +105,8 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
 
         cls.product_model = cls.env["product.product"]
         cls.fiscal_position_model = cls.env["account.fiscal.position"]
-        cls.fiscal_position_tax_model = cls.env["account.fiscal.position.tax"]
         cls.fiscal_position_account_model = cls.env["account.fiscal.position.account"]
         cls.tax_model = cls.env["account.tax"]
-        cls.product_tmpl_model = cls.env["product.template"]
         cls.account_receivable = cls.env["account.account"].search(
             [
                 (
@@ -89,25 +158,56 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
                 "standard_price": "500",
             }
         )
+        cls.picking_in = cls.picking_model.create(
+            {
+                "partner_id": cls.partner.id,
+                "picking_type_id": cls.pick_type_in.id,
+                "invoice_state": "2binvoiced",
+                "location_id": cls.suppliers_location.id,
+                "location_dest_id": cls.stock_location.id,
+            }
+        )
 
         # Test PriceList and Sellers Price
-        product_price_test = cls.env.ref("product.product_product_6")
+        cls.product_category_office = cls.env["product.category"].create(
+            {
+                "name": "Office Furniture",
+            }
+        )
+        cls.product_price_test = cls.product_model.create(
+            {
+                "name": "Large Cabinet",
+                "categ_id": cls.env["product.category"]
+                .create(
+                    {
+                        "name": "Office Furniture",
+                    }
+                )
+                .id,
+                "standard_price": 800.0,
+                "list_price": 320.0,
+                "type": "consu",
+                "weight": 0.330,
+                "uom_id": cls.env.ref("uom.product_uom_unit").id,
+                "default_code": "E-COM07",
+            }
+        )
         cls.price_list = cls.env["product.pricelist"].create({"name": "Test pricelist"})
         cls.price_list.item_ids.create(
             {
                 "compute_price": "fixed",
                 "fixed_price": 1234.0,
                 "applied_on": "0_product_variant",
-                "product_id": product_price_test.id,
+                "product_id": cls.product_price_test.id,
             }
         )
         # Data has duplicate line with 2 Prices for same Partner,
         # just remove one for the test.
-        seller_to_delete = product_price_test.seller_ids.filtered(
-            lambda line: line.price == 785.0
-            and line.partner_id == cls.env.ref("base.res_partner_4")
-        )
-        seller_to_delete.unlink()
+        # seller_to_delete = cls.product_price_test.seller_ids.filtered(
+        #     lambda line: line.price == 785.0
+        #     and line.partner_id == cls.env.ref("base.res_partner_4")
+        # )
+        # seller_to_delete.unlink()
 
     def test_0_picking_out_invoicing(self):
         # setting Agrolait type to default, because it's 'contact' in demo data
@@ -127,7 +227,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_1.name,
             "product_uom_qty": 2,
             "product_uom": self.product_test_1.uom_id.id,
         }
@@ -178,7 +277,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_1.name,
             "product_uom_qty": 2,
             "product_uom": self.product_test_1.uom_id.id,
         }
@@ -220,7 +318,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_1.name,
             "product_uom_qty": 2,
             "product_uom": self.product_test_1.uom_id.id,
         }
@@ -273,7 +370,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking.id,
             "location_dest_id": self.stock_location.id,
             "location_id": self.suppliers_location.id,
-            "name": self.product_test_1.name,
             "product_uom_qty": 2,
             "product_uom": self.product_test_1.uom_id.id,
         }
@@ -321,12 +417,10 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_1.name,
             "product_uom_qty": 4,
             "product_uom": self.product_test_1.uom_id.id,
         }
         new_move = self.move_model.create(move_vals)
-        new_move._onchange_product_id()
         picking.set_to_be_invoiced()
         # Test BackOrder need to open Wizard
         # self.picking_move_state(picking)
@@ -334,7 +428,7 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
         # Check product availability
         picking.action_assign()
         # Force product availability
-        for move in picking.move_ids_without_package:
+        for move in picking.move_ids:
             move.quantity = move.product_uom_qty / 2.0
             # Test Price Unit informed by User
             move.price_unit = 345.0
@@ -386,7 +480,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_1.name,
             "product_uom_qty": 2,
             "product_uom": self.product_test_1.uom_id.id,
         }
@@ -426,7 +519,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_1.name,
             "product_uom_qty": 2,
             "product_uom": self.product_test_1.uom_id.id,
         }
@@ -467,7 +559,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_1.name,
             "product_uom_qty": 1,
             "product_uom": self.product_test_1.uom_id.id,
         }
@@ -477,7 +568,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_2.name,
             "product_uom_qty": 1,
             "product_uom": self.product_test_2.uom_id.id,
         }
@@ -520,7 +610,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_1.name,
             "product_uom_qty": 1,
             "product_uom": self.product_test_1.uom_id.id,
         }
@@ -531,7 +620,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking2.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_1.name,
             "product_uom_qty": 1,
             "product_uom": self.product_test_1.uom_id.id,
         }
@@ -589,7 +677,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_1.name,
             "product_uom_qty": 1,
             "product_uom": self.product_test_1.uom_id.id,
         }
@@ -600,7 +687,6 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             "picking_id": picking2.id,
             "location_dest_id": self.customers_location.id,
             "location_id": self.stock_location.id,
-            "name": self.product_test_2.name,
             "product_uom_qty": 1,
             "product_uom": self.product_test_2.uom_id.id,
         }
@@ -647,7 +733,26 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
         """
         Test Return Customer Picking and Invoice created.
         """
-        picking = self.env.ref("stock_picking_invoicing.stock_picking_invoicing_2")
+        picking = self.picking_model.create(
+            {
+                "partner_id": self.partner.id,
+                "picking_type_id": self.pick_type_out.id,
+                "invoice_state": "2binvoiced",
+                "origin": "stock_picking_invoicing demo",
+                "location_id": self.stock_location.id,
+                "location_dest_id": self.customers_location.id,
+            }
+        )
+        self.move_model.create(
+            {
+                "product_id": self.product_price_test.id,
+                "picking_id": picking.id,
+                "location_id": self.stock_location.id,
+                "location_dest_id": self.customers_location.id,
+                "product_uom_qty": 1,
+                "product_uom": self.env.ref("uom.product_uom_unit").id,
+            }
+        )
         self.picking_move_state(picking)
         self.assertEqual(picking.state, "done")
         invoice = self.create_invoice_wizard(picking)
@@ -685,7 +790,26 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
         """
         Test Return Supplier Picking and Invoice created.
         """
-        picking = self.env.ref("stock_picking_invoicing.stock_picking_invoicing_7")
+        picking = self.picking_model.create(
+            {
+                "partner_id": self.partner4.id,
+                "picking_type_id": self.pick_type_in.id,
+                "invoice_state": "2binvoiced",
+                "origin": "stock_picking_invoicing demo",
+                "location_id": self.suppliers_location.id,
+                "location_dest_id": self.stock_location.id,
+            }
+        )
+        self.move_model.create(
+            {
+                "product_id": self.product_price_test.id,
+                "picking_id": picking.id,
+                "location_id": self.suppliers_location.id,
+                "location_dest_id": self.stock_location.id,
+                "product_uom_qty": 1,
+                "product_uom": self.env.ref("uom.product_uom_unit").id,
+            }
+        )
         self.picking_move_state(picking)
         self.assertEqual(picking.state, "done")
         invoice = self.create_invoice_wizard(picking)
@@ -731,13 +855,35 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
 
     def test_get_price_from_pricelist(self):
         """Test get Price from PriceList."""
-        picking = self.env.ref("stock_picking_invoicing.stock_picking_invoicing_1")
+        self.partner.write(
+            {"type": "invoice", "property_product_pricelist": self.price_list.id}
+        )
+        picking = self.picking_model.create(
+            {
+                "partner_id": self.partner.id,
+                "picking_type_id": self.pick_type_out.id,
+                "invoice_state": "2binvoiced",
+                "origin": "stock_picking_invoicing demo",
+                "location_id": self.stock_location.id,
+                "location_dest_id": self.customers_location.id,
+            }
+        )
+        self.move_model.create(
+            {
+                "product_id": self.product_price_test.id,
+                "product_uom_qty": 1,
+                "picking_id": picking.id,
+                "location_id": self.stock_location.id,
+                "location_dest_id": self.customers_location.id,
+                "product_uom": self.product_price_test.uom_id.id,
+            }
+        )
         self.picking_move_state(picking)
         self.assertEqual(picking.state, "done")
         invoice = self.create_invoice_wizard(picking)
         self.assertEqual(picking.invoice_state, "invoiced")
         for inv_line in invoice.invoice_line_ids:
-            if inv_line.product_id == self.env.ref("product.product_product_6"):
+            if inv_line.product_id == self.product_price_test:
                 self.assertEqual(
                     inv_line.price_unit,
                     1234.0,
@@ -746,12 +892,30 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
 
     def test_picking_extra_vals(self):
         """Test Picking Extra Vals"""
-        picking = self.env.ref("stock_picking_invoicing.stock_picking_invoicing_1")
+        picking = self.picking_model.create(
+            {
+                "partner_id": self.partner.id,
+                "picking_type_id": self.pick_type_out.id,
+                "invoice_state": "2binvoiced",
+                "origin": "stock_picking_invoicing demo",
+                "location_id": self.stock_location.id,
+                "location_dest_id": self.customers_location.id,
+            }
+        )
+        self.move_model.create(
+            {
+                "product_id": self.product_test_1.id,
+                "product_uom_qty": 1,
+                "picking_id": picking.id,
+                "location_id": self.stock_location.id,
+                "location_dest_id": self.customers_location.id,
+                "product_uom": self.product_test_1.uom_id.id,
+            }
+        )
 
         self._run_picking_onchanges(picking)
 
-        for line in picking.move_ids_without_package:
-            self._run_line_onchanges(line)
+        for line in picking.move_ids:
             # Force Split
             line.quantity = 10
 

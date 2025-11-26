@@ -23,8 +23,7 @@ class TestPickingInvoicingCommon(TransactionCase):
         # Check product availability
         picking.action_assign()
         # Force product availability
-        for move in picking.move_ids_without_package:
-            self._run_line_onchanges(move)
+        for move in picking.move_ids:
             move.quantity = move.product_uom_qty
         picking.button_validate()
 

@@ -1,7 +1,7 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 JOURNAL_TYPE_MAP = {
@@ -42,7 +42,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         if not picking or not picking.move_ids:
             return "sale"
         pick_type_code = picking.picking_type_id.code
-        line = fields.first(picking.move_ids)
+        line = picking.move_ids[0] if picking.move_ids else False
         if pick_type_code == "incoming":
             usage = line.location_id.usage
         else:
@@ -54,7 +54,7 @@ class StockInvoiceOnshipping(models.TransientModel):
             ("purchase", "Create Supplier Invoice"),
             ("sale", "Create Customer Invoice"),
         ],
-        default=_get_journal_type,
+        default=lambda self: self._get_journal_type(),
         readonly=True,
     )
     group = fields.Selection(
@@ -172,22 +172,25 @@ class StockInvoiceOnshipping(models.TransientModel):
         )
 
     def get_split_pickings_nogrouped(self, pickings):
-        first = fields.first
         sale_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "outgoing"
-            and first(x.move_ids).location_dest_id.usage == "customer"
+            and x.move_ids
+            and x.move_ids[0].location_dest_id.usage == "customer"
         )
         sale_refund_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "incoming"
-            and first(x.move_ids).location_id.usage == "customer"
+            and x.move_ids
+            and x.move_ids[0].location_id.usage == "customer"
         )
         purchase_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "incoming"
-            and first(x.move_ids).location_id.usage == "supplier"
+            and x.move_ids
+            and x.move_ids[0].location_id.usage == "supplier"
         )
         purchase_refund_pickings = pickings.filtered(
             lambda x: x.picking_type_id.code == "outgoing"
-            and first(x.move_ids).location_dest_id.usage == "supplier"
+            and x.move_ids
+            and x.move_ids[0].location_dest_id.usage == "supplier"
         )
 
         return (
@@ -221,7 +224,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         self.ensure_one()
         invoices = self._action_generate_invoices()
         if not invoices:
-            raise UserError(_("No invoice created!"))
+            raise UserError(self.env._("No invoice created!"))
 
         # Update the state on pickings related to new invoices only
         self._update_picking_invoice_status(invoices.mapped("picking_ids"))
@@ -355,7 +358,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param pickings: stock.picking recordset
         :return: dict
         """
-        picking = fields.first(pickings)
+        picking = pickings[0] if pickings else False
         partner_id = picking._get_partner_to_invoice()
         partner = self.env["res.partner"].browse(partner_id)
         inv_type = self._get_invoice_type()
@@ -431,7 +434,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         :param invoice: account.move
         :return: dict
         """
-        move = fields.first(moves)
+        move = moves[0] if moves else False
         product = move.product_id
         partner_id = self.env["res.partner"].browse(invoice_values["partner_id"])
         inv_type = invoice_values["move_type"]
@@ -457,7 +460,6 @@ class StockInvoiceOnshipping(models.TransientModel):
         values = line_obj.default_get(line_obj.fields_get().keys())
         values.update(
             {
-                "name": move.name,
                 "product_id": product.id,
                 "quantity": quantity,
                 "price_unit": price,
@@ -500,7 +502,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         pickings = self._load_pickings()
         company = pickings.mapped("company_id")
         if company and company != self.env.company:
-            raise UserError(_("All pickings are not related to your company!"))
+            raise UserError(self.env._("All pickings are not related to your company!"))
         pick_list = self._group_pickings(pickings)
         invoices = self.env["account.move"].browse()
         for pickings in pick_list:

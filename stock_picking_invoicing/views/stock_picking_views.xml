@@ -50,7 +50,7 @@
                     </field>
                 </page>
             </notebook>
-            <field name="move_ids_without_package" position="attributes">
+            <field name="move_ids" position="attributes">
                 <attribute name="context" operation="update">
                     {
                     'default_invoice_state': invoice_state,
@@ -62,7 +62,7 @@
                 <field name="invoice_state" invisible="1" />
             </field>
             <xpath
-                expr="//field[@name='move_ids_without_package']/list/field[@name='product_id']"
+                expr="//field[@name='move_ids']/list/field[@name='product_id']"
                 position="after"
             >
                 <field name="invoice_state" groups="account.group_account_invoice" />
