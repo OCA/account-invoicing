@@ -152,9 +152,9 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
             assert inv_line.tax_ids, "Error to map Sale Tax in Invoice Line."
             assert inv_line.product_uom_id, "Error to map Product UOM in Invoice Line."
             assert inv_line.price_unit, "Error in Price Unit"
-            assert (
-                inv_line.move_line_ids
-            ), "Error, there no relation between Invoice Line and Stock Move Line."
+            assert inv_line.move_line_ids, (
+                "Error, there no relation between Invoice Line and Stock Move Line."
+            )
             for mv_line in inv_line.move_line_ids:
                 self.assertEqual(
                     mv_line.id,
