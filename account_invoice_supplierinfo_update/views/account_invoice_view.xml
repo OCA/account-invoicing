@@ -4,7 +4,7 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='action_post']" position="after">
+            <xpath expr="//button[@name='button_draft']" position="after">
                 <button
                     name="check_supplierinfo"
                     string="Check Supplier Infos"
