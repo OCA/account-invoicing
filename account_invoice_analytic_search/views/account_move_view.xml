@@ -6,7 +6,7 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_account_invoice_filter" />
         <field name="arch" type="xml">
-            <xpath expr="//search/field[@name='invoice_user_id']" position="after">
+            <xpath expr="//search" position="inside">
                 <field
                     name="analytic_account_ids"
                     groups="analytic.group_analytic_accounting"
