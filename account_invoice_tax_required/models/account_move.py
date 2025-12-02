@@ -54,10 +54,9 @@ class AccountMove(models.Model):
                     [self.env.ref("account.view_move_tree").id, "list"],
                     [self.env.ref("account.view_move_form").id, "form"],
                 ]
-            error_msg = "%(message)s\n%(errors)s" % {
-                "message": _("No Taxes Defined!"),
-                "errors": "\n".join(errors),
-            }
+            error_msg = "{message}\n{errors}".format(
+                message=_("No Taxes Defined!"), errors="\n".join(errors)
+            )
             raise RedirectWarning(
                 error_msg, action_error, _("Show invoices with lines without taxes")
             )
