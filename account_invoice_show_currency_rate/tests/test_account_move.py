@@ -93,3 +93,37 @@ class TestAccountMove(common.TransactionCase):
         invoice.button_draft()
         self.assertAlmostEqual(invoice.invoice_currency_rate, 3.0, 2)
         self.assertAlmostEqual(invoice.line_ids[0].currency_rate, 3.0, 2)
+
+    def test_03_invoice_zero_balance_no_error(self):
+        """Test that computing currency rate with zero balance doesn't raise error."""
+        # Create a move with lines that have amount_currency but zero balance
+        move = self.env["account.move"].create(
+            {
+                "move_type": "entry",
+                "date": fields.Date.from_string("2000-01-01"),
+                "currency_id": self.currency_extra.id,
+                "line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "account_id": self.account.id,
+                            "amount_currency": 100.0,
+                            "balance": 0.0,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "account_id": self.other_account.id,
+                            "amount_currency": -100.0,
+                            "balance": 0.0,
+                        },
+                    ),
+                ],
+            }
+        )
+        move.action_post()
+        # Should not raise ZeroDivisionError and should return 0
+        self.assertEqual(move.invoice_currency_rate, 0)
