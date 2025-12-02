@@ -5,14 +5,14 @@
 from odoo import exceptions
 from odoo.tests import tagged
 
-from odoo.addons.account.tests.common import TestAccountReconciliationCommon
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @tagged("post_install", "-at_install")
-class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
+class TestAccountInvoiceTaxRequired(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpClass(cls, chart_template_ref=None):
+        super().setUpClass(chart_template_ref=chart_template_ref)
         cls.env = cls.env(
             context=dict(
                 cls.env.context,
@@ -107,5 +107,5 @@ class TestAccountInvoiceTaxRequired(TestAccountReconciliationCommon):
 
     def test_without_exception(self):
         """Validate invoice without tax must raise exception"""
-        self.invoice.invoice_line_ids[0].tax_ids = [(4, self.tax_cash_basis.id)]
+        self.invoice.invoice_line_ids[0].tax_ids = [(4, self.tax_sale_a.id)]
         self.invoice.with_context(test_tax_required=True).action_post()
