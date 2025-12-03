@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record
+        model="ir.ui.view"
+        id="account_move_line_select_purchase_line_wizard_form_view"
+    >
+        <field name="model">account.move.line.select.purchase.line.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <p>
+                    <field name="description" />
+                </p>
+                <group>
+                    <field name="move_line_id" invisible="1" />
+                    <field name="partner_id" invisible="1" />
+                    <field name="purchase_order_id" required="1" />
+                    <field name="purchase_order_line_id" required="1" />
+                </group>
+                <footer>
+                    <button
+                        name="select_purchase_line"
+                        string="Select Purchase Line"
+                        class="btn-primary"
+                        type="object"
+                    />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+</odoo>

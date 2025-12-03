@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record
+        model="ir.model.access"
+        id="account_move_line_select_purchase_line_wizard_access_all"
+    >
+        <field
+            name="name"
+        >account.move.line.select.purchase.line.wizard access all</field>
+        <field
+            name="model_id"
+            ref="model_account_move_line_select_purchase_line_wizard"
+        />
+        <field name="group_id" ref="account.group_account_invoice" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+
+</odoo>
