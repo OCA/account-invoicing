@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="email_template_billing" model="mail.template">
+        <field name="name">Billing</field>
+        <field name="model_id" ref="account_billing.model_account_billing" />
+        <field
+            name="subject"
+        >{{ object.company_id.name }} Billing (Ref {{ object.name or 'n/a' }})</field>
+        <field name="partner_to">{{ object.partner_id.id }}</field>
+        <field name="description">Sent billing to customer/vendor</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+    Dear <t t-out="object.partner_id.name or ''">Brandon Freeman</t>
+    <t t-if="object.partner_id.parent_id">
+        (<t t-out="object.partner_id.parent_id.name or ''">Azure Interior</t>)
+    </t>
+    <br /><br />
+    Please find attached the billing from <t
+                    t-out="object.company_id.name or ''"
+                >YourCompany</t>.
+    <br /><br />
+    If you have any questions, please do not hesitate to contact us.
+    <br /><br />
+    Best regards,
+    <t t-if="not is_html_empty(env.user.signature)">
+                    <br />
+                    <br />
+                    <t t-out="env.user.signature or ''" />
+                </t>
+</p>
+            </div>
+        </field>
+        <field name="lang">{{ object.partner_id.lang }}</field>
+        <field name="auto_delete" eval="True" />
+    </record>
+</odoo>
