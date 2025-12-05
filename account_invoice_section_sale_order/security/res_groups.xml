@@ -4,6 +4,5 @@
         <field
             name="name"
         >Allow customization of invoice section name from sale order</field>
-        <field name="category_id" ref="base.module_category_usability" />
     </record>
 </odoo>

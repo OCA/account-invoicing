@@ -3,12 +3,13 @@
 from unittest import mock
 
 from odoo.exceptions import UserError
+from odoo.fields import Domain
 
 from .common import Common
 
 SECTION_GROUPING_FUNCTION = "odoo.addons.account_invoice_section_sale_order.models.account_move.AccountMoveLine._get_section_grouping"  # noqa
 SECTION_NAME_FUNCTION = (
-    "odoo.addons.base.models.res_users.Users._get_invoice_section_name"
+    "odoo.addons.base.models.res_users.ResUsers._get_invoice_section_name"
 )
 
 
@@ -42,7 +43,9 @@ class TestInvoiceGroupBySaleOrder(Common):
 
     def test_create_invoice_with_default_journal(self):
         """Using a specific journal for the invoice should not be broken"""
-        journal = self.env["account.journal"].search([("type", "=", "sale")], limit=1)
+        journal = self.env["account.journal"].search(
+            Domain("type", "=", "sale"), limit=1
+        )
         (self.order1_p1 + self.order2_p1).with_context(
             default_journal_id=journal.id
         )._create_invoices()
@@ -79,7 +82,12 @@ class TestInvoiceGroupBySaleOrder(Common):
         By mocking account.move.line_get_section_grouping and creating
         res.users.get_invoice_section_name, this test ensures custom grouping
         is possible by redefining these functions"""
-        demo_user = self.env.ref("base.user_demo")
+        demo_user = self.env["res.users"].create(
+            {
+                "name": "Demo User",
+                "login": "demo",
+            }
+        )
         admin_user = self.env.ref("base.partner_admin")
         orders = self.order1_p1 + self.order2_p1
         orders.write({"user_id": admin_user.id})

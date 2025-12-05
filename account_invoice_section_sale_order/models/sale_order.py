@@ -3,6 +3,7 @@
 from collections import OrderedDict
 
 from odoo import models
+from odoo.fields import Command
 from odoo.tools.safe_eval import safe_eval, time
 
 
@@ -37,9 +38,7 @@ class SaleOrder(models.Model):
             for group, move_line_ids in section_grouping_matrix.items():
                 if group:
                     section_lines.append(
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "name": group._get_invoice_section_name(),
                                 "display_type": "line_section",
