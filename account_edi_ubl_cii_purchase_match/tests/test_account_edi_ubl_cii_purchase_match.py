@@ -37,10 +37,12 @@ class TestAccountEdiUblCiiPurchaseMatch(AccountTestInvoicingCommon):
         cls.po_line = cls.purchase_order.order_line
         cls.purchase_order.button_confirm()
 
-    def _import_invoice(self, journal):
-        file_path = (
-            "account_edi_ubl_cii_purchase_match/tests/test_files/bis3_bill_example.xml"
-        )
+    def _import_invoice(self, journal, file_path=None):
+        if file_path is None:
+            file_path = (
+                "account_edi_ubl_cii_purchase_match/tests/test_files/"
+                "bis3_bill_example.xml"
+            )
         with file_open(file_path, "rb") as file:
             xml_attachment = self.env["ir.attachment"].create(
                 {
@@ -257,3 +259,39 @@ class TestAccountEdiUblCiiPurchaseMatch(AccountTestInvoicingCommon):
         wizard.select_purchase_line()
         self.assertEqual(self.product.seller_ids.product_name, "Locations and leasing")
         self.assertEqual(self.product.seller_ids.product_code, "leasing001")
+
+    def test_12(self):
+        """test purchase price unit mismatch warning"""
+        self.purchase_order.partner_ref = "FAC/2023/00052"
+        self.product.default_code = "leasing001"
+        bill = self._import_invoice(
+            self.company_data["default_journal_purchase"],
+            file_path="account_edi_ubl_cii_purchase_match/tests/test_files/"
+            "bis3_bill_example_price_unit_mismatch.xml",
+        )
+        self.assertTrue(bill.purchase_mismatch)
+        self.assertIn(
+            "Unit price differs from the purchase order line",
+            bill.purchase_mismatch_details,
+        )
+        bill.action_post()
+        self.assertFalse(bill.purchase_mismatch)
+        self.assertFalse(bill.purchase_mismatch_details)
+
+    def test_13(self):
+        """test purchase invoiced qty mismatch warning"""
+        self.purchase_order.partner_ref = "FAC/2023/00052"
+        self.product.default_code = "leasing001"
+        bill = self._import_invoice(
+            self.company_data["default_journal_purchase"],
+            file_path="account_edi_ubl_cii_purchase_match/tests/test_files/"
+            "bis3_bill_example_invoiced_qty_mismatch.xml",
+        )
+        self.assertTrue(bill.purchase_mismatch)
+        self.assertIn(
+            "Invoiced quantity exceeds the ordered quantity",
+            bill.purchase_mismatch_details,
+        )
+        bill.action_post()
+        self.assertFalse(bill.purchase_mismatch)
+        self.assertFalse(bill.purchase_mismatch_details)

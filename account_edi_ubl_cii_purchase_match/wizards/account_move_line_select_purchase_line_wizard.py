@@ -28,8 +28,6 @@ class AccountMoveLineSelectPurchaseLineWizard(models.TransientModel):
         for rec in self:
             if rec.move_line_id.purchase_line_id:
                 continue
-            price_unit = rec.move_line_id.price_unit
-            rec.move_line_id.product_id = rec.purchase_order_line_id.product_id
+            rec.move_line_id._set_product(rec.purchase_order_line_id.product_id)
             rec.move_line_id.purchase_line_id = rec.purchase_order_line_id
-            rec.move_line_id.price_unit = price_unit
             rec.move_line_id._update_product_supplier_name()

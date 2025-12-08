@@ -43,11 +43,8 @@ class AccountEdiXmlUBL20(models.AbstractModel):
             return False
         product = self._get_matching_product(invoice_line)
         purchase_line = purchase_lines.filtered(lambda line: line.product_id == product)
-        price_unit = invoice_line.price_unit
-        invoice_line.write(
-            {"purchase_line_id": purchase_line.id, "product_id": product.id}
-        )
-        invoice_line.price_unit = price_unit
+        invoice_line._set_product(product)
+        invoice_line.purchase_line_id = purchase_line
         return True
 
     def _get_matching_product(self, invoice_line):
@@ -90,6 +87,23 @@ class AccountEdiXmlUBL20(models.AbstractModel):
         supplier_product_code = self._find_value(
             "./cac:Item/cac:SellersItemIdentification/cbc:ID", tree
         )
+        if invoice_line.product_id or not supplier_product_code:
+            return res
+        product_sinfo = self.env["product.supplierinfo"].search(
+            [
+                ("product_code", "=", supplier_product_code),
+                ("partner_id", "=", invoice.partner_id.id),
+            ],
+            limit=1,
+        )
+        if product_sinfo and product_sinfo.product_id:
+            invoice_line._set_product(product_sinfo.product_id)
+        if (
+            product_sinfo
+            and product_sinfo.product_tmpl_id
+            and len(product_sinfo.product_tmpl_id.product_variant_ids) == 1
+        ):
+            invoice_line._set_product(product_sinfo.product_tmpl_id.product_variant_ids)
         if not invoice_line.product_id and supplier_product_code:
             # if no match for the product and the supplier_product_code is defined
             # fill it into the invoice_line so it can used at manual match
