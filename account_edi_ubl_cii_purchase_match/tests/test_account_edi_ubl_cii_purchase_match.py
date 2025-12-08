@@ -13,7 +13,9 @@ class TestAccountEdiUblCiiPurchaseMatch(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref=None):
         super().setUpClass()
-        cls.product = cls.env["product.product"].create({"name": "test_product"})
+        cls.product = cls.env["product.product"].create(
+            {"name": "test_product", "standard_price": 100}
+        )
         cls.partner = cls.env["res.partner"].create(
             {"name": "ALD Automotive LU", "vat": "LU25587702"}
         )
@@ -95,6 +97,7 @@ class TestAccountEdiUblCiiPurchaseMatch(AccountTestInvoicingCommon):
         inv_line = bill.invoice_line_ids
         self.assertEqual(inv_line.purchase_line_id, self.po_line)
         self.assertEqual(inv_line.product_id, self.product)
+        return inv_line
 
     def test_3(self):
         """
@@ -147,6 +150,7 @@ class TestAccountEdiUblCiiPurchaseMatch(AccountTestInvoicingCommon):
         bill = self._import_invoice(self.company_data["default_journal_purchase"])
         inv_line = bill.invoice_line_ids
         self.assertFalse(inv_line.purchase_line_id)
+        self.assertEqual(inv_line.price_unit, 657.0)
         action = inv_line.action_select_purchase_line()
         wizard = (
             self.env[action.get("res_model")]
@@ -163,3 +167,31 @@ class TestAccountEdiUblCiiPurchaseMatch(AccountTestInvoicingCommon):
         bill = self._import_invoice(self.company_data["default_journal_purchase"])
         inv_line = bill.invoice_line_ids
         self.assertEqual(inv_line.purchase_line_id, self.po_line)
+
+    def test_6(self):
+        """
+        price unit imported from file is unchanged after po auto match
+        """
+        inv_line = self.test_2()
+        self.assertEqual(inv_line.price_unit, 657.0)
+        inv_line.product_id = False
+        inv_line.product_id = self.product
+        self.assertEqual(inv_line.price_unit, 100)
+
+    def test_7(self):
+        """
+        price unit imported from file is unchanged after po manual match
+        """
+        self.purchase_order.partner_ref = "FAC/2023/00052"
+        bill = self._import_invoice(self.company_data["default_journal_purchase"])
+        inv_line = bill.invoice_line_ids
+        self.assertEqual(inv_line.price_unit, 657.0)
+        action = inv_line.action_select_purchase_line()
+        wizard = (
+            self.env[action.get("res_model")]
+            .with_context(**action.get("context"))
+            .create({})
+        )
+        wizard.purchase_order_line_id = self.po_line
+        wizard.select_purchase_line()
+        self.assertEqual(inv_line.price_unit, 657.0)

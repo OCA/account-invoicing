@@ -43,9 +43,11 @@ class AccountEdiXmlUBL20(models.AbstractModel):
             return False
         product = self._get_matching_product(invoice_line)
         purchase_line = purchase_lines.filtered(lambda line: line.product_id == product)
+        price_unit = invoice_line.price_unit
         invoice_line.write(
             {"purchase_line_id": purchase_line.id, "product_id": product.id}
         )
+        invoice_line.price_unit = price_unit
         return True
 
     def _get_matching_product(self, invoice_line):
