@@ -41,8 +41,8 @@ class AccountMove(models.Model):
             rec.purchase_mismatch = True
 
             purchase_mismatch_details = _(
-                "The following differences were detected between this invoice line "
-                "and its related purchase order line:\n"
+                "The following differences were detected between this invoice and its "
+                "related purchase order lines:\n"
             )
             for line in mismatch_lines:
                 product_label = (

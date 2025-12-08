@@ -1,0 +1,218 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_edi_ubl_cii_purchase_match
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-08 21:46+0000\n"
+"PO-Revision-Date: 2025-12-08 21:46+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_edi_ubl_cii_purchase_match
+#. odoo-python
+#: code:addons/account_edi_ubl_cii_purchase_match/models/account_move_line.py:0
+#, python-format
+msgid "- Invoiced quantity exceeds the ordered quantity."
+msgstr "- La quantité facturée dépasse la quantité commandée."
+
+#. module: account_edi_ubl_cii_purchase_match
+#. odoo-python
+#: code:addons/account_edi_ubl_cii_purchase_match/models/account_move_line.py:0
+#, python-format
+msgid "- Unit price differs from the purchase order line."
+msgstr "- Le prix unitaire diffère de celui de la ligne de commande."
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_edi_ubl_cii_purchase_match.account_move_line_select_purchase_line_wizard_form_view
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,help:account_edi_ubl_cii_purchase_match.field_account_bank_statement_line__purchase_mismatch
+#: model:ir.model.fields,help:account_edi_ubl_cii_purchase_match.field_account_move__purchase_mismatch
+#: model:ir.model.fields,help:account_edi_ubl_cii_purchase_match.field_account_payment__purchase_mismatch
+msgid ""
+"Checked when this invoice has at least one line that does not fully match "
+"its related purchase order line."
+msgstr ""
+"Coché lorsque cette facture comporte au moins une ligne ne correspondant pas "
+"entièrement à sa ligne de commande d'achat associée."
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,help:account_edi_ubl_cii_purchase_match.field_account_move_line__purchase_line_mismatch
+msgid ""
+"Checked when this invoice line does not fully match its related purchase "
+"order line."
+msgstr ""
+"Coché lorsque cette ligne de facture ne correspond pas entièrement à sa "
+"ligne de commande d'achat."
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model,name:account_edi_ubl_cii_purchase_match.model_account_edi_format
+msgid "EDI format"
+msgstr "Format EDI"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,help:account_edi_ubl_cii_purchase_match.field_account_bank_statement_line__purchase_mismatch_details
+#: model:ir.model.fields,help:account_edi_ubl_cii_purchase_match.field_account_move__purchase_mismatch_details
+#: model:ir.model.fields,help:account_edi_ubl_cii_purchase_match.field_account_payment__purchase_mismatch_details
+msgid ""
+"Human-readable description of the differences between invoice lines and "
+"their related purchase order lines."
+msgstr ""
+"Description des différences entre les lignes de facture et leurs "
+"lignes de commande d'achat associées."
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,help:account_edi_ubl_cii_purchase_match.field_account_move_line__purchase_line_mismatch_details
+msgid ""
+"Human-readable description of the differences between this invoice line and "
+"the related purchase order line."
+msgstr ""
+"Description des différences entre cette ligne de facture et la ligne "
+"de commande d'achat correspondante."
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model,name:account_edi_ubl_cii_purchase_match.model_account_move
+msgid "Journal Entry"
+msgstr "Écriture de journal"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model,name:account_edi_ubl_cii_purchase_match.model_account_move_line
+msgid "Journal Item"
+msgstr "Ecriture comptable"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__description
+msgid "Label"
+msgstr ""
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Modifié par"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__write_date
+msgid "Last Updated on"
+msgstr "Modifié le"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__purchase_order_line_id
+msgid "Line"
+msgstr "Ligne"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__move_line_id
+msgid "Move Line"
+msgstr "Ligne d'écriture"
+
+#. module: account_edi_ubl_cii_purchase_match
+#. odoo-python
+#: code:addons/account_edi_ubl_cii_purchase_match/models/account_move.py:0
+#, python-format
+msgid "No product"
+msgstr "Aucun produit"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__partner_id
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_edi_ubl_cii_purchase_match.account_move_form_view
+msgid "Purchase Line"
+msgstr "Ligne d'achat"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line__purchase_line_mismatch
+msgid "Purchase Line Mismatch"
+msgstr "Incohérence ligne d'achat"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line__purchase_line_mismatch_details
+msgid "Purchase Line Mismatch Details"
+msgstr "Détails de l'incohérence ligne d'achat"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_bank_statement_line__purchase_mismatch
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move__purchase_mismatch
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_payment__purchase_mismatch
+msgid "Purchase Mismatch"
+msgstr "Incohérence d'achat"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_bank_statement_line__purchase_mismatch_details
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move__purchase_mismatch_details
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_payment__purchase_mismatch_details
+msgid "Purchase Mismatch Details"
+msgstr "Détails de l'incohérence d'achat"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__purchase_order_id
+msgid "Purchase Order"
+msgstr "Commande d'achat"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_edi_ubl_cii_purchase_match.account_move_form_view
+#: model_terms:ir.ui.view,arch_db:account_edi_ubl_cii_purchase_match.account_move_line_select_purchase_line_wizard_form_view
+msgid "Select Purchase Line"
+msgstr "Sélectionner une ligne d'achat"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line__supplier_product_code
+msgid "Supplier Product Code"
+msgstr "Référence produit fournisseur"
+
+#. module: account_edi_ubl_cii_purchase_match
+#. odoo-python
+#: code:addons/account_edi_ubl_cii_purchase_match/models/account_move.py:0
+#, python-format
+msgid ""
+"The following differences were detected between this invoice and its "
+"related purchase order lines:\n"
+msgstr ""
+"Les différences suivantes ont été détectées entre cette facture et "
+"ses lignes de commande d'achat associées :\n"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model,name:account_edi_ubl_cii_purchase_match.model_account_edi_xml_ubl_20
+msgid "UBL 2.0"
+msgstr ""
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model,name:account_edi_ubl_cii_purchase_match.model_account_move_line_select_purchase_line_wizard
+msgid "account move line select purchase line wizard"
+msgstr ""
