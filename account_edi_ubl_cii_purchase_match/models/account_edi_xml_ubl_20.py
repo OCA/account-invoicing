@@ -80,3 +80,18 @@ class AccountEdiXmlUBL20(models.AbstractModel):
         ):
             return supplierinfo.product_tmpl_id.product_variant_ids
         return product_model
+
+    def _import_fill_invoice_line_form(
+        self, journal, tree, invoice, invoice_line, qty_factor
+    ):
+        res = super()._import_fill_invoice_line_form(
+            journal, tree, invoice, invoice_line, qty_factor
+        )
+        supplier_product_code = self._find_value(
+            "./cac:Item/cac:SellersItemIdentification/cbc:ID", tree
+        )
+        if not invoice_line.product_id and supplier_product_code:
+            # if no match for the product and the supplier_product_code is defined
+            # fill it into the invoice_line so it can used at manual match
+            invoice_line.supplier_product_code = supplier_product_code
+        return res

@@ -126,6 +126,9 @@
     <cac:Item>
       <cbc:Description>Locations and leasing</cbc:Description>
       <cbc:Name>Locations et leasing opérationnel</cbc:Name>
+      <cac:SellersItemIdentification>
+        <cbc:ID>leasing001</cbc:ID>
+      </cac:SellersItemIdentification>
       <cac:ClassifiedTaxCategory>
         <cbc:ID>S</cbc:ID>
         <cbc:Percent>16.0</cbc:Percent>

@@ -1,12 +1,13 @@
 # Copyright 2025 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import models
+from odoo import fields, models
 
 
 class AccountMoveLine(models.Model):
 
     _inherit = "account.move.line"
+    supplier_product_code = fields.Char(readonly=True)
 
     def _update_product_supplier_name(self):
         for rec in self:
@@ -20,6 +21,8 @@ class AccountMoveLine(models.Model):
                 )
             )
             seller.product_name = rec.name
+            if rec.supplier_product_code:
+                seller.product_code = rec.supplier_product_code
 
     def action_select_purchase_line(self):
         self.ensure_one()

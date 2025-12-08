@@ -195,3 +195,65 @@ class TestAccountEdiUblCiiPurchaseMatch(AccountTestInvoicingCommon):
         wizard.purchase_order_line_id = self.po_line
         wizard.select_purchase_line()
         self.assertEqual(inv_line.price_unit, 657.0)
+
+    def test_8(self):
+        """match product by default_code"""
+        self.purchase_order.partner_ref = "FAC/2023/00052"
+        self.product.default_code = "leasing001"
+        bill = self._import_invoice(self.company_data["default_journal_purchase"])
+        inv_line = bill.invoice_line_ids
+        self.assertEqual(inv_line.purchase_line_id, self.po_line)
+        self.assertEqual(inv_line.product_id, self.product)
+
+    def test_9(self):
+        """match product by supplier code"""
+        self.purchase_order.partner_ref = "FAC/2023/00052"
+        self.env["product.supplierinfo"].create(
+            {
+                "partner_id": self.partner.id,
+                "product_code": "leasing001",
+                "product_id": self.product.id,
+            }
+        )
+        bill = self._import_invoice(self.company_data["default_journal_purchase"])
+        inv_line = bill.invoice_line_ids
+        self.assertEqual(inv_line.purchase_line_id, self.po_line)
+        self.assertEqual(inv_line.product_id, self.product)
+
+    def test_10(self):
+        """match product by supplier code for product template suuplierinfo"""
+        self.purchase_order.partner_ref = "FAC/2023/00052"
+        self.env["product.supplierinfo"].create(
+            {
+                "partner_id": self.partner.id,
+                "product_code": "leasing001",
+                "product_tmpl_id": self.product.product_tmpl_id.id,
+            }
+        )
+        bill = self._import_invoice(self.company_data["default_journal_purchase"])
+        inv_line = bill.invoice_line_ids
+        self.assertFalse(
+            inv_line.supplier_product_code, "the value is not stored if match auto"
+        )
+        self.assertEqual(inv_line.purchase_line_id, self.po_line)
+        self.assertEqual(inv_line.product_id, self.product)
+
+    def test_11(self):
+        """
+        product supplier code is stored in seller information at manual match
+        """
+        self.purchase_order.partner_ref = "FAC/2023/00052"
+        bill = self._import_invoice(self.company_data["default_journal_purchase"])
+        inv_line = bill.invoice_line_ids
+        self.assertEqual(inv_line.supplier_product_code, "leasing001")
+        self.assertEqual(inv_line.price_unit, 657.0)
+        action = inv_line.action_select_purchase_line()
+        wizard = (
+            self.env[action.get("res_model")]
+            .with_context(**action.get("context"))
+            .create({})
+        )
+        wizard.purchase_order_line_id = self.po_line
+        wizard.select_purchase_line()
+        self.assertEqual(self.product.seller_ids.product_name, "Locations and leasing")
+        self.assertEqual(self.product.seller_ids.product_code, "leasing001")
