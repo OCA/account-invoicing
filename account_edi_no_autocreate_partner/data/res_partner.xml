@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="partner_not_found" model="res.partner">
+        <field name="name">Partner Not Found</field>
+        <field name="active" eval="False" />
+        <field name="comment">
+            Fallback partner used when a vendor cannot be matched during UBL import.
+        </field>
+    </record>
+
+</odoo>
