@@ -123,11 +123,16 @@ class AccountMoveLine(models.Model):
         self.ensure_one()
         if not self.purchase_line_id:
             return {}
+        form = self.env.ref(
+            "account_edi_ubl_cii_purchase_match.purchase_order_line_form_view"
+        )
         return {
             "type": "ir.actions.act_window",
             "name": self.purchase_line_id.display_name,
             "res_model": self.purchase_line_id._name,
             "view_mode": "form",
+            "views": [(form.id, "form")],
+            "view_id": form.id,
             "res_id": self.purchase_line_id.id,
             "target": "new",
             "context": self.env.context,

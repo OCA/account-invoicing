@@ -30,6 +30,8 @@ class AccountMoveLineSelectPurchaseLineWizard(models.TransientModel):
         store=True,
         readonly=False,
     )
+    qty_received = fields.Float(related="purchase_order_line_id.qty_received")
+    qty_invoiced = fields.Float(related="purchase_order_line_id.qty_invoiced")
 
     @api.depends("purchase_order_id")
     def _compute_product_domain(self):

@@ -30,6 +30,11 @@ msgid "- Unit price differs from the purchase order line."
 msgstr "- Le prix unitaire diffère de celui de la ligne de commande."
 
 #. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__qty_invoiced
+msgid "Billed Qty"
+msgstr "Qté facturée"
+
+#. module: account_edi_ubl_cii_purchase_match
 #: model_terms:ir.ui.view,arch_db:account_edi_ubl_cii_purchase_match.account_move_line_select_purchase_line_wizard_form_view
 msgid "Cancel"
 msgstr "Annuler"
@@ -70,11 +75,6 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: account_edi_ubl_cii_purchase_match
-#: model:ir.model,name:account_edi_ubl_cii_purchase_match.model_account_edi_format
-msgid "EDI format"
-msgstr "Format EDI"
-
-#. module: account_edi_ubl_cii_purchase_match
 #: model:ir.model.fields,help:account_edi_ubl_cii_purchase_match.field_account_bank_statement_line__purchase_mismatch_details
 #: model:ir.model.fields,help:account_edi_ubl_cii_purchase_match.field_account_move__purchase_mismatch_details
 #: model:ir.model.fields,help:account_edi_ubl_cii_purchase_match.field_account_payment__purchase_mismatch_details
@@ -100,6 +100,11 @@ msgid "ID"
 msgstr "ID"
 
 #. module: account_edi_ubl_cii_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_edi_ubl_cii_purchase_match.purchase_order_line_form_view
+msgid "Invoice"
+msgstr "Facture"
+
+#. module: account_edi_ubl_cii_purchase_match
 #: model:ir.model,name:account_edi_ubl_cii_purchase_match.model_account_move
 msgid "Journal Entry"
 msgstr "Écriture de journal"
@@ -112,7 +117,7 @@ msgstr "Ecriture comptable"
 #. module: account_edi_ubl_cii_purchase_match
 #: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__description
 msgid "Label"
-msgstr ""
+msgstr "Libellé"
 
 #. module: account_edi_ubl_cii_purchase_match
 #: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard____last_update
@@ -152,6 +157,16 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__product_id
+msgid "Product"
+msgstr "Produit"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__product_domain
+msgid "Product Domain"
+msgstr ""
+
+#. module: account_edi_ubl_cii_purchase_match
 #: model_terms:ir.ui.view,arch_db:account_edi_ubl_cii_purchase_match.account_move_form_view
 msgid "Purchase Line"
 msgstr "Ligne d'achat"
@@ -186,10 +201,19 @@ msgid "Purchase Order"
 msgstr "Commande d'achat"
 
 #. module: account_edi_ubl_cii_purchase_match
+#: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line_select_purchase_line_wizard__qty_received
+msgid "Received Qty"
+msgstr "Qté reçue"
+
+#. module: account_edi_ubl_cii_purchase_match
 #: model_terms:ir.ui.view,arch_db:account_edi_ubl_cii_purchase_match.account_move_form_view
-#: model_terms:ir.ui.view,arch_db:account_edi_ubl_cii_purchase_match.account_move_line_select_purchase_line_wizard_form_view
 msgid "Select Purchase Line"
 msgstr "Sélectionner une ligne d'achat"
+
+#. module: account_edi_ubl_cii_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_edi_ubl_cii_purchase_match.account_move_line_select_purchase_line_wizard_form_view
+msgid "Select The Purchase Line"
+msgstr "Sélectionner La ligne d'achat"
 
 #. module: account_edi_ubl_cii_purchase_match
 #: model:ir.model.fields,field_description:account_edi_ubl_cii_purchase_match.field_account_move_line__supplier_product_code

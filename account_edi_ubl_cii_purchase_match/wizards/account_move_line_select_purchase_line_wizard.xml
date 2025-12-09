@@ -21,10 +21,18 @@
                     <field name="product_id" required="1" />
                     <field name="purchase_order_line_id" required="1" />
                 </group>
+                <group>
+                    <group>
+                        <field name="qty_received" />
+                    </group>
+                    <group>
+                        <field name="qty_invoiced" />
+                    </group>
+                </group>
                 <footer>
                     <button
                         name="select_purchase_line"
-                        string="Select Purchase Line"
+                        string="Select The Purchase Line"
                         class="btn-primary"
                         type="object"
                     />

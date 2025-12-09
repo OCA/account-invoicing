@@ -14,6 +14,7 @@
         "security/account_move_line_select_purchase_line_wizard.xml",
         "wizards/account_move_line_select_purchase_line_wizard.xml",
         "views/account_move.xml",
+        "views/purchase_order_line.xml",
     ],
     "demo": [],
 }
