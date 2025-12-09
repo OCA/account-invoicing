@@ -161,7 +161,7 @@ class TestAccountEdiUblCiiPurchaseMatch(AccountTestInvoicingCommon):
         )
         self.assertEqual(wizard.move_line_id, inv_line)
         self.assertEqual(wizard.purchase_order_id, self.purchase_order)
-        wizard.purchase_order_line_id = self.po_line
+        wizard.product_id = self.product
         wizard.select_purchase_line()
         self.assertEqual(inv_line.purchase_line_id, self.po_line)
         self.assertEqual(self.product.seller_ids.product_name, "Locations and leasing")
@@ -194,7 +194,7 @@ class TestAccountEdiUblCiiPurchaseMatch(AccountTestInvoicingCommon):
             .with_context(**action.get("context"))
             .create({})
         )
-        wizard.purchase_order_line_id = self.po_line
+        wizard.product_id = self.product
         wizard.select_purchase_line()
         self.assertEqual(inv_line.price_unit, 657.0)
 
@@ -255,7 +255,7 @@ class TestAccountEdiUblCiiPurchaseMatch(AccountTestInvoicingCommon):
             .with_context(**action.get("context"))
             .create({})
         )
-        wizard.purchase_order_line_id = self.po_line
+        wizard.product_id = self.product
         wizard.select_purchase_line()
         self.assertEqual(self.product.seller_ids.product_name, "Locations and leasing")
         self.assertEqual(self.product.seller_ids.product_code, "leasing001")
