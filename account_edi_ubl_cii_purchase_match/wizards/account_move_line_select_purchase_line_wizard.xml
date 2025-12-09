@@ -20,6 +20,7 @@
                     <field name="purchase_order_id" required="1" />
                     <field name="product_id" required="1" />
                     <field name="purchase_order_line_id" required="1" />
+                    <field name="product_uom_qty" />
                 </group>
                 <group>
                     <group>

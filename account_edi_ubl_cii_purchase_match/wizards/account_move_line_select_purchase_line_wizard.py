@@ -30,6 +30,9 @@ class AccountMoveLineSelectPurchaseLineWizard(models.TransientModel):
         store=True,
         readonly=False,
     )
+    product_uom_qty = fields.Float(
+        related="purchase_order_line_id.product_uom_qty", string="Ordered Qty"
+    )
     qty_received = fields.Float(related="purchase_order_line_id.qty_received")
     qty_invoiced = fields.Float(related="purchase_order_line_id.qty_invoiced")
 
