@@ -45,27 +45,25 @@ class AccountMove(models.Model):
                         "Please verify the price of the invoice!\n"
                         "The total amount (%(amount_total)s) does not match "
                         "the Verification Total amount (%(check_total)s)!\n"
-                        "There is a difference of %(diff)s"
-                    )
-                    % {
-                        "amount_total": format_amount(
+                        "There is a difference of %(diff)s",
+                        amount_total=format_amount(
                             self.env, inv.amount_total, inv.currency_id
                         ),
-                        "check_total": format_amount(
+                        check_total=format_amount(
                             self.env, inv.check_total, inv.currency_id
                         ),
-                        "diff": format_amount(
+                        diff=format_amount(
                             self.env,
                             inv.check_total_display_difference,
                             inv.currency_id,
                         ),
-                    }
+                    )
                 )
         return super().action_post()
 
-    @api.model
-    def _reverse_move_vals(self, default_values, cancel=True):
-        vals = super()._reverse_move_vals(default_values, cancel)
-        if self.move_type in ["in_invoice", "in_refund"]:
-            vals["check_total"] = self.check_total
-        return vals
+    def _reverse_moves(self, default_values_list=None, cancel=False):
+        reverse_moves = super()._reverse_moves(default_values_list, cancel)
+        for reverse_move in reverse_moves:
+            if reverse_move.reversed_entry_id.move_type in ["in_invoice", "in_refund"]:
+                reverse_move.check_total = reverse_move.reversed_entry_id.check_total
+        return reverse_moves

@@ -1,6 +1,7 @@
 # Copyright 2016 Acsone SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo import Command
 from odoo.exceptions import ValidationError
 from odoo.tests import Form, TransactionCase
 
@@ -13,7 +14,7 @@ class TestAccountInvoice(TransactionCase):
         super().setUpClass()
         cls.account_move = cls.env["account.move"]
         # Add current user to group: group_supplier_inv_check_total
-        cls.env.ref(GROUP_AICT).write({"users": [(4, cls.env.user.id)]})
+        cls.env.ref(GROUP_AICT).write({"user_ids": [Command.link(cls.env.user.id)]})
         # create a vendor bill
         invoice_form = Form(
             cls.account_move.with_context(default_move_type="in_invoice")
