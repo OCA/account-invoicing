@@ -9,7 +9,7 @@ class AccountMoveLine(models.Model):
 
     external_name = fields.Char(compute="_compute_name_fields", store=True)
 
-    @api.depends("product_id")
+    @api.depends("product_id", "product_id.accounting_description")
     def _compute_name_fields(self):
         for line in self:
             line.external_name = line.name
