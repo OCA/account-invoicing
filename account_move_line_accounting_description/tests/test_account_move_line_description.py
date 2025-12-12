@@ -24,7 +24,6 @@ class TestAccountLineDescription(SavepointCase):
 
         cls.account_move = cls.env["account.move"]
 
-
     def test_invoice_line_with_accounting_description(self):
         invoice_form_acc_desc = Form(
             self.account_move.with_context(default_move_type="out_invoice")
