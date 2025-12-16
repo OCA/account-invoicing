@@ -3,6 +3,7 @@
 # Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, exceptions, fields, models
+from odoo.fields import Command, Domain
 from odoo.tools import config
 
 
@@ -70,7 +71,7 @@ class AccountMove(models.Model):
             "base": base,
             "base_discounted": discount["base_discounted"],
             "account_id": global_discount.account_id.id,
-            "tax_ids": [(4, tax_id) for tax_id in tax_ids],
+            "tax_ids": [Command.link(tax_id) for tax_id in tax_ids],
         }
 
     def _set_global_discounts_by_tax(self):
@@ -243,10 +244,12 @@ class AccountMove(models.Model):
     def _clean_global_discount_lines(self):
         self.ensure_one()
         gbl_disc_lines = self.env["account.move.line"].search(
-            [
-                ("move_id", "=", self.id),
-                ("invoice_global_discount_id", "!=", False),
-            ]
+            Domain(
+                [
+                    ("move_id", "=", self.id),
+                    ("invoice_global_discount_id", "!=", False),
+                ]
+            )
         )
         if gbl_disc_lines:
             move_container = {"records": self}
@@ -306,81 +309,3 @@ class AccountMove(models.Model):
                 else:
                     taxes_keys[tuple(inv_line.tax_ids.ids)] = True
         return True
-
-
-class AccountMoveLine(models.Model):
-    _inherit = "account.move.line"
-
-    invoice_global_discount_id = fields.Many2one(
-        comodel_name="account.invoice.global.discount",
-        string="Invoice Global Discount",
-    )
-    base_before_global_discounts = fields.Monetary(
-        string="Amount Untaxed Before Discounts",
-        readonly=True,
-    )
-
-
-class AccountInvoiceGlobalDiscount(models.Model):
-    _name = "account.invoice.global.discount"
-    _description = "Invoice Global Discount"
-
-    name = fields.Char(string="Discount Name", required=True)
-    invoice_id = fields.Many2one(
-        "account.move",
-        string="Invoice",
-        ondelete="cascade",
-        index=True,
-        readonly=True,
-        domain=[
-            (
-                "move_type",
-                "in",
-                ["out_invoice", "out_refund", "in_invoice", "in_refund"],
-            )
-        ],
-    )
-    global_discount_id = fields.Many2one(
-        comodel_name="global.discount",
-        string="Global Discount",
-    )
-    discount = fields.Float(string="Discount (number)")
-    discount_display = fields.Char(
-        compute="_compute_discount_display",
-        string="Discount",
-    )
-    base = fields.Float(string="Base before discount", digits="Product Price")
-    base_discounted = fields.Float(string="Base after discount", digits="Product Price")
-    currency_id = fields.Many2one(related="invoice_id.currency_id", readonly=True)
-    discount_amount = fields.Monetary(
-        string="Discounted Amount",
-        compute="_compute_discount_amount",
-        currency_field="currency_id",
-        compute_sudo=True,
-    )
-    tax_ids = fields.Many2many(comodel_name="account.tax", string="Taxes")
-    account_id = fields.Many2one(
-        comodel_name="account.account",
-        required=True,
-        string="Account",
-        domain=(
-            "[('account_type', 'not in', ['asset_receivable', 'liability_payable'])]"
-        ),
-    )
-    account_analytic_id = fields.Many2one(
-        comodel_name="account.analytic.account",
-        string="Analytic account",
-    )
-    company_id = fields.Many2one(related="invoice_id.company_id", readonly=True)
-
-    def _compute_discount_display(self):
-        """Given a discount type, we need to render a different symbol"""
-        for one in self:
-            precision = self.env["decimal.precision"].precision_get("Discount")
-            one.discount_display = "{0:.{1}f}%".format(one.discount * -1, precision)
-
-    @api.depends("base", "base_discounted")
-    def _compute_discount_amount(self):
-        """Compute the amount discounted"""
-        for one in self:
-            one.discount_amount = one.base - one.base_discounted

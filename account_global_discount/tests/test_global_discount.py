@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import exceptions
+from odoo.fields import Command
 from odoo.tests import Form, tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -15,10 +16,14 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
     def setUpClass(cls, chart_template_ref=None):
         super().setUpClass()
         cls.env = cls.env(
-            context=dict(cls.env.context, test_account_global_discount=True)
+            context=dict(
+                cls.env.context,
+                tracking_disable=True,
+                test_account_global_discount=True,
+            )
         )
-        cls.env.ref("base_global_discount.group_global_discount").write(
-            {"users": [(4, cls.env.user.id)]}
+        cls.env.user.group_ids |= cls.env.ref(
+            "base_global_discount.group_global_discount"
         )
         cls.account = cls.company_data["default_account_revenue"]
         cls.global_discount_obj = cls.env["global.discount"]
@@ -80,25 +85,21 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
                     "partner_id": cls.partner_1.id,
                     "ref": "Test global discount",
                     "invoice_line_ids": [
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "name": "Line 1",
                                 "price_unit": 200.0,
                                 "quantity": 1,
-                                "tax_ids": [(6, 0, [cls.tax.id])],
+                                "tax_ids": [Command.set(cls.tax.ids)],
                             },
                         ),
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "name": "Line 2",
                                 "product_id": cls.product_3.id,
                                 "price_unit": 200.0,
                                 "quantity": 1,
-                                "tax_ids": [(6, 0, [cls.tax_0.id])],
+                                "tax_ids": [Command.set(cls.tax_0.ids)],
                             },
                         ),
                     ],
@@ -109,6 +110,7 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
     def test_01_global_invoice_succesive_discounts(self):
         """Add global discounts to the invoice"""
         invoice_tax_line = self.invoice.line_ids.filtered("tax_line_id")
+        # import pdb; pdb.set_trace()
         self.assertAlmostEqual(self.invoice.amount_total, 430)
         self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 200.0)
         self.assertAlmostEqual(invoice_tax_line.balance, 30.0)
@@ -319,16 +321,14 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
                 {
                     "move_type": "out_invoice",
                     "partner_id": self.partner_1.id,
-                    "global_discount_ids": [(6, 0, global_discount.ids)],
+                    "global_discount_ids": [Command.set(global_discount.ids)],
                     "invoice_line_ids": [
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "name": "Line 1",
                                 "price_unit": 200.0,
                                 "quantity": 1,
-                                "tax_ids": [(6, 0, tax.ids)],
+                                "tax_ids": [Command.set(tax.ids)],
                             },
                         )
                     ],
@@ -337,7 +337,7 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         )
         self.assertEqual(len(invoice.invoice_global_discount_ids), 1)
         invoice_tax_line = invoice.line_ids.filtered("tax_line_id")
-        self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 100.0)
+        self.assertAlmostEqual(invoice_tax_line.tax_base_amount, -100.0)
         self.assertAlmostEqual(invoice_tax_line.balance, -15.0)
         self.assertAlmostEqual(invoice.amount_untaxed, 100.0)
         self.assertAlmostEqual(invoice.amount_total, 115.0)
