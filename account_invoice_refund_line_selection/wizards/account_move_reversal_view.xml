@@ -14,11 +14,12 @@
             <xpath expr="//footer" position="before">
                 <notebook invisible="not refund_lines">
                     <page string="Invoice Lines">
+                        <field name="selectable_invoice_lines_ids" invisible="1" />
                         <field
                             name="line_ids"
                             context="{'list_view_ref': 'account.view_move_line_tree_grouped_sales_purchases'}"
                         >
-                            <list no_open="True">
+                            <tree no_open="True">
                                 <field name="sequence" widget="handle" readonly="1" />
                                 <field name="product_id" readonly="1" />
                                 <field name="name" readonly="1" />
@@ -31,7 +32,7 @@
                                 />
                                 <field name="price_unit" readonly="1" />
                                 <field name="price_subtotal" readonly="1" />
-                            </list>
+                            </tree>
                         </field>
                     </page>
                 </notebook>
