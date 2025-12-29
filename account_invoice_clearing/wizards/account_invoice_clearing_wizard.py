@@ -353,7 +353,7 @@ class AccountInvoiceClearingWizard(models.TransientModel):
             action.update(
                 {
                     "domain": [("id", "in", res_ids)],
-                    "view_mode": "tree,form",
+                    "view_mode": "list,form",
                 }
             )
         else:
@@ -628,7 +628,7 @@ class AccountInvoiceClearingLinesWizard(models.TransientModel):
         clearing = self.clearing_id
         if float_is_zero(
             clearing.amount_to_clear,
-            precision_digits=clearing.company_currency_id.rounding,
+            precision_rounding=clearing.company_currency_id.rounding,
         ):
             return clearing.action_reopen_wizard()
         # Always inverse sign because move lines has negative residual amounts

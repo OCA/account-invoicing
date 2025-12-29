@@ -43,7 +43,7 @@
                         string="Move Lines to clear"
                     >
                         <field name="move_line_ids" nolabel="1" colspan="2">
-                            <tree limit="4">
+                            <list limit="4">
                                 <field name="move_id" />
                                 <field name="name" optional="hide" />
                                 <field name="account_id" optional="hide" />
@@ -56,7 +56,7 @@
                                     name="amount_residual"
                                     sum="Total Amount Residual (Signed)"
                                 />
-                            </tree>
+                            </list>
                         </field>
                     </group>
 
@@ -101,7 +101,7 @@
                             <button
                                 name="action_sort_by_date_due_asc"
                                 type="object"
-                                string="Date due (asc)"
+                                string="Due Date (asc)"
                                 icon="fa-sort-alpha-asc"
                                 class="oe_link"
                                 help="Sorts the invoices by date due ascending."
@@ -109,7 +109,7 @@
                             <button
                                 name="action_sort_by_date_due_desc"
                                 type="object"
-                                string="Date due (desc)"
+                                string="Due Date (desc)"
                                 icon="fa-sort-alpha-desc"
                                 class="oe_link"
                                 help="Sorts the invoices by date due descending."
@@ -117,7 +117,7 @@
                             <button
                                 name="action_sort_by_residual_asc"
                                 type="object"
-                                string="Amount residual (asc)"
+                                string="Residual Amount (asc)"
                                 icon="fa-sort-numeric-asc"
                                 class="oe_link"
                                 help="Sorts the invoices by residual amount ascending."
@@ -125,7 +125,7 @@
                             <button
                                 name="action_sort_by_residual_desc"
                                 type="object"
-                                string="Amount residual (desc)"
+                                string="Residual Amount (desc)"
                                 icon="fa-sort-numeric-desc"
                                 class="oe_link"
                                 help="Sorts the invoices by residual amount descending."
@@ -139,7 +139,7 @@
                                 nolabel="1"
                                 options="{'no_create': True, 'no_open': True}"
                             >
-                                <tree
+                                <list
                                     create="false"
                                     delete="false"
                                     decoration-success="amount_residual == amount_to_clear"
@@ -149,7 +149,7 @@
                                     <field
                                         name="sequence"
                                         widget="handle"
-                                        attrs="{'column_invisible': [('parent.move_data', '!=', '[]')]}"
+                                        column_invisible="parent.move_data"
                                     />
                                     <field name="invoice_id" />
                                     <field name="move_line_id" invisible="1" />
@@ -175,9 +175,9 @@
                                         type="object"
                                         string="Use"
                                         icon="fa-arrow-right"
-                                        attrs="{'invisible': [('can_use_line', '=', False)]}"
+                                        invisible="not can_use_line"
                                     />
-                                </tree>
+                                </list>
                             </field>
                         </div>
                     </group>
@@ -185,12 +185,12 @@
                         name="group_preview"
                         string="The following Journal Entries will be generated"
                         colspan="2"
-                        attrs="{'invisible': [('move_data', '=', '[]')]}"
+                        invisible="not move_data"
                     >
                         <div
                             class="alert alert-info mb-0"
                             role="alert"
-                            attrs="{'invisible': [('amount_to_clear', '=', 0.0)]}"
+                            invisible="amount_to_clear == 0.0"
                             colspan="2"
                         >
                             Resulting move will not be fully reconciled.
@@ -211,7 +211,7 @@
                         class="oe_highlight"
                         confirm="Are you sure you want to use the selected configuration to clear invoices? This operation will create a new move and will reconcile every line with its respective counterpart."
                         data-hotkey="c"
-                        attrs="{'invisible': [('move_data', '=', '[]')]}"
+                        invisible="not move_data"
                     />
                     <button
                         string="Cancel"

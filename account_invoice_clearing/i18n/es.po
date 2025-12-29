@@ -55,12 +55,12 @@ msgstr "Importe a compensar"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Amount residual (asc)"
+msgid "Residual Amount (asc)"
 msgstr "Importe residual (asc)"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Amount residual (desc)"
+msgid "Residual Amount (desc)"
 msgstr "Importe residual (desc)"
 
 #. module: account_invoice_clearing
@@ -150,12 +150,12 @@ msgstr "Fecha"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Date due (asc)"
+msgid "Due Date (asc)"
 msgstr "Fecha de vencimiento (asc)"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Date due (desc)"
+msgid "Due Date (desc)"
 msgstr "Fecha de vencimiento (desc)"
 
 #. module: account_invoice_clearing

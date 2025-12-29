@@ -25,7 +25,7 @@
                     class="oe_highlight"
                     type="object"
                     groups="account.group_account_invoice"
-                    attrs="{'invisible': ['|', '|', ('state', '!=', 'posted'), ('move_type', '=', 'entry'), ('payment_state', '=', 'paid')]}"
+                    invisible="state != 'posted' or move_type == 'entry' or payment_state == 'paid'"
                 />
             </xpath>
         </field>
