@@ -17,13 +17,13 @@
         <field name="lang">{{ object.partner_id.lang }}</field>
         <field name="auto_delete" eval="True" />
         <field name="body_html" type="html">
-<div style="margin: 0px; padding: 0px;">
-    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
         Dear
         <t t-if="object.partner_id.parent_id">
             <t t-out="object.partner_id.name or ''">Brandon Freeman</t> (<t
-                            t-out="object.partner_id.parent_id.name or ''"
-                        >Azure Interior</t>),
+                    t-out="object.partner_id.parent_id.name or ''"
+                >Azure Interior</t>),
         </t>
         <t t-else="">
             <t t-out="object.partner_id.name or ''">Brandon Freeman</t>,
@@ -31,17 +31,21 @@
         <br /><br />
         Here is your Self-Bill Invoice
         <t t-if="object.name and object.ref">
-            <strong><t t-out="object.ref or ''">INVREF/2021/05/0005</t></strong>
-        </t>
+                    <strong>
+                        <t t-out="object.ref or ''">INVREF/2021/05/0005</t>
+                    </strong>
+                </t>
         <t t-if="object.name and not object.ref">
-            <strong><t t-out="object.name or ''">INV/2021/05/0005</t></strong>
-        </t>
+                    <strong>
+                        <t t-out="object.name or ''">INV/2021/05/0005</t>
+                    </strong>
+                </t>
         <t t-if="object.invoice_origin">
             (with reference: <t t-out="object.invoice_origin or ''">SUB003</t>)
         </t>
         amounting in <strong
-                        t-out="format_amount(object.amount_total, object.currency_id) or ''"
-                    >$ 143,750.00</strong>
+                    t-out="format_amount(object.amount_total, object.currency_id) or ''"
+                >$ 143,750.00</strong>
         to <t t-out="object.company_id.name or ''">YourCompany</t>.
         <t t-if="object.payment_state in ('paid', 'in_payment')">
             This Self-Bill Invoice is already paid.
@@ -49,11 +53,12 @@
         <br /><br />
         Do not hesitate to contact us if you have any questions.
         <t t-if="object.invoice_user_id.signature">
-            <br />
-            <t t-out="object.invoice_user_id.signature or ''">--<br />Mitchell Admin</t>
-        </t>
+                    <br />
+                    <t t-out="object.invoice_user_id.signature or ''">--<br
+                    />Mitchell Admin</t>
+                </t>
     </p>
-</div>
+            </div>
         </field>
     </record>
 </odoo>

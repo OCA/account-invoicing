@@ -17,20 +17,20 @@ Purchase Self Invoice
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_supplier_self_invoice
+    :target: https://github.com/OCA/account-invoicing/tree/18.0/account_invoice_supplier_self_invoice
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-16-0/account-invoicing-16-0-account_invoice_supplier_self_invoice
+    :target: https://translation.odoo-community.org/projects/account-invoicing-18-0/account-invoicing-18-0-account_invoice_supplier_self_invoice
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module allows the configuration of the suppliers in order to define self invoices.
-Self invoices are created by the customer in the name of the provider.
-The provider must allow the customer to create them.
+This module allows the configuration of the suppliers in order to define
+self invoices. Self invoices are created by the customer in the name of
+the provider. The provider must allow the customer to create them.
 
 **Table of contents**
 
@@ -40,19 +40,20 @@ The provider must allow the customer to create them.
 Usage
 =====
 
-#. Go to 'Accounting/Invoicing > Settings > Vendor Bills > Self Billing' and define a new
-   prefix for Self Billing Invoices
-#. Go to 'Accounting/Invoicing > Vendors > Vendors'
-#. Modify a Provider and click 'Set Self Invoice' inside the page 'Sales &
-   Purchases'
-#. Go to 'Accounting/Invoicing > Vendors > Bills'
-#. Create an invoice for the provider and validate it
-#. You can send the invoice before validation to ensure the vendor accepts it
-#. The self invoice is accessible through the normal print button
-#. You can create an invoice for the provider without the self invoice if you
-   uncheck 'Set self invoice'
-#. You can send the self invoice by using the Send & Print button or on the tree view
-   Action > Send & Print.
+1. Go to 'Accounting/Invoicing > Settings > Vendor Bills > Self Billing'
+   and define a new prefix for Self Billing Invoices
+2. Go to 'Accounting/Invoicing > Vendors > Vendors'
+3. Modify a Provider and click 'Set Self Invoice' inside the page 'Sales
+   & Purchases'
+4. Go to 'Accounting/Invoicing > Vendors > Bills'
+5. Create an invoice for the provider and validate it
+6. You can send the invoice before validation to ensure the vendor
+   accepts it
+7. The self invoice is accessible through the normal print button
+8. You can create an invoice for the provider without the self invoice
+   if you uncheck 'Set self invoice'
+9. You can send the self invoice by using the Send & Print button or on
+   the tree view Action > Send & Print.
 
 Bug Tracker
 ===========
@@ -60,7 +61,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_supplier_self_invoice%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_supplier_self_invoice%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -68,22 +69,22 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * CreuBlanca
 * Moduon
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Enric Tobella <etobella@creublanca.es>
-* Nikul Chaudhary <nikulchaudhary2112@gmail.com>
-* Alba Riera <alba.riera@creublanca.es>
-* Rafael Blasco (`Moduon <https://www.moduon.team/>`__)
-* Eduardo de Miguel (`Moduon <https://www.moduon.team/>`__)
+- Enric Tobella <etobella@creublanca.es>
+- Nikul Chaudhary <nikulchaudhary2112@gmail.com>
+- Alba Riera <alba.riera@creublanca.es>
+- Rafael Blasco (`Moduon <https://www.moduon.team/>`__)
+- Eduardo de Miguel (`Moduon <https://www.moduon.team/>`__)
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -95,6 +96,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/account_invoice_supplier_self_invoice>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/18.0/account_invoice_supplier_self_invoice>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

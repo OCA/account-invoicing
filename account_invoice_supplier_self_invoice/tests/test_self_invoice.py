@@ -7,7 +7,7 @@ from odoo.tests import Form, common
 
 class TestSelfInvoice(common.TransactionCase):
     def setUp(self):
-        res = super(TestSelfInvoice, self).setUp()
+        res = super().setUp()
         self.user = self.env.ref("base.user_admin")
         self.partner = self.env["res.partner"].create(
             {"name": "Partner", "supplier_rank": 1}

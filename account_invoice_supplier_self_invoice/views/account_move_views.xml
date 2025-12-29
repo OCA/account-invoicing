@@ -39,9 +39,9 @@
                     role="alert"
                 >
                     <span>
-                        Self-Bill Invoice Number <strong><field
-                                name="self_invoice_number"
-                            /></strong> is different than Invoice Reference.
+                        Self-Bill Invoice Number <strong>
+                        <field name="self_invoice_number" />
+                    </strong> is different than Invoice Reference.
                     </span>
                 </div>
             </xpath>

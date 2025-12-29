@@ -30,9 +30,9 @@
                     />
                     <t t-if="o.partner_id.vat">
                         <t
-                            t-if="company.account_fiscal_country_id.vat_label"
-                            t-esc="company.account_fiscal_country_id.vat_label"
-                        />
+                        t-if="company.account_fiscal_country_id.vat_label"
+                        t-esc="company.account_fiscal_country_id.vat_label"
+                    />
                         <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat" />
                     </t>
                 </div>
@@ -105,13 +105,13 @@
                     />
                     <div t-if="o.company_id.partner_id.vat">
                         <t
-                            t-if="o.company_id.account_fiscal_country_id.vat_label"
-                            t-esc="o.company_id.account_fiscal_country_id.vat_label"
-                            id="inv_tax_id_label"
-                        />
+                        t-if="o.company_id.account_fiscal_country_id.vat_label"
+                        t-esc="o.company_id.account_fiscal_country_id.vat_label"
+                        id="inv_tax_id_label"
+                    />
                         <t t-else="">Tax ID</t>: <span
-                            t-field="o.company_id.partner_id.vat"
-                        />
+                        t-field="o.company_id.partner_id.vat"
+                    />
                     </div>
                 </t>
             </t>
@@ -145,12 +145,15 @@
             expr="//div[@id='informations']/div[@name='invoice_date']/t[@t-else='']"
             position="before"
         >
-            <t t-elif="o.set_self_invoice and o.move_type == 'in_invoice'"><strong
-                >Invoice Date:</strong></t>
-            <t t-elif="o.set_self_invoice and o.move_type == 'in_refund'"><strong
-                >Credit Note Date:</strong></t>
-            <t t-elif="o.set_self_invoice and o.move_type == 'in_receipt'"><strong
-                >Receipt Date:</strong></t>
+            <t t-elif="o.set_self_invoice and o.move_type == 'in_invoice'">
+                <strong>Invoice Date:</strong>
+            </t>
+            <t t-elif="o.set_self_invoice and o.move_type == 'in_refund'">
+                <strong>Credit Note Date:</strong>
+            </t>
+            <t t-elif="o.set_self_invoice and o.move_type == 'in_receipt'">
+                <strong>Receipt Date:</strong>
+            </t>
         </xpath>
         <!-- Due date -->
         <xpath
