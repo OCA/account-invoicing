@@ -297,6 +297,7 @@ class TestSaleStock(TestPickingInvoicingCommon):
         sale_order_2 = self.env.ref(
             "sale_stock_picking_invoicing.main_company-sale_order_2"
         )
+        sale_order_2.note = False
         sale_order_2.action_confirm()
         picking2 = sale_order_2.picking_ids
         self.picking_move_state(picking2)
