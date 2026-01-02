@@ -3,6 +3,8 @@
 
 import datetime
 
+from freezegun import freeze_time
+
 from odoo.tests import tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -11,6 +13,7 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged("post_install", "-at_install")
 class TestPartnerLastInvoiceDate(AccountTestInvoicingCommon):
     @classmethod
+    @freeze_time("2025-01-01")
     def setUpClass(cls):
         super().setUpClass()
         cls.partner_model = cls.env["res.partner"]
