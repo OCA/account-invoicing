@@ -1,0 +1,2 @@
+- Laurent Mignon <laurent.mignon@acsone.eu>
+

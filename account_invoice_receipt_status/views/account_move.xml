@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="account_move_form_view" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <field name="ref" position="after">
+                <field
+                    name="receipt_status"
+                    widget="badge"
+                    decoration-info="receipt_status == 'pending'"
+                    decoration-warning="receipt_status == 'partial'"
+                    decoration-success="receipt_status == 'full'"
+                    attrs="{'invisible': [('move_type', '!=', 'in_invoice')]}"
+                />
+            </field>
+            <xpath
+                expr="//field[@name='invoice_line_ids']/tree/field[@name='company_id']"
+                position="after"
+            >
+                <field
+                    name="receipt_status"
+                    widget="badge"
+                    decoration-info="receipt_status == 'pending'"
+                    decoration-warning="receipt_status == 'partial'"
+                    decoration-success="receipt_status == 'full'"
+                    attrs="{'column_invisible': [('parent.move_type', '!=', 'in_invoice')]}"
+                    optional="show"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_move_search_view" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+              <xpath expr="//filter[@name='myinvoices']" position="after">
+                <separator
+                    string="Receipt Status"
+                    invisible="context.get('default_move_type') != 'in_invoice'"
+                />
+                <filter
+                    name="filter_no"
+                    string="Nothing to Receive"
+                    domain="[('receipt_status','=',False)]"
+                    invisible="context.get('default_move_type') != 'in_invoice'"
+                />
+                <filter
+                    name="filter_pending"
+                    string="Pending Receipts"
+                    domain="[('receipt_status','=','pending')]"
+                    invisible="context.get('default_move_type') != 'in_invoice'"
+                />
+                <filter
+                    name="filter_partial"
+                    string="Partially Received"
+                    domain="[('receipt_status','=','partial')]"
+                    invisible="context.get('default_move_type') != 'in_invoice'"
+                />
+                <filter
+                    name="filter_received"
+                    string="Fully Received"
+                    domain="[('receipt_status','=','full')]"
+                    invisible="context.get('default_move_type') != 'in_invoice'"
+                />
+                <separator
+                    invisible="context.get('default_move_type') != 'in_invoice'"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_move_tree_view" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+             <field name="payment_state" position="before">
+                <field
+                    name="receipt_status"
+                    widget="badge"
+                    decoration-info="receipt_status == 'pending'"
+                    decoration-warning="receipt_status == 'partial'"
+                    decoration-success="receipt_status == 'full'"
+                    attrs="{'column_invisible': [('move_type', '!=', 'in_invoice')]}"
+                    optional="show"
+                />
+                </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,1 @@
+odoo-addon-purchase-line-receipt-status @ git+https://github.com/OCA/purchase-workflow.git@refs/pull/2874/head#subdirectory=setup/purchase_line_receipt_status
