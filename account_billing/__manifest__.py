@@ -22,5 +22,5 @@
     ],
     "installable": True,
     "development_status": "Alpha",
-    "maintainers": ["Saran440"],
+    "maintainers": ["Saran440", "aungkokolin1997"],
 }
