@@ -7,7 +7,7 @@
     "author": "Codeforward B.V., Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Hidden",
-    "version": "17.0.1.0.0",
+    "version": "19.0.1.0.0",
     "depends": ["account"],
     "license": "AGPL-3",
     "data": [
