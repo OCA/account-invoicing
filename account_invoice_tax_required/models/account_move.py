@@ -24,7 +24,7 @@ class AccountMove(models.Model):
         ):
             if not invoice_line.tax_ids:
                 error_string = error_template % {
-                    "invoice": invoice_line.move_id.name,
+                    "invoice": invoice_line.move_id.display_name,
                     "customer": invoice_line.partner_id.name,
                     "product": invoice_line.name,
                 }
