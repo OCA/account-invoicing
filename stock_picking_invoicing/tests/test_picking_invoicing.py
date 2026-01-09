@@ -99,6 +99,7 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
                 "fixed_price": 1234.0,
                 "applied_on": "0_product_variant",
                 "product_id": product_price_test.id,
+                "pricelist_id": cls.price_list.id,
             }
         )
         # Data has duplicate line with 2 Prices for same Partner,
@@ -732,6 +733,7 @@ class TestPickingInvoicing(TestPickingInvoicingCommon):
     def test_get_price_from_pricelist(self):
         """Test get Price from PriceList."""
         picking = self.env.ref("stock_picking_invoicing.stock_picking_invoicing_1")
+        picking.partner_id.property_product_pricelist = self.price_list
         self.picking_move_state(picking)
         self.assertEqual(picking.state, "done")
         invoice = self.create_invoice_wizard(picking)

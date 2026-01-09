@@ -1,0 +1,22 @@
+<odoo noupdate="1">
+    <record id="seq_account_customer_billing" model="ir.sequence">
+        <field name="name">Billing sequence</field>
+        <field name="code">account.customer.billing</field>
+        <field name="prefix">CUST.BIL/%(year)s/</field>
+        <field eval="1" name="number_next" />
+        <field eval="1" name="number_increment" />
+        <field eval="True" name="use_date_range" />
+        <field eval="False" name="company_id" />
+        <field name="padding">5</field>
+    </record>
+    <record id="seq_account_supplier_billing" model="ir.sequence">
+        <field name="name">Supplier Billing sequence</field>
+        <field name="code">account.supplier.billing</field>
+        <field name="prefix">SUPP.BIL/%(year)s/</field>
+        <field eval="1" name="number_next" />
+        <field eval="1" name="number_increment" />
+        <field eval="True" name="use_date_range" />
+        <field eval="False" name="company_id" />
+        <field name="padding">5</field>
+    </record>
+</odoo>

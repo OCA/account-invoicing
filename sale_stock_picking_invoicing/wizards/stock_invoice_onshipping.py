@@ -95,7 +95,8 @@ class StockInvoiceOnshipping(models.TransientModel):
                 # origins.add(sale_values["invoice_origin"])
                 payment_refs.add(sale_values["payment_reference"])
                 refs.add(sale_values["ref"])
-                narration.add(sale_values["narration"])
+                if sale_values["narration"]:
+                    narration.add(sale_values["narration"])
 
                 sale_values_rm = {
                     k: sale_values[k]
