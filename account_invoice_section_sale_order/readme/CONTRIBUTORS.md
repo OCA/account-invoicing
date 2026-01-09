@@ -7,3 +7,5 @@
   - Raf Ven
 - [NICO SOLUTIONS](https://www.nico-solutions-de)
   - Nils Coenen
+- [MT Software](https://www.mt-software.de)
+  - Michael Tietz \<<mtietz@mt-software.de>\>

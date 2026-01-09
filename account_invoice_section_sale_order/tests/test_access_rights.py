@@ -1,4 +1,5 @@
 # Copyright 2024 Camptocamp SA
+# Copyright 2026 Michael Tietz (MT Software) <mtietz@mt-software.de>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 
 from odoo.tests import tagged
@@ -46,7 +47,7 @@ class TestAccessRights(Common):
             {
                 "name": "Create Only User",
                 "login": "createonlyuser@example.com",
-                "groups_id": [
+                "group_ids": [
                     (6, 0, (cls.create_only_group | cls.sale_manager_group).ids),
                 ],
             }
