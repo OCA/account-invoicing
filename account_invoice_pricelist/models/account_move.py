@@ -57,6 +57,10 @@ class AccountMove(models.Model):
                 invoice.currency_id = self.pricelist_id.currency_id
         return res
 
+    def action_switch_invoice_into_refund_credit_note(self):
+        self = self.with_context(skip_compute_price_unit=True)
+        return super().action_switch_invoice_into_refund_credit_note()
+
     def button_update_prices_from_pricelist(self):
         self.filtered(
             lambda r: r.state == "draft"
@@ -68,6 +72,8 @@ class AccountMoveLine(models.Model):
 
     @api.depends("quantity")
     def _compute_price_unit(self):
+        if self.env.context.get("skip_compute_price_unit"):
+            return
         res = super()._compute_price_unit()
         for line in self:
             if not line.move_id.pricelist_id:

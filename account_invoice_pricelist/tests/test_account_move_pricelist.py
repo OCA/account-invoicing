@@ -316,3 +316,10 @@ class TestAccountMovePricelist(BaseCommon):
             self.invoice.with_context(force_check_currecy=True).write(
                 {"currency_id": self.usd_currency.id}
             )
+
+    def test_account_invoice_creditnote_line_qty_flip_when_total_negative(self):
+        self.invoice.pricelist_id = self.sale_pricelist
+        self.invoice.invoice_line_ids.write({"quantity": -1, "price_unit": 100.00})
+        self.invoice.action_switch_invoice_into_refund_credit_note()
+        for invoice_line in self.invoice.invoice_line_ids:
+            self.assertAlmostEqual(invoice_line.price_unit, 100.00)
