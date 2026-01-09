@@ -19,7 +19,7 @@ class TestAccountInvoiceTaxRequired(AccountTestInvoicingCommon):
         cls.journal = cls.account_journal.create(
             {"code": "test", "name": "test", "type": "sale"}
         )
-        cls.partner = cls.env.ref("base.res_partner_3")
+        cls.partner = cls.env["res.partner"].create({"name": "Test"})
 
         cls.account_account = cls.env["account.account"]
         cls.account_rec1_id = cls.account_account.create(
@@ -34,12 +34,11 @@ class TestAccountInvoiceTaxRequired(AccountTestInvoicingCommon):
         cls.product = cls.product_product.create(
             {
                 "name": "Test",
-                "categ_id": cls.env.ref("product.product_category_all").id,
+                "categ_id": cls.env.ref("product.product_category_services").id,
                 "standard_price": 50,
                 "list_price": 100,
                 "type": "service",
                 "uom_id": cls.env.ref("uom.product_uom_unit").id,
-                "uom_po_id": cls.env.ref("uom.product_uom_unit").id,
                 "description": "Test",
             }
         )
@@ -117,3 +116,11 @@ class TestAccountInvoiceTaxRequired(AccountTestInvoicingCommon):
         """Validate invoice without tax must raise exception"""
         self.invoice.invoice_line_ids[0].tax_ids = [(4, self.tax_cash_basis.id)]
         self.invoice.with_context(test_tax_required=True).action_post()
+
+    def test_exception_multiple_invoices(self):
+        """Validate multiple invoices"""
+        invoice_2 = self.invoice.copy()
+        moves = self.invoice + invoice_2
+        with self.assertRaises(exceptions.RedirectWarning) as cm:
+            moves.with_context(test_tax_required=True).action_post()
+        self.assertEqual(cm.exception.args[1]["view_mode"], "list")
