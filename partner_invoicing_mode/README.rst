@@ -38,7 +38,7 @@ the invoices for standard invoicing mode.
 In core, Odoo is grouping invoicing from a group of sale orders on:
 
 - Company
-- Partner
+- Invoiced partner
 - Currency
 
 This module uses grouping on those keys:
