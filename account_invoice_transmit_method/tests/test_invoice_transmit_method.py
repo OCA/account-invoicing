@@ -35,6 +35,15 @@ class TestAccountInvoiceTransmitMethod(TransactionCase):
         cls.sale_journal = cls.env["account.journal"].create(
             {"code": "XYZZZ", "name": "sale journal (test)", "type": "sale"}
         )
+        cls.vendor = cls.env["res.partner"].create(
+            {
+                "name": "Vendor",
+                "supplier_invoice_transmit_method_id": cls.post_method.id,
+            }
+        )
+        cls.purchase_journal = cls.env["account.journal"].create(
+            {"code": "VEN", "name": "vendor journal", "type": "purchase"}
+        )
 
     def test_create_invoice(self):
         invoice = self.env["account.move"].create(
@@ -45,3 +54,24 @@ class TestAccountInvoiceTransmitMethod(TransactionCase):
             }
         )
         self.assertEqual(invoice.transmit_method_id, self.post_method)
+
+    def test_create_vendor_bill(self):
+        bill = self.env["account.move"].create(
+            {
+                "move_type": "in_invoice",
+                "partner_id": self.vendor.id,
+                "journal_id": self.purchase_journal.id,
+            }
+        )
+
+        self.assertEqual(bill.transmit_method_id, self.post_method)
+
+    def test_transmit_method_no_partner(self):
+        invoice = self.env["account.move"].create(
+            {
+                "move_type": "out_invoice",
+                "partner_id": False,
+                "journal_id": self.sale_journal.id,
+            }
+        )
+        self.assertFalse(invoice.transmit_method_id)
