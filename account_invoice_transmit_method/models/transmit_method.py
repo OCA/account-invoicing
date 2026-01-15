@@ -21,6 +21,7 @@ class TransmitMethod(models.Model):
     customer_ok = fields.Boolean(string="Selectable on Customers", default=True)
     supplier_ok = fields.Boolean(string="Selectable on Vendors", default=True)
 
-    _sql_constraints = [
-        ("code_unique", "unique(code)", "This transmit method code already exists!")
-    ]
+    _code_unique = models.Constraint(
+        "unique(code)",
+        "This transmit method code already exists!",
+    )

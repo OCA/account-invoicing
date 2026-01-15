@@ -84,7 +84,7 @@
     <menuitem
         id="transmit_method_menu"
         action="transmit_method_action"
-        parent="account.account_management_menu"
+        parent="account.account_reports_management_menu"
         sequence="100"
     />
 </odoo>
