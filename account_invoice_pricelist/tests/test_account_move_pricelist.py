@@ -16,6 +16,8 @@ class TestAccountMovePricelist(common.TransactionCase):
                 mail_notrack=True,
                 no_reset_password=True,
                 tracking_disable=True,
+                force_check_currency=True,
+                force_compute_currency=True,
             )
         )
         cls.AccountMove = cls.env["account.move"]
