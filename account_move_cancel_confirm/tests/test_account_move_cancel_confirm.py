@@ -15,8 +15,8 @@ class TestAccountMoveCancelConfirm(TransactionCase):
         self.account_move_model = self.env["account.move"]
         self.register_payments_model = self.env["account.payment.register"]
         self.payment_model = self.env["account.payment"]
-        self.partner = self.env.ref("base.res_partner_2")
-        self.product = self.env.ref("product.product_product_7")
+        self.partner = self.env["res.partner"].create({"name": "Test Partner"})
+        self.product = self.env["product.product"].create({"name": "Test Product"})
         self.payment_method_manual_in = self.env.ref(
             "account.account_payment_method_manual_in"
         )
