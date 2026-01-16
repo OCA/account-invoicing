@@ -10,35 +10,33 @@
                     <field name="self_invoice" widget="boolean_toggle" />
                     <field
                         name="self_invoice_partner_prefix"
-                        attrs="{'invisible': [('self_invoice', '=', False)], 'readonly': [('self_invoice_sequence_id', '!=', False), ('self_invoice_refund_sequence_id', '!=', False)]}"
+                        invisible="not self_invoice"
+                        readonly="self_invoice_sequence_id and self_invoice_refund_sequence_id"
                     />
                     <button
                         name="action_set_self_invoice"
                         string="Create missing Self Billing sequences"
                         type="object"
                         class="oe_highlight mb-2"
-                        attrs="{'invisible': ['|', ('self_invoice', '=', False), '&amp;', ('self_invoice_sequence_id', '!=', False), ('self_invoice_refund_sequence_id', '!=', False)]}"
+                        invisible="not self_invoice or (self_invoice_sequence_id and self_invoice_refund_sequence_id)"
                         colspan="2"
                     />
-                    <!-- We add these fields also as invisible fields, because they are used in the invisible domains above.
-                    They should be available to every group, not only to base.group_no_one-->
-                    <field name="self_invoice_sequence_id" invisible="1" />
-                    <field name="self_invoice_refund_sequence_id" invisible="1" />
                     <field
                         name="self_invoice_sequence_id"
                         readonly="1"
                         groups="base.group_no_one"
-                        attrs="{'invisible': ['|', ('self_invoice', '=', False), '&amp;', ('self_invoice_sequence_id', '=', False), ('self_invoice_refund_sequence_id', '=', False)]}"
+                        invisible="not self_invoice or (not self_invoice_sequence_id and not self_invoice_refund_sequence_id)"
                     />
                     <field
                         name="self_invoice_refund_sequence_id"
                         readonly="1"
                         groups="base.group_no_one"
-                        attrs="{'invisible': ['|', ('self_invoice', '=', False), '&amp;', ('self_invoice_sequence_id', '=', False), ('self_invoice_refund_sequence_id', '=', False)]}"
+                        invisible="not self_invoice or (not self_invoice_sequence_id and not self_invoice_refund_sequence_id)"
                     />
                     <field
                         name="self_invoice_report_footer"
-                        attrs="{'invisible': [('self_invoice', '=', False)]}"
+                        invisible="not self_invoice"
+                        placeholder="Self Billing footer for this partner"
                     />
                 </group>
             </xpath>

@@ -2,7 +2,7 @@
     Billing' and define a new prefix for Self Billing Invoices
 2.  Go to 'Accounting/Invoicing \> Vendors \> Vendors'
 3.  Modify a Provider and click 'Set Self Invoice' inside the page
-    'Sales & Purchases'
+    'Invoicing'
 4.  Go to 'Accounting/Invoicing \> Vendors \> Bills'
 5.  Create an invoice for the provider and validate it
 6.  You can send the invoice before validation to ensure the vendor

@@ -2,7 +2,7 @@
 # Copyright 2022 - Moduon
 # License AGPL-3.0 or later (https://www.gnuorg/licenses/agpl.html).
 
-from odoo import _, api, exceptions, fields, models
+from odoo import api, exceptions, fields, models
 
 
 class ResPartner(models.Model):
@@ -43,15 +43,14 @@ class ResPartner(models.Model):
     )
     self_invoice_report_footer = fields.Text(
         string="Self Billing footer",
+        compute="_compute_self_invoice_report_footer",
         help="Footer text displayed at the bottom of the self invoice reports.",
         copy=False,
         tracking=True,
         company_dependent=True,
+        store=True,
+        readonly=False,
     )
-
-    @api.model
-    def _default_self_invoice_report_footer(self):
-        return _("Invoiced by the recipent")
 
     def _get_self_invoice_number(self, invoice):
         is_refund = invoice.move_type == "in_refund"
@@ -62,11 +61,7 @@ class ResPartner(models.Model):
         )
         if not sequence:
             sequence = self._set_self_invoice(refund=is_refund)
-        return (
-            sequence.sudo()
-            .with_context(ir_sequence_date=invoice.invoice_date)
-            .next_by_id()
-        )
+        return sequence.sudo().next_by_id(sequence_date=invoice.invoice_date)
 
     def _set_self_invoice(self, refund=False):
         if not self.self_invoice:
@@ -99,7 +94,7 @@ class ResPartner(models.Model):
         self.ensure_one()
         if not self.env.company.self_invoice_prefix:
             raise exceptions.UserError(
-                _("You must set a Self Billing prefix in Account Settings.")
+                self.env._("You must set a Self Billing prefix in Account Settings.")
             )
         first_prefix = self.env.company.self_invoice_prefix
         second_prefix = ""
@@ -115,9 +110,17 @@ class ResPartner(models.Model):
             if not partner.self_invoice_refund_sequence_id:
                 partner._set_self_invoice(refund=True)
 
-    @api.onchange("self_invoice")
-    def onchange_self_invoice(self):
-        if self.self_invoice and not self.self_invoice_report_footer:
-            self.self_invoice_report_footer = self.with_context(
-                lang=self.lang or self.env.user.lang
-            )._default_self_invoice_report_footer()
+    @api.model
+    def _default_self_invoice_report_footer(self):
+        return self.env._("Invoiced by the recipent")
+
+    @api.depends("self_invoice", "lang", "self_invoice_report_footer")
+    def _compute_self_invoice_report_footer(self):
+        for record in self:
+            if not record.self_invoice:
+                record.self_invoice_report_footer = False
+                continue
+            if not record.self_invoice_report_footer:
+                record.self_invoice_report_footer = record.with_context(
+                    lang=record.lang or record.env.user.lang
+                )._default_self_invoice_report_footer()

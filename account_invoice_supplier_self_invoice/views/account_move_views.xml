@@ -10,23 +10,22 @@
                 <field
                     name="self_invoice_number"
                     readonly="1"
-                    attrs="{'invisible':['|', ('move_type', 'not in', ('in_invoice', 'in_refund')), '&amp;', ('state', '=', 'draft'), ('self_invoice_number', '=', False)]}"
+                    invisible="move_type not in ('in_invoice', 'in_refund') or (state == 'draft' and not self_invoice_number)"
                     groups="base.group_no_one"
                 />
             </xpath>
             <xpath expr="//field[@name='fiscal_position_id']" position="after">
-                <field name="can_self_invoice" invisible="1" />
-                <field name="is_self_invoice_number_different" invisible="1" />
                 <field
                     name="set_self_invoice"
-                    attrs="{'invisible':['|',('can_self_invoice','=',False), ('move_type', 'not in', ('in_invoice', 'in_refund'))], 'readonly': ['|', ('state','!=','draft'), ('self_invoice_number', '!=', False)]}"
+                    invisible="not can_self_invoice or move_type not in ('in_invoice', 'in_refund')"
+                    readonly="state != 'draft' or self_invoice_number"
                 />
             </xpath>
             <!-- Alerts -->
             <xpath expr="//header" position="after">
                 <div
-                    class="alert alert-info mb-0"
-                    attrs="{'invisible': ['|', '|', '|', ('move_type', 'not in', ('in_invoice', 'in_refund')), ('state', '!=', 'draft'), ('self_invoice_number', '!=', False), ('set_self_invoice', '=', False)]}"
+                    class="alert alert-info mb-2 mb-md-2"
+                    invisible="move_type not in ('in_invoice', 'in_refund') or state != 'draft' or self_invoice_number or not set_self_invoice"
                     role="alert"
                 >
                     <span>
@@ -34,8 +33,8 @@
                     </span>
                 </div>
                 <div
-                    class="alert alert-danger mb-0"
-                    attrs="{'invisible': ['|', ('state', '!=', 'posted'), ('is_self_invoice_number_different', '=', False)]}"
+                    class="alert alert-danger mb-2 mb-md-2"
+                    invisible="state != 'posted' or not is_self_invoice_number_different"
                     role="alert"
                 >
                     <span>
@@ -46,21 +45,15 @@
                 </div>
             </xpath>
             <!-- Make visible Send & Print button -->
-            <xpath
-                expr="//button[@name='action_invoice_sent'][1]"
-                position="attributes"
-            >
-                <attribute
-                    name="attrs"
-                >{'invisible':['|', ('state', '==', 'cancel'), '|', ('is_move_sent', '=', True), '|', ('move_type', 'in', ('entry', 'out_receipt', 'in_receipt')), '&amp;', ('move_type', 'in', ('in_invoice', 'in_refund')), ('set_self_invoice', '=', False)]}</attribute>
-            </xpath>
-            <xpath
-                expr="//button[@name='action_invoice_sent'][2]"
-                position="attributes"
-            >
-                <attribute
-                    name="attrs"
-                >{'invisible':['|', ('state', '==', 'cancel'), '|', ('is_move_sent', '=', False), '|', ('move_type', 'in', ('entry', 'out_receipt', 'in_receipt')), '&amp;', ('move_type', 'in', ('in_invoice', 'in_refund')), ('set_self_invoice', '=', False)]}</attribute>
+            <xpath expr="//button[@name='action_invoice_sent'][2]" position="after">
+                <button
+                    name="action_invoice_sent"
+                    type="object"
+                    string="Send"
+                    invisible="state == 'cancel' or is_move_sent or not set_self_invoice"
+                    class="oe_highlight"
+                    data-hotkey="y"
+                />
             </xpath>
         </field>
     </record>

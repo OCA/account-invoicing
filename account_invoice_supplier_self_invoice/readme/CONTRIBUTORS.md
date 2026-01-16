@@ -3,3 +3,4 @@
 - Alba Riera \<alba.riera@creublanca.es\>
 - Rafael Blasco ([Moduon](https://www.moduon.team/))
 - Eduardo de Miguel ([Moduon](https://www.moduon.team/))
+- Sabrina Rodriguez ([Moduon](https://www.moduon.team/))

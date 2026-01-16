@@ -7,7 +7,7 @@ from odoo.tests import Form, common
 
 class TestSelfInvoice(common.TransactionCase):
     def setUp(self):
-        res = super().setUp()
+        super().setUp()
         self.user = self.env.ref("base.user_admin")
         self.partner = self.env["res.partner"].create(
             {"name": "Partner", "supplier_rank": 1}
@@ -45,7 +45,7 @@ class TestSelfInvoice(common.TransactionCase):
         product = self.env["product.product"].create({"name": "Lemonade"})
         account = self.env["account.account"].create(
             {
-                "company_id": main_company.id,
+                "company_ids": main_company.ids,
                 "name": "Testing Product account",
                 "code": "test.product",
                 "account_type": "income",
@@ -71,7 +71,6 @@ class TestSelfInvoice(common.TransactionCase):
                 # "price_unit": 20,
             }
         )
-        return res
 
     def test_check_set_self_invoice(self):
         self.assertFalse(self.partner.self_invoice)

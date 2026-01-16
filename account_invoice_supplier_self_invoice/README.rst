@@ -43,8 +43,8 @@ Usage
 1. Go to 'Accounting/Invoicing > Settings > Vendor Bills > Self Billing'
    and define a new prefix for Self Billing Invoices
 2. Go to 'Accounting/Invoicing > Vendors > Vendors'
-3. Modify a Provider and click 'Set Self Invoice' inside the page 'Sales
-   & Purchases'
+3. Modify a Provider and click 'Set Self Invoice' inside the page
+   'Invoicing'
 4. Go to 'Accounting/Invoicing > Vendors > Bills'
 5. Create an invoice for the provider and validate it
 6. You can send the invoice before validation to ensure the vendor
@@ -82,6 +82,7 @@ Contributors
 - Alba Riera <alba.riera@creublanca.es>
 - Rafael Blasco (`Moduon <https://www.moduon.team/>`__)
 - Eduardo de Miguel (`Moduon <https://www.moduon.team/>`__)
+- Sabrina Rodriguez (`Moduon <https://www.moduon.team/>`__)
 
 Maintainers
 -----------
