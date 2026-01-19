@@ -14,22 +14,6 @@ class BaseSubstateType(models.Model):
 
 
 class AccountMove(models.Model):
-    _inherit = ["account.move", "base.substate.mixin"]
+    _inherit = ["base.substate.mixin", "account.move"]
     _name = "account.move"
     _state_field = "state"
-
-    def _track_template(self, changes):
-        res = super()._track_template(changes)
-        track = self[0]
-        if "substate_id" in changes and track.substate_id.mail_template_id:
-            res["substate_id"] = (
-                track.substate_id.mail_template_id,
-                {
-                    "composition_mode": "comment",
-                    "subtype_id": self.env["ir.model.data"]._xmlid_to_res_id(
-                        "mail.mt_note"
-                    ),
-                    "email_layout_xmlid": "mail.mail_notification_light",
-                },
-            )
-        return res
