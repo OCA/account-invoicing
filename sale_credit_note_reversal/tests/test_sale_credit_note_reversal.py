@@ -9,9 +9,7 @@ class TestSaleCreditNoteReversal(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.partner = cls.env["res.partner"].create({"name": "Test"})
-        cls.product = cls.env["product.product"].create(
-            {"name": "test_product", "type": "consu"}
-        )
+        cls.product = cls.env["product.product"].create({"name": "test_product"})
         cls.order = cls.env["sale.order"].create(
             {
                 "partner_id": cls.partner.id,
@@ -23,7 +21,7 @@ class TestSaleCreditNoteReversal(TransactionCase):
                             "name": cls.product.name,
                             "product_id": cls.product.id,
                             "product_uom_qty": 5,
-                            "product_uom": cls.product.uom_id.id,
+                            "product_uom_id": cls.product.uom_id.id,
                             "price_unit": 1000.00,
                         },
                     ),
