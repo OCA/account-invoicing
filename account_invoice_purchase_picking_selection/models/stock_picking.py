@@ -27,7 +27,7 @@ class StockPicking(models.Model):
     )
 
     @api.depends(
-        "state", "move_lines.qty_received_to_invoice", "purchase_id.invoice_status"
+        "state", "move_ids.qty_received_to_invoice", "purchase_id.invoice_status"
     )
     def _compute_received_invoiced_status(self):
         precision = self.env["decimal.precision"].precision_get(
@@ -42,17 +42,17 @@ class StockPicking(models.Model):
                 continue
             if any(
                 not float_is_zero(
-                    line.qty_received_to_invoice, precision_digits=precision
+                    move.qty_received_to_invoice, precision_digits=precision
                 )
-                for line in picking.move_lines
+                for move in picking.move_ids
             ):
                 picking.received_invoiced_status = "to invoice"
             elif (
                 all(
                     float_is_zero(
-                        line.qty_received_to_invoice, precision_digits=precision
+                        move.qty_received_to_invoice, precision_digits=precision
                     )
-                    for line in picking.move_lines
+                    for move in picking.move_ids
                 )
                 and picking.received_invoiced_line_ids
             ):
@@ -60,27 +60,24 @@ class StockPicking(models.Model):
             else:
                 picking.received_invoiced_status = "no"
 
-    def name_get(self):
+    @api.depends_context("filter_picking_autocomplete")
+    def _compute_display_name(self):
+        res = super()._compute_display_name()
         if self.env.context.get("filter_picking_autocomplete"):
-            res = []
             for picking in self:
-                name = picking.name
+                display_name = picking.display_name
                 if picking.purchase_id:
-                    name += f" - {picking.purchase_id.name}"
+                    display_name += f" - {picking.purchase_id.name}"
                 if picking.purchase_id.partner_ref:
-                    name += f" - {picking.purchase_id.partner_ref}"
-                res.append((picking.id, name))
-            return res
-        return super().name_get()
+                    display_name += f" - {picking.purchase_id.partner_ref}"
+                picking.display_name = display_name
+        return res
 
-    def search(self, args, offset=0, limit=None, order=None, count=False):
-        args = args or []
+    def search(self, domain, offset=0, limit=None, order=None):
         if self.env.context.get("filter_picking_autocomplete"):
             # inject the domain to filter only the pickings pending to be invoiced
-            args.extend(self._get_picking_extra_domain())
-        return super().search(
-            args, offset=offset, limit=limit, order=order, count=count
-        )
+            domain.extend(self._get_picking_extra_domain())
+        return super().search(domain, offset=offset, limit=limit, order=order)
 
     def read_group(
         self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True
@@ -100,27 +97,16 @@ class StockPicking(models.Model):
         )
 
     @api.model
-    def _name_search(
-        self, name, args=None, operator="ilike", limit=100, name_get_uid=None
-    ):
-        args = args or []
+    def _search_display_name(self, operator, value):
         if self.env.context.get("filter_picking_autocomplete"):
-            # inject the domain to filter only the pickings
-            # that are related to the purchase order
-            # and allow searching by the purchase order name and reference
             base_domain = self._get_picking_extra_domain()
             picking_domain = base_domain
-            if name:
+            if value:
                 picking_domain = expression.AND(
-                    [base_domain, self._get_name_search_domain(operator, name)]
+                    [base_domain, self._get_name_search_domain(operator, value)]
                 )
-            records_find = self._search(
-                picking_domain, limit=limit, access_rights_uid=name_get_uid
-            )
-            return records_find
-        return super()._name_search(
-            name, args=args, operator=operator, limit=limit, name_get_uid=name_get_uid
-        )
+            return picking_domain
+        return super()._search_display_name(operator, value)
 
     @api.model
     def _get_picking_extra_domain(self):

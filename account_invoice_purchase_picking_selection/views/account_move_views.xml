@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="view_account_move_form" model="ir.ui.view">
         <field name="name">view.account.move.form</field>
         <field name="model">account.move</field>
@@ -9,7 +8,7 @@
             <xpath expr="//field[@name='purchase_vendor_bill_id']" position="after">
                 <field
                     name="autocomplete_purchase_picking_id"
-                    attrs="{'invisible': ['|', ('state','!=','draft'), ('move_type', '!=', 'in_invoice')]}"
+                    invisible="state != 'draft' or move_type != 'in_invoice'"
                     class="oe_edit_only"
                     placeholder="Select a purchase reception"
                     context="{'filter_picking_autocomplete': True, 'invoice_company_id': company_id, 'invoice_partner_id': commercial_partner_id, 'invoice_type': 'in_invoice'}"
@@ -17,7 +16,7 @@
                 />
             </xpath>
             <xpath
-                expr="//field[@name='invoice_line_ids']/tree//field[@name='price_total']"
+                expr="//field[@name='invoice_line_ids']/list//field[@name='price_total']"
                 position="after"
             >
                 <field name="stock_move_invoiced_id" invisible="1" force_save="1" />
@@ -25,11 +24,11 @@
                     name="picking_invoiced_id"
                     force_save="1"
                     optional="show"
-                    attrs="{'column_invisible': [('parent.move_type', '!=', 'in_invoice')]}"
+                    column_invisible="parent.move_type != 'in_invoice'"
                 />
             </xpath>
             <xpath
-                expr="//field[@name='line_ids']/tree//field[@name='price_total']"
+                expr="//field[@name='line_ids']/list//field[@name='balance']"
                 position="after"
             >
                 <field name="stock_move_invoiced_id" invisible="1" force_save="1" />
@@ -37,5 +36,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>
