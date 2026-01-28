@@ -6,7 +6,6 @@ from odoo.exceptions import AccessError, UserError
 
 
 class AccountMove(models.Model):
-
     _inherit = "account.move"
 
     def _can_reimport_from_attachment(self):

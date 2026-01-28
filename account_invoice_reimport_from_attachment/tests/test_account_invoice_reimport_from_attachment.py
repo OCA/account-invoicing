@@ -70,6 +70,8 @@ class TestAccountInvoiceReimportFromAttachment(AccountTestInvoicingCommon):
     def test_2(self):
         """reimport on posted invoices is not allowed"""
         bill, attachment = self._test_import_bill()
+        eur = self.env.ref("base.EUR")
+        eur.active = True
         bill.action_post()
         self.assertEqual(bill.state, "posted")
         self._test_give_user_reimport_group()

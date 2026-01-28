@@ -2,7 +2,6 @@
 <!-- Copyright 2026 ACSONE SA/NV
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record
         model="ir.model.access"
         id="account_move_reimport_attachment_wizard_access_all"
@@ -18,5 +17,4 @@
         <field name="perm_write" eval="1" />
         <field name="perm_unlink" eval="1" />
     </record>
-
 </odoo>

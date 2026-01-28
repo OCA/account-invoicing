@@ -5,7 +5,6 @@ from odoo import api, fields, models
 
 
 class AccountMoveReimportAttachmentWizard(models.TransientModel):
-
     _name = "account.move.reimport.attachment.wizard"
     _description = "Reimport Invoice from Attachment"
 
