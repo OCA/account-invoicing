@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="account_move_form_view" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_open_reimport_wizard"
+                    type="object"
+                    string="Reimport from Attachment"
+                    class="btn-secondary"
+                    groups="account_invoice_reimport_from_attachment.group_invoice_reimport_from_attachment"
+                    attrs="{'invisible': [('state', '!=', 'draft')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
