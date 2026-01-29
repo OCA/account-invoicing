@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
 
+from odoo import Command
 from odoo.tests.common import tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -32,7 +33,7 @@ class TestPartnerAccess(AccountTestInvoicingCommon):
             {
                 "name": f"User {letter}",
                 "login": f"user_{letter}",
-                "groups_id": [(6, 0, [self.group_portal.id])],
+                "group_ids": [Command.set([self.group_portal.id])],
             }
         )
 
@@ -40,7 +41,7 @@ class TestPartnerAccess(AccountTestInvoicingCommon):
         return self.env["res.partner"].create(
             {
                 "name": user.name,
-                "user_ids": [(6, 0, [user.id])],
+                "user_ids": [Command.set([user.id])],
             }
         )
 
@@ -54,6 +55,9 @@ class TestPartnerAccess(AccountTestInvoicingCommon):
         invoice_c = self.init_invoice(
             "out_invoice", partner=self.partner_c, post=True, products=self.product_a
         )
+        invoice_a.message_subscribe(partner_ids=self.partner_a.ids)
+        invoice_b.message_subscribe(partner_ids=self.partner_b.ids)
+        invoice_c.message_subscribe(partner_ids=self.partner_c.ids)
         found_a = self.env["account.move"].with_user(self.user_a).search([])
         self.assertTrue(invoice_a in found_a)
         self.assertTrue(invoice_b not in found_a)
@@ -71,6 +75,7 @@ class TestPartnerAccess(AccountTestInvoicingCommon):
         invoice_a = self.init_invoice(
             "out_invoice", partner=self.partner_a, post=True, products=self.product_a
         )
+        invoice_a.message_subscribe(partner_ids=self.partner_a.ids)
         invoice_a.message_subscribe(partner_ids=self.partner_b.ids)
         invoices_b = self.env["account.move"].with_user(self.user_b).search([])
         self.assertTrue(invoice_a in invoices_b)
