@@ -11,7 +11,8 @@
             >
                 <field
                     name="discount_date"
-                    attrs="{'invisible': [('move_type', '=', 'entry')], 'readonly': [('state', '!=', 'draft')]}"
+                    invisible="move_type == 'entry'"
+                    readonly="state != 'draft'"
                 />
             </xpath>
         </field>
@@ -27,7 +28,7 @@
                     name="discount_date"
                     widget="remaining_days"
                     optional="show"
-                    attrs="{'invisible': [['payment_state', 'in', ('paid', 'in_payment', 'reversed')]]}"
+                    invisible="payment_state in ('paid', 'in_payment', 'reversed')"
                 />
             </xpath>
         </field>

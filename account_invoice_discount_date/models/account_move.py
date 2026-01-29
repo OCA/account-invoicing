@@ -18,7 +18,8 @@ class AccountMove(models.Model):
 
     @api.depends("line_ids.discount_date")
     def _compute_discount_date(self):
-        """Set discount_date to the earliest Discount date of lines with Date maturity"""
+        """Set discount_date to the earliest Discount date
+        of lines with Date maturity"""
         for record in self:
             d_dates = record.line_ids.filtered_domain(
                 [
