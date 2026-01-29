@@ -3,12 +3,13 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import Command
-from odoo.tests.common import TransactionCase
+
+from odoo.addons.base.tests.common import BaseCommon
 
 from .. import post_init_hook
 
 
-class TestInvoiceRefundLinkBase(TransactionCase):
+class TestInvoiceRefundLinkBase(BaseCommon):
     is_modify = False
 
     @classmethod
@@ -30,7 +31,6 @@ class TestInvoiceRefundLinkBase(TransactionCase):
                 "name": "TESTACC",
                 "code": "TESTACC",
                 "account_type": "income",
-                "deprecated": False,
                 "company_ids": [Command.link(cls.env.user.company_id.id)],
             }
         )
