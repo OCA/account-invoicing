@@ -99,6 +99,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         cls.sale_pricelist = cls.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist",
+                "sequence": 14,
                 "item_ids": [
                     Command.create(
                         {
@@ -114,6 +115,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         cls.sale_pricelist2 = cls.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist 2",
+                "sequence": 1,
                 "item_ids": [
                     Command.create(
                         {
@@ -129,6 +131,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         cls.sale_pricelist3 = cls.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist 3",
+                "sequence": 2,
                 "item_ids": [
                     Command.create(
                         {
@@ -144,6 +147,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         cls.sale_pricelist4 = cls.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist 4",
+                "sequence": 3,
                 "item_ids": [
                     Command.create(
                         {
@@ -167,6 +171,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         cls.sale_pricelist_fixed_without_discount = cls.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist",
+                "sequence": 4,
                 "item_ids": [
                     Command.create(
                         {
@@ -182,6 +187,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         cls.sale_pricelist_with_discount = cls.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist - 2",
+                "sequence": 5,
                 "item_ids": [
                     Command.create(
                         {
@@ -197,6 +203,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         cls.sale_pricelist_without_discount = cls.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist - 3",
+                "sequence": 6,
                 "item_ids": [
                     Command.create(
                         {
@@ -218,6 +225,7 @@ class TestAccountMovePricelist(common.TransactionCase):
             {
                 "name": "Test Sale pricelist - 4",
                 "currency_id": cls.euro_currency.id,
+                "sequence": 7,
                 "item_ids": [
                     Command.create(
                         {
@@ -234,6 +242,7 @@ class TestAccountMovePricelist(common.TransactionCase):
             {
                 "name": "Test Sale pricelist - 5",
                 "currency_id": cls.euro_currency.id,
+                "sequence": 8,
                 "item_ids": [
                     Command.create(
                         {
@@ -250,6 +259,7 @@ class TestAccountMovePricelist(common.TransactionCase):
             {
                 "name": "Test Sale pricelist - 6",
                 "currency_id": cls.euro_currency.id,
+                "sequence": 9,
                 "item_ids": [
                     Command.create(
                         {
@@ -266,6 +276,7 @@ class TestAccountMovePricelist(common.TransactionCase):
             {
                 "name": "Test Sale pricelist - 7",
                 "currency_id": cls.euro_currency.id,
+                "sequence": 10,
                 "item_ids": [
                     Command.create(
                         {
@@ -278,6 +289,7 @@ class TestAccountMovePricelist(common.TransactionCase):
                 ],
             }
         )
+
         cls.invoice = cls.AccountMove.create(
             {
                 "partner_id": cls.partner.id,
