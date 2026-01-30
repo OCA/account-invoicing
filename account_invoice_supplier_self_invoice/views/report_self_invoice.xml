@@ -159,15 +159,6 @@
                 name="t-if"
             >o.invoice_date_due and (o.move_type == 'out_invoice' or (o.move_type == 'in_invoice' and o.set_self_invoice)) and o.state == 'posted'</attribute>
         </xpath>
-        <!-- Reference -->
-        <xpath
-            expr="//div[@id='informations']/div[@name='reference']"
-            position="attributes"
-        >
-            <attribute
-                name="t-if"
-            >o.ref and (o.move_type not in ('in_invoice', 'in_refund') or not o.set_self_invoice)</attribute>
-        </xpath>
     </template>
 
     <!-- Report: Invoices with payments -->
