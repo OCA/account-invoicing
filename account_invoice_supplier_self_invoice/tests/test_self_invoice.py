@@ -117,6 +117,7 @@ class TestSelfInvoice(common.TransactionCase):
         self.invoice.with_user(self.user.id).action_post()
         self.assertTrue(self.invoice.invoice_date)
         self.assertTrue(self.invoice.self_invoice_number)
+        self.assertTrue(self.invoice.payment_reference)
 
     def test_self_invoice_child(self):
         with Form(self.partner) as f:
@@ -131,3 +132,4 @@ class TestSelfInvoice(common.TransactionCase):
         self.invoice.with_user(self.user.id).action_post()
         self.assertTrue(self.invoice.invoice_date)
         self.assertTrue(self.invoice.self_invoice_number)
+        self.assertTrue(self.invoice.payment_reference)
