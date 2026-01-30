@@ -4,7 +4,7 @@
 {
     "name": "Account Invoice Custom Rounding",
     "summary": "Custom taxes rounding method in invoices",
-    "version": "15.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Invoicing",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Sygel, Odoo Community Association (OCA)",

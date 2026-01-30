@@ -10,7 +10,7 @@
             <field name="fiscal_position_id" position="before">
                 <field
                     name="tax_calculation_rounding_method"
-                    attrs="{'readonly': [('state', '!=', 'draft')]}"
+                    readonly="state != 'draft'"
                 />
             </field>
         </field>
