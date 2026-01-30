@@ -40,30 +40,34 @@ Configuration
 
 To configure this module, you need to:
 
-#. Go to a contact and select an option in the field "Tax Calculation
-Rounding Method". This option will be selected by default in invoices in
-which this contact is set as the customer. #. In the simplified view of
-a child contact, the "Tax Calculation Rounding Method" field is only
-visible if the child contact is an "Invoice Address". #. If no option is
-selected, the rounding method set in the company configuration will be
-applied. #. If a contact has child contacts, these child contacts will
-not inherit the parent contact's rounding method.
+1. Go to a contact and select an option in the field "Tax Calculation
+   Rounding Method". This option will be selected by default in invoices
+   in which this contact is set as the customer.
+2. In the simplified view of a child contact, the "Tax Calculation
+   Rounding Method" field is only visible if the child contact is an
+   "Invoice Address".
+3. If no option is selected, the rounding method set in the company
+   configuration will be applied.
+4. If a contact has child contacts, these child contacts will not
+   inherit the parent contact's rounding method.
 
 Usage
 =====
 
 To use this module, you need to:
 
-#. Go to the "Other Information" tab in an invoice to select the
-rounding method in the "Tax Calculation Rounding Method" field. If no
-option is selected, the rounding method set in the company configuration
-will be applied. #. If the contact has a value in its "Tax Calculation
-Rounding Method" field, it will be set in the invoice when this contact
-is selected. It is possible to change this option. #. The configured
-rounding method in a contact will be automatically applied to the
-invoice and it will be applied when the invoice is created. #. Note that
-changes in the rounding method in invoices will be applied once the
-invoice is saved.
+1. Go to the "Other Information" tab in an invoice to select the
+   rounding method in the "Tax Calculation Rounding Method" field. If no
+   option is selected, the rounding method set in the company
+   configuration will be applied.
+2. If the contact has a value in its "Tax Calculation Rounding Method"
+   field, it will be set in the invoice when this contact is selected.
+   It is possible to change this option.
+3. The configured rounding method in a contact will be automatically
+   applied to the invoice and it will be applied when the invoice is
+   created.
+4. Note that changes in the rounding method in invoices will be applied
+   once the invoice is saved.
 
 Bug Tracker
 ===========
