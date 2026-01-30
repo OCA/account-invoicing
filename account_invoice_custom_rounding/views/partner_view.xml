@@ -18,7 +18,7 @@
                 position="after"
             >
                 <field
-                    attrs="{'invisible': [('type','!=', 'invoice')]}"
+                    invisible="type != 'invoice'"
                     name="tax_calculation_rounding_method"
                 />
             </xpath>
