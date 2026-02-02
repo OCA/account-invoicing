@@ -1,10 +1,11 @@
 # Copyright 2022 Tecnativa - Sergio Teruel
 # Copyright 2024 Tecnativa - Carolina Fernandez
+# Copyright 2026 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Sale Invoicing Date Selection",
     "summary": "Set date invoice when you create invoices",
-    "version": "17.0.1.0.1",
+    "version": "18.0.1.0.0",
     "development_status": "Beta",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
