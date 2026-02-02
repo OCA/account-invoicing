@@ -1,10 +1,12 @@
 # Copyright 2022 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields
-from odoo.tests import Form, TransactionCase
+from odoo.tests import Form
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestSaleInvoicingDateSelection(TransactionCase):
+class TestSaleInvoicingDateSelection(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -22,17 +24,15 @@ class TestSaleInvoicingDateSelection(TransactionCase):
                 so_line_form.price_unit = 100.00
         return sale_form.save()
 
-    def test_andvance_invoice(self):
-        self.sale_order_1 = self._create_sale_order(self.partner)
-        self.sale_order_2 = self._create_sale_order(self.partner_1)
-        self.sale_order_1.action_confirm()
-        self.sale_order_2.action_confirm()
+    def test_regular_invoicing(self):
+        order = self._create_sale_order(self.partner)
+        order.action_confirm()
         wiz = (
             self.env["sale.advance.payment.inv"]
             .with_context(
                 active_model="sale.order",
-                active_id=self.sale_order_1.id,
-                active_ids=self.sale_order_1.ids,
+                active_id=order.id,
+                active_ids=order.ids,
                 open_invoices=True,
             )
             .create({"invoice_date": "2022-11-01"})
@@ -40,13 +40,17 @@ class TestSaleInvoicingDateSelection(TransactionCase):
         action = wiz.create_invoices()
         invoices = self.env["account.move"].browse(action["res_id"])
         self.assertEqual(fields.Date.to_string(invoices[0].invoice_date), "2022-11-01")
+
+    def test_advance_invoice(self):
         # check creating invoices when advanced method is not delivered
+        order = self._create_sale_order(self.partner_1)
+        order.action_confirm()
         wiz = (
             self.env["sale.advance.payment.inv"]
             .with_context(
                 active_model="sale.order",
-                active_id=self.sale_order_2.id,
-                active_ids=self.sale_order_2.ids,
+                active_id=order.id,
+                active_ids=order.ids,
                 open_invoices=True,
             )
             .create({"invoice_date": "2024-03-01"})

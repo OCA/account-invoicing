@@ -1,4 +1,5 @@
 # Copyright 2022 Tecnativa - Sergio Teruel
+# Copyright 2026 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models
@@ -12,18 +13,14 @@ class SaleAdvancePaymentInv(models.TransientModel):
     def _create_invoices(self, sale_orders):
         if self.advance_payment_method == "delivered" and self.invoice_date:
             ctx = self.env.context.copy()
-            ctx.update(
-                {
-                    "default_invoice_date": self.invoice_date,
-                }
-            )
+            ctx.update({"default_invoice_date": self.invoice_date})
             sale_orders = sale_orders.with_context(**ctx)
         return super()._create_invoices(sale_orders)
 
-    def _prepare_invoice_values(self, order, so_line):
+    def _prepare_invoice_values(self, order, so_line, accounts):
         """Redefine function to take into account invoices
         created when advanced payment method is not delivered"""
-        res = super()._prepare_invoice_values(order, so_line)
+        res = super()._prepare_invoice_values(order, so_line, accounts)
         if self.invoice_date:
             res["invoice_date"] = self.invoice_date
             res["date"] = self.invoice_date
