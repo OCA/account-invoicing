@@ -23,7 +23,7 @@
                     class="float-start"
                     alt="Logo"
                 />
-                <div t-if="o.partner_id" t-attf-class="'col-5 ' + {{image_offset}}">
+                <div t-if="o.partner_id" t-attf-class="col-5 {{image_offset}}">
                     <span
                         t-field="o.partner_id"
                         t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'
