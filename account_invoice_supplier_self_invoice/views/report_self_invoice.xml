@@ -44,10 +44,16 @@
             expr="//div[contains(@t-attf-class,'footer')]/div/ul/div"
             position="replace"
         >
-            <div t-field="o.partner_id.self_invoice_report_footer" />
             <span t-if="o.state != 'posted'">
                 <strong>This Self-bill is not valid</strong>
             </span>
+            <t t-else="">
+                <div
+                    t-if="o.partner_id.self_invoice_report_footer"
+                    t-field="o.partner_id.self_invoice_report_footer"
+                />
+                <div t-else="" t-field="company.report_footer" />
+            </t>
         </xpath>
     </template>
 
