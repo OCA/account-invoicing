@@ -104,21 +104,22 @@
         >
             <t t-if="o.set_self_invoice">
                 <t t-set="address">
-                    <address
-                        class="mb-0"
-                        t-field="o.company_id.partner_id"
-                        t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'
+                    <t
+                        t-call="account_invoice_supplier_self_invoice.self_invoice_address_block"
                     />
-                    <div t-if="o.company_id.partner_id.vat">
-                        <t
-                            t-if="o.company_id.account_fiscal_country_id.vat_label"
-                            t-esc="o.company_id.account_fiscal_country_id.vat_label"
-                            id="inv_tax_id_label"
-                        />
-                        <t t-else="">Tax ID</t>: <span
-                            t-field="o.company_id.partner_id.vat"
-                        />
-                    </div>
+                </t>
+            </t>
+        </xpath>
+
+        <xpath
+            expr="//t/div[@name='address_not_same_as_shipping']/t[@t-set='address']"
+            position="after"
+        >
+            <t t-if="o.set_self_invoice">
+                <t t-set="address">
+                    <t
+                        t-call="account_invoice_supplier_self_invoice.self_invoice_address_block"
+                    />
                 </t>
             </t>
         </xpath>
@@ -176,6 +177,24 @@
                 name="t-if"
             >o.ref and (o.move_type not in ('in_invoice', 'in_refund') or not o.set_self_invoice)</attribute>
         </xpath>
+    </template>
+
+    <template id="self_invoice_address_block">
+        <address
+            class="mb-0"
+            t-field="o.company_id.partner_id"
+            t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'
+        />
+        <div t-if="o.company_id.partner_id.vat">
+            <t
+                t-if="o.company_id.account_fiscal_country_id.vat_label"
+                t-esc="o.company_id.account_fiscal_country_id.vat_label"
+                id="inv_tax_id_label"
+            />
+                        <t t-else="">Tax ID</t>: <span
+                t-field="o.company_id.partner_id.vat"
+            />
+        </div>
     </template>
 
     <!-- Report: Invoices with payments -->
