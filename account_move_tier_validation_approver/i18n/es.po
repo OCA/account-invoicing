@@ -6,19 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-02-03 07:04+0000\n"
+"Last-Translator: Enric Tobella <etobella@creublanca.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_partner__approver_id
 #: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_users__approver_id
 msgid "Approver of Vendor Bills"
-msgstr ""
+msgstr "Aprobador de las facturas de compra"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_company__validation_approver_tier_definition_id
