@@ -13,7 +13,7 @@
             position="replace"
         >
             <div t-field="company.report_footer" />
-            <div t-field="company.self_invoice_report_footer_extra_infos" />
+            <div t-field="company.self_invoice_extra_infos" />
             <div t-field="o.partner_id.self_invoice_report_footer" />
             <div t-if="o.state != 'posted'" class="text-danger">
                 <strong>This Self-bill is not valid</strong>
