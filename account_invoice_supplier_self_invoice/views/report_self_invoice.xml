@@ -24,7 +24,6 @@
                 t-if="company.self_invoice_extra_infos"
                 name="self_invoice_extra_infos"
             >
-                <strong>Self-billing extra infos: </strong>
                 <span t-field="company.self_invoice_extra_infos" />
             </div>
         </xpath>
