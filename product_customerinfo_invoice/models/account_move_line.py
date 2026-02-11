@@ -23,9 +23,5 @@ class AccountInvoiceLine(models.Model):
         compute="_compute_product_customer_code",
     )
     partner_show_customer_code = fields.Boolean(
-        compute="_compute_partner_show_customer_code"
+        related="move_id.partner_show_customer_code",
     )
-
-    def _compute_partner_show_customer_code(self):
-        for rec in self:
-            rec.partner_show_customer_code = rec.move_id.is_sale_document()
