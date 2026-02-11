@@ -50,7 +50,6 @@ class TestSaleTimesheetDescription(BaseCommon):
                 "name": "Test product",
                 "type": "service",
                 "uom_id": cls.product_uom_hour.id,
-                "uom_po_id": cls.product_uom_hour.id,
                 "service_type": "timesheet",
                 "invoice_policy": "delivery",
                 # Task created on cls.project when the cls.product is ordered
@@ -72,7 +71,7 @@ class TestSaleTimesheetDescription(BaseCommon):
                 "name": cls.product.name,
                 "product_id": cls.product.id,
                 "product_uom_qty": 10.5,
-                "product_uom": cls.product_uom_hour.id,
+                "product_uom_id": cls.product_uom_hour.id,
                 "price_unit": cls.product.list_price,
                 "order_id": cls.sale_order.id,
             },
@@ -197,7 +196,7 @@ class TestSaleTimesheetDescription(BaseCommon):
         self.sale_order.timesheet_invoice_split = True
         self.sale_order.timesheet_invoice_description = "001"
         # Set a different UoM on SO line/Invoice line from Timesheets UoM
-        self.so_line.write({"product_uom": self.product_uom_day.id})
+        self.so_line.write({"product_uom_id": self.product_uom_day.id})
 
         # Add a new timesheets with the same date to the same invoiced sale.order.line
         self.timesheet.write({"name": "Description 1"})
@@ -241,7 +240,7 @@ class TestSaleTimesheetDescription(BaseCommon):
         # Invoice lines total must equal the expected order line's delivered and
         # invoiced quantities
         aml_sum = sum(aml.quantity for aml in aml_ids[1:])
-        pr = self.so_line.product_uom.rounding
+        pr = self.so_line.product_uom_id.rounding
         self.assertTrue(
             float_compare(aml_sum, self.so_line.qty_delivered, precision_rounding=pr)
             == 0
