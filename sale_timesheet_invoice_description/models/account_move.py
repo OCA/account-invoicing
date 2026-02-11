@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models
-from odoo.osv import expression
+from odoo.fields import Domain
 
 
 class AccountMove(models.Model):
@@ -27,9 +27,9 @@ class AccountMove(models.Model):
                     ("timesheet_invoice_id", "=", aml.move_id.id),
                 ]
                 if start_date:
-                    domain = expression.AND([domain, [("date", ">=", start_date)]])
+                    domain = Domain.AND([domain, [("date", ">=", start_date)]])
                 if end_date:
-                    domain = expression.AND([domain, [("date", "<=", end_date)]])
+                    domain = Domain.AND([domain, [("date", "<=", end_date)]])
 
                 timesheets = self.env["account.analytic.line"].sudo().search(domain)
                 timesheets.write({"timesheet_invoice_line_id": aml.id})
