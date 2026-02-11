@@ -39,6 +39,7 @@ class AccountMove(models.Model):
     @api.model
     def _get_invoice_line_key_cols(self):
         fields = [
+            "display_type",
             "discount",
             "tax_ids",
             "price_unit",
@@ -179,7 +180,13 @@ class AccountMove(models.Model):
                 invoice_data["invoice_line_ids"] = [
                     (0, 0, value)
                     for value in invoice_data["invoice_line_ids"].values()
-                    if not float_is_zero(value["quantity"], precision_digits=qty_prec)
+                    if value["display_type"]
+                    or (
+                        not value["display_type"]
+                        and not float_is_zero(
+                            value["quantity"], precision_digits=qty_prec
+                        )
+                    )
                 ]
             else:
                 invoice_data["invoice_line_ids"] = [
