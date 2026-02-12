@@ -1,6 +1,7 @@
 # Copyright 2016 Acsone SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo import fields
 from odoo.exceptions import ValidationError
 from odoo.tests import Form, TransactionCase
 
@@ -34,3 +35,12 @@ class TestAccountInvoice(TransactionCase):
         self.assertAlmostEqual(self.invoice.check_total_display_difference, -1.80)
         with self.assertRaises(ValidationError):
             self.invoice.action_post()
+
+    def test_post_with_exemption(self):
+        """
+        Check that verification doesn't happen when the journal is exempted
+        """
+        self.invoice.journal_id.account_invoice_check_total_exempt = True
+        self.invoice.invoice_date = fields.Date.today()
+        with self.assertRaises(AssertionError):
+            self.test_post()

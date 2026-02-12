@@ -21,6 +21,9 @@ class AccountMove(models.Model):
     check_total_display_difference = fields.Monetary(
         string="Total Difference", compute="_compute_total_display_difference"
     )
+    check_total_exempt = fields.Boolean(
+        related="journal_id.account_invoice_check_total_exempt"
+    )
 
     @api.depends("check_total", "amount_total")
     def _compute_total_display_difference(self):
@@ -34,6 +37,7 @@ class AccountMove(models.Model):
             if (
                 self.env.user.has_group(GROUP_AICT)
                 and inv.move_type in ("in_invoice", "in_refund")
+                and not inv.check_total_exempt
                 and float_compare(
                     inv.check_total,
                     inv.amount_total,
