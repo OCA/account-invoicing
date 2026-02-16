@@ -132,15 +132,16 @@ class AccountMoveLine(models.Model):
                 line.price_unit = 0.0
             else:
                 price = line._get_display_price()
-                line.with_context(
-                    check_move_validity=False
-                ).price_unit = line.product_id._get_tax_included_unit_price_from_price(
+                price_unit = line.product_id._get_tax_included_unit_price_from_price(
                     price,
                     product_taxes=line.product_id.taxes_id.filtered(
                         lambda tax, line=line: tax.company_id == line.env.company
                     ),
                     fiscal_position=line.move_id.fiscal_position_id,
                 )
+                line.with_context(
+                    check_move_validity=False
+                ).price_unit = line.currency_id.round(price_unit)
         return res
 
     def _get_display_price(self):
