@@ -37,12 +37,21 @@ class TestSaleStock(TestPickingInvoicingCommon):
                 "partner_id": sale_order.partner_id.id,
             }
         )
-        service_lines = sale_order.order_line.filtered(
+        service_lines_with_project_on_line = sale_order.order_line.filtered(
             lambda line: line.product_id.type == "service"
-            and line.product_id.service_tracking in ("task_global_project", "task_in_project")
+            and line.product_id.service_tracking in ("project_only", "task_in_project")
             and not line.project_id
         )
-        service_lines.write({"project_id": project.id})
+        service_lines_with_project_on_line.write({"project_id": project.id})
+
+        service_lines_with_project_on_product = sale_order.order_line.filtered(
+            lambda line: line.product_id.type == "service"
+            and line.product_id.service_tracking == "task_global_project"
+            and not line.product_id.project_id
+        )
+        service_lines_with_project_on_product.mapped("product_id.product_tmpl_id").write(
+            {"project_id": project.id}
+        )
 
     def test_01_sale_stock_return(self):
         """
