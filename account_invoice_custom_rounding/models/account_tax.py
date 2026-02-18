@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
+from odoo.exceptions import MissingError
 
 
 class AccountTax(models.Model):
@@ -9,7 +10,13 @@ class AccountTax(models.Model):
 
     @api.model
     def _prepare_base_line_for_taxes_computation(self, record, **kwargs):
-        res = super()._prepare_base_line_for_taxes_computation(record, **kwargs)
+        record = record.exists()
+        if not record:
+            return {}
+        try:
+            res = super()._prepare_base_line_for_taxes_computation(record, **kwargs)
+        except MissingError:
+            return {}
         tax_calculation = self._get_base_line_field_value_from_record(
             record, "tax_calculation_rounding_method", kwargs, "round_globally"
         )
