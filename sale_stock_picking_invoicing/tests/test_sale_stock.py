@@ -253,6 +253,9 @@ class TestSaleStock(TestPickingInvoicingCommon):
             # In the sale.orde.line display_type has only line_section
             # and line_note, the acccount.move.line has more options
             "display_type",
+            # This field is computed and can diverge depending on
+            # project/analytic automatic assignment in dependencies.
+            "distribution_analytic_account_ids",
         ]
 
         common_fields = list(set(acl_fields) & set(sol_fields) - set(skipped_fields))
