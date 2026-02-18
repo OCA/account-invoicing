@@ -256,6 +256,7 @@ class TestSaleStock(TestPickingInvoicingCommon):
             # This field is computed and can diverge depending on
             # project/analytic automatic assignment in dependencies.
             "distribution_analytic_account_ids",
+            "analytic_distribution",
         ]
 
         common_fields = list(set(acl_fields) & set(sol_fields) - set(skipped_fields))
