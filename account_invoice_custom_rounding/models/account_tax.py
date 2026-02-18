@@ -10,13 +10,14 @@ class AccountTax(models.Model):
 
     @api.model
     def _prepare_base_line_for_taxes_computation(self, record, **kwargs):
-        record = record.exists()
-        if not record:
-            return {}
+        if isinstance(record, models.Model):
+            record = record.exists()
+            if not record:
+                record = None
         try:
             res = super()._prepare_base_line_for_taxes_computation(record, **kwargs)
         except MissingError:
-            return {}
+            res = super()._prepare_base_line_for_taxes_computation(None, **kwargs)
         tax_calculation = self._get_base_line_field_value_from_record(
             record, "tax_calculation_rounding_method", kwargs, "round_globally"
         )
