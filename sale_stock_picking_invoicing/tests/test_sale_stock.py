@@ -26,6 +26,22 @@ class TestSaleStock(TestPickingInvoicingCommon):
         for company in cls.companies:
             company.sale_invoicing_policy = "stock_picking"
 
+    @classmethod
+    def _ensure_project_for_service_lines(cls, sale_order):
+        project = cls.env["project.project"].create(
+            {
+                "name": f"{sale_order.name or 'SO'} Test Project",
+                "company_id": sale_order.company_id.id,
+                "partner_id": sale_order.partner_id.id,
+            }
+        )
+        service_lines = sale_order.order_line.filtered(
+            lambda line: line.product_id.type == "service"
+            and line.product_id.service_tracking in ("task_global_project", "task_in_project")
+            and not line.project_id
+        )
+        service_lines.write({"project_id": project.id})
+
     def test_01_sale_stock_return(self):
         """
         Test a SO with a product invoiced on delivery. Deliver and invoice
@@ -130,6 +146,7 @@ class TestSaleStock(TestPickingInvoicingCommon):
             "sale_stock_picking_invoicing.demo_pricelist"
         )
         sale_order_2 = sale_order_form.save()
+        self._ensure_project_for_service_lines(sale_order_2)
         sale_order_2.action_confirm()
         # Method to create invoice in sale order should work only
         # for lines where products are of TYPE Service
@@ -298,6 +315,7 @@ class TestSaleStock(TestPickingInvoicingCommon):
             "sale_stock_picking_invoicing.main_company-sale_order_2"
         )
         sale_order_2.note = False
+        self._ensure_project_for_service_lines(sale_order_2)
         sale_order_2.action_confirm()
         picking2 = sale_order_2.picking_ids
         self.picking_move_state(picking2)
