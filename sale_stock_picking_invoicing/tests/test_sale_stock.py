@@ -28,6 +28,8 @@ class TestSaleStock(TestPickingInvoicingCommon):
 
     @classmethod
     def _ensure_project_for_service_lines(cls, sale_order):
+        if "project.project" not in cls.env or "project_id" not in sale_order.order_line._fields:
+            return
         project = cls.env["project.project"].create(
             {
                 "name": f"{sale_order.name or 'SO'} Test Project",
