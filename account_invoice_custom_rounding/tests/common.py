@@ -15,11 +15,6 @@ class TestAccountInvoiceCustomRoundingCommon(common.TransactionCase):
                 "amount": 21,
             }
         )
-        product_vals = {"name": "Product", "type": "service"}
-        if "purchase_line_warn" in cls.env["product.template"]._fields:
-            product_vals["purchase_line_warn"] = "no-message"
-        if "sale_line_warn" in cls.env["product.template"]._fields:
-            product_vals["sale_line_warn"] = "no-message"
-        cls.product = cls.env["product.product"].create(product_vals)
+        cls.product = cls.env.ref("product.product_product_4")
         cls.partner = cls.env["res.partner"].create({"name": "Partner"})
         cls.company = cls.env.ref("base.main_company")
