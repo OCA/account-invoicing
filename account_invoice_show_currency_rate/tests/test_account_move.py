@@ -18,13 +18,16 @@ class TestAccountMove(common.TransactionCase):
             {"name": "0%", "amount_type": "fixed", "type_tax_use": "sale", "amount": 0}
         )
         cls.partner = cls.env["res.partner"].create({"name": "Partner test"})
-        cls.product = cls.env["product.product"].create(
-            {
-                "name": "Product Test",
-                "list_price": 10,
-                "taxes_id": [(6, 0, [cls.account_tax.id])],
-            }
-        )
+        product_vals = {
+            "name": "Product Test",
+            "list_price": 10,
+            "taxes_id": [(6, 0, [cls.account_tax.id])],
+        }
+        if "purchase_line_warn" in cls.env["product.template"]._fields:
+            product_vals["purchase_line_warn"] = "no-message"
+        if "sale_line_warn" in cls.env["product.template"]._fields:
+            product_vals["sale_line_warn"] = "no-message"
+        cls.product = cls.env["product.product"].create(product_vals)
 
         cls.account = cls.env["account.account"].create(
             {

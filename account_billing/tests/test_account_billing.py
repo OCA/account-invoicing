@@ -231,7 +231,10 @@ class TestAccountBilling(TransactionCase):
         self.billing_model.browse(action["res_id"])
 
     def test_7_record_rule_company_restriction(self):
-        other_company = self.env["res.company"].create({"name": "Other Company"})
+        company_vals = {"name": "Other Company"}
+        if "po_lead" in self.env["res.company"]._fields:
+            company_vals["po_lead"] = 0.0
+        other_company = self.env["res.company"].create(company_vals)
         billing_other = self.billing_model.with_company(other_company).create(
             {
                 "bill_type": "out_invoice",
