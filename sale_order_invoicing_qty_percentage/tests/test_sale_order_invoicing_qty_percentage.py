@@ -1,7 +1,6 @@
 # Copyright 2023 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
-from odoo.tests import Form
+from odoo import Command
 
 from odoo.addons.base.tests.common import BaseCommon
 
@@ -18,12 +17,19 @@ class TestSaleOrderInvoicingQtyPercentage(BaseCommon):
                 "invoice_policy": "order",
             }
         )
-        order_form = Form(cls.env["sale.order"])
-        order_form.partner_id = cls.partner
-        with order_form.order_line.new() as line_form:
-            line_form.product_id = cls.product
-            line_form.product_uom_qty = 20
-        cls.order = order_form.save()
+        cls.order = cls.env["sale.order"].create(
+            {
+                "partner_id": cls.partner.id,
+                "order_line": [
+                    Command.create(
+                        {
+                            "product_id": cls.product.id,
+                            "product_uom_qty": 20,
+                        }
+                    )
+                ],
+            }
+        )
         cls.order.action_confirm()
         cls.wizard = (
             cls.env["sale.advance.payment.inv"]
