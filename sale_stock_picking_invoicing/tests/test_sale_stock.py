@@ -2,6 +2,8 @@
 # @author Magno Costa <magno.costa@akretion.com.br>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from unittest.mock import Mock, patch
+
 from odoo import exceptions, models
 from odoo.tests import Form
 
@@ -57,77 +59,34 @@ class TestSaleStock(TestPickingInvoicingCommon):
         ).write({"project_id": project.id})
 
     def test_00_ensure_project_for_service_lines_assigns_projects(self):
-        if (
-            "project.project" not in self.env
-            or "project_id" not in self.env["sale.order.line"]._fields
-        ):
-            self.skipTest("Project support is not available")
+        project_model = Mock()
+        project = Mock()
+        project.id = 99
+        project_model.create.return_value = project
 
-        project_count_before = self.env["project.project"].search_count([])
-        service_project_only = (
-            self.env["product.template"]
-            .create(
-                {
-                    "name": "Service Project Only",
-                    "type": "service",
-                    "service_tracking": "project_only",
-                    "list_price": 10,
-                }
-            )
-            .product_variant_id
-        )
-        service_global_project = (
-            self.env["product.template"]
-            .create(
-                {
-                    "name": "Service Global Project",
-                    "type": "service",
-                    "service_tracking": "task_global_project",
-                    "list_price": 20,
-                }
-            )
-            .product_variant_id
-        )
+        line_recordset = Mock()
+        product_recordset = Mock()
+        mapped_recordset = Mock()
+        product_recordset.mapped.return_value = mapped_recordset
 
-        sale_order = self.env["sale.order"].create(
-            {
-                "partner_id": self.env.ref("base.res_partner_1").id,
-                "partner_invoice_id": self.env.ref("base.res_partner_1").id,
-                "partner_shipping_id": self.env.ref("base.res_partner_1").id,
-                "pricelist_id": self.env.ref(
-                    "sale_stock_picking_invoicing.demo_pricelist"
-                ).id,
-                "order_line": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": service_project_only.name,
-                            "product_id": service_project_only.id,
-                            "product_uom_qty": 1.0,
-                            "price_unit": 10,
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "name": service_global_project.name,
-                            "product_id": service_global_project.id,
-                            "product_uom_qty": 1.0,
-                            "price_unit": 20,
-                        },
-                    ),
-                ],
-            }
-        )
+        order_line = Mock()
+        order_line._fields = {"project_id": object()}
+        order_line.filtered.side_effect = [line_recordset, product_recordset]
 
-        self._ensure_project_for_service_lines(sale_order)
-        self.assertEqual(
-            self.env["project.project"].search_count([]), project_count_before + 1
-        )
-        self.assertTrue(sale_order.order_line.filtered("project_id"))
-        self.assertTrue(service_global_project.project_id)
+        sale_order = Mock()
+        sale_order.name = "SO-Test"
+        sale_order.company_id.id = self.env.company.id
+        sale_order.partner_id.id = self.env.ref("base.res_partner_1").id
+        sale_order.order_line = order_line
+
+        fake_env = {"project.project": project_model}
+        with patch.object(type(self), "env", fake_env):
+            type(self)._ensure_project_for_service_lines(sale_order)
+
+        project_model.create.assert_called_once()
+        line_recordset.write.assert_called_once_with({"project_id": project.id})
+        product_recordset.mapped.assert_called_once_with("product_id.product_tmpl_id")
+        mapped_recordset.write.assert_called_once_with({"project_id": project.id})
 
     def test_01_sale_stock_return(self):
         """
