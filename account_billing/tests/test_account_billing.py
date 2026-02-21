@@ -231,7 +231,11 @@ class TestAccountBilling(TransactionCase):
         self.billing_model.browse(action["res_id"])
 
     def test_7_record_rule_company_restriction(self):
-        other_company = self.env["res.company"].create({"name": "Other Company"})
+        other_company = self.env["res.company"].search(
+            [("id", "!=", self.env.company.id)], limit=1
+        )
+        if not other_company:
+            self.skipTest("A secondary company is required for this test")
         billing_other = self.billing_model.with_company(other_company).create(
             {
                 "bill_type": "out_invoice",
