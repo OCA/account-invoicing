@@ -54,6 +54,7 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
                 "acc_number": "300.300.300",
                 "acc_holder_name": "AccountHolderName",
                 "partner_id": cls.company.partner_id.id,
+                "allow_out_payment": True,
             }
         )
         cls.invoice = cls.AccountMove.create(
