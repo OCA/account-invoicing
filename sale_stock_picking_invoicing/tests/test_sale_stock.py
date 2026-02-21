@@ -57,13 +57,28 @@ class TestSaleStock(TestPickingInvoicingCommon):
         ).write({"project_id": project.id})
 
     def test_00_ensure_project_for_service_lines_assigns_projects(self):
-        has_project_support = (
-            "project.project" in self.env
-            and "project_id" in self.env["sale.order.line"]._fields
-        )
-        project_count_before = (
-            self.env["project.project"].search_count([]) if has_project_support else 0
-        )
+        if "project.project" not in self.env or "project_id" not in self.env[
+            "sale.order.line"
+        ]._fields:
+            self.skipTest("Project support is not available")
+
+        project_count_before = self.env["project.project"].search_count([])
+        service_project_only = self.env["product.template"].create(
+            {
+                "name": "Service Project Only",
+                "type": "service",
+                "service_tracking": "project_only",
+                "list_price": 10,
+            }
+        ).product_variant_id
+        service_global_project = self.env["product.template"].create(
+            {
+                "name": "Service Global Project",
+                "type": "service",
+                "service_tracking": "task_global_project",
+                "list_price": 20,
+            }
+        ).product_variant_id
 
         sale_order = self.env["sale.order"].create(
             {
@@ -73,14 +88,37 @@ class TestSaleStock(TestPickingInvoicingCommon):
                 "pricelist_id": self.env.ref(
                     "sale_stock_picking_invoicing.demo_pricelist"
                 ).id,
+                "order_line": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": service_project_only.name,
+                            "product_id": service_project_only.id,
+                            "product_uom_qty": 1.0,
+                            "price_unit": 10,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "name": service_global_project.name,
+                            "product_id": service_global_project.id,
+                            "product_uom_qty": 1.0,
+                            "price_unit": 20,
+                        },
+                    ),
+                ],
             }
         )
 
         self._ensure_project_for_service_lines(sale_order)
-        if has_project_support:
-            self.assertEqual(
-                self.env["project.project"].search_count([]), project_count_before + 1
-            )
+        self.assertEqual(
+            self.env["project.project"].search_count([]), project_count_before + 1
+        )
+        self.assertTrue(sale_order.order_line.filtered("project_id"))
+        self.assertTrue(service_global_project.project_id)
 
     def test_01_sale_stock_return(self):
         """
