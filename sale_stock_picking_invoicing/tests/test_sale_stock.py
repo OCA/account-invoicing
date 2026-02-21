@@ -56,6 +56,70 @@ class TestSaleStock(TestPickingInvoicingCommon):
             "product_id.product_tmpl_id"
         ).write({"project_id": project.id})
 
+    def test_00_ensure_project_for_service_lines_assigns_projects(self):
+        if "project.project" not in self.env or "project_id" not in self.env[
+            "sale.order.line"
+        ]._fields:
+            self.skipTest("Project support is not available")
+
+        service_product_with_line_project = self.env["product.template"].create(
+            {
+                "name": "Service Project Only",
+                "type": "service",
+                "service_tracking": "project_only",
+                "list_price": 10,
+            }
+        ).product_variant_id
+        service_product_with_global_project = self.env["product.template"].create(
+            {
+                "name": "Service Global Project",
+                "type": "service",
+                "service_tracking": "task_global_project",
+                "list_price": 20,
+            }
+        ).product_variant_id
+
+        sale_order = self.env["sale.order"].create(
+            {
+                "partner_id": self.env.ref("base.res_partner_1").id,
+                "partner_invoice_id": self.env.ref("base.res_partner_1").id,
+                "partner_shipping_id": self.env.ref("base.res_partner_1").id,
+                "pricelist_id": self.env.ref(
+                    "sale_stock_picking_invoicing.demo_pricelist"
+                ).id,
+                "order_line": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": service_product_with_line_project.name,
+                            "product_id": service_product_with_line_project.id,
+                            "product_uom_qty": 1.0,
+                            "price_unit": 10,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "name": service_product_with_global_project.name,
+                            "product_id": service_product_with_global_project.id,
+                            "product_uom_qty": 1.0,
+                            "price_unit": 20,
+                        },
+                    ),
+                ],
+            }
+        )
+
+        self._ensure_project_for_service_lines(sale_order)
+
+        line_with_project = sale_order.order_line.filtered(
+            lambda line: line.product_id == service_product_with_line_project
+        )
+        self.assertTrue(line_with_project.project_id)
+        self.assertTrue(service_product_with_global_project.project_id)
+
     def test_01_sale_stock_return(self):
         """
         Test a SO with a product invoiced on delivery. Deliver and invoice
