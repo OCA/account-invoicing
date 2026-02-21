@@ -505,9 +505,15 @@ class TestSaleStock(TestPickingInvoicingCommon):
         company_vals = {"name": "Test"}
         if "po_lead" in self.env["res.company"]._fields:
             company_vals["po_lead"] = 1.0
-        with patch.object(
-            type(self.env.company), "_create_internal_project_task", autospec=True
-        ):
+        company_model_cls = type(self.env.company)
+        if hasattr(company_model_cls, "_create_internal_project_task"):
+            with patch.object(
+                company_model_cls,
+                "_create_internal_project_task",
+                autospec=True,
+            ):
+                company = self.env["res.company"].create(company_vals)
+        else:
             company = self.env["res.company"].create(company_vals)
         self.assertEqual(company.sale_invoicing_policy, "sale_order")
 
