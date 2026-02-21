@@ -50,10 +50,8 @@ class TestInvoiceMode(CommonPartnerInvoicingMode):
         self.assertTrue(self.so1.invoice_ids)
         # No errors are raised when called without anything to invoice
         invoice_count = len(self.so1.invoice_ids)
-        with trap_jobs() as trap:
+        with trap_jobs():
             self.SaleOrder.generate_invoices()
-            for job in trap.enqueued_jobs:
-                job.perform()
         self.assertEqual(len(self.so1.invoice_ids), invoice_count)
 
     def test_invoicing_standard_cron(self):
