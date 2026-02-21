@@ -57,28 +57,37 @@ class TestSaleStock(TestPickingInvoicingCommon):
         ).write({"project_id": project.id})
 
     def test_00_ensure_project_for_service_lines_assigns_projects(self):
-        if "project.project" not in self.env or "project_id" not in self.env[
-            "sale.order.line"
-        ]._fields:
+        if (
+            "project.project" not in self.env
+            or "project_id" not in self.env["sale.order.line"]._fields
+        ):
             self.skipTest("Project support is not available")
 
         project_count_before = self.env["project.project"].search_count([])
-        service_project_only = self.env["product.template"].create(
-            {
-                "name": "Service Project Only",
-                "type": "service",
-                "service_tracking": "project_only",
-                "list_price": 10,
-            }
-        ).product_variant_id
-        service_global_project = self.env["product.template"].create(
-            {
-                "name": "Service Global Project",
-                "type": "service",
-                "service_tracking": "task_global_project",
-                "list_price": 20,
-            }
-        ).product_variant_id
+        service_project_only = (
+            self.env["product.template"]
+            .create(
+                {
+                    "name": "Service Project Only",
+                    "type": "service",
+                    "service_tracking": "project_only",
+                    "list_price": 10,
+                }
+            )
+            .product_variant_id
+        )
+        service_global_project = (
+            self.env["product.template"]
+            .create(
+                {
+                    "name": "Service Global Project",
+                    "type": "service",
+                    "service_tracking": "task_global_project",
+                    "list_price": 20,
+                }
+            )
+            .product_variant_id
+        )
 
         sale_order = self.env["sale.order"].create(
             {
