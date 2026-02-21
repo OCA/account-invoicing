@@ -502,11 +502,13 @@ class TestSaleStock(TestPickingInvoicingCommon):
 
     def test_default_value_sale_invoicing_policy(self):
         """Test default value for sale_invoicing_policy"""
-        company = self.env["res.company"].create(
-            {
-                "name": "Test",
-            }
-        )
+        company_vals = {"name": "Test"}
+        if "po_lead" in self.env["res.company"]._fields:
+            company_vals["po_lead"] = 1.0
+        with patch.object(
+            type(self.env.company), "_create_internal_project_task", autospec=True
+        ):
+            company = self.env["res.company"].create(company_vals)
         self.assertEqual(company.sale_invoicing_policy, "sale_order")
 
     def test_picking_invocing_without_sale_order(self):
