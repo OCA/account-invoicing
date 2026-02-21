@@ -232,11 +232,11 @@ class TestAccountBilling(TransactionCase):
 
     def test_7_record_rule_company_restriction(self):
         companies = self.env["res.company"].search([])
-        if len(companies) < 2:
-            self.skipTest("This test requires at least 2 companies")
         other_company = companies.filtered(
             lambda company: company.id != self.env.company.id
         )[:1]
+        if not other_company:
+            other_company = self.env.company.copy({"name": "Other Company"})
         billing_other = self.billing_model.with_company(other_company).create(
             {
                 "bill_type": "out_invoice",
