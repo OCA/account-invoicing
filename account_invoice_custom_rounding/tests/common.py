@@ -15,6 +15,7 @@ class TestAccountInvoiceCustomRoundingCommon(common.TransactionCase):
                 "amount": 21,
             }
         )
-        cls.product = cls.env.ref("product.product_product_4")
+        cls.product = cls.env["product.product"].search([], limit=1)
+        assert cls.product, "No product available in test database"
         cls.partner = cls.env["res.partner"].create({"name": "Partner"})
         cls.company = cls.env.ref("base.main_company")

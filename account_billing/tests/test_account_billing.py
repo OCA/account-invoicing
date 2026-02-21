@@ -231,20 +231,12 @@ class TestAccountBilling(TransactionCase):
         self.billing_model.browse(action["res_id"])
 
     def test_7_record_rule_company_restriction(self):
-        other_company = self.env["res.company"].search(
-            [("id", "!=", self.env.company.id)], limit=1
-        )
-        if not other_company:
-            try:
-                other_company = self.env["res.company"].create(
-                    {"name": "Other Company"}
-                )
-            except Exception as exception:
-                if "po_lead" in str(exception):
-                    self.skipTest(
-                        "Cannot create secondary company due hidden required field"
-                    )
-                raise
+        companies = self.env["res.company"].search([])
+        if len(companies) < 2:
+            self.skipTest("This test requires at least 2 companies")
+        other_company = companies.filtered(
+            lambda company: company.id != self.env.company.id
+        )[:1]
         billing_other = self.billing_model.with_company(other_company).create(
             {
                 "bill_type": "out_invoice",

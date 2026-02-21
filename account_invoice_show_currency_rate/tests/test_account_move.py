@@ -18,7 +18,8 @@ class TestAccountMove(common.TransactionCase):
             {"name": "0%", "amount_type": "fixed", "type_tax_use": "sale", "amount": 0}
         )
         cls.partner = cls.env["res.partner"].create({"name": "Partner test"})
-        cls.product = cls.env.ref("product.product_product_4")
+        cls.product = cls.env["product.product"].search([], limit=1)
+        assert cls.product, "No product available in test database"
         cls.product.write(
             {
                 "list_price": 10,
