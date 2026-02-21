@@ -1,6 +1,10 @@
 # Copyright 2024 Manuel Regidor <manuel.regidor@sygel.es>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from unittest.mock import patch
+
+from odoo.exceptions import MissingError
+
 from .common import TestAccountInvoiceCustomRoundingCommon
 
 
@@ -98,3 +102,28 @@ class TestAccountInvoiceCustomRounding(TestAccountInvoiceCustomRoundingCommon):
         reverse_move = invoice._reverse_moves()
         self.assertEqual(reverse_move.tax_calculation_rounding_method, "round_per_line")
         self.assertAlmostEqual(reverse_move.amount_total, 15086.95, places=2)
+
+    def test_prepare_base_line_handles_stale_record(self):
+        invoice = self.create_invoice()
+        line = invoice.invoice_line_ids[:1]
+        line_id = line.id
+        line.unlink()
+        stale_line = self.env["account.move.line"].browse(line_id)
+
+        res = self.env["account.tax"]._prepare_base_line_for_taxes_computation(
+            stale_line
+        )
+        self.assertIn("tax_calculation_rounding_method", res)
+        self.assertEqual(res["tax_calculation_rounding_method"], "round_globally")
+
+    def test_prepare_base_line_recovers_from_missing_error(self):
+        with patch(
+            "odoo.addons.account.models.account_tax.AccountTax."
+            "_prepare_base_line_for_taxes_computation",
+            side_effect=[MissingError("missing"), {}],
+        ):
+            res = self.env["account.tax"]._prepare_base_line_for_taxes_computation(
+                None, tax_calculation_rounding_method="round_per_line"
+            )
+
+        self.assertEqual(res["tax_calculation_rounding_method"], "round_per_line")
