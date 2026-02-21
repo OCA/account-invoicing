@@ -52,9 +52,9 @@ class TestSaleStock(TestPickingInvoicingCommon):
             and line.product_id.service_tracking == "task_global_project"
             and not line.product_id.project_id
         )
-        service_lines_with_project_on_product.mapped("product_id.product_tmpl_id").write(
-            {"project_id": project.id}
-        )
+        service_lines_with_project_on_product.mapped(
+            "product_id.product_tmpl_id"
+        ).write({"project_id": project.id})
 
     def test_01_sale_stock_return(self):
         """
