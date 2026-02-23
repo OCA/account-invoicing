@@ -36,8 +36,24 @@ jobs:
       matrix:
         include:
           - container: ghcr.io/oca/oca-ci/py3.10-odoo19.0:latest
+            include: "account_invoice_fixed_discount"
             name: test with Odoo
           - container: ghcr.io/oca/oca-ci/py3.10-ocb19.0:latest
+            include: "account_invoice_fixed_discount"
+            name: test with OCB
+            makepot: "true"
+          - container: ghcr.io/oca/oca-ci/py3.10-odoo19.0:latest
+            include: "account_invoice_triple_discount"
+            name: test with Odoo
+          - container: ghcr.io/oca/oca-ci/py3.10-ocb19.0:latest
+            include: "account_invoice_triple_discount"
+            name: test with OCB
+            makepot: "true"
+          - container: ghcr.io/oca/oca-ci/py3.10-odoo19.0:latest
+            exclude: "account_invoice_fixed_discount,account_invoice_triple_discount"
+            name: test with Odoo
+          - container: ghcr.io/oca/oca-ci/py3.10-ocb19.0:latest
+            exclude: "account_invoice_fixed_discount,account_invoice_triple_discount"
             name: test with OCB
             makepot: "true"
     services:
@@ -50,6 +66,8 @@ jobs:
         ports:
           - 5432:5432
     env:
+      INCLUDE: "${{ matrix.include }}"
+      EXCLUDE: "${{ matrix.exclude }}"
       OCA_ENABLE_CHECKLOG_ODOO: "1"
     steps:
       - uses: actions/checkout@v4
@@ -65,6 +83,13 @@ jobs:
         run: oca_init_test_database
       - name: Run tests
         run: oca_run_tests
+      - name: Upload screenshots from JS tests
+        uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: Screenshots of failed JS tests - ${{ matrix.name }}${{ join(matrix.include) }}
+          path: /tmp/odoo_tests/${{ env.PGDATABASE }}
+          if-no-files-found: ignore
       - uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
