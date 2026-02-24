@@ -8,8 +8,8 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged("post_install", "-at_install")
 class TestInvoiceRefundCode(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.env = cls.env(
             context=dict(
                 cls.env.context,
@@ -51,6 +51,7 @@ class TestInvoiceRefundCode(AccountTestInvoicingCommon):
 
         action = reversal.reverse_moves()
         refund = self.env[action["res_model"]].browse(action["res_id"])
+        refund.action_post()
 
         name = refund.name.split("/")
         self.assertEqual(name[0], refund_code)

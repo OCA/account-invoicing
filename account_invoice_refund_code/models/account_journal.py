@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class AccountJournal(models.Model):
-    _name = "account.journal"
-    _inherit = ["account.journal"]
+    _inherit = "account.journal"
 
     refund_code = fields.Char(string="Refund Short Code")

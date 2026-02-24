@@ -5,8 +5,7 @@ from odoo import models
 
 
 class AccountMove(models.Model):
-    _name = "account.move"
-    _inherit = ["account.move"]
+    _inherit = "account.move"
 
     def _get_starting_sequence(self):
         starting_sequence = super()._get_starting_sequence()
