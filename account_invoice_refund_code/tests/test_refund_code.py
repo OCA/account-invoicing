@@ -28,7 +28,6 @@ class TestInvoiceRefundCode(AccountTestInvoicingCommon):
         cls.journal = cls.out_invoice.journal_id
 
     def test_invoice_refund_code_01(self):
-
         refund_code = "TEST"
 
         self.journal.write(
