@@ -3,7 +3,7 @@
 
 {
     "name": "Account Invoice Refund Code",
-    "version": "16.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Accounting & Finance",
     "summary": "This module allows to have specific refund codes.",
     "author": "ForgeFlow, Odoo Community Association (OCA)",

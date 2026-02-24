@@ -8,7 +8,7 @@
             <xpath expr="//field[@name='code']" position="after">
                 <field
                     name="refund_code"
-                    attrs="{'invisible': ['|', ('type', 'not in', ['sale', 'purchase']), ('refund_sequence', '=', False)]}"
+                    invisible="type not in ['sale', 'purchase'] or not refund_sequence"
                 />
             </xpath>
         </field>
