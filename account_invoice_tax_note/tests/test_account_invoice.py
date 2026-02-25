@@ -12,7 +12,7 @@ class TestAccountInvoice(TransactionCase):
     """
 
     def setUp(self):
-        super(TestAccountInvoice, self).setUp()
+        super().setUp()
         tax_group_obj = self.env["account.tax.group"]
         tax_obj = self.env["account.tax"]
         invoice_obj = self.env["account.move"]
