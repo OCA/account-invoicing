@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ===============================
 Account Invoice Triple Discount
 ===============================
@@ -17,7 +13,7 @@ Account Invoice Triple Discount
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
@@ -50,16 +46,16 @@ For example, let's divide by two on every discount:
 
 Unit price: 600.00 ->
 
-   - Disc. 1 = 50% -> Amount = 300.00
-   - Disc. 2 = 50% -> Amount = 150.00
-   - Disc. 3 = 50% -> Amount = 75.00
+   -  Disc. 1 = 50% -> Amount = 300.00
+   -  Disc. 2 = 50% -> Amount = 150.00
+   -  Disc. 3 = 50% -> Amount = 75.00
 
 You can also use negative values to charge instead of discount:
 
 Unit price: 600.00 ->
 
-   - Disc. 1 = 50% -> Amount = 300.00
-   - Disc. 2 = -5% -> Amount = 315.00
+   -  Disc. 1 = 50% -> Amount = 300.00
+   -  Disc. 2 = -5% -> Amount = 315.00
 
 Bug Tracker
 ===========
@@ -84,15 +80,16 @@ Authors
 Contributors
 ------------
 
-- David Vidal <david.vidal@tecnativa.com>
-- Pedro M. Baeza <pedro.baeza@tecnativa.com>
-- Nikul Chaudhary <nikulchaudhary2112@gmail.com>
-- `Aion Tech <https://aiontech.company/>`__:
+-  David Vidal <david.vidal@tecnativa.com>
+-  Pedro M. Baeza <pedro.baeza@tecnativa.com>
+-  Nikul Chaudhary <nikulchaudhary2112@gmail.com>
+-  `Aion Tech <https://aiontech.company/>`__:
 
-  - Simone Rubino <simone.rubino@aion-tech.it>
+   -  Simone Rubino <simone.rubino@aion-tech.it>
 
-- Laurent Mignon <laurent.mignon@acsone.eu>
-- Akim Juillerat <akim.juillerat@camptocamp.com>
+-  Laurent Mignon <laurent.mignon@acsone.eu>
+-  Akim Juillerat <akim.juillerat@camptocamp.com>
+-  Panca Putra Pakpahan <ppakpahan@solusiaglis.co.id>
 
 Maintainers
 -----------
