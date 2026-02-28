@@ -30,7 +30,7 @@ class TestAccountInvoiceDateDue(BaseCommon):
                 "name": "Test User w/ access",
                 "login": "user_w_access",
                 "email": "somebody@somewhere.com",
-                "groups_id": [(6, 0, (group + acc_group + stock_group).ids)],
+                "group_ids": [(6, 0, (group + acc_group + stock_group).ids)],
             }
         )
         # Create new user not allowed to change invoice due date
@@ -38,7 +38,7 @@ class TestAccountInvoiceDateDue(BaseCommon):
             {
                 "name": "Test User wo/ access",
                 "login": "user_wo_access",
-                "groups_id": [(6, 0, (acc_group + stock_group).ids)],
+                "group_ids": [(6, 0, (acc_group + stock_group).ids)],
             }
         )
 
