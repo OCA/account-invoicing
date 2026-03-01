@@ -1,0 +1,682 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
+<title>Account Invoice Advance Compensation</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 9511 2024-01-13 09:50:07Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+Despite the name, some widely supported CSS2 features are used.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: gray; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic, pre.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="account-invoice-advance-compensation">
+<h1 class="title">Account Invoice Advance Compensation</h1>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! This file is generated by oca-gen-addon-readme !!
+!! changes will be overwritten.                   !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! source digest: sha256:823c7c832f9319193cc0ea9cdedc0db0bb29c09e299edaddf1e8563e55f37b35
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/account-invoicing/tree/18.0/account_invoice_advance_compensation"><img alt="OCA/account-invoicing" src="https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/account-invoicing-18-0/account-invoicing-18-0-account_invoice_advance_compensation"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&amp;target_branch=18.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module provides a comprehensive solution for managing advance
+payments and their compensation in Odoo. It enables businesses to
+efficiently handle prepayments and their application against regular
+invoices through a user-friendly interface.</p>
+<p>Key Features:</p>
+<ul class="simple">
+<li>Dedicated advance payment tracking for both customers and suppliers</li>
+<li>Flexible compensation wizard for applying advances against invoices</li>
+<li>Automatic reconciliation of advance payments with regular invoices</li>
+<li>Configurable advance payment journals</li>
+<li>Multi-currency support for advance payments</li>
+</ul>
+<p>The module streamlines the advance payment process by providing a
+structured workflow for recording, tracking, and compensating advance
+payments, ensuring accurate financial records and improved cash flow
+management.</p>
+<p><strong>Table of contents</strong></p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#use-cases-context" id="toc-entry-1">Use Cases / Context</a></li>
+<li><a class="reference internal" href="#module-context-and-implementation-guide" id="toc-entry-2">Module Context and Implementation Guide</a><ul>
+<li><a class="reference internal" href="#when-to-use-this-module" id="toc-entry-3">When to Use This Module</a></li>
+<li><a class="reference internal" href="#key-implementation-scenarios" id="toc-entry-4">Key Implementation Scenarios</a><ul>
+<li><a class="reference internal" href="#customer-advances" id="toc-entry-5">Customer Advances</a></li>
+<li><a class="reference internal" href="#supplier-prepayments" id="toc-entry-6">Supplier Prepayments</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#technical-context" id="toc-entry-7">Technical Context</a><ul>
+<li><a class="reference internal" href="#prerequisites" id="toc-entry-8">Prerequisites</a></li>
+<li><a class="reference internal" href="#integration-points" id="toc-entry-9">Integration Points</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration" id="toc-entry-10">Configuration</a></li>
+<li><a class="reference internal" href="#configuration-guide" id="toc-entry-11">Configuration Guide</a><ul>
+<li><a class="reference internal" href="#core-setup" id="toc-entry-12">Core Setup</a><ul>
+<li><a class="reference internal" href="#journal-configuration" id="toc-entry-13">1. Journal Configuration</a></li>
+<li><a class="reference internal" href="#prepayment-accounts" id="toc-entry-14">2. Prepayment Accounts</a></li>
+<li><a class="reference internal" href="#advance-product" id="toc-entry-15">3. Advance Product</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage" id="toc-entry-16">Usage</a><ul>
+<li><a class="reference internal" href="#step-by-step-process" id="toc-entry-17">Step-by-Step Process</a><ul>
+<li><a class="reference internal" href="#recording-an-advance-payment" id="toc-entry-18">1. Recording an Advance Payment</a></li>
+<li><a class="reference internal" href="#applying-compensation" id="toc-entry-19">2. Applying Compensation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#key-features" id="toc-entry-20">Key Features</a><ul>
+<li><a class="reference internal" href="#supported-scenarios" id="toc-entry-21">Supported Scenarios</a></li>
+<li><a class="reference internal" href="#prerequisites-1" id="toc-entry-22">Prerequisites</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#troubleshooting" id="toc-entry-23">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#common-issues" id="toc-entry-24">Common Issues</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-25">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-26">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-27">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-28">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-29">Maintainers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="use-cases-context">
+<h1><a class="toc-backref" href="#toc-entry-1">Use Cases / Context</a></h1>
+</div>
+<div class="section" id="module-context-and-implementation-guide">
+<h1><a class="toc-backref" href="#toc-entry-2">Module Context and Implementation Guide</a></h1>
+<div class="section" id="when-to-use-this-module">
+<h2><a class="toc-backref" href="#toc-entry-3">When to Use This Module</a></h2>
+<p>This module is particularly valuable for businesses that:</p>
+<ul class="simple">
+<li>Regularly process advance payments from customers or to suppliers</li>
+<li>Need to track prepayments separately from regular invoices</li>
+<li>Require precise reconciliation of advances against final invoices</li>
+<li>Operate in project-based or milestone-payment environments</li>
+</ul>
+</div>
+<div class="section" id="key-implementation-scenarios">
+<h2><a class="toc-backref" href="#toc-entry-4">Key Implementation Scenarios</a></h2>
+<div class="section" id="customer-advances">
+<h3><a class="toc-backref" href="#toc-entry-5">Customer Advances</a></h3>
+<ol class="arabic simple">
+<li><strong>Service Retainers</strong><ul>
+<li>Track client deposits against monthly service invoices</li>
+<li>Example: Law firm applying retainer payments to monthly bills</li>
+</ul>
+</li>
+<li><strong>Product Deposits</strong><ul>
+<li>Manage customer down payments for goods</li>
+<li>Example: Manufacturer applying 30% deposit against production order</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="supplier-prepayments">
+<h3><a class="toc-backref" href="#toc-entry-6">Supplier Prepayments</a></h3>
+<ol class="arabic simple">
+<li><strong>Material Purchases</strong><ul>
+<li>Track and apply prepayments to supplier invoices</li>
+<li>Example: Construction company managing material prepayments</li>
+</ul>
+</li>
+<li><strong>Service Contracts</strong><ul>
+<li>Reconcile advance payments to contractors</li>
+<li>Example: IT firm managing vendor retainers</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="technical-context">
+<h2><a class="toc-backref" href="#toc-entry-7">Technical Context</a></h2>
+<div class="section" id="prerequisites">
+<h3><a class="toc-backref" href="#toc-entry-8">Prerequisites</a></h3>
+<ul class="simple">
+<li>Odoo Accounting module installed</li>
+<li>Properly configured Chart of Accounts</li>
+<li>At least one journal marked as “Advance Journal”</li>
+</ul>
+</div>
+<div class="section" id="integration-points">
+<h3><a class="toc-backref" href="#toc-entry-9">Integration Points</a></h3>
+<ul class="simple">
+<li>Works with standard Odoo invoicing workflow</li>
+<li>Extends the account.move model</li>
+<li>Compatible with:<ul>
+<li>Odoo’s native multi-currency</li>
+<li>Multi-company setups</li>
+<li>Standard reporting features</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="configuration">
+<h1><a class="toc-backref" href="#toc-entry-10">Configuration</a></h1>
+</div>
+<div class="section" id="configuration-guide">
+<h1><a class="toc-backref" href="#toc-entry-11">Configuration Guide</a></h1>
+<div class="section" id="core-setup">
+<h2><a class="toc-backref" href="#toc-entry-12">Core Setup</a></h2>
+<div class="section" id="journal-configuration">
+<h3><a class="toc-backref" href="#toc-entry-13">1. Journal Configuration</a></h3>
+<div class="line-block">
+<div class="line"><strong>Path:</strong> <tt class="docutils literal">Accounting → Configuration → Journals</tt></div>
+<div class="line"><strong>For new journal:</strong></div>
+</div>
+<ol class="arabic simple">
+<li>Create → Type: Miscellaneous</li>
+<li>Name: “Advance Compensation”</li>
+<li>Code: ADV</li>
+<li>Default Account: [Select prepayment account]</li>
+<li>Advanced Settings → ☑ <strong>Is Advance Journal</strong></li>
+</ol>
+</div>
+<div class="section" id="prepayment-accounts">
+<h3><a class="toc-backref" href="#toc-entry-14">2. Prepayment Accounts</a></h3>
+<p><strong>Path:</strong> <tt class="docutils literal">Accounting → Configuration → Chart of Accounts</tt></p>
+<ul class="simple">
+<li><strong>Customer Advances</strong>:<ul>
+<li>Type: Current Assets</li>
+<li>Name: “Advances Receivable”</li>
+<li>☑ Allow Reconciliation</li>
+</ul>
+</li>
+<li><strong>Supplier Advances</strong>:<ul>
+<li>Type: Current Liabilities</li>
+<li>Name: “Advances Payable”</li>
+<li>☑ Allow Reconciliation</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="advance-product">
+<h3><a class="toc-backref" href="#toc-entry-15">3. Advance Product</a></h3>
+<p><strong>Path:</strong> <tt class="docutils literal">Inventory → Products</tt></p>
+<ul class="simple">
+<li>Name: “Advance Payment”</li>
+<li>Type: Service</li>
+<li>Accounting:<ul>
+<li>Income/Expense: [Linked to prepayment account]</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="usage">
+<h1><a class="toc-backref" href="#toc-entry-16">Usage</a></h1>
+<p>This module allows you to manage advance payments and their compensation
+against regular invoices. It supports both customer and supplier
+invoices, with multi-currency capabilities.</p>
+<div class="section" id="step-by-step-process">
+<h2><a class="toc-backref" href="#toc-entry-17">Step-by-Step Process</a></h2>
+<div class="section" id="recording-an-advance-payment">
+<h3><a class="toc-backref" href="#toc-entry-18">1. Recording an Advance Payment</a></h3>
+<ol class="arabic simple">
+<li>Create a new invoice with the “Advance” product</li>
+<li>Register the complete payment for the advance invoice</li>
+<li>The advance will be available for compensation once fully paid</li>
+</ol>
+</div>
+<div class="section" id="applying-compensation">
+<h3><a class="toc-backref" href="#toc-entry-19">2. Applying Compensation</a></h3>
+<ol class="arabic simple">
+<li>Open the regular invoice (must be for the same partner)</li>
+<li>Click the <strong>Compensate Advance</strong> button</li>
+<li>In the compensation wizard:<ul>
+<li>Select available advance(s) from the left panel</li>
+<li>Choose invoice lines to compensate on the right</li>
+<li>Enter the compensation amount</li>
+</ul>
+</li>
+<li>Click <strong>Compensate</strong> to apply the compensation</li>
+</ol>
+</div>
+</div>
+<div class="section" id="key-features">
+<h2><a class="toc-backref" href="#toc-entry-20">Key Features</a></h2>
+<div class="section" id="supported-scenarios">
+<h3><a class="toc-backref" href="#toc-entry-21">Supported Scenarios</a></h3>
+<ul class="simple">
+<li>Customer and supplier invoices</li>
+<li>Partial compensation of advances</li>
+<li>Multi-currency transactions</li>
+<li>Multiple advance compensations per invoice</li>
+</ul>
+</div>
+<div class="section" id="prerequisites-1">
+<h3><a class="toc-backref" href="#toc-entry-22">Prerequisites</a></h3>
+<ul class="simple">
+<li>Advance invoice must be fully paid</li>
+<li>Regular invoice must be for the same partner</li>
+<li>Accounts must be reconcilable</li>
+<li>Proper journal configuration</li>
+</ul>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2><a class="toc-backref" href="#toc-entry-23">Troubleshooting</a></h2>
+<div class="section" id="common-issues">
+<h3><a class="toc-backref" href="#toc-entry-24">Common Issues</a></h3>
+<ol class="arabic simple">
+<li><strong>Advance not appearing in compensation wizard</strong><ul>
+<li>Verify the advance invoice is fully paid</li>
+<li>Check if the partner matches</li>
+<li>Confirm journal settings are correct</li>
+</ul>
+</li>
+<li><strong>Compensation not working</strong><ul>
+<li>Ensure accounts are properly configured</li>
+<li>Check currency compatibility</li>
+<li>Verify user has necessary permissions</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="bug-tracker">
+<h1><a class="toc-backref" href="#toc-entry-25">Bug Tracker</a></h1>
+<p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/account-invoicing/issues">GitHub Issues</a>.
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us to smash it by providing a detailed and welcomed
+<a class="reference external" href="https://github.com/OCA/account-invoicing/issues/new?body=module:%20account_invoice_advance_compensation%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<p>Do not contact contributors directly about support or help with technical issues.</p>
+</div>
+<div class="section" id="credits">
+<h1><a class="toc-backref" href="#toc-entry-26">Credits</a></h1>
+<div class="section" id="authors">
+<h2><a class="toc-backref" href="#toc-entry-27">Authors</a></h2>
+<ul class="simple">
+<li>Escodoo</li>
+</ul>
+</div>
+<div class="section" id="contributors">
+<h2><a class="toc-backref" href="#toc-entry-28">Contributors</a></h2>
+<ul class="simple">
+<li><tt class="docutils literal">Escodoo <span class="pre">&lt;https://www.escodoo.com.br&gt;</span></tt>_:<ul>
+<li>Marcel Savegnago <a class="reference external" href="mailto:marcel.savegnago&#64;escodoo.com.br">marcel.savegnago&#64;escodoo.com.br</a></li>
+<li>Kaynnan Lemes <a class="reference external" href="mailto:kaynnan.lemes&#64;escodoo.com.br">kaynnan.lemes&#64;escodoo.com.br</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="maintainers">
+<h2><a class="toc-backref" href="#toc-entry-29">Maintainers</a></h2>
+<p>This module is maintained by the OCA.</p>
+<a class="reference external image-reference" href="https://odoo-community.org">
+<img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
+</a>
+<p>OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/account-invoicing/tree/18.0/account_invoice_advance_compensation">OCA/account-invoicing</a> project on GitHub.</p>
+<p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 - TODAY, Kaynnan Lemes <kaynnan.lemes@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record
+        model="ir.ui.view"
+        id="account_invoice_advance_compensation_wizard_view_form"
+    >
+        <field name="name">account.invoice.advance.compensation.wizard.form</field>
+        <field name="model">account.invoice.advance.compensation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Advance Compensation">
+                <sheet>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <group string="Advance Payment">
+                                <field name="move_id" invisible="1" />
+                                <field
+                                    name="advance_line_id"
+                                    context="{'advance_id_name_get': True}"
+                                    options="{'no_open': True}"
+                                    class="oe_no_button"
+                                    help="The advance line to be used for compensation"
+                                />
+                                <field
+                                    name="available_advance_line_ids"
+                                    invisible="1"
+                                />
+                                <field
+                                    name="advance_balance"
+                                    string="Available Balance"
+                                    readonly="1"
+                                    help="The available balance in the selected advance line"
+                                />
+                            </group>
+                        </div>
+                        <div class="col-lg-6">
+                            <group string="Compensation Details">
+                                <field
+                                    name="date"
+                                    required="1"
+                                    help="The date of the compensation"
+                                />
+                                <field
+                                    name="journal_id"
+                                    required="1"
+                                    help="The journal to be used for the compensation entry"
+                                />
+                                <field
+                                    name="invoice_line_id"
+                                    context="{'line_id_name_get': True}"
+                                    options="{'no_open': True}"
+                                    readonly="not advance_line_id"
+                                    class="oe_no_button"
+                                    help="The invoice line to be compensated"
+                                />
+                                <field
+                                    name="amount"
+                                    readonly="not advance_line_id"
+                                    required="1"
+                                    help="The amount to be compensated"
+                                />
+                            </group>
+                        </div>
+                    </div>
+                </sheet>
+                <footer>
+                    <button
+                        name="action_confirm_compensation"
+                        string="Confirm"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" special="cancel" class="btn-secondary" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

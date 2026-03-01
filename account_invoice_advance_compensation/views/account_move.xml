@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 - TODAY, Kaynnan Lemes <kaynnan.lemes@escodoo.com.br>
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Add advance compensation button to invoice form -->
+    <record id="view_move_form_inherit" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.advance.compensation</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <!-- Add technical field -->
+            <xpath expr="//field[@name='move_type']" position="after">
+                <field name="advance_invoice" invisible="1" />
+            </xpath>
+
+            <!-- Add compensation button -->
+            <xpath expr="//button[@name='action_register_payment']" position="after">
+                <button
+                    name="action_open_advance_compensation"
+                    string="Compensate Advance"
+                    type="object"
+                    class="oe_highlight"
+                    groups="account.group_account_invoice"
+                    invisible="state != 'posted' or payment_state not in ['not_paid', 'partial'] or move_type not in ['out_invoice', 'in_invoice'] or not advance_invoice"
+                />
+            </xpath>
+
+            <!-- Add informational alerts -->
+            <xpath expr="//sheet" position="before">
+                <div
+                    class="alert alert-info"
+                    role="alert"
+                    groups="account.group_account_invoice"
+                    invisible="state != 'posted' or payment_state not in ['not_paid', 'partial'] or move_type not in ['out_invoice', 'in_invoice'] or not advance_invoice"
+                >
+                    <strong
+                >Advance Available:</strong> You can compensate advance payments for this invoice.
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
