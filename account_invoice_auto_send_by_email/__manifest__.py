@@ -12,6 +12,7 @@
     "website": "https://github.com/OCA/account-invoicing",
     "data": [
         "data/ir_cron.xml",
+        "data/queue_job_data.xml",
     ],
     "installable": True,
 }
