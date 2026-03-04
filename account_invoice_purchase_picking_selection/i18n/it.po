@@ -6,30 +6,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-03-04 11:14+0000\n"
+"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_bank_statement_line__autocomplete_purchase_picking_id
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move__autocomplete_purchase_picking_id
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_payment__autocomplete_purchase_picking_id
 msgid "Auto-Complete from Picking"
-msgstr ""
+msgstr "Auto-completa dal trasferimento"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move__qty_received_invoiced
 msgid "Billed Qty"
-msgstr ""
+msgstr "Q.tà fatturata"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking__received_invoiced_status
 msgid "Billing Status"
-msgstr ""
+msgstr "Stato fatturazione"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move__display_name
@@ -37,12 +39,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move__display_name
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields.selection,name:account_invoice_purchase_picking_selection.selection__stock_picking__received_invoiced_status__invoiced
 msgid "Fully Billed"
-msgstr ""
+msgstr "Completamente fatturato"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move__id
@@ -50,23 +52,23 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move__id
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move__received_invoiced_line_ids
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking__received_invoiced_line_ids
 msgid "Invoiced Lines"
-msgstr ""
+msgstr "Righe fatturate"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model,name:account_invoice_purchase_picking_selection.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model,name:account_invoice_purchase_picking_selection.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Movimento contabile"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move____last_update
@@ -74,40 +76,40 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move____last_update
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields.selection,name:account_invoice_purchase_picking_selection.selection__stock_picking__received_invoiced_status__no
 msgid "Nothing to Bill"
-msgstr ""
+msgstr "Niente da fatturare"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move_line__picking_invoiced_id
 msgid "Picking"
-msgstr ""
+msgstr "Prelievo"
 
 #. module: account_invoice_purchase_picking_selection
 #: model_terms:ir.ui.view,arch_db:account_invoice_purchase_picking_selection.view_account_move_form
 msgid "Select a purchase reception"
-msgstr ""
+msgstr "Seleziona una ricezione di acquisto"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model,name:account_invoice_purchase_picking_selection.model_stock_move
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move_line__stock_move_invoiced_id
 msgid "Stock Move"
-msgstr ""
+msgstr "Movimento di magazzino"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move__qty_received_to_invoice
 msgid "To Invoice Quantity"
-msgstr ""
+msgstr "Quantità da fatturare"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model,name:account_invoice_purchase_picking_selection.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "Trasferimento"
 
 #. module: account_invoice_purchase_picking_selection
 #: model:ir.model.fields.selection,name:account_invoice_purchase_picking_selection.selection__stock_picking__received_invoiced_status__to_invoice
 msgid "Waiting Bills"
-msgstr ""
+msgstr "Fatture in attesa"
