@@ -8,7 +8,7 @@
     "category": "Accounting",
     "website": "https://github.com/OCA/account-invoicing",
     "license": "AGPL-3",
-    "depends": ["account"],
+    "depends": ["account_edi_ubl_cii"],
     "installable": True,
     "auto_install": False,
 }
