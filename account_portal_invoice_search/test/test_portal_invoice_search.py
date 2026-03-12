@@ -32,9 +32,11 @@ class TestPortalInvoiceSearch(TransactionCase):
         # Keep the base domain narrow so we only test your AND() logic
         base_domain = [("id", "in", (self.inv1.id, self.inv2.id))]
 
-        res = self.env["account.move"].with_context(
-            portal_invoice_filter="PORTAL-AAA"
-        ).search(base_domain)
+        res = (
+            self.env["account.move"]
+            .with_context(portal_invoice_filter="PORTAL-AAA")
+            .search(base_domain)
+        )
 
         self.assertIn(self.inv1, res)
         self.assertNotIn(self.inv2, res)
