@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="view_invoice_merge" model="ir.ui.view">
         <field name="name">Merger Partner Invoice</field>
         <field name="model">invoice.merge</field>
@@ -63,5 +62,4 @@
         <field name="binding_model_id" ref="account.model_account_move" />
         <field name="binding_view_types">list</field>
     </record>
-
 </odoo>

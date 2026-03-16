@@ -25,7 +25,7 @@ class InvoiceMerge(models.TransientModel):
         there are chances that we typed the account code
         instead of its name. In that case, switch both fields values.
         """
-        res = super(InvoiceMerge, self).default_get(default_fields)
+        res = super().default_get(default_fields)
         if "error_message" in default_fields:
             msg = self._check_error()
             res["error_message"] = msg
@@ -76,7 +76,7 @@ class InvoiceMerge(models.TransientModel):
             "in_invoice": "action_move_in_invoice_type",
             "in_refund": "action_move_in_refund_type",
         }[invoices[0].move_type]
-        action = self.env["ir.actions.act_window"]._for_xml_id("account.{}".format(xid))
+        action = self.env["ir.actions.act_window"]._for_xml_id(f"account.{xid}")
         action.update(
             {
                 "domain": [("id", "in", ids + list(allinvoices.keys()))],
