@@ -99,6 +99,10 @@ Contributors
 
       -  Nguyễn Minh Chiến <chien@trobz.com>
 
+-  `Dynapps <https://dynapps.eu>`__:
+
+      -  Tom Vermeeren <tom.vermeeren@dynapps.be>
+
 Other credits
 -------------
 

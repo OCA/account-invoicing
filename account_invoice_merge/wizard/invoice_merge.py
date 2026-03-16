@@ -6,7 +6,7 @@
 # Copyright 2019 Okia SPRL
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class InvoiceMerge(models.TransientModel):
@@ -37,7 +37,9 @@ class InvoiceMerge(models.TransientModel):
         key_fields = invoices._get_invoice_key_cols()
         error_msg = {}
         if len(invoices) != len(invoices._get_draft_invoices()):
-            error_msg["state"] = _("Merge-able State (ex : %s)") % (_("Draft"))
+            error_msg["state"] = self.env._(
+                "Merge-able State (ex : %s)", self.env._("Draft")
+            )
         for field in key_fields:
             if len(set(invoices.mapped(field))) > 1:
                 error_msg[field] = invoices._fields[field].string
@@ -49,13 +51,15 @@ class InvoiceMerge(models.TransientModel):
         if self.env.context.get("active_model", "") == "account.move":
             ids = self.env.context["active_ids"]
             if len(ids) < 2:
-                msg = _("Please select multiple invoices to merge in the list view.")
+                msg = self.env._(
+                    "Please select multiple invoices to merge in the list view."
+                )
                 return msg
 
             invs = self.env["account.move"].browse(ids)
             error_msg = self._get_not_mergeable_invoices_message(invs)
             if error_msg:
-                all_msg = _("All invoices must have the same: \n")
+                all_msg = self.env._("All invoices must have the same: \n")
                 all_msg += "\n".join(["- " + value for value in error_msg.values()])
                 msg = all_msg
         return msg

@@ -14,47 +14,51 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
     """
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-        cls.company = cls.company_data_2["company"]
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env.user.write(
+            {"group_ids": [(4, cls.env.ref("sales_team.group_sale_manager").id)]}
+        )
+        cls.company = cls.company_data["company"]
+        cls.company_data2 = cls.setup_other_company()
+        cls.company2 = cls.company_data2["company"]
+        companies = cls.company | cls.company2
+        cls.env.user.write(
+            {
+                "company_ids": [Command.set(companies.ids)],
+            }
+        )
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                tracking_disable=True,
+                allowed_company_ids=companies.ids,
+            )
+        )
         invoice_date = fields.Date.today()
-        cls.invoice1 = cls.init_invoice(
+        cls.invoice1 = cls._create_invoice(
             "out_invoice",
-            partner=cls.partner_a,
             invoice_date=invoice_date,
-            products=cls.product_a,
         )
-        cls.now = cls.invoice1.create_date
-        cls.invoice2 = cls.init_invoice(
+        cls.invoice2 = cls._create_invoice(
             "out_invoice",
-            partner=cls.partner_a,
             invoice_date=invoice_date,
-            products=cls.product_a,
         )
-        cls.invoice3 = cls.init_invoice(
-            "out_invoice",
-            partner=cls.partner_b,
-            invoice_date=invoice_date,
-            products=cls.product_a,
+        cls.invoice3 = cls._create_invoice(
+            "out_invoice", invoice_date=invoice_date, partner_id=cls.partner_b.id
         )
-        cls.invoice4 = cls.init_invoice(
+        cls.invoice4 = cls._create_invoice(
             "in_invoice",
-            partner=cls.partner_a,
             invoice_date=invoice_date,
-            products=cls.product_a,
         )
-        cls.invoice5 = cls.init_invoice(
+        cls.invoice5 = cls._create_invoice(
             "out_invoice",
-            partner=cls.partner_a,
             invoice_date=invoice_date,
-            products=cls.product_a,
         )
-        cls.invoice6 = cls.init_invoice(
+        cls.invoice6 = cls._create_invoice(
             "out_invoice",
-            partner=cls.partner_a,
-            products=cls.product_a,
             invoice_date=invoice_date,
-            company=cls.company,
+            company_id=cls.company2.id,
         )
 
         cls.inv_model = cls.env["account.move"]
@@ -70,10 +74,10 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
         return wiz
 
     def test_invoice_merge(self):
-        self.assertEqual(len(self.invoice1.invoice_line_ids), 1)
-        self.assertEqual(len(self.invoice2.invoice_line_ids), 1)
+        self.assertEqual(len(self.invoice1.invoice_line_ids), 2)
+        self.assertEqual(len(self.invoice2.invoice_line_ids), 2)
         invoice_len_args = [
-            ("create_date", ">=", self.now),
+            ("create_date", ">=", self.invoice1.create_date),
             ("partner_id", "=", self.partner_a.id),
             ("state", "=", "draft"),
         ]
@@ -94,9 +98,10 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
         )
 
         end_inv = self.inv_model.search(invoice_len_args)
+        single_end_inv = end_inv[-1]
         self.assertEqual(len(end_inv), 4)
-        self.assertEqual(len(end_inv[0].invoice_line_ids), 1)
-        self.assertEqual(end_inv[0].invoice_line_ids[0].quantity, 2.0)
+        self.assertEqual(len(single_end_inv.invoice_line_ids), 2)
+        self.assertEqual(sum(single_end_inv.invoice_line_ids.mapped("quantity")), 4.0)
 
     def test_error_check(self):
         """Check"""

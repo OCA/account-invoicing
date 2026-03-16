@@ -13,3 +13,7 @@
 - [Trobz](https://trobz.com):
 
   > - Nguyễn Minh Chiến \<<chien@trobz.com>\>
+
+- [Dynapps](https://dynapps.eu):
+
+  > - Tom Vermeeren \<<tom.vermeeren@dynapps.be>\>
