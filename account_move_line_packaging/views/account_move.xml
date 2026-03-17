@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     Copyright 2026 BCIM
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="account_move_form_view" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='invoice_line_ids']/tree//field[@name='quantity']"
+                position="before"
+            >
+                <field name="product_packaging_domain" invisible="1" />
+                <field
+                    name="product_packaging_id"
+                    optional="show"
+                    attrs="{'column_invisible': [('parent.move_type', '=', 'entry')], 'invisible': [('product_id', '=', False)]}"
+                    groups="product.group_stock_packaging"
+                    options="{'no_open': True, 'no_create': True}"
+                    domain="product_packaging_domain"
+                />
+                <field
+                    name="product_packaging_qty"
+                    optional="show"
+                    attrs="{'column_invisible': [('parent.move_type', '=', 'entry')], 'invisible': ['|', ('product_id', '=', False), ('product_packaging_id', '=', False)]}"
+                    groups="product.group_stock_packaging"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
