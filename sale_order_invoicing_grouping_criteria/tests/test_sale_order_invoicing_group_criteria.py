@@ -19,18 +19,54 @@ class TestSaleOrderInvoicingGroupingCriteria(TransactionCase):
             )
         )
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
+        # Create or retrieve accounts
+        cls.account_revenue = cls.env["account.account"].search(
+            [
+                ("account_type", "=", "income"),
+                ("company_ids", "in", cls.env.company.ids),
+            ],
+            limit=1,
+        )
+        if not cls.account_revenue:
+            cls.account_revenue = cls.env["account.account"].create(
+                {
+                    "code": "400001",
+                    "name": "Revenue Account",
+                    "account_type": "income",
+                    "company_ids": cls.env.company.ids,
+                }
+            )
+        cls.account_receivable = cls.env["account.account"].search(
+            [
+                ("account_type", "=", "asset_receivable"),
+                ("company_ids", "in", cls.env.company.ids),
+            ],
+            limit=1,
+        )
+        if not cls.account_receivable:
+            cls.account_receivable = cls.env["account.account"].create(
+                {
+                    "code": "120001",
+                    "name": "Accounts Receivable",
+                    "account_type": "asset_receivable",
+                    "company_ids": cls.env.company.ids,
+                }
+            )
+
         cls.partner = cls.env["res.partner"].create({"name": "Test partner"})
         cls.partner2 = cls.env["res.partner"].create({"name": "Other partner"})
         cls.product = cls.env["product.product"].create(
-            {"name": "Test product", "type": "service", "invoice_policy": "order"}
+            {
+                "name": "Test product",
+                "type": "service",
+                "invoice_policy": "order",
+                "property_account_income_id": cls.account_revenue.id,
+            }
         )
         cls.GroupingCriteria = cls.env["sale.invoicing.grouping.criteria"]
         cls.grouping_criteria = cls.GroupingCriteria.create(
             {
                 "name": "Delivery Address",
-                "field_ids": [
-                    (4, cls.env.ref("sale.field_sale_order__partner_shipping_id").id)
-                ],
             }
         )
         cls.order = cls.env["sale.order"].create(
@@ -48,7 +84,7 @@ class TestSaleOrderInvoicingGroupingCriteria(TransactionCase):
                             "product_id": cls.product.id,
                             "price_unit": 20,
                             "product_uom_qty": 1,
-                            "product_uom": cls.product.uom_id.id,
+                            "product_uom_id": cls.product.uom_id.id,
                         },
                     )
                 ],
@@ -57,6 +93,16 @@ class TestSaleOrderInvoicingGroupingCriteria(TransactionCase):
         cls.order.action_confirm()
         cls.order2 = cls.order.copy()
         cls.order2.action_confirm()
+
+        cls.journal = cls.env["account.journal"].create(
+            {
+                "name": "Test Sales Journal",
+                "code": "TSJ",
+                "type": "sale",
+                "company_id": cls.env.company.id,
+                "default_account_id": cls.account_revenue.id,
+            }
+        )
 
     def test_invoicing_same_data(self):
         invoice_ids = (self.order + self.order2)._create_invoices()
@@ -88,10 +134,12 @@ class TestSaleOrderInvoicingGroupingCriteria(TransactionCase):
     def test_invoicing_grouping_partner_criteria_as_demo(self):
         self.order2.partner_shipping_id = self.partner2.id
         self.partner.sale_invoicing_grouping_criteria_id = self.grouping_criteria.id
-        user_demo = self.env.ref("base.user_demo")
-        user_demo.groups_id = [
-            (4, self.env.ref("sales_team.group_sale_salesman_all_leads").id)
-        ]
+        user_demo = self.env["res.users"].create(
+            {"name": "demo user", "login": "test_demo"}
+        )
+        user_demo.group_ids += self.env.ref("account.group_account_manager")
+        user_demo.group_ids += self.env.ref("sales_team.group_sale_salesman_all_leads")
+
         invoice_ids = (self.order + self.order2).with_user(user_demo)._create_invoices()
         self.assertEqual(len(invoice_ids), 2)
         self.assertNotEqual(self.order.invoice_ids, self.order2.invoice_ids)

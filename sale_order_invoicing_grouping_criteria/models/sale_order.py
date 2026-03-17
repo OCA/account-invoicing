@@ -30,8 +30,9 @@ class SaleOrder(models.Model):
             partner.sale_invoicing_grouping_criteria_id
             or self.company_id.default_sale_invoicing_grouping_criteria_id
         )
-        for field in criteria.field_ids.sudo():
-            group_key.append(self[field.name])
+        if criteria:
+            for field in criteria.sudo().field_ids:
+                group_key.append(self[field.name])
         return tuple(group_key)
 
     def _create_invoices(self, grouped=False, final=False, date=None):
