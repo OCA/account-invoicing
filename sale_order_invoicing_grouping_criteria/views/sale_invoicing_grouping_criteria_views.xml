@@ -44,7 +44,7 @@
         id="menu_sale_invoice_grouping_criteria"
         action="action_sale_invoice_grouping_criteria"
         name="Invoicing Grouping Criteria"
-        parent="account.account_management_menu"
+        parent="account.menu_analytic_accounting"
         sequence="100"
     />
 </odoo>

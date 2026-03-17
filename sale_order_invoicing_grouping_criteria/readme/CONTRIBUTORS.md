@@ -11,3 +11,4 @@
 - [Dynapps](https://www.dynapps.eu/):
 
   - Bert Van Groenendael <bert.vangroenendael@dynapps.eu>
+  - Tom Vermeeren <tom.vermeeren@dynapps.eu>

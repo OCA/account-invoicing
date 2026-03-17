@@ -127,9 +127,3 @@ msgstr "Comanda de venda"
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
 msgid "Sales Order Invoicing"
 msgstr "Facturació de comandes de venda"
-
-#~ msgid "Default Grouping Criteria"
-#~ msgstr "Criteri d'agrupació per defecte"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Darrera modificació el"

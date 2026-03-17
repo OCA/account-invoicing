@@ -130,9 +130,3 @@ msgstr "Pedido de venta"
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
 msgid "Sales Order Invoicing"
 msgstr "Facturación de pedidos de venta"
-
-#~ msgid "Default Grouping Criteria"
-#~ msgstr "Criterio de agrupación por defecto"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Última modificación el"

@@ -129,9 +129,3 @@ msgstr "Verkaufsauftrag"
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.res_config_settings_view_form
 msgid "Sales Order Invoicing"
 msgstr "Rechnungsstellung von Verkaufsaufträgen"
-
-#~ msgid "Default Grouping Criteria"
-#~ msgstr "Standard-Gruppierungsmerkmal"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Zuletzt geändert am"
