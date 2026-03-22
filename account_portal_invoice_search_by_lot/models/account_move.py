@@ -20,27 +20,25 @@ class AccountMove(models.Model):
         A fuzzy search could lead to a huge performance drop. So we force a exact match.
         """
         if operator != "=":
-            return
-        lot_ids = (
-            self.env["stock.production.lot"].sudo()._search([("name", "=ilike", value)])
-        )
-        sml_ids = (
+            return [("id", "=", False)]
+
+        lots = self.env["stock.lot"].sudo().search([("name", "ilike", value)])
+        if not lots:
+            return [("id", "=", False)]
+
+        move_lines = (
             self.env["stock.move.line"]
             .sudo()
-            ._search([("lot_id", "in", lot_ids), ("state", "=", "done")])
+            .search([("lot_id", "in", lots.ids), ("state", "=", "done")])
         )
-        sm = (
-            self.env["stock.move"]
-            .sudo()
-            .search_read([("move_line_ids", "in", sml_ids)], ["sale_line_id"])
-        )
-        return [
-            (
-                "line_ids.sale_line_ids",
-                "in",
-                list({x["sale_line_id"][:1] for x in sm if x["sale_line_id"]}),
-            )
-        ]
+        if not move_lines:
+            return [("id", "=", False)]
+
+        sale_line_ids = move_lines.mapped("move_id.sale_line_id").ids
+        if not sale_line_ids:
+            return [("id", "=", False)]
+
+        return [("line_ids.sale_line_ids", "in", sale_line_ids)]
 
     @api.model
     def _get_portal_search_domain(self, portal_invoice_filter):
