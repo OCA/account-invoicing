@@ -8,7 +8,7 @@
     "and purchase_stock_picking_return_invoicing",
     "version": "14.0.1.0.0",
     "category": "Purchases",
-    "website": "https://github.com/OCA/account-invoicing",
+    "website": "https://github.com/NuoBiT/odoo-addons",
     "author": "Eficent," "Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "installable": True,

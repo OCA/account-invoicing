@@ -8,7 +8,7 @@ from odoo.tests.common import TransactionCase
 
 class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
     def setUp(self):
-        super(TestPurchaseStockPickingReturnInvoicing, self).setUp()
+        super().setUp()
         self.partner = self.env["res.partner"].create(
             {
                 "name": "Test partner",
@@ -87,4 +87,4 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
         return_pick = pick.browse(return_wizard.create_returns()["res_id"])
         return_pick.move_lines.write({"quantity_done": 2})
         return_pick.button_validate()
-        self.assertEquals(self.po.invoice_status, "invoiced")
+        self.assertEqual(self.po.invoice_status, "invoiced")

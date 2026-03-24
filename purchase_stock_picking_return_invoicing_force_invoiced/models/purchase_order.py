@@ -8,7 +8,7 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     def _check_invoice_status_to_invoice(self):
-        res = super(PurchaseOrder, self)._check_invoice_status_to_invoice()
+        res = super()._check_invoice_status_to_invoice()
         if self.force_invoiced and self.invoice_status == "invoiced":
             return False
         return res
