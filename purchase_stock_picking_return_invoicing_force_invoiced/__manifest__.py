@@ -1,17 +1,17 @@
 # Copyright 2017 Eficent Business and IT Consulting Services
 # Copyright 2017-2018 Tecnativa - Pedro M. Baeza
+# Copyright 2026 NuoBiT Solutions SL - Deniz Gallo <dgallo@nuobit.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
     "name": "Purchase Stock Picking Return Invoicing Force Invoiced",
     "summary": "Glue module between purchase_force_invoiced "
     "and purchase_stock_picking_return_invoicing",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Purchases",
-    "website": "https://github.com/NuoBiT/odoo-addons",
+    "website": "https://github.com/OCA/account-invoicing",
     "author": "Eficent," "Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "installable": True,
     "auto_install": True,
     "development_status": "Beta",
     "depends": [

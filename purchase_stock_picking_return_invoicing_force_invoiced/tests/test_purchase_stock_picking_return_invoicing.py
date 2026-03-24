@@ -1,5 +1,6 @@
 # Copyright 2019 Eficent Business and IT Consulting Services
-# Copyright 2022 NuoBiT Solutions, S.L. - Eric Antones <eantones@nuobit.com>
+# Copyright 2022 NuoBiT Solutions SL - Eric Antones <eantones@nuobit.com>
+# Copyright 2026 NuoBiT Solutions SL - Deniz Gallo <dgallo@nuobit.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import fields
@@ -69,7 +70,7 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
         """
         # receive completely
         pick = self.po.picking_ids
-        pick.move_lines.write({"quantity_done": 5})
+        pick.move_ids.write({"quantity": 5})
         pick.button_validate()
         self.check_values(self.po_line, 0, 5, 0, 0, "to invoice")
         # Make invoice
@@ -82,9 +83,8 @@ class TestPurchaseStockPickingReturnInvoicing(TransactionCase):
         self.assertAlmostEqual(inv_1.amount_untaxed_signed, -50, 2)
         # Return some items, after PO was invoiced
         return_wizard = self.env["stock.return.picking"].create({"picking_id": pick.id})
-        return_wizard._onchange_picking_id()
         return_wizard.product_return_moves.write({"quantity": 2, "to_refund": True})
-        return_pick = pick.browse(return_wizard.create_returns()["res_id"])
-        return_pick.move_lines.write({"quantity_done": 2})
+        return_pick = return_wizard._create_return()
+        return_pick.move_ids.write({"quantity": 2})
         return_pick.button_validate()
         self.assertEqual(self.po.invoice_status, "invoiced")
