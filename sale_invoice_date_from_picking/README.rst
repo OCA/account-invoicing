@@ -29,9 +29,9 @@ Sale Invoice Date From Picking
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module sets the invoice date based on the date or datetime field
-configured in the 'Picking Date Field for Invoice Date' setting. If the
-selected field has no value, the system will fallback to using the
-``date_done`` of the latest completed picking as the invoice date.
+configured in the 'Picking Date for Invoice' setting. If the selected
+field has no value, the system will fallback to using the ``date_done``
+of the latest completed picking as the invoice date.
 
 **Table of contents**
 
@@ -59,8 +59,8 @@ Configuration
 =============
 
 1. Navigate to *Sales > Configuration > Settings*.
-2. Find and set the 'Picking Date Field for Invoice Date' to use its
-   value as the invoice date.
+2. Find and set the 'Picking Date for Invoice' to use its value as the
+   invoice date.
 
 Usage
 =====

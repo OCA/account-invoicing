@@ -10,4 +10,8 @@ class ResConfigSettings(models.TransientModel):
     picking_date_field_for_invoice_date = fields.Many2one(
         related="company_id.picking_date_field_for_invoice_date",
         readonly=False,
+        domain="["
+        "('model', '=', 'stock.picking'), "
+        "('ttype', 'in', ('date', 'datetime'))"
+        "]",
     )

@@ -14,7 +14,7 @@ class TestInvoiceDateFromPickingActualDate(TransactionCase):
         cls.product = cls.env["product.product"].create(
             {
                 "name": "Test Product",
-                "type": "product",
+                "is_storable": True,
                 "list_price": 100.0,
             }
         )
@@ -38,7 +38,7 @@ class TestInvoiceDateFromPickingActualDate(TransactionCase):
         return order
 
     def _validate_picking(self, picking):
-        picking.move_ids.quantity_done = picking.move_ids.product_uom_qty
+        picking.move_ids.quantity = picking.move_ids.product_uom_qty
         picking.action_confirm()
         picking.action_assign()
         picking.button_validate()
