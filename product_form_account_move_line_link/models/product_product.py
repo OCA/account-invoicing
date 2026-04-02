@@ -19,11 +19,11 @@ class ProductProduct(models.Model):
             ("product_id", "in", self.ids),
             ("company_id", "in", self.env.companies.ids),
         ]
-        account_move_line_data = self.env["account.move.line"].read_group(
-            domain, ["product_id"], ["product_id"]
+        account_move_line_data = self.env["account.move.line"]._read_group(
+            domain=domain,
+            groupby=["product_id"],
+            aggregates=["__count"],
         )
-        mapped_data = {
-            m["product_id"][0]: m["product_id_count"] for m in account_move_line_data
-        }
+        mapped_data = {product.id: count for product, count in account_move_line_data}
         for product in self:
             product.account_move_lines_count = mapped_data.get(product.id, 0)
