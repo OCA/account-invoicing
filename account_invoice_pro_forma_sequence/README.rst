@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 ===============================
 Pro forma sequence for invoices
 ===============================
@@ -13,7 +17,7 @@ Pro forma sequence for invoices
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
@@ -37,15 +41,22 @@ official invoice numbering.
 .. contents::
    :local:
 
+Configuration
+=============
+
+A pro-forma sequence is automatically created for each sale journal.
+To view or modify it, go to Invoicing > Configuration > Journals, open a
+sale journal and check the *Pro-forma Sequence* field.
+
 Usage
 =====
 
 To use this module:
 
-Go to Invoicing > Customers > Invoices*.
-Create or open an invoice.
-Click on "Assign Pro-forma Number" button to generate a pro-forma number.
-To print the pro-forma invoice, go to "Print" menu and select "Pro-forma".
+#. Go to Invoicing > Customers > Invoices.
+#. Create or open a draft invoice.
+#. Click on "GENERATE PRO-FORMA" button to assign a pro-forma number.
+#. Click on "PRINT PRO-FORMA" button to print the pro-forma invoice PDF.
 
 Bug Tracker
 ===========
@@ -63,12 +74,12 @@ Credits
 Authors
 ~~~~~~~
 
-* TAKOBI
-* Innovyou
+* Agile Business Group
 
 Contributors
 ~~~~~~~~~~~~
 
+* Simone Rubino <simone.rubino@agilebg.com>
 * `Innovyou <https://innovyou.it>`_:
     * Lorenzo Carta <lorenzo.carta@innovyou.it>
     * Lorenzo Battistini <lorenzo.battistini@innovyou.it>

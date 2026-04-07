@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-25 10:23+0000\n"
-"PO-Revision-Date: 2025-09-25 10:23+0000\n"
+"POT-Creation-Date: 2026-04-07 08:57+0000\n"
+"PO-Revision-Date: 2026-04-07 08:57+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,9 @@ msgid ""
 "Cannot print pro-forma invoice without a pro-forma number. Please assign a "
 "pro-forma number first using the 'Assign Pro-forma Number' button."
 msgstr ""
+"Impossibile stampare la fattura pro-forma senza un numero pro-forma. "
+"Assegnare prima un numero pro-forma utilizzando il pulsante "
+"'Genera Pro-forma'."
 
 #. module: account_invoice_pro_forma_sequence
 #: model_terms:ir.ui.view,arch_db:account_invoice_pro_forma_sequence.move_form_proforma
@@ -57,8 +60,12 @@ msgid "Journal Entry"
 msgstr "Registrazione contabile"
 
 #. module: account_invoice_pro_forma_sequence
+#: model_terms:ir.ui.view,arch_db:account_invoice_pro_forma_sequence.move_form_proforma
+msgid "PRINT PRO-FORMA"
+msgstr "STAMPA PRO-FORMA"
+
+#. module: account_invoice_pro_forma_sequence
 #. odoo-python
-#: code:addons/account_invoice_pro_forma_sequence/models/account_journal.py:0
 #: code:addons/account_invoice_pro_forma_sequence/models/account_journal.py:0
 #, python-format
 msgid "PRO-FORMA %s"
@@ -67,26 +74,26 @@ msgstr ""
 #. module: account_invoice_pro_forma_sequence
 #: model:ir.actions.report,name:account_invoice_pro_forma_sequence.account_invoices_proforma
 msgid "Pro-forma"
-msgstr ""
+msgstr "Pro-forma"
 
 #. module: account_invoice_pro_forma_sequence
 #: model:ir.model.fields,field_description:account_invoice_pro_forma_sequence.field_account_bank_statement_line__proforma_date
 #: model:ir.model.fields,field_description:account_invoice_pro_forma_sequence.field_account_move__proforma_date
 #: model:ir.model.fields,field_description:account_invoice_pro_forma_sequence.field_account_payment__proforma_date
 msgid "Pro-forma Date"
-msgstr "Data Pro-forma"
+msgstr "Data pro-forma"
 
 #. module: account_invoice_pro_forma_sequence
 #: model:ir.model,name:account_invoice_pro_forma_sequence.model_report_account_invoice_pro_forma_sequence_report_proforma
 msgid "Pro-forma Invoice Report"
-msgstr "Report Fattura Pro-forma"
+msgstr "Report fattura pro-forma"
 
 #. module: account_invoice_pro_forma_sequence
 #: model:ir.model.fields,field_description:account_invoice_pro_forma_sequence.field_account_bank_statement_line__proforma_number
 #: model:ir.model.fields,field_description:account_invoice_pro_forma_sequence.field_account_move__proforma_number
 #: model:ir.model.fields,field_description:account_invoice_pro_forma_sequence.field_account_payment__proforma_number
 msgid "Pro-forma Number"
-msgstr "Numero Pro-forma"
+msgstr "Numero pro-forma"
 
 #. module: account_invoice_pro_forma_sequence
 #: model:ir.model.fields,field_description:account_invoice_pro_forma_sequence.field_account_journal__pro_forma_sequence_id

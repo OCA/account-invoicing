@@ -11,8 +11,16 @@
                     name="assign_proforma_number"
                     class="btn-link"
                     style="padding: 0px;"
-                    attrs="{'invisible': [('proforma_number', '!=', False)]}"
+                    attrs="{'invisible': ['|', ('proforma_number', '!=', False), ('state', '!=', 'draft')]}"
                     string="GENERATE PRO-FORMA"
+                />
+                <button
+                    type="object"
+                    name="print_proforma"
+                    class="btn-link"
+                    style="padding: 0px;"
+                    attrs="{'invisible': ['|', ('proforma_number', '=', False), ('state', '!=', 'draft')]}"
+                    string="PRINT PRO-FORMA"
                 />
             </xpath>
             <xpath expr="//field[@name='partner_id']" position="after">

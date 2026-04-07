@@ -5,10 +5,10 @@
         <field name="model">account.journal</field>
         <field name="inherit_id" ref="account.view_account_journal_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='payment_sequence']/.." position="after">
+            <xpath expr="//field[@name='refund_sequence']" position="after">
                 <field
                     name="pro_forma_sequence_id"
-                    attrs="{'required': [('type', '=', 'sale')]}"
+                    attrs="{'required': [('type', '=', 'sale')], 'invisible': [('type', '!=', 'sale')]}"
                 />
             </xpath>
         </field>
