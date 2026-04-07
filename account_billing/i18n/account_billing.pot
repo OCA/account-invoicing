@@ -32,6 +32,12 @@ msgid "# of Invoices"
 msgstr ""
 
 #. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "%s"
+msgstr ""
+
+#. module: account_billing
 #: model:ir.actions.report,print_report_name:account_billing.report_account_billing
 msgid ""
 "'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
