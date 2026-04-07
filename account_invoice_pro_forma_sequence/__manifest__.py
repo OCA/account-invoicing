@@ -1,13 +1,12 @@
-# -*- coding: utf-8 -*-
-# Copyright 2018 Simone Rubino - Agile Business Group
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# Copyright 2021 Lorenzo Battistini @ TAKOBI
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
-    "name": "Pro forma invoice sequence",
-    "summary": "Bind a sequence to pro-forma invoices",
-    "version": "10.0.1.0.0",
-    "category": "Accounting",
-    "website": "https://github.com/OCA/account-invoicing/tree/10.0/"
-               "account_invoice_pro_forma_sequence",
+    "name": "Pro forma sequence for invoices",
+    "summary": "Allow to use a different sequence for pro-forma invoices, "
+    "with a specific PDF report",
+    "version": "16.0.1.0.0",
+    "category": "Invoicing Management",
+    "website": "https://github.com/OCA/account-invoicing",
     "author": "Agile Business Group, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
@@ -16,8 +15,10 @@
         "account",
     ],
     "data": [
-        "views/account.xml",
-        "views/account_config_settings.xml",
-        "views/account_report.xml"
-    ]
+        "views/account_journal_views.xml",
+        "views/account_move_views.xml",
+        "report/report_proforma.xml",
+    ],
+    "auto_install": False,
+    "post_init_hook": "assign_proforma_sequences",
 }
