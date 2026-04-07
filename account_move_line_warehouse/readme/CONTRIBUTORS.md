@@ -1,0 +1,1 @@
+- Guillaume Masson <guillaume.masson@akretion.com> (http://www.akretion.com)
