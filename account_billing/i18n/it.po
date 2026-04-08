@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-12-15 16:42+0000\n"
+"PO-Revision-Date: 2026-04-08 11:59+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing__state
@@ -49,7 +49,7 @@ msgstr "N° di fatture"
 #. odoo-python
 #: code:addons/account_billing/models/account_billing.py:0
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #. module: account_billing
 #: model:ir.actions.report,print_report_name:account_billing.report_account_billing
