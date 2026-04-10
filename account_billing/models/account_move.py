@@ -8,6 +8,12 @@ from odoo.exceptions import UserError
 class AccountMove(models.Model):
     _inherit = "account.move"
 
+    billing_line_ids = fields.One2many(
+        comodel_name="account.billing.line",
+        inverse_name="move_id",
+        string="Billing Lines",
+        help="Billing lines that reference this invoice",
+    )
     billing_ids = fields.Many2many(
         comodel_name="account.billing",
         string="Billings",
@@ -16,10 +22,8 @@ class AccountMove(models.Model):
     )
 
     def _compute_billing_ids(self):
-        bl_obj = self.env["account.billing.line"]
         for rec in self:
-            billing_lines = bl_obj.search([("move_id", "=", rec.id)])
-            rec.billing_ids = billing_lines.mapped("billing_id")
+            rec.billing_ids = rec.billing_line_ids.mapped("billing_id")
 
     def _get_billing_type(self):
         outbound_types = {"out_invoice", "out_refund", "out_receipt"}
