@@ -46,6 +46,7 @@ class AccountMove(models.Model):
                 ],
             }
         )
+        billing._sort_billing_lines()
         return billing
 
     def action_create_billing(self):
