@@ -1,6 +1,8 @@
 # Copyright 2019 Ecosoft Co., Ltd (https://ecosoft.co.th/)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
+from datetime import date
+
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
@@ -90,7 +92,7 @@ class AccountBilling(models.Model):
         selection=[("invoice_date_due", "Due Date"), ("invoice_date", "Invoice Date")],
         required=True,
         readonly=True,
-        default="invoice_date_due",
+        default=lambda self: self._get_default_threshold_date_type(),
         help="All invoices with date (threshold date type) before and equal to "
         "threshold date will be listed in billing lines",
     )
@@ -117,6 +119,10 @@ class AccountBilling(models.Model):
         compute="_compute_amount_due",
         store=True,
     )
+
+    @api.model
+    def _get_default_threshold_date_type(self):
+        return "invoice_date_due"
 
     @api.depends("billing_line_ids.payment_state")
     def _compute_payment_paid_all(self):
@@ -174,6 +180,20 @@ class AccountBilling(models.Model):
     def _compute_display_name(self):
         for billing in self:
             billing.display_name = billing.name or "Draft Billing"
+
+    @api.onchange("threshold_date_type")
+    def _onchange_threshold_date_type(self):
+        self._sort_billing_lines()
+
+    def _sort_billing_lines(self):
+        if not self.billing_line_ids:
+            return
+        sorted_lines = self.billing_line_ids.sorted(
+            key=lambda x: (x.invoice_date or date.min, x.name or "", x.id)
+        )
+        for idx, line in enumerate(sorted_lines, start=1):
+            line.sequence = idx * 10
+        self.invalidate_recordset(["billing_line_ids"])
 
     def validate_billing(self):
         for rec in self:
@@ -270,12 +290,15 @@ class AccountBilling(models.Model):
         moves = self._get_moves(self.threshold_date_type, types)
         billing_line_dict = self._get_billing_line_dict(moves)
         self.billing_line_ids.create(billing_line_dict)
+        self._sort_billing_lines()
 
 
 class AccountBillingLine(models.Model):
     _name = "account.billing.line"
     _description = "Billing Line"
+    _order = "sequence, id"
 
+    sequence = fields.Integer(default=10)
     billing_id = fields.Many2one(comodel_name="account.billing")
     move_id = fields.Many2one(
         comodel_name="account.move",
