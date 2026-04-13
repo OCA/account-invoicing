@@ -4,3 +4,4 @@
 * `Tecnativa <https://www.tecnativa.com>`_:
 
   * Ernesto Tejeda
+* Souheil Bejaoui <souheil.bejaoui@acsone.eu>

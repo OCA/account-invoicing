@@ -20,6 +20,16 @@
                     groups="account_invoice_check_total.group_supplier_inv_check_total"
                     attrs="{'invisible': ['|', ('move_type', 'not in', ['in_invoice', 'in_refund']), ('check_total_display_difference', '=', 0)]}"
                 />
+                <field name="can_create_check_total_adjustment_line" invisible="1" />
+
+                <button
+                    name="action_create_check_total_adjustment_line"
+                    type="object"
+                    string="Adjust Total"
+                    class="btn-link oe_inline"
+                    attrs="{'invisible': [('can_create_check_total_adjustment_line', '=', False)]}"
+                    groups="account_invoice_check_total.group_supplier_inv_adjust_total"
+                />
             </xpath>
         </field>
     </record>
