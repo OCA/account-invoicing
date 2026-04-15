@@ -15,10 +15,7 @@
                 />
             </xpath>
             <!-- Make visible to_refund field at operations (stock moves) level -->
-            <xpath
-                expr="//field[@name='move_ids_without_package']/list"
-                position="inside"
-            >
+            <xpath expr="//field[@name='move_ids']/list" position="inside">
                 <field name="to_refund" column_invisible="not parent.is_return" />
             </xpath>
         </field>
