@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 =============================
 Sales Stock Picking Invoicing
 =============================
@@ -17,7 +13,7 @@ Sales Stock Picking Invoicing
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
@@ -38,8 +34,13 @@ can define the 'Sale Invoicing Policy':
 - If set to Sale Order, keep native Odoo behaviour for creation of
   invoices from Sale Orders.
 - If set to Stock Picking, disallow creation of Invoices from Sale
-  Orders for the cases where the Product Type are 'Product', in case of
+  Orders for the cases where the Product Type is 'consu', in case of
   'Service' still will be possible create from Sale Order.
+- If set to Sale Order and Stock Picking, invoices can be created from
+  both the Sale Order and the Stock Picking. When invoicing from the
+  Sale Order, the related picking is automatically marked as invoiced.
+  The picking wizard also caps quantities to prevent double invoicing
+  when some units were already invoiced from the Sale Order.
 
 For stock.moves, override price calculation that is present in
 stock_picking_invoicing, with the native Sale Order Line price
@@ -84,9 +85,16 @@ or
 Usage
 =====
 
-If 'Stock Picking' is choose as Policy the creation of Invoice from Sale
-Order works only for Service lines, in the case of Sale Order has
-Products and Service lines will be create two Invoices.
+If 'Stock Picking' is chosen as Policy, the creation of Invoice from
+Sale Order works only for Service lines. In the case of Sale Order with
+products and service lines, two Invoices will be created (one from the
+SO with services, one from the picking with products).
+
+If 'Sale Order and Stock Picking' is chosen, invoices can be created
+from both the Sale Order and the Stock Picking. When invoicing from the
+Sale Order, the related picking invoice state is automatically synced.
+The picking wizard prevents double invoicing by capping quantities to
+what remains to invoice on the sale line.
 
 Known issues / Roadmap
 ======================

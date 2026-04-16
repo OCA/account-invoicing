@@ -7,6 +7,7 @@ from odoo.tests import Form
 
 from odoo.addons.stock_picking_invoicing.tests.tools import (
     create_with_form_inv_onshipping,
+    create_with_form_pck_backorder,
     create_with_form_return_picking,
 )
 
@@ -14,6 +15,7 @@ from .common import TestSaleStockPickingInvoicingCommon
 from .tools import (
     create_with_form_account_payment,
     create_with_form_sale_adv_pay_inv,
+    create_with_form_sale_order,
 )
 
 
@@ -482,3 +484,174 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
                 final=True
             )
         self.assertIn("Sale Invoicing Policy", e.exception.args[0])
+
+    def test_11_both_invoice_from_so_syncs_picking_state(self):
+        """
+        'both' policy: invoicing from the Sale Order marks the related
+        picking as invoiced when all quantities are invoiced.
+        """
+        self.company.sale_invoicing_policy = "both"
+        sale_order = create_with_form_sale_order(
+            self.env, self.so_vals, self.so_line_product_1
+        )
+        sale_order.action_confirm()
+        picking = sale_order.picking_ids
+        self.assertEqual(picking.invoice_state, "2binvoiced")
+
+        # Validate picking
+        picking.set_to_be_invoiced()
+        self.picking_move_state(picking)
+        self.assertEqual(picking.state, "done")
+
+        # Invoice from the sale order
+        sale_order._create_invoices(final=True)
+        self.assertEqual(sale_order.invoice_count, 1)
+
+        # Picking and moves should be marked as invoiced
+        self.assertEqual(picking.invoice_state, "invoiced")
+        for move in picking.move_ids:
+            self.assertEqual(move.invoice_state, "invoiced")
+
+        # Post the invoice
+        invoice = sale_order.invoice_ids
+        invoice.action_post()
+        self.assertEqual(invoice.state, "posted")
+
+    def test_12_both_backorder_invoice_from_so_then_wizard(self):
+        """
+        'both' policy, realistic partial scenario using a backorder:
+        - Deliver 6 of 10, creating a backorder for the remaining 4.
+        - Invoice the 6 delivered from the SO: the first picking must be
+          marked invoiced, the backorder must stay '2binvoiced'.
+        - Deliver and invoice the backorder from the picking wizard:
+          quantity must be 4 (remaining on the sale line).
+        """
+        self.company.sale_invoicing_policy = "both"
+        product = self.product_storable_1
+        product.invoice_policy = "delivery"
+        sale_order = create_with_form_sale_order(
+            self.env,
+            self.so_vals,
+            [{"product_id": product, "product_uom_qty": 10.0}],
+        )
+        sale_order.action_confirm()
+        picking = sale_order.picking_ids
+        picking.action_confirm()
+        picking.action_assign()
+        # Deliver 6 out of 10 → backorder for the remaining 4
+        picking.move_ids.quantity = 6.0
+        backorder = create_with_form_pck_backorder(self.env, picking)
+        self.assertEqual(picking.state, "done")
+        self.assertNotEqual(backorder.state, "done")
+
+        # Invoice the 6 delivered from the SO
+        sale_order._create_invoices(final=True)
+        self.assertEqual(sale_order.invoice_count, 1)
+
+        # First picking fully invoiced; backorder still pending
+        self.assertEqual(picking.invoice_state, "invoiced")
+        self.assertEqual(backorder.invoice_state, "2binvoiced")
+
+        # Deliver the backorder
+        self.picking_move_state(backorder)
+        self.assertEqual(backorder.state, "done")
+
+        sol = sale_order.order_line.filtered(lambda ln: ln.product_id == product)
+        self.assertEqual(sol.qty_to_invoice, 4.0)
+
+        # Invoice the backorder from the picking wizard — should cap to 4
+        wizard_invoice = create_with_form_inv_onshipping(self.env, backorder)
+        inv_line = wizard_invoice.invoice_line_ids.filtered(
+            lambda ln: ln.product_id == product
+        )
+        self.assertEqual(inv_line.quantity, 4.0)
+        self.assertEqual(backorder.invoice_state, "invoiced")
+        self.assertEqual(sol.qty_to_invoice, 0.0)
+
+    def test_13_both_ordered_policy_backorder_marks_all_pickings(self):
+        """
+        'both' policy with 'order' invoice policy: the full ordered qty
+        is invoiced upfront, so both the delivered picking and any
+        backorder must be marked as invoiced — nothing is left to invoice
+        on the sale line regardless of delivery state.
+        """
+        self.company.sale_invoicing_policy = "both"
+        product = self.product_storable_1
+        product.invoice_policy = "order"
+        sale_order = create_with_form_sale_order(
+            self.env,
+            self.so_vals,
+            [{"product_id": product, "product_uom_qty": 10.0}],
+        )
+        sale_order.action_confirm()
+        picking = sale_order.picking_ids
+        picking.action_confirm()
+        picking.action_assign()
+
+        # Partially deliver 6, creating a backorder for 4
+        picking.move_ids.quantity = 6.0
+        backorder = create_with_form_pck_backorder(self.env, picking)
+        self.assertEqual(picking.state, "done")
+        self.assertNotEqual(backorder.state, "done")
+
+        # Invoice the full 10 (ordered) from the SO
+        sale_order._create_invoices(final=True)
+        self.assertEqual(sale_order.invoice_count, 1)
+
+        # Both the delivered picking and the backorder must be invoiced
+        self.assertEqual(picking.invoice_state, "invoiced")
+        self.assertEqual(backorder.invoice_state, "invoiced")
+
+    def test_14_both_wizard_skips_picking_after_full_so_invoice(self):
+        """
+        'both' policy: after fully invoicing a SO, the picking wizard must
+        not produce any invoice for the same picking (no double invoicing).
+        """
+        self.company.sale_invoicing_policy = "both"
+        product = self.product_storable_1
+        product.invoice_policy = "order"
+        sale_order = create_with_form_sale_order(
+            self.env,
+            self.so_vals,
+            [{"product_id": product, "product_uom_qty": 5.0}],
+        )
+        sale_order.action_confirm()
+        picking = sale_order.picking_ids
+        self.picking_move_state(picking)
+
+        # Full invoice from SO
+        sale_order._create_invoices(final=True)
+        self.assertEqual(sale_order.invoice_count, 1)
+        self.assertEqual(picking.invoice_state, "invoiced")
+
+        # Wizard must skip this picking: no new invoice can be generated
+        with self.assertRaises(exceptions.UserError):
+            create_with_form_inv_onshipping(self.env, picking)
+        self.assertEqual(sale_order.invoice_count, 1)
+
+    def test_15_both_invoice_from_so_before_picking_validated(self):
+        """
+        'both' policy with 'order' invoice policy: invoicing from the SO
+        marks the picking as invoiced even before it is validated.
+        """
+        self.company.sale_invoicing_policy = "both"
+        product = self.product_storable_1
+        product.invoice_policy = "order"
+        sale_order = create_with_form_sale_order(
+            self.env,
+            self.so_vals,
+            [{"product_id": product, "product_uom_qty": 3.0}],
+        )
+        sale_order.action_confirm()
+        picking = sale_order.picking_ids
+        self.assertEqual(picking.invoice_state, "2binvoiced")
+        self.assertNotEqual(picking.state, "done")
+
+        # Invoice from SO before picking is validated
+        sale_order._create_invoices(final=True)
+        self.assertEqual(sale_order.invoice_count, 1)
+
+        # Picking should be marked as invoiced
+        self.assertEqual(picking.invoice_state, "invoiced")
+        for move in picking.move_ids:
+            self.assertEqual(move.invoice_state, "invoiced")

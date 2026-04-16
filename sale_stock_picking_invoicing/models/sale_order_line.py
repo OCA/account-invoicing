@@ -12,7 +12,10 @@ class SaleOrderLine(models.Model):
 
     def _prepare_procurement_values(self, group_id=False):
         values = super()._prepare_procurement_values(group_id)
-        if self.order_id.company_id.sale_invoicing_policy == "stock_picking":
+        if self.order_id.company_id.sale_invoicing_policy in (
+            "stock_picking",
+            "both",
+        ):
             values["invoice_state"] = "2binvoiced"
 
         return values

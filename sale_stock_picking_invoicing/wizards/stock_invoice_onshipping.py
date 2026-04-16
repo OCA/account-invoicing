@@ -135,6 +135,16 @@ class StockInvoiceOnshipping(models.TransientModel):
     #        )
     #    return key
 
+    def _group_moves(self, moves):
+        """Skip moves already fully invoiced from SO (only for 'both' policy)."""
+        if self._get_invoice_type() not in ("out_refund", "in_refund"):
+            moves = moves.filtered(
+                lambda m: not m.sale_line_id
+                or m.company_id.sale_invoicing_policy != "both"
+                or m.sale_line_id.qty_to_invoice > 0
+            )
+        return super()._group_moves(moves)
+
     def _get_move_key(self, move):
         key = super()._get_move_key(move)
         if move.sale_line_id:
@@ -188,6 +198,14 @@ class StockInvoiceOnshipping(models.TransientModel):
         values = super()._get_invoice_line_values(moves, invoice_values, invoice)
         move = fields.first(moves)
         if move.sale_line_id:
+            # Prevent double invoicing when partially invoiced from SO ('both')
+            if (
+                move.company_id.sale_invoicing_policy == "both"
+                and self._get_invoice_type() not in ("out_refund", "in_refund")
+            ):
+                qty_remaining = move.sale_line_id.qty_to_invoice
+                if values.get("quantity", 0) > qty_remaining:
+                    values["quantity"] = qty_remaining
             # Same make above, get fields informed in Sale Line dict
             sale_line_values = move.sale_line_id._prepare_invoice_line()
             # Vals informed in any case
