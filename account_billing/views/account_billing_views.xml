@@ -145,7 +145,6 @@
                             class="oe_stat_button"
                             name="invoice_relate_billing_tree_view"
                             type="object"
-                            invisible="state != 'billed'"
                             icon="fa-pencil-square-o"
                         >
                             <field
