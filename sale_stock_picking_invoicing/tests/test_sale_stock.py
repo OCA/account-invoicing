@@ -2,7 +2,7 @@
 # @author Magno Costa <magno.costa@akretion.com.br>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import exceptions, models
+from odoo import Command, exceptions, models
 from odoo.tests import Form
 
 from odoo.addons.stock_picking_invoicing.tests.common import TestPickingInvoicingCommon
@@ -440,6 +440,203 @@ class TestSaleStock(TestPickingInvoicingCommon):
             }
         )
         self.assertEqual(company.sale_invoicing_policy, "sale_order")
+
+    def test_consumable_product_invoicing_from_picking(self):
+        """
+        Test that consumable (non-storable) products generate a picking
+        and must be invoiced from it, not from the sale order.
+        """
+        product_consumable = self.env["product.product"].create(
+            {
+                "name": "Test Consumable",
+                "type": "consu",
+                "is_storable": False,
+                "list_price": 50.0,
+                "invoice_policy": "delivery",
+            }
+        )
+
+        partner = self.env.ref("sale_stock_picking_invoicing.res_partner_2_address")
+        so = self.env["sale.order"].create(
+            {
+                "partner_id": partner.id,
+                "partner_invoice_id": partner.id,
+                "partner_shipping_id": partner.id,
+                "order_line": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": product_consumable.name,
+                            "product_id": product_consumable.id,
+                            "product_uom_qty": 2.0,
+                            "product_uom": product_consumable.uom_id.id,
+                            "price_unit": product_consumable.list_price,
+                        },
+                    )
+                ],
+                "pricelist_id": self.env.ref(
+                    "sale_stock_picking_invoicing.demo_pricelist"
+                ).id,
+            }
+        )
+        so.action_confirm()
+        self.assertTrue(so.picking_ids, "Consumable product should generate a picking")
+
+        # Invoicing from SO must raise error — consumable is not a service
+        with self.assertRaises(exceptions.UserError):
+            so._create_invoices(final=True)
+
+        # Validate picking and invoice from it
+        picking = so.picking_ids
+        picking.set_to_be_invoiced()
+        self.picking_move_state(picking)
+
+        invoice = self.create_invoice_wizard(picking)
+        self.assertEqual(len(invoice), 1)
+        invoice.action_post()
+        self.assertEqual(invoice.state, "posted")
+
+    def test_combo_product_invoicing(self):
+        """
+        Combo product with stock_picking policy: the combo header line and
+        any service child must be invoiceable from the Sale Order; consu
+        children must be invoiced from the related Stock Picking.
+        """
+        partner = self.env.ref("sale_stock_picking_invoicing.res_partner_2_address")
+        pricelist = self.env.ref("sale_stock_picking_invoicing.demo_pricelist")
+
+        product_service = self.env["product.product"].create(
+            {
+                "name": "Combo Service Item",
+                "type": "service",
+                "list_price": 30.0,
+                "invoice_policy": "order",
+            }
+        )
+        product_consu_1 = self.env["product.product"].create(
+            {
+                "name": "Combo Consu Item 1",
+                "type": "consu",
+                "is_storable": False,
+                "list_price": 20.0,
+                "invoice_policy": "delivery",
+            }
+        )
+        product_consu_2 = self.env["product.product"].create(
+            {
+                "name": "Combo Consu Item 2",
+                "type": "consu",
+                "is_storable": False,
+                "list_price": 25.0,
+                "invoice_policy": "delivery",
+            }
+        )
+
+        combo_service = self.env["product.combo"].create(
+            {
+                "name": "Service Choice",
+                "combo_item_ids": [Command.create({"product_id": product_service.id})],
+            }
+        )
+        combo_consu_1 = self.env["product.combo"].create(
+            {
+                "name": "Consu Choice 1",
+                "combo_item_ids": [Command.create({"product_id": product_consu_1.id})],
+            }
+        )
+        combo_consu_2 = self.env["product.combo"].create(
+            {
+                "name": "Consu Choice 2",
+                "combo_item_ids": [Command.create({"product_id": product_consu_2.id})],
+            }
+        )
+        product_combo = self.env["product.product"].create(
+            {
+                "name": "Test Meal Combo",
+                "type": "combo",
+                "list_price": 75.0,
+                "combo_ids": [
+                    Command.link(combo_service.id),
+                    Command.link(combo_consu_1.id),
+                    Command.link(combo_consu_2.id),
+                ],
+            }
+        )
+
+        so = self.env["sale.order"].create(
+            {
+                "partner_id": partner.id,
+                "partner_invoice_id": partner.id,
+                "partner_shipping_id": partner.id,
+                "pricelist_id": pricelist.id,
+                "order_line": [
+                    Command.create(
+                        {
+                            "name": product_combo.name,
+                            "product_id": product_combo.id,
+                            "product_uom_qty": 1.0,
+                            "price_unit": 0,
+                        }
+                    ),
+                ],
+            }
+        )
+        so.order_line = [
+            Command.create(
+                {
+                    "product_id": product.id,
+                    "product_uom_qty": 1.0,
+                    "price_unit": product.list_price,
+                    "combo_item_id": combo.combo_item_ids.id,
+                    "linked_line_id": so.order_line.id,
+                }
+            )
+            for product, combo in (
+                (product_service, combo_service),
+                (product_consu_1, combo_consu_1),
+                (product_consu_2, combo_consu_2),
+            )
+        ]
+
+        so.action_confirm()
+
+        # Only consu children generate stock moves
+        self.assertTrue(so.picking_ids, "Combo with consu items should create picking")
+        picking = so.picking_ids
+        picking_products = picking.move_ids.mapped("product_id")
+        self.assertIn(product_consu_1, picking_products)
+        self.assertIn(product_consu_2, picking_products)
+        self.assertNotIn(product_service, picking_products)
+        self.assertNotIn(product_combo, picking_products)
+
+        # Invoicing from SO: combo header + service child, no consu
+        so_invoice = so._create_invoices()
+        self.assertEqual(len(so_invoice), 1)
+        so_invoice_products = so_invoice.invoice_line_ids.mapped("product_id")
+        self.assertIn(product_service, so_invoice_products)
+        self.assertNotIn(product_consu_1, so_invoice_products)
+        self.assertNotIn(product_consu_2, so_invoice_products)
+        self.assertTrue(
+            so_invoice.invoice_line_ids.filtered(
+                lambda ln: ln.display_type == "line_section"
+            ),
+            "Combo header line should appear as a section on the SO invoice",
+        )
+        so_invoice.action_post()
+        self.assertEqual(so_invoice.state, "posted")
+
+        # Invoicing from picking: only consu children
+        picking.set_to_be_invoiced()
+        self.picking_move_state(picking)
+        picking_invoice = self.create_invoice_wizard(picking)
+        self.assertEqual(len(picking_invoice), 1)
+        picking_invoice_products = picking_invoice.invoice_line_ids.mapped("product_id")
+        self.assertIn(product_consu_1, picking_invoice_products)
+        self.assertIn(product_consu_2, picking_invoice_products)
+        self.assertNotIn(product_service, picking_invoice_products)
+        picking_invoice.action_post()
+        self.assertEqual(picking_invoice.state, "posted")
 
     def test_picking_invocing_without_sale_order(self):
         """Test Picking Invoicing without Sale Order"""
