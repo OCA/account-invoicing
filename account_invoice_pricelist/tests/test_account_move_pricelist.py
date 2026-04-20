@@ -447,6 +447,34 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.assertEqual(invoice_line.price_unit, 100.00)
         self.assertEqual(invoice_line.discount, 0.00)
 
+    def test_vendor_bill_pricelist_does_not_overwrite_price_unit(self):
+        """Vendor bills must never have a sale pricelist applied: even if a
+        pricelist_id is set on an in_invoice (e.g. by a third-party module
+        or by user error), the supplied price_unit must be preserved so the
+        price brought in from the PO autocomplete or supplierinfo isn't
+        replaced by the product's list_price / standard_price.
+        """
+        bill = self.AccountMove.create(
+            {
+                "partner_id": self.partner.id,
+                "move_type": "in_invoice",
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": self.product.product_variant_ids[:1].id,
+                            "name": "Vendor line",
+                            "quantity": 1.0,
+                            "price_unit": 42.00,
+                        },
+                    ),
+                ],
+            }
+        )
+        bill.pricelist_id = self.sale_pricelist.id
+        bill.invoice_line_ids[:1].quantity = 0.0
+        bill.invoice_line_ids[:1].quantity = 1.0
+        self.assertEqual(bill.invoice_line_ids[:1].price_unit, 42.00)
+
     def test_14_calculate_discount(self):
         self.env.user.write({"group_ids": [(4, self.group_discount.id)]})
         self.product.write({"list_price": 0.00})
