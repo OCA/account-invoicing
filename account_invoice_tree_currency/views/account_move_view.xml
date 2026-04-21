@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <!--
      Copyright 2021 ForgeFlow S.L. (http://www.forgeflow.com)
      License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
@@ -10,7 +9,7 @@
         <field name="inherit_id" ref="account.view_invoice_tree" />
         <field name="arch" type="xml">
             <field name="company_currency_id" position="attributes">
-                <attribute name="column_invisible" />
+                <attribute name="column_invisible">False</attribute>
                 <attribute name="optional">hide</attribute>
             </field>
             <field name="amount_residual_signed" position="after">
