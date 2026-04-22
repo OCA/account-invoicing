@@ -18,6 +18,7 @@ class AccountMove(models.Model):
         comodel_name="account.billing",
         string="Billings",
         compute="_compute_billing_ids",
+        groups="account.group_account_invoice",
         help="Relationship between invoice and billing",
     )
 
