@@ -635,8 +635,128 @@ class TestSaleStock(TestPickingInvoicingCommon):
         self.assertIn(product_consu_1, picking_invoice_products)
         self.assertIn(product_consu_2, picking_invoice_products)
         self.assertNotIn(product_service, picking_invoice_products)
+        self.assertTrue(
+            picking_invoice.invoice_line_ids.filtered(
+                lambda ln: ln.display_type == "line_section"
+                and ln.name == product_combo.name
+            ),
+            "Combo header should appear as a section on the picking invoice",
+        )
         picking_invoice.action_post()
         self.assertEqual(picking_invoice.state, "posted")
+
+    def test_combo_product_invoicing_picking_first(self):
+        """
+        Reverse flow: invoice the picking before the Sale Order. The combo
+        header must still appear on the later SO invoice.
+        """
+        partner = self.env.ref("sale_stock_picking_invoicing.res_partner_2_address")
+        pricelist = self.env.ref("sale_stock_picking_invoicing.demo_pricelist")
+
+        product_service = self.env["product.product"].create(
+            {
+                "name": "Combo Service Item",
+                "type": "service",
+                "list_price": 30.0,
+                "invoice_policy": "order",
+            }
+        )
+        product_consu = self.env["product.product"].create(
+            {
+                "name": "Combo Consu Item",
+                "type": "consu",
+                "is_storable": False,
+                "list_price": 20.0,
+                "invoice_policy": "delivery",
+            }
+        )
+        combo_service = self.env["product.combo"].create(
+            {
+                "name": "Service Choice",
+                "combo_item_ids": [Command.create({"product_id": product_service.id})],
+            }
+        )
+        combo_consu = self.env["product.combo"].create(
+            {
+                "name": "Consu Choice",
+                "combo_item_ids": [Command.create({"product_id": product_consu.id})],
+            }
+        )
+        product_combo = self.env["product.product"].create(
+            {
+                "name": "Test Meal Combo",
+                "type": "combo",
+                "list_price": 50.0,
+                "combo_ids": [
+                    Command.link(combo_service.id),
+                    Command.link(combo_consu.id),
+                ],
+            }
+        )
+
+        so = self.env["sale.order"].create(
+            {
+                "partner_id": partner.id,
+                "partner_invoice_id": partner.id,
+                "partner_shipping_id": partner.id,
+                "pricelist_id": pricelist.id,
+                "order_line": [
+                    Command.create(
+                        {
+                            "name": product_combo.name,
+                            "product_id": product_combo.id,
+                            "product_uom_qty": 1.0,
+                            "price_unit": 0,
+                        }
+                    ),
+                ],
+            }
+        )
+        so.order_line = [
+            Command.create(
+                {
+                    "product_id": product.id,
+                    "product_uom_qty": 1.0,
+                    "price_unit": product.list_price,
+                    "combo_item_id": combo.combo_item_ids.id,
+                    "linked_line_id": so.order_line.id,
+                }
+            )
+            for product, combo in (
+                (product_service, combo_service),
+                (product_consu, combo_consu),
+            )
+        ]
+
+        so.action_confirm()
+        picking = so.picking_ids
+        picking.set_to_be_invoiced()
+        self.picking_move_state(picking)
+
+        # Invoice the picking first
+        picking_invoice = self.create_invoice_wizard(picking)
+        self.assertTrue(
+            picking_invoice.invoice_line_ids.filtered(
+                lambda ln: ln.display_type == "line_section"
+                and ln.name == product_combo.name
+            ),
+            "Combo header should appear as a section on the picking invoice",
+        )
+        picking_invoice.action_post()
+
+        # Then invoice the SO: combo header must still show up
+        so_invoice = so._create_invoices()
+        self.assertEqual(len(so_invoice), 1)
+        self.assertIn(product_service, so_invoice.invoice_line_ids.mapped("product_id"))
+        self.assertTrue(
+            so_invoice.invoice_line_ids.filtered(
+                lambda ln: ln.display_type == "line_section"
+            ),
+            "Combo header line should still appear on the SO invoice when "
+            "the picking has already been invoiced",
+        )
+        so_invoice.action_post()
+        self.assertEqual(so_invoice.state, "posted")
 
     def test_picking_invocing_without_sale_order(self):
         """Test Picking Invoicing without Sale Order"""
