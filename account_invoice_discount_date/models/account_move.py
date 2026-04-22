@@ -33,8 +33,10 @@ class AccountMove(models.Model):
 
     def _inverse_discount_date(self):
         """When set Discount date, update all move lines with Date maturity"""
+        discount_date_field = self._fields["discount_date"]
         for record in self:
             for line in record.line_ids.filtered_domain(
                 [("display_type", "=", "payment_term")]
             ):
                 line.discount_date = record.discount_date
+                self.env.add_to_compute(discount_date_field, record)
