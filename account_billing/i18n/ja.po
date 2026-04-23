@@ -189,6 +189,8 @@ msgid "Billing Line"
 msgstr "合計請求書明細"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_bank_statement_line__billing_line_ids
+#: model:ir.model.fields,field_description:account_billing.field_account_move__billing_line_ids
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Billing Lines"
 msgstr "合計請求書明細"
@@ -214,6 +216,12 @@ msgstr "合計請求書が請求されました。"
 #: code:addons/account_billing/models/account_billing.py:0
 msgid "Billing is reset to draft"
 msgstr "合計請求書がドラフトにリセットされます"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_bank_statement_line__billing_line_ids
+#: model:ir.model.fields,help:account_billing.field_account_move__billing_line_ids
+msgid "Billing lines that reference this invoice"
+msgstr ""
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_bank_statement_line__billing_ids
