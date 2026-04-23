@@ -193,6 +193,8 @@ msgid "Billing Line"
 msgstr "Riga fatturazione"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_bank_statement_line__billing_line_ids
+#: model:ir.model.fields,field_description:account_billing.field_account_move__billing_line_ids
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Billing Lines"
 msgstr "Righe fatturazione"
@@ -218,6 +220,12 @@ msgstr "La fatturazione è fatturata."
 #: code:addons/account_billing/models/account_billing.py:0
 msgid "Billing is reset to draft"
 msgstr "La fatturazione è reimpostata a bozza"
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_bank_statement_line__billing_line_ids
+#: model:ir.model.fields,help:account_billing.field_account_move__billing_line_ids
+msgid "Billing lines that reference this invoice"
+msgstr ""
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_bank_statement_line__billing_ids
