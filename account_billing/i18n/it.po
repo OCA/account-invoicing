@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-04-08 11:59+0000\n"
+"PO-Revision-Date: 2026-04-27 13:45+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -225,7 +225,7 @@ msgstr "La fatturazione è reimpostata a bozza"
 #: model:ir.model.fields,help:account_billing.field_account_bank_statement_line__billing_line_ids
 #: model:ir.model.fields,help:account_billing.field_account_move__billing_line_ids
 msgid "Billing lines that reference this invoice"
-msgstr ""
+msgstr "Righe pagamento che si riferiscono a questa fattura"
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_bank_statement_line__billing_ids
