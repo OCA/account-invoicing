@@ -81,13 +81,14 @@
                     invisible="state != 'done' or invoice_state != '2binvoiced'"
                     type="action"
                     class="oe_highlight"
-                    groups="base.group_user"
+                    groups="account.group_account_invoice"
                 />
                 <button
                     name="set_to_be_invoiced"
                     type="object"
                     string="Set to be invoiced"
                     invisible="invoice_state not in ('invoiced', 'none') or True in invoice_ids or state == 'cancel'"
+                    groups="account.group_account_invoice"
                 />
 
                 <button
@@ -95,6 +96,7 @@
                     type="object"
                     string="Set to as invoiced"
                     invisible="invoice_state not in ('2binvoiced', 'none') or True in invoice_ids or state == 'cancel'"
+                    groups="account.group_account_invoice"
                 />
 
                 <button
@@ -102,6 +104,7 @@
                     type="object"
                     string="Set to Not Billable"
                     invisible="invoice_state not in ('invoiced', '2binvoiced') or True in invoice_ids or state == 'cancel'"
+                    groups="account.group_account_invoice"
                 />
             </button>
         </field>
