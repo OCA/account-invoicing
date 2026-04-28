@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Therp BV <https://therp.nl>
+# Copyright 2022-2026 Therp BV <https://therp.nl>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
@@ -46,13 +46,28 @@ class AccountProductMoveLine(models.Model):
         help="Instead of, or in addition to, a fixed amount credit per unit"
         " product a percentage can be taken from the product standard price.",
     )
+    percentage_debit_sale = fields.Float(
+        string="Debit as % of unit price",
+        digits=(5, 2),
+        copy=True,
+        help="Instead of, or in addition to, a fixed amount debit per unit"
+        " product a percentage can be taken from the invoice unit price.",
+    )
+    percentage_credit_sale = fields.Float(
+        string="Credit as % of unit price",
+        digits=(5, 2),
+        copy=True,
+        help="Instead of, or in addition to, a fixed amount credit per unit"
+        " product a percentage can be taken from the invoice unit price.",
+    )
+
 
     @api.constrains("debit", "credit", "percentage_debit", "percentage_credit")
     def _check_debit_credit(self):
         """Do not allow to mix debit and credit."""
         for line in self:
-            if (line.debit or line.percentage_debit) and (
-                line.credit or line.percentage_credit
+            if (line.debit or line.percentage_debit or line.percentage_debit_sale) and (
+                line.credit or line.percentage_credit or line.percentage_credit_sale
             ):
                 raise ValidationError(
                     _("You can not mix debit and credit in one line.")
@@ -62,6 +77,8 @@ class AccountProductMoveLine(models.Model):
         "currency_id",
         "percentage_debit",
         "percentage_credit",
+        "percentage_debit_sale",
+        "percentage_credit_sale",
     )
     def _check_no_percentage_currency(self):
         """Do not use percentages of cost price with currency conversion."""
@@ -80,16 +97,21 @@ class AccountProductMoveLine(models.Model):
         quantity = line.quantity
         invoice_type = line.move_id.move_type
         standard_price = line.product_id.standard_price
-        if self.debit or self.percentage_debit:
+        price_unit = line.price_unit
+        if self.debit or self.percentage_debit or self.percentage_debit_sale:
             credit = 0.0
             debit = quantity * self.debit
             if self.percentage_debit:
                 debit += quantity * self.percentage_debit * 0.01 * standard_price
+            if self.percentage_debit_sale:
+                debit += quantity * self.percentage_debit_sale * 0.01 * price_unit
         else:
             debit = 0.0
             credit = quantity * self.credit
             if self.percentage_credit:
                 credit += quantity * self.percentage_credit * 0.01 * standard_price
+            if self.percentage_credit_sale:
+                credit += quantity * self.percentage_credit_sale * 0.01 * price_unit
         if invoice_type == "out_refund":
             # Swap amounts for credit note.
             save_debit = debit
@@ -106,3 +128,4 @@ class AccountProductMoveLine(models.Model):
             # Allow the line to be created
             vals["currency_id"] = line.currency_id.id
         return vals
+

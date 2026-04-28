@@ -89,6 +89,8 @@
                                 <field name="credit" widget="monetary" />
                                 <field name="percentage_debit" />
                                 <field name="percentage_credit" />
+                                <field name="percentage_debit_sale"/>
+                                <field name="percentage_credit_sale"/>
                             </tree>
                         </field>
                     </group>
@@ -119,3 +121,4 @@
         </field>
     </record>
 </odoo>
+
