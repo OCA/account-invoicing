@@ -3,10 +3,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import collections
-from itertools import groupby
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools import groupby
 from odoo.tools.float_utils import float_compare, float_is_zero
 
 
@@ -95,7 +95,7 @@ class PurchaseOrder(models.Model):
             invoice_vals_list.append(invoice_vals)
         if not invoice_vals_list:
             raise UserError(
-                _(
+                self.env._(
                     "There is no invoiceable line. "
                     "If a product has a control policy based on received quantity, "
                     "please make sure that a quantity has been received."
