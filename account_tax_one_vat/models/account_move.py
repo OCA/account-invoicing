@@ -1,7 +1,7 @@
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, models
+from odoo import models
 from odoo.exceptions import UserError
 
 
@@ -10,7 +10,7 @@ class AccountMove(models.Model):
 
     def _check_invoice_line_only_one_vat_tax(self):
         errors = []
-        error_template = _("Invoice has a line %s with more than one vat tax")
+        error_template = self.env._("Invoice has a line %s with more than one vat tax")
         loggedin_company = self.env.company
         for invoice_line in self.invoice_line_ids.filtered(
             lambda x: x.display_type not in ("line_section", "line_note")
@@ -22,7 +22,7 @@ class AccountMove(models.Model):
                 errors.append(error_string)
         if errors:
             raise UserError(
-                _(
+                self.env._(
                     "%(message)s\n%(errors)s",
                     message="Multiple VAT Taxes Defined!",
                     errors=("\n".join(x for x in errors)),

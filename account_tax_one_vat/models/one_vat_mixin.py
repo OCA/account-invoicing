@@ -1,7 +1,7 @@
 # Copyright 2020 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, models
+from odoo import models
 from odoo.exceptions import ValidationError
 
 
@@ -22,7 +22,7 @@ class OneVatMixin(models.AbstractModel):
             if company.account_tax_one_vat:
                 vat_taxes = rec._get_vat_taxes(field_name, company)
                 if len(vat_taxes) > 1:
-                    msg = _(
+                    msg = self.env._(
                         "Multiple taxes of type VAT are selected. Only one is allowed."
                     )
                     raise ValidationError(msg)
@@ -35,8 +35,10 @@ class OneVatMixin(models.AbstractModel):
                 self._check_only_one_vat_tax_field(field_name)
             except ValidationError:
                 warning_mess = {
-                    "title": _("More than one VAT tax selected!"),
-                    "message": _("You selected more than one tax of type VAT."),
+                    "title": self.env._("More than one VAT tax selected!"),
+                    "message": self.env._(
+                        "You selected more than one tax of type VAT."
+                    ),
                 }
                 return {"warning": warning_mess}
         return {}
