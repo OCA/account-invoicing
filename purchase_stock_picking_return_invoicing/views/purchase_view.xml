@@ -8,7 +8,7 @@
             ref="purchase_stock.purchase_order_view_form_inherit"
         />
         <field name="arch" type="xml">
-            <button name="action_create_invoice" position="after">
+            <button name="action_view_picking" position="after">
                 <button
                     name="action_create_invoice_refund"
                     string="Create Refund"

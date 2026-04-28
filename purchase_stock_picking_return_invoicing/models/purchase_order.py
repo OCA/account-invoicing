@@ -4,7 +4,7 @@
 
 import collections
 
-from odoo import api, fields, models
+from odoo import Command, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import groupby
 from odoo.tools.float_utils import float_compare, float_is_zero
@@ -86,11 +86,11 @@ class PurchaseOrder(models.Model):
                 if not float_is_zero(line.qty_to_invoice, precision_digits=precision):
                     if pending_section:
                         invoice_vals["invoice_line_ids"].append(
-                            (0, 0, pending_section._prepare_account_move_line())
+                            Command.create(pending_section._prepare_account_move_line())
                         )
                         pending_section = None
                     invoice_vals["invoice_line_ids"].append(
-                        (0, 0, line._prepare_account_move_line())
+                        Command.create(line._prepare_account_move_line())
                     )
             invoice_vals_list.append(invoice_vals)
         if not invoice_vals_list:
@@ -122,16 +122,22 @@ class PurchaseOrder(models.Model):
                     ref_invoice_vals["invoice_line_ids"] += invoice_vals[
                         "invoice_line_ids"
                     ]
-                origins.add(invoice_vals["invoice_origin"])
-                payment_refs.add(invoice_vals["payment_reference"])
-                refs.add(invoice_vals["ref"])
+                if invoice_vals.get("invoice_origin"):
+                    origins.add(invoice_vals["invoice_origin"])
+                payment_ref = invoice_vals.get("payment_reference")
+                if payment_ref:
+                    payment_refs.add(payment_ref)
+                if invoice_vals.get("ref"):
+                    refs.add(invoice_vals["ref"])
+                if invoice_vals.get("invoice_origin"):
+                    origins.add(invoice_vals["invoice_origin"])
             ref_invoice_vals.update(
                 {
                     "ref": ", ".join(refs)[:2000],
                     "invoice_origin": ", ".join(origins),
-                    "payment_reference": len(payment_refs) == 1
-                    and payment_refs.pop()
-                    or False,
+                    "payment_reference": payment_refs.pop()
+                    if len(payment_refs) == 1
+                    else False,
                 }
             )
             new_invoice_vals_list.append(ref_invoice_vals)
@@ -218,38 +224,43 @@ class PurchaseOrderLine(models.Model):
             line.qty_refunded = sum(
                 inv_lines.mapped(
                     lambda x, line=line: (
-                        x.product_uom_id._compute_quantity(x.quantity, line.product_uom)
+                        x.product_uom_id._compute_quantity(
+                            x.quantity, line.product_uom_id
+                        )
                     )
                 )
             )
 
     @api.depends("move_ids.state", "move_ids.returned_move_ids.state")
     def _compute_qty_returned(self):
-        """Made through read_group for not impacting in performance."""
+        """Made through _read_group for not impacting in performance."""
         ProductUom = self.env["uom.uom"]
-        groups = self.env["stock.move"].read_group(
+
+        groups = self.env["stock.move"]._read_group(
             [
                 ("purchase_line_id", "in", self.ids),
                 ("state", "=", "done"),
                 ("to_refund", "=", True),
                 ("location_id.usage", "!=", "supplier"),
             ],
-            ["purchase_line_id", "product_uom_qty", "product_uom"],
-            ["purchase_line_id", "product_uom"],
-            lazy=False,
+            groupby=["purchase_line_id", "product_uom"],
+            aggregates=["product_uom_qty:sum"],
         )
-        # load all UoM records at once on first access
-        uom_ids = {g["product_uom"][0] for g in groups}
-        ProductUom.browse(list(uom_ids))  # Prefetching
+
+        # Prefetch all UoM records at once
+        uom_ids = {product_uom.id for _, product_uom, _ in groups}
+        ProductUom.browse(list(uom_ids))
+
         line_qtys = collections.defaultdict(lambda: 0)
-        for g in groups:
-            uom = ProductUom.browse(g["product_uom"][0])
-            line = self.browse(g["purchase_line_id"][0])
-            if uom == line.product_uom:
-                qty = g["product_uom_qty"]
+        for purchase_line, product_uom, qty_sum in groups:
+            uom = ProductUom.browse(product_uom.id)
+            line = purchase_line  # already a record in _read_group
+            if uom == line.product_uom_id:
+                qty = qty_sum
             else:
-                qty = uom._compute_quantity(g["product_uom_qty"], line.product_uom)
+                qty = uom._compute_quantity(qty_sum, line.product_uom_id)
             line_qtys[line.id] += qty
+
         for line in self:
             line.qty_returned = line_qtys.get(line.id, 0)
 

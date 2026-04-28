@@ -5,3 +5,5 @@
   - Pedro M. Baeza
 - Ecosoft \<<https://ecosoft.co.th>\>
   - Kitti Upariphutthiphong
+- [Heliconia Solutions Pvt. Ltd.](https://www.heliconia.io)
+  - Bhavesh Heliconia

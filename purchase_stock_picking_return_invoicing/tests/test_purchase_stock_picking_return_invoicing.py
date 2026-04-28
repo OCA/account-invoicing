@@ -2,7 +2,7 @@
 # Copyright 2017-2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.tests.common import tagged
 
 from odoo.addons.base.tests.common import BaseCommon
@@ -33,10 +33,6 @@ class TestPurchaseStockPickingReturnInvoicing(BaseCommon):
                 "reconcile": False,
             }
         )
-        cls.partner = cls.env["res.partner"].create(
-            {"name": "Test partner", "is_company": True}
-        )
-
         cls.partner.property_account_payable_id = cls.payable_account
         cls.product_categ = cls.env["product.category"].create(
             {"name": "Test category"}
@@ -46,7 +42,6 @@ class TestPurchaseStockPickingReturnInvoicing(BaseCommon):
                 "name": "test product",
                 "categ_id": cls.product_categ.id,
                 "uom_id": cls.env.ref("uom.product_uom_unit").id,
-                "uom_po_id": cls.env.ref("uom.product_uom_unit").id,
                 "default_code": "tpr1",
             }
         )
@@ -55,14 +50,12 @@ class TestPurchaseStockPickingReturnInvoicing(BaseCommon):
             {
                 "partner_id": cls.partner.id,
                 "order_line": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": cls.product.name,
                             "product_id": cls.product.id,
                             "product_qty": 5.0,
-                            "product_uom": cls.product.uom_id.id,
+                            "product_uom_id": cls.product.uom_id.id,
                             "price_unit": 10,
                             "date_planned": fields.Datetime.now(),
                         },
