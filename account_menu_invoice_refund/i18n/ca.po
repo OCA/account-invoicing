@@ -6,29 +6,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-04-29 19:45+0000\n"
+"Last-Translator: pere-aquarian <pere@aquarian.tech>\n"
 "Language-Team: none\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_menu_invoice_refund
 #: model:ir.actions.act_window,name:account_menu_invoice_refund.action_invoice_in_tree
 #: model:ir.ui.menu,name:account_menu_invoice_refund.menu_action_invoice_in_tree
 msgid "Bills / Refunds"
-msgstr ""
+msgstr "Factures / Factures rectificatives"
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_out_tree
 msgid "Create a customer invoice"
-msgstr ""
+msgstr "Crear una factura de client"
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_in_tree
 msgid "Create a vendor bill"
-msgstr ""
+msgstr "Crear una factura de proveïdor"
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_out_tree
@@ -36,6 +38,8 @@ msgid ""
 "Create invoices, register payments and keep track of the discussions with "
 "your customers."
 msgstr ""
+"Crea factures, registra pagaments i fes el seguiment de les converses amb "
+"els teus clients."
 
 #. module: account_menu_invoice_refund
 #: model_terms:ir.actions.act_window,help:account_menu_invoice_refund.action_invoice_in_tree
@@ -43,9 +47,11 @@ msgid ""
 "Create vendor bills, register payments and keep track of the discussions "
 "with your customers."
 msgstr ""
+"Crea factures de proveïdor, registra pagaments i fes el seguiment de les "
+"converses amb els teus clients."
 
 #. module: account_menu_invoice_refund
 #: model:ir.actions.act_window,name:account_menu_invoice_refund.action_invoice_out_tree
 #: model:ir.ui.menu,name:account_menu_invoice_refund.menu_action_invoice_out_tree
 msgid "Invoices / Credit Notes"
-msgstr ""
+msgstr "Factures / Factures rectificatives"
