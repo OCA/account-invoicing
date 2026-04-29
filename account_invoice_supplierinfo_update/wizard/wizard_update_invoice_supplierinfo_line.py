@@ -31,7 +31,7 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
     current_uom_id = fields.Many2one(
         string="UoM",
         comodel_name="uom.uom",
-        related="supplierinfo_id.product_uom",
+        related="supplierinfo_id.product_uom_id",
         readonly=True,
     )
 
@@ -98,7 +98,7 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
 
     @api.depends(lambda self: self._get_fields_depend_current_cost())
     def _compute_current_cost(self):
-        self.write({"current_cost": False})
+        self.update({"current_cost": False})
         for line in self.filtered(lambda x: x.supplierinfo_id):
             current_cost = line.current_uom_id._compute_price(
                 line.current_price, line.product_uom_id
@@ -118,7 +118,7 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
 
     @api.depends("current_cost", "new_cost")
     def _compute_cost_variation(self):
-        self.write({"cost_variation": False})
+        self.update({"cost_variation": False})
         for line in self.filtered("current_cost"):
             line.cost_variation = (
                 100 * (line.new_cost - line.current_cost) / line.current_cost
