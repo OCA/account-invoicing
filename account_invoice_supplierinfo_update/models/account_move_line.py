@@ -21,7 +21,8 @@ class AccountMoveLine(models.Model):
         """Return True if the partner information matches with line information"""
         self.ensure_one()
         res = (
-            not self.product_uom_id or self.product_uom_id == supplierinfo.product_uom
+            not self.product_uom_id
+            or self.product_uom_id == supplierinfo.product_uom_id
         ) and not float_compare(
             self.price_unit,
             supplierinfo.price,
@@ -41,8 +42,8 @@ class AccountMoveLine(models.Model):
             "supplierinfo_id": supplierinfo and supplierinfo.id or False,
             "current_price": supplierinfo and supplierinfo.price or False,
             "new_price": self.price_unit,
-            "current_uom_id": supplierinfo and supplierinfo.product_uom.id or False,
-            "new_uom_id": self.product_uom_id.id or self.product_id.uom_po_id.id,
+            "current_uom_id": supplierinfo and supplierinfo.product_uom_id.id or False,
+            "new_uom_id": self.product_uom_id.id or self.product_id.uom_id.id,
             "current_min_quantity": supplierinfo and supplierinfo.min_qty or False,
             "new_min_quantity": supplierinfo and supplierinfo.min_qty or False,
             "current_discount": supplierinfo and supplierinfo.discount,

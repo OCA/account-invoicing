@@ -18,12 +18,12 @@ class TestModule(AccountTestInvoicingCommon):
         cls.uom_unit = cls.env.ref("uom.product_uom_unit")
         cls.uom_dozen = cls.env.ref("uom.product_uom_dozen")
         # Product A : uom_id : Unit
-        cls.product_b.uom_id = cls.product_b.uom_po_id = cls.uom_unit
+        cls.product_b.uom_id = cls.uom_unit
         cls.line_a = cls.invoice.invoice_line_ids.filtered(
             lambda x: x.product_id == cls.product_a
         )
         # Product B : uom_id : Dozen
-        cls.product_b.uom_id = cls.product_b.uom_po_id = cls.uom_dozen
+        cls.product_b.uom_id = cls.uom_dozen
         cls.line_b = cls.invoice.invoice_line_ids.filtered(
             lambda x: x.product_id == cls.product_b
         )
@@ -97,7 +97,7 @@ class TestModule(AccountTestInvoicingCommon):
         )
         self.assertEqual(len(supplierinfo_a), 1)
         self.assertEqual(supplierinfo_a.price, 400.0)
-        self.assertEqual(supplierinfo_a.product_uom, self.uom_unit)
+        self.assertEqual(supplierinfo_a.product_uom_id, self.uom_unit)
         self.assertEqual(supplierinfo_a.min_qty, 6.0)
         self.assertEqual(supplierinfo_a.discount, 0.0)
 
@@ -109,7 +109,7 @@ class TestModule(AccountTestInvoicingCommon):
         )
         self.assertEqual(len(supplierinfo_b), 1)
         self.assertEqual(supplierinfo_b.price, 10.0)
-        self.assertEqual(supplierinfo_b.product_uom, self.uom_dozen)
+        self.assertEqual(supplierinfo_b.product_uom_id, self.uom_dozen)
         self.assertEqual(supplierinfo_b.discount, 10.0)
 
         # change values 400 / Unit -> 5400 / Dozen.
@@ -134,4 +134,4 @@ class TestModule(AccountTestInvoicingCommon):
         wizard.update_supplierinfo()
 
         self.assertEqual(supplierinfo_a.price, 5400.0)
-        self.assertEqual(supplierinfo_a.product_uom, self.uom_dozen)
+        self.assertEqual(supplierinfo_a.product_uom_id, self.uom_dozen)

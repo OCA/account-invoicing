@@ -5,3 +5,5 @@
 - [Tecnativa](https://www.tecnativa.com):
   - Ernesto Tejeda
   - Luis D. Lafaurie
+- [Heliconia Solutions Pvt. Ltd.](https://www.heliconia.io)
+  - Bhavesh Heliconia

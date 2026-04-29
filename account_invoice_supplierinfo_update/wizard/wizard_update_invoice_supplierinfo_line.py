@@ -144,5 +144,5 @@ class WizardUpdateInvoiceSupplierinfoLine(models.TransientModel):
             "discount": self.new_discount,
         }
         if self.new_uom_id:
-            res["product_uom"] = self.new_uom_id.id
+            res["product_uom_id"] = self.new_uom_id.id
         return res
