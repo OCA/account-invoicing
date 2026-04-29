@@ -8,10 +8,10 @@ class PurchaseOrderLine(models.Model):
     _name = "purchase.order.line"
     _inherit = ["purchase.order.line", "one.vat.mixin"]
 
-    @api.constrains("taxes_id")
+    @api.constrains("tax_ids")
     def _check_only_one_vat(self):
-        self._check_only_one_vat_tax_field("taxes_id")
+        self._check_only_one_vat_tax_field("tax_ids")
 
-    @api.onchange("taxes_id")
+    @api.onchange("tax_ids")
     def _onchange_only_one_vat(self):
-        return self._onchange_one_vat_tax_field("taxes_id")
+        return self._onchange_one_vat_tax_field("tax_ids")
