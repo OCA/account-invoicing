@@ -6,6 +6,7 @@ from unittest import mock
 from freezegun import freeze_time
 
 from odoo import fields
+from odoo.fields import Domain
 from odoo.tests import Form
 
 from odoo.addons.queue_job.tests.common import trap_jobs
@@ -15,24 +16,19 @@ from .common import CommonPartnerInvoicingMode
 
 
 class TestInvoiceMode(CommonPartnerInvoicingMode):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.cron = cls.env.ref(
-            "partner_invoicing_mode.ir_cron_generate_standard_invoice"
-        )
-
     def test_invoice_job_related_action(self):
         """Dedicated invoice view is present in queue job's multi invoice action"""
-        invoice1 = self.env.ref("account.1_demo_invoice_1").copy()
-        invoice2 = self.env.ref("account.1_demo_invoice_1").copy()
         job_single = self.env["queue.job"].search(
-            [("uuid", "=", invoice1.with_delay()._validate_invoice().uuid)]
+            Domain("uuid", "=", self.invoice1.with_delay()._validate_invoice().uuid)
         )
         action_single = job_single.open_related_action()
         self.assertFalse(action_single.get("view_id"))
         job_multi = self.env["queue.job"].search(
-            [("uuid", "=", (invoice1 + invoice2).with_delay()._validate_invoice().uuid)]
+            Domain(
+                "uuid",
+                "=",
+                (self.invoice1 + self.invoice2).with_delay()._validate_invoice().uuid,
+            )
         )
         action_multi = job_multi.open_related_action()
         self.assertEqual(
@@ -45,8 +41,7 @@ class TestInvoiceMode(CommonPartnerInvoicingMode):
         self.assertFalse(self.so1.invoice_ids)
         with trap_jobs() as trap:
             self.SaleOrder.generate_invoices()
-            for job in trap.enqueued_jobs:
-                job.perform()
+            trap.perform_enqueued_jobs()
         self.assertTrue(self.so1.invoice_ids)
         # No errors are raised when called without anything to invoice
         with trap_jobs() as trap:
@@ -58,9 +53,8 @@ class TestInvoiceMode(CommonPartnerInvoicingMode):
         self._confirm_and_deliver(self.so1)
         self.assertFalse(self.so1.invoice_ids)
         with trap_jobs() as trap:
-            self.cron.method_direct_trigger()
-            for job in trap.enqueued_jobs:
-                job.perform()
+            self.SaleOrder.cron_generate_standard_invoices()
+            trap.perform_enqueued_jobs()
         self.assertTrue(self.so1.invoice_ids)
 
     def test_invoicing_standard_grouping(self):
@@ -69,8 +63,7 @@ class TestInvoiceMode(CommonPartnerInvoicingMode):
         self._confirm_and_deliver(self.so2)
         with trap_jobs() as trap:
             self.SaleOrder.generate_invoices()
-            for job in trap.enqueued_jobs:
-                job.perform()
+            trap.perform_enqueued_jobs()
         # Check one invoice is generated
         self.assertEqual(1, len(self.so2.invoice_ids))
         self.assertEqual(1, len(self.so1.invoice_ids))
@@ -85,8 +78,7 @@ class TestInvoiceMode(CommonPartnerInvoicingMode):
         self._confirm_and_deliver(self.so2)
         with trap_jobs() as trap:
             self.SaleOrder.generate_invoices()
-            for job in trap.enqueued_jobs:
-                job.perform()
+            trap.perform_enqueued_jobs()
         # Check one invoice is generated
         self.assertEqual(1, len(self.so2.invoice_ids))
         self.assertEqual(1, len(self.so1.invoice_ids))
@@ -113,8 +105,7 @@ class TestInvoiceMode(CommonPartnerInvoicingMode):
             self._confirm_and_deliver(self.so1)
             with trap_jobs() as trap:
                 self.SaleOrder.generate_invoices()
-                for job in trap.enqueued_jobs:
-                    job.perform()
+                trap.perform_enqueued_jobs()
             mock_update.assert_called()
 
     @freeze_time("2024-03-10")
@@ -128,14 +119,12 @@ class TestInvoiceMode(CommonPartnerInvoicingMode):
         self._confirm_and_deliver(self.so1)
         self.assertFalse(self.so1.invoice_ids)
         with trap_jobs() as trap:
-            self.cron.method_direct_trigger()
-            for job in trap.enqueued_jobs:
-                with trap_jobs() as trap_validate:
-                    job.perform()
-                self.assertEqual(1, len(trap_validate.enqueued_jobs))
-                for validate_job in trap_validate.enqueued_jobs:
-                    with freeze_time("2024-03-11"):
-                        validate_job.perform()
+            self.SaleOrder.cron_generate_standard_invoices()
+            with trap_jobs() as trap_validate:
+                trap.perform_enqueued_jobs()
+            self.assertEqual(1, len(trap_validate.enqueued_jobs))
+            with freeze_time("2024-03-11"):
+                trap_validate.perform_enqueued_jobs()
         self.assertTrue(self.so1.invoice_ids)
         self.assertEqual(
             fields.Date.from_string("2024-03-10"), self.so1.invoice_ids.date
@@ -144,7 +133,7 @@ class TestInvoiceMode(CommonPartnerInvoicingMode):
     def test_invoicing_standard_grouping_partner_invoicing(self):
         # Activate the ability to define a different invoice address
         # Create a new partner for invoicing
-        self.env.user.groups_id |= self.env.ref(
+        self.env.user.group_ids |= self.env.ref(
             "account.group_delivery_invoice_address"
         )
         self.partner_invoice = self.env["res.partner"].create(
@@ -156,8 +145,7 @@ class TestInvoiceMode(CommonPartnerInvoicingMode):
         self._confirm_and_deliver(self.so2)
         with trap_jobs() as trap:
             self.SaleOrder.generate_invoices()
-            for job in trap.enqueued_jobs:
-                job.perform()
+            trap.perform_enqueued_jobs()
         # Check one invoice is generated
         self.assertEqual(1, len(self.so2.invoice_ids))
         self.assertEqual(1, len(self.so1.invoice_ids))
@@ -166,19 +154,16 @@ class TestInvoiceMode(CommonPartnerInvoicingMode):
 
     def test_invoicing_standard_grouping_payment_term_invoicing(self):
         # Activate the ability to define a different payment term
-        self.env.user.groups_id |= self.env.ref(
+        self.env.user.group_ids |= self.env.ref(
             "account.group_delivery_invoice_address"
         )
         self._confirm_and_deliver(self.so1)
         with Form(self.so2) as so2_form:
-            so2_form.payment_term_id = self.env.ref(
-                "account.account_payment_term_21days"
-            )
+            so2_form.payment_term_id = self.pt2
         self._confirm_and_deliver(self.so2)
         with trap_jobs() as trap:
             self.SaleOrder.generate_invoices()
-            for job in trap.enqueued_jobs:
-                job.perform()
+            trap.perform_enqueued_jobs()
         # Check one invoice is generated
         self.assertEqual(1, len(self.so2.invoice_ids))
         self.assertEqual(1, len(self.so1.invoice_ids))

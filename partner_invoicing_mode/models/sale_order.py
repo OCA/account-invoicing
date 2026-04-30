@@ -2,8 +2,7 @@
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 from odoo import api, fields, models
-from odoo.fields import Datetime
-from odoo.osv.expression import AND
+from odoo.fields import Datetime, Domain
 
 from odoo.addons.queue_job.job import identity_exact
 
@@ -41,18 +40,14 @@ class SaleOrder(models.Model):
 
     @api.model
     def _get_generate_invoices_state_domain(self):
-        return [("invoice_status", "=", "to invoice")]
+        return Domain("invoice_status", "=", "to invoice")
 
     @api.model
     def _get_generate_invoices_domain(self, companies, invoicing_mode="standard"):
-        return AND(
-            [
-                self._get_generate_invoices_state_domain(),
-                [
-                    ("invoicing_mode", "=", invoicing_mode),
-                    ("company_id", "in", companies.ids),
-                ],
-            ]
+        return (
+            self._get_generate_invoices_state_domain()
+            & Domain("invoicing_mode", "=", invoicing_mode)
+            & Domain("company_id", "in", companies.ids)
         )
 
     @api.model
@@ -71,17 +66,16 @@ class SaleOrder(models.Model):
         domain = self._get_generate_invoices_domain(
             companies=companies, invoicing_mode=invoicing_mode
         )
-        saleorder_groups = self.read_group(
-            domain,
-            ["partner_invoice_id", "sale_ids:array_agg(id)"],
+        saleorder_groups = self._read_group(
+            domain=domain,
             groupby=self._get_invoice_grouping_keys(),
-            lazy=False,
+            aggregates=["id:array_agg"],
         )
-        for saleorder_group in saleorder_groups:
+        for *_, saleorder_ids in saleorder_groups:
             self.with_delay(
                 identity_key=identity_exact,
                 description=self.env._("Generate invoices by partner"),
-            )._generate_invoices_by_partner(saleorder_group["sale_ids"])
+            )._generate_invoices_by_partner(saleorder_ids)
         companies.write({last_execution_field: Datetime.now()})
         return saleorder_groups
 
@@ -139,4 +133,4 @@ class SaleOrder(models.Model):
 
     @api.model
     def _get_companies_standard_invoicing(self):
-        return self.env["res.company"].search([])
+        return self.env["res.company"].search(Domain.TRUE)
