@@ -10,6 +10,7 @@ class AccountUtility(models.Model):
     _name = "account.utility"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _check_company_auto = True
+    _order = "name desc"
     _description = "Account Utility"
 
     name = fields.Char(
@@ -185,11 +186,8 @@ class AccountUtility(models.Model):
             domain.append(("partner_id", "in", partner_ids.ids))
         return domain
 
-    def retrieve_product_line(self):
-        self.utility_line_ids = False
-        domain_search = self._get_domain_search()
-        utility_ids = self.env["res.utility"].search(domain_search)
-        line_dict = [
+    def _get_utility_line_dict(self, utility_ids):
+        return [
             Command.create(
                 {
                     "utility_id": utility.id,
@@ -199,6 +197,12 @@ class AccountUtility(models.Model):
             )
             for utility in utility_ids
         ]
+
+    def retrieve_product_line(self):
+        self.utility_line_ids = False
+        domain_search = self._get_domain_search()
+        utility_ids = self.env["res.utility"].search(domain_search)
+        line_dict = self._get_utility_line_dict(utility_ids)
         return self.write({"utility_line_ids": line_dict})
 
     @api.depends("utility_line_ids.amount_subtotal")
