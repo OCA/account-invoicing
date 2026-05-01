@@ -16,15 +16,14 @@ class SaleOrder(models.Model):
         if (
             self.company_id.sale_invoicing_policy == "stock_picking"
             and model != "stock.picking"
+            and lines
         ):
-            new_lines = lines.filtered(
-                lambda ln: not ln.product_id.is_storable and not ln.is_downpayment
+            so_invoiceable_lines = lines.filtered(
+                lambda ln: ln.product_id.type != "consu" and not ln.is_downpayment
             )
-            if new_lines:
-                # Case lines with Product Type 'service'
-                lines = new_lines
+            if so_invoiceable_lines:
+                lines = so_invoiceable_lines
             else:
-                # Case only Products Type 'product'
                 raise UserError(
                     self.env._(
                         "When 'Sale Invoicing Policy' is defined as"

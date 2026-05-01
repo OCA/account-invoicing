@@ -1,0 +1,85 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_custom_rounding
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-02-03 06:59+0000\n"
+"Last-Translator: Enric Tobella <etobella@creublanca.es>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
+
+#. module: account_invoice_custom_rounding
+#: model:ir.model,name:account_invoice_custom_rounding.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: account_invoice_custom_rounding
+#: model:ir.model.fields,help:account_invoice_custom_rounding.field_res_partner__tax_calculation_rounding_method
+#: model:ir.model.fields,help:account_invoice_custom_rounding.field_res_users__tax_calculation_rounding_method
+msgid ""
+"How total tax amount is computed in sale orders and invoices when this "
+"contact is selected. If no value selected, the method defined in the company"
+" is used."
+msgstr ""
+"Como se calcula el importe de los impuesto en los pedidos y facturas cuando "
+"se usa este contacto. Si no se selecciona ningún valor, se usará el valor "
+"por defecto de la compañía."
+
+#. module: account_invoice_custom_rounding
+#: model:ir.model.fields,help:account_invoice_custom_rounding.field_account_bank_statement_line__tax_calculation_rounding_method
+#: model:ir.model.fields,help:account_invoice_custom_rounding.field_account_move__tax_calculation_rounding_method
+#: model:ir.model.fields,help:account_invoice_custom_rounding.field_account_move_line__tax_calculation_rounding_method
+msgid ""
+"How total tax amount is computed. If no value selected, the method defined "
+"in the company is used."
+msgstr ""
+"Como se calcula el import de los impuestos. Si no se selecciona un valor, se "
+"usa el valor por defecto de la compañía."
+
+#. module: account_invoice_custom_rounding
+#: model:ir.model,name:account_invoice_custom_rounding.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_invoice_custom_rounding
+#: model:ir.model,name:account_invoice_custom_rounding.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: account_invoice_custom_rounding
+#: model:ir.model.fields.selection,name:account_invoice_custom_rounding.selection__account_move__tax_calculation_rounding_method__round_globally
+#: model:ir.model.fields.selection,name:account_invoice_custom_rounding.selection__res_partner__tax_calculation_rounding_method__round_globally
+msgid "Round Globally"
+msgstr "Redondar globalmente"
+
+#. module: account_invoice_custom_rounding
+#: model:ir.model.fields.selection,name:account_invoice_custom_rounding.selection__account_move__tax_calculation_rounding_method__round_per_line
+#: model:ir.model.fields.selection,name:account_invoice_custom_rounding.selection__res_partner__tax_calculation_rounding_method__round_per_line
+msgid "Round per Line"
+msgstr "Redondear por línea"
+
+#. module: account_invoice_custom_rounding
+#: model:ir.model,name:account_invoice_custom_rounding.model_account_tax
+msgid "Tax"
+msgstr "Impuesto"
+
+#. module: account_invoice_custom_rounding
+#: model:ir.model.fields,field_description:account_invoice_custom_rounding.field_res_partner__tax_calculation_rounding_method
+#: model:ir.model.fields,field_description:account_invoice_custom_rounding.field_res_users__tax_calculation_rounding_method
+msgid "Tax Calculation Rounding Method"
+msgstr "Método de cálculo del redondeo de impuestos"
+
+#. module: account_invoice_custom_rounding
+#: model:ir.model.fields,field_description:account_invoice_custom_rounding.field_account_bank_statement_line__tax_calculation_rounding_method
+#: model:ir.model.fields,field_description:account_invoice_custom_rounding.field_account_move__tax_calculation_rounding_method
+#: model:ir.model.fields,field_description:account_invoice_custom_rounding.field_account_move_line__tax_calculation_rounding_method
+msgid "Tax calculation rounding method"
+msgstr "Método de cálculo del redondeo de impuestos"
