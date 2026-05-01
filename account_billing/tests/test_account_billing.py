@@ -154,6 +154,8 @@ class TestAccountBilling(TransactionCase):
         action = invoices.action_create_billing()
         customer_billing1 = self.billing_model.browse(action["res_id"])
         self.assertEqual(customer_billing1.state, "draft")
+        # In case other modules change the default value of threshold_date_type
+        customer_billing1.threshold_date_type = "invoice_date_due"
         # Threshold Date error
         with self.assertRaises(ValidationError):
             customer_billing1.validate_billing()
@@ -268,3 +270,18 @@ class TestAccountBilling(TransactionCase):
         customer_billing.action_cancel()
         self.inv_1.button_draft()
         self.assertEqual(self.inv_1.state, "draft")
+
+    def test_account_billing_currency(self):
+        self.assertEqual(self.env.company.currency_id.id, self.currency_usd_id)
+        inv_1 = self.create_invoice(
+            amount=100,
+            currency_id=self.currency_eur_id,
+            partner=self.partner_id.id,
+        )
+        inv_2 = inv_1.copy()
+        inv_2.invoice_date = fields.Date.today()
+        inv_2.action_post()
+        invoices = inv_1 + inv_2
+        action = invoices.action_create_billing()
+        customer_billing = self.billing_model.browse(action["res_id"])
+        self.assertEqual(customer_billing.currency_id.id, self.currency_eur_id)

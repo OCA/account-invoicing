@@ -235,6 +235,20 @@ class StockInvoiceOnshipping(models.TransientModel):
 
         return sale_pickings
 
+    def _prepare_combo_section_vals(self, combo_parents):
+        combo_section_vals = []
+        for parent in combo_parents:
+            sale_line_vals = parent._prepare_invoice_line()
+            # Drop the "x qty" suffix: qty may be 0 after a prior SO invoice.
+            sale_line_vals["name"] = parent.product_id.name
+            # Set qty to 0 to keep combo header visible on SO invoice
+            sale_line_vals["quantity"] = 0
+            sale_line_vals["sale_line_ids"] = [
+                (6, 0, [sale_line_vals.get("sale_line_ids")[0][1]])
+            ]
+            combo_section_vals.append((0, 0, sale_line_vals))
+        return combo_section_vals
+
     def _create_invoice(self, invoice_values):
         """Override this method if you need to change any values of the
         invoice and the lines before the invoice creation
@@ -283,6 +297,15 @@ class StockInvoiceOnshipping(models.TransientModel):
                 section_note_vals.append((0, 0, sale_line_vals))
 
             invoice_values["invoice_line_ids"] += section_note_vals
+
+        # Combo parent lines have no stock moves; add them as section lines.
+        combo_parents = sale_pickings.move_ids.sale_line_id.filtered(
+            "combo_item_id"
+        ).linked_line_id
+        if combo_parents:
+            invoice_values["invoice_line_ids"] += self._prepare_combo_section_vals(
+                combo_parents
+            )
 
         # Resequencing, necessary in the case of Grouping Sale Orders
         for line in invoice_values.get("invoice_line_ids"):

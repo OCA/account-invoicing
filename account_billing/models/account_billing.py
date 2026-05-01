@@ -110,18 +110,19 @@ class AccountBilling(models.Model):
                 line.payment_state == "paid" for line in rec.billing_line_ids
             )
 
+    def _get_moves_domain(self, date, types=False):
+        return [
+            ("partner_id", "=", self.partner_id.id),
+            ("state", "=", "posted"),
+            ("payment_state", "!=", "paid"),
+            ("currency_id", "=", self.currency_id.id),
+            (date, "<=", self.threshold_date),
+            ("move_type", "in", types),
+        ]
+
     def _get_moves(self, date, types=False):
-        moves = self.env["account.move"].search(
-            [
-                ("partner_id", "=", self.partner_id.id),
-                ("state", "=", "posted"),
-                ("payment_state", "!=", "paid"),
-                ("currency_id", "=", self.currency_id.id),
-                (date, "<=", self.threshold_date),
-                ("move_type", "in", types),
-            ]
-        )
-        return moves
+        domain = self._get_moves_domain(date, types=types)
+        return self.env["account.move"].search(domain)
 
     def _compute_invoice_related_count(self):
         self.invoice_related_count = len(self.billing_line_ids)
