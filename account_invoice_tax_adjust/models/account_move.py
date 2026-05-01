@@ -22,9 +22,9 @@ class AccountMove(models.Model):
             container={"records": self},
         ):
             for move in self:
-                if move.is_invoice(include_receipts=True):
-                    continue
                 invoice_totals = move.tax_totals
+                if move.is_invoice(include_receipts=True) or not invoice_totals:
+                    continue
 
                 for subtotal in invoice_totals["subtotals"]:
                     for tax_group in subtotal["tax_groups"]:
