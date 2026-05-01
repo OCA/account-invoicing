@@ -28,10 +28,9 @@ Account Utility Invoicing
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module manage monthly utility charges for recurring services
-utility such as rentals and shared facilities. Billing is handled
-manually per period, providing flexibility while improving operational
-efficiency.
+This module manages monthly utility charges for recurring services such
+as rentals and shared facilities. Billing is handled manually for each
+period, providing flexibility while enhancing operational efficiency
 
 **Table of contents**
 

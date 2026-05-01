@@ -86,6 +86,13 @@ class AccountUtility(models.Model):
         for rec in self:
             rec.invoice_count = len(rec.utility_line_ids.mapped("move_id"))
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name", "/") == "/":
+                vals["name"] = self.env["ir.sequence"].next_by_code("account.utility")
+        return super().create(vals_list)
+
     def action_create_invoice(self):
         self.ensure_one()
         self._create_invoices()
@@ -93,8 +100,6 @@ class AccountUtility(models.Model):
         return self.action_view_invoice()
 
     def button_confirm(self):
-        sequence_model = self.env["ir.sequence"]
-        seq_code = "account.utility"
         for rec in self:
             if not rec.utility_line_ids:
                 raise ValidationError(self.env._("Utility Lines cannot be empty!"))
@@ -102,12 +107,6 @@ class AccountUtility(models.Model):
             if rec.date_due < rec.date_invoice:
                 raise ValidationError(
                     self.env._("Due date must greater than or equal to invoice date.")
-                )
-            if rec.name == "/":
-                rec.name = (
-                    sequence_model.with_company(rec.company_id.id)
-                    .with_context(ir_sequence_date=rec.date_invoice)
-                    .next_by_code(seq_code)
                 )
         return self.write({"state": "confirm"})
 
