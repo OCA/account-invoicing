@@ -1,7 +1,14 @@
 # Copyright 2020 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
+from datetime import timedelta
+
+from freezegun import freeze_time
+
+from odoo import fields
 from odoo.tools import mute_logger
+
+from odoo.addons.queue_job.tests.common import trap_jobs
 
 from .common import InvoiceModeAtShippingCommon
 
@@ -19,6 +26,44 @@ class TestInvoiceModeAtShipping(InvoiceModeAtShippingCommon):
                 picking.with_context(queue_job__no_delay=True).button_validate()
         self.assertEqual(len(self.so1.invoice_ids), 1)
         self.assertEqual(self.so1.invoice_ids.state, "posted")
+
+    @freeze_time("2024-03-10")
+    def test_invoice_created_at_shipping_with_delay(self):
+        """Check that the invoice job is delayed when configured on partner."""
+        self.partner.write(
+            {"invoicing_mode": "at_shipping", "invoicing_at_shipping_delay": 2}
+        )
+        self.so1.action_confirm()
+        picking = self.so1.picking_ids
+        for move in picking.move_ids:
+            move.quantity = move.product_uom_qty
+        picking.action_assign()
+
+        with trap_jobs() as trap:
+            picking.button_validate()
+            trap.assert_jobs_count(1)
+            trap.assert_enqueued_job(
+                picking._invoicing_at_shipping,
+                properties=dict(eta=timedelta(days=2)),
+            )
+            self.assertFalse(self.so1.invoice_ids)
+
+            with trap_jobs() as trap_invoice:
+                with freeze_time("2024-03-12"):
+                    trap.perform_enqueued_jobs()
+                trap_invoice.assert_jobs_count(1)
+                trap_invoice.assert_enqueued_job(self.so1.invoice_ids._validate_invoice)
+                self.assertEqual(self.so1.invoice_ids.state, "draft")
+                self.assertFalse(self.so1.invoice_ids.invoice_date)
+                with freeze_time("2024-03-12"):
+                    trap_invoice.perform_enqueued_jobs()
+
+        self.assertEqual(len(self.so1.invoice_ids), 1)
+        self.assertEqual(self.so1.invoice_ids.state, "posted")
+        self.assertEqual(
+            fields.Date.from_string("2024-03-12"),
+            self.so1.invoice_ids.invoice_date,
+        )
 
     def test_invoice_not_created_at_shipping(self):
         """Check that an invoice is not created when goods are shipped."""

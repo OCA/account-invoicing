@@ -18,11 +18,16 @@ class ResPartner(models.Model):
         help="Check this if you want to create one invoice per shipping using the"
         " partner invoicing mode that should be different than 'At Shipping'.",
     )
+    invoicing_at_shipping_delay = fields.Integer(
+        default=0,
+        help="Number of days after the shipping before creating the invoice.",
+    )
 
     @api.model
     def _commercial_fields(self):
         return super()._commercial_fields() + [
             "one_invoice_per_shipping",
+            "invoicing_at_shipping_delay",
         ]
 
     @api.constrains(
@@ -47,5 +52,15 @@ class ResPartner(models.Model):
                         "You cannot configure the partner %(partner)s with "
                         "'One Invoice Per Order' and 'One Invoice Per Shipping'!",
                         partner=partner.name,
+                    ),
+                )
+
+    @api.constrains("invoicing_at_shipping_delay")
+    def _check_invoicing_at_shipping_delay(self):
+        for partner in self:
+            if partner.invoicing_at_shipping_delay < 0:
+                raise ValidationError(
+                    self.env._(
+                        "The invoicing at shipping delay cannot be negative.",
                     ),
                 )

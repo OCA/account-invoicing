@@ -1,6 +1,8 @@
 # Copyright 2020 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
+from datetime import timedelta
+
 from odoo import api, models
 
 
@@ -11,7 +13,8 @@ class StockPicking(models.Model):
         res = super()._action_done()
         for picking in self:
             if picking._invoice_at_shipping():
-                picking.with_delay()._invoicing_at_shipping()
+                delay_options = picking._get_invoicing_at_shipping_delay_options()
+                picking.with_delay(**delay_options)._invoicing_at_shipping()
         return res
 
     def _invoice_at_shipping(self):
@@ -21,6 +24,15 @@ class StockPicking(models.Model):
             self.sale_id.partner_invoice_id.invoicing_mode == "at_shipping"
             or self.sale_id.partner_invoice_id.one_invoice_per_shipping
         )
+
+    def _get_invoicing_at_shipping_delay_options(self):
+        """Return queue job delay options for the at shipping invoicing job."""
+        self.ensure_one()
+        partner = self.sale_id.partner_invoice_id
+        if partner.invoicing_mode != "at_shipping":
+            return {}
+        delay = partner.invoicing_at_shipping_delay
+        return {"eta": timedelta(days=delay)} if delay else {}
 
     def _invoicing_at_shipping_validation(self, invoices):
         return invoices.filtered(

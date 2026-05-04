@@ -10,6 +10,12 @@
             ref="partner_invoicing_mode.view_partner_property_form"
         />
         <field name="arch" type="xml">
+            <field name="invoicing_mode" position="after">
+                <field
+                    name="invoicing_at_shipping_delay"
+                    invisible="invoicing_mode != 'at_shipping'"
+                />
+            </field>
             <field name="one_invoice_per_order" position="after">
                 <field name="one_invoice_per_shipping" />
             </field>
