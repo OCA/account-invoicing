@@ -9,11 +9,6 @@ from .common import InvoiceModeAtShippingCommon
 
 
 class TestInvoiceModeAtShippingGrouped(InvoiceModeAtShippingCommon):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.companies = cls.env["res.company"].search([])
-
     def test_invoice_created_at_shipping_per_delivery(self):
         """Check that an invoice is created when goods are shipped."""
         self.partner.invoicing_mode = "standard"

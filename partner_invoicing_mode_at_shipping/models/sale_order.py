@@ -1,6 +1,7 @@
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import api, fields, models
+from odoo.fields import Domain
 
 
 class SaleOrder(models.Model):
@@ -76,17 +77,17 @@ class SaleOrder(models.Model):
 
     def _get_per_shipping_to_validate_invoices_domain(
         self, companies, invoicing_mode="standard"
-    ) -> list:
+    ) -> Domain:
         """
             This will return the domain for invoices that should be posted.
 
         :return: Domain
-        :rtype: list
+        :rtype: Domain
         """
-        return [
-            ("company_id", "in", companies.ids),
-            ("move_type", "in", ("out_invoice", "out_refund")),
-            ("state", "=", "draft"),
-            ("partner_id.one_invoice_per_shipping", "=", True),
-            ("partner_id.invoicing_mode", "=", invoicing_mode),
-        ]
+        return (
+            Domain("company_id", "in", companies.ids)
+            & Domain("move_type", "in", ("out_invoice", "out_refund"))
+            & Domain("state", "=", "draft")
+            & Domain("partner_id.one_invoice_per_shipping", "=", True)
+            & Domain("partner_id.invoicing_mode", "=", invoicing_mode)
+        )
