@@ -1,13 +1,20 @@
 # Copyright 2025 Moduon Team
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+from unittest.mock import patch
+
 from freezegun import freeze_time
 
 from odoo import Command
-from odoo.tests.common import TransactionCase
+
+from odoo.addons.base.tests.common import BaseCommon
+
+PATH_ACCOUNT_MOVE = (
+    "odoo.addons.account_invoice_check_picking_date.models.account_move.AccountMove"
+)
 
 
 @freeze_time("2025-01-01")
-class TestAccountInvoiceCheckPickingDate(TransactionCase):
+class TestAccountInvoiceCheckPickingDate(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -51,7 +58,7 @@ class TestAccountInvoiceCheckPickingDate(TransactionCase):
                             "product_id": cls.product.id,
                             "quantity": 1,
                             "price_unit": 100,
-                        },
+                        }
                     )
                 ],
             }
@@ -80,3 +87,41 @@ class TestAccountInvoiceCheckPickingDate(TransactionCase):
         wiz = self.env["invoice.picking.date.check.wiz"].browse(wizard_action["res_id"])
         wiz.button_continue()
         self.assertEqual(self.invoice.state, "posted")
+
+    def test_moves_invalid_dates(self):
+        path_stock_move_dates = PATH_ACCOUNT_MOVE + "._get_min_max_stock_move_dates"
+        path_match_stock_move_dates = (
+            PATH_ACCOUNT_MOVE + "._match_invoice_and_stock_move_dates"
+        )
+        min_date = "2025-10-01"
+        max_date = "2025-11-01"
+        with patch(path_stock_move_dates) as stock_move_dates:
+            stock_move_dates.return_value = False, False
+            min_d, max_d = self.invoice._get_min_max_stock_move_dates()
+            self.assertFalse(min_d)
+            self.assertFalse(max_d)
+
+        with patch(path_stock_move_dates) as stock_move_dates:
+            stock_move_dates.return_value = min_date, max_date
+            min_d, max_d = self.invoice._get_min_max_stock_move_dates()
+            self.assertEqual(min_d, min_date)
+            self.assertEqual(max_d, max_date)
+
+        with patch(path_stock_move_dates) as stock_move_dates, patch(
+            path_match_stock_move_dates
+        ) as match_stock_move_dates:
+            stock_move_dates.return_value = min_date, False
+            min_d, max_d = self.invoice._get_min_max_stock_move_dates()
+            self.assertEqual(min_d, min_date)
+            self.assertFalse(max_d)
+            self.assertTrue(match_stock_move_dates.return_value)
+
+        with patch(path_stock_move_dates) as stock_move_dates, patch(
+            path_match_stock_move_dates
+        ) as match_stock_move_dates:
+            self.invoice.date = max_date
+            stock_move_dates.return_value = min_date, max_date
+            min_d, max_d = self.invoice._get_min_max_stock_move_dates()
+            self.assertEqual(min_d, min_date)
+            self.assertTrue(max_date)
+            self.assertTrue(match_stock_move_dates.return_value)
