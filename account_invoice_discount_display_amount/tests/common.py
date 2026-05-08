@@ -9,10 +9,20 @@ class TestInvoiceDiscountDisplayCommon(BaseCommon):
         super().setUpClass()
         cls.account_invoice = cls.env["account.move"]
         cls.account_journal = cls.env["account.journal"]
+        cls.journal = cls.account_journal.search(
+            [("type", "=", "sale"), ("company_id", "=", cls.env.company.id)],
+            limit=1,
+        )
         cls.journal = cls.account_journal.create(
             {"code": "test", "name": "test", "type": "sale"}
         )
-        cls.partner = cls.env.ref("base.res_partner_3")
+        cls.partner = cls.env["res.partner"].search(
+            [("company_id", "in", [False, cls.env.company.id]), ("active", "=", True)],
+            limit=1,
+        )
+        cls.partner = cls.env["res.partner"].create({"name": "Test Partner"})
+        cls.product_category = cls.env["product.category"]
+        cls.product_category_id = cls.product_category.create({"name": "Test Category"})
 
         cls.account_account = cls.env["account.account"]
         cls.account_rec1_id = cls.account_account.create(
@@ -27,7 +37,7 @@ class TestInvoiceDiscountDisplayCommon(BaseCommon):
         cls.product = cls.product_product.create(
             {
                 "name": "Test",
-                "categ_id": cls.env.ref("product.product_category_all").id,
+                "categ_id": cls.product_category_id.id,
                 "list_price": 100,
                 "type": "service",
             }
