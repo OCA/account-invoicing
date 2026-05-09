@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-03 09:10+0000\n"
-"Last-Translator: Enric Tobella <etobella@creublanca.es>\n"
+"PO-Revision-Date: 2026-05-09 09:04+0000\n"
+"Last-Translator: Ed-Spain <eduamoros@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -54,32 +54,40 @@ msgid ""
 "If set to Sale Order, keep native Odoo behaviour for creation of invoices from Sale Orders.\n"
 "If set to Stock Picking, disallow creation of Invoices from Sale Orders for the cases where Product Type are 'Product', in case of 'Service' still will be possible create from Sale Order."
 msgstr ""
+"Si se establece en Pedido de venta, mantiene el comportamiento nativo de "
+"Odoo para la creación de facturas desde Pedidos de venta.\n"
+"Si se establece en Albarán, deshabilita la creación de facturas desde "
+"Pedidos de venta para los casos en que el Tipo de producto sea 'Producto'; "
+"en el caso de 'Servicio' aún será posible crear desde el Pedido de venta."
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_res_company__sale_invoicing_policy
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_res_config_settings__sale_invoicing_policy
 msgid "Sale Invoicing Policy"
-msgstr ""
+msgstr "Política de facturación de ventas"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields.selection,name:sale_stock_picking_invoicing.selection__res_company__sale_invoicing_policy__sale_order
+#, fuzzy
 msgid "Sale Order"
-msgstr ""
+msgstr "Pedido"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Pedido de venta"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_sale_order_line
+#, fuzzy
 msgid "Sales Order Line"
-msgstr ""
+msgstr "Linea de la orden de venta"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_stock_invoice_onshipping
+#, fuzzy
 msgid "Stock Invoice Onshipping"
-msgstr ""
+msgstr "Factura en el envío de existencias"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_stock_move
