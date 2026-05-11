@@ -7,4 +7,11 @@
             name="domain_force"
         >['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>
     </record>
+    <record id="account_billing_line_company_rule" model="ir.rule">
+        <field name="name">Account Billing Line Multi-company</field>
+        <field name="model_id" ref="model_account_billing_line" />
+        <field
+            name="domain_force"
+        >['|', ('billing_id.company_id', 'in', company_ids), ('billing_id.company_id', '=', False)]</field>
+    </record>
 </odoo>

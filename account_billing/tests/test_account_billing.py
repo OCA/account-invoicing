@@ -21,10 +21,16 @@ class TestAccountBilling(TransactionCase):
         cls.register_payments_model = cls.env["account.payment.register"]
 
         cls.partner_id = cls.env["res.partner"].create({"name": "Test Partner"})
+        cls.partner_default = cls.env["res.partner"].create(
+            {"name": "Default Test Partner"}
+        )
+        cls.partner_other = cls.env["res.partner"].create(
+            {"name": "Other Test Partner"}
+        )
         cls.payment_term = cls.env.ref("account.account_payment_term_15days")
-        cls.partner_agrolait = cls.env.ref("base.res_partner_2")
-        cls.partner_china_exp = cls.env.ref("base.res_partner_3")
-        cls.product = cls.env.ref("product.product_product_4")
+        cls.product = cls.env["product.product"].create(
+            {"name": "Test Product", "type": "service"}
+        )
         cls.currency_eur = cls.env.ref("base.EUR")
         cls.currency_eur.active = True
         cls.currency_usd_id = cls.env.ref("base.USD").id
@@ -70,7 +76,7 @@ class TestAccountBilling(TransactionCase):
             cls,
             amount=400,
             currency_id=cls.currency_eur_id,
-            partner=cls.partner_china_exp.id,
+            partner=cls.partner_other.id,
         )
         cls.inv_5 = cls.create_invoice(
             cls, amount=500, currency_id=cls.currency_usd_id, partner=cls.partner_id.id
@@ -94,7 +100,7 @@ class TestAccountBilling(TransactionCase):
         """Returns an open invoice"""
         invoice = self.invoice_model.create(
             {
-                "partner_id": partner or self.partner_agrolait.id,
+                "partner_id": partner or self.partner_default.id,
                 "currency_id": currency_id or self.currency_eur_id,
                 "move_type": invoice_type,
                 "invoice_date": fields.Date.context_today(self.env.user),
@@ -214,7 +220,24 @@ class TestAccountBilling(TransactionCase):
         bill2.validate_billing()
         self.assertEqual(bill2.invoice_related_count, 1)
 
-    def test_6_check_billing_from_bills(self):
+    def test_6_threshold_date_type_invoice_date(self):
+        """When threshold_date_type is 'invoice_date', the line's invoice_date
+        should mirror move.invoice_date rather than move.invoice_date_due."""
+        billing = self.billing_model.create(
+            {
+                "bill_type": "out_invoice",
+                "partner_id": self.partner_id.id,
+                "currency_id": self.currency_eur_id,
+                "threshold_date": datetime.now() + relativedelta(months=12),
+                "threshold_date_type": "invoice_date",
+            }
+        )
+        billing.compute_lines()
+        self.assertTrue(billing.billing_line_ids)
+        for line in billing.billing_line_ids:
+            self.assertEqual(line.invoice_date, line.move_id.invoice_date)
+
+    def test_7_check_billing_from_bills(self):
         inv_1 = self.create_invoice(
             amount=100,
             currency_id=self.currency_eur_id,
@@ -232,7 +255,7 @@ class TestAccountBilling(TransactionCase):
         action = invoices.action_create_billing()
         self.billing_model.browse(action["res_id"])
 
-    def test_7_record_rule_company_restriction(self):
+    def test_8_record_rule_company_restriction(self):
         other_company = self.env["res.company"].create({"name": "Other Company"})
         billing_other = self.billing_model.with_company(other_company).create(
             {
@@ -249,6 +272,9 @@ class TestAccountBilling(TransactionCase):
                 "name": "Test User",
                 "login": "test@example.com",
                 "company_id": self.env.company.id,
+                "group_ids": [
+                    Command.link(self.env.ref("account.group_account_invoice").id)
+                ],
             }
         )
         billing = self.billing_model.with_user(test_user).search(
@@ -260,7 +286,7 @@ class TestAccountBilling(TransactionCase):
         )
         self.assertTrue(billing_with_sudo, "Sudo should bypass company record rule")
 
-    def test_8_check_move_button_draft(self):
+    def test_9_check_move_button_draft(self):
         self.assertEqual(self.inv_1.state, "posted")
         action = self.inv_1.action_create_billing()
         customer_billing = self.billing_model.browse(action["res_id"])
