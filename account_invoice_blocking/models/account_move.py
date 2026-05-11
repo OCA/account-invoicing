@@ -1,11 +1,18 @@
-# Copyright 2016 Acsone SA/NV
+# Copyright 2026 CIT-Services
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+# pyright: ignore [reportMissingImports]
 from odoo import api, fields, models
 
 
 class AccountInvoice(models.Model):
     _inherit = "account.move"
+
+    blocked = fields.Boolean(
+        "No Follow-up",
+        compute="_compute_move_blocked",
+        inverse="_inverse_move_blocked",
+    )
 
     def _get_move_line(self):
         """
@@ -48,8 +55,13 @@ class AccountInvoice(models.Model):
                 all(line.blocked for line in move_lines) if move_lines else False
             )
 
+
+class AccountInvoiceLine(models.Model):
+    _inherit = "account.move.line"
+
     blocked = fields.Boolean(
-        "No Follow-up",
-        compute="_compute_move_blocked",
-        inverse="_inverse_move_blocked",
+        string="No Follow-up",
+        default=False,
+        help="You can check this box to mark this journal item as a litigation "
+        "with the associated partner",
     )

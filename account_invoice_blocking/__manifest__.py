@@ -7,8 +7,8 @@
     "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "category": "Accounting",
-    "author": "Acsone SA/NV,Odoo Community Association (OCA)",
+    "author": "CIT-Services,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "depends": ["account"],
-    "data": ["views/account_move.xml"],
+    "data": ["views/account_move.xml", "views/account_move_line.xml"],
 }

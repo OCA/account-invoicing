@@ -70,7 +70,7 @@ Credits
 Authors
 -------
 
-* Acsone SA/NV
+* CIT-Services
 
 Contributors
 ------------

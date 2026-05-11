@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2026 CIT-Services
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="account_invoice_line_form_view" model="ir.ui.view">
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='information']/group/group[6]" position="after">   
+                <group string="States">
+                    <field name="blocked" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
