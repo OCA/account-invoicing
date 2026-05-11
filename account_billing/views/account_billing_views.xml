@@ -77,7 +77,7 @@
                     domain="[('bill_type','=','out_invoice')]"
                     name="customer_filter"
                 />
-                <group expand="0" string="Group By">
+                <group>
                     <filter
                         name="group_by_customer"
                         string="Customer"
@@ -251,7 +251,7 @@
     <record id="action_customer_billing" model="ir.actions.act_window">
         <field name="name">Billing</field>
         <field name="res_model">account.billing</field>
-        <field name="view_id" eval="view_account_billing_tree" />
+        <field name="view_id" ref="view_account_billing_tree" />
         <field
             name="context"
         >{'bill_type':'out_invoice', 'search_default_customer_filter': 1, 'default_group_payment': 1}</field>
@@ -268,7 +268,7 @@
     <record id="action_supplier_billing" model="ir.actions.act_window">
         <field name="name">Billing</field>
         <field name="res_model">account.billing</field>
-        <field name="view_id" eval="view_account_supplier_billing_tree" />
+        <field name="view_id" ref="view_account_supplier_billing_tree" />
         <field
             name="context"
         >{'bill_type':'in_invoice', 'search_default_vendor_filter': 1, 'default_group_payment': 1}</field>

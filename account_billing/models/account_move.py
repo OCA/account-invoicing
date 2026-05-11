@@ -1,7 +1,7 @@
 # Copyright 2019 Ecosoft Co., Ltd (https://ecosoft.co.th/)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import Command, _, fields, models
+from odoo import Command, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -12,6 +12,7 @@ class AccountMove(models.Model):
         comodel_name="account.billing.line",
         inverse_name="move_id",
         string="Billing Lines",
+        groups="account.group_account_invoice",
         help="Billing lines that reference this invoice",
     )
     billing_ids = fields.Many2many(
@@ -22,6 +23,7 @@ class AccountMove(models.Model):
         help="Relationship between invoice and billing",
     )
 
+    @api.depends("billing_line_ids.billing_id")
     def _compute_billing_ids(self):
         for rec in self:
             rec.billing_ids = rec.billing_line_ids.mapped("billing_id")
@@ -57,14 +59,14 @@ class AccountMove(models.Model):
         partner = self.mapped("partner_id")
         currency_ids = self.mapped("currency_id")
         if len(partner) > 1:
-            raise UserError(_("Please select invoices with same partner"))
+            raise UserError(self.env._("Please select invoices with same partner"))
 
         if len(currency_ids) > 1:
-            raise UserError(_("Please select invoices with same currency"))
+            raise UserError(self.env._("Please select invoices with same currency"))
 
         if any(move.state != "posted" or move.payment_state == "paid" for move in self):
             raise UserError(
-                _(
+                self.env._(
                     "Billing cannot be processed because "
                     "some invoices are not in the 'Posted' or 'Paid' state already."
                 )
@@ -73,7 +75,7 @@ class AccountMove(models.Model):
         billing = self._create_billing(partner)
 
         action = {
-            "name": _("Billing"),
+            "name": self.env._("Billing"),
             "type": "ir.actions.act_window",
             "res_model": "account.billing",
             "context": {"create": False},
@@ -98,6 +100,8 @@ class AccountMove(models.Model):
         for rec in self:
             if rec.billing_ids.filtered(lambda x: x.state != "cancel"):
                 raise UserError(
-                    _("You cannot reset to draft an invoice that has been billed.")
+                    self.env._(
+                        "You cannot reset to draft an invoice that has been billed."
+                    )
                 )
         return super().button_draft()
