@@ -27,8 +27,7 @@ class AccountBilling(models.Model):
         string="Company",
         default=lambda self: self.env.company,
         index=True,
-        help="Leave this field empty if this route is shared \
-            between all companies",
+        required=True,
     )
     date = fields.Date(
         string="Billing Date",
@@ -70,7 +69,7 @@ class AccountBilling(models.Model):
     bill_type = fields.Selection(
         selection=[("out_invoice", "Customer Invoice"), ("in_invoice", "Vendor Bill")],
         readonly=True,
-        default=lambda self: self._context.get("bill_type", False),
+        default=lambda self: self.env.context.get("bill_type", False),
         help="Type of invoice",
     )
     currency_id = fields.Many2one(
@@ -112,6 +111,7 @@ class AccountBilling(models.Model):
 
     def _get_moves_domain(self, date, types=False):
         return [
+            ("company_id", "=", self.company_id.id),
             ("partner_id", "=", self.partner_id.id),
             ("state", "=", "posted"),
             ("payment_state", "!=", "paid"),
