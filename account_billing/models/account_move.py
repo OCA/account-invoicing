@@ -37,6 +37,7 @@ class AccountMove(models.Model):
         billing = self.env["account.billing"].create(
             {
                 "partner_id": partner.id,
+                "company_id": self.mapped("company_id")[:1].id,
                 "bill_type": self._get_billing_type(),
                 "currency_id": self.mapped("currency_id")[0].id,
                 "billing_line_ids": [
@@ -58,11 +59,15 @@ class AccountMove(models.Model):
     def action_create_billing(self):
         partner = self.mapped("partner_id")
         currency_ids = self.mapped("currency_id")
+        company_ids = self.mapped("company_id")
         if len(partner) > 1:
             raise UserError(self.env._("Please select invoices with same partner"))
 
         if len(currency_ids) > 1:
             raise UserError(self.env._("Please select invoices with same currency"))
+
+        if len(company_ids) > 1:
+            raise UserError(self.env._("Please select invoices with same company"))
 
         if any(move.state != "posted" or move.payment_state == "paid" for move in self):
             raise UserError(
