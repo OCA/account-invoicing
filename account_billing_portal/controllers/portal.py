@@ -7,8 +7,7 @@ from odoo import _, http
 from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 
-from odoo.addons.portal.controllers.portal import CustomerPortal
-from odoo.addons.portal.controllers.portal import pager as portal_pager
+from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 
 
 class CustomerPortalBilling(CustomerPortal):

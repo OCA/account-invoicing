@@ -17,8 +17,8 @@
     </t>
     <br /><br />
     Please find attached the billing from <t
-                    t-out="object.company_id.name or ''"
-                >YourCompany</t>.
+                        t-out="object.company_id.name or ''"
+                    >YourCompany</t>.
     <br /><br />
     If you have any questions, please do not hesitate to contact us.
     <br /><br />
