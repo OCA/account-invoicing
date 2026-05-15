@@ -31,6 +31,10 @@
 </p>
             </div>
         </field>
+        <field name="report_template" ref="account_billing.report_account_billing" />
+        <field
+            name="report_name"
+        >BILL-{{ object.name }}{{ object.state == 'draft' and '-draft' or '' }}</field>
         <field name="lang">{{ object.partner_id.lang }}</field>
         <field name="auto_delete" eval="True" />
     </record>

@@ -13,9 +13,3 @@ class ResCompany(models.Model):
         domain=[("model", "=", "account.billing")],
         help="Template used for sending billing emails.",
     )
-    billing_portal_report = fields.Many2one(
-        "ir.actions.report",
-        domain=[("model", "=", "account.billing")],
-        help="This report template will be used in the billing portal to "
-        "show the billing.",
-    )

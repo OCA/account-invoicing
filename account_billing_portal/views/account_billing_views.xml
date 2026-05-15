@@ -11,12 +11,14 @@
                     string="Send by Email"
                     type="object"
                     class="oe_highlight"
+                    attrs="{'invisible': [('state', '!=', 'billed')]}"
                 />
                 <button
                     name="preview_billing"
                     type="object"
                     string="Preview"
                     title="Preview Billing"
+                    attrs="{'invisible': [('state', '!=', 'billed')]}"
                 />
             </xpath>
         </field>

@@ -1,6 +1,8 @@
 # Copyright 2025 Quartile (https://www.quartile.co)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from unittest.mock import patch
+
 from odoo import Command, fields
 from odoo.tests.common import HttpCase, tagged
 
@@ -37,7 +39,7 @@ class TestAccountBillingPortal(HttpCase):
         cls.account_revenue = cls.env["account.account"].search(
             [
                 ("account_type", "=", "income"),
-                ("company_ids", "=", cls.company.id),
+                ("company_id", "=", cls.company.id),
             ],
             limit=1,
         )
@@ -86,6 +88,10 @@ class TestAccountBillingPortal(HttpCase):
         res = self.url_open("/my/billings")
         self.assertEqual(res.status_code, 200)
         self.assertIn(self.portal_billing.name, res.text)
+        self.assertNotIn(self.other_billing.name, res.text)
+
+    def test_validate_billing_subscribes_partner(self):
+        self.assertIn(self.portal_partner, self.portal_billing.message_partner_ids)
 
     def test_portal_billing_detail_renders(self):
         self.authenticate(self.portal_user.login, "portal_user")
@@ -106,8 +112,42 @@ class TestAccountBillingPortal(HttpCase):
         self.assertEqual(result["type"], "ir.actions.act_window")
         self.assertEqual(result["res_model"], "mail.compose.message")
         self.assertEqual(result["target"], "new")
-        # Check that a PDF attachment was created and linked in context
         ctx = result["context"]
-        attach_ids = ctx["default_attachment_ids"][0][2]
-        attachment = self.env["ir.attachment"].browse(attach_ids[0])
-        self.assertTrue(attachment)
+        template = self.env.ref("account_billing_portal.email_template_billing")
+        self.assertEqual(ctx["default_template_id"], template.id)
+
+    def _open_billing_html_capturing_report_ref(self):
+        captured = []
+        report_cls = type(self.env["ir.actions.report"])
+        real_render = report_cls._render_qweb_html
+
+        def spy(self, report_ref, res_ids, data=None):
+            captured.append(report_ref)
+            return real_render(self, report_ref, res_ids, data=data)
+
+        self.authenticate(self.portal_user.login, "portal_user")
+        with patch.object(report_cls, "_render_qweb_html", spy):
+            res = self.url_open(
+                f"/my/billings/{self.portal_billing.id}?report_type=html"
+            )
+        return res, captured
+
+    def test_show_report_uses_default_template_report(self):
+        self.company.billing_email_template_id = False
+        res, captured = self._open_billing_html_capturing_report_ref()
+        self.assertEqual(res.status_code, 200)
+        default_report = self.env.ref("account_billing.report_account_billing")
+        self.assertEqual(captured, [default_report.id])
+
+    def test_show_report_uses_company_template_report(self):
+        custom = self.env.ref("account_billing.report_account_billing").copy(
+            {"name": "Custom Billing Report"}
+        )
+        self.assertFalse(custom.get_external_id().get(custom.id))
+        template = self.env.ref("account_billing_portal.email_template_billing").copy(
+            {"name": "Custom Billing Template", "report_template": custom.id}
+        )
+        self.company.billing_email_template_id = template
+        res, captured = self._open_billing_html_capturing_report_ref()
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(captured, [custom.id])

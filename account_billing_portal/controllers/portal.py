@@ -14,10 +14,12 @@ class CustomerPortalBilling(CustomerPortal):
     def _show_report(self, model, report_type, report_ref, download=False):
         if model._name != "account.billing":
             return super()._show_report(model, report_type, report_ref, download)
-        billing_report = request.env.user.company_id.billing_portal_report
-        if billing_report:
-            external_id = billing_report.get_external_id()
-            report_ref = external_id.get(billing_report.id)
+        template = model.company_id.billing_email_template_id or request.env.ref(
+            "account_billing_portal.email_template_billing", raise_if_not_found=False
+        )
+        report = template.sudo().report_template if template else None
+        if report:
+            report_ref = report.id
         return super()._show_report(model, report_type, report_ref, download)
 
     def _get_billing_domain(self, bill_type=None):
@@ -32,20 +34,20 @@ class CustomerPortalBilling(CustomerPortal):
         if "customer_bill_count" in counters:
             values["customer_bill_count"] = (
                 Billing.search_count(self._get_billing_domain("out_invoice"))
-                if Billing.has_access("read")
+                if Billing.check_access_rights("read", raise_exception=False)
                 else 0
             )
         if "vendor_bill_count" in counters:
             values["vendor_bill_count"] = (
                 Billing.search_count(self._get_billing_domain("in_invoice"))
-                if Billing.has_access("read")
+                if Billing.check_access_rights("read", raise_exception=False)
                 else 0
             )
         return values
 
     def _get_billing_searchbar_sortings(self):
         return {
-            "date": {"label": _("Newest"), "order": "create_date desc, id desc"},
+            "newest": {"label": _("Newest"), "order": "create_date desc, id desc"},
             "billing_date": {"label": _("Billing Date"), "order": "date desc, id desc"},
             "name": {"label": _("Name"), "order": "name asc, id asc"},
         }
@@ -63,7 +65,7 @@ class CustomerPortalBilling(CustomerPortal):
         domain = self._get_billing_domain()
         searchbar_sortings = self._get_billing_searchbar_sortings()
         if not sortby:
-            sortby = "date"
+            sortby = "newest"
         order = searchbar_sortings[sortby]["order"]
         if searchbar_filters:
             if not filterby or filterby not in searchbar_filters:
@@ -109,7 +111,7 @@ class CustomerPortalBilling(CustomerPortal):
             {
                 "all": {
                     "label": _("All"),
-                    "domain": [("state", "=", "billed")],
+                    "domain": [],
                 },
                 "out_invoice": {
                     "label": _("Customer Bills"),

@@ -79,12 +79,6 @@ msgid "Billing Date"
 msgstr "合計請求日"
 
 #. module: account_billing_portal
-#: model:ir.model.fields,field_description:account_billing_portal.field_res_company__billing_portal_report
-#: model:ir.model.fields,field_description:account_billing_portal.field_res_config_settings__billing_portal_report
-msgid "Billing Portal Report"
-msgstr "合計請求書ポータルレポート"
-
-#. module: account_billing_portal
 #: model:ir.model.fields,field_description:account_billing_portal.field_res_company__billing_email_template_id
 #: model:ir.model.fields,field_description:account_billing_portal.field_res_config_settings__billing_email_template_id
 msgid "Billing email template"
@@ -100,11 +94,6 @@ msgstr "合計請求書"
 #: model_terms:ir.ui.view,arch_db:account_billing_portal.view_invoice_config_settings
 msgid "Choose Billing Email Template"
 msgstr "合計請求書メールテンプレートを選択"
-
-#. module: account_billing_portal
-#: model_terms:ir.ui.view,arch_db:account_billing_portal.view_invoice_config_settings
-msgid "Choose Billing Portal Report"
-msgstr "合計請求書ポータルレポートを選択"
 
 #. module: account_billing_portal
 #: model_terms:ir.ui.view,arch_db:account_billing_portal.portal_my_billing
@@ -186,11 +175,6 @@ msgid "Please configure the Billing Email Template in the settings."
 msgstr "設定画面で合計請求書メールテンプレートを設定してください"
 
 #. module: account_billing_portal
-#. odoo-python
-#: code:addons/account_billing_portal/models/account_billing.py:0
-msgid "Please configure the Billing Portal Report in the settings."
-msgstr "設定画面で合計請求書ポータルレポートを設定してください"
-
 #. module: account_billing_portal
 #: model:ir.model.fields,field_description:account_billing_portal.field_account_billing__access_url
 msgid "Portal Access URL"
@@ -239,13 +223,6 @@ msgstr "合計請求書メール送信に使用されるテンプレートです
 #: model_terms:ir.ui.view,arch_db:account_billing_portal.portal_my_billings
 msgid "There are currently no billings for your account."
 msgstr "現在、お客様のアカウントに合計請求書はありません。"
-
-#. module: account_billing_portal
-#: model:ir.model.fields,help:account_billing_portal.field_res_company__billing_portal_report
-#: model:ir.model.fields,help:account_billing_portal.field_res_config_settings__billing_portal_report
-msgid ""
-"This report template will be used in the billing portal to show the billing."
-msgstr "このレポートテンプレートは、請求ポータルで請求書を表示するために使用されます。"
 
 #. module: account_billing_portal
 #. odoo-python

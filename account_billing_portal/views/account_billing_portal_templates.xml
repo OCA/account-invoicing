@@ -28,28 +28,18 @@
         customize_show="True"
         priority="30"
     >
-        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
-            <t t-set="portal_client_category_enable" t-value="True" />
-            <t t-set="portal_vendor_category_enable" t-value="True" />
-        </xpath>
-        <div id="portal_client_category" position="inside">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
-                <t t-set="icon" t-value="'/account/static/src/img/Bill.svg'" />
                 <t t-set="title">Your Billings</t>
                 <t t-set="url" t-value="'/my/billings?filterby=out_invoice'" />
-                <t t-set="text">Follow, download or pay your billings</t>
                 <t t-set="placeholder_count" t-value="'customer_bill_count'" />
             </t>
-        </div>
-        <div id="portal_vendor_category" position="inside">
             <t t-call="portal.portal_docs_entry">
-                <t t-set="icon" t-value="'/account/static/src/img/Bill.svg'" />
                 <t t-set="title">Our Billings</t>
                 <t t-set="url" t-value="'/my/billings?filterby=in_invoice'" />
-                <t t-set="text">Follow, download or pay our billings</t>
                 <t t-set="placeholder_count" t-value="'vendor_bill_count'" />
             </t>
-        </div>
+        </xpath>
     </template>
 
     <template id="portal_my_billings" name="My Billings">
@@ -105,10 +95,14 @@
             >
                 <t t-call="portal.portal_back_in_edit_mode">
                     <t
-                        t-set="backend_url"
-                        t-value="('/odoo/action-account_billing.action_customer_billing/%s' % billing.id)
+                        t-set="action_xmlid"
+                        t-value="'account_billing.action_customer_billing'
                                     if billing.bill_type == 'out_invoice'
-                                    else ('/odoo/action-account_billing.action_supplier_billing/%s' % billing.id)"
+                                    else 'account_billing.action_supplier_billing'"
+                    />
+                    <t
+                        t-set="backend_url"
+                        t-value="'/web#model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (billing._name, billing.id, billing.env.ref(action_xmlid).id)"
                     />
                 </t>
             </t>
