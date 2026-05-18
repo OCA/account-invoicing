@@ -73,7 +73,7 @@ class TestAccountException(TransactionCase):
         # Add an account move to test after AM is confirmed
         # set ignore_exception = False  (Done by onchange of line_ids)
         field_onchange = self.AccountMove._onchange_spec()
-        self.assertEqual(field_onchange.get("line_ids"), "1")
+        self.assertEqual(field_onchange.get("invoice_line_ids"), "1")
         self.am3New = self.AccountMove.new(self.am_vals.copy())
         self.am3New.ignore_exception = True
         self.am3New.state = "posted"
