@@ -5,38 +5,42 @@ from odoo.tests.common import TransactionCase
 
 
 class TestAccountException(TransactionCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
         # Useful models
-        self.AccountMove = self.env["account.move"].with_context(
+        cls.AccountMove = cls.env["account.move"].with_context(
             check_move_validity=False
         )
-        self.AccountMoveLine = self.env["account.move.line"]
-        self.partner_id = self.env.ref("base.res_partner_1")
-        self.product_id_1 = self.env.ref("product.product_product_6")
-        self.product_id_2 = self.env.ref("product.product_product_7")
-        self.product_id_3 = self.env.ref("product.product_product_7")
-        self.account_receivable = self.env["account.account"].search(
-            [("account_type", "=", "asset_receivable")],
+        cls.AccountMoveLine = cls.env["account.move.line"]
+        cls.partner_id = cls.env.ref("base.res_partner_1")
+        cls.product_id_1 = cls.env.ref("product.product_product_6")
+        cls.product_id_2 = cls.env.ref("product.product_product_7")
+        cls.product_id_3 = cls.env.ref("product.product_product_7")
+        cls.account_receivable = cls.env["account.account"].search(
+            [
+                (
+                    "account_type",
+                    "=",
+                    "asset_receivable",
+                )
+            ],
             limit=1,
         )
-
-        self.account_exception_confirm = self.env["account.exception.confirm"]
-        self.exception_noemail = self.env.ref(
-            "account_move_exception.am_excep_no_email"
-        )
-        self.exception_qtycheck = self.env.ref(
+        cls.account_exception_confirm = cls.env["account.exception.confirm"]
+        cls.exception_noemail = cls.env.ref("account_move_exception.am_excep_no_email")
+        cls.exception_qtycheck = cls.env.ref(
             "account_move_exception.aml_excep_qty_check"
         )
-        self.am_vals = {
+        cls.am_vals = {
             "move_type": "out_invoice",
-            "partner_id": self.partner_id.id,
+            "partner_id": cls.partner_id.id,
             "invoice_line_ids": [
                 (
                     0,
                     0,
                     {
-                        "product_id": self.product_id_1.id,
+                        "product_id": cls.product_id_1.id,
                         "quantity": 5.0,
                         "price_unit": 500.0,
                     },
@@ -45,7 +49,7 @@ class TestAccountException(TransactionCase):
                     0,
                     0,
                     {
-                        "product_id": self.product_id_2.id,
+                        "product_id": cls.product_id_2.id,
                         "quantity": 5.0,
                         "price_unit": 250.0,
                     },
