@@ -59,12 +59,7 @@ class ResPartner(models.Model):
             [("id", "child_of", self.ids)]
         )
 
-        action_domain_str = action.get("domain")
-        if action_domain_str is not None:
-            action_domain = safe_eval(action_domain_str)
-        else:
-            action_domain = []
-
+        action_domain = safe_eval(action.get("domain") or "[]")
         action["domain"] = expression.AND(
             (
                 action_domain,
