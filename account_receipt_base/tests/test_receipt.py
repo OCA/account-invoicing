@@ -1,5 +1,6 @@
-#  Copyright 2023 Simone Rubino - TAKOBI
-#  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# Copyright 2023 Simone Rubino - TAKOBI
+# Copyright 2026 Francesco Ballerini
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo.tests import tagged
 
@@ -7,23 +8,19 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @tagged("post_install", "-at_install")
-class TestRefund(AccountTestInvoicingCommon):
+class TestReceipt(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.receipt = cls.init_invoice(
             "out_receipt",
             post=True,
-            amounts=[
-                10.0,
-            ],
+            products=cls.product_a,
         )
         cls.invoice = cls.init_invoice(
             "out_invoice",
             post=True,
-            amounts=[
-                10.0,
-            ],
+            products=cls.product_a,
         )
 
     def test_receipt_is_receipt(self):

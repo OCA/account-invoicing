@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
   ~ Copyright 2023 Simone Rubino - TAKOBI
-  ~ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+  ~ Copyright 2026 Francesco Ballerini
+  ~ License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
   -->
 <odoo>
     <record id="view_account_invoice_report_search" model="ir.ui.view">
@@ -48,7 +49,6 @@
                 'search_default_invoice': 1,
                 'search_default_creditnote': 1,
                 'group_by':['invoice_date'],
-                'group_by_no_leaf':1,
             }
         </field>
     </record>

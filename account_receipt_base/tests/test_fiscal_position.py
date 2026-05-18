@@ -1,10 +1,11 @@
-#  Copyright 2023 Simone Rubino - TAKOBI
-#  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# Copyright 2023 Simone Rubino - TAKOBI
+# Copyright 2026 Francesco Ballerini
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import tests
+from odoo.tests.common import TransactionCase
 
 
-class TestFiscalPosition(tests.SavepointCase):
+class TestFiscalPosition(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -72,4 +73,16 @@ class TestFiscalPosition(tests.SavepointCase):
         self.assertEqual(
             self.no_receipts_partner.property_account_position_id,
             self.no_receipts_fiscal_position,
+        )
+
+    def test_onchange_use_receipts_assigns_fp(self):
+        # When a partner has no fiscal position and use_receipts is set,
+        # the onchange assigns the receipts fiscal position automatically.
+        partner = self.env["res.partner"].create({"name": "No FP Partner"})
+        self.assertFalse(partner.property_account_position_id)
+        partner.use_receipts = True
+        partner.onchange_use_receipts()
+        self.assertEqual(
+            partner.property_account_position_id,
+            self.receipts_fiscal_position,
         )

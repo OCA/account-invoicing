@@ -1,5 +1,6 @@
-#  Copyright 2023 Simone Rubino - TAKOBI
-#  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# Copyright 2023 Simone Rubino - TAKOBI
+# Copyright 2026 Francesco Ballerini
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
 from odoo.osv import expression
@@ -12,40 +13,39 @@ class ResPartner(models.Model):
     use_receipts = fields.Boolean()
     total_receipts_invoiced = fields.Monetary(
         compute="_compute_total_receipts_invoiced",
-        string="Total Receipts Invoiced",
         groups="account.group_account_invoice,account.group_account_readonly",
     )
 
     def _compute_total_receipts_invoiced(self):
         # Similar to res.partner._invoice_total,
         # only the filtered move_type is changed
-        partner_to_children_dict = {}
-        all_partners = self
-        for partner in self:
-            child_partners = self.search(
-                [
-                    ("id", "child_of", partner.id),
-                ]
+        self.total_receipts_invoiced = 0
+        if not self.ids:
+            return
+
+        all_partners_and_children = {}
+        all_partner_ids = []
+        for partner in self.filtered("id"):
+            all_partners_and_children[partner] = (
+                self.with_context(active_test=False)
+                .search([("id", "child_of", partner.id)])
+                .ids
             )
-            partner_to_children_dict[partner] = child_partners
-            all_partners |= child_partners
+            all_partner_ids += all_partners_and_children[partner]
 
         domain = [
-            ("partner_id", "in", all_partners.ids),
+            ("partner_id", "in", all_partner_ids),
             ("state", "not in", ["draft", "cancel"]),
-            ("move_type", "=", "out_receipt"),  # This changed
+            ("move_type", "=", "out_receipt"),
         ]
-        price_totals = self.env["account.invoice.report"].read_group(
-            domain,
-            ["price_subtotal"],
-            ["partner_id"],
+        price_totals = self.env["account.invoice.report"]._read_group(
+            domain, ["partner_id"], ["price_subtotal:sum"]
         )
-
-        for partner, children in partner_to_children_dict.items():
+        for partner, child_ids in all_partners_and_children.items():
             partner.total_receipts_invoiced = sum(
-                price["price_subtotal"]
-                for price in price_totals
-                if price["partner_id"][0] in children.ids
+                price_subtotal_sum
+                for partner, price_subtotal_sum in price_totals
+                if partner.id in child_ids
             )
 
     def action_view_partner_receipts(self):

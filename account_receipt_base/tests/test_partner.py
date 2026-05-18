@@ -1,5 +1,6 @@
-#  Copyright 2023 Simone Rubino - TAKOBI
-#  License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# Copyright 2023 Simone Rubino - TAKOBI
+# Copyright 2026 Francesco Ballerini
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo.tests import tagged
 
@@ -7,12 +8,12 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
 @tagged("post_install", "-at_install")
-class TestRefund(AccountTestInvoicingCommon):
+class TestPartner(AccountTestInvoicingCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         partner_model = cls.env["res.partner"]
-        partner_id, partner_name = partner_model.name_create("Test partner")
+        partner_id, _partner_name = partner_model.name_create("Test partner")
         cls.partner = partner_model.browse(partner_id)
 
     def test_partner_total_receipts_invoiced(self):
@@ -21,18 +22,16 @@ class TestRefund(AccountTestInvoicingCommon):
             0,
         )
 
-        self.init_invoice(
+        receipt = self.init_invoice(
             "out_receipt",
             partner=self.partner,
             post=True,
-            amounts=[
-                10.0,
-            ],
+            products=self.product_a,
         )
 
         self.assertEqual(
             self.partner.total_receipts_invoiced,
-            10,
+            receipt.amount_untaxed,
         )
 
     def test_partner_view_receipts(self):
@@ -40,9 +39,7 @@ class TestRefund(AccountTestInvoicingCommon):
             "out_receipt",
             partner=self.partner,
             post=True,
-            amounts=[
-                10.0,
-            ],
+            products=self.product_a,
         )
 
         receipts_action = self.partner.action_view_partner_receipts()
