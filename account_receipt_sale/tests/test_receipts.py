@@ -11,7 +11,7 @@ from odoo.addons.account_receipt_journal.tests.test_receipts import TestReceipts
 @tagged("post_install", "-at_install")
 class TestReceiptsSale(TestReceipts):
     def setUp(self):
-        super(TestReceiptsSale, self).setUp()
+        super().setUp()
         partner_model = self.env["res.partner"]
         self.fiscal_pos_model = self.env["account.fiscal.position"]
         self.sale_model = self.env["sale.order"]
