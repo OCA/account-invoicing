@@ -14,21 +14,10 @@ class AccountFiscalPosition(models.Model):
     def get_receipts_fiscal_pos(self, company_id=None):
         if not company_id:
             company_id = self.env.company
-        receipt_fiscal_pos = self.search(
+        return self.search(
             [
                 ("company_id", "=", company_id.id),
                 ("receipts", "=", True),
             ],
             limit=1,
         )
-        if not receipt_fiscal_pos:
-            # Fall back to fiscal positions without company
-            receipt_fiscal_pos = self.search(
-                [
-                    ("company_id", "=", False),
-                    ("receipts", "=", True),
-                ],
-                limit=1,
-            )
-
-        return receipt_fiscal_pos
