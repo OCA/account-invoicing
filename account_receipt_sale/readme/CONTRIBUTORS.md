@@ -4,3 +4,4 @@
 - Giovanni Serra \<giovanni@gslab.it\>
 - [TAKOBI](https://takobi.online):
   - Simone Rubino \<sir@takobi.online\>
+- Francesco Ballerini

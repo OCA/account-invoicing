@@ -6,14 +6,13 @@ class SaleOrder(models.Model):
     receipts = fields.Boolean()
     receipt_ids = fields.Many2many(
         comodel_name="account.move",
-        string="Receipts",
+        string="Sale Receipts",
         compute="_compute_receipt_ids",
         readonly=True,
         copy=False,
         search="_search_receipt_ids",
     )
     receipt_count = fields.Integer(
-        string="Receipt Count",
         compute="_compute_receipt_ids",
         readonly=True,
     )
@@ -38,7 +37,8 @@ class SaleOrder(models.Model):
                 SELECT array_agg(so.id)
                     FROM sale_order so
                     JOIN sale_order_line sol ON sol.order_id = so.id
-                    JOIN sale_order_line_invoice_rel soli_rel ON soli_rel.order_line_id = sol.id
+                    JOIN sale_order_line_invoice_rel soli_rel
+                        ON soli_rel.order_line_id = sol.id
                     JOIN account_move_line aml ON aml.id = soli_rel.invoice_line_id
                     JOIN account_move am ON am.id = aml.move_id
                 WHERE
@@ -118,14 +118,15 @@ class SaleOrder(models.Model):
             self.env["account.move"]._update_receipts_journal([invoice_values])
         return invoice_values
 
-    @api.model
-    def create(self, values):
-        order = super().create(values)
-        if "partner_id" in values and "receipts" not in values:
-            order._onchange_partner_receipts_sale()
-        if "fiscal_position_id" in values and "receipts" not in values:
-            order._onchange_fiscal_position_id_receipts()
-        return order
+    @api.model_create_multi
+    def create(self, vals_list):
+        orders = super().create(vals_list)
+        for order, values in zip(orders, vals_list, strict=False):
+            if "partner_id" in values and "receipts" not in values:
+                order._onchange_partner_receipts_sale()
+            if "fiscal_position_id" in values and "receipts" not in values:
+                order._onchange_fiscal_position_id_receipts()
+        return orders
 
     def write(self, values):
         res = super().write(values)
@@ -142,7 +143,7 @@ class OrderLine(models.Model):
     _inherit = "sale.order.line"
 
     def _compute_untaxed_amount_invoiced(self):
-        super()._compute_untaxed_amount_invoiced()
+        res = super()._compute_untaxed_amount_invoiced()
         for line in self:
             amount_receipt = 0.0
             for invoice_line in line.invoice_lines:
@@ -158,9 +159,10 @@ class OrderLine(models.Model):
                             invoice_date,
                         )
             line.untaxed_amount_invoiced += amount_receipt
+        return res
 
-    def _get_invoice_qty(self):
-        super()._get_invoice_qty()
+    def _compute_qty_invoiced(self):
+        res = super()._compute_qty_invoiced()
         for line in self:
             qty_receipt = 0.0
             for invoice_line in line.invoice_lines:
@@ -170,3 +172,4 @@ class OrderLine(models.Model):
                             invoice_line.quantity, line.product_uom
                         )
             line.qty_invoiced += qty_receipt
+        return res

@@ -20,7 +20,7 @@
                     type="object"
                     class="oe_stat_button"
                     icon="fa-pencil-square-o"
-                    attrs="{'invisible': [('receipt_count', '=', 0)]}"
+                    invisible="receipt_count == 0"
                 >
                     <field name="receipt_count" widget="statinfo" string="Receipts" />
                 </button>
