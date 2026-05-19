@@ -7,6 +7,7 @@
 from odoo.tests import tagged
 
 from odoo.addons.account_receipt_journal.tests.test_receipts import TestReceipts
+from odoo.addons.account_receipt_sale.hooks import post_init_hook
 
 
 @tagged("post_install", "-at_install")
@@ -199,3 +200,35 @@ class TestReceiptsSale(TestReceipts):
         receipt.action_post()
         self.assertEqual(order.order_line.qty_invoiced, 1.0)
         self.assertEqual(order.order_line.untaxed_amount_invoiced, 100.0)
+
+    def test_post_init_hook_recomputes_rollup(self):
+        # post_init_hook covers the case where the module is installed on a
+        # DB that already has out_receipt invoices linked to sale order lines.
+        order = self._create_order(self.receipt_partner)
+        order.action_confirm()
+        order.order_line.qty_delivered = 1.0
+        wizard = self._open_wizard(order, advance_payment_method="delivered")
+        wizard.create_invoices()
+        order.receipt_ids.action_post()
+        line = order.order_line
+        # Read once to drain the pending recomputes queued by action_post,
+        # then flush so the DB matches the cache before we corrupt it.
+        self.assertEqual(line.qty_invoiced, 1.0)
+        self.assertEqual(line.untaxed_amount_invoiced, 100.0)
+        self.env.flush_all()
+        # Overwrite the persisted values directly in the DB to simulate the
+        # stale state the hook is meant to repair.
+        self.env.cr.execute(
+            "UPDATE sale_order_line "
+            "SET qty_invoiced = 0, untaxed_amount_invoiced = 0 "
+            "WHERE id = %s",
+            (line.id,),
+        )
+        # Drop the cached (correct) values so the next read goes to the DB
+        # and observes our stale zeros instead of replaying a recompute.
+        line.invalidate_recordset(["qty_invoiced", "untaxed_amount_invoiced"])
+        self.assertEqual(line.qty_invoiced, 0.0)
+        self.assertEqual(line.untaxed_amount_invoiced, 0.0)
+        post_init_hook(self.env)
+        self.assertEqual(line.qty_invoiced, 1.0)
+        self.assertEqual(line.untaxed_amount_invoiced, 100.0)
