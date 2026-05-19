@@ -1,22 +1,15 @@
-from odoo import _, api, exceptions, models
+from odoo import api, exceptions, models
 
 
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    @api.depends("company_id", "invoice_filter_type_domain")
-    def _compute_suitable_journal_ids(self):
-        res = super()._compute_suitable_journal_ids()
-        for move in self:
-            if move.move_type in {"in_receipt", "out_receipt"}:
-                move.suitable_journal_ids = move.suitable_journal_ids.filtered(
-                    "receipts"
-                )
-                continue
-            move.suitable_journal_ids = move.suitable_journal_ids.filtered(
-                lambda x: not x.receipts
-            )
-        return res
+    @api.model
+    def _get_suitable_journal_ids(self, move_type, company=False):
+        journals = super()._get_suitable_journal_ids(move_type, company=company)
+        return journals.filtered_domain(
+            [("receipts", "=", move_type in {"in_receipt", "out_receipt"})]
+        )
 
     def _search_default_receipt_journal(self, journal_types):
         company_id = self.env.context.get("default_company_id", self.env.company.id)
@@ -101,18 +94,18 @@ class AccountMove(models.Model):
             is_rj = move.journal_id.receipts
             if move.move_type not in {"in_receipt", "out_receipt"} and is_rj:
                 raise exceptions.ValidationError(
-                    _("Receipt Journal is restricted to Receipts")
+                    self.env._("Receipt Journal is restricted to Receipts")
                 )
             elif move.move_type == "in_receipt" and not is_rj and has_in_rjournals:
                 raise exceptions.ValidationError(
-                    _(
+                    self.env._(
                         "Purchase Receipt must use a Receipt Journal because "
                         "there is already a Receipt Journal for Purchases"
                     )
                 )
             elif move.move_type == "out_receipt" and not is_rj and has_out_rjournals:
                 raise exceptions.ValidationError(
-                    _(
+                    self.env._(
                         "Sale Receipt must use a Receipt Journal because "
                         "there is already a Receipt Journal for Sales"
                     )

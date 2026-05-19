@@ -1,4 +1,4 @@
-from odoo import _, api, exceptions, fields, models
+from odoo import api, exceptions, fields, models
 
 
 class AccountJournal(models.Model):
@@ -12,7 +12,7 @@ class AccountJournal(models.Model):
 
     def _get_move_action_context(self):
         res = super()._get_move_action_context()
-        ctx = self._context.copy()
+        ctx = self.env.context.copy()
         journal = self or self.browse(ctx["default_journal_id"])
         if not journal or not journal.receipts:
             return res
@@ -58,9 +58,9 @@ class AccountJournal(models.Model):
             )
             if not previous_sequence_journals:
                 raise exceptions.ValidationError(
-                    _(
+                    self.env._(
                         "The sequence of the journal '%s' must be higher than "
-                        "the sequence of the other journals of the same type."
+                        "the sequence of the other journals of the same type.",
+                        receipt_journal.name,
                     )
-                    % receipt_journal.name
                 )
