@@ -10,135 +10,81 @@ class TestAccountInvoiceWarnMessage(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.warn_msg_parent = "This customer has a warn from parent"
+        cls.product = cls.env["product.product"].create(
+            {
+                "name": "Test Product",
+                "type": "service",
+            }
+        )
+        cls.warn_msg_parent = "This company has payment issues"
         cls.parent = cls.env["res.partner"].create(
             {
-                "name": "Customer with a warn",
-                "email": "customer@warn.com",
-                "invoice_warn": "warning",
+                "name": "ACME Corp",
+                "email": "acme@example.com",
                 "invoice_warn_msg": cls.warn_msg_parent,
             }
         )
-        cls.warn_msg = "This customer has a warn"
+        cls.warn_msg = "Contact-specific invoice warning"
         cls.partner = cls.env["res.partner"].create(
             {
-                "name": "Customer with a warn",
-                "email": "customer@warn.com",
-                "invoice_warn": "warning",
+                "name": "ACME Contact",
+                "email": "contact@acme.com",
                 "invoice_warn_msg": cls.warn_msg,
             }
         )
 
+    def _make_invoice(self, move_type="out_invoice", partner=None):
+        vals = {
+            "move_type": move_type,
+            "invoice_line_ids": [
+                Command.create(
+                    {
+                        "product_id": self.product.id,
+                        "quantity": 1,
+                        "price_unit": 42,
+                    }
+                ),
+            ],
+        }
+        if partner is not None:
+            vals["partner_id"] = partner.id
+        return self.env["account.move"].create(vals)
+
     def test_compute_invoice_warn_msg(self):
-        invoice = self.env["account.move"].create(
-            {
-                "move_type": "out_invoice",
-                "partner_id": self.partner.id,
-                "invoice_line_ids": [
-                    Command.create(
-                        {
-                            "product_id": self.env.ref("product.product_product_4").id,
-                            "quantity": 1,
-                            "price_unit": 42,
-                        },
-                    ),
-                ],
-            }
+        invoice = self._make_invoice(partner=self.partner)
+        self.assertEqual(
+            invoice.invoice_warn_msg,
+            f"{self.partner.name} - {self.warn_msg}",
         )
-        self.assertEqual(invoice.invoice_warn_msg, self.warn_msg)
 
     def test_compute_invoice_warn_msg_parent(self):
-        self.partner.update({"parent_id": self.parent.id})
-        invoice = self.env["account.move"].create(
-            {
-                "move_type": "out_invoice",
-                "partner_id": self.partner.id,
-                "invoice_line_ids": [
-                    Command.create(
-                        {
-                            "product_id": self.env.ref("product.product_product_4").id,
-                            "quantity": 1,
-                            "price_unit": 42,
-                        },
-                    ),
-                ],
-            }
-        )
+        self.partner.parent_id = self.parent
+        invoice = self._make_invoice(partner=self.partner)
         self.assertEqual(
-            invoice.invoice_warn_msg, self.warn_msg_parent + "\n" + self.warn_msg
+            invoice.invoice_warn_msg,
+            f"{self.parent.name} - {self.warn_msg_parent}"
+            f"\n{self.partner.name} - {self.warn_msg}",
         )
 
     def test_compute_invoice_warn_msg_parent_but_not_partner(self):
-        self.partner.update({"invoice_warn": "no-message", "parent_id": self.parent.id})
-        invoice = self.env["account.move"].create(
-            {
-                "move_type": "out_invoice",
-                "partner_id": self.partner.id,
-                "invoice_line_ids": [
-                    Command.create(
-                        {
-                            "product_id": self.env.ref("product.product_product_4").id,
-                            "quantity": 1,
-                            "price_unit": 42,
-                        },
-                    ),
-                ],
-            }
+        self.partner.write({"invoice_warn_msg": False, "parent_id": self.parent.id})
+        invoice = self._make_invoice(partner=self.partner)
+        self.assertEqual(
+            invoice.invoice_warn_msg,
+            f"{self.parent.name} - {self.warn_msg_parent}",
         )
-        self.assertEqual(invoice.invoice_warn_msg, self.warn_msg_parent)
 
     def test_compute_invoice_warn_msg_in_invoice(self):
-        invoice = self.env["account.move"].create(
-            {
-                "move_type": "in_invoice",
-                "partner_id": self.partner.id,
-                "invoice_line_ids": [
-                    Command.create(
-                        {
-                            "product_id": self.env.ref("product.product_product_4").id,
-                            "quantity": 1,
-                            "price_unit": 42,
-                        },
-                    ),
-                ],
-            }
-        )
+        invoice = self._make_invoice(move_type="in_invoice", partner=self.partner)
         self.assertFalse(invoice.invoice_warn_msg)
 
     def test_compute_invoice_warn_msg_posted_state(self):
-        invoice = self.env["account.move"].create(
-            {
-                "move_type": "out_invoice",
-                "partner_id": self.partner.id,
-                "invoice_line_ids": [
-                    Command.create(
-                        {
-                            "product_id": self.env.ref("product.product_product_4").id,
-                            "quantity": 1,
-                            "price_unit": 42,
-                        },
-                    ),
-                ],
-            }
-        )
+        invoice = self._make_invoice(partner=self.partner)
         invoice.action_post()
         self.assertFalse(invoice.invoice_warn_msg)
 
     def test_compute_invoice_warn_msg_no_partner(self):
-        invoice = self.env["account.move"].create(
-            {
-                "move_type": "out_invoice",
-                "invoice_line_ids": [
-                    Command.create(
-                        {
-                            "product_id": self.env.ref("product.product_product_4").id,
-                            "quantity": 1,
-                            "price_unit": 42,
-                        },
-                    ),
-                ],
-            }
-        )
+        invoice = self._make_invoice()
         self.assertFalse(invoice.invoice_warn_msg)
 
     def test_compute_invoice_warn_msg_no_warnings(self):
@@ -146,31 +92,14 @@ class TestAccountInvoiceWarnMessage(BaseCommon):
             {
                 "name": "Customer without warning",
                 "email": "customer@nowarn.com",
-                "invoice_warn": "no-message",
             }
         )
         parent_no_warn = self.env["res.partner"].create(
             {
                 "name": "Parent without warning",
                 "email": "parent@nowarn.com",
-                "invoice_warn": "no-message",
             }
         )
         partner_no_warn.parent_id = parent_no_warn.id
-
-        invoice = self.env["account.move"].create(
-            {
-                "move_type": "out_invoice",
-                "partner_id": partner_no_warn.id,
-                "invoice_line_ids": [
-                    Command.create(
-                        {
-                            "product_id": self.env.ref("product.product_product_4").id,
-                            "quantity": 1,
-                            "price_unit": 42,
-                        },
-                    ),
-                ],
-            }
-        )
+        invoice = self._make_invoice(partner=partner_no_warn)
         self.assertFalse(invoice.invoice_warn_msg)
