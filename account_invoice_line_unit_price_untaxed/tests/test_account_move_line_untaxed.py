@@ -1,11 +1,13 @@
 # Copyright 2017 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo.fields import first
-from odoo.tests import Form
-from odoo.tests.common import SavepointCase
+from odoo.fields import Command
+from odoo.tests import Form, tagged
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestInvoicePriceUntaxed(SavepointCase):
+@tagged("post_install", "-at_install")
+class TestInvoicePriceUntaxed(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -19,19 +21,20 @@ class TestInvoicePriceUntaxed(SavepointCase):
         cls.prod_obj = cls.env["product.product"]
         cls.company_obj = cls.env["res.company"]
         cls.account_move_line_obj = cls.env["account.move.line"]
-        cls.precision = cls.env["decimal.precision"].precision_get(
-            cls.account_move_line_obj._fields["price_unit"]._digits
+        field = cls.account_move_line_obj._fields["price_unit"]
+        digits = field.get_digits(cls.env)
+        cls.precision = (
+            digits[1]
+            if isinstance(digits, tuple)
+            else field.get_min_display_digits(cls.env) or 0
         )
         cls.company = cls.env.ref("base.main_company")
         vals = {
             "name": "Company 2",
         }
         cls.company_2 = cls.company_obj.create(vals)
-        cls.env["account.chart.template"].browse(1).with_company(
-            cls.company_2
-        ).try_loading()
+        cls.env["account.chart.template"].browse(1).try_loading(None, cls.company_2)
 
-        cls.partner = cls.env.ref("base.res_partner_2")
         cls.partner.write({"company_id": False})
         cls.journal_sale_1 = cls.env["account.journal"].create(
             {
@@ -61,23 +64,23 @@ class TestInvoicePriceUntaxed(SavepointCase):
         )
         cls.tax2 = cls.env["account.tax"].create(
             {
-                "name": "Test Taxe 1",
+                "name": "Test Taxe 2",
                 "type_tax_use": "sale",
                 "company_id": cls.company_2.id,
                 "amount_type": "percent",
                 "amount": 15,
-                "price_include": True,
+                "price_include_override": "tax_included",
             }
         )
         cls.tmpl = cls.tmpl_obj.create(
             {
                 "name": "NewTmpl",
-                "taxes_id": [(4, cls.tax1.id), (4, cls.tax2.id)],
+                "taxes_id": [Command.link(cls.tax1.id), Command.link(cls.tax2.id)],
                 "list_price": 115.0,
             }
         )
         cls.account = cls.env["account.account"].search(
-            [("user_type_id.type", "=", "other"), ("internal_group", "=", "income")],
+            [("account_type", "=", "other"), ("internal_group", "=", "income")],
             limit=1,
         )
         cls.account_2 = cls.account.copy({"company_id": cls.company_2.id})
@@ -85,11 +88,17 @@ class TestInvoicePriceUntaxed(SavepointCase):
         cls.product.with_company(
             cls.company_2
         ).property_account_income_id = cls.account_2
-        cls.user_demo = cls.env.ref("base.user_demo")
-        cls.user_demo.write(
+        cls.user_demo = cls.env["res.users"].create(
             {
-                "company_ids": [(4, cls.company.id), (4, cls.company_2.id)],
-                "groups_id": [(4, cls.env.ref("account.group_account_invoice").id)],
+                "name": "Test Demo User",
+                "login": "TDU",
+                "company_ids": [
+                    Command.link(cls.company.id),
+                    Command.link(cls.company_2.id),
+                ],
+                "group_ids": [
+                    Command.link(cls.env.ref("account.group_account_invoice").id)
+                ],
             }
         )
 
@@ -115,7 +124,7 @@ class TestInvoicePriceUntaxed(SavepointCase):
         with Form(self.invoice) as invoice_form:
             with invoice_form.invoice_line_ids.new() as invoice_line:
                 invoice_line.product_id = self.product
-        invoice_line = first(self.invoice.invoice_line_ids)
+        invoice_line = self.invoice.invoice_line_ids[0]
         self.assertEqual(invoice_line.price_unit, 115)
         self.assertEqual(invoice_line.price_unit_untaxed, 115)
 
@@ -140,7 +149,7 @@ class TestInvoicePriceUntaxed(SavepointCase):
         with Form(self.invoice) as invoice_form:
             with invoice_form.invoice_line_ids.new() as invoice_line:
                 invoice_line.product_id = self.product
-        invoice_line = first(self.invoice.invoice_line_ids)
+        invoice_line = self.invoice.invoice_line_ids[0]
         self.assertEqual(invoice_line.price_unit, 115)
         self.assertEqual(invoice_line.price_unit_untaxed, 100)
 
@@ -152,7 +161,7 @@ class TestInvoicePriceUntaxed(SavepointCase):
         Check prices are equivalent (price_unit == price_unit_untaxed) with
         same
         """
-        self.tax2.price_include = False
+        self.tax2.price_include_override = "tax_excluded"
         self.user_demo.write(
             {
                 "company_id": self.company_2.id,
@@ -178,8 +187,8 @@ class TestInvoicePriceUntaxed(SavepointCase):
         with Form(self.invoice) as invoice_form:
             with invoice_form.invoice_line_ids.new() as invoice_line:
                 invoice_line.product_id = self.product
-        invoice_line = first(self.invoice.invoice_line_ids)
-        self.assertAlmostEquals(invoice_line.price_unit, 118.573, places=self.precision)
-        self.assertAlmostEquals(
+        invoice_line = self.invoice.invoice_line_ids[0]
+        self.assertAlmostEqual(invoice_line.price_unit, 118.573, places=self.precision)
+        self.assertAlmostEqual(
             invoice_line.price_unit_untaxed, 118.573, places=self.precision
         )

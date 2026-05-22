@@ -5,7 +5,6 @@ from odoo import api, fields, models
 
 
 class AccountMoveLine(models.Model):
-
     _inherit = "account.move.line"
 
     price_unit_untaxed = fields.Float(
@@ -24,8 +23,14 @@ class AccountMoveLine(models.Model):
         can be too much rounded. So, use a memory record of currency
         with price unit decimal precision as rounding.
         """
-        digits = self._fields["price_unit"].get_digits(self.env)
-        rounding = (10 ** -digits[1]) if digits[1] else 0
+        field = self._fields["price_unit"]
+        digits = field.get_digits(self.env)
+        digits = (
+            digits[1]
+            if isinstance(digits, tuple)
+            else field.get_min_display_digits(self.env)
+        )
+        rounding = (10**-digits) if digits else 0
         currencies = dict()
         for line in self:
             currency = line.move_id.currency_id

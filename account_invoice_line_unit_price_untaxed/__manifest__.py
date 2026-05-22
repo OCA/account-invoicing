@@ -6,7 +6,7 @@
     "summary": """
         This module allows to display unit prices without taxes if prices
         are managed with included taxes""",
-    "version": "14.0.1.0.0",
+    "version": "19.0.1.0.0",
     "license": "AGPL-3",
     "maintainers": ["rousseldenis"],
     "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
@@ -18,4 +18,5 @@
         "views/account_move_line.xml",
         "report/report_account_move.xml",
     ],
+    "installable": True,
 }
