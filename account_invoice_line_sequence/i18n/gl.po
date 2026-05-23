@@ -9,19 +9,20 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-06-30 02:43+0000\n"
-"PO-Revision-Date: 2017-06-30 02:43+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"PO-Revision-Date: 2026-05-23 04:48+0000\n"
+"Last-Translator: Pablo Castelo <pablocv@gmx.es>\n"
 "Language-Team: Galician (https://www.transifex.com/oca/teams/23907/gl/)\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_invoice_line_sequence
 #: model_terms:ir.ui.view,arch_db:account_invoice_line_sequence.report_invoice_sequence_qweb
 msgid "<strong>Sequence</strong>"
-msgstr ""
+msgstr "<strong>Secuencia</strong>"
 
 #. module: account_invoice_line_sequence
 #: model:ir.model,name:account_invoice_line_sequence.model_account_invoice
@@ -31,25 +32,25 @@ msgstr "Factura"
 #. module: account_invoice_line_sequence
 #: model:ir.model,name:account_invoice_line_sequence.model_account_invoice_line
 msgid "Invoice Line"
-msgstr ""
+msgstr "Liña de factura"
 
 #. module: account_invoice_line_sequence
 #: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice__max_line_sequence
 msgid "Max sequence in lines"
-msgstr ""
+msgstr "Máxima secuencia en liñas"
 
 #. module: account_invoice_line_sequence
 #: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice_line__sequence2
 msgid "Sequence"
-msgstr ""
+msgstr "Secuencia"
 
 #. module: account_invoice_line_sequence
 #: model:ir.model.fields,help:account_invoice_line_sequence.field_account_invoice_line__sequence
 #: model:ir.model.fields,help:account_invoice_line_sequence.field_account_invoice_line__sequence2
 msgid "Shows the sequence of this line in the  invoice."
-msgstr ""
+msgstr "Mostra a secuencia desta liña na factura."
 
 #. module: account_invoice_line_sequence
 #: model:ir.model.fields,field_description:account_invoice_line_sequence.field_account_invoice_line__sequence
 msgid "original sequence"
-msgstr ""
+msgstr "secuencia orixinal"
