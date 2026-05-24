@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-09 09:04+0000\n"
+"PO-Revision-Date: 2026-05-24 20:46+0000\n"
 "Last-Translator: Ed-Spain <eduamoros@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -34,9 +34,8 @@ msgstr "Compañias"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model,name:account_move_tier_validation_approver.model_res_config_settings
-#, fuzzy
 msgid "Config Settings"
-msgstr "Configurar ajustes"
+msgstr "Configurar Ajustes"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model,name:account_move_tier_validation_approver.model_res_partner
@@ -54,7 +53,7 @@ msgstr "Es obligatorio indicar un Responsable de Aprobación (en {})"
 #: model:ir.model,name:account_move_tier_validation_approver.model_account_move
 #, fuzzy
 msgid "Journal Entry"
-msgstr "Entrada de díario"
+msgstr "Apunte Contable"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_config_settings__require_approver_in_vendor_bills
