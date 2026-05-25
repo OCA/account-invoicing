@@ -7,7 +7,7 @@ class AccountMoveSend(models.TransientModel):
     _inherit = "account.move.send"
 
     def enqueue_invoices(self):
-        active_ids = self._context.get("active_ids")
+        active_ids = self.env.context.get("active_ids")
         invoices = self.env["account.move"].browse(active_ids)
         invoices_to_send = invoices.mass_sending(self.mail_template_id)
         ineligible_invoices = invoices - invoices_to_send
