@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, models
+from odoo import api, models
 
 
 class AccountMoveSend(models.TransientModel):
@@ -11,8 +11,8 @@ class AccountMoveSend(models.TransientModel):
         invoices = self.env["account.move"].browse(active_ids)
         invoices_to_send = invoices.mass_sending(self.mail_template_id)
         ineligible_invoices = invoices - invoices_to_send
-        title = _("Invoices: Mass sending")
-        msg = _(
+        title = self.env._("Invoices: Mass sending")
+        msg = self.env._(
             "The sending of %(invoices_count)d invoices will be processed "
             "in background.",
             invoices_count=len(invoices_to_send),
@@ -29,7 +29,7 @@ class AccountMoveSend(models.TransientModel):
         }
         if ineligible_invoices:
             invoicelist = [invoice.name for invoice in ineligible_invoices]
-            warn_msg = _(
+            warn_msg = self.env._(
                 "Invoices %(ineligible_invoices)s were already in "
                 "processing or do not have an email address defined.",
                 ineligible_invoices=" ".join(invoicelist),

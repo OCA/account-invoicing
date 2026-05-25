@@ -1,7 +1,7 @@
 # Copyright 2019 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, fields, models
+from odoo import fields, models
 
 
 class AccountMove(models.Model):
@@ -29,7 +29,9 @@ class AccountMove(models.Model):
                 }
             )
             for invoice in invoices_to_send:
-                description = _("Send invoice %(name)s by email", name=invoice.name)
+                description = self.env._(
+                    "Send invoice %(name)s by email", name=invoice.name
+                )
                 invoice.with_delay(
                     description=description,
                     channel="root.account_invoice_mass_sending_channel",
