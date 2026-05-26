@@ -16,7 +16,5 @@
     "depends": [
         "purchase",
     ],
-    "data": [
-        "views/purchase_order_views.xml"
-    ],
+    "data": ["views/purchase_order_views.xml"],
 }
