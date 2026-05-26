@@ -5,3 +5,4 @@
 - Andrea Stirpe \<<a.stirpe@onestein.nl>\>
 - Miguel Gandia \<<miguel@studio73.es>\>
 - Juany Davila \<<juany.davila@forgeflow.com>\>
+- Sisco Casasempere \<<scasasempere@ingesit.com>\>

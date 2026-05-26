@@ -59,8 +59,14 @@ class AccountMove(models.Model):
 
     def _reverse_moves(self, default_values_list=None, cancel=False):
         # OVERRIDE
+        copied_default_values_list = None
         if default_values_list:
-            for move, default_values in zip(self, default_values_list, strict=False):
+            copied_default_values_list = [
+                dict(default_values) for default_values in default_values_list
+            ]
+            for move, default_values in zip(
+                self, copied_default_values_list, strict=False
+            ):
                 if (
                     move
                     and move.is_purchase_document(include_receipts=True)
@@ -68,7 +74,7 @@ class AccountMove(models.Model):
                 ):
                     default_values.update({"ref": ""})
         return super()._reverse_moves(
-            default_values_list=default_values_list, cancel=cancel
+            default_values_list=copied_default_values_list, cancel=cancel
         )
 
     def copy(self, default=None):
@@ -77,4 +83,6 @@ class AccountMove(models.Model):
         """
         if self.is_purchase_document(include_receipts=True):
             default = dict(default or {}, ref="")
+        elif self.ref:
+            default = dict(default or {}, ref=self.ref)
         return super().copy(default)
