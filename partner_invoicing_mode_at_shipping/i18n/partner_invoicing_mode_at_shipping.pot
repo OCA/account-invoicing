@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -32,6 +32,26 @@ msgid "Contact"
 msgstr ""
 
 #. module: partner_invoicing_mode_at_shipping
+#: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_partner__display_name
+#: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_sale_order__display_name
+#: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_stock_picking__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: partner_invoicing_mode_at_shipping
+#: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_partner__id
+#: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_sale_order__id
+#: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_stock_picking__id
+msgid "ID"
+msgstr ""
+
+#. module: partner_invoicing_mode_at_shipping
+#: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_partner__invoicing_at_shipping_delay
+#: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_users__invoicing_at_shipping_delay
+msgid "Invoicing At Shipping Delay"
+msgstr ""
+
+#. module: partner_invoicing_mode_at_shipping
 #: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_partner__invoicing_mode
 #: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_users__invoicing_mode
 msgid "Invoicing Mode"
@@ -44,6 +64,12 @@ msgid "Nothing to invoice."
 msgstr ""
 
 #. module: partner_invoicing_mode_at_shipping
+#: model:ir.model.fields,help:partner_invoicing_mode_at_shipping.field_res_partner__invoicing_at_shipping_delay
+#: model:ir.model.fields,help:partner_invoicing_mode_at_shipping.field_res_users__invoicing_at_shipping_delay
+msgid "Number of days after the shipping before creating the invoice."
+msgstr ""
+
+#. module: partner_invoicing_mode_at_shipping
 #: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_partner__one_invoice_per_shipping
 #: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_users__one_invoice_per_shipping
 #: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_sale_order__one_invoice_per_shipping
@@ -53,6 +79,12 @@ msgstr ""
 #. module: partner_invoicing_mode_at_shipping
 #: model:ir.model,name:partner_invoicing_mode_at_shipping.model_sale_order
 msgid "Sales Order"
+msgstr ""
+
+#. module: partner_invoicing_mode_at_shipping
+#. odoo-python
+#: code:addons/partner_invoicing_mode_at_shipping/models/res_partner.py:0
+msgid "The invoicing at shipping delay cannot be negative."
 msgstr ""
 
 #. module: partner_invoicing_mode_at_shipping
