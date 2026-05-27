@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 ===========================
 Purchase Create Bill Button
 ===========================
@@ -16,11 +20,17 @@ Purchase Create Bill Button
 .. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-Madetosoft--SL%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/Madetosoft-SL/account-invoicing/tree/19.0/purchase_create_bill_button
-    :alt: Madetosoft-SL/account-invoicing
+.. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
+    :target: https://github.com/OCA/account-invoicing/tree/19.0/purchase_create_bill_button
+    :alt: OCA/account-invoicing
+.. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
+    :target: https://translation.odoo-community.org/projects/account-invoicing-19-0/account-invoicing-19-0-purchase_create_bill_button
+    :alt: Translate me on Weblate
+.. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=19.0
+    :alt: Try me on Runboat
 
-|badge1| |badge2| |badge3|
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module restores the direct "Create Bill" button on purchase order
 forms that was available in earlier Odoo versions but was removed in the
@@ -72,16 +82,15 @@ Changelog
 19.0.1.0.0 (2026-05-26)
 -----------------------
 
--  Initial release: Add "Create Bill" button back to purchase order
-   form.
+- Initial release: Add "Create Bill" button back to purchase order form.
 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/Madetosoft-SL/account-invoicing/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/Madetosoft-SL/account-invoicing/issues/new?body=module:%20purchase_create_bill_button%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20purchase_create_bill_button%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -96,18 +105,28 @@ Authors
 Contributors
 ------------
 
--  Oriol Gracia o.gracia@madetosoft.com
--  Juan Arcos j.arcos@madetosoft.com
+- Oriol Gracia o.gracia@madetosoft.com
+- Juan Arcos j.arcos@madetosoft.com
 
 Other credits
 -------------
 
 The development of this module has been financially supported by:
 
--  MTS https://www.madetosoft.com
+- MTS https://www.madetosoft.com
 
 Maintainers
 -----------
+
+This module is maintained by the OCA.
+
+.. image:: https://odoo-community.org/logo.png
+   :alt: Odoo Community Association
+   :target: https://odoo-community.org
+
+OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.
 
 .. |maintainer-jarcosmts| image:: https://github.com/jarcosmts.png?size=40px
     :target: https://github.com/jarcosmts
@@ -116,10 +135,10 @@ Maintainers
     :target: https://github.com/ograciamts
     :alt: ograciamts
 
-Current maintainers:
+Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-jarcosmts| |maintainer-ograciamts| 
 
 This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/19.0/purchase_create_bill_button>`_ project on GitHub.
 
-You are welcome to contribute.
+You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
