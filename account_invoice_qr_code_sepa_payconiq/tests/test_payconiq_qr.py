@@ -1,14 +1,14 @@
 # Copyright 2022 ACSONE SA/NV
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 import urllib
+from unittest import mock
 
-import mock
 import qrcode
 import requests
 import urllib3
 from urllib3._collections import HTTPHeaderDict
 
-from odoo.tests import Form, SavepointCase
+from odoo.tests import Form, TransactionCase, tagged
 
 
 def get_image():
@@ -34,7 +34,8 @@ def mocked_requests_get(*args, **kwargs):
     return response
 
 
-class TestAccountInvoicePayconiq(SavepointCase):
+@tagged("-at_install", "post_install")
+class TestAccountInvoicePayconiq(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -45,9 +46,7 @@ class TestAccountInvoicePayconiq(SavepointCase):
                 "qr_code": True,
             }
         )
-        cls.env["account.chart.template"].browse(1).with_company(
-            cls.company
-        ).try_loading()
+        cls.env["account.chart.template"].browse(1).try_loading(None, cls.company)
         cls.company.currency_id = cls.env.ref("base.EUR")
         pricelist = cls.env["product.pricelist"].create(
             {
@@ -91,7 +90,7 @@ class TestAccountInvoicePayconiq(SavepointCase):
                 "company_ids": [(4, cls.company.id)],
             }
         )
-        cls.user.groups_id |= cls.env.ref("account.group_account_manager")
+        cls.user.group_ids |= cls.env.ref("account.group_account_manager")
         # Change Environment to make all operations in user's Lux company
         cls.env = cls.env(
             context=dict(cls.env.context, tracking_disable=True, user=cls.user)
@@ -108,11 +107,12 @@ class TestAccountInvoicePayconiq(SavepointCase):
         cls.invoice = invoice_form.save()
 
     def test_payconiq(self):
-        with mock.patch("requests.get", side_effect=mocked_requests_get), mock.patch(
-            "PIL.Image.open"
-        ) as image_mock:
+        with (
+            mock.patch("requests.get", side_effect=mocked_requests_get),
+            mock.patch("PIL.Image.open") as image_mock,
+        ):
             image_mock.return_value = get_image()
-            url = self.invoice.generate_qr_code()
+            url = self.invoice._generate_qr_code()
 
         self.assertTrue(url)
         self.assertIn(

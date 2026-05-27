@@ -7,7 +7,7 @@ import urllib
 import requests
 from PIL import Image
 
-from odoo import _, api, models
+from odoo import api, models
 from odoo.tools.image import image_data_uri
 
 PAYCONIQ_URL = "https://payconiq.com/t/1/"
@@ -15,13 +15,12 @@ PAYCONIQ_QR_URL = "https://portal.payconiq.com/qrcode"
 
 
 class ResPartnerBank(models.Model):
-
     _inherit = "res.partner.bank"
 
     @api.model
     def _get_available_qr_methods(self):
         rslt = super()._get_available_qr_methods()
-        rslt.append(("payconiq_qr", _("Payconiq QR"), 19))
+        rslt.append(("payconiq_qr", self.env._("Payconiq QR"), 19))
         return rslt
 
     def _get_payconiq_qr_amount(self, amount):
@@ -30,7 +29,7 @@ class ResPartnerBank(models.Model):
         if the amount is for instance 141.9, reformat to float with
         two decimals => 141.90, then remove decimal dot.
         """
-        return f"{amount*100:.0f}"
+        return f"{amount * 100:.0f}"
 
     def _get_qr_code_generation_params(
         self,
@@ -134,7 +133,9 @@ class ResPartnerBank(models.Model):
                 "s": "S",
                 "c": c_url + urllib.parse.urlencode(params),
             }
-            response = requests.get(PAYCONIQ_QR_URL, params=new_params, stream=True)
+            response = requests.get(
+                PAYCONIQ_QR_URL, params=new_params, stream=True, timeout=10
+            )
             raw_image = response.raw
             img = Image.open(raw_image)
 
@@ -163,7 +164,7 @@ class ResPartnerBank(models.Model):
     ):
         if qr_method == "payconiq_qr":
             if not self.env.company.payconiq_qr_profile_id:
-                return _(
+                return self.env._(
                     "You should provide a Payconiq Profile Id (Accounting > Settings > "
                     "Customer Payments > QR Codes"
                 )
