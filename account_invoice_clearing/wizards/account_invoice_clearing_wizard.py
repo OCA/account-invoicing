@@ -5,7 +5,7 @@ import json
 from collections import OrderedDict
 from datetime import datetime
 
-from odoo import _, api, exceptions, fields, models
+from odoo import api, exceptions, fields, models
 from odoo.tools import float_is_zero, groupby
 
 
@@ -83,7 +83,7 @@ class AccountInvoiceClearingWizard(models.TransientModel):
         string="Journal",
         check_company=True,
         required=True,
-        default=_get_default_journal,
+        default=lambda self: self._get_default_journal(),
     )
     # Preview resulting move
     move_data = fields.Text(
@@ -116,15 +116,11 @@ class AccountInvoiceClearingWizard(models.TransientModel):
     @api.depends("invoice_ids")
     def _compute_initial_data(self):
         """Compute initial data for the wizard."""
-        self.update(
-            {
-                "move_type": False,
-                "commercial_partner_id": False,
-                "company_id": False,
-                "company_currency_id": False,
-                "move_line_ids": False,
-            }
-        )
+        self.move_type = False
+        self.commercial_partner_id = False
+        self.company_id = False
+        self.company_currency_id = False
+        self.move_line_ids = False
         for record in self:
             if not record.invoice_ids:
                 continue
@@ -146,7 +142,7 @@ class AccountInvoiceClearingWizard(models.TransientModel):
     @api.depends("move_line_ids", "line_ids")
     def _compute_move_data(self):
         """Compute the data to be used by the account.move form view."""
-        self.update({"move_data": "[]"})
+        self.move_data = "[]"
         for record in self:
             if not record.move_line_ids or not record.line_ids:
                 continue
@@ -160,17 +156,17 @@ class AccountInvoiceClearingWizard(models.TransientModel):
         am_model = self.env["account.move"]
         for record in self:
             preview_columns = [
-                {"field": "account_id", "label": _("Account")},
-                {"field": "name", "label": _("Label")},
-                {"field": "partner_id", "label": _("Partner")},
+                {"field": "account_id", "label": self.env._("Account")},
+                {"field": "name", "label": self.env._("Label")},
+                {"field": "partner_id", "label": self.env._("Partner")},
                 {
                     "field": "debit",
-                    "label": _("Debit"),
+                    "label": self.env._("Debit"),
                     "class": "text-right text-nowrap",
                 },
                 {
                     "field": "credit",
-                    "label": _("Credit"),
+                    "label": self.env._("Credit"),
                     "class": "text-right text-nowrap",
                 },
             ]
@@ -181,7 +177,7 @@ class AccountInvoiceClearingWizard(models.TransientModel):
                     move,
                     record.company_currency_id,
                 )
-                preview_vals["group_name"] = _(
+                preview_vals["group_name"] = self.env._(
                     "Preview of the clearing move related to %s",
                     move["related_to_move"],
                 )
@@ -343,7 +339,7 @@ class AccountInvoiceClearingWizard(models.TransientModel):
                 (move_line | to_concile_lines[idx]).reconcile()
         # Build resulting action
         action = {
-            "name": _("Resulting Clearing Move"),
+            "name": self.env._("Resulting Clearing Move"),
             "type": "ir.actions.act_window",
             "res_model": "account.move",
             "view_mode": "form",
@@ -528,15 +524,15 @@ class AccountInvoiceClearingWizard(models.TransientModel):
         for record in self:
             if len(set(self._get_commercial_partners(record.invoice_ids))) > 1:
                 raise exceptions.ValidationError(
-                    _("Invoices must be from the same commercial partner.")
+                    self.env._("Invoices must be from the same commercial partner.")
                 )
             if len(self._get_move_types(record.invoice_ids)) > 1:
                 raise exceptions.ValidationError(
-                    _("Invoices must be of the same type.")
+                    self.env._("Invoices must be of the same type.")
                 )
             if len(self._get_companies(record.invoice_ids)) > 1:
                 raise exceptions.ValidationError(
-                    _("Invoices must belong to the same company.")
+                    self.env._("Invoices must belong to the same company.")
                 )
 
 
@@ -615,7 +611,7 @@ class AccountInvoiceClearingLinesWizard(models.TransientModel):
     @api.depends("amount_residual")
     def _compute_can_use_line(self):
         """Compute if the line can be used for clearing."""
-        self.update({"can_use_line": False})
+        self.can_use_line = False
         for record in self:
             if record.clearing_id.amount_to_clear == 0.0:
                 continue
@@ -646,5 +642,7 @@ class AccountInvoiceClearingLinesWizard(models.TransientModel):
         for record in self:
             if abs(record.amount_to_clear) > abs(record.amount_residual):
                 raise exceptions.ValidationError(
-                    _("Amount to clear cannot be greater than residual amount.")
+                    self.env._(
+                        "Amount to clear cannot be greater than residual amount."
+                    )
                 )

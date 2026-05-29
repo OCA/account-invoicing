@@ -43,13 +43,16 @@
                         string="Move Lines to clear"
                     >
                         <field name="move_line_ids" nolabel="1" colspan="2">
-                            <list limit="4">
+                            <list limit="4" no_open="true">
                                 <field name="move_id" />
                                 <field name="name" optional="hide" />
                                 <field name="account_id" optional="hide" />
                                 <field name="date" optional="hide" />
                                 <field name="date_maturity" optional="show" />
-                                <field name="company_currency_id" invisible="1" />
+                                <field
+                                    name="company_currency_id"
+                                    column_invisible="1"
+                                />
                                 <field name="debit" optional="hide" />
                                 <field name="credit" optional="hide" />
                                 <field
@@ -66,11 +69,6 @@
                         colspan="2"
                     >
                         <div name="group_lines_actions" class="o_row mb-2" colspan="2">
-                            <span
-                                class="o_form_label"
-                                style="font-weight:bolder;"
-                                invisible="1"
-                            >Actions:</span>
                             <button
                                 name="action_fill_amount_to_clear"
                                 type="object"
@@ -93,11 +91,6 @@
                             class="o_row float-end mb-1"
                             colspan="2"
                         >
-                            <span
-                                class="o_form_label"
-                                style="font-weight:bolder;"
-                                invisible="1"
-                            >Sort by:</span>
                             <button
                                 name="action_sort_by_date_due_asc"
                                 type="object"
@@ -145,6 +138,7 @@
                                     decoration-success="amount_residual == amount_to_clear"
                                     decoration-warning="amount_to_clear != 0.0 and (amount_residual != amount_to_clear)"
                                     decoration-muted="amount_to_clear == 0.0 and not can_use_line"
+                                    no_open="true"
                                 >
                                     <field
                                         name="sequence"
@@ -152,13 +146,16 @@
                                         column_invisible="parent.move_data"
                                     />
                                     <field name="invoice_id" />
-                                    <field name="move_line_id" invisible="1" />
+                                    <field name="move_line_id" column_invisible="1" />
                                     <field name="account_id" optional="hide" />
                                     <field name="name" optional="hide" />
                                     <field name="product_id" optional="hide" />
                                     <field name="date" optional="hide" />
                                     <field name="date_maturity" />
-                                    <field name="company_currency_id" invisible="1" />
+                                    <field
+                                        name="company_currency_id"
+                                        column_invisible="1"
+                                    />
                                     <field
                                         name="amount_residual"
                                         sum="Residual Amount Total (Signed)"
@@ -169,7 +166,6 @@
                                         name="amount_to_clear"
                                         sum="Residual Amount to clear (Signed)"
                                     />
-                                    <field name="can_use_line" invisible="1" />
                                     <button
                                         name="action_use_all_amount_residual"
                                         type="object"
@@ -211,7 +207,7 @@
                         class="oe_highlight"
                         confirm="Are you sure you want to use the selected configuration to clear invoices? This operation will create a new move and will reconcile every line with its respective counterpart."
                         data-hotkey="c"
-                        invisible="not move_data"
+                        invisible="not move_data or move_data == '[]'"
                     />
                     <button
                         string="Cancel"
