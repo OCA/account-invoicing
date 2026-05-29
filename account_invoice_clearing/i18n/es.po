@@ -4,42 +4,23 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-12 10:57+0000\n"
-"PO-Revision-Date: 2023-07-29 10:09+0000\n"
-"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"POT-Creation-Date: 2026-05-29 09:40+0000\n"
+"PO-Revision-Date: 2026-05-29 11:40+0200\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
-
-#. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid ""
-"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
-"invisible=\"1\">Actions:</span>"
-msgstr ""
-"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
-"invisible=\"1\">Acciones:</span>"
-
-#. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid ""
-"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
-"invisible=\"1\">Sort by:</span>"
-msgstr ""
-"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
-"invisible=\"1\">Corta por:</span>"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.6\n"
 
 #. module: account_invoice_clearing
 #. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__account_id
-#, python-format
 msgid "Account"
 msgstr "Cuenta"
 
@@ -54,19 +35,8 @@ msgid "Amount To Clear"
 msgstr "Importe a compensar"
 
 #. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Residual Amount (asc)"
-msgstr "Importe residual (asc)"
-
-#. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Residual Amount (desc)"
-msgstr "Importe residual (desc)"
-
-#. module: account_invoice_clearing
 #. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
-#, python-format
 msgid "Amount to clear cannot be greater than residual amount."
 msgstr "El importe a compensar no puede ser superior a la cantidad residual."
 
@@ -74,12 +44,17 @@ msgstr "El importe a compensar no puede ser superior a la cantidad residual."
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
 msgid ""
 "Are you sure you want to use the selected configuration to clear invoices? "
-"This operation will create a new move and will reconcile every line with its "
-"respective counterpart."
+"This operation will create a new move and will reconcile every line with "
+"its respective counterpart."
 msgstr ""
 "¿Está seguro que quiere utilizar la configuración seleccionada para "
 "compensar las facturas? Ésta operación creará nuevo(s) movimiento(s) y "
 "conciliará cada línea con su respectiva contrapartida."
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Auto Fill"
+msgstr "Auto Rellenar"
 
 #. module: account_invoice_clearing
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__can_use_line
@@ -138,7 +113,6 @@ msgstr "Creado el"
 #. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__credit
-#, python-format
 msgid "Credit"
 msgstr "Crédito"
 
@@ -149,51 +123,38 @@ msgid "Date"
 msgstr "Fecha"
 
 #. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Due Date (asc)"
-msgstr "Fecha de vencimiento (asc)"
-
-#. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Due Date (desc)"
-msgstr "Fecha de vencimiento (desc)"
-
-#. module: account_invoice_clearing
 #. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__debit
-#, python-format
 msgid "Debit"
 msgstr "Débito"
 
 #. module: account_invoice_clearing
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__display_name
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__display_name
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_move__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: account_invoice_clearing
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__date_maturity
-msgid "Due Date"
-msgstr "Fecha de vencimiento"
-
-#. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Fill amounts in order"
-msgstr "Rellenar importes en orden"
+msgid "Due Date"
+msgstr "Fecha de Vencimiento"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
 msgid ""
-"Fills the amount to clear with the residual amount of the invoice until the "
-"total residual amount is zero."
+"Fills the amount to clear with the residual amount of the invoice in order "
+"until the total residual amount is zero."
 msgstr ""
-"Rellena el importe a compensar con la cantidad residual de las facturas "
-"hasta que la cantidad residual es cero."
+"Rellena el importe a compensar con la cantidad residual de las facturas en "
+"orden hasta que la cantidad residual es cero."
 
 #. module: account_invoice_clearing
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__id
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__id
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_move__id
 msgid "ID"
 msgstr "ID(identificador)"
 
@@ -217,21 +178,18 @@ msgstr "Compensación de facturas"
 #. module: account_invoice_clearing
 #. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
-#, python-format
 msgid "Invoices must be from the same commercial partner."
 msgstr "Las facturas deben ser del mismo Partner Comercial."
 
 #. module: account_invoice_clearing
 #. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
-#, python-format
 msgid "Invoices must be of the same type."
 msgstr "Las facturas deben ser del mismo tipo."
 
 #. module: account_invoice_clearing
 #. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
-#, python-format
 msgid "Invoices must belong to the same company."
 msgstr "Las facturas deben pertenecer a la misma compañía."
 
@@ -265,15 +223,8 @@ msgstr "Asiento contable"
 #. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__name
-#, python-format
 msgid "Label"
 msgstr "Etiqueta"
-
-#. module: account_invoice_clearing
-#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard____last_update
-#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
 
 #. module: account_invoice_clearing
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__write_uid
@@ -341,7 +292,6 @@ msgstr "Referencia del Movimiento de Compensación"
 #. module: account_invoice_clearing
 #. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
-#, python-format
 msgid "Partner"
 msgstr "Contacto"
 
@@ -366,7 +316,6 @@ msgstr "Vista previa de datos de movimiento"
 #. module: account_invoice_clearing
 #. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
-#, python-format
 msgid "Preview of the clearing move related to %s"
 msgstr "Previsualización del Movimiento de Compensación relacionado con %s"
 
@@ -379,18 +328,19 @@ msgstr "Producto"
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
 msgid "Removes all lines and adds all available move lines again."
 msgstr ""
-"Elimina todas las líneas y vuelve a añadir todas las líneas disponibles para "
-"la compensación."
+"Elimina todas las líneas y vuelve a añadir todas las líneas disponibles "
+"para la compensación."
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Reset lines"
-msgstr "Reiniciar líneas"
+msgid "Reset"
+msgstr "Reiniciar"
 
 #. module: account_invoice_clearing
 #: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__amount_residual
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
 msgid "Residual Amount"
-msgstr "Importe residual"
+msgstr "Importe Residual"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
@@ -405,7 +355,6 @@ msgstr "Importe residual a compensar (con signo)"
 #. module: account_invoice_clearing
 #. odoo-python
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
-#, python-format
 msgid "Resulting Clearing Move"
 msgstr "Movimiento de compensación resultante"
 
@@ -421,24 +370,13 @@ msgstr "Secuencia"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Sorts the invoices by date due ascending."
-msgstr "Ordena las líneas de las facturas por fecha de vencimiento ascendente."
+msgid "Sorts the invoices by date due."
+msgstr "Ordena las facturas por fecha de vencimiento."
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Sorts the invoices by date due descending."
-msgstr ""
-"Ordena las líneas de las facturas por fecha de vencimiento descendente."
-
-#. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Sorts the invoices by residual amount ascending."
-msgstr "Ordena las líneas de las facturas por importe residual ascendente."
-
-#. module: account_invoice_clearing
-#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
-msgid "Sorts the invoices by residual amount descending."
-msgstr "Ordena las líneas de las facturas por importe residual descendente."
+msgid "Sorts the invoices by residual amount."
+msgstr "Ordena las líneas de las facturas por importe residual."
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
@@ -471,44 +409,3 @@ msgstr "Total del Importe residual (con signo)"
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
 msgid "Use"
 msgstr "Utilizar"
-
-#~ msgid "Add all compensation lines"
-#~ msgstr "Añadir todas las líneas a compensar"
-
-#~ msgid "Adds all available compensation lines to allow use it."
-#~ msgstr ""
-#~ "Añade todas las líneas disponibles para la compensación para poder ser "
-#~ "utilizadas."
-
-#~ msgid "Analytic Account"
-#~ msgstr "Cuenta analítica"
-
-#~ msgid "Analytic Tags"
-#~ msgstr "Etiquetas analíticas"
-
-#~ msgid "Are you sure you want to clear the invoices?"
-#~ msgstr "¿Está seguro que quiere compensar las facturas?"
-
-#~ msgid "Empty lines"
-#~ msgstr "Vaciar líneas"
-
-#~ msgid "Removes all invoices."
-#~ msgstr "Elimina todas las líneas de Compensación."
-
-#~ msgid "The move of this entry line."
-#~ msgstr "El apunte de este asiento."
-
-#~ msgid "Utility field to express amount currency"
-#~ msgstr "Campo de utilidad para expresar la moneda del importe"
-
-#~ msgid ""
-#~ "<span class=\"o_form_label\" style=\"font-weight:bolder;\">Actions:</span>"
-#~ msgstr ""
-#~ "<span class=\"o_form_label\" style=\"font-weight:bolder;\">Acciones:</"
-#~ "span>"
-
-#~ msgid ""
-#~ "<span class=\"o_form_label\" style=\"font-weight:bolder;\">Sort by:</span>"
-#~ msgstr ""
-#~ "<span class=\"o_form_label\" style=\"font-weight:bolder;\">Ordenar por:</"
-#~ "span>"

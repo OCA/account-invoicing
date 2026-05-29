@@ -277,42 +277,40 @@ class AccountInvoiceClearingWizard(models.TransientModel):
             self.line_ids = new_lines
         return self.action_reopen_wizard()
 
-    def _action_sort_by_date_due(self, reverse=False):
+    def action_sort_by_date_due(self, reverse=False):
         """Sort lines by date due."""
         self.ensure_one()
+        if len(self.line_ids) <= 1:
+            return self.action_reopen_wizard()
+        # Sort lines by _order and get first and last line to know the current order
+        sorted_lines = self.line_ids.sorted()  # sort by _order
+        first_line, last_line = sorted_lines[:1], sorted_lines[-1:]
         max_date = datetime.max.date()
+        # Sort by date maturity (current order of self.line_ids is not important)
         sorted_lines = self.line_ids.sorted(
-            key=lambda line: line.date_maturity or max_date, reverse=reverse
+            key=lambda line: line.date_maturity or max_date,
+            reverse=first_line.date_maturity < last_line.date_maturity,
         )
         for seq, line in enumerate(sorted_lines, start=10):
             line.sequence = seq
         return self.action_reopen_wizard()
 
-    def action_sort_by_date_due_asc(self):
-        """Sort lines by date due ascending."""
-        return self._action_sort_by_date_due(reverse=False)
-
-    def action_sort_by_date_due_desc(self):
-        """Sort lines by date due descending."""
-        return self._action_sort_by_date_due(reverse=True)
-
-    def _action_sort_by_residual(self, reverse=False):
+    def action_sort_by_residual(self):
         """Sort lines by residual amount."""
         self.ensure_one()
+        if len(self.line_ids) <= 1:
+            return self.action_reopen_wizard()
+        # Sort lines by _order and get first and last line to know the current order
+        sorted_lines = self.line_ids.sorted()  # sort by _order
+        first_line, last_line = sorted_lines[:1], sorted_lines[-1:]
+        # Sort by date maturity (current order of self.line_ids is not important)
         sorted_lines = self.line_ids.sorted(
-            key=lambda line: line.amount_residual, reverse=reverse
+            key=lambda line: line.amount_residual or 0.0,
+            reverse=first_line.amount_residual < last_line.amount_residual,
         )
         for seq, line in enumerate(sorted_lines, start=10):
             line.sequence = seq
         return self.action_reopen_wizard()
-
-    def action_sort_by_residual_asc(self):
-        """Sort lines by residual amount ascending."""
-        return self._action_sort_by_residual(reverse=False)
-
-    def action_sort_by_residual_desc(self):
-        """Sort lines by residual amount descending."""
-        return self._action_sort_by_residual(reverse=True)
 
     def button_confirm(self):
         """Create the clearing move."""

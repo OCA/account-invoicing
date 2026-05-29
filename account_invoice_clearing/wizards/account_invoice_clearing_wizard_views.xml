@@ -13,7 +13,7 @@
         <field name="name">account.invoice.clearing.wizard.form.view</field>
         <field name="model">account.invoice.clearing.wizard</field>
         <field name="arch" type="xml">
-            <form string="Invoice clearing">
+            <form string="Invoice clearing" class="mt-n3">
                 <field name="invoice_ids" invisible="1" />
                 <field name="company_id" invisible="1" />
                 <field name="amount_to_clear" invisible="1" />
@@ -41,6 +41,7 @@
                     <group
                         name="group_move_lines_to_clear"
                         string="Move Lines to clear"
+                        class="mt-n3"
                     >
                         <field name="move_line_ids" nolabel="1" colspan="2">
                             <list limit="4" no_open="true">
@@ -67,61 +68,44 @@
                         name="group_invoices_to_clear_with"
                         string="Move Lines to use for clearing"
                         colspan="2"
+                        class="mt-n5"
                     >
-                        <div name="group_lines_actions" class="o_row mb-2" colspan="2">
+                        <div
+                            name="group_lines_actions_and_sort"
+                            class="o_row d-block"
+                            colspan="2"
+                        >
                             <button
                                 name="action_fill_amount_to_clear"
                                 type="object"
-                                string="Fill amounts in order"
-                                icon="fa-arrow-right"
-                                class="btn-primary"
-                                help="Fills the amount to clear with the residual amount of the invoice until the total residual amount is zero."
+                                string="Auto Fill"
+                                icon="fa-magic"
+                                class="btn-primary float-start"
+                                help="Fills the amount to clear with the residual amount of the invoice in order until the total residual amount is zero."
                             />
                             <button
                                 name="action_reset_lines"
                                 type="object"
-                                string="Reset lines"
+                                string="Reset"
                                 icon="fa-refresh"
-                                class="btn-outline-primary"
+                                class="btn-outline-primary float-start"
                                 help="Removes all lines and adds all available move lines again."
                             />
-                        </div>
-                        <div
-                            name="group_lines_sort"
-                            class="o_row float-end mb-1"
-                            colspan="2"
-                        >
                             <button
-                                name="action_sort_by_date_due_asc"
+                                name="action_sort_by_residual"
                                 type="object"
-                                string="Due Date (asc)"
-                                icon="fa-sort-alpha-asc"
-                                class="oe_link"
-                                help="Sorts the invoices by date due ascending."
+                                string="Residual Amount"
+                                icon="fa-sort"
+                                class="oe_link float-end"
+                                help="Sorts the invoices by residual amount."
                             />
                             <button
-                                name="action_sort_by_date_due_desc"
+                                name="action_sort_by_date_due"
                                 type="object"
-                                string="Due Date (desc)"
-                                icon="fa-sort-alpha-desc"
-                                class="oe_link"
-                                help="Sorts the invoices by date due descending."
-                            />
-                            <button
-                                name="action_sort_by_residual_asc"
-                                type="object"
-                                string="Residual Amount (asc)"
-                                icon="fa-sort-numeric-asc"
-                                class="oe_link"
-                                help="Sorts the invoices by residual amount ascending."
-                            />
-                            <button
-                                name="action_sort_by_residual_desc"
-                                type="object"
-                                string="Residual Amount (desc)"
-                                icon="fa-sort-numeric-desc"
-                                class="oe_link"
-                                help="Sorts the invoices by residual amount descending."
+                                string="Due Date"
+                                icon="fa-sort"
+                                class="oe_link float-end"
+                                help="Sorts the invoices by date due."
                             />
                         </div>
 
@@ -172,6 +156,7 @@
                                         string="Use"
                                         icon="fa-arrow-right"
                                         invisible="not can_use_line"
+                                        width="60"
                                     />
                                 </list>
                             </field>
@@ -182,6 +167,7 @@
                         string="The following Journal Entries will be generated"
                         colspan="2"
                         invisible="not move_data"
+                        class="mt-n5"
                     >
                         <div
                             class="alert alert-info mb-0"
