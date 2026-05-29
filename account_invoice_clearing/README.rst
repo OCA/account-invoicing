@@ -14,9 +14,9 @@ Account Invoice Clearing
    !! source digest: sha256:7879386b9302d947d1f1ea6c19113b9fbfb4deed700a8ddd74b60fe03f5ac6d3
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
+.. |badge1| image:: https://img.shields.io/badge/maturity-Production%2FStable-green.png
     :target: https://odoo-community.org/page/development-status
-    :alt: Alpha
+    :alt: Production/Stable
 .. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
@@ -39,11 +39,6 @@ opposite types. *out\_* types are cleared with *in\_* types and vice
 versa. The invoices to be cleared have to be not paid or partially paid.
 The wizard will use the residual amount of the invoices in the clearing
 process.
-
-.. IMPORTANT::
-   This is an alpha version, the data model and design can change at any time without warning.
-   Only for development or testing purpose, do not use in production.
-   `More details on development status <https://odoo-community.org/page/development-status>`_
 
 **Table of contents**
 

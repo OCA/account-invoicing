@@ -5,7 +5,7 @@
     "name": "Account Invoice Clearing",
     "summary": "Account invoice clearing wizard",
     "version": "19.0.1.0.0",
-    "development_status": "Alpha",
+    "development_status": "Production/Stable",
     "category": "Accounting/Accounting",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Moduon, Odoo Community Association (OCA)",
