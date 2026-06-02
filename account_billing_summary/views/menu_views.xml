@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ecosoft Co., Ltd (https://ecosoft.co.th/)
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html) -->
+<odoo>
+    <menuitem
+        id="menu_billing_summary"
+        name="Billing Summary"
+        parent="account.account_reports_management_menu"
+        action="account_billing_summary.action_billing_summary_wizard"
+        sequence="50"
+        groups="account.group_account_readonly,account.group_account_invoice"
+    />
+</odoo>
