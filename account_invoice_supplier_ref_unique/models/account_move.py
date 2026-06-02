@@ -14,7 +14,7 @@ class AccountMove(models.Model):
         copy=False,
     )
 
-    @api.constrains("supplier_invoice_number")
+    @api.constrains("supplier_invoice_number", "commercial_partner_id")
     def _check_unique_supplier_invoice_number_insensitive(self):
         """
         Check if an other vendor bill has the same supplier_invoice_number

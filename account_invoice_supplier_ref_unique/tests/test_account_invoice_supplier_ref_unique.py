@@ -91,6 +91,43 @@ class TestAccountInvoiceSupplierRefUnique(AccountTestInvoicingCommon):
         # Should not raise an error when supplier_invoice_number is empty
         self.assertEqual(invoice.supplier_invoice_number, "")
 
+    def test_change_partner_triggers_duplicate_check(self):
+        partner_b = self.env["res.partner"].create({"name": "Test Partner B"})
+        bill_1 = self.account_move.create(
+            {
+                "partner_id": self.partner.id,
+                "move_type": "in_invoice",
+                "supplier_invoice_number": "DUP-001",
+                "invoice_line_ids": [(0, 0, {"partner_id": self.partner.id})],
+            }
+        )
+        bill_2 = self.account_move.create(
+            {
+                "partner_id": partner_b.id,
+                "move_type": "in_invoice",
+                "supplier_invoice_number": "DUP-001",
+                "invoice_line_ids": [(0, 0, {"partner_id": partner_b.id})],
+            }
+        )
+
+        self.assertEqual(bill_1.supplier_invoice_number, bill_2.supplier_invoice_number)
+        with self.assertRaises(ValidationError):
+            bill_2.write({"partner_id": self.partner.id})
+
+    def test_change_partner_without_duplicate_is_allowed(self):
+        partner_b = self.env["res.partner"].create({"name": "Test Partner C"})
+        bill = self.account_move.create(
+            {
+                "partner_id": partner_b.id,
+                "move_type": "in_invoice",
+                "supplier_invoice_number": "SAFE-001",
+                "invoice_line_ids": [(0, 0, {"partner_id": partner_b.id})],
+            }
+        )
+
+        bill.write({"partner_id": self.partner.id})
+        self.assertEqual(bill.partner_id, self.partner)
+
     def test_onchange_supplier_invoice_number(self):
         self.invoice._onchange_supplier_invoice_number()
         self.assertEqual(
