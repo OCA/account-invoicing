@@ -81,8 +81,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
             self.assertEqual(
                 stock_move[field],
                 sale_order_line[field],
-                f"Field {field} failed to transfer from sale.order.line "
-                "to stock.move",
+                f"Field {field} failed to transfer from sale.order.line to stock.move",
             )
 
     def test_02_picking_sale_order_product_and_service(self):
@@ -351,11 +350,11 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         line_section = invoice.invoice_line_ids.filtered(
             lambda line: line.display_type == "line_section"
         )
-        assert line_section, "Invoice without Line Section for Down Payment."
+        self.assertTrue(line_section, "Invoice without Line Section for Down Payment.")
         down_payment_line = invoice.invoice_line_ids.filtered(
             lambda line: line.sale_line_ids.is_downpayment
         )
-        assert down_payment_line, "Invoice without Down Payment line."
+        self.assertTrue(down_payment_line, "Invoice without Down Payment line.")
 
     def test_06_default_value_sale_invoicing_policy(self):
         """Test default value for sale_invoicing_policy"""
@@ -419,8 +418,10 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         self.assertNotIn(self.product_service, picking_invoice_products)
         self.assertTrue(
             picking_invoice.invoice_line_ids.filtered(
-                lambda ln: ln.display_type == "line_section"
-                and ln.name == self.product_combo.name
+                lambda ln: (
+                    ln.display_type == "line_section"
+                    and ln.name == self.product_combo.name
+                )
             ),
             "Combo header should appear as a section on the picking invoice",
         )
@@ -439,8 +440,10 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         picking_invoice = create_with_form_inv_onshipping(self.env, picking)
         self.assertTrue(
             picking_invoice.invoice_line_ids.filtered(
-                lambda ln: ln.display_type == "line_section"
-                and ln.name == self.product_combo.name
+                lambda ln: (
+                    ln.display_type == "line_section"
+                    and ln.name == self.product_combo.name
+                )
             ),
             "Combo header should appear as a section on the picking invoice",
         )

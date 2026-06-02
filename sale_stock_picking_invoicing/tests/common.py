@@ -173,6 +173,9 @@ class TestSaleStockPickingInvoicingCommon(TestStockPickingInvoicingCommon):
             [{"product_id": cls.product_storable_2}],
         )
 
+        # Combo product uses direct .create() instead of Form because
+        # combo products require linking combo_ids via Command.link which
+        # is not easily handled through the Form helper.
         cls.product_combo = cls.env["product.product"].create(
             {
                 "name": "Test Meal Combo",
