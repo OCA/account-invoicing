@@ -1,7 +1,10 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import Command, exceptions
+from odoo import Command
+from odoo.exceptions import UserError
+from odoo.tests import new_test_user
+from odoo.tools import mute_logger
 
 from .common import TestStockPickingInvoicingCommon
 from .tools import (
@@ -50,7 +53,7 @@ class TestStockPickingInvoicing(TestStockPickingInvoicingCommon):
         wizard_values = wizard_obj.default_get(fields_list)
         wizard = wizard_obj.create(wizard_values)
         wizard.onchange_group()
-        with self.assertRaises(exceptions.UserError) as e:
+        with self.assertRaises(UserError) as e:
             wizard.with_context(lang="en_US").action_generate()
         msg = "No invoice created!"
         self.assertIn(msg, e.exception.args[0])
@@ -129,7 +132,7 @@ class TestStockPickingInvoicing(TestStockPickingInvoicingCommon):
                 inv_line.price_unit, 345.0, "Error in Price Unit informed by User."
             )
 
-    def test_06_picking_cancel(self):
+    def test_06_invoice_cancel(self):
         """
         Ensure that the invoice_state of the picking is correctly
         updated when an invoice is cancelled
@@ -390,5 +393,32 @@ class TestStockPickingInvoicing(TestStockPickingInvoicingCommon):
             line.quantity = 10
 
         picking.button_validate()
-        with self.assertRaises(exceptions.UserError):
+        with self.assertRaises(UserError):
             create_with_form_inv_onshipping(self.env, self.env["stock.picking"])
+
+    @mute_logger("odoo.addons.auth_signup.models.res_users")
+    def test_16_picking_cancel_without_permission(self):
+        """User without the cancel group cannot cancel a picking with invoiced moves."""
+        picking = self.picking_out_1
+        picking.set_to_be_invoiced()
+        self.picking_move_state(picking, "confirmed")
+        create_with_form_inv_onshipping(self.env, picking)
+        regular_user = new_test_user(
+            self.env,
+            login="regular_user_no_cancel_perm",
+            groups="stock.group_stock_user,account.group_account_invoice",
+        )
+        with self.assertRaises(UserError):
+            picking.with_user(regular_user).action_cancel()
+        self.assertNotEqual(picking.state, "cancel")
+
+    @mute_logger("odoo.addons.auth_signup.models.res_users")
+    def test_17_picking_cancel_with_permission(self):
+        """Stock Manager can cancel a picking with invoiced, non-done moves."""
+        picking = self.picking_out_1
+        picking.set_to_be_invoiced()
+        create_with_form_inv_onshipping(self.env, picking)
+        self.picking_move_state(picking, "confirmed")
+        self.assertNotEqual(picking.state, "done")
+        picking.with_user(self.env.user).action_cancel()
+        self.assertEqual(picking.state, "cancel")
