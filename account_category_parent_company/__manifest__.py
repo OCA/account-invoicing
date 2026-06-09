@@ -13,5 +13,7 @@
     "depends": [
         "account",
     ],
-    "data": [],
+    "data": [
+        "views/product_category.xml",
+    ],
 }

@@ -1,19 +1,37 @@
-from odoo import models
+from odoo import fields, models
+
+HELP = "This account is used if the account in the current company is not defined"
 
 
-class ProductTemplate(models.Model):
-    _inherit = "product.template"
+class ProductCategory(models.Model):
+    _inherit = "product.category"
 
-    def _get_product_accounts(self):
-        super()._get_product_accounts()
-        parent_company = self.env.company.parent_id or self.env.company
-        return {
-            "income": self.property_account_income_id
-            or self.with_company(parent_company.id)._get_category_account(
-                "property_account_income_categ_id"
-            ),
-            "expense": self.property_account_expense_id
-            or self.with_company(parent_company.id)._get_category_account(
-                "property_account_expense_categ_id"
-            ),
-        }
+    account_expense_parent_id = fields.Many2one(
+        comodel_name="account.account",
+        string="Parent Company Account Expense",
+        compute="_compute_account_categ_parent",
+        help=HELP,
+    )
+    account_income_parent_id = fields.Many2one(
+        comodel_name="account.account",
+        string="Parent Company Account Income",
+        compute="_compute_account_categ_parent",
+        help=HELP,
+    )
+
+    def _compute_account_categ_parent(self):
+        company = self.env.company.parent_id or self.env.company
+
+        def my_parent_account(product, myfield):
+            return product.with_company(company.id)._get_category_account(myfield)
+
+        for rec in self:
+            product = self.env["product.template"].search(
+                [("categ_id", "=", rec.id)], limit=1
+            )
+            rec.account_expense_parent_id = my_parent_account(
+                product, "property_account_expense_categ_id"
+            )
+            rec.account_income_parent_id = my_parent_account(
+                product, "property_account_income_categ_id"
+            )
