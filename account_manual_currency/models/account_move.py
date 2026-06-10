@@ -136,6 +136,34 @@ class AccountMove(models.Model):
             result["arch"] = etree.tostring(doc, encoding="unicode")
         return result
 
+    def _recompute_tax_lines(
+        self, recompute_tax_base_amount=False, tax_rep_lines_to_recompute=None
+    ):
+        """Recmpute tax with manual currency"""
+        self.ensure_one()
+        res = super()._recompute_tax_lines(
+            recompute_tax_base_amount=recompute_tax_base_amount,
+            tax_rep_lines_to_recompute=tax_rep_lines_to_recompute,
+        )
+        if self.manual_currency:
+            for line_tax in self.line_ids:
+                if not line_tax.tax_line_id:
+                    continue
+
+                rate = (
+                    self.manual_currency_rate
+                    if self.type_currency == "inverse_company_rate"
+                    else (1.0 / self.manual_currency_rate)
+                )
+                balance = line_tax.amount_currency * rate
+                line_tax.debit = balance if balance > 0.0 else 0.0
+                line_tax.credit = -balance if balance < 0.0 else 0.0
+                # Recompute again
+                if not line_tax.tax_line_id.price_include:
+                    self.line_ids._onchange_amount_currency()
+
+        return res
+
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
