@@ -13,6 +13,7 @@
     "data": [
         "security/account_invoice_security.xml",
         "views/res_config_settings.xml",
+        "views/account_journal.xml",
         "views/account_invoice.xml",
     ],
 }

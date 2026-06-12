@@ -4,4 +4,8 @@
         <field name="name">Check Total on Vendor Bills</field>
         <field name="category_id" ref="base.module_category_hidden" />
     </record>
+    <record id="group_supplier_inv_adjust_total" model="res.groups">
+        <field name="name">Create Supplier Invoice Adjustment Line</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
 </odoo>
