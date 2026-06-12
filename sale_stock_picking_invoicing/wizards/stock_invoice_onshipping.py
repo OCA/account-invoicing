@@ -330,8 +330,8 @@ class StockInvoiceOnshipping(models.TransientModel):
             # [(6, 0, {})]
             if line[2]:
                 sale_line = line[2].get("sale_line_ids")
-                if sale_line:
-                    # [(6, 0, [58])]
+                # [(<Command.SET: 6>, 0, [])]
+                if sale_line[0][2]:
                     line[2]["sequence"] = invoice_item_seq_dict.get(sale_line[0][2][0])
 
         # Down Payments
