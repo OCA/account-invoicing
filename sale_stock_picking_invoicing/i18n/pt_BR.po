@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-06-12 11:32+0000\n"
+"PO-Revision-Date: 2026-06-12 11:43+0000\n"
 "Last-Translator: felipemotter <felipkin@gmail.com>\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
@@ -29,18 +29,20 @@ msgstr "Configurações"
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_stock_invoice_onshipping__deduct_down_payments
 msgid "Deduct down payments"
-msgstr ""
+msgstr "Deduzir adiantamentos"
 
 #. module: sale_stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:sale_stock_picking_invoicing.sale_stock_picking_invoicing_res_config_settings_form
 msgid ""
 "Define if Invoice should be created from Sale Order or from Stock Picking"
 msgstr ""
+"Defina se a fatura deve ser criada a partir do Pedido de Venda ou da "
+"Transferência de Estoque"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_stock_invoice_onshipping__has_down_payments
 msgid "Has down payments"
-msgstr ""
+msgstr "Possui adiantamentos"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields,help:sale_stock_picking_invoicing.field_res_company__sale_invoicing_policy
@@ -49,52 +51,57 @@ msgid ""
 "If set to Sale Order, keep native Odoo behaviour for creation of invoices from Sale Orders.\n"
 "If set to Stock Picking, disallow creation of Invoices from Sale Orders for the cases where Product Type are 'Product', in case of 'Service' still will be possible create from Sale Order."
 msgstr ""
+"Se definido como Pedido de Venda, mantém o comportamento nativo do Odoo para "
+"a criação de faturas a partir de Pedidos de Venda.\n"
+"Se definido como Transferência de Estoque, impede a criação de faturas a "
+"partir de Pedidos de Venda quando o tipo do produto for 'Produto'. No caso "
+"de 'Serviço', ainda será possível criá-las a partir do Pedido de Venda."
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_res_company__sale_invoicing_policy
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_res_config_settings__sale_invoicing_policy
 msgid "Sale Invoicing Policy"
-msgstr ""
+msgstr "Política de Faturamento de Vendas"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields.selection,name:sale_stock_picking_invoicing.selection__res_company__sale_invoicing_policy__sale_order
 msgid "Sale Order"
-msgstr ""
+msgstr "Pedido de Venda"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Pedido de Venda"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_sale_order_line
 msgid "Sales Order Line"
-msgstr ""
+msgstr "Linha do Pedido de Venda"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_stock_invoice_onshipping
 msgid "Stock Invoice Onshipping"
-msgstr ""
+msgstr "Faturamento na Transferência de Estoque"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_stock_move
 msgid "Stock Move"
-msgstr ""
+msgstr "Movimentação de Estoque"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields.selection,name:sale_stock_picking_invoicing.selection__res_company__sale_invoicing_policy__stock_picking
 msgid "Stock Picking"
-msgstr ""
+msgstr "Transferência de Estoque"
 
 #. module: sale_stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:sale_stock_picking_invoicing.sale_stock_picking_invoicing_res_config_settings_form
 msgid "This default value is applied to creation of Invoice."
-msgstr ""
+msgstr "Este valor padrão é aplicado à criação da fatura."
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "Transferência"
 
 #. module: sale_stock_picking_invoicing
 #. odoo-python
@@ -105,3 +112,7 @@ msgid ""
 "only be created from the Stock Picking, if necessary you can change in the "
 "Company or Sale Settings."
 msgstr ""
+"Quando a 'Política de Faturamento de Vendas' estiver definida como "
+"'Transferência de Estoque', a fatura somente poderá ser criada a partir da "
+"Transferência de Estoque. Se necessário, altere essa opção nas configurações "
+"da Empresa ou de Vendas."
