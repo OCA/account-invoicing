@@ -86,6 +86,8 @@ class AccountMove(models.Model):
 
     @api.onchange("manual_currency", "type_currency", "currency_id", "date")
     def _onchange_currency_change_rate(self):
+        if not self.currency_id:
+            return
         today = fields.Date.today()
         company_currency = self.env.company.currency_id
         amount_currency = company_currency._get_conversion_rate(
@@ -129,16 +131,10 @@ class AccountMove(models.Model):
 
     @api.onchange("manual_currency_rate")
     def _onchange_manual_currency_rate(self):
-        last_rate = self.env["res.currency.rate"]._get_last_rates_for_companies(
-            self.company_id | self.env.company
-        )
+        """Refresh currency rate if manual currency rate is 0"""
         for move in self:
             if move.manual_currency and not move.manual_currency_rate:
-                move.manual_currency_rate = (
-                    last_rate[self.company_id]
-                    if move.type_currency == "inverse_company_rate"
-                    else (1.0 / last_rate[self.company_id])
-                )
+                move.action_refresh_currency()
 
 
 class AccountMoveLine(models.Model):
@@ -150,7 +146,10 @@ class AccountMoveLine(models.Model):
     def _compute_currency_rate(self):
         res = super()._compute_currency_rate()
         for line in self:
-            if not line.move_id.manual_currency:
+            if not (
+                line.move_id.manual_currency
+                and line.move_id._origin.manual_currency_rate
+            ):
                 continue
             # Currency Rate on move line use 'company_rate'
             rate = (

@@ -130,3 +130,25 @@ class TestAccountManualCurrency(TransactionCase):
         self.assertAlmostEqual(
             payment.move_id.total_company_currency, invoice1.total_company_currency
         )
+
+    def test_02_manual_currency_rate_zero_refresh(self):
+        """Resetting the manual rate to 0 refreshes it from the daily rate"""
+        invoice = self._create_invoice(
+            self.partner1,
+            "in_invoice",
+            self.eur_currency,
+            True,
+            10,
+            "company_rate",
+        )
+        with Form(invoice) as inv:
+            inv.manual_currency_rate = 0
+        self.assertGreater(invoice.manual_currency_rate, 0)
+        self.assertNotEqual(invoice.manual_currency_rate, 10)
+
+    def test_03_onchange_rate_without_currency(self):
+        """Changing the rate must not fail while the currency is not set yet"""
+        move = self.inv_model.new({"move_type": "entry"})
+        move.currency_id = False
+        move._onchange_currency_change_rate()
+        self.assertFalse(move.manual_currency_rate)
