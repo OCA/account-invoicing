@@ -19,6 +19,10 @@
                     column_invisible="context.get('bill_type') != 'in_invoice'"
                     string="Vendor"
                 />
+                <field name="amount_untaxed" string="Tax Excluded" />
+                <field name="amount_total" />
+                <field name="amount_due" />
+                <field name="currency_id" optional="hide" />
                 <field name="date" />
                 <field name="threshold_date" />
                 <field name="payment_paid_all" />
@@ -222,6 +226,32 @@
                                     />
                                 </list>
                             </field>
+                            <group>
+                                <group class="oe_subtotal_footer">
+                                    <field
+                                        name="amount_untaxed"
+                                        widget="monetary"
+                                        readonly="1"
+                                    />
+                                    <field
+                                        name="amount_tax"
+                                        widget="monetary"
+                                        readonly="1"
+                                    />
+                                    <field
+                                        name="amount_total"
+                                        widget="monetary"
+                                        readonly="1"
+                                        class="fw-bold"
+                                    />
+                                    <field
+                                        name="amount_due"
+                                        widget="monetary"
+                                        readonly="1"
+                                        class="fw-bold"
+                                    />
+                                </group>
+                            </group>
                             <group>
                                 <group>
                                     <separator string="Notes" />
