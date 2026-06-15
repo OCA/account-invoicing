@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Hunki Enterprises BV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='advanced_settings']/group" position="inside">
+                <group
+                    name="account_invoice_check_total"
+                    string="Verification total"
+                    attrs="{'invisible': [('type', '!=', 'purchase')]}"
+                >
+                    <field name="account_invoice_check_total_exempt" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

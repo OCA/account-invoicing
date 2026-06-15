@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ===========================
 Account Invoice Check Total
 ===========================
@@ -17,7 +13,7 @@ Account Invoice Check Total
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
@@ -52,6 +48,10 @@ This can be done as follows:
 
  * on the Access Rights (Technical Settings) of the user
  * on the Invoicing Settings inside of the section *Vendor Payments*
+
+For more fine-grained control, you can exempt some journals from the verification by
+checking the box `Exempt from verification total check` in the advanced settings tab
+of the journal form. This is useful ie. for expenses journals.
 
 Bug Tracker
 ===========
