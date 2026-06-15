@@ -42,6 +42,14 @@ msgid "Config Settings"
 msgstr "Parametres Configurees"
 
 #. module: account_invoice_check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_bank_statement_line__check_total_exempt
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_journal__account_invoice_check_total_exempt
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total_exempt
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_payment__check_total_exempt
+msgid "Exempt from verification total check"
+msgstr ""
+
+#. module: account_invoice_check_total
 #: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 msgid ""
 "If you check this box, the system verifies that the total computed amount is "
@@ -49,6 +57,11 @@ msgid ""
 msgstr ""
 "Si vous cochez cette case, le système vérifiera que le total calculé est le "
 "même que le montant de vérification."
+
+#. module: account_invoice_check_total
+#: model:ir.model,name:account_invoice_check_total.model_account_journal
+msgid "Journal"
+msgstr ""
 
 #. module: account_invoice_check_total
 #: model:ir.model,name:account_invoice_check_total.model_account_move
@@ -83,6 +96,21 @@ msgstr "Difference Totale"
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_payment__check_total
 msgid "Verification Total"
 msgstr "Montant de vérification"
+
+#. module: account_invoice_check_total
+#: model_terms:ir.ui.view,arch_db:account_invoice_check_total.view_account_journal_form
+msgid "Verification total"
+msgstr ""
+
+#. module: account_invoice_check_total
+#: model:ir.model.fields,help:account_invoice_check_total.field_account_bank_statement_line__check_total_exempt
+#: model:ir.model.fields,help:account_invoice_check_total.field_account_journal__account_invoice_check_total_exempt
+#: model:ir.model.fields,help:account_invoice_check_total.field_account_move__check_total_exempt
+#: model:ir.model.fields,help:account_invoice_check_total.field_account_payment__check_total_exempt
+msgid ""
+"When this is checked, invoices with this journal will not force filling in "
+"the verification total. This is useful ie for the expense journal"
+msgstr ""
 
 #~ msgid "Invoice"
 #~ msgstr "Facture"
