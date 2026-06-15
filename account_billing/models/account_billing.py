@@ -101,6 +101,25 @@ class AccountBilling(models.Model):
         compute="_compute_payment_paid_all",
         store=True,
     )
+    amount_untaxed = fields.Monetary(
+        string="Untaxed Amount",
+        compute="_compute_tax_totals",
+        store=True,
+    )
+    amount_tax = fields.Monetary(
+        string="Tax Amount",
+        compute="_compute_tax_totals",
+        store=True,
+    )
+    amount_total = fields.Monetary(
+        string="Total Amount",
+        compute="_compute_tax_totals",
+        store=True,
+    )
+    amount_due = fields.Monetary(
+        compute="_compute_amount_due",
+        store=True,
+    )
 
     @api.model
     def _get_default_threshold_date_type(self):
@@ -132,6 +151,29 @@ class AccountBilling(models.Model):
 
     def _compute_invoice_related_count(self):
         self.invoice_related_count = len(self.billing_line_ids)
+
+    @api.depends("billing_line_ids.amount_residual")
+    def _compute_amount_due(self):
+        for rec in self:
+            rec.amount_due = sum(rec.billing_line_ids.mapped("amount_residual"))
+
+    @api.depends(
+        "billing_line_ids.move_id.amount_untaxed", "billing_line_ids.move_id.amount_tax"
+    )
+    def _compute_tax_totals(self):
+        for bill in self:
+            bill.amount_untaxed = 0.0
+            bill.amount_tax = 0.0
+            bill.amount_total = 0.0
+
+            for line in bill.billing_line_ids:
+                sign = (
+                    -1 if line.move_id.move_type in ["out_refund", "in_refund"] else 1
+                )
+                bill.amount_untaxed += line.move_id.amount_untaxed * sign
+                bill.amount_tax += line.move_id.amount_tax * sign
+
+            bill.amount_total = bill.amount_untaxed + bill.amount_tax
 
     @api.onchange("threshold_date_type")
     def _onchange_threshold_date_type(self):
