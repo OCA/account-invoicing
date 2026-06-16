@@ -22,7 +22,7 @@ class AccountMove(models.Model):
             )
             rounding = 10 ** (-precision_digits)
             zero_lines = self.invoice_line_ids.filtered(
-                lambda x: float_is_zero(
+                lambda x: x.product_uom_id and float_is_zero(
                     x.quantity,
                     precision_rounding=x.product_uom_id.rounding or rounding,
                 )
