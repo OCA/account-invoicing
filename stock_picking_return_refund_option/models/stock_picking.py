@@ -74,4 +74,11 @@ class StockPicking(models.Model):
             po_lines = self.mapped("move_ids.purchase_line_id").filtered(
                 lambda x: x.product_id.invoice_policy in ("order", "delivery")
             )
+            # Check if exists is_delivery field in purchase.order.line that has
+            # been added by delivery module, this module has not dependency of this.
+            # Otherwise, the PO will have an inconsistent `invoice_status`.
+            if hasattr(self.env["purchase.order.line"], "is_delivery"):
+                po_lines |= self.mapped("purchase_id.order_line").filtered(
+                    lambda x: x.is_delivery
+                )
             po_lines._compute_qty_received()
