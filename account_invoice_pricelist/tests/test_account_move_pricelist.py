@@ -216,11 +216,9 @@ class TestAccountMovePricelist(common.TransactionCase):
                 ],
             }
         )
-        cls.euro_currency = cls.env["res.currency"].search(
-            [("active", "=", False), ("name", "=", "EUR")]
-        )
+        cls.euro_currency = cls.env.ref("base.EUR")
         cls.euro_currency.active = True
-        cls.usd_currency = cls.env["res.currency"].search([("name", "=", "USD")])
+        cls.usd_currency = cls.env.ref("base.USD")
         cls.sale_pricelist_with_discount_in_euros = cls.ProductPricelist.create(
             {
                 "name": "Test Sale pricelist - 4",
