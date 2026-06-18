@@ -464,3 +464,21 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         )
         so_invoice.action_post()
         self.assertEqual(so_invoice.state, "posted")
+
+    def test_10_so_only_consu_with_notes_invoice_from_so_raises(self):
+        """
+        Under 'stock_picking', a SO whose only invoiceable content is
+        consu products (plus note/section lines) must raise the explicit
+        "invoice from the picking" error, instead of returning the
+        note/section lines and failing with Odoo's generic
+        "No items are available to invoice".
+        """
+        self.assertEqual(self.company.sale_invoicing_policy, "stock_picking")
+        # sale_order_3 = 2 consu products + 1 note + 1 section, no service
+        picking = self.run_sale_picking_process(self.sale_order_3)
+        self.assertEqual(picking.state, "done")
+        with self.assertRaises(exceptions.UserError) as e:
+            self.sale_order_3.with_context(active_model="sale.order")._create_invoices(
+                final=True
+            )
+        self.assertIn("Sale Invoicing Policy", e.exception.args[0])

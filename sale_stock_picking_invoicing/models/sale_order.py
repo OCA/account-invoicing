@@ -21,12 +21,12 @@ class SaleOrder(models.Model):
             so_invoiceable_lines = lines.filtered(
                 lambda ln: ln.product_id.type != "consu" and not ln.is_downpayment
             )
-            if so_invoiceable_lines:
+            if so_invoiceable_lines.filtered(lambda ln: not ln.display_type):
                 lines = so_invoiceable_lines
             else:
                 raise UserError(
                     self.env._(
-                        "When 'Sale Invoicing Policy' is defined as"
+                        "When 'Sale Invoicing Policy' is defined as "
                         "'Stock Picking' the Invoice can only be created"
                         " from the Stock Picking, if necessary you can change"
                         " in the Company or Sale Settings."
