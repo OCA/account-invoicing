@@ -31,7 +31,7 @@ addon | version | maintainers | summary
 [account_invoice_discount_display_amount](account_invoice_discount_display_amount/) | 17.0.1.0.0 |  | Show total discount applied and total without discount on invoices.
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 17.0.1.1.0 |  | Allows to apply fixed amount discounts in invoices.
 [account_invoice_mass_sending](account_invoice_mass_sending/) | 17.0.1.0.0 | <a href='https://github.com/jguenat'><img src='https://github.com/jguenat.png' width='32' height='32' style='border-radius:50%;' alt='jguenat'/></a> | This addon adds a mass sending feature on invoices.
-[account_invoice_pricelist](account_invoice_pricelist/) | 17.0.1.0.3 |  | Add partner pricelist on invoices
+[account_invoice_pricelist](account_invoice_pricelist/) | 17.0.1.0.4 |  | Add partner pricelist on invoices
 [account_invoice_refund_link](account_invoice_refund_link/) | 17.0.1.0.1 |  | Show links between refunds and their originator invoices.
 [account_invoice_section_sale_order](account_invoice_section_sale_order/) | 17.0.2.2.0 |  | For invoices targetting multiple sale order addsections with sale order name.
 [account_invoice_show_currency_rate](account_invoice_show_currency_rate/) | 17.0.1.0.0 | <a href='https://github.com/victoralmau'><img src='https://github.com/victoralmau.png' width='32' height='32' style='border-radius:50%;' alt='victoralmau'/></a> | Show currency rate in invoices.
