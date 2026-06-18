@@ -48,7 +48,7 @@ class StockMove(models.Model):
                 partner_id=partner, quantity=qty, date=date_done
             )
             if not seller:
-                po_line_uom = self.mapped("product_uom") or product.uom_po_id
+                po_line_uom = self.mapped("product_uom") or product.uom_id
                 price_unit = self.env["account.tax"]._fix_tax_included_price_company(
                     product.uom_id._compute_price(product.standard_price, po_line_uom),
                     product.supplier_taxes_id,
