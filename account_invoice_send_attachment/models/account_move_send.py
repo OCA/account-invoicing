@@ -3,9 +3,7 @@
 
 from odoo import api, models
 
-from odoo.addons.account_edi_ubl_cii.models.account_edi_common import (
-    SUPPORTED_FILE_TYPES,
-)
+from odoo.addons.account.models.ir_attachment import SUPPORTED_FILE_TYPES
 
 
 class AccountMoveSend(models.AbstractModel):
