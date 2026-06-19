@@ -40,6 +40,11 @@ msgstr ""
 "prelievo di magazzino"
 
 #. module: sale_stock_picking_invoicing
+#: model:product.pricelist,name:sale_stock_picking_invoicing.demo_pricelist
+msgid "Demo Pricelist"
+msgstr ""
+
+#. module: sale_stock_picking_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_stock_invoice_onshipping__has_down_payments
 msgid "Has down payments"
 msgstr "Ha acconti"
@@ -48,8 +53,11 @@ msgstr "Ha acconti"
 #: model:ir.model.fields,help:sale_stock_picking_invoicing.field_res_company__sale_invoicing_policy
 #: model:ir.model.fields,help:sale_stock_picking_invoicing.field_res_config_settings__sale_invoicing_policy
 msgid ""
-"If set to Sale Order, keep native Odoo behaviour for creation of invoices from Sale Orders.\n"
-"If set to Stock Picking, disallow creation of Invoices from Sale Orders for the cases where Product Type are 'Product', in case of 'Service' still will be possible create from Sale Order."
+"If set to Sale Order, keep native Odoo behaviour for creation of invoices "
+"from Sale Orders.\n"
+"If set to Stock Picking, disallow creation of Invoices from Sale Orders for "
+"the cases where Product Type are 'Product', in case of 'Service' still will "
+"be possible create from Sale Order."
 msgstr ""
 "Se impostato su ordine di vendita, mantenere il comportamento nativo di Odoo "
 "per la creazione di fatture da ordini di vendita. \n"
@@ -106,13 +114,19 @@ msgstr "Trasferimento"
 #. module: sale_stock_picking_invoicing
 #. odoo-python
 #: code:addons/sale_stock_picking_invoicing/models/sale_order.py:0
-#, python-format
 msgid ""
-"When 'Sale Invoicing Policy' is defined as'Stock Picking' the Invoice can "
+"When 'Sale Invoicing Policy' is defined as 'Stock Picking' the Invoice can "
 "only be created from the Stock Picking, if necessary you can change in the "
 "Company or Sale Settings."
 msgstr ""
-"Quando la \"Politica di fatturazione delle vendite\" è definita come "
-"\"Prelievo di magazzino\", la fattura può essere creata solo dal prelievo di "
-"magazzino; se necessario, è possibile apportare modifiche nelle Impostazioni "
-"aziendali o di vendita."
+
+#, python-format
+#~ msgid ""
+#~ "When 'Sale Invoicing Policy' is defined as'Stock Picking' the Invoice can "
+#~ "only be created from the Stock Picking, if necessary you can change in "
+#~ "the Company or Sale Settings."
+#~ msgstr ""
+#~ "Quando la \"Politica di fatturazione delle vendite\" è definita come "
+#~ "\"Prelievo di magazzino\", la fattura può essere creata solo dal prelievo "
+#~ "di magazzino; se necessario, è possibile apportare modifiche nelle "
+#~ "Impostazioni aziendali o di vendita."
