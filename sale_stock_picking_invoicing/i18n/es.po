@@ -17,6 +17,13 @@ msgstr ""
 "X-Generator: Weblate 5.15.2\n"
 
 #. module: sale_stock_picking_invoicing
+#: model_terms:ir.ui.view,arch_db:sale_stock_picking_invoicing.sale_stock_picking_invoicing_res_config_settings_form
+msgid ""
+"Choose whether invoices are created from the Sale Order, from the Stock "
+"Picking, or from both with automatic sync."
+msgstr ""
+
+#. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_res_company
 msgid "Companies"
 msgstr "Compañías"
@@ -30,12 +37,6 @@ msgstr "Ajustes de configuración"
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_stock_invoice_onshipping__deduct_down_payments
 msgid "Deduct down payments"
 msgstr "Deducir anticipos"
-
-#. module: sale_stock_picking_invoicing
-#: model_terms:ir.ui.view,arch_db:sale_stock_picking_invoicing.sale_stock_picking_invoicing_res_config_settings_form
-msgid ""
-"Define if Invoice should be created from Sale Order or from Stock Picking"
-msgstr "Define si una factura se debe crear desde un Pedido o desde un Albarán"
 
 #. module: sale_stock_picking_invoicing
 #: model:product.pricelist,name:sale_stock_picking_invoicing.demo_pricelist
@@ -54,14 +55,13 @@ msgid ""
 "If set to Sale Order, keep native Odoo behaviour for creation of invoices "
 "from Sale Orders.\n"
 "If set to Stock Picking, disallow creation of Invoices from Sale Orders for "
-"the cases where Product Type are 'Product', in case of 'Service' still will "
-"be possible create from Sale Order."
+"the cases where Product Type are 'consu', in case of 'Service' still will be "
+"possible create from Sale Order.\n"
+"If set to Sale Order and Stock Picking, invoices can be created from both "
+"the Sale Order and the Stock Picking. The picking invoice state is synced "
+"after Sale Order invoicing, and the picking wizard caps quantities to "
+"prevent double invoicing."
 msgstr ""
-"Si se establece en Pedido de venta, mantiene el comportamiento nativo de "
-"Odoo para la creación de facturas desde Pedidos de venta.\n"
-"Si se establece en Albarán, deshabilita la creación de facturas desde "
-"Pedidos de venta para los casos en que el Tipo de producto sea 'Producto'; "
-"en el caso de 'Servicio' aún será posible crear desde el Pedido de venta."
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_res_company__sale_invoicing_policy
@@ -74,6 +74,11 @@ msgstr "Política de facturación de ventas"
 #, fuzzy
 msgid "Sale Order"
 msgstr "Pedido"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model.fields.selection,name:sale_stock_picking_invoicing.selection__res_company__sale_invoicing_policy__both
+msgid "Sale Order and Stock Picking"
+msgstr ""
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_sale_order
@@ -120,6 +125,25 @@ msgid ""
 "only be created from the Stock Picking, if necessary you can change in the "
 "Company or Sale Settings."
 msgstr ""
+
+#~ msgid ""
+#~ "Define if Invoice should be created from Sale Order or from Stock Picking"
+#~ msgstr ""
+#~ "Define si una factura se debe crear desde un Pedido o desde un Albarán"
+
+#~ msgid ""
+#~ "If set to Sale Order, keep native Odoo behaviour for creation of invoices "
+#~ "from Sale Orders.\n"
+#~ "If set to Stock Picking, disallow creation of Invoices from Sale Orders "
+#~ "for the cases where Product Type are 'Product', in case of 'Service' "
+#~ "still will be possible create from Sale Order."
+#~ msgstr ""
+#~ "Si se establece en Pedido de venta, mantiene el comportamiento nativo de "
+#~ "Odoo para la creación de facturas desde Pedidos de venta.\n"
+#~ "Si se establece en Albarán, deshabilita la creación de facturas desde "
+#~ "Pedidos de venta para los casos en que el Tipo de producto sea "
+#~ "'Producto'; en el caso de 'Servicio' aún será posible crear desde el "
+#~ "Pedido de venta."
 
 #~ msgid ""
 #~ "When 'Sale Invoicing Policy' is defined as'Stock Picking' the Invoice can "
