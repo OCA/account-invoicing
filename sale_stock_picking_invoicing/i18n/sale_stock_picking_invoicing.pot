@@ -14,6 +14,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_stock_picking_invoicing
+#: model_terms:ir.ui.view,arch_db:sale_stock_picking_invoicing.sale_stock_picking_invoicing_res_config_settings_form
+msgid ""
+"Choose whether invoices are created from the Sale Order, from the Stock "
+"Picking, or from both with automatic sync."
+msgstr ""
+
+#. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_res_company
 msgid "Companies"
 msgstr ""
@@ -26,12 +33,6 @@ msgstr ""
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_stock_invoice_onshipping__deduct_down_payments
 msgid "Deduct down payments"
-msgstr ""
-
-#. module: sale_stock_picking_invoicing
-#: model_terms:ir.ui.view,arch_db:sale_stock_picking_invoicing.sale_stock_picking_invoicing_res_config_settings_form
-msgid ""
-"Define if Invoice should be created from Sale Order or from Stock Picking"
 msgstr ""
 
 #. module: sale_stock_picking_invoicing
@@ -49,7 +50,8 @@ msgstr ""
 #: model:ir.model.fields,help:sale_stock_picking_invoicing.field_res_config_settings__sale_invoicing_policy
 msgid ""
 "If set to Sale Order, keep native Odoo behaviour for creation of invoices from Sale Orders.\n"
-"If set to Stock Picking, disallow creation of Invoices from Sale Orders for the cases where Product Type are 'Product', in case of 'Service' still will be possible create from Sale Order."
+"If set to Stock Picking, disallow creation of Invoices from Sale Orders for the cases where Product Type are 'consu', in case of 'Service' still will be possible create from Sale Order.\n"
+"If set to Sale Order and Stock Picking, invoices can be created from both the Sale Order and the Stock Picking. The picking invoice state is synced after Sale Order invoicing, and the picking wizard caps quantities to prevent double invoicing."
 msgstr ""
 
 #. module: sale_stock_picking_invoicing
@@ -61,6 +63,11 @@ msgstr ""
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields.selection,name:sale_stock_picking_invoicing.selection__res_company__sale_invoicing_policy__sale_order
 msgid "Sale Order"
+msgstr ""
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model.fields.selection,name:sale_stock_picking_invoicing.selection__res_company__sale_invoicing_policy__both
+msgid "Sale Order and Stock Picking"
 msgstr ""
 
 #. module: sale_stock_picking_invoicing
