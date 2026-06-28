@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-06-28 06:16+0000\n"
+"PO-Revision-Date: 2026-06-28 06:21+0000\n"
 "Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: none\n"
 "Language: sl\n"
@@ -56,7 +56,7 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_partner__invoicing_at_shipping_delay
 #: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_users__invoicing_at_shipping_delay
 msgid "Invoicing At Shipping Delay"
-msgstr ""
+msgstr "Zamik obračuna ob odpremi"
 
 #. module: partner_invoicing_mode_at_shipping
 #: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_partner__invoicing_mode
@@ -74,7 +74,7 @@ msgstr "Nič za obračun."
 #: model:ir.model.fields,help:partner_invoicing_mode_at_shipping.field_res_partner__invoicing_at_shipping_delay
 #: model:ir.model.fields,help:partner_invoicing_mode_at_shipping.field_res_users__invoicing_at_shipping_delay
 msgid "Number of days after the shipping before creating the invoice."
-msgstr ""
+msgstr "Število dni po odpremi pred izstavitvijo računa."
 
 #. module: partner_invoicing_mode_at_shipping
 #: model:ir.model.fields,field_description:partner_invoicing_mode_at_shipping.field_res_partner__one_invoice_per_shipping
@@ -92,7 +92,7 @@ msgstr "Prodajni nalog"
 #. odoo-python
 #: code:addons/partner_invoicing_mode_at_shipping/models/res_partner.py:0
 msgid "The invoicing at shipping delay cannot be negative."
-msgstr ""
+msgstr "Zamik obračuna pri odpremi ne more biti negativen."
 
 #. module: partner_invoicing_mode_at_shipping
 #: model:ir.model,name:partner_invoicing_mode_at_shipping.model_stock_picking
