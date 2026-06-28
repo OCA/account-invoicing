@@ -6,7 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-06-28 06:08+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: none\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -14,30 +15,31 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_invoice_show_currency_rate
 #: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_move__display_name
 #: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_move_line__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Prikazani naziv"
 
 #. module: account_invoice_show_currency_rate
 #: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_move__id
 #: model:ir.model.fields,field_description:account_invoice_show_currency_rate.field_account_move_line__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_show_currency_rate
 #: model:ir.model,name:account_invoice_show_currency_rate.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Temeljnica"
 
 #. module: account_invoice_show_currency_rate
 #: model:ir.model,name:account_invoice_show_currency_rate.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Dnevniška postavka"
 
 #. module: account_invoice_show_currency_rate
 #: model_terms:ir.ui.view,arch_db:account_invoice_show_currency_rate.account_move_form
 msgid "Rate"
-msgstr ""
+msgstr "Tečaj"
