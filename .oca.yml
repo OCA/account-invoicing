@@ -1,0 +1,13 @@
+﻿ignored_modules:
+  - account_invoice_fixed_discount
+  - account_invoice_triple_discount
+
+module_groups:
+  - modules:
+      - account_invoice_fixed_discount
+    excludes:
+      - account_invoice_triple_discount
+  - modules:
+      - account_invoice_triple_discount
+    excludes:
+      - account_invoice_fixed_discount
