@@ -79,7 +79,7 @@ class AccountPaymentRegister(models.TransientModel):
                 )
 
     def action_create_payments(self):
-        invoices = self.env["account.move"].browse(self._context.get("active_id"))
+        invoices = self.env["account.move"].browse(self._context.get("active_ids"))
         if len(invoices) > 1 and invoices.filtered("payment_retention"):
             raise UserError(
                 _(
