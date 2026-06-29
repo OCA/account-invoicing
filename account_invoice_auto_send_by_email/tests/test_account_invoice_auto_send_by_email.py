@@ -140,7 +140,5 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
 
         # Verify transaction is still usable after the error
         # (no 'current transaction is aborted' error)
-        count = self.env["account.move"].search_count(
-            [("id", "=", self.invoice.id)]
-        )
+        count = self.env["account.move"].search_count([("id", "=", self.invoice.id)])
         self.assertEqual(count, 1)
