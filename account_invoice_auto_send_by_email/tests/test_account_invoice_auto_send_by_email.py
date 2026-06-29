@@ -125,17 +125,15 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
         self.invoice.is_move_sent = False
         self.invoice.transmit_method_id = self.transmit_method.id
 
-        original_action = self.invoice.action_invoice_sent
-
         def failing_action_invoice_sent():
-            raise Exception("Simulated EDI error (e.g. Verifactu)")
+            raise ValueError("Simulated EDI error (e.g. Verifactu)")
 
         with mock.patch.object(
             type(self.invoice),
             "action_invoice_sent",
             side_effect=failing_action_invoice_sent,
         ):
-            with self.assertRaises(Exception, msg="Simulated EDI error"):
+            with self.assertRaises(ValueError):
                 self.invoice._execute_invoice_sent_wizard()
 
         # Verify transaction is still usable after the error
