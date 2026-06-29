@@ -39,7 +39,7 @@ class AccountMove(models.Model):
             )
             return wiz.action_send_and_print()
         except Exception:
-            self.env.cr.rollback()
+            self.env.cr.savepoint().__exit__(Exception, None, None)
             raise
 
     @api.model
