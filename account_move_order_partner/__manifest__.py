@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Account Move Order Partner",
+    "summary": "Add order partner to invoices and print it on the report",
     "category": "Invoice",
     "version": "18.0.1.0.0",
     "author": "Quartile, Odoo Community Association (OCA)",
