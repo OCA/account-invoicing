@@ -8,19 +8,14 @@
             <field name="payment_method_line_id" position="after">
                 <label
                     for="retention_amount_currency"
-                    attrs="{'invisible': [('retention_amount_currency', '=', 0)]}"
+                    invisible="not retention_amount_currency"
                 />
-                <div
-                    class="d-flex"
-                    attrs="{'invisible': [('retention_amount_currency', '=', 0)]}"
-                >
+                <div class="d-flex" invisible="not retention_amount_currency">
                     <field name="retention_amount_currency" />
-                    <span class="mx-3" />
-                    <field name="apply_payment_retention" widget="boolean_toggle" />
                 </div>
                 <field
                     name="enforce_payment_retention"
-                    attrs="{'invisible': [('retention_amount_currency', '=', 0)]}"
+                    invisible="not retention_amount_currency"
                 />
             </field>
         </field>

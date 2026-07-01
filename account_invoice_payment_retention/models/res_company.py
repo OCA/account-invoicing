@@ -1,7 +1,7 @@
 # Copyright 2020 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -43,7 +43,10 @@ class ResCompany(models.Model):
         for rec in self.filtered("retention_account_id"):
             if not rec.retention_account_id.reconcile:
                 raise ValidationError(
-                    _("Retention payable account should be set to allow Reconciliation")
+                    self.env._(
+                        "Retention payable account should be "
+                        "set to allow Reconciliation"
+                    )
                 )
 
     @api.constrains("retention_receivable_account_id")
@@ -51,7 +54,8 @@ class ResCompany(models.Model):
         for rec in self.filtered("retention_receivable_account_id"):
             if not rec.retention_receivable_account_id.reconcile:
                 raise ValidationError(
-                    _(
-                        "Retention receivable account should be set to allow Reconciliation"
+                    self.env._(
+                        "Retention receivable account should be "
+                        "set to allow Reconciliation"
                     )
                 )
