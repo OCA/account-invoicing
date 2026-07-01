@@ -8,33 +8,40 @@
             <xpath expr="//field[@name='ref']" position="after">
                 <label
                     for="payment_retention"
-                    attrs="{'invisible': ['|', ('retained_move_ids', '!=', []), ('move_type', '=', 'entry')]}"
+                    invisible="retained_move_ids or move_type == 'entry'"
                     groups="account_invoice_payment_retention.group_payment_retention"
                 />
                 <div
                     class="d-flex"
+                    invisible="retained_move_ids or move_type == 'entry'"
                     groups="account_invoice_payment_retention.group_payment_retention"
-                    attrs="{'invisible': ['|', ('retained_move_ids', '!=', []), ('move_type', '=', 'entry')]}"
                 >
-                    <field name="payment_retention" class="oe_edit_only" />
+                    <field
+                        name="payment_retention"
+                        class="oe_edit_only"
+                        readonly="state != 'draft'"
+                    />
                     <field
                         class="oe_edit_only"
                         name="retention_method"
-                        attrs="{'invisible': [('payment_retention', '!=', 'percent')], 'required': [('payment_retention', '=', 'percent')]}"
+                        invisible="payment_retention != 'percent'"
+                        required="payment_retention == 'percent'"
+                        readonly="state != 'draft'"
                     />
                     <field
                         class="oe_edit_only"
                         name="amount_retention"
                         placeholder="Amount"
-                        attrs="{'invisible': [('payment_retention', '=', False)]}"
+                        invisible="not payment_retention"
+                        readonly="state != 'draft'"
                     />
                     <span
                         class="oe_edit_only"
-                        attrs="{'invisible': [('payment_retention', '=', False)]}"
+                        invisible="not payment_retention"
                     > = </span>
                     <field
                         name="retention_amount_currency"
-                        attrs="{'invisible': ['|', ('retention_amount_currency', '=', False), ('payment_retention', '=', False)]}"
+                        invisible="not retention_amount_currency or not payment_retention"
                     />
                 </div>
                 <field name="retention_residual_currency" invisible="1" />
@@ -49,8 +56,9 @@
                     name="retained_move_ids"
                     widget="many2many_tags"
                     options="{'no_create': True, 'no_edit': True, 'no_open': True}"
-                    attrs="{'invisible': ['|', ('payment_retention', '!=', False), ('move_type', '=', 'entry')]}"
+                    invisible="payment_retention or move_type == 'entry'"
                     domain="[('id', 'in', domain_retained_move_ids)]"
+                    readonly="state != 'draft'"
                     groups="account_invoice_payment_retention.group_payment_retention"
                 />
             </xpath>
