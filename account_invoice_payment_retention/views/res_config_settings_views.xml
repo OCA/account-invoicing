@@ -50,8 +50,7 @@
                     class="col-12 col-lg-6 o_setting_box"
                     id="retention_method_setting"
                 >
-                    <div class="o_setting_left_pane">
-                    </div>
+                    <div class="o_setting_left_pane" />
                     <div class="o_setting_right_pane">
                         <label for="retention_method" string="Retention Method" />
                         <div class="text-muted">
