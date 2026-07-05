@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-23 16:27+0000\n"
-"Last-Translator: Pablo Castelo <pablocv@gmx.es>\n"
+"PO-Revision-Date: 2026-07-06 00:46+0000\n"
+"Last-Translator: Cándido Martínez <candido@supermercadoscooperativos.com>\n"
 "Language-Team: none\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
@@ -18,10 +18,13 @@ msgstr ""
 
 #. module: account_invoice_warn_message
 #: model_terms:ir.ui.view,arch_db:account_invoice_warn_message.view_move_form
+#, fuzzy
 msgid ""
 "<i class=\"fa fa-info-circle\" style=\"margin-right:0.5%;\"/>\n"
 "                        &amp;nbsp;"
 msgstr ""
+"<i class=\"fa fa-info-circle\" style=\"margin-right:0.5%;\"/>\n"
+"                        &amp;nbsp;"
 
 #. module: account_invoice_warn_message
 #: model:ir.model.fields,field_description:account_invoice_warn_message.field_account_bank_statement_line__invoice_warn_msg
