@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-23 16:27+0000\n"
-"Last-Translator: Pablo Castelo <pablocv@gmx.es>\n"
+"PO-Revision-Date: 2026-07-06 00:46+0000\n"
+"Last-Translator: Cándido Martínez <candido@supermercadoscooperativos.com>\n"
 "Language-Team: none\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
@@ -29,17 +29,17 @@ msgstr "Desc. Actual 3 (%)"
 #. module: account_invoice_supplierinfo_update_triple_discount
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_triple_discount.field_wizard_update_invoice_supplierinfo__display_discount2
 msgid "Display Discount2"
-msgstr ""
+msgstr "Mostrar Desconto2"
 
 #. module: account_invoice_supplierinfo_update_triple_discount
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_triple_discount.field_wizard_update_invoice_supplierinfo__display_discount3
 msgid "Display Discount3"
-msgstr ""
+msgstr "Mostrar Desconto3"
 
 #. module: account_invoice_supplierinfo_update_triple_discount
 #: model:ir.model,name:account_invoice_supplierinfo_update_triple_discount.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Apunte contable"
 
 #. module: account_invoice_supplierinfo_update_triple_discount
 #: model:ir.model.fields,field_description:account_invoice_supplierinfo_update_triple_discount.field_wizard_update_invoice_supplierinfo_line__new_discount2
@@ -59,4 +59,4 @@ msgstr "Asistente de liña para actualizar a información do provedor"
 #. module: account_invoice_supplierinfo_update_triple_discount
 #: model:ir.model,name:account_invoice_supplierinfo_update_triple_discount.model_wizard_update_invoice_supplierinfo
 msgid "Wizard to update supplierinfo"
-msgstr ""
+msgstr "Asistente para actualizar información do provedor"
