@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-23 13:51+0000\n"
-"PO-Revision-Date: 2026-05-11 20:45+0000\n"
+"PO-Revision-Date: 2026-07-06 00:46+0000\n"
 "Last-Translator: Cándido Martínez <candido@supermercadoscooperativos.com>\n"
 "Language-Team: Galician (https://www.transifex.com/oca/teams/23907/gl/)\n"
 "Language: gl\n"
@@ -39,7 +39,7 @@ msgstr "Validar e ver pagamento"
 #. module: account_invoice_view_payment
 #: model_terms:ir.ui.view,arch_db:account_invoice_view_payment.view_move_form
 msgid "View Payments"
-msgstr ""
+msgstr "Ver pagamentos"
 
 #~ msgid "Invoice"
 #~ msgstr "Factura"
