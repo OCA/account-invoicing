@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-23 16:27+0000\n"
-"Last-Translator: Pablo Castelo <pablocv@gmx.es>\n"
+"PO-Revision-Date: 2026-07-06 00:46+0000\n"
+"Last-Translator: Cándido Martínez <candido@supermercadoscooperativos.com>\n"
 "Language-Team: none\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgstr "Facturas onde a validación non comezou"
 #. module: account_move_tier_validation
 #: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__is_reevaluation_required
 msgid "Is Reevaluation Required"
-msgstr ""
+msgstr "É necesaria a reavaliación"
 
 #. module: account_move_tier_validation
 #: model:ir.model,name:account_move_tier_validation.model_account_move
@@ -170,4 +170,4 @@ msgstr "Validacións"
 #: code:addons/account_move_tier_validation/tests/test_tier_validation.py:0
 #, python-format
 msgid "You are not allowed to write those fields"
-msgstr ""
+msgstr "Non tes permisos para escribir nestes campos"
