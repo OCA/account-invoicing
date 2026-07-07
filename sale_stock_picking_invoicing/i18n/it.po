@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-09 23:06+0000\n"
+"PO-Revision-Date: 2026-07-07 10:05+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: sale_stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:sale_stock_picking_invoicing.sale_stock_picking_invoicing_res_config_settings_form
@@ -22,6 +22,8 @@ msgid ""
 "Choose whether invoices are created from the Sale Order, from the Stock "
 "Picking, or from both with automatic sync."
 msgstr ""
+"Scegliere se le fatture vengono create dall'ordine di vendita, dal prelievo "
+"di magazzino o da entrambi con sincronizzazione automatica."
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_res_company
@@ -41,7 +43,7 @@ msgstr "Dedurre acconti"
 #. module: sale_stock_picking_invoicing
 #: model:product.pricelist,name:sale_stock_picking_invoicing.demo_pricelist
 msgid "Demo Pricelist"
-msgstr ""
+msgstr "Listino demo"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_stock_invoice_onshipping__has_down_payments
@@ -62,6 +64,16 @@ msgid ""
 "after Sale Order invoicing, and the picking wizard caps quantities to "
 "prevent double invoicing."
 msgstr ""
+"Se impostato su Ordine di Vendita, mantiene il comportamento nativo di Odoo "
+"per la creazione di fatture dagli ordini di vendita.\n"
+"Se impostato su Prelievo da magazzino, non consente la creazione di fatture "
+"dagli ordini di vendita nei casi in cui il tipo di prodotto sia 'consu'; nel "
+"caso di 'Servizio', sarà comunque possibile crearle dall'ordine di vendita.\n"
+"Se impostato su Ordine di Vendita e Prelievo da magazzino, è possibile "
+"creare fatture sia dall'ordine di vendita che dal prelievo da magazzino. Lo "
+"stato della fattura di prelievo viene sincronizzato dopo la fatturazione "
+"dell'ordine di vendita e la procedura guidata di prelievo limita le quantità "
+"per evitare la doppia fatturazione."
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_res_company__sale_invoicing_policy
@@ -77,7 +89,7 @@ msgstr "Ordine di vendita"
 #. module: sale_stock_picking_invoicing
 #: model:ir.model.fields.selection,name:sale_stock_picking_invoicing.selection__res_company__sale_invoicing_policy__both
 msgid "Sale Order and Stock Picking"
-msgstr ""
+msgstr "Ordine di vendita e prelievo di magazzino"
 
 #. module: sale_stock_picking_invoicing
 #: model:ir.model,name:sale_stock_picking_invoicing.model_sale_order
@@ -122,6 +134,10 @@ msgid ""
 "only be created from the Stock Picking, if necessary you can change in the "
 "Company or Sale Settings."
 msgstr ""
+"Quando la 'Politica di fatturazione delle vendite' è definita come 'Prelievo "
+"di magazzino', la fattura può essere creata solo dal prelievo di magazzino; "
+"se necessario, è possibile apportare modifiche nelle Impostazioni aziendali "
+"o di vendita."
 
 #~ msgid ""
 #~ "Define if Invoice should be created from Sale Order or from Stock Picking"
