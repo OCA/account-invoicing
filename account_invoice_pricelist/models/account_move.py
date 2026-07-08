@@ -81,6 +81,7 @@ class AccountMoveLine(models.Model):
                 check_move_validity=False
             ).price_unit = line._get_price_with_pricelist()
         return res
+
     def _calculate_discount(self, base_price, final_price):
         discount = 0.0
         if base_price > 0.0:
