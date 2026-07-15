@@ -8,3 +8,9 @@ To use this module, you have 2 ways:
     2.  Create Invoice
     3.  On tree view select invoice and go to *Action -\> Create
         Billing*
+
+Once a billing is validated, use the *Send by Email* button on the
+billing form to email it to the partner with the billing report attached.
+The email template can be configured under *Invoicing -\> Configuration -\>
+Settings* (*Choose Billing Email Template*); when left empty, a default
+template shipped with this module is used.
