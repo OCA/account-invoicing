@@ -81,7 +81,6 @@ Authors
 -------
 
 * Ecosoft
-* Quartile
 
 Contributors
 ------------

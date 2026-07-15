@@ -4,8 +4,8 @@
 {
     "name": "Billing Process",
     "summary": "Group invoice as billing before payment",
-    "version": "18.0.1.5.0",
-    "author": "Ecosoft, Quartile, Odoo Community Association (OCA)",
+    "version": "18.0.1.4.0",
+    "author": "Ecosoft, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Account",
