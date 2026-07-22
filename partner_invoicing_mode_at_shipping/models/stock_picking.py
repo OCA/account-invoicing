@@ -13,9 +13,14 @@ class StockPicking(models.Model):
         res = super()._action_done()
         for picking in self:
             if picking._invoice_at_shipping():
-                delay_options = picking._get_invoicing_at_shipping_delay_options()
-                picking.with_delay(**delay_options)._invoicing_at_shipping()
+                picking._invoicing_at_shipping_with_delay()
         return res
+
+    def _invoicing_at_shipping_with_delay(self):
+        """Utility function that prepares a job for ``self._invoicing_at_shipping()``"""
+        self.ensure_one()
+        delay_options = self._get_invoicing_at_shipping_delay_options()
+        self.with_delay(**delay_options)._invoicing_at_shipping()
 
     def _invoice_at_shipping(self):
         """Check if picking must be invoiced at shipping."""
