@@ -18,6 +18,7 @@ class AccountMove(models.Model):
 
     @api.depends(
         "state",
+        "posted_before",
         "date",
         "line_ids.amount_currency",
         "line_ids.balance",
@@ -34,7 +35,7 @@ class AccountMove(models.Model):
         self.currency_rate_amount = 1
         for item in self.filtered("show_currency_rate_amount"):
             lines = item.line_ids.filtered(lambda x: abs(x.amount_currency) > 0)
-            if item.state == "posted" and lines:
+            if (item.state == "posted" or item.posted_before) and lines:
                 amount_currency_positive = sum(
                     [abs(amc) for amc in lines.mapped("amount_currency")]
                 )
@@ -62,14 +63,20 @@ class AccountMoveLine(models.Model):
         "move_id.company_id",
         "move_id.date",
         "move_id.state",
+        "move_id.posted_before",
         "amount_currency",
         "balance",
     )
     def _compute_currency_rate(self):
-        # If move is posted, get rate based on line amount
+        # If the move is posted (or was posted before, e.g. when it is reset to
+        # draft to correct it), keep the real rate booked on the lines. Otherwise
+        # the rate would fall back to the table rate and re-derive the balance,
+        # introducing a rounding difference that wrongly breaks _check_balanced.
         res = super()._compute_currency_rate()
         for line in self:
-            if line.move_id.state != "posted" or not line.amount_currency:
+            if (
+                line.move_id.state != "posted" and not line.move_id.posted_before
+            ) or not line.amount_currency:
                 continue
             line.currency_rate = (
                 abs(line.amount_currency) / abs(line.balance) if line.balance else 0
