@@ -53,3 +53,23 @@ class InvoiceBatchSend(TestAccountComposerPerformance, TestAccountMoveSendCommon
             wizard._get_default_mail_template_id(invoice1),
             self.env.ref("account.email_template_edi_invoice"),
         )
+
+    def test_invoice_send_with_mail_template_from_wizard_synchronous(self):
+        invoice1 = self.init_invoice(
+            "out_invoice", partner=self.partner_a, amounts=[1000], post=True
+        )
+        invoice2 = self.init_invoice(
+            "out_invoice", partner=self.partner_b, amounts=[1000], post=True
+        )
+        self.partner_a.invoice_sending_method = "email"
+        self.partner_b.invoice_sending_method = "email"
+        wizard = self.create_send_and_print(invoice1 + invoice2)
+        mail_template = self.move_template.copy()
+        mail_template.write({"name": "Test account send email", "subject": "Custom"})
+        wizard.mail_template_id = mail_template
+        # Used to raise AttributeError: ``sending_data`` is cleared by the native
+        # method before the template could be stored on it.
+        wizard.action_send_and_print(force_synchronous=True)
+        for invoice in invoice1 + invoice2:
+            self.assertFalse(invoice.sending_data)
+            self.assertEqual(self._get_mail_message(invoice).subject, "Custom")
