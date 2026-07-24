@@ -1,12 +1,13 @@
 [project]
 name = "odoo-addons-oca-account-invoicing"
-version = "17.0.20260427.0"
+version = "17.0.20260724.0"
 dependencies = [
     "odoo-addon-account_global_discount>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_auto_send_by_email>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_block_payment>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_blocking>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_crm_tag>=17.0dev,<17.1dev",
+    "odoo-addon-account_invoice_currency_by_partner>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_customer_no_autofollow>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_date_due>=17.0dev,<17.1dev",
     "odoo-addon-account_invoice_discount_display_amount>=17.0dev,<17.1dev",

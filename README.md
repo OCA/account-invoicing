@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [account_invoice_block_payment](account_invoice_block_payment/) | 17.0.1.0.0 |  | Module to block payment of invoices
 [account_invoice_blocking](account_invoice_blocking/) | 17.0.1.0.2 |  | Set a blocking (No Follow-up) flag on invoices
 [account_invoice_crm_tag](account_invoice_crm_tag/) | 17.0.1.0.0 |  | Account Invoice CRM Tag
+[account_invoice_currency_by_partner](account_invoice_currency_by_partner/) | 17.0.1.0.0 |  | Add currency to partner for invoice
 [account_invoice_customer_no_autofollow](account_invoice_customer_no_autofollow/) | 17.0.1.0.0 |  | Do not add customer as follower in Invoices
 [account_invoice_date_due](account_invoice_date_due/) | 17.0.1.0.1 | <a href='https://github.com/luisg123v'><img src='https://github.com/luisg123v.png' width='32' height='32' style='border-radius:50%;' alt='luisg123v'/></a> <a href='https://github.com/CarlosRoca13'><img src='https://github.com/CarlosRoca13.png' width='32' height='32' style='border-radius:50%;' alt='CarlosRoca13'/></a> | Update Invoice's Due Date
 [account_invoice_discount_display_amount](account_invoice_discount_display_amount/) | 17.0.1.0.0 |  | Show total discount applied and total without discount on invoices.
