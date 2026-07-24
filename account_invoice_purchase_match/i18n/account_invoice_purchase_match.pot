@@ -1,0 +1,183 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_purchase_match
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.view_move_form_purchase_match
+msgid "<span class=\"o_stat_text\">Purchase<br/>Matching</span>"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model:ir.model.fields,field_description:account_invoice_purchase_match.field_purchase_bill_line_match__billed_amount_untaxed
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.purchase_bill_line_match_tree
+msgid "Billed"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model:ir.model,name:account_invoice_purchase_match.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.purchase_bill_line_match_tree
+msgid "Match"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.purchase_bill_line_match_tree
+msgid "Open"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.purchase_bill_line_match_tree
+msgid "Price"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model:ir.model,name:account_invoice_purchase_match.model_purchase_bill_line_match
+msgid "Purchase Line and Vendor Bill line matching view"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#. odoo-python
+#: code:addons/account_invoice_purchase_match/models/account_move.py:0
+#: model:ir.actions.act_window,name:account_invoice_purchase_match.purchase_bill_line_match_action
+#, python-format
+msgid "Purchase Matching"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.purchase_bill_line_match_tree
+msgid "Purchased"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model:ir.model.fields,field_description:account_invoice_purchase_match.field_purchase_bill_line_match__product_uom_qty
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.purchase_bill_line_match_tree
+msgid "Quantity"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model:ir.model.fields,field_description:account_invoice_purchase_match.field_purchase_bill_line_match__qty_to_invoice
+msgid "Qty to invoice"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.purchase_bill_line_match_tree
+msgid "Product Description"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model:ir.model.fields,help:account_invoice_purchase_match.field_account_move__is_purchase_matched
+msgid ""
+"Technical: every product line of this vendor bill is already linked to a "
+"purchase order line. Used to hide the matching button."
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model:ir.model.fields,field_description:account_invoice_purchase_match.field_account_move__is_purchase_matched
+msgid "Is Purchase Matched"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#. odoo-python
+#: code:addons/account_invoice_purchase_match/models/account_move.py:0
+#, python-format
+msgid "Vendor Bill"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.purchase_bill_line_match_tree
+msgid "Vendor"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#. odoo-python
+#: code:addons/account_invoice_purchase_match/models/purchase_bill_line_match.py:0
+#, python-format
+msgid ""
+"You must select at least one Purchase Order line to match or create bill."
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model:ir.model,name:account_invoice_purchase_match.model_bill_to_po_wizard
+msgid "Bill to Purchase Order"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.bill_to_po_wizard_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.purchase_bill_line_match_tree
+msgid "Add to PO"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#. odoo-python
+#: code:addons/account_invoice_purchase_match/models/purchase_bill_line_match.py:0
+#, python-format
+msgid "Add to Purchase Order"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.bill_to_po_wizard_form
+msgid "Add Products"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.bill_to_po_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_match.bill_to_po_wizard_form
+msgid "or create new"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model:ir.model.fields,field_description:account_invoice_purchase_match.field_bill_to_po_wizard__purchase_order_id
+msgid "Purchase Order"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#: model:ir.model.fields,field_description:account_invoice_purchase_match.field_bill_to_po_wizard__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#. odoo-python
+#: code:addons/account_invoice_purchase_match/wizards/bill_to_po_wizard.py:0
+#, python-format
+msgid ""
+"There are no products to add to the Purchase Order. Are these Down Payments?"
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#. odoo-python
+#: code:addons/account_invoice_purchase_match/models/purchase_bill_line_match.py:0
+#, python-format
+msgid "Select Vendor Bill lines to add to a Purchase Order."
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#. odoo-python
+#: code:addons/account_invoice_purchase_match/models/purchase_bill_line_match.py:0
+#, python-format
+msgid "Please select bill lines with the same vendor."
+msgstr ""
+
+#. module: account_invoice_purchase_match
+#. odoo-python
+#: code:addons/account_invoice_purchase_match/models/purchase_bill_line_match.py:0
+#, python-format
+msgid "Vendor Bill lines can only be added to one Purchase Order."
+msgstr ""

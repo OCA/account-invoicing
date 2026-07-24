@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OSS Factory
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+
+     Backport of Odoo 19.0 CE view purchase.purchase_bill_line_match_tree:
+     https://github.com/odoo/odoo/blob/19.0/addons/purchase/views/purchase_bill_line_match_views.xml
+     16.0 changes: <list> -> <tree>; string-valued invisible -> attrs;
+     column_invisible -> invisible="1"; OWL widgets open_match_line_widget /
+     monetary_no_zero -> per-row "Open" button + standard monetary widget. -->
+<odoo>
+
+    <record id="purchase_bill_line_match_tree" model="ir.ui.view">
+        <field name="name">purchase.bill.line.match.tree</field>
+        <field name="model">purchase.bill.line.match</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-info="pol_id != False"
+                decoration-muted="state == 'draft'"
+                editable="bottom"
+                create="false"
+                delete="false"
+                multi_edit="1"
+            >
+                <header>
+                    <button
+                        name="action_match_lines"
+                        type="object"
+                        string="Match"
+                        groups="account.group_account_invoice"
+                        class="btn-primary"
+                    />
+                    <button
+                        name="action_add_to_po"
+                        type="object"
+                        string="Add to PO"
+                        groups="purchase.group_purchase_user"
+                    />
+                </header>
+                <field name="pol_id" invisible="1" />
+                <field name="aml_id" invisible="1" />
+                <field name="account_move_id" invisible="1" />
+                <field name="purchase_order_id" invisible="1" />
+                <field name="product_id" invisible="1" />
+                <field name="state" invisible="1" />
+                <field name="partner_id" string="Vendor" optional="hidden" />
+                <field name="reference" readonly="1" />
+                <field
+                    name="display_name"
+                    string="Product Description"
+                    readonly="1"
+                    decoration-it="not product_id"
+                />
+                <field name="product_uom_qty" string="Quantity" />
+                <field name="qty_invoiced" optional="hidden" readonly="1" />
+                <field name="qty_to_invoice" optional="show" readonly="1" />
+                <field name="product_uom_id" groups="uom.group_uom" readonly="1" />
+                <field name="product_uom_price" string="Price" />
+                <field
+                    name="billed_amount_untaxed"
+                    widget="monetary"
+                    sum="Total Billed"
+                    string="Billed"
+                    readonly="1"
+                />
+                <field
+                    name="purchase_amount_untaxed"
+                    widget="monetary"
+                    sum="Total Purchased"
+                    string="Purchased"
+                    readonly="1"
+                />
+                <field name="currency_id" invisible="1" />
+                <button
+                    name="action_open_line"
+                    type="object"
+                    string="Open"
+                    icon="fa-external-link"
+                    class="btn-link"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="purchase_bill_line_match_action" model="ir.actions.act_window">
+        <field name="name">Purchase Matching</field>
+        <field name="res_model">purchase.bill.line.match</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="purchase_bill_line_match_tree" />
+    </record>
+
+</odoo>
