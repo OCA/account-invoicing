@@ -75,6 +75,7 @@
                         <group>
                             <field
                                 name="company_id"
+                                readonly="state != 'draft'"
                                 groups="base.group_multi_company"
                             />
                             <field
