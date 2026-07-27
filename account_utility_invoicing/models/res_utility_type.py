@@ -69,6 +69,11 @@ class ResUtilityType(models.Model):
         default=True,
         tracking=True,
     )
+    update_last_reading = fields.Boolean(
+        default=True,
+        tracking=True,
+        help=("If unchecked, posting an invoice will not update the Last Reading "),
+    )
 
     @api.depends("base_rate", "adjustment_rate")
     def _compute_total_rate(self):

@@ -12,12 +12,16 @@ class AccountMove(models.Model):
     def _post(self, soft=True):
         """Update last reading after invoice posted"""
         posted = super()._post(soft=soft)
-        utility_lines = posted.mapped("line_ids").filtered(
-            lambda line: line.move_id.is_utility and line.utility_line_id
-        )
-        for line in utility_lines:
+        for line in posted._get_utility_lines_update_reading():
             line.utility_line_id.utility_id.write({"last_reading": line.curr_unit})
         return posted
+
+    def _get_utility_lines_update_reading(self):
+        return self.line_ids.filtered(
+            lambda line: line.move_id.is_utility
+            and line.utility_line_id
+            and line.utility_line_id.utility_type_id.update_last_reading
+        )
 
 
 class AccountMoveLine(models.Model):

@@ -251,9 +251,10 @@ class AccountUtilityLine(models.Model):
     flat_rate = fields.Float()
     prev_unit = fields.Float(
         string="Prev. Unit",
-        related="utility_id.last_reading",
+        compute="_compute_prev_unit",
         digits="Utility Reading",
         store=True,
+        readonly=False,
     )
     curr_unit = fields.Float(
         string="Curr. Unit",
@@ -286,6 +287,11 @@ class AccountUtilityLine(models.Model):
             "Negative amount is not allowed",
         )
     ]
+
+    @api.depends("utility_id")
+    def _compute_prev_unit(self):
+        for rec in self:
+            rec.prev_unit = rec.utility_id.last_reading
 
     @api.depends("flat_rate", "prev_unit", "curr_unit", "utility_id.max_reading_value")
     def _compute_all_amount(self):

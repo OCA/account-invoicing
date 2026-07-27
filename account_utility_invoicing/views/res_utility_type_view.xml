@@ -17,6 +17,7 @@
                     optional="show"
                 />
                 <field name="max_reading_value" optional="show" />
+                <field name="update_last_reading" optional="hide" />
             </list>
         </field>
     </record>
@@ -55,6 +56,7 @@
                                 groups="base.group_multi_company"
                             />
                             <field name="account_id" />
+                            <field name="update_last_reading" />
                         </group>
                     </group>
                     <notebook>
