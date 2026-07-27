@@ -33,14 +33,17 @@ class TestProductCustomerInfoInvoice(TransactionCase):
         )
 
     @classmethod
-    def _create_invoice(cls, customer):
+    def _create_invoice(cls, customer, move_type="out_invoice"):
+        journal_type = (
+            "sale" if move_type in ("out_invoice", "out_refund") else "purchase"
+        )
         return cls.move_model.create(
             {
                 "journal_id": cls.env["account.journal"]
-                .search([("type", "=", "sale")], limit=1)
+                .search([("type", "=", journal_type)], limit=1)
                 .id,
                 "partner_id": customer.id,
-                "move_type": "out_invoice",
+                "move_type": move_type,
                 "invoice_line_ids": [
                     Command.create(
                         {
@@ -77,3 +80,12 @@ class TestProductCustomerInfoInvoice(TransactionCase):
         )
         self.assertEqual(len(line_no_product), 1)
         self.assertFalse(line_no_product.product_customer_code)
+
+    def test_03_partner_show_customer_code(self):
+        invoice = self._create_invoice(self.customer_1)
+        self.assertTrue(invoice.partner_show_customer_code)
+        bill = self._create_invoice(self.customer_1, move_type="in_invoice")
+        self.assertFalse(bill.partner_show_customer_code)
+        bill_line = bill.invoice_line_ids.filtered(lambda il: il.product_id)
+        self.assertEqual(len(bill_line), 1)
+        self.assertFalse(bill_line.product_customer_code)

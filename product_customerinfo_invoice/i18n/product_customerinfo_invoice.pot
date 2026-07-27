@@ -14,12 +14,18 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_customerinfo_invoice
+#: model:ir.model,name:product_customerinfo_invoice.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: product_customerinfo_invoice
 #: model:ir.model,name:product_customerinfo_invoice.model_account_move_line
 msgid "Journal Item"
 msgstr ""
 
 #. module: product_customerinfo_invoice
-#: model:ir.model.fields,field_description:product_customerinfo_invoice.field_account_move_line__partner_show_customer_code
+#: model:ir.model.fields,field_description:product_customerinfo_invoice.field_account_bank_statement_line__partner_show_customer_code
+#: model:ir.model.fields,field_description:product_customerinfo_invoice.field_account_move__partner_show_customer_code
 msgid "Partner Show Customer Code"
 msgstr ""
 
