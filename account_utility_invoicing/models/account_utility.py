@@ -276,6 +276,11 @@ class AccountUtilityLine(models.Model):
     )
     total_rate = fields.Float(related="utility_id.total_rate", store=True)
     multiplier = fields.Float(related="utility_id.multiplier", store=True)
+    currency_id = fields.Many2one(
+        comodel_name="res.currency",
+        related="account_utility_id.currency_id",
+        store=True,
+    )
 
     _sql_constraints = [
         (
@@ -293,14 +298,28 @@ class AccountUtilityLine(models.Model):
         for rec in self:
             rec.prev_unit = rec.utility_id.last_reading
 
-    @api.depends("flat_rate", "prev_unit", "curr_unit", "utility_id.max_reading_value")
+    def _round_amount(self, amount):
+        self.ensure_one()
+        company = self.account_utility_id.company_id or self.env.company
+        if company.utility_rounding_method != "round_per_line":
+            return amount
+        currency = self.currency_id or company.currency_id
+        return currency.round(amount)
+
+    @api.depends(
+        "flat_rate",
+        "prev_unit",
+        "curr_unit",
+        "utility_id.max_reading_value",
+        "account_utility_id.company_id.utility_rounding_method",
+    )
     def _compute_all_amount(self):
         for rec in self:
             # Clear curr_unit if flat_rate is set
             if rec.flat_rate:
                 rec.curr_unit = rec.prev_unit
                 rec.total_unit = 0.0
-                rec.amount_subtotal = rec.flat_rate
+                rec.amount_subtotal = rec._round_amount(rec.flat_rate)
             else:
                 if rec.utility_id.max_reading_value and rec.curr_unit < rec.prev_unit:
                     total_unit = (
@@ -311,7 +330,9 @@ class AccountUtilityLine(models.Model):
                 else:
                     total_unit = rec.curr_unit - rec.prev_unit
                 rec.total_unit = total_unit
-                rec.amount_subtotal = total_unit * rec.utility_id.total_rate
+                rec.amount_subtotal = rec._round_amount(
+                    total_unit * rec.utility_id.total_rate
+                )
 
     @api.depends("total_unit", "utility_type_id.alert_threshold")
     def _compute_is_alert_threshold(self):

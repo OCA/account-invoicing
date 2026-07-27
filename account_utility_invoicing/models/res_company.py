@@ -10,3 +10,10 @@ class ResCompany(models.Model):
     journal_account_utility_id = fields.Many2one(
         comodel_name="account.journal",
     )
+    utility_rounding_method = fields.Selection(
+        selection=[
+            ("round_per_line", "Round per Line"),
+            ("round_globally", "Round Globally"),
+        ],
+        default="round_per_line",
+    )

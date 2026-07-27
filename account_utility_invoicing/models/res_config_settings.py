@@ -11,3 +11,7 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.journal_account_utility_id",
         readonly=False,
     )
+    utility_rounding_method = fields.Selection(
+        related="company_id.utility_rounding_method",
+        readonly=False,
+    )

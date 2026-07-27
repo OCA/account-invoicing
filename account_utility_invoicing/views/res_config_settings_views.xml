@@ -16,6 +16,19 @@
                             domain="[('type', '=', 'sale')]"
                         />
                     </setting>
+                    <setting
+                        id="utility_rounding_method"
+                        company_dependent="1"
+                        string="Rounding Method"
+                        help="How total the utility is computed in utility invoicing"
+                        title="Round per Line is advised when the printed line amounts must add up exactly to the document total."
+                    >
+                        <field
+                            name="utility_rounding_method"
+                            class="o_light_label mt16"
+                            widget="radio"
+                        />
+                    </setting>
                 </block>
             </app>
         </field>
