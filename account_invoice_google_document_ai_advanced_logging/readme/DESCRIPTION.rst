@@ -1,0 +1,2 @@
+This module extends the OCR functionality to enable detailed debugging during invoice processing.
+It allows logging of OCR-extracted entities as a JSON attachment in the chatter on the Invoice form by activating the Log OCR Entities as JSON (Debug) option in the Invoicing settings.
