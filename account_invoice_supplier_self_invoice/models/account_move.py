@@ -69,6 +69,7 @@ class AccountMove(models.Model):
             ).partner_id.commercial_partner_id
             if (
                 partner.self_invoice
+                and partner.self_invoice_auto_ref
                 and invoice.is_purchase_document(False)
                 and invoice.set_self_invoice
                 and not invoice.self_invoice_number

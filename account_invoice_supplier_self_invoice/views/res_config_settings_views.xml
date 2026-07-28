@@ -7,9 +7,11 @@
         <field name="arch" type="xml">
             <xpath expr="//div[@id='account_vendor_bills']" position="inside">
                 <div class="col-12 col-lg-6 o_setting_box" id="self_billing">
-                    <div class="o_setting_left_pane" />
+                    <div class="o_setting_left_pane">
+                        <field name="self_invoice_auto_ref" />
+                    </div>
                     <div class="o_setting_right_pane">
-                        <label for="self_invoice_prefix" />
+                        <label for="self_invoice_auto_ref" />
                         <span
                             class="fa fa-lg fa-building-o"
                             title="Values set here are company-specific."
@@ -18,11 +20,22 @@
                             role="img"
                         />
                         <div class="text-muted">
-                            Default prefix when generating a new sequence for Self Billing
+                            The value set by default for the 'Generate reference with specific sequence for self-billing' option on partners when enabling self-billing.
+                            Even if this option is set to True or False, it can be changed on each partner. A change on this option will not
+                            update existing partners.
                         </div>
-                        <div class="content-group">
+                        <div
+                            class="content-group"
+                            attrs="{'invisible': [('self_invoice_auto_ref', '!=', True)]}"
+                        >
                             <div class="mt16">
-                                <field name="self_invoice_prefix" />
+                                <label for="self_invoice_prefix" />
+                                <div class="text-muted">
+                                    Default prefix when generating a new sequence for Self Billing
+                                </div>
+                                <div class="content-group o_horizontal">
+                                    <field name="self_invoice_prefix" />
+                                </div>
                             </div>
                         </div>
                     </div>
