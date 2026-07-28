@@ -55,6 +55,20 @@ class AccountMove(models.Model):
             move.set_self_invoice = partner_self_invoice
             move.can_self_invoice = partner_self_invoice
 
+    def _compute_payment_reference(self):
+        # Put this before call to "super" so as not to trigger
+        # call to `_inverse_payment_reference` (from main function) too early
+        for move in self.filtered(
+            lambda m: m.state == "posted"
+            and not m.payment_reference
+            and m.move_type == "in_invoice"
+            and m.set_self_invoice
+        ):
+            move.payment_reference = move._get_invoice_computed_reference()
+
+        res = super()._compute_payment_reference()
+        return res
+
     def _post(self, soft=True):
         # Set today for invoice date in self invoices
         self.filtered(
