@@ -131,6 +131,7 @@ class AccountMove(models.Model):
                         "amount": amount_to_show,
                         "currency": currency_id.symbol,
                         "id": line.id,
+                        "move_id": line.move_id.id,
                         "position": currency_id.position,
                         "digits": [69, move.currency_id.decimal_places],
                         "payment_date": fields.Date.to_string(line.date),
