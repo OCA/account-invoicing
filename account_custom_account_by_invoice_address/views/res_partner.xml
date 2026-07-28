@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="res_partner_form_view" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='accounting_entries']" position="inside">
+                <field name="use_invoice_address_accounts" />
+            </xpath>
+            <xpath expr="//field[@name='child_ids']//form//sheet" position="inside">
+                <group
+                    groups="account.group_account_invoice,account.group_account_readonly"
+                >
+                    <field
+                        name="parent_use_invoice_address_accounts"
+                        invisible="True"
+                    />
+                    <group>
+                        <field
+                            name="property_account_receivable_id"
+                            attrs="{'invisible': ['|', ('type', '!=', 'invoice'), ('parent_use_invoice_address_accounts', '=', False)]}"
+                        />
+                    </group>
+                    <group>
+                        <field
+                            name="property_account_payable_id"
+                            attrs="{'invisible': ['|', ('type', '!=', 'invoice'), ('parent_use_invoice_address_accounts', '=', False)]}"
+                        />
+                    </group>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+</odoo>
