@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+<record id="job_function_send_invoice_mail" model="queue.job.function">
+    <field name="model_id" ref="account.model_account_move" />
+    <field name="method">_transmit_invoice_by_email</field>
+    <field name="channel_id" ref="invoice_transmit_email" />
+    <field name="related_action" eval='{"func_name": "related_action_open_invoice"}' />
+</record>
+
+<record id="job_function_send_invoice_post" model="queue.job.function">
+    <field name="model_id" ref="account.model_account_move" />
+    <field name="method">_transmit_invoice_by_post</field>
+    <field name="channel_id" ref="invoice_transmit_post" />
+    <field name="related_action" eval='{"func_name": "related_action_open_invoice"}' />
+</record>
+
+</odoo>
