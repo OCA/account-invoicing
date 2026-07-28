@@ -1,0 +1,131 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_reimport_from_attachment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-28 16:15+0000\n"
+"PO-Revision-Date: 2026-01-28 16:15+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model.fields,field_description:account_invoice_reimport_from_attachment.field_account_move_reimport_attachment_wizard__attachment_id
+msgid "Attachment"
+msgstr "Pièce jointe"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model.fields,help:account_invoice_reimport_from_attachment.field_account_move_reimport_attachment_wizard__available_attachment_ids
+msgid "Attachments linked to the invoice."
+msgstr "Pièces jointes liées à la facture."
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model.fields,field_description:account_invoice_reimport_from_attachment.field_account_move_reimport_attachment_wizard__available_attachment_ids
+msgid "Available Attachments"
+msgstr "Pièces jointes disponibles"
+
+#. module: account_invoice_reimport_from_attachment
+#: model_terms:ir.ui.view,arch_db:account_invoice_reimport_from_attachment.account_move_reimport_attachment_wizard_form_view
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model.fields,field_description:account_invoice_reimport_from_attachment.field_account_move_reimport_attachment_wizard__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model.fields,field_description:account_invoice_reimport_from_attachment.field_account_move_reimport_attachment_wizard__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model.fields,field_description:account_invoice_reimport_from_attachment.field_account_move_reimport_attachment_wizard__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model.fields,field_description:account_invoice_reimport_from_attachment.field_account_move_reimport_attachment_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_reimport_from_attachment
+#: model:res.groups,name:account_invoice_reimport_from_attachment.group_invoice_reimport_from_attachment
+msgid "Invoice Reimport from Attachment"
+msgstr "Réimportation de facture depuis une pièce jointe"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model,name:account_invoice_reimport_from_attachment.model_account_move
+msgid "Journal Entry"
+msgstr "Écriture de journal"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model.fields,field_description:account_invoice_reimport_from_attachment.field_account_move_reimport_attachment_wizard____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model.fields,field_description:account_invoice_reimport_from_attachment.field_account_move_reimport_attachment_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model.fields,field_description:account_invoice_reimport_from_attachment.field_account_move_reimport_attachment_wizard__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model.fields,field_description:account_invoice_reimport_from_attachment.field_account_move_reimport_attachment_wizard__move_id
+msgid "Move"
+msgstr "Écriture"
+
+#. module: account_invoice_reimport_from_attachment
+#: model_terms:ir.ui.view,arch_db:account_invoice_reimport_from_attachment.account_move_reimport_attachment_wizard_form_view
+msgid "Reimport"
+msgstr "Réimporter"
+
+#. module: account_invoice_reimport_from_attachment
+#: model:ir.model,name:account_invoice_reimport_from_attachment.model_account_move_reimport_attachment_wizard
+msgid "Reimport Invoice from Attachment"
+msgstr "Réimporter la facture depuis une pièce jointe"
+
+#. module: account_invoice_reimport_from_attachment
+#. odoo-python
+#: code:addons/account_invoice_reimport_from_attachment/models/account_move.py:0
+#: model_terms:ir.ui.view,arch_db:account_invoice_reimport_from_attachment.account_move_form_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_reimport_from_attachment.account_move_reimport_attachment_wizard_form_view
+#, python-format
+msgid "Reimport from Attachment"
+msgstr "Réimporter depuis une pièce jointe"
+
+#. module: account_invoice_reimport_from_attachment
+#: model_terms:ir.ui.view,arch_db:account_invoice_reimport_from_attachment.account_move_reimport_attachment_wizard_form_view
+msgid ""
+"This will delete the current invoice and regenerate a new one from the "
+"selected attachment. Continue?"
+msgstr ""
+"Cela supprimera toutes les lignes de facture actuelles et les réimportera "
+"depuis la pièce jointe sélectionnée. Continuer ?"
+
+#. module: account_invoice_reimport_from_attachment
+#. odoo-python
+#: code:addons/account_invoice_reimport_from_attachment/models/account_move.py:0
+#, python-format
+msgid "You are not allowed to re-import invoices from attachments."
+msgstr ""
+"Vous n’êtes pas autorisé à réimporter des factures depuis des pièces "
+"jointes."
+
+#. module: account_invoice_reimport_from_attachment
+#. odoo-python
+#: code:addons/account_invoice_reimport_from_attachment/models/account_move.py:0
+#, python-format
+msgid "You can only re-import lines on a draft invoice."
+msgstr ""
+"Vous ne pouvez réimporter des lignes que sur une facture à l’état brouillon."
