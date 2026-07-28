@@ -7,48 +7,27 @@
         primary="True"
         priority="99"
     >
-        <!-- HEADER -->
-        <xpath
-            expr="//div[contains(@t-attf-class,'header')]/div[hasclass('o_background_header')]"
-            position="replace"
-        >
-            <div class="o_background_header container-fluid">
-                <t
-                    t-set="image_offset"
-                    t-value="o.partner_id.image_1024 and 'offset-2' or ''"
-                />
-                <img
-                    t-if="o.partner_id.image_1024"
-                    t-att-src="image_data_uri(o.partner_id.image_1024)"
-                    class="float-start"
-                    alt="Logo"
-                />
-                <div t-if="o.partner_id" t-attf-class="'col-5 ' + {{image_offset}}">
-                    <span
-                        t-field="o.partner_id"
-                        t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'
-                    />
-                    <t t-if="o.partner_id.vat">
-                        <t
-                            t-if="company.account_fiscal_country_id.vat_label"
-                            t-esc="company.account_fiscal_country_id.vat_label"
-                        />
-                        <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat" />
-                    </t>
-                </div>
-                <div class="clearfix mb8" />
-            </div>
-        </xpath>
         <!-- FOOTER -->
         <xpath
             expr="//div[contains(@t-attf-class,'footer')]/div/ul/div"
             position="replace"
         >
+            <div t-field="company.report_footer" />
             <div t-field="o.partner_id.self_invoice_report_footer" />
-            <span t-if="o.state != 'posted'">
+            <div t-if="o.state != 'posted'" class="text-danger">
                 <strong>This Self-bill is not valid</strong>
-            </span>
+            </div>
         </xpath>
+
+        <xpath expr="//div[contains(@t-attf-class,'article')]" position="inside">
+            <div
+                t-if="company.self_invoice_extra_infos"
+                name="self_invoice_extra_infos"
+            >
+                <span t-field="company.self_invoice_extra_infos" />
+            </div>
+        </xpath>
+
     </template>
 
     <!-- External layout view: self invoice layout switcher -->
@@ -91,31 +70,6 @@
         inherit_id="account.report_invoice_document"
         priority="99"
     >
-        <!-- Address switcher -->
-        <xpath
-            expr="//t/div[@name='address_same_as_shipping']/t[@t-set='address']"
-            position="after"
-        >
-            <t t-if="o.set_self_invoice">
-                <t t-set="address">
-                    <address
-                        class="mb-0"
-                        t-field="o.company_id.partner_id"
-                        t-options='{"widget": "contact", "fields": ["name", "address"], "no_marker": True}'
-                    />
-                    <div t-if="o.company_id.partner_id.vat">
-                        <t
-                            t-if="o.company_id.account_fiscal_country_id.vat_label"
-                            t-esc="o.company_id.account_fiscal_country_id.vat_label"
-                            id="inv_tax_id_label"
-                        />
-                        <t t-else="">Tax ID</t>: <span
-                            t-field="o.company_id.partner_id.vat"
-                        />
-                    </div>
-                </t>
-            </t>
-        </xpath>
         <!-- Move type text -->
         <xpath expr="//div[hasclass('page')]/h2/span[5]" position="replace">
             <span
@@ -133,10 +87,10 @@
         >
             <span
                 t-if="o.set_self_invoice and o.move_type == 'in_refund'"
-            >Self-bill Credit Note</span>
+            >Self-billed Credit Note</span>
             <span
                 t-if="o.set_self_invoice and o.move_type == 'in_invoice'"
-            >Self-bill Invoice</span>
+            >Self-billed Invoice</span>
             <span t-if="not o.set_self_invoice and o.name != '/'" t-field="o.name" />
             <span t-if="o.set_self_invoice and o.ref != '/'" t-field="o.ref" />
         </xpath>
