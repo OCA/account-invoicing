@@ -1,0 +1,133 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_stock_picking_invoicing
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-06-24 06:24+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
+"Language-Team: none\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.15.2\n"
+
+#. module: sale_stock_picking_invoicing
+#: model_terms:ir.ui.view,arch_db:sale_stock_picking_invoicing.sale_stock_picking_invoicing_res_config_settings_form
+msgid ""
+"Choose whether invoices are created from the Sale Order, from the Stock "
+"Picking, or from both with automatic sync."
+msgstr ""
+"Izberite, ali se računi ustvarjajo iz prodajnega naloga, iz dobavnice ali iz "
+"obeh s samodejno sinhronizacijo."
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model,name:sale_stock_picking_invoicing.model_res_company
+msgid "Companies"
+msgstr "Družbe"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model,name:sale_stock_picking_invoicing.model_res_config_settings
+msgid "Config Settings"
+msgstr "Nastavitve"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_stock_invoice_onshipping__deduct_down_payments
+msgid "Deduct down payments"
+msgstr "Odštej predplačila"
+
+#. module: sale_stock_picking_invoicing
+#: model:product.pricelist,name:sale_stock_picking_invoicing.demo_pricelist
+msgid "Demo Pricelist"
+msgstr "Demo cenik"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_stock_invoice_onshipping__has_down_payments
+msgid "Has down payments"
+msgstr "Ima predplačila"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model.fields,help:sale_stock_picking_invoicing.field_res_company__sale_invoicing_policy
+#: model:ir.model.fields,help:sale_stock_picking_invoicing.field_res_config_settings__sale_invoicing_policy
+msgid ""
+"If set to Sale Order, keep native Odoo behaviour for creation of invoices from Sale Orders.\n"
+"If set to Stock Picking, disallow creation of Invoices from Sale Orders for the cases where Product Type are 'consu', in case of 'Service' still will be possible create from Sale Order.\n"
+"If set to Sale Order and Stock Picking, invoices can be created from both the Sale Order and the Stock Picking. The picking invoice state is synced after Sale Order invoicing, and the picking wizard caps quantities to prevent double invoicing."
+msgstr ""
+"Če je nastavljeno na Prodajni nalog, ohrani izvorno vedenje Odoo za "
+"ustvarjanje računov iz prodajnih nalogov.\n"
+"Če je nastavljeno na Dobavnica, onemogoči ustvarjanje računov iz prodajnih "
+"nalogov v primerih, ko je tip izdelka \"consu\"; v primeru \"Service\" je še "
+"vedno mogoče ustvariti iz prodajnega naloga.\n"
+"Če je nastavljeno na Prodajni nalog in Dobavnica, se računi lahko ustvarjajo "
+"iz prodajnega naloga in dobavnice. Stanje računa dobavnice se sinhronizira "
+"po fakturiranju prodajnega naloga, čarovnik dobavnice pa omeji količine, da "
+"prepreči dvojno fakturiranje."
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_res_company__sale_invoicing_policy
+#: model:ir.model.fields,field_description:sale_stock_picking_invoicing.field_res_config_settings__sale_invoicing_policy
+msgid "Sale Invoicing Policy"
+msgstr "Politika fakturiranja prodaje"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model.fields.selection,name:sale_stock_picking_invoicing.selection__res_company__sale_invoicing_policy__sale_order
+msgid "Sale Order"
+msgstr "Prodajni nalog"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model.fields.selection,name:sale_stock_picking_invoicing.selection__res_company__sale_invoicing_policy__both
+msgid "Sale Order and Stock Picking"
+msgstr "Prodajni nalog in dobavnica"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model,name:sale_stock_picking_invoicing.model_sale_order
+msgid "Sales Order"
+msgstr "Prodajni nalog"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model,name:sale_stock_picking_invoicing.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Prodajna postavka"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model,name:sale_stock_picking_invoicing.model_stock_invoice_onshipping
+msgid "Stock Invoice Onshipping"
+msgstr "Obračun zaloge ob odpremi"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model,name:sale_stock_picking_invoicing.model_stock_move
+msgid "Stock Move"
+msgstr "Premik zaloge"
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model.fields.selection,name:sale_stock_picking_invoicing.selection__res_company__sale_invoicing_policy__stock_picking
+msgid "Stock Picking"
+msgstr "Dobavnica"
+
+#. module: sale_stock_picking_invoicing
+#: model_terms:ir.ui.view,arch_db:sale_stock_picking_invoicing.sale_stock_picking_invoicing_res_config_settings_form
+msgid "This default value is applied to creation of Invoice."
+msgstr "Ta privzeta vrednost se uporabi pri ustvarjanju računa."
+
+#. module: sale_stock_picking_invoicing
+#: model:ir.model,name:sale_stock_picking_invoicing.model_stock_picking
+msgid "Transfer"
+msgstr "Premestitev"
+
+#. module: sale_stock_picking_invoicing
+#. odoo-python
+#: code:addons/sale_stock_picking_invoicing/models/sale_order.py:0
+msgid ""
+"When 'Sale Invoicing Policy' is defined as 'Stock Picking' the Invoice can "
+"only be created from the Stock Picking, if necessary you can change in the "
+"Company or Sale Settings."
+msgstr ""
+"Ko je \"Politika fakturiranja prodaje\" nastavljena na \"Dobavnica\", je "
+"račun mogoče ustvariti le iz dobavnice; po potrebi lahko to spremenite v "
+"nastavitvah družbe ali prodaje."

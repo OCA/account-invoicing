@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-03-10 10:46+0000\n"
-"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
+"PO-Revision-Date: 2026-05-09 09:04+0000\n"
+"Last-Translator: Ed-Spain <eduamoros@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.report_invoice_document
@@ -53,13 +53,15 @@ msgstr "Cuenta analítica"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base_discounted
+#, fuzzy
 msgid "Base after discount"
-msgstr ""
+msgstr "Base después del descuento"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__base
+#, fuzzy
 msgid "Base before discount"
-msgstr ""
+msgstr "Base antes del descuento"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__company_id
@@ -117,7 +119,6 @@ msgstr "Nombre mostrado"
 msgid "Global Discount"
 msgstr "Descuento Global"
 
-
 #. module: account_global_discount
 #: model:ir.ui.menu,name:account_global_discount.menu_account_global_discount
 #: model_terms:ir.ui.view,arch_db:account_global_discount.view_move_form
@@ -162,18 +163,21 @@ msgstr "Descuentos Globales en Factura"
 #: model:ir.model.fields,field_description:account_global_discount.field_account_bank_statement_line__global_discount_ids_readonly
 #: model:ir.model.fields,field_description:account_global_discount.field_account_move__global_discount_ids_readonly
 #: model:ir.model.fields,field_description:account_global_discount.field_account_payment__global_discount_ids_readonly
+#, fuzzy
 msgid "Invoice Global Discounts (readonly)"
-msgstr ""
+msgstr "Descuentos globales de facturas (solo lectura)"
 
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_invoice_report
+#, fuzzy
 msgid "Invoices Statistics"
-msgstr ""
+msgstr "Estadísticas de Facturas"
 
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_move
+#, fuzzy
 msgid "Journal Entry"
-msgstr ""
+msgstr "Apunte Contable"
 
 #. module: account_global_discount
 #: model:ir.model,name:account_global_discount.model_account_move_line
@@ -192,8 +196,9 @@ msgstr "Última actualización en"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_invoice_global_discount__tax_ids
+#, fuzzy
 msgid "Taxes"
-msgstr ""
+msgstr "Impuestos"
 
 #. module: account_global_discount
 #: model:ir.model.fields,field_description:account_global_discount.field_account_bank_statement_line__amount_global_discount

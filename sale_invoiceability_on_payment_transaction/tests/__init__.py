@@ -1,0 +1,1 @@
+from . import test_sale_invoiceability_on_payment_transaction

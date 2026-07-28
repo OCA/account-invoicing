@@ -24,11 +24,16 @@ class ResCompany(models.Model):
         selection=[
             ("sale_order", "Sale Order"),
             ("stock_picking", "Stock Picking"),
+            ("both", "Sale Order and Stock Picking"),
         ],
         help="If set to Sale Order, keep native Odoo behaviour for creation of"
         " invoices from Sale Orders.\n"
         "If set to Stock Picking, disallow creation of Invoices from Sale Orders"
-        " for the cases where Product Type are 'Product', in case of 'Service'"
-        " still will be possible create from Sale Order.",
+        " for the cases where Product Type are 'consu', in case of 'Service'"
+        " still will be possible create from Sale Order.\n"
+        "If set to Sale Order and Stock Picking, invoices can be created from"
+        " both the Sale Order and the Stock Picking. The picking invoice state"
+        " is synced after Sale Order invoicing, and the picking wizard caps"
+        " quantities to prevent double invoicing.",
         default=_default_sale_invoicing_policy,
     )

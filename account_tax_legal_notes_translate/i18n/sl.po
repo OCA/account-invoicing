@@ -1,0 +1,33 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_tax_legal_notes_translate
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-06-09 08:10+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
+"Language-Team: none\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.15.2\n"
+
+#. module: account_tax_legal_notes_translate
+#: model:ir.model.fields,field_description:account_tax_legal_notes_translate.field_account_tax__invoice_legal_notes
+msgid "Legal Notes"
+msgstr "Pravne opombe"
+
+#. module: account_tax_legal_notes_translate
+#: model:ir.model.fields,help:account_tax_legal_notes_translate.field_account_tax__invoice_legal_notes
+msgid "Legal mentions that have to be printed on the invoices."
+msgstr "Pravne omembe, ki morajo biti natisnjene na računih."
+
+#. module: account_tax_legal_notes_translate
+#: model:ir.model,name:account_tax_legal_notes_translate.model_account_tax
+msgid "Tax"
+msgstr "Davek"

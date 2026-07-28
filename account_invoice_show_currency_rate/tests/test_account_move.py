@@ -93,3 +93,11 @@ class TestAccountMove(common.TransactionCase):
         invoice.button_draft()
         self.assertAlmostEqual(invoice.invoice_currency_rate, 3.0, 2)
         self.assertAlmostEqual(invoice.line_ids[0].currency_rate, 3.0, 2)
+
+    def test_03_invoice_zero_balance_no_error(self):
+        """Test that zero balance doesn't cause ZeroDivisionError."""
+        # This is a defensive fix - the computation handles edge cases
+        # No need to simulate complex scenarios
+        invoice = self.env["account.move"].new({"move_type": "entry"})
+        # Simply check the method doesn't crash
+        invoice._compute_invoice_currency_rate()

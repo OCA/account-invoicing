@@ -23,7 +23,7 @@ class StockMove(models.Model):
         move = fields.first(self)
         if move.sale_line_id:
             company = move.sale_line_id.order_id.company_id
-            if company.sale_invoicing_policy == "stock_picking":
+            if company.sale_invoicing_policy in ("stock_picking", "both"):
                 values["invoice_state"] = "2binvoiced"
 
         return values

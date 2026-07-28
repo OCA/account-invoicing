@@ -80,6 +80,9 @@ class AccountMove(models.Model):
                 ),
                 # Avoid breaking unaware addons' tests by default
                 config["test_enable"],
+                # Allow skipping if some operation needs it EX questionable but legal
+                # external invoice importing
+                self.env.context.get("skip_tax_required"),
             )
         )
         if force_test or not skip_test:

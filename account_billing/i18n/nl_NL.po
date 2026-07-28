@@ -510,6 +510,11 @@ msgid "Please select invoices with same partner"
 msgstr "Selecteer facturen met dezelfde relatie"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: account_billing
 #: model:ir.actions.server,name:account_billing.action_account_billing_from_list
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Register Payment"
@@ -525,6 +530,11 @@ msgstr "Relatie tussen factuur en verzamelfacturen"
 #: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
 msgid "Search Billings"
 msgstr "Zoek verzamelfacturen"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__sequence
+msgid "Sequence"
+msgstr ""
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form

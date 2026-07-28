@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account.action_move_in_invoice" model="ir.actions.act_window">
+        <field name="view_mode">list,kanban,form,activity,pivot</field>
+    </record>
+    <record id="account.action_move_in_refund_type" model="ir.actions.act_window">
+        <field name="view_mode">list,kanban,form,activity,pivot</field>
+    </record>
+    <record id="account.action_move_in_receipt_type" model="ir.actions.act_window">
+        <field name="view_mode">list,kanban,form,activity,pivot</field>
+    </record>
+
+    <record id="account.action_move_out_invoice" model="ir.actions.act_window">
+        <field name="view_mode">list,kanban,form,activity,pivot</field>
+    </record>
+    <record id="account.action_move_out_refund_type" model="ir.actions.act_window">
+        <field name="view_mode">list,kanban,form,activity,pivot</field>
+    </record>
+    <record id="account.action_move_out_receipt_type" model="ir.actions.act_window">
+        <field name="view_mode">list,kanban,form,activity,pivot</field>
+    </record>
+
+    <record id="account_move_pivot_view" model="ir.ui.view">
+        <field name="name">account.move.pivot</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <pivot string="Invoices" display_quantity="true">
+                <field name="partner_id" type="row" />
+                <field name="amount_total_signed" type="measure" />
+                <field name="amount_residual_signed" type="measure" />
+            </pivot>
+        </field>
+    </record>
+</odoo>

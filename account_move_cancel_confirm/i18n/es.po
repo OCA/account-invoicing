@@ -30,10 +30,22 @@ msgid "An optional cancel reason"
 msgstr "Un motivo opcional de cancelación"
 
 #. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_by
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_by
+msgid "Cancel By"
+msgstr ""
+
+#. module: account_move_cancel_confirm
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_confirm
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_confirm
 msgid "Cancel Confirmed"
 msgstr "Cancelación Confirmada"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_date
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_date
+msgid "Cancel Date"
+msgstr ""
 
 #. module: account_move_cancel_confirm
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_reason

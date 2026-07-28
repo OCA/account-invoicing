@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-05 09:09+0000\n"
-"PO-Revision-Date: 2020-03-05 10:10+0100\n"
-"Last-Translator: <>\n"
+"PO-Revision-Date: 2026-05-09 09:04+0000\n"
+"Last-Translator: Ed-Spain <eduamoros@gmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.model,name:sale_order_invoicing_grouping_criteria.model_res_company
@@ -110,7 +110,7 @@ msgstr "Nombre"
 #. module: sale_order_invoicing_grouping_criteria
 #: model_terms:ir.ui.view,arch_db:sale_order_invoicing_grouping_criteria.view_partner_property_form
 msgid "Sale Invoicing Grouping Criteria"
-msgstr ""
+msgstr "Criterios de agrupación de facturación de ventas"
 
 #. module: sale_order_invoicing_grouping_criteria
 #: model:ir.actions.act_window,name:sale_order_invoicing_grouping_criteria.action_sale_invoice_grouping_criteria

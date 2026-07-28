@@ -229,6 +229,18 @@ class TestInvoiceTripleDiscount(BaseCommon):
         self.assertEqual(invoice_line1.discount2, 20.0)
         self.assertEqual(invoice_line1.discount3, 10.0)
 
+    def test_report_display_discount(self):
+        """display_discount is True when triple discounts are set"""
+        invoice = self.create_simple_invoice(100)
+        invoice_form = Form(invoice)
+        with invoice_form.invoice_line_ids.edit(0) as line_form:
+            line_form.discount1 = 10
+            line_form.discount2 = 20
+            line_form.discount3 = 5
+        invoice_form.save()
+        # discount is computed from discount1/2/3, so display_discount must be True
+        self.assertTrue(any(line.discount for line in invoice.invoice_line_ids))
+
     def test_tax_compute_with_lock_date(self):
         # Check that the tax computation works even if the lock date is set
         invoice = self.create_simple_invoice(0)

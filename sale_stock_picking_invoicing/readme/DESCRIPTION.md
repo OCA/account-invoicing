@@ -4,8 +4,13 @@ can define the 'Sale Invoicing Policy':
 - If set to Sale Order, keep native Odoo behaviour for creation of
   invoices from Sale Orders.
 - If set to Stock Picking, disallow creation of Invoices from Sale
-  Orders for the cases where the Product Type are 'Product', in case of
+  Orders for the cases where the Product Type is 'consu', in case of
   'Service' still will be possible create from Sale Order.
+- If set to Sale Order and Stock Picking, invoices can be created from
+  both the Sale Order and the Stock Picking. When invoicing from the
+  Sale Order, the related picking is automatically marked as invoiced.
+  The picking wizard also caps quantities to prevent double invoicing
+  when some units were already invoiced from the Sale Order.
 
 For stock.moves, override price calculation that is present in
 stock_picking_invoicing, with the native Sale Order Line price

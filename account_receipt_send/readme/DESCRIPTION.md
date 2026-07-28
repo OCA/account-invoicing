@@ -1,0 +1,2 @@
+- Add a button to Send Receipts
+- Add a new mail template for receipts

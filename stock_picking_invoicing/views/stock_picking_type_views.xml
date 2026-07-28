@@ -22,14 +22,19 @@
             </field>
             <xpath expr="//div[hasclass('stock-overview-links')]" position="inside">
                 <div t-if="record.count_picking_2binvoiced.raw_value > 0" class="row">
-                    <div class="col-9">
-                        <a name="%(2binvoiced_action_picking_dashboard)d" type="action">
-                            To be Invoiced
-                        </a>
-                    </div>
-                    <div class="col-3">
-                        <field name="count_picking_2binvoiced" />
-                    </div>
+                    <a
+                        class="col-8 offset-4 pe-0 text-truncate"
+                        name="%(2binvoiced_action_picking_dashboard)d"
+                        type="action"
+                    >
+                        <div class="row">
+                            <span class="col-6">To be Invoiced</span>
+                            <field
+                                class="col-2 text-end"
+                                name="count_picking_2binvoiced"
+                            />
+                        </div>
+                    </a>
                 </div>
             </xpath>
         </field>

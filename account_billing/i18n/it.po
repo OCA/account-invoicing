@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-04-27 13:45+0000\n"
+"PO-Revision-Date: 2026-07-01 11:18+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -326,7 +326,7 @@ msgstr "Bozza fatturazione"
 #. module: account_billing
 #: model:ir.model.fields.selection,name:account_billing.selection__account_billing__threshold_date_type__invoice_date_due
 msgid "Due Date"
-msgstr "Data scadenza"
+msgstr "Scadenza"
 
 #. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing__date
@@ -530,6 +530,11 @@ msgid "Please select invoices with same partner"
 msgstr "Selezionare fatture con lo stesso partner"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__rating_ids
+msgid "Ratings"
+msgstr "Valutazioni"
+
+#. module: account_billing
 #: model:ir.actions.server,name:account_billing.action_account_billing_from_list
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Register Payment"
@@ -545,6 +550,11 @@ msgstr "Relazione tra fattura e fatturazione"
 #: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
 msgid "Search Billings"
 msgstr "Cerca fatturazioni"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__sequence
+msgid "Sequence"
+msgstr "Sequenza"
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form

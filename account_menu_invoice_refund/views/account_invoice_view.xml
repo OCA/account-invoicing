@@ -1,0 +1,20 @@
+<!-- Copyright 2019 Ecosoft
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Customer Invoice / Refund -->
+    <menuitem
+        action="account.action_move_out_invoice_type"
+        id="menu_action_move_out_invoice_all"
+        parent="account.menu_finance_receivables"
+        name="Invoices / Credit Notes"
+        sequence="3"
+    />
+    <!-- Vendor Bill / Refund -->
+    <menuitem
+        action="account.action_move_in_invoice_type"
+        id="menu_action_move_in_invoice_all"
+        parent="account.menu_finance_payables"
+        name="Bills / Refunds"
+        sequence="6"
+    />
+</odoo>

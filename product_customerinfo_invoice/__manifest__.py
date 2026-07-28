@@ -7,7 +7,7 @@
     "name": "Product Customer code for account invoice",
     "summary": "Based on product_customerinfo, this module loads in every "
     "account invoice the customer code defined in the product",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "author": "Agile Business Group, ForgeFlow, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Account",

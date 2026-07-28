@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_picking_invoicing
+#: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.stock_picking_type_kanban
+msgid "<span class=\"col-6\">To be Invoiced</span>"
+msgstr ""
+
+#. module: stock_picking_invoicing
 #. odoo-python
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:0
 msgid "All pickings are not related to your company!"
@@ -272,11 +277,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_move__invoice_state__2binvoiced
 #: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_picking__invoice_state__2binvoiced
 msgid "To Be Invoiced"
-msgstr ""
-
-#. module: stock_picking_invoicing
-#: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.stock_picking_type_kanban
-msgid "To be Invoiced"
 msgstr ""
 
 #. module: stock_picking_invoicing

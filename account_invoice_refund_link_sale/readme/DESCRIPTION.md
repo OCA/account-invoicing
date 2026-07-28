@@ -1,0 +1,1 @@
+This module links refunds to their original invoices when a sales order generates a refund for lines that were originally invoiced on a specific invoice.

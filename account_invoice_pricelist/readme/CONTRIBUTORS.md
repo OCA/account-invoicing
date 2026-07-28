@@ -7,3 +7,5 @@
 - Manuel Regidor \<<manuel.regidor@sygel.es>\>
 - [APSL-Nagarro](https://www.apsl.tech):
   - Antoni Marroig \<<amarroig@apsl.net>\>
+- [Tecnativa](https://www.tecnativa.com):
+  - Eduardo Ezerouali

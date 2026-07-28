@@ -20,7 +20,7 @@
                 <setting
                     id="sales_settings_create_invoice_policy"
                     title="This default value is applied to creation of Invoice."
-                    help="Define if Invoice should be created from Sale Order or from Stock Picking"
+                    help="Choose whether invoices are created from the Sale Order, from the Stock Picking, or from both with automatic sync."
                 >
                     <field
                         name="sale_invoicing_policy"

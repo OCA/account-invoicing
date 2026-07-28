@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-08-09 10:06+0000\n"
-"Last-Translator: jabelchi <jabelchi@gmail.com>\n"
+"PO-Revision-Date: 2026-05-12 23:45+0000\n"
+"Last-Translator: QuiJoQuim <quim.rebull@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: stock_picking_return_refund_option
 #: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking__is_return
@@ -24,7 +24,7 @@ msgstr "És devolució"
 #. module: stock_picking_return_refund_option
 #: model:ir.model.fields.selection,name:stock_picking_return_refund_option.selection__stock_picking__to_refund_lines__no_refund
 msgid "No Refund"
-msgstr ""
+msgstr "No abonar"
 
 #. module: stock_picking_return_refund_option
 #: model:ir.model.fields,field_description:stock_picking_return_refund_option.field_stock_picking__to_refund_lines

@@ -17,9 +17,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_picking_invoicing
+#: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.stock_picking_type_kanban
+msgid "<span class=\"col-6\">To be Invoiced</span>"
+msgstr ""
+
+#. module: stock_picking_invoicing
 #. odoo-python
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:0
-#, python-format
 msgid "All pickings are not related to your company!"
 msgstr "Les pickings ne sont pas liés à la même société!"
 
@@ -167,7 +171,6 @@ msgstr "Dernière mise à jour le"
 #. module: stock_picking_invoicing
 #. odoo-python
 #: code:addons/stock_picking_invoicing/wizards/stock_invoice_onshipping.py:0
-#, python-format
 msgid "No invoice created!"
 msgstr "Pas de facture créée!"
 
@@ -219,6 +222,11 @@ msgstr "Journal d'achat"
 #. module: stock_picking_invoicing
 #: model:ir.model,name:stock_picking_invoicing.model_stock_return_picking
 msgid "Return Picking"
+msgstr ""
+
+#. module: stock_picking_invoicing
+#: model:ir.model,name:stock_picking_invoicing.model_stock_return_picking_line
+msgid "Return Picking Line"
 msgstr ""
 
 #. module: stock_picking_invoicing
@@ -277,6 +285,11 @@ msgid "Stock Move"
 msgstr "Mouvement de stock"
 
 #. module: stock_picking_invoicing
+#: model:ir.model,name:stock_picking_invoicing.model_stock_rule
+msgid "Stock Rule"
+msgstr ""
+
+#. module: stock_picking_invoicing
 #: model:account.fiscal.position,name:stock_picking_invoicing.fiscal_position_demo
 msgid "Test - Stock Picking Invocing"
 msgstr ""
@@ -286,12 +299,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_move__invoice_state__2binvoiced
 #: model:ir.model.fields.selection,name:stock_picking_invoicing.selection__stock_picking__invoice_state__2binvoiced
 msgid "To Be Invoiced"
-msgstr "À facturer"
-
-#. module: stock_picking_invoicing
-#: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.stock_picking_type_kanban
-#, fuzzy
-msgid "To be Invoiced"
 msgstr "À facturer"
 
 #. module: stock_picking_invoicing
@@ -313,6 +320,10 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "or"
 msgstr "ou"
+
+#, fuzzy
+#~ msgid "To be Invoiced"
+#~ msgstr "À facturer"
 
 #~ msgid "Last Modified on"
 #~ msgstr "Dernière Modification le"

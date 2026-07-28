@@ -29,6 +29,8 @@ class AccountMove(models.Model):
             total_balance_positive = sum([abs(b) for b in lines.mapped("balance")])
             move.invoice_currency_rate = (
                 amount_currency_positive / total_balance_positive
+                if total_balance_positive
+                else 0
             )
         return res
 
