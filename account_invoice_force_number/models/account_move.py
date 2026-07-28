@@ -32,6 +32,7 @@ class AccountMove(models.Model):
 
     def _post(self, soft=True):
         for move in self:
-            if move.move_name:
-                move.write({"name": move.move_name})
+            move_name = move.move_name
+            if move_name and move.name != move_name:
+                move.write({"name": move_name})
         return super(AccountMove, self)._post(soft=soft)
