@@ -1,0 +1,1 @@
+from . import test_product_average_price_invoice

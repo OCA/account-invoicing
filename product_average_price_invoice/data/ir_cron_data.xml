@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Tecnativa - Eduardo Ezerouali
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<odoo noupdate="1">
+    <record id="ir_cron_update_average_prices" model="ir.cron">
+        <field name="name">Update product average prices</field>
+        <field name="model_id" ref="product.model_product_product" />
+        <field name="state">code</field>
+        <field name="code">model._cron_update_avg_prices()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <!-- Next night, so it isn't run right after installing the module. -->
+        <field
+            name="nextcall"
+            eval="(DateTime.now() + relativedelta(days=1)).strftime('%Y-%m-%d 02:00:00')"
+        />
+        <field name="active" eval="True" />
+    </record>
+</odoo>

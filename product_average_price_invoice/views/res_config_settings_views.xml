@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Tecnativa - Eduardo Ezerouali
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.form.average.price.invoice</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='account']" position="inside">
+                <block
+                    title="Product Average Prices"
+                    id="product_average_price_settings"
+                >
+                    <setting
+                        string="Expanding window"
+                        help="Prices are computed from invoices over a window that starts at the step size and is widened step by step until data is found."
+                    >
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label
+                                    for="avg_price_step_days"
+                                    string="Step size (days)"
+                                    class="col-lg-6 o_light_label"
+                                />
+                                <field name="avg_price_step_days" class="oe_inline" />
+                            </div>
+                            <div class="row">
+                                <label
+                                    for="avg_price_max_steps"
+                                    string="Max steps"
+                                    class="col-lg-6 o_light_label"
+                                />
+                                <field name="avg_price_max_steps" class="oe_inline" />
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

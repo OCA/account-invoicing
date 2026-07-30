@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Tecnativa - Eduardo Ezerouali
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.form.average.price.invoice</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='standard_price_uom']" position="after">
+                <field name="cost_currency_id" invisible="1" />
+                <field name="currency_id" invisible="1" />
+                <label
+                    for="avg_purchase_price"
+                    groups="account.group_account_invoice"
+                />
+                <div
+                    class="o_row"
+                    name="avg_purchase_price_row"
+                    groups="account.group_account_invoice"
+                >
+                    <field
+                        name="avg_purchase_price"
+                        class="oe_inline"
+                        readonly="1"
+                        widget="monetary"
+                        options="{'currency_field': 'cost_currency_id'}"
+                    />
+                    <button
+                        type="object"
+                        name="action_view_avg_purchase_price_move_lines"
+                        class="btn-link"
+                        groups="account.group_account_invoice"
+                    >
+                        <span class="text-muted"><field
+                                name="avg_purchase_price_period"
+                                class="oe_inline"
+                            /></span>
+                    </button>
+                    <button
+                        name="action_update_avg_purchase_price"
+                        type="object"
+                        title="Recompute Average"
+                        class="btn-link"
+                        icon="fa-refresh"
+                    />
+                </div>
+                <label for="avg_sale_price" groups="account.group_account_invoice" />
+                <div
+                    class="o_row"
+                    name="avg_sale_price_row"
+                    groups="account.group_account_invoice"
+                >
+                    <field
+                        name="avg_sale_price"
+                        class="oe_inline"
+                        readonly="1"
+                        widget="monetary"
+                        options="{'currency_field': 'currency_id'}"
+                    />
+                    <button
+                        type="object"
+                        name="action_view_avg_sale_price_move_lines"
+                        class="btn-link"
+                        groups="account.group_account_invoice"
+                    >
+                        <span class="text-muted"><field
+                                name="avg_sale_price_period"
+                                class="oe_inline"
+                            /></span>
+                    </button>
+                    <button
+                        name="action_update_avg_sale_price"
+                        type="object"
+                        title="Recompute Average"
+                        class="btn-link"
+                        icon="fa-refresh"
+                    />
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

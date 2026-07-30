@@ -1,0 +1,236 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_average_price_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-27 16:11+0000\n"
+"PO-Revision-Date: 2026-07-27 16:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_average_price_mixin__avg_purchase_price
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_product__avg_purchase_price
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_template__avg_purchase_price
+msgid "APP"
+msgstr "PMC"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_average_price_mixin__avg_sale_price
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_product__avg_sale_price
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_template__avg_sale_price
+msgid "ASP"
+msgstr "PMV"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_average_price_mixin__avg_purchase_price_date_from
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_product__avg_purchase_price_date_from
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_template__avg_purchase_price_date_from
+msgid "Avg Purchase Price Date From"
+msgstr "Fecha desde del precio medio de compra"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_average_price_mixin__avg_purchase_price_date_to
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_product__avg_purchase_price_date_to
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_template__avg_purchase_price_date_to
+msgid "Avg Purchase Price Date To"
+msgstr "Fecha hasta del precio medio de compra"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_average_price_mixin__avg_purchase_price_period
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_product__avg_purchase_price_period
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_template__avg_purchase_price_period
+msgid "Avg Purchase Price Period"
+msgstr "Periodo del precio medio de compra"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_average_price_mixin__avg_sale_price_date_from
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_product__avg_sale_price_date_from
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_template__avg_sale_price_date_from
+msgid "Avg Sale Price Date From"
+msgstr "Fecha desde del precio medio de venta"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_average_price_mixin__avg_sale_price_date_to
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_product__avg_sale_price_date_to
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_template__avg_sale_price_date_to
+msgid "Avg Sale Price Date To"
+msgstr "Fecha hasta del precio medio de venta"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_average_price_mixin__avg_sale_price_period
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_product__avg_sale_price_period
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_product_template__avg_sale_price_period
+msgid "Avg Sale Price Period"
+msgstr "Periodo del precio medio de venta"
+
+#. module: product_average_price_invoice
+#. odoo-python
+#: code:addons/product_average_price_invoice/models/product_average_price_mixin.py:0
+#, python-format
+msgid "Avg. Purchase Price Journal Items"
+msgstr "Apuntes contables del precio medio de compra"
+
+#. module: product_average_price_invoice
+#. odoo-python
+#: code:addons/product_average_price_invoice/models/product_average_price_mixin.py:0
+#, python-format
+msgid "Avg. Sale Price Journal Items"
+msgstr "Apuntes contables del precio medio de venta"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_res_company__avg_price_max_steps
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_res_config_settings__avg_price_max_steps
+msgid "Average Price Max Steps"
+msgstr "Pasos máximos del precio medio"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_res_company__avg_price_step_days
+#: model:ir.model.fields,field_description:product_average_price_invoice.field_res_config_settings__avg_price_step_days
+msgid "Average Price Step (days)"
+msgstr "Paso del precio medio (días)"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_average_price_mixin__avg_purchase_price
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_product__avg_purchase_price
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_template__avg_purchase_price
+msgid ""
+"Average purchase unit price calculated from posted vendor bills, without "
+"taxes or added costs. A template averages all its variants."
+msgstr ""
+"Precio unitario medio de compra calculado a partir de las facturas de "
+"proveedor publicadas, sin impuestos ni costes añadidos. Una plantilla "
+"promedia todas sus variantes."
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_average_price_mixin__avg_sale_price
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_product__avg_sale_price
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_template__avg_sale_price
+msgid ""
+"Average sale unit price calculated from posted customer invoices, without "
+"taxes or added costs. A template averages all its variants."
+msgstr ""
+"Precio unitario medio de venta calculado a partir de las facturas de "
+"cliente publicadas, sin impuestos ni costes añadidos. Una plantilla "
+"promedia todas sus variantes."
+
+#. module: product_average_price_invoice
+#: model:ir.model,name:product_average_price_invoice.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: product_average_price_invoice
+#: model:ir.model,name:product_average_price_invoice.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_average_price_mixin__avg_purchase_price_period
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_product__avg_purchase_price_period
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_template__avg_purchase_price_period
+msgid "Date range the stored avg_purchase_price was computed for."
+msgstr "Rango de fechas para el que se calculó el avg_purchase_price almacenado."
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_average_price_mixin__avg_sale_price_period
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_product__avg_sale_price_period
+#: model:ir.model.fields,help:product_average_price_invoice.field_product_template__avg_sale_price_period
+msgid "Date range the stored avg_sale_price was computed for."
+msgstr "Rango de fechas para el que se calculó el avg_sale_price almacenado."
+
+#. module: product_average_price_invoice
+#: model_terms:ir.ui.view,arch_db:product_average_price_invoice.res_config_settings_view_form
+msgid "Expanding window"
+msgstr "Ventana expansiva"
+
+#. module: product_average_price_invoice
+#. odoo-python
+#: code:addons/product_average_price_invoice/models/product_average_price_mixin.py:0
+#, python-format
+msgid "From %(start)s to %(end)s"
+msgstr "Del %(start)s al %(end)s"
+
+#. module: product_average_price_invoice
+#: model_terms:ir.ui.view,arch_db:product_average_price_invoice.res_config_settings_view_form
+msgid "Max steps"
+msgstr "Pasos máximos"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,help:product_average_price_invoice.field_res_company__avg_price_max_steps
+#: model:ir.model.fields,help:product_average_price_invoice.field_res_config_settings__avg_price_max_steps
+msgid ""
+"Maximum number of steps the window is widened (step size x this number is "
+"the furthest the computation looks back) before giving up."
+msgstr ""
+"Número máximo de veces que se amplía la ventana (el tamaño del paso por este"
+" número es lo más atrás que llega el cálculo) antes de descartarlo."
+
+#. module: product_average_price_invoice
+#. odoo-python
+#: code:addons/product_average_price_invoice/models/product_average_price_mixin.py:0
+#, python-format
+msgid "No data (last %(days)s days)"
+msgstr "Sin datos (últimos %(days)s días)"
+
+#. module: product_average_price_invoice
+#: model_terms:ir.ui.view,arch_db:product_average_price_invoice.res_config_settings_view_form
+msgid ""
+"Prices are computed from invoices over a window that starts at the step size"
+" and is widened step by step until data is found."
+msgstr ""
+"Los precios se calculan a partir de las facturas sobre una ventana que "
+"empieza en el tamaño del paso y se amplía paso a paso hasta encontrar datos."
+
+#. module: product_average_price_invoice
+#: model:ir.model,name:product_average_price_invoice.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_average_price_invoice
+#: model:ir.model,name:product_average_price_invoice.model_product_average_price_mixin
+msgid "Product Average Invoiced Price Mixin"
+msgstr "Mixin de precio medio facturado del producto"
+
+#. module: product_average_price_invoice
+#: model_terms:ir.ui.view,arch_db:product_average_price_invoice.res_config_settings_view_form
+msgid "Product Average Prices"
+msgstr "Precios medios del producto"
+
+#. module: product_average_price_invoice
+#: model:ir.model,name:product_average_price_invoice.model_product_product
+msgid "Product Variant"
+msgstr "Variante de producto"
+
+#. module: product_average_price_invoice
+#: model_terms:ir.ui.view,arch_db:product_average_price_invoice.product_template_form_view
+#: model_terms:ir.ui.view,arch_db:product_average_price_invoice.product_variant_easy_edit_view
+msgid "Recompute Average"
+msgstr "Recalcular la media"
+
+#. module: product_average_price_invoice
+#: model:ir.model.fields,help:product_average_price_invoice.field_res_company__avg_price_step_days
+#: model:ir.model.fields,help:product_average_price_invoice.field_res_config_settings__avg_price_step_days
+msgid ""
+"Size in days of each step of the expanding window used to compute the "
+"average purchase (APP) and sale (ASP) prices from invoices."
+msgstr ""
+"Tamaño en días de cada paso de la ventana expansiva utilizada para calcular "
+"los precios medios de compra (PMC) y de venta (PMV) a partir de las "
+"facturas."
+
+#. module: product_average_price_invoice
+#: model_terms:ir.ui.view,arch_db:product_average_price_invoice.res_config_settings_view_form
+msgid "Step size (days)"
+msgstr "Tamaño del paso (días)"
+
+#. module: product_average_price_invoice
+#: model:ir.actions.server,name:product_average_price_invoice.ir_cron_update_average_prices_ir_actions_server
+msgid "Update product average prices"
+msgstr "Actualizar los precios medios de los productos"
