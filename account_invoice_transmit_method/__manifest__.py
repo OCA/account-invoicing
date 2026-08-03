@@ -12,6 +12,7 @@
     "maintainers": ["alexis-via"],
     "website": "https://github.com/OCA/account-invoicing",
     "depends": ["account", "base_view_inheritance_extension"],
+    "pre_init_hook": "pre_init_hook",
     "data": [
         "security/ir.model.access.csv",
         "views/account_move.xml",
