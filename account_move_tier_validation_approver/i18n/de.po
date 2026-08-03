@@ -6,55 +6,59 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-08-03 17:01+0000\n"
+"Last-Translator: smaddlsoft <jm.veddeler@gmail.com>\n"
 "Language-Team: none\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_partner__approver_id
 #: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_users__approver_id
 msgid "Approver of Vendor Bills"
-msgstr ""
+msgstr "Genehmiger von Lieferantenrechnungen"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_company__validation_approver_tier_definition_id
 msgid "Bill approval tier definition"
-msgstr ""
+msgstr "Freigabestufen-Definition für Eingangsrechnungen"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model,name:account_move_tier_validation_approver.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Unternehmen"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model,name:account_move_tier_validation_approver.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model,name:account_move_tier_validation_approver.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #. module: account_move_tier_validation_approver
 #. odoo-python
 #: code:addons/account_move_tier_validation_approver/models/account_move.py:0
 msgid "It is mandatory to indicate a Responsible for Approval (in {})"
 msgstr ""
+"Es ist zwingend erforderlich, einen Freigabeverantwortlichen anzugeben (in "
+"{})"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model,name:account_move_tier_validation_approver.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Buchungssatz"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_config_settings__require_approver_in_vendor_bills
 msgid "Require Approver In Vendor Bills"
-msgstr ""
+msgstr "Genehmiger für Lieferantenrechnungen erforderlich"
 
 #. module: account_move_tier_validation_approver
 #: model_terms:ir.ui.view,arch_db:account_move_tier_validation_approver.res_config_settings_view_form
@@ -62,19 +66,23 @@ msgid ""
 "Require approver before posting vendor bills. Values set here are company-"
 "specific."
 msgstr ""
+"Genehmiger vor dem Buchen von Lieferantenrechnungen erforderlich. Die hier "
+"gesetzten Werte sind unternehmensspezifisch."
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_company__require_approver_in_vendor_bills
 msgid "Require approver in vendor bills"
-msgstr ""
+msgstr "Genehmiger in Lieferantenrechnungen erforderlich"
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model.fields,help:account_move_tier_validation_approver.field_res_config_settings__require_approver_in_vendor_bills
 msgid "Requires adding an approver before a vendor bill can be posted."
 msgstr ""
+"Es muss ein Genehmiger angegeben werden, bevor eine Lieferantenrechnung "
+"gebucht werden kann."
 
 #. module: account_move_tier_validation_approver
 #: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_account_bank_statement_line__approver_id
 #: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_account_move__approver_id
 msgid "Responsible for Approval"
-msgstr ""
+msgstr "Freigabeverantwortlicher"
