@@ -14,9 +14,12 @@ class InvoiceMerge(models.TransientModel):
     _description = "Merge Partner Invoice"
 
     keep_references = fields.Boolean(
-        "Keep references from original invoices", default=True
+        string="Keep references from original invoices",
+        default=True,
     )
-    date_invoice = fields.Date("Invoice Date")
+    date_invoice = fields.Date(
+        string="Invoice Date",
+    )
     error_message = fields.Text()
 
     @api.model
@@ -55,7 +58,6 @@ class InvoiceMerge(models.TransientModel):
                     "Please select multiple invoices to merge in the list view."
                 )
                 return msg
-
             invs = self.env["account.move"].browse(ids)
             error_msg = self._get_not_mergeable_invoices_message(invs)
             if error_msg:

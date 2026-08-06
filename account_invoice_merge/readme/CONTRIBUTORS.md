@@ -13,3 +13,7 @@
 - [Trobz](https://trobz.com):
 
   > - Nguyễn Minh Chiến \<<chien@trobz.com>\>
+
+- [APSL-Nagarro](https://apsl.tech):
+
+  - Vicent Cubells \<<vicent.cubells@nagarro.com>\>

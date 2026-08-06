@@ -16,6 +16,10 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        if "sale.order" in cls.env.registry:
+            cls.env.user.write(
+                {"group_ids": [(4, cls.env.ref("sales_team.group_sale_manager").id)]}
+            )
         cls.company = cls.company_data["company"]
         cls.company_data2 = cls.setup_other_company()
         cls.company2 = cls.company_data2["company"]
@@ -34,38 +38,38 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
         )
         invoice_date = fields.Date.today()
         cls.invoice1 = cls.init_invoice(
-            "out_invoice",
+            move_type="out_invoice",
             partner=cls.partner_a,
             invoice_date=invoice_date,
             products=cls.product_a,
         )
         cls.now = cls.invoice1.create_date
         cls.invoice2 = cls.init_invoice(
-            "out_invoice",
+            move_type="out_invoice",
             partner=cls.partner_a,
             invoice_date=invoice_date,
             products=cls.product_a,
         )
         cls.invoice3 = cls.init_invoice(
-            "out_invoice",
+            move_type="out_invoice",
             partner=cls.partner_b,
             invoice_date=invoice_date,
             products=cls.product_a,
         )
         cls.invoice4 = cls.init_invoice(
-            "in_invoice",
+            move_type="in_invoice",
             partner=cls.partner_a,
             invoice_date=invoice_date,
             products=cls.product_a,
         )
         cls.invoice5 = cls.init_invoice(
-            "out_invoice",
+            move_type="out_invoice",
             partner=cls.partner_a,
             invoice_date=invoice_date,
             products=cls.product_a,
         )
         cls.invoice6 = cls.init_invoice(
-            "out_invoice",
+            move_type="out_invoice",
             partner=cls.partner_a,
             products=cls.product_a,
             invoice_date=invoice_date,
