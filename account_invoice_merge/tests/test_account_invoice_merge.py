@@ -49,26 +49,26 @@ class TestAccountInvoiceMerge(TransactionCase):
         )
         return partner
 
-    def _create_inv_line(self, invoice):
+    def _create_inv_line(self, invoice, display_type=False):
         lines = invoice.invoice_line_ids
-        invoice.write(
-            {
-                "invoice_line_ids": [
-                    (
-                        0,
-                        False,
-                        {
-                            "name": "test invoice line",
-                            "quantity": 1.0,
-                            "price_unit": 3.0,
-                            "move_id": invoice.id,
-                            "product_id": self.product.id,
-                            "exclude_from_invoice_tab": False,
-                        },
-                    )
-                ]
-            }
+        invoice_name = (
+            f"test invoice line {display_type}" if display_type else "test invoice line"
         )
+        line_vals = {
+            "display_type": display_type,
+            "name": invoice_name,
+        }
+        if not display_type:
+            line_vals.update(
+                {
+                    "quantity": 1.0,
+                    "price_unit": 3.0,
+                    "move_id": invoice.id,
+                    "product_id": self.product.id,
+                    "exclude_from_invoice_tab": False,
+                }
+            )
+        invoice.write({"invoice_line_ids": [(0, False, line_vals)]})
         return invoice.invoice_line_ids - lines
 
     def _create_invoice(self, partner, name, journal=False, move_type=False):
@@ -85,6 +85,33 @@ class TestAccountInvoiceMerge(TransactionCase):
             }
         )
         return invoice
+
+    def test_account_invoice_merge_with_notes_sections(self):
+        invoice1 = self._create_invoice(self.partner1, "A")
+        self._create_inv_line(invoice1, "line_section")
+        self._create_inv_line(invoice1)
+        self._create_inv_line(invoice1, "line_note")
+        invoice2 = self._create_invoice(self.partner1, "B")
+        self._create_inv_line(invoice2)
+        self.assertEqual(len(invoice1.invoice_line_ids), 3)
+        self.assertEqual(len(invoice2.invoice_line_ids), 1)
+        invoices = invoice1 | invoice2
+        wiz_id = self.wiz.with_context(
+            active_ids=invoices.ids,
+            active_model=invoices._name,
+        ).create({})
+        wiz_id.fields_view_get()
+        action = wiz_id.merge_invoices()
+        allinvoices = self.env[action["res_model"]].search(action["domain"])
+        new_invoice = allinvoices - invoices
+        self.assertEqual(len(new_invoice.invoice_line_ids), 3)
+        new_line_0 = new_invoice.invoice_line_ids[0]
+        self.assertEqual(new_line_0.display_type, "line_section")
+        new_line_1 = new_invoice.invoice_line_ids[1]
+        self.assertFalse(new_line_1.display_type)
+        self.assertEqual(new_line_1.product_id, self.product)
+        new_line_2 = new_invoice.invoice_line_ids[2]
+        self.assertEqual(new_line_2.display_type, "line_note")
 
     def test_account_invoice_merge_1(self):
         self.assertEqual(len(self.invoice1.invoice_line_ids), 1)
