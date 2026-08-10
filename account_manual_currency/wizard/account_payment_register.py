@@ -57,7 +57,7 @@ class AccountPaymentRegister(models.TransientModel):
     def _init_payments(self, to_process, edit_mode=False):
         """Update currency rate on move line payment"""
         payments = super()._init_payments(to_process, edit_mode)
-        if self._context.get("active_model") == "account.move" and self.manual_currency:
+        if self.manual_currency:
             for vals in to_process:
                 payment = vals["payment"]
                 payment.move_id.write(
