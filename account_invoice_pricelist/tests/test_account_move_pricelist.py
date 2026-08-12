@@ -475,6 +475,68 @@ class TestAccountMovePricelist(common.TransactionCase):
         bill.invoice_line_ids[:1].quantity = 1.0
         self.assertEqual(bill.invoice_line_ids[:1].price_unit, 42.00)
 
+    def test_write_quantity_and_price_unit_preserves_explicit_price(self):
+        """Saving quantity + price_unit together must keep the user's price.
+
+        Oncharging invoices often need both qty and a manual price (products
+        with no / $0 pricelist rule). Writing both in one go used to reschedule
+        price_unit from quantity via modified(), and the deferred recompute
+        then overwrote the explicit price with the pricelist result (0).
+        """
+        # sale_pricelist3 prices this product at a fixed $0 — same shape as
+        # SMS Contract/Usage products that aren't priced via the pricelist.
+        product = self.product.product_variant_ids[:1]
+        invoice = self.AccountMove.create(
+            {
+                "partner_id": self.partner.id,
+                "move_type": "out_invoice",
+                "pricelist_id": self.sale_pricelist3.id,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": product.id,
+                            "name": "SMS Contract",
+                            "quantity": 1.0,
+                            "price_unit": 5.0,
+                        },
+                    ),
+                    Command.create(
+                        {
+                            "product_id": product.id,
+                            "name": "SMS Usage",
+                            "quantity": 0.0,
+                            "price_unit": 0.0,
+                        },
+                    ),
+                ],
+            }
+        )
+        line_contract, line_usage = invoice.invoice_line_ids
+        invoice.write(
+            {
+                "invoice_line_ids": [
+                    Command.update(
+                        line_contract.id, {"quantity": 2.0, "price_unit": 5.0}
+                    ),
+                    Command.update(
+                        line_usage.id, {"quantity": 2.0, "price_unit": 0.11}
+                    ),
+                ]
+            }
+        )
+        self.assertEqual(line_contract.quantity, 2.0)
+        self.assertEqual(line_contract.price_unit, 5.0)
+        self.assertEqual(line_usage.quantity, 2.0)
+        self.assertEqual(line_usage.price_unit, 0.11)
+
+    def test_quantity_only_write_still_applies_pricelist(self):
+        """Quantity-only edits on sale invoices should still refresh price."""
+        line = self.invoice.invoice_line_ids[:1]
+        self.invoice.pricelist_id = self.sale_pricelist.id
+        line.write({"quantity": 2.0})
+        self.assertEqual(line.quantity, 2.0)
+        self.assertEqual(line.price_unit, 60.00)
+
     def test_14_calculate_discount(self):
         self.env.user.write({"group_ids": [(4, self.group_discount.id)]})
         self.product.write({"list_price": 0.00})

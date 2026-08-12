@@ -134,14 +134,20 @@ class AccountMoveLine(models.Model):
         # Reschedule price_unit on sale lines when quantity changes
         # post-create. We skip `create` so explicit `price_unit` in
         # create vals isn't clobbered by the pricelist.
+        # Also skip lines whose price_unit is protected (same write also
+        # set an explicit price) — otherwise the deferred recompute
+        # overwrites the user's price with the pricelist result (often
+        # 0 for products without a matching rule) after the write ends.
         res = super().modified(fnames, create=create, before=before)
         if "quantity" in fnames and not create:
+            price_unit_field = self._fields["price_unit"]
             sale_lines = self.filtered(
                 lambda line: line.move_id.move_type
                 in ("out_invoice", "out_refund", "out_receipt")
+                and not self.env.is_protected(price_unit_field, line)
             )
             if sale_lines:
-                self.env.add_to_compute(self._fields["price_unit"], sale_lines)
+                self.env.add_to_compute(price_unit_field, sale_lines)
         return res
 
     def _apply_pricelist_to_price_unit(self):
