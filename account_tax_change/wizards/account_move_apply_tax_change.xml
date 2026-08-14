@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Camptocamp SA
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+
+  <record id="account_move_apply_tax_change_view_form" model="ir.ui.view">
+    <field name="name">account.move.apply.tax.change.form</field>
+    <field name="model">account.move.apply.tax.change</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="company_id" invisible="1" />
+            <field
+                            name="tax_change_id"
+                            options="{'no_create': True, 'no_edit': True}"
+                        />
+          </group>
+          <group string="Invoices">
+            <field
+                            name="invoice_ids"
+                            options="{'no_create': True, 'no_edit': True}"
+                            nolabel="1"
+                            colspan="2"
+                        />
+          </group>
+          <div class="alert alert-warning" role="alert">
+              Once validated the tax changes cannot be rolled back.
+          </div>
+        </sheet>
+        <footer>
+          <button name="validate" type="object" string="Validate" class="btn-primary" />
+          <button string="Cancel" class="btn-secondary" special="cancel" />
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="account_move_apply_tax_change_action" model="ir.actions.act_window">
+    <field name="name">Apply tax changes</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.move.apply.tax.change</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="groups_id" eval="[(4,ref('account.group_account_invoice'))]" />
+    <field name="binding_model_id" ref="account.model_account_move" />
+    <field name="binding_view_types">list,form</field>
+  </record>
+
+</odoo>
