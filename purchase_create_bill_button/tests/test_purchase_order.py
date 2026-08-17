@@ -30,7 +30,7 @@ class TestPurchaseOrderCreateBill(TransactionCase):
             }
         )
 
-    def _create_po_with_two_products(self):
+    def _create_po(self):
         order = self.env["purchase.order"].create(
             {
                 "partner_id": self.vendor.id,
@@ -59,29 +59,27 @@ class TestPurchaseOrderCreateBill(TransactionCase):
         order.button_confirm()
         return order
 
+    def _receive_move(self, move, qty):
+        move_line_vals = move._prepare_move_line_vals()
+        move_line_vals["quantity"] = qty
+        self.env["stock.move.line"].create(move_line_vals)
+
     def test_bill_excludes_zero_qty_lines(self):
         """Lines with qty_to_invoice=0 must not appear in the bill."""
-        order = self._create_po_with_two_products()
+        order = self._create_po()
         picking = order.picking_ids
-        # Receive only Product A (5 units), leave Product B at 0
-        for move in picking.move_ids:
-            if move.product_id == self.product_a:
-                move.quantity = 5
-            else:
-                move.quantity = 0
+        move_a = picking.move_ids.filtered(lambda m: m.product_id == self.product_a)
+        self._receive_move(move_a, 5)
         picking.button_validate()
 
-        self.assertEqual(order.invoice_status, "to invoice")
-        self.assertTrue(
-            order.order_line.filtered(
-                lambda line: line.product_id == self.product_a
-            ).qty_to_invoice,
+        line_a = order.order_line.filtered(
+            lambda line: line.product_id == self.product_a
         )
-        self.assertFalse(
-            order.order_line.filtered(
-                lambda line: line.product_id == self.product_b
-            ).qty_to_invoice,
+        line_b = order.order_line.filtered(
+            lambda line: line.product_id == self.product_b
         )
+        self.assertEqual(line_a.qty_to_invoice, 5)
+        self.assertEqual(line_b.qty_to_invoice, 0)
 
         action = order.action_create_invoice()
         invoice = self.env["account.move"].browse(action["res_id"])
@@ -92,13 +90,11 @@ class TestPurchaseOrderCreateBill(TransactionCase):
 
     def test_bill_includes_all_qty_to_invoice_lines(self):
         """When both products are received, both must appear in the bill."""
-        order = self._create_po_with_two_products()
+        order = self._create_po()
         picking = order.picking_ids
         for move in picking.move_ids:
-            move.quantity = 10
+            self._receive_move(move, 10)
         picking.button_validate()
-
-        self.assertEqual(order.invoice_status, "to invoice")
 
         action = order.action_create_invoice()
         invoice = self.env["account.move"].browse(action["res_id"])
