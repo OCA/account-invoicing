@@ -18,7 +18,7 @@ class TestPurchaseOrderCreateBill(TransactionCase):
                 "name": "Product A",
                 "type": "consu",
                 "is_storable": True,
-                "purchase_method": "received",
+                "purchase_method": "receive",
             }
         )
         cls.product_b = cls.env["product.product"].create(
@@ -26,7 +26,7 @@ class TestPurchaseOrderCreateBill(TransactionCase):
                 "name": "Product B",
                 "type": "consu",
                 "is_storable": True,
-                "purchase_method": "received",
+                "purchase_method": "receive",
             }
         )
 
