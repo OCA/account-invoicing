@@ -59,18 +59,29 @@ class TestPurchaseOrderCreateBill(TransactionCase):
         order.button_confirm()
         return order
 
-    def _receive_move(self, move, qty):
-        move_line_vals = move._prepare_move_line_vals()
-        move_line_vals["quantity"] = qty
-        self.env["stock.move.line"].create(move_line_vals)
+    def _validate_picking(self, picking):
+        result = picking.button_validate()
+        if isinstance(result, dict) and result.get("res_model") == (
+            "stock.backorder.confirmation"
+        ):
+            ctx = result["context"]
+            wizard = (
+                self.env["stock.backorder.confirmation"]
+                .with_context(**ctx)
+                .create({"pick_ids": ctx["default_pick_ids"]})
+            )
+            wizard.process_cancel_backorder()
 
     def test_bill_excludes_zero_qty_lines(self):
         """Lines with qty_to_invoice=0 must not appear in the bill."""
         order = self._create_po()
         picking = order.picking_ids
-        move_a = picking.move_ids.filtered(lambda m: m.product_id == self.product_a)
-        self._receive_move(move_a, 5)
-        picking.button_validate()
+        for move in picking.move_ids:
+            if move.product_id == self.product_a:
+                move.move_line_ids.write({"quantity": 5})
+            else:
+                move.move_line_ids.write({"quantity": 0})
+        self._validate_picking(picking)
 
         line_a = order.order_line.filtered(
             lambda line: line.product_id == self.product_a
@@ -93,8 +104,8 @@ class TestPurchaseOrderCreateBill(TransactionCase):
         order = self._create_po()
         picking = order.picking_ids
         for move in picking.move_ids:
-            self._receive_move(move, 10)
-        picking.button_validate()
+            move.move_line_ids.write({"quantity": 10})
+        self._validate_picking(picking)
 
         action = order.action_create_invoice()
         invoice = self.env["account.move"].browse(action["res_id"])
