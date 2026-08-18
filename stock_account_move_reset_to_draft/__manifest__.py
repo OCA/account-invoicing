@@ -11,4 +11,9 @@
     "category": "Warehouse Management",
     "installable": True,
     "maintainers": ["victoralmau"],
+    "data": [
+        "security/security.xml",
+        "views/account_move.xml",
+        "wizards/stock_account_move_reset_to_draft.xml",
+    ],
 }
