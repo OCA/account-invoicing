@@ -1,4 +1,5 @@
 # Copyright 2024 Tecnativa - Víctor Martínez
+# Copyright 2026 ACSONE SA/NV (https://acsone.eu)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import _, models
 from odoo.exceptions import UserError
@@ -17,25 +18,27 @@ class AccountMoveLine(models.Model):
         Raise an error if the user has no rights to force the reset to draft,
         else, returns the concerned line.
         """
-        self.ensure_one()
-        origin_svls = self.stock_valuation_layer_ids.stock_valuation_layer_id
-        if (
-            len(
-                origin_svls.stock_valuation_layer_ids.account_move_line_id.filtered(
-                    lambda x: x.parent_state == "posted"
+        intertwined_lines = self.browse()
+        for line in self:
+            origin_svls = line.stock_valuation_layer_ids.stock_valuation_layer_id
+            if (
+                len(
+                    origin_svls.stock_valuation_layer_ids.account_move_line_id.filtered(
+                        lambda x: x.parent_state == "posted"
+                    )
                 )
-            )
-            > 1
-        ):
-            if soft:
-                return self
-            raise UserError(
-                _(
-                    "Inventory valuation records are intertwined for %(line_name)s.",
-                    line_name=self.display_name,
-                )
-            )
-        return self.browse()
+                > 1
+            ):
+                if soft:
+                    intertwined_lines |= line
+                else:
+                    raise UserError(
+                        _(
+                            "Inventory valuation records are intertwined for %(line_name)s.",
+                            line_name=self.display_name,
+                        )
+                    )
+        return intertwined_lines
 
     def _check_consumed_valuation_at_draft(self, soft=False) -> MoveLine:
         """

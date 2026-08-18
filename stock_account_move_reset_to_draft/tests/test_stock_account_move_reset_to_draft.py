@@ -240,6 +240,42 @@ class TestStockAccountMoveResetToDraft(BaseCommon):
         self.assertFalse(invoice.dont_regenerate_valuation)
 
     @mute_logger("odoo.models.unlink")
+    def test_purchase_order_consume_error(self):
+        order = self.create_and_confirm_order(price=10, qty=1)
+        self.process_picking(order.picking_ids)
+        invoice = self.create_and_post_invoice(order, price=12, qty=1)
+        self.assertEqual(
+            sum(invoice.invoice_line_ids.mapped("stock_valuation_layer_ids.value")), 2
+        )
+        # Create an outgoing move
+        move = self.env["stock.move"].create(
+            {
+                "name": self.product.name,
+                "product_id": self.product.id,
+                "product_uom": self.product.uom_id.id,
+                "location_id": order.picking_ids.location_dest_id.id,
+                "location_dest_id": self.env.ref("stock.stock_location_customers").id,
+                "product_uom_qty": 1.0,
+            }
+        )
+        move._action_confirm()
+        move._action_assign()
+        self.assertEqual(
+            "assigned",
+            move.state,
+        )
+        move.move_line_ids.qty_done = 1.0
+        move._action_done()
+
+        with self.assertRaises(UserError) as error:
+            invoice.button_draft()
+        invoice_name = invoice.invoice_line_ids.display_name
+        self.assertEqual(
+            error.exception.args[0],
+            f"The inventory has already been (partially) consumed for {invoice_name}.",
+        )
+
+    @mute_logger("odoo.models.unlink")
     def test_purchase_order_flow_wizard_intertwined(self):
         self.env.user.groups_id |= self.group
         # PO for a product: 2 pcs at EUR10
