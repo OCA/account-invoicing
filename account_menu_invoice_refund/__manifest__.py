@@ -6,7 +6,7 @@
     "version": "18.0.1.0.0",
     "summary": "New invoice menu that combine invoices and refunds",
     "category": "Accounting & Finance",
-    "author": "Ecosoft, " "Odoo Community Association (OCA)",
+    "author": "Ecosoft, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/account-invoicing",
     "depends": ["account"],
