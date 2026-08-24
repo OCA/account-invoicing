@@ -17,10 +17,10 @@ class SaleAdvancePaymentInv(models.TransientModel):
             sale_orders = sale_orders.with_context(**ctx)
         return super()._create_invoices(sale_orders)
 
-    def _prepare_invoice_values(self, order, so_line, accounts):
+    def _prepare_down_payment_invoice_values(self, order, so_lines):
         """Redefine function to take into account invoices
         created when advanced payment method is not delivered"""
-        res = super()._prepare_invoice_values(order, so_line, accounts)
+        res = super()._prepare_down_payment_invoice_values(order, so_lines)
         if self.invoice_date:
             res["invoice_date"] = self.invoice_date
             res["date"] = self.invoice_date
