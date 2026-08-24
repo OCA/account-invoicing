@@ -74,21 +74,21 @@ Authors
 Contributors
 ------------
 
-- Vincent Renaville <vincent.renaville@camptocamp.com>
+-  Vincent Renaville <vincent.renaville@camptocamp.com>
 
-- Angel Moya <odoo@tecnativa.com>
+-  Angel Moya <odoo@tecnativa.com>
 
-- Kitti U. <kittiu@ecosoft.co.th>
+-  Kitti U. <kittiu@ecosoft.co.th>
 
-- Jorge Camacho <jcamacho@trey.es>
+-  Jorge Camacho <jcamacho@trey.es>
 
-- Nikul Chaudhary <nikulchaudhary2112@gmail.com>
+-  Nikul Chaudhary <nikulchaudhary2112@gmail.com>
 
-- Juan Vicente PAscual <jvpascual@puntsistemes.es>
+-  Juan Vicente PAscual <jvpascual@puntsistemes.es>
 
-- `Tecnativa <https://www.tecnativa.com>`__:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  - Juan Carlos Oñate
+   -  Juan Carlos Oñate
 
 Maintainers
 -----------

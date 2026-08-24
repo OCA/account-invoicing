@@ -6,7 +6,7 @@
     "version": "18.0.1.0.1",
     "author": "Camptocamp,Tecnativa,Punt Sistemes, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
-    "category": "Localization / Accounting",
+    "category": "Accounting",
     "license": "AGPL-3",
     "summary": """This module adds functional a check on invoice to force user
         to set tax on invoice line.""",
