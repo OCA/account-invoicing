@@ -16,10 +16,11 @@ class SaleOrder(models.Model):
     @api.depends("partner_id")
     def _compute_whole_delivered_invoiceability(self):
         for record in self:
-            if record.partner_id.whole_delivered_invoiceability:
-                record.whole_delivered_invoiceability = True
+            record.whole_delivered_invoiceability = (
+                record.partner_id.whole_delivered_invoiceability
+            )
 
-    @api.depends("whole_delivered_invoiceability")
+    @api.depends("whole_delivered_invoiceability", "state", "order_line.qty_delivered")
     def _compute_invoice_status(self):
         # Intercept the invoice_status computed method to
         # set it as not invoiceable if the delivered quantity
@@ -31,7 +32,7 @@ class SaleOrder(models.Model):
                 and float_compare(
                     line.product_uom_qty,
                     line.qty_delivered,
-                    precision_rounding=line.product_uom.rounding,
+                    precision_rounding=line.product_uom_id.rounding,
                 )
                 > 0
             )

@@ -10,20 +10,15 @@ class TestSaleOrderWholeDeliveredInvoiceability(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.partner = cls.env["res.partner"].create(
-            {"name": "Test partner", "whole_delivered_invoiceability": True}
+        cls.partner.whole_delivered_invoiceability = True
+        cls.partner2 = cls.env["res.partner"].create(
+            {"name": "Test partner 2", "whole_delivered_invoiceability": False}
         )
         cls.product_1 = cls.env["product.product"].create(
-            {
-                "name": "Test product One",
-                "invoice_policy": "delivery",
-            }
+            {"name": "Test product One", "invoice_policy": "delivery"}
         )
         cls.product_2 = cls.env["product.product"].create(
-            {
-                "name": "Test product Two",
-                "invoice_policy": "delivery",
-            }
+            {"name": "Test product Two", "invoice_policy": "delivery"}
         )
         cls.order = cls.env["sale.order"].create(
             {
@@ -49,9 +44,17 @@ class TestSaleOrderWholeDeliveredInvoiceability(BaseCommon):
             }
         )
 
-    def test_whole_delivered_invoiceability_partner(self):
-        self.assertTrue(self.order.whole_delivered_invoiceability)
-
     def test_whole_delivered_invoiceability(self):
+        self.assertTrue(self.order.whole_delivered_invoiceability)
         self.order.action_confirm()
         self.assertEqual(self.order.invoice_status, "no")
+
+    def test_whole_delivered_without_invoiceability(self):
+        self.order.partner_id = self.partner2
+        # Prevent errors when the sale_stock module is installed
+        # and qty_delivered is computed based on stock.move
+        # manually set the quantity in this case.
+        self.order.order_line.qty_delivered_method = "manual"
+        self.assertFalse(self.order.whole_delivered_invoiceability)
+        self.order.action_confirm()
+        self.assertEqual(self.order.invoice_status, "to invoice")
