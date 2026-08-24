@@ -5,6 +5,7 @@
         <field name="inherit_id" ref="sale.view_sales_order_filter" />
         <field name="arch" type="xml">
             <filter name="my_sale_orders_filter" position="after">
+                <separator />
                 <filter
                     string="Partial orders not invoiced"
                     name="partial_not_invoiced"
