@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-06-24 06:06+0000\n"
+"PO-Revision-Date: 2026-06-24 06:09+0000\n"
 "Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: none\n"
 "Language: sl\n"
@@ -38,6 +38,8 @@ msgid ""
 "Enables the 'This credit note will be reinvoiced' flag on Credit Notes by "
 "default"
 msgstr ""
+"Privzeto omogoči zastavico \"Ta dobropis bo ponovno fakturiran\" na "
+"dobropisih"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_move
@@ -53,6 +55,8 @@ msgstr "Dnevniška postavka"
 #: model:ir.model.fields,help:sale_line_refund_to_invoice_qty.field_account_move_line__sale_qty_to_reinvoice
 msgid "Leave it marked if you will reinvoice the same sale order line"
 msgstr ""
+"Pustite označeno, če boste ponovno fakturirali isto postavko prodajnega "
+"naloga"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,help:sale_line_refund_to_invoice_qty.field_account_move_reversal__sale_qty_to_reinvoice
@@ -60,6 +64,8 @@ msgid ""
 "Leave it marked if you will reinvoice the same sale order line (standard "
 "behaviour)"
 msgstr ""
+"Pustite označeno, če boste ponovno fakturirali isto postavko prodajnega "
+"naloga (standardno vedenje)"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model_terms:ir.ui.view,arch_db:sale_line_refund_to_invoice_qty.view_account_move_reversal
@@ -67,22 +73,24 @@ msgid ""
 "Leave it marked when other customer invoices are expected for the quantities"
 " in the credit note."
 msgstr ""
+"Pustite označeno, ko se pričakujejo drugi računi za kupca za količine v "
+"dobropisu."
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__qty_refunded_not_invoiceable
 msgid "Quantity Refunded Not Invoiceable"
-msgstr ""
+msgstr "Povrnjena količina, ki je ni mogoče fakturirati"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_company__reinvoice_credit_note_default
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_res_config_settings__reinvoice_credit_note_default
 msgid "Reinvoice credit notes by default"
-msgstr ""
+msgstr "Privzeto ponovno fakturiraj dobropise"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_line__sale_qty_to_reinvoice
 msgid "Sale Qty To Reinvoice"
-msgstr ""
+msgstr "Prodajna količina za ponovno fakturiranje"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model,name:sale_line_refund_to_invoice_qty.model_sale_order_line
@@ -92,7 +100,7 @@ msgstr "Prodajna postavka"
 #. module: sale_line_refund_to_invoice_qty
 #: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_reversal__sale_qty_to_reinvoice
 msgid "This credit note will be reinvoiced"
-msgstr ""
+msgstr "Ta dobropis bo ponovno fakturiran"
 
 #. module: sale_line_refund_to_invoice_qty
 #: model_terms:ir.ui.view,arch_db:sale_line_refund_to_invoice_qty.res_config_settings_view_form

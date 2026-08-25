@@ -7,9 +7,12 @@ License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
-            <field name="qty_to_invoice" position="after">
+            <xpath
+                expr="//field[@name='order_line']//field[@name='qty_invoiced']"
+                position="after"
+            >
                 <field name="qty_refunded_not_invoiceable" invisible="1" />
-            </field>
+            </xpath>
         </field>
     </record>
 </odoo>
