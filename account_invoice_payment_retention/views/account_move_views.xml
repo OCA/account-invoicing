@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ref']" position="after">
+                <label
+                    for="payment_retention"
+                    invisible="retained_move_ids or move_type == 'entry'"
+                    groups="account_invoice_payment_retention.group_payment_retention"
+                />
+                <div
+                    class="d-flex"
+                    invisible="retained_move_ids or move_type == 'entry'"
+                    groups="account_invoice_payment_retention.group_payment_retention"
+                >
+                    <field
+                        name="payment_retention"
+                        class="oe_edit_only"
+                        readonly="state != 'draft'"
+                    />
+                    <field
+                        class="oe_edit_only"
+                        name="retention_method"
+                        invisible="payment_retention != 'percent'"
+                        required="payment_retention == 'percent'"
+                        readonly="state != 'draft'"
+                    />
+                    <field
+                        class="oe_edit_only"
+                        name="amount_retention"
+                        placeholder="Amount"
+                        invisible="not payment_retention"
+                        readonly="state != 'draft'"
+                    />
+                    <span
+                        class="oe_edit_only"
+                        invisible="not payment_retention"
+                    > = </span>
+                    <field
+                        name="retention_amount_currency"
+                        invisible="not retention_amount_currency or not payment_retention"
+                    />
+                </div>
+                <field name="retention_residual_currency" invisible="1" />
+                <field
+                    name="domain_retained_move_ids"
+                    widget="many2many_tags"
+                    force_save="1"
+                    invisible="1"
+                    groups="account_invoice_payment_retention.group_payment_retention"
+                />
+                <field
+                    name="retained_move_ids"
+                    widget="many2many_tags"
+                    options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                    invisible="payment_retention or move_type == 'entry'"
+                    domain="[('id', 'in', domain_retained_move_ids)]"
+                    readonly="state != 'draft'"
+                    groups="account_invoice_payment_retention.group_payment_retention"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
