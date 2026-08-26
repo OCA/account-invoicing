@@ -3,7 +3,7 @@
 
 {
     "name": "Sale Order Type Whole Delivered Invoiceability",
-    "version": "17.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Sales Management",
     "license": "AGPL-3",
     "author": "Tecnativa, Odoo Community Association (OCA)",
