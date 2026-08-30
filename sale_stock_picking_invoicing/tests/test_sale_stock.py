@@ -655,3 +655,24 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         self.assertEqual(picking.invoice_state, "invoiced")
         for move in picking.move_ids:
             self.assertEqual(move.invoice_state, "invoiced")
+
+    def test_16_grouping_pickings_with_and_without_sale_order(self):
+        """
+        Test the case of Grouping Pickings by Partner/Product
+        with and without Sale Orders.
+        """
+        picking_1 = self.picking_out_1
+        picking_1.set_to_be_invoiced()
+        self.picking_move_state(picking_1)
+        picking_2 = self.picking_out_2
+        picking_2.set_to_be_invoiced()
+        self.picking_move_state(self.picking_out_2)
+
+        picking_3 = self.run_sale_picking_process(self.sale_order_3)
+        picking_4 = self.run_sale_picking_process(self.sale_order_4)
+
+        invoices = create_with_form_inv_onshipping(
+            self.env,
+            picking_1 | picking_2 | picking_3 | picking_4,
+        )
+        self.assertEqual(len(invoices), 1)
