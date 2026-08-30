@@ -328,3 +328,24 @@ class TestAccountBilling(TransactionCase):
             billing.billing_line_ids.mapped("move_id").ids,
             (inv_b + inv_c + inv_d + inv_a).ids,
         )
+
+    def test_action_billing_send(self):
+        """A validated billing can be sent by email with its report attached."""
+        invoice = self.create_invoice(amount=100)
+        action = invoice.action_create_billing()
+        billing = self.billing_model.browse(action["res_id"])
+        # Make sure the threshold date is not earlier than the line dates so the
+        # billing can be validated regardless of the default threshold date type.
+        billing.threshold_date = fields.Date.from_string("2099-12-31")
+        billing.validate_billing()
+        self.assertEqual(billing.state, "billed")
+        result = billing.action_billing_send()
+        self.assertEqual(result["type"], "ir.actions.act_window")
+        self.assertEqual(result["res_model"], "mail.compose.message")
+        self.assertEqual(result["target"], "new")
+        # A PDF attachment is created and linked through the compose context.
+        ctx = result["context"]
+        attach_ids = ctx["default_attachment_ids"][0][2]
+        attachment = self.env["ir.attachment"].browse(attach_ids[0])
+        self.assertTrue(attachment.exists())
+        self.assertEqual(attachment.mimetype, "application/pdf")

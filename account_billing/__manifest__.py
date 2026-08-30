@@ -13,10 +13,12 @@
     "data": [
         "data/account_billing_sequence.xml",
         "data/server_action.xml",
+        "data/mail_template_data.xml",
         "security/ir.model.access.csv",
         "security/account_billing_security.xml",
         "views/account_billing_views.xml",
         "views/account_move_views.xml",
+        "views/res_config_settings_views.xml",
         "report/report_billing.xml",
         "report/report.xml",
     ],

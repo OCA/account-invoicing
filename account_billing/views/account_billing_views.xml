@@ -106,6 +106,13 @@
                         type="object"
                     />
                     <button
+                        name="action_billing_send"
+                        string="Send by Email"
+                        type="object"
+                        invisible="state != 'billed'"
+                        class="oe_highlight"
+                    />
+                    <button
                         name="action_register_payment"
                         type="object"
                         class="oe_highlight"
