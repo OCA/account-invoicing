@@ -117,3 +117,25 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
         )
         res = self.invoice._execute_invoice_sent_wizard()
         self.assertEqual(res, "This invoice should not send by mail")
+
+    def test_transaction_rollback_on_error(self):
+        """Test that transaction is rolled back when an error occurs during
+        invoice sending, preventing 'transaction aborted' PostgreSQL errors
+        caused by third-party EDI modules (e.g. Verifactu Spain)."""
+        self.invoice.is_move_sent = False
+        self.invoice.transmit_method_id = self.transmit_method.id
+
+        def failing_action_invoice_sent():
+            raise ValueError("Simulated EDI error (e.g. Verifactu)")
+
+        with mock.patch.object(
+            type(self.invoice),
+            "action_invoice_sent",
+            side_effect=failing_action_invoice_sent,
+        ):
+            with self.assertRaises(ValueError):
+                self.invoice._execute_invoice_sent_wizard()
+
+        # Verify we can still query the database after the error
+        count = self.env["account.move"].search_count([("id", "=", self.invoice.id)])
+        self.assertEqual(count, 1)

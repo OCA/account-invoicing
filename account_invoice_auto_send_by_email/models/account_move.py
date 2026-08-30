@@ -27,16 +27,20 @@ class AccountMove(models.Model):
             return self.env._("This invoice has already been sent.")
         if self.transmit_method_code != "mail":
             return self.env._("This invoice should not send by mail")
-        res = self.action_invoice_sent()
-        wiz_ctx = res["context"] or {}
-        wiz_ctx["active_model"] = self._name
-        wiz_ctx["active_ids"] = self.ids
-        wiz = (
-            self.env["account.move.send.wizard"]
-            .with_context(**wiz_ctx)
-            .create(self._prepare_invoice_sent_wizard_vals())
-        )
-        return wiz.action_send_and_print()
+        try:
+            res = self.action_invoice_sent()
+            wiz_ctx = res["context"] or {}
+            wiz_ctx["active_model"] = self._name
+            wiz_ctx["active_ids"] = self.ids
+            wiz = (
+                self.env["account.move.send.wizard"]
+                .with_context(**wiz_ctx)
+                .create(self._prepare_invoice_sent_wizard_vals())
+            )
+            return wiz.action_send_and_print()
+        except Exception:
+            self.env.cr.savepoint().__exit__(Exception, None, None)
+            raise
 
     @api.model
     def _email_invoice_to_send_domain(self):
