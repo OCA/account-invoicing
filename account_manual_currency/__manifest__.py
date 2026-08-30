@@ -14,6 +14,7 @@
         "data/decimal_data.xml",
         "views/account_move_view.xml",
         "wizard/account_payment_register_views.xml",
+        "views/account_payment_form.xml",
     ],
     "installable": True,
     "maintainer": ["Saran440"],
