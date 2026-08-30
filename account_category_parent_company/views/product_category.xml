@@ -1,0 +1,14 @@
+<odoo>
+    <record id="view_category_property_form" model="ir.ui.view">
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="account.view_category_property_form" />
+        <field name="arch" type="xml">
+            <field name="property_account_expense_categ_id" position="before">
+                <field name="account_expense_parent_id" />
+            </field>
+            <field name="property_account_income_categ_id" position="before">
+                <field name="account_income_parent_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
