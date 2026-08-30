@@ -66,6 +66,10 @@ Contributors
 
      - Iván Todorovich <ivan.todorovich@gmail.com>
 
+- `Scalizer <https://www.scalizer.fr/>`__
+
+     - Julien Hémono <julien@scalizer.fr>
+
 Maintainers
 -----------
 
