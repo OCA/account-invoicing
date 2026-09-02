@@ -1,43 +1,56 @@
 # Copyright 2021 ForgeFlow (http://www.forgeflow.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.exceptions import ValidationError
-from odoo.tests.common import TransactionCase
+from odoo.exceptions import UserError, ValidationError
+from odoo.tests.common import new_test_user, tagged
 
-from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-class TestAccountMoveTierValidationApprover(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.env = self.env(context=dict(self.env.context, **DISABLED_MAIL_CONTEXT))
-        self.res_partner_1 = self.env["res.partner"].create(
-            {"name": "Wood Corner", "email": "example@yourcompany.com"}
+@tagged("post_install", "-at_install")
+class TestAccountMoveTierValidationApprover(AccountTestInvoicingCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
+        cls.test_approver = new_test_user(
+            cls.env,
+            name="Approver",
+            login="test2",
+            groups="base.group_user,account.group_account_manager",
         )
-        self.product_1 = self.env["product.product"].create(
-            {"name": "Desk Combination"}
+        cls.res_partner_1 = cls.env["res.partner"].create(
+            {
+                "name": "Wood Corner",
+                "email": "example@yourcompany.com",
+                "approver_id": cls.test_approver.id,
+            }
         )
-        self.currency_usd = self.env["res.currency"].search([("name", "=", "USD")])
-        self.test_user_1 = self.env["res.users"].create(
-            {"name": "User", "login": "test1", "email": "example@yourcompany.com"}
+        cls.product_1 = cls.env["product.product"].create({"name": "Desk Combination"})
+        cls.currency_usd = cls.env["res.currency"].search(
+            [("name", "=", "USD")], limit=1
         )
-        self.test_approver = self.env["res.users"].create(
-            {"name": "Approver", "login": "test2", "email": "example@yourcompany.com"}
+        cls.test_user_1 = new_test_user(
+            cls.env,
+            name="User",
+            login="test1",
+            groups="base.group_user,account.group_account_manager",
         )
-        self.vendor_bill = self.env["account.move"].create(
+
+        cls.vendor_bill = cls.env["account.move"].create(
             [
                 {
                     "move_type": "in_invoice",
-                    "partner_id": self.res_partner_1.id,
-                    "currency_id": self.currency_usd.id,
-                    "approver_id": self.test_approver.id,
+                    "partner_id": cls.res_partner_1.id,
+                    "currency_id": cls.currency_usd.id,
+                    "approver_id": cls.test_approver.id,
                     "invoice_line_ids": [
                         (
                             0,
                             None,
                             {
-                                "product_id": self.product_1.id,
-                                "product_uom_id": self.product_1.uom_id.id,
+                                "product_id": cls.product_1.id,
+                                "product_uom_id": cls.product_1.uom_id.id,
                                 "quantity": 12,
                                 "price_unit": 1000,
                             },
@@ -46,14 +59,15 @@ class TestAccountMoveTierValidationApprover(TransactionCase):
                 }
             ]
         )
-        self.model_id = self.env["ir.model"].search(
+        cls.model_id = cls.env["ir.model"].search(
             [("model", "=", "account.move")], limit=1
         )
-        self.field_id = self.env["ir.model.fields"].search(
-            [("name", "=", "approver_id")], limit=1
+        cls.field_id = cls.env["ir.model.fields"].search(
+            [("model", "=", "account.move"), ("name", "=", "approver_id")], limit=1
         )
 
-    def test_field_validation_approver(self):
+    def test_01_field_validation_approver(self):
+        """Test tier validation process with an approver."""
         tiers = self.env["tier.definition"].search([])
         for tier in tiers:
             tier.action_archive()
@@ -77,3 +91,66 @@ class TestAccountMoveTierValidationApprover(TransactionCase):
             record.action_post()
         record.with_user(self.test_approver.id).validate_tier()
         record.action_post()
+
+    def test_02_compute_approver_id(self):
+        """Test that approver_id computes from partner_id."""
+        # Test partner without approver
+        partner_no_approver = self.env["res.partner"].create({"name": "No Approver"})
+        move = self.env["account.move"].new(
+            {
+                "move_type": "in_invoice",
+                "partner_id": partner_no_approver.id,
+            }
+        )
+        self.assertFalse(move.approver_id)
+
+        # Test partner with approver
+        move.partner_id = self.res_partner_1
+        self.assertEqual(move.approver_id, self.test_approver)
+
+        # Test manual override
+        other_user = self.test_user_1
+        move.approver_id = other_user
+        self.assertEqual(move.approver_id, other_user)
+        # Check that it retains its value during compute trigger
+        move._compute_approver_id()
+        self.assertEqual(move.approver_id, other_user)
+
+    def test_03_require_approver_config_and_post(self):
+        """Test config setting and validation on post (coverage improvement)."""
+        config = self.env["res.config.settings"].create(
+            {
+                "require_approver_in_vendor_bills": True,
+            }
+        )
+        config.set_values()
+
+        tier = self.env.company.validation_approver_tier_definition_id
+        self.assertTrue(tier)
+        self.assertTrue(tier.active)
+
+        # Test disabling config
+        config.require_approver_in_vendor_bills = False
+        config.set_values()
+        self.assertFalse(tier.active)
+
+        # Enable again for posting test
+        config.require_approver_in_vendor_bills = True
+        config.set_values()
+
+        # Create a move without approver
+        partner = self.env["res.partner"].create({"name": "No Approver Partner"})
+        move = self.env["account.move"].create(
+            {
+                "move_type": "in_invoice",
+                "partner_id": partner.id,
+                "invoice_date": "2020-01-01",
+            }
+        )
+        self.assertFalse(move.approver_id)
+
+        # Ensure UserError is raised on _post
+        with self.assertRaisesRegex(
+            UserError, "It is mandatory to indicate a Responsible for Approval"
+        ):
+            move._post()

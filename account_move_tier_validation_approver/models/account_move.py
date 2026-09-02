@@ -39,7 +39,9 @@ class AccountMove(models.Model):
             ):
                 raise UserError(
                     self.env._(
-                        "It is mandatory to indicate a Responsible for Approval (in {})"
-                    ).format(move.name)
+                        "It is mandatory to indicate a Responsible for "
+                        "Approval (in %s)",
+                        move.name,
+                    )
                 )
         return super()._post(soft)
