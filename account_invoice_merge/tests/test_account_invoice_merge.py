@@ -118,6 +118,31 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
         self.assertEqual(len(single_end_inv.invoice_line_ids), 1)
         self.assertEqual(single_end_inv.invoice_line_ids.quantity, 2.0)
 
+    def test_invoice_merge_keep_references(self):
+        self.invoice1.write({"name": "INV-REF-1"})
+        self.invoice2.write({"name": "INV-REF-2"})
+        invoices_info = (self.invoice1 | self.invoice2).do_merge(keep_references=True)
+        merged_invoice = self.inv_model.browse(next(iter(invoices_info)))
+        self.assertEqual(
+            merged_invoice.name,
+            "INV-REF-1 INV-REF-2",
+        )
+
+    def test_invoice_merge_single_invoice(self):
+        invoices_info = self.invoice1.do_merge()
+        self.assertFalse(invoices_info)
+        self.assertEqual(self.invoice1.state, "draft")
+
+    def test_invoice_merge_keep_empty_lines(self):
+        self.invoice1.invoice_line_ids.quantity = 1.0
+        self.invoice2.invoice_line_ids.quantity = -1.0
+        invoices_info = (self.invoice1 | self.invoice2).do_merge(
+            remove_empty_invoice_lines=False
+        )
+        merged_invoice = self.inv_model.browse(next(iter(invoices_info)))
+        self.assertEqual(len(merged_invoice.invoice_line_ids), 1)
+        self.assertEqual(merged_invoice.invoice_line_ids.quantity, 0.0)
+
     def test_error_check(self):
         """Check"""
         # Different partner
