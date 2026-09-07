@@ -13,14 +13,16 @@
                     string="Attachments to send"
                 >
                     <div class="alert alert-info text-center" role="status">
-                            Pick the existing attachments you want to send electronically:
-                        </div>
-                    <label for="to_be_sent_attachment_ids" string="Attachments:" />
-                    <field
-                        name="to_be_sent_attachment_ids"
-                        domain="to_be_sent_attachment_ids_domain"
-                        widget="many2many_tags"
-                    />
+                        Pick the existing attachments you want to send electronically:
+                    </div>
+                    <group>
+                        <field
+                            string="Attachments"
+                            name="to_be_sent_attachment_ids"
+                            domain="to_be_sent_attachment_ids_domain"
+                            widget="many2many_tags"
+                        />
+                    </group>
                 </page>
             </page>
         </field>

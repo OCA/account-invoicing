@@ -12,11 +12,10 @@ class AccountMove(models.Model):
         compute="_compute_to_be_sent_attachment_ids_domain",
     )
 
-    to_be_sent_attachment_ids = fields.One2many(
+    to_be_sent_attachment_ids = fields.Many2many(
         comodel_name="ir.attachment",
+        relation="account_move_to_be_sent_attachment_rel",
         string="Extra Attachments (To be Sent)",
-        inverse_name="to_be_sent_with_account_move_id",
-        inverse="_inverse_to_be_sent_attachment_ids",
     )
 
     @api.depends("attachment_ids")
@@ -29,11 +28,3 @@ class AccountMove(models.Model):
                 ("res_id", "=", move_origin.id),
                 ("res_model", "=", move_origin._name),
             ]
-
-    def _inverse_to_be_sent_attachment_ids(self):
-        """
-        Ensure attachments are linked to record
-        """
-        for move in self:
-            to_add_attachments = move.to_be_sent_attachment_ids - move.attachment_ids
-            move.attachment_ids |= to_add_attachments
