@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='account_vendor_bills']" position="inside">
+                <setting
+                    id="require_approver_in_vendor_bills"
+                    help="Require approver before posting vendor bills. Values set here are company-specific."
+                >
+                    <field name="require_approver_in_vendor_bills" />
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
