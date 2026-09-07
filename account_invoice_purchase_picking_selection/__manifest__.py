@@ -1,6 +1,6 @@
 {
     "name": "Autocomplete purchase invoices from receptions",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "summary": "Autocomplete invoices lines "
     "by selecting the receptions originating from a purchase order.",
     "author": "Tecnativa, Odoo Community Association (OCA)",

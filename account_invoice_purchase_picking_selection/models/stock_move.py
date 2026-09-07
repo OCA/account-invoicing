@@ -58,9 +58,9 @@ class StockMove(models.Model):
         """
         line_vals = self.purchase_line_id._prepare_account_move_line(account_move)
         quantity = self.qty_received_to_invoice
-        if self.product_uom != self.purchase_line_id.product_uom:
+        if self.product_uom != self.purchase_line_id.product_uom_id:
             quantity = self.product_uom._compute_quantity(
-                quantity, self.purchase_line_id.product_uom
+                quantity, self.purchase_line_id.product_uom_id
             )
         line_vals.update(
             {

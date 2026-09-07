@@ -47,7 +47,7 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
                 "order_id": cls.purchase_order.id,
                 "product_id": cls.product_1.id,
                 "product_qty": 10,
-                "product_uom": cls.product_1.uom_id.id,
+                "product_uom_id": cls.product_1.uom_id.id,
                 "price_unit": 100,
             }
         )
@@ -56,7 +56,7 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
                 "order_id": cls.purchase_order.id,
                 "product_id": cls.product_2.id,
                 "product_qty": 20,
-                "product_uom": cls.product_2.uom_id.id,
+                "product_uom_id": cls.product_2.uom_id.id,
                 "price_unit": 200,
             }
         )
@@ -532,7 +532,7 @@ class TestGeneralLedgerReport(AccountTestInvoicingCommon):
         """
         self.purchase_line_2.write(
             {
-                "product_uom": self.env.ref("uom.product_uom_dozen").id,
+                "product_uom_id": self.env.ref("uom.product_uom_dozen").id,
                 "product_qty": 2,
             }
         )

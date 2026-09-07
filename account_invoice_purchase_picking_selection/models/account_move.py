@@ -9,18 +9,42 @@ class AccountMove(models.Model):
         "stock.picking", copy=False, string="Auto-Complete from Picking"
     )
 
+    def _get_invoice_reference(self):
+        self.ensure_one()
+        vendor_refs = [
+            ref
+            for ref in set(
+                self.invoice_line_ids.mapped("purchase_line_id.order_id.partner_ref")
+            )
+            if ref
+        ]
+        if self.ref:
+            return [
+                ref for ref in self.ref.split(", ") if ref and ref not in vendor_refs
+            ] + vendor_refs
+        return vendor_refs
+
     def _update_invoice_from_purchase_order(self, purchase):
         if not purchase:
             return
         invoice_vals = purchase.with_company(purchase.company_id)._prepare_invoice()
-        invoice_vals["currency_id"] = (
-            self.invoice_line_ids
-            and self.currency_id
-            or invoice_vals.get("currency_id")
+        has_invoice_lines = bool(
+            self.invoice_line_ids.filtered(
+                lambda line: line.display_type
+                not in ("line_section", "line_subsection", "line_note")
+            )
         )
-        del invoice_vals["ref"]
+        currency_id = (
+            self.currency_id if has_invoice_lines else invoice_vals.get("currency_id")
+        )
+        invoice_vals.pop("ref", None)
+        invoice_vals.pop("payment_reference", None)
+        invoice_vals.pop("company_id", None)
+        if self.move_type == invoice_vals["move_type"]:
+            invoice_vals.pop("move_type")
 
         self.update(invoice_vals)
+        self.currency_id = currency_id
         origins = set(self.invoice_line_ids.mapped("purchase_line_id.order_id.name"))
         self.invoice_origin = ",".join(list(origins))
 
@@ -28,6 +52,8 @@ class AccountMove(models.Model):
         self.ref = ", ".join(refs)
         if len(refs) == 1:
             self.payment_reference = refs[0]
+        if self.company_id != purchase.company_id:
+            self.company_id = purchase.company_id
 
     def _add_invoice_line_from_stock_move(self, stock_move):
         sequence = (

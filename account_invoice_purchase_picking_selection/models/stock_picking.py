@@ -1,5 +1,5 @@
 from odoo import api, fields, models
-from odoo.osv import expression
+from odoo.fields import Domain
 from odoo.tools.float_utils import float_is_zero
 
 
@@ -75,8 +75,7 @@ class StockPicking(models.Model):
 
     def search(self, domain, offset=0, limit=None, order=None):
         if self.env.context.get("filter_picking_autocomplete"):
-            # inject the domain to filter only the pickings pending to be invoiced
-            domain.extend(self._get_picking_extra_domain())
+            domain = Domain.AND([domain or [], self._get_picking_extra_domain()])
         return super().search(domain, offset=offset, limit=limit, order=order)
 
     def read_group(
@@ -84,8 +83,7 @@ class StockPicking(models.Model):
     ):
         domain = domain or []
         if self.env.context.get("filter_picking_autocomplete"):
-            # inject the domain to filter only the pickings pending to be invoiced
-            domain.extend(self._get_picking_extra_domain())
+            domain = Domain.AND([domain, self._get_picking_extra_domain()])
         return super().read_group(
             domain,
             fields,
@@ -102,7 +100,7 @@ class StockPicking(models.Model):
             base_domain = self._get_picking_extra_domain()
             picking_domain = base_domain
             if value:
-                picking_domain = expression.AND(
+                picking_domain = Domain.AND(
                     [base_domain, self._get_name_search_domain(operator, value)]
                 )
             return picking_domain
@@ -127,13 +125,8 @@ class StockPicking(models.Model):
     def _get_name_search_domain(self, operator, name):
         # This method is used to filter the pickings
         # based on the name written by the user in the many2one field
-        return expression.OR(
-            [
-                [("name", operator, name)],
-                [
-                    "|",
-                    ("purchase_id.name", operator, name),
-                    ("purchase_id.partner_ref", operator, name),
-                ],
-            ]
+        return (
+            Domain("name", operator, name)
+            | Domain("purchase_id.name", operator, name)
+            | Domain("purchase_id.partner_ref", operator, name)
         )
