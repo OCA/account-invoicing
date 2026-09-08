@@ -1,0 +1,54 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_date_due
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2021-07-16 17:49+0000\n"
+"Last-Translator: Yves Le Doeuff <yld@alliasys.fr>\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: account_invoice_date_due
+#: model:res.groups,name:account_invoice_date_due.allow_to_change_due_date
+msgid "Allow to change due date"
+msgstr "Autoriser le changement de date d'échéance"
+
+#. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: account_invoice_date_due
+#: model_terms:ir.ui.view,arch_db:account_invoice_date_due.view_move_form
+msgid "Due Date"
+msgstr "Date d'échéance"
+
+#. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_bank_statement_line__invoice_date_due_payment_term
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__invoice_date_due_payment_term
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_payment__invoice_date_due_payment_term
+msgid "Due Date Payment Term"
+msgstr "Date d'échéance des conditions de paiement"
+
+#. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_date_due
+#: model:ir.model,name:account_invoice_date_due.model_account_move
+msgid "Journal Entry"
+msgstr "Ecriture"
+
+#. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification"
