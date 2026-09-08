@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import fields, models
+from odoo.exceptions import UserError
 from odoo.tools.float_utils import float_round
 
 
@@ -135,3 +136,37 @@ class StockMove(models.Model):
         values = super()._prepare_move_split_vals(uom_qty)
         values["invoice_state"] = self.invoice_state
         return values
+
+    def _action_cancel(self):
+        allowed_group = self.env.ref(
+            "stock_picking_invoicing"
+            ".group_allow_to_cancel_stock_move_linked_to_invoice_bill",
+            raise_if_not_found=False,
+        )
+        if allowed_group:
+            moves = self.filtered(
+                lambda m: m.state != "done"
+                and m.invoice_line_ids.filtered(
+                    lambda inv_line: inv_line.move_id.state != "cancel"
+                )
+            )
+            if moves and not self.env.user.has_group(
+                "stock_picking_invoicing"
+                ".group_allow_to_cancel_stock_move_linked_to_invoice_bill"
+            ):
+                move_references = ",".join(
+                    moves.mapped(
+                        lambda m: f"{m.reference}({m.product_id.default_code})"
+                    )
+                )
+                raise UserError(
+                    self.env._(
+                        "You cannot cancel a stock move linked to "
+                        "invoices/bills."
+                        ' Only members of the "%(group_name)s" group can '
+                        "perform this action. References: %(references)s",
+                        group_name=allowed_group.name,
+                        references=move_references,
+                    )
+                )
+        return super()._action_cancel()
