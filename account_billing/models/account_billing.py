@@ -102,17 +102,17 @@ class AccountBilling(models.Model):
     )
     amount_untaxed = fields.Monetary(
         string="Untaxed Amount",
-        compute="_compute_tax_totals",
+        compute="_compute_amount",
         store=True,
     )
     amount_tax = fields.Monetary(
         string="Tax Amount",
-        compute="_compute_tax_totals",
+        compute="_compute_amount",
         store=True,
     )
     amount_total = fields.Monetary(
         string="Total Amount",
-        compute="_compute_tax_totals",
+        compute="_compute_amount",
         store=True,
     )
     amount_due = fields.Monetary(
@@ -162,7 +162,7 @@ class AccountBilling(models.Model):
     @api.depends(
         "billing_line_ids.move_id.amount_untaxed", "billing_line_ids.move_id.amount_tax"
     )
-    def _compute_tax_totals(self):
+    def _compute_amount(self):
         for bill in self:
             bill.amount_untaxed = 0.0
             bill.amount_tax = 0.0
