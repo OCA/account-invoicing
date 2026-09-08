@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_billing](account_billing/) | 18.0.1.5.0 | <a href='https://github.com/Saran440'><img src='https://github.com/Saran440.png' width='32' height='32' style='border-radius:50%;' alt='Saran440'/></a> | Group invoice as billing before payment
+[account_billing](account_billing/) | 18.0.1.5.1 | <a href='https://github.com/Saran440'><img src='https://github.com/Saran440.png' width='32' height='32' style='border-radius:50%;' alt='Saran440'/></a> <a href='https://github.com/AungKoKoLin1997'><img src='https://github.com/AungKoKoLin1997.png' width='32' height='32' style='border-radius:50%;' alt='AungKoKoLin1997'/></a> | Group invoice as billing before payment
 [account_global_discount](account_global_discount/) | 18.0.1.0.0 |  | Account Global Discount
 [account_invoice_advance_compensation](account_invoice_advance_compensation/) | 18.0.1.0.0 |  | Compensate advance payments from invoices
 [account_invoice_auto_send_by_email](account_invoice_auto_send_by_email/) | 18.0.1.0.1 |  | Invoice with the email transmit method are send automatically.
