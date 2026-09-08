@@ -124,6 +124,7 @@ msgid ""
 msgstr "閾日タイプの日付が閾日以前請求書が合計請求書明細行に追加されます"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_due
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__amount_residual
 msgid "Amount Due"
 msgstr "未消込額"
@@ -562,6 +563,17 @@ msgid "Status"
 msgstr "状態"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_tax
+msgid "Tax Amount"
+msgstr ""
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_tree
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_supplier_billing_tree
+msgid "Tax Excluded"
+msgstr ""
+
+#. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing_line__origin
 msgid "The document(s) that generated the invoice."
 msgstr "顧客請求書を生成したドキュメント"
@@ -589,6 +601,7 @@ msgid "Total"
 msgstr "合計"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_total
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Total Amount"
 msgstr "合計金額"
@@ -602,6 +615,11 @@ msgstr "残額合計"
 #: model:ir.model.fields,help:account_billing.field_account_billing__bill_type
 msgid "Type of invoice"
 msgstr "請求書タイプ"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_untaxed
+msgid "Untaxed Amount"
+msgstr ""
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form

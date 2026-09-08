@@ -129,6 +129,7 @@ msgstr ""
 "fecha umbral aparecerán en las líneas de facturación"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_due
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__amount_residual
 #, fuzzy
 msgid "Amount Due"
@@ -574,6 +575,17 @@ msgid "Status"
 msgstr "Situación"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_tax
+msgid "Tax Amount"
+msgstr ""
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_tree
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_supplier_billing_tree
+msgid "Tax Excluded"
+msgstr ""
+
+#. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing_line__origin
 msgid "The document(s) that generated the invoice."
 msgstr "Referencia del documento(s) que ha creado esta factura."
@@ -601,6 +613,7 @@ msgid "Total"
 msgstr "Total"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_total
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Total Amount"
 msgstr "Importe Total"
@@ -614,6 +627,11 @@ msgstr "Importe total pendiente"
 #: model:ir.model.fields,help:account_billing.field_account_billing__bill_type
 msgid "Type of invoice"
 msgstr "Tipo de factura"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_untaxed
+msgid "Untaxed Amount"
+msgstr ""
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
