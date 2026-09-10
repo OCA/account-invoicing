@@ -1,0 +1,238 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_email_traceability
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-18 05:58+0000\n"
+"PO-Revision-Date: 2026-08-18 05:58+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_move_email_traceability
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_form_email_traceability
+msgid ""
+"<span>\n"
+"                        This invoice arrived <strong>without a PDF/XML attachment</strong>,\n"
+"                        but has already been marked as <strong>resolved</strong>.\n"
+"                    </span>"
+msgstr ""
+"<span>\n"
+"                        Esta factura llegó <strong>sin un adjunto PDF/XML</strong>,\n"
+"                        pero ya fue marcada como <strong>solucionada</strong>.\n"
+"                    </span>"
+
+#. module: account_move_email_traceability
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_form_email_traceability
+msgid ""
+"<span>\n"
+"                        This invoice was recorded from an email that arrived\n"
+"                        <strong>without any PDF/XML attachment</strong>.\n"
+"                        Review it and, if applicable, request the sender to\n"
+"                        resend the document.\n"
+"                    </span>"
+msgstr ""
+"<span>\n"
+"                        Esta factura fue registrada a partir de un correo que llegó\n"
+"                        <strong>sin ningún PDF/XML adjunto</strong>.\n"
+"                        Revisar y, si corresponde, solicitar el reenvío del\n"
+"                        documento al remitente.\n"
+"                    </span>"
+
+#. module: account_move_email_traceability
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_form_email_traceability
+msgid ""
+"Automatic <strong>digitization (OCR)</strong> of this invoice failed.\n"
+"                    Review the attachment and enter the data manually if applicable."
+msgstr ""
+"La <strong>digitalización automática (OCR)</strong> de esta factura falló.\n"
+"                    Revisar el adjunto y cargar los datos manualmente si aplica."
+
+#. module: account_move_email_traceability
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_search_email_failed
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_bank_statement_line__ocr_failed
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_move__ocr_failed
+msgid "Digitization failed"
+msgstr "Falló la digitalización"
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_bank_statement_line__ocr_failure_reason
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_move__ocr_failure_reason
+msgid "Digitization failure reason"
+msgstr "Motivo del fallo de digitalización"
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_journal__display_name
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_move__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_bank_statement_line__email_status
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_move__email_status
+msgid "Email status"
+msgstr "Estado del correo"
+
+#. module: account_move_email_traceability
+#: model:ir.actions.act_window,name:account_move_email_traceability.action_account_move_email_failed
+#: model:ir.ui.menu,name:account_move_email_traceability.menu_account_move_email_failed
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_list_email_failed
+msgid "Failed Invoices"
+msgstr "Facturas Falladas"
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_journal__id
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_move__id
+msgid "ID"
+msgstr ""
+
+#. module: account_move_email_traceability
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_list_email_failed
+msgid "Identified contact"
+msgstr "Contacto identificado"
+
+#. module: account_move_email_traceability
+#: model:ir.actions.server,name:account_move_email_traceability.ir_cron_check_ocr_failures_ir_actions_server
+msgid "Invoice Traceability: check OCR failures"
+msgstr "Trazabilidad Facturas: revisar fallos de OCR"
+
+#. module: account_move_email_traceability
+#: model:ir.model,name:account_move_email_traceability.model_account_journal
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_search_email_failed
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_move_email_traceability
+#: model:ir.model,name:account_move_email_traceability.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_move_email_traceability
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_form_email_traceability
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_list_email_failed
+msgid "Mark as resolved"
+msgstr "Marcar como solucionado"
+
+#. module: account_move_email_traceability
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_search_email_failed
+msgid "No identified contact"
+msgstr "Sin contacto identificado"
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_bank_statement_line__email_from_raw
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_move__email_from_raw
+msgid "Original sender"
+msgstr "Remitente original"
+
+#. module: account_move_email_traceability
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_search_email_failed
+msgid "Pending"
+msgstr "Pendientes"
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_bank_statement_line__email_attachment_missing
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_move__email_attachment_missing
+#: model:ir.model.fields.selection,name:account_move_email_traceability.selection__account_move__email_status__missing_attachment
+msgid "Received without attachment"
+msgstr "Recibida sin adjunto"
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_bank_statement_line__email_issue_resolved
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_move__email_issue_resolved
+#: model:ir.model.fields.selection,name:account_move_email_traceability.selection__account_move__email_status__resolved
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_search_email_failed
+msgid "Resolved"
+msgstr "Resuelto"
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,field_description:account_move_email_traceability.field_account_journal__activity_user_id
+msgid "Responsible for emails without attachment"
+msgstr "Responsable de correos sin adjunto"
+
+#. module: account_move_email_traceability
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_list_email_failed
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_search_email_failed
+msgid "Sender"
+msgstr "Remitente"
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,help:account_move_email_traceability.field_account_bank_statement_line__email_from_raw
+#: model:ir.model.fields,help:account_move_email_traceability.field_account_move__email_from_raw
+msgid ""
+"Sender email exactly as received in the 'From' header, useful when the "
+"contact could not be identified automatically."
+msgstr ""
+"Correo del remitente tal cual se recibió en la cabecera 'From', útil cuando "
+"no se pudo identificar el contacto automáticamente."
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,help:account_move_email_traceability.field_account_bank_statement_line__email_issue_resolved
+#: model:ir.model.fields,help:account_move_email_traceability.field_account_move__email_issue_resolved
+msgid ""
+"Set by the user once this move, originally received without an attachment, "
+"has been completed or fixed manually. Once set, it no longer appears in the "
+"Failed Invoices menu."
+msgstr ""
+"Lo marca el usuario cuando este asiento, recibido originalmente sin adjunto,"
+" se ha completado o corregido manualmente. Una vez marcado, deja de aparecer"
+" en el menú Facturas Falladas."
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,help:account_move_email_traceability.field_account_bank_statement_line__email_status
+#: model:ir.model.fields,help:account_move_email_traceability.field_account_move__email_status
+msgid ""
+"Status of the traceability of the inbound email that originated this move."
+msgstr ""
+"Estado de la trazabilidad del correo entrante que originó este asiento."
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,help:account_move_email_traceability.field_account_bank_statement_line__ocr_failed
+#: model:ir.model.fields,help:account_move_email_traceability.field_account_move__ocr_failed
+msgid ""
+"The attachment arrived correctly but the OCR/digitization process could not "
+"be completed or was inconclusive. Only relevant when an invoice digitization"
+" module (e.g. account_invoice_extract) is installed."
+msgstr ""
+"El adjunto llegó correctamente pero el proceso de OCR/digitalización no pudo"
+" completarse o no fue concluyente. Solo es relevante cuando hay instalado un"
+" módulo de digitalización de facturas (p. ej. account_invoice_extract)."
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,help:account_move_email_traceability.field_account_bank_statement_line__email_attachment_missing
+#: model:ir.model.fields,help:account_move_email_traceability.field_account_move__email_attachment_missing
+msgid ""
+"The source email did not carry any valid PDF/XML attachment to digitize. "
+"This record was created only to keep track of the contact that wrote to the "
+"journal alias."
+msgstr ""
+"El correo de origen no traía ningún adjunto PDF/XML válido para digitalizar."
+" Este registro se creó únicamente para mantener la trazabilidad del contacto"
+" que escribió al alias del diario."
+
+#. module: account_move_email_traceability
+#: model_terms:ir.ui.view,arch_db:account_move_email_traceability.view_move_form_email_traceability
+msgid "Undo"
+msgstr "Deshacer"
+
+#. module: account_move_email_traceability
+#: model:ir.model.fields,help:account_move_email_traceability.field_account_journal__activity_user_id
+msgid ""
+"User who will receive the review activity when an email arrives on this "
+"journal's alias without any PDF/XML attachment. If left empty, the activity "
+"is assigned to whoever processes the email (usually the technical user of "
+"the mail cron)."
+msgstr ""
+"Usuario que recibirá la actividad de revisión cuando llegue un correo al "
+"alias de este diario sin ningún PDF/XML adjunto. Si se deja vacío, la "
+"actividad queda asignada a quien procesa el correo (normalmente el usuario "
+"técnico del cron de correo)."
