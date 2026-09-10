@@ -20,7 +20,14 @@ class AccountMove(models.Model):
         # If move is posted, get rate based on line amount
         res = super()._compute_invoice_currency_rate()
         for move in self:
-            lines = move.line_ids.filtered(lambda x: abs(x.amount_currency) > 0)
+            # Exclude anglo-saxon COGS lines: they are kept in company currency
+            # (amount_currency == balance, see
+            # account.move.line._compute_currency_id), so taking them into account
+            # would distort the company -> document currency rate. The core ignores
+            # them as well (see AccountMove._get_lines_onchange_currency).
+            lines = move.line_ids.filtered(
+                lambda x: abs(x.amount_currency) > 0 and x.display_type != "cogs"
+            )
             if move.state != "posted" or not lines or not move.currency_id:
                 continue
             amount_currency_positive = sum(
