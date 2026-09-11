@@ -15,5 +15,3 @@ class AccountMoveLine(models.Model):
             line.external_name = line.name
             if line.product_id.accounting_description:
                 line.name = line.product_id.accounting_description
-            else:
-                line.name = line.external_name
