@@ -67,6 +67,9 @@ To use this module, you need to:
    change it on the payment term lines instead.
 5. You can filter and group invoices by Discount Date to know which
    invoices should be paid to ensure the discount benefit.
+6. When an Early Payment Discount applies, the "Discount Amount" and
+   "Discount Amount (Company Currency)" columns show the total to pay to
+   benefit from it. They are hidden when there is no discount to apply.
 
 Bug Tracker
 ===========
