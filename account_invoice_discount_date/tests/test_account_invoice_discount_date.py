@@ -25,7 +25,7 @@ class TestAccountInvoiceDiscountDate(AccountTestInvoicingCommon):
                     self.assertEqual(invoice.discount_date, normal_discount_date)
                 # Check computed
                 early_discount_date = fields.Date.today() + timedelta(days=3)
-                fields.first(
-                    invoice.line_ids.filtered("date_maturity")
-                ).discount_date = early_discount_date
+                invoice.line_ids.filtered("date_maturity")[
+                    :1
+                ].discount_date = early_discount_date
                 self.assertEqual(invoice.discount_date, early_discount_date)
