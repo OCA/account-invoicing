@@ -31,6 +31,19 @@
                     invisible="payment_state in ('paid', 'in_payment', 'reversed')"
                 />
             </xpath>
+            <xpath expr="//field[@name='amount_residual_signed']" position="after">
+                <field
+                    name="discount_amount_currency"
+                    string="Discount Amount"
+                    optional="show"
+                    invisible="not discount_amount_currency"
+                />
+                <field
+                    name="discount_balance"
+                    optional="hide"
+                    invisible="not discount_balance"
+                />
+            </xpath>
         </field>
     </record>
 
