@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
 from odoo import api, models
+from odoo.orm.domains import Domain
 
 
 class AccountMove(models.Model):
@@ -26,7 +27,7 @@ class AccountMove(models.Model):
         if self.is_move_sent:
             return self.env._("This invoice has already been sent.")
         if self.transmit_method_code != "mail":
-            return self.env._("This invoice should not send by mail")
+            return self.env._("This invoice should not be sent by mail")
         res = self.action_invoice_sent()
         wiz_ctx = res["context"] or {}
         wiz_ctx["active_model"] = self._name
@@ -39,11 +40,13 @@ class AccountMove(models.Model):
         return wiz.action_send_and_print()
 
     @api.model
-    def _email_invoice_to_send_domain(self):
-        return [
-            ("move_type", "in", ("out_invoice", "out_refund")),
-            ("state", "=", "posted"),
-            ("is_move_sent", "=", False),
-            ("transmit_method_code", "=", "mail"),
-            ("payment_state", "=", "not_paid"),
-        ]
+    def _email_invoice_to_send_domain(self) -> Domain:
+        return Domain(
+            [
+                ("move_type", "in", ("out_invoice", "out_refund")),
+                ("state", "=", "posted"),
+                ("is_move_sent", "=", False),
+                ("transmit_method_code", "=", "mail"),
+                ("payment_state", "=", "not_paid"),
+            ]
+        )

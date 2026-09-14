@@ -1,8 +1,9 @@
 # Copyright 2023 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
+
 from unittest import mock
 
-from odoo import Command
+from odoo.orm.commands import Command
 from odoo.tests.common import TransactionCase
 
 
@@ -12,19 +13,22 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
         super().setUpClass()
         cls.env = cls.env(
             context=dict(
-                cls.env.context, tracking_disable=True, queue_job__no_delay=True
+                cls.env.context,
+                tracking_disable=True,
+                queue_job__no_delay=True,
+                lang=None,  # Avoid translation issues when checking errors
             )
         )
 
         cls.AccountMove = cls.env["account.move"]
         cls.AccountMove.search([]).write({"transmit_method_code": ""})
         cls.company = cls.env.user.company_id
-        cls.transmit_method = cls.env.ref("account_invoice_transmit_method.mail")
+        cls.transmit_method_mail = cls.env.ref("account_invoice_transmit_method.mail")
         cls.transmit_method_post = cls.env.ref("account_invoice_transmit_method.post")
         cls.env["account.journal"].create(
             {"name": "Test sale journal", "type": "sale", "code": "tsj"}
         )
-        cls.customer = cls.env.ref("base.res_partner_1")
+        cls.customer = cls.env["res.partner"].create({"name": "Customer"})
         cls.receivable_account = cls.env["account.account"].search(
             [
                 (
@@ -61,7 +65,7 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
                 "move_type": "out_invoice",
                 "partner_id": cls.customer.id,
                 "partner_bank_id": cls.partner_bank.id,
-                "transmit_method_id": cls.transmit_method.id,
+                "transmit_method_id": cls.transmit_method_mail.id,
                 "line_ids": [
                     Command.create(
                         {
@@ -96,19 +100,26 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
         moves = self.AccountMove.search(
             self.AccountMove._email_invoice_to_send_domain()
         )
-        self.assertEqual(len(moves), 1)
+        self.assertTrue(moves)
+        self.assertIn(self.invoice, moves)
         self.AccountMove.cron_send_email_invoice()
         moves = self.AccountMove.search(
             self.AccountMove._email_invoice_to_send_domain()
         )
-        self.assertEqual(len(moves), 0)
+        self.assertFalse(moves)
         self.assertTrue(self.invoice.is_move_sent)
 
     def test_invoice_not_send_multiple_time(self):
-        self.invoice.is_move_sent = True
+        # Transmit method is e-mail, but the invoice has already been sent
+        self.invoice.write(
+            {
+                "transmit_method_id": self.transmit_method_mail.id,
+                "is_move_sent": True,
+            }
+        )
         res = self.invoice._execute_invoice_sent_wizard()
         self.assertEqual(res, "This invoice has already been sent.")
-
+        # The invoice hasn't been sent yet, but the transmit method is not e-mail
         self.invoice.write(
             {
                 "transmit_method_id": self.transmit_method_post.id,
@@ -116,4 +127,4 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
             }
         )
         res = self.invoice._execute_invoice_sent_wizard()
-        self.assertEqual(res, "This invoice should not send by mail")
+        self.assertEqual(res, "This invoice should not be sent by mail")
