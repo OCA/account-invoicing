@@ -4,6 +4,7 @@
 from unittest import mock
 
 from odoo.orm.commands import Command
+from odoo.orm.domains import Domain
 from odoo.tests.common import TransactionCase
 
 
@@ -96,17 +97,33 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
     def test_send_email_invoice_cron(self, mocked):
         # We don't care about the content of the invoice report
         mocked.return_value = (b"Whatever gets printed", "pdf")
-        moves = self.AccountMove.search(
-            self.AccountMove._email_invoice_to_send_domain()
-        )
+        moves = self.AccountMove._email_invoice_to_send()
         self.assertTrue(moves)
         self.assertIn(self.invoice, moves)
         self.AccountMove.cron_send_email_invoice()
-        moves = self.AccountMove.search(
-            self.AccountMove._email_invoice_to_send_domain()
-        )
+        moves = self.AccountMove._email_invoice_to_send()
         self.assertFalse(moves)
         self.assertTrue(self.invoice.is_move_sent)
+
+    @mock.patch(
+        "odoo.addons.base.models.ir_actions_report.IrActionsReport._render_qweb_pdf"
+    )
+    def test_send_email_invoice_cron_additional_domain(self, mocked):
+        # We don't care about the content of the invoice report
+        mocked.return_value = (b"Whatever gets printed", "pdf")
+        # Create a second invoice, prevent it from being sent by cron additional domain
+        invoice_2 = self.invoice.copy()
+        invoice_2.action_post()
+        invoice_2.write({"payment_state": "not_paid"})
+        moves = self.AccountMove._email_invoice_to_send()
+        self.assertTrue(moves)
+        self.assertIn(self.invoice, moves)
+        self.assertIn(invoice_2, moves)
+        self.AccountMove.cron_send_email_invoice(Domain("id", "!=", invoice_2.id))
+        moves = self.AccountMove._email_invoice_to_send()
+        self.assertTrue(moves)
+        self.assertNotIn(self.invoice, moves)
+        self.assertIn(invoice_2, moves)
 
     def test_send_email_invoice_cron_other_company(self):
         """The customer's sending method is read for the invoice's company.
@@ -121,10 +138,7 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
         other_company = self.env["res.company"].create({"name": "Other company"})
         self.customer.invoice_sending_method = "manual"
         self.customer.with_company(other_company).invoice_sending_method = "email"
-        self.assertNotIn(
-            self.invoice,
-            self.AccountMove.search(self.AccountMove._email_invoice_to_send_domain()),
-        )
+        self.assertNotIn(self.invoice, self.AccountMove._email_invoice_to_send())
         self.AccountMove.cron_send_email_invoice()
         self.assertFalse(self.invoice.is_move_sent)
 

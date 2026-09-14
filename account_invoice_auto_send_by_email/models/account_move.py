@@ -4,16 +4,17 @@
 
 from odoo import api, models
 from odoo.orm.domains import Domain
+from odoo.orm.types import Self
 
 
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    def cron_send_email_invoice(self):
+    def cron_send_email_invoice(self, additional_domain: Domain | list | None = None):
         # The partner's invoice sending method is company dependent
         for company in self.env["res.company"].search([]):  # pylint: disable=no-search-all
             moves = self.with_company(company)
-            for invoice in moves.search(moves._email_invoice_to_send_domain()):
+            for invoice in moves._email_invoice_to_send(additional_domain):
                 description = f"Send invoice {invoice.name} by email"
                 invoice.with_delay(
                     description=description
@@ -43,6 +44,17 @@ class AccountMove(models.Model):
             .create(self._prepare_invoice_sent_wizard_vals())
         )
         return wiz.action_send_and_print()
+
+    @api.model
+    def _email_invoice_to_send(
+        self, additional_domain: Domain | list | None = None
+    ) -> Self:
+        domain = self._email_invoice_to_send_domain()
+        if additional_domain is not None:
+            if not isinstance(additional_domain, Domain):
+                additional_domain = Domain(additional_domain)
+            domain &= additional_domain
+        return self.search(domain)
 
     @api.model
     def _email_invoice_to_send_domain(self) -> Domain:
