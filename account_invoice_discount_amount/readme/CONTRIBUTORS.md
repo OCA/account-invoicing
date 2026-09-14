@@ -1,0 +1,3 @@
+- [Camptocamp](https://www.camptocamp.com):
+  - Ricardo Almeida Soares <ricardo.almeidasoares@camptocamp.com>
+  - Iván Todorovich <ivan.todorovich@camptocamp.com>
