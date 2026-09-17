@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 KMEE
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="view_account_billing_form" model="ir.ui.view">
+        <field name="name">account.billing.form.alternate.payer</field>
+        <field name="model">account.billing</field>
+        <field name="inherit_id" ref="account_billing.view_account_billing_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='billing_line_ids']/tree/field[@name='name']"
+                position="after"
+            >
+                <field name="move_partner_id" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
