@@ -29,21 +29,24 @@ class AccountMove(models.Model):
             line.update(vals[line])
         return res
 
-    @api.model
-    def create(self, vals):
-        has_fixed_discount = any(
-            [
+    @api.model_create_multi
+    def create(self, vals_list):
+        has_fixed_discount = [
+            any(
                 move_line[2].get("discount_fixed", False)
                 for move_line in vals.get("invoice_line_ids", [])
-            ]
-        )
-
-        res = super().create(vals)
-        if res.move_type != "entry" and has_fixed_discount:
-            _logger.debug("Force tax recomputation because of fixed discount")
-            res.with_context(check_move_validity=False)._recompute_tax_lines()
-            res.with_context(check_move_validity=False)._onchange_invoice_line_ids()
-        return res
+            )
+            for vals in vals_list
+        ]
+        moves = super().create(vals_list)
+        for move, fixed_discount in zip(moves, has_fixed_discount):
+            if move.move_type != "entry" and fixed_discount:
+                _logger.debug("Force tax recomputation because of fixed discount")
+                move.with_context(check_move_validity=False)._recompute_tax_lines()
+                move.with_context(
+                    check_move_validity=False
+                )._onchange_invoice_line_ids()
+        return moves
 
 
 class AccountMoveLine(models.Model):
