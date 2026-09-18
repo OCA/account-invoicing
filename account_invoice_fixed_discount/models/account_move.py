@@ -1,8 +1,13 @@
 # Copyright 2017 ForgeFlow S.L.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
+import logging
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.tools import float_compare, float_is_zero
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountMove(models.Model):
@@ -23,6 +28,25 @@ class AccountMove(models.Model):
         for line in vals.keys():
             line.update(vals[line])
         return res
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        has_fixed_discount = [
+            any(
+                move_line[2].get("discount_fixed", False)
+                for move_line in vals.get("invoice_line_ids", [])
+            )
+            for vals in vals_list
+        ]
+        moves = super().create(vals_list)
+        for move, fixed_discount in zip(moves, has_fixed_discount):
+            if move.move_type != "entry" and fixed_discount:
+                _logger.debug("Force tax recomputation because of fixed discount")
+                move.with_context(check_move_validity=False)._recompute_tax_lines()
+                move.with_context(
+                    check_move_validity=False
+                )._onchange_invoice_line_ids()
+        return moves
 
 
 class AccountMoveLine(models.Model):
@@ -70,10 +94,13 @@ class AccountMoveLine(models.Model):
         taxes,
         move_type,
     ):
-        if self.discount_fixed != 0:
-            discount = (
-                (price_unit != 0) and ((self.discount_fixed) / price_unit) * 100 or 0.00
-            )
+        prec = self.company_currency_id.decimal_places
+        if not float_is_zero(self.discount_fixed, precision_digits=prec):
+            if float_compare(price_unit, 0.00, precision_digits=prec) == 1:
+                discount = ((self.discount_fixed) / price_unit) * 100 or 0.00
+            elif float_is_zero(price_unit, precision_digits=prec):
+                price_unit = abs(self.discount_fixed)
+                discount = 0.00
         return super(AccountMoveLine, self)._get_price_total_and_subtotal_model(
             price_unit, quantity, discount, currency, product, partner, taxes, move_type
         )
@@ -90,8 +117,13 @@ class AccountMoveLine(models.Model):
         price_subtotal,
         force_computation=False,
     ):
-        if self.discount_fixed != 0:
-            discount = ((self.discount_fixed) / self.price_unit) * 100 or 0.00
+        prec = self.company_currency_id.decimal_places
+        if not float_is_zero(self.discount_fixed, precision_digits=prec):
+            if float_compare(self.price_unit, 0.00, precision_digits=prec) == 1:
+                discount = ((self.discount_fixed) / self.price_unit) * 100 or 0.00
+            elif float_is_zero(self.price_unit, precision_digits=prec):
+                self.price_unit = abs(self.discount_fixed)
+                self.discount_fixed = 0.00
         return super(AccountMoveLine, self)._get_fields_onchange_balance_model(
             quantity,
             discount,
@@ -109,15 +141,32 @@ class AccountMoveLine(models.Model):
         for vals in vals_list:
             if vals.get("discount_fixed"):
                 prev_discount.append(
-                    {"discount_fixed": vals.get("discount_fixed"), "discount": 0.00}
+                    {
+                        "discount_fixed": vals.get("discount_fixed"),
+                        "discount": 0.00,
+                        "price_unit": vals.get("price_unit"),
+                    }
                 )
-                fixed_discount = (
-                    vals.get("price_unit")
-                    and ((vals.get("discount_fixed") / vals.get("price_unit")) * 100)
-                    or 0.0
+                fixed_discount = vals.get("discount_fixed")
+                price_unit = vals.get("price_unit")
+                if price_unit != 0:
+                    fixed_discount = (
+                        vals.get("discount_fixed") / vals.get("price_unit")
+                    ) * 100
+                elif price_unit == 0:
+                    price_unit = -fixed_discount
+                    fixed_discount = 0
+
+                vals.update(
+                    {
+                        "discount": fixed_discount,
+                        "discount_fixed": 0.00,
+                        "price_unit": price_unit,
+                    }
                 )
-                vals.update({"discount": fixed_discount, "discount_fixed": 0.00})
-            elif vals.get("discount"):
+            elif vals.get("discount") or vals.get("price_unit") != vals.get(
+                "price_unit"
+            ):
                 prev_discount.append({"discount": vals.get("discount")})
         res = super(AccountMoveLine, self).create(vals_list)
         i = 0
