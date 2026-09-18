@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field name="name">res.partner.property.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field
+            name="groups_id"
+            eval="[(4, ref('account_invoice_section_sale_order.group_sale_order_invoice_section_name'))]"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='accounting']/group" position="inside">
+                <group
+                    name="invoice_section_sale_order"
+                    string="Custom section name on invoice"
+                >
+                    <field name="invoice_section_name_scheme" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

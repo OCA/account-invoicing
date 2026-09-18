@@ -193,10 +193,15 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    qty_refunded = fields.Float(compute="_compute_qty_refunded", string="Refunded Qty")
+    qty_refunded = fields.Float(
+        compute="_compute_qty_refunded",
+        string="Refunded Qty",
+        digits="Product Unit of Measure",
+    )
     qty_returned = fields.Float(
         compute="_compute_qty_returned",
         string="Returned* Qty",
+        digits="Product Unit of Measure",
         help="This is ONLY the returned quantity that is refundable.",
         store=True,
     )

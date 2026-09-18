@@ -31,7 +31,7 @@ msgstr "Avoirs"
 
 #. module: purchase_stock_picking_return_invoicing
 #: model:ir.model,name:purchase_stock_picking_return_invoicing.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: purchase_stock_picking_return_invoicing
@@ -62,6 +62,14 @@ msgstr ""
 #. module: purchase_stock_picking_return_invoicing
 #: model_terms:ir.ui.view,arch_db:purchase_stock_picking_return_invoicing.view_invoice_supplier_purchase_form
 msgid "Select a purchase order or an old bill"
+msgstr ""
+
+#. module: purchase_stock_picking_return_invoicing
+#: code:addons/purchase_stock_picking_return_invoicing/models/purchase_order.py:0
+#, python-format
+msgid ""
+"There is no invoiceable line. If a product has a control policy based on "
+"received quantity, please make sure that a quantity has been received."
 msgstr ""
 
 #. module: purchase_stock_picking_return_invoicing

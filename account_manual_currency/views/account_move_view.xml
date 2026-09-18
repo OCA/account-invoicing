@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//group[@id='header_right_group']/field[@name='currency_id']"
+                position="after"
+            >
+                <field name="is_manual" invisible="1" />
+                <label
+                    for="manual_currency"
+                    groups="base.group_multi_currency"
+                    attrs="{'invisible': [('is_manual', '=', False)]}"
+                />
+                <div
+                    groups="base.group_multi_currency"
+                    attrs="{'invisible': [('is_manual', '=', False)]}"
+                >
+                    <field name="manual_currency" />
+                    <label for="manual_currency_rate" invisible='1' />
+                    <div
+                        class="o_row"
+                        attrs="{'invisible': [('manual_currency', '=', False)]}"
+                    >
+                        <field name="manual_currency_rate" />
+                        <field
+                            name="type_currency"
+                            attrs="{'required': [('manual_currency', '=', True)]}"
+                        />
+                        <button
+                            aria-label="Opened"
+                            type="object"
+                            name="action_refresh_currency"
+                            class="btn-link"
+                            states="draft"
+                        >
+                            <i title="Update Currency" class="fa fa-fw fa-refresh" />
+                        </button>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='tax_totals_json']" position="before">
+                <field
+                    name="total_company_currency"
+                    attrs="{'invisible': [('currency_diff', '=', False)]}"
+                />
+                <field name="company_currency_id" invisible="1" />
+                <field name="currency_diff" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

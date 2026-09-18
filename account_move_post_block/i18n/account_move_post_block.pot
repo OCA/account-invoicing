@@ -75,19 +75,19 @@ msgstr ""
 #. module: account_move_post_block
 #: code:addons/account_move_post_block/models/account_move.py:0
 #, python-format
+msgid "Entry \"%(move_name)s\" blocked with reason%(reason)s"
+msgstr ""
+
+#. module: account_move_post_block
+#: code:addons/account_move_post_block/models/account_move.py:0
+#, python-format
 msgid "Entry \"%s\" post block released."
 msgstr ""
 
 #. module: account_move_post_block
 #: code:addons/account_move_post_block/models/account_move.py:0
 #, python-format
-msgid "Entry \"{}\" blocked with reason{}"
-msgstr ""
-
-#. module: account_move_post_block
-#: code:addons/account_move_post_block/models/account_move.py:0
-#, python-format
-msgid "Entry {} blocked with reason {}"
+msgid "Entry %(move_name)s blocked with reason %(reason)s"
 msgstr ""
 
 #. module: account_move_post_block

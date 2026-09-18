@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <!-- Queue Job Channel -->
+        <record id="account_invoice_mass_sending_channel" model="queue.job.channel">
+            <field name="name">Invoice Mass Sending Job</field>
+            <field name="parent_id" ref="queue_job.channel_root" />
+        </record>
+
+        <!-- Queue Job Function -->
+        <record id="account_invoice_mass_sending_function" model="queue.job.function">
+            <field name="model_id" ref="account.model_account_move" />
+            <field name="method">_send_invoice_individually</field>
+            <field name="channel_id" ref="account_invoice_mass_sending_channel" />
+        </record>
+</odoo>

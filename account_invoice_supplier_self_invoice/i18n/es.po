@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-20 09:26+0000\n"
-"PO-Revision-Date: 2022-12-20 10:32+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-10-09 07:44+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"X-Generator: Poedit 3.1.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:mail.template,body_html:account_invoice_supplier_self_invoice.email_template_self_invoice
@@ -109,9 +109,9 @@ msgid ""
 "specific.\" aria-label=\"Values set here are company-specific.\" groups="
 "\"base.group_multi_company\" role=\"img\"/>"
 msgstr ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Los valores establecidos aquí "
-"son específicos de la empresa.\" aria-label=\"Los valores establecidos aquí "
-"son específicos de la empresa.\" role=\"img\"/> "
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" aria-label=\"Values set here are company-specific.\" groups="
+"\"base.group_multi_company\" role=\"img\"/>"
 
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.invoice_supplier_form
@@ -228,7 +228,7 @@ msgstr ""
 #: code:addons/account_invoice_supplier_self_invoice/models/res_partner.py:0
 #, python-format
 msgid "Invoiced by the recipent"
-msgstr ""
+msgstr "Facturado por el receptor"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:ir.model,name:account_invoice_supplier_self_invoice.model_account_move
@@ -238,7 +238,7 @@ msgstr "Asiento contable"
 #. module: account_invoice_supplier_self_invoice
 #: model_terms:ir.ui.view,arch_db:account_invoice_supplier_self_invoice.external_layout_striped_self_invoice
 msgid "Logo"
-msgstr ""
+msgstr "Logotipo"
 
 #. module: account_invoice_supplier_self_invoice
 #: model:mail.template,name:account_invoice_supplier_self_invoice.email_template_self_invoice

@@ -1,0 +1,63 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_alternate_payer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_alternate_payer
+#: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_bank_statement_line__alternate_payer_id
+#: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_move__alternate_payer_id
+#: model:ir.model.fields,field_description:account_invoice_alternate_payer.field_account_payment__alternate_payer_id
+#: model_terms:ir.ui.view,arch_db:account_invoice_alternate_payer.view_move_form
+msgid "Alternate Payer"
+msgstr ""
+
+#. module: account_invoice_alternate_payer
+#: model:ir.model.fields,help:account_invoice_alternate_payer.field_account_bank_statement_line__alternate_payer_id
+#: model:ir.model.fields,help:account_invoice_alternate_payer.field_account_move__alternate_payer_id
+#: model:ir.model.fields,help:account_invoice_alternate_payer.field_account_payment__alternate_payer_id
+msgid ""
+"If set, this will be the partner that we expect to pay or to be paid by. If "
+"not set, the payor is by default the commercial"
+msgstr ""
+
+#. module: account_invoice_alternate_payer
+#: model:ir.model,name:account_invoice_alternate_payer.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_alternate_payer
+#: model:ir.model,name:account_invoice_alternate_payer.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_alternate_payer
+#: code:addons/account_invoice_alternate_payer/models/account_move.py:0
+#, python-format
+msgid "Outstanding credits"
+msgstr ""
+
+#. module: account_invoice_alternate_payer
+#: code:addons/account_invoice_alternate_payer/models/account_move.py:0
+#, python-format
+msgid "Outstanding debits"
+msgstr ""
+
+#. module: account_invoice_alternate_payer
+#: model:ir.model,name:account_invoice_alternate_payer.model_account_payment
+msgid "Payments"
+msgstr ""
+
+#. module: account_invoice_alternate_payer
+#: model:ir.model,name:account_invoice_alternate_payer.model_account_payment_register
+msgid "Register Payment"
+msgstr ""

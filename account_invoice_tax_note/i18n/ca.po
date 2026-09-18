@@ -17,32 +17,15 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: account_invoice_tax_note
-#: model:ir.model.fields,field_description:account_invoice_tax_note.field_account_move__display_name
-#: model:ir.model.fields,field_description:account_invoice_tax_note.field_account_tax_group__display_name
-msgid "Display Name"
-msgstr "Nom a mostrar"
-
-#. module: account_invoice_tax_note
-#: model:ir.model.fields,field_description:account_invoice_tax_note.field_account_move__id
-#: model:ir.model.fields,field_description:account_invoice_tax_note.field_account_tax_group__id
-msgid "ID"
-msgstr "ID"
-
-#. module: account_invoice_tax_note
 #: model:ir.model,name:account_invoice_tax_note.model_account_move
 msgid "Journal Entry"
 msgstr "Assentament comptable"
 
 #. module: account_invoice_tax_note
-#: model:ir.model.fields,field_description:account_invoice_tax_note.field_account_move____last_update
-#: model:ir.model.fields,field_description:account_invoice_tax_note.field_account_tax_group____last_update
-msgid "Last Modified on"
-msgstr "Darrera modificació el"
-
-#. module: account_invoice_tax_note
 #: model:ir.model.fields,help:account_invoice_tax_note.field_account_tax_group__report_note
 msgid "Note to insert on Invoice Report if the tax group is used."
-msgstr "Nota a inserir a l'informe de factura si s'utilitza el grup d'impostos."
+msgstr ""
+"Nota a inserir a l'informe de factura si s'utilitza el grup d'impostos."
 
 #. module: account_invoice_tax_note
 #: model:ir.model.fields,field_description:account_invoice_tax_note.field_account_tax_group__report_note
@@ -53,3 +36,12 @@ msgstr "Nota informe"
 #: model:ir.model,name:account_invoice_tax_note.model_account_tax_group
 msgid "Tax Group"
 msgstr "Grup d'impostos"
+
+#~ msgid "Display Name"
+#~ msgstr "Nom a mostrar"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Darrera modificació el"

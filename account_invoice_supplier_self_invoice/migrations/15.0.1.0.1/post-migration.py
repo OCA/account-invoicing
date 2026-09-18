@@ -8,6 +8,9 @@ from openupgradelib import openupgrade
 def migrate(env, version):
     companies = env["res.company"].search([]).ids
     main_company = env.ref("base.main_company", False) or companies[0]
+    if not openupgrade.column_exists(env.cr, "res_partner", "self_invoice_sequence_id"):
+        # This means that it was ported on 14
+        return
     openupgrade.logged_query(
         env.cr,
         """

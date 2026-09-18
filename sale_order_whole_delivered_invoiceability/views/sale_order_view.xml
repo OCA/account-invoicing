@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter" />
+        <field name="arch" type="xml">
+            <filter name="my_sale_orders_filter" position="after">
+                <filter
+                    string="Partial orders not invoiced"
+                    name="partial_not_invoiced"
+                    domain="[('whole_delivered_invoiceability', '=', True),
+                            ('invoice_status', '=', 'no'),
+                            ('order_line.invoice_status', '=', 'to invoice'),
+                            ('state', 'not in', ['draft', 'cancel'])]"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>

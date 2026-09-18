@@ -1,0 +1,505 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_clearing
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-05-23 07:27+0000\n"
+"Last-Translator: Pablo Castelo <pablocv@gmx.es>\n"
+"Language-Team: none\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid ""
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
+"invisible=\"1\">Actions:</span>"
+msgstr ""
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible=\"1\">"
+"Accións:</span>"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid ""
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" "
+"invisible=\"1\">Sort by:</span>"
+msgstr ""
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible=\"1\">"
+"Curta por:</span>"
+
+#. module: account_invoice_clearing
+#: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__account_id
+#, python-format
+msgid "Account"
+msgstr "Conta"
+
+#. module: account_invoice_clearing
+#: model:ir.model,name:account_invoice_clearing.model_account_invoice_clearing_lines_wizard
+msgid "Account Invoice Clearing Lines Wizard"
+msgstr "Asistente de Compensación de Liñas de Facturas"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Add all compensation lines"
+msgstr "Engadir todas as liñas a compensar"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Adds all available compensation lines to allow use it."
+msgstr ""
+"Engade todas as liñas dispoñibles para a compensación para poder ser "
+"utilizadas."
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__amount_to_clear
+msgid "Amount To Clear"
+msgstr "Importe a compensar"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Amount residual (asc)"
+msgstr "Importe residual (asc)"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Amount residual (desc)"
+msgstr "Importe residual (desc)"
+
+#. module: account_invoice_clearing
+#: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
+#, python-format
+msgid "Amount to clear cannot be greater than residual amount."
+msgstr "O importe para compensar non pode ser superior á cantidade residual."
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__analytic_account_id
+msgid "Analytic Account"
+msgstr "Conta analítica"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__analytic_tag_ids
+msgid "Analytic Tags"
+msgstr "Etiquetas analíticas"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Are you sure you want to clear the invoices?"
+msgstr "Está seguro que quere compensar as facturas?"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid ""
+"Are you sure you want to use the selected configuration to clear invoices? "
+"This operation will create a new move and will reconcile every line with its"
+" respective counterpart."
+msgstr ""
+"Está seguro que quere utilizar a configuración seleccionada para compensar "
+"as facturas? Esta operación creará novo(s) movemento(s) e conciliará cada "
+"liña coa súa respectiva contrapartida."
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__can_use_line
+msgid "Can Use Line"
+msgstr "Pode utilizar a liña"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__clearing_id
+msgid "Clearing"
+msgstr "Compensar"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__amount_to_clear
+msgid "Clearing amount"
+msgstr "Importe a compensar"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__commercial_partner_id
+msgid "Commercial Partner"
+msgstr "Partner Comercial"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__company_currency_id
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__company_currency_id
+msgid "Company Currency"
+msgstr "Moeda da Compañía"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Create and Concile"
+msgstr "Crear e Conciliar"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__create_uid
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__create_date
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__create_date
+msgid "Created on"
+msgstr "Creado o"
+
+#. module: account_invoice_clearing
+#: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__credit
+#, python-format
+msgid "Credit"
+msgstr "Crédito"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__date
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__date
+msgid "Date"
+msgstr "Data"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Date due (asc)"
+msgstr "Data de vencemento (asc)"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Date due (desc)"
+msgstr "Data de vencemento (desc)"
+
+#. module: account_invoice_clearing
+#: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__debit
+#, python-format
+msgid "Debit"
+msgstr "Débito"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__display_name
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__display_name
+msgid "Display Name"
+msgstr "Nome mostrado"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__date_maturity
+msgid "Due Date"
+msgstr "Data de vencemento"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Empty lines"
+msgstr "Baleirar liñas"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Fill amounts in order"
+msgstr "Encher importes en orde"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid ""
+"Fills the amount to clear with the residual amount of the invoice until the "
+"total residual amount is zero."
+msgstr ""
+"Enche o importe para compensar coa cantidade residual das facturas ata que a "
+"cantidade residual é cero."
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__id
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__id
+msgid "ID"
+msgstr "ID(identificador)"
+
+#. module: account_invoice_clearing
+#: model:ir.actions.server,name:account_invoice_clearing.action_invoice_clearing
+msgid "Invoice Clearing"
+msgstr "Compensación de facturas"
+
+#. module: account_invoice_clearing
+#: model:ir.model,name:account_invoice_clearing.model_account_invoice_clearing_wizard
+msgid "Invoice Clearing Wizard"
+msgstr "Asistente de Compensación de facturas"
+
+#. module: account_invoice_clearing
+#: model:ir.actions.act_window,name:account_invoice_clearing.action_account_invoice_clearing_wizard
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.view_move_form
+msgid "Invoice clearing"
+msgstr "Compensación de facturas"
+
+#. module: account_invoice_clearing
+#: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
+#, python-format
+msgid "Invoices must be from the same commercial partner."
+msgstr "As facturas deben ser do mesmo Partner Comercial."
+
+#. module: account_invoice_clearing
+#: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
+#, python-format
+msgid "Invoices must be of the same type."
+msgstr "As facturas deben ser do mesmo tipo."
+
+#. module: account_invoice_clearing
+#: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
+#, python-format
+msgid "Invoices must belong to the same company."
+msgstr "As facturas deben pertencer á mesma compañía."
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__invoice_ids
+msgid "Invoices/Bills"
+msgstr "Facturas"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,help:account_invoice_clearing.field_account_invoice_clearing_wizard__preview_move_data
+msgid "JSON value of the data to be displayed in the previewer"
+msgstr "Valor JSON dos datos que se mostrarán na vista previa"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,help:account_invoice_clearing.field_account_invoice_clearing_wizard__move_data
+msgid "JSON value of the moves to be created"
+msgstr "Valor JSON dos movementos para crear"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_invoice_clearing
+#: model:ir.model,name:account_invoice_clearing.model_account_move
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__invoice_id
+msgid "Journal Entry"
+msgstr "Asento contable"
+
+#. module: account_invoice_clearing
+#: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__name
+#, python-format
+msgid "Label"
+msgstr "Etiqueta"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard____last_update
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard____last_update
+msgid "Last Modified on"
+msgstr "Última modificación o"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__write_uid
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__write_date
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__write_date
+msgid "Last Updated on"
+msgstr "Última actualización o"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__line_ids
+msgid "Lines"
+msgstr "Liñas"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__move_data
+msgid "Move Data"
+msgstr "Datos do Movemento"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__move_line_id
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__move_line_ids
+msgid "Move Line"
+msgstr "Apuntamento"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Move Lines to clear"
+msgstr "Apuntamentos a compensar"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Move Lines to use for clearing"
+msgstr "Apuntamentos para utilizar na compensación"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__move_name
+msgid "Move Name"
+msgstr "Nome do movemento"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__move_type
+msgid "Move Type"
+msgstr "Tipo de Movemento"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Move and Move lines texts"
+msgstr "Textos para o Movemento e os Apuntamentos de Compensación"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Move general configuration"
+msgstr "Configuración xeral do Movemento de Compensación"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,help:account_invoice_clearing.field_account_invoice_clearing_wizard__move_name
+msgid "Name of the move generated by this wizard"
+msgstr "Referencia do Movemento de Compensación"
+
+#. module: account_invoice_clearing
+#: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
+#, python-format
+msgid "Partner"
+msgstr "Contacto"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__move_line_prefix
+msgid "Prefix for move lines"
+msgstr "Prefixo para os Apuntamentos de Compensación"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,help:account_invoice_clearing.field_account_invoice_clearing_wizard__move_line_prefix
+msgid ""
+"Prefix to be used in the name of the move lines generated by this wizard"
+msgstr ""
+"Prefixo que se utilizará no nome dos Apuntamentos xerados por este Asistente"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_wizard__preview_move_data
+msgid "Preview Move Data"
+msgstr "Vista previa de datos de movemento"
+
+#. module: account_invoice_clearing
+#: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
+#, python-format
+msgid "Preview of the clearing move related to %s"
+msgstr "Previsualización do Movemento de Compensación relacionado con %s"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__product_id
+msgid "Product"
+msgstr "Produto"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Removes all invoices."
+msgstr "Elimina todas as liñas de Compensación."
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Removes all lines and adds all available move lines again."
+msgstr ""
+"Elimina todas as liñas e volve engadir todas as liñas dispoñibles para a "
+"compensación."
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Reset lines"
+msgstr "Reiniciar liñas"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__amount_residual
+msgid "Residual Amount"
+msgstr "Importe residual"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Residual Amount Total (Signed)"
+msgstr "Total do Importe residual (con signo)"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Residual Amount to clear (Signed)"
+msgstr "Importe residual a compensar (con signo)"
+
+#. module: account_invoice_clearing
+#: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0
+#, python-format
+msgid "Resulting Clearing Move"
+msgstr "Movemento de compensación resultante"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Resulting move will not be fully reconciled."
+msgstr "O movemento resultante non conciliará completamente a(s) facturas."
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,field_description:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Sorts the invoices by date due ascending."
+msgstr "Ordena as liñas das facturas por data de vencemento ascendente."
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Sorts the invoices by date due descending."
+msgstr "Ordena as liñas das facturas por data de vencemento descendente."
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Sorts the invoices by residual amount ascending."
+msgstr "Ordena as liñas das facturas por importe residual ascendente."
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Sorts the invoices by residual amount descending."
+msgstr "Ordena as liñas das facturas por importe residual descendente."
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "The following Journal Entries will be generated"
+msgstr "Xeraranse os seguintes Movementos"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,help:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__invoice_id
+msgid "The move of this entry line."
+msgstr "O apuntamento deste asento."
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,help:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__amount_residual
+msgid ""
+"The residual amount on a journal item expressed in the company currency."
+msgstr ""
+"O importe residual nun apuntamento contable expresado na moeda da compañía."
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,help:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__date_maturity
+msgid ""
+"This field is used for payable and receivable journal entries. You can put "
+"the limit date for the payment of this line."
+msgstr ""
+"Este campo utilízase en asentos pendentes de pago e de cobranza. Podes "
+"establecer a data límite para o pago desta liña."
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Total Amount Residual (Signed)"
+msgstr "Total do Importe residual (con signo)"
+
+#. module: account_invoice_clearing
+#: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
+msgid "Use"
+msgstr "Utilizar"
+
+#. module: account_invoice_clearing
+#: model:ir.model.fields,help:account_invoice_clearing.field_account_invoice_clearing_lines_wizard__company_currency_id
+msgid "Utility field to express amount currency"
+msgstr "Campo de utilidade para expresar a moeda do importe"

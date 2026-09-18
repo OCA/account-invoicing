@@ -22,8 +22,8 @@ msgstr ""
 
 #. module: account_invoice_check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_res_config_settings__group_supplier_inv_check_total
-#: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 #: model:res.groups,name:account_invoice_check_total.group_supplier_inv_check_total
+#: model_terms:ir.ui.view,arch_db:account_invoice_check_total.res_config_settings_form_view
 msgid "Check Total on Vendor Bills"
 msgstr "Preveri skupni znesek na prejetih računih"
 
@@ -49,7 +49,7 @@ msgstr ""
 
 #. module: account_invoice_check_total
 #: model:ir.model,name:account_invoice_check_total.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_check_total
@@ -57,7 +57,8 @@ msgstr ""
 #, fuzzy, python-format
 msgid ""
 "Please verify the price of the invoice!\n"
-"The total amount (%(amount_total)s) does not match the Verification Total amount (%(check_total)s)!\n"
+"The total amount (%(amount_total)s) does not match the Verification Total "
+"amount (%(check_total)s)!\n"
 "There is a difference of %(diff)s"
 msgstr ""
 "Preverite prosim zneske na računu!\n"
@@ -66,12 +67,16 @@ msgstr ""
 "Obstaja razlika %(diff)s"
 
 #. module: account_invoice_check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_bank_statement_line__check_total_display_difference
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total_display_difference
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_payment__check_total_display_difference
 msgid "Total Difference"
 msgstr "Skupaj razlika"
 
 #. module: account_invoice_check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_bank_statement_line__check_total
 #: model:ir.model.fields,field_description:account_invoice_check_total.field_account_move__check_total
+#: model:ir.model.fields,field_description:account_invoice_check_total.field_account_payment__check_total
 msgid "Verification Total"
 msgstr "Skupaj verifikacija"
 

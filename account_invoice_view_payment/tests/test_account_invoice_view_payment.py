@@ -13,6 +13,10 @@ class TestAccountInvoiceViewPayment(TransactionCase):
 
     def setUp(self):
         super(TestAccountInvoiceViewPayment, self).setUp()
+        group_ids = self.env.ref("account.group_account_invoice").ids
+        self.test_user_1 = self.env["res.users"].create(
+            {"name": "John", "login": "test1", "groups_id": [(6, 0, group_ids)]}
+        )
         self.par_model = self.env["res.partner"]
         self.acc_model = self.env["account.account"]
         self.inv_model = self.env["account.move"]
@@ -76,15 +80,17 @@ class TestAccountInvoiceViewPayment(TransactionCase):
 
     def test_account_move_view_payment_out_invoice(self):
         self.invoice1.action_post()
-        wiz = self.pay_model.with_context(
-            active_id=[self.invoice1.id], active_model="account.move"
-        ).create(
-            {
-                "journal_id": self.cash.id,
-                "payment_method_id": self.payment_method_manual_in.id,
-                "amount": self.invoice1.amount_residual,
-                "payment_type": "inbound",
-            }
+        wiz = (
+            self.pay_model.with_user(self.test_user_1)
+            .with_context(active_id=[self.invoice1.id], active_model="account.move")
+            .create(
+                {
+                    "journal_id": self.cash.id,
+                    "payment_method_id": self.payment_method_manual_in.id,
+                    "amount": self.invoice1.amount_residual,
+                    "payment_type": "inbound",
+                }
+            )
         )
 
         res = wiz.post_and_open_payment()
@@ -107,15 +113,17 @@ class TestAccountInvoiceViewPayment(TransactionCase):
 
     def test_account_move_view_payment_in_invoice(self):
         self.invoice2.action_post()
-        wiz = self.pay_model.with_context(
-            active_id=[self.invoice2.id], active_model="account.move"
-        ).create(
-            {
-                "journal_id": self.cash.id,
-                "payment_method_id": self.payment_method_manual_in.id,
-                "amount": self.invoice2.amount_residual,
-                "payment_type": "inbound",
-            }
+        wiz = (
+            self.pay_model.with_user(self.test_user_1)
+            .with_context(active_id=[self.invoice2.id], active_model="account.move")
+            .create(
+                {
+                    "journal_id": self.cash.id,
+                    "payment_method_id": self.payment_method_manual_in.id,
+                    "amount": self.invoice2.amount_residual,
+                    "payment_type": "inbound",
+                }
+            )
         )
 
         res = wiz.post_and_open_payment()
@@ -127,7 +135,7 @@ class TestAccountInvoiceViewPayment(TransactionCase):
             "There was an error and the view couldn't be opened.",
         )
 
-        view_payment = self.invoice2.action_view_payments()
+        view_payment = self.invoice2.with_user(self.test_user_1).action_view_payments()
         expect1 = {"type": "ir.actions.act_window", "res_model": "account.payment"}
         self.assertDictEqual(
             expect1,
@@ -138,15 +146,20 @@ class TestAccountInvoiceViewPayment(TransactionCase):
     def test_view_account_payment_register_form(self):
         self.invoice2.action_post()
         self.invoice3.action_post()
-        wiz = self.reg_pay_model.with_context(
-            active_ids=[self.invoice2.id, self.invoice3.id], active_model="account.move"
-        ).create(
-            {
-                "journal_id": self.cash.id,
-            }
+        wiz = (
+            self.reg_pay_model.with_user(self.test_user_1)
+            .with_context(
+                active_ids=[self.invoice2.id, self.invoice3.id],
+                active_model="account.move",
+            )
+            .create(
+                {
+                    "journal_id": self.cash.id,
+                }
+            )
         )
 
-        res = wiz.create_payment_and_open()
+        res = wiz.action_create_payments()
 
         expect = {"type": "ir.actions.act_window", "res_model": "account.payment"}
         self.assertDictEqual(

@@ -36,16 +36,6 @@ msgid "Credit Method"
 msgstr "Crediterings methode"
 
 #. module: account_invoice_refund_line_selection
-#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__display_name
-msgid "Display Name"
-msgstr "Weergavenaam"
-
-#. module: account_invoice_refund_line_selection
-#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__id
-msgid "ID"
-msgstr "ID"
-
-#. module: account_invoice_refund_line_selection
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
 msgid "Invoice Lines"
 msgstr "Factuur regels"
@@ -54,11 +44,6 @@ msgstr "Factuur regels"
 #: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal__line_ids
 msgid "Invoice lines to refund"
 msgstr "Factuur regels te crediteren"
-
-#. module: account_invoice_refund_line_selection
-#: model:ir.model.fields,field_description:account_invoice_refund_line_selection.field_account_move_reversal____last_update
-msgid "Last Modified on"
-msgstr "Laatst gewijzigd op"
 
 #. module: account_invoice_refund_line_selection
 #: model:ir.model.fields.selection,name:account_invoice_refund_line_selection.selection__account_move_reversal__refund_method__refund_lines
@@ -73,6 +58,14 @@ msgstr "Selecteerbare factuur regels"
 #. module: account_invoice_refund_line_selection
 #: model_terms:ir.ui.view,arch_db:account_invoice_refund_line_selection.view_account_invoice_refund_lines
 msgid ""
-"Use this option if you want to refund only some specific lines in an "
-"invoice."
+"Use this option if you want to refund only some specific lines in an invoice."
 msgstr "Gebruik deze optie om specifieke factuur refels te crediteren."
+
+#~ msgid "Display Name"
+#~ msgstr "Weergavenaam"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Laatst gewijzigd op"

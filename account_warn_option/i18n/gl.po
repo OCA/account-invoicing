@@ -1,0 +1,53 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_warn_option
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-05-23 07:27+0000\n"
+"Last-Translator: Pablo Castelo <pablocv@gmx.es>\n"
+"Language-Team: none\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
+
+#. module: account_warn_option
+#: model:ir.model.fields.selection,name:account_warn_option.selection__warn_option__allowed_warning_usage__partner_invoice_warn
+msgid "(Partner) Warning on the Invoice"
+msgstr "(Contacto) Advertencia na factura"
+
+#. module: account_warn_option
+#: model:ir.model.fields,field_description:account_warn_option.field_warn_option__allowed_warning_usage
+msgid "Allowed Warning Usage"
+msgstr "Uso da alerta permitida"
+
+#. module: account_warn_option
+#: model:ir.model.fields,help:account_warn_option.field_warn_option__allowed_warning_usage
+msgid "Allows to choose where the message can be selected"
+msgstr "Permite elixir onde pode ser seleccionado a mensaxe"
+
+#. module: account_warn_option
+#: model:ir.model,name:account_warn_option.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: account_warn_option
+#: model:ir.model.fields,field_description:account_warn_option.field_res_partner__invoice_warn_option
+#: model:ir.model.fields,field_description:account_warn_option.field_res_users__invoice_warn_option
+msgid "Invoice Warn Option"
+msgstr "Opción de alerta en facturas"
+
+#. module: account_warn_option
+#: model_terms:ir.ui.view,arch_db:account_warn_option.account_warn_option_partner_form
+msgid "Select a warning option"
+msgstr "Selecciona unha opción de alerta"
+
+#. module: account_warn_option
+#: model:ir.model,name:account_warn_option.model_warn_option
+msgid "Warn Option"
+msgstr "Opción de alerta"

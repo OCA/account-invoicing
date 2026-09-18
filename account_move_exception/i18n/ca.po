@@ -76,9 +76,6 @@ msgstr ""
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm__display_name
-#: model:ir.model.fields,field_description:account_move_exception.field_account_move__display_name
-#: model:ir.model.fields,field_description:account_move_exception.field_account_move_line__display_name
-#: model:ir.model.fields,field_description:account_move_exception.field_exception_rule__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -105,9 +102,6 @@ msgstr ""
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm__id
-#: model:ir.model.fields,field_description:account_move_exception.field_account_move__id
-#: model:ir.model.fields,field_description:account_move_exception.field_account_move_line__id
-#: model:ir.model.fields,field_description:account_move_exception.field_exception_rule__id
 msgid "ID"
 msgstr ""
 
@@ -137,9 +131,6 @@ msgstr ""
 
 #. module: account_move_exception
 #: model:ir.model.fields,field_description:account_move_exception.field_account_exception_confirm____last_update
-#: model:ir.model.fields,field_description:account_move_exception.field_account_move____last_update
-#: model:ir.model.fields,field_description:account_move_exception.field_account_move_line____last_update
-#: model:ir.model.fields,field_description:account_move_exception.field_exception_rule____last_update
 msgid "Last Modified on"
 msgstr ""
 

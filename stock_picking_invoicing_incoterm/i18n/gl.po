@@ -1,0 +1,36 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_invoicing_incoterm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-05-23 16:32+0000\n"
+"Last-Translator: Pablo Castelo <pablocv@gmx.es>\n"
+"Language-Team: none\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
+
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model.fields,field_description:stock_picking_invoicing_incoterm.field_stock_picking__incoterm
+msgid "Incoterm"
+msgstr "Incotérmino"
+
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model.fields,help:stock_picking_invoicing_incoterm.field_stock_picking__incoterm
+msgid ""
+"International Commercial Terms are a series of predefined commercial terms "
+"used in international transactions."
+msgstr ""
+"Os termos de comercio internacional son unha serie de condicións comerciais "
+"usadas nas transaccións internacionais."
+
+#. module: stock_picking_invoicing_incoterm
+#: model:ir.model,name:stock_picking_invoicing_incoterm.model_stock_picking
+msgid "Transfer"
+msgstr "Transferencia"

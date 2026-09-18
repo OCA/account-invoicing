@@ -23,8 +23,8 @@ msgid ""
 "<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible="
 "\"1\">Actions:</span>"
 msgstr ""
-"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible=\"1\""
-">Acciones:</span>"
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible="
+"\"1\">Acciones:</span>"
 
 #. module: account_invoice_clearing
 #: model_terms:ir.ui.view,arch_db:account_invoice_clearing.account_invoice_clearing_wizard_form_view
@@ -32,8 +32,8 @@ msgid ""
 "<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible="
 "\"1\">Sort by:</span>"
 msgstr ""
-"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible=\"1\""
-">Corta por:</span>"
+"<span class=\"o_form_label\" style=\"font-weight:bolder;\" invisible="
+"\"1\">Corta por:</span>"
 
 #. module: account_invoice_clearing
 #: code:addons/account_invoice_clearing/wizards/account_invoice_clearing_wizard.py:0

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022-TODAY Akretion (http://www.akretion.com/)
+  @author: Magno Costa <magno.costa@akretion.com.br>
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo noupdate="1">
+
+    <!-- Show partner_shipping_id in Sale Order -->
+    <record
+        id="group_sale_delivery_address_config_settings"
+        model="res.config.settings"
+    >
+        <field name="group_sale_delivery_address">True</field>
+    </record>
+
+    <function model="res.config.settings" name="execute">
+        <value
+            model="res.config.settings"
+            search="[('id', '=',
+                ref('group_sale_delivery_address_config_settings'))]"
+        />
+    </function>
+
+    <!-- Show Incoterms in Sale Order and Invoice -->
+    <record id="group_display_incoterm_config_settings" model="res.config.settings">
+        <field name="group_display_incoterm">True</field>
+    </record>
+
+    <function model="res.config.settings" name="execute">
+        <value
+            model="res.config.settings"
+            search="[('id', '=',
+                ref('group_display_incoterm_config_settings'))]"
+        />
+    </function>
+
+    <!-- Test different Payment Terms -->
+    <record id="base.res_partner_2" model="res.partner">
+        <field
+            name="property_payment_term_id"
+            ref="account.account_payment_term_15days"
+        />
+    </record>
+
+    <!-- Product is Service Type there is not Delivery Order in this cases,
+    it's seems a mistake, fix here to use in the tests -->
+    <record id="product.product_product_1" model="product.product">
+        <field name="invoice_policy">order</field>
+    </record>
+
+    <!-- Test with different shipping address -->
+    <record id="res_partner_2_address" model="res.partner">
+        <field eval="1" name="active" />
+        <field name="is_company" eval="1" />
+        <field name="name">Deco Addict - Delivery Address</field>
+        <field name="parent_id" ref="base.res_partner_2" />
+        <field
+            eval="[(6, 0, [ref('base.res_partner_category_14')])]"
+            name="category_id"
+        />
+        <field name="street">77 Palos Verdes Rd</field>
+        <field name="city">Pleasant Hill</field>
+        <field name="state_id" ref='base.state_us_5' />
+        <field name="zip">94521</field>
+        <field name="country_id" ref="base.us" />
+        <field name="type">delivery</field>
+        <field name="email">deco.addict83@example.com</field>
+        <field name="phone">(603)-996-3821</field>
+        <field name="website">http://www.deco-addict.com</field>
+        <field
+            name="image_1920"
+            type="base64"
+            file="base/static/img/res_partner_2-image.png"
+        />
+    </record>
+
+    <!-- Main Company - Different Shipping Address  -->
+    <record id="main_company-sale_order_1" model="sale.order">
+        <field name="partner_id" ref="base.res_partner_2" />
+        <field name="partner_invoice_id" ref="base.res_partner_2" />
+        <field name="partner_shipping_id" ref="res_partner_2_address" />
+        <field name="user_id" ref="base.user_admin" />
+        <field name="pricelist_id" ref="product.list0" />
+        <field name="payment_term_id" ref="account.account_payment_term_advance" />
+        <field name="team_id" ref="sales_team.crm_team_1" />
+        <field name="state">draft</field>
+        <field name="company_id" ref="base.main_company" />
+        <field
+            name="note"
+        >sale_stock_picking_invoicing - Different Delivery and Invoice Address 1</field>
+        <field name="client_order_ref">Customer Ref Test 1</field>
+        <field name="campaign_id" ref="utm.utm_campaign_christmas_special" />
+        <field name="medium_id" ref="utm.utm_medium_banner" />
+        <field name="source_id" ref="utm.utm_source_monster" />
+        <field name="incoterm" ref="account.incoterm_FOB" />
+        <field name="tag_ids" eval="[(4, ref('sales_team.categ_oppor1'))]" />
+    </record>
+
+    <record id="main_company-sale_order_line_1_1" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_1" />
+        <field
+            name="name"
+            model="sale.order.line"
+            eval="obj().env.ref('product.product_product_27').get_product_multiline_description_sale()"
+        />
+        <field name="product_id" ref="product.product_product_27" />
+        <field name="product_uom_qty">2</field>
+        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="price_unit">500</field>
+    </record>
+
+    <record id="main_company-sale_order_line_1_2" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_1" />
+        <field name="name">This is a Note 1</field>
+        <field name="display_type">line_note</field>
+    </record>
+
+    <record id="main_company-sale_order_line_1_3" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_1" />
+        <field name="name">This is a Section 1</field>
+        <field name="display_type">line_section</field>
+    </record>
+
+    <record id="main_company-sale_order_line_1_4" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_1" />
+        <field
+            name="name"
+            model="sale.order.line"
+            eval="obj().env.ref('product.product_product_12').get_product_multiline_description_sale()"
+        />
+        <field name="product_id" ref="product.product_product_12" />
+        <field name="product_uom_qty">2</field>
+        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="price_unit">500</field>
+    </record>
+
+    <!-- Sale Order with Product and Service -->
+    <record id="main_company-sale_order_2" model="sale.order">
+        <field name="partner_id" ref="base.res_partner_2" />
+        <field name="partner_invoice_id" ref="base.res_partner_2" />
+        <field name="partner_shipping_id" ref="res_partner_2_address" />
+        <field name="user_id" ref="base.user_admin" />
+        <field name="pricelist_id" ref="product.list0" />
+        <field name="payment_term_id" ref="account.account_payment_term_advance" />
+        <field name="team_id" ref="sales_team.crm_team_1" />
+        <field name="state">draft</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="note">sale_stock_picking_invoicing - Product and Service</field>
+        <field name="client_order_ref">Customer Ref Test 2</field>
+        <field name="campaign_id" ref="utm.utm_campaign_christmas_special" />
+        <field name="medium_id" ref="utm.utm_medium_banner" />
+        <field name="source_id" ref="utm.utm_source_monster" />
+        <field name="incoterm" ref="account.incoterm_FOB" />
+        <field
+            name="tag_ids"
+            eval="[(4, ref('sales_team.categ_oppor1')), (4, ref('sales_team.categ_oppor3'))]"
+        />
+    </record>
+
+    <record id="main_company-sale_order_line_2_1" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_2" />
+        <field
+            name="name"
+            model="sale.order.line"
+            eval="obj().env.ref('product.product_product_27').get_product_multiline_description_sale()"
+        />
+        <field name="product_id" ref="product.product_product_27" />
+        <field name="product_uom_qty">2</field>
+        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="price_unit">500</field>
+    </record>
+
+    <record id="main_company-sale_order_line_2_2" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_2" />
+        <field name="name">This is a Note 2</field>
+        <field name="display_type">line_note</field>
+    </record>
+
+    <record id="main_company-sale_order_line_2_3" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_2" />
+        <field name="name">This is a Section 2</field>
+        <field name="display_type">line_section</field>
+    </record>
+
+    <record id="main_company-sale_order_line_2_4" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_2" />
+        <field
+            name="name"
+            model="sale.order.line"
+            eval="obj().env.ref('product.product_product_1').get_product_multiline_description_sale()"
+        />
+        <field name="product_id" ref="product.product_product_1" />
+        <field name="product_uom_qty">10</field>
+        <field name="product_uom" ref="uom.product_uom_hour" />
+        <field name="price_unit">100</field>
+    </record>
+
+    <!-- Groupping Pickings Test -->
+    <record id="main_company-sale_order_3" model="sale.order">
+        <field name="partner_id" ref="base.res_partner_2" />
+        <field name="partner_invoice_id" ref="base.res_partner_2" />
+        <field name="partner_shipping_id" ref="base.res_partner_2" />
+        <field name="user_id" ref="base.user_admin" />
+        <field name="pricelist_id" ref="product.list0" />
+        <field name="payment_term_id" ref="account.account_payment_term_advance" />
+        <field name="team_id" ref="sales_team.crm_team_1" />
+        <field name="state">draft</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="note">sale_stock_picking_invoicing - Grouping Pickings 3</field>
+        <field name="client_order_ref">Customer Ref Test 3</field>
+        <field name="campaign_id" ref="utm.utm_campaign_christmas_special" />
+        <field name="medium_id" ref="utm.utm_medium_banner" />
+        <field name="source_id" ref="utm.utm_source_monster" />
+        <field name="incoterm" ref="account.incoterm_FOB" />
+        <field name="tag_ids" eval="[(4, ref('sales_team.categ_oppor1'))]" />
+    </record>
+
+    <record id="main_company-sale_order_line_3_1" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_3" />
+        <field
+            name="name"
+            model="sale.order.line"
+            eval="obj().env.ref('product.product_product_27').get_product_multiline_description_sale()"
+        />
+        <field name="product_id" ref="product.product_product_27" />
+        <field name="product_uom_qty">2</field>
+        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="price_unit">500</field>
+    </record>
+
+    <record id="main_company-sale_order_line_3_2" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_3" />
+        <field name="name">This is a Note 3</field>
+        <field name="display_type">line_note</field>
+    </record>
+
+    <record id="main_company-sale_order_line_3_3" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_3" />
+        <field name="name">This is a Section 3</field>
+        <field name="display_type">line_section</field>
+    </record>
+
+    <record id="main_company-sale_order_line_3_4" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_3" />
+        <field
+            name="name"
+            model="sale.order.line"
+            eval="obj().env.ref('product.product_product_12').get_product_multiline_description_sale()"
+        />
+        <field name="product_id" ref="product.product_product_12" />
+        <field name="product_uom_qty">2</field>
+        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="price_unit">500</field>
+    </record>
+
+    <!-- Groupping Pickings Test -->
+    <record id="main_company-sale_order_4" model="sale.order">
+        <field name="partner_id" ref="base.res_partner_2" />
+        <field name="partner_invoice_id" ref="base.res_partner_2" />
+        <field name="partner_shipping_id" ref="base.res_partner_2" />
+        <field name="user_id" ref="base.user_admin" />
+        <field name="pricelist_id" ref="product.list0" />
+        <field name="payment_term_id" ref="account.account_payment_term_advance" />
+        <field name="team_id" ref="sales_team.crm_team_1" />
+        <field name="state">draft</field>
+        <field name="company_id" ref="base.main_company" />
+        <field name="note">sale_stock_picking_invoicing - Grouping Pickings 4</field>
+        <field name="client_order_ref">Customer Ref Test 4</field>
+        <field name="campaign_id" ref="utm.utm_campaign_christmas_special" />
+        <field name="medium_id" ref="utm.utm_medium_banner" />
+        <field name="source_id" ref="utm.utm_source_monster" />
+        <field name="incoterm" ref="account.incoterm_FOB" />
+        <field name="tag_ids" eval="[(4, ref('sales_team.categ_oppor1'))]" />
+    </record>
+
+    <record id="main_company-sale_order_line_4_1" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_4" />
+        <field
+            name="name"
+            model="sale.order.line"
+            eval="obj().env.ref('product.product_product_27').get_product_multiline_description_sale()"
+        />
+        <field name="product_id" ref="product.product_product_27" />
+        <field name="product_uom_qty">2</field>
+        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="price_unit">500</field>
+    </record>
+
+    <record id="main_company-sale_order_line_4_2" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_4" />
+        <field name="name">This is a Note 4</field>
+        <field name="display_type">line_note</field>
+    </record>
+
+    <record id="main_company-sale_order_line_4_3" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_4" />
+        <field name="name">This is a Section 4</field>
+        <field name="display_type">line_section</field>
+    </record>
+
+    <record id="main_company-sale_order_line_4_4" model="sale.order.line">
+        <field name="order_id" ref="main_company-sale_order_4" />
+        <field
+            name="name"
+            model="sale.order.line"
+            eval="obj().env.ref('product.product_product_12').get_product_multiline_description_sale()"
+        />
+        <field name="product_id" ref="product.product_product_12" />
+        <field name="product_uom_qty">2</field>
+        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="price_unit">500</field>
+    </record>
+
+</odoo>

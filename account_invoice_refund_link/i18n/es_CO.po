@@ -33,7 +33,7 @@ msgstr ""
 
 #. module: account_invoice_refund_link
 #: model:ir.model,name:account_invoice_refund_link.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_refund_link
@@ -52,7 +52,9 @@ msgid "Original invoice line to which this refund invoice line is referred to"
 msgstr ""
 
 #. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_bank_statement_line__refund_invoice_ids
 #: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__refund_invoice_ids
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_payment__refund_invoice_ids
 #, fuzzy
 msgid "Refund Invoices"
 msgstr "Factura Compensada"

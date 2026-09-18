@@ -27,13 +27,15 @@ msgid "Due Date"
 msgstr ""
 
 #. module: account_invoice_date_due
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_bank_statement_line__invoice_date_due_payment_term
 #: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__invoice_date_due_payment_term
+#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_payment__invoice_date_due_payment_term
 msgid "Due Date Payment Term"
 msgstr ""
 
 #. module: account_invoice_date_due
 #: model:ir.model,name:account_invoice_date_due.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #~ msgid "Cancel"

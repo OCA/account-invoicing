@@ -1,0 +1,135 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_order_invoicing_grouping_criteria
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-26 20:25+0000\n"
+"PO-Revision-Date: 2022-12-26 21:26+0100\n"
+"Last-Translator: Sergio Teruel <sergio.teruel@tecnativa.com>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model,name:purchase_order_invoicing_grouping_criteria.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model,name:purchase_order_invoicing_grouping_criteria.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model,name:purchase_order_invoicing_grouping_criteria.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_purchase_invoicing_grouping_criteria__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_purchase_invoicing_grouping_criteria__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model_terms:ir.ui.view,arch_db:purchase_order_invoicing_grouping_criteria.res_config_settings_view_form
+msgid "Default Grouping Criteria"
+msgstr "Criterio de agrupación por defecto"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_res_company__default_purchase_invoicing_grouping_criteria_id
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_res_config_settings__res_default_purchase_invoicing_grouping_criteria_id
+msgid "Default Purchases Invoicing Grouping Criteria"
+msgstr "Criterio de agrupación de facturación de compras por defecto"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_purchase_invoicing_grouping_criteria__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,help:purchase_order_invoicing_grouping_criteria.field_purchase_invoicing_grouping_criteria__field_ids
+msgid ""
+"Fields used for grouping purchases orders when invoicing. Partner, company "
+"and currency will always be applied."
+msgstr ""
+"Campos usados para agrupar los pedidos de venta cuando se facturan. "
+"Empresa, la compañía y la moneda se aplicarán siempre."
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_purchase_invoicing_grouping_criteria__field_ids
+msgid "Grouping Fields"
+msgstr "Campos de agrupación"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_purchase_invoicing_grouping_criteria__id
+msgid "ID"
+msgstr "ID"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,help:purchase_order_invoicing_grouping_criteria.field_res_partner__purchase_invoicing_grouping_criteria_id
+#: model:ir.model.fields,help:purchase_order_invoicing_grouping_criteria.field_res_users__purchase_invoicing_grouping_criteria_id
+msgid "If empty, company default (if any) or default will be applied."
+msgstr ""
+"Si está vacío, el valor por defecto de la compañía (si está establecido) o "
+"el de por defecto general serán aplicados."
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model_terms:ir.ui.view,arch_db:purchase_order_invoicing_grouping_criteria.res_config_settings_view_form
+msgid "If empty, vendor, company and currency will be applied."
+msgstr "Si está vacío, el proveedor y la moneda serán aplicados."
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_purchase_invoicing_grouping_criteria____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_purchase_invoicing_grouping_criteria__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_purchase_invoicing_grouping_criteria__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_purchase_invoicing_grouping_criteria__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.ui.menu,name:purchase_order_invoicing_grouping_criteria.menu_purchase_invoice_grouping_criteria
+msgid "Purchase Invoicing Grouping Criteria"
+msgstr "Criterio de agrupación de facturación de pedidos de compra"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.model,name:purchase_order_invoicing_grouping_criteria.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model:ir.actions.act_window,name:purchase_order_invoicing_grouping_criteria.action_purchase_invoice_grouping_criteria
+#: model:ir.model,name:purchase_order_invoicing_grouping_criteria.model_purchase_invoicing_grouping_criteria
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_res_partner__purchase_invoicing_grouping_criteria_id
+#: model:ir.model.fields,field_description:purchase_order_invoicing_grouping_criteria.field_res_users__purchase_invoicing_grouping_criteria_id
+#: model_terms:ir.ui.view,arch_db:purchase_order_invoicing_grouping_criteria.view_partner_property_form
+msgid "Purchases Invoicing Grouping Criteria"
+msgstr "Criterio de agrupación de facturación de compras"
+
+#. module: purchase_order_invoicing_grouping_criteria
+#: model_terms:ir.ui.view,arch_db:purchase_order_invoicing_grouping_criteria.res_config_settings_view_form
+msgid "Purchases Order Invoicing"
+msgstr "Facturación de pedidos de venta"

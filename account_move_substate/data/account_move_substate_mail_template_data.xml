@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- Sample account move substate -related template -->
+    <record
+        id="mail_template_data_account_move_substate_verified"
+        model="mail.template"
+    >
+        <field name="name">Verified</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="subject">Your journal entry {{object.name}} is verified</field>
+        <field name="use_default_to" eval="True" />
+        <field name="body_html" type="html">
+            <div>
+    Dear <t t-out="object.user_id.name or 'accounting user'" />,<br />
+    This email is to inform that your journal entry <t
+                    t-out="object.name or ''"
+                /> was verified by accounting manager.
+    <br /><br />
+    Best Regards,
+    <t t-if="user.signature">
+        <br />
+        <t t-out="user.signature or ''" />
+    </t>
+    </div>
+        </field>
+        <field name="lang">{{ object.partner_id.lang }}</field>
+        <field name="auto_delete" eval="True" />
+    </record>
+</odoo>

@@ -10,15 +10,20 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-20 03:39+0000\n"
-"PO-Revision-Date: 2021-03-10 10:46+0000\n"
-"Last-Translator: Ana Suárez <ana.suarez@qubiq.es>\n"
+"PO-Revision-Date: 2023-10-10 20:36+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: sale_timesheet_invoice_description
+#: model:ir.model,name:sale_timesheet_invoice_description.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Línea analítica"
 
 #. module: sale_timesheet_invoice_description
 #: model:ir.model,name:sale_timesheet_invoice_description.model_res_config_settings
@@ -49,6 +54,26 @@ msgid "Description"
 msgstr "Descripción"
 
 #. module: sale_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_analytic_line__timesheet_invoice_line_id
+msgid "Invoice Line"
+msgstr "Línea factura"
+
+#. module: sale_timesheet_invoice_description
+#: model:ir.model.fields,help:sale_timesheet_invoice_description.field_account_analytic_line__timesheet_invoice_line_id
+msgid "Invoice line created from the timesheet"
+msgstr "Línea de factura creada a partir de la hoja de horas"
+
+#. module: sale_timesheet_invoice_description
+#: model:ir.model,name:sale_timesheet_invoice_description.model_account_move
+msgid "Journal Entry"
+msgstr "Entrada Diaria"
+
+#. module: sale_timesheet_invoice_description
+#: model:ir.model,name:sale_timesheet_invoice_description.model_account_move_line
+msgid "Journal Item"
+msgstr "Artículo Diario"
+
+#. module: sale_timesheet_invoice_description
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "None"
@@ -65,16 +90,28 @@ msgid "Sales Order Line"
 msgstr "Línea pedido de venta"
 
 #. module: sale_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_invoice_split
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order__timesheet_invoice_split
+msgid "Split Order lines by timesheets"
+msgstr "Dividir líneas de pedido por partes de horas"
+
+#. module: sale_timesheet_invoice_description
 #: code:addons/sale_timesheet_invoice_description/models/sale.py:0
 #, python-format
 msgid "Time spent - Description"
 msgstr "Tiempo empleado - Descripción"
 
 #. module: sale_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_res_config_settings__default_timesheet_invoice_description
 #: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_sale_order__timesheet_invoice_description
 msgid "Timesheet Invoice Description"
 msgstr "Descripción de la facturación del parte de horas"
+
+#. module: sale_timesheet_invoice_description
+#: model:ir.model.fields,field_description:sale_timesheet_invoice_description.field_account_move_line__timesheet_ids
+msgid "Timesheets"
+msgstr "Hojas de horas"
 
 #~ msgid "Quotation"
 #~ msgstr "Presupuesto"

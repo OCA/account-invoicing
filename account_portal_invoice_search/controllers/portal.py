@@ -11,7 +11,7 @@ from odoo.addons.portal.controllers.portal import pager as portal_pager
 class PortalAccount(PortalAccount):
     @route()
     def portal_my_invoices(
-        self, page=1, date_begin=None, date_end=None, sortby=None, **kw
+        self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, **kw
     ):
         """Inject search term in the context so it can be used in the search method
         in account.move to filter invoices from the portal"""
@@ -20,7 +20,12 @@ class PortalAccount(PortalAccount):
             context.update({"portal_invoice_filter": kw.get("search", "")})
             request.env.context = context
         response = super().portal_my_invoices(
-            page=page, date_begin=date_begin, date_end=date_end, sortby=sortby, **kw
+            page=page,
+            date_begin=date_begin,
+            date_end=date_end,
+            sortby=sortby,
+            filterby=filterby,
+            **kw
         )
         response.qcontext.setdefault("searchbar_inputs", {})
         label_search = _("Search in Invoices & Bills")

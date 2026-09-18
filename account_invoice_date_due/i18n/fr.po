@@ -22,11 +22,6 @@ msgid "Allow to change due date"
 msgstr "Autoriser le changement de date d'échéance"
 
 #. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__display_name
-msgid "Display Name"
-msgstr "Nom affiché"
-
-#. module: account_invoice_date_due
 #: model_terms:ir.ui.view,arch_db:account_invoice_date_due.view_move_form
 msgid "Due Date"
 msgstr "Date d'échéance"
@@ -39,16 +34,12 @@ msgid "Due Date Payment Term"
 msgstr "Date d'échéance des conditions de paiement"
 
 #. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move__id
-msgid "ID"
-msgstr ""
-
-#. module: account_invoice_date_due
 #: model:ir.model,name:account_invoice_date_due.model_account_move
 msgid "Journal Entry"
 msgstr "Ecriture"
 
-#. module: account_invoice_date_due
-#: model:ir.model.fields,field_description:account_invoice_date_due.field_account_move____last_update
-msgid "Last Modified on"
-msgstr "Dernière modification"
+#~ msgid "Display Name"
+#~ msgstr "Nom affiché"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Dernière modification"

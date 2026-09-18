@@ -1,0 +1,54 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_warn_option
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-11 09:05+0000\n"
+"PO-Revision-Date: 2024-04-11 11:08+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: account_warn_option
+#: model:ir.model.fields.selection,name:account_warn_option.selection__warn_option__allowed_warning_usage__partner_invoice_warn
+msgid "(Partner) Warning on the Invoice"
+msgstr "(Contacto) Advertencia en la factura"
+
+#. module: account_warn_option
+#: model:ir.model.fields,field_description:account_warn_option.field_warn_option__allowed_warning_usage
+msgid "Allowed Warning Usage"
+msgstr "Uso de la alerta permitida"
+
+#. module: account_warn_option
+#: model:ir.model.fields,help:account_warn_option.field_warn_option__allowed_warning_usage
+msgid "Allows to choose where the message can be selected"
+msgstr "Permite elegir dónde puede ser seleccionado el mensaje"
+
+#. module: account_warn_option
+#: model:ir.model,name:account_warn_option.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: account_warn_option
+#: model:ir.model.fields,field_description:account_warn_option.field_res_partner__invoice_warn_option
+#: model:ir.model.fields,field_description:account_warn_option.field_res_users__invoice_warn_option
+msgid "Invoice Warn Option"
+msgstr "Opción de alerta en facturas"
+
+#. module: account_warn_option
+#: model_terms:ir.ui.view,arch_db:account_warn_option.account_warn_option_partner_form
+msgid "Select a warning option"
+msgstr "Selecciona una opción de alerta"
+
+#. module: account_warn_option
+#: model:ir.model,name:account_warn_option.model_warn_option
+msgid "Warn Option"
+msgstr "Opción de alerta"

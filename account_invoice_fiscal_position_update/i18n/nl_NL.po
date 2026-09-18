@@ -22,24 +22,21 @@ msgstr ""
 
 #. module: account_invoice_fiscal_position_update
 #: model:ir.model,name:account_invoice_fiscal_position_update.model_account_move
-msgid "Journal Entries"
+msgid "Journal Entry"
 msgstr ""
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
-#, fuzzy, python-format
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
+#, python-format
 msgid ""
 "The following invoice lines were not updated to the new Fiscal Position "
-"because they don't have a Product: - %s You should update the Account and "
-"the Taxes of these invoice lines manually."
+"because they don't have a Product:\n"
+" - %s\n"
+"You should update the Account and the Taxes of these invoice lines manually."
 msgstr ""
-"De volgende factuurregels werden niet bijgewerkt naar de nieuwe fiscale "
-"positie, omdat ze geen producten bevat:\n"
-"- %s\n"
-"U zult de grootboekrekening en BTW handmatig moeten aanpassen."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, fuzzy, python-format
 msgid ""
 "The invoice lines were not updated to the new Fiscal Position because they "
@@ -52,10 +49,21 @@ msgstr ""
 "aanpassen."
 
 #. module: account_invoice_fiscal_position_update
-#: code:addons/account_invoice_fiscal_position_update/models/account_invoice.py:0
+#: code:addons/account_invoice_fiscal_position_update/models/account_move.py:0
 #, python-format
 msgid "Warning"
 msgstr "Waarschuwing"
+
+#, fuzzy, python-format
+#~ msgid ""
+#~ "The following invoice lines were not updated to the new Fiscal Position "
+#~ "because they don't have a Product: - %s You should update the Account and "
+#~ "the Taxes of these invoice lines manually."
+#~ msgstr ""
+#~ "De volgende factuurregels werden niet bijgewerkt naar de nieuwe fiscale "
+#~ "positie, omdat ze geen producten bevat:\n"
+#~ "- %s\n"
+#~ "U zult de grootboekrekening en BTW handmatig moeten aanpassen."
 
 #~ msgid "Invoice"
 #~ msgstr "Factuur"
