@@ -1,0 +1,6 @@
+- Enric Tobella \<etobella@creublanca.es\>
+- Nikul Chaudhary \<nikulchaudhary2112@gmail.com\>
+- Alba Riera \<alba.riera@creublanca.es\>
+- Rafael Blasco ([Moduon](https://www.moduon.team/))
+- Eduardo de Miguel ([Moduon](https://www.moduon.team/))
+- Sabrina Rodriguez ([Moduon](https://www.moduon.team/))
