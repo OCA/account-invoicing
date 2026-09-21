@@ -7,18 +7,19 @@ class TestAccountInvoiceMergePayment(TransactionCase):
     Tests for Account Invoice Merge Payment.
     """
 
-    def setUp(self):
-        super(TestAccountInvoiceMergePayment, self).setUp()
-        self.par_model = self.env["res.partner"]
-        self.context = self.env["res.users"].context_get()
-        self.acc_model = self.env["account.account"]
-        self.inv_model = self.env["account.move"]
-        self.inv_line_model = self.env["account.move.line"]
-        self.wiz = self.env["invoice.merge"]
-        self.payment_mode_model = self.env["account.payment.mode"]
-        self.journal_model = self.env["account.journal"]
+    @classmethod
+    def setUpClass(cls):
+        super(TestAccountInvoiceMergePayment, cls).setUpClass()
+        cls.par_model = cls.env["res.partner"]
+        cls.context = cls.env["res.users"].context_get()
+        cls.acc_model = cls.env["account.account"]
+        cls.inv_model = cls.env["account.move"]
+        cls.inv_line_model = cls.env["account.move.line"]
+        cls.wiz = cls.env["invoice.merge"]
+        cls.payment_mode_model = cls.env["account.payment.mode"]
+        cls.journal_model = cls.env["account.journal"]
 
-        self.journal_c1 = self.journal_model.create(
+        cls.journal_c1 = cls.journal_model.create(
             {
                 "name": "J1",
                 "code": "J1",
@@ -26,22 +27,23 @@ class TestAccountInvoiceMergePayment(TransactionCase):
                 "bank_acc_number": "123456",
             }
         )
-        self.partner1 = self.par_model.create({"name": "Test Partner"})
-        self.payment_mode_1 = self._payment_mode("Pay mode 1")
-        self.payment_mode_2 = self._payment_mode("Pay mode 2")
-        self.invoice_account = self.acc_model.search(
+        cls.partner1 = cls.par_model.create({"name": "Test Partner"})
+        cls.payment_mode_1 = cls._payment_mode("Pay mode 1")
+        cls.payment_mode_2 = cls._payment_mode("Pay mode 2")
+        cls.invoice_account = cls.acc_model.search(
             [("account_type", "=", "asset_receivable")],
             limit=1,
         )
-        self.invoice1 = self._create_invoice(
-            self.partner1, self.payment_mode_1.id, self.invoice_account.id
+        cls.invoice1 = cls._create_invoice(
+            cls.partner1, cls.payment_mode_1.id, cls.invoice_account.id
         )
-        self.invoice2 = self._create_invoice(
-            self.partner1, self.payment_mode_1.id, self.invoice_account.id
+        cls.invoice2 = cls._create_invoice(
+            cls.partner1, cls.payment_mode_1.id, cls.invoice_account.id
         )
 
-    def _create_invoice(self, partner, payment_mode_id, account_id):
-        invoice = self.inv_model.create(
+    @classmethod
+    def _create_invoice(cls, partner, payment_mode_id, account_id):
+        invoice = cls.inv_model.create(
             {
                 "partner_id": partner.id,
                 "payment_mode_id": payment_mode_id,
@@ -55,7 +57,7 @@ class TestAccountInvoiceMergePayment(TransactionCase):
                             "account_id": account_id,
                             "quantity": 1.0,
                             "price_unit": 1.0,
-                            "product_id": self.env.ref("product.product_product_2").id,
+                            "product_id": cls.env.ref("product.product_product_2").id,
                         },
                     )
                 ],
@@ -63,15 +65,16 @@ class TestAccountInvoiceMergePayment(TransactionCase):
         )
         return invoice
 
-    def _payment_mode(self, name):
-        payment_mode = self.payment_mode_model.create(
+    @classmethod
+    def _payment_mode(cls, name):
+        payment_mode = cls.payment_mode_model.create(
             {
                 "name": name,
                 "bank_account_link": "fixed",
-                "payment_method_id": self.env.ref(
+                "payment_method_id": cls.env.ref(
                     "account.account_payment_method_manual_out"
                 ).id,
-                "fixed_journal_id": self.journal_c1.id,
+                "fixed_journal_id": cls.journal_c1.id,
             }
         )
         return payment_mode
