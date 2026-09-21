@@ -1,6 +1,8 @@
 # Copyright 2016 Acsone SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from datetime import date
+
 from odoo import Command
 from odoo.exceptions import ValidationError
 from odoo.tests import Form, TransactionCase
@@ -30,8 +32,25 @@ class TestAccountInvoice(TransactionCase):
         cls.invoice = invoice_form.save()
 
     def test_post(self):
-        # wrong check_total rise a ValidationError
+        # Case 1 : wrong check_total rise a ValidationError
         self.assertAlmostEqual(self.invoice.check_total, 1.19)
         self.assertAlmostEqual(self.invoice.check_total_display_difference, -1.80)
         with self.assertRaises(ValidationError):
             self.invoice.action_post()
+        # Case 2 : correct check_total -> no Error
+        self.invoice.check_total = 2.99
+        self.invoice.invoice_date = date.today()
+        self.invoice.action_post()
+
+    def test_compute_total_display_difference(self):
+        # verify the compute_total_display_difference
+        self.assertAlmostEqual(self.invoice.check_total_display_difference, -1.80)
+        self.invoice.check_total = 2.99
+        self.assertAlmostEqual(self.invoice.check_total_display_difference, 0.0)
+        self.invoice.check_total = 3.39
+        self.assertAlmostEqual(self.invoice.check_total_display_difference, 0.40)
+
+    def test_reverse_moves(self):
+        # verify the reverse_move
+        for reverse_move in self.invoice._reverse_moves():
+            self.assertAlmostEqual(self.invoice.check_total, reverse_move.check_total)

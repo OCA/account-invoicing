@@ -51,8 +51,8 @@ Configuration
 The setting **Check Total on Vendor Bills** needs to be checked. This
 can be done as follows:
 
-   -  on the Access Rights (Technical Settings) of the user
-   -  on the Invoicing Settings inside of the section *Vendor Payments*
+   - on the Access Rights (Technical Settings) of the user
+   - on the Invoicing Settings inside of the section *Vendor Payments*
 
 Bug Tracker
 ===========
@@ -75,12 +75,12 @@ Authors
 Contributors
 ------------
 
--  Thomas Binsfeld <thomas.binsfeld@acsone.eu>
--  Raf Ven <raf.ven@dynapps.be>
--  Andrea Stirpe <a.stirpe@onestein.nl>
--  `Tecnativa <https://www.tecnativa.com>`__:
+- Thomas Binsfeld <thomas.binsfeld@acsone.eu>
+- Raf Ven <raf.ven@dynapps.be>
+- Andrea Stirpe <a.stirpe@onestein.nl>
+- `Tecnativa <https://www.tecnativa.com>`__:
 
-   -  Ernesto Tejeda
+  - Ernesto Tejeda
 
 Maintainers
 -----------
