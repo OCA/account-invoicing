@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sale_order_view_form" model="ir.ui.view">
+        <field
+            name="name"
+        >sale.order.form.inherit.sale.invoice.advance.compensation</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_create_advance_invoices"
+                    type="object"
+                    string="Create Advance Invoice"
+                    invisible="not advance_compensation_ids"
+                />
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="advance_journal_id" string="Advance Journal" />
+                <field name="advance_payment_term_line_ids" invisible="1" />
+            </xpath>
+            <xpath expr="//group[@name='sale_info']" position="inside">
+                <field name="advance_product_id" />
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    name="action_view_advance_compensations"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-exchange"
+                >
+                    <field
+                        name="advance_compensation_count"
+                        widget="statinfo"
+                        string="Advances"
+                    />
+                </button>
+            </xpath>
+            <xpath expr="//page[@name='order_lines']" position="after">
+                <page
+                    string="Advances"
+                    name="advances"
+                    invisible="not advance_payment_term_line_ids and not advance_compensation_ids"
+                >
+                    <field
+                        name="advance_compensation_ids"
+                        readonly="state in ['done', 'cancel']"
+                    >
+                        <list editable="bottom">
+                            <button
+                                name="action_open_advance_invoice"
+                                type="object"
+                                string="Create Advance Invoice"
+                                invisible="advance_invoice_id"
+                            />
+                            <field
+                                name="payment_term_line_id"
+                                domain="[('id', 'in', parent.advance_payment_term_line_ids)]"
+                            />
+                            <field name="advance_invoice_id" readonly="1" />
+                            <field
+                                name="advance_line_id"
+                                context="{'advance_id_name_get': True}"
+                                readonly="1"
+                            />
+                            <field
+                                name="available_amount"
+                                widget="monetary"
+                                readonly="1"
+                            />
+                            <field name="amount" widget="monetary" />
+                            <field
+                                name="applied_amount"
+                                widget="monetary"
+                                readonly="1"
+                            />
+                            <field
+                                name="remaining_amount"
+                                widget="monetary"
+                                readonly="1"
+                            />
+                            <field name="state" readonly="1" />
+                            <field name="invoice_id" readonly="1" />
+                            <field name="compensation_move_id" readonly="1" />
+                            <field name="currency_id" column_invisible="True" />
+                            <field name="partner_id" column_invisible="True" />
+                            <field name="company_id" column_invisible="True" />
+                        </list>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="amount_total" readonly="1" />
+                        <field name="advance_available_amount" readonly="1" />
+                        <field
+                            name="advance_compensation_amount"
+                            string="Advance Amount"
+                            readonly="1"
+                        />
+                        <field name="amount_after_compensation" readonly="1" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
