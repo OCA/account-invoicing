@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.actions.server" id="action_mass_edit_invoice_line">
+        <field name="name">Mass Edit Invoice Lines</field>
+        <field name="path">invoice-line-mass-edit</field>
+        <field name="model_id" ref="account.model_account_move_line" />
+        <field name="state">mass_edit</field>
+    </record>
+
+    <record
+        model="ir.actions.server.mass.edit.line"
+        id="mass_edit_invoice_line_analytic"
+    >
+        <field name="sequence" eval="1" />
+        <field name="server_action_id" ref="action_mass_edit_invoice_line" />
+        <field
+            name="field_id"
+            ref="account.field_account_move_line__analytic_distribution"
+        />
+        <field name="widget_option">analytic_distribution</field>
+    </record>
+
+    <!--
+        Technical fields, they are required by the analytic_distribution widget
+        but they are hidden in the wizard (see the Mass Editing Wizard model)
+    -->
+    <record
+        model="ir.actions.server.mass.edit.line"
+        id="mass_edit_invoice_line_analytic_company"
+    >
+        <field name="sequence" eval="2" />
+        <field name="server_action_id" ref="action_mass_edit_invoice_line" />
+        <field name="field_id" ref="account.field_account_move_line__company_id" />
+    </record>
+
+    <record
+        model="ir.actions.server.mass.edit.line"
+        id="mass_edit_invoice_line_analytic_precision"
+    >
+        <field name="sequence" eval="3" />
+        <field name="server_action_id" ref="action_mass_edit_invoice_line" />
+        <field
+            name="field_id"
+            ref="account.field_account_move_line__analytic_precision"
+        />
+    </record>
+</odoo>
