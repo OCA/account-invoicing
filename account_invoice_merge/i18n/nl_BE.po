@@ -1,0 +1,163 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_merge
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-13 16:13+0000\n"
+"PO-Revision-Date: 2019-02-13 16:13+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_merge
+#. odoo-python
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, fuzzy, python-format
+msgid "All invoices must have the same: \n"
+msgstr "Niet alle facturen staan op dezelfde grootboekrekening! \n"
+
+#. module: account_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid "Are you sure you want to merge these invoices?"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid "Cancel"
+msgstr "Annuleren"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__create_date
+msgid "Created on"
+msgstr "Gemaakt op"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__display_name
+msgid "Display Name"
+msgstr "Schermnaam"
+
+#. module: account_invoice_merge
+#. odoo-python
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Draft"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__error_message
+msgid "Error Message"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__date_invoice
+msgid "Invoice Date"
+msgstr "Factuurdatum"
+
+#. module: account_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__keep_references
+msgid "Keep references from original invoices"
+msgstr "Referenties van samengevoegde facturen behouden"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge____last_update
+msgid "Last Modified on"
+msgstr "Laatst gewijzigd op"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: account_invoice_merge
+#: model:ir.model.fields,field_description:account_invoice_merge.field_invoice_merge__write_date
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: account_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid "Merge Invoices"
+msgstr "Facturen samenvoegen"
+
+#. module: account_invoice_merge
+#: model:ir.actions.act_window,name:account_invoice_merge.action_view_invoice_merge
+#: model:ir.model,name:account_invoice_merge.model_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid "Merge Partner Invoice"
+msgstr "Facturen samenvoegen per relatie"
+
+#. module: account_invoice_merge
+#. odoo-python
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Merge-able State (ex : %s)"
+msgstr ""
+
+#. module: account_invoice_merge
+#: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
+msgid ""
+"Please note that:<br/><br/>\n"
+"                        Invoices will only be merged if:<br/>\n"
+"                        * Invoices are in state 'draft'.<br/>\n"
+"                        * Invoices belong to the same partner.<br/>\n"
+"                        * Invoices have the same company, partner, address,\n"
+"                        currency, journal, salesman, account and type.<br/"
+"><br/>\n"
+"                        Lines will only be merged if:<br/>\n"
+"                        * Invoice lines are exactly the same except for the\n"
+"                        product, quantity and unit.<br/>"
+msgstr ""
+
+#. module: account_invoice_merge
+#. odoo-python
+#: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
+#, python-format
+msgid "Please select multiple invoices to merge in the list view."
+msgstr ""
+
+#~ msgid "Invoice"
+#~ msgstr "Factuur"
+
+#~ msgid "or"
+#~ msgstr "of"
+
+#~ msgid "At least one of the selected invoices is %s!"
+#~ msgstr ""
+#~ "Er is in ieder geval één factuur in status %s. Deze kan niet samengevoegd "
+#~ "worden."
+
+#~ msgid "Not all invoices are at the same company!"
+#~ msgstr "Niet alle facturen behoren tot hetzelfde bedrijf!"
+
+#~ msgid "Not all invoices are at the same currency!"
+#~ msgstr "Niet alle facturen staan in dezelfde valuta!"
+
+#~ msgid "Not all invoices are at the same journal!"
+#~ msgstr "Niet alle facturen staan in hetzelfde dagboek!"
+
+#~ msgid "Not all invoices are for the same partner!"
+#~ msgstr "Niet alle facturen zijn voor dezelfde relatie!"
+
+#~ msgid "Not all invoices are of the same type!"
+#~ msgstr "Niet alle facturen hebben hetzelfde type!"
