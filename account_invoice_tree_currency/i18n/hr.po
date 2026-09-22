@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_tree_currency
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-06-17 11:24+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>\n"
+"Language-Team: none\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: account_invoice_tree_currency
+#: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
+msgid "Amount Due"
+msgstr "Dospjeli iznos"
+
+#. module: account_invoice_tree_currency
+#: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
+msgid "Amount Due (Currency)"
+msgstr "Dospljei iznos ( Valuta)"
+
+#. module: account_invoice_tree_currency
+#: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
+msgid "Tax (Currency)"
+msgstr "Porez (Valuta)"
+
+#. module: account_invoice_tree_currency
+#: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
+msgid "Tax Excluded (Currency)"
+msgstr "Izuzeto od poreza (Valuta)"
+
+#. module: account_invoice_tree_currency
+#: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
+msgid "Total"
+msgstr "Ukupno"
+
+#. module: account_invoice_tree_currency
+#: model_terms:ir.ui.view,arch_db:account_invoice_tree_currency.view_invoice_tree
+msgid "Total (Currency)"
+msgstr "Ukupno (Valuta)"
