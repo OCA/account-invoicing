@@ -25,8 +25,27 @@
                                 <field name="self_invoice_prefix" />
                             </div>
                         </div>
+
+                        <label for="self_invoice_extra_infos" />
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            aria-label="Values set here are company-specific."
+                            groups="base.group_multi_company"
+                            role="img"
+                        />
+                        <div class="text-muted">
+                            Additional information that will appear in the footer of all
+                            self-billing vendor bills emitted by this company.
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <field name="self_invoice_extra_infos" />
+                            </div>
+                        </div>
                     </div>
                 </div>
+
 
             </xpath>
         </field>

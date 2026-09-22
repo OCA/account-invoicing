@@ -79,7 +79,6 @@ class TestSelfInvoice(common.TransactionCase):
         with Form(self.partner) as f:
             f.self_invoice = True
         self.assertFalse(self.partner.self_invoice_sequence_id)
-        self.assertTrue(self.partner.self_invoice_report_footer)
         self.invoice.partner_id = self.partner
         self.invoice._onchange_partner_id()
         self.invoice.action_post()
