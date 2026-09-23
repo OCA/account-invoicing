@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="view_move_line_tree_readonly" model="ir.ui.view">
+    <record id="view_invoice_line_list_mass_edit" model="ir.ui.view">
         <field name="model">account.move.line</field>
         <field name="arch" type="xml">
-            <list string="Invoice Lines" create="0" edit="0" delete="0">
-                <header>
-                    <button
-                        name="%(account_invoice_line_mass_edit.action_mass_edit_invoice_line)d"
-                        type="action"
-                        string="Mass Edit"
-                        class="btn-primary"
-                    />
-                </header>
+            <list string="Invoice Lines" create="0" multi_edit="1" delete="0">
                 <field name="product_id" />
                 <field name="name" />
                 <field name="account_id" groups="account.group_account_readonly" />

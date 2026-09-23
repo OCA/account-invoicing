@@ -9,9 +9,8 @@
     "website": "https://github.com/OCA/account-invoicing",
     "category": "Accounting",
     "license": "AGPL-3",
-    "depends": ["account", "server_action_mass_edit"],
+    "depends": ["account"],
     "data": [
-        "data/ir_actions_server.xml",
         "views/account_move_line_views.xml",
         "views/account_move_views.xml",
     ],
