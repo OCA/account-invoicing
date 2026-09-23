@@ -23,7 +23,7 @@ class AccountMove(models.Model):
             "views": [
                 (
                     self.env.ref(
-                        "account_invoice_line_mass_edit.view_move_line_tree_readonly"
+                        "account_invoice_line_mass_edit.view_invoice_line_list_mass_edit"
                     ).id,
                     "list",
                 ),
