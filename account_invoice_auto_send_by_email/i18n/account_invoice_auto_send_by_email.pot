@@ -1,0 +1,36 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_auto_send_by_email
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_auto_send_by_email
+#: model:ir.actions.server,name:account_invoice_auto_send_by_email.cron_send_email_invoice_ir_actions_server
+msgid "Account Invoice: Send email invoice"
+msgstr ""
+
+#. module: account_invoice_auto_send_by_email
+#: model:ir.model,name:account_invoice_auto_send_by_email.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_auto_send_by_email
+#. odoo-python
+#: code:addons/account_invoice_auto_send_by_email/models/account_move.py:0
+msgid "This invoice has already been sent."
+msgstr ""
+
+#. module: account_invoice_auto_send_by_email
+#. odoo-python
+#: code:addons/account_invoice_auto_send_by_email/models/account_move.py:0
+msgid "This invoice should not send by mail"
+msgstr ""
