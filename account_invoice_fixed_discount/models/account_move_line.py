@@ -74,7 +74,8 @@ class AccountMoveLine(models.Model):
         if self.env.context.get("ignore_discount_onchange"):
             return
         self = self.with_context(ignore_discount_onchange=True)
-        self.discount_fixed = 0.0
+        # Convert the percentage discount into equivalent fixed amount
+        self.discount_fixed = self.price_unit * (self.discount / 100.0)
 
     def _get_discount_from_fixed_discount(self):
         """Calculate the discount percentage from the fixed discount amount."""

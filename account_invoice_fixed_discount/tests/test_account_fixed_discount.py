@@ -101,19 +101,32 @@ class TestInvoiceFixedDiscount(BaseCommon):
         self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143.00)
 
-        # Reset to regular discount at 20.00%
+        # Switch to regular discount at 20.00%
         with Form(self.invoice) as invoice_form:
             with invoice_form.invoice_line_ids.edit(0) as line:
-                # Force the fixed discount as the onchange does not
-                # handle the context properly
-                line.discount_fixed = 0.0
                 line.discount = 20.0
 
-        self.assertEqual(self.invoice.invoice_line_ids.discount_fixed, 0.0)
+        # discount_fixed is recalculated to its equivalent fixed amount
+        # (200 * 0.20 = 40.0)
+        self.assertEqual(self.invoice.invoice_line_ids.discount_fixed, 40.0)
         self.assertEqual(self.invoice.invoice_line_ids.discount, 20.0)
         self.assertEqual(self.invoice.amount_total, 176.0)
         self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 160.00)
+
+    def test_01b_discount_fixed_not_reset_to_zero(self):
+        """Changing the percentage discount should recalculate the fixed
+        discount instead of resetting it to zero.
+        Regression test for OCA/account-invoicing#2317.
+        """
+        with Form(self.invoice) as invoice_form:
+            with invoice_form.invoice_line_ids.edit(0) as line:
+                line.discount_fixed = 50.0
+                line.discount = 20.0
+
+        # Fixed discount should be recalculated (200 * 20 / 100 = 40)
+        self.assertEqual(self.invoice.invoice_line_ids.discount_fixed, 40.0)
+        self.assertEqual(self.invoice.invoice_line_ids.discount, 20.0)
 
     def test_02_discounts_fixed_multiple_units(self):
         """Tests multiple discounts in line with taxes."""
