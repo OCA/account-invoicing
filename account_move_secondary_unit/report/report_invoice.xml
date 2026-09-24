@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <!-- Quantity: hide primary when secondary is prioritized -->
+        <xpath expr="//span[@t-field='line.quantity']" position="attributes">
+            <attribute
+                name="t-if"
+            >line.get_secondary_uom_display_mode() != 'secondary'</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.product_uom_id']" position="attributes">
+            <attribute
+                name="t-if"
+            >line.get_secondary_uom_display_mode() != 'secondary'</attribute>
+        </xpath>
+        <!-- Quantity: add secondary qty ('secondary' mode) -->
+        <xpath expr="//span[@t-field='line.product_uom_id']" position="after">
+            <t t-if="line.get_secondary_uom_display_mode() == 'secondary'">
+                <span t-field="line.secondary_uom_qty" />
+                <span t-field="line.secondary_uom_id.name" />
+            </t>
+        </xpath>
+        <!-- Quantity: add secondary qty ('both' mode) -->
+        <xpath expr="//span[@t-field='line.quantity']/.." position="inside">
+            <t t-if="line.get_secondary_uom_display_mode() == 'both'">
+                <br />
+                <span id="secondary_uom_qty" class="text-muted">
+                    (<span t-field="line.secondary_uom_qty" />
+                    <span
+                    t-field="line.secondary_uom_id.name"
+                    groups="uom.group_uom"
+                />)
+                </span>
+            </t>
+        </xpath>
+        <!-- Unit price: hide primary ('secondary' mode) -->
+        <xpath expr="//span[@t-field='line.price_unit']" position="attributes">
+            <attribute
+                name="t-if"
+            >line.get_secondary_uom_display_mode() != 'secondary'</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_unit']" position="after">
+            <t t-if="line.report_show_price_uom('primary_uom')">
+                / <span t-field="line.product_uom_id" groups="uom.group_uom" />
+            </t>
+            <t t-if="line.get_secondary_uom_display_mode() == 'secondary'">
+                <span t-field="line.secondary_uom_price" />
+                <t t-if="line.report_show_price_uom()">
+                    / <span
+                    t-field="line.secondary_uom_id.name"
+                    groups="uom.group_uom"
+                />
+                </t>
+            </t>
+            <t t-if="line.get_secondary_uom_display_mode() == 'both'">
+                <br />
+                <span id="secondary_uom_price" class="text-muted">
+                    (<span t-field="line.secondary_uom_price" />
+                    / <span
+                    t-field="line.secondary_uom_id.name"
+                    groups="uom.group_uom"
+                />)
+                </span>
+            </t>
+        </xpath>
+    </template>
+</odoo>
