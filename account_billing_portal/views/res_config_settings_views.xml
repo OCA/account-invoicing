@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_res_config_settings_billing_portal" model="ir.ui.view">
+        <field name="name">res.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='show_sale_receipts']" position="after">
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="billing_email_template_id"
+                >
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Choose Billing Email Template</span>
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            aria-label="Values set here are company-specific."
+                            groups="base.group_multi_company"
+                            role="img"
+                        />
+                        <div class="text-muted">
+                            Select the email template used for billing emails. If left empty, the default template provided by Account Billing Portal will be used.
+                        </div>
+                        <div class="content-group mt16">
+                            <field name="billing_email_template_id" />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
