@@ -1,0 +1,1 @@
+odoo-addon-account_tax_one_vat @ git+https://github.com/OCA/account-invoicing.git@refs/pull/2336/head#subdirectory=account_tax_one_vat
