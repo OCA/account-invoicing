@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//block[@name='invoicing_setting_container']"
+                position="inside"
+            >
+                <setting
+                    id="picking_date_for_invoice"
+                    string="Picking Date for Invoice"
+                    help="Select the date or datetime field from the picking. If set, the value of this field or the effective date of the last completed picking associated with the sales order will be used as the invoice date."
+                >
+                    <div class="content-group mt16">
+                        <field name="picking_date_field_for_invoice_date" />
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
