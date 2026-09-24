@@ -1,0 +1,2 @@
+- In each invoice, go to the 'Attachments to send' tab
+- Select exisiting invoice attachments to embed them in the electronic sending
