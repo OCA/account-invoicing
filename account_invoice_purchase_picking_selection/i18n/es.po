@@ -1,0 +1,71 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_purchase_picking_selection
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-19 15:27+0000\n"
+"PO-Revision-Date: 2025-03-19 10:28-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_bank_statement_line__autocomplete_purchase_picking_id
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move__autocomplete_purchase_picking_id
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_payment__autocomplete_purchase_picking_id
+msgid "Auto-Complete from Picking"
+msgstr "Completar automáticamente desde albarán"
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move_line__id
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model,name:account_invoice_purchase_picking_selection.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model,name:account_invoice_purchase_picking_selection.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move_line__picking_invoiced_id
+msgid "Picking"
+msgstr "Albarán"
+
+#. module: account_invoice_purchase_picking_selection
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_picking_selection.view_account_move_form
+msgid "Select a purchase reception"
+msgstr "Seleccione una recepción de compra"
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model,name:account_invoice_purchase_picking_selection.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"

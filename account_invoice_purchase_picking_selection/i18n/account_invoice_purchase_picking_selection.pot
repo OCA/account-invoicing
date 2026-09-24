@@ -1,0 +1,112 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_purchase_picking_selection
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_bank_statement_line__autocomplete_purchase_picking_id
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move__autocomplete_purchase_picking_id
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_payment__autocomplete_purchase_picking_id
+msgid "Auto-Complete from Picking"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move__qty_received_invoiced
+msgid "Billed Qty"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking__received_invoiced_status
+msgid "Billing Status"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move__display_name
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields.selection,name:account_invoice_purchase_picking_selection.selection__stock_picking__received_invoiced_status__invoiced
+msgid "Fully Billed"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move__id
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move_line__id
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move__id
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move__received_invoiced_line_ids
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking__received_invoiced_line_ids
+msgid "Invoiced Lines"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model,name:account_invoice_purchase_picking_selection.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model,name:account_invoice_purchase_picking_selection.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move____last_update
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_picking____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields.selection,name:account_invoice_purchase_picking_selection.selection__stock_picking__received_invoiced_status__no
+msgid "Nothing to Bill"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move_line__picking_invoiced_id
+msgid "Picking"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model_terms:ir.ui.view,arch_db:account_invoice_purchase_picking_selection.view_account_move_form
+msgid "Select a purchase reception"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model,name:account_invoice_purchase_picking_selection.model_stock_move
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_account_move_line__stock_move_invoiced_id
+msgid "Stock Move"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields,field_description:account_invoice_purchase_picking_selection.field_stock_move__qty_received_to_invoice
+msgid "To Invoice Quantity"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model,name:account_invoice_purchase_picking_selection.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: account_invoice_purchase_picking_selection
+#: model:ir.model.fields.selection,name:account_invoice_purchase_picking_selection.selection__stock_picking__received_invoiced_status__to_invoice
+msgid "Waiting Bills"
+msgstr ""
