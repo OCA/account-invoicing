@@ -184,7 +184,9 @@ class AccountMove(models.Model):
     @api.constrains("amount_retention", "retention_amount_currency")
     def _check_retention_amount_currency(self):
         for rec in self.filtered("payment_retention"):
-            if rec.retention_amount_currency > rec.amount_untaxed:
+            # abs(): during _reverse_moves, the refund is transiently seen with
+            # refund move_type but invoice-signed lines, making both values negative.
+            if abs(rec.retention_amount_currency) > abs(rec.amount_untaxed):
                 raise ValidationError(
                     _("Retention must not exceed the total untaxed amount")
                 )
