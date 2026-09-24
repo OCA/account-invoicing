@@ -19,7 +19,8 @@ class AccountMove(models.Model):
         for rec in self:
             if (
                 rec.partner_id
-                and rec.move_type in ("out_invoice", "out_refund")
+                and rec.move_type
+                in ("out_invoice", "out_refund", "in_invoice", "in_refund")
                 and rec.state == "draft"
             ):
                 if (
