@@ -1,0 +1,10 @@
+<odoo>
+    <record forcecreate="True" id="decimal_reading" model="decimal.precision">
+        <field name="name">Utility Reading</field>
+        <field name="digits">0</field>
+    </record>
+    <record forcecreate="True" id="decimal_energy_rate" model="decimal.precision">
+        <field name="name">Energy Rate</field>
+        <field name="digits">4</field>
+    </record>
+</odoo>

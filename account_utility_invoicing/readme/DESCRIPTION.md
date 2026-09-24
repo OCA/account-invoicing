@@ -1,0 +1,1 @@
+This module manages monthly utility charges for recurring services such as rentals and shared facilities. Billing is handled manually for each period, providing flexibility while enhancing operational efficiency
