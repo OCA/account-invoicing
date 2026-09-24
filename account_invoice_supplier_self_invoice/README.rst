@@ -81,6 +81,7 @@ Contributors
 * Alba Riera <alba.riera@creublanca.es>
 * Rafael Blasco (`Moduon <https://www.moduon.team/>`__)
 * Eduardo de Miguel (`Moduon <https://www.moduon.team/>`__)
+* Laurent Mignon <laurent.mignon@acsone.eu> (https://www.acsone.eu)
 
 Maintainers
 ~~~~~~~~~~~
