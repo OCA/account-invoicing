@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_company_view_form" model="ir.ui.view">
+        <field name="name">res.company.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page string="Bank Account Sources" name="bank_account_sources">
+                    <group>
+                        <field name="bank_account_source_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="sequence" widget="handle" />
+                                <field
+                                    name="source_model_id"
+                                    domain="[('transient', '=', False)]"
+                                />
+                                <field
+                                    name="bank_field_path"
+                                    placeholder="e.g. partner_id.commercial_partner_id.bank_account_id"
+                                />
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
