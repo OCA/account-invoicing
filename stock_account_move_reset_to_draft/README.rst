@@ -37,6 +37,10 @@ when an SVL (Stock Valuation Layer) record is created due to a price difference 
 when inventory from the receipt has yet to be consumed.
 When a vendor bill is reset to draft, as applicable, a new SVL record is generated to offset the valuation difference that was generated upon the bill's confirmation.
 
+This module allows advanced accounting users to reset the vendor bill to draft
+even if the products have been consumed as they often need it to correct other information
+than prices or quantities.
+
 **Table of contents**
 
 .. contents::
@@ -57,6 +61,12 @@ an SVL record is generated, locking the vendor bill. If a user then realizes a
 mistake, such as processing the bill for the incorrect purchase order, they are
 unable to cancel it.
 
+Configuration
+=============
+
+- Add advanced accounting users to the `Allowed to Force Account Moves to Draft (without stock valuations updates)`
+  user group in order to force the vendor bills with modified stock valuations.
+
 Usage
 =====
 
@@ -71,6 +81,12 @@ Usage
 When attempting to reset an invoice to draft for a product that has been partially or fully consumed, 
 the system will display the following error message: "The inventory has already been (partially) consumed."
 In that case, consider using landed costs to adjust the valuation of the product as necessary.
+
+When advanced user in the `Allowed to Force Account Moves to Draft (without stock valuations updates)`
+user group try to reset the vendro bill to draft that has already modified stock valuations,
+it will display a popup with the concerned moves in order to pay attention to them and
+to be sure they want to do it. With that flow, no revert stock valuations are generated at
+reset to draft nor during the revalidation.
 
 Bug Tracker
 ===========
@@ -102,6 +118,10 @@ Contributors
 
   * Yoshi Tashiro
   * Aung Ko Ko Lin
+
+* `Acsone <https://acsone.eu>`_:
+
+  * Denis Roussel <denis.roussel@acsone.eu>
 
 Maintainers
 ~~~~~~~~~~~

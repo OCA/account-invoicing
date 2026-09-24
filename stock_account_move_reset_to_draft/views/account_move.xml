@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <header position="after">
+                <div
+                    groups="account.group_account_invoice,account.group_account_readonly"
+                    class="alert alert-warning mb-0"
+                    role="alert"
+                    attrs="{'invisible': [('dont_regenerate_valuation', '=', False)]}"
+                >
+                    <b>Stock valuations</b><br />
+                    This invoice should be validated as it has been reset to draft
+                    with existing stock valuations.
+                    <field name="dont_regenerate_valuation" invisible="1" />
+                </div>
+            </header>
+        </field>
+    </record>
+</odoo>
