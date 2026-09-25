@@ -3,7 +3,9 @@
     <record id="view_invoice_line_list_mass_edit" model="ir.ui.view">
         <field name="model">account.move.line</field>
         <field name="arch" type="xml">
-            <list string="Invoice Lines" create="0" multi_edit="1" delete="0">
+            <tree create="0" multi_edit="1" delete="0">
+                <field name="company_id" invisible="1" />
+                <field name="product_uom_category_id" invisible="1" />
                 <field name="product_id" />
                 <field name="name" />
                 <field name="account_id" groups="account.group_account_readonly" />
@@ -20,7 +22,7 @@
                 <field name="tax_ids" widget="many2many_tags" />
                 <field name="price_subtotal" />
                 <field name="price_total" />
-            </list>
+            </tree>
         </field>
     </record>
 </odoo>
