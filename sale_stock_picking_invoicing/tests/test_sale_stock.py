@@ -15,7 +15,7 @@ from .common import TestSaleStockPickingInvoicingCommon
 from .tools import (
     create_with_form_account_payment,
     create_with_form_sale_adv_pay_inv,
-    create_with_form_sale_order,
+    get_tested_module_names,
 )
 
 
@@ -26,9 +26,12 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
 
     def test_01_sale_stock_return(self):
         """
-        Test a SO with a product invoiced on delivery. Deliver and invoice
-        the SO, then do a return of the picking. Check that a refund
-         invoice is well generated.
+        Test the values transferred from the Sale Order Line to the Stock
+        Move of the Picking created by a confirmed Sale Order (only the
+        fields provided by the modules under test and their dependencies
+        are compared) and that a Sale Order of products only can not be
+        invoiced from the Sale Order itself with the 'stock_picking'
+        Invoicing Policy.
         """
         sale_order = self.sale_order_0
 
@@ -60,11 +63,21 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         stock_move = stock_picking.move_ids
         sale_order_line = sale_order.order_line
 
-        sm_fields = [key for key in self.env["stock.move"]._fields.keys()]
-        sol_fields = [key for key in self.env["sale.order.line"]._fields.keys()]
+        move_fields = self.env["stock.move"]._fields
+        line_fields = self.env["sale.order.line"]._fields
 
         skipped_fields = [
             "id",
+            # Technical fields: both records are created/written by different
+            # operations, so the tracking information is not equal.
+            "create_date",
+            "create_uid",
+            "write_date",
+            "write_uid",
+            # The 'quantity' has a different meaning in each model: on the
+            # Stock Move it is the done quantity (sum of the move lines) and on
+            # the Sale Order Line the quantity to invoice.
+            "quantity",
             # 'S00029/FURN_7777: Stock>Customers' != 'S00029 - Office Chair'
             "display_name",
             "state",
@@ -77,7 +90,20 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
             # '[FURN_7777] Office Chair' != 'Office Chair'
             "name",
         ]
-        common_fields = list(set(sm_fields) & set(sol_fields) - set(skipped_fields))
+
+        # Compare all the fields the two models have in common, but only the
+        # ones provided by the modules under test and their dependencies:
+        # fields added by other installed modules (localizations, ...) are set
+        # by their own glue modules and tested by their own tests.
+        tested_modules = get_tested_module_names(
+            self.env, "sale_stock_picking_invoicing"
+        )
+        common_fields = [
+            field
+            for field in set(move_fields) & set(line_fields) - set(skipped_fields)
+            if move_fields[field]._module in tested_modules
+            and line_fields[field]._module in tested_modules
+        ]
 
         for field in common_fields:
             self.assertEqual(
@@ -169,21 +195,23 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
             line.product_id.invoice_policy = "order"
             self.assertEqual(line.qty_to_invoice, 0.0)
 
-        # Check if the Sale Lines fields are equals to Invoice Lines
-        sol_fields = [key for key in self.env["sale.order.line"]._fields.keys()]
-
-        acl_fields = [key for key in self.env["account.move.line"]._fields.keys()]
+        # Check if the Sale Order Line fields are equals to Invoice Lines
+        line_fields = self.env["sale.order.line"]._fields
+        invoice_line_fields = self.env["account.move.line"]._fields
 
         skipped_fields = [
             "id",
+            # Technical fields: both records are created/written by different
+            # operations, so the tracking information is not equal.
+            "create_date",
+            "create_uid",
+            "write_date",
+            "write_uid",
+            "__last_update",
             "display_name",
             "state",
-            "create_date",
             # By th TAX 15% automatic add in invoice the value change
             "price_total",
-            # Necessary after call onchange_partner_id
-            "write_date",
-            "__last_update",
             # Field sequence add in creation of Invoice
             "sequence",
             # In the sale.orde.line display_type has only line_section
@@ -191,7 +219,20 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
             "display_type",
         ]
 
-        common_fields = list(set(acl_fields) & set(sol_fields) - set(skipped_fields))
+        # Compare all the fields the two models have in common, but only the
+        # ones provided by the modules under test and their dependencies:
+        # fields added by other installed modules (localizations, ...) are set
+        # by their own glue modules and tested by their own tests.
+        tested_modules = get_tested_module_names(
+            self.env, "sale_stock_picking_invoicing"
+        )
+        common_fields = [
+            field
+            for field in set(invoice_line_fields)
+            & set(line_fields) - set(skipped_fields)
+            if invoice_line_fields[field]._module in tested_modules
+            and line_fields[field]._module in tested_modules
+        ]
         sale_order_line = picking.move_ids_without_package.filtered(
             lambda ln: ln.sale_line_id
         ).sale_line_id
@@ -314,6 +355,24 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         )
         self.assertIn(invoice_pick_3_4, picking3.invoice_ids)
         self.assertIn(invoice_pick_3_4, picking4.invoice_ids)
+        # Check Re-sequence: the Invoice Lines must be in the same order of
+        # the Sale Order Lines (Sale Order 3 first, then Sale Order 4)
+        sale_order_lines = self.sale_order_3.order_line | self.sale_order_4.order_line
+        inv_lines_by_sequence = {
+            inv_line.sequence: inv_line
+            for inv_line in invoice_pick_3_4.invoice_line_ids
+        }
+        for sequence, sale_line in enumerate(sale_order_lines):
+            self.assertIn(
+                sequence,
+                inv_lines_by_sequence,
+                "Error to Re-sequence Invoice Lines, sequence not found.",
+            )
+            self.assertEqual(
+                sale_line.name,
+                inv_lines_by_sequence[sequence].name,
+                "Error to Re-sequence Invoice Lines from Sale Order Lines.",
+            )
 
     def test_05_down_payment(self):
         """Test the case with Down Payment"""
@@ -344,32 +403,72 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         )
         self.assertTrue(payment, "Payment not created by Down Payment test.")
 
+        # A second Down Payment: the Invoice created from the Picking must
+        # have only one dedicated Line Section for the Down Payments, with
+        # one line for each of them, in the end of the Invoice
+        # (`create_with_form_sale_adv_pay_inv` returns all the Sale Order
+        # Invoices, so only the new draft one is posted)
+        sale_order_invoices = create_with_form_sale_adv_pay_inv(
+            self.env,
+            sale_order_1,
+            {"advance_payment_method": "percentage", "amount": 10},
+        )
+        sale_order_invoices.filtered(lambda inv: inv.state == "draft").action_post()
+
         picking = sale_order_1.picking_ids
         self.picking_move_state(picking)
         invoice = create_with_form_inv_onshipping(self.env, picking)
-        # 2 Products, 2 Down Payment, 1 Note and 1 Section
-        self.assertEqual(len(invoice.invoice_line_ids), 6)
+        # 2 Products, 1 Note, the Sale Order Section and 2 Down Payments
+        # (the dedicated Line Section + 1 line for each Down Payment)
+        self.assertEqual(len(invoice.invoice_line_ids), 7)
         line_section = invoice.invoice_line_ids.filtered(
             lambda line: line.display_type == "line_section"
         )
-        self.assertTrue(line_section, "Invoice without Line Section for Down Payment.")
-        down_payment_line = invoice.invoice_line_ids.filtered(
+        self.assertEqual(
+            len(line_section), 2, "Invoice without Line Section for Down Payment."
+        )
+        down_payment_lines = invoice.invoice_line_ids.filtered(
             lambda line: line.sale_line_ids.is_downpayment
         )
-        self.assertTrue(down_payment_line, "Invoice without Down Payment line.")
+        self.assertEqual(
+            len(down_payment_lines), 2, "Invoice without the Down Payment lines."
+        )
+        # The Down Payments lines are put in the end of the Invoice, after
+        # the dedicated Line Section
+        self.assertEqual(invoice.invoice_line_ids.ids[-2:], down_payment_lines.ids)
+        self.assertEqual(invoice.invoice_line_ids[-3].display_type, "line_section")
 
     def test_06_default_value_sale_invoicing_policy(self):
-        """Test default value for sale_invoicing_policy"""
+        """Test default value for sale_invoicing_policy
+
+        The default set by the module (res_company.
+        _default_sale_invoicing_policy) depends on the database having demo
+        data, so the expected value is read from it instead of being fixed.
+        """
         company = self.env["res.company"].create(
             {
                 "name": "Test",
             }
         )
-        self.assertEqual(company.sale_invoicing_policy, "sale_order")
+        base_module = self.env["ir.module.module"].search([("name", "=", "base")])
+        expected = "sale_order" if base_module.demo else "stock_picking"
+        self.assertEqual(company.sale_invoicing_policy, expected)
 
     def test_07_picking_invocing_without_sale_order(self):
-        """Test Picking Invoicing without Sale Order"""
+        """Test Picking Invoicing without Sale Order
+
+        A Stock Move not related to a Sale Order Line must not inform the
+        Picking as 'to be invoiced' (native behaviour, the user marks it
+        with the 'To Be Invoiced' button) and the Invoice is created with
+        the Picking data.
+        """
         picking = self.picking_out_1
+        move = picking.move_ids
+        self.assertFalse(move.sale_line_id)
+        self.assertEqual(
+            move._get_new_picking_values().get("invoice_state", "none"), "none"
+        )
+
         picking.set_to_be_invoiced()
         self.picking_move_state(picking)
         invoice = create_with_form_inv_onshipping(self.env, picking)
@@ -485,16 +584,25 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
             )
         self.assertIn("Sale Invoicing Policy", e.exception.args[0])
 
-    def test_11_both_invoice_from_so_syncs_picking_state(self):
+    def test_11_both_policy_invoices_from_so_mark_pickings(self):
+        """'both' policy: invoicing from the Sale Order marks the Pickings as
+        invoiced.
+
+        The behaviour does not depend on the delivery state:
+
+        - Picking validated (delivered): it is marked as invoiced when the
+          quantities are invoiced from the Sale Order;
+        - Picking not validated yet: with the 'order' invoice policy the whole
+          ordered quantity is invoiced from the Sale Order, so the Picking is
+          marked as invoiced as well;
+        - Full delivery and Invoice from the Sale Order: the Picking Wizard must
+          not create a second Invoice (no duplicated Invoice);
+        - Partial delivery with a `backorder`: the delivered Picking AND the
+          `backorder` are marked as invoiced, nothing is left to invoice in the
+          Sale Order Line.
         """
-        'both' policy: invoicing from the Sale Order marks the related
-        picking as invoiced when all quantities are invoiced.
-        """
-        self.company.sale_invoicing_policy = "both"
-        sale_order = create_with_form_sale_order(
-            self.env, self.so_vals, self.so_line_product_1
-        )
-        sale_order.action_confirm()
+        # 1) Validated Picking (delivered)
+        sale_order = self._create_confirmed_sale_order()
         picking = sale_order.picking_ids
         self.assertEqual(picking.invoice_state, "2binvoiced")
 
@@ -517,6 +625,59 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         invoice.action_post()
         self.assertEqual(invoice.state, "posted")
 
+        # 2) Picking not validated yet
+        # The same happens when the Picking is not validated yet: with the
+        # 'order' invoice policy the whole ordered quantity is invoiced from
+        # the Sale Order, so the Picking must be marked as invoiced as well
+        sale_order_not_delivered = self._create_confirmed_sale_order(qty=3.0)
+        picking_not_delivered = sale_order_not_delivered.picking_ids
+        self.assertEqual(picking_not_delivered.invoice_state, "2binvoiced")
+        self.assertNotEqual(picking_not_delivered.state, "done")
+
+        sale_order_not_delivered._create_invoices(final=True)
+        self.assertEqual(sale_order_not_delivered.invoice_count, 1)
+
+        self.assertEqual(picking_not_delivered.invoice_state, "invoiced")
+        for move in picking_not_delivered.move_ids:
+            self.assertEqual(move.invoice_state, "invoiced")
+
+        # 3) Full delivery and Invoice from the Sale Order: the Wizard does not
+        # invoice the Picking again
+        sale_order = self._create_confirmed_sale_order(qty=5.0)
+        picking = sale_order.picking_ids
+        self.picking_move_state(picking)
+        self.assertEqual(picking.state, "done")
+
+        # Full invoice from the SO
+        sale_order._create_invoices(final=True)
+        self.assertEqual(sale_order.invoice_count, 1)
+        self.assertEqual(picking.invoice_state, "invoiced")
+
+        # The Picking wizard must skip this picking: no new Invoice
+        with self.assertRaises(exceptions.UserError):
+            create_with_form_inv_onshipping(self.env, picking)
+        self.assertEqual(sale_order.invoice_count, 1)
+
+        # 4) Partial delivery with a backorder: both Pickings get invoiced
+        sale_order = self._create_confirmed_sale_order(qty=10.0)
+        picking = sale_order.picking_ids
+        picking.action_confirm()
+        picking.action_assign()
+
+        # Partially deliver 6, creating a backorder for 4
+        picking.move_ids.quantity = 6.0
+        backorder = create_with_form_pck_backorder(self.env, picking)
+        self.assertEqual(picking.state, "done")
+        self.assertNotEqual(backorder.state, "done")
+
+        # Invoice the full 10 (ordered) from the SO
+        sale_order._create_invoices(final=True)
+        self.assertEqual(sale_order.invoice_count, 1)
+
+        # Both the delivered picking and the backorder must be invoiced
+        self.assertEqual(picking.invoice_state, "invoiced")
+        self.assertEqual(backorder.invoice_state, "invoiced")
+
     def test_12_both_backorder_invoice_from_so_then_wizard(self):
         """
         'both' policy, realistic partial scenario using a backorder:
@@ -526,15 +687,10 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         - Deliver and invoice the backorder from the picking wizard:
           quantity must be 4 (remaining on the sale line).
         """
-        self.company.sale_invoicing_policy = "both"
         product = self.product_storable_1
-        product.invoice_policy = "delivery"
-        sale_order = create_with_form_sale_order(
-            self.env,
-            self.so_vals,
-            [{"product_id": product, "product_uom_qty": 10.0}],
+        sale_order = self._create_confirmed_sale_order(
+            qty=10.0, invoice_policy="delivery", product=product
         )
-        sale_order.action_confirm()
         picking = sale_order.picking_ids
         picking.action_confirm()
         picking.action_assign()
@@ -560,98 +716,206 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         self.assertEqual(sol.qty_to_invoice, 4.0)
 
         # Invoice the backorder from the picking wizard — should cap to 4
-        wizard_invoice = create_with_form_inv_onshipping(self.env, backorder)
-        inv_line = wizard_invoice.invoice_line_ids.filtered(
+        backorder_invoice = create_with_form_inv_onshipping(self.env, backorder)
+        inv_line = backorder_invoice.invoice_line_ids.filtered(
             lambda ln: ln.product_id == product
         )
         self.assertEqual(inv_line.quantity, 4.0)
         self.assertEqual(backorder.invoice_state, "invoiced")
         self.assertEqual(sol.qty_to_invoice, 0.0)
 
-    def test_13_both_ordered_policy_backorder_marks_all_pickings(self):
-        """
-        'both' policy with 'order' invoice policy: the full ordered qty
-        is invoiced upfront, so both the delivered picking and any
-        backorder must be marked as invoiced — nothing is left to invoice
-        on the sale line regardless of delivery state.
+    def test_13_values_from_sale_in_invoice_created_from_picking(self):
+        """The Invoice created from the Stock Picking must get the values
+        coming from Sale.
+
+        The module reuses the `_prepare_invoice` and `_prepare_invoice_line`
+        methods to build the Invoice created from the Picking the same way the
+        Invoice created from the Sale Order is built, in order to avoid the
+        necessity of 'glue modules': any field added by another module in the
+        values used to create the Invoice from Sale (e.g. account_payment_sale,
+        sale_commission) must be also informed when the Invoice is created from
+        the Picking.
         """
         self.company.sale_invoicing_policy = "both"
         product = self.product_storable_1
-        product.invoice_policy = "order"
-        sale_order = create_with_form_sale_order(
-            self.env,
-            self.so_vals,
-            [{"product_id": product, "product_uom_qty": 10.0}],
+        sale_order = self._create_confirmed_sale_order(qty=2.0, product=product)
+        picking = sale_order.picking_ids
+        self.picking_move_state(picking)
+        invoice = create_with_form_inv_onshipping(self.env, picking)
+        wizard = self.env["stock.invoice.onshipping"]
+
+        # Invoice: fields got from Sale, the ones the module gets from the
+        # Picking are informed in `_get_fields_not_used_from_sale`
+        not_used = wizard._get_fields_not_used_from_sale() | {"sequence"}
+        self._check_values_from_sale(
+            invoice,
+            sale_order._prepare_invoice(),
+            not_used,
+            "Field %s from 'sale.order._prepare_invoice' is missing in the "
+            "Invoice created from the Stock Picking",
         )
-        sale_order.action_confirm()
+
+        # Invoice Lines
+        sale_line = sale_order.order_line.filtered(lambda ln: ln.product_id == product)
+        invoice_line = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.product_id == product
+        )
+        self.assertTrue(invoice_line, "Invoice Line was not created.")
+        not_used_line = wizard._get_fields_not_used_from_sale_line() | {"sequence"}
+        self._check_values_from_sale(
+            invoice_line,
+            sale_line._prepare_invoice_line(),
+            not_used_line,
+            "Field %s from 'sale.order.line._prepare_invoice_line' is missing "
+            "in the Invoice Line created from the Stock Picking",
+        )
+
+    def test_14_sale_order_policy_keeps_native_behaviour(self):
+        """'sale_order' policy: the native behaviour is kept.
+
+        The Stock Moves of a Picking created from a Sale Order are not informed
+        as 'to be invoiced' and the Invoice is created from the Sale Order
+        without any restriction.
+        """
+        sale_order = self._create_confirmed_sale_order(policy="sale_order")
+        picking = sale_order.picking_ids
+        self.assertEqual(picking.invoice_state, "none")
+        for move in picking.move_ids:
+            self.assertEqual(move.invoice_state, "none")
+
+        # Invoice created from Sale Order, native behaviour
+        invoice = sale_order._create_invoices(final=True)
+        self.assertEqual(sale_order.invoice_count, 1)
+        self.assertEqual(invoice.invoice_origin, sale_order.name)
+        self.assertEqual(picking.invoice_state, "none")
+
+    def test_15_invoice_price_from_sale_order_line(self):
+        """The price informed in the Sale Order Line has priority in the
+        Invoice created from the Picking, see
+        `stock.move._get_price_unit_invoice`.
+        """
+        product = self.product_storable_1
+        sale_order = self._create_confirmed_sale_order(
+            product=product, policy="stock_picking"
+        )
+        picking = sale_order.picking_ids
+        # Price changed after the confirmation, the Stock Move keeps the
+        # original one
+        new_price = sale_order.order_line.price_unit + 1000
+        sale_order.order_line.write({"price_unit": new_price})
+        self.assertNotEqual(picking.move_ids.price_unit, new_price)
+
+        self.picking_move_state(picking)
+        invoice = create_with_form_inv_onshipping(self.env, picking)
+        invoice_line = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.product_id == product
+        )
+        self.assertEqual(invoice_line.price_unit, new_price)
+
+    def test_16_both_wizard_caps_quantity_to_remaining(self):
+        """'both' policy: the Picking wizard caps the quantity to what is still
+        to invoice in the Sale Order Line, to prevent double invoicing.
+        """
+        product = self.product_storable_1
+        sale_order = self._create_confirmed_sale_order(
+            qty=10.0, invoice_policy="delivery", product=product
+        )
         picking = sale_order.picking_ids
         picking.action_confirm()
         picking.action_assign()
-
-        # Partially deliver 6, creating a backorder for 4
+        # Deliver 6 of 10, backorder for the 4 left
         picking.move_ids.quantity = 6.0
         backorder = create_with_form_pck_backorder(self.env, picking)
         self.assertEqual(picking.state, "done")
-        self.assertNotEqual(backorder.state, "done")
 
-        # Invoice the full 10 (ordered) from the SO
+        # The 6 delivered are invoiced from the Sale Order
         sale_order._create_invoices(final=True)
-        self.assertEqual(sale_order.invoice_count, 1)
-
-        # Both the delivered picking and the backorder must be invoiced
+        sale_line = sale_order.order_line.filtered(lambda ln: ln.product_id == product)
+        self.assertEqual(sale_line.qty_invoiced, 6.0)
         self.assertEqual(picking.invoice_state, "invoiced")
-        self.assertEqual(backorder.invoice_state, "invoiced")
 
-    def test_14_both_wizard_skips_picking_after_full_so_invoice(self):
-        """
-        'both' policy: after fully invoicing a SO, the picking wizard must
-        not produce any invoice for the same picking (no double invoicing).
-        """
-        self.company.sale_invoicing_policy = "both"
-        product = self.product_storable_1
-        product.invoice_policy = "order"
-        sale_order = create_with_form_sale_order(
-            self.env,
-            self.so_vals,
-            [{"product_id": product, "product_uom_qty": 5.0}],
+        # Then the 4 left are delivered, 4 left to invoice in the Sale Line
+        self.picking_move_state(backorder)
+        self.assertEqual(sale_line.qty_to_invoice, 4.0)
+
+        # The already invoiced Picking is sent again to the wizard (button
+        # 'To Be Invoiced'): the quantity of the Picking (6) must be capped to
+        # the 4 still to invoice in the Sale Order Line
+        picking.set_to_be_invoiced()
+        invoices_before = sale_order.invoice_ids
+        create_with_form_inv_onshipping(self.env, picking)
+        invoice = sale_order.invoice_ids - invoices_before
+        self.assertEqual(len(invoice), 1)
+        invoice_line = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.product_id == product
         )
-        sale_order.action_confirm()
+        self.assertEqual(invoice_line.quantity, 4.0)
+        self.assertEqual(sale_line.qty_invoiced, 10.0)
+        self.assertEqual(sale_line.qty_to_invoice, 0.0)
+
+    def test_17_invoice_with_move_not_linked_to_sale_order(self):
+        """A Picking created from a Sale Order with an extra Stock Move (not
+        linked to the Sale Order) is invoiced with both lines.
+        """
+        product = self.product_storable_2
+        sale_order = self._create_confirmed_sale_order(policy="stock_picking")
         picking = sale_order.picking_ids
+        extra_move = self.env["stock.move"].create(
+            {
+                "name": product.name,
+                "product_id": product.id,
+                "product_uom_qty": 1.0,
+                "product_uom": product.uom_id.id,
+                "picking_id": picking.id,
+                "location_id": picking.location_id.id,
+                "location_dest_id": picking.location_dest_id.id,
+                "company_id": picking.company_id.id,
+            }
+        )
+        extra_move._set_as_2binvoiced()
+        self.picking_move_state(picking)
+        invoice = create_with_form_inv_onshipping(self.env, picking)
+        invoice_lines = invoice.invoice_line_ids.filtered(lambda ln: ln.product_id)
+        self.assertEqual(len(invoice_lines), 2)
+        self.assertIn(product, invoice_lines.mapped("product_id"))
+
+    def test_18_wizard_without_deduct_down_payments(self):
+        """Test the 'Deduct down payments' option disabled.
+
+        The Invoice created from the Picking keeps the Down Payment lines and
+        is kept as an Invoice (not switched to a refund) even when the
+        deduction of the Down Payments gives it a negative total, while the
+        default option switches the same Invoice to a refund.
+        """
+        # Option disabled: the Invoice stays an Invoice with a negative total
+        invoice = self._invoice_from_picking_with_advance(deduct_down_payments=False)
+        self.assertLess(invoice.amount_total, 0)
+        self.assertEqual(invoice.move_type, "out_invoice")
+
+        # Same case with the option enabled (default): switched to a refund
+        refund = self._invoice_from_picking_with_advance(deduct_down_payments=True)
+        self.assertEqual(refund.move_type, "out_refund")
+        self.assertAlmostEqual(-refund.amount_total, invoice.amount_total, 2)
+
+    def test_19_consumable_product_invoicing_from_picking(self):
+        """
+        Test that consumable (non-storable) products generate a picking
+        and must be invoiced from it, not from the sale order.
+        """
+        so = self.sale_order_6
+        so.action_confirm()
+        self.assertTrue(so.picking_ids, "Consumable product should generate a picking")
+
+        # Invoicing from SO must raise error — consumable is not a service
+        with self.assertRaises(exceptions.UserError):
+            so._create_invoices(final=True)
+
+        # Validate picking and invoice from it
+        picking = so.picking_ids
+        picking.set_to_be_invoiced()
         self.picking_move_state(picking)
 
-        # Full invoice from SO
-        sale_order._create_invoices(final=True)
-        self.assertEqual(sale_order.invoice_count, 1)
-        self.assertEqual(picking.invoice_state, "invoiced")
-
-        # Wizard must skip this picking: no new invoice can be generated
-        with self.assertRaises(exceptions.UserError):
-            create_with_form_inv_onshipping(self.env, picking)
-        self.assertEqual(sale_order.invoice_count, 1)
-
-    def test_15_both_invoice_from_so_before_picking_validated(self):
-        """
-        'both' policy with 'order' invoice policy: invoicing from the SO
-        marks the picking as invoiced even before it is validated.
-        """
-        self.company.sale_invoicing_policy = "both"
-        product = self.product_storable_1
-        product.invoice_policy = "order"
-        sale_order = create_with_form_sale_order(
-            self.env,
-            self.so_vals,
-            [{"product_id": product, "product_uom_qty": 3.0}],
-        )
-        sale_order.action_confirm()
-        picking = sale_order.picking_ids
-        self.assertEqual(picking.invoice_state, "2binvoiced")
-        self.assertNotEqual(picking.state, "done")
-
-        # Invoice from SO before picking is validated
-        sale_order._create_invoices(final=True)
-        self.assertEqual(sale_order.invoice_count, 1)
-
-        # Picking should be marked as invoiced
-        self.assertEqual(picking.invoice_state, "invoiced")
-        for move in picking.move_ids:
-            self.assertEqual(move.invoice_state, "invoiced")
+        invoice = create_with_form_inv_onshipping(self.env, picking)
+        self.assertEqual(len(invoice), 1)
+        invoice.action_post()
+        self.assertEqual(invoice.state, "posted")
