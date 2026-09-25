@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field
+            name="name"
+        >res.config.settings.form.inherit.sale.invoice.advance.compensation</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <block name="invoicing_setting_container" position="inside">
+                <setting
+                    id="sale_advance_journal_setting"
+                    string="Advance Journal"
+                    company_dependent="1"
+                    help="Default journal used to issue sale advance invoices. If empty, Odoo uses the standard sales journal."
+                >
+                    <field name="sale_advance_journal_id" />
+                </setting>
+                <setting
+                    id="sale_advance_product_setting"
+                    string="Advance Product"
+                    company_dependent="1"
+                    help="Default product used on sale advance invoice lines."
+                >
+                    <field name="sale_advance_product_id" />
+                </setting>
+            </block>
+        </field>
+    </record>
+</odoo>
