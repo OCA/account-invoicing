@@ -1,0 +1,45 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_customer_no_autofollow
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-04-02 18:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
+
+#. module: account_invoice_customer_no_autofollow
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_no_autofollow.res_config_settings_view_form
+msgid "Autofollow"
+msgstr "Segui automaticamente"
+
+#. module: account_invoice_customer_no_autofollow
+#: model:ir.model,name:account_invoice_customer_no_autofollow.model_res_config_settings
+msgid "Config Settings"
+msgstr "Impostazioni configurazione"
+
+#. module: account_invoice_customer_no_autofollow
+#: model_terms:ir.ui.view,arch_db:account_invoice_customer_no_autofollow.res_config_settings_view_form
+msgid ""
+"Customer/vendor will not be added as follower automatically on invoices"
+msgstr ""
+"Il cliente/fornitore non verrà aggiunto automaticamente come follower nelle "
+"fatture"
+
+#. module: account_invoice_customer_no_autofollow
+#: model:ir.model.fields,field_description:account_invoice_customer_no_autofollow.field_res_config_settings__invoice_partner_no_autofollow
+msgid "Disable customer/vendor autofollow"
+msgstr "Disabilita segui automaticamente cliente/fornitore"
+
+#. module: account_invoice_customer_no_autofollow
+#: model:ir.model,name:account_invoice_customer_no_autofollow.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
