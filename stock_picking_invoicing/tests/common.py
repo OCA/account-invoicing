@@ -123,21 +123,22 @@ class TestStockPickingInvoicingCommon(TestAccountMoveStockCommon):
             cls.env, picking_in_vals, move_vals_1
         )
 
-    def picking_move_state(self, picking):
+    def picking_move_state(self, picking, state="done"):
         picking.action_confirm()
-        # Check product availability
-        picking.action_assign()
-        # Force product availability
-        with Form(picking) as picking_form:
-            i = 0
-            while i != len(picking.move_ids_without_package):
-                with picking_form.move_ids_without_package.edit(i) as line:
-                    line.quantity = line.product_uom_qty
-                i += 1
+        if state != "confirmed":
+            # Check product availability
+            picking.action_assign()
+            # Force product availability
+            with Form(picking) as picking_form:
+                i = 0
+                while i != len(picking.move_ids_without_package):
+                    with picking_form.move_ids_without_package.edit(i) as line:
+                        line.quantity = line.product_uom_qty
+                    i += 1
 
-            picking_form.save()
-        picking.button_validate()
-        self.assertEqual(picking.state, "done")
+                picking_form.save()
+            picking.button_validate()
+            self.assertEqual(picking.state, "done")
 
     def check_invoice_created(self, pickings, invoices):
         for picking in pickings:
