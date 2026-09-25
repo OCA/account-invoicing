@@ -36,14 +36,14 @@ def create_with_form_stock_picking(env, values, line_values=False):
     return picking.save()
 
 
-def create_with_form_inv_onshipping(env, pickings):
+def create_with_form_inv_onshipping(env, pickings, group="partner_product"):
     with Form(
         env["stock.invoice.onshipping"].with_context(
             active_ids=pickings.ids,
             active_model=pickings._name,
         )
     ) as wzd_inv:
-        wzd_inv.group = "partner_product"
+        wzd_inv.group = group
         result = wzd_inv.save()
 
     result.action_generate()
@@ -51,13 +51,13 @@ def create_with_form_inv_onshipping(env, pickings):
     return pickings.mapped("invoice_ids")
 
 
-def create_with_form_return_picking(env, picking):
+def create_with_form_return_picking(env, picking, invoice_state="2binvoiced"):
     return_wizard_form = Form(
         env["stock.return.picking"].with_context(
             active_id=picking.id, active_model="stock.picking"
         )
     )
-    return_wizard_form.invoice_state = "2binvoiced"
+    return_wizard_form.invoice_state = invoice_state
     return_wizard = return_wizard_form.save()
     return_wizard.product_return_moves[0].quantity = 1
     result_wizard = return_wizard.action_create_returns()
