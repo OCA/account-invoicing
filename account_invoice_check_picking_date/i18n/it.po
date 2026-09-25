@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-09-25 19:45+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_invoice_check_picking_date
 #. odoo-python
@@ -21,6 +23,8 @@ msgstr ""
 #, python-format
 msgid "Accounting date does not match with stock move dates"
 msgstr ""
+"Le date della contabilità non corrispondono alle date del movimento di "
+"magazzino"
 
 #. module: account_invoice_check_picking_date
 #. odoo-python
@@ -32,73 +36,79 @@ msgid ""
 "\n"
 "If dates are right and you have manager permissions you can use special action to post this invoice."
 msgstr ""
+"Data contabilità: %(accounting_date)s\n"
+"Primo movimento di magazzino: %(min_date)s   Ultimo movimenti di magazzino: %"
+"(max_date)s\n"
+"\n"
+"Se le date sono corrette e si hanno i permessi di amministratore si possono "
+"usare azioni speciali per registrare questa fattura."
 
 #. module: account_invoice_check_picking_date
 #: model_terms:ir.ui.view,arch_db:account_invoice_check_picking_date.invoice_stock_picking_date_wizard
 msgid "Cancel"
-msgstr ""
+msgstr "Annulla"
 
 #. module: account_invoice_check_picking_date
 #: model_terms:ir.ui.view,arch_db:account_invoice_check_picking_date.invoice_stock_picking_date_wizard
 msgid "Continue"
-msgstr ""
+msgstr "Continua"
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creato il"
 
 #. module: account_invoice_check_picking_date
 #: model_terms:ir.ui.view,arch_db:account_invoice_check_picking_date.invoice_stock_picking_date_wizard
 msgid "Dates does not match"
-msgstr ""
+msgstr "Le date non corrispondono"
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__exception_msg
 msgid "Exception Msg"
-msgstr ""
+msgstr "Msg di eccezione"
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__invoice_id
 msgid "Invoice"
-msgstr ""
+msgstr "Fattura"
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model,name:account_invoice_check_picking_date.model_invoice_picking_date_check_wiz
 msgid "Invoice and picking date check wizard"
-msgstr ""
+msgstr "Procedura guidata controllo fattura e data prelievo"
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model,name:account_invoice_check_picking_date.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultimo aggiornamento di"
 
 #. module: account_invoice_check_picking_date
 #: model:ir.model.fields,field_description:account_invoice_check_picking_date.field_invoice_picking_date_check_wiz__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultimo aggiornamento il"
