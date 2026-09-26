@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- priority >= 99: required because we use position="replace" on the
+         core discount cell (oca xml-dangerous-qweb-replace-low-priority) -->
+    <template
+        id="report_invoice_document_multi_discount"
+        inherit_id="account.report_invoice_document"
+        priority="99"
+    >
+        <!-- Show the discount column when any line carries a distribution -->
+        <xpath expr="//t[@t-set='display_discount']" position="attributes">
+            <attribute
+                name="t-value"
+            >any(l.discount_distribution or l.discount for l in o.invoice_line_ids)</attribute>
+        </xpath>
+
+        <!-- Replace the aggregated-discount cell with the multi-discount breakdown -->
+        <xpath expr="//td[@name='td_discount']/span" position="replace">
+            <t
+                t-if="line.discount_distribution and len(line.discount_distribution) > 1"
+            >
+                <span class="text-nowrap">
+                    <t t-foreach="line.discount_distribution" t-as="d"><t
+                        t-out="'%.2f' % d"
+                    />%<t t-if="not d_last"> + </t></t>
+                </span>
+            </t>
+            <t t-else="">
+                <span class="text-nowrap" t-field="line.discount">0</span>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_move_multi_discount_form_view" model="ir.ui.view">
+        <field name="name">account.move.multi.discount.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <!-- priority >= 99: required because we use position="replace" on the
+             core discount field (oca xml-view-dangerous-replace-low-priority) -->
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <!-- List: replace discount with discount_distribution widget -->
+            <xpath
+                expr="//field[@name='invoice_line_ids']//list//field[@name='discount']"
+                position="replace"
+            >
+                <field
+                    name="discount_distribution"
+                    widget="discount_distribution"
+                    string="Disc.%"
+                    optional="show"
+                />
+                <field name="discount" column_invisible="1" />
+            </xpath>
+
+            <!-- Form: replace discount field -->
+            <xpath
+                expr="//field[@name='invoice_line_ids']//form//field[@name='discount']"
+                position="replace"
+            >
+                <field
+                    name="discount_distribution"
+                    widget="discount_distribution"
+                    string="Disc.%"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
