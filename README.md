@@ -42,6 +42,7 @@ addon | version | maintainers | summary
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 17.0.1.0.0 | <a href='https://github.com/alexis-via'><img src='https://github.com/alexis-via.png' width='32' height='32' style='border-radius:50%;' alt='alexis-via'/></a> | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 17.0.1.0.0 |  | Manage triple discount on invoice lines
 [account_invoice_warn_message](account_invoice_warn_message/) | 17.0.1.0.0 |  | Add a popup warning on invoice to ensure warning is populated
+[account_mail_autosubscribe](account_mail_autosubscribe/) | 17.0.1.0.0 | <a href='https://github.com/ivantodorovich'><img src='https://github.com/ivantodorovich.png' width='32' height='32' style='border-radius:50%;' alt='ivantodorovich'/></a> | Automatically subscribe partners to their company's invoices
 [account_manual_currency](account_manual_currency/) | 17.0.1.0.0 |  | Allows to manual currency of Accounting
 [account_menu_invoice_refund](account_menu_invoice_refund/) | 17.0.1.0.0 | <a href='https://github.com/kittiu'><img src='https://github.com/kittiu.png' width='32' height='32' style='border-radius:50%;' alt='kittiu'/></a> | New invoice menu that combine invoices and refunds
 [account_move_cancel_confirm](account_move_cancel_confirm/) | 17.0.1.0.0 | <a href='https://github.com/kittiu'><img src='https://github.com/kittiu.png' width='32' height='32' style='border-radius:50%;' alt='kittiu'/></a> | Account Move Cancel Confirm
