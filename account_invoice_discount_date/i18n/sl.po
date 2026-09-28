@@ -1,0 +1,46 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_discount_date
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-06-21 09:27+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
+"Language-Team: none\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.15.2\n"
+
+#. module: account_invoice_discount_date
+#: model:ir.model.fields,field_description:account_invoice_discount_date.field_account_bank_statement_line__discount_date
+#: model:ir.model.fields,field_description:account_invoice_discount_date.field_account_move__discount_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_discount_date.view_account_invoice_filter
+#: model_terms:ir.ui.view,arch_db:account_invoice_discount_date.view_account_move_line_filter
+msgid "Discount Date"
+msgstr "Datum popusta"
+
+#. module: account_invoice_discount_date
+#: model_terms:ir.ui.view,arch_db:account_invoice_discount_date.view_account_move_line_filter
+msgid "Due Date"
+msgstr "Datum zapadlosti"
+
+#. module: account_invoice_discount_date
+#: model:ir.model,name:account_invoice_discount_date.model_account_move
+msgid "Journal Entry"
+msgstr "Temeljnica"
+
+#. module: account_invoice_discount_date
+#: model:ir.model.fields,help:account_invoice_discount_date.field_account_bank_statement_line__discount_date
+#: model:ir.model.fields,help:account_invoice_discount_date.field_account_move__discount_date
+msgid ""
+"Last date at which the discounted amount must be paid in order for the Early"
+" Payment Discount to be granted"
+msgstr ""
+"Zadnji rok, do katerega je treba plačati znižani znesek, da se odobri popust "
+"za predčasno plačilo"

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<data>
+    <record id="view_account_move_line_filter" model="ir.ui.view">
+        <field name="name">account.move.line.search</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_account_move_line_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='invoice_date']" position="after">
+                <!-- Add date maturity because it's nice to have -->
+                <filter
+                    name="flt_date_maturity"
+                    string="Due Date"
+                    date="date_maturity"
+                />
+                <filter
+                    name="flt_discount_date"
+                    string="Discount Date"
+                    date="discount_date"
+                />
+            </xpath>
+            <xpath expr="//group/filter[@name='groupby_invoice_date']" position="after">
+                <!-- Add date maturity because it's nice to have -->
+                <filter
+                    name="grp_date_maturity"
+                    string="Due Date"
+                    domain="[]"
+                    context="{'group_by': 'date_maturity'}"
+                />
+                <filter
+                    name="grp_discount_date"
+                    string="Discount Date"
+                    domain="[]"
+                    context="{'group_by': 'discount_date'}"
+                />
+            </xpath>
+        </field>
+    </record>
+</data>
