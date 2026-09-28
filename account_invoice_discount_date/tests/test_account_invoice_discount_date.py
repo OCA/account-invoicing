@@ -12,20 +12,17 @@ from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 @tagged("post_install", "-at_install")
 class TestAccountInvoiceDiscountDate(AccountTestInvoicingCommon):
     def test_discount_date_propagation(self):
-        """Test discount date is propagated properly to invoice lines"""
+        """Test discount date is computed from the payment term lines"""
         normal_discount_date = fields.Date.today() + timedelta(days=5)
         early_discount_date = fields.Date.today() + timedelta(days=3)
         for move_type in {"out_invoice", "in_invoice"}:
             with self.subTest(move_type=move_type):
                 invoice = self._create_invoice(move_type=move_type)
-                # Check inverse
-                invoice.discount_date = normal_discount_date
-                for date_due_line in invoice.line_ids.filtered("date_maturity"):
-                    self.assertEqual(date_due_line.discount_date, invoice.discount_date)
-                    self.assertEqual(invoice.discount_date, normal_discount_date)
-                # Check computed
-                early_discount_date = fields.Date.today() + timedelta(days=3)
-                invoice.line_ids.filtered("date_maturity")[
-                    :1
-                ].discount_date = early_discount_date
+                term_lines = invoice.line_ids.filtered(
+                    lambda line: line.display_type == "payment_term"
+                )
+                term_lines.discount_date = normal_discount_date
+                self.assertEqual(invoice.discount_date, normal_discount_date)
+                # The earliest line discount date is set on the move
+                term_lines[:1].discount_date = early_discount_date
                 self.assertEqual(invoice.discount_date, early_discount_date)
