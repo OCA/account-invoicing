@@ -9,11 +9,7 @@
                 expr="//group[@id='header_right_group']/div/field[@name='invoice_date_due'][1]/.."
                 position="after"
             >
-                <field
-                    name="discount_date"
-                    invisible="move_type == 'entry'"
-                    readonly="state != 'draft'"
-                />
+                <field name="discount_date" invisible="move_type == 'entry'" />
             </xpath>
         </field>
     </record>

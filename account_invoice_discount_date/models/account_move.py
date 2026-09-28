@@ -10,7 +10,6 @@ class AccountMove(models.Model):
 
     discount_date = fields.Date(
         compute="_compute_discount_date",
-        inverse="_inverse_discount_date",
         store=True,
         help="Last date at which the discounted amount must be paid in order "
         "for the Early Payment Discount to be granted",
@@ -30,13 +29,3 @@ class AccountMove(models.Model):
             new_discount_date = d_dates and sorted(d_dates)[0] or None
             if new_discount_date != record.discount_date or not new_discount_date:
                 record.discount_date = new_discount_date
-
-    def _inverse_discount_date(self):
-        """When set Discount date, update all move lines with Date maturity"""
-        discount_date_field = self._fields["discount_date"]
-        for record in self:
-            for line in record.line_ids.filtered_domain(
-                [("display_type", "=", "payment_term")]
-            ):
-                line.discount_date = record.discount_date
-                self.env.add_to_compute(discount_date_field, record)
