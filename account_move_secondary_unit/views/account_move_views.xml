@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">Account Move Secondary Unit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='invoice_line_ids']/list//field[@name='quantity']"
+                position="before"
+            >
+                <field
+                    name="secondary_uom_qty"
+                    groups="uom.group_uom"
+                    optional="show"
+                />
+                <field
+                    name="secondary_uom_id"
+                    domain="product_id and ['|', ('product_id', '=', product_id),
+                                '&amp;', ('product_tmpl_id.product_variant_ids', 'in', [product_id]),
+                                         ('product_id', '=', False)] or [(0, '=', 1)]"
+                    options="{'no_create': True}"
+                    required="secondary_uom_qty != 0.0"
+                    groups="uom.group_uom"
+                    optional="show"
+                />
+                <field
+                    name="secondary_uom_price"
+                    groups="uom.group_uom"
+                    optional="show"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
