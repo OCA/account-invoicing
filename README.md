@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [account_global_discount](account_global_discount/) | 19.0.1.0.0 |  | Account Global Discount
 [account_invoice_clearing](account_invoice_clearing/) | 19.0.1.0.1 | <a href='https://github.com/Shide'><img src='https://github.com/Shide.png' width='32' height='32' style='border-radius:50%;' alt='Shide'/></a> | Account invoice clearing wizard
 [account_invoice_crm_tag](account_invoice_crm_tag/) | 19.0.1.0.0 |  | Account Invoice CRM Tag
+[account_invoice_discount_date](account_invoice_discount_date/) | 19.0.1.0.0 | <a href='https://github.com/Shide'><img src='https://github.com/Shide.png' width='32' height='32' style='border-radius:50%;' alt='Shide'/></a> <a href='https://github.com/rafaelbn'><img src='https://github.com/rafaelbn.png' width='32' height='32' style='border-radius:50%;' alt='rafaelbn'/></a> | Set the early discount date on invoices
 [account_invoice_fixed_discount](account_invoice_fixed_discount/) | 19.0.1.0.0 |  | Allows to apply fixed amount discounts in invoices.
 [account_invoice_merge](account_invoice_merge/) | 19.0.1.0.0 |  | Merge invoices in draft
 [account_invoice_pricelist](account_invoice_pricelist/) | 19.0.1.0.4 |  | Add partner pricelist on invoices
