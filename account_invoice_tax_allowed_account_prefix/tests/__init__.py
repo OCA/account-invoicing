@@ -1,0 +1,1 @@
+from . import test_account_invoice_tax_allowed_account_prefix
