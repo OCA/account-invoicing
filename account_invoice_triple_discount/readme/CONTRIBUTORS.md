@@ -6,3 +6,5 @@
 - Laurent Mignon \<<laurent.mignon@acsone.eu>\>
 - Akim Juillerat \<<akim.juillerat@camptocamp.com>\>
 - Panca Putra Pakpahan \<<ppakpahan@solusiaglis.co.id>\>
+- [360ERP](https://360erp.com):
+  - Diogo Catarino \<<dca@360erp.com>\>
