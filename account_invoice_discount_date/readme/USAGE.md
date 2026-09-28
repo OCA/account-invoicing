@@ -5,3 +5,6 @@ To use this module, you need to:
 1. If there are several payment term lines with a Discount Date, the earliest one is set on the invoice.
 1. The Discount Date can't be set on the invoice directly. You can change it on the payment term lines instead.
 1. You can filter and group invoices by Discount Date to know which invoices should be paid to ensure the discount benefit.
+1. When an Early Payment Discount applies, the "Discount Amount" and
+   "Discount Amount (Company Currency)" columns show the total to pay to
+   benefit from it. They are hidden when there is no discount to apply.
