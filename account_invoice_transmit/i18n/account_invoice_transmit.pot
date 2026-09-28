@@ -1,0 +1,361 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_transmit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-28 09:15+0000\n"
+"PO-Revision-Date: 2024-04-28 09:15+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid "<span> email(s) missing</span>"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.view_account_invoice_print_form
+msgid "<span>Invoices</span>"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid "<strong>Please select the operation</strong>"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid "<strong>Please set a transmit method on those invoices</strong>"
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/models/account_invoice_print.py:0
+#, python-format
+msgid "A report for printing the invoices is available."
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/wizards/account_invoice_transmit.py:0
+#, python-format
+msgid "A report will be generated in the background."
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.actions.act_window,name:account_invoice_transmit.action_account_invoice_print_form
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.view_account_invoice_print_form
+msgid "Account Invoice Print"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid "Cancel"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_print__create_uid
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_print__create_date
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_print__display_name
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_print__document
+msgid "Document"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields.selection,name:account_invoice_transmit.selection__account_invoice_print__state__done
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.view_account_invoice_print_view
+msgid "Done"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__count_transmit_email_missing
+msgid "Email address missing"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_print__fname
+msgid "Fname"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,help:account_invoice_transmit.field_account_invoice_transmit__resend
+msgid "Force resending already sent invoices"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_print__id
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__id
+msgid "ID"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields.selection,name:account_invoice_transmit.selection__account_invoice_print__state__progress
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.view_account_invoice_print_view
+msgid "In Progress"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_print__invoice_ids
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__invoice_ids
+msgid "Invoice"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.ui.menu,name:account_invoice_transmit.account_invoice_print
+msgid "Invoice Prints"
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/models/account_invoice_print.py:0
+#, python-format
+msgid "Invoice generation has succeeded"
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/wizards/account_invoice_transmit.py:0
+#, python-format
+msgid "Invoice marked as sent"
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/models/account_move.py:0
+#, python-format
+msgid "Invoice sent by %s"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.view_account_invoice_print_view
+msgid "Invoices"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid "Invoices Mass Sending"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model,name:account_invoice_transmit.model_account_invoice_print
+msgid "Invoices sending report"
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/wizards/account_invoice_transmit.py:0
+#, python-format
+msgid "Invoices will be sent by email in the background."
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_bank_statement_line__is_invoice_to_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_move__is_invoice_to_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_payment__is_invoice_to_transmit
+msgid "Is Invoice To Transmit"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model,name:account_invoice_transmit.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_print____last_update
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_print__write_uid
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_print__write_date
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid "Mark as sent"
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/models/account_move.py:0
+#, python-format
+msgid "Mass Sending"
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/wizards/account_invoice_transmit.py:0
+#, python-format
+msgid "Mass generating invoice emails for sending"
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/wizards/account_invoice_transmit.py:0
+#, python-format
+msgid "Mass generating invoice reports for sending"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.view_account_invoice_print_view
+msgid "My reports"
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/wizards/account_invoice_transmit.py:0
+#, python-format
+msgid "No invoice with valid email to send"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid "Only mark as sent without sending anything"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid "Print"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid ""
+"Print invoices having an invoice transmit method 'post'. Also mark as sent"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model,name:account_invoice_transmit.model_queue_job
+msgid "Queue Job"
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/models/queue_job.py:0
+#, python-format
+msgid "Related Record"
+msgstr ""
+
+#. module: account_invoice_transmit
+#. odoo-python
+#: code:addons/account_invoice_transmit/models/queue_job.py:0
+#, python-format
+msgid "Related Records"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__resend
+msgid "Resend"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.view_account_invoice_print_view
+msgid "Search Account Invoice Print"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.view_invoice_tree
+msgid "Send"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid "Send by email"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid ""
+"Send by email invoices having an invoice transmit method 'mail'. Also mark "
+"as sent"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_print__state
+msgid "State"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__count_transmit_email
+msgid "Total by email"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__count_transmit_post
+msgid "Total by post"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__count_transmit_undefined
+msgid "Total undefined"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__transmit_email_invoice_ids
+msgid "Transmit Email Invoice"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__transmit_email_valid_invoice_ids
+msgid "Transmit Email Valid Invoice"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__transmit_invoice_ids
+msgid "Transmit Invoice"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__transmit_post_invoice_ids
+msgid "Transmit Post Invoice"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model.fields,field_description:account_invoice_transmit.field_account_invoice_transmit__transmit_undefined_invoice_ids
+msgid "Transmit Undefined Invoice"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model:ir.model,name:account_invoice_transmit.model_account_invoice_transmit
+msgid "Wizard to send invoices"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid "view invoices"
+msgstr ""
+
+#. module: account_invoice_transmit
+#: model_terms:ir.ui.view,arch_db:account_invoice_transmit.account_invoice_transmit_view
+msgid "view partners"
+msgstr ""
