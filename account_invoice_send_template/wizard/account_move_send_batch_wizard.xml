@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Moduon Team S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<odoo>
+    <record
+        id="account_move_send_batch_wizard_form_select_email_template"
+        model="ir.ui.view"
+    >
+        <field name="name">account.move.send.batch.wizard.form.select.template</field>
+        <field name="model">account.move.send.batch.wizard</field>
+        <field name="inherit_id" ref="account.account_move_send_batch_wizard_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='summary_data']" position="after">
+                <group>
+                    <group>
+                        <field
+                            name="mail_template_id"
+                            options="{'no_create': True, 'no_open': True}"
+                        />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
