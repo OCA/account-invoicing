@@ -130,21 +130,28 @@ class AccountMoveLine(models.Model):
         res = super()._compute_price_unit()
         for line in self:
             line = line.with_company(line.company_id)
-            if not line.move_id.pricelist_id:
+            if (
+                not line.move_id.pricelist_id
+                or line.display_type in ("line_section", "line_note")
+                or line.is_imported
+                or line.is_downpayment
+            ):
+                # Nothing the pricelist may price: sections/notes, lines
+                # captured automatically and down payments
                 continue
             if not line.product_uom_id or not line.product_id:
                 line.price_unit = 0.0
-            else:
-                price = line._get_display_price()
-                line.with_context(
-                    check_move_validity=False
-                ).price_unit = line.product_id._get_tax_included_unit_price_from_price(
-                    price,
-                    product_taxes=line.product_id.taxes_id.filtered(
-                        lambda tax, line=line: tax.company_id == line.env.company
-                    ),
-                    fiscal_position=line.move_id.fiscal_position_id,
-                )
+                continue
+            price = line._get_display_price()
+            line.with_context(
+                check_move_validity=False
+            ).price_unit = line.product_id._get_tax_included_unit_price_from_price(
+                price,
+                product_taxes=line.product_id.taxes_id.filtered(
+                    lambda tax, line=line: tax.company_id == line.env.company
+                ),
+                fiscal_position=line.move_id.fiscal_position_id,
+            )
         return res
 
     def _get_display_price(self):
