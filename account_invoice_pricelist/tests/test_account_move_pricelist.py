@@ -428,3 +428,93 @@ class TestAccountMovePricelist(BaseCommon):
         self.invoice.invoice_line_ids[0].quantity = 0.0
         self.invoice.invoice_line_ids[0].quantity = 1.0
         self.assertEqual(self.invoice.invoice_line_ids[0].discount, 0)
+
+    def test_15_down_payment_line_price_unit(self):
+        """The Down Payment lines keep the amount paid in advance.
+
+        The Down Payment lines have no Product (the amount is informed in the
+        'sale.advance.payment.inv' wizard), so a Pricelist can not price them:
+        recomputing their Price Unit resets the amount to 0 and the deduction
+        of the advance on the Invoice is lost.  Any write on the `quantity` of
+        the lines triggers that recompute, e.g. the negation made by
+        `account.move.action_switch_move_type` when the Invoice of the Sale
+        Order, deducting the Down Payments, gets a negative total.
+        """
+        product = self.env["product.product"].search(
+            [
+                ("sale_ok", "=", True),
+                ("type", "in", ("consu", "service")),
+                ("invoice_policy", "=", "order"),
+                ("taxes_id", "=", False),
+                ("list_price", ">", 0),
+            ],
+            limit=1,
+        )
+        # The Partner of the fixture has a Pricelist, which is required to get
+        # a Pricelist on the Invoice: it can not be searched because
+        # `property_product_pricelist` is not a stored field.
+        partner = self.partner
+        sale_order = self.env["sale.order"].create(
+            {
+                "partner_id": partner.id,
+                "order_line": [
+                    Command.create({"product_id": product.id, "product_uom_qty": 1.0})
+                ],
+            }
+        )
+        sale_order.action_confirm()
+        # Advance bigger than the amount left to invoice (the whole order here),
+        # so the Invoice of the Sale Order gets a negative total and is switched
+        # to a refund: the only case where the Down Payments deduction changes
+        # the type of the document (see `sale.order._create_invoices`).
+        advance_amount = sale_order.amount_total * 2
+        advance = (
+            self.env["sale.advance.payment.inv"]
+            .with_context(active_ids=sale_order.ids, active_model="sale.order")
+            .create(
+                {
+                    "advance_payment_method": "fixed",
+                    "fixed_amount": advance_amount,
+                }
+            )
+        )
+        advance.create_invoices()
+        sale_order.invoice_ids.action_post()
+
+        invoice = sale_order._create_invoices(final=True)
+        self.assertEqual(invoice.move_type, "out_refund")
+        down_payment_line = invoice.invoice_line_ids.filtered("is_downpayment")
+        self.assertEqual(down_payment_line.price_unit, advance_amount)
+        self.assertAlmostEqual(
+            invoice.amount_total,
+            advance_amount - sale_order.amount_total,
+            places=self._dp,
+        )
+
+    def test_16_down_payment_line_price_unit_on_update_prices(self):
+        """`button_update_prices_from_pricelist` must spare the Down Payment.
+
+        The Down Payment lines have no Product, so the Pricelist can not price
+        them: recomputing their Price Unit resets the amount to 0, and the
+        amount paid in advance is lost from any draft Invoice with a Pricelist
+        as soon as the button is pressed.
+        """
+        down_payment_line = self.invoice.invoice_line_ids.create(
+            {
+                "move_id": self.invoice.id,
+                "name": "Down Payment",
+                "quantity": 1.0,
+                "price_unit": 50.00,
+                "is_downpayment": True,
+            }
+        )
+        # The Pricelist comes from the Partner (`_compute_pricelist_id`), which
+        # resolves to the company's default Pricelist in this fixture: set the
+        # one with a price for the Product as the other tests do.
+        self.invoice.pricelist_id = self.sale_pricelist.id
+        self.invoice.button_update_prices_from_pricelist()
+        # The Pricelist does price the lines with a Product...
+        product_line = self.invoice.invoice_line_ids.filtered("product_id")[:1]
+        self.assertEqual(product_line.price_unit, 60.00)
+        # ... and leaves the Down Payment line as it is.
+        self.assertEqual(down_payment_line.price_unit, 50.00)
