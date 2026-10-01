@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2022-TODAY Akretion (http://www.akretion.com/)
+  @author: Magno Costa <magno.costa@akretion.com.br>
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+    <record
+        id="sale_stock_picking_invoicing_res_config_settings_form"
+        model="ir.ui.view"
+    >
+        <field name="name">sale_stock_picking_invoicing.res.config.settings.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//setting[@id='sales_settings_invoicing_policy']"
+                position="after"
+            >
+                <setting
+                    id="sales_settings_create_invoice_policy"
+                    title="This default value is applied to creation of Invoice."
+                    help="Define if Invoice should be created from Sale Order or from Stock Picking"
+                >
+                    <field
+                        name="sale_invoicing_policy"
+                        class="o_light_label"
+                        widget="radio"
+                    />
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
