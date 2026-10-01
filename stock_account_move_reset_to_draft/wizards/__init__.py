@@ -1,0 +1,1 @@
+from . import stock_account_move_reset_to_draft

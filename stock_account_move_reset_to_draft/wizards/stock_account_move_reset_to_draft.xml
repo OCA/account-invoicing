@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record model="ir.ui.view" id="stock_account_move_reset_to_draft_form_view">
+        <field name="model">stock.account.move.reset.to.draft</field>
+        <field name="arch" type="xml">
+            <form string="Stock Account Move Reset To Draft">
+
+                    <p>
+                        The selected account moves have already stock valuations and will be reset to draft.
+                        The next validation won't regenerate those valuations.
+                    </p>
+
+                <group>
+                    <field name="intertwined_move_line_ids">
+                        <tree>
+                            <field name="move_id" />
+                            <field name="name" />
+                        </tree>
+                    </field>
+                    <field name="consumed_move_line_ids">
+                        <tree>
+                            <field name="move_id" />
+                            <field name="name" />
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button
+                        name="doit"
+                        string="Reset to Draft"
+                        class="btn-primary"
+                        type="object"
+                    />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record
+        model="ir.actions.act_window"
+        id="stock_account_move_reset_to_draft_act_window"
+    >
+        <field name="name">Stock Account Move Reset To Draft</field>
+        <field name="res_model">stock.account.move.reset.to.draft</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
