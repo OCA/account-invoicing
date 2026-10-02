@@ -101,3 +101,39 @@ class TestAccountMove(common.TransactionCase):
         invoice = self.env["account.move"].new({"move_type": "entry"})
         # Simply check the method doesn't crash
         invoice._compute_invoice_currency_rate()
+
+    def test_04_currency_rate_ignores_cogs_lines(self):
+        """Anglo-Saxon COGS lines are kept in company currency (rate 1.0) and
+        must be ignored when computing the invoice currency rate. Otherwise they
+        distort the sum(amount_currency)/sum(balance) ratio, dragging the rate
+        towards 1.0. The core ignores them too (see
+        AccountMove._get_lines_onchange_currency)."""
+        self.partner.property_product_pricelist = self.pricelist_currency_extra
+        invoice = self._create_invoice(self.currency_extra)
+        self.assertAlmostEqual(invoice.invoice_currency_rate, 2.0, 2)
+        # Simulate the COGS lines added by stock_account on posting: they are
+        # kept in company currency (amount_currency == balance) and may be much
+        # larger than the invoice amounts.
+        company_currency = invoice.company_currency_id
+        self.env["account.move.line"].with_context(check_move_validity=False).create(
+            [
+                {
+                    "move_id": invoice.id,
+                    "display_type": "cogs",
+                    "account_id": self.other_account.id,
+                    "currency_id": company_currency.id,
+                    "balance": 1000.0,
+                    "amount_currency": 1000.0,
+                },
+                {
+                    "move_id": invoice.id,
+                    "display_type": "cogs",
+                    "account_id": self.other_account.id,
+                    "currency_id": company_currency.id,
+                    "balance": -1000.0,
+                    "amount_currency": -1000.0,
+                },
+            ]
+        )
+        # The rate must still reflect the real invoice lines, not the COGS ones.
+        self.assertAlmostEqual(invoice.invoice_currency_rate, 2.0, 2)
