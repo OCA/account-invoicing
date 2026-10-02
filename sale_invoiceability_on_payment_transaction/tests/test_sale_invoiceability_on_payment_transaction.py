@@ -9,6 +9,9 @@ class TestSaleInvoiceabilityOnPaymentTransaction(SaleCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.warehouse = cls.env["stock.warehouse"].search(
+            [("company_id", "=", cls.env.company.id)], limit=1
+        )
         cls.product_delivery = cls.env["product.product"].create(
             {
                 "name": "Product Delivery Policy",
@@ -22,6 +25,15 @@ class TestSaleInvoiceabilityOnPaymentTransaction(SaleCommon):
         cls.provider = cls.env.ref(
             "payment.payment_provider_demo", raise_if_not_found=False
         ) or cls.env["payment.provider"].search([("code", "=", "demo")], limit=1)
+
+    def _create_stock_quant(self, qty=1):
+        self.env["stock.quant"].create(
+            {
+                "location_id": self.warehouse.lot_stock_id.id,
+                "product_id": self.product_delivery.id,
+                "quantity": qty,
+            }
+        )
 
     def _create_sale_order(self, qty=1):
         order = self.env["sale.order"].create(
@@ -56,13 +68,14 @@ class TestSaleInvoiceabilityOnPaymentTransaction(SaleCommon):
         )
         return tx
 
-    def test_fully_paid(self):
+    def test_fully_paid_fully_picking(self):
         """Fully paid order: qty_to_invoice equals ordered qty."""
+        self._create_stock_quant(qty=2)
         order = self._create_sale_order(qty=2)
         line = order.order_line[0]
         self.assertEqual(line.qty_to_invoice, 0.0)
         self.assertEqual(line.untaxed_amount_to_invoice, 0.0)
-        self.assertEqual(line.amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_to_invoice, 200.0)
         self.assertEqual(line.amount_invoiced, 0.0)
         self.assertEqual(line.untaxed_amount_invoiced, 0.0)
         self.assertEqual(line.invoice_status, "no")
@@ -82,6 +95,82 @@ class TestSaleInvoiceabilityOnPaymentTransaction(SaleCommon):
         self.assertEqual(line.amount_invoiced, 200.0)
         self.assertEqual(line.untaxed_amount_invoiced, 200.0)
         self.assertEqual(line.invoice_status, "invoiced")
+        # done picking
+        order.picking_ids.button_validate()
+        self.assertEqual(line.qty_to_invoice, 0)
+        self.assertEqual(line.invoice_status, "invoiced")
+
+    def test_fully_paid_cancel_picking(self):
+        order = self._create_sale_order(qty=2)
+        line = order.order_line[0]
+        self.assertEqual(line.qty_to_invoice, 0.0)
+        self.assertEqual(line.untaxed_amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_to_invoice, 200.0)
+        self.assertEqual(line.amount_invoiced, 0.0)
+        self.assertEqual(line.untaxed_amount_invoiced, 0.0)
+        self.assertEqual(line.invoice_status, "no")
+        self._create_done_transaction(order)
+        self.assertTrue(order._is_paid())
+        self.assertEqual(line.qty_to_invoice, 2.0)
+        self.assertEqual(line.untaxed_amount_to_invoice, 200.0)
+        self.assertEqual(line.amount_to_invoice, 200.0)
+        self.assertEqual(line.amount_invoiced, 0.0)
+        self.assertEqual(line.untaxed_amount_invoiced, 0.0)
+        self.assertEqual(line.invoice_status, "to invoice")
+        invoice = order._create_invoices()
+        invoice.action_post()
+        self.assertEqual(line.qty_to_invoice, 0.0)
+        self.assertEqual(line.untaxed_amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_invoiced, 200.0)
+        self.assertEqual(line.untaxed_amount_invoiced, 200.0)
+        self.assertEqual(line.invoice_status, "invoiced")
+        # done picking
+        order.picking_ids.action_cancel()
+        self.assertEqual(line.qty_to_invoice, -2)
+        self.assertEqual(line.invoice_status, "to invoice")
+        order._create_invoices(final=True)
+        self.assertEqual(line.qty_to_invoice, 0)
+        self.assertEqual(line.invoice_status, "no")
+
+    def test_fully_paid_picking_backorder(self):
+        self._create_stock_quant(qty=2)
+        order = self._create_sale_order(qty=2)
+        line = order.order_line[0]
+        self.assertEqual(line.qty_to_invoice, 0.0)
+        self.assertEqual(line.untaxed_amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_to_invoice, 200.0)
+        self.assertEqual(line.amount_invoiced, 0.0)
+        self.assertEqual(line.untaxed_amount_invoiced, 0.0)
+        self.assertEqual(line.invoice_status, "no")
+        self._create_done_transaction(order)
+        self.assertTrue(order._is_paid())
+        self.assertEqual(line.qty_to_invoice, 2.0)
+        self.assertEqual(line.untaxed_amount_to_invoice, 200.0)
+        self.assertEqual(line.amount_to_invoice, 200.0)
+        self.assertEqual(line.amount_invoiced, 0.0)
+        self.assertEqual(line.untaxed_amount_invoiced, 0.0)
+        self.assertEqual(line.invoice_status, "to invoice")
+        invoice = order._create_invoices()
+        invoice.action_post()
+        self.assertEqual(line.qty_to_invoice, 0.0)
+        self.assertEqual(line.untaxed_amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_invoiced, 200.0)
+        self.assertEqual(line.untaxed_amount_invoiced, 200.0)
+        self.assertEqual(line.invoice_status, "invoiced")
+        # done picking
+        picking = order.picking_ids
+        picking.move_ids.quantity = 1
+        res = picking.button_validate()
+        wizard = self.env[res["res_model"]].with_context(**res["context"]).create({})
+        wizard.process()
+        self.assertEqual(line.qty_to_invoice, -1)
+        self.assertEqual(line.invoice_status, "to invoice")
+        extra_picking = order.picking_ids - picking
+        extra_picking.button_validate()
+        self.assertEqual(line.qty_to_invoice, 0)
+        self.assertEqual(line.invoice_status, "invoiced")
 
     def test_partial_payment(self):
         """Partially paid order: qty_to_invoice remains 0."""
@@ -91,7 +180,7 @@ class TestSaleInvoiceabilityOnPaymentTransaction(SaleCommon):
         self.assertFalse(order._is_paid())
         self.assertEqual(line.qty_to_invoice, 0.0)
         self.assertEqual(line.untaxed_amount_to_invoice, 0.0)
-        self.assertEqual(line.amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_to_invoice, 200.0)
         self.assertEqual(line.amount_invoiced, 0.0)
         self.assertEqual(line.untaxed_amount_invoiced, 0.0)
         self.assertEqual(line.invoice_status, "no")
@@ -103,7 +192,7 @@ class TestSaleInvoiceabilityOnPaymentTransaction(SaleCommon):
         self.assertFalse(order._is_paid())
         self.assertEqual(line.qty_to_invoice, 0.0)
         self.assertEqual(line.untaxed_amount_to_invoice, 0.0)
-        self.assertEqual(line.amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_to_invoice, 100.0)
         self.assertEqual(line.amount_invoiced, 0.0)
         self.assertEqual(line.untaxed_amount_invoiced, 0.0)
         self.assertEqual(line.invoice_status, "no")
@@ -113,7 +202,7 @@ class TestSaleInvoiceabilityOnPaymentTransaction(SaleCommon):
         line = order.order_line[0]
         self.assertEqual(line.qty_to_invoice, 0.0)
         self.assertEqual(line.untaxed_amount_to_invoice, 0.0)
-        self.assertEqual(line.amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_to_invoice, 200.0)
         self.assertEqual(line.amount_invoiced, 0.0)
         self.assertEqual(line.untaxed_amount_invoiced, 0.0)
         self.assertEqual(line.invoice_status, "no")
@@ -162,7 +251,7 @@ class TestSaleInvoiceabilityOnPaymentTransaction(SaleCommon):
         line = order.order_line[0]
         self.assertEqual(line.qty_to_invoice, 0.0)
         self.assertEqual(line.untaxed_amount_to_invoice, 0.0)
-        self.assertEqual(line.amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_to_invoice, 200.0)
         self.assertEqual(line.amount_invoiced, 0.0)
         self.assertEqual(line.untaxed_amount_invoiced, 0.0)
         self.assertEqual(line.invoice_status, "no")
@@ -211,7 +300,7 @@ class TestSaleInvoiceabilityOnPaymentTransaction(SaleCommon):
         self.assertEqual(line.qty_to_invoice, 0.0)
         self.assertEqual(line.qty_invoiced, 1.0)
         self.assertEqual(line.untaxed_amount_to_invoice, 0.0)
-        self.assertEqual(line.amount_to_invoice, 0.0)
+        self.assertEqual(line.amount_to_invoice, 100.0)
         self.assertEqual(line.amount_invoiced, 100.0)
         self.assertEqual(line.untaxed_amount_invoiced, 100.0)
         self.assertEqual(line.invoice_status, "invoiced")
