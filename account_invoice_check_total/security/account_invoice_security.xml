@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="group_supplier_inv_check_total" model="res.groups">
+        <field name="name">Check Total on Vendor Bills</field>
+    </record>
+</odoo>
