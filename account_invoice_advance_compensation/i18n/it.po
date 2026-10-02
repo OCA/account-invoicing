@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-09-25 19:45+0000\n"
+"PO-Revision-Date: 2026-10-02 07:37+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -119,168 +119,171 @@ msgstr "Annulla"
 #: model:ir.model.fields,help:account_invoice_advance_compensation.field_account_journal__is_advance_journal
 msgid "Check this box if this journal is for compensation advances"
 msgstr ""
+"Selezionare questa casella se questo registro riguarda anticipi sul compenso"
 
 #. module: account_invoice_advance_compensation
 #. odoo-python
 #: code:addons/account_invoice_advance_compensation/models/account_move.py:0
 #: model_terms:ir.ui.view,arch_db:account_invoice_advance_compensation.view_move_form_inherit
 msgid "Compensate Advance"
-msgstr ""
+msgstr "Compensazione anticipo"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__amount
 msgid "Compensation Amount"
-msgstr ""
+msgstr "Valore compensazione"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__date
 msgid "Compensation Date"
-msgstr ""
+msgstr "Data compensazione"
 
 #. module: account_invoice_advance_compensation
 #: model_terms:ir.ui.view,arch_db:account_invoice_advance_compensation.account_invoice_advance_compensation_wizard_view_form
 msgid "Compensation Details"
-msgstr ""
+msgstr "Dettagli compensazione"
 
 #. module: account_invoice_advance_compensation
 #. odoo-python
 #: code:addons/account_invoice_advance_compensation/wizard/compensation_wizard.py:0
 msgid "Compensation amount must be greater than zero."
-msgstr ""
+msgstr "Il valore della compensazione deve essere maggiore di zero."
 
 #. module: account_invoice_advance_compensation
 #. odoo-python
 #: code:addons/account_invoice_advance_compensation/wizard/compensation_wizard.py:0
 msgid "Compensation for %s"
-msgstr ""
+msgstr "Compensazione per %s"
 
 #. module: account_invoice_advance_compensation
 #. odoo-python
 #: code:addons/account_invoice_advance_compensation/wizard/compensation_wizard.py:0
 msgid "Compensation is available only for customer invoices and vendor bills."
 msgstr ""
+"La compensazione è disponibile solo per le fatture emesse ai clienti e le "
+"fatture ricevute dai fornitori."
 
 #. module: account_invoice_advance_compensation
 #: model_terms:ir.ui.view,arch_db:account_invoice_advance_compensation.account_invoice_advance_compensation_wizard_view_form
 msgid "Confirm"
-msgstr ""
+msgstr "Conferma"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creato il"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "Valuta"
 
 #. module: account_invoice_advance_compensation
 #. odoo-python
 #: code:addons/account_invoice_advance_compensation/models/account_move_line.py:0
 msgid "Date: %s"
-msgstr ""
+msgstr "Data: %s"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_bank_statement_line__advance_invoice
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_move__advance_invoice
 msgid "Has Advance Payments"
-msgstr ""
+msgstr "Ha pagamenti anticipati"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,help:account_invoice_advance_compensation.field_account_bank_statement_line__advance_invoice
 #: model:ir.model.fields,help:account_invoice_advance_compensation.field_account_move__advance_invoice
 msgid "Indicates whether this invoice has eligible advance payments available"
-msgstr ""
+msgstr "Indica se per questa fattura sono disponibili anticipi idonei"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__move_id
 msgid "Invoice"
-msgstr ""
+msgstr "Fattura"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model,name:account_invoice_advance_compensation.model_account_invoice_advance_compensation_wizard
 msgid "Invoice Advance Compensation Wizard"
-msgstr ""
+msgstr "Procedura guidata compensazione anticipi fattura"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__invoice_line_id
 msgid "Invoice Line"
-msgstr ""
+msgstr "Riga fattura"
 
 #. module: account_invoice_advance_compensation
 #. odoo-python
 #: code:addons/account_invoice_advance_compensation/wizard/compensation_wizard.py:0
 msgid "Invoice is required to create compensation."
-msgstr ""
+msgstr "È richiesta una fattura per creare la compensazione."
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,help:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__move_id
 msgid "Invoice to be compensated with an advance."
-msgstr ""
+msgstr "Fattura da compensare con un anticipo."
 
 #. module: account_invoice_advance_compensation
 #: model_terms:ir.ui.view,arch_db:account_invoice_advance_compensation.view_account_journal_form_inherit
 msgid "Is Advance Journal"
-msgstr ""
+msgstr "È un registro anticipi"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_journal__is_advance_journal
 msgid "Is Compensation Advance Journal"
-msgstr ""
+msgstr "È un registro anticipo compensazione"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model,name:account_invoice_advance_compensation.model_account_journal
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__journal_id
 msgid "Journal"
-msgstr ""
+msgstr "Registro"
 
 #. module: account_invoice_advance_compensation
 #. odoo-python
 #: code:addons/account_invoice_advance_compensation/wizard/compensation_wizard.py:0
 msgid "Journal '%s' is not configured for advance compensation."
-msgstr ""
+msgstr "il registro '%s' non è configurato per la compensazione anticipo."
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model,name:account_invoice_advance_compensation.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Registrazione contabile"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model,name:account_invoice_advance_compensation.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Movimento contabile"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultimo aggiornamento di"
 
 #. module: account_invoice_advance_compensation
 #: model:ir.model.fields,field_description:account_invoice_advance_compensation.field_account_invoice_advance_compensation_wizard__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultimo aggiornamento il"
 
 #. module: account_invoice_advance_compensation
 #. odoo-python
 #: code:addons/account_invoice_advance_compensation/models/account_move_line.py:0
 msgid "Line '%(line)s' has no open residual amount to be compensated."
-msgstr ""
+msgstr "La riga '%(line)s non ha un valore residuo da compensare."
 
 #. module: account_invoice_advance_compensation
 #. odoo-python
@@ -289,6 +292,8 @@ msgid ""
 "Line '%(line)s' uses account '%(account)s'. Only prepayment accounts are "
 "valid for advance compensation."
 msgstr ""
+"La riga '%(line)s utilizza il conto '%(account)s'. Solo i conti pagamento "
+"anticipato sono validi per compensazioni anticipi."
 
 #. module: account_invoice_advance_compensation
 #. odoo-python
