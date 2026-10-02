@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 =======================
 Stock Picking Invoicing
 =======================
@@ -17,7 +13,7 @@ Stock Picking Invoicing
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
@@ -34,6 +30,10 @@ Stock Picking Invoicing
 
 This module allows to create invoices directly from picking, without
 having to use sale or purchase orders.
+
+Additionally, the cancellation of stock moves already linked to invoices
+or bills is restricted to users who belong to the "Allow to cancel stock
+moves linked to invoices/bills" group.
 
 **Table of contents**
 
@@ -62,41 +62,50 @@ To use this module, you need to:
 If an invoice (not refund) is cancelled or deleted, invoice status of
 related picking is automatically updated to "To be invoiced".
 
+Also about the cancellation of stock moves linked to invoices/bills:
+
+-  Attempt to cancel a picking linked to invoices/bills.
+-  If the user is not part of the group "Allow to cancel stock move
+   linked to invoice/bill", an error will be raised, preventing the
+   cancellation.
+-  Members of the group can proceed with the cancellation without
+   restrictions.
+
 Changelog
 =========
 
 16.0.1.0.0 (2023-05-25)
 -----------------------
 
-   - Migration to version 16.0 .
-   - Included dependency from module base_view_inheritance_extension
-     from repository https://https://github.com/OCA/server-tools .
+   -  Migration to version 16.0 .
+   -  Included dependency from module base_view_inheritance_extension
+      from repository https://https://github.com/OCA/server-tools .
 
 15.0.1.0.0 (2023-04-28)
 -----------------------
 
-   - Migration to version 15.0 .
+   -  Migration to version 15.0 .
 
 14.0.1.0.0 (2021-11-12)
 -----------------------
 
-   - Migration to version 14.0 .
+   -  Migration to version 14.0 .
 
 13.0.3.1.0 (2021-10-05)
 -----------------------
 
-   - Migration to version 13.0 .
+   -  Migration to version 13.0 .
 
 12.0.2.0.0 (2019-12-19)
 -----------------------
 
-   - Included dependency from module stock_picking_invoice_link from
-     repository https://github.com/OCA/stock-logistics-workflow.git.
+   -  Included dependency from module stock_picking_invoice_link from
+      repository https://github.com/OCA/stock-logistics-workflow.git.
 
 12.0.1.0.0 (2019-07-16)
 -----------------------
 
-   - Migration to version 12.0 .
+   -  Migration to version 12.0 .
 
 Bug Tracker
 ===========
@@ -119,15 +128,15 @@ Authors
 Contributors
 ------------
 
-- Lorenzo Battistini <lorenzo.battistini@agilebg.com>
-- Leonardo Pistone <leonardo.pistone@agilebg.com>
-- Daniel Sadamo <daniel.sadamo@kmee.com.br>
-- Alex Comba <alex.comba@agilebg.com>
-- Florent THOMAS <florent.thomas@mind-and-go.com>
-- François Honoré <francois.honore@acsone.eu>
-- Magno Costa <magno.costa@akretion.com.br>
-- Luis Felipe Mileo <mileo@kmee.com.br>
-- Radovan Skolnik <radovan@skolnik.info>
+-  Lorenzo Battistini <lorenzo.battistini@agilebg.com>
+-  Leonardo Pistone <leonardo.pistone@agilebg.com>
+-  Daniel Sadamo <daniel.sadamo@kmee.com.br>
+-  Alex Comba <alex.comba@agilebg.com>
+-  Florent THOMAS <florent.thomas@mind-and-go.com>
+-  François Honoré <francois.honore@acsone.eu>
+-  Magno Costa <magno.costa@akretion.com.br>
+-  Luis Felipe Mileo <mileo@kmee.com.br>
+-  Radovan Skolnik <radovan@skolnik.info>
 
 Maintainers
 -----------
