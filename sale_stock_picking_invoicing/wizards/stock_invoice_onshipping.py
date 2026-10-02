@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
+from odoo.fields import Command
 
 
 class StockInvoiceOnshipping(models.TransientModel):
@@ -209,7 +210,7 @@ class StockInvoiceOnshipping(models.TransientModel):
             # Same make above, get fields informed in Sale Line dict
             sale_line_values = move.sale_line_id._prepare_invoice_line()
             # Vals informed in any case
-            values["sale_line_ids"] = [(6, 0, moves.sale_line_id.ids)]
+            values["sale_line_ids"] = [Command.set(moves.sale_line_id.ids)]
             values["analytic_distribution"] = sale_line_values.get(
                 "analytic_distribution"
             )
@@ -262,9 +263,9 @@ class StockInvoiceOnshipping(models.TransientModel):
             # Set qty to 0 to keep combo header visible on SO invoice
             sale_line_vals["quantity"] = 0
             sale_line_vals["sale_line_ids"] = [
-                (6, 0, [sale_line_vals.get("sale_line_ids")[0][1]])
+                Command.set([sale_line_vals.get("sale_line_ids")[0][1]])
             ]
-            combo_section_vals.append((0, 0, sale_line_vals))
+            combo_section_vals.append(Command.create(sale_line_vals))
         return combo_section_vals
 
     def _create_invoice(self, invoice_values):
@@ -310,9 +311,9 @@ class StockInvoiceOnshipping(models.TransientModel):
                 # Change [(4, 59)] for [(6, 0, [59])] to avoid error
                 # in method to Resequencing
                 sale_line_vals["sale_line_ids"] = [
-                    (6, 0, [sale_line_vals.get("sale_line_ids")[0][1]])
+                    Command.set([sale_line_vals.get("sale_line_ids")[0][1]])
                 ]
-                section_note_vals.append((0, 0, sale_line_vals))
+                section_note_vals.append(Command.create(sale_line_vals))
 
             invoice_values["invoice_line_ids"] += section_note_vals
 
@@ -330,8 +331,8 @@ class StockInvoiceOnshipping(models.TransientModel):
             # [(6, 0, {})]
             if line[2]:
                 sale_line = line[2].get("sale_line_ids")
-                if sale_line:
-                    # [(6, 0, [58])]
+                # [(<Command.SET: 6>, 0, [])]
+                if sale_line[0][2]:
                     line[2]["sequence"] = invoice_item_seq_dict.get(sale_line[0][2][0])
 
         # Down Payments
@@ -344,9 +345,7 @@ class StockInvoiceOnshipping(models.TransientModel):
                     # Create a dedicated section for the down payments
                     # (put at the end of the invoiceable_lines)
                     down_payment_vals.append(
-                        (
-                            0,
-                            0,
+                        Command.create(
                             line.order_id._prepare_down_payment_section_line(
                                 sequence=invoice_item_sequence,
                             ),
@@ -357,9 +356,7 @@ class StockInvoiceOnshipping(models.TransientModel):
 
                 if line.is_downpayment:
                     down_payment_vals.append(
-                        (
-                            0,
-                            0,
+                        Command.create(
                             line._prepare_invoice_line(
                                 sequence=invoice_item_sequence,
                             ),
