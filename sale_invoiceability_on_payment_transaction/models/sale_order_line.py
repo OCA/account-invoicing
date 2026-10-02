@@ -24,19 +24,29 @@ class SaleOrderLine(models.Model):
         self -= paid_lines
         return super()._compute_qty_to_invoice()
 
-    @api.depends("order_id.transaction_ids.state")
+    @api.depends(
+        "order_id.transaction_ids.amount",
+        "order_id.transaction_ids.state",
+        "qty_delivered",
+        "state",
+    )
     def _compute_amount_to_invoice(self):
-        paid_lines = self._filter_paid_lines_for_invoicing()
-        for line in paid_lines:
-            # Compute the field based on product_uom_qty instead of qty_delivered.
+        delivery_lines = self.filtered(
+            lambda line: line.state == "sale"
+            and line.product_id.invoice_policy == "delivery"
+        )
+        for line in delivery_lines:
             if line.product_uom_qty:
-                uom_qty_to_consider = line.product_uom_qty
-                qty_to_invoice = uom_qty_to_consider - line.qty_invoiced_posted
+                qty_to_invoice = (
+                    line.product_uom_qty
+                    if line.order_id._is_paid() and not line._is_delivery_started()
+                    else line.qty_delivered
+                ) - line.qty_invoiced_posted
                 unit_price_total = line.price_total / line.product_uom_qty
                 line.amount_to_invoice = unit_price_total * qty_to_invoice
             else:
                 line.amount_to_invoice = 0.0
-        self -= paid_lines
+        self -= delivery_lines
         return super()._compute_amount_to_invoice()
 
     @api.depends("order_id.transaction_ids.state")
