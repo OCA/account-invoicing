@@ -1,0 +1,31 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_refund_reinvoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_refund_reinvoice
+#: model:ir.model,name:account_invoice_refund_reinvoice.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_refund_reinvoice
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_reinvoice.account_move_form_view
+msgid "Restore Credit Note"
+msgstr ""
+
+#. module: account_invoice_refund_reinvoice
+#. odoo-python
+#: code:addons/account_invoice_refund_reinvoice/models/account_move.py:0
+#, python-format
+msgid "Reversal of: %s"
+msgstr ""
