@@ -43,7 +43,7 @@
                 <span>Disc.3 %</span>
             </th>
         </xpath>
-        <xpath expr="//td[span[@t-field='line.discount']]" position="attributes">
+        <xpath expr="//td[@name='td_discount']/span[@t-field='line.discount']" position="attributes">
             <attribute name="t-if">False</attribute>
         </xpath>
         <xpath expr="//td[span[@t-field='line.discount']]" position="after">
