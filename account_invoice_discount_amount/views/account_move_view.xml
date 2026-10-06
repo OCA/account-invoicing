@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- Copyright 2026 Camptocamp SA (https://www.camptocamp.com).
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="name">account.invoice.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_residual_signed']" position="after">
+                <field
+                    name="discount_amount_currency"
+                    string="Discount Amount"
+                    optional="show"
+                    invisible="not discount_amount_currency"
+                />
+                <field
+                    name="discount_balance"
+                    optional="hide"
+                    invisible="not discount_balance"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
