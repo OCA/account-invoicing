@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_billing_portal,account.billing.portal,account_billing.model_account_billing,base.group_portal,1,0,0,0
+access_account_billing_line_portal,account.billing.line.portal,account_billing.model_account_billing_line,base.group_portal,1,0,0,0

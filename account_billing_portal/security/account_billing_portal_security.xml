@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="account_billing_rule_portal" model="ir.rule">
+        <field name="name">Portal Billings</field>
+        <field name="model_id" ref="account_billing.model_account_billing" />
+        <field
+            name="domain_force"
+        >[('state', '=', 'billed'), ('message_partner_ids','child_of',[user.commercial_partner_id.id])]</field>
+        <field name="groups" eval="[Command.link(ref('base.group_portal'))]" />
+    </record>
+    <record id="account_billing_line_rule_portal" model="ir.rule">
+        <field name="name">Portal Billing Lines</field>
+        <field name="model_id" ref="account_billing.model_account_billing_line" />
+        <field
+            name="domain_force"
+        >[('billing_id.state', '=', 'billed'), ('billing_id.message_partner_ids','child_of',[user.commercial_partner_id.id])]</field>
+        <field name="groups" eval="[Command.link(ref('base.group_portal'))]" />
+    </record>
+</odoo>
