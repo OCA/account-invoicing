@@ -10,10 +10,14 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     def cron_send_email_invoice(self):
-        invoices = self.search(self._email_invoice_to_send_domain())
-        for invoice in invoices:
-            description = f"Send invoice {invoice.name} by email"
-            invoice.with_delay(description=description)._execute_invoice_sent_wizard()
+        # The partner's invoice sending method is company dependent
+        for company in self.env["res.company"].search([]):  # pylint: disable=no-search-all
+            moves = self.with_company(company)
+            for invoice in moves.search(moves._email_invoice_to_send_domain()):
+                description = f"Send invoice {invoice.name} by email"
+                invoice.with_delay(
+                    description=description
+                )._execute_invoice_sent_wizard()
 
     def _prepare_invoice_sent_wizard_vals(self):
         return {
@@ -26,7 +30,8 @@ class AccountMove(models.Model):
         self.ensure_one()
         if self.is_move_sent:
             return self.env._("This invoice has already been sent.")
-        if self.transmit_method_code != "mail":
+        partner = self.commercial_partner_id.with_company(self.company_id)
+        if partner.invoice_sending_method != "email":
             return self.env._("This invoice should not be sent by mail")
         res = self.action_invoice_sent()
         wiz_ctx = res["context"] or {}
@@ -43,10 +48,11 @@ class AccountMove(models.Model):
     def _email_invoice_to_send_domain(self) -> Domain:
         return Domain(
             [
+                ("company_id", "=", self.env.company.id),
                 ("move_type", "in", ("out_invoice", "out_refund")),
                 ("state", "=", "posted"),
                 ("is_move_sent", "=", False),
-                ("transmit_method_code", "=", "mail"),
+                ("commercial_partner_id.invoice_sending_method", "=", "email"),
                 ("payment_state", "=", "not_paid"),
             ]
         )

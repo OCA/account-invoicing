@@ -3,12 +3,12 @@
 
 {
     "name": "Account Invoice Auto Send By Email",
-    "summary": "Invoice with the email transmit method are send automatically.",
+    "summary": "Invoices with the email sending method are sent automatically.",
     "version": "19.0.1.0.0",
     "category": "Accounting",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "depends": ["account", "account_invoice_transmit_method", "queue_job"],
+    "depends": ["account", "queue_job"],
     "website": "https://github.com/OCA/account-invoicing",
     "data": [
         "data/ir_cron.xml",
