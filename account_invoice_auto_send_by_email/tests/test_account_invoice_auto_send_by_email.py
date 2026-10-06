@@ -21,14 +21,14 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
         )
 
         cls.AccountMove = cls.env["account.move"]
-        cls.AccountMove.search([]).write({"transmit_method_code": ""})
+        cls.env["res.partner"].search([]).invoice_sending_method = "manual"
         cls.company = cls.env.user.company_id
-        cls.transmit_method_mail = cls.env.ref("account_invoice_transmit_method.mail")
-        cls.transmit_method_post = cls.env.ref("account_invoice_transmit_method.post")
         cls.env["account.journal"].create(
             {"name": "Test sale journal", "type": "sale", "code": "tsj"}
         )
-        cls.customer = cls.env["res.partner"].create({"name": "Customer"})
+        cls.customer = cls.env["res.partner"].create(
+            {"name": "Customer", "invoice_sending_method": "email"}
+        )
         cls.receivable_account = cls.env["account.account"].search(
             [
                 (
@@ -65,7 +65,6 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
                 "move_type": "out_invoice",
                 "partner_id": cls.customer.id,
                 "partner_bank_id": cls.partner_bank.id,
-                "transmit_method_id": cls.transmit_method_mail.id,
                 "line_ids": [
                     Command.create(
                         {
@@ -109,22 +108,33 @@ class TestAccountInvoiceAutoSendByEmail(TransactionCase):
         self.assertFalse(moves)
         self.assertTrue(self.invoice.is_move_sent)
 
-    def test_invoice_not_send_multiple_time(self):
-        # Transmit method is e-mail, but the invoice has already been sent
-        self.invoice.write(
-            {
-                "transmit_method_id": self.transmit_method_mail.id,
-                "is_move_sent": True,
-            }
+    def test_send_email_invoice_cron_other_company(self):
+        """The customer's sending method is read for the invoice's company.
+
+        Scenario:
+            1. The customer is set to be sent invoices by email, but only in
+               another company.
+            2. The cron runs.
+        Expected:
+            - The invoice is not sent.
+        """
+        other_company = self.env["res.company"].create({"name": "Other company"})
+        self.customer.invoice_sending_method = "manual"
+        self.customer.with_company(other_company).invoice_sending_method = "email"
+        self.assertNotIn(
+            self.invoice,
+            self.AccountMove.search(self.AccountMove._email_invoice_to_send_domain()),
         )
+        self.AccountMove.cron_send_email_invoice()
+        self.assertFalse(self.invoice.is_move_sent)
+
+    def test_invoice_not_send_multiple_time(self):
+        # Sending method is e-mail, but the invoice has already been sent
+        self.invoice.is_move_sent = True
         res = self.invoice._execute_invoice_sent_wizard()
         self.assertEqual(res, "This invoice has already been sent.")
-        # The invoice hasn't been sent yet, but the transmit method is not e-mail
-        self.invoice.write(
-            {
-                "transmit_method_id": self.transmit_method_post.id,
-                "is_move_sent": False,
-            }
-        )
+        # The invoice hasn't been sent yet, but the sending method is not e-mail
+        self.invoice.is_move_sent = False
+        self.customer.invoice_sending_method = "manual"
         res = self.invoice._execute_invoice_sent_wizard()
         self.assertEqual(res, "This invoice should not be sent by mail")

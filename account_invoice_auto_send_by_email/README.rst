@@ -32,9 +32,9 @@ Account Invoice Auto Send By Email
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module will on a daily basis send all invoices with email as
-transmit method. That are posted and not yet send. The email is send
-with the use of queue job.
+This module will on a daily basis send all invoices whose customer has
+email as invoice sending method. That are posted and not yet send. The
+email is send with the use of queue job.
 
 **Table of contents**
 
@@ -62,7 +62,7 @@ Authors
 Contributors
 ------------
 
--  Michael Tietz (MT Software) <mtietz@mt-software.de>
+- Michael Tietz (MT Software) <mtietz@mt-software.de>
 
 Maintainers
 -----------
