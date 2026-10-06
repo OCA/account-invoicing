@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_sale_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='proforma_configuration']" position="after">
+                <setting
+                    id="invoice_group_by_order_partner"
+                    string="Group invoices by order partner"
+                    help="If enabled, invoices created using Consolidated Billing from multiple sale orders will be grouped only when the sale partner is the same. Even if the invoice partner is the same, sale orders with different sale partners will generate separate invoices."
+                >
+                    <field name="invoice_group_by_order_partner" />
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

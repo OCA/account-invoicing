@@ -1,0 +1,80 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_order_partner
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-12 08:29+0000\n"
+"PO-Revision-Date: 2026-02-12 08:29+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_move_order_partner
+#: model_terms:ir.ui.   view,arch_db:account_move_order_partner.report_invoice_order_partner
+msgid "<strong>Sold-to and Shipping Address:</strong>"
+msgstr "<strong>お取引先とお届け先:</strong>"
+
+#. module: account_move_order_partner
+#: model_terms:ir.ui.view,arch_db:account_move_order_partner.report_invoice_order_partner
+msgid "<strong>Sold-to:</strong>"
+msgstr "<strong>お取引先:</strong>"
+
+#. module: account_move_order_partner
+#: model:ir.model,name:account_move_order_partner.model_res_company
+msgid "Companies"
+msgstr "会社"
+
+#. module: account_move_order_partner
+#: model:ir.model,name:account_move_order_partner.model_res_config_settings
+msgid "Config Settings"
+msgstr "コンフィグ設定"
+
+#. module: account_move_order_partner
+#: model_terms:ir.ui.view,arch_db:account_move_order_partner.view_sale_config_settings
+msgid "Group invoices by order partner"
+msgstr "オーダ顧客ごとに請求書をグループ化"
+
+#. module: account_move_order_partner
+#: model_terms:ir.ui.view,arch_db:account_move_order_partner.view_sale_config_settings
+msgid ""
+"If enabled, invoices created using Consolidated Billing from multiple sale "
+"orders will be grouped only when the sale partner is the same. Even if the "
+"invoice partner is the same, sale orders with different sale partners will "
+"generate separate invoices."
+msgstr ""
+"有効にすると、複数の販売オーダから作成される請求書は、販売連絡先が同一の場合のみグループ化されます。"
+"請求連絡先が同一であっても、販売連絡先が異なる販売オーダは別々の請求書として作成されます。"
+
+#. module: account_move_order_partner
+#: model:ir.model.fields,field_description:account_move_order_partner.field_res_company__invoice_group_by_order_partner
+#: model:ir.model.fields,field_description:account_move_order_partner.field_res_config_settings__invoice_group_by_order_partner
+msgid "Invoice Group By Order Partner"
+msgstr "オーダ顧客ごとに請求書をグループ化"
+
+#. module: account_move_order_partner
+#: model:ir.model,name:account_move_order_partner.model_account_move
+msgid "Journal Entry"
+msgstr "仕訳"
+
+#. module: account_move_order_partner
+#: model:ir.model,name:account_move_order_partner.model_sale_order
+msgid "Sales Order"
+msgstr "販売オーダ"
+
+#. module: account_move_order_partner
+#: model_terms:ir.ui.view,arch_db:account_move_order_partner.view_account_invoice_filter_inherit
+#: model_terms:ir.ui.view,arch_db:account_move_order_partner.view_move_form_inherit
+msgid "Sold-to"
+msgstr "お取引先"
+
+#. module: account_move_order_partner
+#: model:ir.model.fields,field_description:account_move_order_partner.field_account_bank_statement_line__order_partner_id
+#: model:ir.model.fields,field_description:account_move_order_partner.field_account_move__order_partner_id
+msgid "Sold-to Partner"
+msgstr "お取引先連絡先"

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_invoice_filter_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.filter</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field
+                    name="order_partner_id"
+                    string="Sold-to"
+                    filter_domain="[('order_partner_id.name', 'ilike', self)]"
+                />
+            </xpath>
+            <xpath expr="//filter[@name='partner']" position="after">
+                <filter
+                    string="Sold-to"
+                    name="groupy_by_order_partner"
+                    domain="[]"
+                    context="{'group_by': 'order_partner_id'}"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_move_form_inherit" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_shipping_id']" position="before">
+                <field
+                    name="order_partner_id"
+                    invisible="move_type != 'out_invoice'"
+                    string="Sold-to"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
