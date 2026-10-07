@@ -1,0 +1,158 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_refund_reason
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2020-03-05 16:13+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>\n"
+"Language-Team: none\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.10\n"
+
+#. module: account_invoice_refund_reason
+#: model:ir.model,name:account_invoice_refund_reason.model_account_move_refund_reason
+msgid "Account Move Refund Reason"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.model,name:account_invoice_refund_reason.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__active
+msgid "Active"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.account_invoice_refund_reasons_search
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.view_account_invoice_refund_reason
+msgid "Archived"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_cancellation
+msgid "Cancellation"
+msgstr "Otkazivanje"
+
+#. module: account_invoice_refund_reason
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_agreement
+msgid "Commercial and/or Collection Agreement"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__create_uid
+msgid "Created by"
+msgstr "Kreirao"
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__create_date
+msgid "Created on"
+msgstr "Kreirano"
+
+#. module: account_invoice_refund_reason
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_correction
+msgid "Data Correction"
+msgstr "Ispravak podataka"
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__description
+msgid "Description"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__display_name
+msgid "Display Name"
+msgstr "Naziv"
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_invoice_refund_reason
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_noref
+msgid "Invoice without reference"
+msgstr "Račun bez reference"
+
+#. module: account_invoice_refund_reason
+#: model:ir.model,name:account_invoice_refund_reason.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason____last_update
+msgid "Last Modified on"
+msgstr "Zadnje modificirano"
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__write_uid
+msgid "Last Updated by"
+msgstr "Zadnje ažurirao"
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__write_date
+msgid "Last Updated on"
+msgstr "Zadnje ažuriranje"
+
+#. module: account_invoice_refund_reason
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_error
+msgid "Lease and/or Minimum Charge Error"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_refund_reason__name
+msgid "Name"
+msgstr "Naziv"
+
+#. module: account_invoice_refund_reason
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_others
+msgid "Others"
+msgstr "Ostali"
+
+#. module: account_invoice_refund_reason
+#: model:account.move.refund.reason,name:account_invoice_refund_reason.refund_reason_difference
+msgid "Price Difference"
+msgstr "Razlika u cijeni"
+
+#. module: account_invoice_refund_reason
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_reason.view_account_invoice_refund_reason
+msgid "Reason Name"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_bank_statement_line__reason_id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move__reason_id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_move_reversal__reason_id
+#: model:ir.model.fields,field_description:account_invoice_refund_reason.field_account_payment__reason_id
+msgid "Refund Reason"
+msgstr ""
+
+#. module: account_invoice_refund_reason
+#: model:ir.actions.act_window,name:account_invoice_refund_reason.refund_reason_action
+#: model:ir.ui.menu,name:account_invoice_refund_reason.refund_reasons_menu
+msgid "Refund Reasons"
+msgstr "Razlozi odobrenja"
+
+#~ msgid "Account Invoice refund Reasons"
+#~ msgstr "Razlozi otkazivanja računa"
+
+#~ msgid "Credit Note"
+#~ msgstr "Odobrenje"
+
+#~ msgid "Invoice"
+#~ msgstr "Račun"
+
+#~ msgid "Reason"
+#~ msgstr "Razlog"
+
+#~ msgid "Reason to credit"
+#~ msgstr "Razlog odobrenja"
