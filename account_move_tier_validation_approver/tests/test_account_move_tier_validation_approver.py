@@ -77,3 +77,33 @@ class TestAccountMoveTierValidationApprover(TransactionCase):
             record.action_post()
         record.with_user(self.test_approver.id).validate_tier()
         record.action_post()
+
+    def test_is_approver_id_readonly(self):
+        self.assertEqual(self.vendor_bill.state, "draft")
+        self.assertFalse(self.vendor_bill.review_ids)
+        self.assertTrue(self.vendor_bill.is_approver_id_readonly)
+        self.env.user.groups_id += self.env.ref(
+            "account_move_tier_validation_approver."
+            "group_can_edit_account_move_tier_validation_approver"
+        )
+        self.assertFalse(self.vendor_bill.is_approver_id_readonly)
+        self.tier_definition = self.env["tier.definition"].create(
+            {
+                "name": "Test Tier",
+                "model_id": self.model_id.id,
+                "review_type": "field",
+                "reviewer_field_id": self.field_id.id,
+                "definition_type": "domain",
+                "definition_domain": "[('move_type', '=', 'in_invoice')]",
+            }
+        )
+        self.vendor_bill.write(
+            {
+                "approver_id": self.test_approver.id,
+                "invoice_date": self.vendor_bill.date,
+            }
+        )
+        self.vendor_bill.with_user(self.test_user_1.id).request_validation()
+        self.vendor_bill.with_user(self.test_user_1.id).validate_tier()
+        self.assertTrue(self.vendor_bill.review_ids)
+        self.assertTrue(self.vendor_bill.is_approver_id_readonly)
