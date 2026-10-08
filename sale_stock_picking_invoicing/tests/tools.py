@@ -5,26 +5,6 @@
 from odoo.tests import Form
 
 
-def create_with_form_res_partner(env, values):
-    with Form(env["res.partner"]) as partner:
-        partner.name = values.get("name")
-        partner.category_id = values.get("category_id")
-        partner.street = values.get("street")
-        partner.city = values.get("city")
-        partner.country_id = values.get("country_id")
-        partner.state_id = values.get("state_id")
-        partner.zip = values.get("zip")
-        partner.email = values.get("email")
-        partner.phone = values.get("phone")
-        partner.website = values.get("website")
-        partner.vat = values.get("vat")
-        if values.get("type"):
-            partner.type = values.get("type")
-        if values.get("parent_id"):
-            partner.parent_id = values.get("parent_id")
-    return partner.save()
-
-
 def create_with_form_product_combo(env, values, line_values):
     with Form(env["product.combo"]) as combo:
         combo.name = values.get("name")
@@ -91,3 +71,25 @@ def create_with_form_account_payment(env, invoice, values):
         wzd.amount = values.get("amount")
 
     return wzd.save()._create_payments()
+
+
+def get_tested_module_names(env, module_name):
+    """Return ``module_name`` and the names of its (transitive) dependencies.
+
+    Used to restrict the fields compared by the tests to the ones provided by
+    the modules under test: other installed modules (localizations, ...) add
+    their own fields on the same models and are set by their own glue modules,
+    tested by their own tests.
+    """
+    dependencies = {
+        module.name: module.dependencies_id.mapped("name")
+        for module in env["ir.module.module"].search([])
+    }
+    module_names, todo = set(), [module_name]
+    while todo:
+        name = todo.pop()
+        if name in module_names:
+            continue
+        module_names.add(name)
+        todo.extend(dependencies.get(name, []))
+    return module_names
