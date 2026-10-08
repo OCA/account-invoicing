@@ -186,7 +186,7 @@ class TestAccountProductMove(TransactionCase):
         self.assertFalse(invoice.product_move_ids)
         # Change filter and try again.
         partner_filter.write(
-            {"domain": "[('partner_id.name', '=', '%s')]" % self.partner_01.name}
+            {"domain": f"[('partner_id.name', '=', '{self.partner_01.name}')]"}
         )
         invoice.button_draft()
         invoice.action_post()

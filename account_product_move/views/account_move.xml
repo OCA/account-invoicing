@@ -12,7 +12,7 @@
                     class="oe_stat_button"
                     icon="fa-file-text-o"
                     style="width: 18em;"
-                    attrs="{'invisible': [('product_move_count', '=', 0)]}"
+                    invisible="product_move_count == 0"
                     groups="account.group_account_user"
                 >
                     <field

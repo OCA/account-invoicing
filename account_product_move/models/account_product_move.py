@@ -44,7 +44,6 @@ class AccountProductMove(models.Model):
         inverse_name="move_id",
         copy=True,
         string="Extra Journal Items",
-        states={"complete": [("readonly", True)]},
         help="Journal items to be added in new journal entry",
     )
     filter_id = fields.Many2one(

@@ -61,7 +61,6 @@ class AccountProductMoveLine(models.Model):
         " product a percentage can be taken from the invoice unit price.",
     )
 
-
     @api.constrains("debit", "credit", "percentage_debit", "percentage_credit")
     def _check_debit_credit(self):
         """Do not allow to mix debit and credit."""
@@ -128,4 +127,3 @@ class AccountProductMoveLine(models.Model):
             # Allow the line to be created
             vals["currency_id"] = line.currency_id.id
         return vals
-

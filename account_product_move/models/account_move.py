@@ -44,7 +44,7 @@ class AccountMove(models.Model):
             "name": _("Journal Entries"),
             "type": "ir.actions.act_window",
             "res_model": "account.move",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "target": "current",
             "domain": [("id", "in", self.product_move_ids.ids)],
         }

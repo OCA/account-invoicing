@@ -14,14 +14,14 @@
                         string="Complete"
                         type="object"
                         class="oe_highlight"
-                        states="new"
+                        invisible="state != 'new'"
                     />
                     <button
                         name="button_reset"
                         string="Reset"
                         type="object"
                         class="oe_highlight"
-                        states="complete"
+                        invisible="state != 'complete'"
                     />
                     <field
                         name="state"
@@ -37,13 +37,13 @@
                             type="object"
                             class="oe_stat_button"
                             icon="fa-archive"
-                            attrs="{'invisible': [('active', '=', False)]}"
+                            invisible="not active"
                         />
                         <button
                             name="action_unarchive"
                             string="Reactivate"
                             type="object"
-                            attrs="{'invisible': [('active', '=', True)]}"
+                            invisible="active"
                         />
                     </div>
                     <label for="name" class="oe_edit_only" />
@@ -72,11 +72,11 @@
                             name="line_ids"
                             nolabel="1"
                             colspan="4"
-                            attrs="{'readonly': [('state', '=', 'complete')]}"
+                            readonly="state == 'complete'"
                         >
-                            <tree editable="bottom">
-                                <field name="company_id" invisible="1" />
-                                <field name="move_id" invisible="1" />
+                            <list editable="bottom">
+                                <field name="company_id" column_invisible="1" />
+                                <field name="move_id" column_invisible="1" />
                                 <field
                                     name="account_id"
                                     options="{'no_create_edit': True, 'no_open': True}"
@@ -89,24 +89,24 @@
                                 <field name="credit" widget="monetary" />
                                 <field name="percentage_debit" />
                                 <field name="percentage_credit" />
-                                <field name="percentage_debit_sale"/>
-                                <field name="percentage_credit_sale"/>
-                            </tree>
+                                <field name="percentage_debit_sale" />
+                                <field name="percentage_credit_sale" />
+                            </list>
                         </field>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
-    <record model="ir.ui.view" id="account_product_move_tree_view">
-        <field name="name">account.product.move.tree</field>
+    <record model="ir.ui.view" id="account_product_move_list_view">
+        <field name="name">account.product.move.list</field>
         <field name="model">account.product.move</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
                 <field name="journal_id" />
                 <field name="filter_id" />
-            </tree>
+            </list>
         </field>
     </record>
     <!-- Search -->
@@ -121,4 +121,3 @@
         </field>
     </record>
 </odoo>
-
