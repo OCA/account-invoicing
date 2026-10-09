@@ -1,0 +1,5 @@
+id,name,model_id,group_id/id,operation,domain
+access_account_billing,access_account_billing,account.billing,account.group_account_invoice,crud,
+access_account_billing_line,access_account_billing_line,account.billing.line,account.group_account_invoice,crud,
+account_billing_company_rule,Account Billing Multi-company,account.billing,,crud,"['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]"
+account_billing_line_company_rule,Account Billing Line Multi-company,account.billing.line,,crud,"['|', ('billing_id.company_id', 'in', company_ids), ('billing_id.company_id', '=', False)]"
