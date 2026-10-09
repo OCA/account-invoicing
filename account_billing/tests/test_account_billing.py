@@ -1,8 +1,6 @@
 # Copyright 2019 Ecosoft Co., Ltd (https://ecosoft.co.th/)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
-from datetime import datetime
-
 from dateutil.relativedelta import relativedelta
 
 from odoo import Command, fields
@@ -196,7 +194,7 @@ class TestAccountBilling(TransactionCase):
                 "bill_type": "out_invoice",
                 "partner_id": self.partner_id.id,
                 "currency_id": self.currency_eur_id,
-                "threshold_date": datetime.now(),
+                "threshold_date": fields.Date.today(),
                 "threshold_date_type": "invoice_date_due",
             }
         )
@@ -217,7 +215,7 @@ class TestAccountBilling(TransactionCase):
                 "bill_type": "in_invoice",
                 "partner_id": self.partner_id.id,
                 "currency_id": self.currency_usd_id,
-                "threshold_date": datetime.now(),
+                "threshold_date": fields.Date.today(),
                 "threshold_date_type": "invoice_date_due",
             }
         )
@@ -234,7 +232,7 @@ class TestAccountBilling(TransactionCase):
                 "bill_type": "out_invoice",
                 "partner_id": self.partner_id.id,
                 "currency_id": self.currency_eur_id,
-                "threshold_date": datetime.now() + relativedelta(months=12),
+                "threshold_date": fields.Date.today() + relativedelta(months=12),
                 "threshold_date_type": "invoice_date",
             }
         )
@@ -268,7 +266,7 @@ class TestAccountBilling(TransactionCase):
                 "bill_type": "out_invoice",
                 "partner_id": self.partner_id.id,
                 "currency_id": self.currency_eur_id,
-                "threshold_date": datetime.now(),
+                "threshold_date": fields.Date.today(),
                 "threshold_date_type": "invoice_date_due",
                 "company_id": other_company.id,
             }
