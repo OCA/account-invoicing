@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
     <record id="seq_account_customer_billing" model="ir.sequence">
         <field name="name">Billing sequence</field>

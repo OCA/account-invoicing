@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="report_billing_document">
         <t t-call="web.external_layout">
@@ -7,7 +8,7 @@
                     t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
                 />
                 <div t-if="o.partner_id.vat" class="mt16"><t
-                    t-esc="o.company_id.country_id.vat_label or 'Tax ID'"
+                    t-out="o.company_id.country_id.vat_label or 'Tax ID'"
                 />: <span t-field="o.partner_id.vat" /></div>
             </t>
             <div class="page">
@@ -18,15 +19,15 @@
                     <span t-field="o.name" />
                 </h2>
                 <div id="informations" class="row mt32 mb32">
-                    <div class="col" t-if="o.date" name="billing_date">
+                    <div t-if="o.date" class="col" name="billing_date">
                         <strong>Billing Date:</strong>
                         <p class="m-0" t-field="o.date" />
                     </div>
-                    <div class="col" t-if="o.threshold_date" name="due_date">
+                    <div t-if="o.threshold_date" class="col" name="due_date">
                         <strong>Due Date:</strong>
                         <p class="m-0" t-field="o.threshold_date" />
                     </div>
-                    <div class="col" t-if="o.currency_id" name="currency_id">
+                    <div t-if="o.currency_id" class="col" name="currency_id">
                         <strong>Currency:</strong>
                         <p class="m-0" t-field="o.currency_id" />
                     </div>

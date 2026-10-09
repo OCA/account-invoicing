@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_account_billing_tree" model="ir.ui.view">
         <field name="name">account.billing.list</field>
@@ -312,14 +313,14 @@
         </field>
     </record>
     <menuitem
-        action="action_customer_billing"
         id="menu_action_customer_billing"
+        action="action_customer_billing"
         parent="account.menu_finance_receivables"
         sequence="11"
     />
     <menuitem
-        action="action_supplier_billing"
         id="menu_action_supplier_billing"
+        action="action_supplier_billing"
         parent="account.menu_finance_payables"
         sequence="11"
     />
