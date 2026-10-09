@@ -24,6 +24,15 @@ class AccountMove(models.Model):
         self.ensure_one()
         if not max_date:
             return True
+        compare_date = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param(
+                "account_invoice_check_picking_date.accounting_date_comparison", False
+            )
+        )
+        if compare_date:
+            return self.date == max_date.date()
         return self.date.month == max_date.month
 
     @api.model
