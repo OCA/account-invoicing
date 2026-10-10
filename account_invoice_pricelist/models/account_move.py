@@ -219,3 +219,10 @@ class AccountMoveLine(models.Model):
             date=self._get_move_date(),
             currency=self.currency_id,
         )
+
+    def _get_product_catalog_lines_data(self, **kwargs):
+        """Override to apply pricelist discount when adding products via catalog."""
+        res = super()._get_product_catalog_lines_data(**kwargs)
+        if self and self[0].move_id.pricelist_id:
+            self._calculate_discount()
+        return res
