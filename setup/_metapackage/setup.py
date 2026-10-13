@@ -31,6 +31,7 @@ setuptools.setup(
         'odoo-addon-account_invoice_force_number>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_google_document_ai>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_line_default_account>=16.0dev,<16.1dev',
+        'odoo-addon-account_invoice_line_mass_edit>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_mass_sending>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_mass_sending_direct_print>=16.0dev,<16.1dev',
         'odoo-addon-account_invoice_merge>=16.0dev,<16.1dev',

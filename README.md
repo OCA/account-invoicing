@@ -45,6 +45,7 @@ addon | version | maintainers | summary
 [account_invoice_force_number](account_invoice_force_number/) | 16.0.1.0.1 |  | Allows to force invoice numbering on specific invoices
 [account_invoice_google_document_ai](account_invoice_google_document_ai/) | 16.0.1.0.0 |  | Allows to import data from document using Google Document AI
 [account_invoice_line_default_account](account_invoice_line_default_account/) | 16.0.1.0.0 |  | Account Invoice Line Default Account
+[account_invoice_line_mass_edit](account_invoice_line_mass_edit/) | 16.0.1.0.0 | <a href='https://github.com/florian-dacosta'><img src='https://github.com/florian-dacosta.png' width='32' height='32' style='border-radius:50%;' alt='florian-dacosta'/></a> | Mass edit the lines of an invoice
 [account_invoice_mass_sending](account_invoice_mass_sending/) | 16.0.1.2.0 | <a href='https://github.com/jguenat'><img src='https://github.com/jguenat.png' width='32' height='32' style='border-radius:50%;' alt='jguenat'/></a> | This addon adds a mass sending feature on invoices.
 [account_invoice_mass_sending_direct_print](account_invoice_mass_sending_direct_print/) | 16.0.1.0.0 |  | This addon adds a mass sending direct print feature on invoices.
 [account_invoice_merge](account_invoice_merge/) | 16.0.1.0.1 |  | Merge invoices in draft
