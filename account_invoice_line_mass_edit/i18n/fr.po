@@ -25,13 +25,18 @@ msgid "<span class=\"o_stat_text\">Lines</span>"
 msgstr "<span class=\"o_stat_text\">Lignes</span>"
 
 #. module: account_invoice_line_mass_edit
-#: model_terms:ir.ui.view,arch_db:account_invoice_line_mass_edit.view_move_line_tree_readonly
+#: model_terms:ir.ui.view,arch_db:account_invoice_line_mass_edit.view_invoice_line_list_mass_edit
 msgid "Analytic"
 msgstr "Analytique"
 
 #. module: account_invoice_line_mass_edit
 #. odoo-python
 #: code:addons/account_invoice_line_mass_edit/models/account_move.py:0
-#: model_terms:ir.ui.view,arch_db:account_invoice_line_mass_edit.view_move_line_tree_readonly
+#, python-format
 msgid "Invoice Lines"
 msgstr "Lignes de facture"
+
+#. module: account_invoice_line_mass_edit
+#: model:ir.model,name:account_invoice_line_mass_edit.model_account_move
+msgid "Journal Entry"
+msgstr ""
