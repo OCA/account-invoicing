@@ -55,7 +55,6 @@ class StockInvoiceOnshipping(models.TransientModel):
             ("sale", "Create Customer Invoice"),
         ],
         default=_get_journal_type,
-        readonly=True,
     )
     group = fields.Selection(
         selection=[
