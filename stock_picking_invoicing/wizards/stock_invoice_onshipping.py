@@ -1,7 +1,7 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 JOURNAL_TYPE_MAP = {
@@ -221,7 +221,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         self.ensure_one()
         invoices = self._action_generate_invoices()
         if not invoices:
-            raise UserError(_("No invoice created!"))
+            raise UserError(self.env._("No invoice created!"))
 
         # Update the state on pickings related to new invoices only
         self._update_picking_invoice_status(invoices.mapped("picking_ids"))
@@ -500,7 +500,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         pickings = self._load_pickings()
         company = pickings.mapped("company_id")
         if company and company != self.env.company:
-            raise UserError(_("All pickings are not related to your company!"))
+            raise UserError(self.env._("All pickings are not related to your company!"))
         pick_list = self._group_pickings(pickings)
         invoices = self.env["account.move"].browse()
         for pickings in pick_list:
