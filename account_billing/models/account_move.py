@@ -1,0 +1,113 @@
+# Copyright 2019 Ecosoft Co., Ltd (https://ecosoft.co.th/)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
+from odoo import Command, api, fields, models
+from odoo.exceptions import UserError
+
+
+class AccountMove(models.Model):
+    _inherit = "account.move"
+
+    billing_line_ids = fields.One2many(
+        comodel_name="account.billing.line",
+        inverse_name="move_id",
+        string="Billing Lines",
+        groups="account.group_account_invoice",
+        help="Billing lines that reference this invoice",
+    )
+    billing_ids = fields.Many2many(
+        comodel_name="account.billing",
+        string="Billings",
+        compute="_compute_billing_ids",
+        groups="account.group_account_invoice",
+        help="Relationship between invoice and billing",
+    )
+
+    @api.depends("billing_line_ids.billing_id")
+    def _compute_billing_ids(self):
+        for rec in self:
+            rec.billing_ids = rec.billing_line_ids.mapped("billing_id")
+
+    def _get_billing_type(self):
+        outbound_types = {"out_invoice", "out_refund", "out_receipt"}
+        move_types = set(self.mapped("move_type"))
+        return "out_invoice" if move_types.issubset(outbound_types) else "in_invoice"
+
+    def _create_billing(self, partner):
+        billing = self.env["account.billing"].create(
+            {
+                "partner_id": partner.id,
+                "company_id": self.mapped("company_id")[:1].id,
+                "bill_type": self._get_billing_type(),
+                "currency_id": self.mapped("currency_id")[0].id,
+                "billing_line_ids": [
+                    Command.create(
+                        {
+                            "move_id": m.id,
+                            "amount_total": m.amount_total
+                            * (-1 if m.move_type in ["out_refund", "in_refund"] else 1),
+                            "amount_residual": m.amount_residual
+                            * (-1 if m.move_type in ["out_refund", "in_refund"] else 1),
+                        }
+                    )
+                    for m in self
+                ],
+            }
+        )
+        billing._sort_billing_lines()
+        return billing
+
+    def action_create_billing(self):
+        partner = self.mapped("partner_id")
+        currency_ids = self.mapped("currency_id")
+        company_ids = self.mapped("company_id")
+        if len(partner) > 1:
+            raise UserError(self.env._("Please select invoices with same partner"))
+
+        if len(currency_ids) > 1:
+            raise UserError(self.env._("Please select invoices with same currency"))
+
+        if len(company_ids) > 1:
+            raise UserError(self.env._("Please select invoices with same company"))
+
+        if any(move.state != "posted" or move.payment_state == "paid" for move in self):
+            raise UserError(
+                self.env._(
+                    "Billing cannot be processed because "
+                    "some invoices are not in the 'Posted' or 'Paid' state already."
+                )
+            )
+
+        billing = self._create_billing(partner)
+
+        action = {
+            "name": self.env._("Billing"),
+            "type": "ir.actions.act_window",
+            "res_model": "account.billing",
+            "context": {"create": False},
+        }
+        if len(billing) == 1:
+            action.update(
+                {
+                    "view_mode": "form",
+                    "res_id": billing.id,
+                }
+            )
+        else:
+            action.update(
+                {
+                    "view_mode": "list,form",
+                    "domain": [("id", "in", billing.ids)],
+                }
+            )
+        return action
+
+    def button_draft(self):
+        for rec in self:
+            if rec.billing_ids.filtered(lambda x: x.state != "cancel"):
+                raise UserError(
+                    self.env._(
+                        "You cannot reset to draft an invoice that has been billed."
+                    )
+                )
+        return super().button_draft()
