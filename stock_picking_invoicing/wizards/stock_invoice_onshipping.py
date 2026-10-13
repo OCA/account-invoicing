@@ -414,7 +414,10 @@ class StockInvoiceOnshipping(models.TransientModel):
         line._inverse_account_id()
         line._inverse_amount_currency()
         new_values = line._convert_to_write(line._cache)
-        if price_unit:
+        # The Price Unit computed from the Stock Moves is authoritative: it must
+        # be kept even when it is 0.0 (0 is a valid price), so only a missing
+        # value (None) leaves the price simulated by the onchange.
+        if price_unit is not None:
             new_values["price_unit"] = price_unit
         # Ensure basic values are not updated
         values.update(new_values)
