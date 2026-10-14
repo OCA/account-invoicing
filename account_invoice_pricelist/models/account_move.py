@@ -71,10 +71,12 @@ class AccountMoveLine(models.Model):
 
     @api.depends("quantity")
     def _compute_price_unit(self):
-        res = super()._compute_price_unit()
-        for line in self:
-            if not line.move_id.pricelist_id:
-                continue
+        lines_without_pricelist = self.filtered(
+            lambda line: not line.move_id.pricelist_id
+        )
+        lines_with_pricelist = self - lines_without_pricelist
+        res = super(AccountMoveLine, lines_with_pricelist)._compute_price_unit()
+        for line in lines_with_pricelist:
             line.with_context(
                 check_move_validity=False
             ).price_unit = line._get_price_with_pricelist()
