@@ -103,3 +103,9 @@ class TestPartnerLastInvoiceDate(AccountTestInvoicingCommon):
         self.assertEqual(self.partner.last_bill_date, datetime.date(2025, 1, 2))
         self.assertFalse(self.partner_child.last_invoice_date)
         self.assertFalse(self.partner_child.last_bill_date)
+
+    def test_partner_newid(self):
+        new = self.env["res.partner"].new({})
+        self.invoice.copy(default={"partner_id": new.id})
+        self.assertFalse(new.last_invoice_date)
+        self.assertFalse(new.last_bill_date)
