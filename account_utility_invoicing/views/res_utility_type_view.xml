@@ -1,0 +1,122 @@
+<odoo>
+    <record id="res_utility_type_list" model="ir.ui.view">
+        <field name="name">res.utility.type.list</field>
+        <field name="model">res.utility.type</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+                <field name="code" optional="show" />
+                <field name="base_rate" optional="show" />
+                <field name="adjustment_rate" optional="show" />
+                <field name="total_rate" optional="show" />
+                <field name="alert_threshold" optional="show" />
+                <field
+                    name="company_ids"
+                    widget="many2many_tags"
+                    groups="base.group_multi_company"
+                    optional="show"
+                />
+                <field name="max_reading_value" optional="show" />
+                <field name="update_last_reading" optional="hide" />
+            </list>
+        </field>
+    </record>
+
+    <record id="res_utility_type_form" model="ir.ui.view">
+        <field name="name">res.utility.type.form</field>
+        <field name="model">res.utility.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        invisible="active"
+                    />
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code" />
+                            <field name="base_rate" />
+                            <field name="adjustment_rate" />
+                            <field name="total_rate" />
+                            <field name="alert_threshold" />
+                            <field name="max_reading_value" />
+                        </group>
+                        <group>
+                            <field
+                                name="company_ids"
+                                widget="many2many_tags"
+                                groups="base.group_multi_company"
+                            />
+                            <field name="account_id" />
+                            <field name="update_last_reading" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="utility" string="Utility">
+                            <field name="utility_ids" widget="many2many" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="res_utility_type_search" model="ir.ui.view">
+        <field name="name">res.utility.type.search</field>
+        <field name="model">res.utility.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field
+                    name="name"
+                    string="Utility Type"
+                    filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"
+                />
+                <field
+                    name="company_ids"
+                    widget="many2many_tags"
+                    groups="base.group_multi_company"
+                />
+                <separator />
+                <filter
+                    name="inactive"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+                <group name="groupby">
+                    <filter
+                        name="company_groupby"
+                        string="Company"
+                        context="{'group_by': 'company_ids'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_utility_type_menu" model="ir.actions.act_window">
+        <field name="name">Utility Type</field>
+        <field name="res_model">res.utility.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Add a utility type
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_action_utility_type"
+        parent="account_utility_invoicing.menu_utility_configuration"
+        action="action_utility_type_menu"
+        sequence="55"
+    />
+</odoo>
