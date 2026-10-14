@@ -1,0 +1,75 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_line_refund_to_invoice_qty
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-12-01 14:33+0000\n"
+"Last-Translator: Rémi <remi@le-filament.com>\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr "Extourne de la pièce comptable"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_move
+msgid "Journal Entry"
+msgstr "Pièce comptable"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_account_move_line
+msgid "Journal Item"
+msgstr "Écriture comptable"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,help:sale_line_refund_to_invoice_qty.field_account_move_line__sale_qty_to_reinvoice
+msgid "Leave it marked if you will reinvoice the same sale order line"
+msgstr "Laisser coché si vous allez refacturer la même ligne de vente"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,help:sale_line_refund_to_invoice_qty.field_account_move_reversal__sale_qty_to_reinvoice
+msgid ""
+"Leave it marked if you will reinvoice the same sale order line (standard "
+"behaviour)"
+msgstr ""
+"Laisser coché si vous allez refacturer la même ligne de vente (comportement "
+"par défaut)"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model_terms:ir.ui.view,arch_db:sale_line_refund_to_invoice_qty.view_account_move_reversal
+msgid ""
+"Leave it marked when other customer invoices are expected for the quantities"
+" in the credit note."
+msgstr ""
+"Laisser coché quand d'autres factures clients seront créées pour les "
+"quantités remboursées dans l'avoir."
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_sale_order_line__qty_refunded_not_invoiceable
+msgid "Quantity Refunded Not Invoiceable"
+msgstr "Quantité remboursée non facturable"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_line__sale_qty_to_reinvoice
+msgid "Sale Qty To Reinvoice"
+msgstr "Quantité à refacturer"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model,name:sale_line_refund_to_invoice_qty.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bons de commande"
+
+#. module: sale_line_refund_to_invoice_qty
+#: model:ir.model.fields,field_description:sale_line_refund_to_invoice_qty.field_account_move_reversal__sale_qty_to_reinvoice
+msgid "This credit note will be reinvoiced"
+msgstr "Cet avoir sera refacturé"
