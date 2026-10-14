@@ -1,5 +1,5 @@
 # Copyright 2012 Therp BV (<http://therp.nl>)
-# Copyright 2013-2018 BCIM SPRL (<http://www.bcim.be>)
+# Copyright 2013 BCIM SRL (<http://www.bcim.be>)
 # Copyright 2022 Simone Rubino - TAKOBI
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
@@ -19,7 +19,8 @@ class AccountInvoiceLine(models.Model):
             return
         # Lines could be updated at once grouped by invoice
         for _move, lines in lines_without_product.partition("move_id").items():
-            partner = lines.move_id.partner_id
+            invoice = lines.move_id
+            partner = invoice.partner_id.with_company(invoice.company_id)
             invoice_type = lines.move_id.move_type
             if (
                 invoice_type in ["in_invoice", "in_refund"]
@@ -70,25 +71,16 @@ class AccountInvoiceLine(models.Model):
             if not line_to_update:
                 continue
             inv_type = invoice.move_type
+            partner = invoice.partner_id.with_company(invoice.company_id)
             if (
                 inv_type in ["in_invoice", "in_refund"]
-                and invoice.partner_id.auto_update_account_expense
+                and partner.auto_update_account_expense
             ):
-                if (
-                    line_to_update.account_id
-                    != invoice.partner_id.property_account_expense
-                ):
-                    invoice.partner_id.write(
-                        {"property_account_expense": line_to_update.account_id.id}
-                    )
+                if line_to_update.account_id != partner.property_account_expense:
+                    partner.property_account_expense = line_to_update.account_id.id
             elif (
                 inv_type in ["out_invoice", "out_refund"]
-                and invoice.partner_id.auto_update_account_income
+                and partner.auto_update_account_income
             ):
-                if (
-                    line_to_update.account_id
-                    != invoice.partner_id.property_account_income
-                ):
-                    invoice.partner_id.write(
-                        {"property_account_income": line_to_update.account_id.id}
-                    )
+                if line_to_update.account_id != partner.property_account_income:
+                    partner.property_account_income = line_to_update.account_id
