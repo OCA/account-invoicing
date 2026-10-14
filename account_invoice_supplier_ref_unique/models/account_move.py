@@ -59,12 +59,22 @@ class AccountMove(models.Model):
 
     def _reverse_moves(self, default_values_list=None, cancel=False):
         # OVERRIDE
+        # Blank the copied "ref" on purchase document reversals, except when it
+        # matches a supplier invoice number provided in the context. Blanking
+        # protects no invariant here: the uniqueness constraint is on
+        # supplier_invoice_number (copy=False), not on ref. A caller may set the
+        # ref on purpose through that context key (e.g. the SII refund wizard in
+        # l10n_es_aeat_sii_oca, which requires it on the credit note); wiping it
+        # would break the reversal. The check is per move so an unrelated move
+        # in the same batch is still blanked as before.
+        context_ref = self.env.context.get("supplier_invoice_number")
         if default_values_list:
             for move, default_values in zip(self, default_values_list):
                 if (
                     move
                     and move.is_purchase_document(include_receipts=True)
                     and default_values.get("ref")
+                    and default_values.get("ref") != context_ref
                 ):
                     default_values.update({"ref": ""})
         return super()._reverse_moves(
@@ -73,8 +83,11 @@ class AccountMove(models.Model):
 
     def copy(self, default=None):
         """
-        The unique vendor invoice number is not copied in vendor bills
+        The unique vendor invoice number is not copied in vendor bills,
+        unless a supplier invoice number was deliberately provided in context.
         """
-        if self.is_purchase_document(include_receipts=True):
+        if self.is_purchase_document(
+            include_receipts=True
+        ) and not self.env.context.get("supplier_invoice_number"):
             default = dict(default or {}, ref="")
         return super().copy(default)
