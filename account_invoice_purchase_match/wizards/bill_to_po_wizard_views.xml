@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OSS Factory
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+
+     Backport of the Odoo 19.0 CE wizard view purchase.bill_to_po_wizard_form:
+     https://github.com/odoo/odoo/blob/19.0/addons/purchase/wizard/bill_to_po_wizard_views.xml
+     16.0 changes: the "Add Down Payment" button is dropped (action_add_downpayment
+     not backported); the 19.0 "Add Products" button is always shown (the matching
+     view only ever exposes "Add to PO" when product lines are selected). -->
+<odoo>
+
+    <record id="bill_to_po_wizard_form" model="ir.ui.view">
+        <field name="name">bill.to.po.wizard.form</field>
+        <field name="model">bill.to.po.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add to PO">
+                <sheet>
+                    <group>
+                        <field name="partner_id" invisible="1" />
+                        <field
+                            name="purchase_order_id"
+                            domain="['|', ('partner_id', '=', partner_id), ('partner_id.commercial_partner_id', '=', partner_id), ('state', '=', 'purchase')]"
+                            placeholder="or create new"
+                        />
+                    </group>
+                </sheet>
+                <footer>
+                    <button
+                        name="action_add_to_po"
+                        type="object"
+                        string="Add Products"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
