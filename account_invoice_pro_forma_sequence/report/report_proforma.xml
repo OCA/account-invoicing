@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="report_invoice_document_proforma"
+        inherit_id="account.report_invoice_document"
+        primary="True"
+    >
+        <xpath expr="//span[@t-field='o.name']/.." position="replace">
+            <h2>
+                <span t-field="o.proforma_number" />
+            </h2>
+        </xpath>
+        <xpath expr="//div[@name='invoice_date']" position="replace">
+            <div
+                class="col-auto mw-100 mb-2"
+                t-if="o.proforma_date"
+                name="proforma_date"
+            >
+                <strong>Pro-forma date:</strong>
+                <p class="m-0" t-field="o.proforma_date" />
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_proforma">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t
+                    t-set="lang"
+                    t-value="o.user_id.sudo().lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"
+                />
+                <t
+                    t-call="account_invoice_pro_forma_sequence.report_invoice_document_proforma"
+                    t-lang="lang"
+                />
+            </t>
+        </t>
+    </template>
+
+    <record id="account_invoices_proforma" model="ir.actions.report">
+        <field name="name">Pro-forma</field>
+        <field name="model">account.move</field>
+        <field
+            name="report_name"
+        >account_invoice_pro_forma_sequence.report_proforma</field>
+        <field
+            name="report_file"
+        >account_invoice_pro_forma_sequence.report_proforma</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="print_report_name">(object._get_report_base_filename())</field>
+    </record>
+</odoo>
