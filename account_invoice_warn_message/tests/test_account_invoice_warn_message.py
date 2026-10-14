@@ -103,7 +103,7 @@ class TestAccountInvoiceWarnMessage(BaseCommon):
                 ],
             }
         )
-        self.assertFalse(invoice.invoice_warn_msg)
+        self.assertTrue(invoice.invoice_warn_msg)
 
     def test_compute_invoice_warn_msg_posted_state(self):
         invoice = self.env["account.move"].create(
