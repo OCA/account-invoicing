@@ -7,3 +7,7 @@
 
   * Yoshi Tashiro
   * Aung Ko Ko Lin
+
+* `Acsone <https://acsone.eu>`_:
+
+  * Denis Roussel <denis.roussel@acsone.eu>

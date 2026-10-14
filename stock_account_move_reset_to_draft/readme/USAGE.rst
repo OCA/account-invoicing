@@ -9,3 +9,9 @@
 When attempting to reset an invoice to draft for a product that has been partially or fully consumed, 
 the system will display the following error message: "The inventory has already been (partially) consumed."
 In that case, consider using landed costs to adjust the valuation of the product as necessary.
+
+When advanced user in the `Allowed to Force Account Moves to Draft (without stock valuations updates)`
+user group try to reset the vendro bill to draft that has already modified stock valuations,
+it will display a popup with the concerned moves in order to pay attention to them and
+to be sure they want to do it. With that flow, no revert stock valuations are generated at
+reset to draft nor during the revalidation.
