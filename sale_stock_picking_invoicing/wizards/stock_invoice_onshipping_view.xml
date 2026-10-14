@@ -9,7 +9,6 @@
         />
         <field name="arch" type="xml">
             <field name="group" position="after">
-                <field name="has_down_payments" invisible="1" readonly="1" />
                 <label
                     for="deduct_down_payments"
                     string=""
