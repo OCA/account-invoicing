@@ -1,0 +1,4 @@
+- Create a Sale Order with a storable product.
+- Validate the delivery.
+- Create the invoice.
+- The invoice date will be taken from the field on the delivery order, as specified in the settings.
