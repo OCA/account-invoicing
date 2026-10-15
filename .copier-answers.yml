@@ -16,7 +16,10 @@ odoo_test_flavor: Both
 odoo_version: 16.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
-rebel_module_groups: []
+rebel_module_groups:
+- account_invoice_triple_discount,account_invoice_supplierinfo_update_triple_discount
+- account_invoice_fixed_discount
+- account_invoice_merge_payment
 repo_description: 'TODO: add repo description.'
 repo_name: account-invoicing
 repo_slug: account-invoicing
