@@ -8,6 +8,8 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestInvoiceTripleDiscount(BaseCommon):
+    _test_user_groups = ("account.group_account_invoice",)
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
