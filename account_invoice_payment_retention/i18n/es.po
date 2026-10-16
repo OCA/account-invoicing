@@ -1,0 +1,298 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_payment_retention
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-03-23 09:36+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: account_invoice_payment_retention
+#: model_terms:ir.ui.view,arch_db:account_invoice_payment_retention.view_move_form
+msgid ""
+"<span class=\"oe_edit_only\" attrs=\"{'invisible': [('payment_retention', "
+"'=', False)]}\"> = </span>"
+msgstr ""
+"<span class=\"oe_edit_only\" attrs=\"{'invisible': [('payment_retention', "
+"'=', False)]}\"> = </span>"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__account_move__payment_retention__amount
+#: model_terms:ir.ui.view,arch_db:account_invoice_payment_retention.view_move_form
+msgid "Amount"
+msgstr "Importe"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment_register__apply_payment_retention
+msgid "Apply Retention"
+msgstr "Aplicar Retención"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_bank_statement_line__retention_amount_currency
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_move__retention_amount_currency
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_payment__retention_amount_currency
+msgid "Based on retention type, this field show the amount to retain."
+msgstr ""
+"En función del tipo de retención, este campo muestra el importe a retener."
+
+#. module: account_invoice_payment_retention
+#: model:ir.model,name:account_invoice_payment_retention.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model,name:account_invoice_payment_retention.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes Config"
+
+#. module: account_invoice_payment_retention
+#: model_terms:ir.ui.view,arch_db:account_invoice_payment_retention.res_config_settings_view_form
+msgid "Default your retention method"
+msgstr "Defina su método de retención"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_bank_statement_line__domain_retained_move_ids
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__domain_retained_move_ids
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment__domain_retained_move_ids
+msgid "Domain Retained Move"
+msgstr "Dominio retenido Traslado"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_config_settings__group_payment_retention
+msgid "Enable Invoice's Retention on Payment"
+msgstr "Activar la retención de facturas en el momento del pago"
+
+#. module: account_invoice_payment_retention
+#: model:res.groups,name:account_invoice_payment_retention.group_payment_retention
+msgid "Enable Payment Retention"
+msgstr "Permitir la Retención de Pagos"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment_register__enforce_payment_retention
+msgid "Enforce Retention"
+msgstr "Imponer la Retención"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_payment_register__enforce_payment_retention
+msgid ""
+"Enforce retention amount as suggested, otherwise, user can ignore the "
+"retention."
+msgstr ""
+"Aplique la cantidad de retención sugerida, de lo contrario, el usuario puede "
+"ignorar la retención."
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_payment_register__retention_amount_currency
+msgid "Expected amount to retain on payment currency"
+msgstr "Importe previsto a retener en la moneda de pago"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model,name:account_invoice_payment_retention.model_account_move
+msgid "Journal Entry"
+msgstr "Entrada en Diario"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model,name:account_invoice_payment_retention.model_account_move_line
+msgid "Journal Item"
+msgstr "Elemento de Diario"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_bank_statement_line__retention_method
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_move__retention_method
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_payment__retention_method
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_res_company__retention_method
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_res_config_settings__retention_method
+msgid ""
+"Method for computing the retention\n"
+"- Untaxed Amount: The retention compute from the untaxed amount\n"
+"- Total: The retention compute from the total amount"
+msgstr ""
+"Método de cálculo de la retención\n"
+"- Importe no tributado: La retención se computa a partir del importe no "
+"tributado\n"
+"- Total: La retención se computa a partir del importe total"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_bank_statement_line__payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment__payment_retention
+msgid "Payment Retention"
+msgstr "Retención de Pagos"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__account_move__payment_retention__percent
+msgid "Percent"
+msgstr "Porcentaje"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model,name:account_invoice_payment_retention.model_account_payment_register
+msgid "Register Payment"
+msgstr "Registrar Pago"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_bank_statement_line__amount_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__amount_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment__amount_retention
+msgid "Retention"
+msgstr "Retención"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_company__retention_account_id
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_config_settings__retention_account_id
+msgid "Retention Account"
+msgstr "Cuenta de Retención"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_bank_statement_line__retention_amount_currency
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__retention_amount_currency
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment__retention_amount_currency
+msgid "Retention Amount"
+msgstr "Importe de Retención"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_bank_statement_line__retention_method
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__retention_method
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment__retention_method
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_company__retention_method
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_config_settings__retention_method
+#: model_terms:ir.ui.view,arch_db:account_invoice_payment_retention.res_config_settings_view_form
+msgid "Retention Method"
+msgstr "Método de Retención"
+
+#. module: account_invoice_payment_retention
+#: model_terms:ir.ui.view,arch_db:account_invoice_payment_retention.res_config_settings_view_form
+msgid "Retention Payable Account"
+msgstr "Cuenta por Pagar de Retención"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_company__retention_receivable_account_id
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_res_config_settings__retention_receivable_account_id
+#: model_terms:ir.ui.view,arch_db:account_invoice_payment_retention.res_config_settings_view_form
+msgid "Retention Receivable Account"
+msgstr "Cuenta por Cobrar de Retención"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_bank_statement_line__retention_residual_currency
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__retention_residual_currency
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment__retention_residual_currency
+msgid "Retention Residual"
+msgstr "Retención Residual"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_res_company__retention_account_id
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_res_company__retention_receivable_account_id
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_res_config_settings__retention_account_id
+msgid "Retention account used for case payment retention"
+msgstr "Cuenta de retención utilizada para la retención de pagos de casos"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_bank_statement_line__amount_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_move__amount_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_payment__amount_retention
+msgid "Retention in percent of this invoice, or by amount"
+msgstr "Retención en porcentaje de esta factura, o por importe"
+
+#. module: account_invoice_payment_retention
+#. odoo-python
+#: code:addons/account_invoice_payment_retention/models/account_move.py:0
+#, python-format
+msgid "Retention must not exceed the total untaxed amount"
+msgstr "La retención no debe superar el importe total no gravado"
+
+#. module: account_invoice_payment_retention
+#. odoo-python
+#: code:addons/account_invoice_payment_retention/models/res_company.py:0
+#, python-format
+msgid "Retention payable account should be set to allow Reconciliation"
+msgstr ""
+"La cuenta de retención a pagar debe estar configurada para permitir la "
+"Conciliación"
+
+#. module: account_invoice_payment_retention
+#. odoo-python
+#: code:addons/account_invoice_payment_retention/models/res_company.py:0
+#, python-format
+msgid "Retention receivable account should be set to allow Reconciliation"
+msgstr ""
+"La cuenta de retenciones a cobrar debe configurarse para permitir la "
+"conciliación"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_res_config_settings__retention_receivable_account_id
+msgid "Retention receivable account used for case payment retention"
+msgstr ""
+"Cuenta por cobrar de retención utilizada para la retención de pagos de casos"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_bank_statement_line__retained_move_ids
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_move__retained_move_ids
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment__retained_move_ids
+msgid "Return Retention"
+msgstr "Retención de Devoluciones"
+
+#. module: account_invoice_payment_retention
+#. odoo-python
+#: code:addons/account_invoice_payment_retention/wizard/account_payment_register.py:0
+#, python-format
+msgid ""
+"Selected invoice(s) require payment retentions, multi invoices payment is "
+"not allowed."
+msgstr ""
+"Las facturas seleccionadas requieren retenciones de pago, no se permite el "
+"pago de varias facturas."
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,field_description:account_invoice_payment_retention.field_account_payment_register__retention_amount_currency
+msgid "Suggested Retention"
+msgstr "Retención Sugerida"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_bank_statement_line__payment_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_move__payment_retention
+#: model:ir.model.fields,help:account_invoice_payment_retention.field_account_payment__payment_retention
+msgid ""
+"Suggested retention amount to be withheld on payment.\n"
+"Note: as a suggestiong, during payment, user can ignore it."
+msgstr ""
+"Importe de retención sugerido para retener en el pago.\n"
+"Nota: como sugerencia, durante el pago, el usuario puede ignorarlo."
+
+#. module: account_invoice_payment_retention
+#: model_terms:ir.ui.view,arch_db:account_invoice_payment_retention.res_config_settings_view_form
+msgid ""
+"This enable retention option in invoice, to be retained on its payment."
+msgstr ""
+"Esto habilita la opción de retención en factura, para ser retenida en su "
+"pago."
+
+#. module: account_invoice_payment_retention
+#. odoo-python
+#: code:addons/account_invoice_payment_retention/wizard/account_payment_register.py:0
+#, python-format
+msgid ""
+"This payment has retention, please make sure you fill in valid retaintion "
+"amount and retention account"
+msgstr ""
+"Este pago tiene retención, por favor asegúrese de rellenar la cantidad de "
+"retención válida y la cuenta de retención"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__account_move__retention_method__total
+#: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__res_company__retention_method__total
+msgid "Total"
+msgstr "Total"
+
+#. module: account_invoice_payment_retention
+#: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__account_move__retention_method__untax
+#: model:ir.model.fields.selection,name:account_invoice_payment_retention.selection__res_company__retention_method__untax
+msgid "Untaxed Amount"
+msgstr "Importe no sujeto a Impuestos"
