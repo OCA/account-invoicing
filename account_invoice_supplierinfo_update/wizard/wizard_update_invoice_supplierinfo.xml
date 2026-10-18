@@ -41,7 +41,7 @@
                         name="update_supplierinfo_validate"
                         string="Update and Validate"
                         type="object"
-                        states="draft,proforma2"
+                        states="draft"
                         groups="account.group_account_invoice"
                     />
                     <button
