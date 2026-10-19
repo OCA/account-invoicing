@@ -12,6 +12,11 @@ from odoo.addons.partner_invoicing_mode_monthly.models.sale_order import SaleOrd
 class TestInvoiceModeMonthly(CommonPartnerInvoicingMode):
     _invoicing_mode = "monthly"
 
+    @classmethod
+    def _create_product(cls, **vals):
+        vals.update({"type": "consu", "is_storable": True})
+        return super()._create_product(**vals)
+
     def deliver_invoice(self, sale_order):
         sale_order.action_confirm()
         for picking in sale_order.picking_ids:

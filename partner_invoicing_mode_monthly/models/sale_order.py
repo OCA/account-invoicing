@@ -6,7 +6,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, models
-from odoo.osv.expression import OR
+from odoo.fields import Domain
 
 
 class SaleOrder(models.Model):
@@ -39,28 +39,25 @@ class SaleOrder(models.Model):
         first_day_last_month = first_day_this_month - relativedelta(months=1)
         last_day_of_this_month = (today + relativedelta(day=31)).day
         # Last month still not executed, it needs to be done
-        domain_last_month = [
-            ("invoicing_mode_monthly_last_execution", "<", first_day_last_month),
-        ]
+        domain_last_month = Domain(
+            "invoicing_mode_monthly_last_execution", "<", first_day_last_month
+        )
+        domain_not_done_this_month = Domain(
+            "invoicing_mode_monthly_last_execution", "<", first_day_this_month
+        ) | Domain("invoicing_mode_monthly_last_execution", "=", False)
         # Invoicing day is today or in the past and invoicing not yet done
-        domain_this_month = [
-            "|",
-            ("invoicing_mode_monthly_last_execution", "<", first_day_this_month),
-            ("invoicing_mode_monthly_last_execution", "=", False),
-            ("invoicing_mode_monthly_day_todo", "<=", today.day),
-        ]
+        domain_this_month = domain_not_done_this_month & Domain(
+            "invoicing_mode_monthly_day_todo", "<=", today.day
+        )
         # Make sure non exisiting days are done at the end of the month
-        domain_last_day_of_month = [
-            "|",
-            ("invoicing_mode_monthly_last_execution", "<", first_day_this_month),
-            ("invoicing_mode_monthly_last_execution", "=", False),
-            ("invoicing_mode_monthly_day_todo", ">", today.day),
-        ]
+        domain_last_day_of_month = domain_not_done_this_month & Domain(
+            "invoicing_mode_monthly_day_todo", ">", today.day
+        )
         if today.day == last_day_of_this_month:
-            domain = OR(
+            domain = Domain.OR(
                 [domain_last_month, domain_this_month, domain_last_day_of_month]
             )
         else:
-            domain = OR([domain_last_month, domain_this_month])
+            domain = Domain.OR([domain_last_month, domain_this_month])
 
         return self.env["res.company"].search(domain)
