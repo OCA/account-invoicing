@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template
         id="report_invoice_document"
@@ -22,23 +22,23 @@
         </xpath>
         <xpath expr="//th[@name='th_discount']" position="after">
             <th
-                name="th_discount1"
                 t-if="display_discount"
                 t-att-class="discount_class"
+                name="th_discount1"
             >
                 <span>Disc.1 %</span>
             </th>
             <th
-                name="th_discount2"
                 t-if="display_discount"
                 t-att-class="discount_class"
+                name="th_discount2"
             >
                 <span>Disc.2 %</span>
             </th>
             <th
-                name="th_discount3"
                 t-if="display_discount"
                 t-att-class="discount_class"
+                name="th_discount3"
             >
                 <span>Disc.3 %</span>
             </th>
