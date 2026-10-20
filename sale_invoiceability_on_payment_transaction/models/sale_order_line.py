@@ -13,8 +13,8 @@ class SaleOrderLine(models.Model):
 
     def _is_delivery_started(self):
         """Check if the delivery of the line has been started,
-        i.e. if there is at least one done move."""
-        return any(move.state == "done" for move in self.move_ids)
+        i.e. if there is at least one done/cancel move."""
+        return any(move.state in ("done", "cancel") for move in self.move_ids)
 
     @api.depends("order_id.transaction_ids.state")
     def _compute_qty_to_invoice(self):
