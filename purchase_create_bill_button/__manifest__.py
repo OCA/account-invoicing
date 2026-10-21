@@ -4,7 +4,7 @@
 {
     "name": "Purchase Create Bill Button",
     "summary": "Add a direct button to create bills from purchase orders",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "development_status": "Production/Stable",
     "category": "Accounting",
     "website": "https://github.com/OCA/account-invoicing",
