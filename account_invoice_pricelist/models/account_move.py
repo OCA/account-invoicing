@@ -66,6 +66,11 @@ class AccountMove(models.Model):
             lambda r: r.state == "draft"
         ).invoice_line_ids._compute_price_unit()
 
+    def action_switch_move_type(self):
+        return super(
+            AccountMove, self.with_context(avoid_price_unit_compute=True)
+        ).action_switch_move_type()
+
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
@@ -127,6 +132,8 @@ class AccountMoveLine(models.Model):
 
     @api.depends("quantity")
     def _compute_price_unit(self):
+        if self.env.context.get("avoid_price_unit_compute", False):
+            return True
         res = super()._compute_price_unit()
         for line in self:
             line = line.with_company(line.company_id)
