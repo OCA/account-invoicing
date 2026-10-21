@@ -115,7 +115,7 @@ Contributors
   - Dhara Solanki <dhara.solanki@initos.com>
   - Andreas Zöllner <andreas.zoellner@initos.com>
 
-- `Binhex Systems Solutions <https://binhex.cloud>`__:
+- `Binhex <https://binhex.cloud>`__:
 
   - Mario Luis <m.luis@binhex.cloud>
 

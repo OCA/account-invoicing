@@ -9,7 +9,7 @@
 - [initOS](https://www.initos.com):
   - Dhara Solanki \<<dhara.solanki@initos.com>\>
   - Andreas Zöllner \<<andreas.zoellner@initos.com>\>
-- [Binhex Systems Solutions](https://binhex.cloud):
+- [Binhex](https://binhex.cloud):
   - Mario Luis \<<m.luis@binhex.cloud>\>
 - [Codeforward](https://codeforward.nl):
   - Chris Bergman  \<<chris.bergman@codeforward.nl>\>
