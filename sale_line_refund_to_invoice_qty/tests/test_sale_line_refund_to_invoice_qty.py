@@ -1,10 +1,13 @@
 # Copyright 2021 ForgeFlow (http://www.forgeflow.com)
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
-from odoo.tests.common import TransactionCase, tagged
+from odoo import Command
+from odoo.tests import tagged
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
 @tagged("post_install", "-at_install")
-class TestSaleLineRefundToInvoiceQty(TransactionCase):
+class TestSaleLineRefundToInvoiceQty(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -16,16 +19,14 @@ class TestSaleLineRefundToInvoiceQty(TransactionCase):
             {
                 "partner_id": cls.partner.id,
                 "order_line": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": cls.product.name,
                             "product_id": cls.product.id,
                             "product_uom_qty": 5,
-                            "product_uom": cls.product.uom_id.id,
+                            "product_uom_id": cls.product.uom_id.id,
                             "price_unit": 1000.00,
-                        },
+                        }
                     ),
                 ],
             }

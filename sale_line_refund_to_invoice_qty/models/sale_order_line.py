@@ -31,7 +31,7 @@ class SaleOrderLine(models.Model):
                     and not invoice_line.sale_qty_to_reinvoice
                 ):
                     qty_invoiced += invoice_line.product_uom_id._compute_quantity(
-                        invoice_line.quantity, line.product_uom
+                        invoice_line.quantity, line.product_uom_id
                     )
             if line.qty_invoiced != qty_invoiced:
                 line.qty_invoiced = qty_invoiced
@@ -60,7 +60,7 @@ class SaleOrderLine(models.Model):
                 ):
                     qty_invoiced_posted += (
                         invoice_line.product_uom_id._compute_quantity(
-                            invoice_line.quantity, line.product_uom
+                            invoice_line.quantity, line.product_uom_id
                         )
                     )
             if line.qty_invoiced_posted != qty_invoiced_posted:
@@ -83,6 +83,6 @@ class SaleOrderLine(models.Model):
                     and not invoice_line.sale_qty_to_reinvoice
                 ):
                     qty_ref_not_inv += invoice_line.product_uom_id._compute_quantity(
-                        invoice_line.quantity, line.product_uom
+                        invoice_line.quantity, line.product_uom_id
                     )
             line.qty_refunded_not_invoiceable = qty_ref_not_inv
