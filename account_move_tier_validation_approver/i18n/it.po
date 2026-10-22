@@ -1,0 +1,86 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_tier_validation_approver
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-10-09 09:43+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
+
+#. module: account_move_tier_validation_approver
+#: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_partner__approver_id
+#: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_users__approver_id
+msgid "Approver of Vendor Bills"
+msgstr "Approvatore delle fatture fornitore"
+
+#. module: account_move_tier_validation_approver
+#: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_company__validation_approver_tier_definition_id
+msgid "Bill approval tier definition"
+msgstr "Definizione livello approvazione fattura"
+
+#. module: account_move_tier_validation_approver
+#: model:ir.model,name:account_move_tier_validation_approver.model_res_company
+msgid "Companies"
+msgstr "Aziende"
+
+#. module: account_move_tier_validation_approver
+#: model:ir.model,name:account_move_tier_validation_approver.model_res_config_settings
+msgid "Config Settings"
+msgstr "Impostazioni configurazione"
+
+#. module: account_move_tier_validation_approver
+#: model:ir.model,name:account_move_tier_validation_approver.model_res_partner
+msgid "Contact"
+msgstr "Contatto"
+
+#. module: account_move_tier_validation_approver
+#. odoo-python
+#: code:addons/account_move_tier_validation_approver/models/account_move.py:0
+msgid "It is mandatory to indicate a Responsible for Approval (in {})"
+msgstr "È obbligatorio indicare un responsabile per approvazione (in {})"
+
+#. module: account_move_tier_validation_approver
+#: model:ir.model,name:account_move_tier_validation_approver.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: account_move_tier_validation_approver
+#: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_config_settings__require_approver_in_vendor_bills
+msgid "Require Approver In Vendor Bills"
+msgstr "Richiedere approvatore nelle fatture fornitore"
+
+#. module: account_move_tier_validation_approver
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation_approver.res_config_settings_view_form
+msgid ""
+"Require approver before posting vendor bills. Values set here are company-"
+"specific."
+msgstr ""
+"Richiedere approvatore prima di inviare le fatture fornitore. I valori "
+"impostati qui sono specifici per azienda."
+
+#. module: account_move_tier_validation_approver
+#: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_res_company__require_approver_in_vendor_bills
+msgid "Require approver in vendor bills"
+msgstr "Richiedere approvatore nelle fatture fornitore"
+
+#. module: account_move_tier_validation_approver
+#: model:ir.model.fields,help:account_move_tier_validation_approver.field_res_config_settings__require_approver_in_vendor_bills
+msgid "Requires adding an approver before a vendor bill can be posted."
+msgstr ""
+"Richiede l'aggiunta di un approvatore prima che una fattura fornitore sia "
+"inviata."
+
+#. module: account_move_tier_validation_approver
+#: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_account_bank_statement_line__approver_id
+#: model:ir.model.fields,field_description:account_move_tier_validation_approver.field_account_move__approver_id
+msgid "Responsible for Approval"
+msgstr "Responsabile dell'approvazione"
