@@ -20,6 +20,8 @@ class ResPartner(models.Model):
 
     def _last_invoice_date_domain(self):
         self.ensure_one()
+        if isinstance(self.id, models.NewId):
+            return []
         all_child = self.with_context(active_test=False).search(
             [("id", "child_of", self.id)]
         )
