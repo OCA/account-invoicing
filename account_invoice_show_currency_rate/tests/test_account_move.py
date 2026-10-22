@@ -101,6 +101,20 @@ class TestAccountMove(common.TransactionCase):
         self.assertAlmostEqual(invoice.currency_rate_amount, 2.0, 2)
         self.assertAlmostEqual(invoice.line_ids[0].currency_rate, 2.0, 2)
 
+    def test_02_invoice_currency_extra_inverse_rate(self):
+        self.partner.property_product_pricelist = self.pricelist_currency_extra
+        self.env.company.invoice_rate_display_type = "inverse_rate"
+        invoice = self._create_invoice(self.currency_extra)
+        self.assertAlmostEqual(invoice.currency_rate_amount, 0.5, 2)
+        rate_custom = self.currency_extra.rate_ids.filtered(
+            lambda x: x.name == fields.Date.from_string("2000-01-01")
+        )
+        rate_custom.rate = 3.0
+        self.assertAlmostEqual(invoice.currency_rate_amount, 0.5, 2)
+        invoice.button_draft()
+        # The booked rate (1/2) is kept after reset to draft
+        self.assertAlmostEqual(invoice.currency_rate_amount, 0.5, 2)
+
     def _create_vendor_bill_multi(self, currency_id, amounts):
         """Multi-line foreign-currency vendor bill, mirroring the production
         case where per-line rounding of the re-derived balance breaks
