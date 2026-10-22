@@ -9,6 +9,7 @@
     "depends": ["account_move_tier_validation"],
     "website": "https://github.com/OCA/account-invoicing",
     "data": [
+        "security/res_groups.xml",
         "views/account_move_views.xml",
         "views/res_partner_views.xml",
         "views/res_config_settings_views.xml",

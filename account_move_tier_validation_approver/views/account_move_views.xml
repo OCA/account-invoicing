@@ -10,7 +10,7 @@
             <xpath expr='//field[@name="ref"]' position="after">
                 <field
                     name="approver_id"
-                    readonly="review_ids"
+                    readonly="is_approver_id_readonly"
                     invisible="move_type in ('out_invoice', 'out_refund', 'entry')"
                 />
             </xpath>
