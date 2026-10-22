@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bank_account_source_user,bank.account.source,model_bank_account_source,base.group_user,1,0,0,0
+access_bank_account_source_manager,bank.account.source,model_bank_account_source,base.group_system,1,1,1,1
