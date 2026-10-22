@@ -1,0 +1,100 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_invoicing_mode_monthly
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-06-17 11:23+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>\n"
+"Language-Team: none\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: partner_invoicing_mode_monthly
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode_monthly.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Monthly Invoicing Options</span>"
+msgstr "<span class=\"o_form_label\">Opcije mjesečnih računa</span>"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model,name:partner_invoicing_mode_monthly.model_res_company
+msgid "Companies"
+msgstr "Tvrtke"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model,name:partner_invoicing_mode_monthly.model_res_config_settings
+msgid "Config Settings"
+msgstr "Postavke"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model,name:partner_invoicing_mode_monthly.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields,help:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_day_todo
+#: model:ir.model.fields,help:partner_invoicing_mode_monthly.field_res_config_settings__res_invoicing_mode_monthly_day_todo
+msgid ""
+"Day of the month to execute the invoicing. For a number higherthan the "
+"number of days in a month, the invoicing will beexecuted on the last day of "
+"the month."
+msgstr ""
+"Dan u mjesecu za izdavanje računa. Za broj veći od broja dana u mjesecu, "
+"izdavanje računa će se izvršiti zadnji dan u mjesecu."
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.actions.server,name:partner_invoicing_mode_monthly.ir_cron_generate_monthly_invoice_ir_actions_server
+#: model:ir.cron,cron_name:partner_invoicing_mode_monthly.ir_cron_generate_monthly_invoice
+msgid "Generate Monthly Invoices"
+msgstr "Generiraj mjesečne račune"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_day_todo
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_config_settings__res_invoicing_mode_monthly_day_todo
+msgid "Invoicing Day"
+msgstr "Dan za izdavanje"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_partner__invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_users__invoicing_mode
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode_monthly.res_config_settings_view_form
+msgid "Invoicing Mode"
+msgstr "Način izdavanja"
+
+#. module: partner_invoicing_mode_monthly
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode_monthly.res_config_settings_view_form
+msgid "Invoicing day"
+msgstr "Dan izdavanja"
+
+#. module: partner_invoicing_mode_monthly
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode_monthly.res_config_settings_view_form
+msgid "Last executed on"
+msgstr "Zadnje izvršeno"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_config_settings__invoicing_mode_monthly_last_execution
+msgid "Last execution (monthly)"
+msgstr "Zadnje izvršavanje (mjesečno)"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields,help:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
+#: model:ir.model.fields,help:partner_invoicing_mode_monthly.field_res_config_settings__invoicing_mode_monthly_last_execution
+msgid "Last execution of monthly invoicing."
+msgstr "Zadnje izvršavanje mjesečnog izdavanja računa."
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields.selection,name:partner_invoicing_mode_monthly.selection__res_partner__invoicing_mode__monthly
+msgid "Monthly"
+msgstr "Mjesečno"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model,name:partner_invoicing_mode_monthly.model_sale_order
+msgid "Sales Order"
+msgstr "Prodajni nalog"
