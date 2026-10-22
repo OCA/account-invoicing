@@ -9,17 +9,17 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     self_invoice_number = fields.Char(
-        string="Self-Bill Invoice Number",
+        string="Self-Billed Invoice Number",
         readonly=True,
         copy=False,
     )
     is_self_invoice_number_different = fields.Boolean(
-        string="Different Invoice Reference and Self-Bill Invoice Number",
+        string="Different Invoice Reference and Self-Billed Invoice Number",
         compute="_compute_is_self_invoice_number_different",
         help="Self-Bill Number is different than Invoice Reference",
     )
     set_self_invoice = fields.Boolean(
-        help="If enabled, create a Self-Bill Invoice when validating.",
+        help="If enabled, create a Self-Billed Invoice when validating.",
         compute="_compute_self_invoice",
         readonly=False,
         store=True,
