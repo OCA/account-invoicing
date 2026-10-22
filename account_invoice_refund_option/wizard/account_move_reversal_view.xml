@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_account_invoice_refund_form_inherit" model="ir.ui.view">
+        <field name="model">account.move.reversal</field>
+        <field name="inherit_id" ref="account.view_account_move_reversal" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                <label
+                    for="filter_refund"
+                    string="Select product(s)"
+                    invisible="not context.get('show_filter_refund')"
+                />
+                <div invisible="not context.get('show_filter_refund')">
+                    <field name="filter_refund" />
+                    <span class="oe_grey">
+                        Use this option if you want to create a draft refund for some products only.
+                    </span>
+                </div>
+            </xpath>
+            <xpath expr="//group" position="after">
+                <group string="Refund Lines" invisible="not filter_refund">
+                    <field name="refund_line_ids" nolabel="1">
+                        <list editable="bottom">
+                            <field
+                                name="product_id"
+                                options="{'no_create': 1, 'no_open': 1}"
+                            />
+                            <field name="quantity" />
+                        </list>
+                    </field>
+                </group>
+            </xpath>
+            <xpath expr="//button[@name='modify_moves']" position="attributes">
+                <attribute name="invisible">filter_refund</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
