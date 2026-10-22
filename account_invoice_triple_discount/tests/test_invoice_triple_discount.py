@@ -179,6 +179,15 @@ class TestInvoiceTripleDiscount(BaseCommon):
         self.assertEqual(invoice_line.discount1, 100)
         self.assertEqual(invoice_line.discount, 100)
 
+    def test_08_discount_over_100(self):
+        """Discounts over 100% are allowed, as in the core discount field"""
+        invoice = self.create_simple_invoice(200)
+        invoice_line = invoice.invoice_line_ids[0]
+        invoice_line.discount1 = 200
+        self.assertEqual(invoice_line.discount1, 200)
+        self.assertEqual(invoice_line.discount, 200)
+        self.assertEqual(invoice_line.price_subtotal, -200)
+
     def test_09_create_with_main_discount(self):
         """
         Tests if creating a invoice line with main discount field
