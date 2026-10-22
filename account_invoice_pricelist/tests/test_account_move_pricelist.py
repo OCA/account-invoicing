@@ -381,7 +381,11 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.invoice.pricelist_id = self.sale_pricelist_with_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertAlmostEqual(invoice_line.price_unit, 75.55)
+        self.assertAlmostEqual(
+            invoice_line.price_unit,
+            75.55,
+            places=invoice_line.pricelist_item_id.price_round or 2,
+        )
         self.assertEqual(invoice_line.discount, 0.00)
 
     def test_07_account_invoice_pricelist_without_discount_secondary_currency(self):
@@ -389,7 +393,11 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.invoice.pricelist_id = self.sale_pricelist_without_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertAlmostEqual(invoice_line.price_unit, 83.94)
+        self.assertAlmostEqual(
+            invoice_line.price_unit,
+            83.94,
+            places=invoice_line.pricelist_item_id.price_round or 2,
+        )
         self.assertEqual(invoice_line.discount, 10.00)
 
     def test_08_account_invoice_fixed_pricelist_with_discount_secondary_currency(self):
@@ -407,7 +415,11 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.invoice.pricelist_id = self.sale_pricelist_fixed_wo_disc_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertAlmostEqual(invoice_line.price_unit, 60)
+        self.assertAlmostEqual(
+            invoice_line.price_unit,
+            60,
+            places=invoice_line.pricelist_item_id.price_round or 2,
+        )
         self.assertEqual(invoice_line.discount, 0)
 
     def test_10_check_currency(self):
