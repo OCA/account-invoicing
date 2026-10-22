@@ -1,0 +1,169 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_tier_validation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-04-07 19:24+0000\n"
+"Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
+"Language-Team: none\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
+
+#. module: account_move_tier_validation
+#. odoo-python
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+msgid "Bill"
+msgstr "Factuur"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__can_review
+msgid "Can Review"
+msgstr "Kan Beoordelen"
+
+#. module: account_move_tier_validation
+#. odoo-python
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+msgid "Credit Note"
+msgstr "Creditnota"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__has_comment
+msgid "Has Comment"
+msgstr "Heeft Opmerking"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__hide_reviews
+msgid "Hide Reviews"
+msgstr "Verberg Beoordelingen"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,help:account_move_tier_validation.field_account_move__has_comment
+msgid "If set, Allow the reviewer to leave a comment on the review."
+msgstr ""
+"Indien ingeschakeld, sta de beoordelaar toe een opmerking achter te laten "
+"bij de beoordeling."
+
+#. module: account_move_tier_validation
+#. odoo-python
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+msgid "Invoice"
+msgstr "Factuur"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Invoices Pending to Validate"
+msgstr "Facturen in afwachting van validatie"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Invoices validated and ready to be confirmed"
+msgstr "Facturen gevalideerd en klaar om te worden bevestigd"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Invoices where no validation has been requested"
+msgstr "Facturen waarvoor geen validatie is aangevraagd"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Invoices where validation has not started"
+msgstr "Facturen waarvoor de validatie niet is gestart"
+
+#. module: account_move_tier_validation
+#: model:ir.model,name:account_move_tier_validation.model_account_move
+msgid "Journal Entry"
+msgstr "Boekstuk"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "My Accounts to review"
+msgstr "Mijn facturen ter beoordeling"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__need_validation
+msgid "Need Validation"
+msgstr "Validatie Nodig"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Needs my Review"
+msgstr "Moet door mij beoordeeld worden"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__next_review
+msgid "Next Review"
+msgstr "Volgende Beoordeling"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "No Validation Requested"
+msgstr "Geen Validatie Aangevraagd"
+
+#. module: account_move_tier_validation
+#. odoo-python
+#: code:addons/account_move_tier_validation/models/account_move.py:0
+msgid "Refund"
+msgstr "Terugbetaling"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected
+msgid "Rejected"
+msgstr "Afgewezen"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__rejected_message
+msgid "Rejected Message"
+msgstr "Afgewezen Bericht"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__reviewer_ids
+msgid "Reviewers"
+msgstr "Beoordelaars"
+
+#. module: account_move_tier_validation
+#: model:ir.model,name:account_move_tier_validation.model_tier_definition
+msgid "Tier Definition"
+msgstr "Niveau Definitie"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__to_validate_message
+msgid "To Validate Message"
+msgstr "Te Valideren Bericht"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Validated"
+msgstr "Gevalideerd"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validated_message
+msgid "Validated Message"
+msgstr "Gevalideerd Bericht"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Validation In Progress"
+msgstr "Validatie Bezig"
+
+#. module: account_move_tier_validation
+#: model_terms:ir.ui.view,arch_db:account_move_tier_validation.view_account_invoice_filter
+msgid "Validation Not Started"
+msgstr "Validatie Niet Gestart"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__validation_status
+msgid "Validation Status"
+msgstr "ValidatieStatus"
+
+#. module: account_move_tier_validation
+#: model:ir.model.fields,field_description:account_move_tier_validation.field_account_move__review_ids
+msgid "Validations"
+msgstr "Validaties"
