@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field
+            name="inherit_id"
+            ref="partner_invoicing_mode.res_config_settings_view_form"
+        />
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='invoicing_mode']" position="inside">
+                <div class="mt16">
+                    <div class="text-muted">
+                        <span>Biweekly Invoicing Options</span>
+                    </div>
+                    <div class="content-group">
+                        <div class="row mt16">
+                            <label
+                                string="First invoicing day"
+                                for="res_invoicing_mode_biweekly_day_1"
+                                class="col-lg-4 o_light_label"
+                            />
+                            <field name="res_invoicing_mode_biweekly_day_1" />
+                        </div>
+                        <div class="row mt16">
+                            <label
+                                string="Second invoicing day"
+                                for="res_invoicing_mode_biweekly_day_2"
+                                class="col-lg-4 o_light_label"
+                            />
+                            <field name="res_invoicing_mode_biweekly_day_2" />
+                        </div>
+                        <div class="row mt16">
+                            <label
+                                string="Last executed on"
+                                for="res_invoicing_mode_biweekly_last_execution"
+                                class="col-lg-4 o_light_label"
+                            />
+                            <field
+                                name="res_invoicing_mode_biweekly_last_execution"
+                                readonly="1"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
