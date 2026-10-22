@@ -159,7 +159,7 @@ class AccountMove(models.Model):
                     self.company_id,
                     self.date or fields.Date.context_today(self),
                 )
-            create_method(
+            discount_line = create_method(
                 {
                     "invoice_global_discount_id": discount.id,
                     "move_id": self.id,
@@ -179,8 +179,10 @@ class AccountMove(models.Model):
                     "partner_id": self.commercial_partner_id.id,
                     "currency_id": self.currency_id.id,
                     "price_unit": -1 * abs(disc_amount_company_currency),
+                    "display_type": "product",
                 }
             )
+            discount_line._compute_analytic_distribution()
 
     @api.depends("partner_id", "company_id", "move_type")
     def _compute_global_discount_ids(self):
@@ -277,9 +279,24 @@ class AccountMove(models.Model):
         res = super().write(vals)
         if "invoice_line_ids" in vals or "global_discount_ids" in vals:
             for move in self:
+                analytic_distributions = {
+                    (
+                        line.invoice_global_discount_id.global_discount_id.id,
+                        tuple(sorted(line.tax_ids.ids)),
+                    ): line.analytic_distribution
+                    for line in move.line_ids.filtered("invoice_global_discount_id")
+                    if line.analytic_distribution
+                }
                 move._clean_global_discount_lines()
                 move._set_global_discounts_by_tax()
                 move._recompute_global_discount_lines()
+                for line in move.line_ids.filtered("invoice_global_discount_id"):
+                    key = (
+                        line.invoice_global_discount_id.global_discount_id.id,
+                        tuple(sorted(line.tax_ids.ids)),
+                    )
+                    if analytic_distributions.get(key):
+                        line.analytic_distribution = analytic_distributions[key]
             move_container = {"records": self}
             self._global_discount_check(move_container)
         return res
