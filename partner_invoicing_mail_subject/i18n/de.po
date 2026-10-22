@@ -1,0 +1,88 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_invoicing_mail_subject
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-25 07:31+0000\n"
+"PO-Revision-Date: 2026-04-25 07:31+0000\n"
+"Last-Translator: Nils Coenen <nils.coenen@nico-solutions.de>\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: partner_invoicing_mail_subject
+#: model:ir.model.fields,help:partner_invoicing_mail_subject.field_res_partner__invoice_email_subject
+#: model:ir.model.fields,help:partner_invoicing_mail_subject.field_res_users__invoice_email_subject
+msgid ""
+"\n"
+"    Use placeholders like \"{{ object.name }}\" (result → invoice number) or\n"
+"    \"{{ object.partner_id.name }}\" (result → customer name). You can combine them with\n"
+"    free text.\n"
+"\n"
+"    Example: Document: {{ object.name }} from {{ object.invoice_date }} - Thank you\n"
+"        → will result in: Document: INV/2026/04 from 2026-04-25 - Thank you\n"
+"\n"
+"    Only direct field paths are supported (object.field or object.relation.field).\n"
+"    No functions or expressions (e.g. {{ object.partner_id.name | upper }}).\n"
+"    "
+msgstr ""
+"\n"
+"    Verwenden Sie Platzhalter wie \"{{ object.name }}\" (Ergebnis → Rechnungsnummer) oder\n"
+"    \"{{ object.partner_id.name }}\" (Ergebnis → Kunde Name). Sie können sie mit\n"
+"    Freitext kombinieren.\n"
+"\n"
+"    Beispiel: Dokument: {{ object.name }} vom {{ object.invoice_date }} - Danke\n"
+"        → will result in: Dokument: INV/2026/04 vom 2026-04-25 - Danke\n"
+"\n"
+"    Es werden nur direkte Feldpfade unterstützt (object.field or object.relation.field).\n"
+"    Keine Funktionen oder Ausdrücke (z.B. {{ object.partner_id.name | upper }}).\n"
+"    "
+
+#. module: partner_invoicing_mail_subject
+#: model:ir.model,name:partner_invoicing_mail_subject.model_account_move_send
+msgid "Account Move Send"
+msgstr "Rechnungsversand"
+
+#. module: partner_invoicing_mail_subject
+#: model:ir.model,name:partner_invoicing_mail_subject.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: partner_invoicing_mail_subject
+#: model:ir.model.fields,field_description:partner_invoicing_mail_subject.field_account_move_send__display_name
+#: model:ir.model.fields,field_description:partner_invoicing_mail_subject.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: partner_invoicing_mail_subject
+#: model:ir.model.fields,field_description:partner_invoicing_mail_subject.field_account_move_send__id
+#: model:ir.model.fields,field_description:partner_invoicing_mail_subject.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: partner_invoicing_mail_subject
+#: model:ir.model.fields,field_description:partner_invoicing_mail_subject.field_res_partner__invoice_email_subject
+#: model:ir.model.fields,field_description:partner_invoicing_mail_subject.field_res_users__invoice_email_subject
+msgid "Individual invoice mail subject"
+msgstr "Indiv. Betreff Rechnungsmail"
+
+#. module: partner_invoicing_mail_subject
+#. odoo-python
+#: code:addons/partner_invoicing_mail_subject/models/res_partner.py:0
+msgid ""
+"Invalid invoice email subject field(s):\n"
+"%s"
+msgstr ""
+"Ungültige(s) Betreff-Feld(er) der Rechnungs-E-Mail:\n"
+"%s"
+
+#. module: partner_invoicing_mail_subject
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mail_subject.view_partner_form_inherit_invoicing_mail_subject
+msgid "Leave empty to use the standard template subject."
+msgstr "Lassen Sie das Feld leer, um den Betreff der Standardvorlage zu verwenden."
