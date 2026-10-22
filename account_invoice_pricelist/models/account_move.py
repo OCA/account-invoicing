@@ -23,15 +23,19 @@ class AccountMove(models.Model):
     @api.constrains("pricelist_id", "currency_id")
     def _check_currency(self):
         if (
-            not config["test_enable"]
-            or (
-                config["test_enable"]
-                and self._context.get("force_check_currecy", False)
+            (
+                not config["test_enable"]
+                or (
+                    config["test_enable"]
+                    and self._context.get("force_check_currecy", False)
+                )
             )
-        ) and self.filtered(
-            lambda a: a.pricelist_id
-            and a.is_sale_document()
-            and a.pricelist_id.currency_id != a.currency_id
+            and not self.env.context.get("skip_pricelist_currency_check", False)
+            and self.filtered(
+                lambda a: a.pricelist_id
+                and a.is_sale_document()
+                and a.pricelist_id.currency_id != a.currency_id
+            )
         ):
             raise UserError(_("Pricelist and Invoice need to use the same currency."))
 
@@ -47,12 +51,19 @@ class AccountMove(models.Model):
 
     @api.depends("pricelist_id")
     def _compute_currency_id(self):
-        res = super()._compute_currency_id()
+        res = super(
+            AccountMove, self.with_context(skip_pricelist_currency_check=True)
+        )._compute_currency_id()
         for invoice in self:
             if (
                 invoice.is_sale_document()
-                and invoice.pricelist_id
-                and invoice.currency_id != invoice.pricelist_id.currency_id
+                and invoice.with_context(
+                    skip_pricelist_currency_check=True
+                ).pricelist_id
+                and invoice.currency_id
+                != invoice.with_context(
+                    skip_pricelist_currency_check=True
+                ).pricelist_id.currency_id
             ):
                 invoice.currency_id = self.pricelist_id.currency_id
         return res
