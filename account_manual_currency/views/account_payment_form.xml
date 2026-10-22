@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_payment_form_inherit_manual_currency" model="ir.ui.view">
+        <field name="name">account.payment.form.inherit.manual.currency</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form" />
+        <field name="arch" type="xml">
+            <!-- Add fields in a suitable location, e.g., after 'amount' -->
+            <field name="date" position="after">
+                <field
+                    name="manual_currency"
+                    invisible="not is_manual"
+                    readonly="state != 'draft'"
+                />
+                <field
+                    name="type_currency"
+                    invisible="not manual_currency"
+                    readonly="state != 'draft'"
+                />
+                <field
+                    name="manual_currency_rate"
+                    invisible="not manual_currency"
+                    readonly="state != 'draft'"
+                />
+                <field
+                    name="total_company_currency"
+                    invisible="not manual_currency"
+                    readonly="1"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
