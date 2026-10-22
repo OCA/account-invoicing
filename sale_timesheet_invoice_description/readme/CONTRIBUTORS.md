@@ -1,0 +1,15 @@
+- [Tecnativa](https://www.tecnativa.com):
+  - Carlos Dauden
+  - Pedro M. Baeza
+  - Ernesto Tejeda
+  - Manuel Calero
+  - Luis D. Lafaurie
+- [Akretion](https://www.akretion.com):
+  - Clément Mombereau \<<clement.mombereau@akretion.com.br>\>
+- [initOS](https://www.initos.com):
+  - Dhara Solanki \<<dhara.solanki@initos.com>\>
+  - Andreas Zöllner \<<andreas.zoellner@initos.com>\>
+- [Binhex Systems Solutions](https://binhex.cloud):
+  - Mario Luis \<<m.luis@binhex.cloud>\>
+- [Codeforward](https://codeforward.nl):
+  - Chris Bergman  \<<chris.bergman@codeforward.nl>\>
