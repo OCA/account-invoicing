@@ -1,0 +1,1 @@
+from . import test_stock_picking_invoicing_incoterm
