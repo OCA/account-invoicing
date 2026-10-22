@@ -1,0 +1,35 @@
+<odoo>
+    <!-- Main Menu -->
+    <menuitem
+        id="menu_main_utility"
+        name="Utility"
+        sequence="50"
+        groups="account_utility_invoicing.group_account_utility_user"
+        web_icon="account_utility_invoicing,static/description/icon.png"
+    />
+
+    <!-- Utility -->
+    <menuitem
+        id="menu_utility"
+        name="Account Utility"
+        parent="menu_main_utility"
+        sequence="20"
+    />
+
+    <!-- Configuration -->
+    <menuitem
+        id="menu_utility_configuration"
+        name="Configuration"
+        parent="menu_main_utility"
+        sequence="99"
+        groups="account_utility_invoicing.group_account_utility_manager"
+    />
+    <menuitem
+        id="utility_setting_menu"
+        name="Settings"
+        action="account.action_account_config"
+        parent="menu_utility_configuration"
+        groups="base.group_system"
+        sequence="0"
+    />
+</odoo>

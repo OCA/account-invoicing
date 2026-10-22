@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.form.tax.updeatable</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_general']" position="inside">
+                <field
+                    name="utility_ids"
+                    widget="many2many_tags"
+                    groups="account_utility_invoicing.group_account_utility_user"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
