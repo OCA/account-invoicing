@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2015 Jacques-Etienne Baudoux (BCIM) <je@bcim.be>
+     Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.model.access" id="access_account_invoice_print">
+        <field name="name">access_account_invoice_print</field>
+        <field
+            name="model_id"
+            ref="account_invoice_transmit.model_account_invoice_print"
+        />
+        <field name="group_id" ref="account.group_account_invoice" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+
+    <record model="ir.model.access" id="access_account_invoice_state">
+        <field name="name">access_account_invoice_state</field>
+        <field
+            name="model_id"
+            ref="account_invoice_transmit.model_account_invoice_transmit"
+        />
+        <field name="group_id" ref="account.group_account_invoice" />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="0" />
+    </record>
+
+</odoo>
