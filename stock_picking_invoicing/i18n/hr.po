@@ -29,6 +29,11 @@ msgid "All pickings are not related to your company!"
 msgstr "Nisu sva skladišna kretanja iz vaše Tvrtke!"
 
 #. module: stock_picking_invoicing
+#: model:res.groups,name:stock_picking_invoicing.group_allow_to_cancel_stock_move_linked_to_invoice_bill
+msgid "Allow to cancel stock moves linked to invoices/bills"
+msgstr ""
+
+#. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_stock_invoice_onshipping
 msgid "Cancel"
 msgstr "Otkaži"
@@ -297,6 +302,14 @@ msgstr ""
 #. module: stock_picking_invoicing
 #: model_terms:ir.ui.view,arch_db:stock_picking_invoicing.view_picking_form
 msgid "True"
+msgstr ""
+
+#. module: stock_picking_invoicing
+#. odoo-python
+#: code:addons/stock_picking_invoicing/models/stock_move.py:0
+msgid ""
+"You cannot cancel a stock move linked to invoices/bills. Only members of the "
+"\"%(group_name)s\" group can perform this action. References: %(references)s"
 msgstr ""
 
 #. module: stock_picking_invoicing
