@@ -11,3 +11,8 @@ class AccountMoveRefundReason(models.Model):
     name = fields.Char(required=True, translate=True)
     active = fields.Boolean(default=True)
     description = fields.Char()
+    show_on_credit_note = fields.Boolean(
+        default=True,
+        help="Copy the reason into the credit note reference, which is printed "
+        "and sent to the partner.",
+    )

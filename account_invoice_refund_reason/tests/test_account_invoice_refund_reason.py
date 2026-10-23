@@ -3,6 +3,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import datetime
 
+from odoo import Command
+from odoo.tests import Form, new_test_user
+
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
@@ -139,4 +142,80 @@ class TestAccountInvoiceRefundReason(AccountTestInvoicingCommon):
         self.assertEqual(
             reversal_move1.reason_id.id,
             self.reason_id.id,
+        )
+
+    def test_reason_shown_empty_on_credit_notes_and_reversals(self):
+        for move_type, shown in (
+            ("out_refund", True),
+            ("in_refund", True),
+            ("out_invoice", False),
+            ("in_invoice", False),
+        ):
+            with self.subTest(move_type=move_type):
+                move = self.env["account.move"].create(
+                    {"move_type": move_type, "partner_id": self.partner_a.id}
+                )
+                invisible = Form(move)._get_modifier("reason_id", "invisible")
+                self.assertEqual(not invisible, shown)
+
+        for refund_type in ("out_refund", "in_refund"):
+            with self.subTest(reversal_of=refund_type):
+                refund = self.init_invoice(
+                    refund_type, products=self.product_a, post=True
+                )
+                reversal = refund._reverse_moves()
+                self.assertFalse(reversal.reason_id)
+                invisible = Form(reversal)._get_modifier("reason_id", "invisible")
+                self.assertFalse(invisible)
+
+    def test_reason_editable(self):
+        billing_user = new_test_user(
+            self.env,
+            login="billing_user",
+            groups="account.group_account_invoice",
+            company_id=self.env.company.id,
+            company_ids=[Command.set(self.env.company.ids)],
+        )
+        refund = self.init_invoice("out_refund", products=self.product_a)
+        self.assertTrue(refund.with_user(billing_user).refund_reason_editable)
+        refund.action_post()
+        self.assertFalse(refund.with_user(billing_user).refund_reason_editable)
+        self.assertTrue(refund.refund_reason_editable)
+
+    def create_reversal(self, **values):
+        return self.invoice_refund_obj.with_context(
+            active_model="account.move",
+            active_ids=self.account_invoice_customer0.ids,
+        ).create(
+            {
+                "date": datetime.date.today(),
+                "journal_id": self.account_invoice_customer0.journal_id.id,
+                **values,
+            }
+        )
+
+    def test_internal_reason_not_on_credit_note(self):
+        self.reason_id.show_on_credit_note = False
+        self.account_invoice_customer0.action_post()
+        move_reversal = self.create_reversal(reason_id=self.reason_id.id)
+        self.assertFalse(move_reversal.reason)
+        move_reversal.refund_moves()
+        refund = self.account_invoice_customer0.reversal_move_ids
+        self.assertEqual(refund.reason_id, self.reason_id)
+        self.assertEqual(
+            refund.ref, f"Reversal of: {self.account_invoice_customer0.name}"
+        )
+
+    def test_custom_reason_text(self):
+        self.account_invoice_customer0.action_post()
+        move_reversal = self.create_reversal(
+            reason_id=self.reason_id.id, reason="Discount on line 3 not applied"
+        )
+        move_reversal.refund_moves()
+        refund = self.account_invoice_customer0.reversal_move_ids
+        self.assertEqual(refund.reason_id, self.reason_id)
+        self.assertEqual(
+            refund.ref,
+            f"Reversal of: {self.account_invoice_customer0.name}, "
+            "Discount on line 3 not applied",
         )

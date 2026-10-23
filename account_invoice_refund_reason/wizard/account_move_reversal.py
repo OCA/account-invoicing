@@ -16,7 +16,9 @@ class AccountMoveReversal(models.TransientModel):
     def _compute_reason(self):
         for record in self:
             if record.reason_id:
-                record.reason = record.reason_id.name
+                record.reason = (
+                    record.reason_id.show_on_credit_note and record.reason_id.name
+                )
 
     def reverse_moves(self, is_modify=False):
         """Overriden to set the reason_id fields in the new created refunds"""

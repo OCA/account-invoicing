@@ -36,6 +36,7 @@
                     </div>
                     <group>
                         <field name="description" />
+                        <field name="show_on_credit_note" />
                     </group>
                 </sheet>
             </form>
@@ -48,6 +49,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name" />
+                <field name="show_on_credit_note" />
             </list>
         </field>
     </record>

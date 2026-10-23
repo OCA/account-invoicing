@@ -394,8 +394,12 @@ note from a customer invoice or vendor bill and report on them.</p>
 <div class="section" id="configuration">
 <h2><a class="toc-backref" href="#toc-entry-1">Configuration</a></h2>
 <ul class="simple">
-<li>Go to <em>Accounting &gt; Configuration &gt; Management &gt; Refund Reasons</em></li>
+<li>Go to <em>Invoicing (Accounting) &gt; Configuration &gt; Invoicing &gt; Refund
+Reasons</em></li>
 <li>Review the list of predefined reasons to update them or add new ones</li>
+<li>Untick <em>Show On Credit Note</em> for internal reasons: they are not copied
+into the credit note reference, which is printed and sent to the
+partner</li>
 </ul>
 </div>
 <div class="section" id="usage">
@@ -405,7 +409,13 @@ note from a customer invoice or vendor bill and report on them.</p>
 (Accounting) &gt; Vendors &gt; Bills</em>)</li>
 <li>Select an open invoice</li>
 <li>Click on “Credit Note”</li>
-<li>In the wizard, select the reason and add the credit note</li>
+<li>In the wizard, select the reason and add the credit note. The reason
+text is prefilled from the reason and can be completed; it is added to
+the credit note reference.</li>
+<li>The reason is shown in the <em>Other Info</em> tab of credit notes and of
+invoices created by reversing a credit note. It can be changed while
+the document is in draft; once posted, only accounting managers can
+change it. Changes are logged in the chatter.</li>
 </ul>
 </div>
 <div class="section" id="bug-tracker">
@@ -441,6 +451,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <li>BT-anieto &lt;<a class="reference external" href="mailto:alberto.nieto&#64;braintec.com">alberto.nieto&#64;braintec.com</a>&gt; (<a class="reference external" href="https://braintec.com">https://braintec.com</a>)</li>
 <li>Do Anh Duy &lt;<a class="reference external" href="mailto:duyda&#64;trobz.com">duyda&#64;trobz.com</a>&gt;</li>
 <li>Tatiana Deribina &lt;<a class="reference external" href="mailto:tatiana.deribina&#64;sprintit.fi">tatiana.deribina&#64;sprintit.fi</a>&gt;</li>
+<li>Marina Alapont &lt;<a class="reference external" href="mailto:marina.alapont&#64;forgeflow.com">marina.alapont&#64;forgeflow.com</a>&gt;</li>
 </ul>
 </div>
 <div class="section" id="maintainers">
