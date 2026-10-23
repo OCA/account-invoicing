@@ -11,6 +11,13 @@
             >
                 <field name="reason_id" invisible="not reason_id" readonly="1" />
             </xpath>
+            <xpath expr="//group[@name='accounting_info_group']" position="inside">
+                <field
+                    name="reason_id"
+                    invisible="not reason_id or move_type not in ('in_invoice', 'in_refund')"
+                    readonly="1"
+                />
+            </xpath>
         </field>
     </record>
 </odoo>
