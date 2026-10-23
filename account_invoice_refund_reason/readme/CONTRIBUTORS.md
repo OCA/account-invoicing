@@ -7,3 +7,4 @@
 - BT-anieto \<<alberto.nieto@braintec.com>\> (<https://braintec.com>)
 - Do Anh Duy \<<duyda@trobz.com>\>
 - Tatiana Deribina \<<tatiana.deribina@sprintit.fi>\>
+- Marina Alapont \<<marina.alapont@forgeflow.com>\>

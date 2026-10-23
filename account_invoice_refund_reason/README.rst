@@ -43,8 +43,12 @@ note from a customer invoice or vendor bill and report on them.
 Configuration
 =============
 
-- Go to *Accounting > Configuration > Management > Refund Reasons*
+- Go to *Invoicing (Accounting) > Configuration > Invoicing > Refund
+  Reasons*
 - Review the list of predefined reasons to update them or add new ones
+- Untick *Show On Credit Note* for internal reasons: they are not copied
+  into the credit note reference, which is printed and sent to the
+  partner
 
 Usage
 =====
@@ -53,7 +57,13 @@ Usage
   (Accounting) > Vendors > Bills*)
 - Select an open invoice
 - Click on "Credit Note"
-- In the wizard, select the reason and add the credit note
+- In the wizard, select the reason and add the credit note. The reason
+  text is prefilled from the reason and can be completed; it is added to
+  the credit note reference.
+- The reason is shown in the *Other Info* tab of credit notes and of
+  invoices created by reversing a credit note. It can be changed while
+  the document is in draft; once posted, only accounting managers can
+  change it. Changes are logged in the chatter.
 
 Bug Tracker
 ===========
@@ -90,6 +100,7 @@ Contributors
 - BT-anieto <alberto.nieto@braintec.com> (https://braintec.com)
 - Do Anh Duy <duyda@trobz.com>
 - Tatiana Deribina <tatiana.deribina@sprintit.fi>
+- Marina Alapont <marina.alapont@forgeflow.com>
 
 Maintainers
 -----------
