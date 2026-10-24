@@ -10,6 +10,10 @@ from .. import post_init_hook
 
 
 class TestInvoiceRefundLinkBase(BaseCommon):
+    # On 20.0 BaseCommon builds the test user from this attribute, and the
+    # default `base.group_user` cannot read a journal entry.
+    _test_user_groups = ("account.group_account_manager",)
+
     is_modify = False
 
     @classmethod
