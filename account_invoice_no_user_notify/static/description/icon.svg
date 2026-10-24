@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Invoice notifications muted for internal users">
+  <rect x="2" y="2" width="124" height="124" rx="10" fill="#12183f"/>
+  <rect x="2" y="2" width="124" height="124" rx="10" fill="none" stroke="#ffffff" stroke-width="4"/>
+
+  <path d="M35 22h40l18 18v66H35z" fill="#f5f8ff"/>
+  <path d="M75 22v18h18z" fill="#a9c7ee"/>
+  <path d="M43 51h32M43 63h24M43 75h20" fill="none" stroke="#2f4d7c" stroke-width="5" stroke-linecap="round"/>
+  <path d="M47 91h24" fill="none" stroke="#1ad3bb" stroke-width="7" stroke-linecap="round"/>
+
+  <circle cx="82" cy="83" r="25" fill="#12183f" stroke="#ffffff" stroke-width="5"/>
+  <path d="M73 82c0-8 4-12 9-12s9 4 9 12v9H73z" fill="#2ebcfa"/>
+  <path d="M78 68a4 4 0 0 1 8 0" fill="none" stroke="#2ebcfa" stroke-width="5" stroke-linecap="round"/>
+  <path d="M78 94h8" fill="none" stroke="#2ebcfa" stroke-width="5" stroke-linecap="round"/>
+  <path d="M64 101 101 64" fill="none" stroke="#ff5b4a" stroke-width="9" stroke-linecap="round"/>
+
+  <circle cx="38" cy="30" r="12" fill="#ff5b4a"/>
+  <circle cx="38" cy="26" r="4" fill="#ffffff"/>
+  <path d="M30 38c1-6 5-9 8-9s7 3 8 9" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+</svg>
