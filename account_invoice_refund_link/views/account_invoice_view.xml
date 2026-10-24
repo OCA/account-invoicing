@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- Copyright 2004-2011 Pexego Sistemas Informáticos. (http://pexego.es)
      Copyright 2014 Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
      Copyright 2016 Antonio Espinosa <antonio.espinosa@tecnativa.com>
@@ -56,7 +56,7 @@
     <record id="account_invoice_refund_form_view" model="ir.ui.view">
         <field name="name">account.invoice.refund.form.view</field>
         <field name="model">account.move</field>
-        <field name="priority">999</field>
+        <field name="priority" eval="999" />
         <field name="arch" type="xml">
             <form string="Refund Invoices">
                 <group>
