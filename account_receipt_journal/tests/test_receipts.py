@@ -36,7 +36,7 @@ class TestReceipts(AccountTestInvoicingCommon):
 
     def test_receipt_default_journal(self):
         """Test default values for receipt."""
-        for move_type in {"out_receipt", "in_receipt"}:
+        for move_type in ("out_receipt", "in_receipt"):
             with self.subTest(move_type=move_type):
                 receipt = self.init_invoice(
                     move_type, products=self.product_a + self.product_b
@@ -45,7 +45,7 @@ class TestReceipts(AccountTestInvoicingCommon):
 
     def test_receipt_exclusive_journal(self):
         """Test exclusivity constraint for receipt journals."""
-        for move_type in {"out_receipt", "in_receipt"}:
+        for move_type in ("out_receipt", "in_receipt"):
             with self.subTest(move_type=move_type):
                 receipt = self.init_invoice(
                     move_type, products=self.product_a + self.product_b
