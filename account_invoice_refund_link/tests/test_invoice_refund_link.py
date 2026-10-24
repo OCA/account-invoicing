@@ -10,6 +10,8 @@ from .. import post_init_hook
 
 
 class TestInvoiceRefundLinkBase(BaseCommon):
+    _test_user_groups = None
+
     is_modify = False
 
     @classmethod
