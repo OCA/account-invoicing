@@ -10,7 +10,6 @@ class AccountMove(models.Model):
 
     pricelist_id = fields.Many2one(
         comodel_name="product.pricelist",
-        string="Pricelist",
         compute="_compute_pricelist_id",
         tracking=True,
         store=True,
@@ -27,9 +26,11 @@ class AccountMove(models.Model):
                 and self.env.context.get("force_check_currecy", False)
             )
         ) and self.filtered(
-            lambda a: a.pricelist_id
-            and a.is_sale_document()
-            and a.pricelist_id.currency_id != a.currency_id
+            lambda a: (
+                a.pricelist_id
+                and a.is_sale_document()
+                and a.pricelist_id.currency_id != a.currency_id
+            )
         ):
             raise UserError(
                 self.env._("Pricelist and Invoice need to use the same currency.")
@@ -121,7 +122,7 @@ class AccountMoveLine(models.Model):
                     # to the customer
                     line.discount = discount
 
-    @api.depends("quantity")
+    @api.depends("quantity", "document_tax_mode")
     def _compute_price_unit(self):
         res = super()._compute_price_unit()
         for line in self:
@@ -132,12 +133,20 @@ class AccountMoveLine(models.Model):
                 line.price_unit = 0.0
             else:
                 price = line._get_display_price()
+                product_taxes = line.product_id.taxes_id._filter_taxes_by_company(
+                    line.company_id
+                )
+                price = line.product_id._adapt_price_unit_to_document_tax_mode(
+                    price,
+                    product_taxes,
+                    line.product_uom_id,
+                    line.document_tax_mode,
+                )
                 price_unit = line.product_id._get_tax_included_unit_price_from_price(
                     price,
-                    product_taxes=line.product_id.taxes_id.filtered(
-                        lambda tax, line=line: tax.company_id == line.env.company
-                    ),
+                    product_taxes=product_taxes,
                     fiscal_position=line.move_id.fiscal_position_id,
+                    document_tax_mode=line.document_tax_mode,
                 )
                 line.with_context(
                     check_move_validity=False

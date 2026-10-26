@@ -152,8 +152,8 @@ class TestAccountMovePricelist(common.TransactionCase):
                     Command.create(
                         {
                             "applied_on": "1_product",
-                            "compute_price": "percentage",
-                            "percent_price": 0.00,
+                            "compute_price": "discount",
+                            "price_discount": 0.00,
                             "product_tmpl_id": cls.product.id,
                         },
                     )
@@ -192,8 +192,8 @@ class TestAccountMovePricelist(common.TransactionCase):
                     Command.create(
                         {
                             "applied_on": "1_product",
-                            "compute_price": "percentage",
-                            "percent_price": 10.0,
+                            "compute_price": "discount",
+                            "price_discount": 10.0,
                             "product_tmpl_id": cls.product.id,
                         },
                     )
@@ -208,8 +208,8 @@ class TestAccountMovePricelist(common.TransactionCase):
                     Command.create(
                         {
                             "applied_on": "1_product",
-                            "compute_price": "percentage",
-                            "percent_price": 10.0,
+                            "compute_price": "discount",
+                            "price_discount": 10.0,
                             "product_tmpl_id": cls.product.id,
                         },
                     )
@@ -228,8 +228,8 @@ class TestAccountMovePricelist(common.TransactionCase):
                     Command.create(
                         {
                             "applied_on": "1_product",
-                            "compute_price": "percentage",
-                            "percent_price": 10.0,
+                            "compute_price": "discount",
+                            "price_discount": 10.0,
                             "product_tmpl_id": cls.product.id,
                         },
                     )
@@ -245,8 +245,8 @@ class TestAccountMovePricelist(common.TransactionCase):
                     Command.create(
                         {
                             "applied_on": "1_product",
-                            "compute_price": "percentage",
-                            "percent_price": 10.0,
+                            "compute_price": "discount",
+                            "price_discount": 10.0,
                             "product_tmpl_id": cls.product.id,
                         },
                     )
