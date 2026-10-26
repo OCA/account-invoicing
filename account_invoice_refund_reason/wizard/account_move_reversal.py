@@ -20,6 +20,10 @@ class AccountMoveReversal(models.TransientModel):
 
     def reverse_moves(self, is_modify=False):
         """Overriden to set the reason_id fields in the new created refunds"""
+        # Only the credit notes created now, not older ones of the same moves.
+        previous = self.move_ids.reversal_move_ids
         res = super().reverse_moves(is_modify=is_modify)
-        self.new_move_ids.write({"reason_id": self.reason_id.id})
+        (self.move_ids.reversal_move_ids - previous).write(
+            {"reason_id": self.reason_id.id}
+        )
         return res
