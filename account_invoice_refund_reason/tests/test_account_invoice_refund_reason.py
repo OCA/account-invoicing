@@ -43,12 +43,14 @@ class TestAccountInvoiceRefundReason(AccountTestInvoicingCommon):
             active_model="account.move",
             active_ids=active_ids,
         ).create(create_values)
+        self.move_reversal = move_reversal
 
+        previous = move_reversal.move_ids.reversal_move_ids
         if refund_method == "refund":
             move_reversal.refund_moves()
         else:
             move_reversal.modify_moves()
-        account_invoice_refund = move_reversal.new_move_ids
+        account_invoice_refund = move_reversal.move_ids.reversal_move_ids - previous
 
         self.assertEqual(
             move_reversal.reason,
@@ -98,6 +100,16 @@ class TestAccountInvoiceRefundReason(AccountTestInvoicingCommon):
             account_invoice_refund_0.reason_id.id,
             self.reason_id.id,
         )
+        new_invoice = self.move_reversal.new_move_ids
+        self.assertEqual(new_invoice.move_type, "out_invoice")
+        self.assertFalse(new_invoice.reason_id)
+
+    def test_previous_refund_without_reason_untouched(self):
+        self.account_invoice_customer0.action_post()
+        old_refund = self.create_refund(reason_id=False)
+        new_refund = self.create_refund()
+        self.assertFalse(old_refund.reason_id)
+        self.assertEqual(new_refund.reason_id, self.reason_id)
 
     def test_invoice_refund_several_invoices(self):
         account_invoice_customer1 = self.init_invoice(
