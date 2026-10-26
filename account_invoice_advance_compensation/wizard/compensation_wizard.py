@@ -40,7 +40,7 @@ class AccountInvoiceAdvanceCompensationWizard(models.TransientModel):
     journal_id = fields.Many2one(
         comodel_name="account.journal",
         string="Journal",
-        domain="[('is_advance_journal', '=', True)]",
+        domain="[('is_advance_journal', '=', True), ('type', '=', 'general')]",
         required=True,
         help="The journal to be used for the compensation entry",
     )
@@ -126,7 +126,7 @@ class AccountInvoiceAdvanceCompensationWizard(models.TransientModel):
             ("company_id", "=", move.company_id.id),
             ("move_id.state", "=", "posted"),
             ("move_id.payment_state", "=", "paid"),
-            ("partner_id", "=", move.partner_id.id),
+            ("partner_id", "=", move.commercial_partner_id.id),
             ("account_id.account_type", "=", "asset_prepayments"),
             ("account_id.reconcile", "=", True),
             ("amount_residual", "!=", 0),
@@ -173,7 +173,12 @@ class AccountInvoiceAdvanceCompensationWizard(models.TransientModel):
         if not self.advance_line_id:
             raise ValidationError(_("Select the advance line to apply."))
 
-        if self.advance_line_id.partner_id != self.move_id.partner_id:
+        if (
+            self.advance_line_id.partner_id.commercial_partner_id
+            != self.move_id.commercial_partner_id
+            or self.invoice_line_id.partner_id.commercial_partner_id
+            != self.move_id.commercial_partner_id
+        ):
             raise ValidationError(
                 _("The selected advance line belongs to a different partner.")
             )
@@ -185,6 +190,19 @@ class AccountInvoiceAdvanceCompensationWizard(models.TransientModel):
             raise ValidationError(
                 _("Journal '%s' is not configured for advance compensation.")
                 % self.journal_id.display_name
+            )
+
+        if self.journal_id.type != "general":
+            raise ValidationError(_("The compensation journal must be Miscellaneous."))
+        if (
+            self.journal_id.company_id != self.move_id.company_id
+            or self.advance_line_id.company_id != self.move_id.company_id
+        ):
+            raise ValidationError(
+                _(
+                    "The compensation journal and advance must belong "
+                    "to the invoice company."
+                )
             )
 
         self.invoice_line_id._validate_invoice_line()
@@ -245,26 +263,26 @@ class AccountInvoiceAdvanceCompensationWizard(models.TransientModel):
         compensation_line = move.line_ids.filtered(
             lambda line: (
                 line.account_id == self.invoice_line_id.account_id
-                and line.partner_id == self.move_id.partner_id
+                and line.partner_id == self.invoice_line_id.partner_id
                 and line.debit > 0
             )
             if is_in_invoice
             else (
                 line.account_id == self.invoice_line_id.account_id
-                and line.partner_id == self.move_id.partner_id
+                and line.partner_id == self.invoice_line_id.partner_id
                 and line.credit > 0
             )
         )[:1]
         advance_line = move.line_ids.filtered(
             lambda line: (
                 line.account_id == self.advance_line_id.account_id
-                and line.partner_id == self.move_id.partner_id
+                and line.partner_id == self.advance_line_id.partner_id
                 and line.credit > 0
             )
             if is_in_invoice
             else (
                 line.account_id == self.advance_line_id.account_id
-                and line.partner_id == self.move_id.partner_id
+                and line.partner_id == self.advance_line_id.partner_id
                 and line.debit > 0
             )
         )[:1]
