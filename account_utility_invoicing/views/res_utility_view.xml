@@ -1,0 +1,174 @@
+<odoo>
+    <record id="res_utility_list" model="ir.ui.view">
+        <field name="name">res.utility.list</field>
+        <field name="model">res.utility</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+                <field name="code" optional="show" />
+                <field name="utility_type_id" optional="show" />
+                <field name="product_tmpl_id" />
+                <field name="last_reading" optional="show" />
+                <field name="multiplier" optional="show" />
+                <field name="total_rate" optional="show" />
+                <field
+                    name="company_id"
+                    optional="show"
+                    groups="base.group_multi_company"
+                />
+                <field name="max_reading_value" optional="show" />
+                <field
+                    name="status"
+                    optional="show"
+                    widget="badge"
+                    decoration-danger="status == 'cancel'"
+                    decoration-success="status == 'normal'"
+                    decoration-warning="status in ['temp', 'damage']"
+                />
+            </list>
+        </field>
+    </record>
+
+    <record id="res_utility_form" model="ir.ui.view">
+        <field name="name">res.utility.form</field>
+        <field name="model">res.utility</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        invisible="active"
+                    />
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code" />
+                            <field name="utility_type_id" required="1" />
+                            <field name="product_tmpl_id" />
+                            <field name="partner_id" />
+                            <field name="status" />
+                            <field name="is_billable" />
+                        </group>
+                        <group>
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                            <field name="account_id" />
+                            <field name="max_reading_value" />
+                            <field name="currency_id" invisible="1" />
+                            <field name="last_reading" />
+                            <field name="multiplier" />
+                            <field name="total_rate" />
+                        </group>
+                    </group>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="res_utility_search" model="ir.ui.view">
+        <field name="name">res.utility.search</field>
+        <field name="model">res.utility</field>
+        <field name="arch" type="xml">
+            <search>
+                <field
+                    name="name"
+                    string="Utility"
+                    filter_domain="['|', '|', ('name', 'ilike', self), ('code', 'ilike', self), ('product_tmpl_id', 'ilike', self)]"
+                />
+                <field name="code" />
+                <field name="product_tmpl_id" />
+                <field name="utility_type_id" />
+                <field name="partner_id" />
+                <filter
+                    name="filter_billable"
+                    string="Billable"
+                    domain="[('is_billable', '=', True)]"
+                />
+                <separator />
+                <filter
+                    name="filter_status_normal"
+                    string="Normal"
+                    domain="[('status', '=', 'normal')]"
+                />
+                <filter
+                    name="filter_status_temp"
+                    string="Temporary"
+                    domain="[('status', '=', 'temp')]"
+                />
+                <filter
+                    name="filter_status_damage"
+                    string="Damaged"
+                    domain="[('status', '=', 'damage')]"
+                />
+                <filter
+                    name="filter_status_cancel"
+                    string="Cancelled"
+                    domain="[('status', '=', 'cancel')]"
+                />
+                <separator />
+                <filter
+                    name="filter_inactive"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        name="groupby_status"
+                        string="Status"
+                        context="{'group_by': 'status'}"
+                    />
+                    <filter
+                        name="groupby_utility_type_id"
+                        string="Utility Type"
+                        context="{'group_by': 'utility_type_id'}"
+                    />
+                    <filter
+                        name="groupby_product_tmpl_id"
+                        string="Product"
+                        context="{'group_by': 'product_tmpl_id'}"
+                    />
+                    <filter
+                        name="groupby_partner_id"
+                        string="Customer"
+                        context="{'group_by': 'partner_id'}"
+                    />
+                    <filter
+                        name="groupby_company_id"
+                        string="Company"
+                        context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_utility_menu" model="ir.actions.act_window">
+        <field name="name">Utility</field>
+        <field name="res_model">res.utility</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="res_utility_search" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Add a utility
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_action_utility"
+        parent="account_utility_invoicing.menu_utility_configuration"
+        action="action_utility_menu"
+        sequence="60"
+    />
+</odoo>
