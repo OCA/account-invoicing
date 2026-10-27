@@ -14,7 +14,7 @@ class AccountMoveLine(models.Model):
             return self._get_advance_display_name()
         if self.env.context.get("line_id_name_get"):
             return self._get_invoice_line_display_name()
-        return [(line.id, line.display_name) for line in self]
+        return super().name_get()
 
     def _get_advance_display_name(self):
         result = []

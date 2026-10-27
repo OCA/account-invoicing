@@ -4,10 +4,10 @@ from unittest.mock import patch
 
 from odoo import fields
 from odoo.exceptions import ValidationError
-from odoo.tests import Form, TransactionCase
+from odoo.tests import Form, SavepointCase
 
 
-class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
+class TestAccountInvoiceAdvanceCompensationUnified(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -105,7 +105,7 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
 
     @classmethod
     def _ref_optional(cls, xmlid):
-        return cls.env["ir.model.data"]._xmlid_to_res_model_res_id(
+        return cls.env["ir.model.data"].xmlid_to_res_model_res_id(
             xmlid, raise_if_not_found=False
         )
 
@@ -169,7 +169,7 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
 
     def _post(self, move):
         move.action_post()
-        move.invalidate_recordset()
+        move.invalidate_cache()
         return move
 
     def _pay(self, move):
@@ -184,7 +184,7 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
             form.journal_id = self.bank_journal
         wizard = form.save()
         wizard._create_payments()
-        move.invalidate_recordset()
+        move.invalidate_cache()
         self.assertEqual(move.payment_state, "paid")
         return move
 
@@ -266,16 +266,16 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
                 }
             )
         )
-        wizard.invalidate_recordset()
+        wizard.invalidate_cache()
         return wizard
 
     def _wizard_write(self, wizard, vals):
         wizard.write(vals)
-        wizard.invalidate_recordset()
+        wizard.invalidate_cache()
         return wizard
 
     def _compute_adv_flag(self, invoice):
-        invoice.invalidate_recordset()
+        invoice.invalidate_cache()
         _ = invoice.advance_invoice
         return invoice.advance_invoice
 
@@ -515,7 +515,7 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
             raise Exception("boom")
 
         with patch(
-            "odoo.addons.account.models.account_move_line.AccountMoveLine.reconcile",
+            "odoo.addons.account.models.account_move.AccountMoveLine.reconcile",
             new=_raise_on_reconcile,
         ):
             with self.assertRaises(ValidationError):
