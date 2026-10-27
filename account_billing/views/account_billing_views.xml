@@ -193,6 +193,7 @@
                             />
                             <field name="billing_line_ids">
                                 <tree name="billing" create="0" editable="bottom">
+                                    <field name="sequence" widget="handle" />
                                     <field name="move_id" invisible="1" />
                                     <field name="name" />
                                     <field name="invoice_date" />
