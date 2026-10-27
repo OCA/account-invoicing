@@ -34,7 +34,7 @@
                     invisible="state != 'posted' or payment_state not in ['not_paid', 'partial'] or move_type not in ['out_invoice', 'in_invoice'] or not advance_invoice"
                 >
                     <strong
-                >Advance Available:</strong> You can compensate advance payments for this invoice.
+                    >Advance Available:</strong> You can compensate advance payments for this invoice.
                 </div>
             </xpath>
         </field>
