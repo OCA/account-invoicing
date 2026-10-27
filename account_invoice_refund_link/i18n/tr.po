@@ -1,0 +1,90 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_invoice_refund_link
+#
+# Translators:
+# OCA Transbot <transbot@odoo-community.org>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-11 02:41+0000\n"
+"PO-Revision-Date: 2025-09-04 11:42+0000\n"
+"Last-Translator: Tamer Sezgin <tamer.sezgin@gmail.com>\n"
+"Language-Team: Turkish (https://www.transifex.com/oca/teams/23907/tr/)\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Weblate 5.10.4\n"
+
+#. module: account_invoice_refund_link
+#: model:ir.model,name:account_invoice_refund_link.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr "Hesap Hareketi Geri Alma"
+
+#. module: account_invoice_refund_link
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
+msgid "Invoice reference"
+msgstr "Fatura referansı"
+
+#. module: account_invoice_refund_link
+#: model:ir.model,name:account_invoice_refund_link.model_account_move
+msgid "Journal Entry"
+msgstr "Yevmiye Kaydı"
+
+#. module: account_invoice_refund_link
+#: model:ir.model,name:account_invoice_refund_link.model_account_move_line
+msgid "Journal Item"
+msgstr "Yevmiye Kalemi"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__origin_line_id
+msgid "Original invoice line"
+msgstr "Asıl fatura satırı"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__origin_line_id
+msgid "Original invoice line to which this refund invoice line is referred to"
+msgstr "Bu iade faturası satırının gösterdiği orijinal fatura satırı"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_bank_statement_line__refund_invoice_ids
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move__refund_invoice_ids
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.account_invoice_refund_form_view
+msgid "Refund Invoices"
+msgstr "İade Faturaları"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,field_description:account_invoice_refund_link.field_account_move_line__refund_line_ids
+msgid "Refund invoice lines"
+msgstr "İade faturası satırları"
+
+#. module: account_invoice_refund_link
+#: model:ir.model.fields,help:account_invoice_refund_link.field_account_move_line__refund_line_ids
+msgid "Refund invoice lines created from this invoice line"
+msgstr "Bu fatura satırından oluşturulmuş iade faturası satırları"
+
+#. module: account_invoice_refund_link
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
+msgid "Refunds"
+msgstr "İadeler"
+
+#. module: account_invoice_refund_link
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.account_invoice_refund_form_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
+msgid "Status"
+msgstr "Durum"
+
+#. module: account_invoice_refund_link
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.account_invoice_refund_form_view
+#: model_terms:ir.ui.view,arch_db:account_invoice_refund_link.view_customer_account_invoice_add_refunds_details_form
+msgid "Total"
+msgstr "Toplam"
+
+#~ msgid "Customer"
+#~ msgstr "Müşteri"
+
+#~ msgid "Supplier"
+#~ msgstr "Tedarikçi"
