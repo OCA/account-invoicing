@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <record id="res_config_settings_form_view" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field
+            name="inherit_id"
+            ref="purchase.res_config_settings_view_form_purchase"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='three_way_matching']" position="after">
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="po_invoice_auto_update_qty"
+                    title="If enabled, activates 3-way matching on vendor bills : the items must be received in order to pay the invoice."
+                >
+                    <div class="o_setting_left_pane">
+                        <field name="po_invoice_auto_update_qty" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="po_invoice_auto_update_qty" />
+                        <div class="text-muted">
+                            If enabled, lines on draft vendor bills linked to purchase order lines will have their quantities automatically updated based on the "Quantity to Invoice" field on the corresponding purchase order lines.
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
