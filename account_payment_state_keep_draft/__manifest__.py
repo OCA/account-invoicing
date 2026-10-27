@@ -3,7 +3,7 @@
 
 {
     "name": "Account Payment Register - Keep Draft",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "summary": "Allow register payment to keep draft state",
     "author": "Ecosoft, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
