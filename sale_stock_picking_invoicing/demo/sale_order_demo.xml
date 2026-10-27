@@ -121,7 +121,7 @@
         />
         <field name="product_id" ref="product.product_product_27" />
         <field name="product_uom_qty">2</field>
-        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="product_uom_id" ref="uom.product_uom_unit" />
         <field name="price_unit">500</field>
     </record>
 
@@ -146,7 +146,7 @@
         />
         <field name="product_id" ref="product.product_product_12" />
         <field name="product_uom_qty">2</field>
-        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="product_uom_id" ref="uom.product_uom_unit" />
         <field name="price_unit">500</field>
     </record>
 
@@ -182,7 +182,7 @@
         />
         <field name="product_id" ref="product.product_product_27" />
         <field name="product_uom_qty">2</field>
-        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="product_uom_id" ref="uom.product_uom_unit" />
         <field name="price_unit">500</field>
     </record>
 
@@ -207,7 +207,7 @@
         />
         <field name="product_id" ref="product.product_product_1" />
         <field name="product_uom_qty">10</field>
-        <field name="product_uom" ref="uom.product_uom_hour" />
+        <field name="product_uom_id" ref="uom.product_uom_hour" />
         <field name="price_unit">100</field>
     </record>
 
@@ -240,7 +240,7 @@
         />
         <field name="product_id" ref="product.product_product_27" />
         <field name="product_uom_qty">2</field>
-        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="product_uom_id" ref="uom.product_uom_unit" />
         <field name="price_unit">500</field>
     </record>
 
@@ -265,7 +265,7 @@
         />
         <field name="product_id" ref="product.product_product_12" />
         <field name="product_uom_qty">2</field>
-        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="product_uom_id" ref="uom.product_uom_unit" />
         <field name="price_unit">500</field>
     </record>
 
@@ -298,7 +298,7 @@
         />
         <field name="product_id" ref="product.product_product_27" />
         <field name="product_uom_qty">2</field>
-        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="product_uom_id" ref="uom.product_uom_unit" />
         <field name="price_unit">500</field>
     </record>
 
@@ -323,7 +323,7 @@
         />
         <field name="product_id" ref="product.product_product_12" />
         <field name="product_uom_qty">2</field>
-        <field name="product_uom" ref="uom.product_uom_unit" />
+        <field name="product_uom_id" ref="uom.product_uom_unit" />
         <field name="price_unit">500</field>
     </record>
 </odoo>

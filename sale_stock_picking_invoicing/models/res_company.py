@@ -35,5 +35,5 @@ class ResCompany(models.Model):
         " both the Sale Order and the Stock Picking. The picking invoice state"
         " is synced after Sale Order invoicing, and the picking wizard caps"
         " quantities to prevent double invoicing.",
-        default=_default_sale_invoicing_policy,
+        default=lambda self: self._default_sale_invoicing_policy(),
     )

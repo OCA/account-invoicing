@@ -5,12 +5,6 @@
 from odoo import exceptions, models
 from odoo.tests import Form
 
-from odoo.addons.stock_picking_invoicing.tests.tools import (
-    create_with_form_inv_onshipping,
-    create_with_form_pck_backorder,
-    create_with_form_return_picking,
-)
-
 from .common import TestSaleStockPickingInvoicingCommon
 from .tools import (
     create_with_form_account_payment,
@@ -113,7 +107,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
 
         picking = sale_order_2.picking_ids
         # Only the line of Type Product
-        self.assertEqual(len(picking.move_ids_without_package), 1)
+        self.assertEqual(len(picking.move_ids), 1)
         self.assertEqual(picking.invoice_state, "2binvoiced")
         self.picking_move_state(picking)
 
@@ -135,7 +129,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         with self.assertRaises(exceptions.UserError):
             payment.with_context(**context).create_invoices()
 
-        invoice = create_with_form_inv_onshipping(self.env, picking)
+        invoice = self.create_invoice_wizard(picking)
         self.assertEqual(picking.invoice_state, "invoiced")
         self.assertIn(invoice, picking.invoice_ids)
         self.assertIn(picking, invoice.picking_ids)
@@ -192,7 +186,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         ]
 
         common_fields = list(set(acl_fields) & set(sol_fields) - set(skipped_fields))
-        sale_order_line = picking.move_ids_without_package.filtered(
+        sale_order_line = picking.move_ids.filtered(
             lambda ln: ln.sale_line_id
         ).sale_line_id
         invoice_lines = picking.invoice_ids.invoice_line_ids.filtered(
@@ -219,7 +213,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
             )
 
         # Return Picking
-        picking_devolution = create_with_form_return_picking(self.env, picking)
+        picking_devolution = self.return_picking_wizard(picking)
 
         self.assertEqual(picking_devolution.invoice_state, "2binvoiced")
         for line in picking_devolution.move_ids:
@@ -228,9 +222,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         self.picking_move_state(picking_devolution)
         self.assertEqual(picking_devolution.state, "done", "Change state fail.")
 
-        invoice_devolution = create_with_form_inv_onshipping(
-            self.env, picking_devolution
-        )
+        invoice_devolution = self.create_invoice_wizard(picking_devolution)
         # Confirm Invoice
         invoice_devolution.action_post()
         self.assertEqual(
@@ -259,7 +251,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         sale_order_2.note = False
         picking2 = self.run_sale_picking_process(sale_order_2)
         pickings = picking | picking2
-        invoice = create_with_form_inv_onshipping(self.env, pickings)
+        invoice = self.create_invoice_wizard(pickings)
         # Groupping Invoice
         self.assertEqual(len(invoice), 1)
         # Invoice should be create with the partner_invoice_id
@@ -291,7 +283,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         picking4 = self.run_sale_picking_process(self.sale_order_4)
 
         pickings = picking | picking3 | picking4
-        invoices = create_with_form_inv_onshipping(self.env, pickings)
+        invoices = self.create_invoice_wizard(pickings)
         # Even with same Partner Invoice if the Partner Shipping
         # are different should not be Groupping
         self.assertEqual(len(invoices), 2)
@@ -330,9 +322,9 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         )
         invoice_down_payment.action_post()
 
-        journal_cash = self.env["account.journal"].search(
+        journal_bank = self.env["account.journal"].search(
             [
-                ("type", "=", "cash"),
+                ("type", "=", "bank"),
                 ("company_id", "=", invoice_down_payment.company_id.id),
             ],
             limit=1,
@@ -340,13 +332,13 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         payment = create_with_form_account_payment(
             self.env,
             invoice_down_payment,
-            {"journal_id": journal_cash, "amount": invoice_down_payment.amount_total},
+            {"journal_id": journal_bank, "amount": invoice_down_payment.amount_total},
         )
         self.assertTrue(payment, "Payment not created by Down Payment test.")
 
         picking = sale_order_1.picking_ids
         self.picking_move_state(picking)
-        invoice = create_with_form_inv_onshipping(self.env, picking)
+        invoice = self.create_invoice_wizard(picking)
         # 2 Products, 2 Down Payment, 1 Note and 1 Section
         self.assertEqual(len(invoice.invoice_line_ids), 6)
         line_section = invoice.invoice_line_ids.filtered(
@@ -372,7 +364,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         picking = self.picking_out_1
         picking.set_to_be_invoiced()
         self.picking_move_state(picking)
-        invoice = create_with_form_inv_onshipping(self.env, picking)
+        invoice = self.create_invoice_wizard(picking)
         self.assertEqual(len(invoice), 1)
 
     def test_08_combo_product_invoicing(self):
@@ -412,7 +404,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         # Invoicing from picking: only consu children
         picking.set_to_be_invoiced()
         self.picking_move_state(picking)
-        picking_invoice = create_with_form_inv_onshipping(self.env, picking)
+        picking_invoice = self.create_invoice_wizard(picking)
         self.assertEqual(len(picking_invoice), 1)
         picking_invoice_products = picking_invoice.invoice_line_ids.mapped("product_id")
         self.assertIn(self.product_storable_1, picking_invoice_products)
@@ -439,7 +431,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         picking = self.run_sale_picking_process(so)
 
         # Invoice the picking first
-        picking_invoice = create_with_form_inv_onshipping(self.env, picking)
+        picking_invoice = self.create_invoice_wizard(picking)
         self.assertTrue(
             picking_invoice.invoice_line_ids.filtered(
                 lambda ln: (
@@ -540,7 +532,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         picking.action_assign()
         # Deliver 6 out of 10 → backorder for the remaining 4
         picking.move_ids.quantity = 6.0
-        backorder = create_with_form_pck_backorder(self.env, picking)
+        backorder = self.create_backorder_wizard(picking)
         self.assertEqual(picking.state, "done")
         self.assertNotEqual(backorder.state, "done")
 
@@ -560,7 +552,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         self.assertEqual(sol.qty_to_invoice, 4.0)
 
         # Invoice the backorder from the picking wizard — should cap to 4
-        wizard_invoice = create_with_form_inv_onshipping(self.env, backorder)
+        wizard_invoice = self.create_invoice_wizard(backorder)
         inv_line = wizard_invoice.invoice_line_ids.filtered(
             lambda ln: ln.product_id == product
         )
@@ -590,7 +582,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
 
         # Partially deliver 6, creating a backorder for 4
         picking.move_ids.quantity = 6.0
-        backorder = create_with_form_pck_backorder(self.env, picking)
+        backorder = self.create_backorder_wizard(picking)
         self.assertEqual(picking.state, "done")
         self.assertNotEqual(backorder.state, "done")
 
@@ -626,7 +618,7 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
 
         # Wizard must skip this picking: no new invoice can be generated
         with self.assertRaises(exceptions.UserError):
-            create_with_form_inv_onshipping(self.env, picking)
+            self.create_invoice_wizard(picking)
         self.assertEqual(sale_order.invoice_count, 1)
 
     def test_15_both_invoice_from_so_before_picking_validated(self):

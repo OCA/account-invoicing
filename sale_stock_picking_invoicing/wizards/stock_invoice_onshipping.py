@@ -25,7 +25,7 @@ class StockInvoiceOnshipping(models.TransientModel):
 
     deduct_down_payments = fields.Boolean("Deduct down payments", default=True)
     has_down_payments = fields.Boolean(
-        "Has down payments", default=_default_has_down_payment
+        "Has down payments", default=lambda self: self._default_has_down_payment()
     )
 
     def _get_fields_not_used_from_sale(self):
@@ -185,7 +185,6 @@ class StockInvoiceOnshipping(models.TransientModel):
             "product_uom_id",
             "quantity",
             "price_unit",
-            "tax_ids",
             # Already get
             "sale_line_ids",
             "anlytic_distribution",
@@ -196,7 +195,7 @@ class StockInvoiceOnshipping(models.TransientModel):
 
     def _get_invoice_line_values(self, moves, invoice_values, invoice):
         values = super()._get_invoice_line_values(moves, invoice_values, invoice)
-        move = fields.first(moves)
+        move = moves[:1]
         if move.sale_line_id:
             # Prevent double invoicing when partially invoiced from SO ('both')
             if (

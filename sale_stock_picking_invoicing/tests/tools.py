@@ -45,13 +45,6 @@ def create_with_form_sale_order(env, values, line_values=False):
         )
     ) as sale:
         sale.partner_id = values.get("partner_id")
-        sale.partner_invoice_id = values.get("partner_invoice_id")
-        sale.partner_shipping_id = values.get("partner_shipping_id")
-        sale.pricelist_id = values.get("pricelist_id")
-        sale.client_order_ref = values.get("client_order_ref")
-        sale.incoterm = values.get("incoterm")
-        sale.note = values.get("note")
-        sale.company_id = values.get("company_id")
         for value in line_values:
             with sale.order_line.new() as line:
                 if value.get("display_type"):
@@ -61,7 +54,21 @@ def create_with_form_sale_order(env, values, line_values=False):
                     line.product_id = value.get("product_id")
                     line.product_uom_qty = value.get("product_uom_qty")
 
-    return sale.save()
+    sale_order = sale.save()
+    sale_order.write(
+        {
+            "partner_invoice_id": values["partner_invoice_id"].id,
+            "partner_shipping_id": values["partner_shipping_id"].id,
+            "pricelist_id": values["pricelist_id"].id,
+            "client_order_ref": values["client_order_ref"],
+            "incoterm": values["incoterm"].id,
+            "note": values["note"],
+            "company_id": values["company_id"].id,
+        }
+    )
+    sale_order.fiscal_position_id = False
+    sale_order._recompute_taxes()
+    return sale_order
 
 
 def create_with_form_sale_adv_pay_inv(env, sale_order, values):
@@ -81,13 +88,17 @@ def create_with_form_sale_adv_pay_inv(env, sale_order, values):
 
 
 def create_with_form_account_payment(env, invoice, values):
-    with Form(
-        env["account.payment.register"].with_context(
+    payment_register = (
+        env["account.payment.register"]
+        .with_context(
             active_model="account.move",
             active_ids=invoice.ids,
         )
-    ) as wzd:
-        wzd.journal_id = values.get("journal_id")
-        wzd.amount = values.get("amount")
-
-    return wzd.save()._create_payments()
+        .create(
+            {
+                "journal_id": values["journal_id"].id,
+                "amount": values["amount"],
+            }
+        )
+    )
+    return payment_register._create_payments()
