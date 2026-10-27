@@ -50,13 +50,13 @@
                                     name="invoice_line_id"
                                     context="{'line_id_name_get': True}"
                                     options="{'no_open': True}"
-                                    readonly="not advance_line_id"
+                                    attrs="{'readonly': [('advance_line_id', '=', False)]}"
                                     class="oe_no_button"
                                     help="The invoice line to be compensated"
                                 />
                                 <field
                                     name="amount"
-                                    readonly="not advance_line_id"
+                                    attrs="{'readonly': [('advance_line_id', '=', False)]}"
                                     required="1"
                                     help="The amount to be compensated"
                                 />

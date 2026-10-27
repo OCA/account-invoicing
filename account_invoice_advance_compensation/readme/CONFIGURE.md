@@ -17,10 +17,12 @@
   - Type: Current Assets
   - Name: "Advances Receivable"
   - ☑ Allow Reconciliation
+  - ☑ **Is Advance Account**
 - **Supplier Advances**:
   - Type: Current Liabilities
   - Name: "Advances Payable" 
   - ☑ Allow Reconciliation
+  - ☑ **Is Advance Account**
 
 ### 3. Advance Product
 **Path:** `Inventory → Products`  

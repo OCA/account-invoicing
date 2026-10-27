@@ -25,7 +25,7 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
                 "l10n_generic_coa.demo_account_receivable",
                 "account.data_account_receivable",
             ],
-            account_type="asset_receivable",
+            user_type_xmlid="account.data_account_type_receivable",
             code="RCV100",
             name="Receivable",
             reconcile=True,
@@ -36,7 +36,7 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
                 "l10n_generic_coa.demo_account_payable",
                 "account.data_account_payable",
             ],
-            account_type="liability_payable",
+            user_type_xmlid="account.data_account_type_payable",
             code="PAY100",
             name="Payable",
             reconcile=True,
@@ -47,7 +47,7 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
                 "l10n_generic_coa.demo_account_revenue",
                 "account.data_account_revenue",
             ],
-            account_type="income",
+            user_type_xmlid="account.data_account_type_revenue",
             code="INC100",
             name="Income",
         )
@@ -57,7 +57,7 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
                 "l10n_generic_coa.demo_account_expense",
                 "account.data_account_expense",
             ],
-            account_type="expense",
+            user_type_xmlid="account.data_account_type_expenses",
             code="EXP100",
             name="Expense",
         )
@@ -66,10 +66,11 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
                 "account.demo_account_prepayments",
                 "l10n_generic_coa.demo_account_prepayments",
             ],
-            account_type="asset_prepayments",
+            user_type_xmlid="account.data_account_type_prepayments",
             code="ADV100",
             name="Prepayments",
             reconcile=True,
+            is_advance_account=True,
         )
         cls.wrong_type_account = cls._get_core_account(
             [
@@ -78,7 +79,7 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
                 "account.demo_account_bank",
                 "l10n_generic_coa.demo_account_bank",
             ],
-            account_type="asset_current",
+            user_type_xmlid="account.data_account_type_current_assets",
             code="CUR100",
             name="Current Asset",
             reconcile=True,
@@ -133,13 +134,22 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
         return cls.env["account.journal"].create(vals)
 
     @classmethod
-    def _get_core_account(cls, _xmlids, account_type, code, name, reconcile=False):
+    def _get_core_account(
+        cls,
+        _xmlids,
+        user_type_xmlid,
+        code,
+        name,
+        reconcile=False,
+        is_advance_account=False,
+    ):
         return cls.env["account.account"].create(
             {
                 "name": name,
                 "code": code,
-                "account_type": account_type,
+                "user_type_id": cls.env.ref(user_type_xmlid).id,
                 "reconcile": reconcile,
+                "is_advance_account": is_advance_account,
             }
         )
 
@@ -229,8 +239,7 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
 
     def _partner_line(self, move):
         return move.line_ids.filtered(
-            lambda line: line.account_id.account_type
-            in ("asset_receivable", "liability_payable")
+            lambda line: line.account_id.internal_type in ("receivable", "payable")
         )
 
     def _prepayment_lines(self, move):
@@ -284,7 +293,7 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
         self.assertTrue(self._prepayment_lines(advance))
         self.assertTrue(self._compute_adv_flag(invoice))
 
-        domain = invoice._get_advance_domain(invoice.partner_id, "asset_prepayments")
+        domain = invoice._get_advance_domain(invoice.partner_id)
         self.assertTrue(self.env["account.move.line"].search(domain, limit=1))
 
         action = invoice.action_open_advance_compensation()

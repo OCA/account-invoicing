@@ -18,28 +18,27 @@ class AccountMove(models.Model):
         "partner_id",
         "move_type",
         "state",
-        "line_ids.account_id.account_type",
+        "line_ids.account_id.is_advance_account",
         "line_ids.amount_residual",
     )
     def _compute_advance_invoice(self):
         self.advance_invoice = False
         invoices = self.filtered(lambda m: m.partner_id and m.is_invoice())
-        prepayment_account_type = "asset_prepayments"
         for partner in invoices.partner_id:
             partner_invoices = invoices.filtered_domain(
                 [("partner_id", "=", partner.id)]
             )
-            domain = self._get_advance_domain(partner, prepayment_account_type)
+            domain = self._get_advance_domain(partner)
             partner_invoices.advance_invoice = bool(
                 self.env["account.move.line"].search(domain, limit=1)
             )
 
-    def _get_advance_domain(self, partner, account_type):
+    def _get_advance_domain(self, partner):
         return [
             ("move_id.state", "=", "posted"),
             ("move_id.payment_state", "=", "paid"),
             ("partner_id", "=", partner.id),
-            ("account_id.account_type", "=", account_type),
+            ("account_id.is_advance_account", "=", True),
             ("account_id.reconcile", "=", True),
             ("amount_residual", "!=", 0),
         ]

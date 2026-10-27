@@ -127,7 +127,7 @@ class AccountInvoiceAdvanceCompensationWizard(models.TransientModel):
             ("move_id.state", "=", "posted"),
             ("move_id.payment_state", "=", "paid"),
             ("partner_id", "=", move.partner_id.id),
-            ("account_id.account_type", "=", "asset_prepayments"),
+            ("account_id.is_advance_account", "=", True),
             ("account_id.reconcile", "=", True),
             ("amount_residual", "!=", 0),
         ]

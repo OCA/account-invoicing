@@ -11,7 +11,7 @@
                 <page
                     name="advance_settings"
                     string="Advance Settings"
-                    invisible="type != 'general'"
+                    attrs="{'invisible': [('type', '!=', 'general')]}"
                 >
                     <group>
                         <field

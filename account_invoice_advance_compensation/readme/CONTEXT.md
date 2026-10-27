@@ -31,7 +31,7 @@ This module is particularly valuable for businesses that:
 
 ## Technical Context
 
-### Prerequisites
+### Technical Prerequisites
 - Odoo Accounting module installed
 - Properly configured Chart of Accounts
 - At least one journal marked as "Advance Journal"

@@ -47,7 +47,7 @@ class AccountMoveLine(models.Model):
 
     def _validate_advance_line(self):
         self.ensure_one()
-        if self.account_id.account_type != "asset_prepayments":
+        if not self.account_id.is_advance_account:
             raise ValidationError(
                 _(
                     "Line '%(line)s' uses account '%(account)s'. "
@@ -79,9 +79,9 @@ class AccountMoveLine(models.Model):
                 % self.display_name
             )
 
-        if self.account_id.account_type not in (
-            "asset_receivable",
-            "liability_payable",
+        if self.account_id.internal_type not in (
+            "receivable",
+            "payable",
         ):
             raise ValidationError(
                 _(

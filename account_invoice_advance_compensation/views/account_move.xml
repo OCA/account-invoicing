@@ -21,7 +21,7 @@
                     type="object"
                     class="oe_highlight"
                     groups="account.group_account_invoice"
-                    invisible="state != 'posted' or payment_state not in ['not_paid', 'partial'] or move_type not in ['out_invoice', 'in_invoice'] or not advance_invoice"
+                    attrs="{'invisible': ['|', '|', '|', ('state', '!=', 'posted'), ('payment_state', 'not in', ['not_paid', 'partial']), ('move_type', 'not in', ['out_invoice', 'in_invoice']), ('advance_invoice', '=', False)]}"
                 />
             </xpath>
 
@@ -31,7 +31,7 @@
                     class="alert alert-info"
                     role="alert"
                     groups="account.group_account_invoice"
-                    invisible="state != 'posted' or payment_state not in ['not_paid', 'partial'] or move_type not in ['out_invoice', 'in_invoice'] or not advance_invoice"
+                    attrs="{'invisible': ['|', '|', '|', ('state', '!=', 'posted'), ('payment_state', 'not in', ['not_paid', 'partial']), ('move_type', 'not in', ['out_invoice', 'in_invoice']), ('advance_invoice', '=', False)]}"
                 >
                     <strong
                     >Advance Available:</strong> You can compensate advance payments for this invoice.
