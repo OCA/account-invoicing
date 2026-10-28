@@ -19,3 +19,17 @@ class SaleOrderLine(models.Model):
             values["invoice_state"] = "2binvoiced"
 
         return values
+
+    def _get_kit_component_moves(self):
+        """Delivered moves of the components a phantom kit line exploded into.
+
+        Return moves keep the sale line, so they are left out: the split of the
+        kit price and the quantities of a kit are based on what was delivered.
+        """
+        self.ensure_one()
+        return self.move_ids.filtered(
+            lambda m: m.state != "cancel"
+            and m.product_id != self.product_id
+            and m.location_dest_id.usage == "customer"
+            and not m.origin_returned_move_id
+        )
