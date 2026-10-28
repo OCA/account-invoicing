@@ -17,6 +17,15 @@ class ResPartner(models.Model):
         copy=False,
         company_dependent=True,
     )
+    self_invoice_auto_ref = fields.Boolean(
+        string="Generate reference with specific sequence for self-billing",
+        help="If checked, a specific sequence will be used to generate "
+        "the Self-Bill Invoice reference when validating a vendor Bill.",
+        tracking=True,
+        copy=False,
+        company_dependent=True,
+        default=lambda self: self.env.company.self_invoice_auto_ref,
+    )
     self_invoice_sequence_id = fields.Many2one(
         comodel_name="ir.sequence",
         string="Self Billing sequence",
@@ -49,11 +58,34 @@ class ResPartner(models.Model):
         company_dependent=True,
     )
 
+    is_self_invoice_sequence_visible = fields.Boolean(
+        string="Is self invoice sequence visible",
+        compute="_compute_is_self_invoice_sequence_visible",
+        store=False,
+        help="Technical field used to show/hide the self invoice sequence fields "
+        "in the partner form view.",
+    )
+
+    @api.depends("self_invoice", "self_invoice_auto_ref")
+    def _compute_is_self_invoice_sequence_visible(self):
+        for partner in self:
+            partner.is_self_invoice_sequence_visible = (
+                partner.self_invoice and partner.self_invoice_auto_ref
+            )
+
     @api.model
     def _default_self_invoice_report_footer(self):
         return _("Invoiced by the recipent")
 
     def _get_self_invoice_number(self, invoice):
+        self.ensure_one()
+        if not self.self_invoice_auto_ref:
+            raise RuntimeError(
+                "You should not call _get_self_invoice_number if the partner is not "
+                "using a specific sequence for self-invoices. {partner_name}".format(
+                    partner_name=self.name
+                )
+            )
         is_refund = invoice.move_type == "in_refund"
         sequence = (
             self.self_invoice_sequence_id
