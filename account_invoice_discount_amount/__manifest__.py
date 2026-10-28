@@ -4,7 +4,7 @@
 {
     "name": "Account Invoice Discount Amount",
     "summary": "Show the early payment discount amounts on invoices",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "development_status": "Alpha",
     "category": "Accounting",
     "website": "https://github.com/OCA/account-invoicing",
