@@ -1,7 +1,7 @@
 # Copyright 2025 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models
+from odoo import Command, models
 
 MAPPING_TYPE = {
     "inbound": "register_customer_payment_state",
@@ -20,6 +20,10 @@ class AccountPaymentRegister(models.TransientModel):
             payments = super(
                 AccountPaymentRegister, self.with_context(no_cash_basis=True)
             )._create_payments()
-            payments.filtered(lambda p: p.state != "draft").action_draft()
+            to_draft = payments.filtered(lambda p: p.state != "draft")
+            invoices_per_payment = {p: p.invoice_ids for p in to_draft}
+            to_draft.action_draft()
+            for payment, invoices in invoices_per_payment.items():
+                payment.invoice_ids = [Command.link(inv.id) for inv in invoices]
             return payments
         return super()._create_payments()
