@@ -3,12 +3,12 @@
 
 
 def post_init_hook(env):
-    """Archive the ir.rules we want to override"""
+    """Archive the core access records we want to override"""
     env.ref("account.account_invoice_rule_portal").active = False
     env.ref("account.account_invoice_line_rule_portal").active = False
 
 
 def uninstall_hook(env):
-    """Unarchive the overriden ir.rules"""
+    """Unarchive the overridden core access records"""
     env.ref("account.account_invoice_rule_portal").active = True
     env.ref("account.account_invoice_line_rule_portal").active = True

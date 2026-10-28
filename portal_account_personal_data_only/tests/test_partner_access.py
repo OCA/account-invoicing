@@ -45,37 +45,82 @@ class TestPartnerAccess(AccountTestInvoicingCommon):
             }
         )
 
+    def _create_portal_invoice(self, partner, post=True):
+        return self.init_invoice(
+            "out_invoice", partner=partner, post=post, products=self.product_a
+        )
+
     def test_access_invoice(self):
-        invoice_a = self.init_invoice(
-            "out_invoice", partner=self.partner_a, post=True, products=self.product_a
-        )
-        invoice_b = self.init_invoice(
-            "out_invoice", partner=self.partner_b, post=True, products=self.product_a
-        )
-        invoice_c = self.init_invoice(
-            "out_invoice", partner=self.partner_c, post=True, products=self.product_a
-        )
-        invoice_a.message_subscribe(partner_ids=self.partner_a.ids)
-        invoice_b.message_subscribe(partner_ids=self.partner_b.ids)
-        invoice_c.message_subscribe(partner_ids=self.partner_c.ids)
+        invoice_a = self._create_portal_invoice(self.partner_a)
+        invoice_b = self._create_portal_invoice(self.partner_b)
+        invoice_c = self._create_portal_invoice(self.partner_c)
+        # Access is granted as the invoice partner, with no need to be a follower
+        self.assertNotIn(self.partner_a, invoice_a.message_partner_ids)
         found_a = self.env["account.move"].with_user(self.user_a).search([])
-        self.assertTrue(invoice_a in found_a)
-        self.assertTrue(invoice_b not in found_a)
-        self.assertTrue(invoice_c not in found_a)
+        self.assertIn(invoice_a, found_a)
+        self.assertNotIn(invoice_b, found_a)
+        self.assertNotIn(invoice_c, found_a)
         found_b = self.env["account.move"].with_user(self.user_b).search([])
-        self.assertTrue(invoice_a not in found_b)
-        self.assertTrue(invoice_b in found_b)
-        self.assertTrue(invoice_c not in found_b)
+        self.assertNotIn(invoice_a, found_b)
+        self.assertIn(invoice_b, found_b)
+        self.assertNotIn(invoice_c, found_b)
         found_c = self.env["account.move"].with_user(self.user_c).search([])
-        self.assertTrue(invoice_a not in found_c)
-        self.assertTrue(invoice_b not in found_c)
-        self.assertTrue(invoice_c in found_c)
+        self.assertNotIn(invoice_a, found_c)
+        self.assertNotIn(invoice_b, found_c)
+        self.assertIn(invoice_c, found_c)
 
     def test_access_invoice_followers(self):
-        invoice_a = self.init_invoice(
-            "out_invoice", partner=self.partner_a, post=True, products=self.product_a
-        )
-        invoice_a.message_subscribe(partner_ids=self.partner_a.ids)
+        # Being a follower grants access in addition to being the invoice partner
+        invoice_a = self._create_portal_invoice(self.partner_a)
+        found_b = self.env["account.move"].with_user(self.user_b).search([])
+        self.assertNotIn(invoice_a, found_b)
         invoice_a.message_subscribe(partner_ids=self.partner_b.ids)
-        invoices_b = self.env["account.move"].with_user(self.user_b).search([])
-        self.assertTrue(invoice_a in invoices_b)
+        found_b = self.env["account.move"].with_user(self.user_b).search([])
+        self.assertIn(invoice_a, found_b)
+
+    def test_access_invoice_same_commercial_partner(self):
+        # Contacts of the same company only see their own invoices, unlike the
+        # core rule, which grants access to the whole commercial partner
+        company = self.env["res.partner"].create(
+            {"name": "Company", "is_company": True}
+        )
+        (self.partner_a | self.partner_b).parent_id = company
+        invoice_company = self._create_portal_invoice(company)
+        invoice_a = self._create_portal_invoice(self.partner_a)
+        invoice_b = self._create_portal_invoice(self.partner_b)
+        found_a = self.env["account.move"].with_user(self.user_a).search([])
+        self.assertIn(invoice_a, found_a)
+        self.assertNotIn(invoice_b, found_a)
+        self.assertNotIn(invoice_company, found_a)
+
+    def test_access_invoice_child_contact(self):
+        invoice_address = self.env["res.partner"].create(
+            {
+                "name": "Invoice address A",
+                "type": "invoice",
+                "parent_id": self.partner_a.id,
+            }
+        )
+        invoice = self._create_portal_invoice(invoice_address)
+        found_a = self.env["account.move"].with_user(self.user_a).search([])
+        self.assertIn(invoice, found_a)
+        found_b = self.env["account.move"].with_user(self.user_b).search([])
+        self.assertNotIn(invoice, found_b)
+
+    def test_access_invoice_draft(self):
+        invoice_a = self._create_portal_invoice(self.partner_a, post=False)
+        found_a = self.env["account.move"].with_user(self.user_a).search([])
+        self.assertNotIn(invoice_a, found_a)
+        invoice_a.action_post()
+        found_a = self.env["account.move"].with_user(self.user_a).search([])
+        self.assertIn(invoice_a, found_a)
+
+    def test_access_invoice_line(self):
+        invoice_a = self._create_portal_invoice(self.partner_a)
+        invoice_b = self._create_portal_invoice(self.partner_b)
+        lines_a = self.env["account.move.line"].with_user(self.user_a).search([])
+        self.assertTrue(invoice_a.line_ids <= lines_a)
+        self.assertFalse(invoice_b.line_ids & lines_a)
+        invoice_b.message_subscribe(partner_ids=self.partner_a.ids)
+        lines_a = self.env["account.move.line"].with_user(self.user_a).search([])
+        self.assertTrue(invoice_b.line_ids <= lines_a)

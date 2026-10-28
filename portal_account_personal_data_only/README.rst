@@ -21,24 +21,25 @@ Portal Accounting Personal Data Only
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Faccount--invoicing-lightgray.png?logo=github
-    :target: https://github.com/OCA/account-invoicing/tree/19.0/portal_account_personal_data_only
+    :target: https://github.com/OCA/account-invoicing/tree/20.0/portal_account_personal_data_only
     :alt: OCA/account-invoicing
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/account-invoicing-19-0/account-invoicing-19-0-portal_account_personal_data_only
+    :target: https://translation.odoo-community.org/projects/account-invoicing-20-0/account-invoicing-20-0-portal_account_personal_data_only
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=19.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/account-invoicing&target_branch=20.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-By default, portal users are allowed to see all the invoices in which a
-member of their organization are followers. That could cause a leaking
-of documents between members and departments and of the organization
-that should stay private.
+By default, portal users are allowed to see all the invoices of their
+commercial partner. That could cause a leaking of documents between
+members and departments of the organization that should stay private.
 
 This module restricts that behavior so the portal users only see their
-own documents.
+own documents: the invoices whose partner is the user's partner (or one
+of its descendants), or the ones the user's partner (or one of its
+descendants) is following.
 
 A similar module named ``portal_sale_personal_data_only`` exists to do
 the same for sale orders.
@@ -63,7 +64,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/account-invoicing/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20portal_account_personal_data_only%0Aversion:%2019.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/account-invoicing/issues/new?body=module:%20portal_account_personal_data_only%0Aversion:%2020.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -103,6 +104,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/19.0/portal_account_personal_data_only>`_ project on GitHub.
+This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/20.0/portal_account_personal_data_only>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
