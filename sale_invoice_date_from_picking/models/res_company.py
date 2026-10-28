@@ -8,3 +8,4 @@ class ResCompany(models.Model):
     _inherit = "res.company"
 
     picking_date_field_for_invoice_date = fields.Many2one("ir.model.fields")
+    picking_date_field_for_accounting_date = fields.Many2one("ir.model.fields")

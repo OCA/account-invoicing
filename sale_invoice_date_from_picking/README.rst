@@ -29,9 +29,10 @@ Sale Invoice Date From Picking
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module sets the invoice date based on the date or datetime field
-configured in the 'Picking Date for Invoice' setting. If the selected
-field has no value, the system will fallback to using the ``date_done``
-of the latest completed picking as the invoice date.
+configured in the 'Picking Date for Invoice' setting, and the accounting
+date based on the field configured in the 'Picking Date for Accounting
+Date' setting. If the selected field has no value, the system will
+fallback to using the ``date_done`` of the latest completed picking.
 
 **Table of contents**
 
@@ -47,13 +48,13 @@ Use Cases / Context
 
 One example of such an implementation case is as follows:
 
--  Install OCA modules sale_automatic_wofklow and
-   stock_move_actual_date, along with this module.
--  Select the actual date field as the Picking Date Field for Invoice
-   Date.
--  Configure automatic workflow domain so that the delivery is validated
-   and the invoice is created when the date set in the actual date has
-   arrived.
+- Install OCA modules sale_automatic_wofklow and stock_move_actual_date,
+  along with this module.
+- Select the actual date field as the Picking Date Field for Invoice
+  Date.
+- Configure automatic workflow domain so that the delivery is validated
+  and the invoice is created when the date set in the actual date has
+  arrived.
 
 Configuration
 =============
@@ -61,15 +62,32 @@ Configuration
 1. Navigate to *Sales > Configuration > Settings*.
 2. Find and set the 'Picking Date for Invoice' to use its value as the
    invoice date.
+3. Find and set the 'Picking Date for Accounting Date' to use its value
+   as the accounting date.
 
 Usage
 =====
 
--  Create a Sale Order with a storable product.
--  Validate the delivery.
--  Create the invoice.
--  The invoice date will be taken from the field on the delivery order,
-   as specified in the settings.
+- Create a Sale Order with a storable product.
+- Validate the delivery.
+- Create the invoice.
+- The invoice date and the accounting date will be taken from the fields
+  on the delivery order, as specified in the settings.
+
+Odoo recomputes the accounting date from the invoice date whenever the
+invoice date changes, so the accounting date from the delivery order is
+kept only if the invoice date is also set when the invoice is created
+(for example with 'Picking Date for Invoice'):
+
+- If the invoice date is empty, Odoo sets it to today on posting, and
+  the accounting date becomes today as well.
+- If you change the invoice date of a draft invoice, set the accounting
+  date again afterwards.
+- Credit notes created from the sales order (for example after a return)
+  do not keep the accounting date, as Odoo recomputes it when it turns
+  the invoice into a credit note.
+
+The currency rate of the invoice is still based on the invoice date.
 
 Bug Tracker
 ===========
@@ -92,10 +110,10 @@ Authors
 Contributors
 ------------
 
--  `Quartile <https://www.quartile.co>`__:
+- `Quartile <https://www.quartile.co>`__:
 
-   -  Aung Ko Ko Lin
-   -  Yoshi Tashiro
+  - Aung Ko Ko Lin
+  - Yoshi Tashiro
 
 Maintainers
 -----------

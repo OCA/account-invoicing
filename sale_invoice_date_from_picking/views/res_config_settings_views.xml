@@ -18,6 +18,15 @@
                         <field name="picking_date_field_for_invoice_date" />
                     </div>
                 </setting>
+                <setting
+                    id="picking_date_for_accounting_date"
+                    string="Picking Date for Accounting Date"
+                    help="Select the date or datetime field from the picking. If set, the value of this field or the effective date of the last completed picking associated with the sales order will be used as the accounting date."
+                >
+                    <div class="content-group mt16">
+                        <field name="picking_date_field_for_accounting_date" />
+                    </div>
+                </setting>
             </xpath>
         </field>
     </record>

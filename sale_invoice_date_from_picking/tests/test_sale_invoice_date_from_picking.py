@@ -1,6 +1,7 @@
 # Copyright 2025 Quartile (https://www.quartile.co)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from datetime import timedelta
 
 from odoo import Command, fields
 from odoo.tests.common import TransactionCase
@@ -19,6 +20,7 @@ class TestInvoiceDateFromPickingActualDate(TransactionCase):
             }
         )
         cls.env.company.picking_date_field_for_invoice_date = False
+        cls.env.company.picking_date_field_for_accounting_date = False
 
     def _create_sale_order(self, partner, product, quantity=1):
         order = self.env["sale.order"].create(
@@ -71,3 +73,28 @@ class TestInvoiceDateFromPickingActualDate(TransactionCase):
             picking_date,
             "Invoice date should match picking's date_done.",
         )
+
+    def test_invoice_date_and_accounting_date(self):
+        company = self.env.company
+        company.picking_date_field_for_invoice_date = self.env.ref(
+            "stock.field_stock_picking__date_deadline"
+        )
+        company.picking_date_field_for_accounting_date = self.env.ref(
+            "stock.field_stock_picking__date_done"
+        )
+        order = self._create_sale_order(self.partner, self.product)
+        order.commitment_date = fields.Datetime.now() + timedelta(days=10)
+        picking = order.picking_ids[0]
+        self._validate_picking(picking)
+        invoice = order._create_invoices()
+        order_tz = order.with_context(tz=company.partner_id.tz)
+        deadline_date = fields.Datetime.context_timestamp(
+            order_tz, picking.date_deadline
+        ).date()
+        done_date = fields.Datetime.context_timestamp(
+            order_tz, picking.date_done
+        ).date()
+        self.assertNotEqual(deadline_date, done_date)
+        invoice.action_post()
+        self.assertEqual(invoice.invoice_date, deadline_date)
+        self.assertEqual(invoice.date, done_date)
