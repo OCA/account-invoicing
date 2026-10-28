@@ -79,3 +79,27 @@ class TestPartnerAccess(AccountTestInvoicingCommon):
         invoice_a.message_subscribe(partner_ids=self.partner_b.ids)
         invoices_b = self.env["account.move"].with_user(self.user_b).search([])
         self.assertTrue(invoice_a in invoices_b)
+
+    def test_access_invoice_draft(self):
+        invoice_a = self.init_invoice(
+            "out_invoice", partner=self.partner_a, products=self.product_a
+        )
+        invoice_a.message_subscribe(partner_ids=self.partner_a.ids)
+        found_a = self.env["account.move"].with_user(self.user_a).search([])
+        self.assertTrue(invoice_a not in found_a)
+        invoice_a.action_post()
+        found_a = self.env["account.move"].with_user(self.user_a).search([])
+        self.assertTrue(invoice_a in found_a)
+
+    def test_access_invoice_line(self):
+        invoice_a = self.init_invoice(
+            "out_invoice", partner=self.partner_a, post=True, products=self.product_a
+        )
+        invoice_b = self.init_invoice(
+            "out_invoice", partner=self.partner_b, post=True, products=self.product_a
+        )
+        invoice_a.message_subscribe(partner_ids=self.partner_a.ids)
+        invoice_b.message_subscribe(partner_ids=self.partner_b.ids)
+        lines_a = self.env["account.move.line"].with_user(self.user_a).search([])
+        self.assertTrue(invoice_a.line_ids <= lines_a)
+        self.assertFalse(invoice_b.line_ids & lines_a)
