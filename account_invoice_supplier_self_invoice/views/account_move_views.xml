@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="priority">17</field>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='ref']" position="before">
+                <field
+                    name="self_invoice_number"
+                    readonly="1"
+                    invisible="move_type not in ('in_invoice', 'in_refund') or (state == 'draft' and not self_invoice_number)"
+                    groups="base.group_no_one"
+                />
+            </xpath>
+            <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                <field
+                    name="set_self_invoice"
+                    invisible="not can_self_invoice or move_type not in ('in_invoice', 'in_refund')"
+                    readonly="state != 'draft' or self_invoice_number"
+                />
+            </xpath>
+            <!-- Alerts -->
+            <xpath expr="//header" position="after">
+                <div
+                    class="alert alert-info mb-2 mb-md-2"
+                    invisible="move_type not in ('in_invoice', 'in_refund') or state != 'draft' or self_invoice_number or not set_self_invoice"
+                    role="alert"
+                >
+                    <span>
+                        This Invoice will generate a new Self-Bill Invoice Number.
+                    </span>
+                </div>
+                <div
+                    class="alert alert-danger mb-2 mb-md-2"
+                    invisible="state != 'posted' or not is_self_invoice_number_different"
+                    role="alert"
+                >
+                    <span>
+                        Self-Bill Invoice Number <strong>
+                        <field name="self_invoice_number" />
+                    </strong> is different than Invoice Reference.
+                    </span>
+                </div>
+            </xpath>
+            <!-- Make visible Send & Print button -->
+            <xpath expr="//button[@name='action_invoice_sent'][2]" position="after">
+                <button
+                    name="action_invoice_sent"
+                    type="object"
+                    string="Send"
+                    invisible="state == 'cancel' or is_move_sent or not set_self_invoice"
+                    class="oe_highlight"
+                    data-hotkey="y"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">account.invoice.select</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='to_check']" position="after">
+                <filter
+                    string="Self Invoices"
+                    name="flt_set_self_invoice_true"
+                    domain="[('set_self_invoice', '=', True)]"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
