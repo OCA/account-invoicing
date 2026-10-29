@@ -121,10 +121,43 @@ class AccountMoveLine(models.Model):
                     # to the customer
                     line.discount = discount
 
-    @api.depends("quantity")
     def _compute_price_unit(self):
+        # `quantity` is intentionally NOT in the depends: merging it
+        # would re-fire super() on vendor bills and overwrite their
+        # PO-supplied price with `standard_price`. Quantity-driven
+        # recomputes are scheduled for sale lines only in `modified()`.
         res = super()._compute_price_unit()
+        self._apply_pricelist_to_price_unit()
+        return res
+
+    def modified(self, fnames, create=False, before=False):
+        # Reschedule price_unit on sale lines when quantity changes
+        # post-create. We skip `create` so explicit `price_unit` in
+        # create vals isn't clobbered by the pricelist.
+        # Also skip lines whose price_unit is protected (same write also
+        # set an explicit price) — otherwise the deferred recompute
+        # overwrites the user's price with the pricelist result (often
+        # 0 for products without a matching rule) after the write ends.
+        res = super().modified(fnames, create=create, before=before)
+        if "quantity" in fnames and not create:
+            price_unit_field = self._fields["price_unit"]
+            sale_lines = self.filtered(
+                lambda line: line.move_id.move_type
+                in ("out_invoice", "out_refund", "out_receipt")
+                and not self.env.is_protected(price_unit_field, line)
+            )
+            if sale_lines:
+                self.env.add_to_compute(price_unit_field, sale_lines)
+        return res
+
+    def _apply_pricelist_to_price_unit(self):
         for line in self:
+            if line.move_id.move_type not in (
+                "out_invoice",
+                "out_refund",
+                "out_receipt",
+            ):
+                continue
             line = line.with_company(line.company_id)
             if not line.move_id.pricelist_id:
                 continue
@@ -142,7 +175,6 @@ class AccountMoveLine(models.Model):
                 line.with_context(
                     check_move_validity=False
                 ).price_unit = line.currency_id.round(price_unit)
-        return res
 
     def _get_display_price(self):
         """Compute the displayed unit price for a given line.
