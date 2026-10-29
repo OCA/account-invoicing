@@ -14,8 +14,11 @@ class AccountMoveSendBatchWizard(models.TransientModel):
         domain=[("model_id", "=", "account.move")],
     )
 
-    def action_send_and_print(self):
-        res = super().action_send_and_print()
+    def action_send_and_print(self, force_synchronous=False, allow_fallback_pdf=False):
+        res = super().action_send_and_print(
+            force_synchronous=force_synchronous,
+            allow_fallback_pdf=allow_fallback_pdf,
+        )
         if not self.mail_template_id:
             return res
         sending_data = fields.first(self.move_ids).sending_data
