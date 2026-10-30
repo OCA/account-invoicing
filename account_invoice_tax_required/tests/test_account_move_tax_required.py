@@ -2,6 +2,8 @@
 # Copyright 2024 - Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from unittest.mock import patch
+
 from odoo import exceptions
 from odoo.fields import Command
 from odoo.tests import tagged
@@ -23,12 +25,12 @@ class TestAccountInvoiceTaxRequired(AccountTestInvoicingCommon):
 
         cls.account_account = cls.env["account.account"]
         cls.account_rec1_id = cls.account_account.create(
-            dict(
-                code="20000",
-                name="customer account",
-                account_type="asset_receivable",
-                reconcile=True,
-            )
+            {
+                "code": "20000",
+                "name": "customer account",
+                "account_type": "asset_receivable",
+                "reconcile": True,
+            }
         )
         cls.product_product = cls.env["product.product"]
         cls.product = cls.product_product.create(
@@ -66,13 +68,13 @@ class TestAccountInvoiceTaxRequired(AccountTestInvoicingCommon):
         ]
 
         cls.invoice = cls.account_invoice.create(
-            dict(
-                name="Test Customer Invoice",
-                journal_id=cls.journal.id,
-                partner_id=cls.partner.id,
-                invoice_line_ids=invoice_line_data,
-                move_type="out_invoice",
-            )
+            {
+                "name": "Test Customer Invoice",
+                "journal_id": cls.journal.id,
+                "partner_id": cls.partner.id,
+                "invoice_line_ids": invoice_line_data,
+                "move_type": "out_invoice",
+            }
         )
 
         cls.tax_waiting_account = cls.env["account.account"].create(
@@ -116,6 +118,27 @@ class TestAccountInvoiceTaxRequired(AccountTestInvoicingCommon):
         """Validate invoice without tax must raise exception"""
         self.invoice.invoice_line_ids[0].tax_ids = [(4, self.tax_cash_basis.id)]
         self.invoice.with_context(test_tax_required=True).action_post()
+
+    def test_section_lines_without_tax(self):
+        """Section, subsection and note lines don't need taxes"""
+        self.invoice.invoice_line_ids[0].tax_ids = [(4, self.tax_cash_basis.id)]
+        self.invoice.invoice_line_ids = [
+            Command.create({"display_type": display_type, "name": display_type})
+            for display_type in ("line_section", "line_subsection", "line_note")
+        ]
+        self.invoice.with_context(test_tax_required=True).action_post()
+        self.assertEqual(self.invoice.state, "posted")
+
+    def test_skip_tax_required(self):
+        """The check can be skipped by context"""
+        with patch(
+            "odoo.addons.account_invoice_tax_required.models.account_move.config",
+            {"test_enable": False},
+        ):
+            with self.assertRaises(exceptions.RedirectWarning):
+                self.invoice.action_post()
+            self.invoice.with_context(skip_tax_required=True).action_post()
+        self.assertEqual(self.invoice.state, "posted")
 
     def test_exception_multiple_invoices(self):
         """Validate multiple invoices"""

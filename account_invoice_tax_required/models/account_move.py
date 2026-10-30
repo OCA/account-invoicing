@@ -20,7 +20,9 @@ class AccountMove(models.Model):
             "has a line with product %(product)s with no taxes"
         )
         for invoice_line in self.mapped("invoice_line_ids").filtered(
-            lambda x: x.display_type not in ("line_section", "line_note")
+            lambda x: (
+                x.display_type not in ("line_section", "line_subsection", "line_note")
+            )
         ):
             if not invoice_line.tax_ids:
                 error_string = error_template % {
