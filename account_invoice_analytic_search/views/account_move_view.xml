@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
     <record id="view_account_invoice_filter_inherited" model="ir.ui.view">
         <field name="name">account.move.select.inherited</field>
         <field name="model">account.move</field>
@@ -14,5 +13,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>

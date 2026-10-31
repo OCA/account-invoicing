@@ -183,14 +183,17 @@ class TestAccountMove(TransactionCase):
                 return legacy_account
             return original_mapped(records, expression, *args, **kwargs)
 
-        with patch.dict(
-            line_model._fields,
-            {
-                "analytic_distribution": dummy_field,
-                "analytic_account_id": dummy_field,
-            },
-            clear=False,
-        ), patch.object(type(self.invoice_distribution), "mapped", fake_mapped):
+        with (
+            patch.dict(
+                line_model._fields,
+                {
+                    "analytic_distribution": dummy_field,
+                    "analytic_account_id": dummy_field,
+                },
+                clear=False,
+            ),
+            patch.object(type(self.invoice_distribution), "mapped", fake_mapped),
+        ):
             self.invoice_distribution._compute_analytic_accounts()
 
         self.assertIn(legacy_account, self.invoice_distribution.analytic_account_ids)
