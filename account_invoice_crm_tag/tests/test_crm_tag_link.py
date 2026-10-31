@@ -2,11 +2,14 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.fields import Command
+from odoo.tests import Form, new_test_user
 
 from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestCrmTagLink(BaseCommon):
+    _test_user_groups = None
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -62,3 +65,20 @@ class TestCrmTagLink(BaseCommon):
         vals = line._prepare_invoice_line()
         self.assertIn("crm_tag_ids", vals)
         self.assertEqual(vals["crm_tag_ids"][0][2], [self.tag_1.id])
+
+    def test_invoice_form_billing_user(self):
+        """A Billing user can save an invoice form, which writes crm_tag_ids."""
+        billing_user = new_test_user(
+            self.env, login="billing_user", groups="account.group_account_invoice"
+        )
+        move_form = Form(
+            self.env["account.move"]
+            .with_user(billing_user)
+            .with_context(default_move_type="out_invoice")
+        )
+        move_form.partner_id = self.partner
+        with move_form.invoice_line_ids.new() as line_form:
+            line_form.product_id = self.product
+            line_form.price_unit = 100.0
+        invoice = move_form.save()
+        self.assertFalse(invoice.crm_tag_ids)
