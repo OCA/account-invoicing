@@ -114,6 +114,21 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
         self.assertEqual(len(single_end_inv.invoice_line_ids), 1)
         self.assertEqual(single_end_inv.invoice_line_ids.quantity, 2.0)
 
+    def test_invoice_merge_keep_salesperson(self):
+        salesperson = self.env["res.users"].create(
+            {
+                "name": "Salesperson",
+                "login": "account_invoice_merge_salesperson",
+                "groups_id": [Command.set(self.env.ref("base.group_user").ids)],
+            }
+        )
+        invoices = self.invoice1 | self.invoice2
+        invoices.invoice_user_id = salesperson
+        invoices_info = invoices.do_merge()
+        merged_invoice = self.inv_model.browse(list(invoices_info))
+        self.assertEqual(len(merged_invoice), 1)
+        self.assertEqual(merged_invoice.invoice_user_id, salesperson)
+
     def test_error_check(self):
         """Check"""
         # Different partner
