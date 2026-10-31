@@ -5,6 +5,7 @@ import json
 import uuid
 from unittest.mock import patch
 
+from odoo import Command
 from odoo.tests.common import TransactionCase
 
 
@@ -18,9 +19,7 @@ class TestAccountMove(TransactionCase):
         self.partner_2 = self.env.ref("base.res_partner_2").id
         self.product_4 = self.env.ref("product.product_product_4").id
         self.invoice_line_account = self._create_expense_account().id
-        self.plan = self.env["account.analytic.plan"].create(
-            {"name": "Test Plan", "company_id": self.env.company.id}
-        )
+        self.plan = self.env["account.analytic.plan"].create({"name": "Test Plan"})
         self.distribution_account = self.analytic_model.create(
             {
                 "name": "Distribution Account",
@@ -50,6 +49,8 @@ class TestAccountMove(TransactionCase):
             if self.has_legacy
             else False
         )
+        # Searching on a stored many2many does not recompute it first.
+        self.env.flush_all()
 
     def _create_invoice(self, analytic_account, use_distribution):
         invoice = self.account_invoice.create(
@@ -205,8 +206,8 @@ class TestAccountMove(TransactionCase):
         return self.account_model.create(
             {
                 "name": "Expense Account",
-                "code": "EXP%s" % uuid.uuid4().hex[:6],
+                "code": f"EXP{uuid.uuid4().hex[:6]}",
                 "account_type": "expense",
-                "company_id": self.env.company.id,
+                "company_ids": [Command.set(self.env.company.ids)],
             }
         )
