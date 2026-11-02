@@ -21,5 +21,5 @@
         "report/report.xml",
     ],
     "installable": True,
-    "maintainers": ["Saran440"],
+    "maintainers": ["Saran440", "aungkokolin1997"],
 }
