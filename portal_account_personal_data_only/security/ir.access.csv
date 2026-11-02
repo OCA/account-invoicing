@@ -1,0 +1,3 @@
+id,name,model_id,group_id/id,operation,domain
+portal_account_invoice_user_rule,Portal Only Personal Account Invoices,account.move,base.group_portal,r,"[('state', 'not in', ('cancel', 'draft')), ('move_type', 'in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')), ('message_partner_ids', 'child_of', user.partner_id.ids)]"
+portal_account_invoice_line_rule,Portal Only Personal Invoice Lines,account.move.line,base.group_portal,r,"[('parent_state', 'not in', ('cancel', 'draft')), ('move_id.move_type', 'in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')), ('move_id.message_partner_ids', 'child_of', user.partner_id.ids)]"
