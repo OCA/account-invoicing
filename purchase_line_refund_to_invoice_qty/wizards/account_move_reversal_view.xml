@@ -1,0 +1,25 @@
+<odoo>
+    <record id="view_account_move_reversal" model="ir.ui.view">
+        <field name="name">account.move.reversal.form.inherit</field>
+        <field name="model">account.move.reversal</field>
+        <field name="inherit_id" ref="account.view_account_move_reversal" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='journal_id']/.." position="after">
+                <group
+                    name="purchase_line_refund_qty"
+                    invisible="move_type != 'in_invoice'"
+                >
+                    <field name="purchase_qty_to_reinvoice" />
+                    <div class="oe_grey" colspan="4">
+                        Leave it marked when other customer invoices are expected for the quantities in the credit note.
+                    </div>
+                </group>
+            </xpath>
+            <xpath expr="//button[@name='modify_moves']" position="attributes">
+                <attribute
+                    name="invisible"
+                >move_type  == 'entry' or purchase_qty_to_reinvoice == False</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
