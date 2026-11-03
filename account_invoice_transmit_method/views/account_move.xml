@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
     Copyright 2017-2022 Akretion France (http://www.akretion.com/)
     @author: Alexis de Lattre <alexis.delattre@akretion.com>
@@ -30,11 +30,8 @@
                 />
             </field>
             <!--
-            button name="action_invoice_sent" string="Send and Print"
-            is used twice in the view:
-            one with class="oe_highlight" and a second one without highlight
-            The buttons should only be shown when the transmit method is
-            E-mail or empty
+                Only offer to send the invoice from Odoo when the transmit method
+                is E-mail or empty. Extend the core condition instead of replacing it.
             -->
             <xpath
                 expr="//button[@name='action_invoice_sent' and hasclass('oe_highlight')]"
@@ -42,7 +39,9 @@
             >
                 <attribute
                     name="invisible"
-                >state != 'posted' or is_being_sent or invoice_pdf_report_id or move_type not in ('out_invoice', 'out_refund') or transmit_method_code not in ('mail', False)</attribute>
+                    add="transmit_method_code not in ('mail', False)"
+                    separator="or"
+                />
             </xpath>
             <xpath
                 expr="//button[@name='action_invoice_sent' and not(hasclass('oe_highlight'))]"
@@ -50,7 +49,9 @@
             >
                 <attribute
                     name="invisible"
-                >state != 'posted' or not is_being_sent and not invoice_pdf_report_id or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund') or transmit_method_code not in ('mail', False)</attribute>
+                    add="transmit_method_code not in ('mail', False)"
+                    separator="or"
+                />
             </xpath>
         </field>
     </record>
