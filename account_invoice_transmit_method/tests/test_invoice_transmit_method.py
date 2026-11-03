@@ -5,11 +5,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.tests import tagged
-from odoo.tests.common import TransactionCase
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
 @tagged("post_install", "-at_install")
-class TestAccountInvoiceTransmitMethod(TransactionCase):
+class TestAccountInvoiceTransmitMethod(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -27,7 +28,6 @@ class TestAccountInvoiceTransmitMethod(TransactionCase):
         cls.post_method = cls.env.ref("account_invoice_transmit_method.post")
         cls.partner = cls.env["res.partner"].create(
             {
-                "is_company": True,
                 "name": "Old School Company",
                 "customer_invoice_transmit_method_id": cls.post_method.id,
             }

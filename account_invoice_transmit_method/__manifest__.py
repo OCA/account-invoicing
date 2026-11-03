@@ -4,7 +4,7 @@
 
 {
     "name": "Invoice Transmit Method",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "category": "Accounting/Accounting",
     "license": "AGPL-3",
     "summary": "Configure invoice transmit method (email, post, portal, ...)",
@@ -13,7 +13,7 @@
     "website": "https://github.com/OCA/account-invoicing",
     "depends": ["account", "base_view_inheritance_extension"],
     "data": [
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
         "views/account_move.xml",
         "views/res_partner.xml",
         "views/transmit_method.xml",
