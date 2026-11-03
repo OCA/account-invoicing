@@ -10,7 +10,7 @@ class AccountMove(models.Model):
     tax_calculation_rounding_method = fields.Selection(
         [
             ("round_per_line", "Round per Line"),
-            ("round_globally", "Round Globally"),
+            ("round_globally", "Round per Tax"),
         ],
         compute="_compute_tax_calculation_rounding_method",
         store=True,

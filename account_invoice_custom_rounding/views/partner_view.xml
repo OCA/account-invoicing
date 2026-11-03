@@ -14,13 +14,17 @@
                 />
             </field>
             <xpath
-                expr="//page[@name='contact_addresses']//form//div[@name='div_address']/.."
+                expr="//page[@name='contact_addresses']//form//div[@name='div_address']/../.."
                 position="after"
             >
-                <field
-                    invisible="type != 'invoice'"
-                    name="tax_calculation_rounding_method"
-                />
+                <group>
+                    <group>
+                        <field
+                            invisible="type != 'invoice'"
+                            name="tax_calculation_rounding_method"
+                        />
+                    </group>
+                </group>
             </xpath>
         </field>
     </record>
