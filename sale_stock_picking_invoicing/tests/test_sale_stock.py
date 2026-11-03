@@ -467,6 +467,201 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         so_invoice.action_post()
         self.assertEqual(so_invoice.state, "posted")
 
+    def test_12_kit_component_price_distribution(self):
+        """
+        Phantom kit: the component moves share the sale line of the kit, so
+        each component must take its share of the sold price, in proportion
+        to the standalone sale prices, and the invoice must total exactly
+        the price the kit was sold for.
+        """
+        components = [
+            self.env["product.product"].create(
+                {
+                    "name": name,
+                    "type": "consu",
+                    "is_storable": True,
+                    "list_price": price,
+                    "invoice_policy": "delivery",
+                }
+            )
+            for name, price in [
+                ("Comp A", 239.0),
+                ("Comp B", 189.0),
+                ("Comp C", 319.0),
+                ("Comp D", 269.0),
+            ]
+        ]
+        kit = self.env["product.product"].create(
+            {
+                "name": "Kit",
+                "type": "consu",
+                "is_storable": True,
+                "list_price": 914.40,
+                "invoice_policy": "delivery",
+            }
+        )
+        sale_order = self.env["sale.order"].create(
+            {
+                "partner_id": self.partner_a.id,
+                "pricelist_id": self.pricelist.id,
+                "order_line": [(0, 0, {"product_id": kit.id, "product_uom_qty": 1.0})],
+            }
+        )
+        sale_order.action_confirm()
+        kit_line = sale_order.order_line
+        picking = sale_order.picking_ids
+
+        # Simulate the phantom BOM explosion of mrp: the kit move is
+        # replaced by one move per component, all linked to the kit line.
+        kit_move = picking.move_ids
+        kit_move._action_cancel()
+        kit_move.unlink()
+        for component in components:
+            self.env["stock.move"].create(
+                {
+                    "name": component.name,
+                    "product_id": component.id,
+                    "product_uom_qty": 1.0,
+                    "product_uom": component.uom_id.id,
+                    "picking_id": picking.id,
+                    "location_id": picking.location_id.id,
+                    "location_dest_id": picking.location_dest_id.id,
+                    "sale_line_id": kit_line.id,
+                    "company_id": picking.company_id.id,
+                }
+            )
+        self.picking_move_state(picking)
+        picking.set_to_be_invoiced()
+
+        invoice = create_with_form_inv_onshipping(self.env, picking)
+
+        lines = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.display_type == "product"
+        )
+        self.assertEqual(len(lines), 4)
+        # 914.40 distributed over 239 + 189 + 319 + 269 = 1016 (factor 0.9)
+        expected = {
+            "Comp A": 215.10,
+            "Comp B": 170.10,
+            "Comp C": 287.10,
+            "Comp D": 242.10,
+        }
+        for line in lines:
+            self.assertAlmostEqual(
+                line.price_unit, expected[line.product_id.name], places=2
+            )
+        self.assertAlmostEqual(sum(lines.mapped("price_subtotal")), 914.40, places=2)
+
+    def test_13_kit_component_price_even_split(self):
+        """
+        Kit whose components have no standalone sale price: the sold price
+        is split evenly over the component quantities.
+        """
+        components = [
+            self.env["product.product"].create(
+                {
+                    "name": name,
+                    "type": "consu",
+                    "is_storable": True,
+                    "list_price": 0.0,
+                    "invoice_policy": "delivery",
+                }
+            )
+            for name in ("Comp E", "Comp F")
+        ]
+        kit = self.env["product.product"].create(
+            {
+                "name": "Kit Even",
+                "type": "consu",
+                "is_storable": True,
+                "list_price": 100.0,
+                "invoice_policy": "delivery",
+            }
+        )
+        sale_order = self.env["sale.order"].create(
+            {
+                "partner_id": self.partner_a.id,
+                "pricelist_id": self.pricelist.id,
+                "order_line": [(0, 0, {"product_id": kit.id, "product_uom_qty": 1.0})],
+            }
+        )
+        sale_order.action_confirm()
+        kit_line = sale_order.order_line
+        picking = sale_order.picking_ids
+        kit_move = picking.move_ids
+        kit_move._action_cancel()
+        kit_move.unlink()
+        for component in components:
+            self.env["stock.move"].create(
+                {
+                    "name": component.name,
+                    "product_id": component.id,
+                    "product_uom_qty": 1.0,
+                    "product_uom": component.uom_id.id,
+                    "picking_id": picking.id,
+                    "location_id": picking.location_id.id,
+                    "location_dest_id": picking.location_dest_id.id,
+                    "sale_line_id": kit_line.id,
+                    "company_id": picking.company_id.id,
+                }
+            )
+        self.picking_move_state(picking)
+        picking.set_to_be_invoiced()
+
+        invoice = create_with_form_inv_onshipping(self.env, picking)
+
+        lines = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.display_type == "product"
+        )
+        self.assertEqual(len(lines), 2)
+        for line in lines:
+            self.assertAlmostEqual(line.price_unit, 50.0, places=2)
+        self.assertAlmostEqual(sum(lines.mapped("price_subtotal")), 100.0, places=2)
+
+    def test_14_sale_line_price_overrides_product_price(self):
+        """
+        Product sold below its standalone price: the invoice created from
+        the picking takes the price the product was actually sold for.
+        """
+        product = self.env["product.product"].create(
+            {
+                "name": "Discounted Product",
+                "type": "consu",
+                "is_storable": True,
+                "list_price": 100.0,
+                "invoice_policy": "delivery",
+            }
+        )
+        sale_order = self.env["sale.order"].create(
+            {
+                "partner_id": self.partner_a.id,
+                "pricelist_id": self.pricelist.id,
+                "order_line": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": product.id,
+                            "product_uom_qty": 1.0,
+                            "price_unit": 90.0,
+                        },
+                    )
+                ],
+            }
+        )
+        sale_order.action_confirm()
+        picking = sale_order.picking_ids
+        self.picking_move_state(picking)
+        picking.set_to_be_invoiced()
+
+        invoice = create_with_form_inv_onshipping(self.env, picking)
+
+        line = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.display_type == "product"
+        )
+        self.assertEqual(len(line), 1)
+        self.assertAlmostEqual(line.price_unit, 90.0, places=2)
+
     def test_10_so_only_consu_with_notes_invoice_from_so_raises(self):
         """
         Under 'stock_picking', a SO whose only invoiceable content is
