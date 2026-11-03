@@ -1,22 +1,17 @@
 # Copyright 2024 Manuel Regidor <manuel.regidor@sygel.es>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo.tests import common
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-class TestAccountInvoiceCustomRoundingCommon(common.TransactionCase):
+class TestAccountInvoiceCustomRoundingCommon(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.tax = cls.env["account.tax"].create(
+        cls.tax_sale_a.write(
             {
-                "name": "Tax",
-                "amount_type": "percent",
                 "amount": 21,
             }
         )
-        cls.product = cls.env["product.product"].create(
-            {"name": "Product", "type": "service"}
-        )
-        cls.partner = cls.env["res.partner"].create({"name": "Partner"})
-        cls.company = cls.env.ref("base.main_company")
+        cls.product_a.write({"name": "Product", "type": "service"})
+        cls.partner_a.write({"name": "Partner"})

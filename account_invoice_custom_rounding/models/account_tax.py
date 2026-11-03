@@ -38,3 +38,13 @@ class AccountTax(models.Model):
             "tax_calculation_rounding_method", "round_globally"
         )
         return result
+
+    @api.model
+    def _prepare_base_line_tax_repartition_grouping_key(
+        self, base_line, base_line_grouping_key, tax_data, tax_rep_data
+    ):
+        result = super()._prepare_base_line_tax_repartition_grouping_key(
+            base_line, base_line_grouping_key, tax_data, tax_rep_data
+        )
+        result.pop("tax_calculation_rounding_method", None)
+        return result
