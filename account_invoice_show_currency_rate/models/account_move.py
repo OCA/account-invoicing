@@ -1,0 +1,69 @@
+# Copyright 2021 Tecnativa - Víctor Martínez
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
+from odoo import api, models
+
+
+class AccountMove(models.Model):
+    _inherit = "account.move"
+
+    @api.depends(
+        "currency_id",
+        "company_currency_id",
+        "company_id",
+        "invoice_date",
+        "state",
+        "line_ids.amount_currency",
+        "line_ids.balance",
+    )
+    def _compute_invoice_currency_rate(self):
+        # If move is posted, get rate based on line amount
+        res = super()._compute_invoice_currency_rate()
+        for move in self:
+            lines = move.line_ids.filtered(lambda x: abs(x.amount_currency) > 0)
+            if move.state != "posted" or not lines or not move.currency_id:
+                continue
+            amount_currency_positive = sum(
+                [abs(amc) for amc in lines.mapped("amount_currency")]
+            )
+            total_balance_positive = sum([abs(b) for b in lines.mapped("balance")])
+            move.invoice_currency_rate = (
+                amount_currency_positive / total_balance_positive
+                if total_balance_positive
+                else 0
+            )
+        return res
+
+    # Add the 'state', 'line_ids.amount_currency', and 'line_ids.balance'
+    # dependencies to the base dependencies to recalculate the expected exchange rate.
+    #
+    # Without this change, which causes expected_currency_rate and invoice_currency_rate
+    # to be updated simultaneously, invoice_currency_rate is updated with an outdated
+    # expected_currency_rate value in account.move.
+    @api.depends("state", "line_ids.amount_currency", "line_ids.balance")
+    def _compute_expected_currency_rate(self):
+        return super()._compute_expected_currency_rate()
+
+
+class AccountMoveLine(models.Model):
+    _inherit = "account.move.line"
+
+    @api.depends(
+        "currency_id",
+        "company_id",
+        "move_id.invoice_currency_rate",
+        "move_id.date",
+        "move_id.state",
+        "amount_currency",
+        "balance",
+    )
+    def _compute_currency_rate(self):
+        # If move is posted, get rate based on line amount
+        res = super()._compute_currency_rate()
+        for line in self:
+            if line.move_id.state != "posted" or not line.amount_currency:
+                continue
+            line.currency_rate = (
+                abs(line.amount_currency) / abs(line.balance) if line.balance else 0
+            )
+        return res
