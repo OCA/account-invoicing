@@ -11,6 +11,8 @@ from odoo.addons.base.tests.common import BaseCommon
 
 @tagged("post_install", "-at_install")
 class TestAccountInvoiceTransmitMethod(BaseCommon):
+    _test_user_groups = ("account.group_account_manager", "base.group_system")
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
