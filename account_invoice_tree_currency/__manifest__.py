@@ -4,8 +4,8 @@
 {
     "name": "Account Invoice Tree Currency",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
-    "summary": "Show currencies in the invoice tree view",
-    "version": "19.0.1.0.1",
+    "summary": "Show currencies in the invoice list view",
+    "version": "20.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "depends": ["account"],
