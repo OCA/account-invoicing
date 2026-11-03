@@ -15,20 +15,8 @@
             </field>
             <field name="amount_residual_signed" position="after">
                 <field
-                    name="amount_untaxed"
-                    string="Tax Excluded (Currency)"
-                    sum="Total"
-                    optional="hide"
-                />
-                <field
                     name="amount_tax"
                     string="Tax (Currency)"
-                    sum="Total"
-                    optional="hide"
-                />
-                <field
-                    name="amount_total"
-                    string="Total (Currency)"
                     sum="Total"
                     optional="hide"
                 />
