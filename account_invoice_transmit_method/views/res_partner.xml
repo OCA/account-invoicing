@@ -31,7 +31,9 @@
             >
                 <attribute
                     name="required"
-                >customer_invoice_transmit_method_code == 'mail' and type == 'invoice'</attribute>
+                    add="customer_invoice_transmit_method_code == 'mail' and type == 'invoice'"
+                    separator="or"
+                />
             </xpath>
         </field>
     </record>
