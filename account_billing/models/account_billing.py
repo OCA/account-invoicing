@@ -1,10 +1,13 @@
 # Copyright 2019 Ecosoft Co., Ltd (https://ecosoft.co.th/)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
+import logging
 from datetime import date
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountBilling(models.Model):
@@ -121,6 +124,14 @@ class AccountBilling(models.Model):
         store=True,
     )
 
+    is_sent = fields.Boolean(
+        readonly=True,
+        copy=False,
+        help="It indicates that the billing has been sent by email.",
+    )
+    sending_data = fields.Json(copy=False)
+    is_being_sent = fields.Boolean(compute="_compute_is_being_sent")
+
     @api.model
     def _get_default_threshold_date_type(self):
         return "invoice_date_due"
@@ -148,6 +159,11 @@ class AccountBilling(models.Model):
     def _get_moves(self, date, types=False):
         domain = self._get_moves_domain(date, types=types)
         return self.env["account.move"].search(domain)
+
+    @api.depends("sending_data")
+    def _compute_is_being_sent(self):
+        for billing in self:
+            billing.is_being_sent = bool(billing.sending_data)
 
     def _compute_invoice_related_count(self):
         self.invoice_related_count = len(self.billing_line_ids)
@@ -278,6 +294,160 @@ class AccountBilling(models.Model):
         billing_line_dict = self._get_billing_line_dict(moves)
         self.billing_line_ids.create(billing_line_dict)
         self._sort_billing_lines()
+
+    def _get_billing_email_template(self):
+        self.ensure_one()
+        template = self.company_id.billing_email_template_id or self.env.ref(
+            "account_billing.email_template_billing", raise_if_not_found=False
+        )
+        if not template:
+            raise UserError(
+                _("Please configure the Billing Email Template in the settings.")
+            )
+        return template
+
+    def action_billing_send(self):
+        if any(billing.state != "billed" for billing in self):
+            raise UserError(_("Only validated billings can be sent by email."))
+        if any(self.mapped("is_being_sent")):
+            raise UserError(_("Some billings are already being sent."))
+        if len(self) > 1:
+            return self._action_billing_send_batch()
+        template = self._get_billing_email_template()
+        ctx = dict(
+            self.env.context,
+            default_model="account.billing",
+            default_res_ids=self.ids,
+            default_template_id=template.id,
+            default_composition_mode="comment",
+            default_email_layout_xmlid=(
+                "mail.mail_notification_layout_with_responsible_signature"
+            ),
+            email_notification_allow_footer=True,
+            force_email=True,
+            mark_billing_as_sent=True,
+        )
+        return {
+            "name": _("Compose Email"),
+            "type": "ir.actions.act_window",
+            "view_mode": "form",
+            "res_model": "mail.compose.message",
+            "views": [(False, "form")],
+            "target": "new",
+            "context": ctx,
+        }
+
+    def _action_billing_send_batch(self):
+        """Queue the billings for the cron, as account does for invoices:
+        rendering one PDF per billing does not fit in a single request."""
+        for billing in self:
+            billing._get_billing_email_template()
+        cron = self.env.ref("account_billing.ir_cron_account_billing_send")
+        if not cron.sudo().active:
+            raise UserError(
+                _(
+                    "Batch sending of billings is unavailable. Please ask your "
+                    "administrator to activate the scheduled action '%s'.",
+                    cron.sudo().name,
+                )
+            )
+        self.sending_data = {
+            "author_user_id": self.env.user.id,
+            "author_partner_id": self.env.user.partner_id.id,
+        }
+        cron._trigger()
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "type": "info",
+                "title": _("Sending billings"),
+                "message": _("Billings are being sent in the background."),
+                "next": {"type": "ir.actions.act_window_close"},
+            },
+        }
+
+    def _send_billing_email(self):
+        self.ensure_one()
+        self.with_context(mark_billing_as_sent=True).message_post_with_source(
+            self._get_billing_email_template(),
+            message_type="comment",
+            subtype_xmlid="mail.mt_comment",
+            email_layout_xmlid=(
+                "mail.mail_notification_layout_with_responsible_signature"
+            ),
+        )
+
+    def message_post(self, **kwargs):
+        if self.env.context.get("mark_billing_as_sent"):
+            self.filtered(lambda b: not b.is_sent).write({"is_sent": True})
+        return super().message_post(**kwargs)
+
+    @api.model
+    def _cron_account_billing_send(self, job_count=10):
+        domain = [("sending_data", "!=", False)]
+        to_process = self.search(domain, order="id", limit=job_count + 1)
+        if not to_process:
+            return
+        need_retrigger = len(to_process) > job_count
+        to_process = to_process[:job_count]
+        if not self.env["res.company"]._with_locked_records(
+            to_process, allow_raising=False
+        ):
+            return
+        remaining = self.search_count(domain) - len(to_process)
+        billings_by_author = to_process.grouped(
+            lambda b: b.sending_data["author_user_id"]
+        )
+        sent = self.browse()
+        for author_id, billings in billings_by_author.items():
+            author = self.env["res.users"].browse(author_id)
+            for billing in billings.filtered(lambda b: b.state == "billed"):
+                try:
+                    with self.env.cr.savepoint():
+                        billing.with_user(author).with_company(
+                            billing.company_id
+                        )._send_billing_email()
+                    sent |= billing
+                except Exception:
+                    _logger.exception(
+                        "Failed to send billing %s by email", billing.display_name
+                    )
+        to_process.sending_data = False
+        self.env["ir.cron"]._notify_progress(done=len(to_process), remaining=remaining)
+        for author_id, billings in billings_by_author.items():
+            partner = self.env["res.users"].browse(author_id).partner_id
+            billings_error = billings - sent
+            if billings_error:
+                partner._bus_send(
+                    *self._get_send_notification(billings_error, is_success=False)
+                )
+            if billings & sent:
+                partner._bus_send(
+                    *self._get_send_notification(billings & sent, is_success=True)
+                )
+        if need_retrigger:
+            self.env.ref("account_billing.ir_cron_account_billing_send")._trigger()
+
+    def _get_send_notification(self, billings, is_success):
+        return [
+            "account_notification",
+            {
+                "type": "success" if is_success else "warning",
+                "title": _("Billings sent") if is_success else _("Billings in error"),
+                "message": _("Billings sent successfully.")
+                if is_success
+                else _("One or more billings couldn't be sent."),
+                "action_button": {
+                    "name": _("Open"),
+                    "action_name": _("Sent billings")
+                    if is_success
+                    else _("Billings in error"),
+                    "model": "account.billing",
+                    "res_ids": billings.ids,
+                },
+            },
+        ]
 
 
 class AccountBillingLine(models.Model):
