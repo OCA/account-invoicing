@@ -1,0 +1,57 @@
+.o_field_discount_distribution {
+    height: auto;
+
+    .discount_distribution_placeholder {
+        height: 1.5em;
+        width: 20px;
+    }
+
+    .o_input_dropdown {
+        flex: 1 0 20px;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            .o_dropdown_button {
+                display: unset;
+            }
+        }
+
+        .o_dropdown_button {
+            display: none;
+        }
+    }
+
+    .badge {
+        margin: 1px 2px 1px 0;
+        border: none;
+        padding-left: 0.6em;
+        padding-right: 0.6em;
+        min-width: unset;
+        cursor: pointer;
+    }
+}
+
+.discount_distribution_popup {
+    min-width: 300px;
+    max-width: 400px;
+    max-height: 50vh;
+    z-index: 1050;
+    white-space: nowrap;
+    cursor: default;
+
+    input[type="number"] {
+        text-align: right;
+    }
+
+    .o_field_x2many_list_row_add a {
+        text-decoration: none;
+    }
+
+    tr:hover {
+        outline: none !important;
+    }
+}
