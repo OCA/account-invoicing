@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="form_view_account_move_reversal_inherit_credit_note" model="ir.ui.view">
+        <field name="name">form.view.account.move.reversal.inherit.credit.note</field>
+        <field name="model">account.move.reversal</field>
+        <field name="inherit_id" ref="account.view_account_move_reversal" />
+        <field name="arch" type="xml">
+            <field name="reason" position="attributes">
+                <attribute name="string">Reversal reason</attribute>
+            </field>
+            <button name="modify_moves" position="attributes">
+                <attribute
+                    name="string"
+                >Reverse and Create Invoice/Credit Note</attribute>
+            </button>
+        </field>
+    </record>
+</odoo>
