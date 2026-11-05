@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_invoice_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='show_sale_receipts']" position="after">
+                <setting
+                    id="billing_portal_report"
+                    company_dependent="1"
+                    string="Choose Billing Portal Report"
+                    help="If set, this report will be used in the billing portal to show the billing and as the PDF attachment in billing emails. If left empty, the standard report from the Account Billing module will be used instead."
+                >
+                    <field name="billing_portal_report" />
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
