@@ -7,14 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-05 07:17+0000\n"
-"PO-Revision-Date: 2024-02-05 07:17+0000\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2026-11-06 07:46+0000\n"
+"Last-Translator: Yazid Bustomi <bustomi024@gmail.com>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_invoice_tax_required
 #. odoo-python
@@ -23,14 +24,14 @@ msgstr ""
 msgid ""
 "Invoice %(invoice)s for customer %(customer)s has a line with product "
 "%(product)s with no taxes"
-msgstr ""
+msgstr "Faktur untuk pelanggan% memiliki baris dari produk tanpa pajak."
 
 #. module: account_invoice_tax_required
 #. odoo-python
 #: code:addons/account_invoice_tax_required/models/account_move.py:0
 #, python-format
 msgid "Invoices with Missing Taxes"
-msgstr ""
+msgstr "Faktur yang Tidak Mencantumkan Pajak"
 
 #. module: account_invoice_tax_required
 #: model:ir.model,name:account_invoice_tax_required.model_account_move
