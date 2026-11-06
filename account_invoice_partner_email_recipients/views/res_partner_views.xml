@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field name="name">res.partner.property.form.inherit.invoice.recipients</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='invoice_send_settings']" position="inside">
+                <field
+                    name="invoice_recipient_ids"
+                    widget="many2many_tags"
+                    options="{'no_create': True}"
+                    placeholder="Select contacts..."
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
