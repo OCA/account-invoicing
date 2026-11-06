@@ -9,26 +9,27 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-09 03:38+0000\n"
-"PO-Revision-Date: 2016-12-09 03:38+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
+"PO-Revision-Date: 2026-11-06 07:46+0000\n"
+"Last-Translator: Yazid Bustomi <bustomi024@gmail.com>\n"
 "Language-Team: Indonesian (https://www.transifex.com/oca/teams/23907/id/)\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_invoice_merge
 #. odoo-python
 #: code:addons/account_invoice_merge/wizard/invoice_merge.py:0
 #, python-format
 msgid "All invoices must have the same: \n"
-msgstr ""
+msgstr "Semua faktur harus mencantumkan hal berikut: \n"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
 msgid "Are you sure you want to merge these invoices?"
-msgstr ""
+msgstr "Apakah Anda yakin ingin menggabungkan faktur-faktur ini?"
 
 #. module: account_invoice_merge
 #: model_terms:ir.ui.view,arch_db:account_invoice_merge.view_invoice_merge
