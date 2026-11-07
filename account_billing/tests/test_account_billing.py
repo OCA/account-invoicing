@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
 from datetime import datetime
+from unittest.mock import patch
 
 from dateutil.relativedelta import relativedelta
 
@@ -354,3 +355,85 @@ class TestAccountBilling(TransactionCase):
             billing.billing_line_ids.mapped("move_id").ids,
             (inv_b + inv_c + inv_d + inv_a).ids,
         )
+
+    def test_action_billing_send(self):
+        """A validated billing can be sent by email with its report attached."""
+        invoice = self.create_invoice(amount=100)
+        action = invoice.action_create_billing()
+        billing = self.billing_model.browse(action["res_id"])
+        # Make sure the threshold date is not earlier than the line dates so the
+        # billing can be validated regardless of the default threshold date type.
+        billing.threshold_date = fields.Date.from_string("2099-12-31")
+        billing.validate_billing()
+        self.assertEqual(billing.state, "billed")
+        action = billing.action_billing_send()
+        self.assertEqual(action["res_model"], "mail.compose.message")
+        attachment_count = self.env["ir.attachment"].search_count(
+            [("res_model", "=", "account.billing"), ("res_id", "=", billing.id)]
+        )
+        composer = (
+            self.env["mail.compose.message"]
+            .with_context(**action["context"])
+            .create({})
+        )
+        # The template renders the billing report; nothing is stored on the
+        # billing until the email is actually sent.
+        self.assertEqual(len(composer.attachment_ids), 1)
+        # Reports are rendered as HTML under tests, hence no extension check.
+        self.assertTrue(
+            composer.attachment_ids.name.startswith(f"BILL-{billing.name}.")
+        )
+        self.assertEqual(
+            self.env["ir.attachment"].search_count(
+                [("res_model", "=", "account.billing"), ("res_id", "=", billing.id)]
+            ),
+            attachment_count,
+        )
+        self.assertFalse(billing.is_sent)
+        composer.action_send_mail()
+        self.assertTrue(billing.is_sent)
+        message = billing.message_ids[0]
+        self.assertTrue(message.attachment_ids.name.startswith(f"BILL-{billing.name}."))
+
+    def _create_billed_billing(self, partner):
+        invoice = self.create_invoice(amount=100, partner=partner.id)
+        action = invoice.action_create_billing()
+        billing = self.billing_model.browse(action["res_id"])
+        billing.threshold_date = fields.Date.from_string("2099-12-31")
+        billing.validate_billing()
+        return billing
+
+    def test_action_billing_send_batch(self):
+        """Several billings are queued and sent by the cron, not in the request."""
+        partners = self.env["res.partner"].create(
+            [{"name": f"Batch {i}", "email": f"batch{i}@example.com"} for i in range(3)]
+        )
+        billings = self.billing_model.browse()
+        for partner in partners:
+            billings |= self._create_billed_billing(partner)
+        invoice = self.create_invoice(amount=100, partner=partners[0].id)
+        draft = self.billing_model.browse(invoice.action_create_billing()["res_id"])
+        with self.assertRaises(UserError):
+            (billings | draft).action_billing_send()
+        action = billings.action_billing_send()
+        self.assertEqual(action["tag"], "display_notification")
+        self.assertTrue(all(billings.mapped("is_being_sent")))
+        with self.assertRaises(UserError):
+            billings.action_billing_send()
+        self.assertFalse(any(billings.mapped("message_ids.attachment_ids")))
+        cron = self.env.ref("account_billing.ir_cron_account_billing_send")
+        with patch.object(type(cron), "_commit_progress") as commit_progress:
+            self.billing_model._cron_account_billing_send(job_count=2)
+        commit_progress.assert_called_once_with(2, remaining=1)
+        self.assertEqual(len(billings.filtered("is_being_sent")), 1)
+        self.assertEqual(len(billings.filtered("is_sent")), 2)
+        with self.enter_registry_test_mode():
+            cron.method_direct_trigger()
+        self.assertFalse(any(billings.mapped("is_being_sent")))
+        self.assertTrue(all(billings.mapped("is_sent")))
+        for billing in billings:
+            message = billing.message_ids[0]
+            self.assertEqual(message.message_type, "comment")
+            self.assertTrue(
+                message.attachment_ids.name.startswith(f"BILL-{billing.name}.")
+            )

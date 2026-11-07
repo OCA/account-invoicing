@@ -26,6 +26,7 @@
                 <field name="date" />
                 <field name="threshold_date" />
                 <field name="payment_paid_all" />
+                <field name="is_sent" optional="hide" />
                 <field
                     name="state"
                     widget="badge"
@@ -54,6 +55,12 @@
                     string="Billed"
                     domain="[('state','=','billed')]"
                     help="Billed Billing"
+                />
+                <separator />
+                <filter
+                    name="not_sent"
+                    string="Not Sent"
+                    domain="[('is_sent', '=', False)]"
                 />
                 <group>
                     <filter
@@ -90,6 +97,13 @@
                         type="object"
                     />
                     <button
+                        name="action_billing_send"
+                        string="Send by Email"
+                        type="object"
+                        invisible="state != 'billed' or is_being_sent"
+                        class="oe_highlight"
+                    />
+                    <button
                         name="action_register_payment"
                         type="object"
                         class="oe_highlight"
@@ -124,6 +138,13 @@
                     />
                 </header>
                 <sheet>
+                    <div
+                        class="alert alert-info"
+                        role="alert"
+                        invisible="not is_being_sent"
+                    >
+                        This billing is being sent in the background.
+                    </div>
                     <div class="oe_button_box" name="button_box">
                         <button
                             class="oe_stat_button"
