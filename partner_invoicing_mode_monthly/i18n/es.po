@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_invoicing_mode_monthly
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-05-12 18:36+0000\n"
+"Last-Translator: Sergio Ariel Ameghino <ariel.ameghino@gmail.com>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: partner_invoicing_mode_monthly
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode_monthly.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Monthly Invoicing Options</span>"
+msgstr "<span class=\"o_form_label\">Opciones de facturación mensual</span>"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model,name:partner_invoicing_mode_monthly.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model,name:partner_invoicing_mode_monthly.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de Configuración"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model,name:partner_invoicing_mode_monthly.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields,help:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_day_todo
+#: model:ir.model.fields,help:partner_invoicing_mode_monthly.field_res_config_settings__res_invoicing_mode_monthly_day_todo
+msgid ""
+"Day of the month to execute the invoicing. For a number higherthan the "
+"number of days in a month, the invoicing will beexecuted on the last day of "
+"the month."
+msgstr ""
+"Día del mes para ejecutar la facturación. Si el número es mayor al numero de "
+"días del mes, la facturación será ejecutada el último día del mes."
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.actions.server,name:partner_invoicing_mode_monthly.ir_cron_generate_monthly_invoice_ir_actions_server
+#: model:ir.cron,cron_name:partner_invoicing_mode_monthly.ir_cron_generate_monthly_invoice
+msgid "Generate Monthly Invoices"
+msgstr "Generar facturas mensuales"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_day_todo
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_config_settings__res_invoicing_mode_monthly_day_todo
+msgid "Invoicing Day"
+msgstr "Día de facturación"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_partner__invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_users__invoicing_mode
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode_monthly.res_config_settings_view_form
+msgid "Invoicing Mode"
+msgstr "Modo de facturación"
+
+#. module: partner_invoicing_mode_monthly
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode_monthly.res_config_settings_view_form
+msgid "Invoicing day"
+msgstr "Día de facturación"
+
+#. module: partner_invoicing_mode_monthly
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode_monthly.res_config_settings_view_form
+msgid "Last executed on"
+msgstr "Última ejecución el"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
+#: model:ir.model.fields,field_description:partner_invoicing_mode_monthly.field_res_config_settings__invoicing_mode_monthly_last_execution
+msgid "Last execution (monthly)"
+msgstr "Última ejecución (mensual)"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields,help:partner_invoicing_mode_monthly.field_res_company__invoicing_mode_monthly_last_execution
+#: model:ir.model.fields,help:partner_invoicing_mode_monthly.field_res_config_settings__invoicing_mode_monthly_last_execution
+msgid "Last execution of monthly invoicing."
+msgstr "Última ejecución de la facturación mensual."
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model.fields.selection,name:partner_invoicing_mode_monthly.selection__res_partner__invoicing_mode__monthly
+msgid "Monthly"
+msgstr "Mensualmente"
+
+#. module: partner_invoicing_mode_monthly
+#: model:ir.model,name:partner_invoicing_mode_monthly.model_sale_order
+msgid "Sales Order"
+msgstr "Órdenes de venta"
+
+#~ msgid "Last execution"
+#~ msgstr "Última ejecución"
