@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-28 18:06+0000\n"
+"PO-Revision-Date: 2026-11-08 16:46+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: account_invoice_refund_reinvoice
 #: model:ir.model.fields,field_description:account_invoice_refund_reinvoice.field_account_move__display_name
@@ -45,4 +45,4 @@ msgstr "Ripristina nota di credito"
 #: code:addons/account_invoice_refund_reinvoice/models/account_move.py:0
 #, python-format
 msgid "Reversal of: %s"
-msgstr "Inverso di: %s"
+msgstr "Storno di: %s"
