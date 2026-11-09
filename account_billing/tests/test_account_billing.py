@@ -92,6 +92,24 @@ class TestAccountBilling(AccountTestInvoicingCommon):
             auto_validate=True,
         )
 
+    def _create_invoice_with_due_date(self, invoice_amount, invoice_date, date_due):
+        """Return a posted invoice with an explicit due date.
+
+        _create_invoice() does not accept a due date, so it is written
+        afterwards. The payment term inherited from the partner has to be
+        removed first, otherwise the due date is recomputed from it.
+        """
+        invoice = self._create_invoice(
+            invoice_amount=invoice_amount,
+            currency_id=self.currency_eur_id,
+            partner_id=self.partner_a.id,
+            date_invoice=invoice_date,
+        )
+        invoice.invoice_payment_term_id = False
+        invoice.invoice_date_due = date_due
+        invoice.action_post()
+        return invoice
+
     def create_payment(self, ctx):
         register_payments = self.register_payments_model.with_context(**ctx).create(
             {
@@ -245,3 +263,43 @@ class TestAccountBilling(AccountTestInvoicingCommon):
             [("id", "=", billing_other.id)]
         )
         self.assertTrue(billing_with_sudo, "Sudo should bypass company record rule")
+
+    def test_sort_billing_lines(self):
+        inv_a = self._create_invoice_with_due_date(
+            100,
+            fields.Date.from_string("2024-04-03"),
+            fields.Date.from_string("2024-05-04"),
+        )
+        inv_b = self._create_invoice_with_due_date(
+            200,
+            fields.Date.from_string("2024-04-01"),
+            fields.Date.from_string("2024-05-02"),
+        )
+        inv_c = self._create_invoice_with_due_date(
+            300,
+            fields.Date.from_string("2024-04-02"),
+            fields.Date.from_string("2024-05-01"),
+        )
+        inv_d = self._create_invoice_with_due_date(
+            400,
+            fields.Date.from_string("2024-04-02"),
+            fields.Date.from_string("2024-05-01"),
+        )
+        invoices = inv_a + inv_b + inv_c + inv_d
+        action = invoices.action_create_billing()
+        billing = self.billing_model.browse(action["res_id"])
+        # In case other modules change the default value of threshold_date_type
+        billing.threshold_date_type = "invoice_date_due"
+        billing._onchange_threshold_date_type()
+        self.assertEqual(
+            billing.billing_line_ids.mapped("move_id").ids,
+            (inv_c + inv_d + inv_b + inv_a).ids,
+        )
+
+        # Onchange triggers re-sort
+        billing.threshold_date_type = "invoice_date"
+        billing._onchange_threshold_date_type()
+        self.assertEqual(
+            billing.billing_line_ids.mapped("move_id").ids,
+            (inv_b + inv_c + inv_d + inv_a).ids,
+        )
