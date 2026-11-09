@@ -10,7 +10,6 @@ class AccountMove(models.Model):
 
     pricelist_id = fields.Many2one(
         comodel_name="product.pricelist",
-        string="Pricelist",
         compute="_compute_pricelist_id",
         tracking=True,
         store=True,
