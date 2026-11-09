@@ -69,7 +69,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         cls.product_product = cls.env["product.product"].create(
             {
                 "name": "Test Product",
-                "list_price": 100,
+                "list_price": 100.00,
                 "taxes_id": False,
             }
         )
@@ -390,7 +390,7 @@ class TestAccountMovePricelist(common.TransactionCase):
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
         self.assertAlmostEqual(invoice_line.price_unit, 83.94)
-        self.assertEqual(invoice_line.discount, 10.00)
+        self.assertAlmostEqual(invoice_line.discount, 10.00)
 
     def test_08_account_invoice_fixed_pricelist_with_discount_secondary_currency(self):
         self.env.user.write({"group_ids": [(5, self.group_discount.id)]})
