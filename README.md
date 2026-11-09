@@ -22,23 +22,23 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_billing](account_billing/) | 19.0.1.0.1 | <a href='https://github.com/Saran440'><img src='https://github.com/Saran440.png' width='32' height='32' style='border-radius:50%;' alt='Saran440'/></a> <a href='https://github.com/AungKoKoLin1997'><img src='https://github.com/AungKoKoLin1997.png' width='32' height='32' style='border-radius:50%;' alt='AungKoKoLin1997'/></a> | Group invoice as billing before payment
-[account_global_discount](account_global_discount/) | 19.0.1.0.0 |  | Account Global Discount
+[account_billing](account_billing/) | 19.0.1.0.2 | <a href='https://github.com/Saran440'><img src='https://github.com/Saran440.png' width='32' height='32' style='border-radius:50%;' alt='Saran440'/></a> <a href='https://github.com/AungKoKoLin1997'><img src='https://github.com/AungKoKoLin1997.png' width='32' height='32' style='border-radius:50%;' alt='AungKoKoLin1997'/></a> | Group invoice as billing before payment
+[account_global_discount](account_global_discount/) | 19.0.1.0.1 |  | Account Global Discount
 [account_invoice_auto_send_by_email](account_invoice_auto_send_by_email/) | 19.0.1.0.0 |  | Invoices with the email sending method are sent automatically.
-[account_invoice_clearing](account_invoice_clearing/) | 19.0.1.0.1 | <a href='https://github.com/Shide'><img src='https://github.com/Shide.png' width='32' height='32' style='border-radius:50%;' alt='Shide'/></a> | Account invoice clearing wizard
+[account_invoice_clearing](account_invoice_clearing/) | 19.0.1.0.2 | <a href='https://github.com/Shide'><img src='https://github.com/Shide.png' width='32' height='32' style='border-radius:50%;' alt='Shide'/></a> | Account invoice clearing wizard
 [account_invoice_crm_tag](account_invoice_crm_tag/) | 19.0.1.0.0 |  | Account Invoice CRM Tag
 [account_invoice_discount_amount](account_invoice_discount_amount/) | 19.0.1.0.0 | <a href='https://github.com/Ricardoalso'><img src='https://github.com/Ricardoalso.png' width='32' height='32' style='border-radius:50%;' alt='Ricardoalso'/></a> <a href='https://github.com/ivantodorovich'><img src='https://github.com/ivantodorovich.png' width='32' height='32' style='border-radius:50%;' alt='ivantodorovich'/></a> | Show the early payment discount amounts on invoices
 [account_invoice_discount_date](account_invoice_discount_date/) | 19.0.1.0.0 | <a href='https://github.com/Shide'><img src='https://github.com/Shide.png' width='32' height='32' style='border-radius:50%;' alt='Shide'/></a> <a href='https://github.com/rafaelbn'><img src='https://github.com/rafaelbn.png' width='32' height='32' style='border-radius:50%;' alt='rafaelbn'/></a> | Set the early discount date on invoices
-[account_invoice_fixed_discount](account_invoice_fixed_discount/) | 19.0.1.0.0 |  | Allows to apply fixed amount discounts in invoices.
+[account_invoice_fixed_discount](account_invoice_fixed_discount/) | 19.0.1.0.1 |  | Allows to apply fixed amount discounts in invoices.
 [account_invoice_merge](account_invoice_merge/) | 19.0.1.0.0 |  | Merge invoices in draft
-[account_invoice_pricelist](account_invoice_pricelist/) | 19.0.1.0.4 |  | Add partner pricelist on invoices
+[account_invoice_pricelist](account_invoice_pricelist/) | 19.0.1.0.5 |  | Add partner pricelist on invoices
 [account_invoice_pricelist_sale](account_invoice_pricelist_sale/) | 19.0.1.0.0 |  | Module to fill pricelist from sales order in invoice.
 [account_invoice_refund_code](account_invoice_refund_code/) | 19.0.1.0.0 |  | This module allows to have specific refund codes.
 [account_invoice_refund_link](account_invoice_refund_link/) | 19.0.1.0.0 |  | Show links between refunds and their originator invoices.
 [account_invoice_section_sale_order](account_invoice_section_sale_order/) | 19.0.1.0.0 |  | For invoices targetting multiple sale order addsections with sale order name.
 [account_invoice_show_currency_rate](account_invoice_show_currency_rate/) | 19.0.1.0.0 | <a href='https://github.com/victoralmau'><img src='https://github.com/victoralmau.png' width='32' height='32' style='border-radius:50%;' alt='victoralmau'/></a> | Show currency rate in invoices.
 [account_invoice_tax_note](account_invoice_tax_note/) | 19.0.1.0.0 |  | Print tax notes on customer invoices
-[account_invoice_tax_required](account_invoice_tax_required/) | 19.0.1.0.1 |  | This module adds functional a check on invoice to force user to set tax on invoice line.
+[account_invoice_tax_required](account_invoice_tax_required/) | 19.0.1.0.2 |  | This module adds functional a check on invoice to force user to set tax on invoice line.
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 19.0.1.0.0 | <a href='https://github.com/alexis-via'><img src='https://github.com/alexis-via.png' width='32' height='32' style='border-radius:50%;' alt='alexis-via'/></a> | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_tree_currency](account_invoice_tree_currency/) | 19.0.1.0.1 |  | Show currencies in the invoice tree view
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 19.0.1.0.0 |  | Manage triple discount on invoice lines
