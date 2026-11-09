@@ -386,7 +386,7 @@ class StockInvoiceOnshipping(models.TransientModel):
             move.message_post_with_source(
                 source_ref="mail.message_origin_link",
                 render_values={
-                    "self": move.picking_ids,
+                    "self": move,
                     "origin": move.picking_ids,
                 },
                 subtype_id=self.env.ref("mail.mt_note").id,
