@@ -12,7 +12,6 @@ class AccountInvoiceGlobalDiscount(models.Model):
     name = fields.Char(string="Discount Name", required=True)
     invoice_id = fields.Many2one(
         "account.move",
-        string="Invoice",
         ondelete="cascade",
         index=True,
         readonly=True,
@@ -26,7 +25,6 @@ class AccountInvoiceGlobalDiscount(models.Model):
     )
     global_discount_id = fields.Many2one(
         comodel_name="global.discount",
-        string="Global Discount",
     )
     discount = fields.Float(string="Discount (number)")
     discount_display = fields.Char(
@@ -46,7 +44,6 @@ class AccountInvoiceGlobalDiscount(models.Model):
     account_id = fields.Many2one(
         comodel_name="account.account",
         required=True,
-        string="Account",
         domain=(
             "[('account_type', 'not in', ['asset_receivable', 'liability_payable'])]"
         ),
