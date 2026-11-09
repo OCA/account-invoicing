@@ -29,16 +29,40 @@ msgid "An optional cancel reason"
 msgstr "Un motivo di annullamento opzionale"
 
 #. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_by
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_by
+msgid "Cancel By"
+msgstr ""
+
+#. module: account_move_cancel_confirm
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_confirm
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_confirm
 msgid "Cancel Confirmed"
 msgstr "Annullamento confermato"
 
 #. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_date
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_date
+msgid "Cancel Date"
+msgstr ""
+
+#. module: account_move_cancel_confirm
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_reason
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_reason
 msgid "Cancel Reason"
 msgstr "Causale annullamento"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__id
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__id
+msgid "ID"
+msgstr ""
 
 #. module: account_move_cancel_confirm
 #: model:ir.model,name:account_move_cancel_confirm.model_account_move
