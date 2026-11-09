@@ -26,7 +26,6 @@ class AccountBilling(models.Model):
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
-        string="Company",
         default=lambda self: self.env.company,
         index=True,
         required=True,
@@ -76,7 +75,6 @@ class AccountBilling(models.Model):
     )
     currency_id = fields.Many2one(
         comodel_name="res.currency",
-        string="Currency",
         required=True,
         default=lambda self: self.env.company.currency_id,
         readonly=True,

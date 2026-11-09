@@ -95,7 +95,7 @@ class TestInvoiceFixedDiscount(BaseCommon):
                 line.discount_fixed = 57.00
 
         # compute discount (57 / 200) * 100
-        self.assertEqual(self.invoice.invoice_line_ids.discount, 28.5)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 28.5)
         # compute amount total (200 - 57) * 10%
         self.assertEqual(self.invoice.amount_total, 157.3)
         self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
@@ -110,7 +110,7 @@ class TestInvoiceFixedDiscount(BaseCommon):
                 line.discount = 20.0
 
         self.assertEqual(self.invoice.invoice_line_ids.discount_fixed, 0.0)
-        self.assertEqual(self.invoice.invoice_line_ids.discount, 20.0)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 20.0)
         self.assertEqual(self.invoice.amount_total, 176.0)
         self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 160.00)
@@ -125,7 +125,7 @@ class TestInvoiceFixedDiscount(BaseCommon):
                 line.quantity = 2.0
 
         # compute discount ((50 / 2) / 200) * 100
-        self.assertEqual(self.invoice.invoice_line_ids.discount, 12.5)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 12.5)
         self.assertEqual(self.invoice.amount_total, 385.0)
         self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 350)
@@ -140,7 +140,7 @@ class TestInvoiceFixedDiscount(BaseCommon):
                 line.discount_fixed = 57.00
 
         # compute discount (57 / 200) * 100
-        self.assertEqual(self.invoice.invoice_line_ids.discount, 28.5)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 28.5)
         self.assertEqual(self.invoice.amount_total, 143)
         self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143)

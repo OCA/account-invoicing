@@ -10,7 +10,6 @@ class AccountMoveLine(models.Model):
 
     invoice_global_discount_id = fields.Many2one(
         comodel_name="account.invoice.global.discount",
-        string="Invoice Global Discount",
     )
     base_before_global_discounts = fields.Monetary(
         string="Amount Untaxed Before Discounts",

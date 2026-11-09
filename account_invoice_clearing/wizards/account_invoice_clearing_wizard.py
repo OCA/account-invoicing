@@ -80,7 +80,6 @@ class AccountInvoiceClearingWizard(models.TransientModel):
     journal_id = fields.Many2one(
         comodel_name="account.journal",
         domain="[('type', '=', 'general'), ('company_id', '=', company_id)]",
-        string="Journal",
         check_company=True,
         required=True,
         default=lambda self: self._get_default_journal(),
@@ -541,14 +540,12 @@ class AccountInvoiceClearingLinesWizard(models.TransientModel):
 
     clearing_id = fields.Many2one(
         comodel_name="account.invoice.clearing.wizard",
-        string="Clearing",
     )
     sequence = fields.Integer(
         default=10,
     )
     move_line_id = fields.Many2one(
         comodel_name="account.move.line",
-        string="Move Line",
         required=True,
     )
     invoice_id = fields.Many2one(

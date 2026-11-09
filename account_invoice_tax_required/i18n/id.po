@@ -24,7 +24,9 @@ msgstr ""
 msgid ""
 "Invoice %(invoice)s for customer %(customer)s has a line with product "
 "%(product)s with no taxes"
-msgstr "Faktur untuk pelanggan% memiliki baris dari produk tanpa pajak."
+msgstr ""
+"Faktur %(invoice)s untuk pelanggan %(customer)s memiliki baris dengan produk "
+"%(product)s tanpa pajak"
 
 #. module: account_invoice_tax_required
 #. odoo-python
