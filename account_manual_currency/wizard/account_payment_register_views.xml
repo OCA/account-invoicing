@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_payment_register_form" model="ir.ui.view">
+        <field name="name">account.payment.register.form</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group2']" position="inside">
+                <field name="currency_diff" invisible="1" />
+                <label
+                    for="manual_currency"
+                    groups="base.group_multi_currency"
+                    invisible="not currency_diff"
+                />
+                <div groups="base.group_multi_currency" invisible="not currency_diff">
+                    <field name="manual_currency" />
+                    <label for="manual_currency_rate" invisible='1' />
+                    <div class="o_row" invisible="not manual_currency">
+                        <field name="manual_currency_rate" />
+                        <field name="type_currency" required="manual_currency" />
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
