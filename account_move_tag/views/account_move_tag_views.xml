@@ -22,19 +22,20 @@
     </record>
 
     <record id="account_move_tag_view_tree" model="ir.ui.view">
-        <field name="name">account.move.tag.view.tree</field>
+        <field name="name">account.move.tag.view.list</field>
         <field name="model">account.move.tag</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" sample="1">
+            <list editable="bottom" sample="1">
                 <field name="name" />
                 <field name="color" widget="color_picker" />
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="account_move_tag_action" model="ir.actions.act_window">
         <field name="name">Tags</field>
         <field name="res_model">account.move.tag</field>
+        <field name="path">account-move-tags</field>
         <field name="view_id" ref="account_move_tag_view_tree" />
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
