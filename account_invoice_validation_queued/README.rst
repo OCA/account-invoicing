@@ -42,15 +42,12 @@ Each invoice creates a job for performing the validation.
 Configuration
 =============
 
-1. Jobs are enqueued in the channel
-   ``root.account_invoice_validation_queued``, so you must adjust your
-   `Odoo
-   configuration <https://github.com/OCA/queue/tree/16.0/queue_job#configuration>`__
+1. Jobs are enqueued in the channel ``root.Invoice Open Job``, so you
+   must adjust your `Odoo
+   configuration <https://github.com/OCA/queue/tree/18.0/queue_job#configuration>`__
    according this.
 2. If you want to see queued jobs, you need "Job Queue / Job Queue
    Manager" permission in your user.
-3. Configure your invoice/refund sequences as "Standard" instead of "No
-   gap", or you'll have concurrent updates problems.
 
 Usage
 =====
@@ -59,8 +56,10 @@ Usage
    Bills*.
 2. Mark at least one check on the left part of one draft invoice in the
    list view.
-3. Click on *Action > Post entries*.
-4. On the dialog popup that appears, click on "Enqueue Validation".
+3. Click on *Actions > Confirm Entries*.
+4. On the dialog popup that appears, click on "Enqueue Validation". The
+   dialog options ("Confirm them now", "Ignore future alerts") are
+   applied as with "Confirm".
 5. Once enqueued, and having the "Job Queue Manager" permission, you can
    go to the invoice, and see the tab "Validation Jobs". A list with all
    the jobs related to that invoice can be found there.

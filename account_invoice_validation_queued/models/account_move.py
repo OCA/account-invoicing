@@ -17,8 +17,8 @@ class AccountMove(models.Model):
         copy=False,
     )
 
-    def action_invoice_open_job(self):
+    def action_invoice_open_job(self, soft=True):
         self.ensure_one()
         if self.state != "draft":
             return
-        return self._post()
+        return self._post(soft=soft)
