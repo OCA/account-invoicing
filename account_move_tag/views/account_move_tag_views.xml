@@ -39,7 +39,8 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
             Create Account Move Tags
-            </p><p>
+            </p>
+            <p>
             Use Tags to manage and track your invoices (credit card, ...)
             </p>
         </field>
