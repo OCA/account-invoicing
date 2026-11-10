@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_journal_form_proforma" model="ir.ui.view">
+        <field name="name">view_account_journal_form_proforma</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='refund_sequence']" position="after">
+                <field
+                    name="pro_forma_sequence_id"
+                    attrs="{'required': [('type', '=', 'sale')], 'invisible': [('type', '!=', 'sale')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
