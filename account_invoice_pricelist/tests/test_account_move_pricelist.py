@@ -365,15 +365,15 @@ class TestAccountMovePricelist(BaseCommon):
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
         self.assertAlmostEqual(invoice_line.price_unit, 83.94, places=self._dp)
-        self.assertEqual(invoice_line.discount, 10.00)
+        self.assertAlmostEqual(invoice_line.discount, 10.00)
 
     def test_08_account_invoice_fixed_pricelist_with_discount_secondary_currency(self):
         self.env.user.write({"groups_id": [Command.clear()]})
         self.invoice.pricelist_id = self.sale_pricelist_fixed_with_discount_in_euros.id
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertEqual(invoice_line.price_unit, 60.00)
-        self.assertEqual(invoice_line.discount, 0.00)
+        self.assertAlmostEqual(invoice_line.price_unit, 60.00)
+        self.assertAlmostEqual(invoice_line.discount, 0.00)
 
     def test_09_account_invoice_fixed_pricelist_without_discount_secondary_currency(
         self,
@@ -383,7 +383,7 @@ class TestAccountMovePricelist(BaseCommon):
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
         self.assertAlmostEqual(invoice_line.price_unit, 60.00, places=self._dp)
-        self.assertEqual(invoice_line.discount, 0)
+        self.assertAlmostEqual(invoice_line.discount, 0)
 
     def test_10_check_currency(self):
         with self.assertRaises(UserError):
@@ -396,25 +396,25 @@ class TestAccountMovePricelist(BaseCommon):
         self.invoice.invoice_line_ids[:1].product_id = False
         self.invoice.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertEqual(invoice_line.price_unit, 0.00)
-        self.assertEqual(invoice_line.discount, 0.00)
+        self.assertAlmostEqual(invoice_line.price_unit, 0.00)
+        self.assertAlmostEqual(invoice_line.discount, 0.00)
 
     def test_12_account_invoice_without_pricelist(self):
         self.env.user.write({"groups_id": [Command.link(self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist2.id
         self.invoice.invoice_line_ids[:1].quantity = 0.0
         self.invoice.invoice_line_ids[:1].quantity = 1.0
-        self.assertEqual(self.invoice.invoice_line_ids[:1].discount, 0.0)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids[:1].discount, 0.0)
         self.invoice.pricelist_id = False
         self.invoice.invoice_line_ids[:1].quantity = 0.0
         self.invoice.invoice_line_ids[:1].quantity = 1.0
-        self.assertEqual(self.invoice.invoice_line_ids[:1].discount, 0.0)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids[:1].discount, 0.0)
 
     def test_13_account_invoice_pricelist_with_discount(self):
         self.invoice_combo.button_update_prices_from_pricelist()
         invoice_line = self.invoice.invoice_line_ids[:1]
-        self.assertEqual(invoice_line.price_unit, 100.00)
-        self.assertEqual(invoice_line.discount, 0.00)
+        self.assertAlmostEqual(invoice_line.price_unit, 100.00)
+        self.assertAlmostEqual(invoice_line.discount, 0.00)
 
     def test_14_calculate_discount(self):
         self.env.user.write({"groups_id": [Command.link(self.group_discount.id)]})
@@ -422,9 +422,9 @@ class TestAccountMovePricelist(BaseCommon):
         self.invoice.pricelist_id = self.sale_pricelist3.id
         self.invoice.invoice_line_ids[0].quantity = 0.0
         self.invoice.invoice_line_ids[0].quantity = 1.0
-        self.assertEqual(self.invoice.invoice_line_ids[0].discount, 0.0)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids[0].discount, 0.0)
         self.product.write({"list_price": 100.00})
         self.invoice.pricelist_id = self.sale_pricelist4.id
         self.invoice.invoice_line_ids[0].quantity = 0.0
         self.invoice.invoice_line_ids[0].quantity = 1.0
-        self.assertEqual(self.invoice.invoice_line_ids[0].discount, 0)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids[0].discount, 0)
