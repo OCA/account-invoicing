@@ -10,7 +10,7 @@
     "license": "AGPL-3",
     "author": "Akretion, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
-    "version": "18.0.2.1.0",
+    "version": "18.0.2.1.1",
     "maintainers": ["mbcosta", "renatonlima"],
     "depends": [
         "sale_management",
