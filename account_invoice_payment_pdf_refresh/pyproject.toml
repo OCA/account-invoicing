@@ -1,0 +1,3 @@
+[options]
+install_requires =
+    odoo>=17.0a,<17.1dev
