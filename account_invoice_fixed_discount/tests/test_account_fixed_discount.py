@@ -89,11 +89,11 @@ class TestInvoiceFixedDiscount(BaseCommon):
                 line.discount_fixed = 57.00
 
         # compute discount (57 / 200) * 100
-        self.assertEqual(self.invoice.invoice_line_ids.discount, 28.5)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 28.5)
         # compute amount total (200 - 57) * 10%
-        self.assertEqual(self.invoice.amount_total, 157.3)
-        self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
-        self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143.00)
+        self.assertAlmostEqual(self.invoice.amount_total, 157.3)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.price_subtotal, 143.00)
 
         # Reset to regular discount at 20.00%
         with Form(self.invoice) as invoice_form:
@@ -103,11 +103,11 @@ class TestInvoiceFixedDiscount(BaseCommon):
                 line.discount_fixed = 0.0
                 line.discount = 20.0
 
-        self.assertEqual(self.invoice.invoice_line_ids.discount_fixed, 0.0)
-        self.assertEqual(self.invoice.invoice_line_ids.discount, 20.0)
-        self.assertEqual(self.invoice.amount_total, 176.0)
-        self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
-        self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 160.00)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.discount_fixed, 0.0)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 20.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 176.0)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.price_subtotal, 160.00)
 
     def test_02_discounts_fixed_multiple_units(self):
         """Tests multiple discounts in line with taxes."""
@@ -119,10 +119,10 @@ class TestInvoiceFixedDiscount(BaseCommon):
                 line.quantity = 2.0
 
         # compute discount ((50 / 2) / 200) * 100
-        self.assertEqual(self.invoice.invoice_line_ids.discount, 12.5)
-        self.assertEqual(self.invoice.amount_total, 385.0)
-        self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
-        self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 350)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 12.5)
+        self.assertAlmostEqual(self.invoice.amount_total, 385.0)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.price_subtotal, 350)
 
     def test_03_discount_fixed_no_tax(self):
         """Tests fixed discount with no taxes."""
@@ -134,10 +134,10 @@ class TestInvoiceFixedDiscount(BaseCommon):
                 line.discount_fixed = 57.00
 
         # compute discount (57 / 200) * 100
-        self.assertEqual(self.invoice.invoice_line_ids.discount, 28.5)
-        self.assertEqual(self.invoice.amount_total, 143)
-        self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
-        self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 28.5)
+        self.assertAlmostEqual(self.invoice.amount_total, 143)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.price_subtotal, 143)
 
     def test_03_discount_fixed_no_unit_prise(self):
         """Tests fixed discount with no taxes."""
@@ -149,10 +149,10 @@ class TestInvoiceFixedDiscount(BaseCommon):
                 line.discount_fixed = 57.00
 
         # compute discount (57 / 200) * 100
-        self.assertEqual(self.invoice.invoice_line_ids.discount, 0.0)
-        self.assertEqual(self.invoice.amount_total, 0)
-        self.assertEqual(self.invoice.invoice_line_ids.price_unit, 0.00)
-        self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 0)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 0.0)
+        self.assertAlmostEqual(self.invoice.amount_total, 0)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.price_unit, 0.00)
+        self.assertAlmostEqual(self.invoice.invoice_line_ids.price_subtotal, 0)
 
     def test_04_base_line_set_to_none(self):
         self.vat._prepare_base_line_for_taxes_computation(
