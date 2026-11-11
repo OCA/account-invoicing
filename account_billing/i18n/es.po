@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-09 09:04+0000\n"
-"Last-Translator: Ed-Spain <eduamoros@gmail.com>\n"
+"PO-Revision-Date: 2026-11-11 12:46+0000\n"
+"Last-Translator: Carlos Dauden <carlos.dauden@tecnativa.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -101,7 +101,7 @@ msgstr "<strong>Fecha Facturación:</strong>"
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
 msgid "<strong>Currency:</strong>"
-msgstr "<strong>Divisa:</strong>"
+msgstr "<strong>Moneda:</strong>"
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
@@ -294,7 +294,7 @@ msgstr "Creado el"
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__currency_id
 #: model:ir.model.fields,help:account_billing.field_account_billing__currency_id
 msgid "Currency"
-msgstr "Divisa"
+msgstr "Moneda"
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_tree
