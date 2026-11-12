@@ -29,17 +29,20 @@ class AccountMove(models.Model):
 
     def _post(self, soft=True):
         for move in self:
-            require_approver_in_vendor_bills = (
-                move.company_id.require_approver_in_vendor_bills
-            )
-            if (
-                move.is_purchase_document(include_receipts=True)
-                and require_approver_in_vendor_bills
-                and not move.approver_id
-            ):
-                raise UserError(
-                    self.env._(
-                        "It is mandatory to indicate a Responsible for Approval (in {})"
-                    ).format(move.name)
-                )
+            move._check_has_approver()
         return super()._post(soft)
+
+    def _check_has_approver(self):
+        require_approver_in_vendor_bills = (
+            self.company_id.require_approver_in_vendor_bills
+        )
+        if (
+            self.is_purchase_document(include_receipts=True)
+            and require_approver_in_vendor_bills
+            and not self.approver_id
+        ):
+            raise UserError(
+                self.env._(
+                    "It is mandatory to indicate a Responsible for Approval (in {})"
+                ).format(self.name)
+            )
