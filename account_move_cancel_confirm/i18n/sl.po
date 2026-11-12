@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-06-28 06:10+0000\n"
+"PO-Revision-Date: 2026-11-12 05:46+0000\n"
 "Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: none\n"
 "Language: sl\n"
@@ -33,7 +33,7 @@ msgstr "Opcijsko vzrok preklica"
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_by
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_by
 msgid "Cancel By"
-msgstr ""
+msgstr "Preklical"
 
 #. module: account_move_cancel_confirm
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_confirm
@@ -45,7 +45,7 @@ msgstr "Preklic potrjen"
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_date
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_date
 msgid "Cancel Date"
-msgstr ""
+msgstr "Datum preklica"
 
 #. module: account_move_cancel_confirm
 #: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_reason
