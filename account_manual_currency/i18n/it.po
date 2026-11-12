@@ -1,0 +1,121 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_manual_currency
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-06-04 07:31+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
+
+#. module: account_manual_currency
+#. odoo-python
+#: code:addons/account_manual_currency/models/account_move.py:0
+msgid "%(company_currency_name)s per 1 %(rate_currency_name)s"
+msgstr "%(company_currency_name)s per 1 %(rate_currency_name)s"
+
+#. module: account_manual_currency
+#. odoo-python
+#: code:addons/account_manual_currency/models/account_move.py:0
+msgid "%(rate_currency_name)s per 1 %(company_currency_name)s"
+msgstr "%(rate_currency_name)s per 1 %(company_currency_name)s"
+
+#. module: account_manual_currency
+#: model_terms:ir.ui.view,arch_db:account_manual_currency.view_move_form
+msgid "<i title=\"Update Currency\" class=\"fa fa-fw fa-refresh\"/>"
+msgstr "<i title=\"Aggiorna valuta\" class=\"fa fa-fw fa-refresh\"/>"
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__currency_diff
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__currency_diff
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_payment_register__currency_diff
+msgid "Currency Diff"
+msgstr "Diff. valuta"
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__is_manual
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__is_manual
+msgid "Is Manual"
+msgstr "È manuale"
+
+#. module: account_manual_currency
+#: model:ir.model,name:account_manual_currency.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: account_manual_currency
+#: model:ir.model,name:account_manual_currency.model_account_move_line
+msgid "Journal Item"
+msgstr "Movimento contabile"
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_payment_register__manual_currency
+msgid "Manual Currency"
+msgstr "Valuta manuale"
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__manual_currency_rate
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__manual_currency_rate
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_payment_register__manual_currency_rate
+msgid "Manual Currency Rate"
+msgstr "Tasso di cambio manuale"
+
+#. module: account_manual_currency
+#: model_terms:ir.ui.view,arch_db:account_manual_currency.view_move_form
+msgid "Opened"
+msgstr "Aperta"
+
+#. module: account_manual_currency
+#: model:ir.model,name:account_manual_currency.model_account_payment_register
+msgid "Pay"
+msgstr "Paga"
+
+#. module: account_manual_currency
+#. odoo-python
+#: code:addons/account_manual_currency/models/account_move.py:0
+msgid "Rate currency can refresh state draft only."
+msgstr "Il tasso di cambio può aggiornare solo lo stato bozza."
+
+#. module: account_manual_currency
+#: model:ir.model.fields,help:account_manual_currency.field_account_bank_statement_line__manual_currency_rate
+#: model:ir.model.fields,help:account_manual_currency.field_account_move__manual_currency_rate
+#: model:ir.model.fields,help:account_manual_currency.field_account_payment_register__manual_currency_rate
+msgid ""
+"Set new currency rate to apply on the invoice\n"
+".This rate will be taken in order to convert amounts between the currency on the purchase order and last currency"
+msgstr ""
+"Imposta il nuovo tasso di cambio da applicare alla fattura. \n"
+"Questo tasso verrà utilizzato per convertire gli importi tra la valuta "
+"dell'ordine di acquisto e l'ultima valuta"
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__total_company_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__total_company_currency
+msgid "Total Company Currency"
+msgstr "Totale in valuta dell'azienda"
+
+#. module: account_manual_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_bank_statement_line__type_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_move__type_currency
+#: model:ir.model.fields,field_description:account_manual_currency.field_account_payment_register__type_currency
+msgid "Type Currency"
+msgstr "Tipo valuta"
+
+#. module: account_manual_currency
+#. odoo-python
+#: code:addons/account_manual_currency/wizard/account_payment_register.py:0
+msgid ""
+"You can only register payments for moves with the same manual currency."
+msgstr ""
+"Si possono registrare pagamenti solo per movimenti con la stessa valuta "
+"manuale."
