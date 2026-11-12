@@ -1,0 +1,50 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_validation_queued
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-03-05 10:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
+
+#. module: account_invoice_validation_queued
+#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.view_queue_job_account_invoice_validation
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: account_invoice_validation_queued
+#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.validate_account_move_view
+msgid "Enqueue Validation"
+msgstr "Metti in coda la validazione"
+
+#. module: account_invoice_validation_queued
+#: model:ir.model,name:account_invoice_validation_queued.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: account_invoice_validation_queued
+#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.view_queue_job_account_invoice_validation
+msgid "Requeue"
+msgstr "Rimetti in coda"
+
+#. module: account_invoice_validation_queued
+#: model:ir.model,name:account_invoice_validation_queued.model_validate_account_move
+msgid "Validate Account Move"
+msgstr "Valida movimento contabile"
+
+#. module: account_invoice_validation_queued
+#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_account_bank_statement_line__validation_job_ids
+#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_account_move__validation_job_ids
+#: model:ir.model.fields,field_description:account_invoice_validation_queued.field_account_payment__validation_job_ids
+#: model_terms:ir.ui.view,arch_db:account_invoice_validation_queued.view_move_form
+msgid "Validation Jobs"
+msgstr "Code validazioni"
