@@ -1,7 +1,7 @@
 # Copyright 2025, Kaynnan Lemes <kaynnan.lemes@escodoo.com.br>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, models
+from odoo import _, api, models
 from odoo.exceptions import ValidationError
 from odoo.tools.misc import formatLang
 
@@ -9,12 +9,16 @@ from odoo.tools.misc import formatLang
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    def name_get(self):
+    @api.depends_context("advance_id_name_get", "line_id_name_get")
+    def _compute_display_name(self):
         if self.env.context.get("advance_id_name_get"):
-            return self._get_advance_display_name()
-        if self.env.context.get("line_id_name_get"):
-            return self._get_invoice_line_display_name()
-        return [(line.id, line.display_name) for line in self]
+            names = dict(self._get_advance_display_name())
+        elif self.env.context.get("line_id_name_get"):
+            names = dict(self._get_invoice_line_display_name())
+        else:
+            return super()._compute_display_name()
+        for line in self:
+            line.display_name = names[line.id]
 
     def _get_advance_display_name(self):
         result = []
