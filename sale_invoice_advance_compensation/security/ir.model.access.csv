@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_advance_compensation_user,sale.advance.compensation user,model_sale_advance_compensation,sales_team.group_sale_salesman,1,1,1,0
+access_sale_advance_compensation_account_user,sale.advance.compensation account user,model_sale_advance_compensation,account.group_account_invoice,1,1,1,1
