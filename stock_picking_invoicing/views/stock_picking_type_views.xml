@@ -11,6 +11,7 @@
         >[('state', '!=', 'cancel'), ('picking_type_id', '=', active_id),
             ('invoice_state', '=', '2binvoiced')]</field>
         <field name="context">{'default_picking_type_id': active_id}</field>
+        <field name="path">pickings-to-invoice</field>
     </record>
     <record id="stock_picking_type_kanban" model="ir.ui.view">
         <field name="name">stock.picking.type.kanban</field>
