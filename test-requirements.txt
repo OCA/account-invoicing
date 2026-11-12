@@ -1,0 +1,1 @@
+odoo-addon-account_move_tier_validation  @ git+https://github.com/OCA/account-invoicing.git@refs/pull/2436/head#subdirectory=account_move_tier_validation
