@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="name">account.invoice.transmit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="action_send_and_print"
+                    type="object"
+                    string="Send"
+                    groups="account.group_account_user"
+                    invisible="context.get('default_move_type') not in ('out_invoice', 'out_refund')"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

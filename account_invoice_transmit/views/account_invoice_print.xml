@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_invoice_print_tree" model="ir.ui.view">
+        <field name="name">account.invoice.print.tree</field>
+        <field name="model">account.invoice.print</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false">
+                <field name="create_uid" />
+                <field name="create_date" />
+                <field name="invoice_ids" />
+                <field name="document" filename="fname" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_account_invoice_print_view" model="ir.ui.view">
+        <field name="name">account.invoice.print.search</field>
+        <field name="model">account.invoice.print</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <search string="Search Account Invoice Print">
+                <field name="invoice_ids" string="Invoices" />
+                <filter
+                    name="my"
+                    domain="[('create_uid', '=', uid)]"
+                    string="My reports"
+                />
+                <filter
+                    name="progress"
+                    domain="[('state', '=', 'progress')]"
+                    string="In Progress"
+                />
+                <filter name="done" domain="[('state', '=', 'done')]" string="Done" />
+            </search>
+        </field>
+    </record>
+    <record id="view_account_invoice_print_form" model="ir.ui.view">
+        <field name="name">account.invoice.print.form</field>
+        <field name="model">account.invoice.print</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <form string="Account Invoice Print" create="false" delete="false">
+                <header>
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_view_invoice"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o"
+                        >
+                            <span>Invoices</span>
+                        </button>
+                    </div>
+                    <group col="4">
+                        <field name="create_uid" />
+                        <field name="create_date" />
+                        <field name="document" filename="fname" />
+                        <field name="fname" invisible="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_account_invoice_print_form" model="ir.actions.act_window">
+        <field name="name">Account Invoice Print</field>
+        <field name="res_model">account.invoice.print</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'default_search_my': 1}</field>
+    </record>
+    <menuitem
+        id="account_invoice_print"
+        name="Invoice Prints"
+        parent="account.menu_finance_reports"
+        action="action_account_invoice_print_form"
+        sequence="1"
+    />
+</odoo>
