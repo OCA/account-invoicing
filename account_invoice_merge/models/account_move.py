@@ -191,9 +191,7 @@ class AccountMove(models.Model):
         allnewinvoices = []
         invoices_info = {}
         old_invoices = self.env["account.move"]
-        qty_prec = self.env["decimal.precision"].precision_get(
-            "Product Unit of Measure"
-        )
+        qty_prec = self.env["decimal.precision"].precision_get("Product Unit")
         for _invoice_key, (invoice_data, old_ids) in new_invoices.items():
             # skip merges with only one invoice
             if len(old_ids) < 2:
