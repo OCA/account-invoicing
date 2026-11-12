@@ -1,0 +1,14 @@
+#. module: account_invoice_default_code_column
+#: model_terms:ir.ui.view,arch_db:account_invoice_default_code_column.report_invoice_document
+msgid "<span>Code</span>"
+msgstr ""
+
+#. module: account_invoice_default_code_column
+#: model:ir.model,name:account_invoice_default_code_column.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_invoice_default_code_column
+#: model:ir.model.fields,field_description:account_invoice_default_code_column.field_account_move_line__name_without_default_code
+msgid "Name Without Default Code"
+msgstr ""
