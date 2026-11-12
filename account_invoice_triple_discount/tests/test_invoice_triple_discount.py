@@ -229,6 +229,22 @@ class TestInvoiceTripleDiscount(BaseCommon):
         self.assertEqual(invoice_line1.discount2, 20.0)
         self.assertEqual(invoice_line1.discount3, 10.0)
 
+    def test_11_combined_discount_keeps_precision(self):
+        """The combined discount is not rounded to the Discount precision"""
+        invoice = self.create_simple_invoice(10000)
+        invoice_form = Form(invoice)
+        with invoice_form.invoice_line_ids.edit(0) as line_form:
+            line_form.tax_ids.clear()
+            line_form.discount1 = 5
+            line_form.discount2 = 9
+            line_form.discount3 = 13
+        invoice_form.save()
+        invoice_line = invoice.invoice_line_ids[0]
+        # 1 - 0.95 * 0.91 * 0.87 = 24.7885 %
+        self.assertAlmostEqual(invoice_line.discount, 24.7885, places=6)
+        # 10000 * 0.95 * 0.91 * 0.87
+        self.assertEqual(invoice_line.price_subtotal, 7521.15)
+
     def test_tax_compute_with_lock_date(self):
         # Check that the tax computation works even if the lock date is set
         invoice = self.create_simple_invoice(0)
