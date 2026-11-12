@@ -1,0 +1,5 @@
+- [Tecnativa](https://www.tecnativa.com)
+  - Pedro M. Baeza
+  - Carlos Lopez
+- [ACSONE](https://acsone.eu)
+  - Souheil Bejaoui
