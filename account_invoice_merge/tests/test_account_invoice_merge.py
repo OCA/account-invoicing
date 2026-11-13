@@ -109,7 +109,7 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
         )
 
         end_inv = self.inv_model.search(invoice_len_args)
-        single_end_inv = end_inv[-1]
+        single_end_inv = end_inv - start_inv
         self.assertEqual(len(end_inv), 4)
         self.assertEqual(len(single_end_inv.invoice_line_ids), 1)
         self.assertEqual(single_end_inv.invoice_line_ids.quantity, 2.0)
@@ -472,3 +472,29 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
         for line in purchase_order.order_line:
             self.assertEqual(line.qty_received, 5)
             self.assertEqual(line.qty_invoiced, 4)
+
+    def test_merge_keeps_journal_sequence(self):
+        """Merging draft invoices must not break the journal numbering.
+
+        Draft invoices have no name. If the merged invoice got an empty string
+        as name, the sequence mixin would read it as the last sequence of the
+        journal and restart the numbering from the default format.
+        """
+        posted_invoice = self.init_invoice(
+            "out_invoice",
+            partner=self.partner_a,
+            invoice_date=fields.Date.today(),
+            products=self.product_a,
+        )
+        # A custom format, so a restart cannot fall back on the same numbers
+        posted_invoice.name = "CUST0001"
+        posted_invoice.action_post()
+
+        invoices_info = (self.invoice1 | self.invoice2).do_merge()
+        # Store the merged invoice as if the merge had its own transaction
+        self.env.flush_all()
+        merged_invoice = self.inv_model.browse(list(invoices_info))
+        self.assertIs(merged_invoice.name, False)
+
+        self.invoice5.action_post()
+        self.assertEqual(self.invoice5.name, "CUST0002")
