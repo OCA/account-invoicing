@@ -1,0 +1,19 @@
+<odoo>
+    <record id="view_invoice_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='show_sale_receipts']" position="after">
+                <setting
+                    id="billing_email_template_id"
+                    company_dependent="1"
+                    string="Choose Billing Email Template"
+                    help="Select the email template used for billing emails. If left empty, the default template provided by the Billing Process module will be used."
+                >
+                    <field name="billing_email_template_id" />
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
