@@ -41,7 +41,10 @@ class StockMove(models.Model):
         #  currency_id in Stock.picking?
         currency = company.currency_id
         pickings = self.mapped("picking_id")
-        date_done = min(pickings.mapped("date_done"))
+        # `date_done` is a Datetime while the date fields of
+        # `product.supplierinfo` and of the pricelists are Date: `_select_seller`
+        # compares them in Python, so only the date part is used here.
+        date_done = fields.Date.to_date(min(pickings.mapped("date_done")))
 
         if inv_type in ("in_invoice", "in_refund"):
             seller = product._select_seller(
