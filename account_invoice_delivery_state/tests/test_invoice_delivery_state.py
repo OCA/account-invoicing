@@ -313,7 +313,7 @@ class TestInvoiceDeliveryState(TransactionCase):
     # ------------------------------------------------------------------
 
     def test_search_filters_and_grouping(self):
-        """T9 – Domain search and read_group on delivery_status and receipt_status."""
+        """T9 – Domain search and _read_group on delivery_status and receipt_status."""
         so = self._make_sale_order(qty=10)
         invoice = self._invoice_from_so(so)
         # Invoice should be pending
@@ -328,14 +328,13 @@ class TestInvoiceDeliveryState(TransactionCase):
         )
         self.assertIn(invoice, pending_invoices)
 
-        # Verify Group By delivery_status via read_group
-        grouped_invoices = self.env["account.move"].read_group(
+        # Verify Group By delivery_status via _read_group
+        grouped_invoices = self.env["account.move"]._read_group(
             domain=[("id", "=", invoice.id)],
-            fields=["delivery_status"],
             groupby=["delivery_status"],
         )
         self.assertTrue(
-            any(g["delivery_status"] == "pending" for g in grouped_invoices)
+            any(g[0] == "pending" for g in grouped_invoices)
         )
 
         po = self._make_purchase_order(qty=10)
@@ -353,13 +352,12 @@ class TestInvoiceDeliveryState(TransactionCase):
         )
         self.assertIn(bill, full_bills)
 
-        # Verify Group By receipt_status via read_group
-        grouped_bills = self.env["account.move"].read_group(
+        # Verify Group By receipt_status via _read_group
+        grouped_bills = self.env["account.move"]._read_group(
             domain=[("id", "=", bill.id)],
-            fields=["receipt_status"],
             groupby=["receipt_status"],
         )
-        self.assertTrue(any(g["receipt_status"] == "full" for g in grouped_bills))
+        self.assertTrue(any(g[0] == "full" for g in grouped_bills))
 
     # ------------------------------------------------------------------
     # AC10 – Portal display & privacy
