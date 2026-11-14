@@ -399,6 +399,13 @@ class TestAccountMovePricelist(BaseCommon):
         self.assertAlmostEqual(invoice_line.price_unit, 0.00)
         self.assertAlmostEqual(invoice_line.discount, 0.00)
 
+    def test_11b_line_without_product_keeps_price_on_quantity_change(self):
+        invoice_line = self.invoice.invoice_line_ids[:1]
+        invoice_line.write({"product_id": False, "price_unit": 500.0})
+        invoice_line.quantity = 3.0
+        self.assertAlmostEqual(invoice_line.price_unit, 500.0)
+        self.assertAlmostEqual(invoice_line.price_subtotal, 1500.0)
+
     def test_12_account_invoice_without_pricelist(self):
         self.env.user.write({"groups_id": [Command.link(self.group_discount.id)]})
         self.invoice.pricelist_id = self.sale_pricelist2.id
