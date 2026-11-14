@@ -58,7 +58,15 @@ class AccountMoveLine(models.Model):
         # Compute the regular totals for regular lines.
         return super(AccountMoveLine, self - done_lines)._compute_totals()
 
-    @api.onchange("discount_fixed", "price_unit")
+    @api.onchange("price_unit")
+    def _onchange_price_unit_discount_fixed(self):
+        """A new unit price changes the percentage of a fixed discount. A line
+        without fixed discount keeps its percentage discount."""
+        if not self.discount_fixed:
+            return
+        self._onchange_discount_fixed()
+
+    @api.onchange("discount_fixed")
     def _onchange_discount_fixed(self):
         """Compute the fixed discount based on the discount percentage."""
         if self.env.context.get("ignore_discount_onchange"):

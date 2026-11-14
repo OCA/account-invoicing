@@ -115,6 +115,20 @@ class TestInvoiceFixedDiscount(BaseCommon):
         self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 160.00)
 
+    def _edit_line(self, **values):
+        with Form(self.invoice) as invoice_form:
+            with invoice_form.invoice_line_ids.edit(0) as line_form:
+                for field_name, value in values.items():
+                    setattr(line_form, field_name, value)
+        return self.invoice.invoice_line_ids
+
+    def test_01b_price_change_keeps_percentage_discount(self):
+        """Changing the unit price keeps a percentage discount"""
+        self._edit_line(discount=20.0)
+        line = self._edit_line(price_unit=300.0)
+        self.assertAlmostEqual(line.discount, 20.0)
+        self.assertAlmostEqual(line.price_subtotal, 240.0)
+
     def test_02_discounts_fixed_multiple_units(self):
         """Tests multiple discounts in line with taxes."""
 
