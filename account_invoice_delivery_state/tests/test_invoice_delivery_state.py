@@ -333,9 +333,7 @@ class TestInvoiceDeliveryState(TransactionCase):
             domain=[("id", "=", invoice.id)],
             groupby=["delivery_status"],
         )
-        self.assertTrue(
-            any(g[0] == "pending" for g in grouped_invoices)
-        )
+        self.assertTrue(any(g[0] == "pending" for g in grouped_invoices))
 
         po = self._make_purchase_order(qty=10)
         bill = self._bill_from_po(po)
@@ -992,3 +990,282 @@ class TestInvoiceDeliveryState(TransactionCase):
 
         # 6 units invoiced, 6 units delivered -> full
         self.assertEqual(inv.delivery_status, "full")
+
+    # ------------------------------------------------------------------
+    # Additional edge cases and batch coverage
+    # ------------------------------------------------------------------
+
+    def test_batch_compute_mixed_linked_and_standalone(self):
+        """Batch compute on recordsets containing both linked and standalone moves."""
+        # Customer Invoices
+        so = self._make_sale_order(qty=5.0)
+        inv_linked = self._invoice_from_so(so)
+        inv_standalone = self.env["account.move"].create(
+            {
+                "move_type": "out_invoice",
+                "partner_id": self.customer.id,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": self.product_storable.id,
+                            "quantity": 5.0,
+                            "price_unit": 100.0,
+                            "account_id": self.account_revenue.id,
+                        }
+                    )
+                ],
+            }
+        )
+        batch_invoices = inv_linked | inv_standalone
+        batch_invoices._compute_delivery_status()
+        self.assertEqual(inv_linked.delivery_status, "pending")
+        self.assertFalse(inv_standalone.delivery_status)
+
+        # Vendor Bills
+        po = self._make_purchase_order(qty=5.0)
+        bill_linked = self._bill_from_po(po)
+        bill_standalone = self.env["account.move"].create(
+            {
+                "move_type": "in_invoice",
+                "partner_id": self.vendor.id,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": self.product_storable.id,
+                            "quantity": 5.0,
+                            "price_unit": 50.0,
+                            "account_id": self.account_expense.id,
+                        }
+                    )
+                ],
+            }
+        )
+        batch_bills = bill_linked | bill_standalone
+        batch_bills._compute_receipt_status()
+        self.assertEqual(bill_linked.receipt_status, "pending")
+        self.assertFalse(bill_standalone.receipt_status)
+
+    def test_zero_quantity_storable_lines_status_false(self):
+        """Invoices and bills with zero-quantity storable lines have False status."""
+        # Customer Invoice with 0.0 qty
+        so = self._make_sale_order(qty=5.0)
+        sol = so.order_line[0]
+        inv = self.env["account.move"].create(
+            {
+                "move_type": "out_invoice",
+                "partner_id": self.customer.id,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": self.product_storable.id,
+                            "quantity": 0.0,
+                            "price_unit": 100.0,
+                            "account_id": self.account_revenue.id,
+                            "sale_line_ids": [Command.link(sol.id)],
+                        }
+                    )
+                ],
+            }
+        )
+        inv_product_line = inv.invoice_line_ids.filtered(
+            lambda line: line.display_type == "product"
+        )
+        self.assertEqual(inv_product_line.quantity, 0.0)
+        self.assertEqual(inv_product_line.sale_line_ids, sol)
+
+        inv._compute_delivery_status()
+        self.assertFalse(inv.delivery_status)
+
+        # Vendor Bill with 0.0 qty
+        po = self._make_purchase_order(qty=5.0)
+        pol = po.order_line[0]
+        bill = self.env["account.move"].create(
+            {
+                "move_type": "in_invoice",
+                "partner_id": self.vendor.id,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": self.product_storable.id,
+                            "quantity": 0.0,
+                            "price_unit": 50.0,
+                            "account_id": self.account_expense.id,
+                            "purchase_line_id": pol.id,
+                        }
+                    )
+                ],
+            }
+        )
+        bill_product_line = bill.invoice_line_ids.filtered(
+            lambda line: line.display_type == "product"
+        )
+        self.assertEqual(bill_product_line.quantity, 0.0)
+        self.assertEqual(bill_product_line.purchase_line_id, pol)
+
+        bill._compute_receipt_status()
+        self.assertFalse(bill.receipt_status)
+
+    def test_multi_sol_allocation_early_break(self):
+        """Multi-SOL allocation breaks early once needed quantity is fully satisfied."""
+        so = self.env["sale.order"].create(
+            {
+                "partner_id": self.customer.id,
+                "order_line": [
+                    Command.create(
+                        {
+                            "product_id": self.product_storable.id,
+                            "product_uom_qty": 5.0,
+                            "price_unit": 100.0,
+                        }
+                    ),
+                    Command.create(
+                        {
+                            "product_id": self.product_storable.id,
+                            "product_uom_qty": 5.0,
+                            "price_unit": 100.0,
+                        }
+                    ),
+                ],
+            }
+        )
+        so.action_confirm()
+        picking = so.picking_ids[0]
+        self._validate_picking_full(picking)
+
+        # 1 invoice line of 3.0 qty linked to both SOLs (total delivered = 10.0)
+        inv = self.env["account.move"].create(
+            {
+                "move_type": "out_invoice",
+                "partner_id": self.customer.id,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": self.product_storable.id,
+                            "quantity": 3.0,
+                            "price_unit": 100.0,
+                            "account_id": self.account_revenue.id,
+                            "sale_line_ids": [Command.set(so.order_line.ids)],
+                        }
+                    )
+                ],
+            }
+        )
+        inv._compute_delivery_status()
+        self.assertEqual(inv.delivery_status, "full")
+
+    def test_fifo_date_fallback_without_invoice_date(self):
+        """FIFO sorting falls back to move.date when invoice_date is not set."""
+        today = fields.Date.today()
+        earlier = fields.Date.subtract(today, days=5)
+
+        # Customer Invoices
+        so = self._make_sale_order(qty=10.0)
+        sol = so.order_line[0]
+        picking = so.picking_ids[0]
+        self._validate_picking_partial(picking, 5.0)
+
+        inv1 = self.env["account.move"].create(
+            {
+                "move_type": "out_invoice",
+                "partner_id": self.customer.id,
+                "invoice_date": False,
+                "date": earlier,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": self.product_storable.id,
+                            "quantity": 5.0,
+                            "price_unit": 100.0,
+                            "account_id": self.account_revenue.id,
+                            "sale_line_ids": [Command.link(sol.id)],
+                        }
+                    )
+                ],
+            }
+        )
+
+        inv2 = self.env["account.move"].create(
+            {
+                "move_type": "out_invoice",
+                "partner_id": self.customer.id,
+                "invoice_date": False,
+                "date": today,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": self.product_storable.id,
+                            "quantity": 5.0,
+                            "price_unit": 100.0,
+                            "account_id": self.account_revenue.id,
+                            "sale_line_ids": [Command.link(sol.id)],
+                        }
+                    )
+                ],
+            }
+        )
+
+        # Confirm invoice_date is False on both moves to ensure move.date fallback
+        self.assertFalse(inv1.invoice_date)
+        self.assertFalse(inv2.invoice_date)
+        self.assertEqual(inv1.date, earlier)
+        self.assertEqual(inv2.date, today)
+
+        (inv1 | inv2)._compute_delivery_status()
+        self.assertEqual(inv1.delivery_status, "full")
+        self.assertEqual(inv2.delivery_status, "pending")
+
+        # Vendor Bills
+        po = self._make_purchase_order(qty=10.0)
+        pol = po.order_line[0]
+        receipt = po.picking_ids[0]
+        self._validate_picking_partial(receipt, 5.0)
+
+        bill1 = self.env["account.move"].create(
+            {
+                "move_type": "in_invoice",
+                "partner_id": self.vendor.id,
+                "invoice_date": False,
+                "date": earlier,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": self.product_storable.id,
+                            "quantity": 5.0,
+                            "price_unit": 80.0,
+                            "account_id": self.account_expense.id,
+                            "purchase_line_id": pol.id,
+                        }
+                    )
+                ],
+            }
+        )
+
+        bill2 = self.env["account.move"].create(
+            {
+                "move_type": "in_invoice",
+                "partner_id": self.vendor.id,
+                "invoice_date": False,
+                "date": today,
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "product_id": self.product_storable.id,
+                            "quantity": 5.0,
+                            "price_unit": 80.0,
+                            "account_id": self.account_expense.id,
+                            "purchase_line_id": pol.id,
+                        }
+                    )
+                ],
+            }
+        )
+
+        # Confirm invoice_date is False on both bills to ensure move.date fallback
+        self.assertFalse(bill1.invoice_date)
+        self.assertFalse(bill2.invoice_date)
+        self.assertEqual(bill1.date, earlier)
+        self.assertEqual(bill2.date, today)
+
+        (bill1 | bill2)._compute_receipt_status()
+        self.assertEqual(bill1.receipt_status, "full")
+        self.assertEqual(bill2.receipt_status, "pending")
