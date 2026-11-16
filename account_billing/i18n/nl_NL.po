@@ -35,17 +35,38 @@ msgid "# of Invoices"
 msgstr "# facturen"
 
 #. module: account_billing
-#. odoo-python
-#: code:addons/account_billing/models/account_billing.py:0
-msgid "%s"
-msgstr ""
-
-#. module: account_billing
 #: model:ir.actions.report,print_report_name:account_billing.report_account_billing
 msgid "'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
 msgstr ""
 "'VERZAMELFACTUUR-%s%s' % (object.name, object.state == 'draft' and '-draft' "
 "or '')"
+
+#. module: account_billing
+#: model:mail.template,body_html:account_billing.email_template_billing
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"    Dear <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t>\n"
+"    <t t-if=\"object.partner_id.parent_id\">\n"
+"        (<t t-out=\"object.partner_id.parent_id.name or ''\">Azure Interior</"
+"t>)\n"
+"    </t>\n"
+"    <br/><br/>\n"
+"    Please find attached the billing from <t t-out=\"object.company_id.name "
+"or ''\">YourCompany</t>.\n"
+"    <br/><br/>\n"
+"    If you have any questions, please do not hesitate to contact us.\n"
+"    <br/><br/>\n"
+"    Best regards,\n"
+"    <t t-if=\"not is_html_empty(env.user.signature)\">\n"
+"                    <br/>\n"
+"                    <br/>\n"
+"                    <t t-out=\"env.user.signature or ''\"/>\n"
+"                </t>\n"
+"</p>\n"
+"            </div>\n"
+"        "
+msgstr ""
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
@@ -116,6 +137,7 @@ msgid ""
 msgstr ""
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_due
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__amount_residual
 msgid "Amount Due"
 msgstr ""
@@ -129,6 +151,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__message_attachment_count
 msgid "Attachment Count"
 msgstr "Aantal bijlages"
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid ""
+"Batch sending of billings is unavailable. Please ask your administrator to "
+"activate the scheduled action '%s'."
+msgstr ""
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__billing_line_ids
@@ -160,6 +190,7 @@ msgstr "Gefactureerde verzamelfactuur"
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__billing_id
 #: model:ir.ui.menu,name:account_billing.menu_action_customer_billing
 #: model:ir.ui.menu,name:account_billing.menu_action_supplier_billing
+#: model:mail.template,name:account_billing.email_template_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
 msgid "Billing"
 msgstr "Verzamelfactuur"
@@ -167,8 +198,8 @@ msgstr "Verzamelfactuur"
 #. module: account_billing
 #. odoo-python
 #: code:addons/account_billing/models/account_billing.py:0
-msgid "Billing %s is cancelled"
-msgstr "Factureer %s is geannuleerd"
+msgid "Billing %(name)s is cancelled"
+msgstr ""
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__date
@@ -196,6 +227,12 @@ msgid ""
 msgstr ""
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_res_company__billing_email_template_id
+#: model:ir.model.fields,field_description:account_billing.field_res_config_settings__billing_email_template_id
+msgid "Billing email template"
+msgstr ""
+
+#. module: account_billing
 #. odoo-python
 #: code:addons/account_billing/models/account_billing.py:0
 msgid "Billing is billed."
@@ -214,9 +251,45 @@ msgid "Billing lines that reference this invoice"
 msgstr ""
 
 #. module: account_billing
+#: model:ir.actions.server,name:account_billing.ir_cron_account_billing_send_ir_actions_server
+msgid "Billing: send billings by email"
+msgstr ""
+
+#. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_bank_statement_line__billing_ids
 #: model:ir.model.fields,field_description:account_billing.field_account_move__billing_ids
 msgid "Billings"
+msgstr ""
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "Billings are being sent in the background."
+msgstr ""
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "Billings in error"
+msgstr ""
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "Billings sent"
+msgstr ""
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "Billings sent successfully."
+msgstr ""
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "Bills"
 msgstr ""
 
 #. module: account_billing
@@ -235,19 +308,41 @@ msgid "Cancelled Billing"
 msgstr "Geannuleerde verzamelfactuur"
 
 #. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_invoice_config_settings
+msgid "Choose Billing Email Template"
+msgstr ""
+
+#. module: account_billing
 #: model_terms:ir.actions.act_window,help:account_billing.action_customer_billing
 #: model_terms:ir.actions.act_window,help:account_billing.action_supplier_billing
 msgid "Click to register a new billing."
 msgstr "Klik om een nieuwe verzamelfactuur te maken."
 
 #. module: account_billing
+#: model:ir.model,name:account_billing.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__company_id
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
 msgid "Company"
 msgstr "Bedrijf"
 
 #. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "Compose Email"
+msgstr ""
+
+#. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Compute items"
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model,name:account_billing.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: account_billing
@@ -281,7 +376,6 @@ msgstr "Valuta"
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_tree
-#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
 msgid "Customer"
 msgstr "Klant"
 
@@ -293,6 +387,9 @@ msgstr "Klantfactuur"
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__display_name
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__display_name
+#: model:ir.model.fields,field_description:account_billing.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_billing.field_res_company__display_name
+#: model:ir.model.fields,field_description:account_billing.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr "Schermnaam"
 
@@ -338,11 +435,6 @@ msgid "Followers (Partners)"
 msgstr "Volgers (relaties)"
 
 #. module: account_billing
-#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
-msgid "Group By"
-msgstr "Groepeer op"
-
-#. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__has_message
 msgid "Has Message"
 msgstr ""
@@ -350,6 +442,9 @@ msgstr ""
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__id
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__id
+#: model:ir.model.fields,field_description:account_billing.field_account_move__id
+#: model:ir.model.fields,field_description:account_billing.field_res_company__id
+#: model:ir.model.fields,field_description:account_billing.field_res_config_settings__id
 msgid "ID"
 msgstr "ID"
 
@@ -376,14 +471,31 @@ msgid "Invoice paid already."
 msgstr "Factuur reeds betaald."
 
 #. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Invoices"
 msgstr "Facturen"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__is_being_sent
+msgid "Is Being Sent"
+msgstr ""
+
+#. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__message_is_follower
 msgid "Is Follower"
 msgstr "Is volger"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__is_sent
+msgid "Is Sent"
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_account_billing__is_sent
+msgid "It indicates that the billing has been sent by email."
+msgstr ""
 
 #. module: account_billing
 #: model:ir.model,name:account_billing.model_account_move
@@ -401,13 +513,6 @@ msgstr "Laatst bijgewerkt door"
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__write_date
 msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
-
-#. module: account_billing
-#: model:ir.model.fields,help:account_billing.field_account_billing__company_id
-msgid ""
-"Leave this field empty if this route is shared             between all "
-"companies"
-msgstr ""
 
 #. module: account_billing
 #: model_terms:ir.actions.act_window,help:account_billing.action_supplier_billing
@@ -434,6 +539,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
 msgid "Name"
 msgstr "Naam"
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+msgid "Not Sent"
+msgstr ""
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__narration
@@ -473,12 +583,31 @@ msgid "Number of messages with delivery error"
 msgstr "Aantal berichten met leveringsfout"
 
 #. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "One or more billings couldn't be sent."
+msgstr ""
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "Only validated billings can be sent by email."
+msgstr ""
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "Open"
+msgstr ""
+
+#. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__origin
 msgid "Origin"
 msgstr "Oorsprong"
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__partner_id
+#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
 msgid "Partner"
 msgstr "Relatie"
 
@@ -495,6 +624,18 @@ msgstr ""
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__payment_state
 msgid "Payment Status"
+msgstr ""
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "Please configure the Billing Email Template in the settings."
+msgstr ""
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_move.py:0
+msgid "Please select invoices with same company"
 msgstr ""
 
 #. module: account_billing
@@ -527,9 +668,55 @@ msgid "Search Billings"
 msgstr "Zoek verzamelfacturen"
 
 #. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_invoice_config_settings
+msgid ""
+"Select the email template used for billing emails. If left empty, the "
+"default template provided by the Billing Process module will be used."
+msgstr ""
+
+#. module: account_billing
+#: model:ir.actions.server,name:account_billing.action_account_billing_send_from_list
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "Send by Email"
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__sending_data
+msgid "Sending Data"
+msgstr ""
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "Sending billings"
+msgstr ""
+
+#. module: account_billing
+#: model:mail.template,description:account_billing.email_template_billing
+msgid "Sent billing to customer/vendor"
+msgstr ""
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "Sent billings"
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Set to Draft"
 msgstr "Zet op concept"
+
+#. module: account_billing
+#. odoo-python
+#: code:addons/account_billing/models/account_billing.py:0
+msgid "Some billings are already being sent."
+msgstr ""
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__state
@@ -539,9 +726,30 @@ msgid "Status"
 msgstr "Status"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_tax
+msgid "Tax Amount"
+msgstr ""
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_tree
+msgid "Tax Excluded"
+msgstr ""
+
+#. module: account_billing
+#: model:ir.model.fields,help:account_billing.field_res_company__billing_email_template_id
+#: model:ir.model.fields,help:account_billing.field_res_config_settings__billing_email_template_id
+msgid "Template used for sending billing emails."
+msgstr ""
+
+#. module: account_billing
 #: model:ir.model.fields,help:account_billing.field_account_billing_line__origin
 msgid "The document(s) that generated the invoice."
 msgstr "The document(en) welke de factuur hebben genereerd."
+
+#. module: account_billing
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
+msgid "This billing is being sent in the background."
+msgstr ""
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__threshold_date
@@ -557,8 +765,8 @@ msgstr "Drempelwaarde datum type"
 #. module: account_billing
 #. odoo-python
 #: code:addons/account_billing/models/account_billing.py:0
-msgid "Threshold Date cannot be later than the %s in lines"
-msgstr "Drempelwaarde datum kan niet later zijn dan de %s in regels"
+msgid "Threshold Date cannot be later than the %(date_type)s in lines"
+msgstr ""
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing_line__amount_total
@@ -566,6 +774,7 @@ msgid "Total"
 msgstr "Totaal"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_total
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Total Amount"
 msgstr "Totaal bedrag"
@@ -581,13 +790,17 @@ msgid "Type of invoice"
 msgstr "Type factuur"
 
 #. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing__amount_untaxed
+msgid "Untaxed Amount"
+msgstr ""
+
+#. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
 msgid "Validate"
 msgstr "Valideren"
 
 #. module: account_billing
-#: model_terms:ir.ui.view,arch_db:account_billing.view_account_supplier_billing_tree
-#: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
+#: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_tree
 msgid "Vendor"
 msgstr "Leverancier"
 
@@ -617,6 +830,20 @@ msgstr ""
 #: code:addons/account_billing/models/account_billing.py:0
 msgid "You need to add a line before validate."
 msgstr ""
+
+#. module: account_billing
+#: model:mail.template,subject:account_billing.email_template_billing
+msgid "{{ object.company_id.name }} Billing (Ref {{ object.name or 'n/a' }})"
+msgstr ""
+
+#~ msgid "Billing %s is cancelled"
+#~ msgstr "Factureer %s is geannuleerd"
+
+#~ msgid "Group By"
+#~ msgstr "Groepeer op"
+
+#~ msgid "Threshold Date cannot be later than the %s in lines"
+#~ msgstr "Drempelwaarde datum kan niet later zijn dan de %s in regels"
 
 #~ msgid "Followers (Channels)"
 #~ msgstr "Volgers (kanalen)"
