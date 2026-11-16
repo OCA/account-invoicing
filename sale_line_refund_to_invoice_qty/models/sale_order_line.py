@@ -86,3 +86,10 @@ class SaleOrderLine(models.Model):
                         invoice_line.quantity, line.product_uom
                     )
             line.qty_refunded_not_invoiceable = qty_ref_not_inv
+
+    def _prepare_invoice_line(self, **optional_values):
+        # A return makes the quantity to invoice negative: flag the created line so
+        # the credit note gives its quantities back whatever the company setting.
+        res = super()._prepare_invoice_line(**optional_values)
+        res["sale_qty_to_reinvoice"] = True
+        return res
