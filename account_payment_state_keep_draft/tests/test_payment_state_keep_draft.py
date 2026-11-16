@@ -105,3 +105,11 @@ class TestPaymentStateKeepDraft(AccountTestInvoicingCommon):
         payment.action_post()
         self.assertNotEqual(payment.state, "draft")
         self.assertEqual(invoice.payment_state, "paid")
+
+    def test_07_draft_payment_keeps_invoice_links(self):
+        """Resetting the payment to draft must keep its invoice links."""
+        self.company.register_customer_payment_state = "draft"
+        invoice = self._make_invoice("out_invoice")
+        payment = self._register_payment(invoice)
+        self.assertEqual(payment.state, "draft")
+        self.assertEqual(payment.invoice_ids, invoice)
