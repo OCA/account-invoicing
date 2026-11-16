@@ -62,6 +62,17 @@ To use this module, you have 2 ways:
    2. Create Invoice
    3. On tree view select invoice and go to *Action -> Create Billing*
 
+Once a billing is validated, use the *Send by Email* button on the
+billing form to email it to the partner with the billing report
+attached. The email template can be configured under *Invoicing ->
+Configuration -> Settings* (*Choose Billing Email Template*); when left
+empty, a default template shipped with this module is used.
+
+To send several billings at once, select them in the list view and use
+*Action -> Send by Email*. They are sent in the background by the
+scheduled action *Billing: send billings by email*, and you are notified
+when they have been sent.
+
 Bug Tracker
 ===========
 
@@ -83,10 +94,13 @@ Authors
 Contributors
 ------------
 
-- Kitti U. <kittiu@ecosoft.co.th>
-- Saran Lim. <saranl@ecosoft.co.th>
-- Rattapong Chokmasermkul <rattapongc@ecosoft.co.th>
-- Komsan Somwong <komsan.s@ecosoft.co.th>
+-  Kitti U. <kittiu@ecosoft.co.th>
+-  Saran Lim. <saranl@ecosoft.co.th>
+-  Rattapong Chokmasermkul <rattapongc@ecosoft.co.th>
+-  Komsan Somwong <komsan.s@ecosoft.co.th>
+-  `Quartile <https://www.quartile.co>`__:
+
+   -  Aung Ko Ko Lin
 
 Maintainers
 -----------
