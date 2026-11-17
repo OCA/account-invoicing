@@ -1,0 +1,14 @@
+td[name="product_and_description"] {
+    > .o_column_group_field[data-field-name="product_id"] {
+        display: inline-flex;
+        width: calc(100% - 60px);
+        vertical-align: middle;
+    }
+
+    > .o_column_group_field[data-field-name="hide_product_name"] {
+        display: inline-flex;
+        width: 48px;
+        margin-left: 4px;
+        vertical-align: middle;
+    }
+}
