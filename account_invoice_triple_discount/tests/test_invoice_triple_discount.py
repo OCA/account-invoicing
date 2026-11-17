@@ -18,6 +18,7 @@ class TestInvoiceTripleDiscount(BaseCommon):
         cls.Partner = cls.env["res.partner"]
         cls.Journal = cls.env["account.journal"]
 
+        cls.tax_group = cls.env["account.tax.group"].create({"name": "Test tax group"})
         cls.tax = cls.AccountTax.create(
             {
                 "name": "TAX 15%",
@@ -25,6 +26,7 @@ class TestInvoiceTripleDiscount(BaseCommon):
                 "type_tax_use": "purchase",
                 "amount": 15.0,
                 "country_id": cls.env.ref("base.us").id,
+                "tax_group_id": cls.tax_group.id,
             }
         )
         cls.account = cls.Account.create(
@@ -36,6 +38,29 @@ class TestInvoiceTripleDiscount(BaseCommon):
             }
         )
         cls.sale_journal = cls.Journal.search([("type", "=", "sale")], limit=1)
+        if not cls.sale_journal:
+            cls.sale_journal = cls.Journal.create(
+                {
+                    "name": "Customer Invoices",
+                    "code": "INV",
+                    "type": "sale",
+                }
+            )
+
+        # Give the partner a receivable account and the company an income
+        # account, so tests work on databases where no chart of accounts is
+        # installed yet (e.g. Odoo.sh test builds).
+        cls.income_account = cls.Account.create(
+            {
+                "name": "Test income account",
+                "code": "TESTINC",
+                "account_type": "income",
+            }
+        )
+        cls.partner.property_account_receivable_id = cls.account
+        cls.env.company.income_account_id = cls.income_account
+        cls.env.company.country_id = cls.env.ref("base.us")
+        cls.sale_journal.default_account_id = cls.income_account
 
     def create_simple_invoice(self, amount):
         invoice_form = Form(
