@@ -1,0 +1,1 @@
+This module allows users to show or hide product names on invoice line description.
