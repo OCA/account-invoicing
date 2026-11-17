@@ -2,10 +2,13 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import Command
-from odoo.tests.common import TransactionCase
+from odoo.tests import tagged
+
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-class TestProductCustomerInfoInvoice(TransactionCase):
+@tagged("post_install", "-at_install")
+class TestProductCustomerInfoInvoice(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -15,8 +18,7 @@ class TestProductCustomerInfoInvoice(TransactionCase):
         cls.customer_1 = cls._create_customer("customer1")
         cls.customer_2 = cls._create_customer("customer2")
 
-        cls.company = cls.env.ref("base.main_company")
-        cls.product = cls.env.ref("product.product_product_4")
+        cls.product = cls.env["product.product"].create({"name": "Test Product"})
         cls.customerinfo_1 = cls.customerinfo_model.create(
             {
                 "partner_id": cls.customer_1.id,
@@ -39,9 +41,7 @@ class TestProductCustomerInfoInvoice(TransactionCase):
         )
         return cls.move_model.create(
             {
-                "journal_id": cls.env["account.journal"]
-                .search([("type", "=", journal_type)], limit=1)
-                .id,
+                "journal_id": cls.company_data[f"default_journal_{journal_type}"].id,
                 "partner_id": customer.id,
                 "move_type": move_type,
                 "invoice_line_ids": [
