@@ -8,13 +8,15 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestInvoiceFixedDiscount(BaseCommon):
+    _test_user_groups = (
+        "account.group_account_invoice",
+        "account_invoice_fixed_discount.group_fixed_discount",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.env.user.group_ids = [
-            Command.link(cls.env.ref("account.group_account_invoice").id)
-        ]
         cls.partner = cls.env["res.partner"].create({"name": "Test"})
         cls.product = cls.env["product.product"].create(
             {
@@ -90,9 +92,11 @@ class TestInvoiceFixedDiscount(BaseCommon):
         """Tests multiple discounts in line with taxes."""
 
         # Fixed discount 1.0 unit at 57.00
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                line.discount_fixed = 57.00
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            line.discount_fixed = 57.00
 
         # compute discount (57 / 200) * 100
         self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 28.5)
@@ -102,12 +106,14 @@ class TestInvoiceFixedDiscount(BaseCommon):
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143.00)
 
         # Reset to regular discount at 20.00%
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                # Force the fixed discount as the onchange does not
-                # handle the context properly
-                line.discount_fixed = 0.0
-                line.discount = 20.0
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            # Force the fixed discount as the onchange does not
+            # handle the context properly
+            line.discount_fixed = 0.0
+            line.discount = 20.0
 
         self.assertEqual(self.invoice.invoice_line_ids.discount_fixed, 0.0)
         self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 20.0)
@@ -119,10 +125,12 @@ class TestInvoiceFixedDiscount(BaseCommon):
         """Tests multiple discounts in line with taxes."""
 
         # Fixed discount 2.0 units at 50.00
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                line.discount_fixed = 25.00
-                line.quantity = 2.0
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            line.discount_fixed = 25.00
+            line.quantity = 2.0
 
         # compute discount ((50 / 2) / 200) * 100
         self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 12.5)
@@ -134,10 +142,12 @@ class TestInvoiceFixedDiscount(BaseCommon):
         """Tests fixed discount with no taxes."""
 
         # Fixed discount 1.0 unit at 57.00
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                line.tax_ids.clear()
-                line.discount_fixed = 57.00
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            line.tax_ids.clear()
+            line.discount_fixed = 57.00
 
         # compute discount (57 / 200) * 100
         self.assertAlmostEqual(self.invoice.invoice_line_ids.discount, 28.5)
@@ -149,10 +159,12 @@ class TestInvoiceFixedDiscount(BaseCommon):
         """Tests fixed discount with no taxes."""
 
         # Fixed discount 1.0 unit at 57.00
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line:
-                line.price_unit = 0.00
-                line.discount_fixed = 57.00
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line,
+        ):
+            line.price_unit = 0.00
+            line.discount_fixed = 57.00
 
         # compute discount (57 / 200) * 100
         self.assertEqual(self.invoice.invoice_line_ids.discount, 0.0)
