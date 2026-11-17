@@ -15,5 +15,4 @@
     "depends": ["account", "product_customerinfo"],
     "data": ["views/account_move_view.xml"],
     "installable": True,
-    "pre_init_hook": "_product_customerinfo_invoice_pre_init_hook",
 }
