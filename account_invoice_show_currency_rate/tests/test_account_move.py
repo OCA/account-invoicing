@@ -101,3 +101,24 @@ class TestAccountMove(common.TransactionCase):
         invoice = self.env["account.move"].new({"move_type": "entry"})
         # Simply check the method doesn't crash
         invoice._compute_invoice_currency_rate()
+
+    def test_04_currency_switch_keeps_balance(self):
+        """Switching the currency of a draft invoice back and forth keeps the
+        amounts in company currency"""
+        move_form = Form(
+            self.env["account.move"].with_context(default_move_type="out_invoice")
+        )
+        move_form.partner_id = self.partner
+        move_form.invoice_date = fields.Date.from_string("2000-01-01")
+        move_form.currency_id = self.currency_extra
+        with move_form.invoice_line_ids.new() as line_form:
+            line_form.product_id = self.product
+            line_form.price_unit = 100.0
+        invoice = move_form.save()
+        product_line = invoice.invoice_line_ids
+        self.assertAlmostEqual(product_line.balance, -50.0)
+        with Form(invoice) as move_form:
+            move_form.currency_id = self.currency
+            move_form.currency_id = self.currency_extra
+        self.assertAlmostEqual(product_line.balance, -50.0)
+        self.assertAlmostEqual(invoice.invoice_currency_rate, 2.0)
