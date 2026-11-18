@@ -101,12 +101,9 @@ class TestInvoiceFixedDiscount(BaseCommon):
         self.assertEqual(self.invoice.invoice_line_ids.price_unit, 200.00)
         self.assertEqual(self.invoice.invoice_line_ids.price_subtotal, 143.00)
 
-        # Reset to regular discount at 20.00%
+        # Switch to regular discount at 20.00%
         with Form(self.invoice) as invoice_form:
             with invoice_form.invoice_line_ids.edit(0) as line:
-                # Force the fixed discount as the onchange does not
-                # handle the context properly
-                line.discount_fixed = 0.0
                 line.discount = 20.0
 
         self.assertEqual(self.invoice.invoice_line_ids.discount_fixed, 0.0)
@@ -128,6 +125,37 @@ class TestInvoiceFixedDiscount(BaseCommon):
         line = self._edit_line(price_unit=300.0)
         self.assertAlmostEqual(line.discount, 20.0)
         self.assertAlmostEqual(line.price_subtotal, 240.0)
+
+    def test_01c_fixed_discount_is_kept(self):
+        """Setting a fixed discount keeps it set (#2317)"""
+        line = self._edit_line(discount_fixed=57.0)
+        self.assertEqual(line.discount_fixed, 57.0)
+        self.assertAlmostEqual(line.discount, 28.5)
+        self.assertEqual(line.price_subtotal, 143.0)
+
+    def test_01d_price_change_keeps_fixed_discount(self):
+        """Changing the unit price keeps the fixed discount amount"""
+        self._edit_line(discount_fixed=57.0)
+        line = self._edit_line(price_unit=300.0)
+        self.assertEqual(line.discount_fixed, 57.0)
+        self.assertAlmostEqual(line.discount, 19.0)
+        self.assertEqual(line.price_subtotal, 243.0)
+
+    def test_01e_percentage_discount_has_no_fixed_discount(self):
+        """A percentage discount is kept as typed, without fixed discount"""
+        line = self._edit_line(discount=33.33)
+        self.assertEqual(line.discount_fixed, 0.0)
+        self.assertAlmostEqual(line.discount, 33.33)
+        self.assertEqual(line.price_subtotal, 133.34)
+
+    def test_01f_clear_fixed_discount_keeps_percentage(self):
+        """Clearing the fixed discount turns the line into a percentage
+        discount line with the same percentage"""
+        self._edit_line(discount_fixed=57.0)
+        line = self._edit_line(discount_fixed=0.0)
+        self.assertEqual(line.discount_fixed, 0.0)
+        self.assertAlmostEqual(line.discount, 28.5)
+        self.assertEqual(line.price_subtotal, 143.0)
 
     def test_02_discounts_fixed_multiple_units(self):
         """Tests multiple discounts in line with taxes."""
