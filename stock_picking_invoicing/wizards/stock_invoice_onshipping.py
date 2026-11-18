@@ -103,9 +103,9 @@ class StockInvoiceOnshipping(models.TransientModel):
         self.ensure_one()
         (
             sale_pickings,
-            sale_refund_pickings,
+            _sale_refund_pickings,
             purchase_pickings,
-            purchase_refund_pickings,
+            _purchase_refund_pickings,
         ) = self.get_split_pickings()
         self.show_sale_journal = bool(sale_pickings)
         self.show_purchase_journal = bool(purchase_pickings)

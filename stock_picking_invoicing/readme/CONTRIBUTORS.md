@@ -7,3 +7,5 @@
 - Magno Costa \<<magno.costa@akretion.com.br>\>
 - Luis Felipe Mileo \<<mileo@kmee.com.br>\>
 - Radovan Skolnik \<<radovan@skolnik.info>\>
+- [Studio73](https://www.studio73.es):
+  - Pablo Cortés
