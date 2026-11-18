@@ -112,6 +112,83 @@ class TestSaleStock(TestPickingInvoicingCommon):
                 "sale.order.line to stock.move" % field,
             )
 
+    def test_move_line_ids_excluded_from_sale_line_fields(self):
+        """move_line_ids must never be copied from sale.order.line's dict.
+
+        _get_invoice_line_values merges in extra fields from
+        sale.order.line._prepare_invoice_line() (see
+        _get_fields_not_used_from_sale_line). That dict's own
+        "move_line_ids" key (added by stock_picking_invoice_link, computed
+        independently from qty_to_invoice) refers to a different, possibly
+        empty or partial, set of moves than the ones this wizard call is
+        actually grouping for the current invoice line. It must stay
+        excluded, or it silently overwrites (or empties) the correct
+        move_line_ids built from the real moves being invoiced.
+        """
+        wizard = self.env["stock.invoice.onshipping"]
+        self.assertIn("move_line_ids", wizard._get_fields_not_used_from_sale_line())
+
+    def test_move_line_ids_not_overwritten_with_backorder(self):
+        """The invoice line move_line_ids must keep all the grouped moves.
+
+        When a partial delivery and its backorder are invoiced together,
+        _get_invoice_line_values groups both stock.move into a single
+        invoice line. sale.order.line._prepare_invoice_line() (overridden by
+        stock_picking_invoice_link to independently compute its own
+        move_line_ids, based on qty_to_invoice, for a different invoicing
+        flow) must not be allowed to overwrite that already-correct,
+        wizard-computed move_line_ids.
+        """
+        partner = self.env.ref("sale_stock_picking_invoicing.res_partner_2_address")
+        product = self.env.ref("product.product_delivery_01")
+        so = self.env["sale.order"].create(
+            {
+                "partner_id": partner.id,
+                "partner_invoice_id": partner.id,
+                "partner_shipping_id": partner.id,
+                "order_line": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": product.name,
+                            "product_id": product.id,
+                            "product_uom_qty": 2.0,
+                            "product_uom": product.uom_id.id,
+                            "price_unit": product.list_price,
+                        },
+                    )
+                ],
+                "pricelist_id": self.env.ref("product.list0").id,
+            }
+        )
+        so.action_confirm()
+        picking = so.picking_ids
+        picking.action_confirm()
+        picking.action_assign()
+        move = picking.move_ids_without_package
+        move.quantity_done = 1
+        backorder = self.create_backorder_wizard(picking)
+        backorder.action_confirm()
+        backorder.action_assign()
+        backorder_move = backorder.move_ids_without_package
+        backorder_move.quantity_done = 1
+        backorder.button_validate()
+
+        invoice = self.create_invoice_wizard(picking | backorder)
+        invoice_line = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.product_id == product
+        )
+
+        self.assertEqual(
+            set(invoice_line.move_line_ids.ids),
+            {move.id, backorder_move.id},
+            "The invoice line's move_line_ids should contain both grouped "
+            "stock.move (partial delivery + backorder), not be overwritten "
+            "by the independent computation from "
+            "sale.order.line._prepare_invoice_line().",
+        )
+
     def test_picking_sale_order_product_and_service(self):
         """
         Test Sale Order with product and service

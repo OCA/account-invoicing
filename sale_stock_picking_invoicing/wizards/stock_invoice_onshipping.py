@@ -96,7 +96,7 @@ class StockInvoiceOnshipping(models.TransientModel):
                 # origins.add(sale_values["invoice_origin"])
                 payment_refs.add(sale_values["payment_reference"])
                 refs.add(sale_values["ref"])
-                narration.add(sale_values["narration"])
+                narration.add(sale_values["narration"] or "")
 
                 sale_values_rm = {
                     k: sale_values[k]
@@ -179,6 +179,11 @@ class StockInvoiceOnshipping(models.TransientModel):
             # Already get
             "sale_line_ids",
             "anlytic_distribution",
+            # move_line_ids here is computed independently by
+            # stock_picking_invoice_link from qty_to_invoice and may refer
+            # to a different set of moves than the ones this wizard call is
+            # actually grouping for the current invoice line.
+            "move_line_ids",
             # another fields
             "__last_update",
             "display_name",
