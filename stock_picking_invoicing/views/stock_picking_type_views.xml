@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="2binvoiced_action_picking_dashboard" model="ir.actions.act_window">
         <field name="name">Picking to Invoice</field>

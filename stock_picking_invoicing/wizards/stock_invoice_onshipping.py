@@ -173,24 +173,32 @@ class StockInvoiceOnshipping(models.TransientModel):
 
     def get_split_pickings_nogrouped(self, pickings):
         sale_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == "outgoing"
-            and x.move_ids
-            and x.move_ids[0].location_dest_id.usage == "customer"
+            lambda x: (
+                x.picking_type_id.code == "outgoing"
+                and x.move_ids
+                and x.move_ids[0].location_dest_id.usage == "customer"
+            )
         )
         sale_refund_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == "incoming"
-            and x.move_ids
-            and x.move_ids[0].location_id.usage == "customer"
+            lambda x: (
+                x.picking_type_id.code == "incoming"
+                and x.move_ids
+                and x.move_ids[0].location_id.usage == "customer"
+            )
         )
         purchase_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == "incoming"
-            and x.move_ids
-            and x.move_ids[0].location_id.usage == "supplier"
+            lambda x: (
+                x.picking_type_id.code == "incoming"
+                and x.move_ids
+                and x.move_ids[0].location_id.usage == "supplier"
+            )
         )
         purchase_refund_pickings = pickings.filtered(
-            lambda x: x.picking_type_id.code == "outgoing"
-            and x.move_ids
-            and x.move_ids[0].location_dest_id.usage == "supplier"
+            lambda x: (
+                x.picking_type_id.code == "outgoing"
+                and x.move_ids
+                and x.move_ids[0].location_dest_id.usage == "supplier"
+            )
         )
 
         return (
@@ -445,13 +453,16 @@ class StockInvoiceOnshipping(models.TransientModel):
             loc = move.location_id
             loc_dst = move.location_dest_id
             # Better to understand with IF/ELIF than many OR
-            if inv_type == "out_invoice" and loc.usage == "customer":
-                qty *= -1
-            elif inv_type == "out_refund" and loc_dst.usage == "customer":
-                qty *= -1
-            elif inv_type == "in_invoice" and loc_dst.usage == "supplier":
-                qty *= -1
-            elif inv_type == "in_refund" and loc.usage == "supplier":
+            if (
+                inv_type == "out_invoice"
+                and loc.usage == "customer"
+                or inv_type == "out_refund"
+                and loc_dst.usage == "customer"
+                or inv_type == "in_invoice"
+                and loc_dst.usage == "supplier"
+                or inv_type == "in_refund"
+                and loc.usage == "supplier"
+            ):
                 qty *= -1
             quantity += qty
             move_line_ids.append((4, move.id))

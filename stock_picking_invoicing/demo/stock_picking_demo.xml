@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <!-- Fiscal Position -->
     <record id="fiscal_position_demo" model="account.fiscal.position">
@@ -22,7 +22,7 @@
         <field name="invoice_state">2binvoiced</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_1-2" model="stock.move">
@@ -31,7 +31,7 @@
         <field name="invoice_state">2binvoiced</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <!-- Stocking Picking - To be Invoiced - State Assigned-->
@@ -49,7 +49,7 @@
         <field name="invoice_state">2binvoiced</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_2-2" model="stock.move">
@@ -58,7 +58,7 @@
         <field name="invoice_state">2binvoiced</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <function
@@ -91,7 +91,7 @@
         <field name="invoice_state">2binvoiced</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_3-2" model="stock.move">
@@ -100,7 +100,7 @@
         <field name="invoice_state">2binvoiced</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <function
@@ -123,7 +123,7 @@
         <field name="invoice_state">invoiced</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_4-2" model="stock.move">
@@ -132,7 +132,7 @@
         <field name="invoice_state">invoiced</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <!-- Stocking Picking - None - State Draft-->
@@ -150,7 +150,7 @@
         <field name="invoice_state">none</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_5-2" model="stock.move">
@@ -159,7 +159,7 @@
         <field name="invoice_state">none</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <function
@@ -192,7 +192,7 @@
         <field name="invoice_state">none</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_6-2" model="stock.move">
@@ -201,7 +201,7 @@
         <field name="invoice_state">none</field>
         <field name="location_id" ref="stock.stock_location_stock" />
         <field name="location_dest_id" ref="stock.stock_location_customers" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <function
@@ -225,7 +225,7 @@
         <field name="invoice_state">2binvoiced</field>
         <field name="location_id" ref="stock.stock_location_suppliers" />
         <field name="location_dest_id" ref="stock.stock_location_stock" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
     <record id="stock_move_invoicing_7-2" model="stock.move">
@@ -234,7 +234,7 @@
         <field name="invoice_state">2binvoiced</field>
         <field name="location_id" ref="stock.stock_location_suppliers" />
         <field name="location_dest_id" ref="stock.stock_location_stock" />
-        <field name="product_uom_qty">1</field>
+        <field name="product_uom_qty" eval="1" />
         <field name="product_uom" ref="uom.product_uom_unit" />
     </record>
 </odoo>
