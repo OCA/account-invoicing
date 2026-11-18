@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
 
 from odoo import api, fields, models
-from odoo.tools.float_utils import float_is_zero
+from odoo.tools.float_utils import float_compare, float_is_zero
 
 
 class AccountMoveLine(models.Model):
@@ -68,21 +68,40 @@ class AccountMoveLine(models.Model):
 
     @api.onchange("discount_fixed")
     def _onchange_discount_fixed(self):
-        """Compute the fixed discount based on the discount percentage."""
-        if self.env.context.get("ignore_discount_onchange"):
+        """Compute the discount percentage from the fixed discount.
+
+        A fixed discount of zero leaves the percentage untouched: the line is
+        then a regular percentage discount line. This also covers the zero
+        written by `_onchange_discount`, which triggers this onchange again in
+        the same onchange call.
+        """
+        currency = self.currency_id or self.company_id.currency_id
+        if float_is_zero(self.discount_fixed, precision_rounding=currency.rounding):
             return
-        self = self.with_context(ignore_discount_onchange=True)
         self.discount = self._get_discount_from_fixed_discount()
 
     @api.onchange("discount")
     def _onchange_discount(self):
-        """Compute the discount percentage based on the fixed discount.
-        Ignore the onchange if the fixed discount is already set.
+        """Turn the line into a percentage discount line when the percentage
+        no longer matches the fixed discount.
+
+        The percentage written by `_onchange_discount_fixed` matches the fixed
+        discount and triggers this onchange again in the same onchange call, so
+        the fixed discount is kept in that case.
         """
-        if self.env.context.get("ignore_discount_onchange"):
+        currency = self.currency_id or self.company_id.currency_id
+        if float_is_zero(self.discount_fixed, precision_rounding=currency.rounding):
             return
-        self = self.with_context(ignore_discount_onchange=True)
-        self.discount_fixed = 0.0
+        digits = self._fields["discount"].get_digits(self.env)
+        if (
+            float_compare(
+                self.discount,
+                self._get_discount_from_fixed_discount(),
+                precision_digits=digits[1] if digits else 2,
+            )
+            != 0
+        ):
+            self.discount_fixed = 0.0
 
     def _get_discount_from_fixed_discount(self):
         """Calculate the discount percentage from the fixed discount amount."""
