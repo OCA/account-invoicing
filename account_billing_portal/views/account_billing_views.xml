@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_billing_form_inherit" model="ir.ui.view">
+        <field name="name">account.billing.form.inherit</field>
+        <field name="model">account.billing</field>
+        <field name="inherit_id" ref="account_billing.view_account_billing_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="preview_billing"
+                    type="object"
+                    string="Preview"
+                    title="Preview Billing"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
