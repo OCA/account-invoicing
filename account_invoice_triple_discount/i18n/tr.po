@@ -50,15 +50,27 @@ msgid "Disc.3%"
 msgstr "Disc.3%"
 
 #. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount1
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount1
+msgid "Disc1 %"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount2
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount2
+msgid "Disc2 %"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount3
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount3
+msgid "Disc3 %"
+msgstr ""
+
+#. module: account_invoice_triple_discount
 #: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount
 msgid "Discount (%)"
 msgstr "İndirim (%)"
-
-#. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount1
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount1
-msgid "Discount 1 (%)"
-msgstr "İndirim 1 (%)"
 
 #. module: account_invoice_triple_discount
 #: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_account_move_line_discount1_limit
@@ -70,12 +82,6 @@ msgid "Discount 1 must be lower than 100%."
 msgstr "İndirim 1 %100'den düşük olmalıdır."
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount2
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount2
-msgid "Discount 2 (%)"
-msgstr "İndirim 2 (%)"
-
-#. module: account_invoice_triple_discount
 #: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_account_move_line_discount2_limit
 #: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_product_customerinfo_discount2_limit
 #: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_product_supplierinfo_discount2_limit
@@ -83,12 +89,6 @@ msgstr "İndirim 2 (%)"
 #: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_triple_discount_mixin_discount2_limit
 msgid "Discount 2 must be lower than 100%."
 msgstr "İndirim 2 %100'den düşük olmalıdır."
-
-#. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount3
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount3
-msgid "Discount 3 (%)"
-msgstr "İndirim 3 (%)"
 
 #. module: account_invoice_triple_discount
 #: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_account_move_line_discount3_limit
@@ -114,6 +114,15 @@ msgstr "Toplam indirim"
 #: model:ir.model,name:account_invoice_triple_discount.model_triple_discount_mixin
 msgid "Triple discount mixin"
 msgstr "Üçlü indirim karışımı"
+
+#~ msgid "Discount 1 (%)"
+#~ msgstr "İndirim 1 (%)"
+
+#~ msgid "Discount 2 (%)"
+#~ msgstr "İndirim 2 (%)"
+
+#~ msgid "Discount 3 (%)"
+#~ msgstr "İndirim 3 (%)"
 
 #~ msgid "Invoice"
 #~ msgstr "Fatura"

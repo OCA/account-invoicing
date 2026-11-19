@@ -51,14 +51,26 @@ msgid "Disc.3%"
 msgstr ""
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount
-msgid "Discount (%)"
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount1
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount1
+msgid "Disc1 %"
 msgstr ""
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount1
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount1
-msgid "Discount 1 (%)"
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount2
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount2
+msgid "Disc2 %"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount3
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount3
+msgid "Disc3 %"
+msgstr ""
+
+#. module: account_invoice_triple_discount
+#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount
+msgid "Discount (%)"
 msgstr ""
 
 #. module: account_invoice_triple_discount
@@ -71,24 +83,12 @@ msgid "Discount 1 must be lower than 100%."
 msgstr ""
 
 #. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount2
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount2
-msgid "Discount 2 (%)"
-msgstr ""
-
-#. module: account_invoice_triple_discount
 #: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_account_move_line_discount2_limit
 #: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_product_customerinfo_discount2_limit
 #: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_product_supplierinfo_discount2_limit
 #: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_purchase_order_line_discount2_limit
 #: model:ir.model.constraint,message:account_invoice_triple_discount.constraint_triple_discount_mixin_discount2_limit
 msgid "Discount 2 must be lower than 100%."
-msgstr ""
-
-#. module: account_invoice_triple_discount
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_account_move_line__discount3
-#: model:ir.model.fields,field_description:account_invoice_triple_discount.field_triple_discount_mixin__discount3
-msgid "Discount 3 (%)"
 msgstr ""
 
 #. module: account_invoice_triple_discount
