@@ -62,9 +62,9 @@ class AccountMove(models.Model):
         return res
 
     def button_update_prices_from_pricelist(self):
-        self.filtered(
-            lambda r: r.state == "draft"
-        ).invoice_line_ids._compute_price_unit()
+        self.filtered(lambda r: r.state == "draft").invoice_line_ids.with_context(
+            update_prices_from_pricelist=True
+        )._compute_price_unit()
 
 
 class AccountMoveLine(models.Model):
@@ -133,7 +133,11 @@ class AccountMoveLine(models.Model):
             if not line.move_id.pricelist_id:
                 continue
             if not line.product_uom_id or not line.product_id:
-                line.price_unit = 0.0
+                # Nothing to price: a line without product keeps the price
+                # entered by the user, unless prices are explicitly updated
+                # from the pricelist.
+                if self.env.context.get("update_prices_from_pricelist"):
+                    line.price_unit = 0.0
             else:
                 price = line._get_display_price()
                 line.with_context(
