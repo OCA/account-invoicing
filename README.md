@@ -74,7 +74,7 @@ addon | version | maintainers | summary
 [account_invoice_tax_required](account_invoice_tax_required/) | 16.0.1.1.1 |  | This module adds functional a check on invoice to force user to set tax on invoice line.
 [account_invoice_transmit_method](account_invoice_transmit_method/) | 16.0.1.1.0 | <a href='https://github.com/alexis-via'><img src='https://github.com/alexis-via.png' width='32' height='32' style='border-radius:50%;' alt='alexis-via'/></a> | Configure invoice transmit method (email, post, portal, ...)
 [account_invoice_tree_currency](account_invoice_tree_currency/) | 16.0.1.0.0 |  | Show currencies in the invoice tree view
-[account_invoice_triple_discount](account_invoice_triple_discount/) | 16.0.5.0.0 |  | Manage triple discount on invoice lines
+[account_invoice_triple_discount](account_invoice_triple_discount/) | 16.0.5.0.1 |  | Manage triple discount on invoice lines
 [account_invoice_uom_column](account_invoice_uom_column/) | 16.0.1.0.0 | <a href='https://github.com/legalsylvain'><img src='https://github.com/legalsylvain.png' width='32' height='32' style='border-radius:50%;' alt='legalsylvain'/></a> | Display UoM invoice line in a dedicated column on invoice reports
 [account_invoice_validation_queued](account_invoice_validation_queued/) | 16.0.1.0.0 | <a href='https://github.com/pedrobaeza'><img src='https://github.com/pedrobaeza.png' width='32' height='32' style='border-radius:50%;' alt='pedrobaeza'/></a> | Enqueue account invoice validation
 [account_invoice_view_payment](account_invoice_view_payment/) | 16.0.1.0.0 |  | Access to the payment from an invoice
