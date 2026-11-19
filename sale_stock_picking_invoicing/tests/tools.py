@@ -5,26 +5,6 @@
 from odoo.tests import Form
 
 
-def create_with_form_res_partner(env, values):
-    with Form(env["res.partner"]) as partner:
-        partner.name = values.get("name")
-        partner.category_id = values.get("category_id")
-        partner.street = values.get("street")
-        partner.city = values.get("city")
-        partner.country_id = values.get("country_id")
-        partner.state_id = values.get("state_id")
-        partner.zip = values.get("zip")
-        partner.email = values.get("email")
-        partner.phone = values.get("phone")
-        partner.website = values.get("website")
-        partner.vat = values.get("vat")
-        if values.get("type"):
-            partner.type = values.get("type")
-        if values.get("parent_id"):
-            partner.parent_id = values.get("parent_id")
-    return partner.save()
-
-
 def create_with_form_product_combo(env, values, line_values):
     with Form(env["product.combo"]) as combo:
         combo.name = values.get("name")
