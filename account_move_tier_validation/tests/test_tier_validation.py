@@ -202,3 +202,25 @@ class TestAccountTierValidation(BaseCommon):
         self.assertEqual(vendor_bill.state, "draft")
         self.assertEqual(len(vendor_bill.review_ids), 0)
         self.assertEqual(vendor_bill.validation_status, "no")
+
+    def test_05_move_post_validate_wizard(self):
+        """Posting through the 'Confirm Entries' wizard (validate.account.move)
+        must behave like action_post: allowed once validated, blocked before."""
+        self._prepare_tier_definition()
+        invoice = self._prepare_move()
+        # Posting writes ``checked`` when the journal auto-checks on post
+        invoice.journal_id.autocheck_on_post = True
+        invoice.with_user(self.test_user_2.id).request_validation()
+        invoice.invalidate_model()
+        wizard = self.env["validate.account.move"].create(
+            {"move_ids": [Command.set(invoice.ids)]}
+        )
+        with self.assertRaisesRegex(
+            ValidationError, "A validation process is still open"
+        ):
+            wizard.validate_move()
+        invoice.with_user(self.test_user_1.id).validate_tier()
+        invoice.invalidate_model()
+        wizard.validate_move()
+        self.assertEqual(invoice.state, "posted")
+        self.assertTrue(invoice.checked)
