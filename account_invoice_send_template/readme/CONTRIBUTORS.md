@@ -1,0 +1,4 @@
+- Rafael Blasco ([Moduon](https://www.moduon.team/))
+- David Vidal ([Moduon](https://www.moduon.team/))
+- Andrii Kompaniiets ([Moduon](https://www.moduon.team/))
+- Truong Duc ([Komit Consulting](https://komit-consulting.com/))
