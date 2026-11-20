@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <record
+        id="overdue_reason_missing_purchase_order"
+        model="account.move.overdue.reason"
+    >
+        <field name="name">Missing Purchase Order</field>
+    </record>
+    <record id="overdue_reason_invoice_dispute" model="account.move.overdue.reason">
+        <field name="name">Invoice Dispute</field>
+    </record>
+    <record
+        id="overdue_reason_awaiting_customer_approval"
+        model="account.move.overdue.reason"
+    >
+        <field name="name">Awaiting Customer Approval</field>
+    </record>
+    <record id="overdue_reason_payment_promised" model="account.move.overdue.reason">
+        <field name="name">Payment Promised</field>
+    </record>
+    <record id="overdue_reason_cash_flow_issue" model="account.move.overdue.reason">
+        <field name="name">Cash Flow Issue</field>
+    </record>
+    <record
+        id="overdue_reason_incorrect_invoice_details"
+        model="account.move.overdue.reason"
+    >
+        <field name="name">Incorrect Invoice Details</field>
+    </record>
+</odoo>
