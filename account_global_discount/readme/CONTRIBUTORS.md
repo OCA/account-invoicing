@@ -1,0 +1,13 @@
+- [Tecnativa](https://www.tecnativa.com)
+  - Pedro M. Baeza
+  - David Vidal
+  - Carlos Dauden
+  - Rafael Blasco
+  - Ernesto Tejeda
+  - Víctor Martínez
+- Omar Castiñeira \<<omar@comunitea.com>\>
+
+- [Studio73](https://www.studio73.es/)
+  - Miguel Gandia
+- [Heliconia Solutions Pvt. Ltd.](https://www.heliconia.io)
+  - Bhavesh Heliconia
