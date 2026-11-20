@@ -10,6 +10,15 @@ class AccountPayment(models.Model):
     def action_post(self):
         res = super().action_post()
         for payment in self:
+            if payment.move_id.state == "draft":
+                # ``account.payment.write()`` normally re-posts a draft
+                # ``move_id`` as a side effect of the state change triggered
+                # by ``super().action_post()``. That side effect can be
+                # short-circuited by other modules overriding
+                # ``account.move.action_post()``/``_post()``, leaving the
+                # move in draft and the reconciliation below silently
+                # skipped. Post it explicitly instead of relying on it.
+                payment.move_id.action_post()
             invoices = payment.invoice_ids.filtered(
                 lambda line: line.payment_state != "paid"
                 and line.state == "posted"
