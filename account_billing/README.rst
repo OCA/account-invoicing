@@ -103,10 +103,13 @@ promote its widespread use.
 .. |maintainer-Saran440| image:: https://github.com/Saran440.png?size=40px
     :target: https://github.com/Saran440
     :alt: Saran440
+.. |maintainer-aungkokolin1997| image:: https://github.com/aungkokolin1997.png?size=40px
+    :target: https://github.com/aungkokolin1997
+    :alt: aungkokolin1997
 
-Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
+Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-Saran440| 
+|maintainer-Saran440| |maintainer-aungkokolin1997| 
 
 This module is part of the `OCA/account-invoicing <https://github.com/OCA/account-invoicing/tree/16.0/account_billing>`_ project on GitHub.
 
