@@ -1,0 +1,126 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_tag
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-01-09 18:42+0000\n"
+"Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
+"Language-Team: none\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
+
+#. module: account_move_tag
+#: model:ir.model,name:account_move_tag.model_account_move_tag
+msgid "Account Move Tag"
+msgstr "Journaalpost label"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_bank_statement_line__tag_ids
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move__tag_ids
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_line__tag_ids
+#: model:ir.model.fields,field_description:account_move_tag.field_account_payment__tag_ids
+msgid "Account Move Tags"
+msgstr "Journaalpost labels"
+
+#. module: account_move_tag
+#: model:ir.model.fields,help:account_move_tag.field_account_bank_statement_line__tag_ids
+#: model:ir.model.fields,help:account_move_tag.field_account_move__tag_ids
+#: model:ir.model.fields,help:account_move_tag.field_account_move_line__tag_ids
+#: model:ir.model.fields,help:account_move_tag.field_account_payment__tag_ids
+msgid ""
+"Classify and analyze your account move categories like bills, payments, "
+"deposits, etc."
+msgstr ""
+"Classificeer en analyseer je journaalpostcategorieën zoals facturen, "
+"betalingen, stortingen, enz."
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__color
+msgid "Color"
+msgstr "Kleur"
+
+#. module: account_move_tag
+#: model_terms:ir.actions.act_window,help:account_move_tag.account_move_tag_action
+msgid "Create Account Move Tags"
+msgstr "Journaalpost labels aanmaken"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__create_date
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__display_name
+msgid "Display Name"
+msgstr "Schermnaam"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_move_tag
+#: model:ir.model,name:account_move_tag.model_account_move
+msgid "Journal Entry"
+msgstr "Journaalpost"
+
+#. module: account_move_tag
+#: model:ir.model,name:account_move_tag.model_account_move_line
+msgid "Journal Item"
+msgstr "Boekingsregel"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__write_date
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: account_move_tag
+#: model:ir.model.fields,field_description:account_move_tag.field_account_move_tag__name
+msgid "Tag Name"
+msgstr "Labelnaam"
+
+#. module: account_move_tag
+#: model:ir.model.constraint,message:account_move_tag.constraint_account_move_tag_name_uniq
+msgid "Tag name already exists!"
+msgstr "Labelnaam bestaat al!"
+
+#. module: account_move_tag
+#: model:ir.actions.act_window,name:account_move_tag.account_move_tag_action
+#: model:ir.ui.menu,name:account_move_tag.menu_account_move_tag
+#: model_terms:ir.ui.view,arch_db:account_move_tag.account_move_tag_view_form
+#: model_terms:ir.ui.view,arch_db:account_move_tag.view_account_move_filter_inherit
+#: model_terms:ir.ui.view,arch_db:account_move_tag.view_account_move_line_filter_inherit
+#: model_terms:ir.ui.view,arch_db:account_move_tag.view_invoice_tree_inherit
+#: model_terms:ir.ui.view,arch_db:account_move_tag.view_move_form_inherit
+#: model_terms:ir.ui.view,arch_db:account_move_tag.view_move_line_tree_inherit
+#: model_terms:ir.ui.view,arch_db:account_move_tag.view_move_tree_inherit
+msgid "Tags"
+msgstr "Labels"
+
+#. module: account_move_tag
+#: model_terms:ir.actions.act_window,help:account_move_tag.account_move_tag_action
+msgid "Use Tags to manage and track your invoices (credit card, ...)"
+msgstr ""
+"Gebruik labels om je facturen te beheren en te volgen (bijv. creditcard, ...)"
+
+#. module: account_move_tag
+#: model_terms:ir.ui.view,arch_db:account_move_tag.account_move_tag_view_form
+msgid "e.g. Credit Card"
+msgstr "bijv. Creditcard"
