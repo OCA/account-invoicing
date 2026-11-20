@@ -339,11 +339,14 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
         advance_line = self._prepayment_lines(advance)
         self.assertTrue(advance_line)
 
-        res_default = advance_line.name_get()
-        self.assertTrue(res_default and isinstance(res_default[0][1], str))
+        default_name = advance_line.display_name
+        self.assertNotIn("Balance:", default_name)
 
-        res_adv = advance_line.with_context(advance_id_name_get=True).name_get()
-        self.assertTrue(res_adv and isinstance(res_adv[0][1], str))
+        # The compensation wizard shows the date and balance of the lines
+        adv_name = advance_line.with_context(advance_id_name_get=True).display_name
+        self.assertIn("Date:", adv_name)
+        self.assertIn("Balance:", adv_name)
+        self.assertEqual(advance_line.display_name, default_name)
         res_adv_direct = advance_line._get_advance_display_name()
         self.assertTrue(res_adv_direct and isinstance(res_adv_direct[0][1], str))
 
@@ -353,8 +356,9 @@ class TestAccountInvoiceAdvanceCompensationUnified(TransactionCase):
             {"name": "Partner Line", "date_maturity": fields.Date.today()}
         )
 
-        res_inv = inv_partner_line.with_context(line_id_name_get=True).name_get()
-        self.assertTrue(res_inv and isinstance(res_inv[0][1], str))
+        inv_name = inv_partner_line.with_context(line_id_name_get=True).display_name
+        self.assertIn("Partner Line", inv_name)
+        self.assertIn("Balance:", inv_name)
         res_inv_direct = inv_partner_line._get_invoice_line_display_name()
         self.assertTrue(res_inv_direct and isinstance(res_inv_direct[0][1], str))
 
