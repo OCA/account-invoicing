@@ -3,7 +3,7 @@
 
 import json
 from collections import OrderedDict
-from datetime import datetime
+from datetime import date
 
 from odoo import api, exceptions, fields, models
 from odoo.tools import float_is_zero, groupby
@@ -132,10 +132,12 @@ class AccountInvoiceClearingWizard(models.TransientModel):
             record.company_currency_id = company.currency_id
             account_type = self._get_account_type_from_move_type(record.move_type)
             record.move_line_ids = self.invoice_ids.mapped("line_ids").filtered(
-                lambda ml, acc_type=account_type: not ml.full_reconcile_id
-                and ml.balance
-                and ml.account_id.reconcile
-                and ml.account_id.account_type == acc_type
+                lambda ml, acc_type=account_type: (
+                    not ml.full_reconcile_id
+                    and ml.balance
+                    and ml.account_id.reconcile
+                    and ml.account_id.account_type == acc_type
+                )
             )
 
     @api.depends("move_line_ids", "line_ids")
@@ -284,7 +286,7 @@ class AccountInvoiceClearingWizard(models.TransientModel):
         # Sort lines by _order and get first and last line to know the current order
         sorted_lines = self.line_ids.sorted()  # sort by _order
         first_line, last_line = sorted_lines[:1], sorted_lines[-1:]
-        max_date = datetime.max.date()
+        max_date = date.max
         # Sort by date maturity (current order of self.line_ids is not important)
         sorted_lines = self.line_ids.sorted(
             key=lambda line: line.date_maturity or max_date,
