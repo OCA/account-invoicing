@@ -1,0 +1,32 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_default_code_column
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-03-23 09:36+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: account_invoice_default_code_column
+#: model_terms:ir.ui.view,arch_db:account_invoice_default_code_column.report_invoice_document
+msgid "<span>Code</span>"
+msgstr "<span>Código</span>"
+
+#. module: account_invoice_default_code_column
+#: model:ir.model,name:account_invoice_default_code_column.model_account_move_line
+msgid "Journal Item"
+msgstr "Artículo Diario"
+
+#. module: account_invoice_default_code_column
+#: model:ir.model.fields,field_description:account_invoice_default_code_column.field_account_move_line__name_without_default_code
+msgid "Name Without Default Code"
+msgstr "Nombre sin Código por Defecto"
