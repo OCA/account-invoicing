@@ -13,8 +13,6 @@ class AccountMove(models.Model):
         "company_id",
         "invoice_date",
         "state",
-        "line_ids.amount_currency",
-        "line_ids.balance",
     )
     def _compute_invoice_currency_rate(self):
         # If move is posted, get rate based on line amount
