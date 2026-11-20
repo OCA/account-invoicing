@@ -4,7 +4,7 @@
 {
     "name": "Account Invoice Clearing",
     "summary": "Account invoice clearing wizard",
-    "version": "19.0.1.0.2",
+    "version": "20.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Accounting/Accounting",
     "website": "https://github.com/OCA/account-invoicing",
@@ -16,7 +16,7 @@
         "account",
     ],
     "data": [
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
         "views/account_move_view.xml",
         "wizards/account_invoice_clearing_wizard_views.xml",
     ],

@@ -585,7 +585,7 @@ class AccountInvoiceClearingLinesWizard(models.TransientModel):
         related="move_line_id.account_id",
         readonly=True,
     )
-    name = fields.Char(
+    name = fields.Text(
         related="move_line_id.name",
         readonly=True,
     )
