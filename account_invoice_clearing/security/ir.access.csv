@@ -1,0 +1,3 @@
+id,name,model_id,group_id/id,operation,domain
+account_invoice_clearing_wizard,account.invoice.clearing.wizard,account.invoice.clearing.wizard,account.group_account_invoice,crud,
+account_invoice_clearing_wizard_lines,account.invoice.clearing.lines.wizard,account.invoice.clearing.lines.wizard,account.group_account_invoice,crud,
