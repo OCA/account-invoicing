@@ -1,0 +1,9 @@
+<odoo>
+    <menuitem
+        id="menu_account_move_tag"
+        name="Tags"
+        action="account_move_tag_action"
+        parent="account.account_invoicing_menu"
+        sequence="10"
+    />
+</odoo>
