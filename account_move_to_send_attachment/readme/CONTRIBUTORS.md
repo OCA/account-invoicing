@@ -1,0 +1,2 @@
+- Denis Roussel <denis.roussel@acsone.eu>
+- Benjamin Willig <benjamin.willig@acsone.eu>

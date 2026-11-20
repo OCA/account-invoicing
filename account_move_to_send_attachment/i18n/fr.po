@@ -1,0 +1,78 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_to_send_attachment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-26 07:54+0000\n"
+"PO-Revision-Date: 2026-02-26 07:54+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_move_to_send_attachment
+#: model:ir.model,name:account_move_to_send_attachment.model_account_move_send
+msgid "Account Move Send"
+msgstr "Envoi de l'écriture comptable"
+
+#. module: account_move_to_send_attachment
+#: model:ir.model,name:account_move_to_send_attachment.model_ir_attachment
+msgid "Attachment"
+msgstr "Pièce jointe"
+
+#. module: account_move_to_send_attachment
+#: model_terms:ir.ui.view,arch_db:account_move_to_send_attachment.account_move_form_view
+msgid "Attachments to send"
+msgstr "Pièce jointes à envoyer"
+
+#. module: account_move_to_send_attachment
+#: model_terms:ir.ui.view,arch_db:account_move_to_send_attachment.account_move_form_view
+msgid "Attachments:"
+msgstr "Pièces jointes:"
+
+#. module: account_move_to_send_attachment
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_account_move_send__display_name
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_ir_attachment__display_name
+msgid "Display Name"
+msgstr "Nom d'affichage"
+
+#. module: account_move_to_send_attachment
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_account_bank_statement_line__to_be_sent_attachment_ids
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_account_move__to_be_sent_attachment_ids
+msgid "Extra Attachments (To be Sent)"
+msgstr "Pièces jointes extra (À envoyer)"
+
+#. module: account_move_to_send_attachment
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_account_move__id
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_account_move_send__id
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_ir_attachment__id
+msgid "ID"
+msgstr ""
+
+#. module: account_move_to_send_attachment
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_ir_attachment__to_be_sent_with_account_move_id
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_product_document__to_be_sent_with_account_move_id
+msgid "Invoice that should send this attachment"
+msgstr "La facture qui doit envoyer cette pièce jointe"
+
+#. module: account_move_to_send_attachment
+#: model:ir.model,name:account_move_to_send_attachment.model_account_move
+msgid "Journal Entry"
+msgstr "Écriture comptable"
+
+#. module: account_move_to_send_attachment
+#: model_terms:ir.ui.view,arch_db:account_move_to_send_attachment.account_move_form_view
+msgid "Pick the existing attachments you want to send electronically:"
+msgstr "Choisissez les pièces jointes existantes que vous voulez envoyer électroniquement:"
+
+#. module: account_move_to_send_attachment
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_account_bank_statement_line__to_be_sent_attachment_ids_domain
+#: model:ir.model.fields,field_description:account_move_to_send_attachment.field_account_move__to_be_sent_attachment_ids_domain
+msgid "To Be Sent Attachment Ids Domain"
+msgstr ""
