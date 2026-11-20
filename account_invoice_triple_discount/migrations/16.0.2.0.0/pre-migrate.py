@@ -1,64 +1,91 @@
 # Copyright 2024 Camptocamp SA
+# Copyright 2026 ACSONE SA/NV (https://www.acsone.eu)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl)
-from openupgradelib import openupgrade
+import logging
+
+from odoo import SUPERUSER_ID
+from odoo.api import Environment
+from odoo.tools import column_exists
+
+USE_OPENUPGRADE = False
+USE_ODOOUPGRADE = False
+
+try:
+    from odoo.upgrade import util
+
+    USE_ODOOUPGRADE = True
+except ImportError:
+    try:
+        from openupgradelib import openupgrade
+
+        USE_OPENUPGRADE = True
+    except ImportError as err:
+        raise ImportError(
+            "This migration script requires openupgradelib or odoo.upgrade.util.\n"
+            "Please install one of these libraries to proceed with the migration.\n"
+            "For better performances, it is recommended to use odoo.upgrade.util.\n"
+            "See https://github.com/odoo/upgrade-util/"
+        ) from err
+
+
+_logger = logging.getLogger(__name__)
 
 
 def migrate_discount_to_discount1(env):
-    openupgrade.add_fields(
-        env,
-        [
-            (
-                "discount1",
-                "account.move.line",
-                "account_move_line",
-                "float",
-                "numeric",
-                "account_invoice_triple_discount",
-                0.0,
-            )
-        ],
-    )
-    openupgrade.logged_query(
-        env.cr,
-        """
-        UPDATE account_move_line
-        SET discount1 = discount;
-        """,
-    )
-    # if discounts are : 10% - 20% - 30% main discount is : 49.6 %
-    # if discounts are : 05% - 09% - 13% main discount is : 24.7885 %
-    if "discount_fixed" not in env.registry.models["account.move.line"]._fields:
-        openupgrade.logged_query(
-            env.cr,
+    if not column_exists(env.cr, "account_move_line", "discount1"):
+        env.cr.execute(
             """
-            UPDATE account_move_line
-            SET discount = 100 * (
+            ALTER TABLE account_move_line
+            ADD COLUMN discount1 numeric;
+            """
+        )
+        _logger.info("Added column 'discount1' to 'account_move_line'")
+
+    query = """
+        UPDATE account_move_line
+        SET discount1 = discount,
+        """
+
+    if "discount_fixed" not in env.registry.models["account.move.line"]._fields:
+        query += """
+            discount = 100 * (
                 1 - (
-                        (100 - COALESCE(discount1, 0.0)) / 100
+                        (100 - COALESCE(discount, 0.0)) / 100
                         * (100 - COALESCE(discount2, 0.0)) / 100
                         * (100 - COALESCE(discount3, 0.0)) / 100
                     )
-            );
-            """,
-        )
+            )
+            """
+
     else:
         # don't touch lines with fixed discount
-        openupgrade.logged_query(
-            env.cr,
-            """
-            UPDATE account_move_line
-            SET discount = 100 * (
-                1 - (
-                        (100 - COALESCE(discount1, 0.0)) / 100
-                        * (100 - COALESCE(discount2, 0.0)) / 100
-                        * (100 - COALESCE(discount3, 0.0)) / 100
+        # We don't use a WHERE clause since the explode_query_range will
+        # add a WHERE clause with an id range, so we need to express
+        # the condition in a way that is compatible with that.
+        query += """
+            discount =
+            CASE
+                WHEN discount_fixed == 0 THEN
+                    100 * (
+                        1 - (
+                                (100 - COALESCE(discount, 0.0)) / 100
+                                * (100 - COALESCE(discount2, 0.0)) / 100
+                                * (100 - COALESCE(discount3, 0.0)) / 100
+                            )
                     )
-            )
-            WHERE discount_fixed == 0;
-            """,
+                ELSE discount
+            END
+            """
+
+    if USE_OPENUPGRADE:
+        openupgrade.logged_query(env.cr, query)
+
+    else:
+        util.parallel_execute(
+            env.cr, util.explode_query_range(env.cr, query, table="account_move_line")
         )
 
 
-@openupgrade.migrate()
-def migrate(env, version):
+def migrate(cr, version):
+    env = Environment(cr, SUPERUSER_ID, {})
     migrate_discount_to_discount1(env)
