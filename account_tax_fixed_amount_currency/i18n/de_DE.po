@@ -1,0 +1,58 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_tax_fixed_amount_currency
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-01 12:49+0000\n"
+"PO-Revision-Date: 2026-04-01 12:49+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,help:account_tax_fixed_amount_currency.field_account_tax__currency_rate
+msgid "Conversion rate from the tax currency to the company currency."
+msgstr "Umrechnungskurs von der Steuerwährung zur Unternehmenswährung."
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_currency.field_account_tax__currency_id
+msgid "Currency"
+msgstr "Währung"
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_currency.field_account_tax__currency_rate
+msgid "Currency Rate"
+msgstr "Währungskurs"
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_currency.field_account_tax__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_currency.field_account_tax__id
+msgid "ID"
+msgstr ""
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model,name:account_tax_fixed_amount_currency.model_account_tax
+msgid "Tax"
+msgstr "Steuer"
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,help:account_tax_fixed_amount_currency.field_account_tax__currency_id
+msgid ""
+"When set, the fixed amount is expressed in this currency and will be "
+"converted to the document currency at invoice time. Leave empty for the "
+"standard behavior (amount in document currency)."
+msgstr ""
+"Wenn gesetzt, wird der feste Betrag in dieser Währung ausgedrückt und wird "
+"zur Währung des Dokuments bei der Rechnungsumstellung umgerechnet. Leer "
+"lassen für das Standardverhalten (Betrag in Währung des Dokuments)."
