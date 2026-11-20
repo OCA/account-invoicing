@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sale_advance_compensation_view_list" model="ir.ui.view">
+        <field name="name">sale.advance.compensation.list</field>
+        <field name="model">sale.advance.compensation</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sale_order_id" />
+                <field name="payment_term_line_id" />
+                <field name="partner_id" />
+                <field name="amount" widget="monetary" />
+                <field name="applied_amount" widget="monetary" />
+                <field name="remaining_amount" widget="monetary" />
+                <field name="advance_invoice_id" />
+                <field name="advance_line_id" />
+                <field name="invoice_id" />
+                <field name="compensation_move_id" />
+                <field name="state" />
+                <field name="currency_id" column_invisible="True" />
+            </list>
+        </field>
+    </record>
+
+    <record id="sale_advance_compensation_view_form" model="ir.ui.view">
+        <field name="name">sale.advance.compensation.form</field>
+        <field name="model">sale.advance.compensation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="sale_order_id" />
+                            <field name="payment_term_line_id" />
+                            <field name="amount" />
+                            <field name="applied_amount" />
+                            <field name="remaining_amount" />
+                        </group>
+                        <group>
+                            <field name="partner_id" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                            <field name="currency_id" />
+                            <field name="state" />
+                            <field name="advance_invoice_id" />
+                            <field name="advance_line_id" />
+                            <field name="invoice_id" />
+                            <field name="invoice_ids" widget="many2many_tags" />
+                            <field name="compensation_move_id" />
+                            <field
+                                name="compensation_move_ids"
+                                widget="many2many_tags"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_advance_compensation_action" model="ir.actions.act_window">
+        <field name="name">Advances</field>
+        <field name="res_model">sale.advance.compensation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
