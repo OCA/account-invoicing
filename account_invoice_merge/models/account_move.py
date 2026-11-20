@@ -60,7 +60,7 @@ class AccountMove(models.Model):
             "move_type": invoice.move_type,
             "state": "draft",
             "payment_reference": invoice.payment_reference or "",
-            "name": invoice.name or "",
+            "name": invoice.name or False,
             "fiscal_position_id": invoice.fiscal_position_id.id,
             "invoice_payment_term_id": invoice.invoice_payment_term_id.id,
             "invoice_line_ids": {},
