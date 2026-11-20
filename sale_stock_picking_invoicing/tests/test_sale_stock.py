@@ -433,3 +433,19 @@ class TestSaleStock(TestPickingInvoicingCommon):
         self.picking_move_state(picking)
         invoice = self.create_invoice_wizard(picking)
         self.assertEqual(len(invoice), 1)
+
+    def test_picking_not_done_invoicing(self):
+        """Test invoicing a picking of a Sale Order before validating it"""
+        sale_order = self.env.ref(
+            "sale_stock_picking_invoicing.main_company-sale_order_1"
+        )
+        sale_order.action_confirm()
+        picking = sale_order.picking_ids
+        self.assertNotEqual(picking.state, "done")
+        self.assertEqual(picking.invoice_state, "2binvoiced")
+        invoice = self.create_invoice_wizard(picking)
+        self.assertEqual(len(invoice), 1)
+        self.assertEqual(picking.invoice_state, "invoiced")
+        self.assertIn(picking, invoice.picking_ids)
+        product_lines = invoice.invoice_line_ids.filtered("product_id")
+        self.assertEqual(product_lines.move_line_ids, picking.move_ids)
