@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_tax_tree" model="ir.ui.view">
+        <field name="name">account.tax.tree in (account_tax_one_vat)</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_tree" />
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="is_vat" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_tax_search" model="ir.ui.view">
+        <field name="name">account.tax.search in (account_tax_one_vat)</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_account_tax_search" />
+        <field name="arch" type="xml">
+            <filter name="purchase" position="after">
+                <filter string="VAT" name="vat" domain="[('is_vat','=',True)]" />
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_tax_form" model="ir.ui.view">
+        <field name="name">account.tax.form in (account_tax_one_vat)</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form" />
+        <field name="arch" type="xml">
+            <group name="advanced_booleans" position="inside">
+                <field name="is_vat" />
+            </group>
+        </field>
+    </record>
+</odoo>
