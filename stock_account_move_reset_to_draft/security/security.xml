@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="group_stock_move_force_reset_to_draft" model="res.groups">
+        <field
+            name="name"
+        >Allowed to Force Account Moves to Draft (without stock valuations updates)</field>
+        <field name="category_id" ref="base.module_category_accounting_accounting" />
+    </record>
+
+    <record id="stock_move_force_reset_to_draft_wizard_access" model="ir.model.access">
+        <field name="name">stock_move_force_reset_to_draft_wizard_access</field>
+        <field name="model_id" ref="model_stock_account_move_reset_to_draft" />
+        <field
+            name="group_id"
+            ref="stock_account_move_reset_to_draft.group_stock_move_force_reset_to_draft"
+        />
+        <field name="perm_read" eval="1" />
+        <field name="perm_create" eval="1" />
+        <field name="perm_write" eval="1" />
+        <field name="perm_unlink" eval="1" />
+    </record>
+
+</odoo>
