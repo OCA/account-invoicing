@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- ============================================================
+         Portal – /my/invoices list table
+         Extends the portal_my_invoices template to add a
+         "Delivery Status" column for posted customer invoices.
+         Anchor: th[@name='status'] is the last header cell in core.
+    ============================================================ -->
+    <template
+        id="portal_my_invoices_delivery_status"
+        inherit_id="account.portal_my_invoices"
+    >
+        <!-- Add header cell before Status -->
+        <xpath expr="//th[@name='status']" position="before">
+            <th
+                name="delivery_status"
+                class="text-center"
+                t-if="not (request and request.params.get('filterby') == 'bills')"
+            >Delivery</th>
+        </xpath>
+        <!-- Add data cell before the invoice_status td -->
+        <xpath expr="//td[@name='invoice_status']" position="before">
+            <td
+                name="portal_delivery_status"
+                class="text-center"
+                t-if="not (request and request.params.get('filterby') == 'bills')"
+            >
+                <t
+                    t-if="invoice.move_type == 'out_invoice' and invoice.delivery_status"
+                >
+                    <span
+                        t-attf-class="badge rounded-pill #{
+                            'text-bg-secondary' if invoice.delivery_status == 'pending'
+                            else 'text-bg-warning' if invoice.delivery_status == 'partial'
+                            else 'text-bg-success'
+                        }"
+                        t-field="invoice.delivery_status"
+                    />
+                </t>
+            </td>
+        </xpath>
+    </template>
+
+    <!-- ============================================================
+         Portal – /my/invoices/<id> detail page (sidebar)
+         Shows delivery_status in the sidebar entries block.
+         Anchor: the salesperson div inside t-set="entries".
+    ============================================================ -->
+    <template
+        id="portal_invoice_page_delivery_status"
+        inherit_id="account.portal_invoice_page"
+    >
+        <xpath expr="//t[@t-set='entries']" position="inside">
+            <t t-if="invoice.move_type == 'out_invoice' and invoice.delivery_status">
+                <div class="d-flex flex-column gap-2 mt-3">
+                    <h6>
+                        <small class="text-muted">Delivery Status</small>
+                    </h6>
+                    <span
+                        t-attf-class="badge rounded-pill #{
+                            'text-bg-secondary' if invoice.delivery_status == 'pending'
+                            else 'text-bg-warning' if invoice.delivery_status == 'partial'
+                            else 'text-bg-success'
+                        }"
+                        t-field="invoice.delivery_status"
+                    />
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
