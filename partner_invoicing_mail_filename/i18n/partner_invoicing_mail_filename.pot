@@ -1,0 +1,86 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_invoicing_mail_filename
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-25 10:13+0000\n"
+"PO-Revision-Date: 2026-04-25 10:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: partner_invoicing_mail_filename
+#. odoo-python
+#: code:addons/partner_invoicing_mail_filename/models/res_partner.py:0
+msgid ""
+"Allowed format is based on account.move fields, e.g.:\n"
+"- {{ object.name }}\n"
+"- {{ object.partner_id.name }}\n"
+"- {{ object.invoice_date }}"
+msgstr ""
+
+#. module: partner_invoicing_mail_filename
+#: model:ir.model,name:partner_invoicing_mail_filename.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: partner_invoicing_mail_filename
+#: model:ir.model.fields,field_description:partner_invoicing_mail_filename.field_account_move__display_name
+#: model:ir.model.fields,field_description:partner_invoicing_mail_filename.field_res_partner__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: partner_invoicing_mail_filename
+#: model:ir.model.fields,field_description:partner_invoicing_mail_filename.field_account_move__id
+#: model:ir.model.fields,field_description:partner_invoicing_mail_filename.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: partner_invoicing_mail_filename
+#. odoo-python
+#: code:addons/partner_invoicing_mail_filename/models/res_partner.py:0
+msgid ""
+"Invalid invoice PDF filename fields:\n"
+"%(fields)s\n"
+"\n"
+"%(allowed)s"
+msgstr ""
+
+#. module: partner_invoicing_mail_filename
+#: model:ir.model.fields,field_description:partner_invoicing_mail_filename.field_res_partner__invoice_pdf_filename
+#: model:ir.model.fields,field_description:partner_invoicing_mail_filename.field_res_users__invoice_pdf_filename
+msgid "Invoice PDF Filename"
+msgstr ""
+
+#. module: partner_invoicing_mail_filename
+#: model:ir.model,name:partner_invoicing_mail_filename.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: partner_invoicing_mail_filename
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mail_filename.view_partner_form_invoice_subject
+msgid "Leave empty to use the standard doc file name."
+msgstr ""
+
+#. module: partner_invoicing_mail_filename
+#: model:ir.model.fields,help:partner_invoicing_mail_filename.field_res_partner__invoice_pdf_filename
+#: model:ir.model.fields,help:partner_invoicing_mail_filename.field_res_users__invoice_pdf_filename
+msgid ""
+"Partner-specific invoice PDF filename template.\n"
+"You can use Jinja-like placeholders which are rendered dynamically when generating the filename:\n"
+"\n"
+"  {{ object.name }}             → Invoice reference\n"
+"  {{ object.partner_id.name }}   → Partner name\n"
+"  {{ object.invoice_date }}      → Invoice date\n"
+"\n"
+"  Example:\n"
+"  Invoice_{{ object.name }}_{{ object.partner_id.name }}\n"
+"\n"
+"If left empty, the default report filename is used."
+msgstr ""

@@ -1,0 +1,18 @@
+<!-- Copyright 2026 NICO SOLUTIONS - ENGINEERING & IT
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_partner_form_invoice_subject" model="ir.ui.view">
+        <field name="name">res.partner.form.invoice.subject</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_sending_method']" position="after">
+                <field
+                name="invoice_pdf_filename"
+                placeholder="Leave empty to use the standard doc file name."
+                invisible="invoice_sending_method not in 'email'"
+            />#
+            </xpath>
+        </field>
+    </record>
+</odoo>
