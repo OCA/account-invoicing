@@ -149,12 +149,14 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         # 160 - 50% (global disc. 1) =  80
         # 80  - 30% (global disc. 2) =  56
         # The global discounts amount is then 160 - 56 = 104
-        with Form(self.invoice) as invoice_form:
-            with invoice_form.invoice_line_ids.edit(0) as line_form:
-                if "discount1" in self.env["account.move.line"]._fields:
-                    line_form.discount1 = 20
-                else:
-                    line_form.discount = 20
+        with (
+            Form(self.invoice) as invoice_form,
+            invoice_form.invoice_line_ids.edit(0) as line_form,
+        ):
+            if "discount1" in self.env["account.move.line"]._fields:
+                line_form.discount1 = 20
+            else:
+                line_form.discount = 20
         self.assertEqual(len(self.invoice.invoice_global_discount_ids), 2)
         invoice_tax_line = self.invoice.line_ids.filtered("tax_line_id")
         self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 56.0)
@@ -256,23 +258,27 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
         tax2 = self.tax.copy(
             default={"amount": -20.0, "name": "Tax 2"}
         )  # negative for testing more use cases
-        with self.assertRaises(exceptions.UserError):
-            with Form(self.invoice) as invoice_form:
-                invoice_form.global_discount_ids.add(self.global_discount_1)
-                with invoice_form.invoice_line_ids.new() as line_form:
-                    line_form.name = "Line 2"
-                    line_form.price_unit = 100.0
-                    line_form.quantity = 1
-                    line_form.tax_ids.clear()
-                    line_form.tax_ids.add(self.tax)
-                    line_form.tax_ids.add(tax2)
+        with (
+            self.assertRaises(exceptions.UserError),
+            Form(self.invoice) as invoice_form,
+        ):
+            invoice_form.global_discount_ids.add(self.global_discount_1)
+            with invoice_form.invoice_line_ids.new() as line_form:
+                line_form.name = "Line 2"
+                line_form.price_unit = 100.0
+                line_form.quantity = 1
+                line_form.tax_ids.clear()
+                line_form.tax_ids.add(self.tax)
+                line_form.tax_ids.add(tax2)
 
     def test_06_no_taxes(self):
-        with self.assertRaises(exceptions.UserError):
-            with Form(self.invoice) as invoice_form:
-                invoice_form.global_discount_ids.add(self.global_discount_1)
-                with invoice_form.invoice_line_ids.edit(0) as line_form:
-                    line_form.tax_ids.clear()
+        with (
+            self.assertRaises(exceptions.UserError),
+            Form(self.invoice) as invoice_form,
+        ):
+            invoice_form.global_discount_ids.add(self.global_discount_1)
+            with invoice_form.invoice_line_ids.edit(0) as line_form:
+                line_form.tax_ids.clear()
 
     def test_07_line_with_tax_0(self):
         with Form(self.invoice) as invoice_form:
@@ -440,10 +446,12 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
             lambda line: line.tax_line_id and not line.invoice_global_discount_id
         )
         line_without_tax = invoice.line_ids.filtered(
-            lambda line: line.tax_ids.amount == 0
-            and not line.tax_line_id
-            and line.product_id
-            and not line.invoice_global_discount_id
+            lambda line: (
+                line.tax_ids.amount == 0
+                and not line.tax_line_id
+                and line.product_id
+                and not line.invoice_global_discount_id
+            )
         )
         self.assertEqual(len(tax_line), 1)
         self.assertAlmostEqual(

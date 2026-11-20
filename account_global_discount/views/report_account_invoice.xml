@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
         <xpath expr="//t[@t-call='account.document_tax_totals']" position="before">
@@ -19,7 +19,7 @@
                         <strong>Global Discounts</strong>
                         <br />
                         <t
-                            t-esc="'→'.join(['{:.2f}%'.format(x.discount) for x in o.global_discount_ids])"
+                            t-out="'→'.join(['{:.2f}%'.format(x.discount) for x in o.global_discount_ids])"
                         />
                     </td>
                     <td class="text-end">

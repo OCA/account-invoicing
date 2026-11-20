@@ -102,9 +102,9 @@ class AccountMove(models.Model):
         for tax_line in _self.line_ids.filtered("tax_line_id"):
             key = []
             discount_line_base = 0
-            for key in taxes_keys:
+            for key, val in taxes_keys.items():
                 if tax_line.tax_line_id.id in key:
-                    discount_line_base = taxes_keys[key]
+                    discount_line_base = val
                     taxes_keys[key] = 0  # mark for not duplicating
                     break  # we leave in key variable the proper taxes value
             if not discount_line_base:
