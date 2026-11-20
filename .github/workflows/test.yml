@@ -45,8 +45,24 @@ jobs:
       matrix:
         include:
           - container: ghcr.io/oca/oca-ci/py3.12-odoo20.0:latest
+            include: "account_invoice_fixed_discount"
             name: test with Odoo
           - container: ghcr.io/oca/oca-ci/py3.12-ocb20.0:latest
+            include: "account_invoice_fixed_discount"
+            name: test with OCB
+            makepot: "true"
+          - container: ghcr.io/oca/oca-ci/py3.12-odoo20.0:latest
+            include: "account_invoice_triple_discount"
+            name: test with Odoo
+          - container: ghcr.io/oca/oca-ci/py3.12-ocb20.0:latest
+            include: "account_invoice_triple_discount"
+            name: test with OCB
+            makepot: "true"
+          - container: ghcr.io/oca/oca-ci/py3.12-odoo20.0:latest
+            exclude: "account_invoice_fixed_discount,account_invoice_triple_discount"
+            name: test with Odoo
+          - container: ghcr.io/oca/oca-ci/py3.12-ocb20.0:latest
+            exclude: "account_invoice_fixed_discount,account_invoice_triple_discount"
             name: test with OCB
             makepot: "true"
     services:
@@ -59,6 +75,8 @@ jobs:
         ports:
           - 5432:5432
     env:
+      INCLUDE: "${{ matrix.include }}"
+      EXCLUDE: "${{ matrix.exclude }}"
       "OCA_ENABLE_CHECKLOG_ODOO": "1"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

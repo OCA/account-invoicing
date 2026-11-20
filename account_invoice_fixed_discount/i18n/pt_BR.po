@@ -1,0 +1,67 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_fixed_discount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-14 17:04+0000\n"
+"PO-Revision-Date: 2024-02-14 17:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_fixed_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
+msgid "<span class=\"text-nowrap\"> %)</span>"
+msgstr ""
+
+#. module: account_invoice_fixed_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
+msgid "<span class=\"text-nowrap\"> (or</span>"
+msgstr ""
+
+#. module: account_invoice_fixed_discount
+#: model_terms:ir.ui.view,arch_db:account_invoice_fixed_discount.report_invoice_document
+msgid "<span>Discount Amount (%)</span>"
+msgstr "<span>Total Desconto (%)</span>"
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model.fields,help:account_invoice_fixed_discount.field_account_move_line__discount_fixed
+msgid ""
+"Apply a fixed amount discount to this line. The amount is multiplied by the "
+"quantity of the product."
+msgstr ""
+"Aplique um desconto de valor fixo a esta linha. O valor é multiplicado pela "
+"quantidade do produto."
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model.fields,field_description:account_invoice_fixed_discount.field_account_move_line__discount_fixed
+msgid "Discount (Fixed)"
+msgstr "Desconto (Fixo)"
+
+#. module: account_invoice_fixed_discount
+#: model:res.groups,name:account_invoice_fixed_discount.group_fixed_discount
+msgid "Fixed Discount"
+msgstr "Desconto Fixo"
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model,name:account_invoice_fixed_discount.model_account_move_line
+msgid "Journal Item"
+msgstr "Item do diário"
+
+#. module: account_invoice_fixed_discount
+#: model:ir.model,name:account_invoice_fixed_discount.model_account_tax
+msgid "Tax"
+msgstr "Imposto"
+
+#~ msgid "(or"
+#~ msgstr "(ou"
+
+#~ msgid "<span>Disc. %</span>"
+#~ msgstr "<span>Desc. %</span>"
