@@ -1,0 +1,1 @@
+odoo-addon-base_cancel_confirm @ git+https://github.com/OCA/server-ux@refs/pull/1355/head#subdirectory=base_cancel_confirm

@@ -1,0 +1,75 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_cancel_confirm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-11-10 11:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model.fields,help:account_move_cancel_confirm.field_account_move__cancel_confirm
+#: model:ir.model.fields,help:account_move_cancel_confirm.field_account_payment__cancel_confirm
+msgid "A flag signify that this document is confirmed for cancellation"
+msgstr "Una spunta indica che questo documento è confermato per l'annullamento"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model.fields,help:account_move_cancel_confirm.field_account_move__cancel_reason
+#: model:ir.model.fields,help:account_move_cancel_confirm.field_account_payment__cancel_reason
+msgid "An optional cancel reason"
+msgstr "Un motivo di annullamento opzionale"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_by
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_by
+msgid "Cancel By"
+msgstr "Annullato da"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_confirm
+msgid "Cancel Confirmed"
+msgstr "Annullamento confermato"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_date
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_date
+msgid "Cancel Date"
+msgstr "Data di annullamento"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__cancel_reason
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__cancel_reason
+msgid "Cancel Reason"
+msgstr "Causale annullamento"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_move__id
+#: model:ir.model.fields,field_description:account_move_cancel_confirm.field_account_payment__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model,name:account_move_cancel_confirm.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: account_move_cancel_confirm
+#: model:ir.model,name:account_move_cancel_confirm.model_account_payment
+msgid "Payments"
+msgstr "Pagamenti"
