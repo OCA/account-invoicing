@@ -110,7 +110,6 @@ class TestGlobalDiscount(AccountTestInvoicingCommon):
     def test_01_global_invoice_succesive_discounts(self):
         """Add global discounts to the invoice"""
         invoice_tax_line = self.invoice.line_ids.filtered("tax_line_id")
-        # import pdb; pdb.set_trace()
         self.assertAlmostEqual(self.invoice.amount_total, 430)
         self.assertAlmostEqual(invoice_tax_line.tax_base_amount, 200.0)
         self.assertAlmostEqual(invoice_tax_line.balance, 30.0)

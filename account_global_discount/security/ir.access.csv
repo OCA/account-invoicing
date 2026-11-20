@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+access_invoice_global_discount_user,Invoice Global Discount Users,account.invoice.global.discount,base.group_user,r,
+access_invoice_global_discount_partner_manager,Invoice Global Discount Partner Manager,account.invoice.global.discount,account.group_account_invoice,crud,
+global_discount_comp_rule,Global Discount multi-company,account.invoice.global.discount,,crud,"['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]"

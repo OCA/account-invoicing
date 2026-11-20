@@ -9,3 +9,5 @@
 
 - [Studio73](https://www.studio73.es/)
   - Miguel Gandia
+- [Heliconia Solutions Pvt. Ltd.](https://www.heliconia.io)
+  - Bhavesh Heliconia
