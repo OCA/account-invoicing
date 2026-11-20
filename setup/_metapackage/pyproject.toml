@@ -1,8 +1,9 @@
 [project]
 name = "odoo-addons-oca-account-invoicing"
-version = "20.0.20261030.0"
+version = "20.0.20261120.0"
 dependencies = [
     "odoo-addon-account_invoice_triple_discount==20.0.*",
+    "odoo-addon-portal_account_personal_data_only==20.0.*",
 ]
 classifiers=[
     "Programming Language :: Python",
