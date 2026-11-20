@@ -30,8 +30,13 @@ class AccountMove(models.Model):
             self.write({"cancel_confirm": True, "cancel_reason": cancel_reason})
         if not self.filtered("cancel_confirm"):
             return self.open_cancel_confirm_wizard()
-        return super().button_cancel()
+        # Core resets posted moves to draft before cancelling them:
+        # keep the cancel reason that was just confirmed.
+        return super(
+            AccountMove, self.with_context(keep_cancel_confirm_data=True)
+        ).button_cancel()
 
     def button_draft(self):
-        self.clear_cancel_confirm_data()
+        if not self.env.context.get("keep_cancel_confirm_data"):
+            self.clear_cancel_confirm_data()
         return super().button_draft()

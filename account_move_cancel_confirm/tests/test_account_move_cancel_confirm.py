@@ -1,7 +1,7 @@
 # Copyright 2022 Ecosoft Co., Ltd. (http://ecosoft.co.th)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.tests import Form
 from odoo.tests.common import TransactionCase
 
@@ -36,13 +36,11 @@ class TestAccountMoveCancelConfirm(TransactionCase):
                 "invoice_date": fields.Date.today(),
                 "move_type": "in_invoice",
                 "invoice_line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "product_id": self.product.id,
                             "price_unit": 100.0,
-                        },
+                        }
                     )
                 ],
             }
@@ -96,7 +94,21 @@ class TestAccountMoveCancelConfirm(TransactionCase):
         wiz.confirm_cancel()
         self.assertEqual(payment.cancel_reason, wizard.cancel_reason)
         self.assertEqual(payment.state, "canceled")
+        self.assertEqual(payment.move_id.state, "cancel")
+        self.assertEqual(payment.move_id.cancel_reason, "Wrong information")
         # Set to draft
         payment.action_draft()
         self.assertEqual(payment.cancel_reason, False)
         self.assertEqual(payment.state, "draft")
+
+    def test_03_cancel_posted_moves(self):
+        """Cancelling posted moves keeps the confirmed cancel reason"""
+        moves = self.move | self.move.copy({"invoice_date": fields.Date.today()})
+        moves.action_post()
+        res = moves.button_cancel()
+        wizard = Form(self.env["cancel.confirm"].with_context(**res["context"]))
+        wizard.cancel_reason = "Duplicated"
+        wizard.save().confirm_cancel()
+        self.assertEqual(moves.mapped("state"), ["cancel", "cancel"])
+        self.assertEqual(moves.mapped("cancel_reason"), ["Duplicated", "Duplicated"])
+        self.assertTrue(all(moves.mapped("cancel_confirm")))
