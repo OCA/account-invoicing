@@ -1,7 +1,7 @@
 # Copyright (C) 2019-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 JOURNAL_TYPE_MAP = {
@@ -55,7 +55,6 @@ class StockInvoiceOnshipping(models.TransientModel):
             ("sale", "Create Customer Invoice"),
         ],
         default=_get_journal_type,
-        readonly=True,
     )
     group = fields.Selection(
         selection=[
@@ -221,7 +220,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         self.ensure_one()
         invoices = self._action_generate_invoices()
         if not invoices:
-            raise UserError(_("No invoice created!"))
+            raise UserError(self.env._("No invoice created!"))
 
         # Update the state on pickings related to new invoices only
         self._update_picking_invoice_status(invoices.mapped("picking_ids"))
@@ -236,10 +235,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         if len(invoices) > 1:
             action_dict["domain"] = [("id", "in", invoices.ids)]
         elif len(invoices) == 1:
-            if inv_type in ["out_invoice", "out_refund"]:
-                form_view = [(self.env.ref("account.view_move_form").id, "form")]
-            else:
-                form_view = [(self.env.ref("account.view_move_form").id, "form")]
+            form_view = [(self.env.ref("account.view_move_form").id, "form")]
             if "views" in action_dict:
                 action_dict["views"] = form_view + [
                     (state, view)
@@ -418,7 +414,10 @@ class StockInvoiceOnshipping(models.TransientModel):
         line._inverse_account_id()
         line._inverse_amount_currency()
         new_values = line._convert_to_write(line._cache)
-        if price_unit:
+        # The Price Unit computed from the Stock Moves is authoritative: it must
+        # be kept even when it is 0.0 (0 is a valid price), so only a missing
+        # value (None) leaves the price simulated by the onchange.
+        if price_unit is not None:
             new_values["price_unit"] = price_unit
         # Ensure basic values are not updated
         values.update(new_values)
@@ -500,7 +499,7 @@ class StockInvoiceOnshipping(models.TransientModel):
         pickings = self._load_pickings()
         company = pickings.mapped("company_id")
         if company and company != self.env.company:
-            raise UserError(_("All pickings are not related to your company!"))
+            raise UserError(self.env._("All pickings are not related to your company!"))
         pick_list = self._group_pickings(pickings)
         invoices = self.env["account.move"].browse()
         for pickings in pick_list:

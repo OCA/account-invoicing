@@ -9,8 +9,6 @@
                     <field name="journal_type" readonly="1" />
                 </h1>
                 <group>
-                    <field name="show_sale_journal" invisible="1" />
-                    <field name="show_purchase_journal" invisible="1" />
                     <field
                         name="sale_journal"
                         invisible="not show_sale_journal"
