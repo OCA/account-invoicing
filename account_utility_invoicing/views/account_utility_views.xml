@@ -1,0 +1,247 @@
+<odoo>
+    <record id="account_utility_view_form" model="ir.ui.view">
+        <field name="name">account.utility.form</field>
+        <field name="model">account.utility</field>
+        <field name="arch" type="xml">
+            <form string="Utility Invoicing">
+                <header>
+                    <button
+                        name="button_confirm"
+                        string="Confirm"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state != 'draft'"
+                    />
+                    <button
+                        name="action_create_invoice"
+                        string="Create Invoice"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state != 'confirm'"
+                    />
+                    <button
+                        name="button_draft"
+                        string="Set to draft"
+                        type="object"
+                        invisible="state not in ['cancel', 'confirm']"
+                    />
+                    <button
+                        name="button_cancel"
+                        string="Cancel"
+                        type="object"
+                        invisible="state != 'draft'"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,confirm,done"
+                    />
+                </header>
+                <sheet string="Invoice">
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_view_invoice"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o"
+                            invisible="invoice_count == 0"
+                        >
+                            <field
+                                name="invoice_count"
+                                widget="statinfo"
+                                string="Invoices"
+                            />
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field
+                                name="utility_type_ids"
+                                readonly="state != 'draft'"
+                                widget="many2many_tags"
+                            />
+                            <field
+                                name="partner_ids"
+                                readonly="state != 'draft'"
+                                widget="many2many_tags"
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="company_id"
+                                readonly="state != 'draft'"
+                                groups="base.group_multi_company"
+                            />
+                            <field
+                                name="date_invoice"
+                                readonly="state != 'draft'"
+                                required="1"
+                            />
+                            <field
+                                name="date_due"
+                                readonly="state != 'draft'"
+                                required="1"
+                            />
+                            <field
+                                name="journal_id"
+                                readonly="state != 'draft'"
+                                required="1"
+                            />
+                        </group>
+                    </group>
+                    <button
+                        name="retrieve_product_line"
+                        string="Retrieve Lines"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state != 'draft'"
+                    />
+                    <notebook>
+                        <page string="Meter Lines">
+                            <field name="utility_line_ids" readonly="state != 'draft'">
+                                <list
+                                    name="account_utility"
+                                    create="0"
+                                    editable="bottom"
+                                    decoration-danger="is_alert_threshold"
+                                >
+                                    <field name="utility_type_id" optional="show" />
+                                    <field name="utility_id" readonly="1" />
+                                    <field name="product_tmpl_id" />
+                                    <field name="partner_id" optional="show" />
+                                    <field
+                                        name="flat_rate"
+                                        sum="Total Amount"
+                                        optional="show"
+                                    />
+                                    <field name="prev_unit" optional="show" />
+                                    <field name="curr_unit" optional="show" />
+                                    <field
+                                        name="total_unit"
+                                        optional="show"
+                                        sum="Total Unit"
+                                    />
+                                    <field name="multiplier" optional="show" />
+                                    <field name="total_rate" optional="show" />
+                                    <field
+                                        name="amount_subtotal"
+                                        sum="Total Amount"
+                                        optional="show"
+                                    />
+                                    <field name="move_id" optional="hide" />
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field
+                                    name="amount_total"
+                                    class="oe_subtotal_footer_separator"
+                                />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="account_utility_view_list" model="ir.ui.view">
+        <field name="name">account.utility.view.list</field>
+        <field name="model">account.utility</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+                <field name="date_invoice" optional="show" />
+                <field name="date_due" optional="show" />
+                <field
+                    name="company_id"
+                    groups="base.group_multi_company"
+                    optional="show"
+                />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state in ['draft', 'confirm']"
+                    decoration-success="state == 'done'"
+                />
+            </list>
+        </field>
+    </record>
+
+    <record id="account_utility_view_search" model="ir.ui.view">
+        <field name="name">account.utility.view.search</field>
+        <field name="model">account.utility</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Account Utility" />
+                <filter
+                    name="filter_draft"
+                    string="Draft"
+                    domain="[('state', '=', 'draft')]"
+                />
+                <filter
+                    name="filter_confirm"
+                    string="Confirm"
+                    domain="[('state', '=', 'confirm')]"
+                />
+                <filter
+                    name="filter_done"
+                    string="Done"
+                    domain="[('state', '=', 'done')]"
+                />
+                <filter
+                    name="filter_cancel"
+                    string="Cancel"
+                    domain="[('state', '=', 'cancel')]"
+                />
+                <group string="Group By">
+                    <filter
+                        name="groupby_state"
+                        string="State"
+                        context="{'group_by':'state'}"
+                    />
+                    <filter
+                        name="groupby_date_invoice"
+                        string="Invoice Date"
+                        context="{'group_by':'date_invoice'}"
+                    />
+                    <filter
+                        name="groupby_date_due"
+                        string="Due Date"
+                        context="{'group_by':'date_due'}"
+                    />
+                    <filter
+                        name="groupby_journal_id"
+                        string="Journal"
+                        context="{'group_by':'journal_id'}"
+                    />
+                    <filter
+                        name="groupby_company_id"
+                        string="Company"
+                        context="{'group_by':'company_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_account_utility" model="ir.actions.act_window">
+        <field name="name">Utility Invoicing</field>
+        <field name="res_model">account.utility</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="account_utility_invoicing_menu"
+        name="Utility Invoicing"
+        sequence="16"
+        parent="account_utility_invoicing.menu_utility"
+        action="action_account_utility"
+    />
+</odoo>
