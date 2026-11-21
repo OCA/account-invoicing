@@ -168,7 +168,10 @@ class AccountMoveLine(models.Model):
     def _compute_currency_rate(self):
         res = super()._compute_currency_rate()
         for line in self:
-            if not line.move_id.manual_currency:
+            if not (
+                line.move_id.manual_currency
+                and line.move_id._origin.manual_currency_rate
+            ):
                 continue
             # Currency Rate on move line use 'company_rate'
             rate = (
