@@ -266,7 +266,7 @@ class TestAccountInvoiceMerge(AccountTestInvoicingCommon):
             "order_line.invoice_lines.move_id"
         )
         invoices_2 = invoices_2.filtered(lambda i: i.state == "draft")
-        self.assertEqual(sorted(invoices_2.ids), sorted(list(invoices_info.keys())))
+        self.assertEqual(sorted(invoices_2.ids), sorted(invoices_info.keys()))
 
     def _add_qty_delivered_and_create_invoice(self, sale_order):
         for line in sale_order.order_line:

@@ -8,7 +8,7 @@
 
 {
     "name": "Account Invoice Merge",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "category": "Finance",
     "summary": "Merge invoices in draft",
     "author": "Elico Corp,Odoo Community Association (OCA)",
@@ -16,8 +16,8 @@
     "license": "AGPL-3",
     "depends": ["account"],
     "data": [
-        "security/ir.model.access.csv",
         "wizard/invoice_merge_view.xml",
+        "security/ir.access.csv",
     ],
     "installable": True,
 }

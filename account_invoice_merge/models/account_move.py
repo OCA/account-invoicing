@@ -100,7 +100,6 @@ class AccountMove(models.Model):
         list_key.sort()
         return tuple(list_key)
 
-    # flake8: noqa: C901
     def do_merge(
         self, keep_references=True, date_invoice=False, remove_empty_invoice_lines=True
     ):
@@ -194,7 +193,7 @@ class AccountMove(models.Model):
         qty_prec = self.env["decimal.precision"].precision_get(
             "Product Unit of Measure"
         )
-        for _invoice_key, (invoice_data, old_ids) in new_invoices.items():
+        for invoice_data, old_ids in new_invoices.values():
             # skip merges with only one invoice
             if len(old_ids) < 2:
                 allinvoices += old_ids or []
