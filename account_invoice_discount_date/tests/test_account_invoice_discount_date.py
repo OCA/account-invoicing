@@ -15,7 +15,7 @@ class TestAccountInvoiceDiscountDate(AccountTestInvoicingCommon):
         """Test discount date is computed from the payment term lines"""
         normal_discount_date = fields.Date.today() + timedelta(days=5)
         early_discount_date = fields.Date.today() + timedelta(days=3)
-        for move_type in {"out_invoice", "in_invoice"}:
+        for move_type in ("out_invoice", "in_invoice"):
             with self.subTest(move_type=move_type):
                 invoice = self._create_invoice(move_type=move_type)
                 term_lines = invoice.line_ids.filtered(

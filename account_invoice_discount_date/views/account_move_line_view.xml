@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <data>
     <record id="view_account_move_line_filter" model="ir.ui.view">
         <field name="name">account.move.line.search</field>
