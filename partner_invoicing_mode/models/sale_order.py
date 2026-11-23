@@ -108,9 +108,16 @@ class SaleOrder(models.Model):
         """
         return self._create_invoices(grouped=partition, final=True)
 
+    def _prepare_generated_invoices_values(self):
+        """
+        Hook to get the values written on the invoices generated for these
+        sale orders, as some invoicing modes need another invoice date
+        than the day of the generation.
+        """
+        return {"invoice_date": fields.Date.context_today(self)}
+
     def _generate_invoices_by_partner(self, saleorder_ids):
         """Generate invoices for a group of sale order belonging to a customer."""
-        today = fields.Date.context_today(self)
         sale_orders = (
             self.browse(saleorder_ids)
             .exists()
@@ -118,6 +125,8 @@ class SaleOrder(models.Model):
         )
         if not sale_orders:
             return "No sale order found to invoice ?"
+        # Get the values once, so that all the invoices get the same date
+        invoice_values = sale_orders._prepare_generated_invoices_values()
         # Create invoices using grouping when needed, so partition sales
         invoice_ids = set()
         for partition, partitioned_sales in sale_orders.partition(
@@ -126,7 +135,7 @@ class SaleOrder(models.Model):
             invoices = partitioned_sales._get_generated_invoices(partition=partition)
             # Update invoices date to be sure no long validation (jobs) put
             # the further day date on invoices.
-            invoices.write({"invoice_date": today})
+            invoices.write(invoice_values)
             # Update each partner next invoice date
             partitioned_sales.partner_invoice_id._update_next_invoice_date()
             invoice_ids.update(invoices.ids)
