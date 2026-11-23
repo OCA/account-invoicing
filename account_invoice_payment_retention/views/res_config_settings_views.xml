@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='account_vendor_bills']" position="inside">
+                <setting
+                    id="payment_retention_setting"
+                    help="This enable retention option in invoice, to be retained on its payment."
+                >
+                    <field name="group_payment_retention" />
+                    <div class="content-group" invisible="not group_payment_retention">
+                        <div class="mt16">
+                            <label
+                                for="retention_account_id"
+                                class="oe_edit_only"
+                                string="Retention Payable Account"
+                            />
+                            <field
+                                name="retention_account_id"
+                                required="group_payment_retention"
+                            />
+                        </div>
+                        <div class="mt8">
+                            <label
+                                for="retention_receivable_account_id"
+                                class="oe_edit_only"
+                                string="Retention Receivable Account"
+                            />
+                            <field
+                                name="retention_receivable_account_id"
+                                required="group_payment_retention"
+                            />
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
