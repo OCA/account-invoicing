@@ -112,10 +112,12 @@ class TestAccountInvoiceDateDue(BaseCommon):
         self.assertEqual(
             len(
                 self.move.line_ids.filtered(
-                    lambda line: fields.Date.to_string(line.date_maturity)
-                    == twenty_days_from_now
-                    and line.account_id.account_type
-                    in ("asset_receivable", "liability_payable")
+                    lambda line: (
+                        fields.Date.to_string(line.date_maturity)
+                        == twenty_days_from_now
+                        and line.account_id.account_type
+                        in ("asset_receivable", "liability_payable")
+                    )
                 )
             ),
             1,
@@ -155,10 +157,12 @@ class TestAccountInvoiceDateDue(BaseCommon):
         self.assertEqual(
             len(
                 self.move.line_ids.filtered(
-                    lambda line: fields.Date.to_string(line.date_maturity)
-                    == twenty_days_from_now
-                    and line.account_id.account_type
-                    in ("asset_receivable", "liability_payable")
+                    lambda line: (
+                        fields.Date.to_string(line.date_maturity)
+                        == twenty_days_from_now
+                        and line.account_id.account_type
+                        in ("asset_receivable", "liability_payable")
+                    )
                 )
             ),
             1,
