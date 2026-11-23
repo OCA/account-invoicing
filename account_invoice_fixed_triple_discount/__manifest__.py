@@ -4,7 +4,7 @@
 {
     "name": "Account Fixed Triple Discount",
     "summary": "Compatibility between fixed and triple discount modules",
-    "version": "16.0.1.0.0",
+    "version": "19.0.1.0.0",
     "category": "Accounting & Finance",
     "website": "https://github.com/OCA/account-invoicing",
     "author": "Odoo Community Association (OCA)",

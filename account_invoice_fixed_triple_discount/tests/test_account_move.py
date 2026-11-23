@@ -2,17 +2,22 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import Command
-from odoo.tests import TransactionCase
-from odoo.tests.common import Form
+from odoo.tests import Form
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestAccountMove(TransactionCase):
+class TestAccountMove(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env.user.groups_id |= cls.env.ref("account.group_account_invoice")
+        cls.env.user.group_ids = [
+            Command.link(cls.env.ref("account.group_account_invoice").id)
+        ]
         cls.partner = cls.env["res.partner"].create({"name": "Test"})
-        cls.product = cls.env.ref("product.product_product_3")
+        cls.product = cls.env["product.product"].create(
+            {"name": "Test product", "type": "consu"}
+        )
 
     def _create_invoice(self, **kwargs):
         invoice_vals = [
