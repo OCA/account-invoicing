@@ -22,7 +22,7 @@
             <xpath expr="//field[@name='invoice_date_due']" position="after">
                 <field
                     name="discount_date"
-                    widget="remaining_days"
+                    widget="relative_date"
                     optional="show"
                     invisible="payment_state in ('paid', 'in_payment', 'reversed')"
                 />
