@@ -5,7 +5,7 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, models
+from odoo import api, fields, models
 from odoo.osv.expression import OR
 
 
@@ -28,6 +28,19 @@ class SaleOrder(models.Model):
             invoicing_mode="monthly",
             last_execution_field="invoicing_mode_monthly_last_execution",
         )
+
+    def _prepare_generated_invoices_values(self):
+        values = super()._prepare_generated_invoices_values()
+        if (
+            self
+            and all(order.invoicing_mode == "monthly" for order in self)
+            and all(self.company_id.mapped("invoicing_mode_monthly_previous_month"))
+        ):
+            # Last day of the month preceding the generation
+            values["invoice_date"] = fields.Date.context_today(self) + relativedelta(
+                day=1, days=-1
+            )
+        return values
 
     @api.model
     def _company_monthly_invoicing_today(self):

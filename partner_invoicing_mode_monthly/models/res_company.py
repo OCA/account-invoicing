@@ -14,6 +14,13 @@ class ResCompany(models.Model):
         "than the number of days in a month, the invoicing will be"
         "executed on the last day of the month.",
     )
+    invoicing_mode_monthly_previous_month = fields.Boolean(
+        "Date invoices on the previous month",
+        help="Date the invoices on the last day of the month preceding the "
+        "execution, instead of the day of the execution. With an invoicing "
+        "day set to 1, the invoicing then covers the whole previous month, "
+        "including what has been delivered on its last day.",
+    )
     invoicing_mode_monthly_last_execution = fields.Datetime(
         string="Last execution (monthly)",
         help="Last execution of monthly invoicing.",

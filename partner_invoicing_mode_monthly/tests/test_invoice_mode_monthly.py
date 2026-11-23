@@ -1,7 +1,10 @@
 # Copyright 2020 Camptocamp SA
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
+from datetime import date
 from unittest import mock
+
+from freezegun import freeze_time
 
 from odoo.tools import mute_logger
 
@@ -118,3 +121,53 @@ class TestInvoiceModeMonthly(CommonPartnerInvoicingMode):
         self.assertNotEqual(self.so1.invoice_ids, self.so2.invoice_ids)
         self.assertEqual(self.so1.invoice_ids.state, "posted")
         self.assertEqual(self.so2.invoice_ids.state, "posted")
+
+    def _generate_monthly_invoices_on(self, day):
+        """Run the monthly invoicing as the cron does it, on the given day."""
+        with freeze_time(day), mute_logger("odoo.addons.queue_job.delay"):
+            self.assertIn(
+                self.company, self.SaleOrder._company_monthly_invoicing_today()
+            )
+            self.SaleOrder.with_context(
+                queue_job__no_delay=True
+            ).cron_generate_monthly_invoices()
+
+    def test_invoice_dated_on_generation_day(self):
+        """By default, the invoices are dated on the day of the generation."""
+        self.company.invoicing_mode_monthly_day_todo = 1
+        self.company.invoicing_mode_monthly_last_execution = "2020-06-01 01:00:00"
+        self.deliver_invoice(self.so1)
+        self._generate_monthly_invoices_on("2020-07-01 01:00:00")
+        self.assertEqual(self.so1.invoice_ids.invoice_date, date(2020, 7, 1))
+        self.assertEqual(self.so1.invoice_ids.state, "posted")
+
+    def test_invoice_dated_on_previous_month(self):
+        """Invoicing on the 1st covers the previous month and is dated on it."""
+        self.company.invoicing_mode_monthly_day_todo = 1
+        self.company.invoicing_mode_monthly_previous_month = True
+        self.company.invoicing_mode_monthly_last_execution = "2020-06-01 01:00:00"
+        # Delivered on the last day of the month, after the hour of the cron
+        with freeze_time("2020-06-30 15:00:00"):
+            self.deliver_invoice(self.so1)
+            self.deliver_invoice(self.so2)
+        self._generate_monthly_invoices_on("2020-07-01 01:00:00")
+        invoice = self.so1.invoice_ids
+        self.assertEqual(len(invoice), 1)
+        self.assertEqual(invoice, self.so2.invoice_ids)
+        self.assertEqual(invoice.invoice_date, date(2020, 6, 30))
+        self.assertEqual(invoice.date, date(2020, 6, 30))
+        self.assertEqual(invoice.state, "posted")
+
+    def test_previous_month_only_for_monthly_mode(self):
+        """The option has no effect on the other invoicing modes."""
+        self.company.invoicing_mode_monthly_previous_month = True
+        self.partner.invoicing_mode = "standard"
+        self.deliver_invoice(self.so1)
+        with (
+            freeze_time("2020-07-01 01:00:00"),
+            mute_logger("odoo.addons.queue_job.delay"),
+        ):
+            self.SaleOrder.with_context(queue_job__no_delay=True).generate_invoices(
+                self.company
+            )
+        self.assertEqual(self.so1.invoice_ids.invoice_date, date(2020, 7, 1))

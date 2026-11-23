@@ -23,6 +23,14 @@
                         </div>
                         <div class="row mt16">
                             <label
+                                string="Date invoices on the previous month"
+                                for="res_invoicing_mode_monthly_previous_month"
+                                class="col-lg-4 o_light_label"
+                            />
+                            <field name="res_invoicing_mode_monthly_previous_month" />
+                        </div>
+                        <div class="row mt16">
+                            <label
                                 string="Last executed on"
                                 for="res_invoicing_mode_monthly_last_execution"
                                 class="col-lg-4 o_light_label"

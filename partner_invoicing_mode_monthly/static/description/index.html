@@ -377,12 +377,13 @@ customer, the customer will be automatically invoiced</p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
 <li><a class="reference internal" href="#installation" id="toc-entry-1">Installation</a></li>
-<li><a class="reference internal" href="#bug-tracker" id="toc-entry-2">Bug Tracker</a></li>
-<li><a class="reference internal" href="#credits" id="toc-entry-3">Credits</a><ul>
-<li><a class="reference internal" href="#authors" id="toc-entry-4">Authors</a></li>
-<li><a class="reference internal" href="#contributors" id="toc-entry-5">Contributors</a></li>
-<li><a class="reference internal" href="#other-credits" id="toc-entry-6">Other credits</a></li>
-<li><a class="reference internal" href="#maintainers" id="toc-entry-7">Maintainers</a></li>
+<li><a class="reference internal" href="#configuration" id="toc-entry-2">Configuration</a></li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-3">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-4">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-5">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-6">Contributors</a></li>
+<li><a class="reference internal" href="#other-credits" id="toc-entry-7">Other credits</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-8">Maintainers</a></li>
 </ul>
 </li>
 </ul>
@@ -390,8 +391,30 @@ customer, the customer will be automatically invoiced</p>
 <div class="section" id="installation">
 <h1><a class="toc-backref" href="#toc-entry-1">Installation</a></h1>
 </div>
+<div class="section" id="configuration">
+<h1><a class="toc-backref" href="#toc-entry-2">Configuration</a></h1>
+<p>In the Invoicing settings, under <em>Invoicing Mode</em>:</p>
+<ul class="simple">
+<li><em>Invoicing day</em> is the day of the month the monthly invoicing is
+executed. A day the month does not have (31 by default) means its last
+day.</li>
+<li><em>Date invoices on the previous month</em> dates the invoices on the last
+day of the month preceding the execution, instead of the day of the
+execution.</li>
+</ul>
+<p>The invoicing is executed by a nightly scheduled action, so with the
+default settings what is delivered on the last day of the month, after
+the action has run, is only invoiced one month later. To invoice a whole
+month at once, set the invoicing day to 1 and enable <em>Date invoices on
+the previous month</em>: the invoicing executed on the 1st then covers
+everything delivered until the last day of the previous month, and is
+dated on that day.</p>
+<p>The previous month has to be open for invoicing when the invoicing is
+executed: with a lock date already set on it, the invoices cannot be
+posted on that date.</p>
+</div>
 <div class="section" id="bug-tracker">
-<h1><a class="toc-backref" href="#toc-entry-2">Bug Tracker</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-3">Bug Tracker</a></h1>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/account-invoicing/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
@@ -399,15 +422,15 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
-<h1><a class="toc-backref" href="#toc-entry-3">Credits</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-4">Credits</a></h1>
 <div class="section" id="authors">
-<h2><a class="toc-backref" href="#toc-entry-4">Authors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-5">Authors</a></h2>
 <ul class="simple">
 <li>Camptocamp</li>
 </ul>
 </div>
 <div class="section" id="contributors">
-<h2><a class="toc-backref" href="#toc-entry-5">Contributors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-6">Contributors</a></h2>
 <ul>
 <li><p class="first"><a class="reference external" href="https://www.camptocamp.com">Camptocamp</a>:</p>
 <blockquote>
@@ -425,7 +448,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 </ul>
 </div>
 <div class="section" id="other-credits">
-<h2><a class="toc-backref" href="#toc-entry-6">Other credits</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-7">Other credits</a></h2>
 <p>The migration of this module from 17.0 to 18.0 was financially supported
 by:</p>
 <ul class="simple">
@@ -433,7 +456,7 @@ by:</p>
 </ul>
 </div>
 <div class="section" id="maintainers">
-<h2><a class="toc-backref" href="#toc-entry-7">Maintainers</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-8">Maintainers</a></h2>
 <p>This module is maintained by the OCA.</p>
 <a class="reference external image-reference" href="https://odoo-community.org">
 <img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
