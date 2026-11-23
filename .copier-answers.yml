@@ -17,9 +17,7 @@ odoo_version: 19.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
 postgres_image: ''
-rebel_module_groups:
-- account_invoice_fixed_discount
-- account_invoice_triple_discount
+rebel_module_groups: []
 repo_description: account-invoicing
 repo_name: account-invoicing
 repo_slug: account-invoicing
