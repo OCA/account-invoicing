@@ -1,0 +1,125 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_invoicing_mode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-10-03 09:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6.2\n"
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_res_company
+msgid "Companies"
+msgstr "Aziende"
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_res_config_settings
+msgid "Config Settings"
+msgstr "Impostazioni configurazione"
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_res_partner
+msgid "Contact"
+msgstr "Contatto"
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_partner__one_invoice_per_order
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_users__one_invoice_per_order
+msgid "Do not group sale order into one invoice."
+msgstr "Non raggruppare gli ordini di vendita in una fattura."
+
+#. module: partner_invoicing_mode
+#: model:ir.actions.server,name:partner_invoicing_mode.ir_cron_generate_standard_invoice_ir_actions_server
+msgid "Generate Standard Invoices"
+msgstr "Genera fatture standard"
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_users__invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_sale_order__invoicing_mode
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.view_partner_property_form
+msgid "Invoicing Mode"
+msgstr "Modo fatturazione"
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: partner_invoicing_mode
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.res_config_settings_view_form
+msgid "Last executed on"
+msgstr "Ultima esecuzione il"
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_company__invoicing_mode_standard_last_execution
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_config_settings__invoicing_mode_standard_last_execution
+msgid "Last execution (standard)"
+msgstr "Ultima esecuzione (standard)"
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_company__invoicing_mode_standard_last_execution
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_config_settings__invoicing_mode_standard_last_execution
+msgid "Last execution of standard invoicing."
+msgstr "Ultima esecuzione della fatturazione standrad."
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__next_invoice_date
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_users__next_invoice_date
+msgid "Next Invoice Date"
+msgstr "Data prossima fattura"
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_partner__one_invoice_per_order
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_res_users__one_invoice_per_order
+#: model:ir.model.fields,field_description:partner_invoicing_mode.field_sale_order__one_invoice_per_order
+msgid "One Invoice Per Order"
+msgstr "Una fattura per ordine"
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_queue_job
+msgid "Queue Job"
+msgstr "Lavoro in coda"
+
+#. module: partner_invoicing_mode
+#: model:ir.model,name:partner_invoicing_mode.model_sale_order
+msgid "Sales Order"
+msgstr "Ordine di vendita"
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields.selection,name:partner_invoicing_mode.selection__res_partner__invoicing_mode__standard
+msgid "Standard"
+msgstr "Standard"
+
+#. module: partner_invoicing_mode
+#: model_terms:ir.ui.view,arch_db:partner_invoicing_mode.res_config_settings_view_form
+msgid "Standard Invoicing Options"
+msgstr "Opzioni fatturazione standard"
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_partner__next_invoice_date
+#: model:ir.model.fields,help:partner_invoicing_mode.field_res_users__next_invoice_date
+msgid "This is the date at which the next invoice will be generated."
+msgstr "Questa è la data in cui verrà generata la prossima fattura."
+
+#. module: partner_invoicing_mode
+#: model:ir.model.fields,help:partner_invoicing_mode.field_sale_order__one_invoice_per_order
+msgid ""
+"You can check or uncheck this if you want the periodic invoicing grouping "
+"this sale order with other ones or not."
+msgstr ""
+"Si può selezionare o meno se si vuole il raggruppamento di quest'ordine "
+"nella fatturazione periodica o meno."
+
+#~ msgid "<span class=\"o_form_label\">Standard Invoicing Options</span>"
+#~ msgstr "<span class=\"o_form_label\">Opzioni fatturazione standard</span>"
