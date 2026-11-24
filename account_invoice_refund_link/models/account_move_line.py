@@ -5,6 +5,8 @@
 
 from odoo import fields, models
 
+LINKABLE_DISPLAY_TYPES = ("product", "line_section", "line_subsection", "line_note")
+
 
 class AccountInvoiceLine(models.Model):
     _inherit = "account.move.line"
@@ -30,6 +32,7 @@ class AccountInvoiceLine(models.Model):
         """
         res = super().copy_data(default=default)
         if self.env.context.get("link_origin_line"):
-            for line, values in zip(self, res, strict=False):
-                values["origin_line_id"] = line.id
+            for line, values in zip(self, res, strict=True):
+                if line.display_type in LINKABLE_DISPLAY_TYPES:
+                    values["origin_line_id"] = line.id
         return res

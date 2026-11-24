@@ -10,6 +10,8 @@ from .. import post_init_hook
 
 
 class TestInvoiceRefundLinkBase(BaseCommon):
+    _test_user_groups = None
+
     is_modify = False
 
     @classmethod
@@ -43,33 +45,22 @@ class TestInvoiceRefundLinkBase(BaseCommon):
             }
         )
         cls.invoice_lines = [
-            (
-                0,
-                False,
-                {
-                    "name": "Test section",
-                    "display_type": "line_section",
-                },
-            ),
-            (
-                0,
-                False,
+            Command.create({"name": "Test section", "display_type": "line_section"}),
+            Command.create(
                 {
                     "name": "Test description #1",
                     "account_id": default_line_account.id,
                     "quantity": 1.0,
                     "price_unit": 100.0,
-                },
+                }
             ),
-            (
-                0,
-                False,
+            Command.create(
                 {
                     "name": "Test description #2",
                     "account_id": default_line_account.id,
                     "quantity": 2.0,
                     "price_unit": 25.0,
-                },
+                }
             ),
         ]
         cls.invoice = cls.env["account.move"].create(

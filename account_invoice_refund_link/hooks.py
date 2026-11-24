@@ -9,9 +9,11 @@ def match_origin_lines(refund):
     invoice_lines = invoice.invoice_line_ids
     for refund_line in refund.invoice_line_ids:
         for invoice_line in invoice_lines:
-            match = (
-                refund_line.product_id
-                and refund_line.product_id == invoice_line.product_id
+            match = refund_line.display_type == invoice_line.display_type and (
+                (
+                    refund_line.product_id
+                    and refund_line.product_id == invoice_line.product_id
+                )
                 or refund_line.name == invoice_line.name
             )
             if match:
