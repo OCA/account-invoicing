@@ -2,7 +2,6 @@
 # Copyright 2023 ACSONE SA/NV
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 from odoo import api, fields, models
-from odoo.fields import Datetime, Domain
 
 from odoo.addons.queue_job.job import identity_exact
 
@@ -40,14 +39,14 @@ class SaleOrder(models.Model):
 
     @api.model
     def _get_generate_invoices_state_domain(self):
-        return Domain("invoice_status", "=", "to invoice")
+        return fields.Domain("invoice_status", "=", "to invoice")
 
     @api.model
     def _get_generate_invoices_domain(self, companies, invoicing_mode="standard"):
         return (
             self._get_generate_invoices_state_domain()
-            & Domain("invoicing_mode", "=", invoicing_mode)
-            & Domain("company_id", "in", companies.ids)
+            & fields.Domain("invoicing_mode", "=", invoicing_mode)
+            & fields.Domain("company_id", "in", companies.ids)
         )
 
     @api.model
@@ -68,7 +67,7 @@ class SaleOrder(models.Model):
         )
         saleorder_groups = self._read_group(
             domain=domain,
-            groupby=self._get_invoice_grouping_keys(),
+            groupby=[k for k in self._get_invoice_grouping_keys() if k in self._fields],
             aggregates=["id:array_agg"],
         )
         for *_, saleorder_ids in saleorder_groups:
@@ -76,7 +75,7 @@ class SaleOrder(models.Model):
                 identity_key=identity_exact,
                 description=self.env._("Generate invoices by partner"),
             )._generate_invoices_by_partner(saleorder_ids)
-        companies.write({last_execution_field: Datetime.now()})
+        companies.write({last_execution_field: fields.Datetime.now()})
         return saleorder_groups
 
     @api.model
@@ -133,4 +132,4 @@ class SaleOrder(models.Model):
 
     @api.model
     def _get_companies_standard_invoicing(self):
-        return self.env["res.company"].search(Domain.TRUE)
+        return self.env["res.company"].search(fields.Domain.TRUE)

@@ -6,7 +6,6 @@ from unittest import mock
 from freezegun import freeze_time
 
 from odoo import fields
-from odoo.fields import Domain
 from odoo.tests import Form
 
 from odoo.addons.queue_job.tests.common import trap_jobs
@@ -19,12 +18,14 @@ class TestInvoiceMode(CommonPartnerInvoicingMode):
     def test_invoice_job_related_action(self):
         """Dedicated invoice view is present in queue job's multi invoice action"""
         job_single = self.env["queue.job"].search(
-            Domain("uuid", "=", self.invoice1.with_delay()._validate_invoice().uuid)
+            fields.Domain(
+                "uuid", "=", self.invoice1.with_delay()._validate_invoice().uuid
+            )
         )
         action_single = job_single.open_related_action()
         self.assertFalse(action_single.get("view_id"))
         job_multi = self.env["queue.job"].search(
-            Domain(
+            fields.Domain(
                 "uuid",
                 "=",
                 (self.invoice1 + self.invoice2).with_delay()._validate_invoice().uuid,

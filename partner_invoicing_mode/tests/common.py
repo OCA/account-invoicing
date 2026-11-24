@@ -7,6 +7,7 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class CommonPartnerInvoicingMode(BaseCommon):
+    _test_user_groups = None
     _invoicing_mode = "standard"
 
     @classmethod
