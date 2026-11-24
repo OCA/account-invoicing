@@ -1,0 +1,91 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_tax_fixed_amount_multiplier
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-01 12:50+0000\n"
+"PO-Revision-Date: 2026-04-01 12:50+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_tax_fixed_amount_multiplier
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_multiplier.field_product_product__uom_factor
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_multiplier.field_product_template__uom_factor
+msgid "Absolute Quantity"
+msgstr "Absolute Menge"
+
+#. module: account_tax_fixed_amount_multiplier
+#: model:ir.model.fields,help:account_tax_fixed_amount_multiplier.field_account_tax__fixed_amount_multiplier
+msgid ""
+"Controls how the quantity is used for fixed-amount taxes:\n"
+"- No Multiplier: the amount is applied once per line.\n"
+"- Quantity (default): multiplied by the line quantity, regardless of the "
+"unit of measure.\n"
+"- Product Quantity: the line quantity is converted to the product's unit of "
+"measure before multiplying.\n"
+"- Product Weight: multiplied by the total weight (product quantity × product "
+"weight)."
+msgstr ""
+"Steuermengen werden wie folgt verwendet:\n"
+"- Kein Multiplikator: die Menge wird einmal pro Zeile angewendet.\n"
+"- Menge (Standard): die Menge wird unabhängig von der Maßeinheit "
+"multipliziert.\n"
+"- Produktmenge: die Menge wird in die Maßeinheit des Produkts umgewandelt, "
+"bevor sie multipliziert wird.\n"
+"- Produktgewicht: die Menge wird mit dem Gesamtgewicht (Produktmenge × "
+"Produktgewicht) multipliziert."
+
+#. module: account_tax_fixed_amount_multiplier
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_multiplier.field_account_tax__display_name
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_multiplier.field_product_template__display_name
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: account_tax_fixed_amount_multiplier
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_multiplier.field_account_tax__id
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_multiplier.field_product_template__id
+msgid "ID"
+msgstr ""
+
+#. module: account_tax_fixed_amount_multiplier
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_multiplier.field_account_tax__fixed_amount_multiplier
+msgid "Multiplier"
+msgstr "Multiplikator"
+
+#. module: account_tax_fixed_amount_multiplier
+#: model:ir.model.fields.selection,name:account_tax_fixed_amount_multiplier.selection__account_tax__fixed_amount_multiplier__none
+msgid "No Multiplier"
+msgstr "Kein Multiplikator"
+
+#. module: account_tax_fixed_amount_multiplier
+#: model:ir.model,name:account_tax_fixed_amount_multiplier.model_product_template
+msgid "Product"
+msgstr "Produkt"
+
+#. module: account_tax_fixed_amount_multiplier
+#: model:ir.model.fields.selection,name:account_tax_fixed_amount_multiplier.selection__account_tax__fixed_amount_multiplier__product_quantity
+msgid "Product Quantity"
+msgstr "Produktmenge"
+
+#. module: account_tax_fixed_amount_multiplier
+#: model:ir.model.fields.selection,name:account_tax_fixed_amount_multiplier.selection__account_tax__fixed_amount_multiplier__product_weight
+msgid "Product Weight"
+msgstr "Produktgewicht"
+
+#. module: account_tax_fixed_amount_multiplier
+#: model:ir.model.fields.selection,name:account_tax_fixed_amount_multiplier.selection__account_tax__fixed_amount_multiplier__quantity
+msgid "Quantity (default)"
+msgstr "Menge (Standard)"
+
+#. module: account_tax_fixed_amount_multiplier
+#: model:ir.model,name:account_tax_fixed_amount_multiplier.model_account_tax
+msgid "Tax"
+msgstr "Steuer"
