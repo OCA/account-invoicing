@@ -22,6 +22,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[account_invoice_tax_required](account_invoice_tax_required/) | 20.0.1.0.1 |  | Force the user to set taxes on invoice lines
 [account_invoice_triple_discount](account_invoice_triple_discount/) | 20.0.1.0.0 |  | Manage triple discount on invoice lines
 [portal_account_personal_data_only](portal_account_personal_data_only/) | 20.0.1.0.0 |  | Portal Accounting Personal Data Only
 
