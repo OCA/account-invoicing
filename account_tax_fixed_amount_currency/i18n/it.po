@@ -1,0 +1,59 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_tax_fixed_amount_currency
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2026-08-11 14:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,help:account_tax_fixed_amount_currency.field_account_tax__currency_rate
+msgid "Conversion rate from the tax currency to the company currency."
+msgstr "Tasso di conversione dalla valuta fiscale alla valuta aziendale."
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_currency.field_account_tax__currency_id
+msgid "Currency"
+msgstr "Valuta"
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_currency.field_account_tax__currency_rate
+msgid "Currency Rate"
+msgstr "Tasso di cambio"
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_currency.field_account_tax__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,field_description:account_tax_fixed_amount_currency.field_account_tax__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model,name:account_tax_fixed_amount_currency.model_account_tax
+msgid "Tax"
+msgstr "Imposta"
+
+#. module: account_tax_fixed_amount_currency
+#: model:ir.model.fields,help:account_tax_fixed_amount_currency.field_account_tax__currency_id
+msgid ""
+"When set, the fixed amount is expressed in this currency and will be "
+"converted to the document currency at invoice time. Leave empty for the "
+"standard behavior (amount in document currency)."
+msgstr ""
+"Se impostato, l'importo fisso viene espresso in questa valuta e verrà "
+"convertito nella valuta del documento al momento della fatturazione. "
+"Lasciare vuoto per il comportamento standard (importo nella valuta del "
+"documento)."
