@@ -7,6 +7,11 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestSaleInvoicingDateSelection(BaseCommon):
+    _test_user_groups = (
+        "sales_team.group_sale_salesman",
+        "account.group_account_invoice",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
