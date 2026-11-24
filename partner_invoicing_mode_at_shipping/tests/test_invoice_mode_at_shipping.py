@@ -44,7 +44,7 @@ class TestInvoiceModeAtShipping(InvoiceModeAtShippingCommon):
             trap.assert_jobs_count(1)
             trap.assert_enqueued_job(
                 picking._invoicing_at_shipping,
-                properties=dict(eta=timedelta(days=2)),
+                properties={"eta": timedelta(days=2)},
             )
             self.assertFalse(self.so1.invoice_ids)
 

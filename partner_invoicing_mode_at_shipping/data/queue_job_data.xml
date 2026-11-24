@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <!-- Queue Job Channel -->
     <record id="invoice_at_shipping" model="queue.job.channel">

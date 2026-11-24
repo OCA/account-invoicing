@@ -71,7 +71,7 @@ class SaleOrder(models.Model):
         )
         for invoice in invoices:
             invoice.with_delay()._validate_invoice()
-        for partner, __invoices in invoices.partition("partner_id").items():
+        for partner in invoices.partition("partner_id"):
             partner._update_next_invoice_date()
         return ",".join(invoices.mapped("display_name"))
 
