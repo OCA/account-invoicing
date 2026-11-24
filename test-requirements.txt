@@ -1,0 +1,1 @@
+odoo-addon-base_partition @ git+https://github.com/OCA/server-tools@refs/pull/3805/head#subdirectory=base_partition
