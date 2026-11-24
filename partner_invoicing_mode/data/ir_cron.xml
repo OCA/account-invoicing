@@ -4,7 +4,7 @@
         <field name="name">Generate Standard Invoices</field>
         <field name="active" eval="False" />
         <field name="user_id" ref="base.user_root" />
-        <field name="interval_number">1</field>
+        <field name="interval_number" eval="1" />
         <field name="interval_type">days</field>
         <field name="model_id" ref="model_sale_order" />
         <field name="code">model.cron_generate_standard_invoices()</field>
