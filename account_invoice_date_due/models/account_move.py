@@ -19,13 +19,12 @@ class AccountMove(models.Model):
 
     def _inverse_invoice_date_due(self):
         for invoice in self:
-            if invoice.state == "posted":
-                if not self.env.user.has_group(
-                    "account_invoice_date_due.allow_to_change_due_date"
-                ):
-                    raise UserError(
-                        self.env._("You are not allowed to change the due date.")
-                    )
+            if invoice.state == "posted" and not self.env.user.has_group(
+                "account_invoice_date_due.allow_to_change_due_date"
+            ):
+                raise UserError(
+                    self.env._("You are not allowed to change the due date.")
+                )
 
     @api.onchange("invoice_date_due_payment_term")
     def _onchange_invoice_date_due_payment_term(self):

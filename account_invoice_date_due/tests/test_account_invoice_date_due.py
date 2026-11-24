@@ -1,9 +1,9 @@
 # Copyright 2021 Tecnativa - João Marques
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.exceptions import UserError
 from odoo.tests import Form
 
@@ -11,6 +11,8 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestAccountInvoiceDateDue(BaseCommon):
+    _test_user_groups = None
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -30,7 +32,7 @@ class TestAccountInvoiceDateDue(BaseCommon):
                 "name": "Test User w/ access",
                 "login": "user_w_access",
                 "email": "somebody@somewhere.com",
-                "groups_id": [(6, 0, (group + acc_group + stock_group).ids)],
+                "group_ids": [Command.set((group + acc_group + stock_group).ids)],
             }
         )
         # Create new user not allowed to change invoice due date
@@ -38,7 +40,7 @@ class TestAccountInvoiceDateDue(BaseCommon):
             {
                 "name": "Test User wo/ access",
                 "login": "user_wo_access",
-                "groups_id": [(6, 0, (acc_group + stock_group).ids)],
+                "group_ids": [Command.set((acc_group + stock_group).ids)],
             }
         )
 
@@ -74,7 +76,9 @@ class TestAccountInvoiceDateDue(BaseCommon):
     def test_invoice_date_due_is_editable(self):
         old_move_state = self.move.read()[0]
         move_edit_form = Form(self.move.with_user(self.user_w_access))
-        ten_days_from_now = fields.Date.to_string(datetime.today() + timedelta(days=10))
+        ten_days_from_now = fields.Date.to_string(
+            fields.Date.today() + timedelta(days=10)
+        )
         move_edit_form.invoice_date_due = ten_days_from_now
         self.move = move_edit_form.save()
         # Read all fields as sudo to get them independently of the user.
@@ -101,7 +105,7 @@ class TestAccountInvoiceDateDue(BaseCommon):
         old_move_state = self.move.read()[0]
         move_edit_form = Form(self.move.with_user(self.user_w_access))
         twenty_days_from_now = fields.Date.to_string(
-            datetime.today() + timedelta(days=20)
+            fields.Date.today() + timedelta(days=20)
         )
         move_edit_form.invoice_date_due = twenty_days_from_now
         self.move = move_edit_form.save()
@@ -132,6 +136,7 @@ class TestAccountInvoiceDateDue(BaseCommon):
                     "message_ids",
                     "needed_terms",
                     "hide_post_button",
+                    "sanitize_payment_reference",
                 },
             ),
             # Assert only this field is changed
@@ -146,7 +151,7 @@ class TestAccountInvoiceDateDue(BaseCommon):
         self.move = move_edit_form.save()
         # Post and should remain editable even w/ payment term
         twenty_days_from_now = fields.Date.to_string(
-            datetime.today() + timedelta(days=20)
+            fields.Date.today() + timedelta(days=20)
         )
         self.move.action_post()
         old_move_state = self.move.read()[0]
@@ -179,7 +184,9 @@ class TestAccountInvoiceDateDue(BaseCommon):
 
     def test_invoice_date_due_is_not_editable_for_user_wo_access(self):
         move_edit_form = Form(self.move.with_user(self.user_wo_access))
-        ten_days_from_now = fields.Date.to_string(datetime.today() + timedelta(days=10))
+        ten_days_from_now = fields.Date.to_string(
+            fields.Date.today() + timedelta(days=10)
+        )
         move_edit_form.invoice_date_due = ten_days_from_now
         self.move = move_edit_form.save()
         self.assertEqual(
@@ -189,7 +196,7 @@ class TestAccountInvoiceDateDue(BaseCommon):
         self.move.action_post()
         move_edit_form = Form(self.move.with_user(self.user_wo_access))
         twenty_days_from_now = fields.Date.to_string(
-            datetime.today() + timedelta(days=20)
+            fields.Date.today() + timedelta(days=20)
         )
         move_edit_form.invoice_date_due = twenty_days_from_now
         with self.assertRaisesRegex(
