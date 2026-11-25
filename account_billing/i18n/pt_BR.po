@@ -47,9 +47,9 @@ msgstr "Nº de faturas"
 
 #. module: account_billing
 #: model:ir.actions.report,print_report_name:account_billing.report_account_billing
-msgid ""
+msgid "'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
+msgstr ""
 "'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
-msgstr "'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.report_billing_document
@@ -198,8 +198,8 @@ msgstr "Linhas da cobrança consolidada"
 #: code:addons/account_billing/models/account_move.py:0
 #, python-format
 msgid ""
-"Billing cannot be processed because some invoices are not in the 'Posted' or"
-" 'Paid' state already."
+"Billing cannot be processed because some invoices are not in the 'Posted' or "
+"'Paid' state already."
 msgstr ""
 "Não é possível processar a cobrança consolidada porque algumas faturas ainda "
 "não estão na situação 'Lançado' ou 'Pago'."
@@ -330,7 +330,8 @@ msgstr "Data efetiva dos lançamentos contábeis"
 #: model_terms:ir.actions.act_window,help:account_billing.action_customer_billing
 msgid ""
 "Enter the customer the invoices expect to be paid by the customer for this\n"
-"            bill period. By default the pending invoices will be listed, automatically."
+"            bill period. By default the pending invoices will be listed, "
+"automatically."
 msgstr ""
 "Informe o cliente cujas faturas devem ser pagas neste\n"
 "            período de cobrança. Por padrão, as faturas pendentes são "
@@ -556,6 +557,11 @@ msgstr "Relação entre a fatura e a cobrança consolidada"
 #: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
 msgid "Search Billings"
 msgstr "Pesquisar cobranças consolidadas"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__sequence
+msgid "Sequence"
+msgstr ""
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form

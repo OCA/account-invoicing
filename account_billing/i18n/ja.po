@@ -29,11 +29,11 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"            * 'ドラフト' 状態は、"
-"ユーザが新しい合計請求書を作成したときに使用されます\n"
+"            * 'ドラフト' 状態は、ユーザが新しい合計請求書を作成したときに使用"
+"されます\n"
 "\n"
-"            * '請求済' 状態はユーザが合計請求書を検証し、"
-"合計請求書番号が生成された時に\n"
+"            * '請求済' 状態はユーザが合計請求書を検証し、合計請求書番号が生成"
+"された時に\n"
 "                使用されます\n"
 "\n"
 "            * '取消' 状態はユーザが合計請求書を取消した時に使用されます\n"
@@ -46,8 +46,7 @@ msgstr "# 請求書"
 
 #. module: account_billing
 #: model:ir.actions.report,print_report_name:account_billing.report_account_billing
-msgid ""
-"'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
+msgid "'BILL-%s%s' % (object.name, object.state == 'draft' and '-draft' or '')"
 msgstr ""
 
 #. module: account_billing
@@ -195,9 +194,10 @@ msgstr "合計請求書明細"
 #: code:addons/account_billing/models/account_move.py:0
 #, python-format
 msgid ""
-"Billing cannot be processed because some invoices are not in the 'Posted' or"
-" 'Paid' state already."
-msgstr "「記帳済」または「支払済」の状態になっていない請求書があるため、合計請求処理"
+"Billing cannot be processed because some invoices are not in the 'Posted' or "
+"'Paid' state already."
+msgstr ""
+"「記帳済」または「支払済」の状態になっていない請求書があるため、合計請求処理"
 "ができません。"
 
 #. module: account_billing
@@ -326,7 +326,8 @@ msgstr "会計仕訳有効日"
 #: model_terms:ir.actions.act_window,help:account_billing.action_customer_billing
 msgid ""
 "Enter the customer the invoices expect to be paid by the customer for this\n"
-"            bill period. By default the pending invoices will be listed, automatically."
+"            bill period. By default the pending invoices will be listed, "
+"automatically."
 msgstr ""
 "合計請求期間中に顧客から支払われる予定の請求書を入力します。\n"
 "デフォルトでは、保留中の請求書が自動的にリストアップされます。"
@@ -422,7 +423,8 @@ msgstr "最終更新日"
 msgid ""
 "Leave this field empty if this route is shared             between all "
 "companies"
-msgstr "このルートがすべての会社で共有される場合は、この項目を空欄にしてください。"
+msgstr ""
+"このルートがすべての会社で共有される場合は、この項目を空欄にしてください。"
 
 #. module: account_billing
 #: model:ir.model.fields,field_description:account_billing.field_account_billing__message_main_attachment_id
@@ -548,6 +550,11 @@ msgstr "顧客請求書と仕入先請求書の関係"
 #: model_terms:ir.ui.view,arch_db:account_billing.view_billing_search
 msgid "Search Billings"
 msgstr "合計請求書検索"
+
+#. module: account_billing
+#: model:ir.model.fields,field_description:account_billing.field_account_billing_line__sequence
+msgid "Sequence"
+msgstr ""
 
 #. module: account_billing
 #: model_terms:ir.ui.view,arch_db:account_billing.view_account_billing_form
