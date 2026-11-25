@@ -1,0 +1,2 @@
+id,name,model_id,group_id/id,operation,domain
+access_invoice_merge,access_invoice_merge,invoice.merge,base.group_user,crud,
