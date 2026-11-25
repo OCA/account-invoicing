@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="account_invoice_transmit_view" model="ir.ui.view">
+        <field name="name">account.invoice.transmit.form</field>
+        <field name="model">account.invoice.transmit</field>
+        <field name="arch" type="xml">
+            <form string="Invoices Mass Sending">
+                <p><strong>Please select the operation</strong></p>
+                <group>
+                    <field name="resend" />
+                </group>
+                <group>
+                    <field name="invoice_ids" invisible="1" />
+                    <field name="transmit_email_valid_invoice_ids" invisible="1" />
+
+                    <field name="count_transmit_post" />
+
+                    <label for="count_transmit_email" />
+                    <div>
+                        <field name="count_transmit_email" />
+                        <div
+                            attrs="{'invisible':[('count_transmit_email_missing', '=', 0)]}"
+                        >
+                            <field
+                                name="count_transmit_email_missing"
+                                class="oe_inline"
+                            />
+                            <span> email(s) missing</span>
+                            <button
+                                type="object"
+                                name="button_partner_missing_email"
+                                class="oe_link"
+                                string="view partners"
+                            />
+                        </div>
+                    </div>
+
+                    <label
+                        for="count_transmit_undefined"
+                        attrs="{'invisible':[('count_transmit_undefined', '=', 0)]}"
+                    />
+                    <div attrs="{'invisible':[('count_transmit_undefined', '=', 0)]}">
+                        <field name="count_transmit_undefined" />
+                        <div>
+                            <strong
+                            >Please set a transmit method on those invoices</strong>
+                            <button
+                                type="object"
+                                name="button_invoices_missing_transmit_method"
+                                class="oe_link"
+                                string="view invoices"
+                            />
+                        </div>
+                    </div>
+                </group>
+                <footer>
+                    <button
+                        string="Print"
+                        name="button_print"
+                        attrs="{'invisible':[('count_transmit_post', '=', 0)]}"
+                        help="Print invoices having an invoice transmit method 'post'. Also mark as sent"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button
+                        string="Send by email"
+                        name="button_email"
+                        attrs="{'invisible':[('count_transmit_email', '=', 0)]}"
+                        help="Send by email invoices having an invoice transmit method 'mail'. Also mark as sent"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button
+                        string="Mark as sent"
+                        name="button_mark_only"
+                        help="Only mark as sent without sending anything"
+                        type="object"
+                    />
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

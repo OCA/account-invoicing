@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="invoice_transmit" model="queue.job.channel">
+        <field name="name">invoice_transmit</field>
+        <field name="parent_id" ref="queue_job.channel_root" />
+    </record>
+    <record id="invoice_transmit_post" model="queue.job.channel">
+        <field name="name">post</field>
+        <field name="parent_id" ref="invoice_transmit" />
+    </record>
+    <record id="invoice_transmit_email" model="queue.job.channel">
+        <field name="name">email</field>
+        <field name="parent_id" ref="invoice_transmit" />
+    </record>
+</odoo>
