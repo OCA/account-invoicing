@@ -28,13 +28,15 @@ class SaleOrder(models.Model):
         res = super()._compute_invoice_status()
         for order in self.filtered("whole_delivered_invoiceability"):
             uncomplete_lines = order.order_line.filtered(
-                lambda line: line.product_id.invoice_policy == "delivery"
-                and float_compare(
-                    line.product_uom_qty,
-                    line.qty_delivered,
-                    precision_rounding=line.product_uom_id.rounding,
+                lambda line: (
+                    line.product_id.invoice_policy == "delivery"
+                    and float_compare(
+                        line.product_uom_qty,
+                        line.qty_delivered,
+                        precision_rounding=line.product_uom_id.rounding,
+                    )
+                    > 0
                 )
-                > 0
             )
             if uncomplete_lines:
                 order.invoice_status = "no"
