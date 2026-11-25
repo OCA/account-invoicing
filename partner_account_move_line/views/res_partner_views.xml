@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_open_partner_move_lines" model="ir.actions.act_window">
+        <field name="context">{
+            'search_default_partner_id': [active_id],
+            'default_partner_id': active_id
+        }</field>
+        <field name="name">Account Move Lines</field>
+        <field name="res_model">account.move.line</field>
+    </record>
+
+    <record id="res_partner_account_move_line_view" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+                    class="oe_stat_button"
+                    type="action"
+                    name="%(partner_account_move_line.action_open_partner_move_lines)d"
+                    icon="fa-book"
+                    string="Account Move Lines"
+                    groups="account.group_account_manager"
+                />
+            </div>
+        </field>
+    </record>
+
+    <record model="ir.ui.menu" id="account.menu_action_account_moves_all">
+        <field
+            name="groups_id"
+            eval="[Command.set([ref('account.group_account_manager')])]"
+        />
+    </record>
+</odoo>
