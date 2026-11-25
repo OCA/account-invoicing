@@ -1,0 +1,27 @@
+# Copyright 2019 Ecosoft Co., Ltd (https://ecosoft.co.th/)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
+
+{
+    "name": "Billing Process",
+    "summary": "Group invoice as billing before payment",
+    "version": "20.0.1.0.0",
+    "author": "Ecosoft, Odoo Community Association (OCA)",
+    "license": "AGPL-3",
+    "website": "https://github.com/OCA/account-invoicing",
+    "category": "Account",
+    "depends": ["account"],
+    "data": [
+        "data/account_billing_sequence.xml",
+        "data/server_action.xml",
+        "data/ir_cron_data.xml",
+        "security/ir.access.csv",
+        "views/account_billing_views.xml",
+        "views/account_move_views.xml",
+        "views/res_config_settings_views.xml",
+        "report/report_billing.xml",
+        "report/report.xml",
+        "data/mail_template_data.xml",
+    ],
+    "installable": True,
+    "maintainers": ["Saran440", "AungKoKoLin1997"],
+}
