@@ -58,26 +58,13 @@ class TestSaleOrderLineInput(TransactionCase):
         cls.picking.button_validate()
         cls.order._create_invoices()
 
-    def get_return_picking_wizard(self, picking):
-        stock_return_picking_form = Form(
-            self.env["stock.return.picking"].with_context(
-                active_ids=picking.ids,
-                active_id=picking.ids[0],
-                active_model="stock.picking",
-            )
-        )
-        return stock_return_picking_form.save()
-
     def return_picking_wiz(self, picking):
-        wizard = self.get_return_picking_wizard(picking)
-        wizard.product_return_moves.write({"quantity": 1.0, "to_refund": False})
-        return wizard
+        return_pick = picking._create_return()
+        return_pick.move_ids.write({"product_uom_qty": 1.0, "to_refund": False})
+        return return_pick
 
     def test_return_to_refund_values(self):
-        return_wizard = self.return_picking_wiz(self.picking)
-        return_pick = self.picking.browse(
-            return_wizard.action_create_returns()["res_id"]
-        )
+        return_pick = self.return_picking_wiz(self.picking)
         return_pick.move_line_ids.write({"quantity": 1.0})
         return_pick.button_validate()
         self.assertEqual(return_pick.to_refund_lines, "no_refund")
@@ -88,10 +75,7 @@ class TestSaleOrderLineInput(TransactionCase):
 
     def test_return_so_wo_to_refund(self):
         # Return some items, after SO was invoiced
-        return_wizard = self.return_picking_wiz(self.picking)
-        return_pick = self.picking.browse(
-            return_wizard.action_create_returns()["res_id"]
-        )
+        return_pick = self.return_picking_wiz(self.picking)
         return_pick.move_line_ids.write({"quantity": 1.0})
         return_pick.button_validate()
         self.assertEqual(self.order.invoice_status, "invoiced")
@@ -118,19 +102,12 @@ class TestSaleOrderLineInput(TransactionCase):
         po_order = order_form.save()
         po_order.button_confirm()
         picking = po_order.picking_ids[:]
-        move_line_vals = picking.move_ids._prepare_move_line_vals()
-        move_line_vals["quantity"] = 1
-        self.env["stock.move.line"].create(move_line_vals)
+        picking.move_line_ids.write({"quantity": 1})
         picking.button_validate()
         self.assertEqual(po_order.invoice_status, "to invoice")
         # Return the picking without refund
-        return_wizard = self.return_picking_wiz(picking)
-        return_pick = self.picking.browse(
-            return_wizard.action_create_returns()["res_id"]
-        )
-        move_line_vals = return_pick.move_ids._prepare_move_line_vals()
-        move_line_vals["quantity"] = 1
-        self.env["stock.move.line"].create(move_line_vals)
+        return_pick = self.return_picking_wiz(picking)
+        return_pick.move_line_ids.write({"quantity": 1})
         return_pick.button_validate()
         # Now set to be refunded
         return_pick.to_refund_lines = "to_refund"
