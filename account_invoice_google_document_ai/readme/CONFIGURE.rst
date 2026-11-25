@@ -7,3 +7,7 @@ For the service account, we need to give it permissions to access Google Documen
 We need to store the JSON File.
 
 With all this information we can add the information on our Odoo instance on `Invoicing \ Settings`.
+
+To configure the invoice processing behavior by setting the google_ocr_invoice_mode parameter in the Invoicing settings.
+
+- Default Mode: The module extracts all individual lines from the invoice.

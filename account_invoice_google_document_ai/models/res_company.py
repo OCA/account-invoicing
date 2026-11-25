@@ -22,3 +22,8 @@ class ResCompany(models.Model):
         default="no_send",
         required=True,
     )
+    google_ocr_invoice_mode = fields.Selection(
+        [("default", "Default Mode")],
+        default="default",
+        help="Select the mode for Google Document AI Invoice OCR processing.",
+    )
