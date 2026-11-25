@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <!-- Wizard para envío individual -->
+    <record id="view_account_move_send_wizard_form" model="ir.ui.view">
+        <field name="name">account.move.send.wizard - Mass sending</field>
+        <field name="model">account.move.send.wizard</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.account_move_send_wizard_form" />
+        <field name="arch" type="xml">
+            <button name="action_send_and_print" position="before">
+                <button
+                    name="enqueue_invoices"
+                    string="📧 Email mass sending (Job Queue)"
+                    type="object"
+                    class="btn-primary"
+                />
+            </button>
+        </field>
+    </record>
+
+    <!-- Wizard para envío batch -->
+    <record id="view_account_move_send_batch_wizard_form" model="ir.ui.view">
+        <field name="name">account.move.send.batch.wizard - Mass sending</field>
+        <field name="model">account.move.send.batch.wizard</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.account_move_send_batch_wizard_form" />
+        <field name="arch" type="xml">
+            <button name="action_send_and_print" position="before">
+                <button
+                    name="enqueue_invoices"
+                    string="📧 Email mass sending (Job Queue)"
+                    type="object"
+                    class="btn-primary"
+                />
+            </button>
+        </field>
+    </record>
+</odoo>
