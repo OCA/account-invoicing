@@ -1,0 +1,1 @@
+from . import test_account_move_partner_bank_by_team
