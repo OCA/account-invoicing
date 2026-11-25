@@ -1,5 +1,5 @@
 ===================================
-Acccount Invoice Section Sale Order
+Account Invoice Section Sale Order
 ===================================
 
 .. 
