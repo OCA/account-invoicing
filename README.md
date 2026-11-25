@@ -22,7 +22,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_billing](account_billing/) | 16.0.1.2.2 | <a href='https://github.com/Saran440'><img src='https://github.com/Saran440.png' width='32' height='32' style='border-radius:50%;' alt='Saran440'/></a> | Group invoice as billing before payment
+[account_billing](account_billing/) | 16.0.1.3.0 | <a href='https://github.com/Saran440'><img src='https://github.com/Saran440.png' width='32' height='32' style='border-radius:50%;' alt='Saran440'/></a> <a href='https://github.com/aungkokolin1997'><img src='https://github.com/aungkokolin1997.png' width='32' height='32' style='border-radius:50%;' alt='aungkokolin1997'/></a> | Group invoice as billing before payment
 [account_global_discount](account_global_discount/) | 16.0.2.0.0 |  | Account Global Discount
 [account_invoice_alternate_payer](account_invoice_alternate_payer/) | 16.0.1.0.0 |  | Set a alternate payor/payee in invoices
 [account_invoice_analytic_search](account_invoice_analytic_search/) | 16.0.1.0.0 |  | Search invoices by analytic account or by project manager
