@@ -1,0 +1,162 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_partner_bank
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-04 07:19+0000\n"
+"PO-Revision-Date: 2026-08-04 07:19+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_mixin__bank_account_id_domain
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_res_partner__bank_account_id_domain
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_res_users__bank_account_id_domain
+msgid "Bank Account Id Domain"
+msgstr "銀行口座IDドメイン"
+
+#. module: account_move_partner_bank
+#: model:ir.model,name:account_move_partner_bank.model_bank_account_mixin
+msgid "Bank Account Mixin"
+msgstr "銀行口座Mixin"
+
+#. module: account_move_partner_bank
+#: model:ir.model,name:account_move_partner_bank.model_bank_account_source
+msgid "Bank Account Source"
+msgstr "銀行口座提案元"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_res_company__bank_account_source_ids
+#: model_terms:ir.ui.view,arch_db:account_move_partner_bank.res_company_view_form
+msgid "Bank Account Sources"
+msgstr "銀行口座提案元"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_source__bank_field_path
+msgid "Bank Field Path"
+msgstr "銀行フィールドパス"
+
+#. module: account_move_partner_bank
+#: model:ir.model,name:account_move_partner_bank.model_res_company
+msgid "Companies"
+msgstr "会社"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_source__company_id
+msgid "Company"
+msgstr "会社"
+
+#. module: account_move_partner_bank
+#: model:ir.model,name:account_move_partner_bank.model_res_partner
+msgid "Contact"
+msgstr "連絡先"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_source__create_uid
+msgid "Created by"
+msgstr "作成者"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_source__create_date
+msgid "Created on"
+msgstr "作成日"
+
+#. module: account_move_partner_bank
+#: model_terms:ir.ui.view,arch_db:account_move_partner_bank.res_partner_view_form
+msgid "Customer Invoices"
+msgstr "顧客請求書"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_source__display_name
+msgid "Display Name"
+msgstr "表示名"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,help:account_move_partner_bank.field_bank_account_source__bank_field_path
+msgid "Field path to res.partner.bank (e.g. partner_id.bank_account_id)."
+msgstr "銀行口座へのフィールドパス（例：partner_id.bank_account_id）"
+
+#. module: account_move_partner_bank
+#: model_terms:ir.ui.view,arch_db:account_move_partner_bank.res_partner_view_form
+msgid "From the parent company"
+msgstr "親会社から取得"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_source__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_move_partner_bank
+#. odoo-python
+#: code:addons/account_move_partner_bank/models/bank_account_source.py:0
+msgid "Invalid bank field path: %s"
+msgstr "無効な銀行フィールドパス: %s"
+
+#. module: account_move_partner_bank
+#. odoo-python
+#: code:addons/account_move_partner_bank/models/bank_account_source.py:0
+msgid "Invalid path (last field must reference res.partner.bank): %s"
+msgstr "無効なパス（最後のフィールドはres.partner.bankを参照する必要があります）: %s"
+
+#. module: account_move_partner_bank
+#. odoo-python
+#: code:addons/account_move_partner_bank/models/bank_account_source.py:0
+msgid "Invalid source model: %s"
+msgstr "無効なソースモデル: %s"
+
+#. module: account_move_partner_bank
+#: model:ir.model,name:account_move_partner_bank.model_account_move
+msgid "Journal Entry"
+msgstr "仕訳"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_source__write_uid
+msgid "Last Updated by"
+msgstr "最終更新者"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_source__write_date
+msgid "Last Updated on"
+msgstr "最終更新日"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_mixin__bank_account_id
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_res_partner__bank_account_id
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_res_users__bank_account_id
+msgid "Recipient Bank"
+msgstr "受取銀行口座"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_source__sequence
+msgid "Sequence"
+msgstr "順序"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,field_description:account_move_partner_bank.field_bank_account_source__source_model_id
+msgid "Source Model"
+msgstr "ソースモデル"
+
+#. module: account_move_partner_bank
+#: model:ir.model.fields,help:account_move_partner_bank.field_bank_account_source__source_model_id
+msgid "The model from which the bank field path is resolved."
+msgstr "銀行フィールドパスの起点となるモデル"
+
+#. module: account_move_partner_bank
+#: model_terms:ir.ui.view,arch_db:account_move_partner_bank.res_partner_view_form
+msgid ""
+"Unlike the other accounting settings, the recipient bank can be set on a "
+"contact, so that it is invoiced with a bank account of its own (e.g. a "
+"branch that collects on a different account than its head office)."
+msgstr "他の会計設定と異なり、受取銀行口座は連絡先に設定できます。これにより、その連絡先の請求書には独自の銀行口座が使用されます（例: 本社とは異なる口座で回収する支店）。"
+
+#. module: account_move_partner_bank
+#: model_terms:ir.ui.view,arch_db:account_move_partner_bank.res_company_view_form
+msgid "e.g. partner_id.commercial_partner_id.bank_account_id"
+msgstr "例: partner_id.commercial_partner_id.bank_account_id"
