@@ -1,9 +1,7 @@
 # Copyright (C) 2019 Open Source Integrators
 # Copyright (C) 2019 Serpent Consulting Services Pvt. Ltd.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-import datetime
-
-from odoo import Command
+from odoo import Command, fields
 from odoo.tests import Form, new_test_user
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -35,11 +33,11 @@ class TestAccountInvoiceRefundReason(AccountTestInvoicingCommon):
         if not active_ids:
             active_ids = self.account_invoice_customer0.ids
 
-        create_values = dict(
-            date=datetime.date.today(),
-            reason_id=self.reason_id.id,
-            journal_id=self.account_invoice_customer0.journal_id.id,
-        )
+        create_values = {
+            "date": fields.Date.today(),
+            "reason_id": self.reason_id.id,
+            "journal_id": self.account_invoice_customer0.journal_id.id,
+        }
         create_values.update(**values)
 
         move_reversal = self.invoice_refund_obj.with_context(
@@ -91,7 +89,7 @@ class TestAccountInvoiceRefundReason(AccountTestInvoicingCommon):
         reversal_moves = self.account_invoice_customer0.reversal_move_ids
         self.assertEqual(
             set(reversal_moves.ids),
-            set([account_invoice_refund_0.id, account_invoice_refund_1.id]),
+            {account_invoice_refund_0.id, account_invoice_refund_1.id},
         )
 
     def test_invoice_refund_modify(self):
@@ -132,7 +130,7 @@ class TestAccountInvoiceRefundReason(AccountTestInvoicingCommon):
         reversal_move1 = account_invoice_customer1.reversal_move_ids
         self.assertEqual(
             set(account_invoice_refunds.ids),
-            set([reversal_move0.id, reversal_move1.id]),
+            {reversal_move0.id, reversal_move1.id},
         )
         self.assertEqual(
             reversal_move0.reason_id.id,
@@ -188,7 +186,7 @@ class TestAccountInvoiceRefundReason(AccountTestInvoicingCommon):
             active_ids=self.account_invoice_customer0.ids,
         ).create(
             {
-                "date": datetime.date.today(),
+                "date": fields.Date.today(),
                 "journal_id": self.account_invoice_customer0.journal_id.id,
                 **values,
             }
