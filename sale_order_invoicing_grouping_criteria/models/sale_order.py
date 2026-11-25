@@ -35,7 +35,7 @@ class SaleOrder(models.Model):
                 group_key.append(self[field.name])
         return tuple(group_key)
 
-    def _create_invoices(self, grouped=False, final=False, date=None):
+    def _create_invoices(self, final=False, grouped=False):
         """Slice the batch according grouping criteria."""
         order_groups = {}
         for order in self:
@@ -47,6 +47,6 @@ class SaleOrder(models.Model):
         moves = self.env["account.move"]
         for group in order_groups.values():
             moves += super(SaleOrder, group)._create_invoices(
-                grouped=grouped, final=final, date=date
+                final=final, grouped=grouped
             )
         return moves

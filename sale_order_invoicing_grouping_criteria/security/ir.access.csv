@@ -1,0 +1,3 @@
+id,name,model_id,group_id/id,operation,domain
+access_sale_invoicing_grouping_criteria_user,access_sale_invoicing_grouping_criteria user,sale.invoicing.grouping.criteria,account.group_account_invoice,r,
+access_sale_invoicing_grouping_criteria_manager,access_sale_invoicing_grouping_criteria manager,sale.invoicing.grouping.criteria,account.group_account_manager,crud,

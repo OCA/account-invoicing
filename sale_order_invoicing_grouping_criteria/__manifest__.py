@@ -3,14 +3,14 @@
 
 {
     "name": "Sales order invoicing grouping criteria",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "category": "Sales Management",
     "license": "AGPL-3",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-invoicing",
     "depends": ["sale_management"],
     "data": [
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
         "views/res_config_settings_views.xml",
         "views/res_partner_views.xml",
         "views/sale_invoicing_grouping_criteria_views.xml",
