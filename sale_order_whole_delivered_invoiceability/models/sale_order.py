@@ -26,6 +26,7 @@ class SaleOrder(models.Model):
         # set it as not invoiceable if the delivered quantity
         # is less than the ordered quantity.
         res = super()._compute_invoice_status()
+        precision = self.env["decimal.precision"].precision_get("Product Unit")
         for order in self.filtered("whole_delivered_invoiceability"):
             uncomplete_lines = order.order_line.filtered(
                 lambda line: (
@@ -33,7 +34,7 @@ class SaleOrder(models.Model):
                     and float_compare(
                         line.product_uom_qty,
                         line.qty_delivered,
-                        precision_rounding=line.product_uom_id.rounding,
+                        precision_digits=precision,
                     )
                     > 0
                 )
