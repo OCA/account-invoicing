@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_bill_line_match_invoice,purchase.bill.line.match.invoice,model_purchase_bill_line_match,account.group_account_invoice,1,1,0,0
+access_purchase_bill_line_match_purchase,purchase.bill.line.match.purchase,model_purchase_bill_line_match,purchase.group_purchase_user,1,1,0,0
+access_bill_to_po_wizard_purchase,bill.to.po.wizard.purchase,model_bill_to_po_wizard,purchase.group_purchase_user,1,1,1,1
