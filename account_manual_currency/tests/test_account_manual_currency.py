@@ -3,7 +3,7 @@
 
 from odoo import Command, fields
 from odoo.exceptions import UserError, ValidationError
-from odoo.tests.common import Form, TransactionCase
+from odoo.tests import Form, TransactionCase
 
 
 class TestAccountManualCurrency(TransactionCase):
@@ -72,7 +72,8 @@ class TestAccountManualCurrency(TransactionCase):
         invoice1.get_view()
         self.assertTrue(invoice1.is_manual)
         # Currency will recompute to default
-        self.assertEqual(invoice1.manual_currency_rate, 10)
+        self.assertTrue(invoice1.manual_currency)
+        self.assertAlmostEqual(invoice1.manual_currency_rate, 10)
         invoice1.action_refresh_currency()
         self.assertNotEqual(invoice1.manual_currency_rate, 10)
         total_currency_not_manual = invoice1.total_company_currency
@@ -132,9 +133,39 @@ class TestAccountManualCurrency(TransactionCase):
         ) as f:
             f.amount = invoice1.amount_total
         wiz = f.save()
-        action_payment = wiz.action_create_payments()
-        # Check move in payment must equal invoice
-        payment = self.payment_model.browse(action_payment["res_id"])
-        self.assertAlmostEqual(
-            payment.move_id.total_company_currency, invoice1.total_company_currency
+        wiz.action_create_payments()
+
+    def test_02_manual_currency_rate_on_inv_payment(self):
+        # Create invoice with custom rate: 10 EUR = 1 USD
+        invoice1 = self._create_invoice(
+            self.partner1,
+            "in_invoice",
+            self.eur_currency,
+            True,
+            10,
+            "company_rate",
         )
+        invoice1.action_post()
+        self.assertTrue(invoice1.manual_currency)
+        self.assertAlmostEqual(invoice1.manual_currency_rate, 10.0)
+        self.assertAlmostEqual(invoice1.invoice_line_ids.balance, 10.0)
+        # Register with manual currency
+        # Convert rate: 20 EUR = 1 USD
+        ctx = {
+            "active_ids": [invoice1.id],
+            "active_model": "account.move",
+        }
+        with Form(
+            self.payment_register_model.with_context(**ctx),
+            view=self.register_view_id,
+        ) as f:
+            f.amount = invoice1.amount_total
+            f.manual_currency = True
+            f.type_currency = "company_rate"
+            f.manual_currency_rate = 20
+        wiz = f.save()
+        action_payment = wiz.action_create_payments()
+        payment = self.payment_model.browse(action_payment["res_id"])
+        move_payment = payment.move_id
+        self.assertAlmostEqual(move_payment.manual_currency_rate, 20)
+        self.assertAlmostEqual(abs(move_payment.line_ids[0].balance), 5)
