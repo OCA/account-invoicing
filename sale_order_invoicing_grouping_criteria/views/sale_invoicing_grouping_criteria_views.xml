@@ -34,7 +34,7 @@
             </search>
         </field>
     </record>
-    <record model="ir.actions.act_window" id="action_sale_invoice_grouping_criteria">
+    <record id="action_sale_invoice_grouping_criteria" model="ir.actions.act_window">
         <field name="name">Sales Invoicing Grouping Criteria</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.invoicing.grouping.criteria</field>
