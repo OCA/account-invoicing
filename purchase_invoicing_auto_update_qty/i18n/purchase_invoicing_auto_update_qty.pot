@@ -1,0 +1,72 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_invoicing_auto_update_qty
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-07 12:10+0000\n"
+"PO-Revision-Date: 2025-11-07 12:10+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_invoicing_auto_update_qty
+#: model:ir.model.fields,field_description:purchase_invoicing_auto_update_qty.field_res_company__po_invoice_auto_update_qty
+#: model:ir.model.fields,field_description:purchase_invoicing_auto_update_qty.field_res_config_settings__po_invoice_auto_update_qty
+msgid "Auto-update draft invoice quantities from PO"
+msgstr ""
+
+#. module: purchase_invoicing_auto_update_qty
+#: model:ir.model.fields,field_description:purchase_invoicing_auto_update_qty.field_account_bank_statement_line__po_invoice_auto_update_qty
+#: model:ir.model.fields,field_description:purchase_invoicing_auto_update_qty.field_account_move__po_invoice_auto_update_qty
+#: model:ir.model.fields,field_description:purchase_invoicing_auto_update_qty.field_account_payment__po_invoice_auto_update_qty
+msgid "Auto-update invoice quantities from PO"
+msgstr ""
+
+#. module: purchase_invoicing_auto_update_qty
+#: model:ir.model,name:purchase_invoicing_auto_update_qty.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: purchase_invoicing_auto_update_qty
+#: model:ir.model,name:purchase_invoicing_auto_update_qty.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: purchase_invoicing_auto_update_qty
+#: model_terms:ir.ui.view,arch_db:purchase_invoicing_auto_update_qty.res_config_settings_form_view
+msgid ""
+"If enabled, activates 3-way matching on vendor bills : the items must be "
+"received in order to pay the invoice."
+msgstr ""
+
+#. module: purchase_invoicing_auto_update_qty
+#: model_terms:ir.ui.view,arch_db:purchase_invoicing_auto_update_qty.res_config_settings_form_view
+msgid ""
+"If enabled, lines on draft vendor bills linked to purchase order lines will "
+"have their quantities automatically updated based on the \"Quantity to "
+"Invoice\" field on the corresponding purchase order lines."
+msgstr ""
+
+#. module: purchase_invoicing_auto_update_qty
+#: model:ir.model.fields,help:purchase_invoicing_auto_update_qty.field_res_config_settings__po_invoice_auto_update_qty
+msgid ""
+"If enabled, lines on draft vendor bills linked to purchase order lines will "
+"have their quantities automatically updated based on the 'Quantity to "
+"Invoice' field on the corresponding purchase order lines."
+msgstr ""
+
+#. module: purchase_invoicing_auto_update_qty
+#: model:ir.model,name:purchase_invoicing_auto_update_qty.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: purchase_invoicing_auto_update_qty
+#: model:ir.model,name:purchase_invoicing_auto_update_qty.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr ""
