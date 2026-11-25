@@ -15,9 +15,12 @@ class AccountMove(models.Model):
         """
         for rec in self.filtered(lambda rec: rec.is_purchase_document()):
             for line in rec.line_ids:
-                if not line.stock_valuation_layer_ids:
+                line_sudo = line.sudo()
+                if not line_sudo.stock_valuation_layer_ids:
                     continue
-                origin_svls = line.stock_valuation_layer_ids.stock_valuation_layer_id
+                origin_svls = (
+                    line_sudo.stock_valuation_layer_ids.stock_valuation_layer_id
+                )
                 if (
                     len(
                         origin_svls.stock_valuation_layer_ids.account_move_line_id.filtered(

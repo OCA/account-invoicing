@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="base_substate_type_account_move" model="base.substate.type">
+        <field name="name">Account Move Substate</field>
+        <field name="model">account.move</field>
+        <field name="target_state_field">state</field>
+    </record>
+    <!-- Journal entry related substate to journal entry state (draft, posted) -->
+    <record id="target_state_value_draft" model="target.state.value">
+        <field name="name">Draft</field>
+        <field name="base_substate_type_id" ref="base_substate_type_account_move" />
+        <field name="target_state_value">draft</field>
+    </record>
+    <record id="target_state_value_posted" model="target.state.value">
+        <field name="name">Posted</field>
+        <field name="base_substate_type_id" ref="base_substate_type_account_move" />
+        <field name="target_state_value">posted</field>
+    </record>
+</odoo>
