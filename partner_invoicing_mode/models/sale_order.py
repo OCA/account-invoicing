@@ -75,7 +75,7 @@ class SaleOrder(models.Model):
         # Apply context BEFORE computing grouping keys
         sale_order_auto = self.with_context(partner_invoicing_mode_auto=True)
         # Compute grouping with correct context
-        grouping_keys = sale_order_auto._get_invoice_grouping_keys()
+        grouping_keys = sale_order_auto._get_generate_invoices_grouping_keys()
         saleorder_groups = self.read_group(
             domain,
             ["partner_invoice_id", "sale_ids:array_agg(id)"],
@@ -89,23 +89,15 @@ class SaleOrder(models.Model):
         return saleorder_groups
 
     @api.model
-    def _get_invoice_grouping_keys(self) -> list:
-        """
-        We override the standard (in sale) grouping function in order to
-        add some missing keys. We remove also the partner_id key.
-        """
-        keys = super()._get_invoice_grouping_keys()
+    def _get_generate_invoices_grouping_keys(self):
+        keys = ["company_id", "currency_id"]
 
-        if not self.env.context.get("partner_invoicing_mode_auto", False):
-            return keys
-
-        if "partner_invoice_id" not in keys:
+        if self.env.context.get("partner_invoicing_mode_auto", False):
             keys.append("partner_invoice_id")
-        if "payment_term_id" not in keys:
             keys.append("payment_term_id")
-        # Removing unwanted keys as we group on invoiced partner
-        if "partner_id" in keys:
-            keys.remove("partner_id")
+        else:
+            keys.append("partner_id")
+
         return keys
 
     def _get_generated_invoices(self, partition):
