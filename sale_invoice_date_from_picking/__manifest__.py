@@ -6,6 +6,7 @@
     "category": "Invoicing",
     "license": "AGPL-3",
     "author": "Quartile,Odoo Community Association (OCA)",
+    "maintainers": ["kanda999", "AungKoKoLin1997"],
     "website": "https://github.com/OCA/account-invoicing",
     "depends": ["sale_stock"],
     "data": ["views/res_config_settings_views.xml"],
