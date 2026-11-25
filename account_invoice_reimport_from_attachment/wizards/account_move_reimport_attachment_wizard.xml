@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="account_move_reimport_attachment_wizard_form_view">
+        <field name="model">account.move.reimport.attachment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reimport from Attachment">
+                <group>
+                    <field name="move_id" invisible="1" />
+                    <field
+                        name="attachment_id"
+                        options="{'no_create': True, 'no_open': False}"
+                        context="{'default_res_model': 'account.move', 'default_res_id': move_id}"
+                    />
+                </group>
+
+                <footer>
+                    <button
+                        string="Reimport"
+                        class="btn-primary"
+                        type="object"
+                        name="action_confirm"
+                        confirm="This will delete the current invoice and regenerate a new one from the selected attachment. Continue?"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
