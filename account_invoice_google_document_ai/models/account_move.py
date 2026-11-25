@@ -9,6 +9,9 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     can_send_to_ocr = fields.Boolean(compute="_compute_can_send_to_ocr")
+    ocr_sent = fields.Boolean(
+        string="OCR Sent", help="Indicates if the record has been sent to OCR"
+    )
 
     @api.depends("state", "move_type", "company_id")
     def _compute_can_send_to_ocr(self):
