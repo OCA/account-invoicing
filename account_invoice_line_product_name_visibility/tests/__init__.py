@@ -1,0 +1,1 @@
+from . import test_invoice_line_product_name_visibility
