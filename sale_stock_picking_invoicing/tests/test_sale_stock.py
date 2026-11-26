@@ -774,6 +774,8 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         for line in lines:
             self.assertEqual(line.price_unit, expected[line.product_id.name])
         self.assertAlmostEqual(sum(lines.mapped("price_subtotal")), 914.40, places=2)
+        # The kit line counts kits invoiced, not component units
+        self.assertEqual(_line.qty_invoiced, 1.0)
 
     def test_18_kit_component_price_even_split(self):
         """
@@ -900,3 +902,61 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
         self.assertFalse(kit_line._get_kit_component_moves())
         self.assertEqual(move._get_kit_component_shares(50.0), {})
         self.assertEqual(move._get_kit_component_price_unit(), 50.0)
+
+    def test_23_kit_qty_invoiced_counts_kits(self):
+        """
+        Two kits of 2 x Comp G + 1 x Comp H: the invoice holds 4 G and 2 H,
+        which is 2 kits invoiced on the kit line, not 6.
+        """
+        _order, kit_line, picking = self._create_kit_order(
+            [("Comp G", 10.0, 2.0), ("Comp H", 10.0, 1.0)], kit_qty=2.0, kit_price=27.0
+        )
+        self.assertEqual(kit_line.qty_invoiced, 0.0)
+
+        invoice, _lines = self._invoice_picking(picking)
+        invoice.action_post()
+        # qty_delivered of a kit comes from mrp, not installed here
+        self.assertEqual(kit_line.qty_invoiced, 2.0)
+        self.assertAlmostEqual(invoice.amount_untaxed, 54.0, places=2)
+
+    def test_24_kit_qty_invoiced_cancel_and_direct(self):
+        """
+        A cancelled invoice does not count, and the kit product invoiced
+        directly on the kit line (e.g. from the sale order) counts as is.
+        """
+        order, kit_line, picking = self._create_kit_order(
+            [("Comp O", 10.0, 1.0), ("Comp P", 10.0, 1.0)], kit_price=20.0
+        )
+        invoice, _lines = self._invoice_picking(picking)
+        invoice.action_post()
+        self.assertEqual(kit_line.qty_invoiced, 1.0)
+        invoice.button_draft()
+        invoice.button_cancel()
+        self.assertEqual(kit_line.qty_invoiced, 0.0)
+
+        direct = self.env["account.move"].create(
+            {
+                "move_type": "out_invoice",
+                "partner_id": order.partner_invoice_id.id,
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": kit_line.product_id.id,
+                            "quantity": 1.0,
+                            "price_unit": 20.0,
+                            "sale_line_ids": [(6, 0, kit_line.ids)],
+                        },
+                    )
+                ],
+            }
+        )
+        direct.action_post()
+        self.assertEqual(kit_line.qty_invoiced, 1.0)
+
+    def test_25_kit_quantities_without_ordered_quantity(self):
+        _order, kit_line, _picking = self._create_kit_order([("Comp Q", 10.0, 1.0)])
+        self.assertTrue(kit_line._get_kit_component_quantities())
+        kit_line.product_uom_qty = 0.0
+        self.assertEqual(kit_line._get_kit_component_quantities(), {})
