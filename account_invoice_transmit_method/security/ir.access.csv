@@ -1,0 +1,6 @@
+id,name,model_id,group_id/id,operation,domain
+access_transmit_method_user_read,Read access on transmit.method to employees,transmit.method,base.group_user,r,
+access_transmit_method_public_read,Read access on transmit.method to public,transmit.method,base.group_public,r,
+access_transmit_method_portal_read,Read access on transmit.method to portal grp,transmit.method,base.group_portal,r,
+access_transmit_method_full,Full access on transmit.method to Settings group,transmit.method,base.group_system,crud,
+access_transmit_method_full_account,Full access on transmit.method to Financial Manager,transmit.method,account.group_account_manager,crud,
