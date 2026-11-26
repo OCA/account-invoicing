@@ -1,0 +1,1 @@
+odoo-addon-sale_order_whole_delivered_invoiceability @ git+https://github.com/OCA/account-invoicing@refs/pull/2565/head#subdirectory=sale_order_whole_delivered_invoiceability
