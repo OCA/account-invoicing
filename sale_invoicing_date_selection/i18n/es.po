@@ -1,0 +1,28 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_invoicing_date_selection
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-26 19:50+0000\n"
+"PO-Revision-Date: 2022-07-26 21:51+0200\n"
+"Last-Translator: Sergio Teruel <sergio.teruel@tecnativa.com>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: sale_invoicing_date_selection
+#: model:ir.model.fields,field_description:sale_invoicing_date_selection.field_sale_advance_payment_inv__invoice_date
+msgid "Invoice Date"
+msgstr "Fecha de factura"
+
+#. module: sale_invoicing_date_selection
+#: model:ir.model,name:sale_invoicing_date_selection.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Crear facturas"
