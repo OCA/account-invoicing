@@ -179,6 +179,10 @@ class StockInvoiceOnshipping(models.TransientModel):
             # Already get
             "sale_line_ids",
             "anlytic_distribution",
+            # Stock moves of the picking being invoiced have priority over the
+            # ones linked to the sale line (e.g. by stock_picking_invoice_link),
+            # which only considers done moves.
+            "move_line_ids",
             # another fields
             "__last_update",
             "display_name",
