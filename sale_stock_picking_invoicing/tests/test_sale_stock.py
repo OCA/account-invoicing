@@ -676,3 +676,287 @@ class TestSaleStockPickingInvoicing(TestSaleStockPickingInvoicingCommon):
             picking_1 | picking_2 | picking_3 | picking_4,
         )
         self.assertEqual(len(invoices), 1)
+
+    # Phantom kits
+    #
+    # Without mrp, the tests replace the kit move by one move per component,
+    # all linked to the kit line, as the phantom BoM explosion does.
+
+    def _create_kit_order(self, components, kit_qty=1.0, kit_price=None):
+        """Confirmed order of a kit exploded into component moves.
+
+        :param components: list of (name, list_price, quantity per kit)
+        :return: (sale_order, kit_line, picking)
+        """
+        kit = self.env["product.product"].create(
+            {
+                "name": "Kit",
+                "type": "consu",
+                "is_storable": True,
+                "list_price": kit_price or 100.0,
+                "invoice_policy": "delivery",
+            }
+        )
+        line_values = {"product_id": kit.id, "product_uom_qty": kit_qty}
+        if kit_price is not None:
+            line_values["price_unit"] = kit_price
+        sale_order = self.env["sale.order"].create(
+            {
+                "partner_id": self.partner_a.id,
+                "pricelist_id": self.pricelist.id,
+                "order_line": [(0, 0, line_values)],
+            }
+        )
+        sale_order.action_confirm()
+        kit_line = sale_order.order_line
+        picking = sale_order.picking_ids
+        kit_move = picking.move_ids
+        kit_move._action_cancel()
+        kit_move.unlink()
+        for name, price, qty in components:
+            product = self.env["product.product"].create(
+                {
+                    "name": name,
+                    "type": "consu",
+                    "is_storable": True,
+                    "list_price": price,
+                    "invoice_policy": "delivery",
+                }
+            )
+            self.env["stock.move"].create(
+                {
+                    "name": name,
+                    "product_id": product.id,
+                    "product_uom_qty": qty * kit_qty,
+                    "product_uom": product.uom_id.id,
+                    "picking_id": picking.id,
+                    "location_id": picking.location_id.id,
+                    "location_dest_id": picking.location_dest_id.id,
+                    "sale_line_id": kit_line.id,
+                    "company_id": picking.company_id.id,
+                }
+            )
+        return sale_order, kit_line, picking
+
+    def _invoice_picking(self, picking):
+        self.picking_move_state(picking)
+        picking.set_to_be_invoiced()
+        invoice = create_with_form_inv_onshipping(self.env, picking)
+        lines = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.display_type == "product"
+        )
+        return invoice, lines
+
+    def test_17_kit_component_price_distribution(self):
+        """
+        Each component takes a share of the kit price, in proportion to its
+        standalone sale price, and the invoice totals exactly the kit price.
+        """
+        _order, _line, picking = self._create_kit_order(
+            [
+                ("Comp A", 239.0, 1.0),
+                ("Comp B", 189.0, 1.0),
+                ("Comp C", 319.0, 1.0),
+                ("Comp D", 269.0, 1.0),
+            ],
+            kit_price=914.40,
+        )
+        _invoice, lines = self._invoice_picking(picking)
+
+        self.assertEqual(len(lines), 4)
+        # 914.40 distributed over 239 + 189 + 319 + 269 = 1016 (factor 0.9)
+        expected = {
+            "Comp A": 215.10,
+            "Comp B": 170.10,
+            "Comp C": 287.10,
+            "Comp D": 242.10,
+        }
+        for line in lines:
+            self.assertEqual(line.price_unit, expected[line.product_id.name])
+        self.assertAlmostEqual(sum(lines.mapped("price_subtotal")), 914.40, places=2)
+        # The kit line counts kits invoiced, not component units
+        self.assertEqual(_line.qty_invoiced, 1.0)
+
+    def test_18_kit_component_price_even_split(self):
+        """
+        Components without a standalone sale price: the kit price is split
+        over the component quantities.
+        """
+        _order, _line, picking = self._create_kit_order(
+            [("Comp E", 0.0, 1.0), ("Comp F", 0.0, 1.0)], kit_price=100.0
+        )
+        _invoice, lines = self._invoice_picking(picking)
+
+        self.assertEqual(len(lines), 2)
+        for line in lines:
+            self.assertAlmostEqual(line.price_unit, 50.0, places=2)
+        self.assertAlmostEqual(sum(lines.mapped("price_subtotal")), 100.0, places=2)
+
+    def test_19_kit_component_price_rounding_remainder(self):
+        """
+        A share that does not divide exactly: the rounding remainder goes to
+        one component, so the invoice still totals the kit price.
+        """
+        _order, _line, picking = self._create_kit_order(
+            [("Comp I", 10.0, 1.0), ("Comp J", 10.0, 1.0), ("Comp K", 10.0, 1.0)],
+            kit_price=100.0,
+        )
+        _invoice, lines = self._invoice_picking(picking)
+
+        self.assertEqual(sorted(lines.mapped("price_unit")), [33.33, 33.33, 33.34])
+        self.assertAlmostEqual(sum(lines.mapped("price_subtotal")), 100.0, places=2)
+
+    def test_20_kit_return_refund_price(self):
+        """
+        Returning a kit: the return moves keep the kit line but stay out of
+        the split, and the refund takes the price invoiced for each component.
+        """
+        _order, _line, picking = self._create_kit_order(
+            [("Comp L", 60.0, 1.0), ("Comp M", 40.0, 1.0)], kit_price=90.0
+        )
+        _invoice, lines = self._invoice_picking(picking)
+        invoiced = {line.product_id: line.price_unit for line in lines}
+        self.assertEqual(sorted(invoiced.values()), [36.0, 54.0])
+
+        return_form = Form(
+            self.env["stock.return.picking"].with_context(
+                active_id=picking.id, active_model="stock.picking"
+            )
+        )
+        return_form.invoice_state = "2binvoiced"
+        return_wizard = return_form.save()
+        for return_line in return_wizard.product_return_moves:
+            return_line.quantity = return_line.move_id.product_uom_qty
+        result = return_wizard.action_create_returns()
+        return_picking = self.env["stock.picking"].browse(result["res_id"])
+        self.picking_move_state(return_picking)
+
+        refund = create_with_form_inv_onshipping(self.env, return_picking)
+        refund_lines = refund.invoice_line_ids.filtered(
+            lambda ln: ln.display_type == "product"
+        )
+        self.assertEqual(refund.move_type, "out_refund")
+        for line in refund_lines:
+            self.assertEqual(line.price_unit, invoiced[line.product_id])
+
+        # A later invoice of the same line still splits over delivered moves
+        self.assertEqual(
+            {m.product_id: m._get_kit_component_price_unit() for m in picking.move_ids},
+            invoiced,
+        )
+
+    def test_21_sale_line_price_overrides_product_price(self):
+        """
+        Product sold below its standalone price: the invoice created from
+        the picking takes the price the product was actually sold for.
+        """
+        product = self.env["product.product"].create(
+            {
+                "name": "Discounted Product",
+                "type": "consu",
+                "is_storable": True,
+                "list_price": 100.0,
+                "invoice_policy": "delivery",
+            }
+        )
+        sale_order = self.env["sale.order"].create(
+            {
+                "partner_id": self.partner_a.id,
+                "pricelist_id": self.pricelist.id,
+                "order_line": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": product.id,
+                            "product_uom_qty": 1.0,
+                            "price_unit": 90.0,
+                        },
+                    )
+                ],
+            }
+        )
+        sale_order.action_confirm()
+        picking = sale_order.picking_ids
+        self.picking_move_state(picking)
+        picking.set_to_be_invoiced()
+
+        invoice = create_with_form_inv_onshipping(self.env, picking)
+
+        line = invoice.invoice_line_ids.filtered(
+            lambda ln: ln.display_type == "product"
+        )
+        self.assertEqual(len(line), 1)
+        self.assertAlmostEqual(line.price_unit, 90.0, places=2)
+
+    def test_22_kit_component_outside_delivery(self):
+        """
+        A component move that does not go to the customer is not part of the
+        split: it gets the price of the sale line, and no share.
+        """
+        _order, kit_line, picking = self._create_kit_order(
+            [("Comp N", 10.0, 1.0)], kit_price=50.0
+        )
+        move = picking.move_ids
+        move.location_dest_id = picking.location_id
+        self.assertFalse(kit_line._get_kit_component_moves())
+        self.assertEqual(move._get_kit_component_shares(50.0), {})
+        self.assertEqual(move._get_kit_component_price_unit(), 50.0)
+
+    def test_23_kit_qty_invoiced_counts_kits(self):
+        """
+        Two kits of 2 x Comp G + 1 x Comp H: the invoice holds 4 G and 2 H,
+        which is 2 kits invoiced on the kit line, not 6.
+        """
+        _order, kit_line, picking = self._create_kit_order(
+            [("Comp G", 10.0, 2.0), ("Comp H", 10.0, 1.0)], kit_qty=2.0, kit_price=27.0
+        )
+        self.assertEqual(kit_line.qty_invoiced, 0.0)
+
+        invoice, _lines = self._invoice_picking(picking)
+        invoice.action_post()
+        # qty_delivered of a kit comes from mrp, not installed here
+        self.assertEqual(kit_line.qty_invoiced, 2.0)
+        self.assertAlmostEqual(invoice.amount_untaxed, 54.0, places=2)
+
+    def test_24_kit_qty_invoiced_cancel_and_direct(self):
+        """
+        A cancelled invoice does not count, and the kit product invoiced
+        directly on the kit line (e.g. from the sale order) counts as is.
+        """
+        order, kit_line, picking = self._create_kit_order(
+            [("Comp O", 10.0, 1.0), ("Comp P", 10.0, 1.0)], kit_price=20.0
+        )
+        invoice, _lines = self._invoice_picking(picking)
+        invoice.action_post()
+        self.assertEqual(kit_line.qty_invoiced, 1.0)
+        invoice.button_draft()
+        invoice.button_cancel()
+        self.assertEqual(kit_line.qty_invoiced, 0.0)
+
+        direct = self.env["account.move"].create(
+            {
+                "move_type": "out_invoice",
+                "partner_id": order.partner_invoice_id.id,
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": kit_line.product_id.id,
+                            "quantity": 1.0,
+                            "price_unit": 20.0,
+                            "sale_line_ids": [(6, 0, kit_line.ids)],
+                        },
+                    )
+                ],
+            }
+        )
+        direct.action_post()
+        self.assertEqual(kit_line.qty_invoiced, 1.0)
+
+    def test_25_kit_quantities_without_ordered_quantity(self):
+        _order, kit_line, _picking = self._create_kit_order([("Comp Q", 10.0, 1.0)])
+        self.assertTrue(kit_line._get_kit_component_quantities())
+        kit_line.product_uom_qty = 0.0
+        self.assertEqual(kit_line._get_kit_component_quantities(), {})
