@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="invoice_stock_picking_date_wizard" model="ir.ui.view">
+        <field name="name">Accounting date does not match with stock move dates</field>
+        <field name="model">invoice.picking.date.check.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Dates does not match">
+                <p>Accounting date does not match with stock move dates</p>
+                <field name="exception_msg" colspan="2" nolabel="1" />
+                <footer>
+                    <button
+                        string="Continue"
+                        class="oe_highlight"
+                        name="button_continue"
+                        type="object"
+                        groups="account.group_account_manager"
+                    />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

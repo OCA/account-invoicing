@@ -1,5 +1,6 @@
 # Copyright 2025 Moduon Team
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+from datetime import datetime
 from unittest.mock import patch
 
 from freezegun import freeze_time
@@ -64,6 +65,18 @@ class TestAccountInvoiceCheckPickingDate(BaseCommon):
             }
         )
 
+    def _enable_picking_date_check(self, moves):
+        self.patch(
+            self.registry["account.move"],
+            "_stock_account_get_last_step_stock_moves",
+            lambda *args, **kwargs: moves,
+        )
+        self.patch(
+            self.registry["account.move"],
+            "_is_test_enabled",
+            lambda *args, **kwargs: False,
+        )
+
     def test_account_invoice_check_picking_date(self):
         # Patch methods to deactivate test mode temporarily and return my moves
         self.patch(
@@ -125,3 +138,71 @@ class TestAccountInvoiceCheckPickingDate(BaseCommon):
             self.assertEqual(min_d, min_date)
             self.assertTrue(max_date)
             self.assertTrue(match_stock_move_dates.return_value)
+
+    def test_match_dates_by_day(self):
+        same_month = datetime(2025, 2, 15, 10, 0)
+        same_day = datetime(2025, 2, 1, 10, 0)
+        self.assertTrue(
+            self.invoice._match_invoice_and_stock_move_dates(same_month, same_month)
+        )
+        self.env["ir.config_parameter"].sudo().set_param(
+            "account_invoice_check_picking_date.accounting_date_comparison", True
+        )
+        self.assertFalse(
+            self.invoice._match_invoice_and_stock_move_dates(same_month, same_month)
+        )
+        self.assertTrue(
+            self.invoice._match_invoice_and_stock_move_dates(same_day, same_day)
+        )
+
+    def test_min_max_stock_move_dates(self):
+        location = self.env.ref("stock.stock_location_suppliers")
+        location_dest = self.env.ref("stock.stock_location_stock")
+        moves = self.env["stock.move"].create(
+            [
+                {
+                    "name": "Test move",
+                    "product_id": self.product.id,
+                    "product_uom_qty": 1,
+                    "product_uom": self.product.uom_id.id,
+                    "location_id": location.id,
+                    "location_dest_id": location_dest.id,
+                    "date": date,
+                }
+                for date in (
+                    datetime(2025, 1, 15),
+                    datetime(2025, 1, 10),
+                    datetime(2025, 1, 20),
+                )
+            ]
+        )
+        self._enable_picking_date_check(moves)
+        min_date, max_date = self.invoice._get_min_max_stock_move_dates()
+        self.assertEqual(min_date, datetime(2025, 1, 10))
+        self.assertEqual(max_date, datetime(2025, 1, 20))
+
+    def test_match_dates_without_stock_moves(self):
+        self.assertTrue(self.invoice._match_invoice_and_stock_move_dates(False, False))
+
+    def test_post_when_dates_match(self):
+        self._enable_picking_date_check(self.picking.move_ids)
+        self.picking.action_confirm()
+        self.picking.action_assign()
+        self.picking.button_validate()
+        self.invoice.write({"invoice_date": "2025-01-20", "date": "2025-01-20"})
+        self.assertFalse(self.invoice.action_post())
+        self.assertEqual(self.invoice.state, "posted")
+
+    def test_post_invoice_type_not_checked(self):
+        self._enable_picking_date_check(self.picking.move_ids)
+        self.picking.action_confirm()
+        self.picking.action_assign()
+        self.picking.button_validate()
+        self.env["ir.config_parameter"].sudo().set_param(
+            "account_invoice_check_picking_date.invoice_types", "in_refund"
+        )
+        self.assertFalse(self.invoice.action_post())
+        self.assertEqual(self.invoice.state, "posted")
+
+    def test_is_test_enabled(self):
+        self.assertTrue(self.env["account.move"]._is_test_enabled())
