@@ -1,5 +1,5 @@
 # Copyright 2025 ACSONE SA/NV
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/LGPL).
 from odoo.tests import tagged
 
 from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
