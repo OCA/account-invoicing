@@ -35,6 +35,10 @@ Account Invoice Triple Discount
 This module allows to have three successive discounts on each invoice
 line.
 
+If the module ``account_invoice_fixed_discount`` is installed and a
+fixed discount is set, it will take priority over anything set in the
+triple discount fields.
+
 **Table of contents**
 
 .. contents::
@@ -50,16 +54,16 @@ For example, let's divide by two on every discount:
 
 Unit price: 600.00 ->
 
-   - Disc. 1 = 50% -> Amount = 300.00
-   - Disc. 2 = 50% -> Amount = 150.00
-   - Disc. 3 = 50% -> Amount = 75.00
+   -  Disc. 1 = 50% -> Amount = 300.00
+   -  Disc. 2 = 50% -> Amount = 150.00
+   -  Disc. 3 = 50% -> Amount = 75.00
 
 You can also use negative values to charge instead of discount:
 
 Unit price: 600.00 ->
 
-   - Disc. 1 = 50% -> Amount = 300.00
-   - Disc. 2 = -5% -> Amount = 315.00
+   -  Disc. 1 = 50% -> Amount = 300.00
+   -  Disc. 2 = -5% -> Amount = 315.00
 
 Bug Tracker
 ===========
@@ -84,15 +88,15 @@ Authors
 Contributors
 ------------
 
-- David Vidal <david.vidal@tecnativa.com>
-- Pedro M. Baeza <pedro.baeza@tecnativa.com>
-- Nikul Chaudhary <nikulchaudhary2112@gmail.com>
-- `Aion Tech <https://aiontech.company/>`__:
+-  David Vidal <david.vidal@tecnativa.com>
+-  Pedro M. Baeza <pedro.baeza@tecnativa.com>
+-  Nikul Chaudhary <nikulchaudhary2112@gmail.com>
+-  `Aion Tech <https://aiontech.company/>`__:
 
-  - Simone Rubino <simone.rubino@aion-tech.it>
+   -  Simone Rubino <simone.rubino@aion-tech.it>
 
-- Laurent Mignon <laurent.mignon@acsone.eu>
-- Akim Juillerat <akim.juillerat@camptocamp.com>
+-  Laurent Mignon <laurent.mignon@acsone.eu>
+-  Akim Juillerat <akim.juillerat@camptocamp.com>
 
 Maintainers
 -----------
